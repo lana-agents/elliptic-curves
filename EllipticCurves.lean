@@ -7,3 +7,4 @@ import EllipticCurves.TateModule.Basic
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.EllipticNetRel
+import EllipticCurves.Torsion.WardR1
