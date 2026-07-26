@@ -1,4 +1,5 @@
 import EllipticCurves.Basic
+import EllipticCurves.FormalGroup.BivariateCoords
 import EllipticCurves.FormalGroup.CoordinateSeries
 import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.Galois.Unramified
