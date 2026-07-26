@@ -94,6 +94,36 @@ lemma normEDS_rel_one_one (p : ℤ) : IsEllipticNet.rel (normEDS b c d) p 1 1 0 
   rw [show (1 : ℤ) - 1 = 0 by ring, normEDS_zero]
   ring
 
+/-- **Ward's theorem, the `r = 1` slice** (the elliptic addition formula): for the canonical
+normalised elliptic divisibility sequence `W = normEDS b c d`, the elliptic-net relator
+`rel W p q 1 0` vanishes for all `p q : ℤ`. Equivalently (using `W 1 = 1`),
+`W (p + q) * W (p - q) = W (p + 1) * W (p - 1) * W q ^ 2 - W (q + 1) * W (q - 1) * W p ^ 2`. -/
+theorem normEDS_rel_one (p q : ℤ) : IsEllipticNet.rel (normEDS b c d) p q 1 0 = 0 := by
+  sorry
+
 end NormEDS
 
 end WeierstrassCurve
+
+/-! ### Specialisation to the division polynomials `W.ψ` -/
+
+namespace WeierstrassCurve.Affine
+
+variable {R : Type*} [CommRing R] (W : Affine R)
+
+/-- Ward's `r = 1` relation for the division polynomials `W.ψ`, as an identity in `R[X][Y]`:
+`rel W.ψ p q 1 0 = 0`. -/
+theorem ψ_rel_one (p q : ℤ) : IsEllipticNet.rel W.ψ p q 1 0 = 0 :=
+  WeierstrassCurve.normEDS_rel_one W.ψ₂ (C W.Ψ₃) (C W.preΨ₄) p q
+
+variable {x y : R}
+
+/-- Ward's `r = 1` relation among the point-values of the division polynomials at an affine point
+`(x, y)` of `W`: `rel (fun n ↦ (W.ψ n).evalEval x y) p q 1 0 = 0`. -/
+theorem ψ_rel_one_evalEval (p q : ℤ) :
+    IsEllipticNet.rel (fun n ↦ (W.ψ n).evalEval x y) p q 1 0 = 0 := by
+  have h := IsEllipticNet.map_rel W.ψ (evalEvalRingHom x y) p q 1 0
+  rw [ψ_rel_one, map_zero] at h
+  exact h.symm
+
+end WeierstrassCurve.Affine
