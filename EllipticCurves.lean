@@ -2,6 +2,7 @@ import EllipticCurves.Basic
 import EllipticCurves.FormalGroup.CoordinateSeries
 import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.Galois.Unramified
+import EllipticCurves.TateModule.Basic
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.EllipticNetRel
