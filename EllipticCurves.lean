@@ -1,2 +1,3 @@
 import EllipticCurves.Basic
+import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.Galois.Unramified
