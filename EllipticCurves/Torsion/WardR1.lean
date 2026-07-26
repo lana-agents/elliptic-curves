@@ -7,10 +7,10 @@ import EllipticCurves.Torsion.EllipticNetRel
 import Mathlib.Algebra.MvPolynomial.CommRing
 
 /-!
-# Ward's theorem, the `r = 1` slice: the elliptic addition formula for `normEDS`
+# Ward's theorem, the `r = 1` slice: infrastructure for the elliptic addition formula
 
-For the canonical normalised elliptic divisibility sequence `W = normEDS b c d` over a `CommRing R`,
-we prove the `r = 1` slice of the elliptic-net relation
+The goal of Ward's theorem (`r = 1` slice) is, for the canonical normalised elliptic divisibility
+sequence `W = normEDS b c d` over a `CommRing R`, the `r = 1` slice of the elliptic-net relation
 
 ```
 IsEllipticNet.rel W p q 1 0 = 0    for all p q : ℤ,
@@ -22,16 +22,29 @@ which, using `W 1 = 1`, is exactly the **elliptic addition formula** of Ward (19
 W (p + q) * W (p - q) = W (p + 1) * W (p - 1) * W q ^ 2 - W (q + 1) * W (q - 1) * W p ^ 2 .
 ```
 
-The base cases (`p - q ∈ {1, 2}`) are the two-term recurrences packaged in
-`EllipticCurves/Torsion/EllipticNetRel.lean` as `normEDS_rel_odd` and `normEDS_rel_even`. This file
-records the symmetry reductions of the relator, the trivial `q ∈ {0, 1}` slices, and — the main
-result — the full `∀ p q` statement (Ward's theorem for `r = 1`), together with its specialisation
-to the division polynomials `W.ψ` and their point-values.
+This is a standing Mathlib `TODO` (`Mathlib/NumberTheory/EllipticDivisibilitySequence.lean`, "prove
+that `normEDS` satisfies `IsEllipticDvdSequence`"). This file assembles the reusable, sorry-free
+**infrastructure** for a proof:
+
+* the **symmetry reductions** of the relator (even in `p`, even in `q`, antisymmetric under the swap
+  `p ↔ q`), which reduce the statement to `p ≥ q ≥ 0`;
+* the trivial `q ∈ {0, 1}` slices; the diagonal bands `p - q ∈ {1, 2}` are already the two-term
+  recurrences `normEDS_rel_odd` / `normEDS_rel_even` of
+  `EllipticCurves/Torsion/EllipticNetRel.lean`;
+* the **universal-ring nonvanishing framework**: the identity sequence `n ↦ n` is `normEDS 2 3 2`
+  (`normEDS_two_three_two`), whence `normEDS X₀ X₁ X₂ n ≠ 0` for `n ≠ 0` in the integral domain
+  `ℤ[X₀, X₁, X₂]` (`normEDS_univ_ne_zero`). This lets the remaining Ward induction be carried out
+  over a *domain* (where nonzero `W`-values may be cancelled) and then transferred to an arbitrary
+  `CommRing` via `IsEllipticNet.map_rel` and the evaluation `Xᵢ ↦ b, c, d`.
+
+The remaining `∀ p q` core — the Ward induction over the domain — is left to a follow-up.
 
 ## Main statements
 
-* `normEDS_rel_one` : `IsEllipticNet.rel (normEDS b c d) p q 1 0 = 0` for all `p q : ℤ`.
-* `WeierstrassCurve.Affine.ψ_rel_one`,  `ψ_rel_one_evalEval` : the specialisations to `W.ψ`.
+* `IsEllipticNet.rel_one_neg_left`, `rel_one_neg_right`, `rel_one_swap` : symmetries of the relator.
+* `WeierstrassCurve.normEDS_rel_one_zero`, `normEDS_rel_one_one` : the `q ∈ {0, 1}` slices.
+* `WeierstrassCurve.normEDS_two_three_two` : `normEDS 2 3 2 n = n`.
+* `WeierstrassCurve.normEDS_univ_ne_zero` : nonvanishing of `normEDS` in `ℤ[X₀, X₁, X₂]`.
 
 ## References
 
@@ -176,67 +189,4 @@ lemma normEDS_univ_ne_zero (n : ℤ) (hn : n ≠ 0) :
 
 end Universal
 
-/-! ### Ward's theorem for `normEDS`, the `r = 1` slice -/
-
-section Main
-
-variable {R : Type*} [CommRing R]
-
-/-- The domain core of Ward's `r = 1` theorem: over an integral domain in which every nonzero-index
-value `normEDS b c d n` (`n ≠ 0`) is nonzero, the elliptic-net relator `rel (normEDS b c d) p q 1 0`
-vanishes for all `p q : ℤ`. The nonvanishing hypothesis is what powers the cancellation steps of the
-Ward induction; over the universal ring it is `normEDS_univ_ne_zero`, and it transfers to arbitrary
-`CommRing`s in `normEDS_rel_one`. -/
-lemma normEDS_rel_one_of_domain [IsDomain R] (b c d : R)
-    (hW : ∀ n : ℤ, n ≠ 0 → normEDS b c d n ≠ 0) (p q : ℤ) :
-    IsEllipticNet.rel (normEDS b c d) p q 1 0 = 0 := by
-  sorry
-
-/-- **Ward's theorem, the `r = 1` slice** (the elliptic addition formula): for the canonical
-normalised elliptic divisibility sequence `W = normEDS b c d` over any `CommRing R`, the
-elliptic-net relator `rel W p q 1 0` vanishes for all `p q : ℤ`. Equivalently (using `W 1 = 1`),
-`W (p + q) * W (p - q) = W (p + 1) * W (p - 1) * W q ^ 2 - W (q + 1) * W (q - 1) * W p ^ 2`.
-
-The proof reduces to the universal integral domain `ℤ[X₀, X₁, X₂]` (`normEDS_univ_ne_zero`) via the
-evaluation ring hom `Xᵢ ↦ b, c, d` and `IsEllipticNet.map_rel`. -/
-theorem normEDS_rel_one (b c d : R) (p q : ℤ) :
-    IsEllipticNet.rel (normEDS b c d) p q 1 0 = 0 := by
-  have hcomp : ⇑(MvPolynomial.aeval ![b, c, d] : UnivEDS →ₐ[ℤ] R) ∘
-      normEDS (MvPolynomial.X 0) (MvPolynomial.X 1) (MvPolynomial.X 2) = normEDS b c d := by
-    funext n
-    rw [Function.comp_apply, map_normEDS]
-    simp
-  have hdom := normEDS_rel_one_of_domain (MvPolynomial.X 0 : UnivEDS) (MvPolynomial.X 1)
-    (MvPolynomial.X 2) normEDS_univ_ne_zero p q
-  have hmap := IsEllipticNet.map_rel
-    (normEDS (MvPolynomial.X 0 : UnivEDS) (MvPolynomial.X 1) (MvPolynomial.X 2))
-    (MvPolynomial.aeval ![b, c, d] : UnivEDS →ₐ[ℤ] R) p q 1 0
-  rw [hdom, map_zero, hcomp] at hmap
-  exact hmap.symm
-
-end Main
-
 end WeierstrassCurve
-
-/-! ### Specialisation to the division polynomials `W.ψ` -/
-
-namespace WeierstrassCurve.Affine
-
-variable {R : Type*} [CommRing R] (W : Affine R)
-
-/-- Ward's `r = 1` relation for the division polynomials `W.ψ`, as an identity in `R[X][Y]`:
-`rel W.ψ p q 1 0 = 0`. -/
-theorem ψ_rel_one (p q : ℤ) : IsEllipticNet.rel W.ψ p q 1 0 = 0 :=
-  WeierstrassCurve.normEDS_rel_one W.ψ₂ (C W.Ψ₃) (C W.preΨ₄) p q
-
-variable {x y : R}
-
-/-- Ward's `r = 1` relation among the point-values of the division polynomials at an affine point
-`(x, y)` of `W`: `rel (fun n ↦ (W.ψ n).evalEval x y) p q 1 0 = 0`. -/
-theorem ψ_rel_one_evalEval (p q : ℤ) :
-    IsEllipticNet.rel (fun n ↦ (W.ψ n).evalEval x y) p q 1 0 = 0 := by
-  have h := IsEllipticNet.map_rel W.ψ (evalEvalRingHom x y) p q 1 0
-  rw [ψ_rel_one, map_zero] at h
-  exact h.symm
-
-end WeierstrassCurve.Affine
