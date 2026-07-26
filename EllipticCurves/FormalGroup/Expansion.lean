@@ -6,6 +6,7 @@ Authors: The Elliptic Curves formalisation contributors
 import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
 import Mathlib.RingTheory.PowerSeries.Order
 import Mathlib.RingTheory.PowerSeries.Basic
+import Mathlib.RingTheory.PowerSeries.Inverse
 
 /-!
 # The Weierstrass formal expansion `w(z)` near the origin
@@ -23,15 +24,31 @@ order-increasing operator on the right-hand side.
 * `WeierstrassCurve.wOp` : the operator `T` on `R⟦X⟧`.
 * `WeierstrassCurve.wIter` : the sequence of approximations `w₀ = 0`, `wₙ₊₁ = T(wₙ)`.
 * `WeierstrassCurve.formalW` : the Weierstrass expansion `w(z) ∈ R⟦X⟧`.
+* `WeierstrassCurve.formalWUnit` : the unit part `v(z)` of `w`, i.e. `w = z³ · v` with `v(0) = 1`.
+* `WeierstrassCurve.formalX`, `WeierstrassCurve.formalY` : the "cleared" coordinate series
+  `z² · x(z)` and `z³ · y(z)`, power series representing the Laurent expansions of `x(z) = z / w`
+  and `y(z) = -1 / w` at the origin.
 
 ## Main results
 
 * `WeierstrassCurve.formalW_eq` : `w` satisfies the fixed-point / functional equation.
 * `WeierstrassCurve.order_formalW` : `3 ≤ order w`, i.e. `w = c₃ z³ + …`.
 * `WeierstrassCurve.coeff_formalW_three` : the leading coefficient is `1`, so `w = z³ + …`.
+* `WeierstrassCurve.formalW_mul_formalX` : `w · (z²·x) = z³` and
+  `WeierstrassCurve.formalW_mul_formalY` : `w · (z³·y) = -z³`, the identities `x·w = z`,
+  `y·w = -1` cleared of denominators. Together with `constantCoeff_formalX = 1` and
+  `constantCoeff_formalY = -1` these say `x(z) = z⁻² + …` (a pole of order `2`) and
+  `y(z) = -z⁻³ + …` (a pole of order `3`).
 
-The coordinate series `x(z) = z/w(z)` and `y(z) = -1/w(z)` (which have poles at the origin)
-are deferred to a follow-up; see the parent issue.
+## Coordinate series
+
+Since `w` has order `3` with leading coefficient `1`, it factors as `w = z³ · v` where the unit
+part `v = formalWUnit` is a power series with `v(0) = 1`, hence invertible. The coordinate series
+`x(z) = z / w` and `y(z) = -1 / w` are Laurent series with poles at the origin (of orders `2` and
+`3`). Rather than leaving `PowerSeries R`, we record their "cleared" forms
+`formalX = z² · x(z) = v⁻¹` and `formalY = z³ · y(z) = -v⁻¹`, which are honest power series, and the
+polynomial identities `w · formalX = z³`, `w · formalY = -z³` characterising them. This suffices as
+the input to the Weierstrass formal group law (parent issue #240).
 
 ## References
 
@@ -253,5 +270,67 @@ theorem coeff_formalW_three : coeff 3 W.formalW = 1 := by
   simp only [map_add]
   rw [hX, hP1, hP2, hP3]
   ring
+
+/-! ### The coordinate series `x(z)` and `y(z)` -/
+
+section Coordinate
+
+/-- The unit part `v(z)` of the Weierstrass expansion: the power series with
+`coeff n v = coeff (n + 3) w`, so that `w = z³ · v`. Since `w` has order `3` with leading
+coefficient `1`, `v` has constant coefficient `1` and is therefore a unit. -/
+noncomputable def formalWUnit (W : WeierstrassCurve R) : R⟦X⟧ :=
+  PowerSeries.mk fun n => coeff (n + 3) W.formalW
+
+/-- The unit part `v` recovers `w` after multiplying by `z³`: `w = z³ · v`. -/
+lemma X_pow_three_mul_formalWUnit : (X : R⟦X⟧) ^ 3 * W.formalWUnit = W.formalW := by
+  ext n
+  rw [coeff_X_pow_mul']
+  split_ifs with h
+  · rw [formalWUnit, PowerSeries.coeff_mk, Nat.sub_add_cancel h]
+  · refine (coeff_of_lt_order n (lt_of_lt_of_le ?_ W.order_formalW)).symm
+    exact_mod_cast (show n < 3 by omega)
+
+/-- The constant coefficient of the unit part is `1`. -/
+@[simp] lemma constantCoeff_formalWUnit : constantCoeff W.formalWUnit = 1 := by
+  rw [← coeff_zero_eq_constantCoeff_apply, formalWUnit, PowerSeries.coeff_mk]
+  simpa using W.coeff_formalW_three
+
+/-- The unit part `v` of `w` is a unit in `R⟦X⟧`. -/
+lemma isUnit_formalWUnit : IsUnit W.formalWUnit :=
+  PowerSeries.isUnit_iff_constantCoeff.mpr (by rw [constantCoeff_formalWUnit]; exact isUnit_one)
+
+/-- The cleared `x`-coordinate series `z² · x(z) = v(z)⁻¹`, an honest power series whose Laurent
+counterpart `x(z) = formalX / z²` is the expansion of `x = z / w` at the origin (a pole of order
+`2`). -/
+noncomputable def formalX (W : WeierstrassCurve R) : R⟦X⟧ :=
+  Ring.inverse W.formalWUnit
+
+/-- The cleared `y`-coordinate series `z³ · y(z) = -v(z)⁻¹`, an honest power series whose Laurent
+counterpart `y(z) = formalY / z³` is the expansion of `y = -1 / w` at the origin (a pole of order
+`3`). -/
+noncomputable def formalY (W : WeierstrassCurve R) : R⟦X⟧ :=
+  -W.formalX
+
+lemma formalWUnit_mul_formalX : W.formalWUnit * W.formalX = 1 :=
+  Ring.mul_inverse_cancel _ W.isUnit_formalWUnit
+
+/-- The cleared identity `x · w = z`: as power series, `w · (z²·x) = z³`. -/
+lemma formalW_mul_formalX : W.formalW * W.formalX = X ^ 3 := by
+  rw [← W.X_pow_three_mul_formalWUnit, mul_assoc, W.formalWUnit_mul_formalX, mul_one]
+
+/-- The cleared identity `y · w = -1`: as power series, `w · (z³·y) = -z³`. -/
+lemma formalW_mul_formalY : W.formalW * W.formalY = -X ^ 3 := by
+  rw [formalY, mul_neg, formalW_mul_formalX]
+
+/-- The leading coefficient of `x(z)` is `1`: `x(z) = z⁻² + …`. -/
+@[simp] lemma constantCoeff_formalX : constantCoeff W.formalX = 1 := by
+  have h := congrArg constantCoeff W.formalWUnit_mul_formalX
+  rwa [map_mul, constantCoeff_formalWUnit, one_mul, map_one] at h
+
+/-- The leading coefficient of `y(z)` is `-1`: `y(z) = -z⁻³ + …`. -/
+@[simp] lemma constantCoeff_formalY : constantCoeff W.formalY = -1 := by
+  rw [formalY, map_neg, constantCoeff_formalX]
+
+end Coordinate
 
 end WeierstrassCurve
