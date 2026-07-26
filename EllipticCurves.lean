@@ -3,3 +3,4 @@ import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
+import EllipticCurves.Torsion.EllipticNetRel
