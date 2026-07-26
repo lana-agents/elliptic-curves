@@ -255,4 +255,63 @@ theorem coeff_formalW_three : coeff 3 W.formalW = 1 := by
   rw [hX, hP1, hP2, hP3]
   ring
 
+/-- Coefficients below the order-`3` vanish: `coeff n w = 0` for `n < 3`. -/
+private lemma coeff_formalW_of_lt {n : ℕ} (hn : n < 3) : coeff n W.formalW = 0 :=
+  coeff_of_lt_order n (lt_of_lt_of_le (by exact_mod_cast hn) W.order_formalW)
+
+/-- The coefficient of `z⁴` in the expansion is `a₁`: `w = z³ + a₁z⁴ + …`. -/
+theorem coeff_formalW_four : coeff 4 W.formalW = W.a₁ := by
+  have hXw : coeff 4 (X * W.formalW) = coeff 3 W.formalW := coeff_succ_X_mul 3 W.formalW
+  have hX2w : coeff 4 (X ^ 2 * W.formalW) = coeff 2 W.formalW := by
+    rw [coeff_X_pow_mul']; norm_num
+  have hlin : coeff 4 ((C W.a₁ * X + C W.a₂ * X ^ 2) * W.formalW) = W.a₁ := by
+    rw [add_mul, map_add, mul_assoc, coeff_C_mul, hXw, coeff_formalW_three, mul_one,
+      mul_assoc, coeff_C_mul, hX2w, W.coeff_formalW_of_lt (by norm_num), mul_zero, add_zero]
+  have hP2 : coeff 4 ((C W.a₃ + C W.a₄ * X) * (W.formalW * W.formalW)) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (4 : ℕ) < 0 + (3 + 3)))
+      (add_le_add zero_le
+        (le_trans (add_le_add W.order_formalW W.order_formalW) (le_order_mul _ _))))
+  have hP3 : coeff 4 (C W.a₆ * (W.formalW * W.formalW * W.formalW)) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (4 : ℕ) < 0 + ((3 + 3) + 3)))
+      (add_le_add zero_le
+        (le_trans (add_le_add (le_trans (add_le_add W.order_formalW W.order_formalW)
+          (le_order_mul _ _)) W.order_formalW) (le_order_mul _ _))))
+  have hX : coeff 4 ((X : R⟦X⟧) ^ 3) = 0 := by rw [coeff_X_pow]; simp
+  rw [formalW_eq, wOp,
+    show W.formalW ^ 2 = W.formalW * W.formalW from by ring,
+    show W.formalW ^ 3 = W.formalW * W.formalW * W.formalW from by ring]
+  simp only [map_add]
+  rw [hX, hlin, hP2, hP3]
+  ring
+
+/-- The coefficient of `z⁵` in the expansion is `a₁² + a₂`: `w = z³ + a₁z⁴ + (a₁² + a₂)z⁵ + …`. -/
+theorem coeff_formalW_five : coeff 5 W.formalW = W.a₁ ^ 2 + W.a₂ := by
+  have hXw : coeff 5 (X * W.formalW) = coeff 4 W.formalW := coeff_succ_X_mul 4 W.formalW
+  have hX2w : coeff 5 (X ^ 2 * W.formalW) = coeff 3 W.formalW := by
+    rw [coeff_X_pow_mul']; norm_num
+  have hlin : coeff 5 ((C W.a₁ * X + C W.a₂ * X ^ 2) * W.formalW) = W.a₁ ^ 2 + W.a₂ := by
+    rw [add_mul, map_add, mul_assoc, coeff_C_mul, hXw, coeff_formalW_four,
+      mul_assoc, coeff_C_mul, hX2w, coeff_formalW_three, mul_one]
+    ring
+  have hP2 : coeff 5 ((C W.a₃ + C W.a₄ * X) * (W.formalW * W.formalW)) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (5 : ℕ) < 0 + (3 + 3)))
+      (add_le_add zero_le
+        (le_trans (add_le_add W.order_formalW W.order_formalW) (le_order_mul _ _))))
+  have hP3 : coeff 5 (C W.a₆ * (W.formalW * W.formalW * W.formalW)) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (5 : ℕ) < 0 + ((3 + 3) + 3)))
+      (add_le_add zero_le
+        (le_trans (add_le_add (le_trans (add_le_add W.order_formalW W.order_formalW)
+          (le_order_mul _ _)) W.order_formalW) (le_order_mul _ _))))
+  have hX : coeff 5 ((X : R⟦X⟧) ^ 3) = 0 := by rw [coeff_X_pow]; simp
+  rw [formalW_eq, wOp,
+    show W.formalW ^ 2 = W.formalW * W.formalW from by ring,
+    show W.formalW ^ 3 = W.formalW * W.formalW * W.formalW from by ring]
+  simp only [map_add]
+  rw [hX, hlin, hP2, hP3]
+  ring
+
 end WeierstrassCurve
