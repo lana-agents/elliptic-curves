@@ -45,9 +45,10 @@ coercions of honest power series.
   orders (`2` and `3`).
 * `WeierstrassCurve.formalX_formalY_weierstrass` : the point-on-curve identity, that `(x(z), y(z))`
   satisfies the Weierstrass equation as Laurent series (the reformulation of `formalW_eq`).
-* `WeierstrassCurve.coeff_formalX_neg_one` (`= -a₁`), `WeierstrassCurve.coeff_formalX_zero`
-  (`= -a₂`), `WeierstrassCurve.coeff_formalY_neg_two` (`= a₁`) : the sub-leading coefficients, so
-  `x = z⁻² - a₁ z⁻¹ - a₂ - …` and `y = -z⁻³ + a₁ z⁻² + …` (Silverman AEC IV.1).
+* `WeierstrassCurve.coeff_formalX_neg_one` (`= -a₁`), `coeff_formalX_zero` (`= -a₂`),
+  `coeff_formalX_one` (`= -a₃`), `coeff_formalY_neg_two` (`= a₁`), `coeff_formalY_neg_one` (`= a₂`),
+  `coeff_formalY_zero` (`= a₃`) : the sub-leading coefficients, so
+  `x = z⁻² - a₁ z⁻¹ - a₂ - a₃ z - …` and `y = -z⁻³ + a₁ z⁻² + a₂ z⁻¹ + a₃ + …` (Silverman AEC IV.1).
 
 ## References
 
@@ -248,6 +249,10 @@ private lemma coeff_wCofactor_one : coeff 1 W.wCofactor = W.a₁ := by
 private lemma coeff_wCofactor_two : coeff 2 W.wCofactor = W.a₁ ^ 2 + W.a₂ := by
   rw [coeff_wCofactor]; exact W.coeff_formalW_five
 
+private lemma coeff_wCofactor_three :
+    coeff 3 W.wCofactor = W.a₁ ^ 3 + 2 * W.a₁ * W.a₂ + W.a₃ := by
+  rw [coeff_wCofactor]; exact W.coeff_formalW_six
+
 private lemma coeff_invOfUnit_wCofactor_zero :
     coeff 0 (invOfUnit W.wCofactor 1) = 1 := by
   rw [coeff_zero_eq_constantCoeff_apply, constantCoeff_invOfUnit]; simp
@@ -273,6 +278,18 @@ theorem coeff_invOfUnit_wCofactor_two :
     one_mul, mul_one, if_false, OfNat.ofNat_ne_zero] at h
   linear_combination h
 
+/-- The `z³`-coefficient of the inverse cofactor `v⁻¹` is `-a₃` (the higher terms of `v` cancel). -/
+theorem coeff_invOfUnit_wCofactor_three :
+    coeff 3 (invOfUnit W.wCofactor 1) = -W.a₃ := by
+  have h := congrArg (coeff 3) W.wCofactor_mul_invOfUnit
+  rw [coeff_mul, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk] at h
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add, Nat.sub_zero, Nat.sub_self,
+    Nat.reduceSub, coeff_wCofactor_zero, coeff_wCofactor_one, coeff_wCofactor_two,
+    coeff_wCofactor_three, coeff_invOfUnit_wCofactor_zero, coeff_invOfUnit_wCofactor_one,
+    coeff_invOfUnit_wCofactor_two, coeff_one, one_mul, mul_one, if_false,
+    OfNat.ofNat_ne_zero] at h
+  linear_combination h
+
 /-- The sub-leading coefficient of `x(z)`: `coeff (-1) x = -a₁`, so `x = z⁻² - a₁ z⁻¹ - …`. -/
 @[simp]
 theorem coeff_formalX_neg_one : W.formalX.coeff (-1) = -W.a₁ := by
@@ -287,12 +304,36 @@ theorem coeff_formalX_zero : W.formalX.coeff 0 = -W.a₂ := by
   rw [formalX, HahnSeries.coeff_single_mul, h0, LaurentSeries.coeff_coe_powerSeries,
     coeff_invOfUnit_wCofactor_two, one_mul]
 
+/-- The `z¹`-coefficient of `x(z)`: `coeff 1 x = -a₃`, so `x = z⁻² - a₁ z⁻¹ - a₂ - a₃ z - …`. -/
+@[simp]
+theorem coeff_formalX_one : W.formalX.coeff 1 = -W.a₃ := by
+  have h0 : ((1 : ℤ) - (-2)) = ((3 : ℕ) : ℤ) := by norm_num
+  rw [formalX, HahnSeries.coeff_single_mul, h0, LaurentSeries.coeff_coe_powerSeries,
+    coeff_invOfUnit_wCofactor_three, one_mul]
+
 /-- The sub-leading coefficient of `y(z)`: `coeff (-2) y = a₁`, so `y = -z⁻³ + a₁ z⁻² + …`. -/
 @[simp]
 theorem coeff_formalY_neg_two : W.formalY.coeff (-2) = W.a₁ := by
   have h0 : ((-2 : ℤ) - (-3)) = ((1 : ℕ) : ℤ) := by norm_num
   rw [formalY, HahnSeries.coeff_single_mul, h0, LaurentSeries.coeff_coe_powerSeries,
     coeff_invOfUnit_wCofactor_one]
+  ring
+
+/-- The `z⁻¹`-coefficient of `y(z)`: `coeff (-1) y = a₂`, so `y = -z⁻³ + a₁ z⁻² + a₂ z⁻¹ + …`. -/
+@[simp]
+theorem coeff_formalY_neg_one : W.formalY.coeff (-1) = W.a₂ := by
+  have h0 : ((-1 : ℤ) - (-3)) = ((2 : ℕ) : ℤ) := by norm_num
+  rw [formalY, HahnSeries.coeff_single_mul, h0, LaurentSeries.coeff_coe_powerSeries,
+    coeff_invOfUnit_wCofactor_two]
+  ring
+
+/-- The constant coefficient of `y(z)`: `coeff 0 y = a₃`, so
+`y = -z⁻³ + a₁ z⁻² + a₂ z⁻¹ + a₃ + …`. -/
+@[simp]
+theorem coeff_formalY_zero : W.formalY.coeff 0 = W.a₃ := by
+  have h0 : ((0 : ℤ) - (-3)) = ((3 : ℕ) : ℤ) := by norm_num
+  rw [formalY, HahnSeries.coeff_single_mul, h0, LaurentSeries.coeff_coe_powerSeries,
+    coeff_invOfUnit_wCofactor_three]
   ring
 
 end WeierstrassCurve

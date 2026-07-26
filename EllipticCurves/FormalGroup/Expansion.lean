@@ -314,4 +314,48 @@ theorem coeff_formalW_five : coeff 5 W.formalW = W.a₁ ^ 2 + W.a₂ := by
   rw [hX, hlin, hP2, hP3]
   ring
 
+/-- The `z⁶`-coefficient of the expansion is `a₁³ + 2a₁a₂ + a₃`. Here the `w²` term first
+contributes (its leading term `z⁶` has coefficient `1`), so unlike the lower coefficients this one
+is not simply linear in the `aᵢ`. -/
+theorem coeff_formalW_six :
+    coeff 6 W.formalW = W.a₁ ^ 3 + 2 * W.a₁ * W.a₂ + W.a₃ := by
+  have h0 := W.coeff_formalW_of_lt (show (0 : ℕ) < 3 by norm_num)
+  have h1 := W.coeff_formalW_of_lt (show (1 : ℕ) < 3 by norm_num)
+  have h2 := W.coeff_formalW_of_lt (show (2 : ℕ) < 3 by norm_num)
+  -- The `z⁶` coefficient of `w²`: only the `i = 3` term of the convolution survives.
+  have hw2_6 : coeff 6 (W.formalW * W.formalW) = 1 := by
+    rw [coeff_mul, Finset.Nat.sum_antidiagonal_eq_sum_range_succ_mk]
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero, Nat.reduceSub, h0, h1, h2,
+      coeff_formalW_three, zero_mul, mul_zero, zero_add, add_zero, mul_one]
+  have hw2_5 : coeff 5 (W.formalW * W.formalW) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (5 : ℕ) < 3 + 3))
+      (add_le_add W.order_formalW W.order_formalW))
+  have hXw : coeff 6 (X * W.formalW) = coeff 5 W.formalW := coeff_succ_X_mul 5 W.formalW
+  have hX2w : coeff 6 (X ^ 2 * W.formalW) = coeff 4 W.formalW := by
+    rw [coeff_X_pow_mul']; norm_num
+  have hlin : coeff 6 ((C W.a₁ * X + C W.a₂ * X ^ 2) * W.formalW)
+      = W.a₁ ^ 3 + 2 * W.a₁ * W.a₂ := by
+    rw [add_mul, map_add, mul_assoc, coeff_C_mul, hXw, coeff_formalW_five,
+      mul_assoc, coeff_C_mul, hX2w, coeff_formalW_four]
+    ring
+  have hXw2 : coeff 6 (X * (W.formalW * W.formalW)) = coeff 5 (W.formalW * W.formalW) :=
+    coeff_succ_X_mul 5 _
+  have hP2 : coeff 6 ((C W.a₃ + C W.a₄ * X) * (W.formalW * W.formalW)) = W.a₃ := by
+    rw [add_mul, map_add, coeff_C_mul, hw2_6, mul_one, mul_assoc, coeff_C_mul, hXw2, hw2_5,
+      mul_zero, add_zero]
+  have hP3 : coeff 6 (C W.a₆ * (W.formalW * W.formalW * W.formalW)) = 0 :=
+    coeff_mul_eq_zero_of_lt (lt_of_lt_of_le
+      (by exact_mod_cast (by norm_num : (6 : ℕ) < 0 + ((3 + 3) + 3)))
+      (add_le_add zero_le
+        (le_trans (add_le_add (le_trans (add_le_add W.order_formalW W.order_formalW)
+          (le_order_mul _ _)) W.order_formalW) (le_order_mul _ _))))
+  have hX : coeff 6 ((X : R⟦X⟧) ^ 3) = 0 := by rw [coeff_X_pow]; simp
+  rw [formalW_eq, wOp,
+    show W.formalW ^ 2 = W.formalW * W.formalW from by ring,
+    show W.formalW ^ 3 = W.formalW * W.formalW * W.formalW from by ring]
+  simp only [map_add]
+  rw [hX, hlin, hP2, hP3]
+  ring
+
 end WeierstrassCurve
