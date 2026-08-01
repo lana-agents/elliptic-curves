@@ -617,4 +617,141 @@ theorem isUnit_formalYThree : IsUnit W.formalYThree := by
     rw [hlc]
     exact W.isUnit_formalY
 
+/-- The `z₂`-order of `y₃` is `0` (its leading coefficient sits in `z₂`-degree `0`). -/
+theorem orderTop_formalYThree [Nontrivial R] :
+    W.formalYThree.orderTop = (0 : WithTop ℤ) := by
+  have hbiord : W.biY₁.orderTop = ((0 : ℤ) : WithTop ℤ) := by
+    rw [biY₁, cConstRingHom, HahnSeries.C_apply,
+      HahnSeries.orderTop_single W.isUnit_formalY.ne_zero]
+  have hlt : W.biY₁.orderTop < (W.formalYThree - W.biY₁).orderTop := by
+    rw [hbiord]
+    exact lt_of_lt_of_le (by exact_mod_cast (by norm_num : (0 : ℤ) < 1))
+      W.orderTop_formalYThree_sub_biY₁
+  rw [show W.formalYThree = W.biY₁ + (W.formalYThree - W.biY₁) by ring,
+    HahnSeries.orderTop_add_eq_left hlt, hbiord, WithTop.coe_zero]
+
+/-- The leading `z₂`-coefficient of `y₃` is the unit `y(z₁) = W.formalY`. -/
+theorem leadingCoeff_formalYThree [Nontrivial R] :
+    W.formalYThree.leadingCoeff = W.formalY := by
+  have hbiord : W.biY₁.orderTop = ((0 : ℤ) : WithTop ℤ) := by
+    rw [biY₁, cConstRingHom, HahnSeries.C_apply,
+      HahnSeries.orderTop_single W.isUnit_formalY.ne_zero]
+  have hlt : W.biY₁.orderTop < (W.formalYThree - W.biY₁).orderTop := by
+    rw [hbiord]
+    exact lt_of_lt_of_le (by exact_mod_cast (by norm_num : (0 : ℤ) < 1))
+      W.orderTop_formalYThree_sub_biY₁
+  rw [show W.formalYThree = W.biY₁ + (W.formalYThree - W.biY₁) by ring,
+    HahnSeries.leadingCoeff_add_eq_left hlt, biY₁, cConstRingHom, HahnSeries.C_apply,
+    HahnSeries.leadingCoeff_of_single]
+
+/-! ### `x₃` is a unit of `z₂`-order `0`
+
+The `z₂⁻²` poles of `λ²` and `x₂` cancel in `x₃ = λ² + a₁λ - a₂ - x₁ - x₂`, leaving a series of
+`z₂`-order `0` with leading coefficient the unit `x(z₁) = W.formalX`. The argument mirrors the `y₃`
+computation: peel off the principal part `Λ` of `λ` and bound the higher-order corrections. -/
+
+/-- `x(z₁) = W.formalX` is nonzero over a nontrivial ring (`x` has a `z₁⁻²` pole). -/
+private lemma formalX_ne_zero [Nontrivial R] : W.formalX ≠ 0 := fun h => by
+  simpa [h] using W.coeff_formalX_neg_two
+
+private lemma orderTop_biX₁_eq [Nontrivial R] : W.biX₁.orderTop = ((0 : ℤ) : WithTop ℤ) := by
+  rw [biX₁, cConstRingHom, HahnSeries.C_apply, HahnSeries.orderTop_single W.formalX_ne_zero]
+
+/-- The `Λ`-only part of `x₃ - x(z₁)` (the Vieta expansion with `λ` replaced by its principal part
+`Λ`). Its low `z₂`-coefficients cancel. -/
+private noncomputable def zpureX (W : WeierstrassCurve R) : (R⸨X⸩)⸨X⸩ :=
+  W.lambdaPrincipal ^ 2 + HahnSeries.C (HahnSeries.C W.a₁) * W.lambdaPrincipal
+    - HahnSeries.C (HahnSeries.C W.a₂) - W.biX₁ - W.biX₂ - W.biX₁
+
+/-- The cofactor `Q` with `x₃ - x(z₁) = Zpure + (λ - Λ)·Q`, i.e. `Q = 2Λ + (λ - Λ) + a₁`. -/
+private noncomputable def qX (W : WeierstrassCurve R) : (R⸨X⸩)⸨X⸩ :=
+  W.lambdaPrincipal + W.lambdaPrincipal + (W.formalLambda - W.lambdaPrincipal)
+    + HahnSeries.C (HahnSeries.C W.a₁)
+
+private lemma formalXThree_sub_biX₁_eq :
+    W.formalXThree - W.biX₁ = W.zpureX + (W.formalLambda - W.lambdaPrincipal) * W.qX := by
+  unfold formalXThree zpureX qX
+  ring
+
+/-- Each summand of `Zpure` (for `x₃`) has `z₂`-order `≥ -2`, hence so does `Zpure`. -/
+private lemma orderTop_zpureX_ge [Nontrivial R] :
+    ((-2 : ℤ) : WithTop ℤ) ≤ W.zpureX.orderTop := by
+  have hL2 : ((-2 : ℤ) : WithTop ℤ) ≤ (W.lambdaPrincipal ^ 2).orderTop := W.orderTop_lamP_sq
+  have hCCL : ((-2 : ℤ) : WithTop ℤ)
+      ≤ (HahnSeries.C (HahnSeries.C W.a₁) * W.lambdaPrincipal).orderTop :=
+    le_trans (by exact_mod_cast (by norm_num : (-2 : ℤ) ≤ -1))
+      (le_trans W.orderTop_lamP (le_orderTop_CC_mul _ _))
+  have hCC2 : ((-2 : ℤ) : WithTop ℤ)
+      ≤ (HahnSeries.C (HahnSeries.C W.a₂) : (R⸨X⸩)⸨X⸩).orderTop :=
+    le_trans (by exact_mod_cast (by norm_num : (-2 : ℤ) ≤ 0)) (orderTop_CC _)
+  have hbiX1 : ((-2 : ℤ) : WithTop ℤ) ≤ W.biX₁.orderTop :=
+    le_trans (by exact_mod_cast (by norm_num : (-2 : ℤ) ≤ 0)) W.orderTop_biX₁
+  have hbiX2 : ((-2 : ℤ) : WithTop ℤ) ≤ W.biX₂.orderTop := W.orderTop_biX₂
+  unfold zpureX
+  exact le_orderTop_sub' (le_orderTop_sub' (le_orderTop_sub' (le_orderTop_sub'
+    (le_orderTop_add' hL2 hCCL) hCC2) hbiX1) hbiX2) hbiX1
+
+/-- `Zpure.coeff g = 0` for `g < 1` (its low coefficients cancel; Silverman AEC IV.1). -/
+private lemma coeff_zpureX_of_lt [Nontrivial R] {g : ℤ} (hg : g < 1) : W.zpureX.coeff g = 0 := by
+  rcases lt_or_ge g (-2) with hlt | hge
+  · exact HahnSeries.coeff_eq_zero_of_lt_orderTop
+      (lt_of_lt_of_le (by exact_mod_cast hlt) W.orderTop_zpureX_ge)
+  · have hg0 : g ≤ 0 := by omega
+    unfold zpureX
+    interval_cases g <;>
+      simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, coeff_CC_mul,
+        W.coeff_lamP_sq_neg_two, W.coeff_lamP_sq_neg_one, W.coeff_lamP_sq_zero,
+        W.coeff_lamP_of_lt (show (-2 : ℤ) < -1 by norm_num), W.coeff_lamP_neg_one,
+        W.coeff_lamP_zero,
+        coeff_CC_of_ne W.a₂ (show (-2 : ℤ) ≠ 0 by norm_num),
+        coeff_CC_of_ne W.a₂ (show (-1 : ℤ) ≠ 0 by norm_num), coeff_CC_zero W.a₂,
+        W.coeff_biX₁_of_ne (show (-2 : ℤ) ≠ 0 by norm_num),
+        W.coeff_biX₁_of_ne (show (-1 : ℤ) ≠ 0 by norm_num), W.coeff_biX₁_zero,
+        W.coeff_biX₂_neg_two, W.coeff_biX₂_neg_one, W.coeff_biX₂_zero] <;> ring
+
+/-- Each summand of `Q` (for `x₃`) has `z₂`-order `≥ -1`, hence so does `Q`. -/
+private lemma orderTop_qX_ge [Nontrivial R] : ((-1 : ℤ) : WithTop ℤ) ≤ W.qX.orderTop := by
+  have hL : ((-1 : ℤ) : WithTop ℤ) ≤ W.lambdaPrincipal.orderTop := W.orderTop_lamP
+  have hh : ((-1 : ℤ) : WithTop ℤ) ≤ (W.formalLambda - W.lambdaPrincipal).orderTop :=
+    le_trans (by exact_mod_cast (by norm_num : (-1 : ℤ) ≤ 3)) W.orderTop_lambda_sub_principal
+  have hCC1 : ((-1 : ℤ) : WithTop ℤ)
+      ≤ (HahnSeries.C (HahnSeries.C W.a₁) : (R⸨X⸩)⸨X⸩).orderTop :=
+    le_trans (by exact_mod_cast (by norm_num : (-1 : ℤ) ≤ 0)) (orderTop_CC _)
+  unfold qX
+  exact le_orderTop_add' (le_orderTop_add' (le_orderTop_add' hL hL) hh) hCC1
+
+private lemma orderTop_formalXThree_sub_biX₁ [Nontrivial R] :
+    ((1 : ℤ) : WithTop ℤ) ≤ (W.formalXThree - W.biX₁).orderTop := by
+  rw [W.formalXThree_sub_biX₁_eq]
+  refine le_orderTop_add' ?_ ?_
+  · rw [HahnSeries.le_orderTop_iff_forall]
+    intro g hg
+    exact W.coeff_zpureX_of_lt (by exact_mod_cast hg)
+  · refine le_trans ?_ HahnSeries.orderTop_add_le_mul
+    rw [show ((1 : ℤ) : WithTop ℤ) = ((3 : ℤ) : WithTop ℤ) + ((-2 : ℤ) : WithTop ℤ) by
+      rw [← WithTop.coe_add]; norm_num]
+    exact add_le_add W.orderTop_lambda_sub_principal
+      (le_trans (by exact_mod_cast (by norm_num : (-2 : ℤ) ≤ -1)) W.orderTop_qX_ge)
+
+/-- The `z₂`-order of `x₃` is `0`. -/
+theorem orderTop_formalXThree [Nontrivial R] :
+    W.formalXThree.orderTop = (0 : WithTop ℤ) := by
+  have hlt : W.biX₁.orderTop < (W.formalXThree - W.biX₁).orderTop := by
+    rw [W.orderTop_biX₁_eq]
+    exact lt_of_lt_of_le (by exact_mod_cast (by norm_num : (0 : ℤ) < 1))
+      W.orderTop_formalXThree_sub_biX₁
+  rw [show W.formalXThree = W.biX₁ + (W.formalXThree - W.biX₁) by ring,
+    HahnSeries.orderTop_add_eq_left hlt, W.orderTop_biX₁_eq, WithTop.coe_zero]
+
+/-- The leading `z₂`-coefficient of `x₃` is the unit `x(z₁) = W.formalX`. -/
+theorem leadingCoeff_formalXThree [Nontrivial R] :
+    W.formalXThree.leadingCoeff = W.formalX := by
+  have hlt : W.biX₁.orderTop < (W.formalXThree - W.biX₁).orderTop := by
+    rw [W.orderTop_biX₁_eq]
+    exact lt_of_lt_of_le (by exact_mod_cast (by norm_num : (0 : ℤ) < 1))
+      W.orderTop_formalXThree_sub_biX₁
+  rw [show W.formalXThree = W.biX₁ + (W.formalXThree - W.biX₁) by ring,
+    HahnSeries.leadingCoeff_add_eq_left hlt, biX₁, cConstRingHom, HahnSeries.C_apply,
+    HahnSeries.leadingCoeff_of_single]
+
 end WeierstrassCurve

@@ -4,6 +4,7 @@ import EllipticCurves.FormalGroup.AdditionLawUnit
 import EllipticCurves.FormalGroup.BivariateCoords
 import EllipticCurves.FormalGroup.CoordinateSeries
 import EllipticCurves.FormalGroup.Expansion
+import EllipticCurves.FormalGroup.FormalGroupLaurent
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
