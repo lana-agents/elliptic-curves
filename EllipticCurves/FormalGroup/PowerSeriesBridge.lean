@@ -94,4 +94,116 @@ theorem coeff_ofDoubleLaurent_single_one (x : (R⸨X⸩)⸨X⸩) (k : ℕ) :
   rw [coeff_ofDoubleLaurent]
   simp
 
+/-! ### Basic additive algebra of the reader `ofDoubleLaurent`
+
+Reading a bigraded coefficient is `ℤ`-linear, so `ofDoubleLaurent` is an additive map (it is *not*
+multiplicative on all of `(R⸨X⸩)⸨X⸩` — that holds only on the pole-free-in-both subring, cf. the
+faithful embedding below). -/
+
+@[simp]
+theorem ofDoubleLaurent_add (x y : (R⸨X⸩)⸨X⸩) :
+    ofDoubleLaurent (x + y) = ofDoubleLaurent x + ofDoubleLaurent y := by
+  refine MvPowerSeries.ext fun d => ?_
+  simp only [map_add, coeff_ofDoubleLaurent, HahnSeries.coeff_add]
+
+@[simp]
+theorem ofDoubleLaurent_zero : ofDoubleLaurent (0 : (R⸨X⸩)⸨X⸩) = 0 := by
+  refine MvPowerSeries.ext fun d => ?_
+  simp only [map_zero, coeff_ofDoubleLaurent, HahnSeries.coeff_zero]
+
+@[simp]
+theorem ofDoubleLaurent_neg (x : (R⸨X⸩)⸨X⸩) :
+    ofDoubleLaurent (-x) = -ofDoubleLaurent x := by
+  refine MvPowerSeries.ext fun d => ?_
+  simp only [map_neg, coeff_ofDoubleLaurent, HahnSeries.coeff_neg]
+
+/-- The double constant `HahnSeries.C (HahnSeries.C a) = C₂ a ∈ (R⸨X⸩)⸨X⸩` is read as the
+`MvPowerSeries` constant `MvPowerSeries.C a`. -/
+theorem ofDoubleLaurent_C₂ (a : R) :
+    ofDoubleLaurent (HahnSeries.C (HahnSeries.C a)) = MvPowerSeries.C a := by
+  classical
+  refine MvPowerSeries.ext fun d => ?_
+  rw [coeff_ofDoubleLaurent, MvPowerSeries.coeff_C, HahnSeries.C_apply, HahnSeries.coeff_single]
+  by_cases h1 : ((d 1 : ℕ) : ℤ) = 0
+  · rw [if_pos h1, HahnSeries.C_apply, HahnSeries.coeff_single]
+    by_cases h0 : ((d 0 : ℕ) : ℤ) = 0
+    · have hd : d = 0 := by
+        ext i; fin_cases i
+        · exact_mod_cast h0
+        · exact_mod_cast h1
+      rw [if_pos h0, if_pos hd]
+    · have hd : d ≠ 0 := fun h => h0 (by rw [h]; simp)
+      rw [if_neg h0, if_neg hd]
+  · rw [if_neg h1, HahnSeries.coeff_zero]
+    have hd : d ≠ 0 := fun h => h1 (by rw [h]; simp)
+    rw [if_neg hd]
+
+theorem ofDoubleLaurent_one : ofDoubleLaurent (1 : (R⸨X⸩)⸨X⸩) = 1 := by
+  have h : (1 : (R⸨X⸩)⸨X⸩) = HahnSeries.C (HahnSeries.C (1 : R)) := by
+    rw [map_one, map_one]
+  rw [h, ofDoubleLaurent_C₂, map_one]
+
+/-! ### The faithful writer `MvPowerSeries (Fin 2) R → (R⸨X⸩)⸨X⸩` and the round-trip identities
+
+The partial inverse of `ofDoubleLaurent`: write a bivariate power series into the iterated Laurent
+ring by two applications of `HahnSeries.ofPowerSeries`. It is a *right* inverse always
+(`ofDoubleLaurent_embedDoubleLaurent`) and a *left* inverse on iterated Laurent series that are
+pole-free in **both** gradings (`embedDoubleLaurent_ofDoubleLaurent`) — the faithfulness that makes
+`ofDoubleLaurent` lossless on such series. -/
+
+/-- Write a bivariate power series `φ` as an iterated Laurent series: the `z₁^m z₂^n` coefficient is
+`MvPowerSeries.coeff (single 0 m + single 1 n) φ`, packaged through two `HahnSeries.ofPowerSeries`
+casts (inner grading `z₁` = `Fin 2` index `0`, outer grading `z₂` = index `1`). -/
+noncomputable def embedDoubleLaurent (φ : MvPowerSeries (Fin 2) R) : (R⸨X⸩)⸨X⸩ :=
+  ofPowerSeries ℤ (R⸨X⸩)
+    (PowerSeries.mk fun n => ofPowerSeries ℤ R
+      (PowerSeries.mk fun m => MvPowerSeries.coeff (Finsupp.single 0 m + Finsupp.single 1 n) φ))
+
+private lemma finTwo_single_apply_one (m n : ℕ) :
+    (Finsupp.single (0 : Fin 2) m + Finsupp.single (1 : Fin 2) n) (1 : Fin 2) = n := by
+  rw [Finsupp.add_apply, Finsupp.single_eq_of_ne (by decide), Finsupp.single_eq_same, zero_add]
+
+private lemma finTwo_single_apply_zero (m n : ℕ) :
+    (Finsupp.single (0 : Fin 2) m + Finsupp.single (1 : Fin 2) n) (0 : Fin 2) = m := by
+  rw [Finsupp.add_apply, Finsupp.single_eq_same, Finsupp.single_eq_of_ne (by decide), add_zero]
+
+private lemma finTwo_single_add (d : Fin 2 →₀ ℕ) :
+    Finsupp.single 0 (d 0) + Finsupp.single 1 (d 1) = d := by
+  ext i; fin_cases i <;> simp
+
+/-- **Right inverse.** Reading back a written bivariate power series recovers it:
+`ofDoubleLaurent (embedDoubleLaurent φ) = φ`. -/
+theorem ofDoubleLaurent_embedDoubleLaurent (φ : MvPowerSeries (Fin 2) R) :
+    ofDoubleLaurent (embedDoubleLaurent φ) = φ := by
+  refine MvPowerSeries.ext fun d => ?_
+  rw [coeff_ofDoubleLaurent, embedDoubleLaurent, ofPowerSeries_apply_coeff, PowerSeries.coeff_mk,
+    ofPowerSeries_apply_coeff, PowerSeries.coeff_mk, finTwo_single_add]
+
+/-- **Left inverse on the pole-free-in-both subring.** If `x ∈ (R⸨X⸩)⸨X⸩` has no negative outer
+coefficients (`hout`) and each of its outer slices has no negative inner coefficients (`hin`), then
+writing back the read bivariate power series recovers `x`:
+`embedDoubleLaurent (ofDoubleLaurent x) = x`. This is the faithful embedding property: on series
+pole-free in both gradings, `ofDoubleLaurent` loses no information. -/
+theorem embedDoubleLaurent_ofDoubleLaurent {x : (R⸨X⸩)⸨X⸩}
+    (hout : ∀ n < 0, x.coeff n = 0) (hin : ∀ (n : ℤ), ∀ g < 0, (x.coeff n).coeff g = 0) :
+    embedDoubleLaurent (ofDoubleLaurent x) = x := by
+  rw [embedDoubleLaurent]
+  -- Each outer slice collapses to `x.coeff n` by the (inner) order-`≥0` extraction lemma.
+  have hinner : (PowerSeries.mk fun n => ofPowerSeries ℤ R
+      (PowerSeries.mk fun m =>
+        MvPowerSeries.coeff (Finsupp.single 0 m + Finsupp.single 1 n) (ofDoubleLaurent x)))
+      = PowerSeries.mk fun n => x.coeff (n : ℤ) := by
+    refine PowerSeries.ext fun n => ?_
+    rw [PowerSeries.coeff_mk, PowerSeries.coeff_mk]
+    have hmk : (PowerSeries.mk fun m =>
+        MvPowerSeries.coeff (Finsupp.single 0 m + Finsupp.single 1 n) (ofDoubleLaurent x))
+        = PowerSeries.mk fun m => (x.coeff (n : ℤ)).coeff (m : ℤ) := by
+      refine PowerSeries.ext fun m => ?_
+      rw [PowerSeries.coeff_mk, PowerSeries.coeff_mk, coeff_ofDoubleLaurent,
+        finTwo_single_apply_one, finTwo_single_apply_zero]
+    rw [hmk]
+    exact ofPowerSeries_mk_coeff_eq_self (hin (n : ℤ))
+  rw [hinner]
+  exact ofPowerSeries_mk_coeff_eq_self hout
+
 end HahnSeries
