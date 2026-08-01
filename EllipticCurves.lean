@@ -9,6 +9,7 @@ import EllipticCurves.FormalGroup.Exponential
 import EllipticCurves.FormalGroup.FormalGroupLaurent
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.Logarithm
+import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
