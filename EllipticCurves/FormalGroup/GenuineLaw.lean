@@ -18,7 +18,7 @@ The construction is the classical chord process on the formal group, read in the
 * the **slope** `λ = W.formalWDividedDiff` of the line through the two formal points
   `(zᵢ, w(zᵢ))` is a genuine power series of order `≥ 2` (the divided difference, sibling A,
   `DividedDifference.lean`);
-* the **intercept** `ν = w(z₁) − λ z₁` (`formalNu`);
+* the **intercept** `ν = w(z₁) − λ z₁` (`formalGroupNu`);
 * substituting the line `w = λ z + ν` into the Weierstrass relation `w = wOp(w)` gives a cubic in
   `z` with leading coefficient `A = 1 + a₂λ + a₄λ² + a₆λ³` (a unit, `formalGroupLead`) and
   subleading coefficient `B = a₁λ + a₂ν + a₃λ² + 2a₄λν + 3a₆λ²ν` (order `≥ 2`, `formalGroupSub`);
@@ -37,7 +37,7 @@ pole-freeness of `F_E`.
 
 ## Main definitions
 
-* `WeierstrassCurve.formalNu`, `formalGroupLead`, `formalGroupSub`, `formalThirdRoot`,
+* `WeierstrassCurve.formalGroupNu`, `formalGroupLead`, `formalGroupSub`, `formalThirdRoot`,
   `formalGroupDen` : the `(z, w)`-plane addition data.
 * `WeierstrassCurve.formalGroupZW` : the genuine `MvPowerSeries (Fin 2) R` formal group law.
 
@@ -96,7 +96,7 @@ variable {R : Type*} [CommRing R] (W : WeierstrassCurve R)
 
 /-- The **intercept** `ν = w(z₁) − λ z₁` of the line through the formal points
 `(z₁, w(z₁))` and `(z₂, w(z₂))`, where `λ = W.formalWDividedDiff` is the slope. -/
-noncomputable def formalNu : MvPowerSeries (Fin 2) R :=
+noncomputable def formalGroupNu : MvPowerSeries (Fin 2) R :=
   W.formalW.toMvPowerSeries 0 - W.formalWDividedDiff * X 0
 
 /-- `λ` has order `≥ 1`, hence vanishing constant coefficient. -/
@@ -107,7 +107,7 @@ private lemma constantCoeff_formalWDividedDiff :
     MvPowerSeries.constantCoeff W.formalWDividedDiff = 0 :=
   MvPowerSeries.one_le_order_iff_constCoeff_eq_zero.mp W.one_le_order_formalWDividedDiff
 
-/-- The one-variable embedding `w(z₀) = formalW.toMvPowerSeries 0` has order `≥ 2` (indeed `≥ 3`). -/
+/-- The embedding `w(z₀) = formalW.toMvPowerSeries 0` has order `≥ 2`. -/
 private lemma two_le_order_toMvPowerSeries_formalW_zero :
     (2 : ℕ∞) ≤ (W.formalW.toMvPowerSeries (0 : Fin 2)).order := by
   apply MvPowerSeries.le_order
@@ -123,8 +123,8 @@ private lemma two_le_order_toMvPowerSeries_formalW_zero :
   · exact PowerSeries.coeff_toMvPowerSeries_of_ne _ _ hax
 
 /-- `ν` has order `≥ 2`. -/
-private lemma two_le_order_formalNu : (2 : ℕ∞) ≤ W.formalNu.order := by
-  rw [formalNu]
+private lemma two_le_order_formalGroupNu : (2 : ℕ∞) ≤ W.formalGroupNu.order := by
+  rw [formalGroupNu]
   exact le_order_sub W.two_le_order_toMvPowerSeries_formalW_zero
     (le_order_mul_left W.two_le_order_formalWDividedDiff)
 
@@ -137,9 +137,9 @@ noncomputable def formalGroupLead : MvPowerSeries (Fin 2) R :=
 
 /-- The subleading coefficient `B = a₁λ + a₂ν + a₃λ² + 2a₄λν + 3a₆λ²ν` of the substituted cubic. -/
 noncomputable def formalGroupSub : MvPowerSeries (Fin 2) R :=
-  C W.a₁ * W.formalWDividedDiff + C W.a₂ * W.formalNu + C W.a₃ * W.formalWDividedDiff ^ 2
-    + 2 * C W.a₄ * W.formalWDividedDiff * W.formalNu
-    + 3 * C W.a₆ * W.formalWDividedDiff ^ 2 * W.formalNu
+  C W.a₁ * W.formalWDividedDiff + C W.a₂ * W.formalGroupNu + C W.a₃ * W.formalWDividedDiff ^ 2
+    + 2 * C W.a₄ * W.formalWDividedDiff * W.formalGroupNu
+    + 3 * C W.a₆ * W.formalWDividedDiff ^ 2 * W.formalGroupNu
 
 /-- The leading coefficient of the cubic has constant coefficient `1`. -/
 private lemma constantCoeff_formalGroupLead :
@@ -152,16 +152,16 @@ private lemma constantCoeff_formalGroupLead :
 /-- The subleading coefficient of the cubic has order `≥ 2`. -/
 private lemma two_le_order_formalGroupSub : (2 : ℕ∞) ≤ W.formalGroupSub.order := by
   rw [formalGroupSub]
-  have hλ := W.two_le_order_formalWDividedDiff
-  have hν := W.two_le_order_formalNu
-  have hλ2 : (2 : ℕ∞) ≤ (W.formalWDividedDiff ^ 2).order := by
-    rw [pow_two]; exact le_order_mul_left hλ
+  have hlam := W.two_le_order_formalWDividedDiff
+  have hnu := W.two_le_order_formalGroupNu
+  have hlam2 : (2 : ℕ∞) ≤ (W.formalWDividedDiff ^ 2).order := by
+    rw [pow_two]; exact le_order_mul_left hlam
   refine le_order_add (le_order_add (le_order_add (le_order_add ?_ ?_) ?_) ?_) ?_
-  · exact le_order_mul_right hλ
-  · exact le_order_mul_right hν
-  · exact le_order_mul_right hλ2
-  · exact le_order_mul_right hν
-  · exact le_order_mul_right hν
+  · exact le_order_mul_right hlam
+  · exact le_order_mul_right hnu
+  · exact le_order_mul_right hlam2
+  · exact le_order_mul_right hnu
+  · exact le_order_mul_right hnu
 
 /-- The **Vieta third root** `z₃' = −B·A⁻¹ − z₁ − z₂` of the substituted cubic: the third
 intersection point of the chord with the curve. -/
@@ -171,7 +171,7 @@ noncomputable def formalThirdRoot : MvPowerSeries (Fin 2) R :=
 /-- The denominator `1 − a₁z₃' − a₃ w(z₃')` of the negation series (a unit). -/
 noncomputable def formalGroupDen : MvPowerSeries (Fin 2) R :=
   1 - C W.a₁ * W.formalThirdRoot
-    - C W.a₃ * (W.formalWDividedDiff * W.formalThirdRoot + W.formalNu)
+    - C W.a₃ * (W.formalWDividedDiff * W.formalThirdRoot + W.formalGroupNu)
 
 /-- The **Weierstrass formal group law** as a genuine bivariate power series
 `MvPowerSeries (Fin 2) R`, built from the pole-free `(z, w)`-plane data:
@@ -190,12 +190,13 @@ private lemma two_le_order_formalGroupZW_sub :
     rw [formalGroupZW, formalThirdRoot]; ring
   rw [key]
   refine le_order_add (le_order_mul_left (le_order_mul_left W.two_le_order_formalGroupSub)) ?_
-  have hx : (1 : ℕ∞) ≤ (X (0 : Fin 2) + X 1).order :=
+  have hx : (1 : ℕ∞) ≤ (X (0 : Fin 2) + X 1 : MvPowerSeries (Fin 2) R).order :=
     MvPowerSeries.one_le_order_iff_constCoeff_eq_zero.mpr (by
-      rw [map_add, MvPowerSeries.constantCoeff_X, MvPowerSeries.constantCoeff_X, add_zero])
+      simp [map_add, MvPowerSeries.constantCoeff_X])
   have hd : (1 : ℕ∞) ≤ (invOfUnit W.formalGroupDen 1 - 1).order :=
     MvPowerSeries.one_le_order_iff_constCoeff_eq_zero.mpr (by
-      rw [map_sub, MvPowerSeries.constantCoeff_invOfUnit, map_one, inv_one, Units.val_one, sub_self])
+      rw [map_sub, MvPowerSeries.constantCoeff_invOfUnit, map_one, inv_one, Units.val_one,
+        sub_self])
   have := le_order_mul_add hx hd
   rwa [show (1 : ℕ∞) + 1 = 2 by rfl] at this
 
@@ -205,17 +206,17 @@ theorem constantCoeff_formalGroupZW :
   have hg : MvPowerSeries.constantCoeff (W.formalGroupZW - X 0 - X 1) = 0 := by
     rw [← MvPowerSeries.coeff_zero_eq_constantCoeff_apply]
     apply MvPowerSeries.coeff_of_lt_order
-    rw [Finsupp.degree_zero]
+    rw [map_zero]
     exact lt_of_lt_of_le (by norm_num) W.two_le_order_formalGroupZW_sub
   have hzw : W.formalGroupZW = X 0 + X 1 + (W.formalGroupZW - X 0 - X 1) := by ring
   rw [hzw]
-  simp only [map_add, MvPowerSeries.constantCoeff_X, hg, add_zero, zero_add]
+  simp only [map_add, MvPowerSeries.constantCoeff_X, hg, add_zero]
 
 private lemma single_zero_ne_single_one :
     (Finsupp.single (0 : Fin 2) 1) ≠ Finsupp.single 1 1 := by
   intro h
   have h0 := congrArg (fun f => f 0) h
-  simp [Finsupp.single_apply] at h0
+  simp at h0
 
 /-- **Normalisation axiom (`z₁`-linear term).** The coefficient of `z₁` in `F` is `1`. -/
 theorem coeff_single_zero_formalGroupZW :
@@ -226,7 +227,7 @@ theorem coeff_single_zero_formalGroupZW :
     exact lt_of_lt_of_le (by norm_num) W.two_le_order_formalGroupZW_sub
   have hzw : W.formalGroupZW = X 0 + X 1 + (W.formalGroupZW - X 0 - X 1) := by ring
   rw [hzw, map_add, map_add, hg, add_zero, MvPowerSeries.coeff_X, MvPowerSeries.coeff_X,
-    if_pos rfl, if_neg W.single_zero_ne_single_one, add_zero]
+    if_pos rfl, if_neg single_zero_ne_single_one, add_zero]
 
 /-- **Normalisation axiom (`z₂`-linear term).** The coefficient of `z₂` in `F` is `1`. -/
 theorem coeff_single_one_formalGroupZW :
@@ -237,7 +238,7 @@ theorem coeff_single_one_formalGroupZW :
     exact lt_of_lt_of_le (by norm_num) W.two_le_order_formalGroupZW_sub
   have hzw : W.formalGroupZW = X 0 + X 1 + (W.formalGroupZW - X 0 - X 1) := by ring
   rw [hzw, map_add, map_add, hg, add_zero, MvPowerSeries.coeff_X, MvPowerSeries.coeff_X,
-    if_neg (Ne.symm W.single_zero_ne_single_one), if_pos rfl, zero_add]
+    if_neg (Ne.symm single_zero_ne_single_one), if_pos rfl, zero_add]
 
 /-- `F` has order `≥ 1`. -/
 theorem one_le_order_formalGroupZW : (1 : ℕ∞) ≤ W.formalGroupZW.order :=
@@ -247,15 +248,15 @@ theorem one_le_order_formalGroupZW : (1 : ℕ∞) ≤ W.formalGroupZW.order :=
 
 /-- The line value at `z₁` is `w(z₁)`. -/
 private lemma line_zero :
-    W.formalWDividedDiff * X 0 + W.formalNu = W.formalW.subst (X (0 : Fin 2)) := by
-  rw [formalNu, PowerSeries.toMvPowerSeries_eq_subst]; ring
+    W.formalWDividedDiff * X 0 + W.formalGroupNu = W.formalW.subst (X (0 : Fin 2)) := by
+  rw [formalGroupNu, PowerSeries.toMvPowerSeries_eq_subst]; ring
 
-/-- The line value at `z₂` is `w(z₂)` (uses the divided-difference regularity `dividedDiff_spec`). -/
+/-- The line value at `z₂` is `w(z₂)` (via divided-difference regularity). -/
 private lemma line_one :
-    W.formalWDividedDiff * X 1 + W.formalNu = W.formalW.subst (X (1 : Fin 2)) := by
+    W.formalWDividedDiff * X 1 + W.formalGroupNu = W.formalW.subst (X (1 : Fin 2)) := by
   have hspec := W.formalWDividedDiff_spec
   rw [PowerSeries.toMvPowerSeries_eq_subst, PowerSeries.toMvPowerSeries_eq_subst] at hspec
-  rw [formalNu, PowerSeries.toMvPowerSeries_eq_subst]
+  rw [formalGroupNu, PowerSeries.toMvPowerSeries_eq_subst]
   linear_combination hspec
 
 private lemma one_le_order_X (i : Fin 2) : (1 : ℕ∞) ≤ (X i : MvPowerSeries (Fin 2) R).order :=
@@ -265,11 +266,11 @@ private lemma one_le_order_X (i : Fin 2) : (1 : ℕ∞) ≤ (X i : MvPowerSeries
 uniformiser `z₁` is a root of the resulting cubic (the chord meets the curve at `(z₁, w(z₁))`). -/
 theorem formalCubicResidual_root_zero :
     (X (0 : Fin 2)) ^ 3
-      + (C W.a₁ * X 0 + C W.a₂ * X 0 ^ 2) * (W.formalWDividedDiff * X 0 + W.formalNu)
-      + (C W.a₃ + C W.a₄ * X 0) * (W.formalWDividedDiff * X 0 + W.formalNu) ^ 2
-      + C W.a₆ * (W.formalWDividedDiff * X 0 + W.formalNu) ^ 3
-      - (W.formalWDividedDiff * X 0 + W.formalNu) = 0 := by
-  have hfix := W.formalW_subst_wOpSubst_fixed (t := (X (0 : Fin 2))) (W.one_le_order_X 0)
+      + (C W.a₁ * X 0 + C W.a₂ * X 0 ^ 2) * (W.formalWDividedDiff * X 0 + W.formalGroupNu)
+      + (C W.a₃ + C W.a₄ * X 0) * (W.formalWDividedDiff * X 0 + W.formalGroupNu) ^ 2
+      + C W.a₆ * (W.formalWDividedDiff * X 0 + W.formalGroupNu) ^ 3
+      - (W.formalWDividedDiff * X 0 + W.formalGroupNu) = 0 := by
+  have hfix := W.formalW_subst_wOpSubst_fixed (t := (X (0 : Fin 2))) (one_le_order_X 0)
   simp only [wOpSubst] at hfix
   rw [W.line_zero]
   linear_combination -hfix
@@ -277,11 +278,11 @@ theorem formalCubicResidual_root_zero :
 /-- **Collinearity at `z₂`.** Likewise `z₂` is a root of the substituted cubic. -/
 theorem formalCubicResidual_root_one :
     (X (1 : Fin 2)) ^ 3
-      + (C W.a₁ * X 1 + C W.a₂ * X 1 ^ 2) * (W.formalWDividedDiff * X 1 + W.formalNu)
-      + (C W.a₃ + C W.a₄ * X 1) * (W.formalWDividedDiff * X 1 + W.formalNu) ^ 2
-      + C W.a₆ * (W.formalWDividedDiff * X 1 + W.formalNu) ^ 3
-      - (W.formalWDividedDiff * X 1 + W.formalNu) = 0 := by
-  have hfix := W.formalW_subst_wOpSubst_fixed (t := (X (1 : Fin 2))) (W.one_le_order_X 1)
+      + (C W.a₁ * X 1 + C W.a₂ * X 1 ^ 2) * (W.formalWDividedDiff * X 1 + W.formalGroupNu)
+      + (C W.a₃ + C W.a₄ * X 1) * (W.formalWDividedDiff * X 1 + W.formalGroupNu) ^ 2
+      + C W.a₆ * (W.formalWDividedDiff * X 1 + W.formalGroupNu) ^ 3
+      - (W.formalWDividedDiff * X 1 + W.formalGroupNu) = 0 := by
+  have hfix := W.formalW_subst_wOpSubst_fixed (t := (X (1 : Fin 2))) (one_le_order_X 1)
   simp only [wOpSubst] at hfix
   rw [W.line_one]
   linear_combination -hfix
