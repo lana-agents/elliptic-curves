@@ -754,4 +754,325 @@ theorem leadingCoeff_formalXThree [Nontrivial R] :
     HahnSeries.leadingCoeff_add_eq_left hlt, biX₁, cConstRingHom, HahnSeries.C_apply,
     HahnSeries.leadingCoeff_of_single]
 
+/-! ### `z₂`-linear slices `x₃.coeff 1`, `x₃.coeff 2`, `y₃.coeff 1`
+
+These `z₂`-slices (elements of `R⸨z₁⸩`) and their leading inner `z₁`-coefficients feed the
+`z₂`-linear normalisation coefficient `coeff (single 1 1) = 1` of the Weierstrass formal group law
+(issue #285, Silverman AEC IV.1). All computations use the principal-part `Λ = lambdaPrincipal`. -/
+
+/-- `λ` agrees with its principal part `Λ` in `z₂`-degrees `< 3` (as `λ - Λ` has order `≥ 3`). -/
+private lemma coeff_lambda_eq_principal [Nontrivial R] {g : ℤ} (hg : g < 3) :
+    W.formalLambda.coeff g = W.lambdaPrincipal.coeff g := by
+  have h : (W.formalLambda - W.lambdaPrincipal).coeff g = 0 :=
+    HahnSeries.coeff_eq_zero_of_lt_orderTop
+      (lt_of_lt_of_le (by exact_mod_cast hg) W.orderTop_lambda_sub_principal)
+  rwa [HahnSeries.coeff_sub, sub_eq_zero] at h
+
+private lemma coeff_lamP_three : W.lambdaPrincipal.coeff 3 = 0 := by
+  rw [lambdaPrincipal, HahnSeries.coeff_add, HahnSeries.coeff_add, HahnSeries.coeff_single,
+    HahnSeries.coeff_single, HahnSeries.coeff_single, if_neg (by norm_num), if_neg (by norm_num),
+    if_neg (by norm_num)]
+  ring
+
+private lemma coeff_lamP_sq_two : (W.lambdaPrincipal ^ 2).coeff 2 = W.formalX ^ 2 := by
+  rw [sq, W.coeff_lambdaPrincipal_mul, show (2 : ℤ) + 1 = 3 by norm_num,
+    show (2 : ℤ) - 1 = 1 by norm_num, show (2 : ℤ) - 2 = 0 by norm_num, W.coeff_lamP_three,
+    W.coeff_lamP_one, W.coeff_lamP_zero]
+  ring
+
+/-! Order and squared leading coefficient of `x(z₁) = W.formalX`. -/
+
+private lemma orderTop_formalX [Nontrivial R] :
+    W.formalX.orderTop = ((-2 : ℤ) : WithTop ℤ) := by
+  refine le_antisymm (HahnSeries.orderTop_le_of_coeff_ne_zero ?_) ?_
+  · rw [W.coeff_formalX_neg_two]; exact one_ne_zero
+  · rw [HahnSeries.le_orderTop_iff_forall]
+    intro j hj
+    exact W.coeff_formalX_of_lt (by exact_mod_cast hj)
+
+private lemma order_formalX [Nontrivial R] : W.formalX.order = -2 := by
+  have h : (W.formalX.order : WithTop ℤ) = ((-2 : ℤ) : WithTop ℤ) := by
+    rw [HahnSeries.order_eq_orderTop_of_ne_zero W.formalX_ne_zero, W.orderTop_formalX]
+  exact_mod_cast h
+
+private lemma coeff_formalX_sq_neg_four [Nontrivial R] : (W.formalX ^ 2).coeff (-4) = 1 := by
+  have hlc : W.formalX.leadingCoeff = 1 := by
+    rw [HahnSeries.leadingCoeff_eq, W.order_formalX, W.coeff_formalX_neg_two]
+  have h := HahnSeries.coeff_mul_order_add_order W.formalX W.formalX
+  rw [W.order_formalX, hlc, mul_one, show (-2 : ℤ) + (-2) = -4 by norm_num, ← sq] at h
+  exact h
+
+private lemma coeff_formalX_sq_of_lt [Nontrivial R] {g : ℤ} (hg : g < -4) :
+    (W.formalX ^ 2).coeff g = 0 := by
+  apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+  refine lt_of_lt_of_le
+    (show ((g : ℤ) : WithTop ℤ) < ((-4 : ℤ) : WithTop ℤ) by exact_mod_cast hg) ?_
+  rw [sq]
+  refine le_trans ?_ HahnSeries.orderTop_add_le_mul
+  rw [show ((-4 : ℤ) : WithTop ℤ) = ((-2 : ℤ) : WithTop ℤ) + ((-2 : ℤ) : WithTop ℤ) by
+    rw [← WithTop.coe_add]; norm_num]
+  exact add_le_add (le_of_eq W.orderTop_formalX.symm) (le_of_eq W.orderTop_formalX.symm)
+
+/-! ### The slice `x₃.coeff 1 = 2·y(z₁) + a₁·x(z₁) + a₃` -/
+
+private lemma orderTop_lam_sub_prin_mul_qX [Nontrivial R] :
+    ((2 : ℤ) : WithTop ℤ) ≤ ((W.formalLambda - W.lambdaPrincipal) * W.qX).orderTop := by
+  refine le_trans ?_ HahnSeries.orderTop_add_le_mul
+  rw [show ((2 : ℤ) : WithTop ℤ) = ((3 : ℤ) : WithTop ℤ) + ((-1 : ℤ) : WithTop ℤ) by
+    rw [← WithTop.coe_add]; norm_num]
+  exact add_le_add W.orderTop_lambda_sub_principal W.orderTop_qX_ge
+
+/-- The `z₂`-degree-`1` slice of `x₃` in `R⸨z₁⸩`: `x₃.coeff 1 = 2·y(z₁) + a₁·x(z₁) + a₃`. -/
+theorem coeff_formalXThree_one [Nontrivial R] :
+    W.formalXThree.coeff 1
+      = W.formalY + W.formalY + HahnSeries.C W.a₁ * W.formalX + HahnSeries.C W.a₃ := by
+  have hdecomp : W.formalXThree
+      = W.biX₁ + W.zpureX + (W.formalLambda - W.lambdaPrincipal) * W.qX := by
+    linear_combination W.formalXThree_sub_biX₁_eq
+  rw [hdecomp, HahnSeries.coeff_add, HahnSeries.coeff_add,
+    HahnSeries.coeff_eq_zero_of_lt_orderTop
+      (lt_of_lt_of_le (show ((1 : ℤ) : WithTop ℤ) < ((2 : ℤ) : WithTop ℤ) by
+        exact_mod_cast (by norm_num : (1 : ℤ) < 2)) W.orderTop_lam_sub_prin_mul_qX),
+    W.coeff_biX₁_of_ne (show (1 : ℤ) ≠ 0 by norm_num), add_zero, zero_add, zpureX]
+  simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, coeff_CC_mul, W.coeff_lamP_sq_one,
+    W.coeff_lamP_one, coeff_CC_of_ne W.a₂ (show (1 : ℤ) ≠ 0 by norm_num),
+    W.coeff_biX₁_of_ne (show (1 : ℤ) ≠ 0 by norm_num), W.coeff_biX₂_one]
+  ring
+
+theorem coeff_formalXThree_one_inner_neg_three [Nontrivial R] :
+    (W.formalXThree.coeff 1).coeff (-3) = -2 := by
+  rw [W.coeff_formalXThree_one]
+  simp only [HahnSeries.coeff_add, HahnSeries.C_apply, HahnSeries.coeff_single_mul, sub_zero,
+    W.coeff_formalY_neg_three, W.coeff_formalX_of_lt (show (-3 : ℤ) < -2 by norm_num),
+    HahnSeries.coeff_single_of_ne (show (-3 : ℤ) ≠ 0 by norm_num)]
+  ring
+
+theorem coeff_formalXThree_one_inner_of_lt [Nontrivial R] {g : ℤ} (hg : g < -3) :
+    (W.formalXThree.coeff 1).coeff g = 0 := by
+  rw [W.coeff_formalXThree_one]
+  simp only [HahnSeries.coeff_add, HahnSeries.C_apply, HahnSeries.coeff_single_mul, sub_zero,
+    W.coeff_formalY_of_lt hg, W.coeff_formalX_of_lt (show g < -2 by omega),
+    HahnSeries.coeff_single_of_ne (show g ≠ 0 by omega)]
+  ring
+
+/-! ### The slope coefficient `λ.coeff 3` and its leading inner behaviour -/
+
+private lemma lam_sub_prin_mul_d :
+    (W.formalLambda - W.lambdaPrincipal) * (W.biX₂ - W.biX₁)
+      = (W.biY₂ - W.biY₁) - W.lambdaPrincipal * (W.biX₂ - W.biX₁) := by
+  rw [sub_mul, W.formalLambda_mul_biX_sub]
+
+private lemma orderTop_d_sub_single [Nontrivial R] :
+    ((-1 : ℤ) : WithTop ℤ)
+      ≤ ((W.biX₂ - W.biX₁) - HahnSeries.single (-2) 1).orderTop := by
+  rw [HahnSeries.le_orderTop_iff_forall]
+  intro g hg
+  have hg2 : g < -1 := by exact_mod_cast hg
+  rw [HahnSeries.coeff_sub, HahnSeries.coeff_single]
+  by_cases hgeq : g = -2
+  · rw [hgeq, W.coeff_biX₂_sub_biX₁_neg_two, if_pos rfl, sub_self]
+  · rw [W.coeff_biX₂_sub_biX₁_of_lt (by omega), if_neg hgeq, sub_zero]
+
+private lemma coeff_lam_sub_prin_mul_d_one [Nontrivial R] :
+    ((W.formalLambda - W.lambdaPrincipal) * (W.biX₂ - W.biX₁)).coeff 1
+      = (W.formalLambda - W.lambdaPrincipal).coeff 3 := by
+  set h := W.formalLambda - W.lambdaPrincipal with hh
+  have hvanish :
+      (h * ((W.biX₂ - W.biX₁) - HahnSeries.single (-2) 1)).coeff 1 = 0 := by
+    apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+    refine lt_of_lt_of_le (show ((1 : ℤ) : WithTop ℤ) < ((2 : ℤ) : WithTop ℤ) by
+      exact_mod_cast (by norm_num : (1 : ℤ) < 2)) ?_
+    refine le_trans ?_ HahnSeries.orderTop_add_le_mul
+    rw [show ((2 : ℤ) : WithTop ℤ) = ((3 : ℤ) : WithTop ℤ) + ((-1 : ℤ) : WithTop ℤ) by
+      rw [← WithTop.coe_add]; norm_num]
+    exact add_le_add W.orderTop_lambda_sub_principal W.orderTop_d_sub_single
+  have hsplit : W.biX₂ - W.biX₁
+      = HahnSeries.single (-2) 1 + ((W.biX₂ - W.biX₁) - HahnSeries.single (-2) 1) := by ring
+  rw [hsplit, mul_add, HahnSeries.coeff_add, hvanish, add_zero, HahnSeries.coeff_mul_single,
+    show (1 : ℤ) - (-2) = 3 by norm_num, mul_one]
+
+private lemma coeff_lamP_mul_d_one :
+    (W.lambdaPrincipal * (W.biX₂ - W.biX₁)).coeff 1
+      = -(W.biX₂ - W.biX₁).coeff 2 - W.formalX * (W.biX₂ - W.biX₁).coeff 0
+        + (-W.formalY - HahnSeries.C W.a₁ * W.formalX) * (W.biX₂ - W.biX₁).coeff (-1) := by
+  rw [W.coeff_lambdaPrincipal_mul, show (1 : ℤ) + 1 = 2 by norm_num,
+    show (1 : ℤ) - 1 = 0 by norm_num, show (1 : ℤ) - 2 = -1 by norm_num]
+  ring
+
+/-- Closed form for the slope coefficient `(λ - Λ).coeff 3 ∈ R⸨z₁⸩`. -/
+private lemma coeff_lam_sub_prin_three_eq [Nontrivial R] :
+    (W.formalLambda - W.lambdaPrincipal).coeff 3
+      = HahnSeries.C (W.formalY.coeff 1) + HahnSeries.C (W.formalX.coeff 2)
+        - HahnSeries.C W.a₂ * W.formalX - W.formalX ^ 2
+        - HahnSeries.C W.a₁ * W.formalY
+        - HahnSeries.C W.a₁ * (HahnSeries.C W.a₁ * W.formalX) := by
+  rw [← W.coeff_lam_sub_prin_mul_d_one, W.lam_sub_prin_mul_d, HahnSeries.coeff_sub,
+    W.coeff_lamP_mul_d_one, HahnSeries.coeff_sub, W.coeff_biY₂,
+    W.coeff_biY₁_of_ne (show (1 : ℤ) ≠ 0 by norm_num), sub_zero,
+    show (W.biX₂ - W.biX₁).coeff 2 = HahnSeries.C (W.formalX.coeff 2) by
+      rw [HahnSeries.coeff_sub, W.coeff_biX₂, W.coeff_biX₁_of_ne (show (2 : ℤ) ≠ 0 by norm_num),
+        sub_zero],
+    W.coeff_d_zero, W.coeff_d_neg_one]
+  ring
+
+private lemma coeff_lam_sub_prin_three_inner [Nontrivial R] :
+    ((W.formalLambda - W.lambdaPrincipal).coeff 3).coeff (-4) = -1 := by
+  rw [W.coeff_lam_sub_prin_three_eq]
+  simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, HahnSeries.C_apply,
+    HahnSeries.coeff_single_mul, sub_zero, W.coeff_formalX_sq_neg_four,
+    W.coeff_formalX_of_lt (show (-4 : ℤ) < -2 by norm_num),
+    W.coeff_formalY_of_lt (show (-4 : ℤ) < -3 by norm_num),
+    HahnSeries.coeff_single_of_ne (show (-4 : ℤ) ≠ 0 by norm_num)]
+  ring
+
+private lemma coeff_lam_sub_prin_three_inner_of_lt [Nontrivial R] {g : ℤ} (hg : g < -4) :
+    ((W.formalLambda - W.lambdaPrincipal).coeff 3).coeff g = 0 := by
+  rw [W.coeff_lam_sub_prin_three_eq]
+  simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, HahnSeries.C_apply,
+    HahnSeries.coeff_single_mul, sub_zero, W.coeff_formalX_sq_of_lt hg,
+    W.coeff_formalX_of_lt (show g < -2 by omega), W.coeff_formalY_of_lt (show g < -3 by omega),
+    HahnSeries.coeff_single_of_ne (show g ≠ 0 by omega)]
+  ring
+
+/-! ### The slice `x₃.coeff 2` and its leading inner coefficient `(-4) ↦ 3` -/
+
+private lemma coeff_lambda_sq_two [Nontrivial R] :
+    (W.formalLambda ^ 2).coeff 2
+      = W.formalX ^ 2
+        - ((W.formalLambda - W.lambdaPrincipal).coeff 3
+            + (W.formalLambda - W.lambdaPrincipal).coeff 3) := by
+  set h := W.formalLambda - W.lambdaPrincipal with hh
+  have hlam : W.formalLambda = W.lambdaPrincipal + h := by rw [hh]; ring
+  have hh2 : (h ^ 2).coeff 2 = 0 := by
+    apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+    refine lt_of_lt_of_le (show ((2 : ℤ) : WithTop ℤ) < ((6 : ℤ) : WithTop ℤ) by
+      exact_mod_cast (by norm_num : (2 : ℤ) < 6)) ?_
+    rw [sq]
+    refine le_trans ?_ HahnSeries.orderTop_add_le_mul
+    rw [show ((6 : ℤ) : WithTop ℤ) = ((3 : ℤ) : WithTop ℤ) + ((3 : ℤ) : WithTop ℤ) by
+      rw [← WithTop.coe_add]; norm_num]
+    exact add_le_add W.orderTop_lambda_sub_principal W.orderTop_lambda_sub_principal
+  have hLh : (W.lambdaPrincipal * h).coeff 2 = -h.coeff 3 := by
+    rw [W.coeff_lambdaPrincipal_mul, show (2 : ℤ) + 1 = 3 by norm_num,
+      show (2 : ℤ) - 1 = 1 by norm_num, show (2 : ℤ) - 2 = 0 by norm_num,
+      HahnSeries.coeff_eq_zero_of_lt_orderTop
+        (lt_of_lt_of_le (show ((1 : ℤ) : WithTop ℤ) < h.orderTop from
+          lt_of_lt_of_le (by exact_mod_cast (by norm_num : (1 : ℤ) < 3))
+            W.orderTop_lambda_sub_principal) (le_refl _)),
+      HahnSeries.coeff_eq_zero_of_lt_orderTop
+        (lt_of_lt_of_le (show ((0 : ℤ) : WithTop ℤ) < h.orderTop from
+          lt_of_lt_of_le (by exact_mod_cast (by norm_num : (0 : ℤ) < 3))
+            W.orderTop_lambda_sub_principal) (le_refl _))]
+    ring
+  calc (W.formalLambda ^ 2).coeff 2
+      = (W.lambdaPrincipal ^ 2 + (W.lambdaPrincipal * h + W.lambdaPrincipal * h)
+          + h ^ 2).coeff 2 := by rw [hlam]; congr 1; ring
+    _ = (W.lambdaPrincipal ^ 2).coeff 2
+          + ((W.lambdaPrincipal * h).coeff 2 + (W.lambdaPrincipal * h).coeff 2)
+          + (h ^ 2).coeff 2 := by
+        rw [HahnSeries.coeff_add, HahnSeries.coeff_add, HahnSeries.coeff_add]
+    _ = W.formalX ^ 2 - (h.coeff 3 + h.coeff 3) := by rw [W.coeff_lamP_sq_two, hLh, hh2]; ring
+
+private lemma order_formalXThree_zero [Nontrivial R] : W.formalXThree.order = 0 := by
+  have hne : W.formalXThree ≠ 0 :=
+    HahnSeries.orderTop_ne_top.mp (by rw [W.orderTop_formalXThree]; exact WithTop.zero_ne_top)
+  have h : (W.formalXThree.order : WithTop ℤ) = (0 : WithTop ℤ) := by
+    rw [HahnSeries.order_eq_orderTop_of_ne_zero hne, W.orderTop_formalXThree]
+  exact_mod_cast h
+
+private lemma coeff_formalXThree_zero [Nontrivial R] : W.formalXThree.coeff 0 = W.formalX := by
+  rw [show (0 : ℤ) = W.formalXThree.order from W.order_formalXThree_zero.symm,
+    ← HahnSeries.leadingCoeff_eq, W.leadingCoeff_formalXThree]
+
+private lemma coeff_formalXThree_two_eq [Nontrivial R] :
+    W.formalXThree.coeff 2
+      = W.formalX ^ 2
+        - ((W.formalLambda - W.lambdaPrincipal).coeff 3
+            + (W.formalLambda - W.lambdaPrincipal).coeff 3)
+        + HahnSeries.C W.a₁ * (-W.formalY - HahnSeries.C W.a₁ * W.formalX)
+        - HahnSeries.C (W.formalX.coeff 2) := by
+  rw [formalXThree, HahnSeries.coeff_sub, HahnSeries.coeff_sub, HahnSeries.coeff_sub,
+    HahnSeries.coeff_add, W.coeff_lambda_sq_two, coeff_CC_mul,
+    W.coeff_lambda_eq_principal (show (2 : ℤ) < 3 by norm_num), W.coeff_lamP_two,
+    coeff_CC_of_ne W.a₂ (show (2 : ℤ) ≠ 0 by norm_num),
+    W.coeff_biX₁_of_ne (show (2 : ℤ) ≠ 0 by norm_num), W.coeff_biX₂]
+  ring
+
+theorem coeff_formalXThree_two_inner_neg_four [Nontrivial R] :
+    (W.formalXThree.coeff 2).coeff (-4) = 3 := by
+  have key := W.coeff_lam_sub_prin_three_inner
+  rw [W.coeff_formalXThree_two_eq]
+  set c := (W.formalLambda - W.lambdaPrincipal).coeff 3 with hc
+  simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, HahnSeries.coeff_neg, HahnSeries.C_apply,
+    HahnSeries.coeff_single_mul, sub_zero, W.coeff_formalX_sq_neg_four, key,
+    W.coeff_formalX_of_lt (show (-4 : ℤ) < -2 by norm_num),
+    W.coeff_formalY_of_lt (show (-4 : ℤ) < -3 by norm_num),
+    HahnSeries.coeff_single_of_ne (show (-4 : ℤ) ≠ 0 by norm_num)]
+  ring
+
+theorem coeff_formalXThree_two_inner_of_lt [Nontrivial R] {g : ℤ} (hg : g < -4) :
+    (W.formalXThree.coeff 2).coeff g = 0 := by
+  have key := W.coeff_lam_sub_prin_three_inner_of_lt hg
+  rw [W.coeff_formalXThree_two_eq]
+  set c := (W.formalLambda - W.lambdaPrincipal).coeff 3 with hc
+  simp only [HahnSeries.coeff_sub, HahnSeries.coeff_add, HahnSeries.coeff_neg, HahnSeries.C_apply,
+    HahnSeries.coeff_single_mul, sub_zero, W.coeff_formalX_sq_of_lt hg, key,
+    W.coeff_formalX_of_lt (show g < -2 by omega),
+    W.coeff_formalY_of_lt (show g < -3 by omega),
+    HahnSeries.coeff_single_of_ne (show g ≠ 0 by omega)]
+  ring
+
+/-! ### The slice `y₃.coeff 1 = x₃.coeff 2 - a₁·x₃.coeff 1` and its leading inner coefficient -/
+
+private lemma coeff_lambda_mul_formalXThree_one [Nontrivial R] :
+    (W.formalLambda * W.formalXThree).coeff 1
+      = -W.formalXThree.coeff 2 - W.formalX ^ 2 := by
+  set h := W.formalLambda - W.lambdaPrincipal with hh
+  have hlam : W.formalLambda = W.lambdaPrincipal + h := by rw [hh]; ring
+  have hhx : (h * W.formalXThree).coeff 1 = 0 := by
+    apply HahnSeries.coeff_eq_zero_of_lt_orderTop
+    refine lt_of_lt_of_le (show ((1 : ℤ) : WithTop ℤ) < ((3 : ℤ) : WithTop ℤ) by
+      exact_mod_cast (by norm_num : (1 : ℤ) < 3)) ?_
+    have hb : ((3 : ℤ) : WithTop ℤ) ≤ h.orderTop + W.formalXThree.orderTop := by
+      rw [W.orderTop_formalXThree, add_zero]; exact W.orderTop_lambda_sub_principal
+    exact le_trans hb HahnSeries.orderTop_add_le_mul
+  have hxm1 : W.formalXThree.coeff (-1) = 0 :=
+    HahnSeries.coeff_eq_zero_of_lt_orderTop
+      (by rw [W.orderTop_formalXThree]; exact_mod_cast (by norm_num : (-1 : ℤ) < 0))
+  rw [hlam, add_mul, HahnSeries.coeff_add, hhx, add_zero, W.coeff_lambdaPrincipal_mul,
+    show (1 : ℤ) + 1 = 2 by norm_num, show (1 : ℤ) - 1 = 0 by norm_num,
+    show (1 : ℤ) - 2 = -1 by norm_num, W.coeff_formalXThree_zero, hxm1]
+  ring
+
+private lemma coeff_formalNu_one [Nontrivial R] : W.formalNu.coeff 1 = W.formalX ^ 2 := by
+  rw [formalNu, HahnSeries.coeff_sub, W.coeff_biY₁_of_ne (show (1 : ℤ) ≠ 0 by norm_num),
+    show (W.formalLambda * W.biX₁).coeff 1 = W.formalLambda.coeff 1 * W.formalX by
+      rw [biX₁, cConstRingHom, HahnSeries.C_apply, HahnSeries.coeff_mul_single_zero],
+    W.coeff_lambda_eq_principal (show (1 : ℤ) < 3 by norm_num), W.coeff_lamP_one]
+  ring
+
+/-- The `z₂`-degree-`1` slice of `y₃` in `R⸨z₁⸩`: `y₃.coeff 1 = x₃.coeff 2 - a₁·x₃.coeff 1`. -/
+theorem coeff_formalYThree_one_eq [Nontrivial R] :
+    W.formalYThree.coeff 1
+      = W.formalXThree.coeff 2 - HahnSeries.C W.a₁ * W.formalXThree.coeff 1 := by
+  rw [formalYThree, HahnSeries.coeff_sub, HahnSeries.coeff_sub, HahnSeries.coeff_neg,
+    HahnSeries.coeff_add, W.coeff_lambda_mul_formalXThree_one, W.coeff_formalNu_one, coeff_CC_mul,
+    coeff_CC_of_ne W.a₃ (show (1 : ℤ) ≠ 0 by norm_num)]
+  ring
+
+theorem coeff_formalYThree_one_inner_neg_four [Nontrivial R] :
+    (W.formalYThree.coeff 1).coeff (-4) = 3 := by
+  rw [W.coeff_formalYThree_one_eq, HahnSeries.coeff_sub, W.coeff_formalXThree_two_inner_neg_four,
+    HahnSeries.C_apply, HahnSeries.coeff_single_mul, sub_zero,
+    W.coeff_formalXThree_one_inner_of_lt (show (-4 : ℤ) < -3 by norm_num)]
+  ring
+
+theorem coeff_formalYThree_one_inner_of_lt [Nontrivial R] {g : ℤ} (hg : g < -4) :
+    (W.formalYThree.coeff 1).coeff g = 0 := by
+  rw [W.coeff_formalYThree_one_eq, HahnSeries.coeff_sub, HahnSeries.C_apply,
+    HahnSeries.coeff_single_mul, sub_zero,
+    W.coeff_formalXThree_one_inner_of_lt (show g < -3 by omega),
+    W.coeff_formalXThree_two_inner_of_lt hg]
+  ring
+
 end WeierstrassCurve
