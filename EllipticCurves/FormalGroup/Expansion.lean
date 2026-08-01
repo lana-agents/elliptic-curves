@@ -224,6 +224,34 @@ theorem formalW_eq : W.formalW = W.wOp W.formalW := by
   rw [map_sub, sub_eq_zero] at hz
   rw [hz, ← wIter_succ, coeff_formalW]
 
+/-- **Uniqueness of the Weierstrass expansion.** `formalW` is the *unique* power series of
+positive order fixed by the operator `T` (`wOp`): any `u` with `1 ≤ u.order` and `u = T u`
+equals `W.formalW`. Together with `formalW_eq` and `order_formalW` this characterises `formalW`
+as the unique order-`≥ 1` solution of the Weierstrass functional equation. -/
+theorem eq_formalW_of_wOp_fixed {u : R⟦X⟧} (hu : 1 ≤ u.order) (hfix : u = W.wOp u) :
+    u = W.formalW := by
+  -- `u` and `formalW` agree to every finite order, so their difference is `0`.
+  have key : ∀ m : ℕ, (m : ℕ∞) ≤ (u - W.formalW).order := by
+    intro m
+    induction m with
+    | zero => exact_mod_cast zero_le
+    | succ k ih =>
+      have h := W.order_wOp_sub u W.formalW hu W.one_le_order_formalW ih
+      rw [← hfix, ← W.formalW_eq] at h
+      rw [Nat.cast_succ]
+      exact h
+  refine sub_eq_zero.mp (PowerSeries.ext fun n => ?_)
+  rw [map_zero]
+  exact coeff_of_lt_order n
+    (lt_of_lt_of_le (Nat.cast_lt.mpr (Nat.lt_succ_self n)) (key (n + 1)))
+
+/-- The explicit form of `eq_formalW_of_wOp_fixed`: any positive-order power series `u` solving the
+Weierstrass functional equation `u = z³ + (a₁z + a₂z²)u + (a₃ + a₄z)u² + a₆u³` equals `formalW`. -/
+theorem eq_formalW_of_functional_eq {u : R⟦X⟧} (hu : 1 ≤ u.order)
+    (hfix : u = X ^ 3 + (C W.a₁ * X + C W.a₂ * X ^ 2) * u + (C W.a₃ + C W.a₄ * X) * u ^ 2
+      + C W.a₆ * u ^ 3) : u = W.formalW :=
+  W.eq_formalW_of_wOp_fixed hu (by rw [wOp]; exact hfix)
+
 /-- If the sum of two orders exceeds `n`, the `n`-th coefficient of the product vanishes. -/
 private lemma coeff_mul_eq_zero_of_lt {a b : R⟦X⟧} {n : ℕ}
     (h : (n : ℕ∞) < a.order + b.order) : coeff n (a * b) = 0 :=
