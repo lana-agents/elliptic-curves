@@ -8,6 +8,7 @@ import EllipticCurves.FormalGroup.FormalGroupLaurent
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.PowerSeriesBridge
+import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
