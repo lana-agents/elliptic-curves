@@ -8,6 +8,7 @@ import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.FormalGroup.ExpansionSubst
 import EllipticCurves.FormalGroup.Exponential
 import EllipticCurves.FormalGroup.FormalGroupLaurent
+import EllipticCurves.FormalGroup.GenuineLaw
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
