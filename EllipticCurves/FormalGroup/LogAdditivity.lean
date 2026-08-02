@@ -7,6 +7,7 @@ import Mathlib.RingTheory.PowerSeries.Derivative
 import EllipticCurves.FormalGroup.GenuineLaw
 import EllipticCurves.FormalGroup.Exponential
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
+import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 
 /-!
 # Log-additivity of the Weierstrass formal logarithm on the genuine `(z, w)` formal group law
@@ -64,29 +65,37 @@ By the univariate rigidity principle proved here it suffices to check that the c
 * `WeierstrassCurve.formalLog_subst_formalGroupZW_of_curryRigidity` : the **reduction** — the full
   additivity identity, conditional on the two crux facts phrased on the curried defect (vanishing
   `z₂`-constant-coefficient = the base `F(z₁,0)=z₁`, and vanishing `z₂`-derivative = `(★)`).
+* `WeierstrassCurve.pderivSnd_formalLog_subst`, `pderivSnd_formalLogAdditivityDefect` : the
+  **`z₂`-calculus of the defect**, via the merged substitution chain rule `pderivSnd_subst` — the
+  `z₂`-derivative of `Δ` is `(ω_E ∘ F)·∂_{z₂}F − ω_E(z₂)`.
+* `WeierstrassCurve.derivativeFun_curry_formalLogAdditivityDefect_of_star` : the derivative fact
+  `hderiv`, reduced (via the calculus above) to the single geometric identity `(★)`
+  `(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`.
+* `WeierstrassCurve.formalLog_subst_formalGroupZW_of_identity_star` : the full additivity identity,
+  now conditional on *only the two geometric facts* `hF : F(z₁,0)=z₁` and `hstar : (★)` — all the
+  analytic rigidity and the `z₂`-calculus are discharged.
 
 ## Remaining step
 
-The unconditional `formalLog_subst_formalGroupZW` is *not* proved here.  What lands unconditionally
-and sorry-free is the substitution naturality `finTwoEvalSndZero_subst`; the two hypotheses of
-`formalLog_subst_formalGroupZW_of_curryRigidity` remain, each blocked on missing infrastructure:
+The unconditional `formalLog_subst_formalGroupZW` is *not* proved here.  With
+`formalLog_subst_formalGroupZW_of_identity_star`, the two remaining hypotheses are now *purely
+geometric* (the rigidity principle and the whole `z₂`-derivative calculus are discharged):
 
-* **`hbase`** is reduced by `constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity` to the
-  identity axiom `finTwoEvalSndZero W.formalGroupZW = X` (`F(z₁,0) = z₁`).  For `formalGroupZW` this
-  is *not yet available*: it is equivalent to the pending identification `formalGroupZW =
-  formalGroupSeries`, whose `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`.  (Note the
-  normalisation coefficients `constantCoeff`, `coeff (single 0 1)`, `coeff (single 1 1)` alone do
-  **not** imply `F(z₁,0)=z₁`: e.g. `z₁ + z₂ + c(z₁² + z₂²)` satisfies them yet fails the identity.)
-* **`hderiv` = `(★)`** is the invariant-differential invariance `(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`.  The
-  intended route via the univariate chain rule `PowerSeries.derivative_subst` is *obstructed*: it
-  requires `PowerSeries.HasSubst (mvPowerSeriesFinTwoCurry F)`, i.e. `IsNilpotent` of the
-  `z₂`-constant coefficient of `mvPowerSeriesFinTwoCurry F`, which is the series `z₁ ∈ R⟦z₁⟧` —
-  **not** nilpotent.  A correct discharge needs a `z₂`-partial-derivative operator on
-  `MvPowerSeries (Fin 2) R` together with its substitution chain rule (absent from this Mathlib
-  pin), and then the geometric
-  identity `(★)` from the merged `(z, w)` structure (`formalW_subst_formalGroupZW_fixed`,
-  `formalCubicResidual_root_zero/one`, `invariantDifferential_mul_invDiffDen`).  These are the
-  genuine remaining content and are left as the next step; no `sorry` is used.
+* **`hbase` = `hF`** is reduced by `constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity`
+  to the identity axiom `finTwoEvalSndZero W.formalGroupZW = X` (`F(z₁,0) = z₁`).  For
+  `formalGroupZW` this is *not yet available*: it is equivalent to the pending identification
+  `formalGroupZW = formalGroupSeries`, whose `z₂ = 0` slice is `z₁` by
+  `coeff_formalGroupLaurent_zero`.
+  (Note the normalisation coefficients `constantCoeff`, `coeff (single 0 1)`, `coeff (single 1 1)`
+  alone do **not** imply `F(z₁,0)=z₁`: e.g. `z₁ + z₂ + c(z₁² + z₂²)` satisfies them yet fails it.)
+* **`hderiv` = `hstar` = `(★)`** is the invariant-differential invariance `(ω_E ∘ F)·∂_{z₂}F =
+  ω_E(z₂)`.  The `z₂`-calculus obstruction (currying `F` to `R⟦z₁⟧⟦z₂⟧` fails `HasSubst` because the
+  `z₂`-constant coefficient `z₁` is non-nilpotent) is now resolved by the merged `MvPowerSeries`
+  `z₂`-partial derivative and its chain rule (`EllipticCurves.FormalGroup.MvPowerSeriesPderiv`), so
+  `hderiv` is reduced to `hstar` alone by `derivativeFun_curry_formalLogAdditivityDefect_of_star`.
+  What remains is the **geometric** identity `(★)` itself, from the merged `(z, w)` structure
+  (`formalW_subst_formalGroupZW_fixed`, `formalCubicResidual_root_zero/one`,
+  `invariantDifferential_mul_invDiffDen`).  This is the genuine remaining content; no `sorry` used.
 
 ## References
 
@@ -284,5 +293,74 @@ theorem formalLog_subst_formalGroupZW_of_curryRigidity [Algebra ℚ R]
     mvPowerSeriesFinTwoCurry.injective (by rw [hcurry, map_zero])
   rw [formalLogAdditivityDefect_eq, sub_sub, sub_eq_zero] at hA
   exact hA
+
+/-! ### The `z₂`-derivative side `hderiv`, via the substitution chain rule (`#317` deliverable 3)
+
+The calculus half of `hderiv` — differentiating the additivity defect in `z₂` — is now available
+from the merged `MvPowerSeries` `z₂`-partial derivative and its substitution chain rule
+(`EllipticCurves.FormalGroup.MvPowerSeriesPderiv`, `pderivSnd`, `pderivSnd_subst`).  It reduces
+`hderiv` to the single geometric identity `(★)` `(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`, exactly mirroring the
+way `constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity` reduces `hbase` to the identity
+axiom `F(z₁,0)=z₁`. -/
+
+/-- **The mixed chain-rule form** (`#317` deliverable 3).  Differentiating a substituted formal
+logarithm in `z₂`: for a bivariate `G` of zero constant coefficient,
+`∂_{z₂}(log_E(G)) = (ω_E ∘ G)·∂_{z₂}G`.  Immediate from the substitution chain rule
+`pderivSnd_subst` and `log_E' = ω_E` (`derivativeFun_formalLog`). -/
+theorem pderivSnd_formalLog_subst [Algebra ℚ R] {G : MvPowerSeries (Fin 2) R}
+    (hG0 : MvPowerSeries.constantCoeff G = 0) :
+    pderivSnd (W.formalLog.subst G) = W.invariantDifferential.subst G * pderivSnd G := by
+  rw [pderivSnd_subst hG0, W.derivativeFun_formalLog]
+
+/-- **The `z₂`-partial derivative of the additivity defect, in invariant-differential form.**
+`∂_{z₂}Δ = (ω_E ∘ F)·∂_{z₂}F − ω_E(z₂)`: the `log_E(z₁)` term drops (`∂_{z₂}z₁ = 0`,
+`pderivSnd_X_zero`) and the `log_E(z₂)` term contributes `ω_E(z₂)` (`∂_{z₂}z₂ = 1`,
+`pderivSnd_X_one`). -/
+theorem pderivSnd_formalLogAdditivityDefect [Algebra ℚ R] :
+    pderivSnd W.formalLogAdditivityDefect
+      = W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
+        - W.invariantDifferential.subst (X 1) := by
+  have hsub : ∀ a b : MvPowerSeries (Fin 2) R, pderivSnd (a - b) = pderivSnd a - pderivSnd b := by
+    intro a b
+    rw [← pderivSndDerivation_apply, ← pderivSndDerivation_apply a, ← pderivSndDerivation_apply b,
+      map_sub]
+  rw [formalLogAdditivityDefect_eq, hsub, hsub,
+    W.pderivSnd_formalLog_subst W.constantCoeff_formalGroupZW,
+    W.pderivSnd_formalLog_subst (MvPowerSeries.constantCoeff_X 0),
+    W.pderivSnd_formalLog_subst (MvPowerSeries.constantCoeff_X 1),
+    pderivSnd_X_zero, mul_zero, sub_zero, pderivSnd_X_one, mul_one]
+
+/-- **Derivative fact `hderiv`, reduced to the geometric invariant-differential identity `(★)`.**
+Assuming `(★)` in the form `(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`
+(`W.invariantDifferential.subst F * pderivSnd F = W.invariantDifferential.subst (X 1)`), the
+`z₂`-derivative of the curried additivity defect vanishes.  The `z₂`-derivative on the curried
+series is `pderivSnd` transported through the currying iso (`curry_pderivSnd`), and
+`pderivSnd_formalLogAdditivityDefect` evaluates it to `(ω_E ∘ F)·∂_{z₂}F − ω_E(z₂)`, which `(★)`
+kills.  This is the calculus discharge of `hderiv`; the geometric identity `(★)` itself is the sole
+remaining input, to be supplied from the merged `(z, w)` structure. -/
+theorem derivativeFun_curry_formalLogAdditivityDefect_of_star [Algebra ℚ R]
+    (hstar : W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
+      = W.invariantDifferential.subst (X 1)) :
+    (mvPowerSeriesFinTwoCurry W.formalLogAdditivityDefect).derivativeFun = 0 := by
+  rw [← curry_pderivSnd, W.pderivSnd_formalLogAdditivityDefect, hstar, sub_self, map_zero]
+
+/-- **Log-additivity, reduced to the two geometric facts.**  Combining the two reductions, the full
+additivity identity `log_E(F) = log_E(z₁) + log_E(z₂)` now follows from *purely geometric* inputs —
+all the analytic rigidity and the `z₂`-calculus have been discharged:
+
+* the **identity axiom** `hF : F(z₁, 0) = z₁` (`finTwoEvalSndZero F = X`), and
+* the **invariant-differential invariance** `hstar : (ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)` (the crux `(★)`).
+
+These two are the sole remaining content of `#315`; each is to be supplied from the merged
+`(z, w)` formal-group structure. -/
+theorem formalLog_subst_formalGroupZW_of_identity_star [Algebra ℚ R]
+    (hF : MvPowerSeries.finTwoEvalSndZero W.formalGroupZW = PowerSeries.X)
+    (hstar : W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
+      = W.invariantDifferential.subst (X 1)) :
+    W.formalLog.subst W.formalGroupZW
+      = W.formalLog.subst (X 0) + W.formalLog.subst (X 1) :=
+  W.formalLog_subst_formalGroupZW_of_curryRigidity
+    (W.constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity hF)
+    (W.derivativeFun_curry_formalLogAdditivityDefect_of_star hstar)
 
 end WeierstrassCurve
