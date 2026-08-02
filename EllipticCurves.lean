@@ -34,6 +34,7 @@ import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.SeriesComm
 import EllipticCurves.FormalGroup.ThirdRootMatching
 import EllipticCurves.FormalGroup.UniversalIdentification
+import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.TateModule.Basic
