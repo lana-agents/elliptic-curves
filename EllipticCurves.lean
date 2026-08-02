@@ -19,6 +19,7 @@ import EllipticCurves.FormalGroup.GenuineLawTransfer
 import EllipticCurves.FormalGroup.GenuineWThreeIdentification
 import EllipticCurves.FormalGroup.GeometricMatching
 import EllipticCurves.FormalGroup.GroupLawAssoc
+import EllipticCurves.FormalGroup.GroupLawAssocUnconditional
 import EllipticCurves.FormalGroup.GroupLawBaseSlice
 import EllipticCurves.FormalGroup.GroupLawBundle
 import EllipticCurves.FormalGroup.GroupLawBundleGeneral
