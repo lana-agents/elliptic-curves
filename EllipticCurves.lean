@@ -15,6 +15,7 @@ import EllipticCurves.FormalGroup.GenuineLawComm
 import EllipticCurves.FormalGroup.GenuineLawIdentification
 import EllipticCurves.FormalGroup.GenuineLawIdentificationCore
 import EllipticCurves.FormalGroup.GenuineLawMap
+import EllipticCurves.FormalGroup.GeometricMatching
 import EllipticCurves.FormalGroup.GroupLawAssoc
 import EllipticCurves.FormalGroup.GroupLawBaseSlice
 import EllipticCurves.FormalGroup.InvariantDifferentialInvariance
