@@ -1,6 +1,7 @@
 import EllipticCurves.Basic
 import EllipticCurves.FormalGroup.AdditionLaw
 import EllipticCurves.FormalGroup.AdditionLawUnit
+import EllipticCurves.FormalGroup.AdicEval
 import EllipticCurves.FormalGroup.BivariateCoords
 import EllipticCurves.FormalGroup.CoordinateSeries
 import EllipticCurves.FormalGroup.CubicFactorisation
