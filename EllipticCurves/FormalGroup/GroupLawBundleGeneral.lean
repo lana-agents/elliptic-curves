@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FormalGroup.GroupLawBundle
+import EllipticCurves.FormalGroup.GroupLawAssoc
 import EllipticCurves.FormalGroup.GenuineLawTransfer
+import EllipticCurves.FormalGroup.LogAdditivityUnconditional
 import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
@@ -24,20 +26,25 @@ programme (#243) need.
 * `WeierstrassCurve.formalGroupZW_assoc_of_ratAlgebra` : the `FormalGroup.assoc`-field-shaped
   associativity of `W.formalGroupZW` over an **arbitrary** `CommRing R`, from the hypothesis `hℚ`
   that associativity holds over every `ℚ`-algebra.
-* `WeierstrassCurve.formalGroupOfRatAlgebra` : the `FormalGroup R` bundle over an arbitrary
-  `CommRing R`, and `…_isComm` its `IsComm` witness.
+* `WeierstrassCurve.formalGroupZW_assoc_commRing` : the **unconditional** general-`CommRing R`
+  associativity, discharging `hℚ` from the merged #315/#319 theorems (see below).  (The name
+  `formalGroupZW_assoc` is already taken by the ℚ-algebra-only, `hadd`-conditional form in
+  `GroupLawAssoc`, #319; this is its general-`R` unconditional strengthening.)
+* `WeierstrassCurve.formalGroup` : the **unconditional** `FormalGroup R` bundle over an arbitrary
+  `CommRing R`, and `formalGroup_isComm` its `IsComm` witness — the last-mile deliverable of #263.
+* `WeierstrassCurve.formalGroupOfRatAlgebra` : the `hℚ`-parametrised bundle, retained as the
+  reusable engine `formalGroup` is built from.
 
 ## Discharging the hypothesis
 
 The single hypothesis `hℚ` is exactly what the merged, ℚ-algebra-only associativity
-`WeierstrassCurve.formalGroupZW_assoc` (#319) provides once #315 lands the unconditional
-log-additivity `formalLog_subst_formalGroupZW`.  Concretely, the instant #315 delivers
-`formalLog_subst_formalGroupZW [Algebra ℚ C] (V : WeierstrassCurve C)`, the hypothesis is discharged
-by
+`WeierstrassCurve.formalGroupZW_assoc` (#319, `GroupLawAssoc`) provides, fed by the merged
+unconditional log-additivity `formalLog_subst_formalGroupZW` (#315, `LogAdditivityUnconditional`):
 ```
 fun C _ _ V => V.formalGroupZW_assoc V.formalLog_subst_formalGroupZW
 ```
-turning every result here unconditional over an arbitrary `CommRing R`, closing #263.
+This term (`ratAlgebraAssoc` below) discharges `hℚ`, turning every result here unconditional over an
+arbitrary `CommRing R`, closing #263.
 
 ## Strategy — universality transfer (Silverman AEC IV.1, Thm 1.1)
 
@@ -207,5 +214,55 @@ theorem formalGroupOfRatAlgebra_isComm
             ![(X 0 : MvPowerSeries (Fin 3) C), V.formalGroupZW.subst ![X 1, X 2]]) :
     (W.formalGroupOfRatAlgebra hℚ).IsComm :=
   ⟨(W.formalGroupZW_subst_swap).symm⟩
+
+/-! ## Discharging `hℚ`: the unconditional general-`CommRing R` results
+
+The ℚ-algebra associativity hypothesis `hℚ` threaded through the results above is now a merged
+theorem: over any ℚ-algebra `C`, the unconditional log-additivity `formalLog_subst_formalGroupZW`
+(#315) feeds the `hadd`-conditional associativity `formalGroupZW_assoc` (#319).  Discharging it
+makes the general-`CommRing R` associativity, the `FormalGroup R` bundle, and its commutativity all
+unconditional — the last-mile deliverable of #263. -/
+
+/-- The ℚ-algebra associativity hypothesis `hℚ`, **discharged unconditionally**: over every
+ℚ-algebra `C`, `formalGroupZW` is associative, by feeding the merged unconditional log-additivity
+`formalLog_subst_formalGroupZW` (#315) into the merged `hadd`-conditional associativity
+`formalGroupZW_assoc` (#319). -/
+theorem formalGroupZW_assoc_ratAlgebra
+    (C : Type) [CommRing C] [Algebra ℚ C] (V : WeierstrassCurve C) :
+    V.formalGroupZW.subst ![V.formalGroupZW.subst ![(X 0 : MvPowerSeries (Fin 3) C), X 1], X 2]
+      = V.formalGroupZW.subst
+          ![(X 0 : MvPowerSeries (Fin 3) C), V.formalGroupZW.subst ![X 1, X 2]] :=
+  V.formalGroupZW_assoc V.formalLog_subst_formalGroupZW
+
+/-- **Associativity of `W.formalGroupZW` over an arbitrary `CommRing R`, unconditional**, in the
+exact `FormalGroup.assoc`-field shape `F(F(X₀, X₁), X₂) = F(X₀, F(X₁, X₂))`.  This is the
+general-`R` strengthening of the ℚ-algebra-only `formalGroupZW_assoc` (#319, `GroupLawAssoc`): the
+universality
+transfer of `formalGroupZW_assoc_of_ratAlgebra` with `hℚ` discharged by
+`formalGroupZW_assoc_ratAlgebra`.  Over a char-`p` base this is what the downstream `Point`
+`AddCommMonoid` and the kernel-of-reduction programme (#243) consume. -/
+theorem formalGroupZW_assoc_commRing :
+    W.formalGroupZW.subst ![W.formalGroupZW.subst ![(X 0 : MvPowerSeries (Fin 3) R), X 1], X 2]
+      = W.formalGroupZW.subst
+          ![(X 0 : MvPowerSeries (Fin 3) R), W.formalGroupZW.subst ![X 1, X 2]] :=
+  W.formalGroupZW_assoc_of_ratAlgebra formalGroupZW_assoc_ratAlgebra
+
+/-- **The Weierstrass formal group law as a `FormalGroup R` over an arbitrary `CommRing R`,
+unconditional.**  Built on the genuine `(z, w)` series `W.formalGroupZW`, with the normalisation
+fields from `GenuineLaw.lean` and the `assoc` field from `formalGroupZW_assoc_commRing`.  Unlike the
+ℚ-algebra bundle `formalGroupOfLogAdditivity` (#324), this is available over a char-`p` base — the
+last-mile deliverable of #263, consumed by the downstream `Point` `AddCommMonoid` (#243). -/
+noncomputable def formalGroup : FormalGroup R :=
+  W.formalGroupOfRatAlgebra formalGroupZW_assoc_ratAlgebra
+
+@[simp]
+theorem formalGroup_toPowerSeries : (W.formalGroup).toPowerSeries = W.formalGroupZW :=
+  rfl
+
+/-- **The Weierstrass formal group law over an arbitrary `CommRing R` is commutative**, the
+`FormalGroup.IsComm` witness for `formalGroup`, from the unconditional
+`formalGroupZW_subst_swap`. -/
+theorem formalGroup_isComm : (W.formalGroup).IsComm :=
+  W.formalGroupOfRatAlgebra_isComm formalGroupZW_assoc_ratAlgebra
 
 end WeierstrassCurve
