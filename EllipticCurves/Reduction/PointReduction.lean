@@ -161,6 +161,13 @@ noncomputable def redPt (W : WeierstrassCurve K) [HasGoodReduction R W] :
 theorem redPt_zero (W : WeierstrassCurve K) [HasGoodReduction R W] :
     redPt R W .zero = 0 := rfl
 
+/-- On the integral branch (`v x ≤ 1`), the reduction map sends `(x, y)` to the residues of its
+integral lifts `x₀, y₀ : R`.  This is the defining equation of `redPt` on integral points. -/
+theorem redPt_some_of_le_one (W : WeierstrassCurve K) [HasGoodReduction R W]
+    {x y : K} {h : W.toAffine.Nonsingular x y} (hx : valuation K (maximalIdeal R) x ≤ 1) :
+    redPt R W (.some x y h) = .some _ _ (reduction_nonsingular_of_le_one R W h.1 hx) :=
+  dif_pos hx
+
 /-- A non-integral point (`x` has a pole, `1 < v x`) reduces to the origin. -/
 theorem redPt_some_of_one_lt (W : WeierstrassCurve K) [HasGoodReduction R W]
     {x y : K} {h : W.toAffine.Nonsingular x y} (hx : 1 < valuation K (maximalIdeal R) x) :
@@ -184,5 +191,86 @@ theorem redPt_eq_zero_iff (W : WeierstrassCurve K) [HasGoodReduction R W]
     · have hn : redPt R W (.some x y h) = .zero := dif_neg hx
       rw [hn]
       exact iff_of_true rfl (not_le.mp hx)
+
+/-! ### Compatibility with negation
+
+Reduction commutes with negation.  On the reduced curve, negation is again the slope-free formula
+`negY`, and `residue` (a ring homomorphism) intertwines the integral-model `negY` with the reduced
+`negY` via `WeierstrassCurve.Affine.map_negY`.  This is the first (and easy) half of the
+homomorphism property `redPt (P + Q) = redPt P + redPt Q`; the additive half genuinely requires the
+formal group (Silverman AEC VII.2.2). -/
+
+/-- The `E₁(K)` predicate only sees the `x`-coordinate, which negation fixes, so it is closed under
+negation: `-P` reduces to the origin iff `P` does. -/
+theorem reducesToZero_neg (W : WeierstrassCurve K) [IsIntegral R W] (P : W.toAffine.Point) :
+    ReducesToZero R W (-P) ↔ ReducesToZero R W P := by
+  cases P with
+  | zero => exact Iff.rfl
+  | some x y h => rw [Affine.Point.neg_some]; exact Iff.rfl
+
+/-- The reduction of an integral point in terms of **any** integral lifts `x₀, y₀ : R` of its
+coordinates.  Since `algebraMap R K` is injective the lift is unique, so this is independent of the
+choice and identifies `redPt` with the residues of the lifts.  A convenient lift-agnostic form of
+`redPt_some_of_le_one`. -/
+theorem redPt_some_eq (W : WeierstrassCurve K) [HasGoodReduction R W]
+    {x y : K} {h : W.toAffine.Nonsingular x y} {x₀ y₀ : R}
+    (hx₀ : algebraMap R K x₀ = x) (hy₀ : algebraMap R K y₀ = y)
+    (hns : (reduction R W).toAffine.Nonsingular (residue R x₀) (residue R y₀)) :
+    redPt R W (.some x y h) = .some (residue R x₀) (residue R y₀) hns := by
+  have hx : valuation K (maximalIdeal R) x ≤ 1 := hx₀ ▸ valuation_le_one (maximalIdeal R) x₀
+  have hinj : Function.Injective (algebraMap R K) := IsFractionRing.injective R K
+  have ex : (exists_lift_of_le_one hx).choose = x₀ :=
+    hinj (by rw [(exists_lift_of_le_one hx).choose_spec, hx₀])
+  have ey : (exists_lift_of_le_one (valuation_y_le_one_of_le_one R W h.1 hx)).choose = y₀ :=
+    hinj (by
+      rw [(exists_lift_of_le_one (valuation_y_le_one_of_le_one R W h.1 hx)).choose_spec, hy₀])
+  rw [redPt_some_of_le_one R W hx]
+  simp only [ex, ey]
+
+/-- **Reduction commutes with negation:** `redPt (-P) = -(redPt P)`.  On the pole branch both sides
+are `0`; on the integral branch it reduces to
+`residue (negY x₀ y₀) = negY (residue x₀) (residue y₀)` on the reduced curve, which is
+`WeierstrassCurve.Affine.map_negY` for the ring homomorphism `residue R`.  This is the first (easy)
+half of the homomorphism property of `redPt`. -/
+theorem redPt_neg (W : WeierstrassCurve K) [HasGoodReduction R W] (P : W.toAffine.Point) :
+    redPt R W (-P) = - redPt R W P := by
+  cases P with
+  | zero => rfl
+  | some x y h =>
+    by_cases hx : valuation K (maximalIdeal R) x ≤ 1
+    · -- Integral branch: choose any lifts `x₀, y₀ : R` of `x, y`.
+      obtain ⟨x₀, hx₀⟩ := exists_lift_of_le_one hx
+      obtain ⟨y₀, hy₀⟩ := exists_lift_of_le_one (valuation_y_le_one_of_le_one R W h.1 hx)
+      have hcurve : (integralModel R W).toAffine.map (algebraMap R K) = W.toAffine :=
+        baseChange_integralModel_eq R W
+      -- `negY x₀ y₀` on the integral model is a lift of `negY x y`, the `y`-coordinate of `-P`.
+      have hnegY : algebraMap R K ((integralModel R W).toAffine.negY x₀ y₀)
+          = W.toAffine.negY x y := by
+        rw [← Affine.map_negY (algebraMap R K), hcurve, hx₀, hy₀]
+      -- Nonsingularity of the reduced coordinates of `P` (`Equation` transfers K → R → k, and the
+      -- reduced curve is elliptic hence smooth).
+      have hnsP : (reduction R W).toAffine.Nonsingular (residue R x₀) (residue R y₀) := by
+        have hInt : (integralModel R W).toAffine.Equation x₀ y₀ := by
+          rw [← Affine.map_equation (W := (integralModel R W).toAffine)
+            (IsFractionRing.injective R K) x₀ y₀, hx₀, hy₀, hcurve]
+          exact h.1
+        haveI : (reduction R W).IsElliptic :=
+          (hasGoodReduction_iff_isElliptic_reduction R).mp inferInstance
+        exact (Affine.equation_iff_nonsingular).mp (hInt.map (residue R))
+      -- Reduced `negY`: `residue (negY x₀ y₀) = negY (residue x₀) (residue y₀)`.
+      have hmap : residue R ((integralModel R W).toAffine.negY x₀ y₀)
+          = (reduction R W).toAffine.negY (residue R x₀) (residue R y₀) :=
+        Affine.map_negY (residue R) x₀ y₀
+      -- Nonsingularity of the reduced coordinates of `-P`.
+      have hnsNegP : (reduction R W).toAffine.Nonsingular (residue R x₀)
+          (residue R ((integralModel R W).toAffine.negY x₀ y₀)) := by
+        rw [hmap]; exact (Affine.nonsingular_neg ..).mpr hnsP
+      rw [Affine.Point.neg_some, redPt_some_eq R W hx₀ hnegY hnsNegP,
+        redPt_some_eq R W hx₀ hy₀ hnsP, Affine.Point.neg_some]
+      simp only [hmap]
+    · -- Pole branch: both sides are `0`.
+      rw [Affine.Point.neg_some,
+        redPt_some_of_one_lt R W (not_le.mp hx), redPt_some_of_one_lt R W (not_le.mp hx),
+        Affine.Point.neg_zero]
 
 end WeierstrassCurve
