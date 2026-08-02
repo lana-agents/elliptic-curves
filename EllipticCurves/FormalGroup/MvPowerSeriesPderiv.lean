@@ -31,6 +31,12 @@ index `0` is `z₁`).
 * Transported `Derivation`-style API: `pderivSnd_add`, `pderivSnd_zero`, `pderivSnd_smul`,
   `pderivSnd_mul` (Leibniz), `pderivSnd_C`, `pderivSnd_X_zero` (`∂_{z₂} z₁ = 0`),
   `pderivSnd_X_one` (`∂_{z₂} z₂ = 1`).
+* `MvPowerSeries.pderivSndDerivation : Derivation R (MvPowerSeries (Fin 2) R) _` — `pderivSnd`
+  packaged as a genuine `R`-linear `Derivation` (it is `R`-linear, kills `C r` and `X 0`, and sends
+  `X 1 ↦ 1`), so the whole `Derivation` API (iterated Leibniz, the power rule, …) is available on it
+  for free.
+* `MvPowerSeries.pderivSnd_pow` — the power rule `∂_{z₂}(φ ^ n) = n • φ ^ (n-1) • ∂_{z₂}φ`, the
+  inductive core of the substitution chain rule.
 
 ## References
 
@@ -148,5 +154,40 @@ theorem pderivSnd_X_one :
     · rw [if_neg (fun h => hm (hcond.mp h).1), if_pos rfl, PowerSeries.coeff_one, if_neg hm,
         zero_mul]
   · rw [if_neg (fun h => absurd (hcond.mp h).2 (by omega)), if_neg hn, map_zero, zero_mul]
+
+/-- `R`-linearity of the `z₂`-partial derivative: `∂_{z₂}(r • φ) = r • ∂_{z₂}φ`. -/
+theorem pderivSnd_smul (r : R) (φ : MvPowerSeries (Fin 2) R) :
+    pderivSnd (r • φ) = r • pderivSnd φ := by
+  rw [smul_eq_C_mul, smul_eq_C_mul, pderivSnd_mul, pderivSnd_C, mul_zero, add_zero]
+
+/-- The **`z₂`-partial derivative packaged as an `R`-linear `Derivation`** on
+`MvPowerSeries (Fin 2) R`.  This exposes the full `Derivation` API (iterated Leibniz, the power
+rule, `map_smul`, …) on `pderivSnd` for free — in particular it is the natural home for the
+inductive core of the substitution chain rule. -/
+noncomputable def pderivSndDerivation :
+    Derivation R (MvPowerSeries (Fin 2) R) (MvPowerSeries (Fin 2) R) :=
+  Derivation.mk'
+    { toFun := pderivSnd
+      map_add' := pderivSnd_add
+      map_smul' := fun r φ => by simpa using pderivSnd_smul r φ }
+    (fun a b => by
+      change pderivSnd (a * b) = a • pderivSnd b + b • pderivSnd a
+      rw [pderivSnd_mul, smul_eq_mul, smul_eq_mul])
+
+@[simp]
+theorem pderivSndDerivation_apply (φ : MvPowerSeries (Fin 2) R) :
+    pderivSndDerivation φ = pderivSnd φ := rfl
+
+@[simp]
+theorem coe_pderivSndDerivation :
+    ⇑(pderivSndDerivation : Derivation R (MvPowerSeries (Fin 2) R) _) = pderivSnd := rfl
+
+/-- **Power rule** for the `z₂`-partial derivative: `∂_{z₂}(φ ^ n) = n • φ ^ (n-1) • ∂_{z₂}φ`.
+This is the inductive core of the substitution chain rule `∂_{z₂}(f.subst G)
+= (f.derivativeFun.subst G) · ∂_{z₂}G`. -/
+theorem pderivSnd_pow (φ : MvPowerSeries (Fin 2) R) (n : ℕ) :
+    pderivSnd (φ ^ n) = n • φ ^ (n - 1) • pderivSnd φ := by
+  have h := pderivSndDerivation.leibniz_pow (a := φ) n
+  simpa only [pderivSndDerivation_apply] using h
 
 end MvPowerSeries
