@@ -20,6 +20,7 @@ import EllipticCurves.FormalGroup.GroupLawAssoc
 import EllipticCurves.FormalGroup.GroupLawBaseSlice
 import EllipticCurves.FormalGroup.GroupLawBundle
 import EllipticCurves.FormalGroup.InvariantDifferentialInvariance
+import EllipticCurves.FormalGroup.LaurentMap
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.Logarithm
