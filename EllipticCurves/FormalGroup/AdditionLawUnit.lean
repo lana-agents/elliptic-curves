@@ -1127,4 +1127,24 @@ theorem isUnit_formalNu : IsUnit W.formalNu := by
     · rw [HahnSeries.leadingCoeff_eq, horder, hlead]; exact W.isUnit_formalX
     · rw [horder]; exact AddGroup.isAddUnit _
 
+/-- The difference of the two `z`-plane base points `z₂ - z₁ ∈ R⸨z₁⸩⸨z₂⸩` satisfies
+`(z₂ - z₁)·(y₂·y₁) = -ν·(x₂ - x₁)`. This is the multiplicative form of the secant-geometry identity
+`z₂ - z₁ = -ν·(x₂ - x₁)·(y₁·y₂)⁻¹`: the numerator `x₁y₂ - x₂y₁` collapses to `-ν·(x₂ - x₁)` because
+both points lie on the secant `y = λx + ν` (`biY₁_eq`, `biY₂_eq`), and `zᵢ·yᵢ = -xᵢ`
+(`biZ₁_mul_biY₁`, `biZ₂_mul_biY₂`). -/
+theorem biZ₂_sub_biZ₁_mul_biY₂_mul_biY₁ :
+    (W.biZ₂ - W.biZ₁) * (W.biY₂ * W.biY₁) = -W.formalNu * (W.biX₂ - W.biX₁) := by
+  linear_combination W.biY₁ * W.biZ₂_mul_biY₂ - W.biY₂ * W.biZ₁_mul_biY₁
+    - W.biX₂ * W.biY₁_eq + W.biX₁ * W.biY₂_eq
+
+/-- **The difference `z₂ - z₁` of the two `z`-plane base points is a unit of `R⸨z₁⸩⸨z₂⸩`.** Since
+`(z₂ - z₁)·(y₂·y₁) = -ν·(x₂ - x₁)` (`biZ₂_sub_biZ₁_mul_biY₂_mul_biY₁`) and the right-hand side is a
+unit — `ν` is a unit (`isUnit_formalNu`) and so is `x₂ - x₁` (`isUnit_biX₂_sub_biX₁`) — the factor
+`z₂ - z₁` is a unit. This is the ingredient the `(K1)`/`(K4)` crux (`GenuineLawIdentificationCore`)
+needs to pin the third `z`-plane root via the `z`-cubic Vieta factorisation. -/
+theorem isUnit_biZ₂_sub_biZ₁ : IsUnit (W.biZ₂ - W.biZ₁) := by
+  refine isUnit_of_mul_isUnit_left (y := W.biY₂ * W.biY₁) ?_
+  rw [W.biZ₂_sub_biZ₁_mul_biY₂_mul_biY₁]
+  exact W.isUnit_formalNu.neg.mul W.isUnit_biX₂_sub_biX₁
+
 end WeierstrassCurve
