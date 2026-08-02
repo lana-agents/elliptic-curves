@@ -21,6 +21,7 @@ import EllipticCurves.FormalGroup.GroupLawAssoc
 import EllipticCurves.FormalGroup.GroupLawBaseSlice
 import EllipticCurves.FormalGroup.GroupLawBundle
 import EllipticCurves.FormalGroup.InvariantDifferentialInvariance
+import EllipticCurves.FormalGroup.InvariantDifferentialLaurent
 import EllipticCurves.FormalGroup.LaurentDerivation
 import EllipticCurves.FormalGroup.LaurentMap
 import EllipticCurves.FormalGroup.Law
