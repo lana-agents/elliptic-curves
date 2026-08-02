@@ -13,6 +13,7 @@ import EllipticCurves.FormalGroup.GenuineLaw
 import EllipticCurves.FormalGroup.GenuineLawComm
 import EllipticCurves.FormalGroup.GenuineLawIdentification
 import EllipticCurves.FormalGroup.GenuineLawIdentificationCore
+import EllipticCurves.FormalGroup.GroupLawBaseSlice
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.Logarithm
