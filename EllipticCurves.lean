@@ -37,3 +37,4 @@ import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.WardR1
+import EllipticCurves.Torsion.WardR1Core
