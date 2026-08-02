@@ -37,6 +37,7 @@ import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 import EllipticCurves.FormalGroup.PointGroup
+import EllipticCurves.FormalGroup.PointsOnIdeal
 import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.SeriesComm
 import EllipticCurves.FormalGroup.ThirdRootMatching
