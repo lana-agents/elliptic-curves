@@ -36,6 +36,7 @@ import EllipticCurves.FormalGroup.LogAdditivityUnconditional
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MulByN
 import EllipticCurves.FormalGroup.MulByNLaws
+import EllipticCurves.FormalGroup.MulByNPoint
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 import EllipticCurves.FormalGroup.PointGroup
