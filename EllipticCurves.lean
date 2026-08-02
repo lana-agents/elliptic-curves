@@ -29,6 +29,7 @@ import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.LogAdditivityStar
 import EllipticCurves.FormalGroup.LogAdditivityStarClose
+import EllipticCurves.FormalGroup.LogAdditivityUnconditional
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
