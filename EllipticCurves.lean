@@ -30,6 +30,7 @@ import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.LogAdditivityStar
 import EllipticCurves.FormalGroup.LogAdditivityStarClose
+import EllipticCurves.FormalGroup.LogAdditivityUnconditional
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
@@ -37,6 +38,7 @@ import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.SeriesComm
 import EllipticCurves.FormalGroup.ThirdRootMatching
 import EllipticCurves.FormalGroup.UniversalIdentification
+import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.TateModule.Basic
