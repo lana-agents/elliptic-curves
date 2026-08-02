@@ -3,6 +3,7 @@ import EllipticCurves.FormalGroup.AdditionLaw
 import EllipticCurves.FormalGroup.AdditionLawUnit
 import EllipticCurves.FormalGroup.BivariateCoords
 import EllipticCurves.FormalGroup.CoordinateSeries
+import EllipticCurves.FormalGroup.CubicFactorisation
 import EllipticCurves.FormalGroup.DividedDifference
 import EllipticCurves.FormalGroup.EmbedDictionary
 import EllipticCurves.FormalGroup.Expansion
