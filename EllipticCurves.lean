@@ -26,6 +26,7 @@ import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.ThirdRootMatching
+import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.TateModule.Basic
