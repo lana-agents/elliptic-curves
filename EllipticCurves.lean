@@ -51,6 +51,7 @@ import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.LocalParameter
+import EllipticCurves.Reduction.LocalParameterInverse
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.TateModule.Basic
