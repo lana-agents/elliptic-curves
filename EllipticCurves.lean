@@ -16,6 +16,7 @@ import EllipticCurves.FormalGroup.GenuineLawIdentification
 import EllipticCurves.FormalGroup.GenuineLawIdentificationCore
 import EllipticCurves.FormalGroup.GenuineLawMap
 import EllipticCurves.FormalGroup.GenuineLawTransfer
+import EllipticCurves.FormalGroup.GenuineWThreeIdentification
 import EllipticCurves.FormalGroup.GeometricMatching
 import EllipticCurves.FormalGroup.GroupLawAssoc
 import EllipticCurves.FormalGroup.GroupLawBaseSlice
@@ -27,6 +28,7 @@ import EllipticCurves.FormalGroup.LaurentMap
 import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.LogAdditivityStar
+import EllipticCurves.FormalGroup.LogAdditivityStarClose
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
