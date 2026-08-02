@@ -16,6 +16,7 @@ import EllipticCurves.FormalGroup.Law
 import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
+import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
