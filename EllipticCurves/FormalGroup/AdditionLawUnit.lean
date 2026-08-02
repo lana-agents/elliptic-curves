@@ -1075,4 +1075,56 @@ theorem coeff_formalYThree_one_inner_of_lt [Nontrivial R] {g : ℤ} (hg : g < -4
     W.coeff_formalXThree_two_inner_of_lt hg]
   ring
 
+/-! ### `IsUnit W.formalNu`: the secant `y`-intercept is a unit of `R⸨z₁⸩⸨z₂⸩`
+
+The `y`-intercept `ν = y₁ - λ·x₁` of the secant line through `(z₁, ·)`, `(z₂, ·)` is a unit.
+Concretely its lowest `z₂`-term is `z₂⁻¹` with leading coefficient `x(z₁) = W.formalX`, itself a
+unit of `R⸨z₁⸩`. This is the analytic input that makes the difference of the two `z`-plane roots
+`z₂ - z₁` a unit — the missing ingredient for the `z`-cubic Vieta factorisation feeding the core
+coordinate-change identity `(★)` (see `GenuineLawIdentificationCore`, the `(K1)`/`(K4)` crux). -/
+
+/-- The coordinate series `x(z)` is a unit of `R⸨X⸩` (from `x·w = z`, i.e. `x·(w·z⁻¹) = 1`). -/
+theorem isUnit_formalX : IsUnit W.formalX :=
+  IsUnit.of_mul_eq_one ((W.formalW : R⸨X⸩) * HahnSeries.single (-1 : ℤ) 1) (by
+    rw [← mul_assoc, W.formalX_mul_coe_formalW, HahnSeries.single_mul_single,
+      show (1 : ℤ) + (-1) = 0 by norm_num, mul_one, HahnSeries.single_zero_one])
+
+/-- The leading (`z₂`-order `-1`) coefficient of `ν = y₁ - λ·x₁` is `x(z₁) = W.formalX`. -/
+private lemma coeff_formalNu_neg_one [Nontrivial R] : W.formalNu.coeff (-1) = W.formalX := by
+  rw [formalNu, HahnSeries.coeff_sub, W.coeff_biY₁_of_ne (show (-1 : ℤ) ≠ 0 by norm_num),
+    show (W.formalLambda * W.biX₁).coeff (-1) = W.formalLambda.coeff (-1) * W.formalX by
+      rw [biX₁, cConstRingHom, HahnSeries.C_apply, HahnSeries.coeff_mul_single_zero],
+    W.coeff_lambda_eq_principal (show (-1 : ℤ) < 3 by norm_num), W.coeff_lamP_neg_one]
+  ring
+
+/-- `ν = y₁ - λ·x₁` is supported in `z₂`-degree `≥ -1`. -/
+private lemma coeff_formalNu_of_lt [Nontrivial R] {g : ℤ} (hg : g < -1) :
+    W.formalNu.coeff g = 0 := by
+  rw [formalNu, HahnSeries.coeff_sub, W.coeff_biY₁_of_ne (show g ≠ 0 by omega),
+    show (W.formalLambda * W.biX₁).coeff g = W.formalLambda.coeff g * W.formalX by
+      rw [biX₁, cConstRingHom, HahnSeries.C_apply, HahnSeries.coeff_mul_single_zero],
+    W.coeff_lambda_eq_principal (show g < 3 by omega), W.coeff_lamP_of_lt hg]
+  ring
+
+/-- **`ν = formalNu` is a unit of `R⸨z₁⸩⸨z₂⸩`.** Its lowest `z₂`-term is `z₂⁻¹` with the unit
+leading coefficient `x(z₁) = W.formalX`. This is the analytic input for the difference `z₂ - z₁`
+of `z`-plane roots being a unit — the ingredient the `(K1)`/`(K4)` crux needs (in
+`GenuineLawIdentificationCore`) for the `z`-cubic Vieta factorisation. -/
+theorem isUnit_formalNu : IsUnit W.formalNu := by
+  obtain _ | _ := subsingleton_or_nontrivial R
+  · exact isUnit_of_subsingleton _
+  · have hlead : W.formalNu.coeff (-1) = W.formalX := W.coeff_formalNu_neg_one
+    have hle : W.formalNu.order ≤ -1 :=
+      HahnSeries.order_le_of_coeff_ne_zero (by rw [hlead]; exact W.isUnit_formalX.ne_zero)
+    have hne : W.formalNu ≠ 0 := by
+      intro h; rw [h, HahnSeries.coeff_zero] at hlead
+      exact W.isUnit_formalX.ne_zero hlead.symm
+    have hge : (-1 : ℤ) ≤ W.formalNu.order := by
+      by_contra hlt
+      exact HahnSeries.coeff_order_eq_zero.not.2 hne (W.coeff_formalNu_of_lt (not_le.mp hlt))
+    have horder : W.formalNu.order = -1 := le_antisymm hle hge
+    refine HahnSeries.isUnit_of_isUnit_leadingCoeff_AddUnitOrder ?_ ?_
+    · rw [HahnSeries.leadingCoeff_eq, horder, hlead]; exact W.isUnit_formalX
+    · rw [horder]; exact AddGroup.isAddUnit _
+
 end WeierstrassCurve
