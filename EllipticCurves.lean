@@ -50,6 +50,7 @@ import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
+import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
