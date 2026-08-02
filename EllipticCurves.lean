@@ -12,6 +12,7 @@ import EllipticCurves.FormalGroup.FormalGroupLaurent
 import EllipticCurves.FormalGroup.GenuineLaw
 import EllipticCurves.FormalGroup.GenuineLawComm
 import EllipticCurves.FormalGroup.Law
+import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MvPowerSeriesCurry
 import EllipticCurves.FormalGroup.PowerSeriesBridge
