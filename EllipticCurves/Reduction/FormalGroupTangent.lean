@@ -122,6 +122,62 @@ theorem wParamDeriv_tangency (hz : z ∈ (maximalIdeal R).asIdeal) :
   rw [← wParam, ← wParamDeriv]
   ring
 
+/-! ### The doubling (tangent) third chord point is on the curve -/
+
+/-- **The doubling (tangent) third chord point is on the curve.**  The diagonal analog of
+`thirdChordPoint_functional_eq`: on the diagonal `z₁ = z₂ = z` (the point `P = Q`, tangent case),
+the pair `(t, λ t + ν)` — with `λ = chordSlope`, `ν = chordIntercept`, `t = thirdRootNum` evaluated
+at the diagonal family `![z, z]` — still solves the numeric Weierstrass functional equation.
+
+The secant lemma `thirdChordPoint_functional_eq` divides its Vieta certificate by `(z₁ − z₂)`, which
+vanishes here.  In place of the secant's second known intersection, the **double root** at `z`
+supplies the tangency relation `wParamDeriv_tangency` (with `λ = chordSlope`, via
+`chordSlope_diag`).
+The certificate is the double-root Taylor expansion of the chord cubic `C` about `s = z`:
+`C(t) = C(z) + C′(z)·(t − z) + (t − z)²·(A(t + 2z) + S)`, where `C(z) = 0` is the value equation
+(`wParam_functional_eq`, on the chord line), `C′(z) = 0` is tangency, and `A(t + 2z) + S = 0` is
+`formalThirdRoot_vieta` on the diagonal.  No `(z₁ − z₂)` cancellation is needed. -/
+theorem thirdChordPoint_functional_eq_diag (hz : z ∈ (maximalIdeal R).asIdeal) :
+    chordSlope R W (PowerSeries.diag_mem _ hz) * thirdRootNum R W (PowerSeries.diag_mem _ hz)
+        + chordIntercept R W (PowerSeries.diag_mem _ hz)
+      = thirdRootNum R W (PowerSeries.diag_mem _ hz) ^ 3
+        + ((integralModel R W).a₁ * thirdRootNum R W (PowerSeries.diag_mem _ hz)
+            + (integralModel R W).a₂ * thirdRootNum R W (PowerSeries.diag_mem _ hz) ^ 2)
+          * (chordSlope R W (PowerSeries.diag_mem _ hz)
+              * thirdRootNum R W (PowerSeries.diag_mem _ hz)
+              + chordIntercept R W (PowerSeries.diag_mem _ hz))
+        + ((integralModel R W).a₃
+            + (integralModel R W).a₄ * thirdRootNum R W (PowerSeries.diag_mem _ hz))
+          * (chordSlope R W (PowerSeries.diag_mem _ hz)
+              * thirdRootNum R W (PowerSeries.diag_mem _ hz)
+              + chordIntercept R W (PowerSeries.diag_mem _ hz)) ^ 2
+        + (integralModel R W).a₆
+          * (chordSlope R W (PowerSeries.diag_mem _ hz)
+              * thirdRootNum R W (PowerSeries.diag_mem _ hz)
+              + chordIntercept R W (PowerSeries.diag_mem _ hz)) ^ 3 := by
+  -- The chord line: `w(z) = λ z + ν` (the tangent line through the double point).
+  have hL : wParam R W hz
+      = chordSlope R W (PowerSeries.diag_mem _ hz) * z
+        + chordIntercept R W (PowerSeries.diag_mem _ hz) :=
+    (wLineZero_eq_wParam R W (PowerSeries.diag_mem _ hz) hz).symm.trans
+      (wLineZero_eq_chord R W (PowerSeries.diag_mem _ hz))
+  -- The tangent slope is the derivative: `λ = w′(z)`.
+  have hslope : wParamDeriv R W hz = chordSlope R W (PowerSeries.diag_mem _ hz) :=
+    (chordSlope_diag R W hz).symm
+  -- Value equation `C(z) = 0` (point on curve), with `w = λ z + ν`.
+  have hV := wParam_functional_eq R W hz
+  rw [hL] at hV
+  -- Tangency `C′(z) = 0` (differentiated functional equation), with `w′ = λ` and `w = λ z + ν`.
+  have hT := wParamDeriv_tangency R W hz
+  rw [hslope, hL] at hT
+  -- Vieta `A(t + z + z) + S = 0`, with `A`, `S` the numeric closed forms in `λ`, `ν`.
+  have hVieta := formalThirdRoot_vieta R W (PowerSeries.diag_mem _ hz)
+  rw [adicEvalMv_formalGroupLead R W (PowerSeries.diag_mem _ hz),
+    adicEvalMv_formalGroupSub R W (PowerSeries.diag_mem _ hz)] at hVieta
+  linear_combination hV
+    + (thirdRootNum R W (PowerSeries.diag_mem _ hz) - z) * hT
+    - (thirdRootNum R W (PowerSeries.diag_mem _ hz) - z) ^ 2 * hVieta
+
 end Diagonal
 
 end WeierstrassCurve
