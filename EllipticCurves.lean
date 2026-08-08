@@ -5,6 +5,7 @@ import EllipticCurves.FormalGroup.AdicEval
 import EllipticCurves.FormalGroup.BivariateCoords
 import EllipticCurves.FormalGroup.CoordinateSeries
 import EllipticCurves.FormalGroup.CubicFactorisation
+import EllipticCurves.FormalGroup.DividedDiffDiagonal
 import EllipticCurves.FormalGroup.DividedDifference
 import EllipticCurves.FormalGroup.EmbedDictionary
 import EllipticCurves.FormalGroup.Expansion
