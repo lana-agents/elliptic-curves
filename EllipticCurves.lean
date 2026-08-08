@@ -68,6 +68,7 @@ import EllipticCurves.Reduction.TangentAffineBridge
 import EllipticCurves.Reduction.TangentThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordNonvanishing
+import EllipticCurves.Reduction.ThirdChordNonvanishingDiag
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.PadicInverseLimit
