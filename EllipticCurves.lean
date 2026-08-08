@@ -65,6 +65,7 @@ import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.SecantAdditivity
 import EllipticCurves.Reduction.TangentAffineBridge
+import EllipticCurves.Reduction.TangentThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordNonvanishing
 import EllipticCurves.TateModule.Basic
