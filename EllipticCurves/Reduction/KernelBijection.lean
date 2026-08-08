@@ -53,8 +53,11 @@ omit [IsAdicComplete (maximalIdeal R).asIdeal R] in
 /-- **Uniqueness of the small solution of the Weierstrass `w`-functional equation.** If `W₁` and
 `W₂` both satisfy `W = Z³ + (a₁Z + a₂Z²)W + (a₃ + a₄Z)W² + a₆W³` and all of `Z, W₁, W₂` have
 valuation `< 1`, then `W₁ = W₂`.  The difference `d = W₁ - W₂` factors as `d = d · B` with `v B < 1`
-(each coefficient is integral and every monomial has a factor of valuation `< 1`), so `d = 0`. -/
-private theorem wFunctionalEq_unique (W : WeierstrassCurve K) [IsIntegral R W]
+(each coefficient is integral and every monomial has a factor of valuation `< 1`), so `d = 0`.
+
+Exposed (was `private`) so the numeric formal-group evaluation (`Reduction/FormalGroupEval.lean`)
+can identify the `(z, w)`-plane chord line values with the coordinate expansion `wParam`. -/
+theorem wFunctionalEq_unique (W : WeierstrassCurve K) [IsIntegral R W]
     {Z W₁ W₂ : K}
     (hZ : valuation K (maximalIdeal R) Z < 1)
     (hW₁ : valuation K (maximalIdeal R) W₁ < 1)
