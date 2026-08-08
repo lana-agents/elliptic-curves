@@ -55,6 +55,7 @@ import EllipticCurves.Reduction.AdditivityValuation
 import EllipticCurves.Reduction.ChordAffineBridge
 import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
+import EllipticCurves.Reduction.FormalGroupTangent
 import EllipticCurves.Reduction.KernelBijection
 import EllipticCurves.Reduction.KernelFormalGroup
 import EllipticCurves.Reduction.KernelSection
