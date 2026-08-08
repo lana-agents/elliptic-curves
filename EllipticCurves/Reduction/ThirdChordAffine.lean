@@ -258,4 +258,65 @@ theorem localParam_add_secant
 
 end Secant
 
+open Classical in
+/-- **Point-level secant additivity of the local parameter (generic case).**  For two points
+`P = (x₁, y₁)`, `Q = (x₂, y₂)` reducing to the origin with `x₁ ≠ x₂` (the secant case), whose affine
+sum `P + Q` also reduces to the origin, the local parameter of the sum equals the formal group law
+of the parameters:
+`z(P + Q) = z₁ ⊕ z₂ = adicEvalMv 𝔪 ![z₁, z₂] formalGroupZW`, where `zᵢ = localParamR R W Pᵢ`.
+Combining Mathlib's affine addition (`Point.add_of_X_ne`, the sum is `(addX, addY)`) with the
+coordinate identity `localParam_add_secant`.  Conditional on the non-degeneracy hypotheses of that
+identity (`w₃ ≠ 0`, `X₃ ∉ {x₁, x₂}`, `den ≠ 0`) and on the sum reducing to the origin; discharging
+those (and the doubling / inverse cases) completes the `E₁(K)` subgroup closure of #367. -/
+theorem localParam_add_of_X_ne [W.IsElliptic]
+    {x₁ y₁ : K} {h₁ : W.toAffine.Nonsingular x₁ y₁} (hR1 : ReducesToZero R W (.some x₁ y₁ h₁))
+    {x₂ y₂ : K} {h₂ : W.toAffine.Nonsingular x₂ y₂} (hR2 : ReducesToZero R W (.some x₂ y₂ h₂))
+    (hxne : x₁ ≠ x₂)
+    (hred : ReducesToZero R W (.some x₁ y₁ h₁ + .some x₂ y₂ h₂))
+    (ha : ∀ s : Fin 2,
+        ![localParamR R W (.some x₁ y₁ h₁), localParamR R W (.some x₂ y₂ h₂)] s
+          ∈ (maximalIdeal R).asIdeal)
+    (hw : thirdChordW R W ha ≠ 0)
+    (hd1 : X₃ R W ha ≠ xParam R W (localParamR_mem R W hR1))
+    (hd2 : X₃ R W ha ≠ xParam R W (localParamR_mem R W hR2))
+    (hden : adicEvalMv (maximalIdeal R).asIdeal ha (integralModel R W).formalGroupDen ≠ 0) :
+    localParam R W (.some x₁ y₁ h₁ + .some x₂ y₂ h₂)
+      = algebraMap R K
+          (adicEvalMv (maximalIdeal R).asIdeal ha (integralModel R W).formalGroupZW) := by
+  -- the two parameters are nonzero
+  have hz₁0 : localParamR R W (.some x₁ y₁ h₁) ≠ 0 := localParamR_ne_zero_of_reduces R W hR1
+  have hz₂0 : localParamR R W (.some x₂ y₂ h₂) ≠ 0 := localParamR_ne_zero_of_reduces R W hR2
+  -- the recovered coordinates are the original ones
+  have hcoord1 : xParam R W (localParamR_mem R W hR1) = x₁
+      ∧ yParam R W (localParamR_mem R W hR1) = y₁ := by
+    have hpt := pointOfParam_localParamR R W hR1 hz₁0
+    simpa only [pointOfParam, Affine.Point.some.injEq] using hpt
+  have hcoord2 : xParam R W (localParamR_mem R W hR2) = x₂
+      ∧ yParam R W (localParamR_mem R W hR2) = y₂ := by
+    have hpt := pointOfParam_localParamR R W hR2 hz₂0
+    simpa only [pointOfParam, Affine.Point.some.injEq] using hpt
+  obtain ⟨hx1, hy1⟩ := hcoord1
+  obtain ⟨hx2, hy2⟩ := hcoord2
+  -- the two recovered `x`-coordinates are distinct (the secant condition on the parameters)
+  have hx : xParam R W (localParamR_mem R W hR1) ≠ xParam R W (localParamR_mem R W hR2) := by
+    rw [hx1, hx2]; exact hxne
+  -- and the parameters themselves are distinct (via injectivity of `zParam` and `x₁ ≠ x₂`)
+  have hz : localParamR R W (.some x₁ y₁ h₁) ≠ localParamR R W (.some x₂ y₂ h₂) := by
+    intro he
+    have hPQ : (⟨.some x₁ y₁ h₁, hR1⟩ : {P : W.toAffine.Point // ReducesToZero R W P})
+        = ⟨.some x₂ y₂ h₂, hR2⟩ :=
+      zParam_injective R W (Subtype.ext (by rw [zParam_coe, zParam_coe]; exact he))
+    rw [Subtype.mk_eq_mk, Affine.Point.some.injEq] at hPQ
+    exact hxne hPQ.1
+  -- Mathlib's affine sum is the secant third point `(addX, addY)`; on the origin-reducing locus the
+  -- local parameter takes its `-addX/addY` branch
+  rw [Affine.Point.add_of_X_ne hxne] at hred ⊢
+  have hpos : 1 < valuation K (maximalIdeal R)
+      (W.toAffine.addX x₁ x₂ (W.toAffine.slope x₁ x₂ y₁ y₂)) := hred
+  rw [localParam_some, if_pos hpos]
+  have key := localParam_add_secant R W ha hz (localParamR_mem R W hR1) (localParamR_mem R W hR2)
+    hz₁0 hz₂0 hw hx hd1 hd2 hden
+  rw [hx1, hy1, hx2, hy2] at key
+  exact key
+
 end WeierstrassCurve
