@@ -50,6 +50,7 @@ import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
+import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
 import EllipticCurves.Reduction.KernelBijection
 import EllipticCurves.Reduction.KernelFormalGroup
