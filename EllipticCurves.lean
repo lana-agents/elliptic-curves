@@ -50,6 +50,7 @@ import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.Galois.Unramified
+import EllipticCurves.Reduction.ChordAffineBridge
 import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
 import EllipticCurves.Reduction.KernelBijection
@@ -59,6 +60,7 @@ import EllipticCurves.Reduction.LocalParameter
 import EllipticCurves.Reduction.LocalParameterInverse
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
+import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.PadicInverseLimit
