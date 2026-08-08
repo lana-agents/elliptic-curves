@@ -131,12 +131,15 @@ theorem thirdChord_line_num :
       + algebraMap R K (chordIntercept R W ha) = algebraMap R K (thirdChordW R W ha) := by
   rw [thirdChordW, map_add, map_mul]
 
-/-- The affine third-chord `x`-coordinate `X₃ = t / w₃`. -/
-private noncomputable def X₃ : K :=
+/-- The affine third-chord `x`-coordinate `X₃ = t / w₃` — the transported `x`-coordinate of the
+third chord point `(t, w₃)` under `x = z / w`.  Public so that downstream assembly can state the
+genuinely-degenerate distinctness side conditions `X₃ ∉ {x₁, x₂}` (which fail exactly in the
+`2P + Q = O` / `P + 2Q = O` configurations). -/
+noncomputable def X₃ : K :=
   algebraMap R K (thirdRootNum R W ha) / algebraMap R K (thirdChordW R W ha)
 
 omit [IsFractionRing R K] in
-private theorem X₃_def :
+theorem X₃_def :
     X₃ R W ha = algebraMap R K (thirdRootNum R W ha) / algebraMap R K (thirdChordW R W ha) :=
   rfl
 
