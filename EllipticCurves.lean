@@ -60,6 +60,7 @@ import EllipticCurves.Reduction.LocalParameter
 import EllipticCurves.Reduction.LocalParameterInverse
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
+import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.PadicInverseLimit
