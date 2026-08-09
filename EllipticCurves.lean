@@ -57,6 +57,7 @@ import EllipticCurves.FunctionField.MulByTwoEndomorphism
 import EllipticCurves.FunctionField.MulByTwoPullback
 import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.FunctionField.PrincipalDivisor
+import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
 import EllipticCurves.FunctionField.TranslationEndomorphism
 import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.Galois.Unramified
