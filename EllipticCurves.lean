@@ -57,6 +57,7 @@ import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
 import EllipticCurves.Reduction.FormalGroupTangent
 import EllipticCurves.Reduction.InverseAdditivity
+import EllipticCurves.Reduction.KernelAddClosure
 import EllipticCurves.Reduction.KernelBijection
 import EllipticCurves.Reduction.KernelFormalGroup
 import EllipticCurves.Reduction.KernelSection
