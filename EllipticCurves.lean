@@ -54,6 +54,7 @@ import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
 import EllipticCurves.Reduction.ChordAffineBridge
+import EllipticCurves.Reduction.DoublingReductionAdd
 import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
 import EllipticCurves.Reduction.FormalGroupTangent
