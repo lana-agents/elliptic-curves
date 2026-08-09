@@ -58,6 +58,7 @@ import EllipticCurves.Reduction.DoublingReductionAdd
 import EllipticCurves.Reduction.FormalGroupAdditivity
 import EllipticCurves.Reduction.FormalGroupEval
 import EllipticCurves.Reduction.FormalGroupTangent
+import EllipticCurves.Reduction.GoodReductionBaseChange
 import EllipticCurves.Reduction.IntegralReductionAdd
 import EllipticCurves.Reduction.InverseAdditivity
 import EllipticCurves.Reduction.KernelAddClosure
