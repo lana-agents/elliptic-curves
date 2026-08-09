@@ -80,6 +80,7 @@ import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffineUncond
 import EllipticCurves.Reduction.ThirdChordNonvanishing
 import EllipticCurves.Reduction.ThirdChordNonvanishingDiag
+import EllipticCurves.Reduction.Torsion
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.PadicInverseLimit
