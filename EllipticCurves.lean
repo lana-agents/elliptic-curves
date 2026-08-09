@@ -72,6 +72,7 @@ import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.SecantAdditivity
 import EllipticCurves.Reduction.SecantClosure
+import EllipticCurves.Reduction.SecantReductionAdd
 import EllipticCurves.Reduction.SlopeReduction
 import EllipticCurves.Reduction.TangentAdditivityClean
 import EllipticCurves.Reduction.TangentAffineBridge
