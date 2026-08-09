@@ -70,6 +70,7 @@ import EllipticCurves.Reduction.SecantAdditivity
 import EllipticCurves.Reduction.SecantClosure
 import EllipticCurves.Reduction.TangentAdditivityClean
 import EllipticCurves.Reduction.TangentAffineBridge
+import EllipticCurves.Reduction.TangentClosure
 import EllipticCurves.Reduction.TangentThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordNonvanishing
