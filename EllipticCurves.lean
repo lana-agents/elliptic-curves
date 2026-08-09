@@ -64,6 +64,7 @@ import EllipticCurves.Reduction.LocalParameterInverse
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.SecantAdditivity
+import EllipticCurves.Reduction.TangentAdditivityClean
 import EllipticCurves.Reduction.TangentAffineBridge
 import EllipticCurves.Reduction.TangentThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffine
