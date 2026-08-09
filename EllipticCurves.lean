@@ -51,6 +51,7 @@ import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.FunctionField.Divisors
+import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
