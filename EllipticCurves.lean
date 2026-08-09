@@ -50,6 +50,7 @@ import EllipticCurves.FormalGroup.ThirdRootMatching
 import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
+import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.Divisors
