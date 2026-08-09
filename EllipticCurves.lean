@@ -73,6 +73,7 @@ import EllipticCurves.Reduction.TangentAffineBridge
 import EllipticCurves.Reduction.TangentClosure
 import EllipticCurves.Reduction.TangentThirdChordAffine
 import EllipticCurves.Reduction.ThirdChordAffine
+import EllipticCurves.Reduction.ThirdChordAffineUncond
 import EllipticCurves.Reduction.ThirdChordNonvanishing
 import EllipticCurves.Reduction.ThirdChordNonvanishingDiag
 import EllipticCurves.TateModule.Basic
