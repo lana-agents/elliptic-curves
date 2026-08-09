@@ -196,7 +196,7 @@ noncomputable def mulByThreeAlgHom (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
 /-- **Dominance of `[3]`, key step.** If the `x`-coordinate of the tripled generic point
 `x(3 • P) = Φ₃(genX)/ΨSq₃(genX)` (= `mulByThreeCoordHom h2 h3 (mk W (C X))`) is algebraic over `F`,
 then so is the generic `x`-coordinate `genX = x(P)`. -/
-lemma isAlgebraic_genX_of (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+lemma isAlgebraic_genX_of_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (hu : IsAlgebraic F (mulByThreeCoordHom h2 h3 (mk W (C X)))) :
     IsAlgebraic F (genX W) := by
   rw [mulByThreeCoordHom_X] at hu
@@ -243,7 +243,7 @@ lemma isAlgebraic_genX_of (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
 /-- **Multiplication-by-`3` is dominant: `mulByThreeCoordHom h2 h3` is injective.** If it were not,
 its kernel would be a nonzero prime — hence maximal, as `F[W]` has Krull dimension `≤ 1` — so the
 residue field would be algebraic over `F` (Zariski), forcing `x(3 • P)` to be algebraic and, via
-`isAlgebraic_genX_of`, `genX` itself to be algebraic, contradicting `transcendental_genX`. -/
+`isAlgebraic_genX_of_three`, `genX` itself to be algebraic, contradicting `transcendental_genX`. -/
 lemma mulByThreeCoordHom_injective (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Function.Injective (mulByThreeCoordHom (W := W) h2 h3) := by
   set g := mulByThreeAlgHom (W := W) h2 h3 with hg
@@ -256,7 +256,7 @@ lemma mulByThreeCoordHom_injective (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     have hu : IsAlgebraic F (g (mk W (C X))) :=
       isAlgebraic_of_ker_maximal g hmax (mk W (C X))
     rw [hg, mulByThreeAlgHom_apply] at hu
-    exact transcendental_genX (isAlgebraic_genX_of h2 h3 hu)
+    exact transcendental_genX (isAlgebraic_genX_of_three h2 h3 hu)
   exact key
 
 /-- **The multiplication-by-`3` endomorphism of the function field.** The ring endomorphism
