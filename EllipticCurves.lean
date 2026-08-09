@@ -62,6 +62,7 @@ import EllipticCurves.Reduction.KernelFormalGroup
 import EllipticCurves.Reduction.KernelSection
 import EllipticCurves.Reduction.LocalParameter
 import EllipticCurves.Reduction.LocalParameterInverse
+import EllipticCurves.Reduction.NegationGroup
 import EllipticCurves.Reduction.NegationParam
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
