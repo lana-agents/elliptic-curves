@@ -63,6 +63,7 @@ import EllipticCurves.Reduction.KernelAddClosure
 import EllipticCurves.Reduction.KernelBijection
 import EllipticCurves.Reduction.KernelFormalGroup
 import EllipticCurves.Reduction.KernelFormalGroupIso
+import EllipticCurves.Reduction.KernelIntegralReduction
 import EllipticCurves.Reduction.KernelNegationUncond
 import EllipticCurves.Reduction.KernelSection
 import EllipticCurves.Reduction.KernelVerticalReduction
