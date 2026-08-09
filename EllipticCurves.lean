@@ -74,6 +74,7 @@ import EllipticCurves.Reduction.NegationGroup
 import EllipticCurves.Reduction.NegationParam
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
+import EllipticCurves.Reduction.ReductionEquivariance
 import EllipticCurves.Reduction.ReductionHom
 import EllipticCurves.Reduction.ReductionInjectivity
 import EllipticCurves.Reduction.SecantAdditivity
