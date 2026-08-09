@@ -44,6 +44,9 @@ Ward recurrence: only *non-degeneracy* of the finished pairing needs the torsion
 * `WeierstrassCurve.Affine.XYIdeal'_pow_isPrincipal_of_torsion` : if `.some x y h ∈ E[n]` then the
   fractional ideal `(XYIdeal' h)^n` is principal — the existence of the function `f_P` with
   `div f_P = n·(P) − n·(O)`.
+* `WeierstrassCurve.Affine.exists_generator_XYIdeal'_pow_of_torsion` : the explicit generator — a
+  **nonzero** rational function `f_P ∈ F(W)` with `(XYIdeal' h)^n = spanSingleton f_P`. This is the
+  concrete `f_P` the Weil-pairing construction consumes.
 
 ## References
 
@@ -51,6 +54,8 @@ Silverman, *The Arithmetic of Elliptic Curves*, II.3 (divisors; a degree-`0` div
 iff it sums to `O`, Abel's theorem — here realised as the affine class group of `F[W]`) and III.8
 (the Weil pairing).
 -/
+
+open scoped nonZeroDivisors
 
 namespace WeierstrassCurve.Affine
 
@@ -80,5 +85,35 @@ theorem XYIdeal'_pow_isPrincipal_of_torsion {x y : F} (h : W.Nonsingular x y) {n
     rwa [Point.toClass_some] at h0
   rw [← map_pow] at hz
   exact ClassGroup.mk_eq_one_iff.mp hz
+
+/-- **The explicit principal generator `f_P`.** For a nonzero point `(x, y)` of the `n`-torsion
+`E[n]`, there is a **nonzero** rational function `f_P ∈ F(W)` with
+`(XYIdeal' h)^n = spanSingleton f_P` as fractional ideals. This is the concrete rational function
+whose divisor is `n·(P) − n·(O)` — the input the divisor-theoretic Weil pairing consumes (a
+generator of the principal ideal produced by `XYIdeal'_pow_isPrincipal_of_torsion`).
+
+Like that lemma this needs only `[Field F]`; it uses neither Dedekindness/normality of `F[W]` nor
+the elliptic-net (Ward) recurrence. -/
+theorem exists_generator_XYIdeal'_pow_of_torsion {x y : F} (h : W.Nonsingular x y) {n : ℕ}
+    (hP : Point.some x y h ∈ W.torsion n) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      (↑(CoordinateRing.XYIdeal' (W := W) h ^ n) :
+        FractionalIdeal W.CoordinateRing⁰ W.FunctionField) =
+        FractionalIdeal.spanSingleton W.CoordinateRing⁰ f := by
+  haveI := XYIdeal'_pow_isPrincipal_of_torsion h hP
+  have hIne : (↑(CoordinateRing.XYIdeal' (W := W) h ^ n) :
+      FractionalIdeal W.CoordinateRing⁰ W.FunctionField) ≠ 0 :=
+    (CoordinateRing.XYIdeal' (W := W) h ^ n).isUnit.ne_zero
+  refine ⟨Submodule.IsPrincipal.generator
+      ((↑(CoordinateRing.XYIdeal' (W := W) h ^ n) :
+        FractionalIdeal W.CoordinateRing⁰ W.FunctionField) :
+        Submodule W.CoordinateRing W.FunctionField), ?_,
+    FractionalIdeal.eq_spanSingleton_of_principal _⟩
+  intro hg0
+  exact hIne <| by
+    rw [FractionalIdeal.eq_spanSingleton_of_principal
+      (↑(CoordinateRing.XYIdeal' (W := W) h ^ n) :
+        FractionalIdeal W.CoordinateRing⁰ W.FunctionField), hg0,
+      FractionalIdeal.spanSingleton_zero]
 
 end WeierstrassCurve.Affine
