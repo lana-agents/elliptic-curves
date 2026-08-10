@@ -56,6 +56,7 @@ import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
+import EllipticCurves.FunctionField.MulByTwoExtensionFinite
 import EllipticCurves.FunctionField.MulByTwoFinite
 import EllipticCurves.FunctionField.MulByTwoModuleFinite
 import EllipticCurves.FunctionField.MulByTwoPullback
