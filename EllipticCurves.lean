@@ -69,6 +69,7 @@ import EllipticCurves.FunctionField.PrincipalDivisor
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
 import EllipticCurves.FunctionField.TranslationEndomorphism
 import EllipticCurves.FunctionField.TranslationPullback
+import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
