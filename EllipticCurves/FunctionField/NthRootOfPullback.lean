@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
+import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
 
 /-!
@@ -47,6 +48,8 @@ explicit hypothesis (`hprin`), to be discharged by a follow-on once `#E[n] = n²
   divisor is unique up to a unit of `F[W]` (for `m ≠ 0`).
 * `WeierstrassCurve.Affine.exists_gS_two` — the concrete `n = 2` rung: from the torsion generator
   `f_S` of #409 and the principality of `[2]∗(S)`, a nonzero `g_S` with `u · g_S ^ 2 = [2]∗ f_S`.
+* `WeierstrassCurve.Affine.exists_gS_three` — the concrete `n = 3` rung, the `mulByThreeEndo`
+  analogue of `exists_gS_two`: a nonzero `g_S` with `u · g_S ^ 3 = [3]∗ f_S`.
 
 ## References
 
@@ -117,6 +120,31 @@ theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nons
   obtain ⟨g₀, hg₀, hdiv⟩ := hprin f hf hfdiv
   have hne : mulByTwoEndo h2 f ≠ 0 := fun hz =>
     hf ((mulByTwoEndo h2).injective (by rw [hz, map_zero]))
+  exact ⟨f, hf, hfdiv, g₀, hg₀, exists_smul_pow_eq_of_nsmul_divisor hne hg₀ hdiv⟩
+
+/-- **The concrete `n = 3` rung of the Weil pairing.** The `mulByThreeEndo` analogue of
+`exists_gS_two`: for a nonsingular `3`-torsion point `S = (x, y)`, take the principal function `f_S`
+of #409 (`divisor W f_S = 3·(S)` on the affine chart) and its pullback `[3]∗ f_S = mulByThreeEndo`
+`h2 h3 f_S`.  Assuming the effective divisor of the `n`-th root is principal (`hprin`:
+`∃ g₀ ≠ 0, 3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f_S)`), there is a nonzero
+`g_S ∈ F(W)` with `u · g_S ^ 3 = mulByThreeEndo h2 h3 f_S` for a unit `u` of `F[W]`.
+
+As with `exists_gS_two`, the hypothesis `hprin` is the single Ward-coupled input (principality of
+`[3]∗(S)`); everything else is the Ward- and normality-independent assembly. -/
+theorem exists_gS_three [DecidableEq F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
+    (h : W.Nonsingular x y) (hP : Point.some x y h ∈ W.torsion 3)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (CoordinateRing.pointClosedPoint h.1) (3 : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisor W f = Finsupp.single (CoordinateRing.pointClosedPoint h.1) (3 : ℤ) ∧
+      ∃ gS : W.FunctionField, gS ≠ 0 ∧
+        ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gS ^ 3 = mulByThreeEndo h2 h3 f := by
+  obtain ⟨f, hf, hfdiv⟩ := exists_generator_divisor_eq_of_torsion h hP
+  obtain ⟨g₀, hg₀, hdiv⟩ := hprin f hf hfdiv
+  have hne : mulByThreeEndo h2 h3 f ≠ 0 := fun hz =>
+    hf ((mulByThreeEndo h2 h3).injective (by rw [hz, map_zero]))
   exact ⟨f, hf, hfdiv, g₀, hg₀, exists_smul_pow_eq_of_nsmul_divisor hne hg₀ hdiv⟩
 
 end WeierstrassCurve.Affine
