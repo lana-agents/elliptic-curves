@@ -58,6 +58,7 @@ import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.GenericDoubling
 import EllipticCurves.FunctionField.GenericPoint
+import EllipticCurves.FunctionField.GenericTripling
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByThreeExtensionFinite
 import EllipticCurves.FunctionField.MulByThreeFinite
