@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
+import EllipticCurves.FunctionField.MulByThreeEndomorphism
 
 /-!
 # The Weil-pairing element `e_n(S, T)` (Weil-pairing construction, rung 6)
@@ -128,6 +129,22 @@ theorem weilPairingElt_pow_eq_one_of_gS {x₂ y₂ : F} (h₂ : W.Equation x₂ 
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f)
+    (huf : translateEndo h₂ (algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing))
+      = algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing)) :
+    weilPairingElt h₂ g ^ n = 1 :=
+  weilPairingElt_pow_eq_one h₂ hg (translateEndo_pow_eq_self_of h₂ hu hcomm huf)
+
+/-- **`e_n(S, T) ^ n = 1`, concrete `n = 3` instance.** The `mulByThreeEndo` analogue of
+`weilPairingElt_pow_eq_one_of_gS`: here the pulled-back principal function is
+`h = [3]∗ f_S = mulByThreeEndo h2 h3 f` and `g = g_S` is the rung-5 `n = 3` root
+(`exists_gS_three`, `u · g ^ 3 = mulByThreeEndo h2 h3 f`).  Nothing in the reduction is specific to
+`n = 2`: `translateEndo_pow_eq_self_of` and `weilPairingElt_pow_eq_one` are `n`-agnostic, so the two
+named inputs `hcomm`/`huf` are supplied on the `mulByThreeEndo` datum and the same cancellation
+produces `e_n(S, T) ^ n = 1`. -/
+theorem weilPairingElt_pow_eq_one_of_gS_three {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
+    (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)
+    (hcomm : translateEndo h₂ (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f)
     (huf : translateEndo h₂ (algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing))
       = algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing)) :
     weilPairingElt h₂ g ^ n = 1 :=
