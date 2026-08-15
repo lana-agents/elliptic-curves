@@ -81,6 +81,7 @@ import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingBilinear
+import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingConstant
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
