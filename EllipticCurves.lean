@@ -105,6 +105,7 @@ import EllipticCurves.Reduction.LocalParameter
 import EllipticCurves.Reduction.LocalParameterInverse
 import EllipticCurves.Reduction.NegationGroup
 import EllipticCurves.Reduction.NegationParam
+import EllipticCurves.Reduction.NeronOggShafarevich
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.ReductionBaseChange
