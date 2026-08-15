@@ -55,6 +55,7 @@ import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.Divisors
+import EllipticCurves.FunctionField.GenericPoint
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByThreeExtensionFinite
 import EllipticCurves.FunctionField.MulByThreeFinite
