@@ -81,7 +81,44 @@ theorem addX_gen_eq_mulByTwo (h2 : (2 : F) ≠ 0) :
     (W.map (algebraMap F W.FunctionField)).addX (genX W) (genX W)
         ((W.map (algebraMap F W.FunctionField)).slope (genX W) (genX W) (genY W) (genY W))
       = mulByTwoEndo h2 (genX W) := by
-  sorry
+  rw [slope_of_Y_ne rfl (genY_ne_negY_gen h2), mulByTwoEndo_genX]
+  set W' := W.map (algebraMap F W.FunctionField) with hW'
+  set x := genX W with hxdef
+  set y := genY W with hydef
+  set s := 2 * y + W'.a₁ * x + W'.a₃ with hsdef
+  -- The tangent-slope denominator `y - negY x y` equals `ψ₂ = 2y + a₁x + a₃ = s`.
+  have hden : y - W'.negY x y = s := by
+    rw [hsdef]; simp only [negY]; ring
+  -- and this `ψ₂`-value is nonzero (the generic point is not `2`-torsion).
+  have hden0 : s ≠ 0 := by
+    have h := psiTwo_gen_ne (W := W) h2
+    rw [ψ_two_evalEval] at h
+    rw [hsdef]; exact h
+  -- `ψ₂² = Ψ₂Sq(x)` at the generic point.
+  have hs : s ^ 2 = W'.Ψ₂Sq.eval x := by
+    have hsq := ψ_sq_evalEval (W := W') equation_gen 2
+    rw [ΨSq_two, ψ_two_evalEval] at hsq
+    rw [hsdef]; exact hsq
+  -- The `x`-value `Φ₂(x)` as a polynomial in `x` (with the `bᵢ` expanded into the `aᵢ`).
+  have hΦv : (W'.Φ 2).eval x =
+      x ^ 4 - (2 * W'.a₄ + W'.a₁ * W'.a₃) * x ^ 2 - 2 * (W'.a₃ ^ 2 + 4 * W'.a₆) * x
+        - (W'.a₁ ^ 2 * W'.a₆ + 4 * W'.a₂ * W'.a₆ - W'.a₁ * W'.a₃ * W'.a₄
+            + W'.a₂ * W'.a₃ ^ 2 - W'.a₄ ^ 2) := by
+    rw [Φ_two, WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+    simp only [eval_sub, eval_mul, eval_pow, eval_X, eval_C]
+  -- The curve equation at the generic point, in `_ = 0` form.
+  have heq : y ^ 2 + W'.a₁ * x * y + W'.a₃ * y
+      - (x ^ 3 + W'.a₂ * x ^ 2 + W'.a₄ * x + W'.a₆) = 0 :=
+    (equation_iff' x y).mp equation_gen
+  rw [hden, ← hs]
+  simp only [addX]
+  field_simp [hden0]
+  -- After clearing the `s²`-denominator the identity is `N² + a₁Ns - (a₂+2x)s² = Φ₂(x)`,
+  -- with `N = 3x² + 2a₂x + a₄ - a₁y`; its `y`-dependence collapses under the curve equation.
+  linear_combination
+    (W'.a₁ * (3 * x ^ 2 + 2 * W'.a₂ * x + W'.a₄ - W'.a₁ * y)
+        - (W'.a₂ + 2 * x) * (s + 2 * y + W'.a₁ * x + W'.a₃)) * hsdef
+      + (-W'.a₁ ^ 2 - 4 * W'.a₂ - 8 * x) * heq - hΦv
 
 open Classical in
 /-- **The `y`-coordinate of the duplication formula.** The `y`-coordinate `addY` of the group double
