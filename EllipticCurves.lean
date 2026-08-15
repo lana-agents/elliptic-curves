@@ -51,6 +51,7 @@ import EllipticCurves.FormalGroup.UniversalIdentification
 import EllipticCurves.FormalGroup.VietaDifferential
 import EllipticCurves.FormalGroup.WThreeFunctionalEq
 import EllipticCurves.FunctionField.ConstantField
+import EllipticCurves.FunctionField.ConstantFieldDomain
 import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
