@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.FunctionField.ConstantFieldDomain
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingBilinear
 
@@ -34,30 +35,31 @@ constant field of `F(W)`).  Hence, the moment one knows `K = ⊥` — i.e. that 
 algebraically closed in its function field `F(W)`, equivalently that `F` is the full field of
 constants — the pairing value is forced to be a genuine constant `algebraMap F F(W) c`.
 
-`K = ⊥` is the *geometric integrality* of the Weierstrass curve: it holds because an elliptic curve
-carries the smooth `F`-rational point `O` at infinity, whose residue field is `F`, so the constant
-field cannot be larger than `F`.  That geometric fact is the single input carried here as the
-explicit hypothesis `halg : algebraicClosure F W.FunctionField = ⊥`, matching the
-conditional-partial methodology of the rest of rung 6 (`hcomm`, `huf`, `hprin`, `hfix`).  It is a
-**different** unlock from both the normality wall (`F[W]` integrally closed in `F(W)`) and the
-divisor-pullback route (translation-invariance of `div g_S`, gated on rung 4) — either of which
-would also deliver constancy, but both are blocked/heavier on this pin.
+`K = ⊥` is the *geometric integrality* of the Weierstrass curve, now available **unconditionally**
+as `algebraicClosure_functionField_eq_bot` (`ConstantFieldDomain.lean`, #434): the base change of
+`F(W)` to `AlgebraicClosure F` is a domain (the Weierstrass polynomial stays irreducible over the
+algebraic closure), so `F` is relatively algebraically closed in `F(W)`.  Feeding that theorem here
+makes the constancy of `e_n(S, T)` and the translation-slot bilinearity hold for `[Field F]` alone,
+with no residual constant-field hypothesis.  This is a **different** unlock from both the normality
+wall (`F[W]` integrally closed in `F(W)`) and the divisor-pullback route (translation-invariance of
+`div g_S`, gated on rung 4) — either of which would also deliver constancy, but both are
+blocked/heavier on this pin.
 
 ## Main results
 
 * `exists_algebraMap_of_pow_eq_one` — any `z ∈ F(W)` with `z ^ n = 1` (`n ≠ 0`) is a constant
-  `algebraMap F F(W) c`, given `algebraicClosure F F(W) = ⊥`;
+  `algebraMap F F(W) c`, unconditionally;
 * `weilPairingElt_isConstant` / `_of_gS'` / `_of_gS_three'` — the pairing value `e_n(S, T)` is such
   a constant, from `e_n(S, T) ^ n = 1`;
-* `weilPairingElt_translatePoint_add_of_algClosed` — **unconditional** (modulo `halg` + the group
+* `weilPairingElt_translatePoint_add_of_algClosed` — **unconditional** (modulo the group
   relation `hsum`) bilinearity in the translation slot, obtained by feeding constancy to
   `weilPairingElt_translatePoint_add_of_const`.
 
 ## Scope
 
-Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]`, the root-of-unity input
-(already delivered), and the constant-field hypothesis `halg`.  Non-degeneracy remains out of scope
-(Ward-gated, #242).
+Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]` and the root-of-unity input
+(already delivered).  The constant-field fact is discharged internally via
+`algebraicClosure_functionField_eq_bot`.  Non-degeneracy remains out of scope (Ward-gated, #242).
 
 ## References
 
@@ -72,31 +74,30 @@ namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F}
 
-/-- A root of unity in the function field is a **constant**, provided `F` is relatively
-algebraically closed in `F(W)` (`algebraicClosure F F(W) = ⊥`, the constant-field hypothesis).
-Indeed `z ^ n = 1` makes `z` algebraic over `F`, hence a member of `algebraicClosure F F(W)`, which
-`⊥` identifies with the image of `F`. -/
+/-- A root of unity in the function field is a **constant**.  Indeed `z ^ n = 1` makes `z` algebraic
+over `F`, hence a member of the relative algebraic closure `algebraicClosure F F(W)`, which the
+geometric-integrality theorem `algebraicClosure_functionField_eq_bot` identifies with `⊥`, i.e. the
+image of `F`. -/
 theorem exists_algebraMap_of_pow_eq_one {z : W.FunctionField} {n : ℕ} (hn : n ≠ 0)
-    (hz : z ^ n = 1) (halg : algebraicClosure F W.FunctionField = ⊥) :
+    (hz : z ^ n = 1) :
     ∃ c : F, z = algebraMap F W.FunctionField c := by
   -- `z` is algebraic over `F`: it is a root of the nonzero polynomial `X ^ n - 1`.
   have halgz : IsAlgebraic F z :=
     ⟨X ^ n - C 1, (monic_X_pow_sub_C (1 : F) hn).ne_zero, by
       rw [map_sub, map_pow, aeval_X, aeval_C, map_one, hz, sub_self]⟩
-  -- hence `z` lies in the relative algebraic closure, pinned by `halg` to `⊥ = image of F`.
+  -- hence `z` lies in the relative algebraic closure, pinned to `⊥ = image of F` by geometric
+  -- integrality of the Weierstrass curve.
   have hmem : z ∈ algebraicClosure F W.FunctionField := mem_algebraicClosure_iff.mpr halgz
-  rw [halg, IntermediateField.mem_bot] at hmem
+  rw [W.algebraicClosure_functionField_eq_bot, IntermediateField.mem_bot] at hmem
   obtain ⟨c, hc⟩ := hmem
   exact ⟨c, hc.symm⟩
 
-/-- **The Weil-pairing element is a constant.**  From `e_n(S, T) ^ n = 1` (`n ≠ 0`) and the
-constant-field hypothesis `algebraicClosure F F(W) = ⊥`, the value `e_n(S, T)` equals a genuine
-constant `algebraMap F F(W) c`. -/
+/-- **The Weil-pairing element is a constant.**  From `e_n(S, T) ^ n = 1` (`n ≠ 0`) the value
+`e_n(S, T)` equals a genuine constant `algebraMap F F(W) c`. -/
 theorem weilPairingElt_isConstant [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
-    {g : W.FunctionField} {n : ℕ} (hn : n ≠ 0) (hpow : weilPairingElt h₂ g ^ n = 1)
-    (halg : algebraicClosure F W.FunctionField = ⊥) :
+    {g : W.FunctionField} {n : ℕ} (hn : n ≠ 0) (hpow : weilPairingElt h₂ g ^ n = 1) :
     ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c :=
-  exists_algebraMap_of_pow_eq_one hn hpow halg
+  exists_algebraMap_of_pow_eq_one hn hpow
 
 /-- **The `n = 2`-track Weil-pairing element is a constant.**  Specialises
 `weilPairingElt_isConstant` to the concrete combined datum `weilPairingElt_pow_eq_one_of_gS'`, which
@@ -105,10 +106,9 @@ and the translation-commuting `hcomm`. -/
 theorem weilPairingElt_isConstant_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hn : n ≠ 0)
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
-    (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f)
-    (halg : algebraicClosure F W.FunctionField = ⊥) :
+    (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
     ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c :=
-  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm) halg
+  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm)
 
 /-- **The `n = 3`-track Weil-pairing element is a constant.**  The `mulByThreeEndo` mirror of
 `weilPairingElt_isConstant_of_gS'`, over the concrete datum
@@ -116,31 +116,29 @@ theorem weilPairingElt_isConstant_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : 
 theorem weilPairingElt_isConstant_of_gS_three' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}
     (hn : n ≠ 0) (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)
-    (hcomm : translateEndo h₂ (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f)
-    (halg : algebraicClosure F W.FunctionField = ⊥) :
+    (hcomm : translateEndo h₂ (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f) :
     ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c :=
-  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS_three' h₂ h2 h3 hg hu hcomm) halg
+  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS_three' h₂ h2 h3 hg hu hcomm)
 
 /-- **Unconditional bilinearity of the Weil-pairing element in the translation slot.**  For affine
 points `T_P, T_Q, T_R` with `T_P ⊕ T_Q = T_R` (`hsum`), a nonzero `g`, and given that the pairing
-value `e_n(S, T_Q) ^ n = 1` (`hpow`) together with the constant-field hypothesis `halg`, the
-constancy of `e_n(S, T_Q)` (from `weilPairingElt_isConstant`) discharges the `hfix` input of
+value `e_n(S, T_Q) ^ n = 1` (`hpow`), the constancy of `e_n(S, T_Q)` (from
+`weilPairingElt_isConstant`) discharges the `hfix` input of
 `weilPairingElt_translatePoint_add_of_const`, giving
 
 ```
 e_n(S, T_R) = e_n(S, T_P) · e_n(S, T_Q)
 ```
 
-with no residual `hfix`/`hconst` hypothesis beyond `halg`, `hpow` and the group relation. -/
+with no residual `hfix`/`hconst`/constant-field hypothesis beyond `hpow` and the group relation. -/
 theorem weilPairingElt_translatePoint_add_of_algClosed [W.IsElliptic]
     {xP yP xQ yQ xR yR : F} (hP : W.Equation xP yP) (hQ : W.Equation xQ yQ)
     (hR : W.Equation xR yR)
     (hsum : translatePoint hP + translatePoint hQ = translatePoint hR)
     {g : W.FunctionField} (hg : g ≠ 0) {n : ℕ} (hn : n ≠ 0)
-    (hpow : weilPairingElt hQ g ^ n = 1)
-    (halg : algebraicClosure F W.FunctionField = ⊥) :
+    (hpow : weilPairingElt hQ g ^ n = 1) :
     weilPairingElt hR g = weilPairingElt hP g * weilPairingElt hQ g := by
-  obtain ⟨c, hc⟩ := weilPairingElt_isConstant hQ hn hpow halg
+  obtain ⟨c, hc⟩ := weilPairingElt_isConstant hQ hn hpow
   exact weilPairingElt_translatePoint_add_of_const hP hQ hR hsum hg hc
 
 end CoordinateRing
