@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 
@@ -122,6 +123,19 @@ theorem translateEndo_pow_eq_self_of {x₂ y₂ : F} (h₂ : W.Equation x₂ y�
     exact hcong.trans hsmul.symm
   exact mul_left_cancel₀ hA key
 
+/-- **The translation fixes every unit of `F[W]` (`huf` discharged).**  The unit `u` produced by the
+rung-5 construction is a unit of the affine coordinate ring, hence a nonzero constant
+(`exists_eq_algebraMap_of_isUnit`), and `translateEndo` — being an `F`-algebra homomorphism
+(`translateCoordHom_algebraMap`) — fixes constants.  This discharges the `huf` hypothesis of
+`translateEndo_pow_eq_self_of` unconditionally, for any unit `u`. -/
+theorem translateEndo_algebraMap_unit {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    (u : W.CoordinateRingˣ) :
+    translateEndo h₂ (algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing))
+      = algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing) := by
+  obtain ⟨c, hc⟩ := exists_eq_algebraMap_of_isUnit u.isUnit
+  rw [hc, translateEndo_algebraMap, translateCoordHom_algebraMap,
+    ← IsScalarTower.algebraMap_apply F W.CoordinateRing W.FunctionField]
+
 /-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and the two named inputs.** Combines
 `translateEndo_pow_eq_self_of` (which produces `translateEndo h₂ (g ^ n) = g ^ n`) with
 `weilPairingElt_pow_eq_one`.  Here `h = [n]∗ f_S = mulByTwoEndo h2 f` and `g = g_S`. -/
@@ -149,6 +163,26 @@ theorem weilPairingElt_pow_eq_one_of_gS_three {x₂ y₂ : F} (h₂ : W.Equation
       = algebraMap W.CoordinateRing W.FunctionField (u : W.CoordinateRing)) :
     weilPairingElt h₂ g ^ n = 1 :=
   weilPairingElt_pow_eq_one h₂ hg (translateEndo_pow_eq_self_of h₂ hu hcomm huf)
+
+/-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 2`).**  The `huf` hypothesis
+of `weilPairingElt_pow_eq_one_of_gS` is now discharged by `translateEndo_algebraMap_unit` (the unit
+`u` is a constant), leaving only the geometric commuting identity `hcomm` (`[n](P + T) = [n]P`). -/
+theorem weilPairingElt_pow_eq_one_of_gS' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
+    {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
+    (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
+    (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
+    weilPairingElt h₂ g ^ n = 1 :=
+  weilPairingElt_pow_eq_one_of_gS h₂ h2 hg hu hcomm (translateEndo_algebraMap_unit h₂ u)
+
+/-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 3`).**  The `mulByThreeEndo`
+analogue of `weilPairingElt_pow_eq_one_of_gS'`; `huf` is discharged by
+`translateEndo_algebraMap_unit`, leaving only `hcomm`. -/
+theorem weilPairingElt_pow_eq_one_of_gS_three' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}
+    (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)
+    (hcomm : translateEndo h₂ (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f) :
+    weilPairingElt h₂ g ^ n = 1 :=
+  weilPairingElt_pow_eq_one_of_gS_three h₂ h2 h3 hg hu hcomm (translateEndo_algebraMap_unit h₂ u)
 
 end CoordinateRing
 
