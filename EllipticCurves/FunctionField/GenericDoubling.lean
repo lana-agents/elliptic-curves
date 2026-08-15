@@ -27,9 +27,10 @@ translation correspondence `genericPoint_add_translatePoint`, and the `n = 2` sl
 ## Contents
 
 * `genY_ne_negY_gen`             — the generic point is not `2`-torsion: `genY ≠ negY genX genY`
-  (its `ψ₂`-value `2·genY + a₁·genX + a₃` is nonzero, `psiTwo_gen_ne`), so the group double takes the
-  tangent (`add_of_Y_ne`) branch;
-* `nonsingular_mulByTwoEndo_gen`  — the doubling coordinates `(mulByTwoEndo genX, mulByTwoEndo genY)`
+  (its `ψ₂`-value `2·genY + a₁·genX + a₃` is nonzero, `psiTwo_gen_ne`), so the group double
+  takes the tangent (`add_of_Y_ne`) branch;
+* `nonsingular_mulByTwoEndo_gen`  — the doubling coordinates
+  `(mulByTwoEndo genX, mulByTwoEndo genY)`
   are a nonsingular point (they lie on the curve by `doubling_equation_gen`);
 * `addX_gen_eq_mulByTwo`          — the `x`-coordinate identity `addX = mulByTwoEndo genX`;
 * `addY_gen_eq_mulByTwo`          — the `y`-coordinate identity `addY = mulByTwoEndo genY`;
@@ -52,6 +53,7 @@ namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
+omit [W.IsElliptic] in
 /-- **The generic point is not `2`-torsion.** Its `ψ₂`-value `2·genY + a₁·genX + a₃ =
 genY − negY genX genY` is nonzero (`psiTwo_gen_ne`), so `genY ≠ negY genX genY`; hence the group
 double `𝒫 + 𝒫` takes the tangent (doubling) branch `add_of_Y_ne` of the affine addition law. -/
@@ -75,6 +77,7 @@ theorem nonsingular_mulByTwoEndo_gen (h2 : (2 : F) ≠ 0) :
     (doubling_equation_gen h2)
 
 open Classical in
+omit [W.IsElliptic] in
 /-- **The `x`-coordinate of the duplication formula.** The `x`-coordinate `addX` of the group double
 `𝒫 + 𝒫` (with the tangent slope) equals `mulByTwoEndo h2 (genX W) = Φ₂(genX)/Ψ₂Sq(genX)`. -/
 theorem addX_gen_eq_mulByTwo (h2 : (2 : F) ≠ 0) :
@@ -121,6 +124,7 @@ theorem addX_gen_eq_mulByTwo (h2 : (2 : F) ≠ 0) :
       + (-W'.a₁ ^ 2 - 4 * W'.a₂ - 8 * x) * heq - hΦv
 
 open Classical in
+omit [W.IsElliptic] in
 set_option maxRecDepth 8000 in
 /-- **The `y`-coordinate of the duplication formula.** The `y`-coordinate `addY` of the group double
 `𝒫 + 𝒫` (with the tangent slope) equals `mulByTwoEndo h2 (genY W) = ω₂(genX, genY)/ψ₂(genX, genY)³`.
@@ -183,8 +187,9 @@ theorem addY_gen_eq_mulByTwo (h2 : (2 : F) ≠ 0) :
         - 12 * W'.a₃ * y ^ 2 - 4 * s * y ^ 2 - 8 * y ^ 3) * hsdef
 
 open Classical in
-/-- **The doubling correspondence.** The multiplication-by-`2` endomorphism `mulByTwoEndo h2` acts on
-the coordinate generators of `F(W)` exactly as the group double `𝒫 ↦ 𝒫 + 𝒫` in `(W ⁄ F(W)).Point`:
+/-- **The doubling correspondence.** The multiplication-by-`2` endomorphism `mulByTwoEndo h2`
+acts on the coordinate generators of `F(W)` exactly as the group double `𝒫 ↦ 𝒫 + 𝒫` in
+`(W ⁄ F(W)).Point`:
 
 ```
 𝒫 + 𝒫 = (mulByTwoEndo h2 (genX W), mulByTwoEndo h2 (genY W)).
@@ -193,7 +198,8 @@ the coordinate generators of `F(W)` exactly as the group double `𝒫 ↦ 𝒫 +
 Since the generic point is not `2`-torsion (`genY_ne_negY_gen`), the double takes the tangent branch
 `add_self_of_Y_ne`, whose `addX`/`addY` coordinates are the division-polynomial doubling coordinates
 (`addX_gen_eq_mulByTwo`/`addY_gen_eq_mulByTwo`).  This is the group-theoretic reading of
-`mulByTwoEndo` — the `n = 2` bridge `mulByNEndo = [n]•` — that the `hcomm` discharge of #419 consumes.
+`mulByTwoEndo` — the `n = 2` bridge `mulByNEndo = [n]•` — that the `hcomm` discharge of #419
+consumes.
 -/
 theorem genericPoint_add_self (h2 : (2 : F) ≠ 0) :
     genericPoint + genericPoint
