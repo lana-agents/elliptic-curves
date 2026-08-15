@@ -75,6 +75,7 @@ import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
 import EllipticCurves.FunctionField.TranslationEndomorphism
 import EllipticCurves.FunctionField.TranslationPullback
+import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.FunctionField.WeilPairingConstant
