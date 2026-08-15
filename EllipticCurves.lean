@@ -73,6 +73,7 @@ import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationEndomorphism
 import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.FunctionField.WeilPairing
+import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
