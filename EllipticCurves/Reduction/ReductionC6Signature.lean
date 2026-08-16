@@ -40,7 +40,8 @@ For `W : WeierstrassCurve K` with `[IsMinimal R W]`, in `namespace WeierstrassCu
 * `hasAdditiveReduction_iff_reduction_invariants_eq_zero` — additive reduction ⟺ all three reduced
   invariants `c̃₄, c̃₆, Δ̃` vanish;
 * `HasMultiplicativeReduction.reduction_c₆_sq_eq` — a node satisfies `c̃₆² = c̃₄³`;
-* `HasMultiplicativeReduction.reduction_c₆_ne_zero` — a node has `c̃₆ ≠ 0`.
+* `HasMultiplicativeReduction.reduction_c₆_ne_zero` — a node has `c̃₆ ≠ 0`;
+* `HasMultiplicativeReduction.reduction_c₄_isSquare` — at a node `c̃₄` is a square.
 
 ## References
 
@@ -110,5 +111,17 @@ theorem HasMultiplicativeReduction.reduction_c₆_ne_zero (W : WeierstrassCurve 
   have hsq := h.reduction_c₆_sq_eq
   rw [hc₆] at hsq
   simpa using hsq.symm
+
+/-- **At a node `c̃₄` is a square.** For a minimal model with multiplicative (node) reduction, the
+reduced `c̃₄` is a square in the residue field, in every characteristic: `c̃₄ ≠ 0` together with
+`c̃₆² = c̃₄³` exhibits `c̃₄ = (c̃₆ · c̃₄⁻¹)²`. This is the positive sibling of
+`reduction_c₆_ne_zero`. -/
+theorem HasMultiplicativeReduction.reduction_c₄_isSquare (W : WeierstrassCurve K) [IsMinimal R W]
+    (h : W.HasMultiplicativeReduction R) : IsSquare (W.reduction R).c₄ := by
+  have hc₄ : (W.reduction R).c₄ ≠ 0 := ((hasMultiplicativeReduction_iff_reduction R W).mp h).2
+  refine ⟨(W.reduction R).c₆ * (W.reduction R).c₄⁻¹, ?_⟩
+  have h6 := h.reduction_c₆_sq_eq
+  field_simp
+  linear_combination -h6
 
 end WeierstrassCurve
