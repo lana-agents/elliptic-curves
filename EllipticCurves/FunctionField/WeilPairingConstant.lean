@@ -51,6 +51,9 @@ blocked/heavier on this pin.
   `algebraMap F F(W) c`, unconditionally;
 * `weilPairingElt_isConstant` / `_of_gS'` / `_of_gS_three'` — the pairing value `e_n(S, T)` is such
   a constant, from `e_n(S, T) ^ n = 1`;
+* `weilPairingElt_isRootOfUnity` / `_of_gS'` / `_of_gS_three'` — the sharper **μ_n-membership**: the
+  base-field constant `c` with `e_n(S, T) = algebraMap F F(W) c` is itself an `n`-th root of unity,
+  `c ^ n = 1` in `F` — i.e. `e_n(S, T) ∈ μ_n(F)`, the value group issue #419 names;
 * `weilPairingElt_translatePoint_add_of_algClosed` — **unconditional** (modulo the group
   relation `hsum`) bilinearity in the translation slot, obtained by feeding constancy to
   `weilPairingElt_translatePoint_add_of_const`.
@@ -140,6 +143,40 @@ theorem weilPairingElt_translatePoint_add_of_algClosed [W.IsElliptic]
     weilPairingElt hR g = weilPairingElt hP g * weilPairingElt hQ g := by
   obtain ⟨c, hc⟩ := weilPairingElt_isConstant hQ hn hpow
   exact weilPairingElt_translatePoint_add_of_const hP hQ hR hsum hg hc
+
+/-- **The Weil-pairing element lands in `μ_n(F)`.**  From `e_n(S, T) ^ n = 1` (`n ≠ 0`), not only is
+`e_n(S, T)` a constant `algebraMap F F(W) c` (`weilPairingElt_isConstant`), but the base-field
+constant `c` is itself an `n`-th root of unity: `c ^ n = 1` in `F`.  Indeed, applying the injective
+`algebraMap F F(W)` to `c ^ n = 1` is the same as `(algebraMap F F(W) c) ^ n = e_n(S, T) ^ n = 1`.
+This packages the μ_n-membership that issue #419 names for the pairing value, pulled back from
+`F(W)` down to the base field. -/
+theorem weilPairingElt_isRootOfUnity [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    {g : W.FunctionField} {n : ℕ} (hn : n ≠ 0) (hpow : weilPairingElt h₂ g ^ n = 1) :
+    ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c ∧ c ^ n = 1 := by
+  obtain ⟨c, hc⟩ := weilPairingElt_isConstant h₂ hn hpow
+  refine ⟨c, hc, (algebraMap F W.FunctionField).injective ?_⟩
+  rw [map_pow, ← hc, hpow, map_one]
+
+/-- **The `n = 2`-track Weil-pairing element lands in `μ_n(F)`.**  Specialises
+`weilPairingElt_isRootOfUnity` to the concrete combined datum `weilPairingElt_pow_eq_one_of_gS'`,
+mirroring `weilPairingElt_isConstant_of_gS'`. -/
+theorem weilPairingElt_isRootOfUnity_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hn : n ≠ 0)
+    (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
+    (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
+    ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c ∧ c ^ n = 1 :=
+  weilPairingElt_isRootOfUnity h₂ hn (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm)
+
+/-- **The `n = 3`-track Weil-pairing element lands in `μ_n(F)`.**  The `mulByThreeEndo` mirror of
+`weilPairingElt_isRootOfUnity_of_gS'`, over the concrete datum
+`weilPairingElt_pow_eq_one_of_gS_three'`. -/
+theorem weilPairingElt_isRootOfUnity_of_gS_three' [W.IsElliptic] {x₂ y₂ : F}
+    (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField}
+    {u : W.CoordinateRingˣ} {n : ℕ} (hn : n ≠ 0) (hg : g ≠ 0)
+    (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)
+    (hcomm : translateEndo h₂ (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f) :
+    ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c ∧ c ^ n = 1 :=
+  weilPairingElt_isRootOfUnity h₂ hn (weilPairingElt_pow_eq_one_of_gS_three' h₂ h2 h3 hg hu hcomm)
 
 end CoordinateRing
 
