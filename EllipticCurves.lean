@@ -112,6 +112,7 @@ import EllipticCurves.Reduction.GoodReductionBaseChange
 import EllipticCurves.Reduction.IntegralReductionAdd
 import EllipticCurves.Reduction.InverseAdditivity
 import EllipticCurves.Reduction.JInvariantGoodReduction
+import EllipticCurves.Reduction.JInvariantGoodReductionBaseChange
 import EllipticCurves.Reduction.JInvariantGoodReductionValuation
 import EllipticCurves.Reduction.JInvariantMultiplicativeReduction
 import EllipticCurves.Reduction.JInvariantReductionCommutes
