@@ -136,6 +136,7 @@ import EllipticCurves.Reduction.ReductionGaloisEquivariant
 import EllipticCurves.Reduction.ReductionHom
 import EllipticCurves.Reduction.ReductionInjectivity
 import EllipticCurves.Reduction.ReductionInvariants
+import EllipticCurves.Reduction.ReductionNodeCusp
 import EllipticCurves.Reduction.ReductionUnramified
 import EllipticCurves.Reduction.SecantAdditivity
 import EllipticCurves.Reduction.SecantClosure
