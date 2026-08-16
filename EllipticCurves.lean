@@ -83,6 +83,7 @@ import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.TranslationTriplingComm
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingAlternating
+import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
