@@ -78,11 +78,7 @@ theorem hasSplitMultiplicativeReduction_iff_isSquare_neg_c₆ [NeZero (2 : Resid
   refine and_congr_right fun hmult => ?_
   -- at a node `c̃₄` is a nonzero square, and `−c̃₄·c̃₆ = c̃₄·(−c̃₆)`
   have hc₄ : (W.reduction R).c₄ ≠ 0 := ((hasMultiplicativeReduction_iff_reduction R W).mp hmult).2
-  have hsq : IsSquare (W.reduction R).c₄ := by
-    refine ⟨(W.reduction R).c₆ * (W.reduction R).c₄⁻¹, ?_⟩
-    have h6 := hmult.reduction_c₆_sq_eq
-    field_simp
-    linear_combination -h6
+  have hsq : IsSquare (W.reduction R).c₄ := hmult.reduction_c₄_isSquare
   have hrw : -(W.reduction R).c₄ * (W.reduction R).c₆
       = (W.reduction R).c₄ * (-(W.reduction R).c₆) := by ring
   rw [hrw, isSquare_mul_left_iff_of_ne_zero hc₄ hsq]
