@@ -19,12 +19,16 @@ instantiates verbatim. This file builds the **σ-semilinear automorphism** of th
 reusable, Ward-, normality-, and rung-4-**independent** substrate for the Galois-equivariance of the
 divisor-theoretic Weil-pairing element `e_n(S, T)` (issue #419, Silverman AEC III.8).
 
-The `mulByTwoEndo` / `mulByThreeEndo` commutation (`σ⋆ ∘ [n]∗ = [n]∗ ∘ σ⋆`) is a separate follow-on:
-unlike `translateEndo` (whose generator images are pure `addX`/`addY`/`slope` expressions handled by
+The `mulByTwoEndo` / `mulByThreeEndo` commutation (`σ⋆ ∘ [n]∗ = [n]∗ ∘ σ⋆`) is also proved here.
+Unlike `translateEndo` (whose generator images are pure `addX`/`addY`/`slope` expressions handled by
 the curve-stability lemma `galoisFunctionField_curve_stable`), the `[n]∗` generator images are
-division-polynomial rational functions `Φₙ/ΨSqₙ`, whose `σ⋆`-invariance needs `map_Φ` / `map_Ψ`-type
-coefficient-transport lemmas. All the substrate it would consume (the semilinear automorphism, the
-generator/constant images, and `galoisFunctionField_curve_stable`) is delivered here.
+division-polynomial rational functions `Φₙ/ΨSqₙ`, `ωₙ/ψₙ³`, whose `σ⋆`-invariance goes through the
+coefficient-transport lemmas `WeierstrassCurve.map_Φ` / `map_Ψ` / `map_ψ` / `map_preΨ` (etc.) of
+`Mathlib`'s division polynomials combined with `galoisFunctionField_curve_stable`: applying `σ⋆`
+coefficientwise to a division polynomial of `W ⁄ F(W⁄F)` returns the same polynomial, so evaluating
+it at the (σ⋆-fixed) generators is σ⋆-invariant. Note there is **no point-shift** on the right-hand
+side (unlike `translateEndo`): the `[n]∗` coordinates have coefficients pulled from `algebraMap S F`
+(the base curve lives over `S`), which `σ` fixes.
 
 ## The construction avoids the transport hazard
 
@@ -49,7 +53,8 @@ generator images and endomorphism-commutation lemmas need no `Eq.mpr` casts.
 * `galoisFunctionField_genX` / `_genY` — `σ⋆` fixes the coordinate generators;
 * `galoisFunctionField_algebraMap` — `σ⋆ (algebraMap c) = algebraMap (σ c)` (σ-semilinearity);
 * `galoisFunctionField_curve_stable` — `σ⋆` fixes the base-changed curve `W ⁄ F(W⁄F)`;
-* `galoisFunctionField_translateEndo` — `σ⋆ ∘ translateEndo h = translateEndo (σ·h) ∘ σ⋆`.
+* `galoisFunctionField_translateEndo` — `σ⋆ ∘ translateEndo h = translateEndo (σ·h) ∘ σ⋆`;
+* `galoisFunctionField_mulByTwoEndo` / `_mulByThreeEndo` — `σ⋆ ∘ [n]∗ = [n]∗ ∘ σ⋆` for `n = 2, 3`.
 
 ## References
 
@@ -296,5 +301,191 @@ theorem galoisFunctionField_translateEndo (σ : F ≃ₐ[S] F) (h₂ : (W⁄F).E
 end IsElliptic
 
 end Equivariance
+
+/-! ### Equivariance of the multiplication-by-`n` endomorphisms
+
+Unlike `translateEndo`, whose generator images are `addX`/`addY`/`slope` expressions, the `[n]∗`
+generator images are the division-polynomial rational functions `Φₙ/ΨSqₙ`, `ωₙ/ψₙ³`. Their
+`σ⋆`-invariance is packaged through the atomic lemmas below: applying `galoisFunctionField σ`
+coefficientwise to any division polynomial of `W ⁄ F(W⁄F)` returns the same polynomial
+(`WeierstrassCurve.map_Φ`/… together with `galoisFunctionField_curve_stable`), so evaluating it at
+the σ⋆-fixed generators `genX`, `genY` is σ⋆-invariant. There is no point-shift on the right-hand
+side: the coefficients of the base-changed curve come from `S`, which `σ` fixes. -/
+
+section MulByEndo
+
+open scoped Polynomial.Bivariate
+
+/-- If a univariate polynomial `p` over `F(W⁄F)` is σ⋆-invariant coefficientwise
+(`p.map σ⋆ = p`), then `σ⋆` fixes its value at the (σ⋆-fixed) generic `x`-coordinate. -/
+lemma galoisFunctionField_eval_genX (σ : F ≃ₐ[S] F) {p : (W⁄F).FunctionField[X]}
+    (hp : p.map (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField) = p) :
+    galoisFunctionField σ (p.eval (genX (W⁄F))) = p.eval (genX (W⁄F)) := by
+  have h : (p.map (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField)).eval
+        ((galoisFunctionField (W := W) σ :
+          (W⁄F).FunctionField →+* (W⁄F).FunctionField) (genX (W⁄F)))
+      = (galoisFunctionField (W := W) σ :
+          (W⁄F).FunctionField →+* (W⁄F).FunctionField) (p.eval (genX (W⁄F))) :=
+    Polynomial.eval_map_apply ..
+  rw [hp, RingEquiv.coe_toRingHom, galoisFunctionField_genX] at h
+  exact h.symm
+
+/-- If a bivariate polynomial `q` over `F(W⁄F)` is σ⋆-invariant coefficientwise
+(`q.map (mapRingHom σ⋆) = q`), then `σ⋆` fixes its value at the (σ⋆-fixed) generic point. -/
+lemma galoisFunctionField_evalEval_gen (σ : F ≃ₐ[S] F) {q : (W⁄F).FunctionField[X][Y]}
+    (hq : q.map (mapRingHom (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField)) = q) :
+    galoisFunctionField σ (q.evalEval (genX (W⁄F)) (genY (W⁄F)))
+      = q.evalEval (genX (W⁄F)) (genY (W⁄F)) := by
+  have h : (q.map (mapRingHom (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField))).evalEval
+        ((galoisFunctionField (W := W) σ :
+          (W⁄F).FunctionField →+* (W⁄F).FunctionField) (genX (W⁄F)))
+        ((galoisFunctionField (W := W) σ :
+          (W⁄F).FunctionField →+* (W⁄F).FunctionField) (genY (W⁄F)))
+      = (galoisFunctionField (W := W) σ :
+          (W⁄F).FunctionField →+* (W⁄F).FunctionField) (q.evalEval (genX (W⁄F)) (genY (W⁄F))) :=
+    Polynomial.map_mapRingHom_evalEval ..
+  rw [hq, RingEquiv.coe_toRingHom, galoisFunctionField_genX, galoisFunctionField_genY] at h
+  exact h.symm
+
+/-- `σ⋆` fixes the coefficients `aᵢ` of the base-changed curve `W ⁄ F(W⁄F)` (they come from `S`),
+packaged as fixing the `a₁` coefficient. -/
+@[simp] lemma galoisFunctionField_map_a₁ (σ : F ≃ₐ[S] F) :
+    galoisFunctionField σ (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₁)
+      = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₁ :=
+  congrArg WeierstrassCurve.a₁ (galoisFunctionField_curve_stable (W := W) σ)
+
+/-- `σ⋆` fixes the `a₃` coefficient of the base-changed curve `W ⁄ F(W⁄F)`. -/
+@[simp] lemma galoisFunctionField_map_a₃ (σ : F ≃ₐ[S] F) :
+    galoisFunctionField σ (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₃)
+      = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₃ :=
+  congrArg WeierstrassCurve.a₃ (galoisFunctionField_curve_stable (W := W) σ)
+
+/-- `σ⋆` fixes `Φₙ(genX)` (the `x`-numerator of `[n]∗`). -/
+@[simp] lemma galoisFunctionField_Φ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+    galoisFunctionField σ
+        ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Φ n).eval (genX (W⁄F)))
+      = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Φ n).eval (genX (W⁄F)) :=
+  galoisFunctionField_eval_genX σ
+    (by simp only [← WeierstrassCurve.map_Φ, galoisFunctionField_curve_stable])
+
+/-- `σ⋆` fixes `Ψ₂Sq(genX)` (the `x`-denominator of `[2]∗`). -/
+@[simp] lemma galoisFunctionField_Ψ₂Sq_eval (σ : F ≃ₐ[S] F) :
+    galoisFunctionField σ
+        (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Ψ₂Sq.eval (genX (W⁄F)))
+      = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Ψ₂Sq.eval (genX (W⁄F)) :=
+  galoisFunctionField_eval_genX σ
+    (by simp only [← WeierstrassCurve.map_Ψ₂Sq, galoisFunctionField_curve_stable])
+
+/-- `σ⋆` fixes `ΨSqₙ(genX)` (the `x`-denominator of `[n]∗`). -/
+@[simp] lemma galoisFunctionField_ΨSq_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+    galoisFunctionField σ
+        ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ΨSq n).eval (genX (W⁄F)))
+      = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ΨSq n).eval (genX (W⁄F)) :=
+  galoisFunctionField_eval_genX σ
+    (by simp only [← WeierstrassCurve.map_ΨSq, galoisFunctionField_curve_stable])
+
+/-- `σ⋆` fixes `preΨ₄(genX)`. -/
+@[simp] lemma galoisFunctionField_preΨ₄_eval (σ : F ≃ₐ[S] F) :
+    galoisFunctionField σ
+        (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ₄.eval (genX (W⁄F)))
+      = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ₄.eval (genX (W⁄F)) :=
+  galoisFunctionField_eval_genX σ
+    (by simp only [← WeierstrassCurve.map_preΨ₄, galoisFunctionField_curve_stable])
+
+/-- `σ⋆` fixes `preΨₙ(genX)`. -/
+@[simp] lemma galoisFunctionField_preΨ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+    galoisFunctionField σ
+        ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ n).eval (genX (W⁄F)))
+      = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ n).eval (genX (W⁄F)) :=
+  galoisFunctionField_eval_genX σ
+    (by simp only [← WeierstrassCurve.map_preΨ, galoisFunctionField_curve_stable])
+
+/-- `σ⋆` fixes `ψₙ(genX, genY)` (the bivariate division polynomial). -/
+@[simp] lemma galoisFunctionField_ψ_evalEval (σ : F ≃ₐ[S] F) (n : ℤ) :
+    galoisFunctionField σ
+        ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ψ n).evalEval
+          (genX (W⁄F)) (genY (W⁄F)))
+      = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ψ n).evalEval
+          (genX (W⁄F)) (genY (W⁄F)) :=
+  galoisFunctionField_evalEval_gen σ
+    (by simp only [← WeierstrassCurve.map_ψ, galoisFunctionField_curve_stable])
+
+/-- **Equivariance of the multiplication-by-`2` endomorphism.**
+`galoisFunctionField σ ∘ mulByTwoEndo h2 = mulByTwoEndo h2 ∘ galoisFunctionField σ` — with no
+point-shift, since the `[2]∗` coordinates have `S`-coefficients which `σ` fixes. -/
+theorem galoisFunctionField_mulByTwoEndo (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
+    (z : (W⁄F).FunctionField) :
+    galoisFunctionField σ (mulByTwoEndo h2 z) = mulByTwoEndo h2 (galoisFunctionField σ z) := by
+  -- coordinate-ring identity `σ⋆ ∘ mulByTwoCoordHom = mulByTwoCoordHom ∘ σ⋆`
+  have hcr : (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField).comp (mulByTwoCoordHom h2)
+      = (mulByTwoCoordHom h2).comp (galoisCoordEndo σ) := by
+    refine AdjoinRoot.ringHom_ext (Polynomial.ringHom_ext (fun c => ?_) ?_) ?_
+    · simp only [RingHom.comp_apply, RingEquiv.coe_toRingHom, ← algebraMap_coordinateRing_eq_of,
+        mulByTwoCoordHom_algebraMap, galoisFunctionField_algebraMap, galoisCoordEndo_algebraMap]
+    · change galoisFunctionField σ (mulByTwoCoordHom h2 (mk (W⁄F) (C X)))
+        = mulByTwoCoordHom h2 (galoisCoordEndo σ (mk (W⁄F) (C X)))
+      rw [galoisCoordEndo_mk_C_X, mulByTwoCoordHom_X, map_div₀]
+      simp only [galoisFunctionField_Φ_eval, galoisFunctionField_Ψ₂Sq_eval]
+    · change galoisFunctionField σ (mulByTwoCoordHom h2 (AdjoinRoot.root (W⁄F).polynomial))
+        = mulByTwoCoordHom h2 (galoisCoordEndo σ (AdjoinRoot.root (W⁄F).polynomial))
+      rw [galoisCoordEndo_root, mulByTwoCoordHom_root]
+      simp only [map_div₀, map_sub, map_mul, map_add, map_pow, map_ofNat,
+        galoisFunctionField_map_a₁, galoisFunctionField_map_a₃, galoisFunctionField_Φ_eval,
+        galoisFunctionField_Ψ₂Sq_eval, galoisFunctionField_preΨ₄_eval,
+        galoisFunctionField_ψ_evalEval]
+  -- lift to the function field via the universal property of the fraction field
+  have key : (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField).comp (mulByTwoEndo h2)
+      = (mulByTwoEndo h2).comp
+          (galoisFunctionField (W := W) σ : (W⁄F).FunctionField →+* (W⁄F).FunctionField) := by
+    refine IsFractionRing.ringHom_ext (A := (W⁄F).CoordinateRing) (fun a => ?_)
+    have hcra := RingHom.congr_fun hcr a
+    simpa only [RingHom.comp_apply, RingEquiv.coe_toRingHom, mulByTwoEndo_algebraMap,
+      galoisFunctionField_algebraMap_coordRing] using hcra
+  have := RingHom.congr_fun key z
+  simpa only [RingHom.comp_apply, RingEquiv.coe_toRingHom] using this
+
+/-- **Equivariance of the multiplication-by-`3` endomorphism.**
+`galoisFunctionField σ ∘ mulByThreeEndo h2 h3 = mulByThreeEndo h2 h3 ∘ galoisFunctionField σ` —
+with no point-shift, since the `[3]∗` coordinates have `S`-coefficients which `σ` fixes. -/
+theorem galoisFunctionField_mulByThreeEndo (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    (z : (W⁄F).FunctionField) :
+    galoisFunctionField σ (mulByThreeEndo h2 h3 z)
+      = mulByThreeEndo h2 h3 (galoisFunctionField σ z) := by
+  have hcr : (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField).comp (mulByThreeCoordHom h2 h3)
+      = (mulByThreeCoordHom h2 h3).comp (galoisCoordEndo σ) := by
+    refine AdjoinRoot.ringHom_ext (Polynomial.ringHom_ext (fun c => ?_) ?_) ?_
+    · simp only [RingHom.comp_apply, RingEquiv.coe_toRingHom, ← algebraMap_coordinateRing_eq_of,
+        mulByThreeCoordHom_algebraMap, galoisFunctionField_algebraMap, galoisCoordEndo_algebraMap]
+    · change galoisFunctionField σ (mulByThreeCoordHom h2 h3 (mk (W⁄F) (C X)))
+        = mulByThreeCoordHom h2 h3 (galoisCoordEndo σ (mk (W⁄F) (C X)))
+      rw [galoisCoordEndo_mk_C_X, mulByThreeCoordHom_X, map_div₀]
+      simp only [galoisFunctionField_Φ_eval, galoisFunctionField_ΨSq_eval]
+    · change galoisFunctionField σ (mulByThreeCoordHom h2 h3 (AdjoinRoot.root (W⁄F).polynomial))
+        = mulByThreeCoordHom h2 h3 (galoisCoordEndo σ (AdjoinRoot.root (W⁄F).polynomial))
+      rw [galoisCoordEndo_root, mulByThreeCoordHom_root]
+      simp only [map_div₀, map_sub, map_mul, map_add, map_pow, map_ofNat,
+        galoisFunctionField_map_a₁, galoisFunctionField_map_a₃, galoisFunctionField_genX,
+        galoisFunctionField_genY, galoisFunctionField_Φ_eval,
+        galoisFunctionField_preΨ_eval, galoisFunctionField_preΨ₄_eval,
+        galoisFunctionField_ψ_evalEval]
+  have key : (galoisFunctionField (W := W) σ :
+        (W⁄F).FunctionField →+* (W⁄F).FunctionField).comp (mulByThreeEndo h2 h3)
+      = (mulByThreeEndo h2 h3).comp
+          (galoisFunctionField (W := W) σ : (W⁄F).FunctionField →+* (W⁄F).FunctionField) := by
+    refine IsFractionRing.ringHom_ext (A := (W⁄F).CoordinateRing) (fun a => ?_)
+    have hcra := RingHom.congr_fun hcr a
+    simpa only [RingHom.comp_apply, RingEquiv.coe_toRingHom, mulByThreeEndo_algebraMap,
+      galoisFunctionField_algebraMap_coordRing] using hcra
+  have := RingHom.congr_fun key z
+  simpa only [RingHom.comp_apply, RingEquiv.coe_toRingHom] using this
+
+end MulByEndo
 
 end WeierstrassCurve.Affine.CoordinateRing
