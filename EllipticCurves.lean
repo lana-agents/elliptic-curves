@@ -54,6 +54,7 @@ import EllipticCurves.FunctionField.ConstantField
 import EllipticCurves.FunctionField.ConstantFieldDomain
 import EllipticCurves.FunctionField.CoordinateRingBaseChange
 import EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed
+import EllipticCurves.FunctionField.CoordinateRingNormalGeneral
 import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
