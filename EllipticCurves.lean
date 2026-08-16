@@ -86,6 +86,7 @@ import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
 import EllipticCurves.FunctionField.WeilPairingConstant
+import EllipticCurves.FunctionField.WeilPairingGalois
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
