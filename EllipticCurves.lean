@@ -61,6 +61,7 @@ import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GenericDoubling
 import EllipticCurves.FunctionField.GenericPoint
 import EllipticCurves.FunctionField.GenericTripling
+import EllipticCurves.FunctionField.LocalRingPrincipal
 import EllipticCurves.FunctionField.LocalRingTaylor
 import EllipticCurves.FunctionField.LocalRingUnit
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
