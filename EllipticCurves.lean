@@ -59,6 +59,7 @@ import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorInjective
+import EllipticCurves.FunctionField.DivisorTheoryElliptic
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GenericDoubling
