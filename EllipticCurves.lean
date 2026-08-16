@@ -110,6 +110,7 @@ import EllipticCurves.Reduction.FormalGroupTangent
 import EllipticCurves.Reduction.GoodReductionBaseChange
 import EllipticCurves.Reduction.IntegralReductionAdd
 import EllipticCurves.Reduction.InverseAdditivity
+import EllipticCurves.Reduction.JInvariantGoodReduction
 import EllipticCurves.Reduction.KernelAddClosure
 import EllipticCurves.Reduction.KernelBijection
 import EllipticCurves.Reduction.KernelFormalGroup
