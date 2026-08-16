@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.GenericTripling
 import EllipticCurves.FunctionField.TranslationComposition
+import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.WeilPairing
 
 /-!
@@ -39,7 +40,11 @@ two-step secant sum `(2•𝒫) + 𝒫`, so the naturality push goes through the
 * `translateEndo_mulByThreeEndo_apply` — its applied form
   `translateEndo hT (mulByThreeEndo h2 h3 f) = mulByThreeEndo h2 h3 f` for every `f : F(W)`;
 * `weilPairingElt_pow_eq_one_of_gS_three_torsion` — `e_3(S, T) ^ n = 1`, with `hcomm` discharged and
-  only the torsion hypothesis `htors` remaining.
+  only the `F(W)`-level torsion hypothesis `htors` remaining;
+* `weilPairingElt_pow_eq_one_of_gS_three_baseField` — the same, but discharged from the honest
+  base-field `3`-torsion of `T` (`T + T + T = 0` in `W.Point`), with no `F(W)`-level hypothesis; the
+  `n = 3` mirror of `weilPairingElt_pow_eq_one_of_gS_two_torsion`
+  (`FunctionField/TranslationTorsion.lean`).
 
 ## The route (no new ring computation)
 
@@ -250,6 +255,22 @@ theorem weilPairingElt_pow_eq_one_of_gS_three_torsion (hT : W.Equation xT yT) (h
     weilPairingElt hT g ^ n = 1 :=
   weilPairingElt_pow_eq_one_of_gS_three' hT h2 h3 hg hu
     (translateEndo_mulByThreeEndo_apply hT h2 h3 htors f)
+
+open Classical in
+/-- **`e_3(S, T) ^ n = 1` from the honest base-field `3`-torsion of `T`.**  Feeds the transported
+relation `translatePoint_add_add_self` (#444) into `weilPairingElt_pow_eq_one_of_gS_three_torsion`,
+so the Weil-pairing element's `n`-th-root-of-unity property is discharged from the group-theoretic
+`3`-torsion of `T` over the base field `F` (`T + T + T = 0` in `W.Point`), with no remaining
+function-field hypothesis.  The `n = 3` mirror of `weilPairingElt_pow_eq_one_of_gS_two_torsion`
+(`FunctionField/TranslationTorsion.lean`). -/
+theorem weilPairingElt_pow_eq_one_of_gS_three_baseField (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0)
+    (htors : torsionPoint hT + torsionPoint hT + torsionPoint hT = 0)
+    {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
+    (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f) :
+    weilPairingElt hT g ^ n = 1 :=
+  weilPairingElt_pow_eq_one_of_gS_three_torsion hT h2 h3
+    (translatePoint_add_add_self hT htors) hg hu
 
 end CoordinateRing
 
