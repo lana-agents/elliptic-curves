@@ -139,6 +139,7 @@ import EllipticCurves.Reduction.ReductionHom
 import EllipticCurves.Reduction.ReductionInjectivity
 import EllipticCurves.Reduction.ReductionInvariants
 import EllipticCurves.Reduction.ReductionNodeCusp
+import EllipticCurves.Reduction.ReductionNonsplitMultiplicative
 import EllipticCurves.Reduction.ReductionSplitMultiplicative
 import EllipticCurves.Reduction.ReductionSplitMultiplicativeC6
 import EllipticCurves.Reduction.ReductionTrichotomy
