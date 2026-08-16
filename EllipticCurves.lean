@@ -132,6 +132,7 @@ import EllipticCurves.Reduction.NeronOggShafarevich
 import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.ReductionBaseChange
+import EllipticCurves.Reduction.ReductionC6Criteria
 import EllipticCurves.Reduction.ReductionC6Signature
 import EllipticCurves.Reduction.ReductionGaloisEquivariant
 import EllipticCurves.Reduction.ReductionHom
