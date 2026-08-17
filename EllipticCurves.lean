@@ -44,6 +44,7 @@ import EllipticCurves.FormalGroup.MvPowerSeriesPderiv
 import EllipticCurves.FormalGroup.PointGroup
 import EllipticCurves.FormalGroup.PointsOnIdeal
 import EllipticCurves.FormalGroup.PointsOnIdealTorsion
+import EllipticCurves.FormalGroup.PointsOnIdealTorsionFree
 import EllipticCurves.FormalGroup.PowerSeriesBridge
 import EllipticCurves.FormalGroup.SeriesComm
 import EllipticCurves.FormalGroup.ThirdRootMatching
