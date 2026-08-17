@@ -40,6 +40,9 @@ landing the conclusion back in the base `R`, which needs the **DVR converse** be
 ## Main results
 
 * `WeierstrassCurve.exists_algebraMap_eq_of_valuation_le_one` — the DVR converse.
+* `WeierstrassCurve.valuation_j_le_one_of_hasGoodReduction_baseChange_over` — the sharp
+  base-valuation form `v_R(W.j) ≤ 1`, the good-reduction mirror of the multiplicative
+  `one_lt_valuation_j_of_hasMultiplicativeReduction_baseChange_over` (#509).
 * `WeierstrassCurve.isIntegral_j_of_hasGoodReduction_baseChange_over` — the `∀`-form: any DVR
   extension `A` lying over `R` with good reduction of `W⁄L` forces `W.j ∈ R`.
 * `WeierstrassCurve.not_hasGoodReduction_baseChange_over_of_j_not_mem` — the contrapositive: a
@@ -89,18 +92,34 @@ theorem exists_algebraMap_eq_of_valuation_le_one (x : K)
   rw [mul_assoc, mul_comm b (d : R), hb, mul_one]
 
 variable (R) in
+/-- **Potential good reduction ⟹ `v_R(j) ≤ 1` (sharp `∀`-form).** If `W⁄L` has good reduction over
+a discrete valuation subring `A ⊆ L` that **lies over** `R` (its contraction to `K` bounds the base
+valuation), then the base valuation of `W.j` is `≤ 1`, i.e. `W.j` is non-negatively valued at the
+base place.  This is the good-reduction mirror of the multiplicative
+`one_lt_valuation_j_of_hasMultiplicativeReduction_baseChange_over` (#509, `1 < v_R(j)`), obtained
+from the per-extension #501 `isIntegral_j_of_hasGoodReduction_baseChange` (`algebraMap K L W.j ∈ A`)
+by reflecting the extension-place membership back to the base valuation via `hover`. -/
+theorem valuation_j_le_one_of_hasGoodReduction_baseChange_over
+    {L : Type*} [Field L] [Algebra K L] (A : ValuationSubring L) [IsDiscreteValuationRing A]
+    (hover : ∀ x : K, algebraMap K L x ∈ A → valuation K (maximalIdeal R) x ≤ 1)
+    (W : WeierstrassCurve K) [W.IsElliptic] (h : HasGoodReduction A (W⁄L)) :
+    valuation K (maximalIdeal R) W.j ≤ 1 :=
+  hover W.j (isIntegral_j_of_hasGoodReduction_baseChange A W h)
+
+variable (R) in
 /-- **Potential good reduction ⟹ `j` integral at the base (`∀`-form).** If `W⁄L` has good
 reduction over a discrete valuation subring `A ⊆ L` that **lies over** `R` (its contraction to `K`
 bounds the base valuation), then `W.j` is integral at the base place: `∃ r : R, algebraMap R K r =
 W.j`.  This is the quantified, base-landing strengthening of
-`isIntegral_j_of_hasGoodReduction_baseChange` (#501). -/
+`isIntegral_j_of_hasGoodReduction_baseChange` (#501); it upgrades the sharp valuation bound
+`valuation_j_le_one_of_hasGoodReduction_baseChange_over` to base membership via the DVR converse. -/
 theorem isIntegral_j_of_hasGoodReduction_baseChange_over
     {L : Type*} [Field L] [Algebra K L] (A : ValuationSubring L) [IsDiscreteValuationRing A]
     (hover : ∀ x : K, algebraMap K L x ∈ A → valuation K (maximalIdeal R) x ≤ 1)
     (W : WeierstrassCurve K) [W.IsElliptic] (h : HasGoodReduction A (W⁄L)) :
     ∃ r : R, algebraMap R K r = W.j :=
   exists_algebraMap_eq_of_valuation_le_one R W.j
-    (hover W.j (isIntegral_j_of_hasGoodReduction_baseChange A W h))
+    (valuation_j_le_one_of_hasGoodReduction_baseChange_over R A hover W h)
 
 variable (R) in
 /-- **Contrapositive.** A `j`-invariant that is not integral at the base place rules out good
