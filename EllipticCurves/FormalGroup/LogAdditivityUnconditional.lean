@@ -42,6 +42,25 @@ variable {R : Type*} [CommRing R] [Algebra ℚ R] (W : WeierstrassCurve R)
 
 open MvPowerSeries
 
+/-- **The invariant-differential invariance `(★)` (Silverman AEC IV.5, Proposition 5.2; IV.4,
+Theorem 4.2), unconditional.**  Over a `ℚ`-algebra, the invariant differential
+`ω_E = W.invariantDifferential` is invariant under substitution along the genuine `(z, w)`
+formal group law `F = W.formalGroupZW`:
+`(ω_E ∘ F) · ∂_{z₂}F = ω_E(z₂)`   in `MvPowerSeries (Fin 2) R`.
+
+This is the standalone unconditional form of the hypothesis `hstar` consumed by
+`formalLog_subst_formalGroupZW_of_star`.  It closes the `(★)` frontier documented (and, prior to the
+`#333`/`#338` inputs landing, left open) in
+`EllipticCurves.FormalGroup.InvariantDifferentialInvariance`:
+the conditional `hstar_of_hdiff` is discharged by the merged unconditional theorems
+`embedDoubleLaurent_formalW_subst_formalGroupZW` (`hWF`, #333) and `derivative_formalXThree`
+(`hdiff`, #338). -/
+theorem invariantDifferential_subst_formalGroupZW_mul_pderivSnd :
+    W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
+      = W.invariantDifferential.subst (X 1) :=
+  W.hstar_of_hdiff
+    W.embedDoubleLaurent_formalW_subst_formalGroupZW W.derivative_formalXThree
+
 /-- **Log-additivity of the Weierstrass formal logarithm (issue #315), unconditional.**
 Over a `ℚ`-algebra, the formal logarithm of the genuine `(z, w)` formal group law
 `F = W.formalGroupZW` is additive:

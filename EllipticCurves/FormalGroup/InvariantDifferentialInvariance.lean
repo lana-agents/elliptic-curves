@@ -56,12 +56,22 @@ equations at `(F, WF)` (the fixed-point relation `formalW_subst_formalGroupZW_fi
 `pderivSnd`).  It encodes *translation invariance* of the invariant differential: the `F`-trace of
 `ω_E` is a translate of the `z₂`-fibre, whose own `Eq.Ω` form carries the *different* denominator
 `w₂·(-2 + a₁z₂ + a₃w₂)` with `w₂ = w ∘ (X 1)`, not `WF`.  The clean Silverman IV.4.2 proof
-differentiates the associativity `F(F(z₁,z₂),z₃) = F(z₁,F(z₂,z₃))`, but associativity of
-`W.formalGroupZW` is still unproven downstream (issue #263), so `(★)` cannot yet be closed here.
+differentiates the associativity `F(F(z₁,z₂),z₃) = F(z₁,F(z₂,z₃))` — but rather than route through
+associativity (whose own route-2 proof would consume the resulting log-additivity, hence circular),
+`(★)` is closed here on the **Laurent side**: the `POLY-★` frontier transports across the injective
+double-Laurent writer `embedDoubleLaurent` and reduces to the two explicit Vieta identities
+`hWF` (`embedDoubleLaurent (w ∘ F_E) = formalWThree`, issue #333) and
+`hdiff` (`∂_{z₂} x₃ = ω̃₂·(2·y₃ + a₁·x₃ + a₃)`, issue #338), both now merged as unconditional
+theorems.
 
-Once associativity (`#263`) lands, `POLY-★` — hence `(★)` = the hypothesis `hstar` — closes, and
+**`(★)` is therefore now closed unconditionally.**  The assembly `hstar_of_hdiff`
+(`EllipticCurves.FormalGroup.LogAdditivityStarClose`) discharges `POLY-★` from `hWF`/`hdiff`, and
+the standalone named form lives in `EllipticCurves.FormalGroup.LogAdditivityUnconditional` as
+`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`
+(`(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`).  Feeding it (as `hstar`) into
 `WeierstrassCurve.formalLog_subst_formalGroupZW_of_star` delivers the unconditional
-log-additivity `log_E(F) = log_E(z₁) + log_E(z₂)`.
+log-additivity `log_E(F) = log_E(z₁) + log_E(z₂)` (there packaged as
+`WeierstrassCurve.formalLog_subst_formalGroupZW`).
 
 ## References
 
