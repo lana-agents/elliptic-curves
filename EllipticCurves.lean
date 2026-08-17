@@ -34,6 +34,7 @@ import EllipticCurves.FormalGroup.LogAdditivity
 import EllipticCurves.FormalGroup.LogAdditivityStar
 import EllipticCurves.FormalGroup.LogAdditivityStarClose
 import EllipticCurves.FormalGroup.LogAdditivityUnconditional
+import EllipticCurves.FormalGroup.LogMulByN
 import EllipticCurves.FormalGroup.Logarithm
 import EllipticCurves.FormalGroup.MulByN
 import EllipticCurves.FormalGroup.MulByNLaws
