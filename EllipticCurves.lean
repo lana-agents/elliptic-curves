@@ -8,6 +8,7 @@ import EllipticCurves.FormalGroup.CubicFactorisation
 import EllipticCurves.FormalGroup.DividedDiffDiagonal
 import EllipticCurves.FormalGroup.DividedDifference
 import EllipticCurves.FormalGroup.EmbedDictionary
+import EllipticCurves.FormalGroup.ExpMulByN
 import EllipticCurves.FormalGroup.Expansion
 import EllipticCurves.FormalGroup.ExpansionSubst
 import EllipticCurves.FormalGroup.Exponential
