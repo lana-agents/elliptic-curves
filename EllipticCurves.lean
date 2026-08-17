@@ -144,6 +144,7 @@ import EllipticCurves.Reduction.PointReduction
 import EllipticCurves.Reduction.PointValuation
 import EllipticCurves.Reduction.PotentialGoodReduction
 import EllipticCurves.Reduction.PotentialMultiplicativeReduction
+import EllipticCurves.Reduction.PotentialReductionExclusive
 import EllipticCurves.Reduction.ReductionBaseChange
 import EllipticCurves.Reduction.ReductionC6Criteria
 import EllipticCurves.Reduction.ReductionC6Signature
