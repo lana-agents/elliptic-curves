@@ -72,6 +72,7 @@ import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GenericDoubling
 import EllipticCurves.FunctionField.GenericPoint
 import EllipticCurves.FunctionField.GenericTripling
+import EllipticCurves.FunctionField.HeightOneSpectrumMap
 import EllipticCurves.FunctionField.IntegrallyClosedDescent
 import EllipticCurves.FunctionField.LocalRingNormal
 import EllipticCurves.FunctionField.LocalRingTaylor
