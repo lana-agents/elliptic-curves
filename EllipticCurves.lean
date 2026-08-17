@@ -13,6 +13,7 @@ import EllipticCurves.FormalGroup.ExpansionSubst
 import EllipticCurves.FormalGroup.Exponential
 import EllipticCurves.FormalGroup.ExponentialHom
 import EllipticCurves.FormalGroup.FormalGroupLaurent
+import EllipticCurves.FormalGroup.FormalLogHom
 import EllipticCurves.FormalGroup.GenuineLaw
 import EllipticCurves.FormalGroup.GenuineLawComm
 import EllipticCurves.FormalGroup.GenuineLawIdentification
