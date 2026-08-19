@@ -14,13 +14,24 @@ any two solutions `y₁, y₂` satisfy `y₁ = y₂` or `y₁ = negY x y₂` (Ma
 `WeierstrassCurve.Affine.Y_eq_of_X_eq`). Consequently, **any set of affine points whose
 `x`-coordinates lie in a finite set is itself finite**.
 
+Counting the same fibres rather than merely bounding them gives the sharper statement that such a
+set has at most `2 * S.ncard + 1` elements: at most two points above each `x ∈ S`, plus the point at
+infinity. Since the `x`-coordinates of the nonzero `n`-torsion points are expected to be the
+`≤ (n² − 1)/2` roots of `W.preΨ n` for odd `n`, and `2 * (n² − 1)/2 + 1 = n²`, this is exactly the
+shape of the sharp bound `#E[n] ≤ n²`.
+
 This is the purely geometric counting infrastructure behind the finiteness of `E[n]` (issue #252,
 rung 3 of the `#E[n] ≤ n²` program, parent #246). It is deliberately **independent of the
 division-polynomial / elliptic-net recurrence**: it takes the finite `x`-support as a *hypothesis*.
-The remaining input — that every nonzero `n`-torsion point has an `x`-coordinate among the
-`≤ n² − 1` roots of `W.ΨSq n` — is supplied by the multiplication-by-`n` characterisation (#251)
-and, once available, plugs directly into
-`WeierstrassCurve.Affine.torsion_finite_of_xCoords` below to conclude `Finite E[n]`.
+The remaining input — that every nonzero `n`-torsion point has an `x`-coordinate among the roots of
+a suitable division polynomial — is supplied by the multiplication-by-`n` characterisation (#251)
+in general, and unconditionally for `n = 3` by `EllipticCurves.Torsion.ThreeTorsion`.
+
+## Main definitions
+
+* `WeierstrassCurve.Affine.someY`: a classically chosen solution `y` of the Weierstrass equation
+  above `x`, whenever there is one. It labels one of the (at most two) points of the `y`-fibre, so
+  that the other is distinguished from it by a single `Bool`.
 
 ## Main statements
 
@@ -29,8 +40,11 @@ and, once available, plugs directly into
 * `WeierstrassCurve.Affine.setOf_equation_finite`: the `y`-fibre over a fixed `x` is finite.
 * `WeierstrassCurve.Affine.finite_of_xCoords`: a set of points whose nonzero members have
   `x`-coordinate in a finite set `S` is finite.
+* `WeierstrassCurve.Affine.ncard_le_of_xCoords`: the cardinality companion, `A.ncard ≤ 2 * S.ncard
+  + 1`.
 * `WeierstrassCurve.Affine.torsion_finite_of_xCoords`,
-  `WeierstrassCurve.Affine.finite_torsion_of_xCoords`: the specialisation to `E[n]`, the exact
+  `WeierstrassCurve.Affine.finite_torsion_of_xCoords`,
+  `WeierstrassCurve.Affine.card_torsion_le_of_xCoords`: the specialisations to `E[n]`, the exact
   interface the `#E[n] ≤ n²` counting (#252) consumes once #251 supplies the finite `x`-support.
 
 ## References
@@ -109,6 +123,76 @@ theorem finite_of_xCoords {A : Set W.Point} {S : Set F} (hS : S.Finite)
   · exact Set.mem_insert _ _
   · exact Set.mem_insert_of_mem _ ⟨(x, y), ⟨hx hP, h.left⟩, rfl⟩
 
+/-! ## The cardinality companion -/
+
+open Classical in
+/-- A classically chosen solution of the Weierstrass equation above `x`, when there is one (and the
+junk value `0` otherwise).
+
+Its only role is bookkeeping: the `y`-fibre over `x` has at most two elements, and `someY x` picks
+one of them, so the other is distinguished from it by a single `Bool`. -/
+noncomputable def someY (x : F) : F :=
+  if h : ∃ y : F, W.Equation x y then h.choose else 0
+
+/-- `someY x` does lie on `W` as soon as some point of `W` does. -/
+lemma equation_someY {x y : F} (h : W.Equation x y) : W.Equation x (W.someY x) := by
+  classical
+  rw [someY, dif_pos ⟨y, h⟩]
+  exact Exists.choose_spec (⟨y, h⟩ : ∃ y : F, W.Equation x y)
+
+open Classical in
+/-- The refined coordinate tag: the identity point goes to `none`, and a genuine point `(x, y)` goes
+to `some (x, b)` where the `Bool` `b` records whether `y` is the designated solution `someY x` or
+the other one. It is injective, which is exactly the statement that at most two points lie above
+each `x`. -/
+private noncomputable def fibreTag : W.Point → Option (F × Bool)
+  | 0 => none
+  | .some x y _ => some (x, decide (y = W.someY x))
+
+private lemma fibreTag_injective : Function.Injective W.fibreTag := by
+  classical
+  rintro (_ | ⟨x₁, y₁, h₁⟩) (_ | ⟨x₂, y₂, h₂⟩) h <;>
+    simp only [fibreTag, reduceCtorEq, Option.some.injEq, Prod.mk.injEq, decide_eq_decide] at h
+  · rfl
+  · obtain ⟨rfl, hb⟩ := h
+    have hy : y₁ = y₂ := by
+      by_cases hy₁ : y₁ = W.someY x₁
+      · exact hy₁.trans (hb.mp hy₁).symm
+      · have hy₂ : y₂ ≠ W.someY x₁ := fun hc => hy₁ (hb.mpr hc)
+        rcases Y_eq_of_X_eq h₁.left h₂.left rfl with h | h
+        · exact h
+        · exfalso
+          rcases Y_eq_of_X_eq (W.equation_someY h₁.left) h₁.left rfl with h' | h'
+          · exact hy₁ h'.symm
+          · exact hy₂ (by rw [h', h, negY_negY])
+    subst hy
+    rfl
+
+/-- **Counting engine.** A set `A` of affine points on `W` whose *nonzero* members all have
+`x`-coordinate in a finite set `S` has at most `2 * S.ncard + 1` elements: at most two points above
+each `x ∈ S`, plus the point at infinity.
+
+This is the sharp companion of `WeierstrassCurve.Affine.finite_of_xCoords`, and the shape in which
+the `#E[n] ≤ n²` bound (#252) is proved: for odd `n` the `x`-support has `≤ (n² − 1)/2` elements and
+`2 * (n² − 1)/2 + 1 = n²`. -/
+theorem ncard_le_of_xCoords {A : Set W.Point} {S : Set F} (hS : S.Finite)
+    (hx : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄, (.some x y h : W.Point) ∈ A → x ∈ S) :
+    A.ncard ≤ 2 * S.ncard + 1 := by
+  classical
+  have hT : (S ×ˢ (Set.univ : Set Bool)).Finite := hS.prod Set.finite_univ
+  have hsub : W.fibreTag '' A ⊆ insert none (some '' (S ×ˢ (Set.univ : Set Bool))) := by
+    rintro _ ⟨(_ | ⟨x, y, h⟩), hP, rfl⟩
+    · exact Set.mem_insert _ _
+    · exact Set.mem_insert_of_mem _ ⟨(x, _), ⟨hx hP, Set.mem_univ _⟩, rfl⟩
+  calc A.ncard
+      = (W.fibreTag '' A).ncard := (Set.ncard_image_of_injective A W.fibreTag_injective).symm
+    _ ≤ (insert none (some '' (S ×ˢ (Set.univ : Set Bool)))).ncard :=
+        Set.ncard_le_ncard hsub ((hT.image some).insert none)
+    _ ≤ (some '' (S ×ˢ (Set.univ : Set Bool))).ncard + 1 := Set.ncard_insert_le _ _
+    _ = 2 * S.ncard + 1 := by
+        rw [Set.ncard_image_of_injective _ (Option.some_injective _), Set.ncard_prod]
+        simp [mul_comm]
+
 variable [DecidableEq F]
 
 /-- Specialisation of `finite_of_xCoords` to the `n`-torsion subgroup `E[n]`: if every nonzero
@@ -128,5 +212,14 @@ theorem finite_torsion_of_xCoords {n : ℕ} {S : Set F} (hS : S.Finite)
       (.some x y h : W.Point) ∈ W.torsion n → x ∈ S) :
     Finite (W.torsion n) :=
   Set.finite_coe_iff.mpr (W.torsion_finite_of_xCoords hS hx)
+
+/-- Specialisation of `ncard_le_of_xCoords` to the `n`-torsion subgroup `E[n]`: if every nonzero
+`n`-torsion point has `x`-coordinate in a finite set `S`, then `#E[n] ≤ 2 * S.ncard + 1`. -/
+theorem card_torsion_le_of_xCoords {n : ℕ} {S : Set F} (hS : S.Finite)
+    (hx : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄,
+      (.some x y h : W.Point) ∈ W.torsion n → x ∈ S) :
+    Nat.card (W.torsion n) ≤ 2 * S.ncard + 1 := by
+  rw [← SetLike.coe_sort_coe, Nat.card_coe_set_eq]
+  exact W.ncard_le_of_xCoords hS hx
 
 end WeierstrassCurve.Affine
