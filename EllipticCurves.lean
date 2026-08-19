@@ -179,6 +179,7 @@ import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.CoordinateRingDedekind
+import EllipticCurves.Torsion.Coprime
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.EllipticNetRel
