@@ -182,6 +182,7 @@ import EllipticCurves.Torsion.CoordinateRingDedekind
 import EllipticCurves.Torsion.Coprime
 import EllipticCurves.Torsion.CoprimeStructure
 import EllipticCurves.Torsion.Defs
+import EllipticCurves.Torsion.Divisible
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
@@ -192,6 +193,7 @@ import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.ThreeTorsionStructure
+import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoTorsion
 import EllipticCurves.Torsion.WardR1
 import EllipticCurves.Torsion.WardR1Core
