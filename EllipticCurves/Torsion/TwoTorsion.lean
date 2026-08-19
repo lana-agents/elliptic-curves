@@ -71,7 +71,9 @@ The group structure then follows from the finite-abelian-group classification co
 * `WeierstrassCurve.Affine.Ψ₂Sq_eval_eq_sq`: `W.Ψ₂Sq.eval x = (2y + a₁x + a₃)²` at a point of `W`.
 * `WeierstrassCurve.Affine.mem_torsion_two_some_iff`: `(x, y) ∈ E[2] ↔ 2y + a₁x + a₃ = 0`.
 * `WeierstrassCurve.Affine.card_roots_Ψ₂Sq`: the cubic `Ψ₂Sq` has exactly three roots over an
-  algebraically closed field of characteristic `≠ 2`.
+  algebraically closed field of characteristic `≠ 2`; `WeierstrassCurve.Affine.card_roots_Ψ₂Sq_le`
+  is the inequality `≤ 3`, valid over any field of characteristic `≠ 2`.
+* `WeierstrassCurve.Affine.card_torsion_two_le`: `#E[2] ≤ 4` over any field of characteristic `≠ 2`.
 * `WeierstrassCurve.Affine.card_torsion_two`: `#E[2] = 4`.
 * `WeierstrassCurve.Affine.nonempty_torsionTwo_addEquiv`: `E[2] ≃+ ZMod 2 × ZMod 2`.
 
@@ -165,6 +167,15 @@ lemma finite_roots_Ψ₂Sq (h2 : (2 : F) ≠ 0) : Finite {x : F // W.Ψ₂Sq.eva
   classical
   exact Finite.of_equiv _ (W.rootsEquiv h2).symm
 
+/-- The cubic `Ψ₂Sq` has at most three roots over any field of characteristic `≠ 2`. -/
+lemma card_roots_Ψ₂Sq_le (h2 : (2 : F) ≠ 0) :
+    Nat.card {x : F // W.Ψ₂Sq.eval x = 0} ≤ 3 := by
+  classical
+  haveI := W.finite_roots_Ψ₂Sq h2
+  rw [Nat.card_congr (W.rootsEquiv h2), Nat.card_eq_fintype_card, Fintype.card_coe]
+  exact (Multiset.toFinset_card_le _).trans
+    ((Polynomial.card_roots' _).trans W.natDegree_Ψ₂Sq_le)
+
 /-- **The `2`-torsion cubic has exactly three roots** over an algebraically closed field of
 characteristic `≠ 2`: it is a cubic with leading coefficient `4` and discriminant `16Δ`, both units
 for an elliptic curve away from characteristic `2`. -/
@@ -251,6 +262,17 @@ noncomputable def torsionTwoEquiv (h2 : (2 : F) ≠ 0) :
 lemma finite_torsion_two (h2 : (2 : F) ≠ 0) : Finite (W.torsion 2) :=
   haveI := W.finite_roots_Ψ₂Sq h2
   Finite.of_equiv _ (torsionTwoEquiv h2).symm
+
+/-- **`#E[2] ≤ 4`** for an elliptic curve over *any* field of characteristic `≠ 2`: the point at
+infinity together with the at most three roots of the `2`-torsion cubic.
+
+This is the inequality half of `card_torsion_two`, and unlike it needs no algebraic closure; it is
+the `p = 2` base case of the multiplicative bound of `EllipticCurves.Torsion.Multiplicative`. -/
+theorem card_torsion_two_le (h2 : (2 : F) ≠ 0) : Nat.card (W.torsion 2) ≤ 4 := by
+  haveI := W.finite_roots_Ψ₂Sq h2
+  rw [Nat.card_congr (torsionTwoEquiv h2), Finite.card_option]
+  have := W.card_roots_Ψ₂Sq_le h2
+  omega
 
 /-- **`#E[2] = 4`** for an elliptic curve over an algebraically closed field of characteristic
 `≠ 2`: the point at infinity together with the three roots of the `2`-torsion cubic. -/
