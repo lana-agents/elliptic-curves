@@ -183,6 +183,7 @@ import EllipticCurves.Torsion.Coprime
 import EllipticCurves.Torsion.CoprimeStructure
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.DivisionPolynomialEval
+import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
