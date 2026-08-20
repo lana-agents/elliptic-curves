@@ -51,8 +51,13 @@ input is merged:
 `2`-torsion enters in exactly one place, through `−T = T`: it is what turns the permutation from a
 `2`-cycle-plus-unknown into a genuine transposition of the support of `div f_T`, and hence what
 makes a two-term telescoping close.  For general `n` the same statement is a product over all of
-`⟨T⟩` and additionally needs a `τ_O`-tolerant translation wrapper, since `[i]P = O` occurs inside
-that product.
+`⟨T⟩`.  At `n = 3` that is the merged `WeilPairingTelescopeThree`, and it needs **no**
+`τ_O`-tolerant translation wrapper: the `i = 0` factor is `f_T` itself and the remaining two
+translate by the affine points `T` and `−T`.  A *uniform* statement indexed by `Finset.range n`
+would want `translatePointEndo` to name the `i = 0` factor, and genuinely needs it once `T` is
+allowed order strictly less than `n`; but the `[i]P = O` obstruction that
+`TranslationPointEndomorphism` is written for belongs to the *second* product of III.8.1(d), not to
+this one.
 
 ## Why it is projective
 

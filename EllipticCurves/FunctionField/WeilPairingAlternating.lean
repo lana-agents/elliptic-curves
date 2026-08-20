@@ -85,9 +85,18 @@ two products against the tree:
 * **Step 2 carries both remaining gates.**  It needs `div g_T = [n]∗(T)` (#418, rung-4 gated),
   which is still missing; and it translates by a point `P` with `[n]P = T`, which is **not
   `F`-rational in general**.  `translateEndo` is built from `h₂ : W.Equation x₂ y₂` with
-  `x₂ y₂ : F` (`EllipticCurves.FunctionField.TranslationEndomorphism`), so it cannot express `τ_P`
-  at all.  Closing #465 deliverable 2 needs either a base change to a field over which `P` is
-  rational or a translation endomorphism along a non-rational point; that is tracked as #679.
+  `x₂ y₂ : F` (`EllipticCurves.FunctionField.TranslationEndomorphism`), so over a general `F` it
+  cannot express `τ_P` at all.
+
+  ⚠️ Over an algebraically closed field that second obstruction is **not** real, and the record
+  above overstated it.  There `P` is rational — `nsmul_two_surjective`
+  (`EllipticCurves.Torsion.DoublingSurjective`) and `nsmul_three_surjective`
+  (`EllipticCurves.Torsion.TriplingSurjective`), both needing only `(2 : F) ≠ 0` — so
+  `translateEndo` expresses `τ_P` unchanged.  That is how
+  `EllipticCurves.FunctionField.WeilPairingAlternatingTwo` closed #465 deliverable 2 at `n = 2`,
+  using neither a base change nor a translation along a non-rational point.  What is left is
+  descending an `F̄`-statement to a general `F`, which is the function-field base-change layer
+  (deferred, #692), and #418 itself.
 
 This file supplies the ungated scaffolding both halves plug into.
 
