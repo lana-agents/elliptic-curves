@@ -109,6 +109,7 @@ import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
 import EllipticCurves.FunctionField.TranslationEndomorphism
 import EllipticCurves.FunctionField.TranslationPlaceAtInfinity
+import EllipticCurves.FunctionField.TranslationProjAction
 import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.TranslationTorsionMap
