@@ -194,6 +194,7 @@ import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import EllipticCurves.Torsion.TwoPrimary
+import EllipticCurves.Torsion.TwoPrimaryBasis
 import EllipticCurves.Torsion.TwoTorsion
 import EllipticCurves.Torsion.WardR1
 import EllipticCurves.Torsion.WardR1Core
