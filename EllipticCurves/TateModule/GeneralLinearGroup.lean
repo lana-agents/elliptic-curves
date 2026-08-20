@@ -15,15 +15,22 @@ A basis `b : Basis n R M` of a module over a commutative ring identifies the gro
 `R`-linear automorphisms of `M` with the matrix general linear group:
 $$ \operatorname{Aut}_R(M) \;\cong\; \mathrm{GL}_n(R). $$
 
-Mathlib has both halves of this — `LinearMap.toMatrixAlgEquiv`, the algebra equivalence
-`(M →ₗ[R] M) ≃ₐ[R] Matrix n n R`, and
-`LinearMap.GeneralLinearGroup.generalLinearEquiv : (M →ₗ[R] M)ˣ ≃* (M ≃ₗ[R] M)` — but does not
-package their composite as a single multiplicative equivalence onto `GL n R`. This file supplies
-it, together with the formula for a matrix entry, which is the only thing a consumer ever needs
-once the equivalence exists.
+Mathlib already has this equivalence, in the `GL → Aut` direction: compose
+`Matrix.GeneralLinearGroup.toLin' b : GL n R ≃* (M →ₗ[R] M)ˣ` with
+`LinearMap.GeneralLinearGroup.generalLinearEquiv : (M →ₗ[R] M)ˣ ≃* (M ≃ₗ[R] M)`. What this file
+adds is the `Aut → GL` spelling, assembled instead from `LinearMap.toMatrixAlgEquiv`, the algebra
+equivalence `(M →ₗ[R] M) ≃ₐ[R] Matrix n n R`, together with entry formulas for the matrix of an
+automorphism *and of its inverse* — the latter has no counterpart in Mathlib, and entry formulas
+are the only thing a consumer ever needs once the equivalence exists.
 
-There is nothing about elliptic curves here; the file is stated for an arbitrary commutative ring
-and would be at home in Mathlib.
+The two spellings agree, and are not left as unrelated definitions:
+`EllipticCurves.TateModule.MatrixRepCompat` proves
+`b.linearEquivMulEquivGL = (matrixAutEquivTwo b).symm` for the basis of `T₂E` that this
+development actually uses, `matrixAutEquivTwo` being the Mathlib composite above. In particular
+the two conventions differ by no transpose: both take column `j` of the matrix to be the
+coordinate vector of the image of `b j`.
+
+There is nothing about elliptic curves here; the file is stated for an arbitrary commutative ring.
 
 ## Motivation
 
