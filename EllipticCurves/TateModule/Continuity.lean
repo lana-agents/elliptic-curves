@@ -98,17 +98,18 @@ directly.
 
 ## Scope
 
-**No compactness.** `T_ℓE` is profinite only because each `E[ℓ^k]` is finite, and finiteness of
-`E[n]` is not available in this development (it needs the division-polynomial characterisation of
-`E[n]`). What is available here — Hausdorff, totally disconnected, a topological group — follows
-from the construction and is recorded below.
+**No compactness in this file.** `T_ℓE` is profinite only because each `E[ℓ^k]` is finite. What is
+proved here — Hausdorff, totally disconnected, a topological group — follows from the construction
+alone and is recorded below. Compactness is available at `ℓ = 2` from
+`EllipticCurves.TateModule.Profinite`, which uses `#E[2^k] = 4^k`; for odd `ℓ` it still waits on
+the division-polynomial characterisation of `E[n]`.
 
 **The target topology in `continuous_galoisRep` is the topology of pointwise convergence** on
-`T_ℓE → T_ℓE`, not the compact-open topology and not an operator topology. Continuity of the
-`ℓ = 2` matrix form `galoisRepMatrixTwo b : G →* GL₂(ℤ_[2])` for the `2`-adic topology on `GL₂` is
-**not** proved: it needs `b.repr` to be continuous, i.e. that the chosen basis is compatible with
-the level filtration, which is a genuinely further statement. Nothing below should be read as
-supplying it.
+`T_ℓE → T_ℓE`, not the compact-open topology and not an operator topology. In particular nothing
+below is a statement about the `ℓ = 2` matrix form `galoisRepMatrixTwo b : G →* GL₂(ℤ_[2])` with
+the `2`-adic topology on `GL₂`; that needs `b.repr` continuous, i.e. a basis compatible with the
+level filtration, and is proved in `EllipticCurves.TateModule.MatrixRepContinuity` — which does,
+however, run on `PadicInt.toZModPow_eventuallyEq` below.
 
 **Openness of the image** of `ρ_ℓ`, and any statement about `ker ρ_ℓ`, are out of scope.
 

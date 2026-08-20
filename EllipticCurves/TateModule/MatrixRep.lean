@@ -72,10 +72,14 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which
 is not available. The `ℓ = 2` case went through the `2`-primary tower instead.
 
-**Continuity is not asserted.** `EllipticCurves.TateModule.GaloisAction` already constructs
-`galoisRep` purely as a group homomorphism, disclaiming continuity for the profinite topology on
-`G` and the `2`-adic topology on `T₂E`; passing to matrices changes nothing about that, and this
-file must not be read as supplying it. Also out of scope: injectivity of `ρ`, its determinant
+**Continuity is not asserted *here*.** `galoisRep` is constructed in
+`EllipticCurves.TateModule.GaloisAction` purely as a group homomorphism, and passing to matrices
+changes nothing about that, so nothing in this file may be read as supplying it. It is proved
+elsewhere: `EllipticCurves.TateModule.Continuity` gives continuity of `galoisRep` itself for the
+topology of pointwise convergence, and `EllipticCurves.TateModule.MatrixRepContinuity` gives
+continuity of `galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` with its `2`-adic topology, for any basis
+whose coordinate map is continuous — a hypothesis that the basis coming from a coherent system of
+generating pairs satisfies. Still out of scope everywhere: injectivity of `ρ`, its determinant
 character `det ∘ ρ : G → ℤ_[2]ˣ` and the comparison with the cyclotomic character (which needs the
 Weil pairing), and any description of the image.
 
@@ -147,8 +151,13 @@ noncomputable def matrixAutEquivTwo :
 `ρ_{E,2} : G →* GL₂(ℤ_[2])`, obtained by reading `galoisRep 2` through a basis of `T₂E`.
 
 Different bases give representations that differ by conjugation, so this depends on `b`; see
-`exists_galoisRepMatrixTwo` for the choice-free existence statement. Continuity is not asserted:
-`galoisRep` is built purely as a group homomorphism. -/
+`exists_galoisRepMatrixTwo` for the choice-free existence statement.
+
+Continuity for the `2`-adic topology on `GL₂(ℤ_[2])` is **not** part of this definition — it is a
+statement about `b` as well as about `E`, since it needs the coordinate map `b.repr` to be
+continuous — but it *is* available: see
+`EllipticCurves.TateModule.MatrixRepContinuity.continuous_galoisRepMatrixTwo`, which takes that
+hypothesis, and `exists_continuous_galoisRepMatrixTwo`, which supplies a basis satisfying it. -/
 noncomputable def galoisRepMatrixTwo : (F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[2] :=
   (matrixAutEquivTwo b).symm.toMonoidHom.comp (galoisRep 2)
 
