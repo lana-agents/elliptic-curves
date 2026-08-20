@@ -38,26 +38,27 @@ accounted for by `ordInfty`.
 
 ## Main results
 
-* `degX_relNorm` — for a nonzero ideal `I` of `F[W]`, the degree of `relNorm I` is the degree of
-  the divisor of `I`.  Proved by induction over the prime factorisation of `I`, using
+* `natDegreeGenerator_relNorm` — for a nonzero ideal `I` of `F[W]`, the degree of `relNorm I` is
+  the degree of the divisor of `I`.  Proved by induction over the prime factorisation of `I`, using
   multiplicativity of `relNorm` and additivity of both `degPt`-weighted counting and of the degree
   of ideals of `F[X]`;
 * `deg_eq_degDiv` — the element form: `deg a = degDiv (div a)` for `a ∈ F[W]` nonzero, i.e. the
   order of the pole at infinity equals the total number of affine zeros counted with degrees;
 * **`degDiv_divisor_add_ordInfty`** — the degree-zero theorem `degDiv (div f) + ordInfty f = 0`;
-* `degPt_pos` — every closed point has positive degree.  Via the factorisation of the norm as
-  `a · ā` (the hyperelliptic conjugate), which gives `relNorm I ≤ I ∩ F[X]`;
+* `degPt_pos` — every closed point has positive degree.  Via Mathlib's
+  `Ideal.relNorm_le_comap : relNorm R I ≤ I ∩ R`;
 * **`divisor_eq_zero_of_nonneg`** and `exists_eq_algebraMap_of_nonneg` — a rational function with
   no pole anywhere, at an affine point *or* at infinity, is a nonzero constant.  This is
   `H⁰(E, 𝒪) = F`, and unlike `exists_eq_algebraMap_of_ordInfty_nonneg` (which assumes the function
   lies in `F[W]`) it assumes only pole-freeness.
 
-## Consequences and what is still missing
+## Consequences
 
-`degPt v = 1` for the closed point of an `F`-rational point is **not** proved here; it needs the
-residue field of `pointClosedPoint h` to be identified with `F`.  With it, the degree-zero theorem
-upgrades `#409`'s `div f_S = n·(S)` to the full classical `n·(S) − n·(O)`, which is the shape the
-Weil-pairing rungs want.  That is the natural next step and is deliberately out of scope here.
+`degPt v = 1` for the closed point of an `F`-rational point is proved in
+`EllipticCurves.FunctionField.RationalPointDegree`, which imports this file; combined with the
+degree-zero theorem it upgrades `#409`'s `div f_S = n·(S)` to the full classical
+`n·(S) − n·(O)`, the shape the Weil-pairing rungs want.  It is kept out of this file only because
+it needs `PrincipalDivisorOfPoint`, which this file does not import.
 
 ## Design
 
@@ -131,30 +132,7 @@ noncomputable instance instModuleFreeCoordinateRing : Module.Free F[X] W.Coordin
 noncomputable instance instModuleFiniteCoordinateRing : Module.Finite F[X] W.CoordinateRing :=
   Module.Finite.of_basis (CoordinateRing.basis W)
 
-/-- The norm of `a ∈ F[W]`, pushed back into `F[W]`, is `a` times its conjugate under the
-hyperelliptic involution, so it lies in every ideal `a` lies in. -/
-lemma algebraMap_norm_mem {I : Ideal W.CoordinateRing} {a : W.CoordinateRing} (ha : a ∈ I) :
-    algebraMap F[X] W.CoordinateRing (Algebra.norm F[X] a) ∈ I := by
-  obtain ⟨p, q, rfl⟩ := exists_smul_basis_eq a
-  rw [show algebraMap F[X] W.CoordinateRing (Algebra.norm F[X]
-      (p • (1 : W.CoordinateRing) + q • CoordinateRing.mk W Y)) = Algebra.norm F[X]
-      (p • (1 : W.CoordinateRing) + q • CoordinateRing.mk W Y) from rfl,
-    coe_norm_smul_basis, map_mul]
-  refine Ideal.mul_mem_right _ _ ?_
-  convert ha using 1
-  rw [map_add, map_mul]
-  simp [CoordinateRing.smul, mul_comm]
-
 variable [IsDedekindDomain W.CoordinateRing]
-
-/-- The relative norm of an ideal is contained in it: `N(I) ⊆ I ∩ F[X]`. -/
-lemma relNorm_le_comap (I : Ideal W.CoordinateRing) :
-    Ideal.relNorm F[X] I ≤ I.comap (algebraMap F[X] W.CoordinateRing) := by
-  rw [Ideal.relNorm_apply, Ideal.span_le]
-  rintro _ ⟨a, ha, rfl⟩
-  simp only [SetLike.mem_coe] at ha ⊢
-  rw [Ideal.mem_comap, Algebra.intNorm_eq_norm]
-  exact algebraMap_norm_mem ha
 
 /-! ### Divisors of ideals -/
 
@@ -325,7 +303,7 @@ lemma degPt_pos (v : HeightOneSpectrum W.CoordinateRing) : 0 < degPt v := by
       Ideal.span_singleton_eq_top]
     exact hunit
   have h1 : (1 : F[X]) ∈ v.asIdeal.comap (algebraMap F[X] W.CoordinateRing) :=
-    relNorm_le_comap v.asIdeal (htop ▸ Submodule.mem_top)
+    Ideal.relNorm_le_comap F[X] v.asIdeal (htop ▸ Submodule.mem_top)
   rw [Ideal.mem_comap, map_one] at h1
   exact v.isPrime.ne_top (Ideal.eq_top_of_isUnit_mem _ h1 isUnit_one)
 
