@@ -65,6 +65,7 @@ import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.CountValuationBridge
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorConstant
+import EllipticCurves.FunctionField.DivisorDegree
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.DivisorProd
 import EllipticCurves.FunctionField.DivisorTheoryElliptic
@@ -97,6 +98,7 @@ import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.FunctionField.PrincipalDivisor
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
+import EllipticCurves.FunctionField.RationalPointDegree
 import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
 import EllipticCurves.FunctionField.TranslationEndomorphism
