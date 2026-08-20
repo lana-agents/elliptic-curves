@@ -106,9 +106,12 @@ from the construction and is recorded below.
 **The target topology in `continuous_galoisRep` is the topology of pointwise convergence** on
 `T_ℓE → T_ℓE`, not the compact-open topology and not an operator topology. Continuity of the
 `ℓ = 2` matrix form `galoisRepMatrixTwo b : G →* GL₂(ℤ_[2])` for the `2`-adic topology on `GL₂` is
-**not** proved: it needs `b.repr` to be continuous, i.e. that the chosen basis is compatible with
-the level filtration, which is a genuinely further statement. Nothing below should be read as
-supplying it.
+not proved *here*, but it is proved, in `EllipticCurves.TateModule.MatrixContinuity`
+(`continuous_galoisRepMatrixTwo`), out of the `ContinuousSMul` instance below. Earlier versions of
+this docstring said it needed `b.repr` to be continuous, i.e. a basis compatible with the level
+filtration; **that was wrong**, and no compatibility is needed: `b.equivFun.symm` is continuous for
+*any* basis, its source `Fin 2 → ℤ_[2]` is compact and its target is Hausdorff, so `b.equivFun` is
+continuous by `Continuous.homeoOfEquivCompactToT2`.
 
 **Openness of the image** of `ρ_ℓ`, and any statement about `ker ρ_ℓ`, are out of scope.
 

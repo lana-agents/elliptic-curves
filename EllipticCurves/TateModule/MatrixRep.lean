@@ -72,10 +72,11 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which
 is not available. The `ℓ = 2` case went through the `2`-primary tower instead.
 
-**Continuity is not asserted.** `EllipticCurves.TateModule.GaloisAction` already constructs
-`galoisRep` purely as a group homomorphism, disclaiming continuity for the profinite topology on
-`G` and the `2`-adic topology on `T₂E`; passing to matrices changes nothing about that, and this
-file must not be read as supplying it. Also out of scope: injectivity of `ρ`, its determinant
+**Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds
+`galoisRep` purely as a group homomorphism and passing to matrices changes nothing about that, so
+nothing below should be read as supplying continuity. It is supplied downstream, for an arbitrary
+basis and with no compatibility hypothesis, by `continuous_galoisRepMatrixTwo` in
+`EllipticCurves.TateModule.MatrixContinuity`. Also out of scope: injectivity of `ρ`, its determinant
 character `det ∘ ρ : G → ℤ_[2]ˣ` and the comparison with the cyclotomic character (which needs the
 Weil pairing), and any description of the image.
 
@@ -147,8 +148,10 @@ noncomputable def matrixAutEquivTwo :
 `ρ_{E,2} : G →* GL₂(ℤ_[2])`, obtained by reading `galoisRep 2` through a basis of `T₂E`.
 
 Different bases give representations that differ by conjugation, so this depends on `b`; see
-`exists_galoisRepMatrixTwo` for the choice-free existence statement. Continuity is not asserted:
-`galoisRep` is built purely as a group homomorphism. -/
+`exists_galoisRepMatrixTwo` for the choice-free existence statement and
+`galoisRepMatrixTwo_conj` in `EllipticCurves.TateModule.MatrixRepBasisChange` for the conjugation
+law itself. Continuity is not asserted here, but holds — see
+`continuous_galoisRepMatrixTwo` in `EllipticCurves.TateModule.MatrixContinuity`. -/
 noncomputable def galoisRepMatrixTwo : (F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[2] :=
   (matrixAutEquivTwo b).symm.toMonoidHom.comp (galoisRep 2)
 
