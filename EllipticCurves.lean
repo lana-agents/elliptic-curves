@@ -107,6 +107,7 @@ import EllipticCurves.FunctionField.PrincipalDivisor
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
 import EllipticCurves.FunctionField.ProjectiveDivisor
 import EllipticCurves.FunctionField.PullbackDivisor
+import EllipticCurves.FunctionField.PullbackTorsionDivisor
 import EllipticCurves.FunctionField.RatFuncPlaces
 import EllipticCurves.FunctionField.RationalPointDegree
 import EllipticCurves.FunctionField.TranslationAutomorphism
