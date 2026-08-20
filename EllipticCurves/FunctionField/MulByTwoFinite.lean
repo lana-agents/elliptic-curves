@@ -25,6 +25,11 @@ morphism of degree `4 = 2²`. This file supplies the **integrality datum** for t
   `q(T) = Φ₂(genX ; T) - x(2 • P) · Ψ₂Sq(genX ; T)`
   whose coefficients lie in `[2]∗F(W)` (via `eval₂ (mulByTwoEndo h2)`). Monicity is because `Φ₂`
   has degree `4` with leading coefficient `1` while `Ψ₂Sq` has degree `≤ 3`.
+* `WeierstrassCurve.Affine.CoordinateRing.mulByTwoEndoAlgHom`: `[2]∗` as an `F`-algebra
+  endomorphism of `F(W)`.  It lives here rather than in `MulByTwoEndomorphism.lean` because its
+  `commutes'` field is `mulByTwoEndo_algebraMap_base`, which is proved in this file; both
+  `MulByTwoDegree` (for `AlgHom.fieldRange` / `IntermediateField.map`) and
+  `TranslationDoublingCommGeneral` (for `Point.map`) consume it.
 
 The mechanism is the identity `x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)`, i.e. `mulByTwoEndo h2 (genX)`
 multiplied by the (nonvanishing) denominator `Ψ₂Sq(genX)` returns the numerator `Φ₂(genX)` — so
@@ -69,6 +74,20 @@ lemma mulByTwoEndo_algebraMap_base (h2 : (2 : F) ≠ 0) (c : F) :
 lemma mulByTwoEndo_comp_algebraMap (h2 : (2 : F) ≠ 0) :
     (mulByTwoEndo h2).comp (algebraMap F W.FunctionField) = algebraMap F W.FunctionField :=
   RingHom.ext (mulByTwoEndo_algebraMap_base h2)
+
+/-- **`[2]∗` as an `F`-algebra endomorphism of `F(W)`.**  `mulByTwoEndo` is a bare `RingHom` and
+`mulByTwoAlgHom` is the *coordinate-ring* map `F[W] →ₐ[F] F(W)`; neither is an `F`-algebra
+endomorphism of `F(W)`, which is what the `IntermediateField` tower of `MulByTwoDegree` and the
+generic-point transport of `TranslationDoublingCommGeneral` both need.  It is `mulByTwoEndo`
+together with `mulByTwoEndo_algebraMap_base`, and it lives here because that is the earliest file
+where both halves exist. -/
+noncomputable def mulByTwoEndoAlgHom (h2 : (2 : F) ≠ 0) :
+    W.FunctionField →ₐ[F] W.FunctionField where
+  toRingHom := mulByTwoEndo h2
+  commutes' := mulByTwoEndo_algebraMap_base h2
+
+@[simp] lemma mulByTwoEndoAlgHom_apply (h2 : (2 : F) ≠ 0) (f : W.FunctionField) :
+    mulByTwoEndoAlgHom h2 f = mulByTwoEndo h2 f := rfl
 
 /-- Evaluating a base-changed univariate polynomial `q.map (F → F(W))` at `genX` through
 `eval₂ (mulByTwoEndo h2)` is the same as its ordinary evaluation, since `[2]∗` fixes the

@@ -140,25 +140,6 @@ namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F}
 
-/-! ### `[2]∗` as an `F`-algebra homomorphism -/
-
-/-- **`[2]∗` as an `F`-algebra homomorphism of the function field.**  The merged `mulByTwoEndo` is a
-bare `RingHom`; it fixes the base field (`mulByTwoEndo_algebraMap_base`), and the intermediate-field
-machinery used below speaks about `AlgHom`s.
-
-⚠️ The live PR for `#695` (`TranslationDoublingCommGeneral.lean`) introduces the *identical*
-construction under the name `mulByTwoEndoAlgHom`.  The two are deliberately given different names so
-that the second of the two to land does not break the build; de-duplicating them — deleting this
-copy and importing the other — is a follow-up. -/
-noncomputable def mulByTwoAlgEndo (h2 : (2 : F) ≠ 0) :
-    W.FunctionField →ₐ[F] W.FunctionField where
-  toRingHom := mulByTwoEndo h2
-  commutes' := mulByTwoEndo_algebraMap_base h2
-
-@[simp]
-lemma mulByTwoAlgEndo_apply (h2 : (2 : F) ≠ 0) (f : W.FunctionField) :
-    mulByTwoAlgEndo h2 f = mulByTwoEndo h2 f := rfl
-
 /-! ### The bottom of the tower: `F(x) ⊆ F(W)` -/
 
 variable (W) in
@@ -229,7 +210,7 @@ section Degree
 
 variable [W.IsElliptic]
 
-/-- **`[F(W) : [2]∗F(W)] = 4`**, stated for the range of `mulByTwoAlgEndo` as an intermediate
+/-- **`[F(W) : [2]∗F(W)] = 4`**, stated for the range of `mulByTwoEndoAlgHom` as an intermediate
 field.  See `finrank_mulByTwoRange_functionField` for the `RingHom.range` form.
 
 The proof is the tower of the module docstring.  Writing `S = F(x₂)` for the image of `F(x)` under
@@ -244,8 +225,8 @@ and the second factor of the second line is the answer.  Both `relfinrank`s are 
 transport: the first by pulling the pair `(S, F(x))` back along `F(x) ≅ RatFunc F`, where it becomes
 `(F⟮Φ₂/Ψ₂Sq⟯, ⊤)`; the second by pushing the pair `(F(x), ⊤)` forward along the injection `[2]∗`. -/
 theorem finrank_mulByTwoFieldRange (h2 : (2 : F) ≠ 0) :
-    finrank ↥(mulByTwoAlgEndo (W := W) h2).fieldRange W.FunctionField = 4 := by
-  set σ := mulByTwoAlgEndo (W := W) h2 with hσ
+    finrank ↥(mulByTwoEndoAlgHom (W := W) h2).fieldRange W.FunctionField = 4 := by
+  set σ := mulByTwoEndoAlgHom (W := W) h2 with hσ
   set ι := IsScalarTower.toAlgHom F (RatFunc F) W.FunctionField with hι
   set S := (ratFuncRange W).map σ with hSdef
   have hSadj : S = F⟮σ (genX W)⟯ := by
@@ -290,9 +271,9 @@ theorem finrank_mulByTwoRange_functionField (h2 : (2 : F) ≠ 0) :
   letI : Algebra ↥(mulByTwoEndo (W := W) h2).range W.FunctionField :=
     ((mulByTwoEndo (W := W) h2).range.subtype).toAlgebra
   have hmem : ∀ z : W.FunctionField,
-      z ∈ (mulByTwoAlgEndo (W := W) h2).fieldRange ↔ z ∈ (mulByTwoEndo (W := W) h2).range :=
+      z ∈ (mulByTwoEndoAlgHom (W := W) h2).fieldRange ↔ z ∈ (mulByTwoEndo (W := W) h2).range :=
     fun _ => Iff.rfl
-  let i : ↥(mulByTwoAlgEndo (W := W) h2).fieldRange ≃+* ↥(mulByTwoEndo (W := W) h2).range :=
+  let i : ↥(mulByTwoEndoAlgHom (W := W) h2).fieldRange ≃+* ↥(mulByTwoEndo (W := W) h2).range :=
     { toFun := fun a => ⟨a.1, (hmem a.1).mp a.2⟩
       invFun := fun a => ⟨a.1, (hmem a.1).mpr a.2⟩
       left_inv := fun _ => rfl
@@ -311,7 +292,7 @@ be a proper extension of `[2]∗F(W)`. -/
 theorem not_surjective_mulByTwoEndo (h2 : (2 : F) ≠ 0) :
     ¬ Function.Surjective (mulByTwoEndo (W := W) h2) := by
   intro hs
-  have htop : (mulByTwoAlgEndo (W := W) h2).fieldRange = ⊤ := AlgHom.fieldRange_eq_top.mpr hs
+  have htop : (mulByTwoEndoAlgHom (W := W) h2).fieldRange = ⊤ := AlgHom.fieldRange_eq_top.mpr hs
   have h4 := finrank_mulByTwoFieldRange (W := W) h2
   rw [htop, ← IntermediateField.relfinrank_top_right (⊤ : IntermediateField F W.FunctionField),
     IntermediateField.relfinrank_self] at h4

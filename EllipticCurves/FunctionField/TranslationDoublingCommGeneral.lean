@@ -40,10 +40,9 @@ way round gives a false statement.
 * `translateEndo_mulByTwoEndo_apply_of_baseField` — the same, from the **base-field** relation
   `P ⊕ P = T` in `W.Point`, which is the shape a caller actually has.
 
-Supporting API, all of it reusable for `[3]` and for any other `F`-algebra endomorphism of `F(W)`:
+Supporting API, all of it reusable for `[3]` and for any other `F`-algebra endomorphism of `F(W)`
+(`mulByTwoEndoAlgHom`, `[2]∗` as such an endomorphism, lives in `MulByTwoFinite`):
 
-* `mulByTwoEndoAlgHom` — `mulByTwoEndo` as an `F`-algebra endomorphism of `F(W)` (the merged
-  `mulByTwoAlgHom` is the coordinate-ring map `F[W] →ₐ[F] F(W)`, not an endomorphism of `F(W)`);
 * `algHom_ext_gen` — two `F`-algebra endomorphisms of `F(W)` agreeing on `genX W` and `genY W` are
   equal;
 * `genPointHom` — Mathlib's `Point.map` at such an endomorphism, as an `AddMonoidHom` of
@@ -104,17 +103,6 @@ namespace CoordinateRing
 variable {F : Type*} [Field F] {W : Affine F} {xP yP xT yT : F}
 
 /-! ### `F`-algebra endomorphisms of `F(W)` and their action on points -/
-
-/-- **`mulByTwoEndo` as an `F`-algebra endomorphism of `F(W)`.**  The merged `mulByTwoAlgHom` is the
-coordinate-ring map `F[W] →ₐ[F] F(W)`; what the point functoriality below needs is an endomorphism
-of `F(W)` itself, which is `mulByTwoEndo` together with `mulByTwoEndo_algebraMap_base`. -/
-noncomputable def mulByTwoEndoAlgHom (h2 : (2 : F) ≠ 0) :
-    W.FunctionField →ₐ[F] W.FunctionField where
-  toRingHom := mulByTwoEndo h2
-  commutes' := mulByTwoEndo_algebraMap_base h2
-
-@[simp] lemma mulByTwoEndoAlgHom_apply (h2 : (2 : F) ≠ 0) (t : W.FunctionField) :
-    mulByTwoEndoAlgHom h2 t = mulByTwoEndo h2 t := rfl
 
 /-- **Generator extensionality for `F`-algebra endomorphisms of `F(W)`.**  Two of them agreeing on
 the coordinate generators `genX W` and `genY W` are equal.
