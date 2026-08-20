@@ -52,9 +52,14 @@ case where the constancy is supplied as `e_n(S, T_Q) = algebraMap F F(W) c`.
 ## Scope
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]` and the group relation
-`hsum` on the translation points.  Non-degeneracy remains out of scope (Ward-gated, #242); so is
-bilinearity in the divisor slot `S` (needs `g_{S ⊕ S'} = g_S · g_{S'}` up to a constant, a
-divisor-level statement gated on rung 4).
+`hsum` on the translation points.  Non-degeneracy remains out of scope (Ward-gated, #242).
+
+Bilinearity in the divisor slot `S` is **not** here, but it is no longer deferred: it is
+`EllipticCurves.FunctionField.WeilPairingAntisymmetric` (#723), together with the antisymmetry
+corollary `e_n(T, S) = e_n(S, T)⁻¹` that consumes both slots.  What is rung-4 gated there is only
+the *production* of the product relation `g_{S ⊕ S'} = g_S · g_{S'} · w`, which is carried as an
+explicit hypothesis in the same style as `hfix` here; the correction factor `w` is invisible to
+`e_n(·, T)`, so everything downstream of that relation is ungated.
 
 ## References
 
