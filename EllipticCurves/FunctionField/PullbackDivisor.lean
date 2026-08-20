@@ -68,7 +68,11 @@ depends on `q` alone.
   `deg φ` exists in this tree (`PlacePullback` is explicit that `MulByTwoFinite` gives only
   "finite, of degree `≤ 4`"), and no value of `ramificationIdx` is computed anywhere below.
 * **Any computation of `ramificationIdx`.**  `pullbackDivisor` is built *from* it and is as abstract
-  as it is.  The point at infinity for `[2]` is a separate piece of work.
+  as it is.  The point at infinity for `[2]` was a separate piece of work and has since been done,
+  in `EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity` (`#670`); the resulting computed
+  coefficient `pullbackDivisorTwo h2 D none = D none` lives downstream of both files, in
+  `EllipticCurves.FunctionField.MulByTwoPullbackDivisor`.  Nothing is computed at an affine place,
+  where `[2]` genuinely ramifies.
 * **Surjectivity of `pullbackDivisor`, or injectivity.**  Neither is claimed; `comapProjPoint` is
   not assumed surjective, so `pullbackDivisor` may well kill divisors supported off the image.
 * `[3]∗` — the general section applies verbatim once `mulByThreeEndo` is given the two hypotheses of
@@ -211,6 +215,37 @@ theorem divisorProj_mulByTwoEndo (h2 : (2 : F) ≠ 0) {f : W.FunctionField} (hf 
 theorem finite_comapProjPointTwo_preimage_singleton (h2 : (2 : F) ≠ 0) (q : ProjPoint W) :
     ((comapProjPointTwo (W := W) h2) ⁻¹' {q}).Finite :=
   finite_comapProjPoint_preimage_singleton _ _ q
+
+/-! ### Non-vacuity
+
+Every statement above carries `[IsDedekindDomain W.CoordinateRing]`, and `pullbackDivisor` is built
+from `comapProjPoint`, which is a choice.  A curve on which the whole chain elaborates with every
+instance discharged is therefore worth committing rather than quoting in a pull-request body.
+`y² = x³ - x` over `ℚ` has discriminant `64`, and the Dedekind instance follows from `IsElliptic`
+alone — no algebraically closed base field is needed. -/
+
+section Nonvacuity
+
+/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
+private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+
+private instance : exampleCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+
+example {f : exampleCurve.FunctionField} (hf : f ≠ 0) :
+    divisorProj exampleCurve (mulByTwoEndo (W := exampleCurve) (by norm_num) f)
+      = pullbackDivisorTwo (W := exampleCurve) (by norm_num) (divisorProj exampleCurve f) :=
+  divisorProj_mulByTwoEndo _ hf
+
+example (q : ProjPoint exampleCurve) :
+    ((comapProjPointTwo (W := exampleCurve) (by norm_num)) ⁻¹' {q}).Finite :=
+  finite_comapProjPointTwo_preimage_singleton _ q
+
+end Nonvacuity
 
 end CoordinateRing
 

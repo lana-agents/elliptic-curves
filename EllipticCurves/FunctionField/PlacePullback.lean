@@ -519,6 +519,38 @@ theorem dvd_divisorProj_mulByTwoEndo_of_torsion [DecidableEq F] (h2 : (2 : F) �
   rw [hdiv, Finsupp.sub_apply, Finsupp.single_apply, Finsupp.single_apply]
   exact dvd_sub (by split <;> simp) (by split <;> simp)
 
+/-! ### Non-vacuity
+
+`comapProjPointTwo` and `ramificationIdxTwo` are extracted from an existence statement by choice,
+and everything about them is stated under `[IsDedekindDomain W.CoordinateRing]`.  Exhibiting a
+curve on which the transport equation elaborates with every instance discharged is what rules out
+the degenerate reading in which the hypotheses are unsatisfiable.  `y² = x³ - x` over `ℚ` has
+discriminant `64`, and `IsElliptic` alone gives the Dedekind instance. -/
+
+section Nonvacuity
+
+/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
+private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+
+private instance : exampleCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+
+example {f : exampleCurve.FunctionField} (hf : f ≠ 0) (p : ProjPoint exampleCurve) :
+    divisorProj exampleCurve (mulByTwoEndo (W := exampleCurve) (by norm_num) f) p
+      = ramificationIdxTwo (W := exampleCurve) (by norm_num) p
+        * divisorProj exampleCurve f (comapProjPointTwo (by norm_num) p) :=
+  divisorProj_mulByTwoEndo_apply _ hf p
+
+example (p : ProjPoint exampleCurve) :
+    0 < ramificationIdxTwo (W := exampleCurve) (by norm_num) p :=
+  ramificationIdxTwo_pos _ p
+
+end Nonvacuity
+
 end CoordinateRing
 
 end WeierstrassCurve.Affine
