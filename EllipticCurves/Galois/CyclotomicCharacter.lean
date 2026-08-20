@@ -70,8 +70,8 @@ system.
 the specification of `χ_p` needs `HasEnoughRootsOfUnity F (p ^ i)` for every `i`. Both hold in the
 setting the Tate module is built over: `galoisModularCyclotomicChar_hypothesis_of_isSepClosed` and
 `hasEnoughRootsOfUnity_pow_of_isSepClosed` record that a separably closed `F` with `(p : F) ≠ 0`
-supplies them, the first as a proof and the second as an instance, so a consumer discharges nothing
-by hand.
+supplies both — the second because Mathlib already makes it an instance, so typeclass search finds
+it and a consumer discharges nothing by hand.
 
 ## Main definitions
 
@@ -104,7 +104,10 @@ Mathlib's cyclotomic characters are homomorphisms out of `RingAut F = F ≃+* F`
 map is what turns them into characters of `F ≃ₐ[S] F`. It is definitionally the identity on the
 underlying function (`galoisRingAut_apply`), so every Mathlib lemma about
 `modularCyclotomicCharacter` or `cyclotomicCharacter` applies at `galoisRingAut S F σ` with no
-bridging rewrite. -/
+bridging rewrite.
+
+Marked `noncomputable`: the definition is computable, but compiling it costs about seventy seconds
+of build time for code no one runs. -/
 noncomputable def galoisRingAut (S F : Type*) [Field S] [Field F] [Algebra S F] :
     (F ≃ₐ[S] F) →* RingAut F :=
   MulSemiringAction.toRingAut (F ≃ₐ[S] F) F
