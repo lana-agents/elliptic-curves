@@ -133,6 +133,7 @@ import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
 import EllipticCurves.FunctionField.WeilPairingGaloisMu
 import EllipticCurves.FunctionField.WeilPairingGaloisPoint
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
+import EllipticCurves.FunctionField.WeilPairingTelescopeTwo
 import EllipticCurves.Galois.CyclotomicCharacter
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.NewtonPolygon
