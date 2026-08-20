@@ -182,6 +182,7 @@ import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.GeneralLinearGroup
 import EllipticCurves.TateModule.Kernel
 import EllipticCurves.TateModule.LevelStructure
+import EllipticCurves.TateModule.MatrixContinuity
 import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.MatrixRepCompat
 import EllipticCurves.TateModule.OpenKernel
