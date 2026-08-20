@@ -206,14 +206,6 @@ theorem ordInfty_genX_sub (x₂ : F) :
     deg_mk_C, Polynomial.natDegree_X_sub_C]
   norm_num
 
-/-- An element with a zero at infinity is a nonunit of the place at infinity. -/
-theorem mem_nonunits_of_one_le_ordInfty {f : W.FunctionField} (hf : 1 ≤ ordInfty W f) :
-    f ∈ (ordInftyValuationSubring W).nonunits := by
-  rw [ValuationSubring.mem_nonunits_iff_or]
-  refine Or.inr fun hmem => ?_
-  rw [mem_ordInftyValuationSubring, ordInfty_inv] at hmem
-  omega
-
 /-! ### The two coordinate identities -/
 
 section Translation
