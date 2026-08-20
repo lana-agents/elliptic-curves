@@ -68,6 +68,7 @@ import EllipticCurves.FunctionField.DivisorConstant
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.DivisorProd
 import EllipticCurves.FunctionField.DivisorTheoryElliptic
+import EllipticCurves.FunctionField.DivisorTransport
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GenericDoubling
