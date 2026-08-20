@@ -108,6 +108,7 @@ import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
 import EllipticCurves.FunctionField.WeilPairingConstant
 import EllipticCurves.FunctionField.WeilPairingGalois
+import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
 import EllipticCurves.FunctionField.WeilPairingGaloisMu
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.Galois.Unramified
