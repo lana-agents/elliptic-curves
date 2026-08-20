@@ -53,11 +53,17 @@ are the ambient input that construction consumes.
   `NoZeroSMulDivisors ℤ_[ℓ] (W.tateModule ℓ)` instance: `T_ℓ E` is torsion-free.
 * `WeierstrassCurve.Affine.tateModule.mem_ker_proj_iff`: `ker (proj k) = ℓ^k · T_ℓ E`.
 * `WeierstrassCurve.Affine.tateModule.proj_surjective`: the level projections are surjective when
-  `[ℓ]` is surjective on `W.Point`, and `…exists_nsmul_pow_eq_of_proj_surjective`, the converse
-  divisibility content of that conclusion.
+  `[ℓ]` is surjective on `W.Point`; `…exists_mem_tateModule_apply_eq`, its unbundled form; and
+  `…exists_nsmul_pow_eq_of_proj_surjective`, the converse divisibility content of that conclusion.
 * `WeierstrassCurve.Affine.tateModule.proj_two_surjective`,
   `WeierstrassCurve.Affine.tateModule.infinite_tateModule_two`,
+  `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_two`,
+  `WeierstrassCurve.Affine.tateModule.exists_ne_zero_tateModule_two`,
   `WeierstrassCurve.Affine.tateModule.quotientProjEquiv`: the `ℓ = 2` instance.
+
+`nontrivial_tateModule_two` is worth singling out: `EllipticCurves.TateModule.Basic` proves nothing
+that would distinguish `T_ℓ E` from the zero module, so it is the statement that certifies the
+construction there is not vacuous.
 
 ## References
 
@@ -223,6 +229,19 @@ theorem proj_surjective (hℓ : Function.Surjective fun P : W.Point => ℓ • P
     change ℓ ^ (k - k) • chain hℓ x (k - k) = x
     simp [chain_zero]
 
+/-- **Every level value is attained by a compatible family.** The unbundled form of
+`proj_surjective`: if `[ℓ]` is surjective on `W.Point` then for every `x ∈ E[ℓ^k]` there is a
+compatible family in `T_ℓ E` whose level-`k` value is literally `x`.
+
+This says nothing new — it is `proj_surjective` with the `Subtype` packaging peeled off — but a
+consumer that wants the *family* rather than an element of the subgroup would otherwise have to
+re-derive the coercion each time. -/
+lemma exists_mem_tateModule_apply_eq (hℓ : Function.Surjective fun P : W.Point => ℓ • P) (k : ℕ)
+    {x : W.Point} (hx : x ∈ W.torsion (ℓ ^ k)) :
+    ∃ f ∈ W.tateModule ℓ, f k = x := by
+  obtain ⟨f, hf⟩ := proj_surjective hℓ k ⟨x, hx⟩
+  exact ⟨(f : ℕ → W.Point), f.2, congrArg Subtype.val hf⟩
+
 /-- **Level surjectivity forces divisibility.** If `proj k` is surjective then every point of
 `E[ℓ^k]` is `ℓ^m`-divisible in `E`, for every `m`. This is the converse content of
 `proj_surjective` and certifies that its hypothesis is load-bearing: the conclusion is not a formal
@@ -255,6 +274,20 @@ theorem infinite_tateModule_two (h2 : (2 : F) ≠ 0) : Infinite (W.tateModule 2)
   rw [card_torsion_two_pow h2] at hle
   have hlt : N < 4 ^ N := Nat.lt_pow_self (by norm_num)
   omega
+
+/-- **`T_2 E` is nontrivial**, i.e. it is not the zero module.
+
+Weaker than `infinite_tateModule_two`, but this is the form a consumer usually wants: every
+statement in `EllipticCurves.TateModule.Basic` holds vacuously for the zero module, so citing
+`Nontrivial` is what certifies that the Tate module constructed there has content. -/
+theorem nontrivial_tateModule_two (h2 : (2 : F) ≠ 0) : Nontrivial (W.tateModule 2) :=
+  haveI := infinite_tateModule_two (W := W) h2
+  inferInstance
+
+/-- **`T_2 E` has a nonzero element.** The unbundled form of `nontrivial_tateModule_two`. -/
+theorem exists_ne_zero_tateModule_two (h2 : (2 : F) ≠ 0) : ∃ f : W.tateModule 2, f ≠ 0 :=
+  haveI := nontrivial_tateModule_two (W := W) h2
+  exists_ne 0
 
 /-- **`T_2 E / 2^k T_2 E ≃+ E[2^k]`**: the level-`k` projection identifies the quotient of the Tate
 module by its `2^k`-multiples with the `2^k`-torsion. The kernel really is `2^k · T_2 E` by
