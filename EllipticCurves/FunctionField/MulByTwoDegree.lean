@@ -57,13 +57,19 @@ between the intermediate fields by hand.
 
 ## Retiring a caveat
 
-`FunctionField/PlacePullback.lean`'s module docstring records that "*there is no proof that `[2]∗`
-is non-surjective*", and therefore that its final section is only *conditionally* more than a
-restatement of rung 5.  `not_surjective_mulByTwoEndo` below removes that caveat unconditionally:
-`[2]∗` has index four, so it is not an automorphism, the extension `F(W) / [2]∗F(W)` is proper, and
-the places of `F(W)` really do lie over a strictly smaller function field.  (The sentence in the
-merged file is left in place; retiring it is a separate docstring-drift issue, the pattern of
-`#272` / `#669`.)
+`FunctionField/PlacePullback.lean`'s module docstring used to record that "*there is no proof that
+`[2]∗` is non-surjective*", and therefore that its final section was only *conditionally* more
+than a restatement of rung 5.  `not_surjective_mulByTwoEndo` below removes that caveat: `[2]∗` has
+index four, so it is not an automorphism, the extension `F(W) / [2]∗F(W)` is proper, and the places
+of
+`F(W)` really do lie over a strictly smaller function field.  That file's docstring now says so and
+points here.
+
+The removal is conditional on `[W.IsElliptic]`, and that is not bookkeeping: on a singular
+Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where multiplication by two is squaring (degree
+two) or doubling (degree one, an isomorphism once `(2 : F) ≠ 0`).  `PlacePullback.lean`'s own
+declarations carry no `IsElliptic`, so the two files state the dependence explicitly rather than
+letting it be inferred.
 
 ## Main statements
 

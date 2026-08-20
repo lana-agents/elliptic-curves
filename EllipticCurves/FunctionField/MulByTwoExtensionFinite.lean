@@ -34,7 +34,10 @@ Chaining these (`Subalgebra.topEquiv` to transport `Module.Finite`) gives `Modul
 
 This is the finiteness half of Silverman AEC II.2 (a nonconstant map of curves is finite): the
 degree-`≤ 4` extension `F(W) / [2]∗F(W)`. Only `[Field F]` and `(2 : F) ≠ 0` are used; Ward- and
-normality-independent. The Dedekind integral-closure identification (subtle because
+normality-independent. The matching *lower* bound is downstream, in
+`EllipticCurves.FunctionField.MulByTwoDegree`: `finrank_mulByTwoRange_functionField` computes the
+degree to be exactly `4`, at the cost of a `[W.IsElliptic]` hypothesis that this file does not
+need. The Dedekind integral-closure identification (subtle because
 `[2]∗F[W] ⊄ F[W]`) remains for a follow-on; this module-finiteness is its main input.
 
 ## References
