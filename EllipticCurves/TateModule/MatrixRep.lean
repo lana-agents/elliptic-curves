@@ -103,11 +103,11 @@ open Matrix
 
 namespace WeierstrassCurve.Affine
 
-variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : Affine S}
-
 namespace tateModule
 
 /-! ### A basis of `T₂E` indexed by `Fin 2` -/
+
+variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F}
 
 /-- The basis of `T₂E` indexed by `Fin 2` attached to a `ℤ_[2]`-linear equivalence
 `T₂E ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]`, such as the one `padicPairEquiv` builds from a coherent system of
@@ -117,20 +117,21 @@ generating pairs.
 `GL` are all indexed by a `Fintype`, so it is cheaper to cross `finTwoArrow` once, here, than to
 carry a `Prod` through every later statement. `Module.Free` alone would only give a basis indexed
 by the opaque `Module.Free.ChooseBasisIndex`. -/
-noncomputable def tateModuleBasisTwo
-    (e : (W'⁄F).tateModule 2 ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]) :
-    Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2) :=
+noncomputable def tateModuleBasisTwo (e : W.tateModule 2 ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]) :
+    Module.Basis (Fin 2) ℤ_[2] (W.tateModule 2) :=
   Module.Basis.ofEquivFun (e.trans (LinearEquiv.finTwoArrow ℤ_[2] ℤ_[2]).symm)
 
 /-- **`T₂E` has a basis indexed by `Fin 2`.** The basis itself depends on a choice of coherent
 system of generating pairs of the `E[2^k]`; its existence does not. -/
-theorem nonempty_basis_tateModule_two [IsAlgClosed F] [(W'⁄F).IsElliptic] (h2 : (2 : F) ≠ 0) :
-    Nonempty (Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2)) :=
+theorem nonempty_basis_tateModule_two [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
+    Nonempty (Module.Basis (Fin 2) ℤ_[2] (W.tateModule 2)) :=
   (nonempty_tateModuleEquivProd h2).map tateModuleBasisTwo
 
 end tateModule
 
 /-! ### The matrix representation -/
+
+variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : Affine S}
 
 variable (b : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
 
@@ -194,7 +195,7 @@ theorem exists_galoisRepMatrixTwo [IsAlgClosed F] [(W'⁄F).IsElliptic] (h2 : (2
     ∃ (b : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
       (ρ : (F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[2]), ∀ (σ : F ≃ₐ[S] F) (f : (W'⁄F).tateModule 2),
         ⇑(b.repr (σ • f)) = (ρ σ : Matrix (Fin 2) (Fin 2) ℤ_[2]) *ᵥ ⇑(b.repr f) := by
-  obtain ⟨b⟩ := tateModule.nonempty_basis_tateModule_two (W' := W') (F := F) h2
+  obtain ⟨b⟩ := tateModule.nonempty_basis_tateModule_two (W := W'⁄F) h2
   exact ⟨b, galoisRepMatrixTwo b, galoisRepMatrixTwo_mulVec b⟩
 
 end WeierstrassCurve.Affine
