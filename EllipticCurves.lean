@@ -1,4 +1,5 @@
 import EllipticCurves.Basic
+import EllipticCurves.DivisionPolynomial.Coprime
 import EllipticCurves.FormalGroup.AdditionLaw
 import EllipticCurves.FormalGroup.AdditionLawUnit
 import EllipticCurves.FormalGroup.AdicEval

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.DivisionPolynomial.Coprime
 import EllipticCurves.Torsion.ThreeTorsionStructure
 
 /-!
@@ -29,7 +30,8 @@ Two inputs, both already available.
 * **The doubling formula at `n = 2`, with denominators cleared.** For an affine point `(x, y)` of
   `W` not fixed by negation, `EllipticCurves.Torsion.ThreeTorsion` gives the tangent-line defect
   `x(2P) - x = -Ψ₃(x) / (2y + a₁x + a₃)²`, and `EllipticCurves.Torsion.TwoTorsion` gives
-  `Ψ₂Sq.eval x = (2y + a₁x + a₃)²`. Since `Φ₂ = X · Ψ₂Sq - Ψ₃` (`Φ_two_eq` below), these give
+  `Ψ₂Sq.eval x = (2y + a₁x + a₃)²`. Since `Φ₂ = X · Ψ₂Sq - Ψ₃`
+  (`WeierstrassCurve.Φ_two_eq`, `EllipticCurves.DivisionPolynomial.Coprime`), these give
 
   ```
   x(2P) · Ψ₂Sq.eval x = Φ₂.eval x                                       (`addX_self_mul_Ψ₂Sq_eval`)
@@ -54,7 +56,6 @@ No hypothesis on `(3 : F)` is used anywhere.
 
 ## Main statements
 
-* `WeierstrassCurve.Φ_two_eq`: `Φ₂ = X · Ψ₂Sq - Ψ₃`, over an arbitrary commutative ring.
 * `WeierstrassCurve.Affine.addX_self_mul_Ψ₂Sq_eval`: the doubling formula `x(2P) · Ψ₂Sq(x) = Φ₂(x)`.
 * `WeierstrassCurve.Affine.exists_addX_self_eq`: every `x₀` is `x(2P)` for some affine point `P` not
   fixed by negation.
@@ -68,19 +69,6 @@ No hypothesis on `(3 : F)` is used anywhere.
 -/
 
 open Polynomial
-
-namespace WeierstrassCurve
-
-variable {R : Type*} [CommRing R] (W : WeierstrassCurve R)
-
-/-- **`Φ₂ = X · Ψ₂Sq - Ψ₃`.** Both sides are `X⁴ - b₄X² - 2b₆X - b₈`: the `X³` terms of `X · Ψ₂Sq`
-and `Ψ₃` agree, and the remaining coefficients differ by `2b₄ - 3b₄ = -b₄` and `b₆ - 3b₆ = -2b₆`. -/
-lemma Φ_two_eq : W.Φ 2 = X * W.Ψ₂Sq - W.Ψ₃ := by
-  rw [Φ_two, Ψ₂Sq, Ψ₃]
-  simp only [map_ofNat, C_mul]
-  ring1
-
-end WeierstrassCurve
 
 namespace WeierstrassCurve.Affine
 
