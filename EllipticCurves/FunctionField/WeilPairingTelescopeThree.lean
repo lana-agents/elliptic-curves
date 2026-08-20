@@ -34,9 +34,17 @@ so their sum vanishes and the product is a nonzero constant.
 it.  The `i = 0` factor is `f_T` itself, so `τ_O` never appears.
 
 ⚠️ This is a fact about **this** product only.  The *second* product of III.8.1(d), the one the
-assembly runs, is `∏_{i} τ_{[i]P}∗ g_T` for a point `P` with `[3]P = T`, and there `[i]P = O` can
-occur for `0 < i < 3`; that product does need the `τ_O`-tolerant wrapper `translatePointEndo`
-(`TranslationPointEndomorphism`, `#689`).  Nothing in this file needs it.
+assembly runs, is `∏_{i} τ_{[i]P}∗ g_T` for a point `P` with `[3]P = T`, and its `i = 0` factor is
+`τ_O`; that product needs either the `τ_O`-tolerant wrapper `translatePointEndo`
+(`TranslationPointEndomorphism`, `#689`) or the same `i = 0` special-casing used at `n = 2`.
+Nothing in this file needs either.
+
+An **interior** `[i]P = O` with `0 < i < 3` is *not* a hazard here, contrary to what this paragraph
+said when the file was merged: `T` is affine and `3` is prime, so `ord T = 3`, and `[3]P = T` gives
+`[ord P]T = [3 · ord P]P = O`, so `ord T = 3` divides `ord P`.  Hence `ord P ≥ 3` and both `[1]P`
+and `[2]P` are nonzero.  Interior vanishing does happen for general `n`, when `T`'s order is a
+proper divisor of `n` — `n = 6` with `ord P = 4` is the example recorded in
+`TranslationPointEndomorphism` — which is why `#689` exists; but `n = 3` is not such a case.
 
 ## Main results
 
