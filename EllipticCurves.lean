@@ -129,6 +129,7 @@ import EllipticCurves.FunctionField.ValuationSubringDedekind
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingAlternating
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
+import EllipticCurves.FunctionField.WeilPairingAlternatingTwo
 import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
