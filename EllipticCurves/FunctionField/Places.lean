@@ -389,8 +389,12 @@ witness lives in the translation subtree, which it must not import.  One exists 
 `CoordinateRing.translateAlgEquiv_ne_one`
 (`EllipticCurves.FunctionField.TranslationAutomorphism`) says translation by an affine point is
 never the identity automorphism, so `Aut_F F(W)` is nontrivial as soon as `W` has an affine
-`F`-point.  Whether the induced *permutation* `mapProjPoint` of that `σ` is nontrivial is a further
-question, and is not settled by either file. -/
+`F`-point.  Whether the induced *permutation* `mapProjPoint` of that `σ` is nontrivial is a strictly
+further question — an automorphism that is not the identity could a priori fix every place — and it
+is settled downstream, in `EllipticCurves.FunctionField.TranslationPlaceAtInfinity`:
+`mapProjPoint_translateAlgEquiv_none` computes `mapProjPoint W (translateAlgEquiv h₂) none` to be
+the closed point of `−T`, whence `mapProjPoint_translateAlgEquiv_ne_one`.  So this homomorphism has
+nontrivial image, under the same standing hypothesis (`W` has an affine `F`-point). -/
 noncomputable def mapProjPointHom :
     (W.FunctionField ≃ₐ[F] W.FunctionField) →* Equiv.Perm (ProjPoint W) where
   toFun := mapProjPoint W

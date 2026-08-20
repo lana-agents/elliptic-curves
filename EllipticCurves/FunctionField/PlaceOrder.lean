@@ -80,14 +80,20 @@ two compose without a translation lemma; `mapDomain_apply` fires on
 
 ## Scope
 
-**No claim is made that `mapProjPoint W (translateAlgEquiv h_T)` is a *nontrivial* permutation.**
-Translation by `T ≠ O` classically moves the point at infinity to the closed point of `−T`, but
-identifying the permutation is a separate computation (it needs
+**Nothing below identifies the permutation `mapProjPoint W (translateAlgEquiv h_T)`, or claims it
+is nontrivial.**  Identifying it is a separate computation (it needs
 `ordInfty (translateEndo h_{-T} (genX W))`, where the naive estimate cancels against `slope ^ 2`),
 and it is not attempted here.  `translateAlgEquiv_ne_one` (`#656`) says the *automorphism* is not
 the identity; that does not by itself say the induced permutation is not.  The theorems below hold
 either way, and are non-vacuous either way — see `exists_divisorProj_eq_one`, which says the order
 function at every place is surjective onto `ℤ`.
+
+That computation has since been done, in
+`EllipticCurves.FunctionField.TranslationPlaceAtInfinity` (`#660`): translation by `T` sends the
+point at infinity to the closed point of `−T` and the closed point of `T` to the point at infinity,
+so the permutation is nontrivial.  A consumer of `divisorProj_translateEndo` that needs to know
+*where* the transported divisor sits should reach for `divisorProj_translateEndo_none` and
+`divisorProj_translateEndo_pointClosedPoint` there.
 
 ## References
 
