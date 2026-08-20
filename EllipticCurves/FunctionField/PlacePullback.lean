@@ -85,12 +85,8 @@ that are needed here are re-proved below rather than by editing a merged file.
 * **Any computation of `ramificationIdx`.**  It is *defined* as the value of the transported order
   at a uniformizer at the contracted place.  Nothing here says it is `1` at any particular place for
   `[2]∗`, and nothing here proves `∑_{p ↦ q} e_p · f_p = deg φ`.  That is the next rung.
-* **Any proof that `[2]∗` is not surjective.**  Nothing in this tree computes `[F(W) : [2]∗F(W)]`;
-  the merged `MulByTwoFinite`/`MulByTwoExtensionFinite` give only "finite, of degree `≤ 4`".  So the
-  honest statement about the last section is: the two hypotheses are discharged for `mulByTwoEndo`,
-  and *if* it is not an automorphism then that section is genuinely outside rung 5's reach.  It is
-  not, classically — `[2]` has degree `4` — but that is not proved here and is not assumed anywhere
-  either: every theorem below holds regardless.
+* **The degree formula.**  Nothing here proves `∑_{p ↦ q} e_p · f_p = deg φ`; that is the next rung.
+  The *arithmetic* half of it is now available, though — see the note below on `[2]∗`.
 * `[3]∗`.  The general section applies to it verbatim once the same two hypotheses are supplied for
   `mulByThreeEndo`; it is deliberately not instantiated here.
 * `div g_S = [n]∗(S)` (`#418`), Riemann–Roch, and anything Ward-gated.
@@ -451,7 +447,33 @@ end AlgEquiv
 /-! ### The `[2]∗` instantiation
 
 Everything above is conditional on `hφint`, so a reviewer is entitled to ask whether any
-*non-invertible* `φ` satisfies it.  One does, and it is the one the Weil-pairing front needs. -/
+*non-invertible* `φ` satisfies it.  One does, and it is the one the Weil-pairing front needs.
+
+**And `[2]∗` really is non-invertible.**  When this file was written nothing in the tree computed
+`[F(W) : [2]∗F(W)]` — the merged `MulByTwoFinite` / `MulByTwoExtensionFinite` gave only "finite, of
+degree `≤ 4`" — so the honest reading of this section was conditional: the two hypotheses are
+discharged for `mulByTwoEndo`, and *if* it is not an automorphism then the section is outside rung
+5's reach.  That gap is closed.  `EllipticCurves.FunctionField.MulByTwoDegree` proves
+
+* `finrank_mulByTwoRange_functionField (h2 : (2 : F) ≠ 0) :
+  Module.finrank ↥(mulByTwoEndo h2).range W.FunctionField = 4`, and
+* `not_surjective_mulByTwoEndo (h2 : (2 : F) ≠ 0) : ¬ Function.Surjective (mulByTwoEndo h2)`,
+
+both under `[W.IsElliptic]`.  So this section is unconditionally more than a restatement of rung 5:
+`F(W)` is a proper extension of `[2]∗F(W)`, of degree exactly four, and the places transported here
+genuinely lie over a strictly smaller function field.
+
+Two things that does **not** give.  It is the *field degree* `[F(W) : [2]∗F(W)] = 4`, not the degree
+formula `∑_{p ↦ q} e_p · deg p = 4`, which still needs the residue degrees and a fundamental
+identity; and it says nothing about `#E[n] = n²`, whose connection to the field degree runs
+through a separability argument that is nowhere in this tree.  In particular no
+`ramificationIdx` at an affine place is computed anywhere, here or there.
+
+⚠️ The `[W.IsElliptic]` hypothesis on those two results is load-bearing, not bookkeeping.  The
+declarations in this section carry no such hypothesis, and they must not: on a *singular*
+Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where multiplication by two is squaring
+(degree two) or doubling (degree one, an isomorphism as soon as `(2 : F) ≠ 0`).  A blanket
+"`[2]∗` is never surjective" would be false. -/
 
 namespace CoordinateRing
 
