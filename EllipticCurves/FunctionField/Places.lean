@@ -394,7 +394,15 @@ further question — an automorphism that is not the identity could a priori fix
 is settled downstream, in `EllipticCurves.FunctionField.TranslationPlaceAtInfinity`:
 `mapProjPoint_translateAlgEquiv_none` computes `mapProjPoint W (translateAlgEquiv h₂) none` to be
 the closed point of `−T`, whence `mapProjPoint_translateAlgEquiv_ne_one`.  So this homomorphism has
-nontrivial image, under the same standing hypothesis (`W` has an affine `F`-point). -/
+nontrivial image, under the same standing hypothesis (`W` has an affine `F`-point).
+
+That permutation is identified further downstream, on the **rational** locus
+`{O} ∪ {affine F-points}`, where it is `p ↦ p ⊖ T`: at the closed point of `T` by
+`mapProjPoint_translateAlgEquiv_pointClosedPoint` (same file), and at every affine `F`-point by
+`mapProjPoint_translateAlgEquiv_pointClosedPoint_affine`
+(`EllipticCurves.FunctionField.TranslationProjAction`).  Nothing describes it at a height-one
+prime with a nontrivial residue extension, which is not the closed point of any `F`-rational
+point. -/
 noncomputable def mapProjPointHom :
     (W.FunctionField ≃ₐ[F] W.FunctionField) →* Equiv.Perm (ProjPoint W) where
   toFun := mapProjPoint W

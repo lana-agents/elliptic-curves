@@ -37,16 +37,59 @@ that single translation-invariance fact:
 
 Being an `n`-th root of unity — `e_n(T, T) ^ n = 1`, already available from
 `weilPairingElt_pow_eq_one` (#156) — is *not* enough to force `e_n(T, T) = 1`.  Pinning the ratio to
-exactly `1` is the classical **product-over-`⟨T⟩` / divisor-telescoping** argument: with
-`div g_T = [n]∗(T)` (rung 5, #418) and `[n]T = O`, the function `h := ∏_{i=0}^{n-1} τ_{[i]T}∗ g_T`
-has `div h = 0` — because `T` is `n`-torsion, the multisets `{(1 − i)T}` and `{−iT}` are both all of
-`⟨T⟩` — so `h` is a nonzero constant, and its translation-invariance forces `τ_T∗ g_T = g_T`.
+exactly `1` is the classical **product-over-`⟨T⟩`** argument (Silverman AEC III.8.1(d)), and it
+runs in **two** products, over two *different* translation points:
+
+1. **The divisor telescoping, on `f_T`.**  From `div f_T = n(T) − n(O)` one gets
+   `div (f_T ∘ τ_{[i]T}) = n((1 − i)T) − n((−i)T)`, and summing over `i = 0, …, n − 1` the two
+   multisets `{(1 − i)T}` and `{(−i)T}` are both all of `⟨T⟩`.  So `c := ∏_i f_T ∘ τ_{[i]T}` has
+   divisor `0` and is a nonzero constant.
+2. **The function-level telescoping, on `g_T`, translating by a point `P` with `[n]P = T`.**  Since
+   `[n] ∘ τ_{[i]P} = τ_{[i]T} ∘ [n]`, raising to the `n`-th power turns the second product into the
+   first: `(∏_i g_T ∘ τ_{[i]P}) ^ n = c ∘ [n] = c`, so `h := ∏_i g_T ∘ τ_{[i]P}` is itself
+   constant.  Then `h ∘ τ_P = h · (g_T ∘ τ_{[n]P}) / g_T`, and `h` constant forces `τ_T∗ g_T = g_T`.
+
+⚠️ The product in step 2 is over translations by `P`, **not** by `[i]T`, and that is not a
+presentational choice.  Because `T` is `n`-torsion, `[n] ∘ τ_{[i]T} = [n]`, so *every* divisor of
+the form `[n]∗D` is fixed by the translation permutation; `div g_T = [n]∗((T) − (O))` is of that
+form, each `τ_{[i]T}∗ g_T` therefore has the **same** divisor as `g_T`, and
+`div (∏_i τ_{[i]T}∗ g_T) = n · div g_T ≠ 0`.  There is no cancellation to be had in that product.
 
 That discharge of the `htinv : τ_T∗ g_T = g_T` hypothesis is the substantial, gated part of the
-alternating property (issue #465, deliverable 2): it runs on the divisor / order-of-vanishing
-calculus of `F(W)` (conditional on `IsDedekindDomain W.CoordinateRing`, #396), the rung-5 divisor
-identity `div g_T = [n]∗(T)` (#418, rung-4 gated), and a divisor-pullback-under-translation
-formula not yet in `FunctionField/`.  This file supplies the ungated scaffolding it will plug into.
+alternating property (issue #465, deliverable 2).  It runs on the divisor / order-of-vanishing
+calculus of `F(W)` (conditional on `IsDedekindDomain W.CoordinateRing`, #396) and on the rung-5
+divisor identity `div g_T = [n]∗(T)` (#418, rung-4 gated).  It also needs a
+divisor-pullback-under-translation formula, and **that formula is now in `FunctionField/`**:
+
+* `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`, #658) —
+  `divisorProj W (translateEndo h_T f) = (divisorProj W f).mapDomain (mapProjPoint W
+  (translateAlgEquiv h_T))`, the pullback itself.  Note it is the **projective** divisor
+  `divisorProj` that transports; the affine `divisor W` does not, because `τ_T` moves the points
+  at infinity;
+* the permutation it pushes forward along is identified on the rational locus by
+  `mapProjPoint_translateAlgEquiv_none` and `mapProjPoint_translateAlgEquiv_pointClosedPoint`
+  (`EllipticCurves.FunctionField.TranslationPlaceAtInfinity`, #660) at the point at infinity and
+  at the closed point of `T`, and by `mapProjPoint_translateAlgEquiv_pointClosedPoint_affine`
+  (`EllipticCurves.FunctionField.TranslationProjAction`, #663) at every affine `F`-point, where it
+  is `P ↦ P ⊖ T`.
+
+So the indexing is **not** what is left to do, and `#418` is **not** the only gate.  Sorting the
+two products against the tree:
+
+* **Step 1 is ungated today.**  Its divisor input is `div f_T = n(T) − n(O)`, the merged
+  `divisorProj_eq_single_sub_single_of_torsion` (`EllipticCurves.FunctionField.ProjectiveDivisor`),
+  pushed forward along the permutation just listed and summed (`divisorProj_prod`, same file).
+  Every point occurring in it lies in `⟨T⟩`, hence is `F`-rational — which is exactly the locus on
+  which #658/#660/#663 identify the permutation, and the reason indexing this product needs nothing
+  new.
+* **Step 2 carries both remaining gates.**  It needs `div g_T = [n]∗(T)` (#418, rung-4 gated),
+  which is still missing; and it translates by a point `P` with `[n]P = T`, which is **not
+  `F`-rational in general**.  `translateEndo` is built from `h₂ : W.Equation x₂ y₂` with
+  `x₂ y₂ : F` (`EllipticCurves.FunctionField.TranslationEndomorphism`), so it cannot express `τ_P`
+  at all.  Closing #465 deliverable 2 needs either a base change to a field over which `P` is
+  rational or a translation endomorphism along a non-rational point; that is tracked as #679.
+
+This file supplies the ungated scaffolding both halves plug into.
 
 ## Out of scope
 
