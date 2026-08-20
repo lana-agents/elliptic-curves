@@ -52,13 +52,16 @@ are maps of `ProjPoint W`.  Building that type, and the divisor and degree on it
 ## Main results
 
 * **`degProj_divisorProj`** — the degree-zero theorem, `degProj (divisorProj f) = 0`;
-* **`weight_infty_unique`** — the weight `1` given to the point at infinity is *forced*: no other
+* **`degProjPt_none_unique`** — the weight `1` given to the point at infinity is *forced*: no other
   value of `w` makes `degDiv (div f) + w · ordInfty f = 0` hold for every `f`.  So `degProjPt` is
   not a convention chosen to make the theorem above come out, and that theorem has content;
 * `divisorProj_eq_zero_iff` — trivial projective divisor characterises the nonzero constants;
 * `exists_eq_algebraMap_of_divisorProj_nonneg` — `H⁰(E, 𝒪) = F` from the single hypothesis
   `0 ≤ divisorProj f`, where `exists_eq_algebraMap_of_nonneg` needed the affine and infinite parts
   separately;
+* **`exists_neg_of_ne_algebraMap`** — a nonconstant function has a pole.  The affine analogue is
+  *false* (`genX W` is nonconstant with no affine pole), so this is information the projective
+  divisor genuinely adds;
 * `divisorProj_eq_iff_exists_scalar` — equality of projective divisors is equality up to `F*`;
 * **`divisorProj_eq_single_sub_single_of_torsion`** — `div f_P = n·(P) − n·(O)`, as one equation;
 * `divisorProj_genX_ne_zero` — the group is not trivial.
@@ -175,20 +178,6 @@ lemma divisorProj_zpow (f : W.FunctionField) (n : ℤ) :
     divisorProj W (f ^ n) = n • divisorProj W f := by
   ext p; cases p <;> simp [ord_zpow, ordInfty_zpow]
 
-omit [IsDedekindDomain W.CoordinateRing] in
-variable (W) in
-/-- **Finite-product law at infinity**, the companion of `ordInfty_mul` and of `ord_prod`. -/
-lemma ordInfty_prod {ι : Type*} (s : Finset ι) (f : ι → W.FunctionField)
-    (hf : ∀ i ∈ s, f i ≠ 0) :
-    ordInfty W (∏ i ∈ s, f i) = ∑ i ∈ s, ordInfty W (f i) := by
-  induction s using Finset.cons_induction with
-  | empty => simp
-  | cons a s ha ih =>
-    have hfa : f a ≠ 0 := hf a (Finset.mem_cons_self a s)
-    have hmem : ∀ i ∈ s, f i ≠ 0 := fun i hi => hf i (Finset.mem_cons_of_mem hi)
-    have hprod : ∏ i ∈ s, f i ≠ 0 := Finset.prod_ne_zero_iff.2 hmem
-    rw [Finset.prod_cons, Finset.sum_cons, ordInfty_mul hfa hprod, ih hmem]
-
 variable (W) in
 /-- **Finite-product law for the projective divisor.**  The form the product-over-`⟨T⟩`
 telescoping of `#465` deliverable 2 will consume once it can be stated projectively. -/
@@ -213,7 +202,7 @@ variable (W) in
 /-- **The degree of a point of the projective curve.**  The point at infinity is `F`-rational, so
 its degree is `1`; an affine closed point carries the degree of `DivisorDegree`.
 
-That `1` is not a convention: `weight_infty_unique` shows it is the only value for which the
+That `1` is not a convention: `degProjPt_none_unique` shows it is the only value for which the
 degree-zero theorem below can hold. -/
 noncomputable def degProjPt (p : ProjPoint W) : ℕ := p.elim 1 degPt
 
@@ -237,6 +226,11 @@ lemma degProj_zero : degProj W (0 : ProjPoint W →₀ ℤ) = 0 := Finsupp.sum_z
 
 lemma degProj_add (D E : ProjPoint W →₀ ℤ) : degProj W (D + E) = degProj W D + degProj W E :=
   Finsupp.sum_add_index' (fun _ => zero_mul _) (fun _ _ _ => add_mul _ _ _)
+
+lemma degProj_sub (D E : ProjPoint W →₀ ℤ) : degProj W (D - E) = degProj W D - degProj W E := by
+  have h := degProj_add (W := W) (D - E) E
+  rw [sub_add_cancel] at h
+  omega
 
 @[simp]
 lemma degProj_single (p : ProjPoint W) (n : ℤ) :
@@ -273,7 +267,7 @@ the generic `x`-coordinate is enough, since `ordInfty genX = -2` (`#637`) while
 
 So `degProjPt` is the unique degree function extending `degPt` for which the degree-zero theorem
 can hold, and that theorem has content. -/
-theorem weight_infty_unique (w : ℤ)
+theorem degProjPt_none_unique (w : ℤ)
     (hw : ∀ f : W.FunctionField, f ≠ 0 → degDiv W (divisor W f) + w * ordInfty W f = 0) :
     w = 1 := by
   have h := hw (CoordinateRing.genX W) genX_ne_zero
@@ -291,6 +285,12 @@ theorem divisorProj_eq_zero_iff {f : W.FunctionField} (hf : f ≠ 0) :
     simpa using congrArg (fun D => D (some v)) h
   · rintro ⟨c, hc, rfl⟩
     exact divisorProj_algebraMap_base hc
+
+/-- **An effective projective divisor has nonnegative degree.**  The sharp form is
+`eq_zero_of_degProj_eq_zero`; this is the plain inequality, and the companion of
+`EllipticCurves.FunctionField.DivisorDegree`'s `degDiv_nonneg`. -/
+lemma degProj_nonneg {D : ProjPoint W →₀ ℤ} (hD : ∀ p, 0 ≤ D p) : 0 ≤ degProj W D :=
+  Finset.sum_nonneg fun p _ => mul_nonneg (hD p) (Int.natCast_nonneg _)
 
 /-- **An effective projective divisor of degree zero is zero** — because every point of the
 projective curve has positive degree. -/
@@ -321,6 +321,22 @@ theorem exists_eq_algebraMap_of_divisorProj_nonneg {f : W.FunctionField} (hf : f
     (hD : ∀ p, 0 ≤ divisorProj W f p) :
     ∃ c : F, c ≠ 0 ∧ f = algebraMap F W.FunctionField c :=
   (divisorProj_eq_zero_iff hf).mp (divisorProj_eq_zero_of_nonneg hf hD)
+
+/-- **A nonconstant rational function has a pole somewhere on the projective curve.**
+
+This is the contrapositive of `exists_eq_algebraMap_of_divisorProj_nonneg`, and it is the
+cleanest single witness that the projective divisor carries information the affine one does not:
+**the affine analogue is false.**  `genX W` is nonconstant (`CoordinateRing.genX_ne`) and yet has
+no affine pole at all, since `ord_algebraMap_nonneg` gives `0 ≤ ord v a` for every `a ∈ F[W]` and
+every closed point `v`; all of its poles are at infinity (`exists_neg_divisorProj_genX`).  So the
+statement becomes true exactly when `O` joins the divisor group. -/
+theorem exists_neg_of_ne_algebraMap {f : W.FunctionField} (hf : f ≠ 0)
+    (hconst : ∀ c : F, f ≠ algebraMap F W.FunctionField c) :
+    ∃ p : ProjPoint W, divisorProj W f p < 0 := by
+  by_contra h
+  obtain ⟨c, -, hc⟩ :=
+    exists_eq_algebraMap_of_divisorProj_nonneg hf fun p => not_lt.mp fun hp => h ⟨p, hp⟩
+  exact hconst c hc
 
 /-- The affine divisor already determines the order at infinity, by the degree-zero theorem. -/
 theorem ordInfty_eq_of_divisor_eq {f g : W.FunctionField} (hf : f ≠ 0) (hg : g ≠ 0)
@@ -388,6 +404,14 @@ theorem divisorProj_genX_ne_zero : divisorProj W (CoordinateRing.genX W) ≠ 0 :
   rw [h] at this
   exact absurd this (by norm_num)
 
+variable (W) in
+/-- **The witness for `exists_neg_of_ne_algebraMap`**: the generic `x`-coordinate really does have
+a pole, and it is at the point at infinity.  Affinely it has none — `ord_algebraMap_nonneg` — so
+this pins the theorem to a concrete function rather than leaving it abstract. -/
+theorem exists_neg_divisorProj_genX :
+    ∃ p : ProjPoint W, divisorProj W (CoordinateRing.genX W) p < 0 :=
+  ⟨none, by simp⟩
+
 /-! ### Unconditional forms for an elliptic curve
 
 As in `EllipticCurves.FunctionField.DivisorConstant`, the `Elliptic` namespace re-exposes the main
@@ -415,6 +439,12 @@ theorem exists_eq_algebraMap_of_divisorProj_nonneg {f : W.FunctionField} (hf : f
     (hD : ∀ p, 0 ≤ divisorProj W f p) :
     ∃ c : F, c ≠ 0 ∧ f = algebraMap F W.FunctionField c :=
   WeierstrassCurve.Affine.exists_eq_algebraMap_of_divisorProj_nonneg hf hD
+
+/-- **A nonconstant function has a pole**, unconditional in `[W.IsElliptic]`. -/
+theorem exists_neg_of_ne_algebraMap {f : W.FunctionField} (hf : f ≠ 0)
+    (hconst : ∀ c : F, f ≠ algebraMap F W.FunctionField c) :
+    ∃ p : ProjPoint W, divisorProj W f p < 0 :=
+  WeierstrassCurve.Affine.exists_neg_of_ne_algebraMap hf hconst
 
 /-- **Equality of projective divisors is equality up to an `F*`-scalar**, unconditional in
 `[W.IsElliptic]`. -/

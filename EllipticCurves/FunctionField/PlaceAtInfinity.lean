@@ -40,7 +40,7 @@ rank two with basis `{1, Y}` (Mathlib's `CoordinateRing.basis`), so it has an al
 * `ordInfty_eq_sub` — the defining property: `ordInfty (a / b) = deg b - deg a`; every other
   statement about `ordInfty` below is derived from it;
 * `ordInfty_mul`, `ordInfty_inv`, `ordInfty_div`, `ordInfty_pow`, `ordInfty_zpow`,
-  `le_ordInfty_add` — `ordInfty` is an additive valuation;
+  `ordInfty_prod`, `le_ordInfty_add` — `ordInfty` is an additive valuation;
 * `ordInfty_genX = -2`, `ordInfty_genY = -3` and `ordInfty_genX_div_genY = 1` — the generic
   coordinates have a double and a triple pole at infinity, and `x / y` is a **uniformizer**;
   consequently `ordInfty_surjective`: the place is discrete with value group all of `ℤ`;
@@ -434,6 +434,19 @@ theorem ordInfty_zpow (f : W.FunctionField) (n : ℤ) :
   obtain ⟨k, rfl | rfl⟩ := n.eq_nat_or_neg
   · rw [zpow_natCast, ordInfty_pow]
   · rw [zpow_neg, zpow_natCast, ordInfty_inv, ordInfty_pow]; ring
+
+variable (W) in
+/-- **`ordInfty` of a finite product**, the companion of `ordInfty_mul`. -/
+theorem ordInfty_prod {ι : Type*} (s : Finset ι) (f : ι → W.FunctionField)
+    (hf : ∀ i ∈ s, f i ≠ 0) :
+    ordInfty W (∏ i ∈ s, f i) = ∑ i ∈ s, ordInfty W (f i) := by
+  induction s using Finset.cons_induction with
+  | empty => simp
+  | cons a s ha ih =>
+    have hfa : f a ≠ 0 := hf a (Finset.mem_cons_self a s)
+    have hmem : ∀ i ∈ s, f i ≠ 0 := fun i hi => hf i (Finset.mem_cons_of_mem hi)
+    have hprod : ∏ i ∈ s, f i ≠ 0 := Finset.prod_ne_zero_iff.2 hmem
+    rw [Finset.prod_cons, Finset.sum_cons, ordInfty_mul hfa hprod, ih hmem]
 
 /-- **The ultrametric inequality at infinity.** -/
 theorem le_ordInfty_add {f g : W.FunctionField} (hf : f ≠ 0) (hg : g ≠ 0) (hfg : f + g ≠ 0) :
