@@ -25,14 +25,24 @@ stops being harmless in the product
 h := ∏_{i=0}^{n-1} g_T ∘ τ_{[i]P}
 ```
 
-of Silverman *AEC* III.8.1(d) (`#465` deliverable 2): the `i = 0` factor is `τ_O`, and for `n > 2`
-the point `[i]P` can be `O` for `0 < i < n` as well — take `n = 6` and `ord P = 4`, where `[4]P = O`
-occurs inside the product although `T = [6]P = [2]P ≠ O` is a legitimate `6`-torsion point.  So it
-is not a degenerate case that the hypotheses rule out.
+of Silverman *AEC* III.8.1(d) (`#465` deliverable 2): the `i = 0` factor is `τ_O`, and for large
+enough `n` the point `[i]P` can be `O` for `0 < i < n` as well — take `n = 6` and `ord P = 4`, where
+`[4]P = O` occurs inside the product although `T = [6]P = [2]P ≠ O` is a legitimate `6`-torsion
+point.  So it is not a degenerate case that the hypotheses rule out.
 
-⚠️ **`n = 2` does not need this file.**  There the product is `g_T · (g_T ∘ τ_P)`, whose `i = 0`
-factor is literally `g_T`; the `n = 2` alternating property (`#688`) is not blocked on anything
-here.
+⚠️ **Neither `n = 2` nor `n = 3` needs this file, as far as the *interior* factors go.**  At
+`n = 2` the product is `g_T · (g_T ∘ τ_P)` and there are no interior factors at all.  At `n = 3`
+the two non-trivial factors are affine, and `3` being prime is the reason: `T` is affine, so
+`ord T = 3`, and `T = [3]P` gives `ord T ∣ ord P`, whence `ord P ≥ 3 > i` for `0 < i < 3`.
+
+More generally the interior case needs `ord T` to be a **proper** divisor of `n` — from
+`[i]P = O` one gets `ord P ∣ i < n` and `ord T = ord P / gcd (ord P) n ≤ ord P < n` — so it cannot
+arise when `n` is prime and `T` is affine.  The smallest `n` at which it does arise is `n = 6`.
+
+The `i = 0` factor is a separate matter and is present at every `n`: it is `τ_O` on the nose.
+Whether that costs anything depends only on whether the product is written uniformly over
+`Finset.range n` or with the `i = 0` factor special-cased as `g_T`, which is what `#688` does at
+`n = 2` and what the `n = 3` assembly can do too.
 
 ## Main definitions and results
 
