@@ -74,6 +74,7 @@ import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.GaloisClosedPoint
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GaloisFunctoriality
+import EllipticCurves.FunctionField.GaloisPointAction
 import EllipticCurves.FunctionField.GenericDoubling
 import EllipticCurves.FunctionField.GenericPoint
 import EllipticCurves.FunctionField.GenericTripling
