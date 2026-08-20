@@ -181,6 +181,7 @@ import EllipticCurves.TateModule.Free
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.GeneralLinearGroup
 import EllipticCurves.TateModule.Image
+import EllipticCurves.TateModule.ImageProfinite
 import EllipticCurves.TateModule.Kernel
 import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.TateModule.MatrixContinuity
