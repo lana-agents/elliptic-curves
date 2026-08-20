@@ -99,6 +99,7 @@ import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.FunctionField.PrincipalDivisor
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
 import EllipticCurves.FunctionField.ProjectiveDivisor
+import EllipticCurves.FunctionField.RatFuncPlaces
 import EllipticCurves.FunctionField.RationalPointDegree
 import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
@@ -107,6 +108,7 @@ import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.TranslationTriplingComm
+import EllipticCurves.FunctionField.ValuationSubringDedekind
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingAlternating
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
