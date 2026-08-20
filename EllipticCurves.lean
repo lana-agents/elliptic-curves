@@ -184,6 +184,7 @@ import EllipticCurves.TateModule.Kernel
 import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.MatrixRepCompat
+import EllipticCurves.TateModule.MatrixRepContinuity
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.TateModule.Profinite

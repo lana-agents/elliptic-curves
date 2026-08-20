@@ -87,9 +87,10 @@ about it vacuous.
 ## Scope
 
 Nothing here bears on **odd `ℓ`** beyond the conditional statements, on `T_ℓ E ≅ ℤ_ℓ²`, on
-continuity of `ρ_{E,2}` into `GL₂(ℤ_[2])` **with its `2`-adic topology** (which still needs a basis
-compatible with the level filtration, and which compactness does not supply), on the image of
-`ρ_ℓ`, or on `det ρ_{E,2}` and the cyclotomic character.
+continuity of `ρ_{E,2}` into `GL₂(ℤ_[2])` **with its `2`-adic topology** (that needs a basis
+compatible with the level filtration, and compactness of `T_2 E` does not supply it; it is proved
+in `EllipticCurves.TateModule.MatrixRepContinuity`, from compactness of `ℤ_[2] × ℤ_[2]` instead),
+on the image of `ρ_ℓ`, or on `det ρ_{E,2}` and the cyclotomic character.
 
 ## References
 
