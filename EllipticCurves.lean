@@ -176,6 +176,7 @@ import EllipticCurves.Reduction.Torsion
 import EllipticCurves.Reduction.TwoTorsionReduction
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.GaloisAction
+import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.CoordinateRingDedekind
