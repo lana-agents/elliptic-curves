@@ -93,6 +93,7 @@ import EllipticCurves.FunctionField.MulByTwoEndomorphism
 import EllipticCurves.FunctionField.MulByTwoExtensionFinite
 import EllipticCurves.FunctionField.MulByTwoFinite
 import EllipticCurves.FunctionField.MulByTwoModuleFinite
+import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.MulByTwoPullback
 import EllipticCurves.FunctionField.NthRootOfPullback
 import EllipticCurves.FunctionField.PlaceAtInfinity
