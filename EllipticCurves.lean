@@ -70,6 +70,7 @@ import EllipticCurves.FunctionField.DivisorProd
 import EllipticCurves.FunctionField.DivisorTheoryElliptic
 import EllipticCurves.FunctionField.DivisorTransport
 import EllipticCurves.FunctionField.Divisors
+import EllipticCurves.FunctionField.GaloisClosedPoint
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GaloisFunctoriality
 import EllipticCurves.FunctionField.GenericDoubling
@@ -112,6 +113,7 @@ import EllipticCurves.FunctionField.WeilPairingConstant
 import EllipticCurves.FunctionField.WeilPairingGalois
 import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
 import EllipticCurves.FunctionField.WeilPairingGaloisMu
+import EllipticCurves.FunctionField.WeilPairingGaloisPoint
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
