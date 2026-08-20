@@ -102,6 +102,7 @@ import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
 import EllipticCurves.FunctionField.ProjectiveDivisor
 import EllipticCurves.FunctionField.RatFuncPlaces
 import EllipticCurves.FunctionField.RationalPointDegree
+import EllipticCurves.FunctionField.TranslationAutomorphism
 import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
 import EllipticCurves.FunctionField.TranslationEndomorphism
