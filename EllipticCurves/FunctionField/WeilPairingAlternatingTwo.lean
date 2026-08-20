@@ -39,8 +39,10 @@ hypothesis that `T` is an affine point.  So there is no degenerate case to split
 out of the `Point`-level surjectivity.
 
 ⚠️ This is special to `n = 2`.  The `i = 0` factor of the general product is `g_T` itself, so `τ_O`
-never appears; for `n > 2` it does, and `[i]P = O` can occur for `0 < i < n` as well.  That is what
-`translatePointEndo` (`TranslationPointEndomorphism`) is for, and it is not needed here.
+never appears; for `n > 2` it does, unless the `i = 0` factor is again special-cased, and for some
+`n` the point `[i]P` can be `O` for `0 < i < n` as well.  That is what `translatePointEndo`
+(`TranslationPointEndomorphism`) is for, and it is not needed here.  The precise position — in
+particular that the interior case cannot arise at `n = 3` — is in *Explicitly not here* below.
 
 ## The argument
 
@@ -98,8 +100,22 @@ is not built here.
 
 ## Explicitly not here
 
-* `n = 3` or general `n`: `nsmul_three_surjective` does not exist, and general `n` reintroduces
-  `τ_O`.
+* `n = 3` or general `n` — but **not** for the reason this list gave when the file was written.
+  The `n = 3` producer exists: `nsmul_three_surjective` (`Torsion/TriplingSurjective.lean`, `#690`)
+  supplies a point `P` with `[3]P = T`, and it costs no more hypotheses than the `n = 2` one, since
+  `#690` found that `(3 : F) ≠ 0` is not needed — only `h2 : (2 : F) ≠ 0`, exactly as
+  `exists_nsmul_two_eq` above.  Step B at `n = 3` is merged as well
+  (`WeilPairingTelescopeThree`, `#712`).  What is genuinely left at `n = 3` is step A, the general
+  commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗` for `[3]P = T` (`#713`), plus `hprin` — the same `#418`
+  gate as at `n = 2`, unchanged and blocking both.
+* The `τ_O` half of that sentence, stated precisely, because it is easy to over-read.  In the
+  second product `∏_i τ_{[i]P}∗ g_T` the `i = 0` factor is `τ_O`, and that alone is what
+  `translatePointEndo` (`#689`) is for; whether it is *needed* depends only on whether the product
+  is written uniformly over `Finset.range n` or with the `i = 0` factor special-cased as `g_T`, the
+  way the ⚠️ above does it at `n = 2`.  An **interior** `[i]P = O` with `0 < i < n` is a different
+  matter, and it needs `T` to have order a proper divisor of `n` (`n = 6`, `ord P = 4` is the
+  standard example, recorded in `TranslationPointEndomorphism`).  So it **cannot occur at `n = 3`**:
+  `T` is affine and `3` is prime, so `ord T = 3`, whence `3 ∣ ord P` and `ord P ≥ 3 > i`.
 * Discharging `#418`, or any base change of function fields.
 * Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`, which additionally needs divisor-slot bilinearity.
 
