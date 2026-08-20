@@ -472,9 +472,8 @@ through a separability argument that is nowhere in this tree.  In particular no
 ⚠️ The `[W.IsElliptic]` hypothesis on those two results is load-bearing, not bookkeeping.  The
 declarations in this section carry no such hypothesis, and they must not: on a *singular*
 Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where multiplication by two is squaring
-(degree two) or doubling (degree one, an isomorphism as soon as `(2 : F) ≠ 0`).  A blanket "`[2]∗`
-is never
-surjective" would be false. -/
+(degree two) or doubling (degree one, an isomorphism as soon as `(2 : F) ≠ 0`).  A blanket
+"`[2]∗` is never surjective" would be false. -/
 
 namespace CoordinateRing
 

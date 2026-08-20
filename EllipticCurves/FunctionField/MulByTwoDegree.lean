@@ -61,9 +61,8 @@ between the intermediate fields by hand.
 `[2]∗` is non-surjective*", and therefore that its final section was only *conditionally* more
 than a restatement of rung 5.  `not_surjective_mulByTwoEndo` below removes that caveat: `[2]∗` has
 index four, so it is not an automorphism, the extension `F(W) / [2]∗F(W)` is proper, and the places
-of
-`F(W)` really do lie over a strictly smaller function field.  That file's docstring now says so and
-points here.
+of `F(W)` really do lie over a strictly smaller function field.  That file's docstring now says so
+and points here.
 
 The removal is conditional on `[W.IsElliptic]`, and that is not bookkeeping: on a singular
 Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where multiplication by two is squaring (degree
