@@ -26,6 +26,12 @@ morphism of degree `9 = 3²`. This file supplies the **integrality datum** for t
   whose coefficients lie in `[3]∗F(W)` (via `eval₂ (mulByThreeEndo h2 h3)`). Monicity is because
   `Φ₃` has degree `9` with leading coefficient `1` while `ΨSq₃` has degree `≤ 8`.
 
+* `WeierstrassCurve.Affine.CoordinateRing.mulByThreeEndoAlgHom`: `[3]∗` as an `F`-algebra
+  endomorphism of `F(W)`.  It lives here rather than in `MulByThreeEndomorphism.lean` because its
+  `commutes'` field is `mulByThreeEndo_algebraMap_base`, which is proved in this file;
+  `TranslationTriplingCommGeneral` (for `Point.map`) consumes it.  This mirrors the placement `#699`
+  chose for `mulByTwoEndoAlgHom`.
+
 The mechanism is the identity `x(3 • P) = Φ₃(genX)/ΨSq₃(genX)`, i.e. `mulByThreeEndo h2 h3 (genX)`
 multiplied by the (nonvanishing) denominator `ΨSq₃(genX)` returns the numerator `Φ₃(genX)` — so
 substituting `genX` into `q` gives `Φ₃(genX) - x(3 • P)·ΨSq₃(genX) = 0`. This is the same
@@ -62,6 +68,20 @@ lemma mulByThreeEndo_algebraMap_base (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (
     mulByThreeEndo h2 h3 (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c := by
   have hst := IsScalarTower.algebraMap_apply F W.CoordinateRing W.FunctionField c
   rw [hst, mulByThreeEndo_algebraMap, mulByThreeCoordHom_algebraMap, ← hst]
+
+/-- **`[3]∗` as an `F`-algebra endomorphism of `F(W)`.**  `mulByThreeEndo` is a bare `RingHom` and
+`mulByThreeAlgHom` is the *coordinate-ring* map `F[W] →ₐ[F] F(W)`; neither is an `F`-algebra
+endomorphism of `F(W)`, which is what the generic-point transport of
+`TranslationTriplingCommGeneral` (`Point.map`) needs.  It is `mulByThreeEndo` together with
+`mulByThreeEndo_algebraMap_base`, and it lives here — beside its own `commutes'` field — exactly as
+`#699` placed its `n = 2` counterpart `mulByTwoEndoAlgHom` in `MulByTwoFinite`. -/
+noncomputable def mulByThreeEndoAlgHom (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    W.FunctionField →ₐ[F] W.FunctionField where
+  toRingHom := mulByThreeEndo h2 h3
+  commutes' := mulByThreeEndo_algebraMap_base h2 h3
+
+@[simp] lemma mulByThreeEndoAlgHom_apply (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    (f : W.FunctionField) : mulByThreeEndoAlgHom h2 h3 f = mulByThreeEndo h2 h3 f := rfl
 
 /-- `[3]∗` composed with the base embedding `F → F(W)` is the base embedding: `[3]∗` fixes `F`. -/
 lemma mulByThreeEndo_comp_algebraMap (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :

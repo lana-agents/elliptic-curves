@@ -124,6 +124,7 @@ import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.TranslationTriplingComm
+import EllipticCurves.FunctionField.TranslationTriplingCommGeneral
 import EllipticCurves.FunctionField.ValuationAtInfinity
 import EllipticCurves.FunctionField.ValuationSubringDedekind
 import EllipticCurves.FunctionField.WeilPairing
