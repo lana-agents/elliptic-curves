@@ -66,9 +66,10 @@ The last step is exactly what `EllipticCurves.TateModule.PadicInverseLimit` was 
 ## Non-vacuity
 
 `Module.Free` and `finrank = 2` would both be *false* for the zero module, so they cannot be
-satisfied vacuously; independently, `nontrivial_tateModule_two` records `Nontrivial (T₂E)` by a
-route that does not mention the equivalence at all (it comes from `infinite_tateModule_two`, i.e.
-from `T₂E` surjecting onto groups of order `4^k`).
+satisfied vacuously. Independently of the equivalence built here,
+`EllipticCurves.TateModule.LevelStructure` records `nontrivial_tateModule_two` by a route that
+never mentions it: `T₂E` surjects onto `E[2^k]`, which has `4^k` elements, so `T₂E` is in fact
+infinite. That statement lives there and is imported, not restated.
 
 ## Scope
 
@@ -86,7 +87,10 @@ separate follow-up, which the rank statement here makes meaningful for the first
   `Nonempty (T₂E ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2])`.
 * `WeierstrassCurve.Affine.tateModule.free_tateModule_two`: `Module.Free ℤ_[2] T₂E`.
 * `WeierstrassCurve.Affine.tateModule.finrank_tateModule_two`: `finrank ℤ_[2] T₂E = 2`.
-* `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_two`: `Nontrivial T₂E`.
+* `WeierstrassCurve.Affine.tateModule.finite_tateModule_two`: `Module.Finite ℤ_[2] T₂E`.
+
+`Nontrivial (T₂E)` is **not** restated here: it is
+`EllipticCurves.TateModule.LevelStructure.nontrivial_tateModule_two`, which this file imports.
 
 ## References
 
@@ -316,12 +320,11 @@ theorem finrank_tateModule_two (h2 : (2 : F) ≠ 0) :
   obtain ⟨e⟩ := nonempty_tateModuleEquivProd (W := W) h2
   rw [e.finrank_eq, Module.finrank_prod, Module.finrank_self]
 
-/-- **`T₂E` is nontrivial**, by a route independent of the equivalence above: it surjects onto
-`E[2^k]`, which has `4^k` elements. Together with `free_tateModule_two` this rules out the
-degenerate reading of the rank statement. -/
-theorem nontrivial_tateModule_two (h2 : (2 : F) ≠ 0) : Nontrivial (W.tateModule 2) :=
-  haveI := infinite_tateModule_two (W := W) h2
-  inferInstance
+/-- **`T₂E` is a finitely generated `ℤ_[2]`-module.** Free of rank two, so in particular finite as
+a module; this is the shape `ρ_{E,2} : G_F → GL₂(ℤ_2)` will need. -/
+theorem finite_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Finite ℤ_[2] (W.tateModule 2) := by
+  obtain ⟨e⟩ := nonempty_tateModuleEquivProd (W := W) h2
+  exact Module.Finite.equiv e.symm
 
 end Structure
 
