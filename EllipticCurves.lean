@@ -93,6 +93,7 @@ import EllipticCurves.FunctionField.MulByTwoFinite
 import EllipticCurves.FunctionField.MulByTwoModuleFinite
 import EllipticCurves.FunctionField.MulByTwoPullback
 import EllipticCurves.FunctionField.NthRootOfPullback
+import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.FunctionField.PrincipalDivisor
 import EllipticCurves.FunctionField.PrincipalDivisorOfPoint
