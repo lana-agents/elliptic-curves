@@ -90,6 +90,9 @@ Weil-pairing stack.
 * The degenerate relation `R ⊕ S = O`, i.e. `P = O`: that is the merged
   `mapProjPoint_translateAlgEquiv_none`, and it cannot be stated in this signature (`h_P` ranges
   over affine points).
+* The other degenerate relation, `R = O`, i.e. `P = S`: that is the merged
+  `mapProjPoint_translateAlgEquiv_pointClosedPoint`, and it cannot be stated here either, for the
+  same reason — its value is the point at infinity, not the closed point of an affine point.
 * Anything about `[n]∗`, Riemann–Roch, or the Weil pairing itself.
 
 ## References

@@ -88,12 +88,22 @@ the identity; that does not by itself say the induced permutation is not.  The t
 either way, and are non-vacuous either way — see `exists_divisorProj_eq_one`, which says the order
 function at every place is surjective onto `ℤ`.
 
-That computation has since been done, in
-`EllipticCurves.FunctionField.TranslationPlaceAtInfinity` (`#660`): translation by `T` sends the
-point at infinity to the closed point of `−T` and the closed point of `T` to the point at infinity,
-so the permutation is nontrivial.  A consumer of `divisorProj_translateEndo` that needs to know
-*where* the transported divisor sits should reach for `divisorProj_translateEndo_none` and
-`divisorProj_translateEndo_pointClosedPoint` there.
+That computation has since been done, in two files.
+`EllipticCurves.FunctionField.TranslationPlaceAtInfinity` (`#660`) does the two points at the ends:
+translation by `T` sends the point at infinity to the closed point of `−T` and the closed point of
+`T` to the point at infinity, so the permutation is nontrivial.
+`EllipticCurves.FunctionField.TranslationProjAction` (`#663`) does the affine `F`-points:
+`mapProjPoint_translateAlgEquiv_pointClosedPoint_affine` sends the closed point of `P` to the
+closed point of `P ⊖ T`.  A consumer of `divisorProj_translateEndo` that needs to know *where* the
+transported divisor sits should reach for `divisorProj_translateEndo_none` and
+`divisorProj_translateEndo_pointClosedPoint` in the former, and
+`divisorProj_translateEndo_pointClosedPoint_affine` in the latter.
+
+Together those describe the permutation on the **rational** locus `{O} ∪ {affine F-points}` only,
+where it is `p ↦ p ⊖ T`.  `ProjPoint W` is all of `Option (HeightOneSpectrum F[W])`, and a
+height-one prime with a nontrivial residue extension is not the closed point of any `F`-rational
+point, so none of the three merged files says where it goes.  The transport theorems below are
+insensitive to that: they hold at every `p : ProjPoint W`, identified or not.
 
 ## References
 

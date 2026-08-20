@@ -43,10 +43,28 @@ has `div h = 0` — because `T` is `n`-torsion, the multisets `{(1 − i)T}` and
 `⟨T⟩` — so `h` is a nonzero constant, and its translation-invariance forces `τ_T∗ g_T = g_T`.
 
 That discharge of the `htinv : τ_T∗ g_T = g_T` hypothesis is the substantial, gated part of the
-alternating property (issue #465, deliverable 2): it runs on the divisor / order-of-vanishing
-calculus of `F(W)` (conditional on `IsDedekindDomain W.CoordinateRing`, #396), the rung-5 divisor
-identity `div g_T = [n]∗(T)` (#418, rung-4 gated), and a divisor-pullback-under-translation
-formula not yet in `FunctionField/`.  This file supplies the ungated scaffolding it will plug into.
+alternating property (issue #465, deliverable 2).  It runs on the divisor / order-of-vanishing
+calculus of `F(W)` (conditional on `IsDedekindDomain W.CoordinateRing`, #396) and on the rung-5
+divisor identity `div g_T = [n]∗(T)` (#418, rung-4 gated).  It also needs a
+divisor-pullback-under-translation formula, and **that formula is now in `FunctionField/`**:
+
+* `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`, #658) —
+  `divisorProj W (translateEndo h_T f) = (divisorProj W f).mapDomain (mapProjPoint W
+  (translateAlgEquiv h_T))`, the pullback itself.  Note it is the **projective** divisor
+  `divisorProj` that transports; the affine `divisor W` does not, because `τ_T` moves the points
+  at infinity;
+* the permutation it pushes forward along is identified on the rational locus by
+  `mapProjPoint_translateAlgEquiv_none` and `mapProjPoint_translateAlgEquiv_pointClosedPoint`
+  (`EllipticCurves.FunctionField.TranslationPlaceAtInfinity`, #660) at the point at infinity and
+  at the closed point of `T`, and by `mapProjPoint_translateAlgEquiv_pointClosedPoint_affine`
+  (`EllipticCurves.FunctionField.TranslationProjAction`, #663) at every affine `F`-point, where it
+  is `P ↦ P ⊖ T`.
+
+So `div g_T = [n]∗(T)` (#418) is now the **only** remaining gate on the telescoping's indexing:
+with it, `div (∏_{i} τ_{[i]T}∗ g_T)` is computed by pushing `[n]∗(T)` forward along the
+translation permutation above and summing (`divisorProj_prod`), and the `{(1 − i)T} = {−iT}`
+cancellation is a statement about `⟨T⟩` alone.  This file supplies the ungated scaffolding that
+argument plugs into.
 
 ## Out of scope
 
