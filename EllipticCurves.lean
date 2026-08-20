@@ -178,6 +178,7 @@ import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.Free
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.LevelStructure
+import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.CoordinateRingDedekind
