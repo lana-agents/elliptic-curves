@@ -384,10 +384,13 @@ variable (W) in
 The `comap σ.symm` convention (rather than `comap σ`) is what makes this a homomorphism rather than
 an anti-homomorphism; see the module docstring.
 
-**No non-triviality is claimed.**  Exhibiting a `σ ≠ 1` would need the hyperelliptic involution
-`y ↦ −y − a₁x − a₃` as an `AlgEquiv`, which this file does not construct: `translateEndoAlgHom` is
-only an `AlgHom`, and the composition law `translateEndo_comp` cannot produce the identity because
-the group identity is not an affine point.  Recorded here rather than asserted. -/
+**No non-triviality is claimed *here*.**  This file constructs no `σ ≠ 1`, and cannot: the
+witness lives in the translation subtree, which it must not import.  One exists —
+`CoordinateRing.translateAlgEquiv_ne_one`
+(`EllipticCurves.FunctionField.TranslationAutomorphism`) says translation by an affine point is
+never the identity automorphism, so `Aut_F F(W)` is nontrivial as soon as `W` has an affine
+`F`-point.  Whether the induced *permutation* `mapProjPoint` of that `σ` is nontrivial is a further
+question, and is not settled by either file. -/
 noncomputable def mapProjPointHom :
     (W.FunctionField ≃ₐ[F] W.FunctionField) →* Equiv.Perm (ProjPoint W) where
   toFun := mapProjPoint W
