@@ -110,11 +110,13 @@ import EllipticCurves.FunctionField.WeilPairingBilinear
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
 import EllipticCurves.FunctionField.WeilPairingConstant
+import EllipticCurves.FunctionField.WeilPairingCyclotomic
 import EllipticCurves.FunctionField.WeilPairingGalois
 import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
 import EllipticCurves.FunctionField.WeilPairingGaloisMu
 import EllipticCurves.FunctionField.WeilPairingGaloisPoint
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
+import EllipticCurves.Galois.CyclotomicCharacter
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
