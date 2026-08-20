@@ -108,6 +108,7 @@ import EllipticCurves.FunctionField.TranslationPullback
 import EllipticCurves.FunctionField.TranslationTorsion
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.FunctionField.TranslationTriplingComm
+import EllipticCurves.FunctionField.ValuationAtInfinity
 import EllipticCurves.FunctionField.ValuationSubringDedekind
 import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingAlternating
@@ -124,6 +125,7 @@ import EllipticCurves.FunctionField.WeilPairingGaloisPoint
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.Galois.CyclotomicCharacter
 import EllipticCurves.Galois.Unramified
+import EllipticCurves.NewtonPolygon
 import EllipticCurves.Reduction.AdditivityUncond
 import EllipticCurves.Reduction.AdditivityValuation
 import EllipticCurves.Reduction.ChordAffineBridge
