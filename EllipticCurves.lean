@@ -71,9 +71,11 @@ import EllipticCurves.FunctionField.DivisorTheoryElliptic
 import EllipticCurves.FunctionField.DivisorTransport
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.GaloisFunctionField
+import EllipticCurves.FunctionField.GaloisFunctoriality
 import EllipticCurves.FunctionField.GenericDoubling
 import EllipticCurves.FunctionField.GenericPoint
 import EllipticCurves.FunctionField.GenericTripling
+import EllipticCurves.FunctionField.HeightOneSpectrumFunctor
 import EllipticCurves.FunctionField.HeightOneSpectrumMap
 import EllipticCurves.FunctionField.IntegrallyClosedDescent
 import EllipticCurves.FunctionField.LocalRingNormal
