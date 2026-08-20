@@ -185,6 +185,7 @@ import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.MatrixRepCompat
 import EllipticCurves.TateModule.PadicInverseLimit
+import EllipticCurves.TateModule.Profinite
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.CoordinateRingDedekind
 import EllipticCurves.Torsion.Coprime
