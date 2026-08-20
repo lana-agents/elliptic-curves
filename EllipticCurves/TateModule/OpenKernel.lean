@@ -54,8 +54,10 @@ It says nothing about the *Tate module* as a topological space: compactness and 
 `T_ℓ E` are a separate matter, and this file neither needs them nor supplies them. It also does not
 claim `ker ρ_{E,2}` is open — it is not, in general — nor anything about the image of `ρ_ℓ`, whose
 openness would be a statement about `F / S` that nothing here bears on. Continuity of
-`galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` with its `2`-adic topology is still not available: it needs
-`b.repr` to be continuous, i.e. a basis compatible with the level filtration.
+`galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` with its `2`-adic topology is not proved here either, but
+it *is* available — `continuous_galoisRepMatrixTwo` in
+`EllipticCurves.TateModule.MatrixContinuity`, for an arbitrary basis. An earlier version of this
+docstring said it needed a basis compatible with the level filtration; that was wrong.
 
 ## On non-vacuity
 

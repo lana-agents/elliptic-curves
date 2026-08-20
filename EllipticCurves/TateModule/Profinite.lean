@@ -86,10 +86,16 @@ about it vacuous.
 
 ## Scope
 
-Nothing here bears on **odd `ℓ`** beyond the conditional statements, on `T_ℓ E ≅ ℤ_ℓ²`, on
-continuity of `ρ_{E,2}` into `GL₂(ℤ_[2])` **with its `2`-adic topology** (which still needs a basis
-compatible with the level filtration, and which compactness does not supply), on the image of
-`ρ_ℓ`, or on `det ρ_{E,2}` and the cyclotomic character.
+Nothing here bears on **odd `ℓ`** beyond the conditional statements, on `T_ℓ E ≅ ℤ_ℓ²`, on the
+image of `ρ_ℓ`, or on `det ρ_{E,2}` and the cyclotomic character.
+
+Continuity of `ρ_{E,2}` into `GL₂(ℤ_[2])` **with its `2`-adic topology** is likewise not supplied
+here, but it is available: `continuous_galoisRepMatrixTwo` in
+`EllipticCurves.TateModule.MatrixContinuity`. An earlier version of this docstring said it needed a
+basis compatible with the level filtration and that compactness did not supply it; **both halves
+were wrong.** It needs no compatible basis, and it is exactly a compactness argument — run on the
+compactness of the *coordinate space* `Fin 2 → ℤ_[2]`, which is Mathlib's, rather than on the
+compactness of `T₂E` proved below.
 
 ## References
 
