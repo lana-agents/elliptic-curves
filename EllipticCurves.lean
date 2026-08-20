@@ -175,6 +175,7 @@ import EllipticCurves.Reduction.ThirdChordNonvanishingDiag
 import EllipticCurves.Reduction.Torsion
 import EllipticCurves.Reduction.TwoTorsionReduction
 import EllipticCurves.TateModule.Basic
+import EllipticCurves.TateModule.Determinant
 import EllipticCurves.TateModule.Free
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.LevelStructure
