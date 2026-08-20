@@ -39,7 +39,11 @@ work here is only to produce the prime, which is the contraction of the maximal 
 * `IsDedekindDomain.exists_valuationSubringAtPrime_eq_iff` — the two hypotheses are not merely
   sufficient but *characterise* the valuation subrings of this form, via the converse lemmas
   `HeightOneSpectrum.algebraMap_mem_valuationSubringAtPrime` and
-  `HeightOneSpectrum.valuationSubringAtPrime_ne_top`.
+  `HeightOneSpectrum.valuationSubringAtPrime_ne_top`;
+* **`HeightOneSpectrum.valuationSubringAtPrime_injective`** — `v ↦ R_v` is injective, so with the
+  previous result it is a *bijection* from the height-one primes of `R` onto the proper valuation
+  subrings of `K` containing `R`.  The prime is recovered from the subring by
+  `HeightOneSpectrum.mem_asIdeal_iff_mem_nonunits`.
 
 Nothing in this file mentions elliptic curves; it is an upstream candidate, and sits next to
 `Mathlib/RingTheory/DedekindDomain/AdicValuation.lean`.
@@ -106,6 +110,33 @@ theorem valuationSubringAtPrime_ne_top : valuationSubringAtPrime K v ≠ ⊤ := 
   rw [valuationSubringAtPrime_eq_valuationSubring]
   simp only [ne_eq, Valuation.valuationSubring_eq_top_iff, not_not]
   infer_instance
+
+/-- **The prime is recoverable from the subring**: `v.asIdeal` is the contraction to `R` of the
+nonunits of `R_v`.  This is the localisation fact `IsLocalization.AtPrime.to_map_mem_maximal_iff`,
+read through `ValuationSubring.coe_mem_nonunits_iff`; the point of phrasing it with
+`ValuationSubring.nonunits` rather than with `IsLocalRing.maximalIdeal` is that
+`(valuationSubringAtPrime K v).nonunits` is a subset of `K` that depends on `v` *only through the
+subring*, which is what makes `valuationSubringAtPrime_injective` a one-liner. -/
+theorem mem_asIdeal_iff_mem_nonunits (r : R) :
+    r ∈ v.asIdeal ↔ algebraMap R K r ∈ (valuationSubringAtPrime K v).nonunits := by
+  have hcoe : algebraMap R K r
+      = ((algebraMap R (valuationSubringAtPrime K v) r : valuationSubringAtPrime K v) : K) := rfl
+  rw [hcoe, ValuationSubring.coe_mem_nonunits_iff]
+  exact (IsLocalization.AtPrime.to_map_mem_maximal_iff _ v.asIdeal r).symm
+
+/-- **Distinct height-one primes give distinct valuation subrings.**  Together with
+`exists_valuationSubringAtPrime_eq` this makes `v ↦ R_v` a bijection onto the proper valuation
+subrings of `K` containing `R`. -/
+theorem valuationSubringAtPrime_injective :
+    Function.Injective (valuationSubringAtPrime K : HeightOneSpectrum R → ValuationSubring K) := by
+  intro v w h
+  refine HeightOneSpectrum.ext (Ideal.ext fun r => ?_)
+  rw [mem_asIdeal_iff_mem_nonunits (K := K) v r, mem_asIdeal_iff_mem_nonunits (K := K) w r, h]
+
+@[simp]
+theorem valuationSubringAtPrime_inj {v w : HeightOneSpectrum R} :
+    valuationSubringAtPrime K v = valuationSubringAtPrime K w ↔ v = w :=
+  valuationSubringAtPrime_injective.eq_iff
 
 end HeightOneSpectrum
 

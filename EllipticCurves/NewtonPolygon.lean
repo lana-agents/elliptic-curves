@@ -37,9 +37,13 @@ different generality:
 
 Stating it once, with the coefficient bounds as hypotheses, is what lets both use it.
 
-## Main result
+## Main results
 
-* `WeierstrassCurve.valuation_pow_two_eq_pow_three_of_valuation_le_one`.
+* `WeierstrassCurve.valuation_pow_two_eq_pow_three_of_valuation_le_one` — the dichotomy above;
+* `WeierstrassCurve.valuation_le_one_of_valuation_le_one` — the complementary branch: if `v x ≤ 1`
+  then `v y ≤ 1`.  Together the two say that a point of `W` is `v`-integral in `y` as soon as it is
+  `v`-integral in `x`, which is the "no pole in `x`" half of the classification of the places of a
+  function field.
 
 ## References
 
@@ -178,4 +182,50 @@ theorem valuation_pow_two_eq_pow_three_of_valuation_le_one (v : Valuation K Γ�
     have ha4a3 : a ^ 4 < a ^ 3 := lt_of_le_of_lt ha4b2 hb2a3
     have ha3a4 : a ^ 3 < a ^ 4 := pow_lt_pow_right₀ hx (by norm_num)
     exact absurd ha4a3 (not_lt.mpr (le_of_lt ha3a4))
+
+/-- **The complementary branch of the dichotomy.**  If every coefficient of `W` is `v`-integral and
+a point `(x, y)` of `W` has `v x ≤ 1`, then `v y ≤ 1` as well: an affine point cannot have a pole in
+`y` alone.
+
+Classically this is the statement that `y` is integral over `R[x]`, obtained from the monic
+quadratic `Y² + (a₁x + a₃)Y − (x³ + a₂x² + a₄x + a₆)` that `y` satisfies; the valuation-theoretic
+proof below avoids any integral-closure API.  If `1 < v y` then `v (y²) = (v y)²` strictly dominates
+both `v (a₁xy) ≤ v y` and `v (a₃y) ≤ v y`, so the left side of the Weierstrass equation has
+valuation `(v y)² > 1`, while every term on the right is `v`-integral.
+
+As with the other branch, no discreteness of `v` is used. -/
+theorem valuation_le_one_of_valuation_le_one (v : Valuation K Γ₀) (W : WeierstrassCurve K)
+    (ha1 : v W.a₁ ≤ 1) (ha2 : v W.a₂ ≤ 1) (ha3 : v W.a₃ ≤ 1) (ha4 : v W.a₄ ≤ 1)
+    (ha6 : v W.a₆ ≤ 1) {x y : K} (heqn : W.toAffine.Equation x y) (hx : v x ≤ 1) :
+    v y ≤ 1 := by
+  by_contra hcon
+  rw [not_le] at hcon
+  rw [Affine.equation_iff] at heqn
+  have hy2 : (1 : Γ₀) < v y ^ 2 := one_lt_pow₀ hcon (by norm_num)
+  -- every term on the right is integral
+  have hx3 : v (x ^ 3) ≤ 1 := by rw [map_pow]; exact pow_le_one₀ zero_le hx
+  have hx2 : v (W.a₂ * x ^ 2) ≤ 1 := by
+    rw [map_mul, map_pow]; exact mul_le_one' ha2 (pow_le_one₀ zero_le hx)
+  have hx1 : v (W.a₄ * x) ≤ 1 := by rw [map_mul]; exact mul_le_one' ha4 hx
+  have hRHS : v (x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆) ≤ 1 :=
+    le_trans (Valuation.map_add _ _ _) (max_le
+      (le_trans (Valuation.map_add _ _ _) (max_le
+        (le_trans (Valuation.map_add _ _ _) (max_le hx3 hx2)) hx1)) ha6)
+  -- on the left `y ^ 2` strictly dominates
+  have hxy : v (W.a₁ * x * y) < v (y ^ 2) := by
+    rw [map_mul, map_mul, map_pow, pow_two]
+    calc v W.a₁ * v x * v y ≤ 1 * 1 * v y := by gcongr
+      _ = 1 * v y := by rw [one_mul, one_mul]
+      _ < v y * v y := (mul_lt_mul_iff_left₀ (zero_lt_one.trans hcon)).2 hcon
+  have hy : v (W.a₃ * y) < v (y ^ 2) := by
+    rw [map_mul, map_pow, pow_two]
+    calc v W.a₃ * v y ≤ 1 * v y := by gcongr
+      _ < v y * v y := (mul_lt_mul_iff_left₀ (zero_lt_one.trans hcon)).2 hcon
+  have hLHS : v (y ^ 2 + W.a₁ * x * y + W.a₃ * y) = v y ^ 2 := by
+    rw [Valuation.map_add_eq_of_lt_left _ (by
+      rwa [Valuation.map_add_eq_of_lt_left _ hxy]), Valuation.map_add_eq_of_lt_left _ hxy,
+      map_pow]
+  rw [← heqn, hLHS] at hRHS
+  exact absurd hRHS (not_le.2 hy2)
+
 end WeierstrassCurve
