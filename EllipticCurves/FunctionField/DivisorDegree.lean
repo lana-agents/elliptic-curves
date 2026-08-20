@@ -38,8 +38,8 @@ accounted for by `ordInfty`.
 
 ## Main results
 
-* `degX_relNorm` — for a nonzero ideal `I` of `F[W]`, the degree of `relNorm I` is the degree of
-  the divisor of `I`.  Proved by induction over the prime factorisation of `I`, using
+* `natDegreeGenerator_relNorm` — for a nonzero ideal `I` of `F[W]`, the degree of `relNorm I` is
+  the degree of the divisor of `I`.  Proved by induction over the prime factorisation of `I`, using
   multiplicativity of `relNorm` and additivity of both `degPt`-weighted counting and of the degree
   of ideals of `F[X]`;
 * `deg_eq_degDiv` — the element form: `deg a = degDiv (div a)` for `a ∈ F[W]` nonzero, i.e. the
@@ -52,12 +52,14 @@ accounted for by `ordInfty`.
   `H⁰(E, 𝒪) = F`, and unlike `exists_eq_algebraMap_of_ordInfty_nonneg` (which assumes the function
   lies in `F[W]`) it assumes only pole-freeness.
 
-## Consequences and what is still missing
+## Consequences
 
-`degPt v = 1` for the closed point of an `F`-rational point is **not** proved here; it needs the
-residue field of `pointClosedPoint h` to be identified with `F`.  With it, the degree-zero theorem
+`degPt v = 1` for the closed point of an `F`-rational point is proved in the companion file
+`EllipticCurves.FunctionField.RationalPointDegree`, which needs nothing from this one beyond
+`degPt_pos` and the additivity of `Ideal.natDegreeGenerator` — in particular no identification of
+the residue field of `pointClosedPoint h` with `F`.  Combined with the degree-zero theorem below it
 upgrades `#409`'s `div f_S = n·(S)` to the full classical `n·(S) − n·(O)`, which is the shape the
-Weil-pairing rungs want.  That is the natural next step and is deliberately out of scope here.
+Weil-pairing rungs want.
 
 ## Design
 
