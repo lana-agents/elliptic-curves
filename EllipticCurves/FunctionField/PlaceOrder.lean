@@ -178,19 +178,12 @@ theorem eq_of_nonneg_iff_of_exists_eq_one
     have h2 : 0 ≤ ψ y⁻¹ := (hiff y⁻¹ (inv_ne_zero hy)).1 (by rw [map_inv_of_mul hφ hy, h, neg_zero])
     rw [map_inv_of_mul hψ hy] at h2
     omega
-  have hzero' : ∀ y : K, y ≠ 0 → ψ y = 0 → φ y = 0 := by
-    intro y hy h
-    have h1 : 0 ≤ φ y := (hiff y hy).2 h.ge
-    have h2 : 0 ≤ φ y⁻¹ := (hiff y⁻¹ (inv_ne_zero hy)).2 (by rw [map_inv_of_mul hψ hy, h, neg_zero])
-    rw [map_inv_of_mul hφ hy] at h2
-    omega
   obtain ⟨πφ, hπφ0, hπφ⟩ := hφ1
   obtain ⟨πψ, hπψ0, hπψ⟩ := hψ1
-  -- `ψ = c • φ` and `φ = d • ψ` with `c, d ≥ 0`, so `c * d = 1` and both are `1`.
+  -- `ψ = c • φ` with `0 ≤ c`; evaluating at a `ψ`-uniformizer gives `c ∣ 1`, so `c = 1`.
+  -- (The symmetric `φ = d • ψ` is not needed: divisibility plus `0 ≤ c` already pins `c`.)
   have hc : ∀ y : K, y ≠ 0 → ψ y = ψ πφ * φ y :=
     fun y hy => eq_mul_of_zero_imp_zero hφ hψ hzero hπφ0 hπφ hy
-  have hd : ∀ y : K, y ≠ 0 → φ y = φ πψ * ψ y :=
-    fun y hy => eq_mul_of_zero_imp_zero hψ hφ hzero' hπψ0 hπψ hy
   have hc0 : 0 ≤ ψ πφ := (hiff πφ hπφ0).1 (by rw [hπφ]; norm_num)
   have hunit : ψ πφ * φ πψ = 1 := by
     have := hc πψ hπψ0
