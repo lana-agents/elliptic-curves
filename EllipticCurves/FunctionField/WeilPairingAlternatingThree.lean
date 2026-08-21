@@ -120,7 +120,13 @@ general `F` needs the function-field base-change layer, which is deliberately de
   — `mulByNEndo` and the generic-point correspondence — exists only at `n = 2` (`GenericDoubling`)
   and `n = 3` (`GenericTripling`); a uniform `n` is gated on the `ωₙ` crux (`#403`/`#404`).
 * Discharging `#418`, or any base change of function fields (`#692`).
-* Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`, which additionally needs divisor-slot bilinearity.
+* Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹` — but **not** because divisor-slot bilinearity is
+  unavailable.  Both it and the antisymmetry corollary are merged, as `WeilPairingAntisymmetric`
+  (`#723`), on `[Field F]` and `[W.IsElliptic]` alone.  What that file still carries is the
+  *production* of the product relation `g_{S ⊕ T} = g_S · g_T · w`, as the hypothesis `hprod`
+  (rung 4/5, `#414`/`#418`).  Its derivation consumes `e_n(T, T) = 1` at **three** points, `S`, `T`
+  and `S ⊕ T` — i.e. the theorem below, `hprin` and all, applied three times — so end-to-end
+  antisymmetry is neither more nor less gated than this file already is.
 
 ## References
 

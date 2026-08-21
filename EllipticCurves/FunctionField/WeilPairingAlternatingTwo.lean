@@ -117,7 +117,15 @@ is not built here.
   standard example, recorded in `TranslationPointEndomorphism`).  So it **cannot occur at `n = 3`**:
   `T` is affine and `3` is prime, so `ord T = 3`, whence `3 ∣ ord P` and `ord P ≥ 3 > i`.
 * Discharging `#418`, or any base change of function fields.
-* Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`, which additionally needs divisor-slot bilinearity.
+* Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹` — but **not** because divisor-slot bilinearity is
+  unavailable.  Both it and the antisymmetry corollary are merged, as `WeilPairingAntisymmetric`
+  (`#723`), on `[Field F]` and `[W.IsElliptic]` alone.  What that file still carries is the
+  *production* of the product relation `g_{S ⊕ T} = g_S · g_T · w`, as the hypothesis `hprod`
+  (rung 4/5, `#414`/`#418`); the correction factor `w` is invisible to `e_n(·, T)`, so nothing
+  downstream of `hprod` costs anything.  Note also that the derivation consumes `e_n(T, T) = 1` at
+  **three** points, `S`, `T` and `S ⊕ T` — i.e. the theorem below, `hprin` and all, applied three
+  times.  So end-to-end antisymmetry is neither more nor less gated than this file already is: the
+  gate did not move, and `#723` added no new one.
 
 ## References
 
