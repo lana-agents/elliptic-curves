@@ -68,6 +68,7 @@ import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorConstant
 import EllipticCurves.FunctionField.DivisorDegree
 import EllipticCurves.FunctionField.DivisorInjective
+import EllipticCurves.FunctionField.DivisorPrincipality
 import EllipticCurves.FunctionField.DivisorProd
 import EllipticCurves.FunctionField.DivisorTheoryElliptic
 import EllipticCurves.FunctionField.DivisorTransport
