@@ -76,7 +76,7 @@ Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
    hypothesis `hprin` is the **one gated input**;
 2. `e_2(S, T) = 1` says exactly `τ_T∗ g_S = g_S` — merged, as
    `weilPairingElt_eq_one_iff_translateEndo_fixed` (`WeilPairingAlternating`, `#465`);
-3. so `g_S ∈ Fixed(E[2])`, via `mem_fixedFieldTwo_iff` and `translateAut_some_apply`
+3. so `g_S ∈ Fixed(E[2])`, via `mem_fixedFieldTwo_iff` and `translateAut_apply_some`
    (`TranslationAction`), which is `rfl` onto `translateEndo` — a case split on `W.Point`, no new
    mathematics;
 4. `Fixed(E[2]) = [2]∗F(W)` — `fixedFieldTwo_eq_mulByTwoFieldRange` (`MulByTwoGalois`, `#759`),
@@ -101,18 +101,31 @@ the class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · 
 material assembled, not a geometric fact.  At `n = 3` the fibre description is still missing and
 `#763`'s count `4` does not transpose.
 
-⚠️ **Step 4 carries `[IsAlgClosed F]`** and this file does not.  "The count is merged" and "the
+⚠️ **Step 4 carries `[IsAlgClosed F]`, and so does rung 9's fibre description** — `[W.IsElliptic]`
+for the contraction-is-doubling statement, `[IsAlgClosed F]` on top of it for the count, the pinned
+indices and the divisor identity — while this file does not.  "The count is merged" and "the
 count is merged in the generality this theorem is stated in" are different claims; an assembled
 non-degeneracy statement would inherit the hypothesis, which the `#418`/`#465` consumers already
 carry but the `WeilPairing*` files do not.
 
 **At `n = 3` the answer is different, and the gap is not a count.** Steps 1, 2, 5, 6, 7 transpose
 (`exists_gS_three`, `mulByThreeEndo_algebraMap_base`).  Step 4 has no analogue, and what is missing
-is Artin's **left**-hand side: there is no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere — the
-`MulByThree*` files stop at `module_finite_mulByThreeRange` — and no `TorsionThreeMul` action to
-apply Artin to.  Artin's *right*-hand side, `card_torsion_three = 9`, **is** merged and is likewise
-Ward-free.  `#682`'s route looks reusable (`natDegree (Φ 3) = 9`, `natDegree (ΨSq 3) = 8`, so
-`max = 9` in place of `4`) but `#759` records that the `[3]∗` extension is not a copy-paste.
+is **part of** Artin's left-hand side.
+
+⚠️ This clause used to say there is *"no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere"*.  That went
+false with `#775`: `finrank_mulByThreeRange_functionField`
+(`EllipticCurves.FunctionField.MulByThreeDegree`) proves it, by `#682`'s tower with `4 ↦ 9`, and the
+`IsCoprime (Φ₃, ΨSq₃)` it needed came from a congruence rather than a new `Δ²`-certificate.  What
+is still absent is the **group side**: no `TorsionThreeMul` action and no `fixedFieldThree`, hence
+no `Fixed(E[3]) = [3]∗F(W)`.  Artin's *right*-hand side, `card_torsion_three = 9`, **is** merged and
+is likewise Ward-free.  So the `n = 3` gap is two missing inputs, not three; `#783` (the action)
+and `#784` (the fixed field and the sandwich) are the issues that close them, and whoever lands
+them refreshes this clause rather than adding a copy of it elsewhere.
+
+⚠️ And the two sides of Artin at `n = 3` sit on **different** hypotheses, which the `n = 2` account
+above does not have to distinguish: `finrank_mulByThreeRange_functionField` carries
+`[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no** `[IsAlgClosed F]`, while
+`card_torsion_three` carries `[IsAlgClosed F]`.  An assembled `n = 3` sandwich inherits the union.
 
 ## References
 
