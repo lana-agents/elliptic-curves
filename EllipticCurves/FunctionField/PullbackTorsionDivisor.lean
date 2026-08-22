@@ -44,23 +44,59 @@ hprin : ∃ g₀ ≠ 0, n • divisor W g₀ = divisor W (mulByTwoEndo h2 f_S)
 
 — "the divisor `D` with `n · D = div (f_S ∘ [2])` is **principal**".  That is genuinely gated:
 `n · D` principal does *not* imply `D` principal, and the failure is exactly the `n`-torsion of the
-class group that the Weil pairing measures, so discharging it is Ward-coupled (`#E[n] = n²`,
-`#242`).
+class group that the Weil pairing measures.
 
 What is *not* gated is knowing **which** divisor `D` is, and after this file it has a name.  The
 remaining content of `#418` is one sentence about a named divisor:
 
 > `[2]∗((S) − (O))` is principal.
 
-⚠️ **Chart mismatch — this file does not discharge `hprin` as literally written.**  `hprin` is
-stated with the *affine* `divisor W`; everything here is `divisorProj` on `ProjPoint W`.  They are
-different objects, and the `−n·(O)` term is precisely what the affine divisor cannot see (the
-"affine-chart caveat" of `#409`).  What follows is the **projective restatement** of `hprin`'s
-datum.  `#418` is not unblocked by it.
+### What gates that sentence — and it is not Ward (`#765`)
+
+⚠️ An earlier version of this section said discharging `hprin` is "Ward-coupled (`#E[n] = n²`,
+`#242`)".  **That is false at the `n` rung 5 is stated at.**  `card_torsion_two` and
+`card_torsion_three` are merged (`Torsion/TwoTorsion`, `Torsion/ThreeTorsionStructure`) and neither
+goes through Ward; Ward gates `#E[n] = n²` at *general* `n` only.  The class-group layer is merged
+too — `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one` (`DivisorPrincipality`,
+`#726`).
+
+What is missing is the **fibre description**: `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` for
+a `P` with `[2]P = S`, i.e. the fibre of `pullbackDivisorTwo` over the closed point of `S` matched
+with the set-theoretic fibre of `[2]` on points, and every `ramificationIdxTwo` there pinned to `1`.
+That is `#639` rung 8 — `#701` and its children — and it is exactly what this file's closing note
+says it does not compute.  `#755`'s `nonempty_fibre_comapProjPointTwo` is the first piece of it to
+land (every fibre is nonempty); the count is `#763`.
+
+### The chart mismatch is *not* a second gate (`#765`)
+
+An earlier version of this section warned that `hprin` is stated with the **affine** `divisor W`
+while everything here is `divisorProj` on `ProjPoint W`, and left open whether that is an
+independent obstruction.  It is not, and the reason is worth stating so nobody prices it twice.
+
+The direction needed is projective ⟹ affine, which is the free one:
+`divisorProj_apply_some : divisorProj W f (some v) = divisor W f v` is unconditional, so evaluating
+`divisorProj_mulByTwoEndo_of_torsion` at `some w` and reading off `pullbackDivisorTwo_apply` (an
+`rfl` lemma) gives, for every affine place `w` and with no new input,
+
+```
+divisor W (f_S ∘ [2]) w = n * (ramificationIdxTwo h2 (some w) * D (comapProjPointTwo h2 (some w))).
+```
+
+The `−n·(O)` term drops out because `Finsupp.single none _` vanishes at `some w` — and `hprin` is
+an affine statement to begin with, so nothing it needs is lost.
+
+⚠️ What does **not** transfer is the named lemma
+`divisor_eq_single_of_divisorProj_eq_single_sub_single` (`WeilPairingAlternatingTwo`).  Its
+hypothesis pins the projective divisor to the two-point shape `single (some v) n - single none n`,
+and `n • pullbackDivisorTwo ((S) − (O))` is supported on the whole `[2]`-fibre over both points.
+Only its *proof step* generalises, and that step is the one line above.
+
+So there is **one** gate on `hprin`, not two: the fibre description.  This file still does not
+discharge `hprin` — it restates its datum projectively — but the chart is not why.
 
 ## What is *not* here
 
-* Any attempt to discharge principality.  See above: Ward-gated.
+* Any attempt to discharge principality.  See above: gated on the fibre description, `#701`.
 * Any restatement of rung 5's `exists_gS_two` / `exists_gS_three` in projective terms.  That is a
   change to merged rung-5 code and needs its own issue.
 * The degree formula, values of `ramificationIdx`, `[3]∗`.

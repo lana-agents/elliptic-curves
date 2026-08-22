@@ -29,15 +29,42 @@ equivalently `divisor W g_S = [n]∗(S)`, the effective half of `divisor W (mulB
 `n · D` principal does **not** imply `D` principal — that failure is exactly the `n`-torsion of the
 class group the Weil pairing measures.  So the existence of `g_S` is *not* a formal consequence of
 `n`-divisibility alone; Silverman III.8 obtains it from the specific group-theoretic structure
-(`S = [n]P` for some `P`, and `[n]` a homomorphism), a step that is transitively coupled to
-`#E[n] = n²` and hence Ward-gated on the current pin.
+(`S = [n]P` for some `P`, and `[n]` a homomorphism).
 
-This file therefore delivers the **Ward- and normality-independent assembly**: the general
-divisor-theoretic engine that turns a *principal* `n`-th-root divisor into an `n`-th root of the
-target function (up to a unit), together with the uniqueness of that root, and the concrete `n = 2`
-instantiation against the torsion generator of #409.  The one genuinely Ward-coupled input — that
-the effective divisor `D` with `n·D = divisor W (mulByTwoEndo f_S)` is principal — is carried as an
-explicit hypothesis (`hprin`), to be discharged by a follow-on once `#E[n] = n²` lands.
+This file therefore delivers the assembly around that step: the general divisor-theoretic engine
+that turns a *principal* `n`-th-root divisor into an `n`-th root of the target function (up to a
+unit), together with the uniqueness of that root, and the concrete `n = 2` and `n = 3`
+instantiations against the torsion generator of #409.  The one gated input — that the effective
+divisor `D` with `n·D = divisor W (mulByTwoEndo f_S)` is principal — is carried as an explicit
+hypothesis (`hprin`).
+
+## What gates `hprin`, and what does not (`#765`)
+
+⚠️ Earlier versions of this docstring said `hprin` was **Ward-coupled**, to be discharged "once
+`#E[n] = n²` lands".  **That is false at the only two `n` this file is stated at.**  The counts are
+merged, and neither goes through Ward — `#E[2]` counts the roots of the `2`-division cubic and
+`#E[3]` counts two points over each root of `Ψ₃`:
+
+* `card_torsion_two` (`Torsion/TwoTorsion.lean`), with `nonempty_torsionTwo_addEquiv`;
+* `card_torsion_three` (`Torsion/ThreeTorsionStructure.lean`), with
+  `nonempty_torsionThree_addEquiv`.
+
+Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#251`), which is not what `exists_gS_two` and
+`exists_gS_three` need.  The class-group layer that would turn a vanishing class back into a
+generator is merged too: `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one`
+(`EllipticCurves.FunctionField.DivisorPrincipality`, `#726`).
+
+**What is actually missing is one geometric fact**, and it is `#639` rung 8 (`#701` and children),
+not Ward: the fibre description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` for a `P` with
+`[2]P = S`.  That means identifying the fibre of `pullbackDivisorTwo` over the closed point of `S`
+with the set-theoretic fibre of `[2]` on points and pinning every `ramificationIdxTwo` there to `1`
+— neither of which any merged result supplies.  With it, the class computation closes on merged
+material: `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, by
+`card_torsion_two` and Mathlib's `Point.toClass_eq_zero`.
+
+This does **not** put `hprin` within reach — the missing fact is `#701`-hard, and `#701`'s own
+scouting found both of its stated premises wrong.  The correction is only that the blocker is a
+different one from the blocker this file used to name.
 
 ## Main statements
 
@@ -104,8 +131,9 @@ chart) and its pullback `[2]∗ f_S = mulByTwoEndo h2 f_S`.  Assuming the effect
 `n`-th root is principal (`hprin`: `∃ g₀ ≠ 0, 2 • divisor W g₀ = divisor W (mulByTwoEndo h2 f_S)`),
 there is a nonzero `g_S ∈ F(W)` with `u · g_S ^ 2 = mulByTwoEndo h2 f_S` for a unit `u` of `F[W]`.
 
-The hypothesis `hprin` is the single Ward-coupled input (principality of `[2]∗(S)`); everything else
-is the Ward- and normality-independent assembly. -/
+The hypothesis `hprin` is the single gated input (principality of `[2]∗(S)`); everything else is
+unconditional.  It is **not** gated on `#E[2] = 4`, which is merged (`card_torsion_two`), but on the
+fibre description of `[2]∗` — see the module docstring and `#765`. -/
 theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (hP : Point.some x y h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
@@ -129,8 +157,10 @@ of #409 (`divisor W f_S = 3·(S)` on the affine chart) and its pullback `[3]∗ 
 `∃ g₀ ≠ 0, 3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f_S)`), there is a nonzero
 `g_S ∈ F(W)` with `u · g_S ^ 3 = mulByThreeEndo h2 h3 f_S` for a unit `u` of `F[W]`.
 
-As with `exists_gS_two`, the hypothesis `hprin` is the single Ward-coupled input (principality of
-`[3]∗(S)`); everything else is the Ward- and normality-independent assembly. -/
+As with `exists_gS_two`, the hypothesis `hprin` is the single gated input (principality of
+`[3]∗(S)`); everything else is unconditional.  It is **not** gated on `#E[3] = 9`, which is merged
+(`card_torsion_three`), but on the fibre description of `[3]∗` — see the module docstring and
+`#765`. -/
 theorem exists_gS_three [DecidableEq F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
     (h : W.Nonsingular x y) (hP : Point.some x y h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
