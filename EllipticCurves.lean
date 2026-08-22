@@ -124,6 +124,7 @@ import EllipticCurves.FunctionField.RatFuncExtension
 import EllipticCurves.FunctionField.RatFuncPlaces
 import EllipticCurves.FunctionField.RationalPointDegree
 import EllipticCurves.FunctionField.TranslationAction
+import EllipticCurves.FunctionField.TranslationActionThree
 import EllipticCurves.FunctionField.TranslationAutomorphism
 import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.TranslationDoublingComm
