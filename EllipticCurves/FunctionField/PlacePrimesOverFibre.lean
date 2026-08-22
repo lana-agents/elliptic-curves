@@ -89,9 +89,11 @@ compatibilities, and both are theorems rather than transports of a definition:
   identified with the residue field of `placeOf W p`.
 
 `#755` prices the dictionary separately from the identity for exactly this reason, and this file is
-the dictionary.  In particular the "that is the next rung" paragraphs in
-`EllipticCurves.FunctionField.PlacePullback` and the "What is *not* here" section of
-`EllipticCurves.FunctionField.PlaceResidueComap` remain **true** and are deliberately left alone.
+the dictionary.  Both compatibilities and the identity itself are
+`EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which imports this file: the first
+is proved there in general, the second only in the form `Ideal.inertiaDeg 𝔪 P = 1` over
+`[IsAlgClosed F]` — the general `= residueDegreeTwo h2 p` is still open, and is the one statement
+this paragraph names that remains unproved.
 
 Also not here: `[3]∗` and general `[n]∗` (the degree `4` is `[2]`-specific, but everything before
 the `[2]∗` section of this file is stated for an arbitrary `φ` and will serve them unchanged);

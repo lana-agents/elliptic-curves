@@ -103,11 +103,15 @@ extension to a count of `E[2]`.
 
 ## What is *not* here
 
-* The `primesOver` ↔ fibre dictionary and the fundamental identity `∑ e_p · f_p = 4` itself
-  (`#755`).  The *left*-hand side is what is missing: nothing here matches a prime of the integral
-  closure with a point of the fibre of `comapProjPointTwo`, and nothing here relates Mathlib's
-  `Ideal.ramificationIdx` and `Ideal.inertiaDeg` to `ramificationIdxTwo` and `residueDegreeTwo`.
-  `placeBelow_comapProjPoint` is the hook the dictionary will hang on.
+* The `primesOver` ↔ fibre dictionary (`#755`,
+  `EllipticCurves.FunctionField.PlacePrimesOverFibre`) and the fundamental identity
+  `∑ e_p · f_p = 4` itself (`#763`,
+  `EllipticCurves.FunctionField.PlaceRamificationInertia`).  The *left*-hand side is what is missing
+  **here**: nothing in this file matches a prime of the integral closure with a point of the fibre
+  of `comapProjPointTwo`, and nothing in this file relates Mathlib's `Ideal.ramificationIdx` and
+  `Ideal.inertiaDeg` to `ramificationIdxTwo` and `residueDegreeTwo`.
+  `placeBelow_comapProjPoint` is the hook the dictionary hangs on, and
+  `finrank_integralClosure_placeBelow` is the right-hand side it is fired against.
 * `IsDedekindDomain` of the integral closure, and route (a) of `#744`'s decision — `#421`'s
   `B = integralClosure ([2]∗F[W]) F(W)` is a **different** `B`, over the affine coordinate ring
   rather than over a place, and route (c) does not need it.
@@ -424,8 +428,9 @@ theorem module_finite_integralClosure_placeBelowTwo_of_charZero [W.IsElliptic] [
 
 The right-hand side of the fundamental identity, at the ring level: `#682` gives
 `[F(W) : [2]∗F(W)] = 4` for the *fields*, and `finrank_integralClosure_placeBelow` carries it down
-to the local rings.  With `sum_ramificationIdxTwo_mul_residueDegreeTwo` still to be proved (`#755`),
-this is the half of that statement that does not need the `primesOver` ↔ fibre dictionary. -/
+to the local rings.  This is the half of `sum_ramificationIdxTwo_mul_residueDegreeTwo`
+(`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`) that does not need the
+`primesOver` ↔ fibre dictionary; that theorem consumes this one verbatim. -/
 theorem finrank_integralClosure_placeBelowTwo [W.IsElliptic] (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
     (q : ProjPoint W) :

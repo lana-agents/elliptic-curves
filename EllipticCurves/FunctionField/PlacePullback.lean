@@ -84,9 +84,13 @@ that are needed here are re-proved below rather than by editing a merged file.
   different divisor.
 * **Any computation of `ramificationIdx`.**  It is *defined* as the value of the transported order
   at a uniformizer at the contracted place.  Nothing here says it is `1` at any particular place for
-  `[2]∗`, and nothing here proves `∑_{p ↦ q} e_p · f_p = deg φ`.  That is the next rung.
-* **The degree formula.**  Nothing here proves `∑_{p ↦ q} e_p · f_p = deg φ`; that is the next rung.
-  The *arithmetic* half of it is now available, though — see the note below on `[2]∗`.
+  `[2]∗`, and nothing here proves `∑_{p ↦ q} e_p · f_p = deg φ`.
+* **The degree formula.**  Nothing *here* proves `∑_{p ↦ q} e_p · f_p = deg φ`; it is proved for
+  `[2]∗` over an algebraically closed base field in
+  `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which matches the
+  `ramificationIdx` of this file with Mathlib's `Ideal.ramificationIdx` and fires
+  `Ideal.sum_ramification_inertia_eq_finrank`.  The *arithmetic* half of it is available here — see
+  the note below on `[2]∗`.
 * `[3]∗`.  The general section applies to it verbatim once the same two hypotheses are supplied for
   `mulByThreeEndo`; it is deliberately not instantiated here.
 * `div g_S = [n]∗(S)` (`#418`), Riemann–Roch, and anything Ward-gated.
@@ -361,7 +365,9 @@ order at `p` of `φ` applied to a uniformizer at the contracted point.
 
 **Nothing in this file computes it.**  No claim is made that it is `1` at any particular place for
 any particular `φ`, and the conductor-discriminant / degree formula `∑_{p ↦ q} e_p · f_p = deg φ` is
-not proved here. -/
+not proved here; it is `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which
+identifies this index with Mathlib's `Ideal.ramificationIdx`.  Individual values at affine places
+are still computed nowhere. -/
 noncomputable def ramificationIdx (p : ProjPoint W) : ℤ :=
   (exists_ramificationIdx hφF hφint p).choose
 
@@ -464,8 +470,11 @@ both under `[W.IsElliptic]`.  So this section is unconditionally more than a res
 genuinely lie over a strictly smaller function field.
 
 Two things that does **not** give.  It is the *field degree* `[F(W) : [2]∗F(W)] = 4`, not the degree
-formula `∑_{p ↦ q} e_p · deg p = 4`, which still needs the residue degrees and a fundamental
-identity; and it says nothing about `#E[n] = n²`, whose connection to the field degree runs
+formula `∑_{p ↦ q} e_p · deg p = 4`, which additionally needs the residue degrees (`#743`, `#749`)
+and a fundamental identity (`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`) — both
+of which now exist, so the degree formula holds over an algebraically closed base field, but it is
+not proved from anything in this file; and it says nothing about `#E[n] = n²`, whose connection to
+the field degree runs
 through a counting argument for separable isogenies that is nowhere in this tree.  (The
 *separability* of `F(W) / [2]∗F(W)` itself is available — `MulByTwoGalois`, `#759` — but the step
 from it to a count of `E[2]` is not, and must not be assumed.)  In particular no
