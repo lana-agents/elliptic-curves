@@ -70,7 +70,8 @@ more, with only the production of `g_{S ⊕ T} = g_S · g_T · w` still carried 
 (rung 4/5, #414/#418).  The divisor slot is moreover bundled as a homomorphism into `μ_n(F)` in
 `WeilPairingDivisorSlotHom` (#746).  What remains at the `μ_n` level is Galois-equivariance
 (#456), the same bundling in the *translation* slot (which needs a datum uniform in the
-translation point, a genuinely different statement), and non-degeneracy (Ward-gated, #242).
+translation point, a genuinely different statement), and non-degeneracy — which is **not**
+Ward-gated; `WeilPairing`'s scope section is the canonical account of what it consumes (#769).
 
 ## References
 

@@ -87,7 +87,8 @@ required of the correction factor; `e_n(h_S, w)` and `e_n(h_T, w)` never appear.
 `[Field F] {W : Affine F} [W.IsElliptic]` throughout.  **No `[IsDedekindDomain W.CoordinateRing]`,
 no `[IsAlgClosed F]`, no `#418`, no rung 4** — if any of those were needed the conditional-partial
 boundary would be drawn in the wrong place, since the gated content is exactly `hprod` and nothing
-else.  Non-degeneracy stays out (Ward-gated, `#242`).
+else.  Non-degeneracy stays out, and it is **not** Ward-gated — `WeilPairing`'s scope section is
+the canonical account of what it consumes (`#769`).
 
 ## Non-vacuity
 

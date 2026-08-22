@@ -115,7 +115,8 @@ This file supplies the ungated scaffolding both halves plug into.
   `e_n(S ⊕ T, S ⊕ T) = 1` is a *hypothesis* of the derivation, not a conclusion of it: antisymmetry
   consumes the alternating property and proves it nowhere.  Reading it as one instance of the
   alternating property being unfolded invites exactly the wrong dependency picture.
-* **Non-degeneracy** — Ward-gated (#242).
+* **Non-degeneracy** — out of scope, and **not** Ward-gated.  `WeilPairing`'s scope section is the
+  canonical account of what it consumes (`#769`).
 
 ## References
 

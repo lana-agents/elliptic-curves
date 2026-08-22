@@ -52,7 +52,8 @@ case where the constancy is supplied as `e_n(S, T_Q) = algebraMap F F(W) c`.
 ## Scope
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]` and the group relation
-`hsum` on the translation points.  Non-degeneracy remains out of scope (Ward-gated, #242).
+`hsum` on the translation points.  Non-degeneracy remains out of scope, and it is **not**
+Ward-gated — `WeilPairing`'s scope section is the canonical account of what it consumes (#769).
 
 Bilinearity in the divisor slot `S` is **not** here, but it is no longer deferred: it is
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (#723), together with the antisymmetry

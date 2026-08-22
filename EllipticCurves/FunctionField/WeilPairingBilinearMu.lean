@@ -61,7 +61,8 @@ the `F(W)` level (`WeilPairingAntisymmetric`, #723) on the same `[Field F] [W.Is
 only the production of `g_{S ⊕ S'} = g_S · g_{S'} · w` still carried as a hypothesis (rung 4/5,
 #414/#418); their `μ_n` lift is merged as `WeilPairingAntisymmetricMu` (#733), by the same descent
 through `algebraMap_coe_rootsOfUnity_injective` used below.  Alternating `e_n(S, S) = 1` and
-Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is Ward-gated (#242).
+Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is out of scope and is
+**not** Ward-gated — `WeilPairing`'s scope section is the canonical account of it (#769).
 
 ## References
 

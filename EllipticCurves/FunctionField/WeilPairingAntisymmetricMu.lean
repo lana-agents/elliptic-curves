@@ -91,8 +91,9 @@ interchangeable in one rewrite through `weilPairingMu_eq_one_iff`.
 
 Out of scope: producing `hprod` or any alternating input; bundling `e_n` as a `MonoidHom` into
 `μ_n(F)` in either slot (that needs a `hpow` datum uniform in the slot variable, a different
-statement); Galois-equivariance (`#456`); the descent to a general `F` (`#692`); non-degeneracy
-(Ward-gated, `#242`).
+statement); Galois-equivariance (`#456`); the descent to a general `F` (`#692`); non-degeneracy,
+which is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
+consumes (`#769`).
 
 ## Non-vacuity
 

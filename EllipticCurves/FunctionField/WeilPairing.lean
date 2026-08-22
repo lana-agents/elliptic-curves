@@ -55,10 +55,59 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
 ## Explicitly out of scope (as issue #419 records)
 
 * **Bilinearity, alternating, Galois-equivariance** — separately valuable follow-ons.
-* **Non-degeneracy** — needs `#E[n] = n²` (#242), Ward-gated.
+* **Non-degeneracy** — out of scope.  It is **not** Ward-gated; see the next section, which is the
+  canonical account of what it consumes and the only place in the tree that states it.
 * **General `n`** — needs the general `[n]∗` (#404 crux); only `n = 2, 3` are concretely available.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` (#396 Part A) — research-blocked;
   Dedekindness is carried as a hypothesis throughout `FunctionField/`.
+
+## What non-degeneracy actually consumes (`#769`) — the canonical statement
+
+⚠️ Until `#769` this file and seventeen others said non-degeneracy was *"Ward-gated (`#242`)"* or
+*"needs `#E[n] = n²` (`#242`)"*.  **Both halves of that are wrong**, and they are wrong differently
+at the two `n` this tree can state the pairing at.  The other sites now point here rather than
+restate the gate; keep it that way, so that the next fact to land has one sentence to refresh and
+not eighteen.
+
+Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` then `S = O`.  Read at
+`n = 2`, for `S = (x, y)` a nonzero affine `2`-torsion point, the argument is
+
+1. take `g_S ≠ 0` with `u · g_S ^ 2 = [2]∗ f_S` — `exists_gS_two` (`NthRootOfPullback`), whose
+   hypothesis `hprin` is the **one gated input**;
+2. `e_2(S, T) = 1` says exactly `τ_T∗ g_S = g_S` — merged, as
+   `weilPairingElt_eq_one_iff_translateEndo_fixed` (`WeilPairingAlternating`, `#465`);
+3. so `g_S ∈ Fixed(E[2])`, via `mem_fixedFieldTwo_iff` and `translateAut_some_apply`
+   (`TranslationAction`), which is `rfl` onto `translateEndo` — a case split on `W.Point`, no new
+   mathematics;
+4. `Fixed(E[2]) = [2]∗F(W)` — `fixedFieldTwo_eq_mulByTwoFieldRange` (`MulByTwoGalois`, `#759`),
+   **merged**, under `[IsAlgClosed F]` and `(2 : F) ≠ 0`;
+5. writing `g_S = [2]∗ h` and cancelling: the unit `u` is a constant
+   (`exists_eq_algebraMap_of_isUnit`), `[2]∗` fixes constants (`mulByTwoEndo_algebraMap_base`) and
+   is injective, so `c · h ^ 2 = f_S`;
+6. hence `2 • divisor W h = single p 2` (`divisor_pow`, `divisor_algebraMap_base`), so
+   `divisor W h = single p 1`;
+7. which is impossible — `not_exists_divisor_eq_single_pointClosedPoint`
+   (`DivisorPrincipality`, `#726`), *a single affine rational point is never a principal divisor*.
+
+**`#E[2] = 4` enters at step 4 and nowhere else**, as the right-hand side of Artin's theorem inside
+`finrank_fixedFieldTwo`, whose input is `card_torsionTwoMul` and hence `card_torsion_two` — the
+roots of the `2`-division cubic, which does not go through Ward.  Ward (`#254`/`#258`/`#260`/`#261`)
+gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#251`.  So at `n = 2` the dependency the
+old prose named is *discharged*, and the gate is `hprin`, i.e. rung 5 (`#418`) — for which see
+`NthRootOfPullback`, whose own gate is the fibre description of `[2]∗` (`#639` rung 8 / `#701`).
+
+⚠️ **Step 4 carries `[IsAlgClosed F]`** and this file does not.  "The count is merged" and "the
+count is merged in the generality this theorem is stated in" are different claims; an assembled
+non-degeneracy statement would inherit the hypothesis, which the `#418`/`#465` consumers already
+carry but the `WeilPairing*` files do not.
+
+**At `n = 3` the answer is different, and the gap is not a count.** Steps 1, 2, 5, 6, 7 transpose
+(`exists_gS_three`, `mulByThreeEndo_algebraMap_base`).  Step 4 has no analogue, and what is missing
+is Artin's **left**-hand side: there is no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere — the
+`MulByThree*` files stop at `module_finite_mulByThreeRange` — and no `TorsionThreeMul` action to
+apply Artin to.  Artin's *right*-hand side, `card_torsion_three = 9`, **is** merged and is likewise
+Ward-free.  `#682`'s route looks reusable (`natDegree (Φ 3) = 9`, `natDegree (ΨSq 3) = 8`, so
+`max = 9` in place of `4`) but `#759` records that the `[3]∗` extension is not a copy-paste.
 
 ## References
 

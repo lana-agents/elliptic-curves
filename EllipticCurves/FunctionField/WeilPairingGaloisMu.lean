@@ -67,7 +67,8 @@ there is no `n = 2` / `n = 3` split.
 Ward-, normality- and rung-4-independent.  The single genuinely rung-4/5-gated input — the `g_S`
 transport `σ⋆ g_S = u · g_{σS}` — is carried as the explicit hypothesis `htr`, exactly as at the
 `F(W⁄F)` level.  The unconditional discharge of `htr` is deliverable 2 of #456 (rung-4-gated);
-non-degeneracy stays out (Ward-gated, #242).
+non-degeneracy stays out, and it is **not** Ward-gated — `WeilPairing`'s scope section is the
+canonical account of what it consumes (#769).
 
 ## References
 

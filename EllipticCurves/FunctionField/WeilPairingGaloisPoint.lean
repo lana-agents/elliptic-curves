@@ -35,7 +35,8 @@ function field to use point data.
 Unchanged from `WeilPairingGaloisDivisor`: this is the **Galois** slot only. `#456` deliverable 2
 stays open — the missing input is `divisor g_S = [n]∗(S)` (rung 5, `#418`), which is what would let
 the hypotheses below be discharged rather than assumed. The translation slot (`#465` deliverable 2,
-the alternating property) is untouched, and non-degeneracy is out (Ward-gated, `#242`).
+the alternating property) is untouched, and non-degeneracy is out — and **not** Ward-gated;
+`WeilPairing`'s scope section is the canonical account of what it consumes (`#769`).
 
 ## Main statements
 

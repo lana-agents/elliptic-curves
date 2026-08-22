@@ -45,8 +45,9 @@ galoisDetTwo = galoisCyclotomicChar S F 2
 is a well-formed proposition. It is **not proved here**, and nothing in this file brings it closer
 to being proved: it needs the Weil pairing on `E[2 ^ k]` — the rung-5 divisor identity
 `div g_S = [n]∗(S)` (`#418`, gated on `#421`/`#422`), the alternating property (`#465`
-deliverable 2), and non-degeneracy (Ward-gated, `#242`). Bilinearity in the divisor slot is no
-longer on that list: it is merged, with antisymmetry, as
+deliverable 2), and non-degeneracy — which is **not** Ward-gated; see
+`EllipticCurves.FunctionField.WeilPairing`'s scope section (`#769`). Bilinearity in the divisor
+slot is no longer on that list: it is merged, with antisymmetry, as
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (`#723`) on `[Field F]` and
 `[W.IsElliptic]` alone, and all it wants beyond those is the production of
 `g_{S ⊕ S'} = g_S · g_{S'} · w` — the rung-4/5 gate already named. What this file supplies is the

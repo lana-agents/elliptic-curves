@@ -51,7 +51,8 @@ Nothing here weakens or strengthens the hypotheses of the merged equivariance st
 transport hypothesis `htr` (respectively the divisor hypothesis `hdiv`) is passed straight through,
 and only the *conclusion* is rewritten. In particular the residual gate on the unconditional
 Galois-equivariance is unchanged — it is `divisor g_S = [n]∗(S)` (rung 5, `#418`, gated on `#421` /
-`#422`). Non-degeneracy of the pairing stays out (Ward-gated, `#242`), and nothing here touches the
+`#422`). Non-degeneracy of the pairing stays out, and it is **not** Ward-gated — `WeilPairing`'s
+scope section is the canonical account of what it consumes (`#769`). Nothing here touches the
 alternating property (`#465` deliverable 2).
 
 ## Main statements
