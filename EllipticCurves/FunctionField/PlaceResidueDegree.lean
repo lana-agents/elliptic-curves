@@ -8,7 +8,7 @@ import Mathlib.RingTheory.Jacobson.Ring
 import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 /-!
-# The residue field of an affine closed point is the quotient by that point, and is `F` over `F̄`
+# The residue degree of a place of the projective curve
 
 `EllipticCurves.FunctionField.PlaceResidueField` (`#742`) builds the residue field
 `residueFieldProj W p = IsLocalRing.ResidueField (placeOf W p)` of a point of the projective curve,
@@ -19,11 +19,18 @@ reformulation
 residueDegreeProj W p = 1 ↔ Function.Surjective (algebraMap F (residueFieldProj W p))
 ```
 
-This file computes both, **in the affine branch** `p = some v`:
+This file computes both, at **every** point of `ProjPoint W`:
 
 * `residueFieldProjSomeEquiv` — `κ(some v) ≃ₐ[F] F[W] ⧸ v.asIdeal`;
 * `Module.Finite F (residueFieldProj W (some v))` — Zariski's lemma, with **no** hypothesis on `F`;
-* `residueDegreeProj_some_eq_one` — over an algebraically closed base field, `[κ(some v) : F] = 1`.
+* `residueDegreeProj_some_eq_one` — over an algebraically closed base field, `[κ(some v) : F] = 1`;
+* `residueDegreeProj_none_eq_one` and `residueFieldProjNoneEquiv` — at the point at infinity the
+  residue field is `F` with **no** hypothesis on `F` at all;
+* `residueDegreeProj_eq_one` — the uniform statement over an algebraically closed base field.
+
+The two branches are proved by completely different arguments and carry different hypotheses; the
+sections below explain each.  This is the `f_p = 1` half of the degree formula of `#701`, and it is
+what collapses the fundamental identity `∑ e_p · f_p = 4` to `∑ e_p = 4` (`#744`).
 
 ## The route, and why the localisation step is the only real work
 
@@ -48,36 +55,32 @@ is `a / s` with `s ∉ v.asIdeal`, and `s` is invertible modulo the maximal idea
 * a finite extension of an algebraically closed field is trivial
   (`IsAlgClosed.algebraMap_bijective_of_isIntegral`), which is `residueDegreeProj_some_eq_one`.
 
-## The point at infinity is *not* here (`#749`)
+## The point at infinity, and why it needs a different argument
 
-`residueDegreeProj W none = 1` is **not** proved below, and the reason is structural rather than a
-matter of effort: `placeOf W none = ordInftyValuationSubring W` is cut out by `0 ≤ ordInfty` and is
-**not presented as a localisation of a finitely-generated `F`-algebra**, so no step of the route
-above transfers — there is nothing for `IsLocalization.AtPrime.to_map_mem_maximal_iff` or Zariski's
-lemma to bite on.
+`placeOf W none = ordInftyValuationSubring W` is cut out by `0 ≤ ordInfty` and is **not presented
+as a localisation of a finitely-generated `F`-algebra**, so no step of the route above transfers —
+there is nothing for `IsLocalization.AtPrime.to_map_mem_maximal_iff` or Zariski's lemma to bite on.
 
-The statement there should be **unconditional** in `F`, unlike the affine one: the point at infinity
-is rational over any base field.  The route is a leading-coefficient argument on the basis `{1, y}`
-of `F[W]` over `F[X]`, whose key point is a parity observation.  For `a = p • 1 + q • y`,
-`CoordinateRing.degree_norm_smul_basis` gives
+What replaces it is `exists_const_ordInfty_sub_pos` (`PlaceAtInfinity`): a function regular at
+infinity is a constant plus a function of strictly positive order there, which *is* surjectivity of
+`F → κ(∞)`.  That runs on a leading-coefficient argument in the basis `{1, y}` of `F[W]` over
+`F[X]`, whose key point is a parity observation: for `a = p • 1 + q • y`,
 
 ```
 deg W a  =  max (2 • p.degree) (2 • q.degree + 3)
 ```
 
-and the two entries are *even-or-`⊥`* and *odd-or-`⊥`*, so they are never equal: the parity of
-`deg W a` says which one attains the maximum, and the leading coefficient of `a` is therefore a
-single element of `F`.  That is what makes the residue field `F` and not a quadratic extension of
-it — a norm-based argument would only pin the constant down up to a square root.  `#749` carries
-the full route.
+(`CoordinateRing.degree_norm_smul_basis`), and the two entries are *even-or-`⊥`* and *odd-or-`⊥`*,
+so they are never equal.  The parity of `deg W a` therefore says which one attains the maximum, and
+the leading coefficient of `a` is a *single* element of `F` — which is why the residue field is `F`
+and not a quadratic extension of it, and why **no hypothesis on `F` is needed**.  (A norm-based
+argument would only pin the constant down up to `c² = lc(N a) / lc(N b)`.)
 
-Consequently the *uniform* statement `∀ p, residueDegreeProj W p = 1` is also not available yet;
-`residueDegreeProj_some_eq_one` is stated at `some v` and must be used there.
+Stating the `none` branch with `[IsAlgClosed F]` would be strictly weaker and would misdescribe the
+mathematics: `[0 : 1 : 0]` is a rational point of every Weierstrass curve.
 
 ## What is *not* here
 
-* `residueDegreeProj W none`, in any form, and the uniform corollary over all of
-  `ProjPoint W` (`#749`).
 * Any comparison with `degPt` (`DivisorDegree.lean`), which is
   `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)` — a *relative ideal norm to `F[X]`*,
   not a residue-field degree.  The two agree; nothing below assumes it.
@@ -235,6 +238,90 @@ theorem residueDegreeProj_some_eq_one [IsAlgClosed F] : residueDegreeProj W (som
   (residueDegreeProj_eq_one_iff_surjective (some v)).2
     (algebraMap_residueFieldProj_some_bijective v).2
 
+/-! ### The point at infinity
+
+`placeOf W none = ordInftyValuationSubring W` is cut out by `0 ≤ ordInfty` and is **not** presented
+as a localisation of a finitely-generated `F`-algebra, so no step of the affine route above
+transfers: there is nothing for `IsLocalization.AtPrime.to_map_mem_maximal_iff` or Zariski's lemma
+to bite on.
+
+What replaces it is `exists_const_ordInfty_sub_pos` (`PlaceAtInfinity`, `#749`): a function regular
+at infinity is a constant plus a function of strictly positive order there.  That is exactly
+surjectivity of `F → κ(∞)`, and it needs **no hypothesis on `F`** — the point at infinity is
+rational over any base field.  See that file for the parity argument behind it. -/
+
+variable (W) in
+/-- **Every residue at the point at infinity is the residue of a constant.**  Immediately from
+`exists_const_ordInfty_sub_pos`, through `residue_placeOf_eq_zero_iff` and `divisorProj_apply_none`.
+
+No hypothesis on `F`, unlike the affine `algebraMap_residueFieldProj_some_bijective`. -/
+theorem algebraMap_residueFieldProj_none_surjective :
+    Function.Surjective (algebraMap F (residueFieldProj W (none : ProjPoint W))) := by
+  intro ξ
+  obtain ⟨x, rfl⟩ := residue_placeOf_surjective (W := W) none ξ
+  obtain ⟨c, hc⟩ := exists_const_ordInfty_sub_pos (mem_ordInftyValuationSubring.1 x.2)
+  refine ⟨c, ?_⟩
+  have hcoe : algebraMap F (residueFieldProj W (none : ProjPoint W)) c
+      = IsLocalRing.residue _ (algebraMap F (placeOf W (none : ProjPoint W)) c) := rfl
+  rw [hcoe]
+  rcases hc with hc | hc
+  · exact congrArg _ (Subtype.ext (by rw [coe_algebraMap_placeOf, ← hc]))
+  · refine (sub_eq_zero.1 ?_).symm
+    rw [← map_sub]
+    have hval : ((x - algebraMap F (placeOf W (none : ProjPoint W)) c : placeOf W _) :
+        W.FunctionField) = (x : W.FunctionField) - algebraMap F W.FunctionField c := rfl
+    have hne : ((x - algebraMap F (placeOf W (none : ProjPoint W)) c : placeOf W _) :
+        W.FunctionField) ≠ 0 := by
+      rw [hval]
+      intro h0
+      rw [h0, ordInfty_zero] at hc
+      exact absurd hc (lt_irrefl 0)
+    rw [residue_placeOf_eq_zero_iff hne, divisorProj_apply_none, hval]
+    exact hc
+
+variable (W) in
+/-- **The point at infinity is rational over any base field**: its residue field is `F` itself.
+Injectivity is `algebraMap_residueFieldProj_injective` (a ring hom out of a field), surjectivity is
+`algebraMap_residueFieldProj_none_surjective`. -/
+theorem algebraMap_residueFieldProj_none_bijective :
+    Function.Bijective (algebraMap F (residueFieldProj W (none : ProjPoint W))) :=
+  ⟨algebraMap_residueFieldProj_injective _, algebraMap_residueFieldProj_none_surjective W⟩
+
+variable (W) in
+/-- **The residue field at the point at infinity, identified with the constant field.**  The bundled
+form of `algebraMap_residueFieldProj_none_bijective`; this is the shape the fundamental identity
+(`#744`) will want. -/
+noncomputable def residueFieldProjNoneEquiv : residueFieldProj W (none : ProjPoint W) ≃ₐ[F] F :=
+  (AlgEquiv.ofBijective (Algebra.ofId F (residueFieldProj W (none : ProjPoint W)))
+    (algebraMap_residueFieldProj_none_bijective W)).symm
+
+variable (W) in
+/-- **The residue degree at the point at infinity is `1`, unconditionally.**
+
+⚠️ No `[IsAlgClosed F]`, and that is not an accident of the proof: `[0 : 1 : 0]` is a rational point
+of every Weierstrass curve, so the statement is *false to weaken*.  Contrast
+`residueDegreeProj_some_eq_one`, where algebraic closedness is genuinely used (an affine closed
+point of a curve over `ℚ` can perfectly well have residue field a number field). -/
+theorem residueDegreeProj_none_eq_one : residueDegreeProj W (none : ProjPoint W) = 1 :=
+  (residueDegreeProj_eq_one_iff_surjective none).2 (algebraMap_residueFieldProj_none_surjective W)
+
+/-! ### The uniform statement -/
+
+/-- **Over an algebraically closed base field every place of the projective curve is rational.**
+The two branches for different reasons: Zariski's lemma on the affine chart, the leading-coefficient
+argument at infinity — and the second half does not need the hypothesis. -/
+theorem algebraMap_residueFieldProj_bijective [IsAlgClosed F] (p : ProjPoint W) :
+    Function.Bijective (algebraMap F (residueFieldProj W p)) := by
+  cases p with
+  | none => exact algebraMap_residueFieldProj_none_bijective W
+  | some v => exact algebraMap_residueFieldProj_some_bijective v
+
+/-- **Every place of the projective curve has residue degree `1` over an algebraically closed base
+field.**  This is what collapses the fundamental identity `∑ e_p · f_p = 4` to `∑ e_p = 4`
+(`#744`), which is what `#418` consumes at `n = 2`. -/
+theorem residueDegreeProj_eq_one [IsAlgClosed F] (p : ProjPoint W) : residueDegreeProj W p = 1 :=
+  (residueDegreeProj_eq_one_iff_surjective p).2 (algebraMap_residueFieldProj_bijective p).2
+
 /-! ### Non-vacuity
 
 Everything above carries `[IsDedekindDomain W.CoordinateRing]`, and the headline additionally
@@ -314,6 +401,51 @@ example (v : HeightOneSpectrum exampleCurveBar.CoordinateRing) :
 /-- There is at least one affine closed point to say that about. -/
 example : Nonempty (HeightOneSpectrum exampleCurveBar.CoordinateRing) :=
   nonempty_heightOneSpectrum
+
+/-- **The point at infinity of a curve over `ℚ` has residue degree `1`.**  The rational base field
+is the point: `ℚ` is about as far from algebraically closed as a characteristic-zero field gets,
+and the statement still holds. -/
+example : residueDegreeProj exampleCurve (none : ProjPoint exampleCurve) = 1 :=
+  residueDegreeProj_none_eq_one exampleCurve
+
+/-- The bundled form on the same curve: `κ(∞) ≃ₐ[ℚ] ℚ`. -/
+noncomputable example : residueFieldProj exampleCurve (none : ProjPoint exampleCurve) ≃ₐ[ℚ] ℚ :=
+  residueFieldProjNoneEquiv exampleCurve
+
+open Polynomial Polynomial.Bivariate in
+/-- The function `x³` on the `ℚ` curve, of pole order `2 · 3 = 6` at infinity. -/
+private noncomputable abbrev exampleXCubed : exampleCurve.CoordinateRing :=
+  CoordinateRing.mk exampleCurve (C (X ^ 3))
+
+open Polynomial.Bivariate in
+/-- The function `y²` on the same curve, of pole order `3 + 3 = 6`. -/
+private noncomputable abbrev exampleYSq : exampleCurve.CoordinateRing :=
+  CoordinateRing.mk exampleCurve Y * CoordinateRing.mk exampleCurve Y
+
+open Polynomial CoordinateRing in
+/-- **The leading-coefficient lemma the `none` branch runs on, fired on a curve that exists.**
+`x³` and `y²` both have a pole of order `6` at infinity, so after scaling by one constant of `ℚ`
+their difference has a strictly smaller pole — concretely `x³ - y² = x`, of pole order `2`.  Only
+the existence of the constant is asserted, which is the statement. -/
+example : ∃ c : ℚ,
+    exampleXCubed - algebraMap ℚ exampleCurve.CoordinateRing c * exampleYSq = 0 ∨
+      deg exampleCurve
+          (exampleXCubed - algebraMap ℚ exampleCurve.CoordinateRing c * exampleYSq)
+        < deg exampleCurve exampleYSq := by
+  refine exists_deg_sub_lt (mk_C_ne_zero (pow_ne_zero _ Polynomial.X_ne_zero))
+    (mul_ne_zero mk_Y_ne_zero mk_Y_ne_zero) ?_
+  rw [exampleXCubed, exampleYSq, deg_mk_C, deg_mul mk_Y_ne_zero mk_Y_ne_zero, deg_mk_Y,
+    natDegree_X_pow]
+
+/-- **The uniform statement, committed.**  Every place of a genuine curve over a genuine
+algebraically closed field — the point at infinity included — has residue degree `1`. -/
+example (p : ProjPoint exampleCurveBar) : residueDegreeProj exampleCurveBar p = 1 :=
+  residueDegreeProj_eq_one p
+
+/-- And the bijectivity form it is read off from. -/
+example (p : ProjPoint exampleCurveBar) :
+    Function.Bijective (algebraMap exampleFieldBar (residueFieldProj exampleCurveBar p)) :=
+  algebraMap_residueFieldProj_bijective p
 
 end Nonvacuity
 

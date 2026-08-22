@@ -46,6 +46,13 @@ rank two with basis `{1, Y}` (Mathlib's `CoordinateRing.basis`), so it has an al
   consequently `ordInfty_surjective`: the place is discrete with value group all of `ℤ`;
 * `exists_eq_algebraMap_of_ordInfty_nonneg` — a function regular on the affine chart *and* at
   infinity is a constant.  This is the `H⁰(E, 𝒪) = F` statement in valuation-theoretic form;
+* `exists_deg_sub_lt` — two elements of `F[W]` with the *same* pole order at infinity agree to
+  leading order: after scaling by one constant of `F`, their difference has a strictly smaller
+  pole.  Equivalently, the graded pieces of the pole filtration are at most one-dimensional;
+* `exists_const_ordInfty_sub_pos` — its consequence one level up: a function regular at infinity
+  (but with arbitrary poles on the affine chart) is a constant plus a function of strictly positive
+  order there.  This is "the residue field at infinity is `F`" in valuation-theoretic form, and it
+  is what `residueDegreeProj_none_eq_one` (`PlaceResidueDegree`) is proved from;
 * `ord_genX_ne_ordInfty_genX` — **the place at infinity is not one of the affine places**: `genX`
   is regular at every height-one prime of `F[W]` (`ord_algebraMap_nonneg`) but has a pole at
   infinity.  So `ordInfty` really is new information, not a repackaging of the affine calculus;
@@ -281,6 +288,187 @@ theorem exists_deg_eq {n : ℕ} (hn : n ≠ 1) : ∃ a : W.CoordinateRing, a ≠
     refine ⟨mk W (C (X ^ j)) * mk W Y, mul_ne_zero hX mk_Y_ne_zero, ?_⟩
     rw [deg_mul hX mk_Y_ne_zero, deg_mk_C, deg_mk_Y, natDegree_X_pow]
     omega
+
+/-! ### Leading coefficients at infinity
+
+Two functions with the *same* pole order at infinity agree to leading order after scaling by one
+constant of `F`: their difference has a strictly smaller pole.  Equivalently, the graded pieces of
+the pole filtration on `F[W]` are at most one-dimensional over `F`.
+
+This is what makes the residue field at the point at infinity equal to `F` over an **arbitrary**
+base field (`residueDegreeProj_none_eq_one`), and the reason it works with no hypothesis on `F` is
+a *parity* observation.  Mathlib's `degree_norm_smul_basis` gives, for every `p` and `q`,
+
+```
+deg (p • 1 + q • y)  =  max (2 • deg p) (2 • deg q + 3),
+```
+
+and the two entries are *even-or-`⊥`* and *odd-or-`⊥`*, so they can never be equal.  The parity of
+the pole order therefore selects which of the two coordinates attains it, and the leading
+coefficient is a single element of `F`.  A norm-based argument would instead pin the constant down
+only up to `c² = lc(N a) / lc(N b)`, leaving a quadratic ambiguity that is not really there. -/
+
+section LeadingCoeff
+
+private lemma two_nsmul_degree_add_eq_iff {p : F[X]} {k n : ℕ} :
+    (2 : ℕ) • p.degree + (k : WithBot ℕ) = (n : WithBot ℕ)
+      ↔ (p ≠ 0 ∧ 2 * p.natDegree + k = n) := by
+  rcases eq_or_ne p 0 with rfl | hp
+  · simp only [degree_zero, two_nsmul, WithBot.bot_add, ne_eq, not_true_eq_false, false_and,
+      iff_false]
+    exact WithBot.bot_ne_natCast n
+  · rw [degree_eq_natDegree hp, two_nsmul]
+    simp only [hp, ne_eq, not_false_eq_true, true_and]
+    rw [← Nat.cast_add, ← Nat.cast_add, Nat.cast_inj]
+    omega
+
+private lemma two_nsmul_degree_add_lt_iff {p : F[X]} {k n : ℕ} :
+    (2 : ℕ) • p.degree + (k : WithBot ℕ) < (n : WithBot ℕ)
+      ↔ (p = 0 ∨ 2 * p.natDegree + k < n) := by
+  rcases eq_or_ne p 0 with rfl | hp
+  · simp only [degree_zero, two_nsmul, WithBot.bot_add, true_or, iff_true]
+    exact WithBot.bot_lt_coe _
+  · rw [degree_eq_natDegree hp, two_nsmul]
+    simp only [hp, false_or]
+    rw [← Nat.cast_add, ← Nat.cast_add, Nat.cast_lt]
+    omega
+
+private lemma two_nsmul_degree_eq_iff {p : F[X]} {n : ℕ} :
+    (2 : ℕ) • p.degree = (n : WithBot ℕ) ↔ (p ≠ 0 ∧ 2 * p.natDegree = n) := by
+  simpa using two_nsmul_degree_add_eq_iff (p := p) (k := 0) (n := n)
+
+private lemma two_nsmul_degree_lt_iff {p : F[X]} {n : ℕ} :
+    (2 : ℕ) • p.degree < (n : WithBot ℕ) ↔ (p = 0 ∨ 2 * p.natDegree < n) := by
+  simpa using two_nsmul_degree_add_lt_iff (p := p) (k := 0) (n := n)
+
+/-- **The parity observation.**  Exactly one of the two entries of `degree_norm_smul_basis` attains
+their maximum, and which one is decided by the parity of that maximum: `2 • deg p` is even-or-`⊥`
+and `2 • deg q + 3` is odd-or-`⊥`, so they are never equal. -/
+private lemma max_two_nsmul_degree_cases {p q : F[X]} {n : ℕ}
+    (h : max ((2 : ℕ) • p.degree) ((2 : ℕ) • q.degree + 3) = (n : WithBot ℕ)) :
+    (p ≠ 0 ∧ 2 * p.natDegree = n ∧ (q = 0 ∨ 2 * q.natDegree + 3 < n)) ∨
+      (q ≠ 0 ∧ 2 * q.natDegree + 3 = n ∧ (p = 0 ∨ 2 * p.natDegree < n)) := by
+  have hthree : ((3 : ℕ) : WithBot ℕ) = (3 : WithBot ℕ) := by norm_num
+  have hp := le_max_left ((2 : ℕ) • p.degree) ((2 : ℕ) • q.degree + 3)
+  have hq := le_max_right ((2 : ℕ) • p.degree) ((2 : ℕ) • q.degree + 3)
+  rw [h] at hp hq
+  rcases max_choice ((2 : ℕ) • p.degree) ((2 : ℕ) • q.degree + 3) with hm | hm
+  · rw [hm] at h
+    obtain ⟨hp0, hpn⟩ := two_nsmul_degree_eq_iff.1 h
+    refine Or.inl ⟨hp0, hpn, ?_⟩
+    refine two_nsmul_degree_add_lt_iff.1 (hthree ▸ lt_of_le_of_ne (hthree ▸ hq) fun hcon => ?_)
+    obtain ⟨-, hqn⟩ := two_nsmul_degree_add_eq_iff.1 (hthree ▸ hcon)
+    omega
+  · rw [hm] at h
+    obtain ⟨hq0, hqn⟩ := two_nsmul_degree_add_eq_iff.1 (hthree ▸ h)
+    refine Or.inr ⟨hq0, hqn, ?_⟩
+    refine two_nsmul_degree_lt_iff.1 (lt_of_le_of_ne hp fun hcon => ?_)
+    obtain ⟨-, hpn⟩ := two_nsmul_degree_eq_iff.1 hcon
+    omega
+
+/-- The half of `exists_deg_sub_lt` that both parity branches share, with the roles of the two
+basis coordinates abstracted into `u` (the one carrying the pole order, offset `k`) and `w` (the
+one strictly below it, offset `l`).  Written once because the even and the odd branch are the same
+argument with `(k, l) = (0, 3)` and `(3, 0)`. -/
+private lemma exists_leadingCoeff_ratio {u₁ u₂ w₁ w₂ : F[X]} {n k l : ℕ}
+    (hu₁ : u₁ ≠ 0) (hu₂ : u₂ ≠ 0)
+    (hnu₁ : 2 * u₁.natDegree + k = n) (hnu₂ : 2 * u₂.natDegree + k = n)
+    (hw₁ : w₁ = 0 ∨ 2 * w₁.natDegree + l < n) (hw₂ : w₂ = 0 ∨ 2 * w₂.natDegree + l < n) :
+    ∃ c : F, c ≠ 0 ∧
+      (u₁ - C c * u₂ = 0 ∨ 2 * (u₁ - C c * u₂).natDegree + k < n) ∧
+      (w₁ - C c * w₂ = 0 ∨ 2 * (w₁ - C c * w₂).natDegree + l < n) := by
+  have hdeg : u₁.natDegree = u₂.natDegree := by omega
+  set c : F := u₁.leadingCoeff / u₂.leadingCoeff with hc
+  have hc0 : c ≠ 0 := div_ne_zero (leadingCoeff_ne_zero.2 hu₁) (leadingCoeff_ne_zero.2 hu₂)
+  refine ⟨c, hc0, ?_, ?_⟩
+  · rcases eq_or_ne (u₁ - C c * u₂) 0 with h | h
+    · exact Or.inl h
+    refine Or.inr ?_
+    have hlc : u₁.leadingCoeff = (C c * u₂).leadingCoeff := by
+      rw [leadingCoeff_mul, leadingCoeff_C, hc, div_mul_cancel₀]
+      exact leadingCoeff_ne_zero.2 hu₂
+    have hdd : u₁.degree = (C c * u₂).degree := by
+      rw [degree_C_mul hc0, degree_eq_natDegree hu₁, degree_eq_natDegree hu₂, hdeg]
+    have hlt : (u₁ - C c * u₂).degree < u₁.degree := degree_sub_lt hdd hu₁ hlc
+    have : (u₁ - C c * u₂).natDegree < u₁.natDegree :=
+      natDegree_lt_natDegree h (by rwa [degree_eq_natDegree hu₁] at hlt ⊢)
+    omega
+  · rcases eq_or_ne (w₁ - C c * w₂) 0 with h | h
+    · exact Or.inl h
+    refine Or.inr ?_
+    have hle : (w₁ - C c * w₂).natDegree ≤ max w₁.natDegree w₂.natDegree :=
+      (natDegree_sub_le _ _).trans (max_le_max (le_refl _) (natDegree_C_mul_le c w₂))
+    have h₁ : w₁ ≠ 0 ∨ w₂ ≠ 0 := by
+      by_contra hcon
+      push Not at hcon
+      exact h (by rw [hcon.1, hcon.2, mul_zero, sub_zero])
+    rcases hw₁ with rfl | hb₁ <;> rcases hw₂ with rfl | hb₂ <;> simp_all <;> omega
+
+/-- The pole order of a basis expansion, as an equation in `WithBot ℕ`.  A restatement of
+`degree_norm_smul_basis` in terms of `deg`. -/
+private lemma deg_smul_basis_cast {p q : F[X]}
+    (h : p • (1 : W.CoordinateRing) + q • mk W Y ≠ 0) :
+    ((deg W (p • (1 : W.CoordinateRing) + q • mk W Y) : ℕ) : WithBot ℕ)
+      = max ((2 : ℕ) • p.degree) ((2 : ℕ) • q.degree + 3) := by
+  rw [← degree_norm_eq_deg h, degree_norm_smul_basis]
+
+/-- **Two functions with the same pole order at infinity agree to leading order.**  If `a` and `b`
+are nonzero with `deg a = deg b`, then for one constant `c : F` the difference `a - c · b` either
+vanishes or has a *strictly* smaller pole at infinity than `b`.
+
+Equivalently: the graded pieces of the pole filtration on `F[W]` are at most one-dimensional over
+`F`.  This is the whole content of "the residue field at the point at infinity is `F`", and it holds
+over an arbitrary base field — see the section docstring for why the parity of `deg` rules out the
+quadratic ambiguity a norm-based argument would leave.
+
+⚠️ The vanishing case is a genuine disjunct and not a degenerate instance of the other one: `deg`
+returns the junk value `0` at `0`, and `deg b = 0` is possible (both `a` and `b` nonzero
+constants). -/
+theorem exists_deg_sub_lt {a b : W.CoordinateRing} (ha : a ≠ 0) (hb : b ≠ 0)
+    (h : deg W a = deg W b) :
+    ∃ c : F, a - algebraMap F W.CoordinateRing c * b = 0 ∨
+      deg W (a - algebraMap F W.CoordinateRing c * b) < deg W b := by
+  obtain ⟨p₁, q₁, rfl⟩ := exists_smul_basis_eq a
+  obtain ⟨p₂, q₂, rfl⟩ := exists_smul_basis_eq b
+  set n := deg W (p₂ • (1 : W.CoordinateRing) + q₂ • mk W Y) with hn
+  have h₁ : max ((2 : ℕ) • p₁.degree) ((2 : ℕ) • q₁.degree + 3) = (n : WithBot ℕ) := by
+    rw [← deg_smul_basis_cast ha, h]
+  have h₂ : max ((2 : ℕ) • p₂.degree) ((2 : ℕ) • q₂.degree + 3) = (n : WithBot ℕ) :=
+    (deg_smul_basis_cast hb).symm
+  -- the parity of `n` selects the same basis coordinate on both sides
+  obtain ⟨c, hc0, hu, hw⟩ :
+      ∃ c : F, c ≠ 0 ∧ (p₁ - C c * p₂ = 0 ∨ 2 * (p₁ - C c * p₂).natDegree < n) ∧
+        (q₁ - C c * q₂ = 0 ∨ 2 * (q₁ - C c * q₂).natDegree + 3 < n) := by
+    rcases max_two_nsmul_degree_cases h₁ with ⟨hp₁, hn₁, hq₁⟩ | ⟨hq₁, hn₁, hp₁⟩
+    · rcases max_two_nsmul_degree_cases h₂ with ⟨hp₂, hn₂, hq₂⟩ | ⟨hq₂, hn₂, -⟩
+      · obtain ⟨c, hc0, hu, hw⟩ :=
+          exists_leadingCoeff_ratio (k := 0) (l := 3) hp₁ hp₂ (by omega) (by omega) hq₁ hq₂
+        exact ⟨c, hc0, by simpa using hu, hw⟩
+      · omega
+    · rcases max_two_nsmul_degree_cases h₂ with ⟨hp₂, hn₂, -⟩ | ⟨hq₂, hn₂, hp₂⟩
+      · omega
+      · obtain ⟨c, hc0, hu, hw⟩ :=
+          exists_leadingCoeff_ratio (k := 3) (l := 0) hq₁ hq₂ hn₁ hn₂
+            (by simpa using hp₁) (by simpa using hp₂)
+        exact ⟨c, hc0, by simpa using hw, hu⟩
+  -- push the constant multiple through the basis and read off the new pole order
+  refine ⟨c, ?_⟩
+  have hsub : (p₁ • (1 : W.CoordinateRing) + q₁ • mk W Y)
+      - algebraMap F W.CoordinateRing c * (p₂ • (1 : W.CoordinateRing) + q₂ • mk W Y)
+      = (p₁ - C c * p₂) • (1 : W.CoordinateRing) + (q₁ - C c * q₂) • mk W Y := by
+    rw [eq_smul_basis_algebraMap, zero_smul, add_zero, smul_mul_assoc, one_mul, smul_add,
+      smul_smul, smul_smul, sub_smul, sub_smul]
+    ring
+  rw [hsub]
+  rcases eq_or_ne ((p₁ - C c * p₂) • (1 : W.CoordinateRing) + (q₁ - C c * q₂) • mk W Y) 0
+    with hz | hz
+  · exact Or.inl hz
+  refine Or.inr ?_
+  rw [← Nat.cast_lt (α := WithBot ℕ), deg_smul_basis_cast hz]
+  exact max_lt (two_nsmul_degree_lt_iff.2 hu)
+    (by simpa using two_nsmul_degree_add_lt_iff.2 hw)
+
+end LeadingCoeff
 
 end WeierstrassCurve.Affine.CoordinateRing
 
@@ -549,6 +737,63 @@ theorem exists_eq_algebraMap_of_ordInfty_nonneg {a : W.CoordinateRing} (ha : a �
     ∃ c : F, c ≠ 0 ∧ a = algebraMap F W.CoordinateRing c := by
   rw [ordInfty_algebraMap ha, neg_nonneg] at h
   exact exists_eq_algebraMap_of_deg_eq_zero ha (by omega)
+
+/-- **Every function regular at infinity is a constant plus a function vanishing there.**  The
+valuation-theoretic form of "the residue field at the point at infinity is `F`": if `0 ≤ ordInfty f`
+then `f` is either already a constant, or differs from one by a function of *strictly positive*
+order at infinity.
+
+Unlike `exists_eq_algebraMap_of_ordInfty_nonneg`, `f` is only assumed regular **at infinity** — it
+may have poles all over the affine chart.  The content is `exists_deg_sub_lt` applied to the
+numerator and denominator of `f`, which have equal pole order exactly when `ordInfty f = 0`.
+
+There is no hypothesis on `F`: the point at infinity is rational over any base field. -/
+theorem exists_const_ordInfty_sub_pos {f : W.FunctionField} (hf : 0 ≤ ordInfty W f) :
+    ∃ c : F, f = algebraMap F W.FunctionField c ∨
+      0 < ordInfty W (f - algebraMap F W.FunctionField c) := by
+  rcases eq_or_ne f 0 with rfl | hf0
+  · exact ⟨0, Or.inl (map_zero _).symm⟩
+  have hinj : Function.Injective (algebraMap W.CoordinateRing W.FunctionField) :=
+    IsFractionRing.injective W.CoordinateRing W.FunctionField
+  set a := (IsLocalization.sec W.CoordinateRing⁰ f).1 with ha
+  set s := (IsLocalization.sec W.CoordinateRing⁰ f).2 with hs
+  have hspec : f * algebraMap W.CoordinateRing W.FunctionField (s : W.CoordinateRing)
+      = algebraMap W.CoordinateRing W.FunctionField a := IsLocalization.sec_spec _ f
+  have hs0 : (s : W.CoordinateRing) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have ha0 : a ≠ 0 := by
+    intro h
+    rw [h, map_zero, mul_eq_zero] at hspec
+    rcases hspec with h' | h'
+    · exact hf0 h'
+    · exact hs0 (hinj (by rw [h', map_zero]))
+  have hord : ordInfty W f = (deg W (s : W.CoordinateRing) : ℤ) - deg W a :=
+    ordInfty_eq_sub hf0 hs0 hspec
+  have hle : deg W a ≤ deg W (s : W.CoordinateRing) := by omega
+  rcases lt_or_eq_of_le hle with hlt | heq
+  · exact ⟨0, Or.inr (by rw [map_zero, sub_zero]; omega)⟩
+  obtain ⟨c, hc⟩ := exists_deg_sub_lt ha0 hs0 heq
+  refine ⟨c, ?_⟩
+  have hpush : (f - algebraMap F W.FunctionField c)
+      * algebraMap W.CoordinateRing W.FunctionField (s : W.CoordinateRing)
+      = algebraMap W.CoordinateRing W.FunctionField
+        (a - algebraMap F W.CoordinateRing c * (s : W.CoordinateRing)) := by
+    rw [map_sub, map_mul, sub_mul, hspec,
+      ← IsScalarTower.algebraMap_apply F W.CoordinateRing W.FunctionField]
+  rcases eq_or_ne (a - algebraMap F W.CoordinateRing c * (s : W.CoordinateRing)) 0 with hz | hz
+  · refine Or.inl ?_
+    rw [hz, map_zero] at hpush
+    rcases mul_eq_zero.1 hpush with h' | h'
+    · exact sub_eq_zero.1 h'
+    · exact absurd (hinj (by rw [h', map_zero])) hs0
+  · refine Or.inr ?_
+    have hdlt : deg W (a - algebraMap F W.CoordinateRing c * (s : W.CoordinateRing))
+        < deg W (s : W.CoordinateRing) := hc.resolve_left hz
+    have hgne : f - algebraMap F W.FunctionField c ≠ 0 := by
+      intro h0
+      rw [h0, zero_mul] at hpush
+      exact hz (hinj (by rw [← hpush, map_zero]))
+    rw [ordInfty_eq_sub hgne hs0 hpush]
+    omega
 
 section Affine
 
