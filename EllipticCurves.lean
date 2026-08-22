@@ -91,6 +91,7 @@ import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByThreeExtensionFinite
 import EllipticCurves.FunctionField.MulByThreeFinite
+import EllipticCurves.FunctionField.MulByThreeGalois
 import EllipticCurves.FunctionField.MulByThreeModuleFinite
 import EllipticCurves.FunctionField.MulByTwoDegree
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
