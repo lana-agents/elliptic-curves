@@ -61,7 +61,15 @@ and **the fact is now merged**: `EllipticCurves.FunctionField.MulByTwoFibreAffin
 `pullbackDivisorTwo_single_eq_sum_torsion`, with every `ramificationIdxTwo` over a rational point
 pinned to `1` in the same file.
 
-So at `n = 2` what remains of `hprin` is the **class-group computation**, on merged material:
+⚠️ Those results are **not stated in this file's generality**: `comapProjPointTwo_projPointOfPoint`
+carries `[W.IsElliptic]`, and the coset description, the four-element count and the pinned indices
+carry `[IsAlgClosed F]` as well, whereas the variable block here is `[Field F]` with
+`[IsDedekindDomain W.CoordinateRing]` and `exists_gS_two` adds nothing.  Read the sentence below as
+*over an algebraically closed base field*; for a general `F` the fibre description is still not
+available.
+
+So at `n = 2`, over such a base field, what remains of `hprin` is the **class-group computation**,
+on merged material:
 `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, by `card_torsion_two`,
 Mathlib's `Point.toClass_eq_zero` and `#726`'s `exists_divisor_eq_iff_classOfDivisor_eq_one`.  That
 is bookkeeping between `divisorProj` sums and `toClass`, not a geometric input — but it is **not
@@ -138,7 +146,8 @@ there is a nonzero `g_S ∈ F(W)` with `u · g_S ^ 2 = mulByTwoEndo h2 f_S` for 
 The hypothesis `hprin` is the single gated input (principality of `[2]∗(S)`); everything else is
 unconditional.  It is **not** gated on `#E[2] = 4`, which is merged (`card_torsion_two`), and — as
 of `#774` — no longer on the fibre description of `[2]∗` either, which is merged as
-`pullbackDivisorTwo_single_eq_sum_torsion` (`MulByTwoFibreAffine`).  What is left is the class-group
+`pullbackDivisorTwo_single_eq_sum_torsion` (`MulByTwoFibreAffine`) **over `[IsAlgClosed F]` and
+`[W.IsElliptic]`, which this statement does not carry**.  What is left is the class-group
 computation; see the module docstring. -/
 theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (hP : Point.some x y h ∈ W.torsion 2)

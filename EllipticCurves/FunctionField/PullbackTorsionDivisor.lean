@@ -68,7 +68,13 @@ description itself is now **merged**, at rung 9: `EllipticCurves.FunctionField.M
 fibre with the coset `{ P ⊕ R : R ∈ E[2] }`, and pins every `ramificationIdxTwo` over a rational
 point to `1`.  `#755`'s `nonempty_fibre_comapProjPointTwo` and `#763`'s count were its inputs.
 
-What is left of `hprin` at `n = 2` is the class-group computation
+⚠️ **Name the hypotheses when quoting that.**  `comapProjPointTwo_projPointOfPoint` needs
+`[W.IsElliptic]`, and the coset description, the count and the pinned indices need `[IsAlgClosed F]`
+on top of it — neither of which this file carries (its variable block is `[Field F]` plus
+`[IsDedekindDomain W.CoordinateRing]`).  So the gate is discharged *over an algebraically closed
+base field*, not in the generality the declarations below are stated in.
+
+What is left of `hprin` at `n = 2`, over such a base field, is the class-group computation
 `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`; this file does not do
 it either.
 
