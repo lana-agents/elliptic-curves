@@ -103,6 +103,7 @@ import EllipticCurves.FunctionField.NthRootOfPullback
 import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceOrder
 import EllipticCurves.FunctionField.PlacePullback
+import EllipticCurves.FunctionField.PlaceResidueField
 import EllipticCurves.FunctionField.Places
 import EllipticCurves.FunctionField.PointClosedPoint
 import EllipticCurves.FunctionField.PrincipalDivisor
