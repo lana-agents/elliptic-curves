@@ -336,29 +336,29 @@ private instance : exampleCurve.IsElliptic := by
   norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
-private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
+private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- The tower formula for `[2]∗` on a curve that exists. -/
 example (p : ProjPoint exampleCurve) :
     residueDegreeProj exampleCurve (CoordinateRing.comapProjPointTwo (W := exampleCurve)
-        exampleTwo p) * CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwo p
+        exampleTwoNeZero p) * CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwoNeZero p
       = residueDegreeProj exampleCurve p :=
-  CoordinateRing.residueDegreeProj_mul_residueDegreeTwo exampleTwo p
+  CoordinateRing.residueDegreeProj_mul_residueDegreeTwo exampleTwoNeZero p
 
 /-- On a curve that exists, `[2]∗` is residually trivial at infinity as soon as the residue field
 there is finite-dimensional over `ℚ`. -/
 example (hd : residueDegreeProj exampleCurve (none : ProjPoint exampleCurve) ≠ 0) :
-    CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwo none = 1 :=
-  CoordinateRing.residueDegreeTwo_none_eq_one_of_ne_zero exampleTwo hd
+    CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwoNeZero none = 1 :=
+  CoordinateRing.residueDegreeTwo_none_eq_one_of_ne_zero exampleTwoNeZero hd
 
-private lemma exampleGenX_ne_zero : CoordinateRing.genX exampleCurve ≠ 0 :=
+private lemma exampleGenXNeZero : CoordinateRing.genX exampleCurve ≠ 0 :=
   fun h => CoordinateRing.genX_ne (W := exampleCurve) 0 (by rw [h, map_zero])
 
 /-- The unit criterion fires on a function one can name: `x⁻¹` has order `+2` at infinity, so it
 lies in the place there and is *not* a unit of it.  The order function at a place is computable on a
 named function, which is what the missing fundamental identity will need. -/
 example : ¬ IsUnit (⟨(CoordinateRing.genX exampleCurve)⁻¹, (mem_placeOf_iff_divisorProj_nonneg
-    (W := exampleCurve) none (inv_ne_zero exampleGenX_ne_zero)).2 (by
+    (W := exampleCurve) none (inv_ne_zero exampleGenXNeZero)).2 (by
       rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]; norm_num)⟩ :
     placeOf exampleCurve none) := by
   rw [isUnit_placeOf_iff]
