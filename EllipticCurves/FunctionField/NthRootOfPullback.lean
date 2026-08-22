@@ -54,17 +54,21 @@ Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#251`), which is not what `
 generator is merged too: `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one`
 (`EllipticCurves.FunctionField.DivisorPrincipality`, `#726`).
 
-**What is actually missing is one geometric fact**, and it is `#639` rung 8 (`#701` and children),
-not Ward: the fibre description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` for a `P` with
-`[2]P = S`.  That means identifying the fibre of `pullbackDivisorTwo` over the closed point of `S`
-with the set-theoretic fibre of `[2]` on points and pinning every `ramificationIdxTwo` there to `1`
-— neither of which any merged result supplies.  With it, the class computation closes on merged
-material: `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, by
-`card_torsion_two` and Mathlib's `Point.toClass_eq_zero`.
+⚠️ Earlier wording said "what is actually missing is one geometric fact", namely the fibre
+description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`, and attributed it to `#639` rung 8.
+The attribution was wrong (it is rung 9, `#774` — `#701` counts the fibre and does not describe it),
+and **the fact is now merged**: `EllipticCurves.FunctionField.MulByTwoFibreAffine`'s
+`pullbackDivisorTwo_single_eq_sum_torsion`, with every `ramificationIdxTwo` over a rational point
+pinned to `1` in the same file.
 
-This does **not** put `hprin` within reach — the missing fact is `#701`-hard, and `#701`'s own
-scouting found both of its stated premises wrong.  The correction is only that the blocker is a
-different one from the blocker this file used to name.
+So at `n = 2` what remains of `hprin` is the **class-group computation**, on merged material:
+`∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, by `card_torsion_two`,
+Mathlib's `Point.toClass_eq_zero` and `#726`'s `exists_divisor_eq_iff_classOfDivisor_eq_one`.  That
+is bookkeeping between `divisorProj` sums and `toClass`, not a geometric input — but it is **not
+done**, and nothing in this file or in `#774` discharges `hprin`.
+
+At `n = 3` the geometric fact is still missing: there is no `[3]` duplication formula at a point
+(`#404`) and `#763`'s count `4` is `[2]`-specific.
 
 ## Main statements
 
@@ -132,8 +136,10 @@ chart) and its pullback `[2]∗ f_S = mulByTwoEndo h2 f_S`.  Assuming the effect
 there is a nonzero `g_S ∈ F(W)` with `u · g_S ^ 2 = mulByTwoEndo h2 f_S` for a unit `u` of `F[W]`.
 
 The hypothesis `hprin` is the single gated input (principality of `[2]∗(S)`); everything else is
-unconditional.  It is **not** gated on `#E[2] = 4`, which is merged (`card_torsion_two`), but on the
-fibre description of `[2]∗` — see the module docstring and `#765`. -/
+unconditional.  It is **not** gated on `#E[2] = 4`, which is merged (`card_torsion_two`), and — as
+of `#774` — no longer on the fibre description of `[2]∗` either, which is merged as
+`pullbackDivisorTwo_single_eq_sum_torsion` (`MulByTwoFibreAffine`).  What is left is the class-group
+computation; see the module docstring. -/
 theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (hP : Point.some x y h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

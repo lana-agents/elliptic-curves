@@ -96,6 +96,7 @@ import EllipticCurves.FunctionField.MulByThreeModuleFinite
 import EllipticCurves.FunctionField.MulByTwoDegree
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
 import EllipticCurves.FunctionField.MulByTwoExtensionFinite
+import EllipticCurves.FunctionField.MulByTwoFibreAffine
 import EllipticCurves.FunctionField.MulByTwoFibreInfinity
 import EllipticCurves.FunctionField.MulByTwoFinite
 import EllipticCurves.FunctionField.MulByTwoGalois
@@ -254,6 +255,7 @@ import EllipticCurves.Torsion.CoprimeStructure
 import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.Divisible
 import EllipticCurves.Torsion.DivisionPolynomialEval
+import EllipticCurves.Torsion.DoublingCoords
 import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.Finite

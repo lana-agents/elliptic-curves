@@ -83,14 +83,21 @@ of `#774` is cheap and the affine half is not.
 ## What is *not* here
 
 * **The affine half of `#774`**: `comapProjPointTwo h2 (some (pointClosedPoint h_P))` for a `P` that
-  is *not* `2`-torsion.  That needs the target point identified, and the `x`-coordinate alone gives
-  only `[2]Q = ±S`; the `y`-coordinate of the duplication formula exists in this tree **only at the
-  generic point** (`addY_gen_eq_mulByTwo`, `GenericDoubling.lean`) and specialising it to a closed
-  point is unbuilt.  See `#774`.
-* Therefore also the full fibre description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`, and
-  `#418`'s `hprin`.
-* `ramificationIdxTwo` at a place lying over an *affine* place.  Nothing here computes one, and the
-  argument above genuinely does not reach them: it runs on `genX`, whose only pole is at infinity.
+  is *not* `2`-torsion.  Not here — but no longer unbuilt: it is
+  `EllipticCurves.FunctionField.MulByTwoFibreAffine`, which also subsumes everything below into the
+  single statement `comapProjPointTwo (projPointOfPoint P) = projPointOfPoint (2 • P)`.
+  ⚠️ Earlier wording said the `y`-coordinate of the duplication formula "exists in this tree **only
+  at the generic point** … and specialising it to a closed point is unbuilt".  Both halves have gone
+  false: `EllipticCurves.Torsion.DoublingCoords` has it at a closed point, and specialising was not
+  what produced it — the generic proof was never generic.  See that file.
+* Therefore also the full fibre description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` — again
+  not here, and again merged, as `pullbackDivisorTwo_single_eq_sum_torsion` in
+  `MulByTwoFibreAffine`.
+  `#418`'s `hprin` is **still open**: what remains of it is the class-group computation, not a
+  geometric fact.
+* `ramificationIdxTwo` at a place lying over an *affine* place.  Nothing *here* computes one, and
+  the argument above genuinely does not reach them: it runs on `genX`, whose only pole is at
+  infinity.  `MulByTwoFibreAffine` does compute them, over every rational point.
 * **`#E[2] = 4` from any of this.**  The count `card_torsion_two` is an *input* to step 2 by way of
   `card_roots_Ψ₂Sq`, not an output.  The link from the field degree to a point count runs through
   "a separable isogeny has `#ker = deg`", which is nowhere in this tree.

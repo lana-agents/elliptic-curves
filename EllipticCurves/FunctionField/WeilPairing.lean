@@ -94,11 +94,12 @@ Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
 roots of the `2`-division cubic, which does not go through Ward.  Ward (`#254`/`#258`/`#260`/`#261`)
 gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#251`.  So at `n = 2` the dependency the
 old prose named is *discharged*, and the gate is `hprin`, i.e. rung 5 (`#418`) — for which see
-`NthRootOfPullback`, whose own gate is the fibre description of `[2]∗`, `#639` **rung 9**
-(`#774`).  ⚠️ Not `#701`, which is rung 8 and is *completed*: it counts the fibre
-(`∑_{p ↦ q} e_p · f_p = 4`) and does not describe it.  Rung 9 splits in two: its `q = none` half is
-`EllipticCurves.FunctionField.MulByTwoFibreInfinity`, and its `q = some` half — which needs the
-`y`-coordinate of the duplication formula at a closed point — is what `hprin` still waits on.
+`NthRootOfPullback`.  ⚠️ Its own gate used to be the fibre description of `[2]∗`, `#639` **rung 9**
+(`#774`, *not* `#701`, which is rung 8 and merely counts the fibre).  **Rung 9 is merged**
+(`MulByTwoFibreInfinity`, then `MulByTwoFibreAffine`), so at `n = 2` what `hprin` still waits on is
+the class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = 0` — merged
+material assembled, not a geometric fact.  At `n = 3` the fibre description is still missing and
+`#763`'s count `4` does not transpose.
 
 ⚠️ **Step 4 carries `[IsAlgClosed F]`** and this file does not.  "The count is merged" and "the
 count is merged in the generality this theorem is stated in" are different claims; an assembled
