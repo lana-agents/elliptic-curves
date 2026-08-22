@@ -239,24 +239,24 @@ All three hypotheses are discharged: it is elliptic, `(2 : ℚ) ≠ 0` and `(3 :
 section Nonvacuity
 
 /-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveThree : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
 
-private instance : exampleCurveThree.IsElliptic := by
+private instance : exampleCurve.IsElliptic := by
   rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 example :
-    letI : Algebra ↥(mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)).range
-        exampleCurveThree.FunctionField :=
-      ((mulByThreeEndo (W := exampleCurveThree) (by norm_num)
+    letI : Algebra ↥(mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)).range
+        exampleCurve.FunctionField :=
+      ((mulByThreeEndo (W := exampleCurve) (by norm_num)
         (by norm_num)).range.subtype).toAlgebra
-    finrank ↥(mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)).range
-      exampleCurveThree.FunctionField = 9 :=
+    finrank ↥(mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)).range
+      exampleCurve.FunctionField = 9 :=
   finrank_mulByThreeRange_functionField _ _
 
 example : ¬ Function.Surjective
-    (mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)) :=
+    (mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)) :=
   not_surjective_mulByThreeEndo _ _
 
 end Nonvacuity
