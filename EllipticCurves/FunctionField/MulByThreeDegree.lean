@@ -84,13 +84,14 @@ Also **not** here: the `n = 3` mirror of `MulByTwoGalois` (`#759`), which is how
 sandwich `fixedFieldThree = [3]∗F(W)`, and `IsGalois`).  Both consume the degree proved below;
 nothing below consumes them.
 
-`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain,
-and it is **stale in both of its clauses**: it says that at `n = 3` there is "no
-`finrank ↥([3]∗F(W)) F(W) = 9` anywhere ... and no `TorsionThreeMul` action to apply Artin to",
-the first of which went false with this file and the second with `TranslationActionThree`.  That
-paragraph now needs rewriting rather than patching, and doing so is a separate change deliberately
-not made here — it is `#769`'s canonical section, and putting many hands on one paragraph is the
-failure `#769` was written to end.
+`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain
+and of what still gates non-degeneracy at each `n`; read it there rather than here.
+
+⚠️ Earlier versions of this paragraph **quoted** that section in order to report which of its
+clauses had gone stale, and had to be rewritten twice in one evening as a result — once when the
+degree below landed and once when `TranslationActionThree` did.  A verbatim quote is a second copy
+with every drift property `#769` removed nineteen of.  Point at the canonical section; do not
+restate it.
 
 ⚠️ `[W.IsElliptic]` is required and is not bookkeeping: it is what makes `Δ` a unit and hence
 `Φ₃`/`ΨSq₃` coprime.  On a singular Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where
@@ -243,24 +244,24 @@ All three hypotheses are discharged: it is elliptic, `(2 : ℚ) ≠ 0` and `(3 :
 section Nonvacuity
 
 /-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveThree : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
 
-private instance : exampleCurveThree.IsElliptic := by
+private instance : exampleCurve.IsElliptic := by
   rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 example :
-    letI : Algebra ↥(mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)).range
-        exampleCurveThree.FunctionField :=
-      ((mulByThreeEndo (W := exampleCurveThree) (by norm_num)
+    letI : Algebra ↥(mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)).range
+        exampleCurve.FunctionField :=
+      ((mulByThreeEndo (W := exampleCurve) (by norm_num)
         (by norm_num)).range.subtype).toAlgebra
-    finrank ↥(mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)).range
-      exampleCurveThree.FunctionField = 9 :=
+    finrank ↥(mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)).range
+      exampleCurve.FunctionField = 9 :=
   finrank_mulByThreeRange_functionField _ _
 
 example : ¬ Function.Surjective
-    (mulByThreeEndo (W := exampleCurveThree) (by norm_num) (by norm_num)) :=
+    (mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num)) :=
   not_surjective_mulByThreeEndo _ _
 
 end Nonvacuity
