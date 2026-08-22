@@ -112,15 +112,16 @@ carry but the `WeilPairing*` files do not.
 (`exists_gS_three`, `mulByThreeEndo_algebraMap_base`).  Step 4 has no analogue, and what is missing
 is **part of** Artin's left-hand side.
 
-⚠️ This clause used to say there is *"no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere"*.  That went
-false with `#775`: `finrank_mulByThreeRange_functionField`
-(`EllipticCurves.FunctionField.MulByThreeDegree`) proves it, by `#682`'s tower with `4 ↦ 9`, and the
-`IsCoprime (Φ₃, ΨSq₃)` it needed came from a congruence rather than a new `Δ²`-certificate.  What
-is still absent is the **group side**: no `TorsionThreeMul` action and no `fixedFieldThree`, hence
-no `Fixed(E[3]) = [3]∗F(W)`.  Artin's *right*-hand side, `card_torsion_three = 9`, **is** merged and
-is likewise Ward-free.  So the `n = 3` gap is two missing inputs, not three; `#783` (the action)
-and `#784` (the fixed field and the sandwich) are the issues that close them, and whoever lands
-them refreshes this clause rather than adding a copy of it elsewhere.
+⚠️ This clause used to name three absent inputs — the degree, the `TorsionThreeMul` action, and
+the fixed field.  **Two are now merged.**  `finrank_mulByThreeRange_functionField`
+(`EllipticCurves.FunctionField.MulByThreeDegree`, `#775`) is the degree, by `#682`'s tower with
+`4 ↦ 9`, and the `IsCoprime (Φ₃, ΨSq₃)` it needed came from a congruence rather than a new
+`Δ²`-certificate.  `TorsionThreeMul` with its faithful `MulSemiringAction`, `card_torsionThreeMul`
+and the inclusion `[3]∗F(W) ⊆ Fixed(E[3])` are
+`EllipticCurves.FunctionField.TranslationActionThree` (`#783`).  Artin's *right*-hand side,
+`card_torsion_three = 9`, was merged already and is likewise Ward-free.  What is left is
+`fixedFieldThree`, Artin's `finrank_fixedFieldThree = 9` and the sandwich — one issue, `#784`, whose
+lander refreshes this clause rather than adding a copy of it elsewhere.
 
 ⚠️ And the two sides of Artin at `n = 3` sit on **different** hypotheses, which the `n = 2` account
 above does not have to distinguish: `finrank_mulByThreeRange_functionField` carries
