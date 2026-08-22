@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.WeilPairingAntisymmetric
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
+import EllipticCurves.Torsion.ThreeTorsion
 
 /-!
 # Divisor-slot bilinearity and antisymmetry at the `μ_n(F)` group level (rung 6)
@@ -95,12 +96,16 @@ statement); Galois-equivariance (`#456`); the descent to a general `F` (`#692`);
 
 ## Non-vacuity
 
-Everything up to and including `weilPairingMu_algebraMap` is unconditional or carries only merged
-hypotheses, and is instantiated below on `y² = x³ − x` over `AlgebraicClosure ℚ` with `T = (0, 0)`
-— the certificate curve `WeilPairingAlternatingTwo` and `WeilPairingRootIndependence` use.  Two of
-the instances are closed outright, with no hypothesis left over: `weilPairingMu` evaluated at the
-constant functions `1` and `algebraMap c` is the identity of the group `μ_2(F̄)`, not merely an
-element whose square is `1`.  The multiplicativity and inverse instances keep only the `hpow` data
+Everything up to and including the two pullback lemmas is unconditional or carries only merged
+hypotheses, and every one of them is instantiated below.  The `[2]∗` instances use `y² = x³ − x`
+over `AlgebraicClosure ℚ` with `T = (0, 0)` — the certificate curve `WeilPairingAlternatingTwo` and
+`WeilPairingRootIndependence` use, on which `T` is `2`-torsion.  The `[3]∗` instance cannot live
+there, since that `T` has order `2` and `weilPairingMu_mulByThreeEndo_of_baseField`'s `htors` would
+be *false*; it uses instead `y² + y = x³` with `T = (0, 0)`, of order `3`, which is
+`WeilPairingAlternatingThree`'s certificate curve.  Four of the instances are closed outright, with
+no hypothesis left over: `weilPairingMu` evaluated at the constant functions `1` and
+`algebraMap c`, at `[2]∗1` and at `[3]∗1` is the identity of the group, not merely an element whose
+square (resp. cube) is `1`.  The multiplicativity and inverse instances keep only the `hpow` data
 that `weilPairingMu` needs in order to be formed at all.
 
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines inherit `hprod` and the alternating
@@ -384,9 +389,19 @@ theorem weilPairingMu_eq_inv {xS yS xR yR : F}
 /-! ### Non-vacuity
 
 The results above that carry no hypothesis beyond `[W.IsElliptic]`, a `W.Equation` for the
-translation point and the `hpow` data can be instantiated on a concrete curve, and are below, on
-`y² = x³ − x` over `AlgebraicClosure ℚ` with `T = (0, 0)` — the certificate curve
-`WeilPairingAlternatingTwo` and `WeilPairingRootIndependence` use.
+translation point and the `hpow` data can be instantiated on a concrete curve, and all of them are
+below.  Two curves are needed, because the pullback lemmas constrain the *order* of `T`:
+
+* `y² = x³ − x` over `AlgebraicClosure ℚ` with `T = (0, 0)` — the certificate curve
+  `WeilPairingAlternatingTwo` and `WeilPairingRootIndependence` use.  Here `T` is `2`-torsion
+  (`negY 0 0 = 0`, so `T = −T`), which is what `weilPairingMu_mulByTwoEndo_of_baseField` wants;
+* `y² + y = x³` over the same field, again with `T = (0, 0)` — `WeilPairingAlternatingThree`'s
+  certificate curve.  Here `negY 0 0 = −1 ≠ 0` and `Ψ₃` vanishes at `0`, so `T` has order exactly
+  `3` and `weilPairingMu_mulByThreeEndo_of_baseField` applies.
+
+The second curve is not decoration: on the first one that lemma's `htors` is **false**, since a
+point of order `2` is not of order `3`.  A `[3]∗` certificate on `y² = x³ − x` would be a fiction,
+so the honest move is a second curve rather than a silent omission.
 
 `weilPairingMu_divisorSlot_add` and the two antisymmetry headlines additionally need the rung-4/5
 product relation `hprod` (`#414`/`#418`) and the alternating values, which additionally carry
@@ -447,6 +462,98 @@ example {g : exampleCurve.FunctionField} (hpow : weilPairingElt exampleEquation 
     weilPairingMu exampleEquation (weilPairingElt_inv_pow_eq_one exampleEquation hpow)
       = (weilPairingMu exampleEquation hpow)⁻¹ :=
   weilPairingMu_inv exampleEquation hpow _
+
+/-! #### The `[2]∗` pullback: `T = (0, 0)` on `y² = x³ − x` is `2`-torsion -/
+
+private lemma exampleTwoNeZero : (2 : exampleField) ≠ 0 := by norm_num
+
+open Classical in
+/-- `T = (0, 0)` is `2`-torsion on `y² = x³ − x`: the curve has `a₁ = a₃ = 0`, so
+`negY 0 0 = −0 − 0 − 0 = 0 = yT`, i.e. `T = −T`, which is `T + T = 0` by
+`add_eq_zero_iff_eq_neg`.  This is the `htors` that `weilPairingMu_mulByTwoEndo_of_baseField`
+wants, in the `torsionPoint` form it wants it in. -/
+private lemma exampleTorsionTwo :
+    torsionPoint exampleEquation + torsionPoint exampleEquation = 0 := by
+  rw [add_eq_zero_iff_eq_neg]
+  simp only [torsionPoint, Point.neg_some, Point.some.injEq]
+  norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+
+open Classical in
+/-- The root-of-unity datum at the `[2]∗`-pullback of the constant function `1`.  It is closed
+outright by `weilPairingElt_mulByTwoEndo_of_baseField`, so nothing is assumed here. -/
+private lemma examplePowMulByTwo :
+    weilPairingElt exampleEquation
+        (mulByTwoEndo (W := exampleCurve) exampleTwoNeZero 1) ^ 2 = 1 := by
+  rw [weilPairingElt_mulByTwoEndo_of_baseField exampleEquation exampleTwoNeZero exampleTorsionTwo
+    one_ne_zero, one_pow]
+
+open Classical in
+/-- **The `[2]∗` correction factor really does contribute the group identity, on a curve that
+exists.**  Every hypothesis of `weilPairingMu_mulByTwoEndo_of_baseField` is discharged: `2 ≠ 0` in
+`AlgebraicClosure ℚ`, `T = (0, 0)` is `2`-torsion on `y² = x³ − x`, and `1 ≠ 0` in the function
+field.  Nothing is left over. -/
+example : weilPairingMu exampleEquation examplePowMulByTwo = 1 :=
+  weilPairingMu_mulByTwoEndo_of_baseField exampleEquation exampleTwoNeZero exampleTorsionTwo
+    one_ne_zero _
+
+/-! #### The `[3]∗` pullback: a second curve, `y² + y = x³`, on which `T = (0, 0)` has order `3`
+
+The `[3]∗` lemma cannot be certified on `y² = x³ − x` at `T = (0, 0)`: that point has order `2`, so
+`weilPairingMu_mulByThreeEndo_of_baseField`'s `htors : T ⊕ T ⊕ T = O` is false there.  The curve
+below is `WeilPairingAlternatingThree`'s certificate curve, on which `T = (0, 0)` has order exactly
+`3`. -/
+
+private lemma exampleThreeNeZero : (3 : exampleField) ≠ 0 := by norm_num
+
+/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
+private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+
+private instance : exampleCurveThree.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+/-- `T = (0, 0)` lies on `y² + y = x³`. -/
+private lemma exampleEquationThree : exampleCurveThree.Equation 0 0 := by
+  rw [equation_iff]
+  norm_num [exampleCurveThree]
+
+open Classical in
+/-- `T = (0, 0)` has order `3` on `y² + y = x³`: it is not fixed by negation
+(`negY 0 0 = −1 ≠ 0`) and `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`, so
+`mem_torsion_three_some_iff` applies; unfolding `(3 : ℕ) • T = 0` gives the three-term relation
+that `weilPairingMu_mulByThreeEndo_of_baseField` asks for. -/
+private lemma exampleTorsionThree :
+    torsionPoint exampleEquationThree + torsionPoint exampleEquationThree
+        + torsionPoint exampleEquationThree = 0 := by
+  have hn := mem_torsion_iff.mp
+    ((mem_torsion_three_some_iff
+      (h := exampleCurveThree.equation_iff_nonsingular.mp exampleEquationThree)
+      (by norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY])).mpr
+      (by norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+        WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]))
+  rw [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+  exact hn
+
+open Classical in
+/-- The root-of-unity datum at the `[3]∗`-pullback of the constant function `1`, closed outright by
+`weilPairingElt_mulByThreeEndo_of_baseField`.  The exponent is `3` here, matching the order of the
+translation point. -/
+private lemma examplePowMulByThree :
+    weilPairingElt exampleEquationThree
+        (mulByThreeEndo (W := exampleCurveThree) exampleTwoNeZero exampleThreeNeZero 1) ^ 3
+      = 1 := by
+  rw [weilPairingElt_mulByThreeEndo_of_baseField exampleEquationThree exampleTwoNeZero
+    exampleThreeNeZero exampleTorsionThree one_ne_zero, one_pow]
+
+open Classical in
+/-- **The `[3]∗` correction factor really does contribute the group identity, on a curve that
+exists.**  Every hypothesis of `weilPairingMu_mulByThreeEndo_of_baseField` is discharged: `2 ≠ 0`
+and `3 ≠ 0` in `AlgebraicClosure ℚ`, `T = (0, 0)` has order `3` on `y² + y = x³`, and `1 ≠ 0` in
+the function field. -/
+example : weilPairingMu exampleEquationThree examplePowMulByThree = 1 :=
+  weilPairingMu_mulByThreeEndo_of_baseField exampleEquationThree exampleTwoNeZero
+    exampleThreeNeZero exampleTorsionThree one_ne_zero _
 
 end Nonvacuity
 
