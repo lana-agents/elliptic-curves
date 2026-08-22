@@ -68,8 +68,13 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
 ## What is *not* here
 
 * **`ramificationIdxTwo` at an affine point.**  Nothing below says `[2]` is unramified anywhere
-  other than at infinity, and it is not: over a field of characteristic `≠ 2` it ramifies at the
-  `2`-torsion points.
+  other than at infinity.  ⚠️ Earlier wording continued "and it is not: it ramifies at the
+  `2`-torsion points", which is **false**:
+  `EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) computes
+  `ramificationIdxTwo h2 (some (pointClosedPoint h)) = 1` at every affine `2`-torsion point over an
+  algebraically closed base field.  What ramifies there is the degree-`4` map `x ∘ [2] : ℙ¹ → ℙ¹`
+  — which is exactly the `Ψ₂Sq` vanishing this file exploits — and not `[2] : E → E`, a separable
+  isogeny.  Indices at a place lying over an *affine* place are still computed nowhere.
 * **The degree formula `∑_{p ↦ q} e_p · deg p = 4`.**  That needs finiteness of the fibres of
   `comapProjPointTwo`, which is not in this tree; it is also what `pullbackDivisor` as a map of
   `Finsupp`s (`#414`/`#422` deliverable 1) waits on.
@@ -180,8 +185,10 @@ theorem comapProjPointTwo_none (h2 : (2 : F) ≠ 0) :
 
 /-- **`[2]` is unramified at the point at infinity**: `ramificationIdxTwo h2 none = 1`.
 
-Note what this is *not*: it is not `deg [2] = 4`, and it says nothing about any affine place — over
-a field of characteristic `≠ 2` the map `[2]` really does ramify, at the `2`-torsion points. -/
+Note what this is *not*: it is not `deg [2] = 4`, and nothing here says anything about an affine
+place.  ⚠️ Earlier wording added that `[2]` "really does ramify, at the `2`-torsion points"; that is
+**false** — `EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) computes the index `1`
+there.  Indices at a place lying over an *affine* place remain uncomputed. -/
 theorem ramificationIdxTwo_none (h2 : (2 : F) ≠ 0) :
     ramificationIdxTwo h2 (none : ProjPoint W) = 1 := by
   have hkey := divisorProj_mulByTwoEndo_apply h2 (f := genX W) genX_ne_zero none

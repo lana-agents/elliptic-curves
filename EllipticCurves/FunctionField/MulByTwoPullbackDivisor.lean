@@ -31,8 +31,12 @@ statement about `[2]∗` on divisors reads `e_p · D (comap p)` with both factor
 an identity between the input and the output divisor.
 
 What it is *not*: it is not the degree formula `∑_{p ↦ q} e_p · deg p = 4`, of which no case is
-proved anywhere below, and it says nothing at an affine place — where `[2]` genuinely ramifies, at
-the `2`-torsion points, when `char F ≠ 2`.  It is one coefficient, at one point.
+proved anywhere below, and it says nothing at an affine place.  It is one coefficient, at one point.
+
+⚠️ Earlier wording said `[2]` "genuinely ramifies at the `2`-torsion points" when `char F ≠ 2`.
+That is **false**: `EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) computes the index
+`1` at every affine `2`-torsion point over an algebraically closed base field, and identifies what
+does ramify there as `x ∘ [2] : ℙ¹ → ℙ¹` rather than `[2] : E → E`.
 
 ## Relation to `divisorProj_mulByTwoEndo_apply_none`
 
@@ -82,7 +86,8 @@ coefficient of `pullbackDivisorTwo h2 D` at `none` is the coefficient of `D` at 
 multiplication by an index and no change of point.
 
 This is the first coefficient of a pulled-back divisor computed in this tree.  It says nothing at
-an affine place, where `[2]` does ramify. -/
+an affine place — but ⚠️ not because `[2]` ramifies there, which earlier wording claimed and which
+is false (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`, `#774`). -/
 theorem pullbackDivisorTwo_apply_none (h2 : (2 : F) ≠ 0) (D : ProjPoint W →₀ ℤ) :
     pullbackDivisorTwo h2 D (none : ProjPoint W) = D none := by
   rw [pullbackDivisorTwo_apply, comapProjPointTwo_none h2, ramificationIdxTwo_none h2, one_mul]

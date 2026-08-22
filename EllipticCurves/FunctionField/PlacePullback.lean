@@ -366,8 +366,9 @@ order at `p` of `φ` applied to a uniformizer at the contracted point.
 **Nothing in this file computes it.**  No claim is made that it is `1` at any particular place for
 any particular `φ`, and the conductor-discriminant / degree formula `∑_{p ↦ q} e_p · f_p = deg φ` is
 not proved here; it is `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which
-identifies this index with Mathlib's `Ideal.ramificationIdx`.  Individual values at affine places
-are still computed nowhere. -/
+identifies this index with Mathlib's `Ideal.ramificationIdx`.  Individual values are computed for
+`[2]` at the affine `2`-torsion places, and only there, in
+`EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`), where they are all `1`. -/
 noncomputable def ramificationIdx (p : ProjPoint W) : ℤ :=
   (exists_ramificationIdx hφF hφint p).choose
 
@@ -478,7 +479,9 @@ the field degree runs
 through a counting argument for separable isogenies that is nowhere in this tree.  (The
 *separability* of `F(W) / [2]∗F(W)` itself is available — `MulByTwoGalois`, `#759` — but the step
 from it to a count of `E[2]` is not, and must not be assumed.)  In particular no
-`ramificationIdx` at an affine place is computed anywhere, here or there.
+`ramificationIdx` at an affine place is computed *here*; the affine `2`-torsion places are done in
+`EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) and are unramified, and every other
+affine place is still open.
 
 ⚠️ The `[W.IsElliptic]` hypothesis on those two results is load-bearing, not bookkeeping.  The
 declarations in this section carry no such hypothesis, and they must not: on a *singular*

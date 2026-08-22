@@ -71,8 +71,10 @@ depends on `q` alone.
   as it is.  The point at infinity for `[2]` was a separate piece of work and has since been done,
   in `EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity` (`#670`); the resulting computed
   coefficient `pullbackDivisorTwo h2 D none = D none` lives downstream of both files, in
-  `EllipticCurves.FunctionField.MulByTwoPullbackDivisor`.  Nothing is computed at an affine place,
-  where `[2]` genuinely ramifies.
+  `EllipticCurves.FunctionField.MulByTwoPullbackDivisor`.  Nothing is computed here at an affine
+  place.  ⚠️ Earlier wording added "where `[2]` genuinely ramifies", which is **false** — the
+  affine `2`-torsion indices are all `1`
+  (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`, `#774`).
 * **Surjectivity of `pullbackDivisor`, or injectivity.**  Neither is claimed; `comapProjPoint` is
   not assumed surjective, so `pullbackDivisor` may well kill divisors supported off the image.
 * `[3]∗` — the general section applies verbatim once `mulByThreeEndo` is given the two hypotheses of
