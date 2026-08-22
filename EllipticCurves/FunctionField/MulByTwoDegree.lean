@@ -85,9 +85,11 @@ letting it be inferred.
 ## Scope
 
 This is the field degree of `[2]`, i.e. `deg [n] = n²` at `n = 2` in the sense of Silverman
-*AEC* II.2.  It is **not** a route to `#E[n] = n²`: the separability argument connecting the two is
-nowhere in this tree.  The full degree formula `∑_{p ↦ q} e_p · deg p = 4` is also out of scope —
-this file supplies its right-hand side; the sum needs residue degrees and a fundamental identity.
+*AEC* II.2.  It is **not** a route to `#E[n] = n²`: the counting argument connecting the two — a
+separable isogeny has as many points in its kernel as its degree — is nowhere in this tree, even
+though the separability of `F(W) / [2]∗F(W)` now is (`MulByTwoGalois`, `#759`).  Do not assume the
+step.  The full degree formula `∑_{p ↦ q} e_p · deg p = 4` is also out of scope — this file supplies
+its right-hand side; the sum needs residue degrees and a fundamental identity.
 
 ## References
 

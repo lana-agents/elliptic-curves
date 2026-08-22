@@ -95,6 +95,7 @@ import EllipticCurves.FunctionField.MulByTwoDegree
 import EllipticCurves.FunctionField.MulByTwoEndomorphism
 import EllipticCurves.FunctionField.MulByTwoExtensionFinite
 import EllipticCurves.FunctionField.MulByTwoFinite
+import EllipticCurves.FunctionField.MulByTwoGalois
 import EllipticCurves.FunctionField.MulByTwoModuleFinite
 import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.MulByTwoPullback
