@@ -81,23 +81,25 @@ is *not* free is discreteness — that is `#753`, transported along `placeBelowE
 
 ## Separability, which is the whole of the remaining hypothesis
 
-`IsIntegralClosure.finite` needs `[Algebra.IsSeparable L F(W)]`, and separability of
-`F(W) / [2]∗F(W)` is **stated nowhere in this tree** — `git grep -i separable EllipticCurves/`
-finds four hits, none about this extension.  In characteristic zero it is free:
+`IsIntegralClosure.finite` needs `[Algebra.IsSeparable L F(W)]`, and there are **two** routes to it
+in this tree, with incomparable hypotheses.  In characteristic zero it is free:
 `Algebra.IsSeparable.of_integral` is a priority-100 instance under `[Algebra.IsIntegral L K]
 [CharZero L]`, and `module_finite_mulByTwoEndoFieldRange` supplies the integrality, so
-`isSeparable_mulByTwoEndoFieldRange` needs only `[CharZero F]` transported to the subfield.
+`isSeparable_mulByTwoEndoFieldRange` below needs only `[CharZero F]` transported to the subfield.
+That route needs **no** algebraic closure, so it is the one to use over `ℚ` or a number field.
 
-That is why the `[2]∗` results below come in two forms.  **The characteristic-`p` case is
-deliberately not attempted here.**  It is the statement that `[2]` is a separable isogeny, and the
-classical proof (`[2]` acts nontrivially on the invariant differential) has no counterpart in this
-tree.  A second route, recorded on `#754` and *not* taken here, would realise `[2]∗F(W)` as the
-fixed field of the translations by `E[2]` — `translateEndo_mulByTwoEndo_apply`
-(`TranslationDoublingComm`) already gives one inclusion and Artin's `FixedPoints.finrank_eq_card`
-against `finrank_mulByTwoRange_functionField`'s `4` would force equality, making the extension
-Galois and hence separable in every characteristic `≠ 2`.  What is missing for it is `E[2]` as a
-`MulSemiringAction` on `F(W)` with `card = 4`; that is its own piece of work and folding it in here
-would have sunk this one.
+Over an algebraically closed base field it holds in **every** characteristic `≠ 2`, with no
+`CharZero`: `isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed`
+(`EllipticCurves.FunctionField.MulByTwoGalois`, `#759`) realises `[2]∗F(W)` as the fixed field of
+the translations by `E[2]` and closes the sandwich against `#682`'s degree `4` with Artin's theorem,
+which additionally gives `IsGalois`.  It is stated for exactly the `Subfield` presentation the
+theorems below take as a hypothesis, so it plugs in with a `haveI`.
+
+That is why the `[2]∗` results below come in two forms — a `[CharZero F]` one and one carrying
+`Algebra.IsSeparable` explicitly.  **What is still not available in either route** is the classical
+isogeny-theoretic statement that `[2]` is separable *as an isogeny*, whose proof differentiates the
+invariant differential; nothing here or in `#759` supplies the step from separability of the
+extension to a count of `E[2]`.
 
 ## What is *not* here
 
