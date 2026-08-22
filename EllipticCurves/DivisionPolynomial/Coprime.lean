@@ -6,7 +6,7 @@ Authors: The Elliptic Curves formalisation contributors
 import Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Basic
 
 /-!
-# `Φ₂`, `Ψ₃` and `Ψ₂Sq` are coprime — an explicit Bézout certificate over `Δ²`
+# Coprimality of division polynomials: `(Φ₂, Ψ₂Sq)`, `(Ψ₃, Ψ₂Sq)` and `(Φ₃, ΨSq₃)`
 
 For a Weierstrass curve `W` over a commutative ring, the division polynomials
 
@@ -27,6 +27,9 @@ Hence when `Δ` is a unit — in particular for `[W.IsElliptic]` — the pairs `
 Geometrically the second statement says that no point of `W` is both `2`-torsion and `3`-torsion,
 which is exactly what fails on a singular curve; and indeed the identity is *false* without `Δ`, so
 the discriminant is genuinely load-bearing rather than decorative.
+
+The pair `(Φ₃, ΨSq₃)` is here too, and it is **not** obtained the same way — see the section on the
+`n = 3` certificate below.
 
 ## Why an explicit certificate rather than a root argument
 
@@ -58,21 +61,44 @@ identity is true for Weierstrass curves and false for free `b`-parameters.
 Because the relation is used in the form `4b₈ = b₂b₆ − b₄²` and never divided by, **nothing here
 needs `2` or `3` to be invertible**; the results hold in every characteristic.
 
+## The `n = 3` certificate is a congruence, not a resultant
+
+A Bézout identity for `(Φ₃, ΨSq₃)` itself is not viable: `deg Φ₃ = 9` and `deg ΨSq₃ = 8`, so the
+Sylvester matrix is `17 × 17` and its adjugate cofactors are polynomials no `ring1` call would
+survive. What replaces it, in `preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul`, is the congruence
+
+```
+preΨ₄² ≡ Ψ₂Sq⁴   (mod Ψ₃),
+```
+
+which is `ψ₂(2P) = ψ₄(P)/ψ₂(P)⁴` read univariately and then reduced by `Φ₂ = X·Ψ₂Sq − Ψ₃`; its
+cofactor is a five-term expression in `X`, `Ψ₂Sq` and `Ψ₃`. From it, `isCoprime_Ψ₃_Ψ₂Sq` alone
+gives `IsCoprime preΨ₄ Ψ₃`, and `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq` with `ΨSq₃ = Ψ₃²` finishes.
+
+So the discriminant still does all the work at `n = 3`, but only through the `n = 2` certificate:
+**no new Bézout identity is computed**, and the two `Δ²`-certificates above remain the only ones in
+this file.
+
 ## Main results
 
 * `WeierstrassCurve.Φ_two_eq` — `Φ₂ = X·Ψ₂Sq − Ψ₃` (**relocated** here from
   `EllipticCurves.Torsion.DoublingSurjective`, which now imports it);
 * `WeierstrassCurve.bezout_Φ_two_Ψ₂Sq` and `WeierstrassCurve.bezout_Ψ₃_Ψ₂Sq` — the certificates;
-* **`WeierstrassCurve.isCoprime_Φ_two_Ψ₂Sq`** and **`WeierstrassCurve.isCoprime_Ψ₃_Ψ₂Sq`** — the
-  coprimality, for `[W.IsElliptic]`.
+* `WeierstrassCurve.preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul` — the `n = 3` congruence, over an arbitrary
+  commutative ring;
+* **`WeierstrassCurve.isCoprime_Φ_two_Ψ₂Sq`**, **`WeierstrassCurve.isCoprime_Ψ₃_Ψ₂Sq`**,
+  `WeierstrassCurve.isCoprime_preΨ₄_Ψ₃` and **`WeierstrassCurve.isCoprime_Φ_three_ΨSq_three`** —
+  the coprimality, for `[W.IsElliptic]`.
 
 ## What is *not* here
 
-* The general `IsCoprime (W.Φ n) (W.ΨSq n)`. Only `n = 2` is proved; the general case is a much
-  larger induction and is not needed by the consumer below.
+* The general `IsCoprime (W.Φ n) (W.ΨSq n)`. Only `n = 2` and `n = 3` are proved, each by its own
+  ad-hoc certificate; the general case is a much larger induction and no consumer needs it yet.
 * Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`.
-* Anything about `RatFunc`, function fields, or the degree of `[2]`. The consumer is the middle step
-  of the tower computing `[F(W) : [2]∗F(W)] = 4`, which reads `Φ₂/Ψ₂Sq` as a reduced fraction and
+* Anything about `RatFunc`, function fields, or the degree of `[n]`. The consumers are the middle
+  steps of the towers computing `[F(W) : [2]∗F(W)] = 4` and `[F(W) : [3]∗F(W)] = 9`, in
+  `EllipticCurves.FunctionField.MulByTwoDegree` and
+  `EllipticCurves.FunctionField.MulByThreeDegree`; each reads `Φₙ/ΨSqₙ` as a reduced fraction and
   needs exactly the coprimality proved here.
 
 ## References
@@ -166,6 +192,46 @@ theorem bezout_Ψ₃_Ψ₂Sq :
   rw [W.Φ_two_eq] at h
   linear_combination h
 
+/-! ### The `n = 3` certificate, via a congruence rather than a resultant -/
+
+/-- **`preΨ₄² ≡ Ψ₂Sq⁴ modulo Ψ₃`**, with the cofactor written out.
+
+The naive route to `IsCoprime (Φ₃) (ΨSq₃)` is a Bézout certificate for the pair itself, whose
+Sylvester matrix is `17 × 17`; the resultant has weight `48` in `b₂, …, b₈` and neither it nor its
+cofactors is a polynomial a `ring1` call would survive.  This congruence replaces the whole of it,
+and it is small because it is a *composite* of two facts already in the tree:
+
+* `ψ₂(2P) = ψ₄(P)/ψ₂(P)⁴` — in univariate form, `preΨ₄²` is `Ψ₂Sq` evaluated at the duplication
+  fraction `Φ₂/Ψ₂Sq`, cleared of denominators:
+  `preΨ₄² = 4Φ₂³ + b₂Φ₂²Ψ₂Sq + 2b₄Φ₂Ψ₂Sq² + b₆Ψ₂Sq³`;
+* `Φ_two_eq`, i.e. `Φ₂ = X·Ψ₂Sq − Ψ₃`.
+
+Substituting the second into the first and discarding every term carrying a factor `Ψ₃` leaves
+`Ψ₂Sq³·(4X³ + b₂X² + 2b₄X + b₆) = Ψ₂Sq⁴`; what is discarded is `Ψ₃` times the cofactor below.
+Geometrically: a point with `Ψ₃(x) = 0` has `2P = −P`, so `ψ₂(2P)² = ψ₂(P)²` up to the fourth power
+of `ψ₂(P)` coming from the denominator — a `4`-torsion point is never `3`-torsion.
+
+As with `bezout_Φ_two_Ψ₂Sq` the identity is **false** in the free ring `ℤ[b₂, b₄, b₆, b₈][X]` and
+holds only against `b_relation`, which is why the proof is a `linear_combination` and not a
+`ring1`; the correction term is the explicit degree-`8` multiplier below.  Nothing is divided by, so
+this holds in every characteristic. -/
+theorem preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul :
+    W.preΨ₄ ^ 2 = W.Ψ₂Sq ^ 4 + W.Ψ₃ *
+      ((12 * X + C W.b₂) * W.Ψ₂Sq * W.Ψ₃ - 4 * W.Ψ₃ ^ 2
+        - (12 * X ^ 2 + C (2 * W.b₂) * X + C (2 * W.b₄)) * W.Ψ₂Sq ^ 2) := by
+  have hb : (4 : R[X]) * C W.b₈ = C W.b₂ * C W.b₆ - C W.b₄ ^ 2 := by
+    have h := congrArg (C : R →+* R[X]) W.b_relation
+    simp only [map_ofNat, C_sub, C_mul, C_pow] at h
+    exact h
+  rw [preΨ₄, Ψ₂Sq, Ψ₃]
+  C_simp
+  linear_combination (norm := ring1)
+    (13 * X ^ 8 + 8 * C W.b₂ * X ^ 7 + 28 * C W.b₄ * X ^ 6 + C W.b₂ ^ 2 * X ^ 6
+      + 38 * C W.b₆ * X ^ 5 + 6 * C W.b₂ * C W.b₄ * X ^ 5 + 22 * C W.b₈ * X ^ 4
+      + 8 * C W.b₄ ^ 2 * X ^ 4 + 7 * C W.b₂ * C W.b₆ * X ^ 4 + 16 * C W.b₄ * C W.b₆ * X ^ 3
+      + 4 * C W.b₂ * C W.b₈ * X ^ 3 + 7 * C W.b₆ ^ 2 * X ^ 2 + 8 * C W.b₄ * C W.b₈ * X ^ 2
+      + 6 * C W.b₆ * C W.b₈ * X + C W.b₈ ^ 2) * hb
+
 /-! ### Coprimality -/
 
 section IsElliptic
@@ -189,6 +255,32 @@ theorem isCoprime_Φ_two_Ψ₂Sq : IsCoprime (W.Φ 2) W.Ψ₂Sq :=
 `3`-torsion.  This is the statement that fails on a singular curve. -/
 theorem isCoprime_Ψ₃_Ψ₂Sq : IsCoprime W.Ψ₃ W.Ψ₂Sq :=
   W.isCoprime_of_eq_C_Δ_sq W.bezout_Ψ₃_Ψ₂Sq
+
+/-- **`preΨ₄` and `Ψ₃` are coprime** on an elliptic curve: no point is simultaneously of order
+dividing `4` but not `2`, and of order `3`.
+
+The certificate is the congruence `preΨ₄² ≡ Ψ₂Sq⁴ (mod Ψ₃)` together with `isCoprime_Ψ₃_Ψ₂Sq`; no
+Bézout identity for this pair is computed. -/
+theorem isCoprime_preΨ₄_Ψ₃ : IsCoprime W.preΨ₄ W.Ψ₃ := by
+  have h : IsCoprime (W.preΨ₄ ^ 2) W.Ψ₃ := by
+    rw [W.preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul]
+    exact (W.isCoprime_Ψ₃_Ψ₂Sq.symm.pow_left).add_mul_left_left _
+  exact h.of_isCoprime_of_dvd_left (dvd_pow_self _ two_ne_zero)
+
+/-- **`Φ₃` and `ΨSq₃` are coprime** on an elliptic curve — the reduced-fraction hypothesis that the
+degree computation `[F(x) : F(x₃)] = 9` needs of `x(3P) = Φ₃/ΨSq₃`.
+
+`ΨSq₃ = Ψ₃²`, so it suffices to be coprime to `Ψ₃`; and `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq` is congruent to
+`−preΨ₄·Ψ₂Sq` modulo `Ψ₃`, where both factors are coprime to `Ψ₃` — the second by
+`isCoprime_Ψ₃_Ψ₂Sq`, the first by `isCoprime_preΨ₄_Ψ₃`. -/
+theorem isCoprime_Φ_three_ΨSq_three : IsCoprime (W.Φ 3) (W.ΨSq 3) := by
+  have hΦ : W.Φ 3 = -(W.preΨ₄ * W.Ψ₂Sq) + W.Ψ₃ * (X * W.Ψ₃) := by
+    rw [WeierstrassCurve.Φ_three]; ring1
+  have h : IsCoprime (W.Φ 3) W.Ψ₃ := by
+    rw [hΦ]
+    exact ((W.isCoprime_preΨ₄_Ψ₃.mul_left W.isCoprime_Ψ₃_Ψ₂Sq.symm).neg_left).add_mul_left_left _
+  rw [WeierstrassCurve.ΨSq_three]
+  exact h.pow_right
 
 end IsElliptic
 
