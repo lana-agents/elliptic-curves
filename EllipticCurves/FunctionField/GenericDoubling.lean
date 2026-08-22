@@ -40,6 +40,13 @@ translation correspondence `genericPoint_add_translatePoint`, and the `n = 2` sl
 Everything here is Ward- and normality-independent: it needs only `[Field F] [W.IsElliptic]` and
 `(2 : F) ≠ 0`, no `IsDedekindDomain` and no elliptic-net machinery.
 
+⚠️ `addX_gen_eq_mulByTwo` and `addY_gen_eq_mulByTwo` are **instances** of the closed-point
+identities `addX_self_eq_div` / `addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`, `#774`)
+— take the base-changed curve over `F(W)` and the point `(genX, genY)`.  Their proofs here use only
+the Weierstrass equation at the point, `ψ₂ ≠ 0` at the point, and `2 ≠ 0`, which is exactly why the
+transcription to a closed point was cheap.  Collapsing the duplication would be a worthwhile
+follow-up; it is deliberately not done in `#774`, which had no reason to edit this file.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], Exercise 3.7, III.8.

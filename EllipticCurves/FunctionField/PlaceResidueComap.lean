@@ -133,10 +133,10 @@ there to `finrank R S` is `finrank_fiber_eq_finrank`, which reinstates `Module.F
 `Module.Flat` exactly.
 
 Also not here: the individual value of `ramificationIdxTwo` at an affine place — `#763` sums them
-and computes none, and `#774`
-(`EllipticCurves.FunctionField.MulByTwoFibreInfinity`) computes exactly those above the point at
-infinity, i.e. the affine `2`-torsion places, where the index is `1`; every other affine place is
-**still not anywhere**.  Also not here: any
+and computes none, and `#774` (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`, then
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`) computes exactly those lying over an
+`F`-rational point, where the index is `1`; a place over a closed point with a nontrivial residue
+extension is **still not anywhere**.  Also not here: any
 comparison of `residueDegreeProj` with `degPt` (`DivisorDegree.lean`), which is a relative ideal
 norm to `F[X]` and not a residue-field degree; the unconditional
 `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` (`#763` proves only the `[IsAlgClosed F]` form
