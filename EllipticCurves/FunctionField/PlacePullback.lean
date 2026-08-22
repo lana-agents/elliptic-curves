@@ -466,7 +466,9 @@ genuinely lie over a strictly smaller function field.
 Two things that does **not** give.  It is the *field degree* `[F(W) : [2]∗F(W)] = 4`, not the degree
 formula `∑_{p ↦ q} e_p · deg p = 4`, which still needs the residue degrees and a fundamental
 identity; and it says nothing about `#E[n] = n²`, whose connection to the field degree runs
-through a separability argument that is nowhere in this tree.  In particular no
+through a counting argument for separable isogenies that is nowhere in this tree.  (The
+*separability* of `F(W) / [2]∗F(W)` itself is available — `MulByTwoGalois`, `#759` — but the step
+from it to a count of `E[2]` is not, and must not be assumed.)  In particular no
 `ramificationIdx` at an affine place is computed anywhere, here or there.
 
 ⚠️ The `[W.IsElliptic]` hypothesis on those two results is load-bearing, not bookkeeping.  The
