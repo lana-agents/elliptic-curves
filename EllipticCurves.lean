@@ -104,6 +104,7 @@ import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceOrder
 import EllipticCurves.FunctionField.PlacePullback
 import EllipticCurves.FunctionField.PlaceResidueComap
+import EllipticCurves.FunctionField.PlaceResidueDegree
 import EllipticCurves.FunctionField.PlaceResidueField
 import EllipticCurves.FunctionField.Places
 import EllipticCurves.FunctionField.PointClosedPoint
