@@ -79,8 +79,10 @@ is about the encoding, not about the mathematics.
   `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)`, a *relative ideal norm to `F[X]`*, not
   a residue-field degree.  The two agree, and nothing below assumes it.
 * **`IsDiscreteValuationRing (placeOf W p)`.**  A principal maximal ideal is not that typeclass —
-  it wants every ideal principal — and `ValuationAtInfinity.lean` is explicit that discreteness at
-  infinity is proved only in the doubled form `exists_zpow_eq`.
+  it wants *every* ideal principal, which is a separate argument off the same order function.  That
+  argument is `EllipticCurves.FunctionField.PlaceDiscreteValuationRing` (`#753`), which imports this
+  file and supplies the instance uniformly in `p`; `isPrincipal_maximalIdeal_placeOf` below is the
+  input it starts from.
 * The relative residue degree `[κ(p) : κ(q)]` along `[2]`, the contraction `κ(q) → κ(p)`,
   ramification indices, and the fundamental identity `∑ e_p · f_p = 4`.
 
@@ -183,8 +185,10 @@ theorem isUnit_placeOf_iff {p : ProjPoint W} (x : placeOf W p) :
 /-- **The maximal ideal of a place is principal.**  A uniformizer exists at every place
 (`exists_divisorProj_eq_one`, `#651`), and generates it.
 
-This is *not* `IsDiscreteValuationRing (placeOf W p)`, which additionally wants every ideal to be
-principal; see the module docstring. -/
+This is *not* yet `IsDiscreteValuationRing (placeOf W p)`, which additionally wants *every* ideal
+to be principal.  That is `isDiscreteValuationRing_placeOf`
+(`EllipticCurves.FunctionField.PlaceDiscreteValuationRing`, `#753`), proved off this statement and
+the same order function; nothing below uses it. -/
 theorem isPrincipal_maximalIdeal_placeOf (p : ProjPoint W) :
     (IsLocalRing.maximalIdeal (placeOf W p)).IsPrincipal := by
   obtain ⟨π, hπ0, hπ⟩ := exists_divisorProj_eq_one p
