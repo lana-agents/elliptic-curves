@@ -60,12 +60,17 @@ goes through Ward; Ward gates `#E[n] = n²` at *general* `n` only.  The class-gr
 too — `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one` (`DivisorPrincipality`,
 `#726`).
 
-What is missing is the **fibre description**: `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` for
-a `P` with `[2]P = S`, i.e. the fibre of `pullbackDivisorTwo` over the closed point of `S` matched
-with the set-theoretic fibre of `[2]` on points, and every `ramificationIdxTwo` there pinned to `1`.
-That is `#639` rung 8 — `#701` and its children — and it is exactly what this file's closing note
-says it does not compute.  `#755`'s `nonempty_fibre_comapProjPointTwo` is the first piece of it to
-land (every fibre is nonempty); the count is `#763`.
+⚠️ Earlier wording said the **fibre description** `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`
+is what is missing, and placed it at `#639` rung 8 (`#701` and its children).  The placement was
+wrong — `#701` is the fundamental identity, which counts the fibre without describing it — and the
+description itself is now **merged**, at rung 9: `EllipticCurves.FunctionField.MulByTwoFibreAffine`
+(`#774`) proves `comapProjPointTwo (projPointOfPoint P) = projPointOfPoint (2 • P)`, identifies each
+fibre with the coset `{ P ⊕ R : R ∈ E[2] }`, and pins every `ramificationIdxTwo` over a rational
+point to `1`.  `#755`'s `nonempty_fibre_comapProjPointTwo` and `#763`'s count were its inputs.
+
+What is left of `hprin` at `n = 2` is the class-group computation
+`∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`; this file does not do
+it either.
 
 ### The chart mismatch is *not* a second gate (`#765`)
 
@@ -91,12 +96,14 @@ hypothesis pins the projective divisor to the two-point shape `single (some v) n
 and `n • pullbackDivisorTwo ((S) − (O))` is supported on the whole `[2]`-fibre over both points.
 Only its *proof step* generalises, and that step is the one line above.
 
-So there is **one** gate on `hprin`, not two: the fibre description.  This file still does not
-discharge `hprin` — it restates its datum projectively — but the chart is not why.
+So there was **one** gate on `hprin`, not two: the fibre description — and as of `#774` that gate
+is merged.  This file still does not discharge `hprin`; the chart was never why, and what is left
+is the class-group computation above.
 
 ## What is *not* here
 
-* Any attempt to discharge principality.  See above: gated on the fibre description, `#701`.
+* Any attempt to discharge principality.  See above: what is left of it is the class-group
+  computation, the fibre description having landed with `#774`.
 * Any restatement of rung 5's `exists_gS_two` / `exists_gS_three` in projective terms.  That is a
   change to merged rung-5 code and needs its own issue.
 * The degree formula, values of `ramificationIdx`, `[3]∗`.

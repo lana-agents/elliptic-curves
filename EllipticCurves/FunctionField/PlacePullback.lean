@@ -367,8 +367,10 @@ order at `p` of `φ` applied to a uniformizer at the contracted point.
 any particular `φ`, and the conductor-discriminant / degree formula `∑_{p ↦ q} e_p · f_p = deg φ` is
 not proved here; it is `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which
 identifies this index with Mathlib's `Ideal.ramificationIdx`.  Individual values are computed for
-`[2]` at the affine `2`-torsion places, and only there, in
-`EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`), where they are all `1`. -/
+`[2]` over every `F`-rational point of the curve, and there only, in
+`EllipticCurves.FunctionField.MulByTwoFibreAffine` (`#774`), where they are all `1`; the `2`-torsion
+places are the sub-case in `MulByTwoFibreInfinity`.  A place lying over a closed point that is *not*
+the closed point of a rational point is still untouched. -/
 noncomputable def ramificationIdx (p : ProjPoint W) : ℤ :=
   (exists_ramificationIdx hφF hφint p).choose
 
@@ -479,9 +481,9 @@ the field degree runs
 through a counting argument for separable isogenies that is nowhere in this tree.  (The
 *separability* of `F(W) / [2]∗F(W)` itself is available — `MulByTwoGalois`, `#759` — but the step
 from it to a count of `E[2]` is not, and must not be assumed.)  In particular no
-`ramificationIdx` at an affine place is computed *here*; the affine `2`-torsion places are done in
-`EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) and are unramified, and every other
-affine place is still open.
+`ramificationIdx` at an affine place is computed *here*; places lying over an `F`-rational point are
+done in `EllipticCurves.FunctionField.MulByTwoFibreAffine` (`#774`) and are unramified, and a place
+lying over a closed point with a nontrivial residue extension is still open.
 
 ⚠️ The `[W.IsElliptic]` hypothesis on those two results is load-bearing, not bookkeeping.  The
 declarations in this section carry no such hypothesis, and they must not: on a *singular*
