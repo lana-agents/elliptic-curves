@@ -79,8 +79,9 @@ the torsion subgroup of `W.Point` rather than out of a subobject of `F(W)`, and 
 and three separate `hpow` data besides.  That is a strictly harder statement and nothing here
 implies it.  Also out of scope: producing `hprod`/`hprin` (rung 4/5, `#414`/`#418`), so
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines are untouched and their gates are
-neither moved nor restated; Galois-equivariance (`#456`); base change (`#692`); non-degeneracy
-(Ward-gated, `#242`).
+neither moved nor restated; Galois-equivariance (`#456`); base change (`#692`); non-degeneracy,
+which is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
+consumes (`#769`).
 
 ## Non-vacuity
 
@@ -257,7 +258,8 @@ theorem weilPairingMuHom_eq_one_iff {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂
   weilPairingMu_eq_one_iff h₂ g.2
 
 /-- **The kernel as a subobject.**  "Which functions pair trivially with `T`" becomes a submonoid
-question rather than a question asked one element at a time — the form non-degeneracy (`#242`) will
+question rather than a question asked one element at a time — the form non-degeneracy (a `#419`
+sub-item; `WeilPairing`'s scope section says what it consumes, and it is not `#242`) will
 eventually need.  `MonoidHom.mker` and not `MonoidHom.ker`, since the domain is a monoid; the
 genuine subgroup kernel is `mem_ker_weilPairingMuHomUnits_iff` below. -/
 theorem mem_mker_weilPairingMuHom_iff {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) {n : ℕ} [NeZero n]

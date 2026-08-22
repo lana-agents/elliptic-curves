@@ -45,7 +45,8 @@ The argument is **`n`-agnostic**: the multiplication-by-`n` structure of `g_S` i
 into the transport hypothesis, so there is no `n = 2` / `n = 3` split — the single statement covers
 every `n` for which `g_S` exists. The **unconditional** form (discharging the transport hypothesis
 from the rung-4/5 divisor structure `divisor g_S = [n]∗(S)` and its σ-equivariance) is deliverable 2
-of #456 and waits on rung 4 (#421/#422); non-degeneracy stays out (Ward-gated, #242).
+of #456 and waits on rung 4 (#421/#422); non-degeneracy stays out, and it is **not** Ward-gated —
+`WeilPairing`'s scope section is the canonical account of what it consumes (#769).
 
 ## References
 

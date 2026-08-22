@@ -62,7 +62,8 @@ blocked/heavier on this pin.
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]` and the root-of-unity input
 (already delivered).  The constant-field fact is discharged internally via
-`algebraicClosure_functionField_eq_bot`.  Non-degeneracy remains out of scope (Ward-gated, #242).
+`algebraicClosure_functionField_eq_bot`.  Non-degeneracy remains out of scope, and it is **not**
+Ward-gated — `WeilPairing`'s scope section is the canonical account of what it consumes (#769).
 
 ## References
 

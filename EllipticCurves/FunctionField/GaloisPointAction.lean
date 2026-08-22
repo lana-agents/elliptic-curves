@@ -57,7 +57,8 @@ proofs agree by proof irrelevance.
 a *formal* obstruction — before this file the two sides of that identity were literally about
 different functions, so the implication could not be started.  The mathematical content still
 needs rung 5 (`#418`, gated on `#421`/`#422`), the alternating property (`#465` deliverable 2) and
-non-degeneracy (Ward-gated, `#242`).  Divisor-slot bilinearity has come off that list: it is merged
+non-degeneracy — which is **not** Ward-gated; `WeilPairing`'s scope section is the canonical account
+of what it consumes (`#769`).  Divisor-slot bilinearity has come off that list: it is merged
 as `WeilPairingAntisymmetric` (`#723`), together with antisymmetry, on `[Field F]` and
 `[W.IsElliptic]` alone — all it wants beyond those is the production of
 `g_{S ⊕ S'} = g_S · g_{S'} · w`, which is the rung-4/5 gate already named.  Nothing here says

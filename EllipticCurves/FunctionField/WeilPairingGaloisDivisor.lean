@@ -89,7 +89,8 @@ satisfiable at a genuinely non-constant function.
 Rung-4/5-independent and Ward-independent; unconditional in `[W.IsElliptic]` (the Dedekind
 hypothesis of the divisor layer is discharged by the normality instance, through the `Elliptic`
 namespace of `#629`, of which this file is the first consumer). Non-degeneracy of the pairing stays
-out — Ward-gated, `#242`.
+out, and it is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what
+it consumes (`#769`).
 
 ## References
 

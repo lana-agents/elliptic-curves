@@ -50,7 +50,8 @@ slot `S` is merged, on exactly those hypotheses, as `WeilPairingAntisymmetric` (
 with the antisymmetry corollary `e_n(T, S) = e_n(S, T)⁻¹`; what stays gated on rung 4/5 there is
 only the *production* of `g_{S ⊕ S'} = g_S · g_{S'} · w`, carried as the hypothesis `hprod` in the
 same style as `hfix` and `hsum` here.  Alternating (`e_n(S, S) = 1`) and Galois-equivariance are
-separate #419 sub-items; non-degeneracy is Ward-gated (#242).
+separate #419 sub-items; non-degeneracy is out of scope and is **not** Ward-gated —
+`WeilPairing`'s scope section is the canonical account of what it consumes (#769).
 
 ## References
 
