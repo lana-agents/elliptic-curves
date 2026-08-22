@@ -59,8 +59,10 @@ different means.
 * **`WeierstrassCurve.Affine.ideal_ramificationIdx_eq_toNat`** and
   **`WeierstrassCurve.Affine.ideal_inertiaDeg_eq_one`** — the two compatibilities;
 * `WeierstrassCurve.Affine.sum_ramificationIdx_mul_inertiaDeg_placeBelow` — the fundamental
-  identity in Mathlib's own indexing, with all three of its hypotheses discharged.  **No hypothesis
-  on `F` beyond the separability `#754` carries**, so this is the form to use over `ℚ`;
+  identity in Mathlib's own indexing, with `Module.Finite` and `Module.Flat` discharged and the
+  `Fintype` on the index set carried as an instance argument, since the sum cannot be stated
+  without it.  **No hypothesis on `F` beyond the separability `#754` carries**, so this is the form
+  to use over `ℚ`;
 * **`WeierstrassCurve.Affine.sum_toNat_ramificationIdx_fibre`** — over `[IsAlgClosed F]`, the
   identity in *this* development's indexing:
   `∑_{p ↦ q} e_p = finrank A B`;
@@ -333,13 +335,17 @@ theorem ideal_inertiaDeg_eq_one [IsAlgClosed F]
 
 `#754` supplies `Module.Finite` and `Module.Flat`, `#755` supplies the finiteness of the index set,
 and `#754`'s `finrank_integralClosure_placeBelow` supplies the right-hand side.  The first statement
-is Mathlib's, with those three hypotheses discharged and nothing assumed about `F`; the second
-transports it along `#755`'s dictionary and uses both compatibilities, so it needs
-`[IsAlgClosed F]`. -/
+is Mathlib's, with the first two of those discharged and nothing assumed about `F`; the second
+transports it along `#755`'s dictionary, turns the `Finite` into a `Fintype` in its proof, and uses
+both compatibilities, so it needs `[IsAlgClosed F]`. -/
 
-/-- **The fundamental identity, in Mathlib's indexing.**  All three hypotheses of
-`Ideal.sum_ramification_inertia_eq_finrank` are discharged here; the `Fintype` is `Fintype.ofFinite`
-of `#755`'s `Finite` and is kept inside the proof, so nothing noncomputable leaks into a statement.
+/-- **The fundamental identity, in Mathlib's indexing.**  Two of the three hypotheses of
+`Ideal.sum_ramification_inertia_eq_finrank` — `Module.Finite` and `Module.Flat` — are discharged
+here from `#754`.  The third, `Fintype` of the index set, is **not**: the sum cannot be written
+without it, so it stays an instance argument.  Supply it with `Fintype.ofFinite` of `#755`'s
+`finite_primesOver_maximalIdeal_placeBelow`, in a `haveI` at the use site, as
+`sum_toNat_ramificationIdx_fibre` below does — that keeps the noncomputable choice out of every
+statement.
 
 No hypothesis on `F` beyond the separability `#754` already carries — in particular this is the form
 available over `ℚ`. -/
