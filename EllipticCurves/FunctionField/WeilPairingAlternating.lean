@@ -104,9 +104,17 @@ This file supplies the ungated scaffolding both halves plug into.
 
 * **Discharging `τ_T∗ g_T = g_T`** — the product-over-`⟨T⟩` argument (#465 deliverable 2), gated as
   above.
-* **Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`** — expands `e_n(S ⊕ T, S ⊕ T) = 1` via bilinearity in
-  *both* slots, but only the translation slot is merged (`WeilPairingBilinear.lean`); the divisor
-  slot is rung-4 gated (`g_{S ⊕ S'} = g_S · g_{S'}` up to a constant).
+* **Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`** — merged, as `WeilPairingAntisymmetric` (`#723`),
+  together with the divisor-slot bilinearity it runs on; both need `[Field F]` and `[W.IsElliptic]`
+  and nothing else.  What stays gated there is only the *production* of the product relation
+  `g_{S ⊕ T} = g_S · g_T · w`, carried as the hypothesis `hprod` (rung 4/5, `#414`/`#418`).
+  ⚠️ This bullet used to say two wrong things, both worth naming.  First, the divisor slot is not
+  rung-4 gated as a *consumer*: `e_n(·, T)` is multiplicative in it on the nose, and the correction
+  factor `w` contributes `1`.  Second, antisymmetry does not "expand `e_n(S ⊕ T, S ⊕ T) = 1`".  The
+  alternating property is an **input at three points**, `S`, `T` and `S ⊕ T`, and
+  `e_n(S ⊕ T, S ⊕ T) = 1` is a *hypothesis* of the derivation, not a conclusion of it: antisymmetry
+  consumes the alternating property and proves it nowhere.  Reading it as one instance of the
+  alternating property being unfolded invites exactly the wrong dependency picture.
 * **Non-degeneracy** — Ward-gated (#242).
 
 ## References
