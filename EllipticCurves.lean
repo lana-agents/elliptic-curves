@@ -107,6 +107,7 @@ import EllipticCurves.FunctionField.PlaceDiscreteValuationRing
 import EllipticCurves.FunctionField.PlaceOrder
 import EllipticCurves.FunctionField.PlacePrimesOverFibre
 import EllipticCurves.FunctionField.PlacePullback
+import EllipticCurves.FunctionField.PlaceRamificationInertia
 import EllipticCurves.FunctionField.PlaceResidueComap
 import EllipticCurves.FunctionField.PlaceResidueDegree
 import EllipticCurves.FunctionField.PlaceResidueField
