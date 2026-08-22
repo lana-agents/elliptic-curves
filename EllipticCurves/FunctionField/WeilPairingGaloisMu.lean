@@ -31,11 +31,13 @@ pairing value packaged as an element of `μ_n(F)` and `restrictRootsOfUnity` (Ma
 σ · weilPairingMu(S, T) = weilPairingMu(σS, σT)   in μ_n(F).
 ```
 
-This is the Galois-equivariance analogue of the two already-delivered `μ_n(F)` group-level lifts:
+This is the Galois-equivariance analogue of the `μ_n(F)` group-level lifts already delivered:
 translation-slot multiplicativity `weilPairingMu_translatePoint_add_of_baseField`
-(`WeilPairingBilinearMu.lean`, #459) and the alternating property
-`weilPairingMu_self_of_translateEndo_fixed` (`WeilPairingAlternatingMu.lean`, #465); together they
-are the group-level structure of `e_n` in the value group `μ_n(F)`.
+(`WeilPairingBilinearMu.lean`, #459), the alternating property
+`weilPairingMu_self_of_translateEndo_fixed` (`WeilPairingAlternatingMu.lean`, #465), and
+divisor-slot bilinearity with antisymmetry, `weilPairingMu_divisorSlot_add` and
+`weilPairingMu_eq_inv` (`WeilPairingAntisymmetricMu.lean`, #733); together they are the group-level
+structure of `e_n` in the value group `μ_n(F)`.
 
 ## The route — descend to the base field through the defining property
 

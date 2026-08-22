@@ -64,10 +64,12 @@ translation-invariance `τ_T∗ g_T = g_T`, carried as an explicit hypothesis ex
 `F(W)`-level reduction (#465, deliverable 2 — the product-over-`⟨T⟩` / divisor-telescoping
 discharge, gated on the divisor calculus).  Antisymmetry (`e_n(T, S) = e_n(S, T)⁻¹`) is *not*
 among what remains: it and the divisor-slot bilinearity it runs on are merged at the `F(W)` level
-as `WeilPairingAntisymmetric` (#723), on `[Field F] [W.IsElliptic]` alone, with only the production
-of `g_{S ⊕ T} = g_S · g_T · w` still carried as a hypothesis (rung 4/5, #414/#418).  What is
-genuinely absent is the `μ_n` *lift* of those two statements — ungated work, of the same shape as
-the lift performed here.  Non-degeneracy remains Ward-gated (#242).
+as `WeilPairingAntisymmetric` (#723), and their `μ_n` lift — the same descent performed here — is
+merged as `WeilPairingAntisymmetricMu` (#733).  Both need `[Field F] [W.IsElliptic]` and nothing
+more, with only the production of `g_{S ⊕ T} = g_S · g_T · w` still carried as a hypothesis
+(rung 4/5, #414/#418).  What remains at the `μ_n` level is Galois-equivariance (#456), a
+`MonoidHom` bundling of `e_n` in either slot (which needs a `hpow` datum uniform in the slot
+variable, a genuinely different statement), and non-degeneracy (Ward-gated, #242).
 
 ## References
 
