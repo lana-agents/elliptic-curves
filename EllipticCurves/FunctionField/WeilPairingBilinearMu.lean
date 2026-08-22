@@ -56,8 +56,12 @@ closes it.
 ## Scope
 
 Ward-, normality- and rung-4-independent: needs only `[Field F] [W.IsElliptic]` and the already
-delivered root-of-unity data.  Bilinearity in the divisor slot `S`, alternating `e_n(S, S) = 1`,
-and Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is Ward-gated (#242).
+delivered root-of-unity data.  Bilinearity in the divisor slot `S` and antisymmetry are merged at
+the `F(W)` level (`WeilPairingAntisymmetric`, #723) on the same `[Field F] [W.IsElliptic]`, with
+only the production of `g_{S ⊕ S'} = g_S · g_{S'} · w` still carried as a hypothesis (rung 4/5,
+#414/#418); what is missing here is their `μ_n` lift, which is ungated work.  Alternating
+`e_n(S, S) = 1` and Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is
+Ward-gated (#242).
 
 ## References
 

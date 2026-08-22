@@ -62,8 +62,12 @@ Ward-, normality- and rung-4-independent: needs only `[Field F] [W.IsElliptic]` 
 root-of-unity data (already delivered).  The single genuinely-gated input remains the
 translation-invariance `τ_T∗ g_T = g_T`, carried as an explicit hypothesis exactly as in the
 `F(W)`-level reduction (#465, deliverable 2 — the product-over-`⟨T⟩` / divisor-telescoping
-discharge, gated on the divisor calculus).  Antisymmetry (`e_n(T, S) = e_n(S, T)⁻¹`) and
-non-degeneracy remain separate/gated #419 sub-items.
+discharge, gated on the divisor calculus).  Antisymmetry (`e_n(T, S) = e_n(S, T)⁻¹`) is *not*
+among what remains: it and the divisor-slot bilinearity it runs on are merged at the `F(W)` level
+as `WeilPairingAntisymmetric` (#723), on `[Field F] [W.IsElliptic]` alone, with only the production
+of `g_{S ⊕ T} = g_S · g_T · w` still carried as a hypothesis (rung 4/5, #414/#418).  What is
+genuinely absent is the `μ_n` *lift* of those two statements — ungated work, of the same shape as
+the lift performed here.  Non-degeneracy remains Ward-gated (#242).
 
 ## References
 

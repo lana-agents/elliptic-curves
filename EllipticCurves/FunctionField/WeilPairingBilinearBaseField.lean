@@ -46,9 +46,11 @@ is not restricted to torsion — so the transport applies to general `P, Q, R`.
 ## Scope
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]`.  Bilinearity in the divisor
-slot `S` (`g_{S ⊕ S'} = g_S · g_{S'}` up to a constant) remains gated on rung 4; alternating
-(`e_n(S, S) = 1`) and Galois-equivariance are separate #419 sub-items; non-degeneracy is Ward-gated
-(#242).
+slot `S` is merged, on exactly those hypotheses, as `WeilPairingAntisymmetric` (#723), together
+with the antisymmetry corollary `e_n(T, S) = e_n(S, T)⁻¹`; what stays gated on rung 4/5 there is
+only the *production* of `g_{S ⊕ S'} = g_S · g_{S'} · w`, carried as the hypothesis `hprod` in the
+same style as `hfix` and `hsum` here.  Alternating (`e_n(S, S) = 1`) and Galois-equivariance are
+separate #419 sub-items; non-degeneracy is Ward-gated (#242).
 
 ## References
 

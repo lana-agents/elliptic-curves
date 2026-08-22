@@ -56,9 +56,12 @@ proofs agree by proof irrelevance.
 **`det ρ_{E,2} = χ_2` is not proved and gets no closer to being proved.**  What is removed here is
 a *formal* obstruction — before this file the two sides of that identity were literally about
 different functions, so the implication could not be started.  The mathematical content still
-needs rung 5 (`#418`, gated on `#421`/`#422`), divisor-slot bilinearity, the alternating property
-(`#465` deliverable 2) and non-degeneracy (Ward-gated, `#242`).  Nothing here says anything about
-the image of `ρ` or of `χ`, and nothing here handles closed points of degree `> 1`:
+needs rung 5 (`#418`, gated on `#421`/`#422`), the alternating property (`#465` deliverable 2) and
+non-degeneracy (Ward-gated, `#242`).  Divisor-slot bilinearity has come off that list: it is merged
+as `WeilPairingAntisymmetric` (`#723`), together with antisymmetry, on `[Field F]` and
+`[W.IsElliptic]` alone — all it wants beyond those is the production of
+`g_{S ⊕ S'} = g_S · g_{S'} · w`, which is the rung-4/5 gate already named.  Nothing here says
+anything about the image of `ρ` or of `χ`, and nothing here handles closed points of degree `> 1`:
 `pointClosedPoint` covers the rational slice, which is where the pairing's divisors live.
 
 ## References
