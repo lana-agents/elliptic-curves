@@ -132,8 +132,11 @@ escape from (c-ii).  It is not: its right-hand side is `finrank κ(p) (p.Fiber S
 there to `finrank R S` is `finrank_fiber_eq_finrank`, which reinstates `Module.Finite` and
 `Module.Flat` exactly.
 
-Also not here, and — unlike the three prerequisites above — **still not anywhere**: the individual
-value of `ramificationIdxTwo` at an affine place (`#763` sums them, and computes none of them); any
+Also not here: the individual value of `ramificationIdxTwo` at an affine place — `#763` sums them
+and computes none, and `#774`
+(`EllipticCurves.FunctionField.MulByTwoFibreInfinity`) computes exactly those above the point at
+infinity, i.e. the affine `2`-torsion places, where the index is `1`; every other affine place is
+**still not anywhere**.  Also not here: any
 comparison of `residueDegreeProj` with `degPt` (`DivisorDegree.lean`), which is a relative ideal
 norm to `F[X]` and not a residue-field degree; the unconditional
 `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` (`#763` proves only the `[IsAlgClosed F]` form
