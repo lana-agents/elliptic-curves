@@ -81,10 +81,12 @@ actually wants next: the `n = 3` mirror of `MulByTwoGalois` (`#759`).  That need
 `E[3]`-translation action `TorsionThreeMul` with its `MulSemiringAction` and `FaithfulSMul`,
 `card_torsionThreeMul = 9`, Artin's `finrank_fixedFieldThree = 9`, and the sandwich
 `fixedFieldThree = [3]∗F(W)` against the degree proved below.
-`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain;
-it names this degree as the missing left-hand side of Artin's theorem, and after this file that
-sentence is the only part of the `n = 3` gap still open.  Retiring it is a separate change and
-deliberately not made here.
+`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain.
+It says that at `n = 3` there is "no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere ... and no
+`TorsionThreeMul` action to apply Artin to": the **first** clause goes false with this file and the
+second does not, so the `n = 3` gap narrows from three missing inputs to two and that paragraph
+needs editing rather than deleting.  Making that edit is a separate change and deliberately not
+made here.
 
 ⚠️ `[W.IsElliptic]` is required and is not bookkeeping: it is what makes `Δ` a unit and hence
 `Φ₃`/`ΨSq₃` coprime.  On a singular Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where
