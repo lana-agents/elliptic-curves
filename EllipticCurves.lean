@@ -160,6 +160,7 @@ import EllipticCurves.FunctionField.WeilPairingGalois
 import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
 import EllipticCurves.FunctionField.WeilPairingGaloisMu
 import EllipticCurves.FunctionField.WeilPairingGaloisPoint
+import EllipticCurves.FunctionField.WeilPairingNondegenerateTwo
 import EllipticCurves.FunctionField.WeilPairingRootIndependence
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.FunctionField.WeilPairingTelescopeThree

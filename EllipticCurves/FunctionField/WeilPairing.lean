@@ -55,8 +55,10 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
 ## Explicitly out of scope (as issue #419 records)
 
 * **Bilinearity, alternating, Galois-equivariance** — separately valuable follow-ons.
-* **Non-degeneracy** — out of scope.  It is **not** Ward-gated; see the next section, which is the
-  canonical account of what it consumes and the only place in the tree that states it.
+* **Non-degeneracy** — out of scope *of this file*, and **not** Ward-gated; see the next section,
+  which is the canonical account of what it consumes.  At `n = 2` over an algebraically closed base
+  field it is merged, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`); at
+  `n = 3`, and over a general field at either `n`, it is not.
 * **General `n`** — needs the general `[n]∗` (#404 crux); only `n = 2, 3` are concretely available.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` (#396 Part A) — research-blocked;
   Dedekindness is carried as a hypothesis throughout `FunctionField/`.
@@ -108,13 +110,15 @@ account below, which is the only place that says why.
 So over `[IsAlgClosed F]` and `[W.IsElliptic]`, **no step of the list above is gated any longer** —
 step 7's Dedekind hypothesis included, by `isDedekindDomain_of_isAlgClosed`
 (`CoordinateRingNormalAlgClosed`), which is why the normality item in the out-of-scope list above
-does not bite here.  What stands between the list and a theorem is the assembly `#419` owns, not a
-missing input: `weilPairingElt` takes `g_S` as an *argument*
-(`weilPairingElt_eq_one_iff_translateEndo_fixed`), so a non-degeneracy statement has to thread one
-`g_S` through every `T`, and it inherits the hypotheses the ⚠️ below records.
+does not bite here.  The assembly that was then all that stood between the list and a theorem is
+`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`); it threads one `g_S` through
+every `T`, which is what `weilPairingElt` taking `g_S` as an *argument*
+(`weilPairingElt_eq_one_iff_translateEndo_fixed`) makes necessary, and it inherits the hypotheses
+the ⚠️ below records.
 
-⚠️ Do not read that as "non-degeneracy is proved".  It is not, at either `n`; this section states
-what non-degeneracy *consumes*, and the claim above is about inputs, not about a theorem.
+⚠️ **"Non-degeneracy is proved" is true only at `n = 2` and only over an algebraically closed base
+field**, where it is `#796`.  At `n = 3`, and over a general field at either `n`, it is not, and
+this section remains an account of what non-degeneracy *consumes* rather than of a theorem.
 
 ⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
 `exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the
@@ -131,9 +135,9 @@ indices and the divisor identity — whereas this file carries `[W.IsElliptic]` 
 `[IsAlgClosed F]`.  `#791`'s discharge of `hprin` inherits the same hypothesis twice over, from the
 fibre description and from the surjectivity of `[2]` on points (`exists_nsmul_two_eq`), which is why
 it lands in its own module rather than weakening `exists_gS_two` in place.  "The count is merged"
-and "the count is merged in the generality this theorem is stated in" are different claims; an
-assembled non-degeneracy statement would inherit `[IsAlgClosed F]`, which the `#418`/`#465`
-consumers already carry but the `WeilPairing*` files do not.
+and "the count is merged in the generality this theorem is stated in" are different claims; the
+assembled non-degeneracy statement inherits `[IsAlgClosed F]`, which the `#418`/`#465` consumers
+already carry but the `WeilPairing*` files do not — which is why `#796` lands in its own module too.
 
 **At `n = 3` every step of the argument now has an analogue, and the gate is the same gate.**
 Steps 1, 2, 5, 6 and 7 transpose (`exists_gS_three`, `mulByThreeEndo_algebraMap_base`), and steps 3
