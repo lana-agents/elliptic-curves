@@ -92,7 +92,9 @@ that are needed here are re-proved below rather than by editing a merged file.
   `Ideal.sum_ramification_inertia_eq_finrank`.  The *arithmetic* half of it is available here — see
   the note below on `[2]∗`.
 * `[3]∗`.  The general section applies to it verbatim once the same two hypotheses are supplied for
-  `mulByThreeEndo`; it is deliberately not instantiated here.
+  `mulByThreeEndo`, and is deliberately not instantiated *here*; it is instantiated in
+  `EllipticCurves.FunctionField.MulByThreePlacePullback`, which also computes the index at
+  infinity.
 * `div g_S = [n]∗(S)` (`#418`), Riemann–Roch, and anything Ward-gated.
 
 ## References
