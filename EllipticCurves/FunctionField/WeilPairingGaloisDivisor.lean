@@ -68,10 +68,15 @@ their "rung-4/5-gated" remarks is stated from this file, naming them.
 `translateEndo h_T` is a ring endomorphism of `F(W)` that does **not** preserve the affine
 coordinate ring `F[W]` — translation moves the point(s) at infinity — so it is not
 `IsFractionRing.ringEquivOfRingEquiv e` for any `e : F[W] ≃+* F[W]`, and `#630`'s transport does
-not apply to it. The divisor-pullback-under-translation formula, the crux of `#465`
-deliverable 2 (the alternating property), is exactly as open as it was. The Galois slot is
-transportable and the translation slot is not; that asymmetry is the content of `#630`'s scope note
-and it survives this file.
+not apply to it. The Galois slot is transportable and the *affine* translation slot is not; that
+asymmetry is the content of `#630`'s scope note and it survives this file.
+⚠️ Two things this bullet used to assert are no longer true, and neither is repaired by anything
+here. The divisor-pullback-under-translation formula exists on the **projective** divisor group,
+as `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`) — what `#630` fails to
+give is the *affine* `divisor W`, which really does not transport. And that formula is not the
+crux of `#465` deliverable 2: the alternating property is proved at `n = 2` and at `n = 3` over
+`F̄` (`WeilPairingAlternatingTwoAlgClosed`, `WeilPairingAlternatingThreeAlgClosed`) by the
+concrete telescoping route, which never pulls a divisor back along a translation.
 
 ## Non-degeneracy
 
