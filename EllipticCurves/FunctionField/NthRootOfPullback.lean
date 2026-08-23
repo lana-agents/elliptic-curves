@@ -77,11 +77,11 @@ The hypothesis-free rung-5 statement is `exists_gS_two_of_isAlgClosed` **in that
 `exists_gS_two` below is deliberately left as it is, since it is the general-field statement and the
 discharge is not available in this file's generality.  Nothing in *this* file or in `#774` does it.
 
-At `n = 3` the geometric fact is still missing, and by one rung: the `[3]` fibre description does
-not exist, while both of its inputs do — the tripling formula at a closed point
-(`EllipticCurves.Torsion.TriplingCoords`) and the count `∑_{p ↦ q} e_p = 9`
-(`EllipticCurves.FunctionField.MulByThreeRamification`).  What that rung would take, and why it is
-not a transcription, is `EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note.
+At `n = 3` the geometric fact is still missing, but the `[3]` fibre description is no longer what
+is missing: it is `EllipticCurves.FunctionField.MulByThreeFibre`, which proves
+`[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` over an algebraically closed base field.  What is left is the
+class-group computation on top of it, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`, and nothing in this tree has scouted it.
 
 ## Main statements
 
@@ -183,8 +183,9 @@ of #409 (`divisor W f_S = 3·(S)` on the affine chart) and its pullback `[3]∗ 
 
 As with `exists_gS_two`, the hypothesis `hprin` is the single gated input (principality of
 `[3]∗(S)`); everything else is unconditional.  It is **not** gated on `#E[3] = 9`, which is merged
-(`card_torsion_three`), but on the fibre description of `[3]∗` — see the module docstring and
-`#765`. -/
+(`card_torsion_three`), and no longer on the fibre description of `[3]∗`
+(`EllipticCurves.FunctionField.MulByThreeFibre`, merged), but on the class-group computation above
+it — see the module docstring and `#765`. -/
 theorem exists_gS_three [DecidableEq F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
     (h : W.Nonsingular x y) (hP : Point.some x y h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

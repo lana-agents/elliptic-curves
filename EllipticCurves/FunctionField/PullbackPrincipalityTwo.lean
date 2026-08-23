@@ -80,12 +80,13 @@ Let `S` be a nonsingular affine `2`-torsion point and pick `P` with `2 • P = S
 
 ## Scope
 
-⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it: the
-`n = 3` fibre description does not exist.  Both of *its* inputs now do — the tripling formula at a
-closed point (`EllipticCurves.Torsion.TriplingCoords`) and the `[3]` ramification count
-`sum_ramificationIdxThree_eq_nine` (`EllipticCurves.FunctionField.MulByThreeRamification`) — so the
-gap is that one rung, and it is not an instantiation of the `n = 2` one.  See
-`EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note for what it would take.
+⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it — but
+the `n = 3` fibre description this file's computation runs on top of is no longer what is missing:
+it is `EllipticCurves.FunctionField.MulByThreeFibre`.  What is missing is the `n = 3` mirror of
+*this* file, the class-group computation
+`∑_R toClass (P ⊕ R) − ∑_R toClass R = 9 · toClass P = toClass (3S) = 0`, and it is not an
+instantiation of the `n = 2` one.  ⚠️ Nobody has scouted it, and the cheapness of the fibre rung
+says nothing about it: what is below is class-group bookkeeping, not place theory.
 
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_two`'s.**  Everything from
 `pullbackDivisorTwo_single_sub_single_eq_sum_torsion` onwards carries `[IsAlgClosed F]` and

@@ -32,10 +32,10 @@ From it, over an algebraically closed base field: the fibre over any rational po
 
 ## The crux was a transcription after all — and two merged files said it was not
 
-`MulByTwoFibreAffine`'s scope note, and `#818`'s audit written an hour before this file, both said:
-
-> `mulByThreeCoordHom_XClass`/`_YClass` do not exist, and **nobody has scouted whether the `[3]`
-> version has the same shape.  Do not write "transposes verbatim".**
+`#818`'s tree-wide audit, written an hour before this file, put the following into
+`MulByTwoFibreAffine`'s scope note — and this file's diff is what replaces it there:
+`mulByThreeCoordHom_XClass`/`_YClass` do not exist, nobody has scouted whether the `[3]` version of
+the ideal computation has the same shape, and it must not be priced as a transcription.
 
 That caution was right to be stated and turns out to be false in fact.  The four-step `n = 2`
 argument transposes with one change, and the change makes the `[3]` version **easier**, not harder:
