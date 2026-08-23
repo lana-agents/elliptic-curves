@@ -79,8 +79,11 @@ knows what `divisor g` is, and nothing needs to.
 
 ⚠️ **This is the Galois slot only.**  The translation slot has not moved: `translateEndo` is not
 induced by a ring automorphism of `F[W⁄F]`, so `#630`'s divisor transport does not apply to it and
-the alternating property (`#465` deliverable 2) is exactly as open as it was.  The asymmetry is
-`#630`'s scope note and it survives this file.
+nothing here bears on the alternating property (`#465` deliverable 2).  The asymmetry is `#630`'s
+scope note and it survives this file.  ⚠️ Do not read that as the alternating property being open:
+it is proved at `n = 3` over `F̄` in
+`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed` (`#829`), by the concrete
+telescoping route, which never needs a divisor pullback under translation.
 
 ⚠️ **`exists_gS_three` still carries its `hprin`,** which is why the `n = 3` transport statements
 below are stated from supplied data exactly as the `n = 2` ones are.  Over an algebraically closed
