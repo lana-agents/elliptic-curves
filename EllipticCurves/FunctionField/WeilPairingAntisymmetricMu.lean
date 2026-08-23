@@ -50,6 +50,13 @@ algebraMap_coe_rootsOfUnity_injective :
 by the defining property `algebraMap_coe_weilPairingMu` (`#457`), and closing with the merged
 `F(W)`-level theorem.  No file below reproves anything; every proof is that one descent.
 
+⚠️ **That closing step is now a hypothesis of its own lemma** rather than an `exact` buried in each
+proof: `weilPairingMu_divisorSlot_add_of_weilPairingElt` and
+`weilPairingMu_mul_swap_eq_one_of_weilPairingElt` state the descent with the `F(W)`-level
+conclusion bound, and the two specialised theorems apply them.  Consumers that hold only that
+conclusion — because an existential envelope quantified the rung-5 data away — use the descents
+directly (`#868`).
+
 Note that `weilPairingMu h₂ hpow` depends on the *proof* `hpow` only up to proof irrelevance, so a
 `hpow` datum may freely be replaced by any propositionally equal one.
 
@@ -64,6 +71,11 @@ Note that `weilPairingMu h₂ hpow` depends on the *proof* `hpow` only up to pro
 * `weilPairingMu_algebraMap`, `weilPairingMu_mulByTwoEndo_of_baseField`,
   `weilPairingMu_mulByThreeEndo_of_baseField` — the correction factors contribute the group
   identity;
+* **`weilPairingMu_divisorSlot_add_of_weilPairingElt`** and
+  **`weilPairingMu_mul_swap_eq_one_of_weilPairingElt`** — the two *descents*: each takes the
+  `F(W)`-level conclusion as a hypothesis and pushes it into `μ_n(F)`, for arbitrary `n` and with
+  no torsion hypothesis.  ⚠️ Each is stated immediately before the theorem it generalises, and that
+  theorem is a one-line application of it (`#868`);
 * **`weilPairingMu_divisorSlot_add`** — divisor-slot bilinearity in `μ_n(F)`, with the concrete
   `_const` / `_two` / `_three` corollaries;
 * **`weilPairingMu_mul_swap_eq_one`** and **`weilPairingMu_eq_inv`** — antisymmetry in `μ_n(F)`, in
@@ -120,10 +132,13 @@ files and not an obstruction: `hprod` follows from rung-5 data
 unconditional over `F̄` at both `n`, so the `F(W)`-level headlines *are* instantiated there, and
 the two `μ_n` antisymmetry headlines are instantiated against them in
 `EllipticCurves.FunctionField.WeilPairingProductRelationMu` (`#855`), downstream of this file.
-⚠️ `weilPairingMu_divisorSlot_add` is instantiated in
-`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`), also downstream, and
+⚠️ Divisor-slot bilinearity in `μ_n(F)` is likewise unconditional over `F̄`, in
+`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`), also downstream, and it
 **inherits only `hprod`**: it consumes no alternating property, so listing it in the same sentence
-as antisymmetry overstated its gate.
+as antisymmetry overstated its gate.  ⚠️ What that file instantiates is the *statement*, by way of
+`weilPairingMu_divisorSlot_add_of_weilPairingElt` above; it does not apply
+`weilPairingMu_divisorSlot_add` itself, whose carried `hprod` and `w` are not exposed by an
+existential envelope.
 The `_const` / `_two` / `_three` corollaries do exhibit correction factors `w`
 for which the hypothesis `e_n(w, T) = 1` is *proved* rather than assumed, so
 `weilPairingMu_divisorSlot_add` has content beyond `w = 1`.
@@ -271,6 +286,39 @@ theorem weilPairingMu_mulByThreeEndo_of_baseField (hT : W.Equation xT yT) (h2 : 
 
 /-! ### Bilinearity in the divisor slot, in the group -/
 
+/-- **Divisor-slot bilinearity descends from `F(W)` to `μ_n(F)`.**
+
+```
+e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T)  in F(W)
+  →  μ_n(P, g_R) = μ_n(P, g_S) · μ_n(P, g_T)  in rootsOfUnity n F.
+```
+
+⚠️ **The descent, stated before the theorem it generalises.**  `weilPairingMu_divisorSlot_add`
+below is this lemma applied to `weilPairingElt_divisorSlot_add` (`#723`) and nothing else, so
+`hprod` and `hw` — and every rung-5 input behind them — collapse here to the single conclusion they
+were only ever used to produce.  Arbitrary `n`, no torsion hypothesis, hypotheses a strict subset.
+
+⚠️ **The recipe, written down where a reader will meet it** (`#868`): when a `μ_n(F)` theorem's
+proof ends in a single `exact <the F(W)-level theorem> <args>`, replacing that `exact` by a
+hypothesis gives a strict generalisation whose hypotheses are a subset of the original's.  It is
+worth reaching for whenever a consumer holds the `F(W)`-level conclusion but not the data that
+produced it — typically because an existential envelope quantified that data away.  Three theorems
+in this file are now stated that way; see `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` and
+`EllipticCurves.FunctionField.WeilPairingGaloisMu.weilPairingMu_galois_of_weilPairingElt`.
+
+The route is the injective composite `ζ ↦ algebraMap F F(W) ((ζ : Fˣ) : F)`
+(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with `algebraMap_coe_weilPairingMu`
+(`#457`). -/
+theorem weilPairingMu_divisorSlot_add_of_weilPairingElt {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    {gS gT gR : W.FunctionField} {n : ℕ} [NeZero n]
+    (hpowS : weilPairingElt h₂ gS ^ n = 1) (hpowT : weilPairingElt h₂ gT ^ n = 1)
+    (hpowR : weilPairingElt h₂ gR ^ n = 1)
+    (hbil : weilPairingElt h₂ gR = weilPairingElt h₂ gS * weilPairingElt h₂ gT) :
+    weilPairingMu h₂ hpowR = weilPairingMu h₂ hpowS * weilPairingMu h₂ hpowT := by
+  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
+  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu]
+  exact hbil
+
 /-- **Bilinearity of `weilPairingMu` in the divisor slot.**  Given the product relation
 
 ```
@@ -287,16 +335,18 @@ The group-level form of `weilPairingElt_divisorSlot_add` (`#723`).  `hprod` is t
 input and is **not** produced here (⚠️ rung 5 only — it is produced in
 `EllipticCurves.FunctionField.WeilPairingProductRelation`, `#845`); `hw` is discharged outright
 in the
-corollaries below. -/
+corollaries below.
+
+⚠️ The proof is `weilPairingMu_divisorSlot_add_of_weilPairingElt` above applied to
+`weilPairingElt_divisorSlot_add`, which is all it ever was. -/
 theorem weilPairingMu_divisorSlot_add {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {gS gT gR w : W.FunctionField} (hprod : gR = gS * gT * w)
     (hw : weilPairingElt h₂ w = 1) {n : ℕ} [NeZero n]
     (hpowS : weilPairingElt h₂ gS ^ n = 1) (hpowT : weilPairingElt h₂ gT ^ n = 1)
     (hpowR : weilPairingElt h₂ gR ^ n = 1) :
-    weilPairingMu h₂ hpowR = weilPairingMu h₂ hpowS * weilPairingMu h₂ hpowT := by
-  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
-  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu]
-  exact weilPairingElt_divisorSlot_add h₂ hprod hw
+    weilPairingMu h₂ hpowR = weilPairingMu h₂ hpowS * weilPairingMu h₂ hpowT :=
+  weilPairingMu_divisorSlot_add_of_weilPairingElt h₂ hpowS hpowT hpowR
+    (weilPairingElt_divisorSlot_add h₂ hprod hw)
 
 /-- **Divisor-slot bilinearity in `μ_n(F)` when the correction factor is a nonzero constant.**  The
 cheapest instance of `weilPairingMu_divisorSlot_add` with `hw` proved rather than assumed: it is
@@ -345,6 +395,33 @@ theorem weilPairingMu_divisorSlot_add_three (hT : W.Equation xT yT) (h2 : (2 : F
 
 /-! ### Antisymmetry in `μ_n(F)` -/
 
+/-- **Antisymmetry descends from `F(W)` to `μ_n(F)`.**
+
+```
+e_n(S, T) · e_n(T, S) = 1   in F(W)   →   μ_n(S, T) · μ_n(T, S) = 1   in rootsOfUnity n F.
+```
+
+⚠️ **The descent, stated before the theorem it generalises**, exactly as
+`weilPairingMu_divisorSlot_add_of_weilPairingElt` is above: no hypothesis beyond the two `hpow`
+data needed to *form* the two `μ_n(F)` values and the `F(W)`-level relation itself.  The product
+relation `hprod`, the alternating property and the divisor slot are all upstream of `hswap` and are
+never re-entered, so a consumer holding only an `F(W)`-level conclusion — typically because an
+existential envelope quantified the rung-5 data away — can descend it without re-supplying that
+data.  See the recipe recorded on `weilPairingMu_divisorSlot_add_of_weilPairingElt`.
+
+The route is the injective composite `ζ ↦ algebraMap F F(W) ((ζ : Fˣ) : F)`
+(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with the defining property
+`algebraMap_coe_weilPairingMu` (`#457`). -/
+theorem weilPairingMu_mul_swap_eq_one_of_weilPairingElt {xS yS xT yT : F}
+    (hS : W.Equation xS yS) (hT : W.Equation xT yT) {gS gT : W.FunctionField} {n : ℕ} [NeZero n]
+    (hpowST : weilPairingElt hS gT ^ n = 1) (hpowTS : weilPairingElt hT gS ^ n = 1)
+    (hswap : weilPairingElt hS gT * weilPairingElt hT gS = 1) :
+    weilPairingMu hS hpowST * weilPairingMu hT hpowTS = 1 := by
+  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
+  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu,
+    OneMemClass.coe_one, Units.val_one, map_one]
+  exact hswap
+
 open Classical in
 /-- **Antisymmetry of the Weil pairing in `μ_n(F)`, in product form.**
 
@@ -362,7 +439,10 @@ through unchanged:
 * `haltS`, `haltT`, `haltR` — the **alternating property at `S`, at `T` and at `R`**, all three
   hypotheses.  Antisymmetry consumes the alternating property; it does not prove it anywhere.  They
   are stated at the `F(W)` level, which needs no further `hpow` datum; `weilPairingMu_eq_one_iff`
-  converts each to `weilPairingMu … = 1` in one rewrite. -/
+  converts each to `weilPairingMu … = 1` in one rewrite.
+
+⚠️ The proof is `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` above applied to
+`weilPairingElt_mul_swap_eq_one`, which is all it ever was. -/
 theorem weilPairingMu_mul_swap_eq_one {xS yS xR yR : F}
     (hS : W.Equation xS yS) (hT : W.Equation xT yT) (hR : W.Equation xR yR)
     (hadd : torsionPoint hS + torsionPoint hT = torsionPoint hR)
@@ -371,12 +451,10 @@ theorem weilPairingMu_mul_swap_eq_one {xS yS xR yR : F}
     (hpowTS : weilPairingElt hT gS ^ n = 1) (hpowST : weilPairingElt hS gT ^ n = 1)
     (haltS : weilPairingElt hS gS = 1) (haltT : weilPairingElt hT gT = 1)
     (haltR : weilPairingElt hR gR = 1) :
-    weilPairingMu hS hpowST * weilPairingMu hT hpowTS = 1 := by
-  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
-  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu,
-    OneMemClass.coe_one, Units.val_one, map_one]
-  exact weilPairingElt_mul_swap_eq_one hS hT hR hadd hgS hgT hprod hwR (NeZero.ne n) hpowTS
-    haltS haltT haltR
+    weilPairingMu hS hpowST * weilPairingMu hT hpowTS = 1 :=
+  weilPairingMu_mul_swap_eq_one_of_weilPairingElt hS hT hpowST hpowTS
+    (weilPairingElt_mul_swap_eq_one hS hT hR hadd hgS hgT hprod hwR (NeZero.ne n) hpowTS
+      haltS haltT haltR)
 
 open Classical in
 /-- **Antisymmetry in `μ_n(F)`, in the quotable inverse form** `e_n(T, S) = (e_n(S, T))⁻¹`.
@@ -441,7 +519,10 @@ produce the three `hpow` data rather than assuming them.  ⚠️ The prediction 
 what antisymmetry costs was wrong: it is **cheaper**, because divisor-slot bilinearity consumes the
 alternating property at no point at all — `weilPairingMu_divisorSlot_add`'s hypotheses are `hprod`,
 `hw` and the three `hpow`, and there is no `halt` among them.  The route is the descent
-`weilPairingMu_divisorSlot_add_of_weilPairingElt` there, not this theorem, for `#855`'s reason. -/
+`weilPairingMu_divisorSlot_add_of_weilPairingElt` — ⚠️ which is now stated **in this file**,
+immediately above `weilPairingMu_divisorSlot_add` (`#868`) — and not this theorem, for `#855`'s
+reason: an existential envelope exposes its roots and their certificates but not the `g_R` and `w`
+that were quantified away inside it. -/
 
 section Nonvacuity
 

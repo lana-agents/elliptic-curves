@@ -74,11 +74,12 @@ knows what `divisor g` is, and nothing needs to.
 * `exists_weilPairingElt_galois_two` and `exists_weilPairingElt_galois_three` — the same with
   nothing carried at all, over an algebraically closed base field, `exists_gS_two_of_isAlgClosed`
   (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`) supplying both roots.
-* `weilPairingMu_galois_of_weilPairingElt` (`#859`) — the descent of the *conclusion* from
-  `F(W⁄F)` to `μ_n(F)`, for arbitrary `n`, with no `[IsAlgClosed F]` and no torsion hypothesis.
-  A strict generalisation of `weilPairingMu_galois_of_transport`
-  (`EllipticCurves.FunctionField.WeilPairingGaloisMu`), whose transport datum `htr` collapses to
-  the one conclusion it was only ever used to produce.
+* ⚠️ the descent `weilPairingMu_galois_of_weilPairingElt` (`#859`) is **not** here — it was
+  written into this file because this is where it was first wanted, but it generalises
+  `weilPairingMu_galois_of_transport` and so duplicated that theorem's proof body across an import
+  edge.  `#868` moved it up to `EllipticCurves.FunctionField.WeilPairingGaloisMu`, next to the
+  theorem it generalises, which now applies it in one line.  This file consumes it through the
+  import.
 * `exists_weilPairingMu_galois_two` and `exists_weilPairingMu_galois_three` (`#859`) — the two
   statements above in the honest value group `μ_n(F) = rootsOfUnity n F`, with the two `hpow`
   data produced rather than assumed.  ⚠️ These are the only theorems in the file that ask the
@@ -104,9 +105,10 @@ base field it is discharged by
 missing: the `n = 3` engine instance was proved here before the data existed.
 
 ⚠️ **`[IsAlgClosed F]` appears only in the four `exists_` theorems**, and only through `#791`
-and `#825`.  The engine, the descent and the `n = 2`/`n = 3` transport statements need
+and `#825`.  The engine and the `n = 2`/`n = 3` transport statements need
 `[Field S] [Field F] [Algebra S F]` and `[W.IsElliptic]` and nothing else; in particular they are
-Ward-, rung-4- and normality-independent.
+Ward-, rung-4- and normality-independent, as is the descent they consume from
+`EllipticCurves.FunctionField.WeilPairingGaloisMu`.
 
 ⚠️ **The `μ_n(F)` headlines carry one hypothesis the `F(W⁄F)` ones do not**: the translation
 point `T` is asked to be `n`-torsion.  It is not inherited from `#791`/`#825` and not a rung-4
@@ -430,45 +432,10 @@ with `*` ranging over `two` and `three` in every cell.
 ⚠️ **The route is to descend the conclusion, not to apply the `μ_n(F)` theorem.**
 `weilPairingMu_galois_of_gS_two` would do the job, but only by re-supplying the rung-5 data that
 `exists_weilPairingElt_galois_two`'s envelope has already consumed and quantified away.  The
-descent `weilPairingMu_galois_of_weilPairingElt` instead consumes that envelope's *public payload*
-— the two roots, their two certificates and the `F(W⁄F)`-level conclusion — and nothing else. -/
-
-open Classical in
-/-- **Galois-equivariance descends from `F(W⁄F)` to `μ_n(F)`.**
-
-```
-σ⋆(e_n(S, T)) = e_n(σS, σT)  in F(W⁄F)   →   σ · μ_n(S, T) = μ_n(σS, σT)  in rootsOfUnity n F.
-```
-
-A strict generalisation of `weilPairingMu_galois_of_transport`
-(`EllipticCurves.FunctionField.WeilPairingGaloisMu`): that theorem's proof is this one with the
-final `exact` supplied by `weilPairingElt_galois_of_transport` rather than assumed, so the
-transport datum `htr` — and with it every rung-5 input behind it — collapses to the single
-conclusion `hgal` it was only ever used to produce.  Arbitrary `n`, no `[IsAlgClosed F]`, no
-torsion hypothesis, nothing about `divisor g`.
-
-The route is the injective composite `ζ ↦ algebraMap F F(W⁄F) ((ζ : Fˣ) : F)`
-(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with the defining property
-`algebraMap_coe_weilPairingMu` (`#457`) and the σ-semilinearity on constants
-`galoisFunctionField_algebraMap` (`#455`). -/
-theorem weilPairingMu_galois_of_weilPairingElt (σ : F ≃ₐ[S] F) (h₂ : (W⁄F).Equation x₂ y₂)
-    {g g' : (W⁄F).FunctionField} {n : ℕ} [NeZero n]
-    (hgal : galoisFunctionField σ (weilPairingElt h₂ g)
-      = weilPairingElt (equation_algEquiv σ h₂) g')
-    (hpow : weilPairingElt h₂ g ^ n = 1)
-    (hpow' : weilPairingElt (equation_algEquiv σ h₂) g' ^ n = 1) :
-    restrictRootsOfUnity (σ.toRingEquiv.toRingHom) n (weilPairingMu h₂ hpow)
-      = weilPairingMu (equation_algEquiv σ h₂) hpow' := by
-  refine algebraMap_coe_rootsOfUnity_injective (W := W⁄F) ?_
-  have hcoe :
-      ((restrictRootsOfUnity (σ.toRingEquiv.toRingHom) n (weilPairingMu h₂ hpow) : Fˣ) : F)
-        = σ ((weilPairingMu h₂ hpow : Fˣ) : F) := by
-    rw [restrictRootsOfUnity_coe_apply]
-    simp
-  simp only [hcoe, algebraMap_coe_weilPairingMu]
-  rw [← galoisFunctionField_algebraMap σ ((weilPairingMu h₂ hpow : Fˣ) : F),
-    algebraMap_coe_weilPairingMu h₂ hpow]
-  exact hgal
+descent `weilPairingMu_galois_of_weilPairingElt`
+(`EllipticCurves.FunctionField.WeilPairingGaloisMu`) instead consumes that envelope's *public
+payload* — the two roots, their two certificates and the `F(W⁄F)`-level conclusion — and nothing
+else. -/
 
 open Classical in
 /-- **Galois-equivariance of the Weil pairing in `μ_2(F)` with no hypothesis beyond the setting.**

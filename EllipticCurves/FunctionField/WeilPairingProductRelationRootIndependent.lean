@@ -224,8 +224,9 @@ holding roots from elsewhere holds them.  They are not extra assumptions in prac
 `2`-torsion `T` they are `weilPairingElt_pow_eq_one_of_gS_two_torsion` (`TranslationTorsion`)
 applied to the caller's own certificates, exactly as `#855` produces them internally.
 
-The descent is `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` (`#855`), not
-`weilPairingMu_mul_swap_eq_one`, whose carried inputs are internal to `#845`'s proofs. -/
+The descent is `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` (`#855`, and since `#868` stated
+in `EllipticCurves.FunctionField.WeilPairingAntisymmetricMu` next to the theorem it generalises),
+not `weilPairingMu_mul_swap_eq_one`, whose carried inputs are internal to `#845`'s proofs. -/
 theorem weilPairingMu_mul_swap_eq_one_two_of_isAlgClosed (h2 : (2 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
