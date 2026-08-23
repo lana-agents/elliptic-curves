@@ -202,6 +202,11 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`).
 * **non-degeneracy in `μ_n(F)`** — `exists_gS_three_weilPairingMu_ne_one`
   (`EllipticCurves.FunctionField.WeilPairingNondegenerateMu`, `#878`).
+* the **translation slot as a homomorphism** `E[3] → μ_3(F)` —
+  `exists_weilPairingTorsionMuHom_three`
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`, `#890`; ⚠️ this is the first
+  rung-6 slot stated as a *map* out of the torsion group rather than pointwise, so its translation
+  argument ranges over the point at infinity as well as the affine points).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
