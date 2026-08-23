@@ -49,8 +49,12 @@ the non-vacuity section for what that costs a certificate.
 
 ## Main results
 
-* `weilPairingMu_divisorSlot_add_of_weilPairingElt` — the descent of the *conclusion* from `F(W)`
-  to `μ_n(F)`, for arbitrary `n`, with no `[IsAlgClosed F]` and no torsion hypothesis;
+* ⚠️ the descent of the *conclusion* from `F(W)` to `μ_n(F)`,
+  `weilPairingMu_divisorSlot_add_of_weilPairingElt`, is **not** here — it was written into this
+  file because this is where it was first wanted, but it generalises `weilPairingMu_divisorSlot_add`
+  and so duplicated that theorem's proof body across an import edge.  `#868` moved it up to
+  `EllipticCurves.FunctionField.WeilPairingAntisymmetricMu`, next to the theorem it generalises.
+  This file consumes it through the import;
 * `exists_weilPairingElt_divisorSlot_add_two` and `_three` — bilinearity at the `F(W)` level over
   `F̄` with no hypothesis beyond the setting;
 * `exists_weilPairingMu_divisorSlot_add_two` and `_three` — the same in `μ_n(F)`, with the three
@@ -59,7 +63,7 @@ the non-vacuity section for what that costs a certificate.
 ## Scope
 
 `[Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]` for the four headlines; the descent
-lemma carries neither.
+lemma they consume carries neither.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
 `F̄`; general `n` (`#404`'s `ωₙ`); rung 4 (`#414`/`#421`/`#422`) — `#845` established this line
@@ -102,48 +106,6 @@ namespace WeierstrassCurve.Affine
 open CoordinateRing IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
-
-namespace CoordinateRing
-
-/-! ### The descent
-
-One lemma, and it is the whole `μ_n(F)` content of the file. -/
-
-/-- **Divisor-slot bilinearity descends from `F(W)` to `μ_n(F)`.**
-
-```
-e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T)  in F(W)
-  →  μ_n(P, g_R) = μ_n(P, g_S) · μ_n(P, g_T)  in rootsOfUnity n F.
-```
-
-A strict generalisation of `weilPairingMu_divisorSlot_add` (`WeilPairingAntisymmetricMu`, `#733`):
-that theorem's proof is this one with the final `exact` supplied by
-`weilPairingElt_divisorSlot_add` rather than assumed, so `hprod` and `hw` — and every rung-5 input
-behind them — collapse to the single conclusion they were only ever used to produce.  Arbitrary
-`n`, no `[IsAlgClosed F]`, no torsion hypothesis.
-
-⚠️ This is the shape `#855` and `#859` both found, one slot over in each case: **lift the
-conclusion, not the theorem.**  It matters here for their reason too — an existential envelope
-exposes its roots and their certificates, but not the `g_R` and `w` that `#845`'s proof quantified
-away, so applying `weilPairingMu_divisorSlot_add` would mean re-deriving data the `F(W)`-level
-headline has already consumed.
-
-The route is the injective composite `ζ ↦ algebraMap F F(W) ((ζ : Fˣ) : F)`
-(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with `algebraMap_coe_weilPairingMu`
-(`#457`). -/
-theorem weilPairingMu_divisorSlot_add_of_weilPairingElt {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
-    {gS gT gR : W.FunctionField} {n : ℕ} [NeZero n]
-    (hpowS : weilPairingElt h₂ gS ^ n = 1) (hpowT : weilPairingElt h₂ gT ^ n = 1)
-    (hpowR : weilPairingElt h₂ gR ^ n = 1)
-    (hbil : weilPairingElt h₂ gR = weilPairingElt h₂ gS * weilPairingElt h₂ gT) :
-    weilPairingMu h₂ hpowR = weilPairingMu h₂ hpowS * weilPairingMu h₂ hpowT := by
-  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
-  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu]
-  exact hbil
-
-end CoordinateRing
-
-open CoordinateRing
 
 section Two
 

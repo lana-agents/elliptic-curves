@@ -34,14 +34,21 @@ it must bind that proof.  `#845`'s headlines return their two roots existentiall
 `hpow` data have to be produced inside the existential envelope and then bound by it; that is the
 only reason these statements are longer than their `F(W)`-level originals.
 
-The mathematical content is a single descent, `weilPairingMu_mul_swap_eq_one_of_weilPairingElt`
-below: `algebraMap_coe_rootsOfUnity_injective` (`#459`) turns any relation between `μ_n(F)` values
+The mathematical content is a single descent, `weilPairingMu_mul_swap_eq_one_of_weilPairingElt`:
+`algebraMap_coe_rootsOfUnity_injective` (`#459`) turns any relation between `μ_n(F)` values
 into the corresponding relation between their `algebraMap`-images, which are the `weilPairingElt`
 values by `algebraMap_coe_weilPairingMu` (`#457`).  ⚠️ That descent needs **no** hypothesis at all
 beyond the two `hpow` data and the `F(W)`-level relation — in particular it does not re-enter
 `hprod`, the alternating property, or the divisor slot.  `weilPairingMu_mul_swap_eq_one` is
 therefore **not** the route here: its carried inputs (`hprod`, `hwR`, `haltS`, `haltT`, `haltR`)
 are internal to `#845`'s proofs and are not exposed by its existential statements.
+
+⚠️ **The descent itself no longer lives here.**  It was written into this file because this is
+where it was first wanted, but it generalises `weilPairingMu_mul_swap_eq_one` and so duplicated
+that theorem's proof body across an import edge; `#868` moved it up to
+`EllipticCurves.FunctionField.WeilPairingAntisymmetricMu`, next to the theorem it generalises,
+which now applies it in one line.  The headlines below reach it through the import and are
+otherwise unchanged.
 
 The two `hpow` data come from the certificates the existential already carries.  If
 `u • g_S ^ n = [n]∗ f_S` with `g_S ≠ 0` and `T` is `n`-torsion in the base field, then
@@ -54,7 +61,9 @@ is the same lemma applied at `S` with `g_T`'s certificate, which the existential
 
 ## Main results
 
-* `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` — the descent, for arbitrary `n`;
+* ⚠️ the descent `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` is **not** here — it is in
+  `EllipticCurves.FunctionField.WeilPairingAntisymmetricMu`, next to the theorem it generalises
+  (`#868`).  This file consumes it;
 * `exists_weilPairingMu_mul_swap_eq_one_two` / `_three` — antisymmetry in `μ_n(F)`, product form,
   over `F̄`, with no hypothesis beyond the setting;
 * `exists_weilPairingMu_eq_inv_two` / `_three` — the same in the quotable inverse form.
@@ -62,7 +71,7 @@ is the same lemma applied at `S` with `g_T`'s certificate, which the existential
 ## Scope
 
 `[Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]` for the four headlines, exactly the
-setting of `#845`; the descent itself carries neither `[IsAlgClosed F]` nor any torsion
+setting of `#845`; the descent they consume carries neither `[IsAlgClosed F]` nor any torsion
 hypothesis.  **No `#418`, no rung 4, no Ward, no normality beyond what `#845` already merged.**
 
 Out of scope: `hprin` over a **general** field, which is open at both `n` and is what confines
@@ -73,7 +82,7 @@ a different statement (`WeilPairingDivisorSlotHom`); any change to `#845`'s or `
 ⚠️ Also out of scope here, and **done elsewhere**: the headlines below inherit `#845`'s existential
 envelope, so a caller who already holds a root cannot apply them.  The `∀ g` forms at both levels
 are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent` (`#854`), which
-imports this file and instantiates the descent below against them.
+imports this file and instantiates the descent against them.
 
 ## Non-vacuity
 
@@ -100,38 +109,6 @@ here.
 namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
-
-namespace CoordinateRing
-
-/-! ### The descent
-
-One lemma, and it is the whole mathematical content of the file. -/
-
-/-- **Antisymmetry descends from `F(W)` to `μ_n(F)`.**
-
-```
-e_n(S, T) · e_n(T, S) = 1   in F(W)   →   μ(S, T) · μ(T, S) = 1   in rootsOfUnity n F.
-```
-
-⚠️ No hypothesis beyond the two `hpow` data needed to *form* the two `μ_n(F)` values and the
-`F(W)`-level relation itself: the product relation `hprod`, the alternating property and the
-divisor slot are all upstream of `hswap` and are never re-entered.  This is what makes the
-`μ_n(F)` headlines below applications of `#845` rather than re-proofs of it.
-
-The route is the injective composite `ζ ↦ algebraMap F F(W) ((ζ : Fˣ) : F)`
-(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with the defining property
-`algebraMap_coe_weilPairingMu` (`#457`), exactly as in `weilPairingMu_mul_swap_eq_one`. -/
-theorem weilPairingMu_mul_swap_eq_one_of_weilPairingElt {xS yS xT yT : F}
-    (hS : W.Equation xS yS) (hT : W.Equation xT yT) {gS gT : W.FunctionField} {n : ℕ} [NeZero n]
-    (hpowST : weilPairingElt hS gT ^ n = 1) (hpowTS : weilPairingElt hT gS ^ n = 1)
-    (hswap : weilPairingElt hS gT * weilPairingElt hT gS = 1) :
-    weilPairingMu hS hpowST * weilPairingMu hT hpowTS = 1 := by
-  refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
-  simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingMu,
-    OneMemClass.coe_one, Units.val_one, map_one]
-  exact hswap
-
-end CoordinateRing
 
 open CoordinateRing
 
