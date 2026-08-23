@@ -60,8 +60,14 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
   field it is merged, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`); at
   `n = 3`, and over a general field at either `n`, it is not.
 * **General `n`** — needs the general `[n]∗` (#404 crux); only `n = 2, 3` are concretely available.
-* The normality discharge `IsIntegrallyClosed W.CoordinateRing` (#396 Part A) — research-blocked;
-  Dedekindness is carried as a hypothesis throughout `FunctionField/`.
+* The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
+  it is **done**, not because it is blocked.
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers it, and Dedekindness with
+  it, as a global **instance** for `[W.IsElliptic]` over an **arbitrary** field.  That is why the
+  single `variable` line below carries no Dedekind hypothesis, and why nothing downstream has to
+  supply one.  ⚠️ Said relative to the file rather than by line number, which rots: the number
+  first written into this bullet was already stale when it was pushed, and the bullet's own added
+  lines then moved the block again.
 
 ## What non-degeneracy actually consumes (`#769`) — the canonical statement
 
@@ -108,9 +114,11 @@ over an arbitrary `F` the gate is untouched.  At `n = 3` the position is differe
 account below, which is the only place that says why.
 
 So over `[IsAlgClosed F]` and `[W.IsElliptic]`, **no step of the list above is gated any longer** —
-step 7's Dedekind hypothesis included, by `isDedekindDomain_of_isAlgClosed`
-(`CoordinateRingNormalAlgClosed`), which is why the normality item in the out-of-scope list above
-does not bite here.  The assembly that was then all that stood between the list and a theorem is
+step 7's Dedekind hypothesis included.  ⚠️ That step is **not** something `[IsAlgClosed F]` buys:
+`instIsDedekindDomain` (`CoordinateRingNormalGeneral`) supplies it for `[W.IsElliptic]` over any
+field, so it is discharged before the algebraically-closed hypothesis is ever used, and it does not
+belong on the list of what that hypothesis is needed for.  The assembly that was then all that
+stood between the list and a theorem is
 `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`); it threads one `g_S` through
 every `T`, which is what `weilPairingElt` taking `g_S` as an *argument*
 (`weilPairingElt_eq_one_iff_translateEndo_fixed`) makes necessary, and it inherits the hypotheses

@@ -37,19 +37,27 @@ iff it is
   **assuming `F[W]` is integrally closed**, it is a Dedekind domain. This isolates the full
   Dedekind statement to exactly the integral-closedness (normality) of the coordinate ring.
 
-## The remaining gap: integral closedness (normality)
+## Integral closedness (normality) — discharged elsewhere, for elliptic `W`
 
-The integrally-closed hypothesis of `isDedekindDomain` is *not* discharged here, and (as of the
-current Mathlib pin) cannot be discharged from existing API. It is equivalent to the coordinate ring
-being **normal**, which for the coordinate ring of a curve is equivalent to the curve being
-nonsingular. Mathlib has no `RegularRing → IsIntegrallyClosed` (Serre R1+S2 / Auslander–Buchsbaum)
-result, no integral-closedness criterion for `AdjoinRoot`, and no bridge from the pointwise
-nonsingularity API (`WeierstrassCurve.Affine.Nonsingular`, `Δ` a unit) to normality of the ring.
-The intended route — showing every localization of `F[W]` at a maximal ideal is a DVR (via the
-Jacobian/nonsingularity criterion) and invoking `IsIntegrallyClosed.of_localization_maximal` — needs
-DVR-at-each-closed-point machinery for the coordinate ring that does not yet exist. So this file
-deliberately carries integral closedness as a hypothesis; discharging it is a separate,
-substantial piece of work.
+The integrally-closed hypothesis of `isDedekindDomain` is *not* discharged here, and this file
+still carries it as a typeclass assumption. ⚠️ **But it is no longer open.** For an elliptic curve
+it is discharged over an **arbitrary** field, as a global instance, in
+`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, which is what every downstream consumer
+in `FunctionField/` actually runs on; that module holds the account, and this section deliberately
+does not restate it.
+
+What remains genuinely open is only the gap between that hypothesis and this file's:
+`[W.IsElliptic]` (`Δ` a unit) versus an arbitrary Weierstrass curve. Normality is equivalent to the
+coordinate ring being **normal**, which for the coordinate ring of a curve is equivalent to the
+curve being nonsingular, and the *direct* route from the pointwise nonsingularity API is still
+unavailable —
+Mathlib has no `RegularRing → IsIntegrallyClosed` (Serre R1+S2 / Auslander–Buchsbaum) result, no
+integral-closedness criterion for `AdjoinRoot`, and no bridge from
+`WeierstrassCurve.Affine.Nonsingular` to normality of the ring; the localization-at-each-maximal
+ideal route via `IsIntegrallyClosed.of_localization_maximal` still needs DVR-at-each-closed-point
+machinery that does not exist. ⚠️ That is a statement about *this* route, not about the result:
+the elliptic case was closed by faithfully-flat descent from the algebraic closure instead, which
+is a route this paragraph did not consider.
 
 ## References
 
@@ -86,7 +94,10 @@ instance instDimensionLEOne : Ring.DimensionLEOne W.CoordinateRing :=
 over a field is a Dedekind domain, *provided it is integrally closed*. The Noetherian and
 dimension-`≤ 1` conditions hold unconditionally (`instIsNoetherianRing`, `instDimensionLEOne`); the
 integral-closedness (normality) hypothesis is the only remaining input, and is left as a typeclass
-assumption because it has no support in the current Mathlib API (see the module docstring). -/
+assumption here so that this pillar holds for an arbitrary Weierstrass curve. ⚠️ For an **elliptic**
+curve it is not an assumption at all: it is a global instance over any field
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), so this theorem's hypothesis is
+discharged automatically there.  See the module docstring. -/
 theorem isDedekindDomain [IsIntegrallyClosed W.CoordinateRing] :
     IsDedekindDomain W.CoordinateRing :=
   (isDedekindDomain_iff W.CoordinateRing (FractionRing W.CoordinateRing)).mpr

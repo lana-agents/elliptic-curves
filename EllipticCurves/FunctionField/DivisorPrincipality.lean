@@ -90,10 +90,12 @@ Dedekind-level results, nothing at all beyond `[IsDedekindDomain R]`.
 
 The Dedekind-level results are certified at `R = ℤ`, `K = ℚ` at the end of the file, where the class
 group is trivial and the criterion degenerates correctly.  The `F[W]`-level results inherit
-`[IsDedekindDomain W.CoordinateRing]` (`#396`) and so cannot be instantiated on a concrete curve in
-this tree — the same limitation every file in the divisor layer carries — but they are *not*
-conditional on any unproved hypothesis, and `not_exists_divisor_eq_single_pointClosedPoint` shows
-they are not vacuous as statements about a Dedekind coordinate ring.
+`[IsDedekindDomain W.CoordinateRing]`, and ⚠️ that is **not** an obstruction to instantiating them
+on a concrete curve, though an earlier version of this paragraph said it was: the hypothesis is a
+global instance for `[W.IsElliptic]` over an arbitrary field
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), so it is discharged by instance
+search.  `not_exists_divisor_eq_single_pointClosedPoint` shows they are not vacuous as statements
+about a Dedekind coordinate ring.
 
 ## References
 

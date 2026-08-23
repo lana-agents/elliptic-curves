@@ -244,9 +244,10 @@ The `CoordinateRing`-namespace results above carry no hypothesis beyond `[W.IsEl
 below.  `y² = x³ − x` over `AlgebraicClosure ℚ` with `T = (0, 0)` is the same certificate curve
 `WeilPairingAlternatingTwo` uses.
 
-The divisor-level results additionally need `[IsDedekindDomain W.CoordinateRing]` (`#396`) and the
-two headline corollaries need `hprin` (`#418`); neither is available on any concrete curve in this
-tree, which is why the sibling gated files carry no certificate either. -/
+The divisor-level results additionally need `[IsDedekindDomain W.CoordinateRing]` — ⚠️ which is
+**not** an obstruction: it is a global instance for `[W.IsElliptic]` over an arbitrary field
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What the two headline corollaries do
+still need is `hprin` (`#418`), which is why they carry no certificate here. -/
 
 section Nonvacuity
 
