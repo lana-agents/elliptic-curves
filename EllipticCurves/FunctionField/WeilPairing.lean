@@ -98,35 +98,47 @@ old prose named is *discharged*, and the gate is `hprin`, i.e. rung 5 (`#418`) �
 (`#774`, *not* `#701`, which is rung 8 and merely counts the fibre).  **Rung 9 is merged**
 (`MulByTwoFibreInfinity`, then `MulByTwoFibreAffine`), so at `n = 2` what `hprin` still waits on is
 the class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = 0` — merged
-material assembled, not a geometric fact.  At `n = 3` the fibre description is still missing and
-`#763`'s count `4` does not transpose.
+material assembled, not a geometric fact.  At `n = 3` it is not yet so; see the `n = 3` account
+below, which is the only place that says why.
+
+⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
+`exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the
+pullback of a *function* and no divisor-level `[n]∗` at all, so it is rung-4-independent.  The
+other half of `#418`, `div g_S = [n]∗(S)`, does mention the divisor-level pullback, and it is what
+the `#456` consumers (`GaloisPointAction`, `WeilPairingGaloisPoint`, `Galois/CyclotomicCharacter`)
+mean by "rung 5 (`#418`), gated on `#421`/`#422`".  Both readings are correct about their own
+statement; taking either for the other gives the wrong dependency picture, and non-degeneracy needs
+only the first.
 
 ⚠️ **Step 4 carries `[IsAlgClosed F]`, and so does rung 9's fibre description** — `[W.IsElliptic]`
 for the contraction-is-doubling statement, `[IsAlgClosed F]` on top of it for the count, the pinned
-indices and the divisor identity — while this file does not.  "The count is merged" and "the
-count is merged in the generality this theorem is stated in" are different claims; an assembled
-non-degeneracy statement would inherit the hypothesis, which the `#418`/`#465` consumers already
-carry but the `WeilPairing*` files do not.
+indices and the divisor identity — whereas this file carries `[W.IsElliptic]` and **not**
+`[IsAlgClosed F]`.  "The count is merged" and "the count is merged in the generality this theorem
+is stated in" are different claims; an assembled non-degeneracy statement would inherit
+`[IsAlgClosed F]`, which the `#418`/`#465` consumers already carry but the `WeilPairing*` files do
+not.
 
-**At `n = 3` the answer is different, and the gap is not a count.** Steps 1, 2, 5, 6, 7 transpose
-(`exists_gS_three`, `mulByThreeEndo_algebraMap_base`).  Step 4 has no analogue, and what is missing
-is **part of** Artin's left-hand side.
+**At `n = 3` every step of the argument now has an analogue, and the gate is the same gate.**
+Steps 1, 2, 5, 6 and 7 transpose (`exists_gS_three`, `mulByThreeEndo_algebraMap_base`), and steps 3
+and 4 — which had no analogue at all when this section was first written — are
+`mem_fixedFieldThree_iff` and `fixedFieldThree_eq_mulByThreeFieldRange`
+(`EllipticCurves.FunctionField.MulByThreeGalois`, `#784`).  Artin's two sides under step 4 are
+`finrank_mulByThreeFieldRange` (`MulByThreeDegree`, `#775`, by `#682`'s tower with `4 ↦ 9`) on the
+left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-free —
+(`TranslationActionThree`, `#783`) on the right.  So at `n = 3` too the gate is `hprin`, rung 5
+(`#418`), and the `n = 2` and `n = 3` gaps are the **same** gap.
 
-⚠️ This clause used to name three absent inputs — the degree, the `TorsionThreeMul` action, and
-the fixed field.  **Two are now merged.**  `finrank_mulByThreeRange_functionField`
-(`EllipticCurves.FunctionField.MulByThreeDegree`, `#775`) is the degree, by `#682`'s tower with
-`4 ↦ 9`, and the `IsCoprime (Φ₃, ΨSq₃)` it needed came from a congruence rather than a new
-`Δ²`-certificate.  `TorsionThreeMul` with its faithful `MulSemiringAction`, `card_torsionThreeMul`
-and the inclusion `[3]∗F(W) ⊆ Fixed(E[3])` are
-`EllipticCurves.FunctionField.TranslationActionThree` (`#783`).  Artin's *right*-hand side,
-`card_torsion_three = 9`, was merged already and is likewise Ward-free.  What is left is
-`fixedFieldThree`, Artin's `finrank_fixedFieldThree = 9` and the sandwich — one issue, `#784`, whose
-lander refreshes this clause rather than adding a copy of it elsewhere.
+⚠️ **Same gate, but one rung further back, and the two `n` must not be collapsed into each other.**
+At `n = 2` `hprin` waits only on the class-group computation above, because rung 9 is merged.  At
+`n = 3` the fibre description itself is still missing — there is no `[3]` duplication formula at a
+point (`#404`) and `#763`'s count `4` is `[2]`-specific — so `hprin` at `n = 3` is not yet reducible
+to bookkeeping the way it is at `n = 2`.  This is the one asymmetry that survives
+`#775`/`#783`/`#784`, and it is neither a count nor Artin.
 
-⚠️ And the two sides of Artin at `n = 3` sit on **different** hypotheses, which the `n = 2` account
-above does not have to distinguish: `finrank_mulByThreeRange_functionField` carries
-`[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no** `[IsAlgClosed F]`, while
-`card_torsion_three` carries `[IsAlgClosed F]`.  An assembled `n = 3` sandwich inherits the union.
+⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
+`finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**
+`[IsAlgClosed F]`, while `card_torsion_three` needs it — so the sandwich, and everything
+`MulByThreeGalois` exports off it, carries the union.
 
 ## References
 
