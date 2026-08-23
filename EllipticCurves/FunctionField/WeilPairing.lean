@@ -76,7 +76,10 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
   **no** `_of_hprin` twin, deliberately: its single gate produces a *witness*, and `#899`'s test
   says base change never reaches those.  ⚠️ **This is the first file on this front where the
   single-gate rule and `#899`'s test disagree**, and the two are not the same test.  The `n = 3`
-  mirror is unfiled.
+  mirror is `EllipticCurves.FunctionField.WeilPairingFunctionThree` (`#925`), which defines
+  `weilPairingThree : E[3] → E[3] → μ_3(F)`, bundles it as `weilPairingThreeHom` and states
+  `ker_weilPairingThreeHom h2 h3 = ⊥`; it carries the same single gate and, for the same reason,
+  the same absence of an `_of_hprin` twin.
 * **Non-degeneracy** — out of scope *of this file*, and **not** Ward-gated; see the next section,
   which is the canonical account of what it consumes.  Over an algebraically closed base field it
   is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and

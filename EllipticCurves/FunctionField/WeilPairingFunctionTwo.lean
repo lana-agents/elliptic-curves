@@ -164,12 +164,17 @@ theorem isWeilRootTwo_some (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y
 
 open Classical in
 /-- **The projective divisor condition implies the affine one.**  `#765`'s passage, run once: the
-point at infinity disappears under `affinePart` rather than being corrected for.  Consumed only by
-the alternating property, whose headline is the one stated projectively. -/
+point at infinity disappears under `affinePart` rather than being corrected for.  Consumed by the
+alternating property, whose headline is the one stated projectively.
+
+⚠️ **General in the multiplicity `m`, which costs nothing**: `affinePart_single_some` and
+`affinePart_single_none` are already general in it and the proof never looks at it.  The `n = 3`
+mirror (`WeilPairingFunctionThree`, `#925`) consumes it at `m = 3`; the name is deliberately not
+`_two`, since nothing here is about the multiplication-by-two isogeny. -/
 theorem divisor_eq_of_divisorProj_eq {x y : F} (h : W.Nonsingular x y) {f : W.FunctionField}
-    (hf : divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (2 : ℤ)
-        - Finsupp.single (none : ProjPoint W) (2 : ℤ)) :
-    divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) := by
+    {m : ℤ} (hf : divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) m
+        - Finsupp.single (none : ProjPoint W) m) :
+    divisor W f = Finsupp.single (pointClosedPoint h.left) m := by
   rw [← affinePart_divisorProj, hf, map_sub, affinePart_single_some, affinePart_single_none,
     sub_zero]
 
