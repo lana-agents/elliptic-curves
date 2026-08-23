@@ -76,17 +76,22 @@ many points in its kernel as its degree — is nowhere in this tree.  Do not ass
 direction; in particular nothing here re-proves the count, and the count does not shorten anything
 here.
 
-Also **not** here, and it is what the consumer (`#419`, non-degeneracy of `e_n` at `n = 3`)
-actually wants next: the `n = 3` mirror of `MulByTwoGalois` (`#759`).  That needs an
-`E[3]`-translation action `TorsionThreeMul` with its `MulSemiringAction` and `FaithfulSMul`,
-`card_torsionThreeMul = 9`, Artin's `finrank_fixedFieldThree = 9`, and the sandwich
-`fixedFieldThree = [3]∗F(W)` against the degree proved below.
-`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain.
-It says that at `n = 3` there is "no `finrank ↥([3]∗F(W)) F(W) = 9` anywhere ... and no
-`TorsionThreeMul` action to apply Artin to": the first clause went false with this file and the
-second with `EllipticCurves.FunctionField.TranslationActionThree`, so what is left of the `n = 3`
-gap is Artin's degree and the sandwich, and that paragraph needs editing rather than deleting.
-Making that edit is a separate change and deliberately not made here.
+Also **not** here: the `n = 3` mirror of `MulByTwoGalois` (`#759`), which is how the consumer
+(`#419`, non-degeneracy of `e_n` at `n = 3`) reaches this degree.  That chain lives in
+`EllipticCurves.FunctionField.TranslationActionThree` (the `E[3]`-translation action
+`TorsionThreeMul`, its `MulSemiringAction` and `FaithfulSMul`, and `card_torsionThreeMul = 9`) and
+`EllipticCurves.FunctionField.MulByThreeGalois` (Artin's `finrank_fixedFieldThree = 9`, the
+sandwich `fixedFieldThree = [3]∗F(W)`, and `IsGalois`).  Both consume the degree proved below;
+nothing below consumes them.
+
+`EllipticCurves.FunctionField.WeilPairing`'s scope section is the canonical account of that chain
+and of what still gates non-degeneracy at each `n`; read it there rather than here.
+
+⚠️ Earlier versions of this paragraph **quoted** that section in order to report which of its
+clauses had gone stale, and had to be rewritten twice in one evening as a result — once when the
+degree below landed and once when `TranslationActionThree` did.  A verbatim quote is a second copy
+with every drift property `#769` removed nineteen of.  Point at the canonical section; do not
+restate it.
 
 ⚠️ `[W.IsElliptic]` is required and is not bookkeeping: it is what makes `Δ` a unit and hence
 `Φ₃`/`ΨSq₃` coprime.  On a singular Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where
