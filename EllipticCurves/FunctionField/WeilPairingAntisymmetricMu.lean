@@ -117,7 +117,9 @@ values, and so are not instantiated **here**, for exactly the reason
 `WeilPairingAntisymmetric.lean`'s own non-vacuity section gives.  ⚠️ That is a fact about these two
 files and not an obstruction: `hprod` follows from rung-5 data
 (`WeilPairingProductRelation.exists_prod_eq_of_pullback`, `#845`) and the alternating inputs are
-unconditional over `F̄` at both `n`, so the `F(W)`-level headlines *are* instantiated there.
+unconditional over `F̄` at both `n`, so the `F(W)`-level headlines *are* instantiated there, and
+the two `μ_n` antisymmetry headlines are instantiated against them in
+`EllipticCurves.FunctionField.WeilPairingProductRelationMu` (`#855`), downstream of this file.
 The `_const` / `_two` / `_three` corollaries do exhibit correction factors `w`
 for which the hypothesis `e_n(w, T) = 1` is *proved* rather than assumed, so
 `weilPairingMu_divisorSlot_add` has content beyond `w = 1`.
@@ -416,8 +418,18 @@ so the honest move is a second curve rather than a silent omission.
 relation `hprod` and the alternating values.  ⚠️ Both are now available over `F̄` at `n = 2` and
 `n = 3` — `hprod` from rung-5 data (`WeilPairingProductRelation`, `#845`), the alternating values
 from `#801`/`#829` — and that file carries concrete certificates for the `F(W)`-level headlines on
-named torsion points.  The `μ_n` headlines below have not been instantiated against them; that is
-an omission and not an obstruction. -/
+named torsion points.  The two `μ_n` **antisymmetry** headlines are instantiated against them in
+`EllipticCurves.FunctionField.WeilPairingProductRelationMu` (`#855`), which imports this file:
+`exists_weilPairingMu_mul_swap_eq_one_{two,three}` and `exists_weilPairingMu_eq_inv_{two,three}`
+carry no hypothesis beyond `[IsAlgClosed F]` and the setting, and are certified on the same two
+curves used there.
+
+⚠️ `weilPairingMu_divisorSlot_add` is **not** instantiated by that file, and the reason is the
+shape of the existential rather than a missing input: it needs the third root `g_R` and the
+correction factor `w` as data, and `#845`'s headlines quantify both away inside their own proofs
+and expose only `g_S` and `g_T`.  `exists_prod_eq_of_pullback` does produce them, so what is
+wanted is a headline with a wider envelope, not new mathematics; that is a separate statement and
+is not attempted in `#855`. -/
 
 section Nonvacuity
 
