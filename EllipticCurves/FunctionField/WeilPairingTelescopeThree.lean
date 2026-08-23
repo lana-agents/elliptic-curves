@@ -219,9 +219,8 @@ theorem exists_mul_translateEndo_mul_translateEndo_eq_algebraMap [DecidableEq F]
         f * translateEndo h.left f
             * translateEndo ((W.equation_neg x₃ y₃).mpr h.left) f
           = algebraMap F W.FunctionField c := by
-  have htors : torsionPoint h.left + torsionPoint h.left + torsionPoint h.left = 0 := by
-    have h3 : (3 : ℕ) • (Point.some x₃ y₃ h : W.Point) = 0 := mem_torsion_iff.mp hP
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at h3
+  have htors : torsionPoint h.left + torsionPoint h.left + torsionPoint h.left = 0 :=
+    add_add_self_eq_zero_of_mem_torsion_three hP
   obtain ⟨f, hf, hdiv⟩ := divisorProj_eq_single_sub_single_of_torsion h hP
   refine ⟨f, hf, hdiv, ?_⟩
   have hτ : translateEndo h.left f ≠ 0 :=

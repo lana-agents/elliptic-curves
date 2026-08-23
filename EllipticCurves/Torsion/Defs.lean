@@ -31,6 +31,10 @@ to the division polynomials, and are developed separately.
 ## Main statements
 
 * `WeierstrassCurve.Affine.mem_torsion_iff`: `P ∈ E[n] ↔ n • P = 0`.
+* `WeierstrassCurve.Affine.add_self_eq_zero_of_mem_torsion_two`,
+  `WeierstrassCurve.Affine.add_add_self_eq_zero_of_mem_torsion_three`: the same membership at
+  `n = 2` and `n = 3` in the *additive* form `P ⊕ P = O`, `P ⊕ P ⊕ P = O`, which is the shape the
+  translation and Weil-pairing files consume as a hypothesis binder.
 * `WeierstrassCurve.Affine.torsion_zero`, `WeierstrassCurve.Affine.torsion_one`:
   `E[0] = ⊤` and `E[1] = ⊥`.
 * `WeierstrassCurve.Affine.torsion_mono`: `m ∣ n → E[m] ≤ E[n]`.
@@ -87,6 +91,32 @@ lemma mem_torsion_iff {n : ℕ} {P : W.Point} : P ∈ W.torsion n ↔ n • P = 
 @[simp]
 lemma nsmul_mem_torsion {n : ℕ} (P : W.torsion n) : n • P = 0 :=
   AddSubgroup.torsionBy.nsmul P
+
+/-- `E[2]` membership as the two-term group relation `P ⊕ P = O`.
+
+`mem_torsion_iff` states it as `2 • P = 0`, but the consumers in `FunctionField/` — the translation
+and Weil-pairing files — take the additive form as a hypothesis binder, e.g.
+`weilPairingElt_pow_eq_one_of_gS_two_torsion` asks for
+`torsionPoint hT + torsionPoint hT = 0`.  ⚠️ This is deliberately *not* routed through
+`mem_torsion_two_some_iff` (`EllipticCurves.Torsion.TwoTorsion`), which gives the different normal
+form `P = -P`: reaching `P ⊕ P = O` from there costs an extra `add_eq_zero_iff_eq_neg` at every
+site, which is why no consumer used it. -/
+lemma add_self_eq_zero_of_mem_torsion_two {P : W.Point} (h : P ∈ W.torsion 2) :
+    P + P = 0 := by
+  have hn := mem_torsion_iff.mp h
+  rwa [two_nsmul] at hn
+
+/-- `E[3]` membership as the three-term group relation `P ⊕ P ⊕ P = O`.
+
+The `n = 3` twin of `add_self_eq_zero_of_mem_torsion_two`, wanted for the same reason: it is the
+hypothesis binder of `weilPairingElt_pow_eq_one_of_gS_three_baseField` and of the `3`-torsion
+translation lemmas.  ⚠️ As at `n = 2`, this is not the same normal form as
+`mem_torsion_three_iff_add_self_eq_neg` (`EllipticCurves.Torsion.ThreeTorsion`), which says
+`P ⊕ P = ⊖P`. -/
+lemma add_add_self_eq_zero_of_mem_torsion_three {P : W.Point} (h : P ∈ W.torsion 3) :
+    P + P + P = 0 := by
+  have hn := mem_torsion_iff.mp h
+  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
 
 /-- The `0`-torsion subgroup `E[0]` is the whole group of points. -/
 @[simp]

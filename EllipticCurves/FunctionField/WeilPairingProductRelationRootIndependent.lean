@@ -557,11 +557,7 @@ example : ∃ (gS gT : exampleCurveThree.FunctionField)
     exists_gS_three_of_isAlgClosed exampleTwo exampleThree exampleNsThreeS exampleTorThreeS
   obtain ⟨fT, hfT, hdT, gT, hgT, uT, huT⟩ :=
     exists_gS_three_of_isAlgClosed exampleTwo exampleThree exampleNsThreeS exampleTorThreeS
-  have htors : Point.some (0 : exampleField) 0 exampleNsThreeS
-      + Point.some (0 : exampleField) 0 exampleNsThreeS
-      + Point.some (0 : exampleField) 0 exampleNsThreeS = 0 := by
-    have hn := mem_torsion_iff.mp exampleTorThreeS
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+  have htors := add_add_self_eq_zero_of_mem_torsion_three exampleTorThreeS
   refine ⟨gS, gT, weilPairingElt_pow_eq_one_of_gS_three_baseField exampleNsThreeS.left exampleTwo
       exampleThree htors hgT huT,
     weilPairingElt_pow_eq_one_of_gS_three_baseField exampleNsThreeS.left exampleTwo exampleThree
@@ -581,11 +577,7 @@ example : ∃ (gS gT : exampleCurveThree.FunctionField)
     exists_gS_three_of_isAlgClosed exampleTwo exampleThree exampleNsThreeS exampleTorThreeS
   obtain ⟨fT, hfT, hdT, gT, hgT, uT, huT⟩ :=
     exists_gS_three_of_isAlgClosed exampleTwo exampleThree exampleNsThreeS exampleTorThreeS
-  have htors : Point.some (0 : exampleField) 0 exampleNsThreeS
-      + Point.some (0 : exampleField) 0 exampleNsThreeS
-      + Point.some (0 : exampleField) 0 exampleNsThreeS = 0 := by
-    have hn := mem_torsion_iff.mp exampleTorThreeS
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+  have htors := add_add_self_eq_zero_of_mem_torsion_three exampleTorThreeS
   refine ⟨gS, gT, weilPairingElt_pow_eq_one_of_gS_three_baseField exampleNsThreeS.left exampleTwo
       exampleThree htors hgT huT,
     weilPairingElt_pow_eq_one_of_gS_three_baseField exampleNsThreeS.left exampleTwo exampleThree

@@ -200,15 +200,14 @@ open Classical in
 /-- The `F(W)`-level `3`-torsion datum that `translateEndo_mulByThreeEndo_apply` consumes, read off
 membership in `E[3]`.
 
-There is no `three_nsmul`, so `3 • P = 0` is unfolded by hand as `add_smul` at `3 = 2 + 1` followed
-by `two_nsmul` and `one_nsmul` — the same incantation the merged `translatePoint_add_add_self` uses
-internally.  That lemma then transports the relation to the constant point over `F(W)`. -/
+There is no `three_nsmul`, so `3 • P = 0` has to be unfolded as `add_smul` at `3 = 2 + 1` followed
+by `two_nsmul` and `one_nsmul`; that is done once and for all in
+`add_add_self_eq_zero_of_mem_torsion_three` (`EllipticCurves.Torsion.Defs`).
+`translatePoint_add_add_self` then transports the relation to the constant point over `F(W)`. -/
 lemma translatePoint_add_add_self_of_mem_torsion_three {x y : F} (h : W.Nonsingular x y)
     (hT : (.some x y h : W.Point) ∈ W.torsion 3) :
     translatePoint h.left + translatePoint h.left + translatePoint h.left = 0 :=
-  translatePoint_add_add_self h.left (by
-    have hn := mem_torsion_iff.mp hT
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn)
+  translatePoint_add_add_self h.left (add_add_self_eq_zero_of_mem_torsion_three hT)
 
 open Classical in
 /-- **Translation by a `3`-torsion point fixes `[3]∗f`.**  The affine case is the merged

@@ -470,27 +470,6 @@ theorem weilPairingMu_galois_of_weilPairingElt (σ : F ≃ₐ[S] F) (h₂ : (W�
     algebraMap_coe_weilPairingMu h₂ hpow]
   exact hgal
 
-omit [W.IsElliptic] in
-open Classical in
-/-- `T + T = 0` in `(W⁄F).Point` from membership of `(W⁄F).torsion 2`.  A local copy of the private
-lemma of the same name in `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`) and
-`…WeilPairingProductRelationMu` (`#855`), neither of which exports it. -/
-private lemma add_self_eq_zero_of_mem_torsion_two {x y : F} (h : (W⁄F).Nonsingular x y)
-    (htors : Point.some x y h ∈ (W⁄F).torsion 2) :
-    Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [two_nsmul] at hn
-
-omit [W.IsElliptic] in
-open Classical in
-/-- `T + T + T = 0` in `(W⁄F).Point` from membership of `(W⁄F).torsion 3`.  The `n = 3` twin of
-`add_self_eq_zero_of_mem_torsion_two`. -/
-private lemma add_add_self_eq_zero_of_mem_torsion_three {x y : F} (h : (W⁄F).Nonsingular x y)
-    (htors : Point.some x y h ∈ (W⁄F).torsion 3) :
-    Point.some x y h + Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
-
 open Classical in
 /-- **Galois-equivariance of the Weil pairing in `μ_2(F)` with no hypothesis beyond the setting.**
 
@@ -543,10 +522,10 @@ theorem exists_weilPairingMu_galois_two [IsAlgClosed F] (σ : F ≃ₐ[S] F) (h2
     exists_weilPairingElt_galois_two σ h2 h₂.left h hS
   have hpow : weilPairingElt h₂.left g ^ 2 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_two_torsion h₂.left h2
-      (add_self_eq_zero_of_mem_torsion_two h₂ hm₂) hg hu
+      (add_self_eq_zero_of_mem_torsion_two hm₂) hg hu
   have hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 2 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_two_torsion (equation_algEquiv σ h₂.left) h2
-      (add_self_eq_zero_of_mem_torsion_two (nonsingular_algEquiv σ h₂)
+      (add_self_eq_zero_of_mem_torsion_two
         (Point.mem_torsion_galois_smul_some σ h₂ hm₂)) hg' hu'
   exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hpow, hpow',
     weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩
@@ -583,10 +562,10 @@ theorem exists_weilPairingMu_galois_three [IsAlgClosed F] (σ : F ≃ₐ[S] F) (
     exists_weilPairingElt_galois_three σ h2 h3 h₂.left h hS
   have hpow : weilPairingElt h₂.left g ^ 3 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_three_baseField h₂.left h2 h3
-      (add_add_self_eq_zero_of_mem_torsion_three h₂ hm₂) hg hu
+      (add_add_self_eq_zero_of_mem_torsion_three hm₂) hg hu
   have hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 3 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_three_baseField (equation_algEquiv σ h₂.left) h2 h3
-      (add_add_self_eq_zero_of_mem_torsion_three (nonsingular_algEquiv σ h₂)
+      (add_add_self_eq_zero_of_mem_torsion_three
         (Point.mem_torsion_galois_smul_some σ h₂ hm₂)) hg' hu'
   exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hpow, hpow',
     weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩

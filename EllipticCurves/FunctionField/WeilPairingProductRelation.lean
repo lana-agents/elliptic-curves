@@ -288,14 +288,6 @@ section Two
 
 variable [IsAlgClosed F]
 
-omit [W.IsElliptic] [IsAlgClosed F] in
-open Classical in
-private lemma add_self_eq_zero_of_mem_torsion_two {x y : F} (h : W.Nonsingular x y)
-    (htors : Point.some x y h ∈ W.torsion 2) :
-    Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [two_nsmul] at hn
-
 open Classical in
 /-- The rung-5 datum at a `2`-torsion point, together with the alternating property for
 **that** root: the affine divisor form of `exists_weilPairingElt_self_eq_one_of_isAlgClosed`. -/
@@ -340,12 +332,12 @@ theorem exists_weilPairingElt_mul_swap_eq_one_two (h2 : (2 : F) ≠ 0)
       (algebraMap F W.FunctionField c * mulByTwoEndo h2 k) = 1 := by
     rw [weilPairingElt_mul, weilPairingElt_algebraMap hR.left hc,
       weilPairingElt_mulByTwoEndo_of_baseField hR.left h2
-        (add_self_eq_zero_of_mem_torsion_two hR hmR) hk, mul_one]
+        (add_self_eq_zero_of_mem_torsion_two hmR) hk, mul_one]
   refine ⟨gS, gT, hgS, hgT, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩, ?_⟩
   exact weilPairingElt_mul_swap_eq_one hS.left hT.left hR.left hadd hgS hgT hprod hwR
     two_ne_zero
     (weilPairingElt_pow_eq_one_of_gS_two_torsion hT.left h2
-      (add_self_eq_zero_of_mem_torsion_two hT hmT) hgS huS)
+      (add_self_eq_zero_of_mem_torsion_two hmT) hgS huS)
     haltS haltT haltR
 
 open Classical in
@@ -372,14 +364,6 @@ end Two
 section Three
 
 variable [IsAlgClosed F]
-
-omit [W.IsElliptic] [IsAlgClosed F] in
-open Classical in
-private lemma add_add_self_eq_zero_of_mem_torsion_three' {x y : F} (h : W.Nonsingular x y)
-    (htors : Point.some x y h ∈ W.torsion 3) :
-    Point.some x y h + Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
 
 open Classical in
 private lemma rungFiveAlt_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
@@ -422,12 +406,12 @@ theorem exists_weilPairingElt_mul_swap_eq_one_three (h2 : (2 : F) ≠ 0) (h3 : (
       (algebraMap F W.FunctionField c * mulByThreeEndo h2 h3 k) = 1 := by
     rw [weilPairingElt_mul, weilPairingElt_algebraMap hR.left hc,
       weilPairingElt_mulByThreeEndo_of_baseField hR.left h2 h3
-        (add_add_self_eq_zero_of_mem_torsion_three' hR hmR) hk, mul_one]
+        (add_add_self_eq_zero_of_mem_torsion_three hmR) hk, mul_one]
   refine ⟨gS, gT, hgS, hgT, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩, ?_⟩
   exact weilPairingElt_mul_swap_eq_one hS.left hT.left hR.left hadd hgS hgT hprod hwR
     three_ne_zero
     (weilPairingElt_pow_eq_one_of_gS_three_baseField hT.left h2 h3
-      (add_add_self_eq_zero_of_mem_torsion_three' hT hmT) hgS huS)
+      (add_add_self_eq_zero_of_mem_torsion_three hmT) hgS huS)
     haltS haltT haltR
 
 open Classical in

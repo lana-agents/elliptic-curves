@@ -153,17 +153,6 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
 /-! ### The rational points `P` and `Q = [2]P` with `[3]P = T` -/
 
-omit [W.IsElliptic] [IsDedekindDomain W.CoordinateRing] in
-open Classical in
-/-- The `∈ W.torsion 3` membership as the three-term group relation `T ⊕ T ⊕ T = O`.  Both the
-producer and the assembly need it in that shape; `WeilPairingTelescopeThree` and
-`TranslationTorsionMap` unfold `(3 : ℕ) • T = 0` by hand in the same way. -/
-private lemma add_add_self_eq_zero_of_mem_torsion_three (h : W.Nonsingular x₃ y₃)
-    (htors : Point.some x₃ y₃ h ∈ W.torsion 3) :
-    Point.some x₃ y₃ h + Point.some x₃ y₃ h + Point.some x₃ y₃ h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
-
 omit [IsDedekindDomain W.CoordinateRing] in
 open Classical in
 /-- **Over `F̄` a third of an affine `3`-torsion point is affine, and so is its double.**  The
@@ -197,7 +186,7 @@ theorem exists_equation_nsmul_three_eq [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
   have hQne : P + P ≠ 0 := by
     intro hz
     have hT : Point.some x₃ y₃ h = P := by rw [← h3, hz, zero_add]
-    have h3T := add_add_self_eq_zero_of_mem_torsion_three h htors
+    have h3T := add_add_self_eq_zero_of_mem_torsion_three htors
     rw [hT, hz, zero_add] at h3T
     exact hPne h3T
   obtain ⟨xP, yP, hP, hPeq⟩ := hsome P hPne
@@ -341,7 +330,7 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_three [IsAlgClosed F] (h2
     rw [← hu, Algebra.smul_def, hueq, ← IsScalarTower.algebraMap_apply]
   obtain ⟨xP, yP, xQ, yQ, hP, hQ, hdouble, hsum⟩ := exists_equation_nsmul_three_eq h2 h htors
   have htors' : torsionPoint h.left + torsionPoint h.left + torsionPoint h.left = 0 :=
-    add_add_self_eq_zero_of_mem_torsion_three h htors
+    add_add_self_eq_zero_of_mem_torsion_three htors
   have htinv : translateEndo h.left g = g :=
     translateEndo_eq_self_of_mul_algebraMap_cube_eq h2 h3 hP hQ h.left
       (translatePoint_add hP hP hQ hdouble) (translatePoint_add hP hQ h.left hsum)

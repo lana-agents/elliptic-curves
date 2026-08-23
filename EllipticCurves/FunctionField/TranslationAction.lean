@@ -285,14 +285,13 @@ theorem finite_torsionTwoMul [IsAlgClosed F] (h2 : (2 : F) ≠ 0) : Finite (Tors
 
 open Classical in
 /-- The `F(W)`-level `2`-torsion datum that `translateEndo_mulByTwoEndo_apply` consumes, read off
-membership in `E[2]`.  `2 • P = 0` is `P + P = 0` (`two_nsmul`), and `translatePoint_add_self`
-transports that to the constant point over `F(W)`. -/
+membership in `E[2]`.  `add_self_eq_zero_of_mem_torsion_two` (`EllipticCurves.Torsion.Defs`) turns
+the membership into `P + P = 0`, and `translatePoint_add_self` transports that to the constant
+point over `F(W)`. -/
 lemma translatePoint_add_self_of_mem_torsion_two {x y : F} (h : W.Nonsingular x y)
     (hT : (.some x y h : W.Point) ∈ W.torsion 2) :
     translatePoint h.left + translatePoint h.left = 0 :=
-  translatePoint_add_self h.left (by
-    have := mem_torsion_iff.mp hT
-    rwa [two_nsmul] at this)
+  translatePoint_add_self h.left (add_self_eq_zero_of_mem_torsion_two hT)
 
 open Classical in
 /-- **Translation by a `2`-torsion point fixes `[2]∗f`.**  The affine case is the merged
