@@ -161,6 +161,7 @@ import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
 import EllipticCurves.FunctionField.WeilPairingConstant
 import EllipticCurves.FunctionField.WeilPairingCyclotomic
+import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear
 import EllipticCurves.FunctionField.WeilPairingDivisorSlotHom
 import EllipticCurves.FunctionField.WeilPairingGalois
 import EllipticCurves.FunctionField.WeilPairingGaloisDivisor
