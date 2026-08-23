@@ -92,7 +92,8 @@ inside that `haveI` rather than appearing in any statement.
 ## Scope
 
 The sandwich `Fixed(E[3]) = [3]∗F(W)`, Artin's degree `finrank_fixedFieldThree = 9`, `IsGalois` and
-the separability package are the sibling issue and are **not** here.  Nothing here mentions
+the separability package are **not** here: they are the sibling issue `#784`, merged as
+`EllipticCurves.FunctionField.MulByThreeGalois`, which imports this file.  Nothing here mentions
 divisors, places or `ProjPoint`, and nothing here is `[2]`- or general-`[n]`-flavoured:
 `card_torsion_three` is the `n = 3` count and `#775`'s degree `9` is `[3]`-specific.
 

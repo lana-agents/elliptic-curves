@@ -35,7 +35,17 @@ class-group/principal-ideal dictionary `ClassGroup.mk_eq_one_iff`.
 and need only `[IsDomain F[W]]` (automatic over a field) — **not** `[IsDedekindDomain F[W]]`. Hence
 this rung is independent of the outstanding integral-closedness/normality discharge for `F[W]`
 (`EllipticCurves.Torsion.CoordinateRingDedekind`). It is likewise independent of the elliptic-net /
-Ward recurrence: only *non-degeneracy* of the finished pairing needs the torsion count `#E[n] = n²`.
+Ward recurrence.
+
+⚠️ This paragraph used to close with "only *non-degeneracy* of the finished pairing needs the
+torsion count `#E[n] = n²`", which is **wrong** and is the claim `#769` retired at eighteen other
+sites; this one was missed because it names neither `WeilPairing` nor `#242`. At `n = 2` the count
+enters non-degeneracy only inside `fixedFieldTwo_eq_mulByTwoFieldRange` (`MulByTwoGalois`, `#759`),
+through `card_torsion_two` — the roots of the `2`-division cubic, which does not go through Ward —
+and at `n = 3` likewise through `card_torsion_three`. Ward gates `#E[n] = n²` at **general** `n`
+only (`#242`/`#251`). See `EllipticCurves.FunctionField.WeilPairing`'s scope section for the
+canonical account of what non-degeneracy consumes; the independence claimed above is unaffected
+either way.
 
 ## Main statements
 
