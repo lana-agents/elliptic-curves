@@ -285,6 +285,34 @@ The second difference is the **declaration-keyword list**: dropping `def` and `a
 more.  ⚠️ Under all four combinations the **bare-twin bucket is unchanged**, which is the concrete
 reason it is the only bucket worth reporting.
 
+⚠️ **A second invariant, on the same footing and with the same kind of test: a declaration and its
+twin belong in the same namespace.**  `#903` recorded that a namespace mismatch survives a clean
+ROOT build, `mk_all`, a line-length check, a line-by-line read of the diff **and** a `#print axioms`
+sweep — because every module on this front sits in `namespace WeierstrassCurve.Affine` with
+`open CoordinateRing` and therefore resolves either spelling.  Its remedy has two halves, and
+running only the first is what lets a breach through:
+
+> print the new declaration's axioms **fully qualified**, *and* print the same for the declaration
+> it claims to mirror.  If the prefixes differ, that is the finding.
+
+The second half generalises to a check over every module at once.  Walk each file tracking
+`namespace` and `end` as a stack, record each declaration's enclosing namespace, then for every name
+ending `_of_hprin`, `_ne_one`, `_of_isAlgClosed`, `_of_algClosed` or `_baseChange` compare its
+namespace with its base's.  ⚠️ Handle **both** suffix spellings — `X_of_hprin_{two,three}` mirrors
+`X_{two,three}`, since `#910`'s review settled that *"mirror your twin" wins while every
+`_of_hprin` file has a twin*, so the qualifier's position varies by design.  ⚠️ And use
+`[^\s:({\[]+` for the name, never `[A-Za-z_]\w*`, for the truncation reason above.
+
+⚠️ **The invariant is twin consistency, not a rule about the `exists_` prefix.**  The same stack
+walk finds fifteen `exists_` declarations inside `namespace CoordinateRing` that are correctly
+placed, because they are statements about the coordinate ring and its places —
+`exists_eq_algebraMap_of_isUnit`, `exists_deg_eq`, `exists_leadingCoeff_ratio`,
+`exists_equation_and_eq_XYIdeal_of_isMaximal` among them.  What the house pattern asks
+(`WeilPairingRootIndependence` demonstrates it) is that the **lemma layer** sits in
+`CoordinateRing` and the `exists_` **headlines** one level up; what this check enforces is only that
+a twin pair does not straddle the two.  The check has found exactly one breach so far, `#873`'s
+bundled-hom pair against `#913`'s, repaired by `#918`.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.

@@ -95,10 +95,27 @@ applies and there is no free choice to make.  As in the twins, `_two`/`_three` t
 — `mulByTwoEndo` versus `mulByThreeEndo` — per the `## Naming` section of
 `EllipticCurves.FunctionField.WeilPairing`, not the exponent.
 
-On placement: everything is stated in `WeierstrassCurve.Affine`, where the twins live, with
-`open CoordinateRing` rather than a nested `namespace`.  ⚠️ `#903`: the build resolves either
-spelling from inside a file that opens `CoordinateRing`, so only `#print axioms` on the **fully
-qualified** name — and negatively on the `…CoordinateRing.…` one — checks this.
+On placement: everything is stated in `WeierstrassCurve.Affine`, with `open CoordinateRing` rather
+than a nested `namespace`.  ⚠️ `#903`: the build resolves either spelling from inside a file that
+opens `CoordinateRing`, so only `#print axioms` on the **fully qualified** name — and negatively on
+the `…CoordinateRing.…` one — checks this.
+
+⚠️ **The twins did not all start out here, and the history is the point.**  `#861`'s four were
+already in `WeierstrassCurve.Affine`; `#873`'s two `exists_weilPairingTorsionMuHom_{two,three}` were
+inside `namespace CoordinateRing`, so when this file landed it held the *only* two twin-namespace
+mismatches in the tree.  `#918` moved those two — and `#890`'s `…_ne_one` pair with them, since
+splitting a family from its own non-degeneracy statement would only have relocated the mismatch —
+and generalised `#903`'s protocol into a check that runs over every module at once:
+
+> Track `namespace`/`end` as a stack; record each declaration's enclosing namespace; for every name
+> ending `_of_hprin` / `_ne_one` / `_of_isAlgClosed` / `_of_algClosed` / `_baseChange` — and for the
+> `X_of_hprin_{two,three}` ↔ `X_{two,three}` spelling — compare its namespace with its base's.
+
+That reports **zero** mismatches now.  ⚠️ It is *not* a rule that every `exists_` belongs in
+`Affine`: fifteen `exists_` declarations remain inside `namespace CoordinateRing` and are correctly
+placed, because they are statements about the coordinate ring and its places.  The invariant is
+**twin consistency**, and `#903`'s half-run protocol — printing the new name's axioms but not the
+twin's — is exactly what fails to see a breach of it.
 
 ## Scope
 
