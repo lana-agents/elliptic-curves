@@ -12,8 +12,9 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHom
 /-!
 # The Weil pairing at `n = 2` as a function of two torsion points
 
-`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo`'s scope section records what this file
-exists to remove:
+`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo`'s scope section recorded what this file
+exists to remove.  ⚠️ **The sentence quoted here is its wording before `da4b169`; that file now says
+the opposite and points back at this one**, so do not expect to find the quote there:
 
 > ⚠️ **There is no `W.Point`-level pairing in this tree**, so "non-degeneracy" cannot be stated as a
 > property of a bilinear map.

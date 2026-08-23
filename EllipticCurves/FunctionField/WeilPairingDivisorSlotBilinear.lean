@@ -71,8 +71,21 @@ does not need it; non-degeneracy; bundling into `weilPairingMuHom` (`WeilPairing
 which wants a `hpow` datum uniform in the slot variable and is a different statement; any change to
 `WeilPairingAntisymmetric{,Mu}`'s or `#845`'s proofs.
 
-⚠️ **There is no `W.Point`-level pairing in this tree** and nothing here is a step towards one; the
-divisor slot is a slot of `weilPairingElt`, which takes a *function*, not a point.
+⚠️ **This file's headline is what the `W.Point`-level pairing's divisor slot is proved from.**  This
+sentence used to read *"there is no `W.Point`-level pairing in this tree and nothing here is a step
+towards one"*, and both halves are now wrong:
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) defines
+`weilPairingTwo : E[2] → E[2] → μ_2(F)`, and its `weilPairingEltTwo_add_left` — with
+`weilPairingTwo_add_left` the `μ_2`-level mirror — is `exists_weilPairingElt_divisorSlot_add_two`
+below, read through that file's bridge lemma.
+
+⚠️ **The literal claim about the slot is still true, and it is why the transfer costs anything at
+all**: the divisor slot here is a slot of `weilPairingElt`, which takes a *function*, not a point.
+`#922` pays for the gap in four cases — `T = O`, `S₁ = O`, `S₂ = O`, and `S₁ ⊕ S₂ = O`, where
+`2`-torsion forces `S₂ = S₁` and the claim collapses to `e_2(S₁, T) ^ 2 = 1` — plus the conversion
+of the roots this headline *produces* into its own root predicate.  ⚠️ It does **not** supersede
+anything here: a caller holding its own roots needs exactly this shape, and nothing below should be
+restated in point form.
 
 ## Non-vacuity
 
