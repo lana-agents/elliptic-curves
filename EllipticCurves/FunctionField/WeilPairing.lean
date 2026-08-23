@@ -184,7 +184,22 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_three`
   (`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`, `#836`, which discharged
   the same `hprin` at `n = 2` in the same file — ⚠️ that omission was symmetric, not an `n = 3`
-  asymmetry).
+  asymmetry);
+* **antisymmetry**, in product form — `exists_weilPairingElt_mul_swap_eq_one_three`
+  (`EllipticCurves.FunctionField.WeilPairingProductRelation`, `#845`);
+* **antisymmetry in `μ_n(F)`** — `exists_weilPairingMu_mul_swap_eq_one_three`
+  (`EllipticCurves.FunctionField.WeilPairingProductRelationMu`, `#855`);
+* **antisymmetry for roots the caller supplies** —
+  `weilPairingElt_mul_swap_eq_one_three_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`, `#854`; ⚠️ this one
+  takes `g_S` and `g_T` as hypotheses instead of producing them, which is the point of that
+  module, so it has an ordinary name and not an `exists_` one);
+* **Galois-equivariance in `μ_n(F)`** — `exists_weilPairingMu_galois_three`
+  (`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#859`);
+* **divisor-slot bilinearity** — `exists_weilPairingElt_divisorSlot_add_three`
+  (`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear`, `#861`);
+* **translation-slot bilinearity** — `exists_weilPairingElt_translatePoint_add_three`
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
