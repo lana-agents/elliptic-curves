@@ -92,8 +92,10 @@ different means.
   extension `F(W) / [2]∗F(W)` is (`#759`), but the counting step is a different statement.  **Do not
   read `#E[2] = 4` off this file.**
 * `[3]∗` and general `[n]∗`: everything before the `[2]∗` section is stated for an arbitrary `φ` and
-  will serve them unchanged, but the right-hand side `4` is `[2]`-specific (`#682`'s tower rests on
-  `max (deg Φ₂) (deg Ψ₂Sq) = 4`).
+  serves them unchanged, but the right-hand side `4` is `[2]`-specific (`#682`'s tower rests on
+  `max (deg Φ₂) (deg Ψ₂Sq) = 4`).  The `[3]∗` instantiation, with `9` in place of the `4`, is
+  `EllipticCurves.FunctionField.MulByThreeRamification`; general `[n]∗` has no case, `mulByNEndo`
+  not existing.
 * Any comparison with `degPt` (`DivisorDegree.lean`), which is a relative ideal norm to `F[X]` and
   not a residue-field degree.
 

@@ -157,13 +157,16 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 (`TranslationActionThree`, `#783`) on the right.  So at `n = 3` too the gate is `hprin`, rung 5
 (`#418`) — the **same** gate as at `n = 2`, and the last one left at either `n`.
 
-⚠️ **Same gate, but the two `n` are two rungs apart and must not be collapsed into each other.**
+⚠️ **Same gate, but the two `n` are one rung apart and must not be collapsed into each other.**
 At `n = 2` `hprin` is discharged over an algebraically closed base field, rung 9 being merged and
 `#791` having run the computation on top of it.  At `n = 3` the fibre description itself is still
-missing — there is no `[3]` duplication formula at a point (`#404`) and `#763`'s count `4` is
-`[2]`-specific — so `hprin` at `n = 3` is not even reducible to bookkeeping, which is what it had
-become at `n = 2` before `#791` did the bookkeeping.  This is the one asymmetry that survives
-`#775`/`#783`/`#784`, and it is neither a count nor Artin.
+missing, so `hprin` there is not yet the bookkeeping it had become at `n = 2` before `#791` did the
+bookkeeping.  ⚠️ **Both inputs to that description are merged** — the tripling formula at a closed
+point (`EllipticCurves.Torsion.TriplingCoords`) and the count `∑_{p ↦ q} e_p = 9`
+(`EllipticCurves.FunctionField.MulByThreeRamification`) — so the distance is one rung and not a
+research programme; what makes it a real rung rather than a transcription is recorded in
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note.  This is the one asymmetry that
+survives `#775`/`#783`/`#784`, and it is neither a count nor Artin.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**

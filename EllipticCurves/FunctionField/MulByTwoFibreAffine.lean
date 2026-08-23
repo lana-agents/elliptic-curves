@@ -92,8 +92,22 @@ valuation theory beyond what is merged:
 * **`#E[2] = 4` from any of this.**  `card_torsion_two` is an *input* to the counting, exactly as in
   `MulByTwoFibreInfinity`.  The missing link from a field degree to a kernel count is still
   "a separable isogeny has `#ker = deg`", which no file in this tree contains.
-* `[3]∗` and general `[n]∗`.  Step 1–4 above transpose, but `#763`'s right-hand side `4` does not,
-  and there is no `[3]` duplication formula at a point (`#404`).
+* `[3]∗` and general `[n]∗`.  ⚠️ **This file is the `n = 2` template for the one rung the `n = 3`
+  chain is still missing, so what it would take is recorded here rather than restated in each file
+  that waits on it.**  Both inputs are merged: the tripling formula at a closed point
+  (`EllipticCurves.Torsion.TriplingCoords`) and the count `∑_{p ↦ q} e_p = 9`
+  (`EllipticCurves.FunctionField.MulByThreeRamification`, which also supplies
+  `card_fibre_comapProjPointThree_le_nine`).  What is **not** merged, and not scouted, is the crux:
+  `comapProjPointTwo_pointClosedPoint` runs on `mulByTwoCoordHom_XClass`/`_YClass`, which is the
+  only place `DoublingCoords` enters, and `mulByThreeCoordHom` exists
+  (`EllipticCurves.FunctionField.MulByThreeEndomorphism`) while
+  `mulByThreeCoordHom_XClass`/`_YClass` do not.  Whether the ideal computation has the same shape
+  at `[3]` is an open question and **must not be priced as a transcription** — `#775` made that bet
+  once about the `n = 3` degree and paid for it.
+  ⚠️ The counting also does *not* transpose.  The fibre here is the coset `{P ⊕ R : R ∈ E[2]}`, one
+  point per root of `Ψ₂Sq`, because negation **fixes** the `2`-torsion points.  A `3`-torsion point
+  is not `2`-torsion, so each of the four roots of `Ψ₃` carries **two** points and the count is
+  `1 + 2·4 = 9`.  General `[n]∗` has neither input: `mulByNEndo` does not exist.
 
 ## References
 

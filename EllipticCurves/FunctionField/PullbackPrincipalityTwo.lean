@@ -80,9 +80,12 @@ Let `S` be a nonsingular affine `2`-torsion point and pick `P` with `2 • P = S
 
 ## Scope
 
-⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it: there
-is no `[3]` duplication formula at a closed point (`#404`), so the `n = 3` fibre description does
-not exist, and `#763`'s count `4` is `[2]`-specific.
+⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it: the
+`n = 3` fibre description does not exist.  Both of *its* inputs now do — the tripling formula at a
+closed point (`EllipticCurves.Torsion.TriplingCoords`) and the `[3]` ramification count
+`sum_ramificationIdxThree_eq_nine` (`EllipticCurves.FunctionField.MulByThreeRamification`) — so the
+gap is that one rung, and it is not an instantiation of the `n = 2` one.  See
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note for what it would take.
 
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_two`'s.**  Everything from
 `pullbackDivisorTwo_single_sub_single_eq_sum_torsion` onwards carries `[IsAlgClosed F]` and
