@@ -39,15 +39,15 @@ alternating files have been able to write.
 
 ## Scope
 
-⚠️ **`n = 2` only, and the `n = 3` version is no longer gated — only unassembled.**
+⚠️ **`n = 2` only, and the `n = 3` version is now written down.**
 `WeilPairingAlternatingThree`'s `exists_weilPairingElt_self_eq_one_of_algClosed_three` still
 carries `hprin` in its own signature, and nothing *here* helps it, because the discharge consumed
 here runs through `PullbackPrincipalityTwo`'s class computation, whose count `4` is the order of
-`E[2]`.  But its `n = 3` counterpart exists:
+`E[2]`.  Its `n = 3` counterpart is
 `EllipticCurves.FunctionField.PullbackPrincipalityThree`'s
-`exists_nsmul_divisor_eq_divisor_mulByThreeEndo` is exactly that `hprin`, so the `n = 3` analogue
-of this file is an instantiation and not a research step.  ⚠️ It is *not* performed anywhere in
-this tree; do not read the availability of the input as the existence of the statement.
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo`, and the analogue of this file that composes the
+two is `EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed` (`#829`) — an
+instantiation and not a research step, and no longer a missing one.
 
 ⚠️ **`[IsAlgClosed F]` is load-bearing and enters twice, independently.**  Once through the
 discharge (`PullbackPrincipalityTwo`, itself through the surjectivity of `[2]` on points and

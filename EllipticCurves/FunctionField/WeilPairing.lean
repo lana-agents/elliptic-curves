@@ -162,11 +162,15 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 `EllipticCurves.FunctionField.PullbackPrincipalityThree` at `n = 3`, on top of
 `EllipticCurves.FunctionField.MulByThreeFibre`'s `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`.  The asymmetry
 that survived `#775`/`#783`/`#784` is therefore gone: what remains at `n = 3` is not a gate but an
-absence of assembly — the rung-6 statements that consume rung-5 data still carry their `hprin` in
-their own signatures, and instantiating them against `exists_gS_three_of_isAlgClosed` is a
-per-statement job.  ⚠️ It is **not** all outstanding: the Galois slot is done, as
-`exists_weilPairingElt_galois_three` (`EllipticCurves.FunctionField.WeilPairingGaloisRoot`); the
-alternating slot at `n = 3` and non-degeneracy at `n = 3` are the ones still unassembled.
+absence of assembly, and it is now a *partial* absence.  Two of the rung-6 slots at `n = 3` are
+assembled: the alternating property, as `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`), and
+Galois-equivariance, as `exists_weilPairingElt_galois_three`
+(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`).  Non-degeneracy at `n = 3` (`#831`)
+and the `∀ g` root-independent form
+(`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`, `WeilPairingRootIndependence`;
+⚠️ its `n = 2` twin is unassembled too, `#836`) still carry their `hprin` in their own
+signatures, and instantiating them against `exists_gS_three_of_isAlgClosed` has not been done.
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from either of the above.
 

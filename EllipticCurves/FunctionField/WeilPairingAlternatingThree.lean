@@ -350,11 +350,12 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_three [IsAlgClosed F] (h2
 /-! ### Non-vacuity
 
 The headline is not instantiated outright **here**, because `hprin` is a hypothesis of the theorem
-below.  ⚠️ **That is now an omission and not an obstruction**: `hprin` at `n = 3` is discharged over
-`F̄` by `exists_gS_three_of_isAlgClosed`
+below.  ⚠️ **That is a fact about this file only, not an obstruction**: `hprin` at `n = 3` is
+discharged over `F̄` by `exists_gS_three_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityThree`), exactly as `#791` discharges it at
 `n = 2` for `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`.  The `n = 3` twin of
-that file has not been written; nothing blocks it.
+that file is `EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed` (`#829`), where
+the headline below is stated with `hprin` discharged and certified on the curve used here.
 `[IsDedekindDomain W.CoordinateRing]` is **not** a second reason and never was: it is a global
 instance for `[W.IsElliptic]` over an arbitrary field
 (`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What is certified below is that
