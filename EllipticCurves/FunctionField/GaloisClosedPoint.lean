@@ -56,7 +56,8 @@ Nothing here touches the translation slot: `translateEndo` does not preserve `F[
 `ringEquivOfRingEquiv e` for any `e`, and none of the transport applies to it — see the module
 docstring of `EllipticCurves.FunctionField.DivisorTransport`. The Galois slot of the Weil pairing
 (`#456` deliverable 2) is merged — from rung-5 data at `S` and at `σS` over any base field, and
-with nothing carried at `n = 2` over an algebraically closed one — in
+with nothing carried at `n = 2` **and at `n = 3`** over an algebraically closed one (`#791`/`#825`
+supplying the data) — in
 `EllipticCurves.FunctionField.WeilPairingGaloisRoot`, and it consumes this file's point-level
 dictionary; it does **not** consume `divisor g_S = [n]∗(S)`, which earlier notes here and in
 `GaloisFunctoriality` named as its gate. Independently of the pairing, the identity
