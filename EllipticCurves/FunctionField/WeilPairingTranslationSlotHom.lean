@@ -35,7 +35,11 @@ exactly the missing piece, and its own docstring says so:
 > the `O` corner is exactly what a *group homomorphism* out of `W.Point` has to name.  That is the
 > whole reason this definition exists.
 
-⚠️ **No `WeilPairing*` module had used it.**  Building the pairing element on `translateAut`
+⚠️ **No `weilPairing*` *definition* was indexed by `W.Point`** — and two merged proofs already
+reach for `translateAut` for exactly the reason this file does.
+`exists_torsion_two_weilPairingElt_ne_one` (`WeilPairingNondegenerateTwo`) and
+`exists_torsion_three_weilPairingElt_ne_one` each split `cases P with | zero | some` by hand to get
+past `O`; that is the boilerplate abolished here.  Building the pairing element on `translateAut`
 instead of `translateEndo` makes `weilPairingPointElt_some` an `rfl`, so every merged
 `weilPairingElt` fact transfers to the `Point` layer with no transport lemma, and the `O` corner —
 where the value is `g / g = 1` — costs one `div_self`.
