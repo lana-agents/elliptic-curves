@@ -107,6 +107,13 @@ data by `exists_prod_eq_of_pullback`, and the whole headline is instantiated unc
 where it is certified on named torsion points.  Every hypothesis this file adds on top of `hprod`
 is discharged here or merged.
 
+⚠️ **`weilPairingElt_divisorSlot_add_{two,three}` are instantiated too**, and separately from
+antisymmetry: `exists_weilPairingElt_divisorSlot_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear`, `#861`) produce all three roots and
+the bilinearity conclusion over `F̄` with no hypothesis beyond the setting.  ⚠️ That instantiation
+is **cheaper** than antisymmetry's and does not go through it: divisor-slot bilinearity consumes no
+alternating property at any point, so it needs `hprin` and nothing else.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a) (bilinearity) and

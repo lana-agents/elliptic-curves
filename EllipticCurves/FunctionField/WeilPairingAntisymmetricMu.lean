@@ -112,14 +112,18 @@ no hypothesis left over: `weilPairingMu` evaluated at the constant functions `1`
 square (resp. cube) is `1`.  The multiplicativity and inverse instances keep only the `hpow` data
 that `weilPairingMu` needs in order to be formed at all.
 
-`weilPairingMu_divisorSlot_add` and the antisymmetry headlines inherit `hprod` and the alternating
-values, and so are not instantiated **here**, for exactly the reason
+`weilPairingMu_divisorSlot_add` and the antisymmetry headlines inherit `hprod` — and antisymmetry
+the alternating values besides — and so are not instantiated **here**, for exactly the reason
 `WeilPairingAntisymmetric.lean`'s own non-vacuity section gives.  ⚠️ That is a fact about these two
 files and not an obstruction: `hprod` follows from rung-5 data
 (`WeilPairingProductRelation.exists_prod_eq_of_pullback`, `#845`) and the alternating inputs are
 unconditional over `F̄` at both `n`, so the `F(W)`-level headlines *are* instantiated there, and
 the two `μ_n` antisymmetry headlines are instantiated against them in
 `EllipticCurves.FunctionField.WeilPairingProductRelationMu` (`#855`), downstream of this file.
+⚠️ `weilPairingMu_divisorSlot_add` is instantiated in
+`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`), also downstream, and
+**inherits only `hprod`**: it consumes no alternating property, so listing it in the same sentence
+as antisymmetry overstated its gate.
 The `_const` / `_two` / `_three` corollaries do exhibit correction factors `w`
 for which the hypothesis `e_n(w, T) = 1` is *proved* rather than assumed, so
 `weilPairingMu_divisorSlot_add` has content beyond `w = 1`.
@@ -428,8 +432,16 @@ curves used there.
 shape of the existential rather than a missing input: it needs the third root `g_R` and the
 correction factor `w` as data, and `#845`'s headlines quantify both away inside their own proofs
 and expose only `g_S` and `g_T`.  `exists_prod_eq_of_pullback` does produce them, so what is
-wanted is a headline with a wider envelope, not new mathematics; that is a separate statement and
-is not attempted in `#855`. -/
+wanted is a headline with a wider envelope, not new mathematics.
+
+⚠️ **That headline now exists**: `exists_weilPairingMu_divisorSlot_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear`, `#861`) carry no hypothesis beyond
+`[IsAlgClosed F]` and the setting, expose all three roots with their rung-5 certificates, and
+produce the three `hpow` data rather than assuming them.  ⚠️ The prediction that this would cost
+what antisymmetry costs was wrong: it is **cheaper**, because divisor-slot bilinearity consumes the
+alternating property at no point at all — `weilPairingMu_divisorSlot_add`'s hypotheses are `hprod`,
+`hw` and the three `hpow`, and there is no `halt` among them.  The route is the descent
+`weilPairingMu_divisorSlot_add_of_weilPairingElt` there, not this theorem, for `#855`'s reason. -/
 
 section Nonvacuity
 

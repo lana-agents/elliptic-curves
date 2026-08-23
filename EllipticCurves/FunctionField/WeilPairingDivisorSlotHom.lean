@@ -81,7 +81,12 @@ implies it.  Also out of scope: producing `hprod`/`hprin` — ⚠️ `hprod` is 
 produced in `WeilPairingProductRelation` (`#845`); `hprin` over a general field is the genuine
 gate — so
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines are untouched and their gates are
-neither moved nor restated; Galois-equivariance (`#456`); base change (`#692`); non-degeneracy,
+neither moved nor restated.  ⚠️ Over `F̄` that gate is now discharged for the divisor slot:
+`exists_weilPairingMu_divisorSlot_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear`, `#861`) state bilinearity with no
+hypothesis beyond the setting at `n = 2` and `n = 3`.  ⚠️ That does **not** bundle into
+`weilPairingMuHom` below, whose obstruction is a `hpow` datum uniform in the slot variable and is
+untouched by it; Galois-equivariance (`#456`); base change (`#692`); non-degeneracy,
 which is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
 consumes (`#769`).
 
