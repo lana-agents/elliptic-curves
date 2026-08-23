@@ -64,11 +64,13 @@ there is no `n = 2` / `n = 3` split.
 
 ## Scope
 
-Ward-, normality- and rung-4-independent.  The single genuinely rung-4/5-gated input — the `g_S`
-transport `σ⋆ g_S = u · g_{σS}` — is carried as the explicit hypothesis `htr`, exactly as at the
-`F(W⁄F)` level.  The unconditional discharge of `htr` is deliverable 2 of #456 (rung-4-gated);
-non-degeneracy stays out, and it is **not** Ward-gated — `WeilPairing`'s scope section is the
-canonical account of what it consumes (#769).
+Ward-, normality- and rung-4-independent.  The `g_S` transport `σ⋆ g_S = u · g_{σS}` is carried
+as the explicit hypothesis `htr`, exactly as at the `F(W⁄F)` level.  Its unconditional discharge —
+deliverable 2 of #456, and **not** rung-4-gated — is
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which states the discharged form at this
+level too, so a consumer in `μ_n(F)` need not descend.  Non-degeneracy stays out, and it is
+**not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
+consumes (#769).
 
 ## References
 
