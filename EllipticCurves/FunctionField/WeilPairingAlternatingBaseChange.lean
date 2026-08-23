@@ -61,10 +61,10 @@ section will lead a reader to expect otherwise.  The three endomorphism intertwi
   the halving-point hypotheses `hP` and `hdouble` **deleted**, over an arbitrary field.  They are
   not moved into another hypothesis; they disappear.
 * `translateEndo_eq_self_of_mul_algebraMap_cube_eq_of_baseChange` — the `n = 3` twin.
-* `exists_weilPairingElt_self_eq_one_of_hprin{,_three}` — `e_n(T, T) = 1` over an arbitrary field.
-  These are `exists_weilPairingElt_self_eq_one_of_algClosed{,_three}` **verbatim minus
+* `exists_weilPairingElt_self_eq_one_of_hprin_{two,three}` — `e_n(T, T) = 1` over an arbitrary
+  field.  These are `exists_weilPairingElt_self_eq_one_of_algClosed_{two,three}` **verbatim minus
   `[IsAlgClosed F]`**: same `hprin`, same conclusion, no hypothesis added.
-* `exists_weilPairingMu_self_eq_one_of_hprin{,_three}` — the `μ_n(F)` companions.
+* `exists_weilPairingMu_self_eq_one_of_hprin_{two,three}` — the `μ_n(F)` companions.
 
 ## Two things the `n = 3` descent needs that `n = 2` does not
 
@@ -84,10 +84,20 @@ need.  **No `[IsAlgClosed F]` anywhere in this file.**  No rung 4, no Ward, no
 `[IsDedekindDomain W.CoordinateRing]` hypothesis (global for `[W.IsElliptic]` since
 `CoordinateRingNormalGeneral`).
 
-⚠️ On naming: unsuffixed means `n = 2` here, matching
-`exists_weilPairingElt_self_eq_one_of_algClosed` / `…_three` next door.  `#886` records that this
-convention is ambiguous tree-wide; a new family suffixed differently would leave three conventions
-instead of two, so it is followed rather than fixed.
+On naming: `_two` and `_three` track the **isogeny**, per the `## Naming` section of
+`EllipticCurves.FunctionField.WeilPairing` (`#886`).  ⚠️ They do not say the exponent is fixed —
+`exists_weilPairingMu_self_eq_one_of_hprin_two` quantifies over an arbitrary `n` for its `μ_n(F)`,
+and its `n = 2`-ness is entirely in `mulByTwoEndo`.  An unsuffixed name on this front means
+isogeny-general, and no declaration here is.
+
+On placement: everything here is stated in `WeierstrassCurve.Affine`, not in its `CoordinateRing`
+sub-namespace, because that is where each declaration's un-base-changed twin lives
+(`translateEndo_eq_self_of_mul_algebraMap_sq_eq` and
+`exists_weilPairingElt_self_eq_one_of_algClosed_two`, both in `WeilPairingAlternatingTwo`).
+⚠️ The `open CoordinateRing` below is what makes the two look alike from inside a file, and it is
+why a namespace mismatch here is invisible to the build: a consumer sitting in
+`WeierstrassCurve.Affine` with the same `open` resolves either spelling.  `#print axioms` on the
+fully-qualified name is the only thing that checks it.
 
 Out of scope: discharging `hprin` over a general field, which is now the **only** gate; the
 divisor-level half of `#692`; general `n` (`#404`'s `ωₙ`); anything about
@@ -109,7 +119,8 @@ over a field where `exists_equation_nsmul_two_eq` is **unavailable**.  `y² + y 
 -/
 
 namespace WeierstrassCurve.Affine
-namespace CoordinateRing
+
+open CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic] {x₂ y₂ x₃ y₃ : F}
 
@@ -158,10 +169,10 @@ theorem translateEndo_eq_self_of_mul_algebraMap_sq_eq_of_baseChange
 open Classical in
 /-- **`e_2(T, T) = 1` over an arbitrary field**, with `hprin` (`#418`) as the only gate.
 
-`exists_weilPairingElt_self_eq_one_of_algClosed` (`WeilPairingAlternatingTwo`) is this statement
+`exists_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingAlternatingTwo`) is this statement
 with `[IsAlgClosed F]` added; the hypotheses and the conclusion are otherwise identical, and the
 proof is that one two lines shorter — the `exists_equation_nsmul_two_eq` step is gone. -/
-theorem exists_weilPairingElt_self_eq_one_of_hprin (h2 : (2 : F) ≠ 0)
+theorem exists_weilPairingElt_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
       divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
@@ -194,7 +205,7 @@ open Classical in
 statement produces one; it costs nothing, since the previous theorem gives `e_2(T, T) = 1` and
 `1 ^ n = 1`.  The `n` is arbitrary for the same reason — this is the group identity of `μ_n(F)` for
 whichever `n` the caller packaged the value in. -/
-theorem exists_weilPairingMu_self_eq_one_of_hprin (h2 : (2 : F) ≠ 0)
+theorem exists_weilPairingMu_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
       divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
@@ -208,10 +219,9 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin (h2 : (2 : F) ≠ 0)
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
           ∃ hpow : weilPairingElt h.left g ^ n = 1, weilPairingMu h.left hpow = 1 := by
   obtain ⟨f, hf, hdivproj, g, hg, hu, htinv, halt⟩ :=
-    exists_weilPairingElt_self_eq_one_of_hprin h2 h htors hprin
+    exists_weilPairingElt_self_eq_one_of_hprin_two h2 h htors hprin
   exact ⟨f, hf, hdivproj, g, hg, hu, by rw [halt, one_pow],
     weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
-
 
 open Classical in
 /-- **Translation by a `3`-torsion point fixes the cube root, over an arbitrary field.**
@@ -266,10 +276,9 @@ theorem translateEndo_eq_self_of_mul_algebraMap_cube_eq_of_baseChange
   rw [functionFieldMap_translateEndo h.left]
   exact key
 
-
 open Classical in
 /-- **`e_3(T, T) = 1` over an arbitrary field**, with `hprin` as the only gate: the `n = 3` twin of
-`exists_weilPairingElt_self_eq_one_of_hprin`, and
+`exists_weilPairingElt_self_eq_one_of_hprin_two`, and
 `exists_weilPairingElt_self_eq_one_of_algClosed_three` minus `[IsAlgClosed F]`. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3)
@@ -318,7 +327,6 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3
     exists_weilPairingElt_self_eq_one_of_hprin_three h2 h3 h htors hprin
   exact ⟨f, hf, hdivproj, g, hg, hu, by rw [halt, one_pow],
     weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
-
 
 /-! ### Non-vacuity, over a field that is NOT algebraically closed
 
@@ -369,7 +377,7 @@ open Classical in
 /-- **The `n = 2` headline applies on a curve over `ℚ`**, with `hprin` the only hypothesis left.
 
 ⚠️ `ℚ` is not algebraically closed (`rat_not_isAlgClosed`), so the merged
-`exists_weilPairingElt_self_eq_one_of_algClosed` does **not** apply here and neither does
+`exists_weilPairingElt_self_eq_one_of_algClosed_two` does **not** apply here and neither does
 `exists_equation_nsmul_two_eq`, which is the point.
 
 ⚠️ The `by convert exampleTors` is not decoration.  `ℚ` has a genuine `DecidableEq` instance, so the
@@ -392,7 +400,7 @@ example (hprin : ∀ f : exampleCurve.FunctionField, f ≠ 0 →
           (∃ u : exampleCurve.CoordinateRingˣ,
             (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
           translateEndo exampleNs.left g = g ∧ weilPairingElt exampleNs.left g = 1 :=
-  exists_weilPairingElt_self_eq_one_of_hprin exampleTwo exampleNs
+  exists_weilPairingElt_self_eq_one_of_hprin_two exampleTwo exampleNs
     (by convert exampleTors) hprin
 
 /-- The curve `y² + y = x³` over `ℚ`, of discriminant `−27`. -/
@@ -437,5 +445,4 @@ example (hprin : ∀ f : exampleCurveThree.FunctionField, f ≠ 0 →
 
 end Nonvacuity
 
-end CoordinateRing
 end WeierstrassCurve.Affine
