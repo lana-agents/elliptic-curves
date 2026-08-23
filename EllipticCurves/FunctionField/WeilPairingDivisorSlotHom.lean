@@ -77,7 +77,13 @@ Out of scope: the **translation** slot.  `weilPairingMu_translatePoint_add_of_ba
 `hadd : torsionPoint hP + torsionPoint hQ = torsionPoint hR`, so bundling *it* needs a map out of
 the torsion subgroup of `W.Point` rather than out of a subobject of `F(W)`, and it carries `hg`
 and three separate `hpow` data besides.  That is a strictly harder statement and nothing here
-implies it.  Also out of scope: producing `hprod`/`hprin` — ⚠️ `hprod` is rung 5 only and is
+implies it.  ⚠️ **That is a claim about *bundling* only, and it stays true.**  The translation-slot
+*identity* is instantiated over `F̄` at `n = 2, 3` by
+`exists_weilPairingMu_translatePoint_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`), on the same footing as
+the divisor slot below; what remains out of reach here is the map out of the torsion subgroup of
+`W.Point`, which those existentials do not provide.  Also out of scope: producing
+`hprod`/`hprin` — ⚠️ `hprod` is rung 5 only and is
 produced in `WeilPairingProductRelation` (`#845`); `hprin` over a general field is the genuine
 gate — so
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines are untouched and their gates are

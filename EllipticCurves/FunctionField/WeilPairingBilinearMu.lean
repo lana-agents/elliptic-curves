@@ -65,6 +65,13 @@ through `algebraMap_coe_rootsOfUnity_injective` used below.  Alternating `e_n(S,
 Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is out of scope and is
 **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of it (#769).
 
+⚠️ **The theorem below is instantiated.**  `exists_weilPairingMu_translatePoint_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`) apply it over `F̄` at
+`n = 2` and `n = 3` with no hypothesis beyond the setting, producing `g` and all three `hpow` from
+one rung-5 certificate.  ⚠️ Unlike `#855`/`#859`/`#861`, that file writes **no descent lemma**: this
+theorem already takes its `hpow` as ordinary hypotheses rather than deriving them from the `F(W)`
+level, so its envelope is already the right one and it is applied directly.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.
