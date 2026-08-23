@@ -200,6 +200,8 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   (`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear`, `#861`).
 * **translation-slot bilinearity** — `exists_weilPairingElt_translatePoint_add_three`
   (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`).
+* **non-degeneracy in `μ_n(F)`** — `exists_gS_three_weilPairingMu_ne_one`
+  (`EllipticCurves.FunctionField.WeilPairingNondegenerateMu`, `#878`).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
