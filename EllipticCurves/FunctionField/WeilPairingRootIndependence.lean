@@ -22,7 +22,14 @@ quantify the root **existentially**: they say that *some* `n`-th root of `[n]∗
 with `T`.  That is weaker than "the Weil pairing is alternating", and it cannot be applied to a root
 that arrives from elsewhere.
 
-This file closes that gap.  It is fully ungated — no `hprin`, no rung 4, no Ward, no base change.
+This file closes that gap.  ⚠️ **"Fully ungated" is true of the machinery below and was never true
+of the two headline corollaries**: they keep the `hprin` of the theorems they consume, and the
+sentence that used to stand here said otherwise.  `hprin` is discharged over `F̄` at both `n` — at
+`n = 2` by `EllipticCurves.FunctionField.PullbackPrincipalityTwo` (`#791`), at `n = 3` by
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` (`#825`) — and the composition is
+`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`).  Everything up to and
+including `weilPairingElt_eq_of_smul_pow_eq` is genuinely ungated: no `hprin`, no rung 4, no Ward,
+no base change.
 
 ## The mechanism
 
@@ -54,7 +61,8 @@ roots of the same function have the same Weil-pairing element.**
   `u · g ^ n = [n]∗ f_S` comes in;
 * **`exists_forall_weilPairingElt_self_eq_one_of_algClosed`** and
   **`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`** — the two headlines with the
-  inner `∃ g` replaced by `∀ g`.
+  inner `∃ g` replaced by `∀ g`.  ⚠️ These two, and only these two, carry `hprin`; the `is`-forms
+  with it discharged are in `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`.
 
 ## What is deliberately still existential
 
@@ -64,10 +72,13 @@ is a genuinely different statement that needs root extraction.  It is not attemp
 
 ## Not here
 
-* Discharging `hprin` (`#418`), the descent of the `F̄`-statements to a general `F` (`#692`),
+* Discharging `hprin` (`#418`) — done for the two headlines over `F̄` in
+  `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`), still open over a
+  **general** field at both `n`.  Nor the descent of the `F̄`-statements to a general `F` (`#692`),
   antisymmetry, or anything at general `n`.
 * The `μ_n` forms (`WeilPairingAlternatingMu`), which lift through
-  `algebraMap_coe_rootsOfUnity_injective` and are a clean follow-on.
+  `algebraMap_coe_rootsOfUnity_injective`; the `∀ g` ones are in
+  `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` alongside the discharge.
 
 ## Non-vacuity
 
@@ -183,7 +194,10 @@ theorem weilPairingElt_eq_of_smul_pow_eq (h₂ : W.Equation x₂ y₂) {m : ℕ}
 /-! ### The alternating headlines, for every `n`-th root
 
 Both corollaries keep the hypotheses of the theorems they consume — `hprin` (`#418`) included and
-unchanged — and only move the quantifier.  The alternating argument itself is not reproved. -/
+unchanged — and only move the quantifier.  The alternating argument itself is not reproved.
+⚠️ Over an algebraically closed field that `hprin` is discharged, and the resulting unconditional
+forms are in `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`); the two
+statements here keep it so that a future general-field discharge has somewhere to land. -/
 
 open Classical in
 /-- **`e_2(T, T) = 1` for every square root, over an algebraically closed field.**  The `∀ g` form
@@ -246,8 +260,11 @@ below.  `y² = x³ − x` over `AlgebraicClosure ℚ` with `T = (0, 0)` is the s
 
 The divisor-level results additionally need `[IsDedekindDomain W.CoordinateRing]` — ⚠️ which is
 **not** an obstruction: it is a global instance for `[W.IsElliptic]` over an arbitrary field
-(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What the two headline corollaries do
-still need is `hprin` (`#418`), which is why they carry no certificate here. -/
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What the two headline corollaries
+still carry is `hprin` (`#418`), which is why they get no certificate *here*; ⚠️ they are certified
+on concrete curves, at both `n`, in
+`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`), where `hprin` is
+discharged. -/
 
 section Nonvacuity
 
