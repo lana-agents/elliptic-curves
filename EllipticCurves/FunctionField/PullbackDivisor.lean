@@ -78,7 +78,9 @@ depends on `q` alone.
 * **Surjectivity of `pullbackDivisor`, or injectivity.**  Neither is claimed; `comapProjPoint` is
   not assumed surjective, so `pullbackDivisor` may well kill divisors supported off the image.
 * `[3]∗` — the general section applies verbatim once `mulByThreeEndo` is given the two hypotheses of
-  `PlacePullback`, and is deliberately not instantiated.
+  `PlacePullback`, and is deliberately not instantiated *here*; `pullbackDivisorThree` and
+  `div (f ∘ [3]) = [3]∗ (div f)` are in
+  `EllipticCurves.FunctionField.MulByThreePlacePullback`.
 * `div g_S = [n]∗(S)` (`#418`), Riemann–Roch, and anything Ward-gated.
 
 ## References

@@ -80,6 +80,8 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
   `Finsupp`s (`#414`/`#422` deliverable 1) waits on.
 * `[3]∗`.  The argument transposes verbatim once `MulByThree*` supplies the two hypotheses of
   `comapProjPoint`, with `natDegree (Φ 3) = 9` and `natDegree (ΨSq 3) = 8` in place of `4` and `3`.
+  It has been transposed, in `EllipticCurves.FunctionField.MulByThreePlacePullback`, which imports
+  this file for the three `genX` lemmas above that mention no doubling.
 
 ## References
 
