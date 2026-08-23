@@ -82,7 +82,8 @@ valuation theory beyond what is merged:
 
 * **`hprin`, and therefore `#418`.**  The fibre description is an input to the class-group
   computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, not the
-  computation itself.  This file unblocks `#418`; it does not discharge it.
+  computation itself.  This file unblocks `#418`; it does not discharge it.  The computation is
+  `EllipticCurves.FunctionField.PullbackPrincipalityTwo` (`#791`), which consumes this file.
 * **The fibre over a place that is not the closed point of an `F`-rational point.**  Over an
   algebraically closed base field every closed point *ought* to be rational, but that is a
   Nullstellensatz statement about `HeightOneSpectrum W.CoordinateRing` and it is **nowhere in this
