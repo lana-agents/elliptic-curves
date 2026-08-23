@@ -86,7 +86,10 @@ Subsingleton.elim _ _`.
 ⚠️ **This is not antisymmetry.**  `weilPairingElt_mul_swap_eq_one` (`WeilPairingAntisymmetric`)
 consumes the alternating property at three points, which this file now supplies unconditionally
 over `F̄` at `n = 3` — but it also needs the product relation `g_{S ⊕ T} = g_S · g_T · w` as the
-hypothesis `hprod`, which is rung-4/5 gated (`#414`/`#418`) and which nothing here touches.  Nor is
+hypothesis `hprod`, which nothing here touches.  ⚠️ `hprod` is **not** rung-4 gated, as this
+bullet used to say: it follows from rung-5 data alone, and
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`) composes it with the theorems
+below into unconditional antisymmetry over `F̄` at `n = 3`.  Nor is
 this bilinearity, Galois-equivariance at `n = 3` (`#830`), general `n`, or non-degeneracy at
 `n = 3` (`#831`, now assembled in
 `EllipticCurves.FunctionField.WeilPairingNondegenerateThree`).

@@ -73,9 +73,12 @@ Note that `weilPairingMu h₂ hpow` depends on the *proof* `hpow` only up to pro
 
 `[Field F] {W : Affine F} [W.IsElliptic]` throughout, together with the `[NeZero n]` that
 `weilPairingMu` itself carries.  **No `[IsDedekindDomain W.CoordinateRing]`, no `[IsAlgClosed F]`,
-no `#418`, no rung 4, no Ward.**  Every gated input of `#723` — the product relation
-`hprod : g_R = g_S · g_T · w` (rung 4/5, `#414`/`#418`) and the alternating values — is passed
-through as a hypothesis in exactly the form `#723` states it.  The gate does not move and no new
+no `#418`, no rung 4, no Ward.**  Every carried input of `#723` — the product relation
+`hprod : g_R = g_S · g_T · w` and the alternating values — is passed through as a hypothesis in
+exactly the form `#723` states it.  ⚠️ `hprod` is **not** rung-4 gated, as this bullet used to
+say; it is produced from rung-5 data in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`).  The gate does not move and
+no new
 gate is added.
 
 ⚠️ As in `#723`, **the alternating property is an input at three points, `S`, `T` and `R = S ⊕ T`,
@@ -110,9 +113,12 @@ square (resp. cube) is `1`.  The multiplicativity and inverse instances keep onl
 that `weilPairingMu` needs in order to be formed at all.
 
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines inherit `hprod` and the alternating
-values, and so cannot be instantiated, for exactly the reason `WeilPairingAntisymmetric.lean`'s own
-non-vacuity section gives: `hprod` is rung-4/5 and the alternating inputs additionally carry
-`#418`'s `hprin`.  The `_const` / `_two` / `_three` corollaries do exhibit correction factors `w`
+values, and so are not instantiated **here**, for exactly the reason
+`WeilPairingAntisymmetric.lean`'s own non-vacuity section gives.  ⚠️ That is a fact about these two
+files and not an obstruction: `hprod` follows from rung-5 data
+(`WeilPairingProductRelation.exists_prod_eq_of_pullback`, `#845`) and the alternating inputs are
+unconditional over `F̄` at both `n`, so the `F(W)`-level headlines *are* instantiated there.
+The `_const` / `_two` / `_three` corollaries do exhibit correction factors `w`
 for which the hypothesis `e_n(w, T) = 1` is *proved* rather than assumed, so
 `weilPairingMu_divisorSlot_add` has content beyond `w = 1`.
 
@@ -259,7 +265,7 @@ theorem weilPairingMu_mulByThreeEndo_of_baseField (hT : W.Equation xT yT) (h2 : 
 
 /-! ### Bilinearity in the divisor slot, in the group -/
 
-/-- **Bilinearity of `weilPairingMu` in the divisor slot.**  Given the rung-4/5 product relation
+/-- **Bilinearity of `weilPairingMu` in the divisor slot.**  Given the product relation
 
 ```
 hprod : g_R = g_S · g_T · w        (for  S ⊕ T = R)
@@ -272,7 +278,9 @@ weilPairingMu(g_R, T) = weilPairingMu(g_S, T) · weilPairingMu(g_T, T)   in μ_n
 ```
 
 The group-level form of `weilPairingElt_divisorSlot_add` (`#723`).  `hprod` is the single gated
-input and is **not** produced here (rung 4/5, `#414`/`#418`); `hw` is discharged outright in the
+input and is **not** produced here (⚠️ rung 5 only — it is produced in
+`EllipticCurves.FunctionField.WeilPairingProductRelation`, `#845`); `hw` is discharged outright
+in the
 corollaries below. -/
 theorem weilPairingMu_divisorSlot_add {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {gS gT gR w : W.FunctionField} (hprod : gR = gS * gT * w)
@@ -404,10 +412,12 @@ The second curve is not decoration: on the first one that lemma's `htors` is **f
 point of order `2` is not of order `3`.  A `[3]∗` certificate on `y² = x³ − x` would be a fiction,
 so the honest move is a second curve rather than a silent omission.
 
-`weilPairingMu_divisorSlot_add` and the two antisymmetry headlines additionally need the rung-4/5
-product relation `hprod` (`#414`/`#418`) and the alternating values, which additionally carry
-`#418`'s `hprin`; neither is available on any concrete curve in this tree, which is why the sibling
-gated files carry no certificate either. -/
+`weilPairingMu_divisorSlot_add` and the two antisymmetry headlines additionally need the product
+relation `hprod` and the alternating values.  ⚠️ Both are now available over `F̄` at `n = 2` and
+`n = 3` — `hprod` from rung-5 data (`WeilPairingProductRelation`, `#845`), the alternating values
+from `#801`/`#829` — and that file carries concrete certificates for the `F(W)`-level headlines on
+named torsion points.  The `μ_n` headlines below have not been instantiated against them; that is
+an omission and not an obstruction. -/
 
 section Nonvacuity
 

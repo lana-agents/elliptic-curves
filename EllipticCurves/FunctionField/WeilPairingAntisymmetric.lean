@@ -33,9 +33,14 @@ Every file that mentions divisor-slot bilinearity defers it in the same words �
 divisor-level statement gated on rung 4", and `WeilPairingAlternatingThree`'s "Explicitly not here"
 list defers antisymmetry to it.
 
-That is right about *what* is missing and wrong about what it costs. What is rung-4 gated is the
-**production** of the product relation `g_R = g_S · g_T · w` for `S ⊕ T = R`.  Everything that
-consumes it is ungated, because the correction factor `w` is invisible to `e_n(·, T)`:
+That is right about *what* is missing and wrong about what it costs.  ⚠️ **It is also wrong that
+the production of `g_R = g_S · g_T · w` is rung-4 gated**, as this file used to say here: it
+follows from rung-5 data alone, by `exists_prod_eq_of_pullback`
+(`EllipticCurves.FunctionField.WeilPairingProductRelation`, `#845`), whose divisor input is the
+Abel–Jacobi statement that `(S) + (T) − (S ⊕ T)` is principal — available from
+`EllipticCurves.FunctionField.DivisorPrincipality` (`#726`) over an arbitrary field.  Everything
+that *consumes* `hprod` is ungated too, because the correction factor `w` is invisible to
+`e_n(·, T)`:
 
 * `e_n(·, T)` is **multiplicative in the divisor slot on the nose** (`weilPairingElt_mul`) —
   `translateEndo` is a ring hom and `(a·b)/(g₁·g₂) = (a/g₁)·(b/g₂)`.  No hypotheses at all, not even
@@ -95,9 +100,12 @@ the canonical account of what it consumes (`#769`).
 The first group of results is unconditional, so vacuity is not a question for them; `_two` /
 `_three` and `_const` exhibit correction factors `w` for which the second hypothesis of
 `weilPairingElt_divisorSlot_add` is *proved* rather than assumed, so that theorem has content
-beyond `w = 1`.  The antisymmetry headline cannot be instantiated outright for the reason its
-siblings cannot: `hprod` is rung-4/5 (`#418`, `#414`) and the alternating inputs additionally carry
-`#418`'s `hprin`.  Every hypothesis this file adds on top of `hprod` is discharged here or merged.
+beyond `w = 1`.  The antisymmetry headline is not instantiated outright **here**, because `hprod`
+is a hypothesis of it.  ⚠️ That is a fact about this file only: `hprod` is produced from rung-5
+data by `exists_prod_eq_of_pullback`, and the whole headline is instantiated unconditionally over
+`F̄` at `n = 2` and `n = 3` in `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`),
+where it is certified on named torsion points.  Every hypothesis this file adds on top of `hprod`
+is discharged here or merged.
 
 ## References
 
@@ -189,7 +197,7 @@ theorem weilPairingElt_mulByThreeEndo_of_baseField (hT : W.Equation xT yT) (h2 :
 
 /-! ### Bilinearity in the divisor slot -/
 
-/-- **Bilinearity of the Weil-pairing element in the divisor slot.**  Given the rung-4/5 product
+/-- **Bilinearity of the Weil-pairing element in the divisor slot.**  Given the product
 relation
 
 ```
@@ -202,9 +210,11 @@ and that the correction factor is invisible to the pairing (`hw : e_n(w, T) = 1`
 e_n(g_R, T) = e_n(g_S, T) · e_n(g_T, T).
 ```
 
-The whole proof is `weilPairingElt_mul` twice; `hprod` is the single gated input and is **not**
-produced here (rung 4/5, `#414`/`#418`).  The two hypotheses are independent: `hprod` is about the
-roots, `hw` about the translation point, and the concrete corollaries below discharge `hw`. -/
+The whole proof is `weilPairingElt_mul` twice; `hprod` is the single carried input and is **not**
+produced here — it is produced from rung-5 data in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`), and ⚠️ needs no rung 4.  The
+two hypotheses are independent: `hprod` is about the roots, `hw` about the translation point, and
+the concrete corollaries below discharge `hw`. -/
 theorem weilPairingElt_divisorSlot_add {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {gS gT gR w : W.FunctionField} (hprod : gR = gS * gT * w)
     (hw : weilPairingElt h₂ w = 1) :

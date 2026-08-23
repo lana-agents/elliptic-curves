@@ -77,7 +77,9 @@ Out of scope: the **translation** slot.  `weilPairingMu_translatePoint_add_of_ba
 `hadd : torsionPoint hP + torsionPoint hQ = torsionPoint hR`, so bundling *it* needs a map out of
 the torsion subgroup of `W.Point` rather than out of a subobject of `F(W)`, and it carries `hg`
 and three separate `hpow` data besides.  That is a strictly harder statement and nothing here
-implies it.  Also out of scope: producing `hprod`/`hprin` (rung 4/5, `#414`/`#418`), so
+implies it.  Also out of scope: producing `hprod`/`hprin` — ⚠️ `hprod` is rung 5 only and is
+produced in `WeilPairingProductRelation` (`#845`); `hprin` over a general field is the genuine
+gate — so
 `weilPairingMu_divisorSlot_add` and the antisymmetry headlines are untouched and their gates are
 neither moved nor restated; Galois-equivariance (`#456`); base change (`#692`); non-degeneracy,
 which is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it

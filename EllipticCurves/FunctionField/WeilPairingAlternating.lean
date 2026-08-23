@@ -107,7 +107,9 @@ This file supplies the ungated scaffolding both halves plug into.
 * **Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`** — merged, as `WeilPairingAntisymmetric` (`#723`),
   together with the divisor-slot bilinearity it runs on; both need `[Field F]` and `[W.IsElliptic]`
   and nothing else.  What stays gated there is only the *production* of the product relation
-  `g_{S ⊕ T} = g_S · g_T · w`, carried as the hypothesis `hprod` (rung 4/5, `#414`/`#418`).
+  `g_{S ⊕ T} = g_S · g_T · w`, carried as the hypothesis `hprod`.  ⚠️ That production is **rung 5
+  only and never rung 4**, and is performed in
+  `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`).
   ⚠️ This bullet used to say two wrong things, both worth naming.  First, the divisor slot is not
   rung-4 gated as a *consumer*: `e_n(·, T)` is multiplicative in it on the nose, and the correction
   factor `w` contributes `1`.  Second, antisymmetry does not "expand `e_n(S ⊕ T, S ⊕ T) = 1`".  The

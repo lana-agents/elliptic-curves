@@ -62,7 +62,8 @@ non-degeneracy — which is **not** Ward-gated; `WeilPairing`'s scope section is
 of what it consumes (`#769`).  Divisor-slot bilinearity has come off that list: it is merged
 as `WeilPairingAntisymmetric` (`#723`), together with antisymmetry, on `[Field F]` and
 `[W.IsElliptic]` alone — all it wants beyond those is the production of
-`g_{S ⊕ S'} = g_S · g_{S'} · w`, which is the rung-4/5 gate already named.  Nothing here says
+`g_{S ⊕ S'} = g_S · g_{S'} · w`, which ⚠️ is **rung 5 only, never rung 4**, and is produced in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`).  Nothing here says
 anything about the image of `ρ` or of `χ`, and nothing here handles closed points of degree `> 1`:
 `pointClosedPoint` covers the rational slice, which is where the pairing's divisors live.
 
