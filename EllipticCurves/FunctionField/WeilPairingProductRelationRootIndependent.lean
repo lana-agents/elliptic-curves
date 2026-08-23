@@ -459,9 +459,9 @@ example : ∃ (gS gT : exampleCurve.FunctionField)
   obtain ⟨uS, huS'⟩ := huS
   obtain ⟨uT, huT'⟩ := huT
   refine ⟨gS, gT, weilPairingElt_pow_eq_one_of_gS_two_torsion exampleNsS.left exampleTwo
-      (by rw [← two_nsmul]; exact mem_torsion_iff.mp exampleTorS) hgT huT',
+      (add_self_eq_zero_of_mem_torsion_two exampleTorS) hgT huT',
     weilPairingElt_pow_eq_one_of_gS_two_torsion exampleNsT.left exampleTwo
-      (by rw [← two_nsmul]; exact mem_torsion_iff.mp exampleTorT) hgS huS', ?_⟩
+      (add_self_eq_zero_of_mem_torsion_two exampleTorT) hgS huS', ?_⟩
   exact weilPairingMu_mul_swap_eq_one_two_of_isAlgClosed exampleTwo exampleNsS exampleNsT
     exampleNsR exampleTorS exampleTorT exampleAdd hfS hfT hdS hdT hgS hgT ⟨uS, huS'⟩ ⟨uT, huT'⟩ _ _
 
@@ -479,9 +479,9 @@ example : ∃ (gS gT : exampleCurve.FunctionField)
   obtain ⟨uS, huS'⟩ := huS
   obtain ⟨uT, huT'⟩ := huT
   refine ⟨gS, gT, weilPairingElt_pow_eq_one_of_gS_two_torsion exampleNsS.left exampleTwo
-      (by rw [← two_nsmul]; exact mem_torsion_iff.mp exampleTorS) hgT huT',
+      (add_self_eq_zero_of_mem_torsion_two exampleTorS) hgT huT',
     weilPairingElt_pow_eq_one_of_gS_two_torsion exampleNsT.left exampleTwo
-      (by rw [← two_nsmul]; exact mem_torsion_iff.mp exampleTorT) hgS huS', ?_⟩
+      (add_self_eq_zero_of_mem_torsion_two exampleTorT) hgS huS', ?_⟩
   exact weilPairingMu_eq_inv_two_of_isAlgClosed exampleTwo exampleNsS exampleNsT exampleNsR
     exampleTorS exampleTorT exampleAdd hfS hfT hdS hdT hgS hgT ⟨uS, huS'⟩ ⟨uT, huT'⟩ _ _
 

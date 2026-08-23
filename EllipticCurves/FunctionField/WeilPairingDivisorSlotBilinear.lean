@@ -70,14 +70,6 @@ which wants a `hpow` datum uniform in the slot variable and is a different state
 ⚠️ **There is no `W.Point`-level pairing in this tree** and nothing here is a step towards one; the
 divisor slot is a slot of `weilPairingElt`, which takes a *function*, not a point.
 
-## ⚠️ A note on `add_self_eq_zero_of_mem_torsion_two`
-
-Four modules on this front carry a `private` copy of that three-line lemma and of its `n = 3` twin,
-and `#866` exists to hoist both into `EllipticCurves.Torsion.Defs` next to `mem_torsion_iff`.  This
-file deliberately adds **no fifth named copy**: the two derivations are inlined at the four places
-they are needed, so that `#866`'s sweep has one fewer declaration to delete and no new name to
-chase.  ⚠️ The inline sites are listed on `#866`.
-
 ## Non-vacuity
 
 Every headline is certified below on `#845`'s two curves.  ⚠️ **Neither certificate can take `P`
@@ -188,9 +180,7 @@ theorem exists_weilPairingElt_divisorSlot_add_two (h2 : (2 : F) ≠ 0)
   obtain ⟨c, k, hc, hk, hprod⟩ :=
     exists_prod_eq_of_pullback (mulByTwoEndo h2) (mulByTwoEndo_algebraMap_base h2)
       two_ne_zero hS hT hR hadd hfS hfT hfR hdS hdT hdR hgS hgT hgR huS huT huR
-  have htorsP : Point.some xP yP hP + Point.some xP yP hP = 0 := by
-    have hn := mem_torsion_iff.mp hmP
-    rwa [two_nsmul] at hn
+  have htorsP := add_self_eq_zero_of_mem_torsion_two hmP
   exact ⟨gS, gT, gR, hgS, hgT, hgR, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩,
     ⟨fR, hfR, hdR, uR, huR⟩,
     weilPairingElt_divisorSlot_add_two hP.left h2 htorsP hc hk hprod⟩
@@ -236,9 +226,7 @@ theorem exists_weilPairingMu_divisorSlot_add_two (h2 : (2 : F) ≠ 0)
   obtain ⟨gS, gT, gR, hgS, hgT, hgR, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩,
     ⟨fR, hfR, hdR, uR, huR⟩, hbil⟩ :=
       exists_weilPairingElt_divisorSlot_add_two h2 hP hS hT hR hmP hmS hmT hadd
-  have htorsP : Point.some xP yP hP + Point.some xP yP hP = 0 := by
-    have hn := mem_torsion_iff.mp hmP
-    rwa [two_nsmul] at hn
+  have htorsP := add_self_eq_zero_of_mem_torsion_two hmP
   have hpowS : weilPairingElt hP.left gS ^ 2 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_two_torsion hP.left h2 htorsP hgS huS
   have hpowT : weilPairingElt hP.left gT ^ 2 = 1 :=
@@ -286,9 +274,7 @@ theorem exists_weilPairingElt_divisorSlot_add_three (h2 : (2 : F) ≠ 0) (h3 : (
   obtain ⟨c, k, hc, hk, hprod⟩ :=
     exists_prod_eq_of_pullback (mulByThreeEndo h2 h3) (mulByThreeEndo_algebraMap_base h2 h3)
       three_ne_zero hS hT hR hadd hfS hfT hfR hdS hdT hdR hgS hgT hgR huS huT huR
-  have htorsP : Point.some xP yP hP + Point.some xP yP hP + Point.some xP yP hP = 0 := by
-    have hn := mem_torsion_iff.mp hmP
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+  have htorsP := add_add_self_eq_zero_of_mem_torsion_three hmP
   exact ⟨gS, gT, gR, hgS, hgT, hgR, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩,
     ⟨fR, hfR, hdR, uR, huR⟩,
     weilPairingElt_divisorSlot_add_three hP.left h2 h3 htorsP hc hk hprod⟩
@@ -322,9 +308,7 @@ theorem exists_weilPairingMu_divisorSlot_add_three (h2 : (2 : F) ≠ 0) (h3 : (3
   obtain ⟨gS, gT, gR, hgS, hgT, hgR, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩,
     ⟨fR, hfR, hdR, uR, huR⟩, hbil⟩ :=
       exists_weilPairingElt_divisorSlot_add_three h2 h3 hP hS hT hR hmP hmS hmT hadd
-  have htorsP : Point.some xP yP hP + Point.some xP yP hP + Point.some xP yP hP = 0 := by
-    have hn := mem_torsion_iff.mp hmP
-    rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+  have htorsP := add_add_self_eq_zero_of_mem_torsion_three hmP
   have hpowS : weilPairingElt hP.left gS ^ 3 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_three_baseField hP.left h2 h3 htorsP hgS huS
   have hpowT : weilPairingElt hP.left gT ^ 3 = 1 :=
