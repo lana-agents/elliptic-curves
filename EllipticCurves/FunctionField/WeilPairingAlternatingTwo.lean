@@ -88,11 +88,19 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
 * `[IsAlgClosed F]` — in exactly one place, `exists_equation_nsmul_two_eq`, to produce `P`.  The
   core lemma does not have it.
 * `(2 : F) ≠ 0` — for `mulByTwoEndo` and for `exists_nsmul_two_eq`.
-* `[W.IsElliptic]` and `[IsDedekindDomain W.CoordinateRing]` — the standing hypotheses of the whole
-  divisor calculus (`#396`).
+* `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.
+* `[IsDedekindDomain W.CoordinateRing]` — a binder in the variable block below, so `#check` does
+  show it on the headline, but it is *not* a real hypothesis and is not `#396`: it is a **global
+  instance** for `[W.IsElliptic]` over an **arbitrary** field (`CoordinateRingNormalGeneral`), so
+  instance search supplies it and no caller ever has to.  Deleting the binder would be a no-op
+  tidy-up, not a generalisation.
 * `hprin`, the **`#418` datum**: principality of `[2]∗((T) − (O))`, in the exact shape
-  `exists_gS_two` (`NthRootOfPullback`) takes it, so that the two compose.  It is rung-4/5 gated and
-  is *not* discharged here.
+  `exists_gS_two` (`NthRootOfPullback`) takes it, so that the two compose.  It is *not* discharged
+  here — but it is discharged over an algebraically closed base field in
+  `EllipticCurves.FunctionField.PullbackPrincipalityTwo`, and
+  `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed` is the resulting hypothesis-free
+  form of the headline below.  The statement here keeps `hprin`, so that a general-field discharge
+  has somewhere to land.
 
 Because `P` is produced over `F̄`, the conclusion is a statement about `F̄`; obtaining it over a
 general `F` needs the function-field base-change layer, which is deliberately deferred (`#692`) and
@@ -287,18 +295,19 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed [IsAlgClosed F] (h2 : (2 
 
 /-! ### Non-vacuity
 
-The headline cannot be fully instantiated on a concrete curve, and not for a reason special to this
-file: two of its hypotheses are open elsewhere in the tree.  `[IsDedekindDomain W.CoordinateRing]`
-is `#396` and is an explicit hypothesis of the whole divisor calculus, and `hprin` is `#418`.  The
-sibling gated files (`NthRootOfPullback`, `WeilPairingConstant`, `WeilPairingAlternating`) carry no
-certificate for the same reason.
+The headline as stated here cannot be fully instantiated on a concrete curve, for one reason and
+one only: `hprin` is a hypothesis, and it is `#418`.  What *can* be certified, and is below, is
+that every hypothesis this file adds on top of it is simultaneously satisfiable — over an
+algebraically closed field, which is the new one.  On `y² = x³ − x` over `AlgebraicClosure ℚ` the
+point `T = (0, 0)` is affine, nonsingular and `2`-torsion, `(2 : K) ≠ 0`, and
+`exists_equation_nsmul_two_eq` really does produce an **affine** `P` with `[2]P = T`.  In particular
+the `[IsAlgClosed F]` step of the argument is not vacuous, which is the claim this file rests on.
 
-What *can* be certified, and is below, is that every hypothesis this file adds on top of those two
-is simultaneously satisfiable — over an algebraically closed field, which is the new one.  On
-`y² = x³ − x` over `AlgebraicClosure ℚ` the point `T = (0, 0)` is affine, nonsingular and
-`2`-torsion, `(2 : K) ≠ 0`, and `exists_equation_nsmul_two_eq` really does produce an **affine**
-`P` with `[2]P = T`.  In particular the `[IsAlgClosed F]` step of the argument is not vacuous, which
-is the claim this file rests on. -/
+For the *fully* instantiated certificate see
+`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`, which discharges `hprin` over an
+algebraically closed base field and certifies the resulting hypothesis-free headline on this same
+curve.  ⚠️ `[IsDedekindDomain W.CoordinateRing]` is not a second obstruction and never was: it is a
+global instance for `[W.IsElliptic]` over an arbitrary field (`CoordinateRingNormalGeneral`). -/
 
 section Nonvacuity
 
