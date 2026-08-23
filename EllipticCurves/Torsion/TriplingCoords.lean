@@ -11,10 +11,10 @@ import EllipticCurves.Torsion.TriplingSurjective
 # The tripling formula at a closed point: both coordinates of `3 • P`
 
 `EllipticCurves.Torsion.OmegaThree` proves that the classical division-polynomial tripling
-coordinates `(Φ₃(x)/Ψ₃(x)², ω₃(x, y)/ψ₃(x, y)³)` satisfy the Weierstrass equation, and says
-explicitly that identifying them with the group-law triple `3 • P` is "a separate, harder statement
-not proved here".  This file is that identification, at an affine point `(x, y)` of `W` that is not
-fixed by negation and whose `x` is not a root of `Ψ₃`:
+coordinates `(Φ₃(x)/Ψ₃(x)², ω₃(x, y)/ψ₃(x, y)³)` satisfy the Weierstrass equation, and left
+identifying them with the group-law triple `3 • P` as a separate statement it did not prove.  This
+file is that identification, at an affine point `(x, y)` of `W` that is not fixed by negation and
+whose `x` is not a root of `Ψ₃`:
 
 ```
 3 • (x, y) = (Φ₃(x) / ΨSq₃(x), ω₃(x, y) / (2 ψ₃(x, y)³)).
@@ -205,8 +205,9 @@ y(3 • (x, y)) = ω₃(x, y) / (2 ψ₃(x, y)³),
 where `ω₃(x, y) = (2y + a₁x + a₃)·(preΨ₅(x) − preΨ₄(x)²) − a₁·Φ₃(x)·ψ₃(x, y) − a₃·ψ₃(x, y)³` is the
 `3`-division `y`-coordinate value whose on-curve property is `OmegaThree`'s `tripling_equation`.
 
-This is the identity `OmegaThree` records as unbuilt.  The proof is `addY_gen_eq_mulByThree`'s,
-transcribed: see the module docstring for why that is not a coincidence. -/
+This is the identity that had no closed-point form before this file.  The proof is
+`addY_gen_eq_mulByThree`'s, transcribed: see the module docstring for why that is not a
+coincidence. -/
 theorem addY_add_self_eq_div (h2 : (2 : F) ≠ 0) (h : W.Equation x y) (hy : y ≠ W.negY x y)
     (hT : W.Ψ₃.eval x ≠ 0) :
     W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
@@ -249,8 +250,8 @@ The double `P + P` is `(addX x x ℓ, addY x x y ℓ)` for the tangent slope `�
 and `x(2P) ≠ x(P)` because `Ψ₃(x) ≠ 0` (`addX_self_eq_iff`), so the further sum `(2P) + P` takes the
 secant branch `add_of_X_ne`, whose coordinates are the two identities above.
 
-This is the statement `OmegaThree` calls "a separate, harder statement not proved here", and the
-`n = 3` mirror of `GenericTripling`'s `genericPoint_add_add_self`. -/
+This is the statement `OmegaThree` left as separate and unproved — its docstring points here for
+it — and the `n = 3` mirror of `GenericTripling`'s `genericPoint_add_add_self`. -/
 theorem add_add_self_eq_some (h2 : (2 : F) ≠ 0) {h : W.Nonsingular x y}
     (hy : y ≠ W.negY x y) (hT : W.Ψ₃.eval x ≠ 0) :
     Point.some x y h + Point.some x y h + Point.some x y h
