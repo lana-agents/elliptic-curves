@@ -68,12 +68,14 @@ carry `[IsAlgClosed F]` as well, whereas the variable block here is `[Field F]` 
 *over an algebraically closed base field*; for a general `F` the fibre description is still not
 available.
 
-So at `n = 2`, over such a base field, what remains of `hprin` is the **class-group computation**,
-on merged material:
-`∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`, by `card_torsion_two`,
-Mathlib's `Point.toClass_eq_zero` and `#726`'s `exists_divisor_eq_iff_classOfDivisor_eq_one`.  That
-is bookkeeping between `divisorProj` sums and `toClass`, not a geometric input — but it is **not
-done**, and nothing in this file or in `#774` discharges `hprin`.
+✅ **At `n = 2`, over such a base field, `hprin` is discharged** (`#791`).  What was left of it was
+the class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S)
+= 0`, and `EllipticCurves.FunctionField.PullbackPrincipalityTwo` runs it: it states
+`[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`, restricts it to the affine chart, computes the
+class, and supplies `exists_gS_two`'s hypothesis as `exists_nsmul_divisor_eq_divisor_mulByTwoEndo`.
+The hypothesis-free rung-5 statement is `exists_gS_two_of_isAlgClosed` **in that file** —
+`exists_gS_two` below is deliberately left as it is, since it is the general-field statement and the
+discharge is not available in this file's generality.  Nothing in *this* file or in `#774` does it.
 
 At `n = 3` the geometric fact is still missing: there is no `[3]` duplication formula at a point
 (`#404`) and `#763`'s count `4` is `[2]`-specific.
@@ -147,8 +149,12 @@ The hypothesis `hprin` is the single gated input (principality of `[2]∗(S)`); 
 unconditional.  It is **not** gated on `#E[2] = 4`, which is merged (`card_torsion_two`), and — as
 of `#774` — no longer on the fibre description of `[2]∗` either, which is merged as
 `pullbackDivisorTwo_single_eq_sum_torsion` (`MulByTwoFibreAffine`) **over `[IsAlgClosed F]` and
-`[W.IsElliptic]`, which this statement does not carry**.  What is left is the class-group
-computation; see the module docstring. -/
+`[W.IsElliptic]`, which this statement does not carry**.
+
+✅ Over such a base field `hprin` is now discharged and this theorem has a hypothesis-free
+corollary, `exists_gS_two_of_isAlgClosed` (`PullbackPrincipalityTwo`, `#791`).  This statement keeps
+its hypothesis because it is the general-field one: for an arbitrary `F` the fibre description is
+not available and `hprin` is still open. -/
 theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (hP : Point.some x y h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
