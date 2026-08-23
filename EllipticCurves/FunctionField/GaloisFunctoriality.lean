@@ -52,8 +52,9 @@ algebraic object it was always meant to be.
 ## Scope
 
 Rung-4/5-independent and Ward-independent. **`#456` deliverable 2 is merged** — from rung-5 data
-at `S` and at `σS` over any base field, and with nothing carried at `n = 2` over an algebraically
-closed one — in `EllipticCurves.FunctionField.WeilPairingGaloisRoot`; it needs neither
+at `S` and at `σS` over any base field, and with nothing carried at `n = 2` **and at `n = 3`** over
+an algebraically closed one (`#791`/`#825` supplying the data) — in
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot`; it needs neither
 `divisor g_S = [n]∗(S)` nor the σ-equivariance of `[n]∗`, which an earlier version of this section
 named as its remaining inputs. **The translation slot is untouched**: `translateEndo` is not
 `IsFractionRing.ringEquivOfRingEquiv e` for any ring automorphism `e` of `F[W⁄F]` — it moves the
