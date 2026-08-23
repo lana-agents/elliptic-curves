@@ -139,16 +139,6 @@ section Two
 
 variable [IsAlgClosed F]
 
-omit [W.IsElliptic] [IsAlgClosed F] in
-open Classical in
-/-- `T + T = 0` in `W.Point` from membership of `W.torsion 2`.  A local copy of the private lemma
-of the same name in `WeilPairingProductRelation` (`#845`), which is not exported. -/
-private lemma add_self_eq_zero_of_mem_torsion_two {x y : F} (h : W.Nonsingular x y)
-    (htors : Point.some x y h ∈ W.torsion 2) :
-    Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [two_nsmul] at hn
-
 open Classical in
 /-- **Antisymmetry of the Weil pairing at `n = 2` in `μ_2(F)`, over an algebraically closed field
 with no hypothesis beyond the setting.**
@@ -183,10 +173,10 @@ theorem exists_weilPairingMu_mul_swap_eq_one_two (h2 : (2 : F) ≠ 0)
     exists_weilPairingElt_mul_swap_eq_one_two h2 hS hT hR hmS hmT hadd
   have hpowTS : weilPairingElt hT.left gS ^ 2 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_two_torsion hT.left h2
-      (add_self_eq_zero_of_mem_torsion_two hT hmT) hgS huS
+      (add_self_eq_zero_of_mem_torsion_two hmT) hgS huS
   have hpowST : weilPairingElt hS.left gT ^ 2 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_two_torsion hS.left h2
-      (add_self_eq_zero_of_mem_torsion_two hS hmS) hgT huT
+      (add_self_eq_zero_of_mem_torsion_two hmS) hgT huT
   exact ⟨gS, gT, hgS, hgT, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩, hpowST, hpowTS,
     weilPairingMu_mul_swap_eq_one_of_weilPairingElt hS.left hT.left hpowST hpowTS hswap⟩
 
@@ -222,17 +212,6 @@ section Three
 
 variable [IsAlgClosed F]
 
-omit [W.IsElliptic] [IsAlgClosed F] in
-open Classical in
-/-- `T + T + T = 0` in `W.Point` from membership of `W.torsion 3`.  A local copy of the private
-lemma `add_add_self_eq_zero_of_mem_torsion_three'` of `WeilPairingProductRelation` (`#845`), which
-is not exported. -/
-private lemma add_add_self_eq_zero_of_mem_torsion_three {x y : F} (h : W.Nonsingular x y)
-    (htors : Point.some x y h ∈ W.torsion 3) :
-    Point.some x y h + Point.some x y h + Point.some x y h = 0 := by
-  have hn := mem_torsion_iff.mp htors
-  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
-
 open Classical in
 /-- **Antisymmetry of the Weil pairing at `n = 3` in `μ_3(F)`, over an algebraically closed field
 with no hypothesis beyond the setting.**
@@ -263,10 +242,10 @@ theorem exists_weilPairingMu_mul_swap_eq_one_three (h2 : (2 : F) ≠ 0) (h3 : (3
     exists_weilPairingElt_mul_swap_eq_one_three h2 h3 hS hT hR hmS hmT hadd
   have hpowTS : weilPairingElt hT.left gS ^ 3 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_three_baseField hT.left h2 h3
-      (add_add_self_eq_zero_of_mem_torsion_three hT hmT) hgS huS
+      (add_add_self_eq_zero_of_mem_torsion_three hmT) hgS huS
   have hpowST : weilPairingElt hS.left gT ^ 3 = 1 :=
     weilPairingElt_pow_eq_one_of_gS_three_baseField hS.left h2 h3
-      (add_add_self_eq_zero_of_mem_torsion_three hS hmS) hgT huT
+      (add_add_self_eq_zero_of_mem_torsion_three hmS) hgT huT
   exact ⟨gS, gT, hgS, hgT, ⟨fS, hfS, hdS, uS, huS⟩, ⟨fT, hfT, hdT, uT, huT⟩, hpowST, hpowTS,
     weilPairingMu_mul_swap_eq_one_of_weilPairingElt hS.left hT.left hpowST hpowTS hswap⟩
 

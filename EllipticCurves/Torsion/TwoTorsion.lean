@@ -200,7 +200,13 @@ section Torsion
 
 variable [DecidableEq F]
 
-/-- A point is killed by `2` exactly when it is fixed by negation. -/
+/-- A point is killed by `2` exactly when it is fixed by negation.
+
+⚠️ This is one of two normal forms for `E[2]` membership and **not** the one the `FunctionField/`
+consumers want: they take `P ⊕ P = O` as a hypothesis binder, which is
+`add_self_eq_zero_of_mem_torsion_two` (`EllipticCurves.Torsion.Defs`).  Reaching that form from
+this one costs an extra `add_eq_zero_iff_eq_neg`, which is why three files once carried private
+copies of it instead. -/
 lemma mem_torsion_two_iff_eq_neg {P : W.Point} : P ∈ W.torsion 2 ↔ P = -P := by
   rw [mem_torsion_iff, two_nsmul, add_eq_zero_iff_eq_neg]
 

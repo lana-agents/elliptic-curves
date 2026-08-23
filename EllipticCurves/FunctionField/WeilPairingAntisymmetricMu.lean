@@ -560,15 +560,13 @@ open Classical in
 that `weilPairingMu_mulByThreeEndo_of_baseField` asks for. -/
 private lemma exampleTorsionThree :
     torsionPoint exampleEquationThree + torsionPoint exampleEquationThree
-        + torsionPoint exampleEquationThree = 0 := by
-  have hn := mem_torsion_iff.mp
+        + torsionPoint exampleEquationThree = 0 :=
+  add_add_self_eq_zero_of_mem_torsion_three
     ((mem_torsion_three_some_iff
       (h := exampleCurveThree.equation_iff_nonsingular.mp exampleEquationThree)
       (by norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY])).mpr
       (by norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
         WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]))
-  rw [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
-  exact hn
 
 open Classical in
 /-- The root-of-unity datum at the `[3]∗`-pullback of the constant function `1`, closed outright by

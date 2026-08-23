@@ -152,7 +152,11 @@ lemma addX_self_eq_iff {x y : F} (h : W.Equation x y) (hy : y ≠ W.negY x y) :
 
 /-! ## The `3`-torsion subgroup -/
 
-/-- A point is killed by `3` exactly when doubling it gives its negative. -/
+/-- A point is killed by `3` exactly when doubling it gives its negative.
+
+⚠️ As at `n = 2`, this is not the normal form the `FunctionField/` consumers take as a hypothesis
+binder; that is `P ⊕ P ⊕ P = O`, i.e. `add_add_self_eq_zero_of_mem_torsion_three`
+(`EllipticCurves.Torsion.Defs`). -/
 lemma mem_torsion_three_iff_add_self_eq_neg {P : W.Point} : P ∈ W.torsion 3 ↔ P + P = -P := by
   rw [mem_torsion_iff, show (3 : ℕ) = 2 + 1 from rfl, succ_nsmul, two_nsmul,
     add_eq_zero_iff_eq_neg]
