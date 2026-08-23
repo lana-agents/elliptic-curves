@@ -162,10 +162,15 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 `EllipticCurves.FunctionField.PullbackPrincipalityThree` at `n = 3`, on top of
 `EllipticCurves.FunctionField.MulByThreeFibre`'s `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`.  The asymmetry
 that survived `#775`/`#783`/`#784` is therefore gone: what remains at `n = 3` is not a gate but an
-absence of assembly — the rung-6 statements that consume rung-5 data still carry their `hprin` in
-their own signatures, and instantiating them against `exists_gS_three_of_isAlgClosed` has not been
-done.  ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
-statement from either of the above.
+absence of assembly, and it is now a *partial* absence.  The alternating property has been
+assembled — `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`) — but
+Galois-equivariance (`#830`), non-degeneracy (`#831`) and the `∀ g` root-independent form
+(`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`, `WeilPairingRootIndependence`;
+⚠️ its `n = 2` twin is unassembled too) still carry their `hprin` in their own signatures, and
+instantiating them against `exists_gS_three_of_isAlgClosed` has not been done.  ⚠️ Over a
+**general** field `hprin` is still open at both `n`, and that is a different statement from either
+of the above.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**
