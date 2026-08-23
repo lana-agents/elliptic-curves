@@ -99,7 +99,8 @@ all — `natDegree_Φ` holds over any nontrivial ring.
 ⚠️ **No affine index is computed.**  Nothing below says anything about `ramificationIdxThree` at a
 place other than infinity.  At `n = 2` that is the work of
 `EllipticCurves.FunctionField.MulByTwoFibreInfinity` and
-`EllipticCurves.FunctionField.MulByTwoFibreAffine`, and there is no `n = 3` analogue of either.
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`; the `n = 3` analogue of both is
+`EllipticCurves.FunctionField.MulByThreeFibre`, which consumes this file.
 
 ⚠️ **This is not the degree formula.**  `∑_{p ↦ q} e_p · deg p = 9` needs the residue-degree
 machinery on top of a fundamental identity, and nothing here approaches either.  The identity is
@@ -119,9 +120,10 @@ cubing or tripling, and the latter is an isomorphism as soon as `(3 : F) ≠ 0`.
 
 ⚠️ **This does not discharge `hprin` at `n = 3` (`#418`).**  It supplies the place-theoretic rung
 above `EllipticCurves.Torsion.TriplingCoords`'s coordinate rung; the fibre description that `#791`
-consumed at `n = 2` needs the affine indices, and those are unbuilt.  Their arithmetic input is not:
-`EllipticCurves.FunctionField.MulByThreeRamification` proves `∑_{p ↦ q} e_p = 9` on top of this
-file, so the fibre description is the one rung left between here and `hprin` at `n = 3`.
+consumed at `n = 2` is `EllipticCurves.FunctionField.MulByThreeFibre`, which computes the affine
+indices on top of this file and `EllipticCurves.FunctionField.MulByThreeRamification`'s
+`∑_{p ↦ q} e_p = 9`.  What is left above it is the class-group computation, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.
 
 ## References
 

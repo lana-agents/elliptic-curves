@@ -92,22 +92,19 @@ valuation theory beyond what is merged:
 * **`#E[2] = 4` from any of this.**  `card_torsion_two` is an *input* to the counting, exactly as in
   `MulByTwoFibreInfinity`.  The missing link from a field degree to a kernel count is still
   "a separable isogeny has `#ker = deg`", which no file in this tree contains.
-* `[3]∗` and general `[n]∗`.  ⚠️ **This file is the `n = 2` template for the one rung the `n = 3`
-  chain is still missing, so what it would take is recorded here rather than restated in each file
-  that waits on it.**  Both inputs are merged: the tripling formula at a closed point
-  (`EllipticCurves.Torsion.TriplingCoords`) and the count `∑_{p ↦ q} e_p = 9`
-  (`EllipticCurves.FunctionField.MulByThreeRamification`, which also supplies
-  `card_fibre_comapProjPointThree_le_nine`).  What is **not** merged, and not scouted, is the crux:
-  `comapProjPointTwo_pointClosedPoint` runs on `mulByTwoCoordHom_XClass`/`_YClass`, which is the
-  only place `DoublingCoords` enters, and `mulByThreeCoordHom` exists
-  (`EllipticCurves.FunctionField.MulByThreeEndomorphism`) while
-  `mulByThreeCoordHom_XClass`/`_YClass` do not.  Whether the ideal computation has the same shape
-  at `[3]` is an open question and **must not be priced as a transcription** — `#775` made that bet
-  once about the `n = 3` degree and paid for it.
-  ⚠️ The counting also does *not* transpose.  The fibre here is the coset `{P ⊕ R : R ∈ E[2]}`, one
+* `[3]∗`.  Steps 1–4 above **have** been transposed, in
+  `EllipticCurves.FunctionField.MulByThreeFibre`, which proves the same uniform statement
+  `comapProjPointThree (projPointOfPoint P) = projPointOfPoint (3 • P)` and the fibre description
+  over a rational point.  ⚠️ Its step 2 is stated about the *division form* `Φ₃(x)/ΨSq₃(x)` rather
+  than about `addX`/`addY` of a tripling, which is why it needs no tripling formula at all;
+  `EllipticCurves.Torsion.TriplingCoords` enters one layer up, where the closed point of those
+  coordinates is identified with the closed point of `3 • P`.
+  ⚠️ The counting does *not* transpose.  The fibre here is the coset `{P ⊕ R : R ∈ E[2]}`, one
   point per root of `Ψ₂Sq`, because negation **fixes** the `2`-torsion points.  A `3`-torsion point
-  is not `2`-torsion, so each of the four roots of `Ψ₃` carries **two** points and the count is
-  `1 + 2·4 = 9`.  General `[n]∗` has neither input: `mulByNEndo` does not exist.
+  is not `2`-torsion, so each of the four roots of `Ψ₃` carries **two** points and the count there
+  is `1 + 2·4 = 9`, reached as a coset of `E[3]` rather than one point per root.
+* General `[n]∗`.  `mulByNEndo` does not exist, and `#763`'s right-hand side `4` is `[2]`-specific
+  (its `n = 3` counterpart is `EllipticCurves.FunctionField.MulByThreeRamification`'s `9`).
 
 ## References
 

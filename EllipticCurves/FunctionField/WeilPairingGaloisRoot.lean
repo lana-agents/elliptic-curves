@@ -82,10 +82,9 @@ the alternating property (`#465` deliverable 2) is exactly as open as it was.  T
 
 ⚠️ **`exists_gS_three` still carries its `hprin`,** so the `n = 3` statements below are the
 data-carrying ones and there is no `n = 3` analogue of `exists_weilPairingElt_galois_two`.  What is
-missing there is the `[3]` fibre description — one rung, both of whose inputs are merged
-(`EllipticCurves.Torsion.TriplingCoords`, `EllipticCurves.FunctionField.MulByThreeRamification`;
-see `EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note) — and not anything about the
-Galois action: the `n = 3` engine instance is proved here and is waiting.
+missing there is the class-group computation above the `[3]` fibre description — the latter is
+merged as `EllipticCurves.FunctionField.MulByThreeFibre` — and not anything about the Galois
+action: the `n = 3` engine instance is proved here and is waiting.
 
 ⚠️ **`[IsAlgClosed F]` appears only in the last theorem**, and only through `#791`.  The engine and
 the `n = 2`/`n = 3` transport statements need `[Field S] [Field F] [Algebra S F]` and
@@ -270,8 +269,9 @@ theorem weilPairingMu_galois_of_gS_two (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
 inputs (`mulByThreeEndo_algebraMap_base` and `galoisFunctionField_mulByThreeEndo`, `#461`).
 
 ⚠️ Unlike at `n = 2`, there is no unconditional companion: `exists_gS_three` keeps its `hprin`, so
-the rung-5 data below has to be supplied.  That gap is the `[3]` fibre description — not `#404`,
-which is the general `ωₙ`, and not anything Galois-theoretic. -/
+the rung-5 data below has to be supplied.  That gap is the class-group computation above the `[3]`
+fibre description (`EllipticCurves.FunctionField.MulByThreeFibre`, merged) — not `#404`, which is
+the general `ωₙ`, and not anything Galois-theoretic. -/
 theorem weilPairingElt_galois_of_gS_three (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h₂ : (W⁄F).Equation x₂ y₂) (h : (W⁄F).Equation x y)
     {f f' g g' : (W⁄F).FunctionField} (hg : g ≠ 0) (hg' : g' ≠ 0)
