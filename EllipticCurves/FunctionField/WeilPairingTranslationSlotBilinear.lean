@@ -18,7 +18,7 @@ This is the other half of bilinearity from
 `EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`), and it is the last of the
 four slots of `#419` to be instantiated.  Five theorems on `main` state it —
 `weilPairingElt_translatePoint_add{,_of_const}` (`WeilPairingBilinear`, `#450`),
-`weilPairingElt_translatePoint_add_of_algClosed` (`WeilPairingConstant`),
+`weilPairingElt_translatePoint_add_of_pow_eq_one` (`WeilPairingConstant`),
 `weilPairingElt_translatePoint_add_of_baseField` (`WeilPairingBilinearBaseField`, `#451`) and
 `weilPairingMu_translatePoint_add_of_baseField` (`WeilPairingBilinearMu`, `#459`) — and every one
 of them carries the root `g` and its root-of-unity data as hypotheses.  Outside their home files

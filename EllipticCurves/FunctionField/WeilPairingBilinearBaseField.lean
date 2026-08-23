@@ -17,7 +17,7 @@ e_n(S, T) := weilPairingElt h₂ g = τ_T∗(g) / g,   τ_T∗ = translateEndo h
 ```
 
 is already delivered — unconditionally in `e_n`-constancy — as
-`weilPairingElt_translatePoint_add_of_algClosed` (`WeilPairingConstant.lean`, #419): for affine
+`weilPairingElt_translatePoint_add_of_pow_eq_one` (`WeilPairingConstant.lean`, #419): for affine
 points `T_P, T_Q, T_R` on `W` satisfying the group relation `𝒯_P + 𝒯_Q = 𝒯_R` **over `F(W)`**
 (`hsum`) it gives `e_n(S, T_R) = e_n(S, T_P) · e_n(S, T_Q)`.
 
@@ -102,7 +102,7 @@ e_n(S, T_R) = e_n(S, T_P) · e_n(S, T_Q).
 ```
 
 Composes the base-change transport `translatePoint_add` (turning the base-field relation into the
-`F(W)`-level `hsum`) with `weilPairingElt_translatePoint_add_of_algClosed`
+`F(W)`-level `hsum`) with `weilPairingElt_translatePoint_add_of_pow_eq_one`
 (`WeilPairingConstant.lean`), whose constancy of `e_n(S, T_Q)` is discharged internally via
 geometric integrality.  No residual function-field hypothesis remains beyond the root-of-unity
 datum. -/
@@ -113,7 +113,7 @@ theorem weilPairingElt_translatePoint_add_of_baseField
     {g : W.FunctionField} (hg : g ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hpow : weilPairingElt hQ g ^ n = 1) :
     weilPairingElt hR g = weilPairingElt hP g * weilPairingElt hQ g :=
-  weilPairingElt_translatePoint_add_of_algClosed hP hQ hR
+  weilPairingElt_translatePoint_add_of_pow_eq_one hP hQ hR
     (translatePoint_add hP hQ hR hadd) hg hn hpow
 
 end CoordinateRing

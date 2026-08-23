@@ -57,8 +57,9 @@ still rung-4 gated.
 * `weilPairingElt_isRootOfUnity` / `_of_gS'` / `_of_gS_three'` — the sharper **μ_n-membership**: the
   base-field constant `c` with `e_n(S, T) = algebraMap F F(W) c` is itself an `n`-th root of unity,
   `c ^ n = 1` in `F` — i.e. `e_n(S, T) ∈ μ_n(F)`, the value group issue #419 names;
-* `weilPairingElt_translatePoint_add_of_algClosed` — **unconditional** (modulo the group
-  relation `hsum`) bilinearity in the translation slot, obtained by feeding constancy to
+* `weilPairingElt_translatePoint_add_of_pow_eq_one` — **unconditional** (modulo the group
+  relation `hsum`) bilinearity in the translation slot, over an **arbitrary** field, obtained by
+  feeding constancy to
   `weilPairingElt_translatePoint_add_of_const`.  ⚠️ *Modulo* also the root `g` and its `hpow`,
   which this statement carries; both are produced, and `hsum` discharged from a base-field group
   relation, in `exists_weilPairingElt_translatePoint_add_{two,three}`
@@ -141,8 +142,13 @@ value `e_n(S, T_Q) ^ n = 1` (`hpow`), the constancy of `e_n(S, T_Q)` (from
 e_n(S, T_R) = e_n(S, T_P) · e_n(S, T_Q)
 ```
 
-with no residual `hfix`/`hconst`/constant-field hypothesis beyond `hpow` and the group relation. -/
-theorem weilPairingElt_translatePoint_add_of_algClosed [W.IsElliptic]
+with no residual `hfix`/`hconst`/constant-field hypothesis beyond `hpow` and the group relation.
+
+⚠️ *Unconditional* here means "no `hfix`/`hconst`", not "no hypotheses": `hpow` and `hsum` are
+carried.  In particular this holds over an **arbitrary** field — there is no `[IsAlgClosed F]`
+anywhere in this file.  It was called `…_of_algClosed` until `#885`, which is why the name now
+records the hypothesis it actually takes. -/
+theorem weilPairingElt_translatePoint_add_of_pow_eq_one [W.IsElliptic]
     {xP yP xQ yQ xR yR : F} (hP : W.Equation xP yP) (hQ : W.Equation xQ yQ)
     (hR : W.Equation xR yR)
     (hsum : translatePoint hP + translatePoint hQ = translatePoint hR)
