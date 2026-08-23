@@ -24,8 +24,10 @@ is already known to be an `n`-th root of unity: `e_n(S, T) ^ n = 1`
 This file discharges the **`e_n`-is-a-constant** gate of rung 6 — the fact that upgrades the
 conditional translation-slot bilinearity `weilPairingElt_translatePoint_add_of_const`
 (`WeilPairingBilinear.lean`, issue #419) to an unconditional statement — along a route that
-**avoids the normality wall** (`IsIntegrallyClosed W.CoordinateRing`, #396A, research-blocked on
-this pin) entirely.
+**avoids `IsIntegrallyClosed W.CoordinateRing`** entirely — and still does, for a reason that has
+outlived the one first given here: that hypothesis is no longer a wall (it is a global instance for
+`[W.IsElliptic]`, `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), but this route does
+not need `[W.IsElliptic]` either, so it remains the more general of the two.
 
 ## The route — the constant field, not the divisor
 
@@ -41,9 +43,10 @@ as `algebraicClosure_functionField_eq_bot` (`ConstantFieldDomain.lean`, #434): t
 algebraic closure), so `F` is relatively algebraically closed in `F(W)`.  Feeding that theorem here
 makes the constancy of `e_n(S, T)` and the translation-slot bilinearity hold for `[Field F]` alone,
 with no residual constant-field hypothesis.  This is a **different** unlock from both the normality
-wall (`F[W]` integrally closed in `F(W)`) and the divisor-pullback route (translation-invariance of
-`div g_S`, gated on rung 4) — either of which would also deliver constancy, but both are
-blocked/heavier on this pin.
+route (`F[W]` integrally closed in `F(W)`) and the divisor-pullback route (translation-invariance of
+`div g_S`, gated on rung 4) — either of which would also deliver constancy, but both are heavier
+here: the first now costs `[W.IsElliptic]`, which this file does not assume, and the second is
+still rung-4 gated.
 
 ## Main results
 

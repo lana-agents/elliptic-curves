@@ -33,9 +33,11 @@ class-group/principal-ideal dictionary `ClassGroup.mk_eq_one_iff`.
 
 `XYIdeal'` and `toClass` are built by Mathlib from the *pointwise* nonsingularity of the group law
 and need only `[IsDomain F[W]]` (automatic over a field) — **not** `[IsDedekindDomain F[W]]`. Hence
-this rung is independent of the outstanding integral-closedness/normality discharge for `F[W]`
-(`EllipticCurves.Torsion.CoordinateRingDedekind`). It is likewise independent of the elliptic-net /
-Ward recurrence.
+this rung is independent of the integral-closedness/normality discharge for `F[W]` — which is no
+longer outstanding for an elliptic curve
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, a global instance over an arbitrary
+field), so the independence now buys generality in `W` rather than freedom from an open problem.
+It is likewise independent of the elliptic-net / Ward recurrence.
 
 ⚠️ This paragraph used to close with "only *non-degeneracy* of the finished pairing needs the
 torsion count `#E[n] = n²`", which is **wrong** and is the claim `#769` retired at eighteen other

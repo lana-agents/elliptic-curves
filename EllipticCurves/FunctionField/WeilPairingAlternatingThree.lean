@@ -106,8 +106,12 @@ and cancelling the common factor `(τ_P∗ g) · (τ_Q∗ g) ≠ 0` leaves `τ_T
 * `(2 : F) ≠ 0` and `(3 : F) ≠ 0` — for `mulByThreeEndo`, whose construction runs through the
   generic-point tripling formula.  Only `h2` is needed for `exists_nsmul_three_eq`, which `#690`
   proved without `h3`.
-* `[W.IsElliptic]` and `[IsDedekindDomain W.CoordinateRing]` — the standing hypotheses of the whole
-  divisor calculus (`#396`).
+* `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.
+* `[IsDedekindDomain W.CoordinateRing]` — a binder in the variable block below, so `#check` does
+  show it on the headline, but it is *not* a real hypothesis and is not open: it is a **global
+  instance** for `[W.IsElliptic]` over an **arbitrary** field
+  (`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), so instance search supplies it and
+  no caller ever has to.
 * `hprin`, the **`#418` datum**: principality of `[3]∗((T) − (O))`.  It is rung-4/5 gated and is
   *not* discharged here.
 
@@ -342,9 +346,14 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_three [IsAlgClosed F] (h2
 
 /-! ### Non-vacuity
 
-As at `n = 2`, the headline cannot be instantiated outright: `[IsDedekindDomain W.CoordinateRing]`
-is `#396` and `hprin` is `#418`, both open elsewhere in the tree.  What is certified below is that
-every hypothesis this file *adds* on top of those two is simultaneously satisfiable — in
+The headline cannot be instantiated outright, for one reason: `hprin` is a hypothesis, and at
+`n = 3` it is `#418`, still open.  ⚠️ Unlike at `n = 2`, where it is discharged over `F̄` and the
+headline is certified outright in
+`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`.
+`[IsDedekindDomain W.CoordinateRing]` is **not** a second reason and never was: it is a global
+instance for `[W.IsElliptic]` over an arbitrary field
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What is certified below is that
+every hypothesis this file *adds* on top of `hprin` is simultaneously satisfiable — in
 particular that the `[IsAlgClosed F]` step is not vacuous.
 
 Which curve serves is worth stating, since over `F̄` the choice is not forced the way it is over

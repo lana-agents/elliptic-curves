@@ -45,9 +45,13 @@ count of a prime power (`count v (v₀.asIdeal ^ n) = n · [v = v₀]`) via `cou
 ## Design — Ward- and normality-independent
 
 Everything carries `[IsDedekindDomain W.CoordinateRing]` as an explicit hypothesis, exactly as
-`Divisors.lean` / `PointClosedPoint.lean` / `DivisorInjective.lean` do, decoupling this rung from
-the research-blocked Part A normality discharge of issue #396. It uses neither the elliptic-net
-(Ward) recurrence nor the torsion count `#E[n] = n²`.
+`Divisors.lean` / `PointClosedPoint.lean` / `DivisorInjective.lean` do, so this rung is stated for
+any Dedekind coordinate ring rather than only for the curves where one is known. ⚠️ That is a
+decoupling, not a workaround: the normality discharge it was written to route around is **done**
+for `[W.IsElliptic]` over an arbitrary field
+(`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), so a consumer with an elliptic curve
+supplies the hypothesis by instance search and need do nothing. This file uses neither the
+elliptic-net (Ward) recurrence nor the torsion count `#E[n] = n²`.
 
 ## References
 
