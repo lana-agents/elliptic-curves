@@ -83,6 +83,21 @@ both record that as a separate design question and it stays one); general `n` (`
 `hprin` over a general field, open at both `n`.  Nothing existing is renamed or reproved: this
 module is purely additive.
 
+## Placement
+
+The lemma layer — the `Point`/`Equation` bridge and the `weilPairingTorsionMuHom_*_ne_one`,
+`ker_…_ne_top` and `eq_zero_of_…` families, all of which take the root and its rung-5 certificate as
+hypotheses — lives in `WeierstrassCurve.Affine.CoordinateRing`.  The two `exists_` headlines over
+`F̄` live one level up in `WeierstrassCurve.Affine`, reached with `open CoordinateRing`; that is
+`#903`'s house pattern.
+
+⚠️ **`#918` moved those two up, together with `#873`'s pair in
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`.**  Only `#873`'s pair had an
+arbitrary-field twin whose namespace disagreed, but moving it alone would have split
+`exists_weilPairingTorsionMuHom_two` from `exists_weilPairingTorsionMuHom_two_ne_one` — the same
+defect one name over.  **A namespace fix that leaves a sibling behind has relocated the problem, not
+solved it.**  Nothing here changed but the prefix: no statement, no proof, no binder.
+
 ## Non-vacuity
 
 Both `exists_` headlines are instantiated below on the curves `#845`/`#861`/`#873`/`#890` use —
@@ -265,6 +280,18 @@ theorem eq_zero_of_weilPairingTorsionMuHom_three_eq_one (h2 : (2 : F) ≠ 0) (h3
     (Multiplicative.ofAdd (⟨Point.some x₃ y₃ h₃, hmem⟩ : W.torsion 3))
   rwa [weilPairingTorsionMuHom_three_apply_some h2 h3 hgS hu h₃ hmem hpow] at hval
 
+end IsAlgClosed
+
+end CoordinateRing
+
+variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
+
+open CoordinateRing
+
+section IsAlgClosed
+
+variable [IsAlgClosed F]
+
 /-! ### Over `F̄`, with no hypothesis beyond the setting -/
 
 open Classical in
@@ -389,7 +416,5 @@ example : ∃ (g : exampleCurveThree.FunctionField)
   exact ⟨g, φ, hφ, hval⟩
 
 end Nonvacuity
-
-end CoordinateRing
 
 end WeierstrassCurve.Affine

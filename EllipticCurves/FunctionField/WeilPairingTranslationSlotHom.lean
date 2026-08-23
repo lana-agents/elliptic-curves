@@ -119,11 +119,28 @@ this map** (`weilPairingTorsionMuHom ≠ 1`), the obvious next corollary, which 
 `ωₙ`); `hprin` over a general field, open at both `n`.  Nothing existing is renamed or reproved:
 this module is purely additive.
 
+## Placement
+
+The lemma layer — everything about `weilPairingPointElt`, `weilPairingPointMu`,
+`weilPairingPointMuHom` and the two `weilPairingTorsionMuHom_{two,three}` bundles — lives in
+`WeierstrassCurve.Affine.CoordinateRing`.  The two `exists_` headlines over `F̄` live one level up
+in `WeierstrassCurve.Affine`, reached with `open CoordinateRing`.  That is `#903`'s house pattern,
+demonstrated in `EllipticCurves.FunctionField.WeilPairingRootIndependence`.
+
+⚠️ **The headlines were moved up by `#918`; they used to be in the sub-namespace with the lemmas.**
+Nothing about them changed but the prefix — no statement, no proof, no binder.  The move was worth
+making because their arbitrary-field twins in
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin` (`#913`) are in `Affine`, and a twin
+pair split across two namespaces is invisible to a clean build, to `mk_all`, to a line-by-line read
+and to `#print axioms` run on only one of the two names — which is precisely how it survived here.
+
 ## Non-vacuity
 
 Every headline is certified below on the curves `#845`/`#861`/`#873` use — `y² = x³ − x` over
 `AlgebraicClosure ℚ` at `n = 2`, `y² + y = x³` at `n = 3`.  ⚠️ The two `_apply`-style computation
-rules are `rfl` and are not certified separately.
+rules are `rfl` and are not certified separately.  ⚠️ The certificates sit in `Affine` alongside the
+headlines rather than in the sub-namespace; they are `example`s and `private` lemmas, so no name
+outside this file is affected.
 
 ## References
 
@@ -493,6 +510,12 @@ theorem algebraMap_coe_weilPairingTorsionMuHom_three (h2 : (2 : F) ≠ 0) (h3 : 
       = weilPairingPointElt g (P : W.Point) :=
   algebraMap_coe_weilPairingPointMu hg (torsion_le_weilPairingPointSubgroup_three h2 h3 hg hu P.2)
 
+end CoordinateRing
+
+variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
+
+open CoordinateRing
+
 /-! ### Over `F̄`, with no hypothesis beyond the setting -/
 
 section IsAlgClosed
@@ -671,7 +694,5 @@ example : ∃ (g : exampleCurveThree.FunctionField)
   exact ⟨g, φ, hφ⟩
 
 end Nonvacuity
-
-end CoordinateRing
 
 end WeierstrassCurve.Affine
