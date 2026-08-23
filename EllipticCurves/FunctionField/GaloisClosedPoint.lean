@@ -55,11 +55,15 @@ fixes the two coordinate generators of `F[W⁄F]` and acts by `σ` on the consta
 Nothing here touches the translation slot: `translateEndo` does not preserve `F[W]`, is not
 `ringEquivOfRingEquiv e` for any `e`, and none of the transport applies to it — see the module
 docstring of `EllipticCurves.FunctionField.DivisorTransport`. The Galois slot of the Weil pairing
-(`#456` deliverable 2) also stays open: its residual gate is `divisor g_S = [n]∗(S)` together with
-`[n]∗(σS) = σ_*([n]∗ S)`. What this file changes is that the second identity is now a statement
-about points — by `equivMapDomain_galoisCoordRing_sum_single` it reduces to "the `σ`-image of the
-preimage multiset of `S` is the preimage multiset of `σS`" — and can be proved the moment `[n]∗` on
-divisors exists.
+(`#456` deliverable 2) is merged — from rung-5 data at `S` and at `σS` over any base field, and
+with nothing carried at `n = 2` over an algebraically closed one — in
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, and it consumes this file's point-level
+dictionary; it does **not** consume `divisor g_S = [n]∗(S)`, which earlier notes here and in
+`GaloisFunctoriality` named as its gate. Independently of the pairing, the identity
+`[n]∗(σS) = σ_*([n]∗ S)` becomes a statement about points here — by
+`equivMapDomain_galoisCoordRing_sum_single` it reduces to "the `σ`-image of the preimage multiset
+of `S` is the preimage multiset of `σS`" — and can be proved the moment `[n]∗` on divisors
+exists.
 
 Closed points of degree greater than one (those not of the form `pointClosedPoint`) are permuted by
 `σ_*` as well; the statements below simply do not mention them, which is the right slice, since the

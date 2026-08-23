@@ -45,18 +45,19 @@ algebraic object it was always meant to be.
   σ-transport and a τ-transport into a `(τ * σ)`-transport. This is what will make the rung-5
   family of `n`-th roots `{g_{σS}}_σ` coherent rather than a set of unrelated choices, and it is
   not statable at all without `galoisDivisor_mul`.
-* `#456` deliverable 2's residual gate includes `[n]∗(σS) = σ_*([n]∗ S)` — a statement about `σ_*`
-  as an operator on divisors. Today `σ_*` is spelled inline as
-  `Finsupp.equivMapDomain (mapEquiv (galoisCoordRing σ))` with no laws attached; `galoisDivisor`
-  names it and gives it the two laws that make it composable.
+* `[n]∗(σS) = σ_*([n]∗ S)` is a statement about `σ_*` as an operator on divisors. Today `σ_*` is
+  spelled inline as `Finsupp.equivMapDomain (mapEquiv (galoisCoordRing σ))` with no laws attached;
+  `galoisDivisor` names it and gives it the two laws that make it composable.
 
 ## Scope
 
-Rung-4/5-independent and Ward-independent. **`#456` deliverable 2 stays open**: its remaining
-inputs are `divisor g_S = [n]∗(S)` (rung 5, `#418`, gated on `#421`/`#422`) and the σ-equivariance
-of `[n]∗`, which cannot even be written until `[n]∗` on divisors exists (`#414`). **The translation
-slot is untouched**: `translateEndo` is not `IsFractionRing.ringEquivOfRingEquiv e` for any ring
-automorphism `e` of `F[W⁄F]` — it moves the points at infinity — so neither `#630`'s transport nor
+Rung-4/5-independent and Ward-independent. **`#456` deliverable 2 is merged** — from rung-5 data
+at `S` and at `σS` over any base field, and with nothing carried at `n = 2` over an algebraically
+closed one — in `EllipticCurves.FunctionField.WeilPairingGaloisRoot`; it needs neither
+`divisor g_S = [n]∗(S)` nor the σ-equivariance of `[n]∗`, which an earlier version of this section
+named as its remaining inputs. **The translation slot is untouched**: `translateEndo` is not
+`IsFractionRing.ringEquivOfRingEquiv e` for any ring automorphism `e` of `F[W⁄F]` — it moves the
+points at infinity — so neither `#630`'s transport nor
 anything here reaches the divisor-pullback-under-translation formula that `#465` needs.
 
 No `MulAction`/`DistribMulAction` instance is registered. A global action instance on a type as

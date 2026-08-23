@@ -41,16 +41,14 @@ about function fields.
 ## What this changes about the gate on `#456` deliverable 2
 
 Before: the remaining input was the `g_S` transport itself — a hypothesis with no route attached.
-After: it is exactly the pair of divisor identities
+After: it is a statement about divisors, and no longer mentions the pairing.
 
-```
-divisor g_S = [n]∗(S)              (rung 5, `#418`, gated on rung 4's `#421`/`#422`)
-[n]∗(σS)    = σ_*([n]∗ S)          (σ-equivariance of the divisor pullback; `[n]∗` needs `#414`)
-```
-
-Both are still gated — this file supplies the *bridge*, not either identity, and `#456`
-deliverable 2 stays open. But the gate is now two named divisor statements rather than an
-assumption about `F(W⁄F)`, and neither of them mentions the pairing.
+That reformulation is what this file is for, and it is what made the discharge findable.
+⚠️ It was accompanied here by a guess at *which* divisor statement would supply it — the rung-5
+identity `divisor g_S = [n]∗(S)` together with `[n]∗(σS) = σ_*([n]∗ S)`, both rung-4-gated. That
+guess was wrong, and `#456` deliverable 2 does **not** wait on rung 4:
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot` discharges the divisor hypothesis below from
+the rung-5 *relation* rather than from the rung-5 divisor, and never computes `divisor g_S`.
 
 ## Main results
 
@@ -164,12 +162,10 @@ open Classical in
 `weilPairingElt_galois_of_transport` (`#456`) replaced by the divisor hypothesis
 `divisor g' = σ_*(divisor g)`.
 
-This is the form rung 5 will discharge: the roots satisfy `divisor g_S = [n]∗(S)` and
-`divisor g_{σS} = [n]∗(σS)`, and `[n]∗(σS) = σ_*([n]∗ S)`, so the hypothesis below is precisely
-what those two identities give. Neither is available yet, so `#456` deliverable 2 stays open; what
-has changed is that the residual gate is a statement about divisors and no longer mentions the
-pairing. The statement is `n`-agnostic — the multiplication-by-`n` structure of `g` sits entirely
-in the divisor hypothesis. -/
+The hypothesis is discharged, from rung-5 data at `S` and at `σS`, in
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot`; over an algebraically closed base field at
+`n = 2` nothing has to be supplied at all. The statement is `n`-agnostic — the
+multiplication-by-`n` structure of `g` sits entirely in the divisor hypothesis. -/
 theorem weilPairingElt_galois_of_divisor_eq (σ : F ≃ₐ[S] F) (h₂ : (W⁄F).Equation x₂ y₂)
     {g g' : (W⁄F).FunctionField} (hg : g ≠ 0) (hg' : g' ≠ 0)
     (hdiv : divisor (W⁄F) g'

@@ -49,9 +49,13 @@ a consumer holding any one of them gets the exponent form without a detour.
 
 Nothing here weakens or strengthens the hypotheses of the merged equivariance statements: the
 transport hypothesis `htr` (respectively the divisor hypothesis `hdiv`) is passed straight through,
-and only the *conclusion* is rewritten. In particular the residual gate on the unconditional
-Galois-equivariance is unchanged — it is `divisor g_S = [n]∗(S)` (rung 5, `#418`, gated on `#421` /
-`#422`). Non-degeneracy of the pairing stays out, and it is **not** Ward-gated — `WeilPairing`'s
+and only the *conclusion* is rewritten. In particular there is no longer a residual gate to
+inherit: the **unconditional** Galois-equivariance is merged in
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which discharges `htr` and `hdiv` from
+rung-5 data without ever computing `divisor g_S`, so a consumer holding it reaches the exponent
+form below directly. ⚠️ Earlier text here named `divisor g_S = [n]∗(S)` (`#418`, gated on `#421` /
+`#422`) as that gate; it is not, and the identity itself remains open and out of scope.
+Non-degeneracy of the pairing stays out, and it is **not** Ward-gated — `WeilPairing`'s
 scope section is the canonical account of what it consumes (`#769`). Nothing here touches the
 alternating property (`#465` deliverable 2).
 

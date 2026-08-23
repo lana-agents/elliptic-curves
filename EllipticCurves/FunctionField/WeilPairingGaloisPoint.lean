@@ -32,11 +32,12 @@ function field to use point data.
 
 ## Scope
 
-Unchanged from `WeilPairingGaloisDivisor`: this is the **Galois** slot only. `#456` deliverable 2
-stays open — the missing input is `divisor g_S = [n]∗(S)` (rung 5, `#418`), which is what would let
-the hypotheses below be discharged rather than assumed. The translation slot (`#465` deliverable 2,
-the alternating property) is untouched, and non-degeneracy is out — and **not** Ward-gated;
-`WeilPairing`'s scope section is the canonical account of what it consumes (`#769`).
+Unchanged from `WeilPairingGaloisDivisor`: this is the **Galois** slot only. The hypotheses below
+are discharged — rather than assumed — in `EllipticCurves.FunctionField.WeilPairingGaloisRoot`,
+which is `#456` deliverable 2 and does not need `divisor g_S = [n]∗(S)`. The translation slot
+(`#465` deliverable 2, the alternating property) is untouched, and non-degeneracy is out — and
+**not** Ward-gated; `WeilPairing`'s scope section is the canonical account of what it
+consumes (`#769`).
 
 ## Main statements
 
