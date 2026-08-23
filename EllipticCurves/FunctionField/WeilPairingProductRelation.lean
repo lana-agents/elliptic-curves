@@ -303,12 +303,15 @@ private lemma rungFiveAlt_two (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular 
 
 open Classical in
 /-- **Antisymmetry of the Weil pairing at `n = 2` over an algebraically closed field, with no
-hypothesis beyond the setting.** -/
+hypothesis beyond the setting.**
+
+⚠️ `R = S ⊕ T` is **not** assumed to be `2`-torsion: `W.torsion 2` is a subgroup, so `hadd ▸
+add_mem hmS hmT` derives it.  The alternating property is nevertheless consumed at all three of
+`S`, `T` and `R`, as `weilPairingElt_mul_swap_eq_one` requires. -/
 theorem exists_weilPairingElt_mul_swap_eq_one_two (h2 : (2 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 2) (hmT : Point.some xT yT hT ∈ W.torsion 2)
-    (hmR : Point.some xR yR hR ∈ W.torsion 2)
     (hadd : Point.some xS yS hS + Point.some xT yT hT = Point.some xR yR hR) :
     ∃ gS gT : W.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
       (∃ f : W.FunctionField, f ≠ 0 ∧
@@ -318,6 +321,7 @@ theorem exists_weilPairingElt_mul_swap_eq_one_two (h2 : (2 : F) ≠ 0)
         divisor W f = Finsupp.single (pointClosedPoint hT.left) (2 : ℤ) ∧
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gT ^ 2 = mulByTwoEndo h2 f) ∧
       weilPairingElt hS.left gT * weilPairingElt hT.left gS = 1 := by
+  have hmR : Point.some xR yR hR ∈ W.torsion 2 := hadd ▸ add_mem hmS hmT
   obtain ⟨fS, gS, hfS, hgS, hdS, ⟨uS, huS⟩, haltS⟩ := rungFiveAlt_two h2 hS hmS
   obtain ⟨fT, gT, hfT, hgT, hdT, ⟨uT, huT⟩, haltT⟩ := rungFiveAlt_two h2 hT hmT
   obtain ⟨fR, gR, hfR, hgR, hdR, ⟨uR, huR⟩, haltR⟩ := rungFiveAlt_two h2 hR hmR
@@ -342,7 +346,6 @@ algebraically closed field with no hypothesis beyond the setting. -/
 theorem exists_weilPairingElt_eq_inv_two (h2 : (2 : F) ≠ 0) {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 2) (hmT : Point.some xT yT hT ∈ W.torsion 2)
-    (hmR : Point.some xR yR hR ∈ W.torsion 2)
     (hadd : Point.some xS yS hS + Point.some xT yT hT = Point.some xR yR hR) :
     ∃ gS gT : W.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
       (∃ f : W.FunctionField, f ≠ 0 ∧
@@ -353,7 +356,7 @@ theorem exists_weilPairingElt_eq_inv_two (h2 : (2 : F) ≠ 0) {xS yS xT yT xR yR
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gT ^ 2 = mulByTwoEndo h2 f) ∧
       weilPairingElt hS.left gT = (weilPairingElt hT.left gS)⁻¹ := by
   obtain ⟨gS, gT, hgS, hgT, hcS, hcT, hswap⟩ :=
-    exists_weilPairingElt_mul_swap_eq_one_two h2 hS hT hR hmS hmT hmR hadd
+    exists_weilPairingElt_mul_swap_eq_one_two h2 hS hT hR hmS hmT hadd
   exact ⟨gS, gT, hgS, hgT, hcS, hcT, eq_inv_of_mul_eq_one_left hswap⟩
 
 end Two
@@ -383,12 +386,14 @@ private lemma rungFiveAlt_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y :
 
 open Classical in
 /-- **Antisymmetry of the Weil pairing at `n = 3` over an algebraically closed field, with no
-hypothesis beyond the setting.** -/
+hypothesis beyond the setting.**
+
+⚠️ As at `n = 2`, the `3`-torsion of `R = S ⊕ T` is derived from that of `S` and `T` rather than
+assumed. -/
 theorem exists_weilPairingElt_mul_swap_eq_one_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 3) (hmT : Point.some xT yT hT ∈ W.torsion 3)
-    (hmR : Point.some xR yR hR ∈ W.torsion 3)
     (hadd : Point.some xS yS hS + Point.some xT yT hT = Point.some xR yR hR) :
     ∃ gS gT : W.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
       (∃ f : W.FunctionField, f ≠ 0 ∧
@@ -398,6 +403,7 @@ theorem exists_weilPairingElt_mul_swap_eq_one_three (h2 : (2 : F) ≠ 0) (h3 : (
         divisor W f = Finsupp.single (pointClosedPoint hT.left) (3 : ℤ) ∧
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gT ^ 3 = mulByThreeEndo h2 h3 f) ∧
       weilPairingElt hS.left gT * weilPairingElt hT.left gS = 1 := by
+  have hmR : Point.some xR yR hR ∈ W.torsion 3 := hadd ▸ add_mem hmS hmT
   obtain ⟨fS, gS, hfS, hgS, hdS, ⟨uS, huS⟩, haltS⟩ := rungFiveAlt_three h2 h3 hS hmS
   obtain ⟨fT, gT, hfT, hgT, hdT, ⟨uT, huT⟩, haltT⟩ := rungFiveAlt_three h2 h3 hT hmT
   obtain ⟨fR, gR, hfR, hgR, hdR, ⟨uR, huR⟩, haltR⟩ := rungFiveAlt_three h2 h3 hR hmR
@@ -423,7 +429,6 @@ theorem exists_weilPairingElt_eq_inv_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 3) (hmT : Point.some xT yT hT ∈ W.torsion 3)
-    (hmR : Point.some xR yR hR ∈ W.torsion 3)
     (hadd : Point.some xS yS hS + Point.some xT yT hT = Point.some xR yR hR) :
     ∃ gS gT : W.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
       (∃ f : W.FunctionField, f ≠ 0 ∧
@@ -434,17 +439,17 @@ theorem exists_weilPairingElt_eq_inv_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gT ^ 3 = mulByThreeEndo h2 h3 f) ∧
       weilPairingElt hS.left gT = (weilPairingElt hT.left gS)⁻¹ := by
   obtain ⟨gS, gT, hgS, hgT, hcS, hcT, hswap⟩ :=
-    exists_weilPairingElt_mul_swap_eq_one_three h2 h3 hS hT hR hmS hmT hmR hadd
+    exists_weilPairingElt_mul_swap_eq_one_three h2 h3 hS hT hR hmS hmT hadd
   exact ⟨gS, gT, hgS, hgT, hcS, hcT, eq_inv_of_mul_eq_one_left hswap⟩
 
 end Three
 
 /-! ### Non-vacuity
 
-Both headlines carry `[IsAlgClosed F]`, `[W.IsElliptic]` and a triple of affine torsion points in
-the relation `S ⊕ T = R`.  Two base curves are needed and the split is intrinsic, not stylistic:
-`y² = x³ − x` has `Ψ₃ = 3X⁴ − 6X² − 1`, whose roots are irrational, so it cannot **name** a
-`3`-torsion point at all.
+Both headlines carry `[IsAlgClosed F]`, `[W.IsElliptic]`, a **pair** of affine torsion points and
+an affine point `R` with `S ⊕ T = R` (whose torsion is derived, not assumed).  Two base curves
+are needed and the split is intrinsic, not stylistic: `y² = x³ − x` has `Ψ₃ = 3X⁴ − 6X² − 1`,
+whose roots are irrational, so it cannot **name** a `3`-torsion point at all.
 
 ⚠️ At `n = 2` the certificate is genuinely non-degenerate as an instance of *antisymmetry*: the
 three points `(0, 0)`, `(1, 0)` and `(−1, 0)` are **distinct**, so `S ≠ T` and the statement is not
@@ -494,11 +499,6 @@ private lemma exampleTorT :
   (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
 
 open Classical in
-private lemma exampleTorR :
-    Point.some (-1 : exampleField) 0 exampleNsR ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsR).mpr (by norm_num [exampleCurve])
-
-open Classical in
 /-- `(0, 0) ⊕ (1, 0) = (−1, 0)` on `y² = x³ − x`: the three nonzero `2`-torsion points, and they
 are **distinct**. -/
 private lemma exampleAdd :
@@ -525,7 +525,7 @@ example : ∃ gS gT : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
         (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
     weilPairingElt exampleNsS.left gT * weilPairingElt exampleNsT.left gS = 1 :=
   exists_weilPairingElt_mul_swap_eq_one_two exampleTwo exampleNsS exampleNsT exampleNsR
-    exampleTorS exampleTorT exampleTorR exampleAdd
+    exampleTorS exampleTorT exampleAdd
 
 /-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
 private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
@@ -546,13 +546,6 @@ private lemma exampleNsThreeR : exampleCurveThree.Nonsingular 0 (-1) :=
 open Classical in
 private lemma exampleTorThreeS :
     Point.some (0 : exampleField) 0 exampleNsThreeS ∈ exampleCurveThree.torsion 3 :=
-  mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
-      WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈])
-
-open Classical in
-private lemma exampleTorThreeR :
-    Point.some (0 : exampleField) (-1) exampleNsThreeR ∈ exampleCurveThree.torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
     norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
       WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈])
@@ -586,8 +579,7 @@ example : ∃ gS gT : exampleCurveThree.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
           = mulByThreeEndo exampleTwo exampleThree f) ∧
     weilPairingElt exampleNsThreeS.left gT * weilPairingElt exampleNsThreeS.left gS = 1 :=
   exists_weilPairingElt_mul_swap_eq_one_three exampleTwo exampleThree exampleNsThreeS
-    exampleNsThreeS exampleNsThreeR exampleTorThreeS exampleTorThreeS exampleTorThreeR
-    exampleAddThree
+    exampleNsThreeS exampleNsThreeR exampleTorThreeS exampleTorThreeS exampleAddThree
 
 end Nonvacuity
 
