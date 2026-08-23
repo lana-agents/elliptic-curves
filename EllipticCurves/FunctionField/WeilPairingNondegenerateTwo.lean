@@ -68,13 +68,15 @@ coordinates.
 
 ## Scope
 
-⚠️ **`n = 2` only.**  At `n = 3` steps 3 and 4 *do* transpose — `mem_fixedFieldThree_iff` and
-`fixedFieldThree_eq_mulByThreeFieldRange` (`MulByThreeGalois`, `#784`) — and step 1's `hprin` is
-discharged over an algebraically closed base field by
-`EllipticCurves.FunctionField.PullbackPrincipalityThree`.  ⚠️ So every input of the `n = 3` mirror
-of this file exists, and the mirror itself does **not**: nothing in this tree states
-non-degeneracy at `n = 3`, and the assembly has not been attempted.  Do not read the four inputs as
-the theorem.
+⚠️ **`n = 2` only, and the `n = 3` mirror now exists.**  At `n = 3` steps 3 and 4 transpose —
+`mem_fixedFieldThree_iff` and `fixedFieldThree_eq_mulByThreeFieldRange` (`MulByThreeGalois`,
+`#784`) — and step 1's `hprin` is discharged over an algebraically closed base field by
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` (`#825`).  The assembly those four inputs
+were waiting for is `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`), which
+transposes all seven steps below with `2 ↦ 3` and adds `(3 : F) ≠ 0`.  ⚠️ This bullet used to say
+that nothing in the tree stated non-degeneracy at `n = 3` and that the assembly had not been
+attempted; that was true for five merges and is what `#831` was filed to end.  Nothing here changed
+to make it possible — the mirror was always an assembly and never a research step.
 
 ⚠️ **`[IsAlgClosed F]` and `[W.IsElliptic]` are load-bearing, and the closure enters twice** —
 through step 1 (`#791`, itself through `exists_nsmul_two_eq` and `#774`'s fibre description) and
