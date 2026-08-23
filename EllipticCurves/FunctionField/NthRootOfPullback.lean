@@ -77,8 +77,13 @@ The hypothesis-free rung-5 statement is `exists_gS_two_of_isAlgClosed` **in that
 `exists_gS_two` below is deliberately left as it is, since it is the general-field statement and the
 discharge is not available in this file's generality.  Nothing in *this* file or in `#774` does it.
 
-At `n = 3` the geometric fact is still missing: there is no `[3]` duplication formula at a point
-(`#404`) and `#763`'s count `4` is `[2]`-specific.
+At `n = 3` the geometric fact is **not** missing either:
+`EllipticCurves.FunctionField.MulByThreeFibre` supplies `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` and the
+pinned ramification indices, under exactly the hypotheses of
+the `⚠️` above — `[W.IsElliptic]` throughout and `[IsAlgClosed F]` for the coset and the count — so
+the general-`F` caveat applies verbatim at `n = 3`.  What has no `n = 3` form at all is the class
+computation that consumes it, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`, and nobody has scouted it.
 
 ## Main statements
 

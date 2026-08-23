@@ -706,7 +706,10 @@ the whole chain elaborates with every instance discharged is committed rather th
 `y² + y = x³` over `AlgebraicClosure ℚ` is the `n = 3` certificate curve of this tree, used by
 `TranslationActionThree`, `MulByThreeGalois` and `MulByThreeRamification`; the `n = 2` curve
 `y² = x³ − x` has no rational `3`-torsion point, and no `ℚ`-curve can witness a statement that
-needs an algebraically closed base field. -/
+needs an algebraically closed base field.
+
+⚠️ It is followed by a **second** certificate over `ℚ`, because the two headline place statements
+carry no `[IsAlgClosed F]` and an `F̄`-only witness would leave that generality unexhibited. -/
 
 section Nonvacuity
 
@@ -762,6 +765,87 @@ open scoped Classical in
 /-- The `Fintype` the statement above carries is available, not an assumption in disguise. -/
 example : Finite (exampleCurveThree.torsion 3) :=
   exampleCurveThree.finite_torsion_three exampleThree
+
+/-! #### A general-field witness, with both points named
+
+⚠️ The curve above is algebraically closed, and it has to be for the counting results — but
+`comapProjPointThree_pointClosedPoint` and `comapProjPointThree_projPointOfPoint` carry **no**
+`[IsAlgClosed F]`, so certifying them only over `F̄` would leave their extra generality unwitnessed.
+
+`y² = x³ + 1` over `ℚ` at `P = (2, 3)` is `EllipticCurves.Torsion.TriplingCoords`'s own witness —
+neither `2`-torsion (`negY 2 3 = −3`) nor `3`-torsion (`Ψ₃(2) = 72`) — and the tripling it certifies
+is `3 • (2, 3) = (−1, 0)`.  The statement below is that arithmetic read on places: the closed point
+of `(2, 3)` contracts along `[3]∗` to the closed point of `(−1, 0)`, over a base field that is not
+algebraically closed and with both points named rather than quantified. -/
+
+/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
+private def exampleCurveRat : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+
+private instance : exampleCurveRat.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurveRat, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+private lemma exampleRatTwo : (2 : ℚ) ≠ 0 := by norm_num
+
+private lemma exampleRatThree : (3 : ℚ) ≠ 0 := by norm_num
+
+/-- `P = (2, 3)` lies on `y² = x³ + 1` and is nonsingular. -/
+private lemma exampleRatNonsingular : exampleCurveRat.Nonsingular 2 3 :=
+  equation_iff_nonsingular.mp
+    (by norm_num [exampleCurveRat, WeierstrassCurve.Affine.equation_iff])
+
+/-- `3 • P = (-1, 0)` lies on `y² = x³ + 1` and is nonsingular. -/
+private lemma exampleRatNonsingularThree : exampleCurveRat.Nonsingular (-1) 0 :=
+  equation_iff_nonsingular.mp
+    (by norm_num [exampleCurveRat, WeierstrassCurve.Affine.equation_iff])
+
+/-- `P` is not `2`-torsion. -/
+private lemma exampleRatNegY : (3 : ℚ) ≠ exampleCurveRat.negY 2 3 := by
+  norm_num [exampleCurveRat, WeierstrassCurve.Affine.negY]
+
+/-- `P` is not `3`-torsion: `Ψ₃(2) = 3·2⁴ + 3·b₆·2 = 72`. -/
+private lemma exampleRatPsiThree : exampleCurveRat.Ψ₃.eval 2 = 72 := by
+  norm_num [exampleCurveRat, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+private lemma exampleRatPsiTwoSq : exampleCurveRat.Ψ₂Sq.eval 2 = 36 := by
+  norm_num [exampleCurveRat, WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆]
+
+private lemma exampleRatPrePsiFour : exampleCurveRat.preΨ₄.eval 2 = 432 := by
+  rw [preΨ₄_eval, exampleRatPsiThree, exampleRatPsiTwoSq]
+  norm_num [exampleCurveRat, WeierstrassCurve.b₂, WeierstrassCurve.b₄]
+
+/-- `3 • (2, 3) = (-1, 0)`, via `nsmul_three_eq_some`. -/
+private lemma exampleRatTripling :
+    (3 : ℕ) • Point.some (2 : ℚ) 3 exampleRatNonsingular
+      = Point.some (-1) 0 exampleRatNonsingularThree := by
+  rw [nsmul_three_eq_some exampleRatTwo exampleRatNegY
+      (by rw [exampleRatPsiThree]; norm_num), Point.some.injEq]
+  have hψ : (exampleCurveRat.ψ 3).evalEval 2 3 = 72 := by
+    rw [ψ_evalEval (equation_iff_nonsingular.mpr exampleRatNonsingular) 3, Ψ_three, evalEval_C,
+      exampleRatPsiThree]
+  refine ⟨?_, ?_⟩
+  · rw [Φ_three_eval, ΨSq_three_eval, exampleRatPsiThree, exampleRatPrePsiFour,
+      exampleRatPsiTwoSq]
+    norm_num
+  · rw [hψ, preΨ_five]
+    simp only [eval_sub, eval_mul, eval_pow]
+    rw [exampleRatPrePsiFour, exampleRatPsiTwoSq, exampleRatPsiThree]
+    norm_num [exampleCurveRat]
+
+open scoped Classical in
+/-- **The place contraction of `[3]∗`, over `ℚ`, with both points named**: the closed point of
+`(2, 3)` on `y² = x³ + 1` contracts to the closed point of `3 • (2, 3) = (-1, 0)`.
+
+No `[IsAlgClosed F]`, and nothing here is quantified away — this is the tripling doing arithmetic
+on places. -/
+example :
+    comapProjPointThree exampleRatTwo exampleRatThree
+        (projPointOfPoint exampleCurveRat (Point.some (2 : ℚ) 3 exampleRatNonsingular))
+      = projPointOfPoint exampleCurveRat (Point.some (-1) 0 exampleRatNonsingularThree) := by
+  rw [comapProjPointThree_projPointOfPoint exampleRatTwo exampleRatThree, exampleRatTripling]
 
 end Nonvacuity
 

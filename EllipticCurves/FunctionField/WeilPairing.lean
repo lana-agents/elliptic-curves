@@ -157,12 +157,16 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 (`TranslationActionThree`, `#783`) on the right.  So at `n = 3` too the gate is `hprin`, rung 5
 (`#418`) — the **same** gate as at `n = 2`, and the last one left at either `n`.
 
-⚠️ **Same gate, but the two `n` are two rungs apart and must not be collapsed into each other.**
+⚠️ **Same gate, and the two `n` now differ only in one file.**
 At `n = 2` `hprin` is discharged over an algebraically closed base field, rung 9 being merged and
-`#791` having run the computation on top of it.  At `n = 3` the fibre description itself is still
-missing — there is no `[3]` duplication formula at a point (`#404`) and `#763`'s count `4` is
-`[2]`-specific — so `hprin` at `n = 3` is not even reducible to bookkeeping, which is what it had
-become at `n = 2` before `#791` did the bookkeeping.  This is the one asymmetry that survives
+`#791` having run the class computation on top of it.  At `n = 3` the geometric input to that
+computation is merged too — `EllipticCurves.FunctionField.MulByThreeFibre` gives
+`comapProjPointThree (projPointOfPoint P) = projPointOfPoint (3 • P)` and
+`[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` — so the whole remaining distance at `n = 3` is the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.  ⚠️ **That is not the same as saying it is
+bookkeeping**, and this paragraph has been wrong in that direction before: that file's class
+computation is class-group arithmetic, not place theory, and the analogies that made the place
+rungs cheap say nothing about it.  It is unscouted.  This is the one asymmetry that survives
 `#775`/`#783`/`#784`, and it is neither a count nor Artin.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:

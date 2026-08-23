@@ -70,8 +70,10 @@ coordinates.
 
 ⚠️ **`n = 2` only.**  At `n = 3` steps 3 and 4 *do* transpose — `mem_fixedFieldThree_iff` and
 `fixedFieldThree_eq_mulByThreeFieldRange` (`MulByThreeGalois`, `#784`) — so the `n = 3` gap is step
-1 alone: `exists_gS_three` keeps its `hprin`, because there is no `[3]` duplication formula at a
-closed point (`#404`) and `#763`'s count `4` is `[2]`-specific.  That is a real gap and not a
+1 alone: `exists_gS_three` keeps its `hprin`.  Its geometric input is no longer missing —
+`EllipticCurves.FunctionField.MulByThreeFibre` supplies the `[3]` fibre description — so the gap is
+the class computation that consumes it, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.  That is a real gap and not a
 transcription exercise; `#775` bet once that the `n = 3` degree was a copy-paste of the `n = 2` one
 and paid for it.
 

@@ -80,9 +80,13 @@ Let `S` be a nonsingular affine `2`-torsion point and pick `P` with `2 • P = S
 
 ## Scope
 
-⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it: there
-is no `[3]` duplication formula at a closed point (`#404`), so the `n = 3` fibre description does
-not exist, and `#763`'s count `4` is `[2]`-specific.
+⚠️ **This is `n = 2` only, and it is now the *whole* of what `n = 3` is missing.**
+`exists_gS_three` keeps its `hprin`, but the rung below — step 1's input, the fibre description
+`[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` — is `EllipticCurves.FunctionField.MulByThreeFibre`, merged.  So
+what has no `n = 3` form is this file's steps 2–3.  ⚠️ Step 2 is `[2]`-free already (`affinePart`,
+`pointDivisorAff` and `classOfDivisor_pointDivisorAff` mention no doubling and would be consumed
+unchanged); step 3 is `[2]`-specific in its arithmetic and **has not been scouted at `n = 3`**.
+Do not read "one rung left" as "bookkeeping": that is the bet `#775` lost.
 
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_two`'s.**  Everything from
 `pullbackDivisorTwo_single_sub_single_eq_sum_torsion` onwards carries `[IsAlgClosed F]` and

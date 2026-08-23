@@ -103,10 +103,11 @@ place other than infinity.  At `n = 2` that is the work of
 `EllipticCurves.FunctionField.MulByThreeFibre`, which consumes this file.
 
 ⚠️ **This is not the degree formula.**  `∑_{p ↦ q} e_p · deg p = 9` needs the residue-degree
-machinery and a fundamental identity — `EllipticCurves.FunctionField.PlaceRamificationInertia`
-(`#763`) instantiated at `[3]∗` — and `#763`'s `4` came from `MulByTwoDegree` plus an argument that
-has to be redone against `MulByThreeDegree`, not transcribed.  That is the next rung and nothing
-here approaches it.
+machinery on top of a fundamental identity, and nothing here approaches either.  The identity is
+`EllipticCurves.FunctionField.MulByThreeRamification`, which instantiates
+`EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`) at `[3]∗` on top of this file and
+proves the **unweighted** `∑_{p ↦ q} e_p = 9`.  The weighted form still has no `n = 3` case:
+`residueDegreeThree` does not exist, so `sum_ramificationIdxTwo_mul_residueDegreeTwo` has no mirror.
 
 ⚠️ **`[W.IsElliptic]` is absent from every declaration below, and that is not bookkeeping.**  What
 makes this section more than a restatement of the general one is that `[3]∗` is a *proper*

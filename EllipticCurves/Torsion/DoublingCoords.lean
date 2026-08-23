@@ -55,7 +55,9 @@ proof and ask which of its inputs actually mention the generic point.
 
 ## What is *not* here
 
-* Any general `ωₙ` or `n ≠ 2` duplication formula — that is `#404`, and nothing here approaches it.
+* Any general `ωₙ` duplication formula — that is `#404`, and nothing here approaches it.  ⚠️ The
+  `n = 3` case is **not** `#404`'s and is no longer missing: it is
+  `EllipticCurves.Torsion.TriplingCoords`, the mirror of this file, likewise not here.
 * Any statement about places, divisors or the function field; this file is pure point arithmetic and
   is imported by the function-field layer, not the other way round.
 * A re-derivation of `addX_gen_eq_mulByTwo` / `addY_gen_eq_mulByTwo` from the results here.  They
