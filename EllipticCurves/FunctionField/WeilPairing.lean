@@ -56,9 +56,10 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
 
 * **Bilinearity, alternating, Galois-equivariance** — separately valuable follow-ons.
 * **Non-degeneracy** — out of scope *of this file*, and **not** Ward-gated; see the next section,
-  which is the canonical account of what it consumes.  At `n = 2` over an algebraically closed base
-  field it is merged, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`); at
-  `n = 3`, and over a general field at either `n`, it is not.
+  which is the canonical account of what it consumes.  Over an algebraically closed base field it
+  is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
+  `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`); over a general field at
+  either `n`, it is not.
 * **General `n`** — needs the general `[n]∗` (#404 crux); only `n = 2, 3` are concretely available.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
@@ -124,9 +125,10 @@ every `T`, which is what `weilPairingElt` taking `g_S` as an *argument*
 (`weilPairingElt_eq_one_iff_translateEndo_fixed`) makes necessary, and it inherits the hypotheses
 the ⚠️ below records.
 
-⚠️ **"Non-degeneracy is proved" is true only at `n = 2` and only over an algebraically closed base
-field**, where it is `#796`.  At `n = 3`, and over a general field at either `n`, it is not, and
-this section remains an account of what non-degeneracy *consumes* rather than of a theorem.
+⚠️ **"Non-degeneracy is proved" is true only over an algebraically closed base field**, where it
+is `#796` at `n = 2` and `#831` at `n = 3`.  Over a general field at either `n` it is not, and for
+general `n` this section remains an account of what non-degeneracy *consumes* rather than of a
+theorem.
 
 ⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
 `exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the
@@ -166,11 +168,13 @@ absence of assembly, and it is now a *partial* absence.  Two of the rung-6 slots
 assembled: the alternating property, as `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
 (`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`), and
 Galois-equivariance, as `exists_weilPairingElt_galois_three`
-(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`).  Non-degeneracy at `n = 3` (`#831`)
-and the `∀ g` root-independent form
-(`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`, `WeilPairingRootIndependence`;
-⚠️ its `n = 2` twin is unassembled too, `#836`) still carry their `hprin` in their own
-signatures, and instantiating them against `exists_gS_three_of_isAlgClosed` has not been done.
+(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`), and non-degeneracy, as
+`exists_gS_three_weilPairingElt_ne_one`
+(`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`, `#831`).  What is left is the `∀ g`
+root-independent form (`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`,
+`WeilPairingRootIndependence`), which still carries its `hprin` in its own signature and has not
+been instantiated against `exists_gS_three_of_isAlgClosed`.  ⚠️ That one is **not** an `n = 3`
+asymmetry: its `n = 2` twin is unassembled too, and `#836` covers both.
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from either of the above.
 

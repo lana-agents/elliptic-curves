@@ -96,8 +96,8 @@ missing: the `n = 3` engine instance was proved here before the data existed.
 normality-independent.
 
 ⚠️ **Non-degeneracy is not in scope**, and neither is `#E[n] = n²`.  `WeilPairing`'s scope section
-is the canonical account of what non-degeneracy consumes (`#769`); at `n = 2` over `F̄` it is
-merged as `WeilPairingNondegenerateTwo` (`#796`).
+is the canonical account of what non-degeneracy consumes (`#769`); over `F̄` it is merged at both
+`n`, as `WeilPairingNondegenerateTwo` (`#796`) and `WeilPairingNondegenerateThree` (`#831`).
 
 ## References
 

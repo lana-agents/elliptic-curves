@@ -88,7 +88,8 @@ consumes the alternating property at three points, which this file now supplies 
 over `F̄` at `n = 3` — but it also needs the product relation `g_{S ⊕ T} = g_S · g_T · w` as the
 hypothesis `hprod`, which is rung-4/5 gated (`#414`/`#418`) and which nothing here touches.  Nor is
 this bilinearity, Galois-equivariance at `n = 3` (`#830`), general `n`, or non-degeneracy at
-`n = 3` (`#831`, whose four inputs are merged and which nothing states).
+`n = 3` (`#831`, now assembled in
+`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`).
 
 ## References
 
