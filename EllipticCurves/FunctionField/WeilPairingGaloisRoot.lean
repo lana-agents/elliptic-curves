@@ -74,6 +74,16 @@ knows what `divisor g` is, and nothing needs to.
 * `exists_weilPairingElt_galois_two` and `exists_weilPairingElt_galois_three` — the same with
   nothing carried at all, over an algebraically closed base field, `exists_gS_two_of_isAlgClosed`
   (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`) supplying both roots.
+* `weilPairingMu_galois_of_weilPairingElt` (`#859`) — the descent of the *conclusion* from
+  `F(W⁄F)` to `μ_n(F)`, for arbitrary `n`, with no `[IsAlgClosed F]` and no torsion hypothesis.
+  A strict generalisation of `weilPairingMu_galois_of_transport`
+  (`EllipticCurves.FunctionField.WeilPairingGaloisMu`), whose transport datum `htr` collapses to
+  the one conclusion it was only ever used to produce.
+* `exists_weilPairingMu_galois_two` and `exists_weilPairingMu_galois_three` (`#859`) — the two
+  statements above in the honest value group `μ_n(F) = rootsOfUnity n F`, with the two `hpow`
+  data produced rather than assumed.  ⚠️ These are the only theorems in the file that ask the
+  *translation* point `T` to be `n`-torsion; that is the price of "nothing carried" at this
+  level, and their docstrings say why it is the pairing's own setting rather than a gate.
 
 ## Scope
 
@@ -93,10 +103,16 @@ base field it is discharged by
 `n = 3` asymmetry this section used to record is gone.  Nothing about the Galois action was ever
 missing: the `n = 3` engine instance was proved here before the data existed.
 
-⚠️ **`[IsAlgClosed F]` appears only in the two `exists_` theorems**, and only through `#791` and
-`#825`.  The engine and the `n = 2`/`n = 3` transport statements need `[Field S] [Field F]
-[Algebra S F]` and `[W.IsElliptic]` and nothing else; in particular they are Ward-, rung-4- and
-normality-independent.
+⚠️ **`[IsAlgClosed F]` appears only in the four `exists_` theorems**, and only through `#791`
+and `#825`.  The engine, the descent and the `n = 2`/`n = 3` transport statements need
+`[Field S] [Field F] [Algebra S F]` and `[W.IsElliptic]` and nothing else; in particular they are
+Ward-, rung-4- and normality-independent.
+
+⚠️ **The `μ_n(F)` headlines carry one hypothesis the `F(W⁄F)` ones do not**: the translation
+point `T` is asked to be `n`-torsion.  It is not inherited from `#791`/`#825` and not a rung-4
+residue — it is what makes the pairing *value* a root of unity, so that `weilPairingMu` can be
+formed at all, and it is discharged for `σT` rather than assumed a second time.  `hprin` over a
+**general** field is unaffected and remains the only research gate on this front.
 
 ⚠️ **Non-degeneracy is not in scope**, and neither is `#E[n] = n²`.  `WeilPairing`'s scope section
 is the canonical account of what non-degeneracy consumes (`#769`); over `F̄` it is merged at both
@@ -399,19 +415,204 @@ theorem exists_weilPairingElt_galois_three [IsAlgClosed F] (σ : F ≃ₐ[S] F) 
   exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩,
     weilPairingElt_galois_of_gS_three σ h2 h3 h₂ h.left hg hg' hfdiv hf'div hu hu'⟩
 
+/-! ### Nothing carried, at the `μ_n(F)` group level
+
+The four theorems above finish the `F(W⁄F)` row of this file's table.  What follows finishes the
+`μ_n(F)` row, whose "nothing carried" cell was the last empty one:
+
+| | from rung-5 data | nothing carried, over `F̄` |
+|---|---|---|
+| `F(W⁄F)` | `weilPairingElt_galois_of_gS_*` | `exists_weilPairingElt_galois_*` |
+| `μ_n(F)` | `weilPairingMu_galois_of_gS_*` | `exists_weilPairingMu_galois_*` |
+
+with `*` ranging over `two` and `three` in every cell.
+
+⚠️ **The route is to descend the conclusion, not to apply the `μ_n(F)` theorem.**
+`weilPairingMu_galois_of_gS_two` would do the job, but only by re-supplying the rung-5 data that
+`exists_weilPairingElt_galois_two`'s envelope has already consumed and quantified away.  The
+descent `weilPairingMu_galois_of_weilPairingElt` instead consumes that envelope's *public payload*
+— the two roots, their two certificates and the `F(W⁄F)`-level conclusion — and nothing else. -/
+
+open Classical in
+/-- **Galois-equivariance descends from `F(W⁄F)` to `μ_n(F)`.**
+
+```
+σ⋆(e_n(S, T)) = e_n(σS, σT)  in F(W⁄F)   →   σ · μ_n(S, T) = μ_n(σS, σT)  in rootsOfUnity n F.
+```
+
+A strict generalisation of `weilPairingMu_galois_of_transport`
+(`EllipticCurves.FunctionField.WeilPairingGaloisMu`): that theorem's proof is this one with the
+final `exact` supplied by `weilPairingElt_galois_of_transport` rather than assumed, so the
+transport datum `htr` — and with it every rung-5 input behind it — collapses to the single
+conclusion `hgal` it was only ever used to produce.  Arbitrary `n`, no `[IsAlgClosed F]`, no
+torsion hypothesis, nothing about `divisor g`.
+
+The route is the injective composite `ζ ↦ algebraMap F F(W⁄F) ((ζ : Fˣ) : F)`
+(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with the defining property
+`algebraMap_coe_weilPairingMu` (`#457`) and the σ-semilinearity on constants
+`galoisFunctionField_algebraMap` (`#455`). -/
+theorem weilPairingMu_galois_of_weilPairingElt (σ : F ≃ₐ[S] F) (h₂ : (W⁄F).Equation x₂ y₂)
+    {g g' : (W⁄F).FunctionField} {n : ℕ} [NeZero n]
+    (hgal : galoisFunctionField σ (weilPairingElt h₂ g)
+      = weilPairingElt (equation_algEquiv σ h₂) g')
+    (hpow : weilPairingElt h₂ g ^ n = 1)
+    (hpow' : weilPairingElt (equation_algEquiv σ h₂) g' ^ n = 1) :
+    restrictRootsOfUnity (σ.toRingEquiv.toRingHom) n (weilPairingMu h₂ hpow)
+      = weilPairingMu (equation_algEquiv σ h₂) hpow' := by
+  refine algebraMap_coe_rootsOfUnity_injective (W := W⁄F) ?_
+  have hcoe :
+      ((restrictRootsOfUnity (σ.toRingEquiv.toRingHom) n (weilPairingMu h₂ hpow) : Fˣ) : F)
+        = σ ((weilPairingMu h₂ hpow : Fˣ) : F) := by
+    rw [restrictRootsOfUnity_coe_apply]
+    simp
+  simp only [hcoe, algebraMap_coe_weilPairingMu]
+  rw [← galoisFunctionField_algebraMap σ ((weilPairingMu h₂ hpow : Fˣ) : F),
+    algebraMap_coe_weilPairingMu h₂ hpow]
+  exact hgal
+
+omit [W.IsElliptic] in
+open Classical in
+/-- `T + T = 0` in `(W⁄F).Point` from membership of `(W⁄F).torsion 2`.  A local copy of the private
+lemma of the same name in `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`) and
+`…WeilPairingProductRelationMu` (`#855`), neither of which exports it. -/
+private lemma add_self_eq_zero_of_mem_torsion_two {x y : F} (h : (W⁄F).Nonsingular x y)
+    (htors : Point.some x y h ∈ (W⁄F).torsion 2) :
+    Point.some x y h + Point.some x y h = 0 := by
+  have hn := mem_torsion_iff.mp htors
+  rwa [two_nsmul] at hn
+
+omit [W.IsElliptic] in
+open Classical in
+/-- `T + T + T = 0` in `(W⁄F).Point` from membership of `(W⁄F).torsion 3`.  The `n = 3` twin of
+`add_self_eq_zero_of_mem_torsion_two`. -/
+private lemma add_add_self_eq_zero_of_mem_torsion_three {x y : F} (h : (W⁄F).Nonsingular x y)
+    (htors : Point.some x y h ∈ (W⁄F).torsion 3) :
+    Point.some x y h + Point.some x y h + Point.some x y h = 0 := by
+  have hn := mem_torsion_iff.mp htors
+  rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hn
+
+open Classical in
+/-- **Galois-equivariance of the Weil pairing in `μ_2(F)` with no hypothesis beyond the setting.**
+
+```
+σ · μ_2(S, T) = μ_2(σS, σT)     in rootsOfUnity 2 F,
+```
+
+over an algebraically closed base field of characteristic `≠ 2`.  The `μ_n(F)`-level companion of
+`exists_weilPairingElt_galois_two`, whose envelope this is, extended by exactly the two `hpow` data
+— bound existentially because `weilPairingMu` is indexed by the *proof* that the pairing value is
+an `n`-th root of unity, and **produced** here rather than assumed.
+
+⚠️ **The exponent of `μ_n` is not a free choice at this level, although it is at the level of
+`weilPairingMu_galois_of_gS_two`.**  That theorem's `{n : ℕ} [NeZero n]` is independent of the `2`
+of the rung-5 relation because it takes the two `hpow` proofs as given.  Here they are produced by
+`weilPairingElt_pow_eq_one_of_gS_two_torsion`
+(`EllipticCurves.FunctionField.TranslationTorsion`), whose exponent is *the exponent of the rung-5
+relation it consumes* — and `exists_gS_two_of_isAlgClosed` (`#791`) produces
+`u • g ^ 2 = [2]∗ f`.  So `n = 2` is forced by the data, not adopted by convention.
+
+⚠️ **The translation point `T` must be `2`-torsion, and `exists_weilPairingElt_galois_two` does not
+ask for that.**  This is the price of "nothing carried" at the `μ_n(F)` level: the `F(W⁄F)`
+statement is about a ratio and needs no order hypothesis on `T`, whereas the value being a square
+root of unity is exactly what `hm₂` buys.  It is the pairing's own setting — `e_n` is a pairing on
+`E[n] × E[n]` — and not a gate carried in from elsewhere; in exchange the caller supplies no rung-5
+data and no `hpow` proof.
+
+⚠️ **The `σ`-side torsion is derived, not assumed.**  `hpow'` needs `σT` to be `2`-torsion, and
+`Point.mem_torsion_galois_smul_some` supplies it from `hm₂`; the resulting point is
+`torsionPoint (equation_algEquiv σ h₂.left)` by proof irrelevance, so no transport lemma is
+needed.  As in `exists_weilPairingElt_galois_two`, `g'` is emphatically *not* `σ⋆ g`. -/
+theorem exists_weilPairingMu_galois_two [IsAlgClosed F] (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
+    (h₂ : (W⁄F).Nonsingular x₂ y₂) (hm₂ : Point.some x₂ y₂ h₂ ∈ (W⁄F).torsion 2)
+    (h : (W⁄F).Nonsingular x y) (hS : Point.some x y h ∈ (W⁄F).torsion 2) :
+    ∃ g g' : (W⁄F).FunctionField, g ≠ 0 ∧ g' ≠ 0 ∧
+      (∃ f : (W⁄F).FunctionField, f ≠ 0 ∧
+        divisor (W⁄F) f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) ∧
+        ∃ u : (W⁄F).CoordinateRingˣ,
+          (u : (W⁄F).CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
+      (∃ f' : (W⁄F).FunctionField, f' ≠ 0 ∧
+        divisor (W⁄F) f'
+          = Finsupp.single (pointClosedPoint (equation_algEquiv σ h.left)) (2 : ℤ) ∧
+        ∃ u' : (W⁄F).CoordinateRingˣ,
+          (u' : (W⁄F).CoordinateRing) • g' ^ 2 = mulByTwoEndo h2 f') ∧
+      ∃ hpow : weilPairingElt h₂.left g ^ 2 = 1,
+        ∃ hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 2 = 1,
+          restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 2 (weilPairingMu h₂.left hpow)
+            = weilPairingMu (equation_algEquiv σ h₂.left) hpow' := by
+  obtain ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hgal⟩ :=
+    exists_weilPairingElt_galois_two σ h2 h₂.left h hS
+  have hpow : weilPairingElt h₂.left g ^ 2 = 1 :=
+    weilPairingElt_pow_eq_one_of_gS_two_torsion h₂.left h2
+      (add_self_eq_zero_of_mem_torsion_two h₂ hm₂) hg hu
+  have hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 2 = 1 :=
+    weilPairingElt_pow_eq_one_of_gS_two_torsion (equation_algEquiv σ h₂.left) h2
+      (add_self_eq_zero_of_mem_torsion_two (nonsingular_algEquiv σ h₂)
+        (Point.mem_torsion_galois_smul_some σ h₂ hm₂)) hg' hu'
+  exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hpow, hpow',
+    weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩
+
+open Classical in
+/-- **Galois-equivariance of the Weil pairing in `μ_3(F)` with no hypothesis beyond the setting.**
+
+The `n = 3` mirror of `exists_weilPairingMu_galois_two`.  Only two things differ, and neither is
+mathematical: the envelope is `exists_weilPairingElt_galois_three`'s, and the `hpow` producer is
+`weilPairingElt_pow_eq_one_of_gS_three_baseField`
+(`EllipticCurves.FunctionField.TranslationTriplingComm`) in place of
+`weilPairingElt_pow_eq_one_of_gS_two_torsion`.  The exponent `n = 3` is forced by
+`exists_gS_three_of_isAlgClosed`'s `u • g ^ 3 = [3]∗ f` in the same way, and the translation point
+carries the same `3`-torsion hypothesis for the same reason. -/
+theorem exists_weilPairingMu_galois_three [IsAlgClosed F] (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) (h₂ : (W⁄F).Nonsingular x₂ y₂)
+    (hm₂ : Point.some x₂ y₂ h₂ ∈ (W⁄F).torsion 3)
+    (h : (W⁄F).Nonsingular x y) (hS : Point.some x y h ∈ (W⁄F).torsion 3) :
+    ∃ g g' : (W⁄F).FunctionField, g ≠ 0 ∧ g' ≠ 0 ∧
+      (∃ f : (W⁄F).FunctionField, f ≠ 0 ∧
+        divisor (W⁄F) f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) ∧
+        ∃ u : (W⁄F).CoordinateRingˣ,
+          (u : (W⁄F).CoordinateRing) • g ^ 3 = mulByThreeEndo h2 h3 f) ∧
+      (∃ f' : (W⁄F).FunctionField, f' ≠ 0 ∧
+        divisor (W⁄F) f'
+          = Finsupp.single (pointClosedPoint (equation_algEquiv σ h.left)) (3 : ℤ) ∧
+        ∃ u' : (W⁄F).CoordinateRingˣ,
+          (u' : (W⁄F).CoordinateRing) • g' ^ 3 = mulByThreeEndo h2 h3 f') ∧
+      ∃ hpow : weilPairingElt h₂.left g ^ 3 = 1,
+        ∃ hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 3 = 1,
+          restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 3 (weilPairingMu h₂.left hpow)
+            = weilPairingMu (equation_algEquiv σ h₂.left) hpow' := by
+  obtain ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hgal⟩ :=
+    exists_weilPairingElt_galois_three σ h2 h3 h₂.left h hS
+  have hpow : weilPairingElt h₂.left g ^ 3 = 1 :=
+    weilPairingElt_pow_eq_one_of_gS_three_baseField h₂.left h2 h3
+      (add_add_self_eq_zero_of_mem_torsion_three h₂ hm₂) hg hu
+  have hpow' : weilPairingElt (equation_algEquiv σ h₂.left) g' ^ 3 = 1 :=
+    weilPairingElt_pow_eq_one_of_gS_three_baseField (equation_algEquiv σ h₂.left) h2 h3
+      (add_add_self_eq_zero_of_mem_torsion_three (nonsingular_algEquiv σ h₂)
+        (Point.mem_torsion_galois_smul_some σ h₂ hm₂)) hg' hu'
+  exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hpow, hpow',
+    weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩
+
 /-! ### Non-vacuity
 
 The theorems above quantify over a base field `S`, an extension `F` and an `S`-automorphism of `F`;
-the two `exists_` theorems additionally need `[IsAlgClosed F]` and a nonsingular affine `n`-torsion
-point of `W⁄F`.  Both are certified here, on two base curves, with the torsion point **named** and
-already rational in each case, so the certificates exhibit the statement rather than the action.
+the four `exists_` theorems additionally need `[IsAlgClosed F]` and a nonsingular affine
+`n`-torsion point of `W⁄F`, and the two `μ_n(F)` ones a second such point in the translation
+slot.  All are certified here, on two base curves, with the torsion points **named** and already
+rational in each case, so the certificates exhibit the statement rather than the action.
 In both, the curve is defined over `ℚ` and base-changed to `AlgebraicClosure ℚ`, since a Galois
 statement needs two fields and the rest of `FunctionField/` only needs one.
 
 * `n = 2`: `y² = x³ − x` at `(0, 0)`, the curve `#758`/`#759`/`#763`/`#774`/`#791`/`#796` all use.
 * `n = 3`: `y² + y = x³` at `(0, 0)`, the curve `#783`/`#811`/`#825` use.  ⚠️ It has to be a
   *different* curve: `y² = x³ − x` has `Ψ₃ = 3X⁴ − 6X² − 1`, with no rational root, so it has no
-  named `3`-torsion point to instantiate with. -/
+  named `3`-torsion point to instantiate with.
+
+⚠️ The two `μ_n(F)` certificates are **not** equally strong, and the difference is a property of
+the curves rather than of the statements.  At `n = 2` the translation point is `(1, 0)` and the
+pairing slot is `(0, 0)`: two distinct `2`-torsion points, so the certificate is a genuine
+two-point instance.  At `n = 3` both slots are `(0, 0)`, because the only nameable `3`-torsion
+points on `y² + y = x³` are `(0, 0)` and its negative `(0, −1)` — the `X = − 1` fibre of
+`Ψ₃ = 3X(X³ + 1)` is `y² + y + 1 = 0`, the primitive cube roots of unity.  The limitation is
+inherited from `#829`/`#845`/`#855` and is stated, not repaired. -/
 
 section Nonvacuity
 
@@ -514,6 +715,84 @@ example (σ : exampleField ≃ₐ[ℚ] exampleField) {x₂ y₂ : exampleField}
         = weilPairingElt (equation_algEquiv σ h₂) g' :=
   exists_weilPairingElt_galois_three σ exampleTwo exampleThree h₂ exampleNonsingularThree
     exampleTorsionThree
+
+/-- `T = (1, 0)` lies on `y² = x³ − x` and is nonsingular.  ⚠️ A **second** point on the same
+curve is needed here and not by the `F(W⁄F)`-level certificates above: those leave the translation
+point `T` free, whereas `exists_weilPairingMu_galois_two` asks for it to be `2`-torsion.  Taking
+`T = (1, 0)` against `S = (0, 0)` keeps the certificate a genuine two-point instance rather than
+one at `S = T`. -/
+private lemma exampleNonsingularTranslate : (exampleCurve⁄exampleField).Nonsingular 1 0 :=
+  (exampleCurve⁄exampleField).equation_iff_nonsingular.mp (by
+    simp [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+
+open Classical in
+/-- `T = (1, 0)` is `2`-torsion: `2y + a₁x + a₃ = 0` reads `0 = 0`, as at `(0, 0)`. -/
+private lemma exampleTorsionTranslate :
+    Point.some (1 : exampleField) 0 exampleNonsingularTranslate
+      ∈ (exampleCurve⁄exampleField).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingularTranslate).mpr (by simp [exampleCurve])
+
+open Classical in
+/-- **Galois-equivariance of the Weil pairing in `μ_2(F)`, on a curve that exists**, with the base
+field, the extension and **both** `2`-torsion points named — `S = (0, 0)` and `T = (1, 0)`, which
+are distinct, so the certificate is not a disguised instance at `S = T`. -/
+example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+    ∃ g g' : (exampleCurve⁄exampleField).FunctionField, g ≠ 0 ∧ g' ≠ 0 ∧
+      (∃ f : (exampleCurve⁄exampleField).FunctionField, f ≠ 0 ∧
+        divisor (exampleCurve⁄exampleField) f
+          = Finsupp.single (pointClosedPoint exampleNonsingular.left) (2 : ℤ) ∧
+        ∃ u : (exampleCurve⁄exampleField).CoordinateRingˣ,
+          (u : (exampleCurve⁄exampleField).CoordinateRing) • g ^ 2
+            = mulByTwoEndo exampleTwo f) ∧
+      (∃ f' : (exampleCurve⁄exampleField).FunctionField, f' ≠ 0 ∧
+        divisor (exampleCurve⁄exampleField) f'
+          = Finsupp.single
+              (pointClosedPoint (equation_algEquiv σ exampleNonsingular.left)) (2 : ℤ) ∧
+        ∃ u' : (exampleCurve⁄exampleField).CoordinateRingˣ,
+          (u' : (exampleCurve⁄exampleField).CoordinateRing) • g' ^ 2
+            = mulByTwoEndo exampleTwo f') ∧
+      ∃ hpow : weilPairingElt exampleNonsingularTranslate.left g ^ 2 = 1,
+        ∃ hpow' : weilPairingElt (equation_algEquiv σ exampleNonsingularTranslate.left) g' ^ 2 = 1,
+          restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 2
+              (weilPairingMu exampleNonsingularTranslate.left hpow)
+            = weilPairingMu (equation_algEquiv σ exampleNonsingularTranslate.left) hpow' :=
+  exists_weilPairingMu_galois_two σ exampleTwo exampleNonsingularTranslate exampleTorsionTranslate
+    exampleNonsingular exampleTorsion
+
+open Classical in
+/-- **Galois-equivariance of the Weil pairing in `μ_3(F)`, on a curve that exists.**
+
+⚠️ **This certificate is taken at `S = T = (0, 0)`, and that is a genuine limitation rather than a
+convenience.**  The only nameable `3`-torsion points on `y² + y = x³` are `(0, 0)` and its negative
+`(0, −1)`: the `X = −1` fibre of `Ψ₃ = 3X(X³ + 1)` is `y² + y + 1 = 0`, the primitive cube roots of
+unity, which cannot be named without a genuine algebraic-number argument.  So the certificate shows
+that the hypotheses of `exists_weilPairingMu_galois_three` are simultaneously satisfiable — which
+is what a non-vacuity certificate is for — but it does **not** exhibit `S ≠ T`.  The limitation is
+inherited from `#829`/`#845`/`#855`, which report the same thing about the same curve, and it is
+not addressed here.  ⚠️ At `n = 2` there is no such limitation: the certificate above is at two
+distinct points. -/
+example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+    ∃ g g' : (exampleCurveThree⁄exampleField).FunctionField, g ≠ 0 ∧ g' ≠ 0 ∧
+      (∃ f : (exampleCurveThree⁄exampleField).FunctionField, f ≠ 0 ∧
+        divisor (exampleCurveThree⁄exampleField) f
+          = Finsupp.single (pointClosedPoint exampleNonsingularThree.left) (3 : ℤ) ∧
+        ∃ u : (exampleCurveThree⁄exampleField).CoordinateRingˣ,
+          (u : (exampleCurveThree⁄exampleField).CoordinateRing) • g ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      (∃ f' : (exampleCurveThree⁄exampleField).FunctionField, f' ≠ 0 ∧
+        divisor (exampleCurveThree⁄exampleField) f'
+          = Finsupp.single
+              (pointClosedPoint (equation_algEquiv σ exampleNonsingularThree.left)) (3 : ℤ) ∧
+        ∃ u' : (exampleCurveThree⁄exampleField).CoordinateRingˣ,
+          (u' : (exampleCurveThree⁄exampleField).CoordinateRing) • g' ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f') ∧
+      ∃ hpow : weilPairingElt exampleNonsingularThree.left g ^ 3 = 1,
+        ∃ hpow' : weilPairingElt (equation_algEquiv σ exampleNonsingularThree.left) g' ^ 3 = 1,
+          restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 3
+              (weilPairingMu exampleNonsingularThree.left hpow)
+            = weilPairingMu (equation_algEquiv σ exampleNonsingularThree.left) hpow' :=
+  exists_weilPairingMu_galois_three σ exampleTwo exampleThree exampleNonsingularThree
+    exampleTorsionThree exampleNonsingularThree exampleTorsionThree
 
 end Nonvacuity
 

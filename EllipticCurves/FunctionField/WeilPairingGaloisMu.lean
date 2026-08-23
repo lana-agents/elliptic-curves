@@ -68,7 +68,14 @@ Ward-, normality- and rung-4-independent.  The `g_S` transport `σ⋆ g_S = u ·
 as the explicit hypothesis `htr`, exactly as at the `F(W⁄F)` level.  Its unconditional discharge —
 deliverable 2 of #456, and **not** rung-4-gated — is
 `EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which states the discharged form at this
-level too, so a consumer in `μ_n(F)` need not descend.  Non-degeneracy stays out, and it is
+level too, so a consumer in `μ_n(F)` need not descend.  ⚠️ Over an algebraically closed base field
+that file now also carries `exists_weilPairingMu_galois_two` / `_three` (#859), which need **no**
+rung-5 data and no `hpow` proof — only that the two points are `n`-torsion — so a consumer with a
+torsion point should reach for those rather than for `weilPairingMu_galois_of_transport` below.
+⚠️ Their route is not this theorem: `weilPairingMu_galois_of_weilPairingElt` (#859) is the same
+proof with the final `exact weilPairingElt_galois_of_transport σ h₂ htr` replaced by a hypothesis,
+so applying *this* statement would mean re-supplying the rung-5 data the unconditional `F(W⁄F)`
+theorem has already consumed.  Non-degeneracy stays out, and it is
 **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
 consumes (#769).
 

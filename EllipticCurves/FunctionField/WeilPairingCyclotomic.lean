@@ -53,8 +53,11 @@ and only the *conclusion* is rewritten. In particular there is no longer a resid
 inherit: the **unconditional** Galois-equivariance is merged in
 `EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which discharges `htr` and `hdiv` from
 rung-5 data without ever computing `divisor g_S`, so a consumer holding it reaches the exponent
-form below directly. ⚠️ Earlier text here named `divisor g_S = [n]∗(S)` (`#418`, gated on `#421` /
-`#422`) as that gate; it is not, and the identity itself remains open and out of scope.
+form below directly. ⚠️ At the `μ_n(F)` level that file goes one step further over an
+algebraically closed base field: `exists_weilPairingMu_galois_two` / `_three` (`#859`) carry no
+rung-5 data and no `hpow` proof at all, only the `n`-torsion of the two points. ⚠️ Earlier text
+here named `divisor g_S = [n]∗(S)` (`#418`, gated on `#421` / `#422`) as that gate; it is not,
+and the identity itself remains open and out of scope.
 Non-degeneracy of the pairing stays out, and it is **not** Ward-gated — `WeilPairing`'s
 scope section is the canonical account of what it consumes (`#769`). Nothing here touches the
 alternating property (`#465` deliverable 2).
