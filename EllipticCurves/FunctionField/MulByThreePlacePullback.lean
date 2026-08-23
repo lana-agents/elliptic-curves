@@ -99,7 +99,8 @@ all — `natDegree_Φ` holds over any nontrivial ring.
 ⚠️ **No affine index is computed.**  Nothing below says anything about `ramificationIdxThree` at a
 place other than infinity.  At `n = 2` that is the work of
 `EllipticCurves.FunctionField.MulByTwoFibreInfinity` and
-`EllipticCurves.FunctionField.MulByTwoFibreAffine`, and there is no `n = 3` analogue of either.
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`; the `n = 3` analogue of both is
+`EllipticCurves.FunctionField.MulByThreeFibre`, which consumes this file.
 
 ⚠️ **This is not the degree formula.**  `∑_{p ↦ q} e_p · deg p = 9` needs the residue-degree
 machinery and a fundamental identity — `EllipticCurves.FunctionField.PlaceRamificationInertia`
@@ -116,10 +117,11 @@ singular Weierstrass curve the smooth locus is `𝔾ₘ` or `𝔾ₐ`, where mul
 cubing or tripling, and the latter is an isomorphism as soon as `(3 : F) ≠ 0`.  This is
 `PlacePullback`'s own warning at `n = 2`, unchanged.
 
-⚠️ **This does not discharge `hprin` at `n = 3` (`#418`) and does not come close.**  It supplies the
-place-theoretic rung above `EllipticCurves.Torsion.TriplingCoords`'s coordinate rung; the fibre
-description that `#791` consumed at `n = 2` needs the affine indices, which need the degree formula,
-which is unbuilt.
+⚠️ **This does not discharge `hprin` at `n = 3` (`#418`).**  It supplies the place-theoretic rung
+above `EllipticCurves.Torsion.TriplingCoords`'s coordinate rung; the fibre description that `#791`
+consumed at `n = 2` is `EllipticCurves.FunctionField.MulByThreeFibre`, and what is left above it is
+the class-group computation, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.
 
 ## References
 

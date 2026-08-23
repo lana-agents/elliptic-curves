@@ -101,8 +101,12 @@ of `#774` is cheap and the affine half is not.
 * **`#E[2] = 4` from any of this.**  The count `card_torsion_two` is an *input* to step 2 by way of
   `card_roots_Ψ₂Sq`, not an output.  The link from the field degree to a point count runs through
   "a separable isogeny has `#ker = deg`", which is nowhere in this tree.
-* `[3]∗`.  Step 1 transposes once `Φ₃`/`ΨSq₃` coprimality is available in the same form, but
-  `#763`'s right-hand side `4` is `[2]`-specific, so step 2 does not.
+* `[3]∗`.  Both steps have been transposed, in `EllipticCurves.FunctionField.MulByThreeFibre`:
+  step 1 off `isCoprime_Φ_three_ΨSq_three`, step 2 against
+  `EllipticCurves.FunctionField.MulByThreeRamification`'s `∑ e_p = 9` in place of `#763`'s `4`.
+  ⚠️ The `n = 3` fibre is *not* counted by roots there: a `3`-torsion point is not `2`-torsion, so
+  each of the four roots of `Ψ₃` carries **two** points, and the count `9` is obtained as a coset
+  of `E[3]` rather than one point per root.
 
 ## References
 
