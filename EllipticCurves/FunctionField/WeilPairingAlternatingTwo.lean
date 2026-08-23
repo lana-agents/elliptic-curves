@@ -88,10 +88,12 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
 * `[IsAlgClosed F]` — in exactly one place, `exists_equation_nsmul_two_eq`, to produce `P`.  The
   core lemma does not have it.
 * `(2 : F) ≠ 0` — for `mulByTwoEndo` and for `exists_nsmul_two_eq`.
-* `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.  Note that
-  `[IsDedekindDomain W.CoordinateRing]` is *not* alongside it: it is a global instance for
-  `[W.IsElliptic]` over an arbitrary field (`CoordinateRingNormalGeneral`), so it costs nothing and
-  is not in this file's variable block.
+* `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.
+* `[IsDedekindDomain W.CoordinateRing]` — a binder in the variable block below, so `#check` does
+  show it on the headline, but it is *not* a real hypothesis and is not `#396`: it is a **global
+  instance** for `[W.IsElliptic]` over an **arbitrary** field (`CoordinateRingNormalGeneral`), so
+  instance search supplies it and no caller ever has to.  Deleting the binder would be a no-op
+  tidy-up, not a generalisation.
 * `hprin`, the **`#418` datum**: principality of `[2]∗((T) − (O))`, in the exact shape
   `exists_gS_two` (`NthRootOfPullback`) takes it, so that the two compose.  It is *not* discharged
   here — but it is discharged over an algebraically closed base field in
