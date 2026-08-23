@@ -97,11 +97,22 @@ Subsingleton.elim _ _`.
 `WeilPairingGaloisRoot`), and not general `n`.**  It says nothing about `#E[n] = n²` at general `n`
 (`#242`, `#404`, Ward): it is Ward-free for the same reason the `n = 2` file is.
 
-⚠️ **There is no `W.Point`-level pairing in this tree**, so "non-degeneracy" cannot be stated as a
-property of a bilinear map.  `eq_zero_of_forall_weilPairingElt_eq_one_three` is as close to
-Silverman's sentence as the current packaging allows: it quantifies over the *data* `f_S`, `g_S`
-that rung 5 produces.  Inventing a fifth spelling of the pairing here would be the drift this front
-keeps paying for.
+⚠️ **There is no `W.Point`-level pairing in this tree at `n = 3`**, so "non-degeneracy" cannot be
+stated here as a property of a bilinear map.  `eq_zero_of_forall_weilPairingElt_eq_one_three` is as
+close to Silverman's sentence as the current packaging allows: it quantifies over the *data* `f_S`,
+`g_S` that rung 5 produces.  Inventing a fifth spelling of the pairing here would be the drift this
+front keeps paying for.
+
+⚠️ **At `n = 2` the sentence above is no longer true, and the difference is an index and not a
+principle.**  `EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) packages `e_2` as a
+genuine function `weilPairingTwo : E[2] → E[2] → μ_2(F)`, bundles it as `weilPairingTwoHom` and
+states non-degeneracy as `ker_weilPairingTwoHom h2 = ⊥`.  The `n = 3` mirror is separate, unfiled
+work — but ⚠️ **the input it would need from this file is already in the right shape**:
+`eq_zero_of_forall_weilPairingElt_eq_one_three`'s `hfdiv` is written with
+`(3 : ℤ) • pointDivisorAff W S` for `S : W.Point`, the uniform form covering `O` and the affine
+points at once, exactly as the `n = 2` headline is.  ⚠️ Do **not** read that as pricing the mirror
+as a copy: `WeilPairingAlternatingThree` needs `htors` at the `translatePoint` level and `map_negY`
+where `n = 2` gets by on proof irrelevance, and that part is genuinely extra.
 
 ## References
 

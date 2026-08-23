@@ -90,11 +90,30 @@ matter of restating anything here.  In particular `WeilPairing.lean` carries `[W
 `#404`, Ward): the only count it uses is `card_torsion_two`, inside `#759`, which counts the roots
 of the `2`-division cubic and does not go through Ward.
 
-⚠️ **There is no `W.Point`-level pairing in this tree**, so "non-degeneracy" cannot be stated as a
-property of a bilinear map.  `eq_zero_of_forall_weilPairingElt_eq_one_two` is as close to
-Silverman's sentence as the current packaging allows: it quantifies over the *data* `f_S`, `g_S`
-that rung 5 produces.  Packaging `e_n` as a function of two points is `#456`/`#465`'s business and
-inventing a fourth spelling of the pairing here would be the drift this front keeps paying for.
+⚠️ **There now IS a `W.Point`-level pairing in this tree, and this file's headline is what its
+non-degeneracy consumes.**  This section used to say the opposite — *"there is no `W.Point`-level
+pairing in this tree, so non-degeneracy cannot be stated as a property of a bilinear map"* — and
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) was written to remove it.  That file
+defines `weilPairingTwo : E[2] → E[2] → μ_2(F)` as a genuine function of two torsion points, bundles
+it as `weilPairingTwoHom`, and states `ker_weilPairingTwoHom h2 = ⊥`, which is precisely the
+property of a bilinear map.  Its proof reaches `eq_zero_of_forall_weilPairingElt_eq_one_two` below
+in three steps and consumes nothing else — `ker_weilPairingTwoHom`, then
+`eq_zero_of_forall_weilPairingTwo_eq_one`, then `eq_zero_of_forall_weilPairingEltTwo_eq_one`, which
+applies it to the chosen root.
+
+⚠️ **So the data-level statement here is the *input* to the point-level one, not a substitute for
+it**, and it is worth keeping in that shape: it quantifies over the *data* `f_S`, `g_S` that rung 5
+produces, so a caller holding its own root can apply it, whereas the point-level statement has made
+that choice already.  ⚠️ **The reason the two fit together with no divisor bookkeeping is `hfdiv`
+below**: `divisor W f = (2 : ℤ) • pointDivisorAff W S`, with `S : W.Point`, is the one shape that
+covers `O` and the affine points at once, which is why `#922` could take it as its root predicate
+verbatim.
+
+⚠️ Inventing a *further* spelling of the pairing here would still be the drift this front keeps
+paying for; the packaging work belongs in `WeilPairingFunctionTwo` and was done there.  ⚠️ **At
+`n = 3` there is still no such pairing** — `#922` is `n = 2` only — so
+`EllipticCurves.FunctionField.WeilPairingNondegenerateThree` remains the closest statement at that
+index.
 
 ## References
 

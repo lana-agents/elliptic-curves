@@ -84,9 +84,18 @@ unchanged.
 ⚠️ **The three points carry their own rung-5 data, and the statements return it.**  `weilPairingElt`
 takes the root `g_S` as an *argument*, so an antisymmetry statement has to say *which* roots it is
 about; the headlines therefore produce `g_S` and `g_T` together with their rung-5 certificates,
-exactly as `exists_gS_two_weilPairingElt_ne_one` does for non-degeneracy.  There is still no
-`W.Point`-level pairing in this tree, and inventing one here would be the drift this front keeps
-paying for.
+exactly as `exists_gS_two_weilPairingElt_ne_one` does for non-degeneracy.  Inventing a
+`W.Point`-level pairing *here* would still be the drift this front keeps paying for.
+
+⚠️ **There now is one, at `n = 2`, and it does not need this file.**
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) makes `e_2` a function of two torsion
+points, and `weilPairingEltTwo_mul_swap` derives antisymmetry in two tactic lines by expanding
+`e_2(S ⊕ T, S ⊕ T) = 1` — Silverman's own derivation, using none of the machinery below.  ⚠️ **That
+is the general fact and it is worth knowing before depending on this file: the product relation
+`g_{S ⊕ T} = g_S · g_T · w` is needed only to relate three *separately chosen* roots.**  Once the
+choice is made once and proved irrelevant, divisor-slot bilinearity already contains it.  What the
+file remains the right tool for is precisely the caller who has not made that choice — which is
+every statement quantified over rung-5 data, and everything at `n = 3`.
 
 ⚠️ **A caller who already holds a root cannot apply those headlines**, and the `∀ g` forms that
 serve such a caller are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`
@@ -94,7 +103,10 @@ serve such a caller are in `EllipticCurves.FunctionField.WeilPairingProductRelat
 nothing new: `weilPairingElt_eq_of_nsmul_divisor_eq` (`WeilPairingRootIndependence`, `#719`) makes
 the pairing element depend on its root only through the root's divisor, which the rung-5 relation
 pins, so the roots produced below can simply be exchanged for the caller's.  Moving the roots into
-the hypotheses is *not* a step towards a `W.Point`-level pairing and that file says so too.
+the hypotheses is not by itself a `W.Point`-level pairing and that file says so too — ⚠️ though it
+is the half of one that costs something: `#922`'s well-definedness rests on that file's
+`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq`, generic in the pullback `φ`, with nothing
+re-derived.
 
 ⚠️ **`[IsAlgClosed F]` enters only through the alternating inputs.**  Antisymmetry consumes the
 alternating property at **three** points, `S`, `T` and `R = S ⊕ T` (`WeilPairingAntisymmetric`'s

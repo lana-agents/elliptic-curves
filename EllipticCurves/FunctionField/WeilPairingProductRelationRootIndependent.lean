@@ -76,9 +76,18 @@ Out of scope: `hprin` over a **general** field, open at both `n`, which is what 
 correction factor as data (`#861`); non-degeneracy; any change to `#719`'s, `#723`'s, `#845`'s or
 `#855`'s proofs.
 
-⚠️ **This file does not introduce a `W.Point`-level pairing** and moving the roots into the
-hypotheses is not a step towards one; `WeilPairingProductRelation`'s Scope section is right that
-inventing one here would be drift.
+⚠️ **This file does not introduce a `W.Point`-level pairing**, and `WeilPairingProductRelation`'s
+Scope section is right that inventing one here would be drift.  ⚠️ **But moving the roots into the
+hypotheses turned out to be the step towards one that mattered**, and it is worth saying which
+lemma did it: `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` below is generic in the pullback
+`φ`, taking `hφc : ∀ c : F, φ (algebraMap F _ c) = algebraMap F _ c`, and
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) obtains the whole of
+well-definedness for `weilPairingTwo : E[2] → E[2] → μ_2(F)` by supplying `mulByTwoEndo h2` and
+`mulByTwoEndo_algebraMap_base h2` to it.  The unit/constant-field argument it runs
+(`exists_unit_of_divisor_eq` → `exists_eq_algebraMap_of_isUnit` → `divisor_algebraMap_base`) is
+exactly what would otherwise have had to be rebuilt there.  ⚠️ **So do not weaken this lemma's
+genericity in `φ` without checking that consumer** — it is what keeps the `n = 3` version of that
+construction from being a rewrite rather than an instantiation.
 
 ## Non-vacuity
 
