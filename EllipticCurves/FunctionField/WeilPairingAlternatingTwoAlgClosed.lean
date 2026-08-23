@@ -39,17 +39,15 @@ alternating files have been able to write.
 
 ## Scope
 
-⚠️ **`n = 2` only.**  `WeilPairingAlternatingThree`'s
-`exists_weilPairingElt_self_eq_one_of_algClosed_three` keeps its `hprin`, and nothing here helps
-it: the discharge consumed runs through `PullbackPrincipalityTwo`'s class computation, whose
-count `4` is the order of `E[2]`.  ⚠️ Its `n = 3` inputs are all merged — the tripling formula at a
-closed point (`EllipticCurves.Torsion.TriplingCoords`), the count `∑_{p ↦ q} e_p = 9`
-(`EllipticCurves.FunctionField.MulByThreeRamification`), and `card_torsion_three`
-(`EllipticCurves.Torsion.ThreeTorsionStructure`) for the `9` the class computation would collapse,
-and the fibre description `EllipticCurves.FunctionField.MulByThreeFibre` — so the `n = 3` gap is
-the class computation itself, the mirror of `PullbackPrincipalityTwo`.  It is still not a
-transcription exercise; `#775` bet once that an `n = 3` statement was a copy-paste of its `n = 2`
-counterpart and paid for it.
+⚠️ **`n = 2` only, and the `n = 3` version is no longer gated — only unassembled.**
+`WeilPairingAlternatingThree`'s `exists_weilPairingElt_self_eq_one_of_algClosed_three` still
+carries `hprin` in its own signature, and nothing *here* helps it, because the discharge consumed
+here runs through `PullbackPrincipalityTwo`'s class computation, whose count `4` is the order of
+`E[2]`.  But its `n = 3` counterpart exists:
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`'s
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo` is exactly that `hprin`, so the `n = 3` analogue
+of this file is an instantiation and not a research step.  ⚠️ It is *not* performed anywhere in
+this tree; do not read the availability of the input as the existence of the statement.
 
 ⚠️ **`[IsAlgClosed F]` is load-bearing and enters twice, independently.**  Once through the
 discharge (`PullbackPrincipalityTwo`, itself through the surjectivity of `[2]` on points and

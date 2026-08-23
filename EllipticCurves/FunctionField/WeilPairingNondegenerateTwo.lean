@@ -69,13 +69,12 @@ coordinates.
 ## Scope
 
 ⚠️ **`n = 2` only.**  At `n = 3` steps 3 and 4 *do* transpose — `mem_fixedFieldThree_iff` and
-`fixedFieldThree_eq_mulByThreeFieldRange` (`MulByThreeGalois`, `#784`) — so the `n = 3` gap is step
-1 alone: `exists_gS_three` keeps its `hprin`.  The `n = 3` fibre description is merged
-(`EllipticCurves.FunctionField.MulByThreeFibre`), so what is left below step 1 is the class-group
-computation on top of it, the mirror of
-`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.  That is a real gap and not a transcription
-exercise; `#775` bet once that the `n = 3` degree was a copy-paste of the `n = 2` one and paid for
-it.
+`fixedFieldThree_eq_mulByThreeFieldRange` (`MulByThreeGalois`, `#784`) — and step 1's `hprin` is
+discharged over an algebraically closed base field by
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`.  ⚠️ So every input of the `n = 3` mirror
+of this file exists, and the mirror itself does **not**: nothing in this tree states
+non-degeneracy at `n = 3`, and the assembly has not been attempted.  Do not read the four inputs as
+the theorem.
 
 ⚠️ **`[IsAlgClosed F]` and `[W.IsElliptic]` are load-bearing, and the closure enters twice** —
 through step 1 (`#791`, itself through `exists_nsmul_two_eq` and `#774`'s fibre description) and

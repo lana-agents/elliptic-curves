@@ -88,8 +88,9 @@ now `EllipticCurves.FunctionField.MulByThreePlacePullback`, which supplies `coma
 above that, `EllipticCurves.FunctionField.MulByThreeRamification` supplies the `n = 3` analogue of
 `#763`'s ramification-index arithmetic, and `EllipticCurves.FunctionField.MulByThreeFibre` the
 fibre description itself, which consumes this file for the one step that needs the tripling
-coordinates.  What is left above them is the class-group computation, the mirror of
-`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.  The count the fibre description is matched
+coordinates.  The class-group computation above them is
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`, and that is where `hprin` at `n = 3` is
+discharged over an algebraically closed base field.  The count the fibre description is matched
 against is `9` (`card_torsion_three`, `EllipticCurves.Torsion.ThreeTorsionStructure`, merged, and
 not Ward-gated); the degree input is `EllipticCurves.FunctionField.MulByThreeDegree`, not anything
 here.

@@ -73,7 +73,9 @@ So the three inputs that are `n`-dependent are all merged, and the work here is 
   description is `EllipticCurves.FunctionField.MulByThreeFibre`, the `n = 3` mirror of
   `MulByTwoFibreInfinity` and `MulByTwoFibreAffine`, which consumes both this file and
   `Torsion.TriplingCoords` (`#811`).
-* **`hprin` at `n = 3`, and therefore `#418`.**  Two rungs above this one.  Do not read
+* **`hprin` at `n = 3`, and therefore `#418`.**  Two rungs above this one, in
+  `EllipticCurves.FunctionField.PullbackPrincipalityThree`, via
+  `EllipticCurves.FunctionField.MulByThreeFibre`.  Do not read
   `sum_ramificationIdxThree_eq_nine` as saying anything about `E[3]`: what is counted here is
   *places of `F(W)`*, and the passage to points runs through "a separable isogeny has `#ker = deg`",
   which is nowhere in this tree.  The merged count `#E[3] = 9` (`card_torsion_three`,
