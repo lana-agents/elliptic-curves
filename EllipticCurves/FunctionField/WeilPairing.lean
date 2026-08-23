@@ -163,21 +163,33 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 `EllipticCurves.FunctionField.PullbackPrincipalityTwo` did it at `n = 2` (`#791`) and
 `EllipticCurves.FunctionField.PullbackPrincipalityThree` at `n = 3`, on top of
 `EllipticCurves.FunctionField.MulByThreeFibre`'s `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`.  The asymmetry
-that survived `#775`/`#783`/`#784` is therefore gone: what remains at `n = 3` is not a gate but an
-absence of assembly, and that absence is now **closed**.  All four named rung-6 slots at `n = 3`
-are assembled: the alternating property, as
-`exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
-(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`);
-Galois-equivariance, as `exists_weilPairingElt_galois_three`
-(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`); non-degeneracy, as
-`exists_gS_three_weilPairingElt_ne_one`
-(`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`, `#831`); and the `∀ g`
-root-independent form, as `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_three`
-(`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`, `#836`, which discharged the
-same `hprin` at `n = 2` in the same file — ⚠️ that omission was symmetric, not an `n = 3`
-asymmetry).
+that survived `#775`/`#783`/`#784` is therefore gone: what stands between `n = 3` and a rung-6
+statement is not a gate but an absence of assembly.
+
+**Assembled at `n = 3` over `F̄`.**  ⚠️ **This list is append-only, by construction** (`#843`).
+When a slot lands, add one bullet naming its declaration, its module and its issue, and change
+nothing else in this paragraph.  ⚠️ **Do not write a sentence about which slots are absent from
+it** — a frontier claim of the form *"X and Y are the ones still unassembled"* is falsified by any
+PR landing either, so every contributor edits the same clause.  That is not hypothetical: four
+consecutive PRs rewrote this paragraph inside about two hours on 2026-08-23 and two of them
+conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only appended to.
+
+* the **alternating property** — `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+  (`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`);
+* **Galois-equivariance** — `exists_weilPairingElt_galois_three`
+  (`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`);
+* **non-degeneracy** — `exists_gS_three_weilPairingElt_ne_one`
+  (`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`, `#831`);
+* the **`∀ g` root-independent form** —
+  `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+  (`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`, `#836`, which discharged
+  the same `hprin` at `n = 2` in the same file — ⚠️ that omission was symmetric, not an `n = 3`
+  asymmetry).
+
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
-statement from any of the above.
+statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
+not decay**: no slot landing over `F̄` makes it any less open, so it is safe to state as a standing
+claim in a way that a count of assembled slots is not.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**
