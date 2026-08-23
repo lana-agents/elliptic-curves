@@ -169,15 +169,15 @@ theorem translateEndo_mulByTwoEndo_apply (hT : W.Equation xT yT) (h2 : (2 : F) �
   exact congr($h f)
 
 /-- **`e_2(S, T) ^ n = 1` with `hcomm` discharged from `2`-torsion.**  Combines
-`weilPairingElt_pow_eq_one_of_gS'` (which reduces the `n`-th-root-of-unity property to the commuting
-identity `hcomm`) with `translateEndo_mulByTwoEndo_apply` (which discharges `hcomm` for the doubling
-map `[2]∗ = mulByTwoEndo` from the `2`-torsion hypothesis `htors`). -/
+`weilPairingElt_pow_eq_one_of_gS_two'` (which reduces the `n`-th-root-of-unity property to the
+commuting identity `hcomm`) with `translateEndo_mulByTwoEndo_apply` (which discharges `hcomm` for
+the doubling map `[2]∗ = mulByTwoEndo` from the `2`-torsion hypothesis `htors`). -/
 theorem weilPairingElt_pow_eq_one_of_gS_torsion (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
     (htors : translatePoint hT + translatePoint hT = 0)
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f) :
     weilPairingElt hT g ^ n = 1 :=
-  weilPairingElt_pow_eq_one_of_gS' hT h2 hg hu (translateEndo_mulByTwoEndo_apply hT h2 htors f)
+  weilPairingElt_pow_eq_one_of_gS_two' hT h2 hg hu (translateEndo_mulByTwoEndo_apply hT h2 htors f)
 
 end CoordinateRing
 

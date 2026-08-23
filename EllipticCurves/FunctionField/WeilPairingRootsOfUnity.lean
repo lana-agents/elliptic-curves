@@ -36,9 +36,9 @@ element of the finite cyclic group `μ_n(F)`.
   from `F(W)` into the group;
 * `weilPairingElt_mem_range_algebraMap_rootsOfUnity` — the plain existential form: `e_n(S, T)` is
   the `algebraMap`-image of some `μ_n(F)` element;
-* `weilPairingMu_of_gS'` / `_of_gS_three'` — the concrete `n = 2` / `n = 3` instances over the
-  combined data `weilPairingElt_pow_eq_one_of_gS'` / `_three'`, mirroring
-  `weilPairingElt_isRootOfUnity_of_gS'` / `_three'`.
+* `weilPairingMu_of_gS_two'` / `_of_gS_three'` — the concrete `n = 2` / `n = 3` instances over the
+  combined data `weilPairingElt_pow_eq_one_of_gS_two'` / `_three'`, mirroring
+  `weilPairingElt_isRootOfUnity_of_gS_two'` / `_three'`.
 
 ## Scope
 
@@ -130,17 +130,17 @@ theorem weilPairingElt_mem_range_algebraMap_rootsOfUnity [W.IsElliptic] {x₂ y�
   ⟨weilPairingMu h₂ hpow, algebraMap_coe_weilPairingMu h₂ hpow⟩
 
 /-- **The `n = 2`-track Weil-pairing element as an element of `μ_n(F)`.**  Feeds the concrete
-combined datum `weilPairingElt_pow_eq_one_of_gS'` to `weilPairingMu`, mirroring
-`weilPairingElt_isRootOfUnity_of_gS'`. -/
-noncomputable def weilPairingMu_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+combined datum `weilPairingElt_pow_eq_one_of_gS_two'` to `weilPairingMu`, mirroring
+`weilPairingElt_isRootOfUnity_of_gS_two'`. -/
+noncomputable def weilPairingMu_of_gS_two' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} [NeZero n]
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
     rootsOfUnity n F :=
-  weilPairingMu h₂ (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm)
+  weilPairingMu h₂ (weilPairingElt_pow_eq_one_of_gS_two' h₂ h2 hg hu hcomm)
 
 /-- **The `n = 3`-track Weil-pairing element as an element of `μ_n(F)`.**  The `mulByThreeEndo`
-mirror of `weilPairingMu_of_gS'`, over the concrete datum
+mirror of `weilPairingMu_of_gS_two'`, over the concrete datum
 `weilPairingElt_pow_eq_one_of_gS_three'`. -/
 noncomputable def weilPairingMu_of_gS_three' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}

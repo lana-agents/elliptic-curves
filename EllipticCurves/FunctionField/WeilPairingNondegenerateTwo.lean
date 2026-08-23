@@ -56,7 +56,7 @@ Let `S = (x, y)` be a nonsingular *affine* `2`-torsion point.  Affine means `S �
 * `WeierstrassCurve.Affine.exists_gS_two_weilPairingElt_ne_one` — rung 5 and non-degeneracy
   together, with no hypothesis beyond the setting: for a nonsingular affine `2`-torsion `S` there
   are `f_S`, `g_S` as in rung 5 and an affine `T ∈ E[2]` with `e_2(S, T) ≠ 1`.
-* **`WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingElt_eq_one`** — Silverman's own shape:
+* **`WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingElt_eq_one_two`** — Silverman's own shape:
   for `f_S` with `div f_S = 2 · pointDivisorAff S` and a square root `g_S` of `[2]∗ f_S` up to a
   unit, `e_2(S, ·) ≡ 1` on `E[2]` forces `S = O`.
 
@@ -91,10 +91,10 @@ matter of restating anything here.  In particular `WeilPairing.lean` carries `[W
 of the `2`-division cubic and does not go through Ward.
 
 ⚠️ **There is no `W.Point`-level pairing in this tree**, so "non-degeneracy" cannot be stated as a
-property of a bilinear map.  `eq_zero_of_forall_weilPairingElt_eq_one` is as close to Silverman's
-sentence as the current packaging allows: it quantifies over the *data* `f_S`, `g_S` that rung 5
-produces.  Packaging `e_n` as a function of two points is `#456`/`#465`'s business and inventing a
-fourth spelling of the pairing here would be the drift this front keeps paying for.
+property of a bilinear map.  `eq_zero_of_forall_weilPairingElt_eq_one_two` is as close to
+Silverman's sentence as the current packaging allows: it quantifies over the *data* `f_S`, `g_S`
+that rung 5 produces.  Packaging `e_n` as a function of two points is `#456`/`#465`'s business and
+inventing a fourth spelling of the pairing here would be the drift this front keeps paying for.
 
 ## References
 
@@ -234,7 +234,7 @@ written with `#791`'s `pointDivisorAff`, which is defined uniformly on `W.Point`
 
 ⚠️ The trivial-pairing hypothesis quantifies over **affine** `2`-torsion points, which is not a
 restriction: `e_2(S, O) = 1` always. -/
-theorem eq_zero_of_forall_weilPairingElt_eq_one (h2 : (2 : F) ≠ 0) {S : W.Point}
+theorem eq_zero_of_forall_weilPairingElt_eq_one_two (h2 : (2 : F) ≠ 0) {S : W.Point}
     {f gS : W.FunctionField} (hf : f ≠ 0)
     (hfdiv : divisor W f = (2 : ℤ) • pointDivisorAff W S) (hgS : gS ≠ 0)
     {u : W.CoordinateRingˣ} (hu : (u : W.CoordinateRing) • gS ^ 2 = mulByTwoEndo h2 f)

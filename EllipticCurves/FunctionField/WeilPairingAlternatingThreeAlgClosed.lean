@@ -34,10 +34,10 @@ hypothesis of `exists_weilPairingElt_self_eq_one_of_algClosed_three` is literall
   value group: `weilPairingMu(T, T) = 1` in `μ_n(F)`, for every `n` with `[NeZero n]`.
 
 ⚠️ **The naming register forces the `is` and forbids reusing the `n = 3` conditional name.**  At
-`n = 2` the conditional statement is `exists_weilPairingElt_self_eq_one_of_algClosed`
+`n = 2` the conditional statement is `exists_weilPairingElt_self_eq_one_of_algClosed_two`
 (`WeilPairingAlternatingTwo`) and the unconditional one is
-`exists_weilPairingElt_self_eq_one_of_isAlgClosed` (`WeilPairingAlternatingTwoAlgClosed`); both live
-in the namespace `WeierstrassCurve.Affine`, so the `is` is what separates them.  At `n = 3` the
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` (`WeilPairingAlternatingTwoAlgClosed`); both
+live in the namespace `WeierstrassCurve.Affine`, so the `is` is what separates them.  At `n = 3` the
 conditional name is `exists_weilPairingElt_self_eq_one_of_algClosed_three`, already taken in this
 same namespace, and the unconditional one is therefore `..._of_isAlgClosed_three`.
 
@@ -50,7 +50,7 @@ Both are certified on `y² + y = x³` over `AlgebraicClosure ℚ` with the `3`-t
 `exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`
 (`EllipticCurves.FunctionField.WeilPairingRootIndependence`) strengthens the existential root to
 *every* cube root of `[3]∗ f_T`, and it carries the same `hprin` in its own signature — as does its
-`n = 2` twin `exists_forall_weilPairingElt_self_eq_one_of_algClosed`, which
+`n = 2` twin `exists_forall_weilPairingElt_self_eq_one_of_algClosed_two`, which
 `WeilPairingAlternatingTwoAlgClosed` did **not** discharge either.  ⚠️ That omission was symmetric,
 not an `n = 3` asymmetry.  Both are now discharged, at both `n` and in one place, in
 `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`); do not read the two

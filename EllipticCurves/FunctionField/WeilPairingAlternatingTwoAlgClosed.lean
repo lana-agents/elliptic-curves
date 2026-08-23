@@ -19,17 +19,17 @@ hypothesis: `hprin`, the principality of `[2]∗((T) − (O))`, in the shape `ex
 composition, and it is the whole content of the file: **nothing new is proved here about curves.**
 
 The two shapes match argument for argument, so the discharge is a single application — the
-hypothesis of `exists_weilPairingElt_self_eq_one_of_algClosed` is literally the conclusion of
+hypothesis of `exists_weilPairingElt_self_eq_one_of_algClosed_two` is literally the conclusion of
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo`, universally quantified over the same `f`.
 
 ## Main statements
 
-* `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_isAlgClosed` — the alternating
+* `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` — the alternating
   property in `F(W)`: for a nonsingular affine `2`-torsion `T` there are a function `f_T` with
   projective divisor `2(T) − 2(O)`, a square root `g_T` of `[2]∗ f_T` up to a unit of `F[W]`, and
   the conclusions `τ_T∗ g_T = g_T` and `e_2(T, T) = 1`.
-* `WeierstrassCurve.Affine.exists_weilPairingMu_self_eq_one_of_isAlgClosed` — the same in the value
-  group: `weilPairingMu(T, T) = 1` in `μ_n(F)`, for every `n` with `[NeZero n]`.  The
+* `WeierstrassCurve.Affine.exists_weilPairingMu_self_eq_one_of_isAlgClosed_two` — the same in the
+  value group: `weilPairingMu(T, T) = 1` in `μ_n(F)`, for every `n` with `[NeZero n]`.  The
   root-of-unity datum `hpow` that `weilPairingMu` is indexed by costs nothing here, because the
   statement above already gives `e_2(T, T) = 1`.
 
@@ -104,11 +104,11 @@ For a nonsingular affine `2`-torsion point `T = (x₂, y₂)` there are a nonzer
 divisor is `2(T) − 2(O)` and a nonzero `g_T` with `u · g_T ^ 2 = [2]∗ f_T` for a unit `u` of `F[W]`,
 such that the translation `τ_T∗` fixes `g_T` — hence `e_2(T, T) = 1`.
 
-`exists_weilPairingElt_self_eq_one_of_algClosed` (`WeilPairingAlternatingTwo`) is this statement
+`exists_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingAlternatingTwo`) is this statement
 with the principality of `[2]∗((T) − (O))` carried as the hypothesis `hprin`, and
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` (`PullbackPrincipalityTwo`) is exactly that
 hypothesis, proved.  The two compose with nothing in between. -/
-theorem exists_weilPairingElt_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
+theorem exists_weilPairingElt_self_eq_one_of_isAlgClosed_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2) :
     ∃ f : W.FunctionField, f ≠ 0 ∧
       divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (2 : ℤ)
@@ -116,7 +116,7 @@ theorem exists_weilPairingElt_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
         ∃ g : W.FunctionField, g ≠ 0 ∧
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
-  exists_weilPairingElt_self_eq_one_of_algClosed h2 h htors fun _ hf hfdiv =>
+  exists_weilPairingElt_self_eq_one_of_algClosed_two h2 h htors fun _ hf hfdiv =>
     exists_nsmul_divisor_eq_divisor_mulByTwoEndo h2 h htors hf hfdiv
 
 open Classical in
@@ -132,7 +132,7 @@ identity of `μ_n(F)` for whichever `n` the caller has packaged the value in, no
 The `μ_n`-level reduction is `weilPairingMu_self_of_translateEndo_fixed`
 (`WeilPairingAlternatingMu`), whose own hypothesis is the translation-invariance that the previous
 theorem supplies. -/
-theorem exists_weilPairingMu_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
+theorem exists_weilPairingMu_self_eq_one_of_isAlgClosed_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2) (n : ℕ) [NeZero n] :
     ∃ f : W.FunctionField, f ≠ 0 ∧
       divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (2 : ℤ)
@@ -141,7 +141,7 @@ theorem exists_weilPairingMu_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
           ∃ hpow : weilPairingElt h.left g ^ n = 1, weilPairingMu h.left hpow = 1 := by
   obtain ⟨f, hf, hdivproj, g, hg, hu, htinv, halt⟩ :=
-    exists_weilPairingElt_self_eq_one_of_isAlgClosed h2 h htors
+    exists_weilPairingElt_self_eq_one_of_isAlgClosed_two h2 h htors
   exact ⟨f, hf, hdivproj, g, hg, hu, by rw [halt, one_pow],
     weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
 
@@ -194,7 +194,7 @@ example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
           (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
         translateEndo exampleNonsingular.left g = g ∧
           weilPairingElt exampleNonsingular.left g = 1 :=
-  exists_weilPairingElt_self_eq_one_of_isAlgClosed exampleTwo exampleNonsingular exampleTorsion
+  exists_weilPairingElt_self_eq_one_of_isAlgClosed_two exampleTwo exampleNonsingular exampleTorsion
 
 open Classical in
 /-- **The value-group form, on the same curve**: `weilPairingMu(T, T) = 1` in `μ₂(F̄)`. -/
@@ -207,7 +207,7 @@ example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
           (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
         ∃ hpow : weilPairingElt exampleNonsingular.left g ^ 2 = 1,
           weilPairingMu exampleNonsingular.left hpow = 1 :=
-  exists_weilPairingMu_self_eq_one_of_isAlgClosed exampleTwo exampleNonsingular exampleTorsion 2
+  exists_weilPairingMu_self_eq_one_of_isAlgClosed_two exampleTwo exampleNonsingular exampleTorsion 2
 
 end Nonvacuity
 

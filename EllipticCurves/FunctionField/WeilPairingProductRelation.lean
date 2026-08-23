@@ -99,9 +99,9 @@ the hypotheses is *not* a step towards a `W.Point`-level pairing and that file s
 ⚠️ **`[IsAlgClosed F]` enters only through the alternating inputs.**  Antisymmetry consumes the
 alternating property at **three** points, `S`, `T` and `R = S ⊕ T` (`WeilPairingAntisymmetric`'s
 docstring is right about this and it is not a defect — all three are `n`-torsion, so all three come
-from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed{,_three}` (`#801`,
-`#829`), which carry `[IsAlgClosed F]`.  ⚠️ The Abel–Jacobi statement and the generic producer do
-**not**, and are stated without it.
+from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_two{,_three}`
+(`#801`, `#829`), which carry `[IsAlgClosed F]`.  ⚠️ The Abel–Jacobi statement and the generic
+producer do **not**, and are stated without it.
 
 ⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at both `n`.
 So is general `n` (`#404`'s `ωₙ` crux), and rung 4 itself (`#414`/`#421`/`#422`) — which this file
@@ -290,7 +290,7 @@ variable [IsAlgClosed F]
 
 open Classical in
 /-- The rung-5 datum at a `2`-torsion point, together with the alternating property for
-**that** root: the affine divisor form of `exists_weilPairingElt_self_eq_one_of_isAlgClosed`. -/
+**that** root: the affine divisor form of `exists_weilPairingElt_self_eq_one_of_isAlgClosed_two`. -/
 private lemma rungFiveAlt_two (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (htors : Point.some x y h ∈ W.torsion 2) :
     ∃ f g : W.FunctionField, f ≠ 0 ∧ g ≠ 0 ∧
@@ -298,7 +298,7 @@ private lemma rungFiveAlt_two (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular 
       (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
       weilPairingElt h.left g = 1 := by
   obtain ⟨f, hf, hdivproj, g, hg, hu, _, halt⟩ :=
-    exists_weilPairingElt_self_eq_one_of_isAlgClosed h2 h htors
+    exists_weilPairingElt_self_eq_one_of_isAlgClosed_two h2 h htors
   exact ⟨f, g, hf, hg, divisor_eq_single_of_divisorProj_eq_single_sub_single hdivproj, hu, halt⟩
 
 open Classical in

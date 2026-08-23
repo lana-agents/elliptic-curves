@@ -27,8 +27,8 @@ translation, proved here as follows.
 
 * `transcendental_genX`: the generic `x`-coordinate `genX = x(P)` is transcendental over `F`
   (it is the image of the polynomial variable `X` under the injective map `F[X] → F(W)`).
-* `isAlgebraic_genX_of`: if the coordinates `x(P + T)`, `y(P + T)` of the *translated* generic point
-  are algebraic over `F`, then so is `genX = x(P)`. This is the group-law cancellation
+* `isAlgebraic_genX_of_two`: if the coordinates `x(P + T)`, `y(P + T)` of the *translated* generic
+  point are algebraic over `F`, then so is `genX = x(P)`. This is the group-law cancellation
   `(P + T) + (-T) = P`, evaluated at the generic point `P = (genX, genY)` of `W ⁄ F(W)`, together
   with the fact that the affine addition/slope/negation formulae preserve the relative algebraic
   closure `algebraicClosure F F(W)`.
