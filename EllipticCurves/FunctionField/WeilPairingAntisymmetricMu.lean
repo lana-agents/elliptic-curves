@@ -62,11 +62,10 @@ Note that `weilPairingMu h₂ hpow` depends on the *proof* `hpow` only up to pro
 
 ## Main results
 
-* `weilPairingMu_eq_one_iff` — `weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1`.  **No
-  `g ≠ 0` hypothesis**, unlike `weilPairingMu_eq_one_iff_translateEndo_fixed`, which has to compare
-  `τ g` with `g`.  This is the workhorse: it turns every `F(W)`-level "contributes `1`" fact into a
-  `μ_n(F)` one, and it is what converts between the two equivalent phrasings of the alternating
-  inputs to antisymmetry;
+* ⚠️ `weilPairingMu_eq_one_iff` — `weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1`, with
+  **no `g ≠ 0` hypothesis** — is no longer stated here.  `#883` moved it to
+  `WeilPairingRootsOfUnity`, next to the definition it is about; the theorems below consume it
+  through the import.
 * `weilPairingMu_mul`, `weilPairingMu_inv` — multiplicativity of the divisor slot in the group;
 * `weilPairingMu_algebraMap`, `weilPairingMu_mulByTwoEndo_of_baseField`,
   `weilPairingMu_mulByThreeEndo_of_baseField` — the correction factors contribute the group
@@ -184,36 +183,12 @@ theorem weilPairingElt_inv_pow_eq_one {x₂ y₂ : F} (h₂ : W.Equation x₂ y�
     weilPairingElt h₂ g⁻¹ ^ n = 1 := by
   rw [weilPairingElt_inv, inv_pow, hpow, inv_one]
 
-/-! ### The workhorse: being the group identity is being `1` in `F(W)` -/
+/-! ### The workhorse: being the group identity is being `1` in `F(W)`
 
-/-- **`weilPairingMu` is the group identity of `μ_n(F)` exactly when the pairing element is `1` in
-`F(W)`.**
-
-```
-weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1.
-```
-
-Unlike `weilPairingMu_eq_one_iff_translateEndo_fixed` (`WeilPairingAlternatingMu.lean`) this needs
-**no `g ≠ 0` hypothesis**: the comparison is between `weilPairingElt` and `1`, and never between
-`τ_T∗ g` and `g`, so the degenerate case `g = 0` — where `e_n(0, T) = 0 / 0 = 0 ≠ 1` — is decided
-correctly on both sides rather than excluded.
-
-Both directions are the injective composite `ζ ↦ algebraMap F F(W) ((ζ : Fˣ) : F)`
-(`algebraMap_coe_rootsOfUnity_injective`, `#459`) together with the defining property
-`algebraMap_coe_weilPairingMu` (`#457`) and `algebraMap F F(W) 1 = 1`. -/
-theorem weilPairingMu_eq_one_iff {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) {g : W.FunctionField}
-    {n : ℕ} [NeZero n] (hpow : weilPairingElt h₂ g ^ n = 1) :
-    weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1 := by
-  constructor
-  · intro h
-    have := congrArg
-      (fun ζ : rootsOfUnity n F => algebraMap F W.FunctionField ((ζ : Fˣ) : F)) h
-    simpa only [algebraMap_coe_weilPairingMu, OneMemClass.coe_one, Units.val_one, map_one]
-      using this
-  · intro h
-    refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
-    simp only [algebraMap_coe_weilPairingMu, OneMemClass.coe_one, Units.val_one, map_one]
-    exact h
+⚠️ `weilPairingMu_eq_one_iff` used to be stated here (`#733`).  It is a fact about `weilPairingMu`
+and nothing else, so `#883` moved it up to `WeilPairingRootsOfUnity`, next to the definition and
+its defining property, where the non-degeneracy files can also reach it.  Everything below still
+uses it; it now resolves through the import. -/
 
 /-! ### Multiplicativity in the divisor slot, in the group -/
 

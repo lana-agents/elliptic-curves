@@ -3,9 +3,9 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
-import EllipticCurves.FunctionField.WeilPairingAntisymmetricMu
 import EllipticCurves.FunctionField.WeilPairingNondegenerateThree
 import EllipticCurves.FunctionField.WeilPairingNondegenerateTwo
+import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 
 /-!
 # Non-degeneracy of the Weil pairing in `μ_n(F)`, unconditionally over `F̄` (rung 6)
@@ -26,7 +26,9 @@ file, non-degeneracy was the one slot stated only in `F(W)`.
 
 ## The route: one descent lemma, applied six times
 
-`weilPairingMu_eq_one_iff` (`WeilPairingAntisymmetricMu`, `#868`) is
+`weilPairingMu_eq_one_iff` (`WeilPairingRootsOfUnity`, `#733`; ⚠️ it was in
+`WeilPairingAntisymmetricMu` when this file was written and `#883` moved it next to the definition
+it is about, which is what lets this file import a cone of 17 rather than 50) is
 `weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1`, for arbitrary `n` and with no `g ≠ 0`
 hypothesis.  Each theorem below is its `.not` applied to the corresponding `F(W)` headline, so the
 mathematical content is entirely upstream and the only work is producing the `hpow` datum.

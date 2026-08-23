@@ -29,6 +29,11 @@ element of the finite cyclic group `μ_n(F)`.
   `e_n(S, T) ^ n = 1` (`n ≠ 0`, as `[NeZero n]`);
 * `algebraMap_coe_weilPairingMu` — its defining property: pushing `weilPairingMu` down `Fˣ → F` and
   then up `algebraMap F F(W)` recovers `e_n(S, T)`;
+* `weilPairingMu_eq_one_iff` — the `μ_n(F)` value is the group identity exactly when `e_n(S, T)`
+  is `1` in `F(W)`, with **no `g ≠ 0` hypothesis** (moved here from `WeilPairingAntisymmetricMu`
+  by `#883`);
+* `weilPairingMu_ne_one_iff` — its contrapositive, which is what carries a non-degeneracy witness
+  from `F(W)` into the group;
 * `weilPairingElt_mem_range_algebraMap_rootsOfUnity` — the plain existential form: `e_n(S, T)` is
   the `algebraMap`-image of some `μ_n(F)` element;
 * `weilPairingMu_of_gS'` / `_of_gS_three'` — the concrete `n = 2` / `n = 3` instances over the
@@ -38,8 +43,11 @@ element of the finite cyclic group `μ_n(F)`.
 ## Scope
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]` and the root-of-unity input
-(already delivered).  Non-degeneracy remains out of scope, and it is **not** Ward-gated —
-`WeilPairing`'s scope section is the canonical account of what it consumes (#769).
+(already delivered).  Non-degeneracy itself remains out of scope — the witness `e_n(S, T) ≠ 1` is
+built in `WeilPairingNondegenerateTwo` / `...Three` — and it is **not** Ward-gated;
+`WeilPairing`'s scope section is the canonical account of what it consumes (#769).  What *is* here
+is the transport `weilPairingMu_ne_one_iff`, which is about `weilPairingMu` and not about
+non-degeneracy: it says the packaging into `μ_n(F)` loses no information, whatever the value.
 
 ## References
 
@@ -72,6 +80,46 @@ theorem algebraMap_coe_weilPairingMu [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Eq
     algebraMap F W.FunctionField ((weilPairingMu h₂ hpow : Fˣ) : F) = weilPairingElt h₂ g := by
   rw [weilPairingMu, rootsOfUnity.coe_mkOfPowEq]
   exact (Classical.choose_spec (weilPairingElt_isRootOfUnity h₂ (NeZero.ne n) hpow)).1.symm
+
+/-- **`weilPairingMu` is the group identity of `μ_n(F)` exactly when the pairing element is `1` in
+`F(W)`.**
+
+```
+weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1.
+```
+
+Unlike `weilPairingMu_eq_one_iff_translateEndo_fixed` (`WeilPairingAlternatingMu.lean`) this needs
+**no `g ≠ 0` hypothesis**: the comparison is between `weilPairingElt` and `1`, and never between
+`τ_T∗ g` and `g`, so the degenerate case `g = 0` — where `e_n(0, T) = 0 / 0 = 0 ≠ 1` — is decided
+correctly on both sides rather than excluded.
+
+Both directions are the defining property `algebraMap_coe_weilPairingMu` (`#457`) together with
+`algebraMap F F(W) 1 = 1`; the backward one additionally needs that composite to be injective,
+which it is because `algebraMap F F(W)` is a ring hom out of a field.
+
+⚠️ This lemma was first written in `WeilPairingAntisymmetricMu` (`#733`), downstream of the
+definition it is about, and moved here by `#883` so that non-degeneracy can reach it.  The proof
+changed in exactly one way: it no longer routes the backward direction through
+`algebraMap_coe_rootsOfUnity_injective` (`WeilPairingBilinearMu`, `#459`), which is itself
+downstream, but through `RingHom.injective` directly.  The statement is unchanged, binder for
+binder. -/
+theorem weilPairingMu_eq_one_iff [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    {g : W.FunctionField} {n : ℕ} [NeZero n] (hpow : weilPairingElt h₂ g ^ n = 1) :
+    weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1 := by
+  refine ⟨fun h => ?_, fun h => ?_⟩
+  · rw [← algebraMap_coe_weilPairingMu h₂ hpow, h]
+    simp
+  · have := (algebraMap_coe_weilPairingMu h₂ hpow).trans h
+    rw [show (1 : W.FunctionField) = algebraMap F W.FunctionField 1 by simp] at this
+    exact Subtype.ext (Units.ext ((algebraMap F W.FunctionField).injective this))
+
+/-- **`weilPairingMu` is non-trivial exactly when `e_n(S, T)` is**, the contrapositive form of
+`weilPairingMu_eq_one_iff`.  This is the direction non-degeneracy consumes: a witness
+`e_n(S, T) ≠ 1` in `F(W)` is a witness in the group `μ_n(F)`. -/
+theorem weilPairingMu_ne_one_iff [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+    {g : W.FunctionField} {n : ℕ} [NeZero n] (hpow : weilPairingElt h₂ g ^ n = 1) :
+    weilPairingMu h₂ hpow ≠ 1 ↔ weilPairingElt h₂ g ≠ 1 :=
+  (weilPairingMu_eq_one_iff h₂ hpow).not
 
 /-- **The Weil-pairing element is the `algebraMap`-image of a `μ_n(F)` element** (plain existential
 form of `weilPairingMu`). -/
