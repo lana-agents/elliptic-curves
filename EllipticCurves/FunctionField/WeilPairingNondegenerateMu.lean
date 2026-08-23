@@ -28,10 +28,18 @@ file, non-degeneracy was the one slot stated only in `F(W)`.
 
 `weilPairingMu_eq_one_iff` (`WeilPairingRootsOfUnity`, `#733`; ⚠️ it was in
 `WeilPairingAntisymmetricMu` when this file was written and `#883` moved it next to the definition
-it is about, which is what lets this file import a cone of 17 rather than 50) is
+it is about, which drops four modules from this file's transitive imports —
+`WeilPairingAntisymmetric`, `WeilPairingAntisymmetricMu`, `WeilPairingBilinearBaseField` and
+`WeilPairingBilinearMu`) is
 `weilPairingMu h₂ hpow = 1 ↔ weilPairingElt h₂ g = 1`, for arbitrary `n` and with no `g ≠ 0`
 hypothesis.  Each theorem below is its `.not` applied to the corresponding `F(W)` headline, so the
 mathematical content is entirely upstream and the only work is producing the `hpow` datum.
+
+⚠️ That figure is **this file's** cone before and after, which is the only honest way to price such
+a move: the cone of the import that was dropped (`WeilPairingAntisymmetricMu`, 31) is an upper
+bound, and here it overstates the saving eightfold, because `WeilPairingNondegenerateTwo` and
+`...Three` already supply all but those four.  `#887` corrected this passage, which had claimed
+`50`.
 
 That datum is **produced, not assumed**.  The non-degeneracy envelopes already carry the rung-5
 certificate `hu : u · g_S ^ n = [n]∗ f_S` and return the witness with its torsion membership, which
