@@ -33,7 +33,9 @@ is the value of the `3`-division `y`-coordinate polynomial.
 
 Note that this is a purely *algebraic* on-curve identity for the classical division-polynomial
 tripling coordinates; identifying `(Φ₃/Ψ₃², ω₃/ψ₃³)` with the group-law triple `3 • P` (which then
-makes the on-curve property automatic) is a separate, harder statement not proved here.
+makes the on-curve property automatic) is a separate statement, not proved here but proved in
+`EllipticCurves.Torsion.TriplingCoords`, which consumes `tripling_equation` below for the
+nonsingularity of the tripled point.
 
 ## Main statements
 
