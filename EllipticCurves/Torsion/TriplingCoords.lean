@@ -84,14 +84,15 @@ the point and not on the characteristic.
 ⚠️ **This does not discharge `hprin` at `n = 3`.**  What it supplies is the first rung of the
 `n = 3` mirror of `#774` — the `[2]`-fibre description that `#791` consumed.  The rung above it is
 now `EllipticCurves.FunctionField.MulByThreePlacePullback`, which supplies `comapProjPointThree`,
-`ramificationIdxThree` and `pullbackDivisorThree` and computes the index at infinity; and above
-that, `EllipticCurves.FunctionField.MulByThreeRamification` supplies the `n = 3` analogue of
-`#763`'s ramification-index arithmetic — the step that made `#774` cheap once the coordinates were
-available.  What still does not exist is the fibre description those two rungs and this one feed:
-not one value of `comapProjPointThree` at an affine place is known.  The count it will have to be
-matched against is `9` (`card_torsion_three`, `EllipticCurves.Torsion.ThreeTorsionStructure`,
-merged, and not Ward-gated); the degree input is
-`EllipticCurves.FunctionField.MulByThreeDegree`, not anything here.
+`ramificationIdxThree` and `pullbackDivisorThree` and computes the index at the point at infinity;
+above that, `EllipticCurves.FunctionField.MulByThreeRamification` supplies the `n = 3` analogue of
+`#763`'s ramification-index arithmetic, and `EllipticCurves.FunctionField.MulByThreeFibre` the
+fibre description itself, which consumes this file for the one step that needs the tripling
+coordinates.  What is left above them is the class-group computation, the mirror of
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.  The count the fibre description is matched
+against is `9` (`card_torsion_three`, `EllipticCurves.Torsion.ThreeTorsionStructure`, merged, and
+not Ward-gated); the degree input is `EllipticCurves.FunctionField.MulByThreeDegree`, not anything
+here.
 
 ⚠️ **No claim about the general `ωₙ` (`#404`).**  `ω₃` at a closed point is a much smaller statement
 and `OmegaThree` already had its on-curve half; nothing below approaches a general `n`.

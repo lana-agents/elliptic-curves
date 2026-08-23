@@ -68,11 +68,11 @@ So the three inputs that are `n`-dependent are all merged, and the work here is 
 * **The place calculus itself.**  `comapProjPointThree`, `ramificationIdxThree`,
   `pullbackDivisorThree`, `divisorProj_mulByThreeEndo` and the behaviour at `O` are
   `MulByThreePlacePullback` (`#814`), which this file imports and does not restate.
-* **Any value of `comapProjPointThree` at an affine point.**  `#814` computes it at `O`; the
-  `n = 2` chain then has `MulByTwoFibreInfinity` and `MulByTwoFibreAffine`
-  (`comapProjPointTwo ∘ projPointOfPoint = projPointOfPoint ∘ [2]`), and neither has an `n = 3`
-  analogue.  This file supplies the *arithmetic* those count against, and not one value of the map.
-  Their `n = 3` coordinate input is `Torsion.TriplingCoords` (`#811`).
+* **Any value of `comapProjPointThree` at an affine point.**  `#814` computes it at `O`; this file
+  supplies the *arithmetic* a fibre description counts against, and not one value of the map.  That
+  description is `EllipticCurves.FunctionField.MulByThreeFibre`, the `n = 3` mirror of
+  `MulByTwoFibreInfinity` and `MulByTwoFibreAffine`, which consumes both this file and
+  `Torsion.TriplingCoords` (`#811`).
 * **`hprin` at `n = 3`, and therefore `#418`.**  Two rungs above this one.  Do not read
   `sum_ramificationIdxThree_eq_nine` as saying anything about `E[3]`: what is counted here is
   *places of `F(W)`*, and the passage to points runs through "a separable isogeny has `#ker = deg`",
