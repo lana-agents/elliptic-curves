@@ -37,6 +37,14 @@ The `∀ g` root-independent forms of those statements are equalities in `F(W)` 
 general base field once each construction they mention is known to commute with base change. This
 file supplies that for the three endomorphisms; the divisor-level compatibilities remain.
 
+⚠️ **The first consumer needs none of those.**
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange` removes `[IsAlgClosed F]` from the
+alternating property at both `n` using only the three intertwiners below — because the halving
+point `P` with `[n]P = T` is used to prove an *equality* in `F(W)`, and equalities descend. The
+`hprin` half of `[IsAlgClosed F]` is an *existence* statement and does not. **Base change carries
+conclusions down, not hypotheses up**, and the divisor-level work is not on the path between the
+two.
+
 ## Design notes
 
 * No `Algebra F(W) K(W⁄K)` instance is registered: `functionFieldMap` is a bare `→+*`, and the
@@ -155,7 +163,7 @@ theorem map_map_functionFieldMap :
 
 variable {W K}
 
-/-! ## The multiplication-by-`n` endomorphisms
+/-! ## Transport of the division-polynomial coordinates
 
 `mulByTwoEndo` and `mulByThreeEndo` send the coordinate generators to division-polynomial
 expressions in `genX` and `genY`, so the transports below are exactly what is needed to push them
@@ -318,7 +326,6 @@ theorem functionFieldMap_mulByThreeEndo (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0
       functionFieldMap_algebraMap, mulByThreeEndo_algebraMap,
       functionFieldMap_mulByThreeCoordHom h2 h3 h2' h3']
   exact RingHom.congr_fun key z
-
 
 /-! ## The translation endomorphism -/
 
