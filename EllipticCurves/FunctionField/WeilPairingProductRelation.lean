@@ -88,6 +88,14 @@ exactly as `exists_gS_two_weilPairingElt_ne_one` does for non-degeneracy.  There
 `W.Point`-level pairing in this tree, and inventing one here would be the drift this front keeps
 paying for.
 
+⚠️ **A caller who already holds a root cannot apply those headlines**, and the `∀ g` forms that
+serve such a caller are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`
+(`#854`), at both `n` and at both levels.  They are *transfers* of the statements here and prove
+nothing new: `weilPairingElt_eq_of_nsmul_divisor_eq` (`WeilPairingRootIndependence`, `#719`) makes
+the pairing element depend on its root only through the root's divisor, which the rung-5 relation
+pins, so the roots produced below can simply be exchanged for the caller's.  Moving the roots into
+the hypotheses is *not* a step towards a `W.Point`-level pairing and that file says so too.
+
 ⚠️ **`[IsAlgClosed F]` enters only through the alternating inputs.**  Antisymmetry consumes the
 alternating property at **three** points, `S`, `T` and `R = S ⊕ T` (`WeilPairingAntisymmetric`'s
 docstring is right about this and it is not a defect — all three are `n`-torsion, so all three come

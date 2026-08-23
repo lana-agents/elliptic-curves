@@ -43,6 +43,14 @@ arbitrary rung-5 root passed as an explicit argument and apply **no** alternatin
 either form, so they neither consume nor are blocked by anything here.  The justification for the
 statements below is the first sentence of this section on its own.
 
+⚠️ **Neither is antisymmetry, and `#854` predicted that it was.**  The `∀ g` antisymmetry headlines
+(`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`) reach a root that
+arrives from elsewhere by a different mechanism — `weilPairingElt_eq_of_nsmul_divisor_eq`
+(`WeilPairingRootIndependence`, `#719`) makes the pairing element depend on its root only through
+the root's divisor, so the existential headline's own roots can be exchanged for the caller's after
+the fact.  That file uses nothing from this one.  Recorded here rather than only on the issue
+thread, since a reader of this file would otherwise reasonably expect it to be a consumer.
+
 ## Main statements
 
 * `WeierstrassCurve.Affine.exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed` — at `n = 2`:
