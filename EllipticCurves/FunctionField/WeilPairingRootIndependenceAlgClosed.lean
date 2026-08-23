@@ -33,8 +33,15 @@ omission appearing twice.  ⚠️ Before pricing an `n = 3` mirror on this front
 
 `weilPairingElt` takes the root `g_T` as an **argument**, so the existential headlines cannot be
 applied to a root that arrives from elsewhere — from `exists_gS_two_of_isAlgClosed` /
-`exists_gS_three_of_isAlgClosed`, say, or threaded through a different theorem as non-degeneracy has
-to do.  The statements below are the ones that accept such a root.
+`exists_gS_three_of_isAlgClosed`, say, or supplied by a caller who already holds one.  The
+statements below are the ones that accept such a root.
+
+⚠️ **Non-degeneracy is not an instance of that need, though this file's issue said it was.**
+`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` and
+`EllipticCurves.FunctionField.WeilPairingNondegenerateThree` state their cores against an
+arbitrary rung-5 root passed as an explicit argument and apply **no** alternating statement in
+either form, so they neither consume nor are blocked by anything here.  The justification for the
+statements below is the first sentence of this section on its own.
 
 ## Main statements
 
@@ -88,7 +95,8 @@ consumes the alternating property at three points, which this file supplies unco
 `F̄` at both `n` and in the applicable form — but it also needs the product relation
 `g_{S ⊕ T} = g_S · g_T · w` as the hypothesis `hprod`, which is rung-4/5 gated (`#414`/`#418`) and
 which nothing here touches.  Nor is this bilinearity, Galois-equivariance, general `n`, or
-non-degeneracy at `n = 3` (`#831`).
+non-degeneracy, which at `n = 3` is `EllipticCurves.FunctionField.WeilPairingNondegenerateThree`
+(`#831`) and is independent of this file in both directions.
 
 ## References
 
