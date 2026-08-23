@@ -70,6 +70,11 @@ these statements to `F̄`; general `n`, which wants `#404`'s `ωₙ`; bundling `
 into `μ_n(F)` in the divisor slot, which needs a `hpow` datum uniform in the slot variable and is
 a different statement (`WeilPairingDivisorSlotHom`); any change to `#845`'s or `#723`'s proofs.
 
+⚠️ Also out of scope here, and **done elsewhere**: the headlines below inherit `#845`'s existential
+envelope, so a caller who already holds a root cannot apply them.  The `∀ g` forms at both levels
+are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent` (`#854`), which
+imports this file and instantiates the descent below against them.
+
 ## Non-vacuity
 
 Every headline is instantiated below on `#845`'s own certificate curves, and the two-curve split
