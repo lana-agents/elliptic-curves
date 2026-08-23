@@ -43,6 +43,14 @@ is not restricted to torsion — so the transport applies to general `P, Q, R`.
   base-field relation `torsionPoint hP + torsionPoint hQ = torsionPoint hR` (plus `g ≠ 0`, `n ≠ 0`,
   and the root-of-unity datum `e_n(S, T_Q) ^ n = 1`).
 
+⚠️ **The last three of those are producible, and are produced.**
+`exists_weilPairingElt_translatePoint_add_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`) apply the theorem below
+over `F̄` at `n = 2` and `n = 3` with no hypothesis beyond the setting, taking `g` from
+`exists_gS_{two,three}_of_isAlgClosed` and `hpow` from `weilPairingElt_pow_eq_one_of_gS_*`.  ⚠️ Note
+the asymmetry that survives: `hpow` is needed at `Q` **only**, so the `F(W)`-level headline assumes
+the torsion of one of the three translation points, not three.
+
 ## Scope
 
 Ward- and normality-independent: needs only `[Field F] [W.IsElliptic]`.  Bilinearity in the divisor

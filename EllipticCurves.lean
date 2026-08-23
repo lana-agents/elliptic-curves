@@ -178,6 +178,7 @@ import EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed
 import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 import EllipticCurves.FunctionField.WeilPairingTelescopeThree
 import EllipticCurves.FunctionField.WeilPairingTelescopeTwo
+import EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear
 import EllipticCurves.Galois.CyclotomicCharacter
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.NewtonPolygon

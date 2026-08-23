@@ -62,6 +62,15 @@ the *production* of the product relation `g_{S ⊕ S'} = g_S · g_{S'} · w`, wh
 explicit hypothesis in the same style as `hfix` here; the correction factor `w` is invisible to
 `e_n(·, T)`, so everything downstream of that relation is ungated.
 
+⚠️ **The two theorems below are instantiated.**  Over an algebraically closed field, at `n = 2` and
+`n = 3`, `exists_weilPairingElt_translatePoint_add_{two,three}` and their `μ_n(F)` twins
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`) state translation-slot
+bilinearity with **no hypothesis beyond the setting**: the root `g`, its rung-5 certificate and the
+root-of-unity data are produced rather than carried.  They go through
+`weilPairingElt_translatePoint_add_of_baseField` (`WeilPairingBilinearBaseField`, `#451`), which is
+the end of the chain `hfix` ⟶ `hconst` ⟶ `hpow` that starts here.  ⚠️ What confines them to `F̄` is
+`hprin` (rung 5), not anything in this file.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.

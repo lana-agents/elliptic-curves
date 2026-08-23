@@ -59,7 +59,11 @@ still rung-4 gated.
   `c ^ n = 1` in `F` — i.e. `e_n(S, T) ∈ μ_n(F)`, the value group issue #419 names;
 * `weilPairingElt_translatePoint_add_of_algClosed` — **unconditional** (modulo the group
   relation `hsum`) bilinearity in the translation slot, obtained by feeding constancy to
-  `weilPairingElt_translatePoint_add_of_const`.
+  `weilPairingElt_translatePoint_add_of_const`.  ⚠️ *Modulo* also the root `g` and its `hpow`,
+  which this statement carries; both are produced, and `hsum` discharged from a base-field group
+  relation, in `exists_weilPairingElt_translatePoint_add_{two,three}`
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`), over `F̄` at
+  `n = 2, 3`.
 
 ## Scope
 
