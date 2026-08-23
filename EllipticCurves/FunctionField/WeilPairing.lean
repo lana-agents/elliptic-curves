@@ -63,9 +63,11 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers it, and Dedekindness with
-  it, as a global **instance** for `[W.IsElliptic]` over an **arbitrary** field.  That is why this
-  file's variable block (`:176`) carries no Dedekind hypothesis, and why nothing downstream has to
-  supply one.
+  it, as a global **instance** for `[W.IsElliptic]` over an **arbitrary** field.  That is why the
+  single `variable` line below carries no Dedekind hypothesis, and why nothing downstream has to
+  supply one.  ⚠️ Said relative to the file rather than by line number, which rots: the number
+  first written into this bullet was already stale when it was pushed, and the bullet's own added
+  lines then moved the block again.
 
 ## What non-degeneracy actually consumes (`#769`) — the canonical statement
 
