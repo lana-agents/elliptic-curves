@@ -122,8 +122,9 @@ cubing or tripling, and the latter is an isomorphism as soon as `(3 : F) ≠ 0`.
 above `EllipticCurves.Torsion.TriplingCoords`'s coordinate rung; the fibre description that `#791`
 consumed at `n = 2` is `EllipticCurves.FunctionField.MulByThreeFibre`, which computes the affine
 indices on top of this file and `EllipticCurves.FunctionField.MulByThreeRamification`'s
-`∑_{p ↦ q} e_p = 9`.  What is left above it is the class-group computation, the mirror of
-`EllipticCurves.FunctionField.PullbackPrincipalityTwo`.
+`∑_{p ↦ q} e_p = 9`.  Above it is the class-group computation,
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`, which does discharge `hprin` at `n = 3`
+over an algebraically closed base field.
 
 ## References
 

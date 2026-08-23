@@ -56,7 +56,8 @@ proofs agree by proof irrelevance.
 **`det ρ_{E,2} = χ_2` is not proved and gets no closer to being proved.**  What is removed here is
 a *formal* obstruction — before this file the two sides of that identity were literally about
 different functions, so the implication could not be started.  The mathematical content still
-needs rung 5 (`#418`, gated on `#421`/`#422`), the alternating property (`#465` deliverable 2) and
+needs rung 5 (`#418`; discharged over `F̄` by `PullbackPrincipalityTwo`/`Three`, open over a
+general field), the alternating property (`#465` deliverable 2) and
 non-degeneracy — which is **not** Ward-gated; `WeilPairing`'s scope section is the canonical account
 of what it consumes (`#769`).  Divisor-slot bilinearity has come off that list: it is merged
 as `WeilPairingAntisymmetric` (`#723`), together with antisymmetry, on `[Field F]` and

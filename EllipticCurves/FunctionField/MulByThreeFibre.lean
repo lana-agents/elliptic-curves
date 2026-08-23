@@ -130,8 +130,8 @@ met head-on.
 
 * **`hprin` at `n = 3`, and therefore `#418`.**  The fibre description is an *input* to the
   class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 9 · toClass P = toClass (3S) = 0`,
-  not the computation itself.  This file unblocks that computation — the mirror of
-  `EllipticCurves.FunctionField.PullbackPrincipalityTwo` (`#791`) — and does not perform it.
+  not the computation itself.  This file does not perform it; the file that consumes this one and
+  does is `EllipticCurves.FunctionField.PullbackPrincipalityThree`.
 * **The fibre over a place that is not the closed point of an `F`-rational point.**  Over an
   algebraically closed base field every closed point *ought* to be rational, but that is a
   Nullstellensatz statement about `HeightOneSpectrum W.CoordinateRing` and it is nowhere in this

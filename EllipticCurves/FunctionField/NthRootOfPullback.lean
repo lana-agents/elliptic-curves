@@ -77,11 +77,13 @@ The hypothesis-free rung-5 statement is `exists_gS_two_of_isAlgClosed` **in that
 `exists_gS_two` below is deliberately left as it is, since it is the general-field statement and the
 discharge is not available in this file's generality.  Nothing in *this* file or in `#774` does it.
 
-At `n = 3` the geometric fact is still missing, but the `[3]` fibre description is no longer what
-is missing: it is `EllipticCurves.FunctionField.MulByThreeFibre`, which proves
-`[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` over an algebraically closed base field.  What is left is the
-class-group computation on top of it, the mirror of
-`EllipticCurves.FunctionField.PullbackPrincipalityTwo`, and nothing in this tree has scouted it.
+✅ **At `n = 3`, over such a base field, `hprin` is discharged too**, and by the same three steps:
+`EllipticCurves.FunctionField.MulByThreeFibre` supplies `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)` and
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` runs the class computation on top of it,
+supplying `exists_gS_three`'s hypothesis as `exists_nsmul_divisor_eq_divisor_mulByThreeEndo`.  The
+hypothesis-free rung-5 statement at `n = 3` is `exists_gS_three_of_isAlgClosed` **in that file**;
+`exists_gS_three` below is left as it is, for the same reason `exists_gS_two` is — it is the
+general-field statement, and neither discharge is available in this file's generality.
 
 ## Main statements
 
@@ -181,11 +183,12 @@ of #409 (`divisor W f_S = 3·(S)` on the affine chart) and its pullback `[3]∗ 
 `∃ g₀ ≠ 0, 3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f_S)`), there is a nonzero
 `g_S ∈ F(W)` with `u · g_S ^ 3 = mulByThreeEndo h2 h3 f_S` for a unit `u` of `F[W]`.
 
-As with `exists_gS_two`, the hypothesis `hprin` is the single gated input (principality of
-`[3]∗(S)`); everything else is unconditional.  It is **not** gated on `#E[3] = 9`, which is merged
-(`card_torsion_three`), and no longer on the fibre description of `[3]∗`
-(`EllipticCurves.FunctionField.MulByThreeFibre`, merged), but on the class-group computation above
-it — see the module docstring and `#765`. -/
+As with `exists_gS_two`, the hypothesis `hprin` is the single input carried here (principality of
+`[3]∗(S)`); everything else is unconditional.  ⚠️ It is **discharged**, over an algebraically closed
+base field, by `EllipticCurves.FunctionField.PullbackPrincipalityThree` — see
+`exists_gS_three_of_isAlgClosed` there.  This statement is kept in carried form because it is the
+general-field one, exactly as `exists_gS_two` is.  It was never gated on `#E[3] = 9`
+(`card_torsion_three`, merged); see the module docstring and `#765`. -/
 theorem exists_gS_three [DecidableEq F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
     (h : W.Nonsingular x y) (hP : Point.some x y h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

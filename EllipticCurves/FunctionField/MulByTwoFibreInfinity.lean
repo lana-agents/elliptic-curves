@@ -93,8 +93,11 @@ of `#774` is cheap and the affine half is not.
 * Therefore also the full fibre description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))` — again
   not here, and again merged, as `pullbackDivisorTwo_single_eq_sum_torsion` in
   `MulByTwoFibreAffine`.
-  `#418`'s `hprin` is **still open**: what remains of it is the class-group computation, not a
-  geometric fact.
+  ⚠️ `#418`'s `hprin` is not open either, at either `n`: over an algebraically closed base field
+  the class-group computation on top of that description is
+  `EllipticCurves.FunctionField.PullbackPrincipalityTwo` and, at `n = 3`,
+  `EllipticCurves.FunctionField.PullbackPrincipalityThree`.  Over a *general* field it is still
+  open at both, and that is a statement about the fibre description, not about this file.
 * `ramificationIdxTwo` at a place lying over an *affine* place.  Nothing *here* computes one, and
   the argument above genuinely does not reach them: it runs on `genX`, whose only pole is at
   infinity.  `MulByTwoFibreAffine` does compute them, over every rational point.
