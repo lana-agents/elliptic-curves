@@ -54,7 +54,29 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
 
 ## Explicitly out of scope (as issue #419 records)
 
-* **Bilinearity, alternating, Galois-equivariance** — separately valuable follow-ons.
+* **Bilinearity, alternating, Galois-equivariance** — separately valuable follow-ons, and all three
+  have since landed elsewhere on this front, over `F̄` (`WeilPairingDivisorSlotBilinear`,
+  `WeilPairingTranslationSlotBilinear`/`…Hom`, the `WeilPairingAlternating*` family,
+  `WeilPairingGaloisRoot`) **and** over an arbitrary base field with the principality hypothesis
+  `hprin` the single shared gate, at `n = 2` and `n = 3` and at both the `F(W)` and `μ_n(F)`
+  levels — six families in all, `#899` (by base change, `WeilPairingAlternatingBaseChange`) and
+  `#907`/`#910`/`#912`/`#913`/`#923` (each the `…Hprin` twin of a merged `F̄` file).
+  ⚠️ **Do not compress that into "rung 6 is complete over an arbitrary field".**  A completeness
+  claim needs its domain stated, and the domain is those six families and no more.
+  **Non-degeneracy is not among them and is not a lift**: `WeilPairingNondegenerateTwo` carries a
+  second, independent `[IsAlgClosed F]` dependence through `card_torsion_two` (`#759`), and
+  non-degeneracy against `E(F)[n]` over a non-closed `F` is *false*, so there is nothing there to
+  lift and filing it as one would be an error.  ⚠️ The undomained version of that sentence is what
+  `#923` was filed to correct, three times over: **enumerate the domain from the issue tree, not
+  from the files you happen to have open.**
+* **Packaging `e_n` as a function of two points** — done at `n = 2`, not here:
+  `EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) defines
+  `weilPairingTwo : E[2] → E[2] → μ_2(F)`, bundles it as `weilPairingTwoHom` and states
+  non-degeneracy as `ker_weilPairingTwoHom h2 = ⊥`.  ⚠️ It is stated over `[IsAlgClosed F]` and has
+  **no** `_of_hprin` twin, deliberately: its single gate produces a *witness*, and `#899`'s test
+  says base change never reaches those.  ⚠️ **This is the first file on this front where the
+  single-gate rule and `#899`'s test disagree**, and the two are not the same test.  The `n = 3`
+  mirror is unfiled.
 * **Non-degeneracy** — out of scope *of this file*, and **not** Ward-gated; see the next section,
   which is the canonical account of what it consumes.  Over an algebraically closed base field it
   is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
@@ -304,14 +326,38 @@ namespace with its base's.  ⚠️ Handle **both** suffix spellings — `X_of_hp
 `[^\s:({\[]+` for the name, never `[A-Za-z_]\w*`, for the truncation reason above.
 
 ⚠️ **The invariant is twin consistency, not a rule about the `exists_` prefix.**  The same stack
-walk finds fifteen `exists_` declarations inside `namespace CoordinateRing` that are correctly
-placed, because they are statements about the coordinate ring and its places —
-`exists_eq_algebraMap_of_isUnit`, `exists_deg_eq`, `exists_leadingCoeff_ratio`,
-`exists_equation_and_eq_XYIdeal_of_isMaximal` among them.  What the house pattern asks
-(`WeilPairingRootIndependence` demonstrates it) is that the **lemma layer** sits in
-`CoordinateRing` and the `exists_` **headlines** one level up; what this check enforces is only that
-a twin pair does not straddle the two.  The check has found exactly one breach so far, `#873`'s
-bundled-hom pair against `#913`'s, repaired by `#918`.
+walk finds **nineteen** `exists_` declarations inside `namespace CoordinateRing`, and they are there
+for two different reasons — which is why the count on its own settles nothing:
+
+* **Eleven** are statements about the coordinate ring, its units and its places, and belong there on
+  the merits: `exists_eq_algebraMap_of_isUnit`, `exists_deg_eq`, `exists_deg_sub_lt`,
+  `exists_eq_algebraMap_of_deg_eq_zero`, `exists_leadingCoeff_ratio`,
+  `exists_equation_and_eq_XYIdeal_of_isMaximal`, `exists_algebraMap_of_pow_eq_one`,
+  `exists_generator_divisor_galois`, `exists_unit_galoisFunctionField_of_smul_pow` and the two
+  `exists_{scalar,unit}_galoisFunctionField_of_divisor_eq`.
+* **Eight** are rung-6 *headlines*: `exists_weilPairing{Elt,Mu}_galois_{two,three}`
+  (`WeilPairingGaloisRoot`) and their `_of_hprin` twins (`WeilPairingGaloisRootHprin`, `#923`).
+  ⚠️ **On the house pattern all eight are out of place**; the `_of_hprin` four are there only
+  because their twins are, which keeps the mechanical check green at the cost of the convention.
+  Moving them is `#918`-shaped work with its own before/after `#print axioms` and `#check @f`
+  protocol, tracked as `#927`; if it has landed, this bullet is empty and the count above is
+  **eleven**.
+
+⚠️ **This paragraph previously said "fifteen … correctly placed, because they are statements about
+the coordinate ring and its places", and that was wrong before either of the two 2026-08-23 merges
+touched the tree** — the fifteen already included `WeilPairingGaloisRoot`'s four headlines, which
+are not such statements.  The error was to name four genuine examples and generalise them to the
+whole count.  ⚠️ **A census is only as good as its enumeration: list the members or state the split,
+never a bare total with an explanation attached.**
+
+What the house pattern asks (`WeilPairingRootIndependence` demonstrates it) is that the **lemma
+layer** sits in `CoordinateRing` and the `exists_` **headlines** one level up; what this check
+enforces is only that a twin pair does not straddle the two.  ⚠️ **So a fix that satisfies the check
+can still be wrong** — `#918` moved four declarations where only two had a mismatched twin, because
+moving the two alone would have split `exists_weilPairingTorsionMuHom_two` from its `_ne_one`
+sibling, a defect one name over that the check does not see.  Reading the file is still what settles
+placement.  The check has found exactly one breach so far, `#873`'s bundled-hom pair against
+`#913`'s, repaired by `#918`, and reports **0** as of `#923`.
 
 ## References
 
