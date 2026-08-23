@@ -246,6 +246,32 @@ first discharges `hcomm` from a `translatePoint`-level hypothesis and the second
 whenever `_three` might be naming something other than an isogeny (`coeff_formalW_three` names the
 coefficient index `3`).
 
+⚠️ The convention is **checkable**, and the check is worth re-running whenever a family is added.
+It is stated here rather than in a tracker thread because it has been reimplemented three times in
+two days, and two of those implementations disagreed on their totals while agreeing on the only
+bucket that matters.
+
+Collect the **declaration names** in `EllipticCurves/**/*.lean` — every name introduced by a
+`theorem`, `lemma`, `def`, `abbrev` or `instance`, taken as a set — and keep those matching the
+token `_three(?=$|_|')`.  ⚠️ The lookahead is the point: `X_three'` does not end in `_three`, and
+`_three` is not always terminal (`weilPairingElt_pow_eq_one_of_gS_three_torsion`).  Sort each into
+**four** buckets by whether substituting `_two`, deleting the token, both, or neither yields a name
+that also exists:
+
+* **`_two` twin** — the convention working.
+* **bare twin only** — the defect this section describes.  It should be empty but for
+  `coeff_formalW`, whose `_three` indexes a coefficient.
+* **both** — the collision guard.  If `X`, `X_two` and `X_three` all exist, renaming `X → X_two`
+  collides rather than improves, so these must be left alone; the bucket reproduces this section's
+  hand-written exceptions without curation.
+* **neither** — genuinely `n = 3`-only.
+
+⚠️ **The audit is a candidate generator and never a finding.**  Every candidate is settled by
+reading the statement for `mulByTwoEndo` / `W.torsion 2` / `g ^ 2` / `(2 : F) ≠ 0`, which is what
+separates a bare `n = 2` name from a `_three` that indexes something other than an isogeny.  ⚠️ And
+report only the bare-twin bucket: the absolute totals have proved sensitive to how declarations are
+collected, while the bare-twin bucket has reproduced across independent implementations.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.
