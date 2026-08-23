@@ -129,8 +129,10 @@ is not built here.
   unavailable.  Both it and the antisymmetry corollary are merged, as `WeilPairingAntisymmetric`
   (`#723`), on `[Field F]` and `[W.IsElliptic]` alone.  What that file still carries is the
   *production* of the product relation `g_{S ⊕ T} = g_S · g_T · w`, as the hypothesis `hprod`
-  (rung 4/5, `#414`/`#418`); the correction factor `w` is invisible to `e_n(·, T)`, so nothing
-  downstream of `hprod` costs anything.  Note also that the derivation consumes `e_n(T, T) = 1` at
+  — ⚠️ which is **rung 5 only, never rung 4**, and is discharged from rung-5 data in
+  `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`); the correction factor `w` is
+  invisible to `e_n(·, T)`, so nothing downstream of `hprod` costs anything.  Note also that
+  the derivation consumes `e_n(T, T) = 1` at
   **three** points, `S`, `T` and `S ⊕ T` — i.e. the theorem below, `hprin` and all, applied three
   times.  So end-to-end antisymmetry is neither more nor less gated than this file already is: the
   gate did not move, and `#723` added no new one.

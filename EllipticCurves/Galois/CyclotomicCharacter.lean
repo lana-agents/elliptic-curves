@@ -50,7 +50,8 @@ deliverable 2), and non-degeneracy — which is **not** Ward-gated; see
 slot is no longer on that list: it is merged, with antisymmetry, as
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (`#723`) on `[Field F]` and
 `[W.IsElliptic]` alone, and all it wants beyond those is the production of
-`g_{S ⊕ S'} = g_S · g_{S'} · w` — the rung-4/5 gate already named. What this file supplies is the
+`g_{S ⊕ S'} = g_S · g_{S'} · w` — ⚠️ **rung 5 only, never rung 4**, and produced in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`). What this file supplies is the
 right-hand side, and the translation of the Weil-pairing equivariance into the form that
 computation consumes (`EllipticCurves.FunctionField.WeilPairingCyclotomic`).
 

@@ -67,7 +67,8 @@ among what remains: it and the divisor-slot bilinearity it runs on are merged at
 as `WeilPairingAntisymmetric` (#723), and their `μ_n` lift — the same descent performed here — is
 merged as `WeilPairingAntisymmetricMu` (#733).  Both need `[Field F] [W.IsElliptic]` and nothing
 more, with only the production of `g_{S ⊕ T} = g_S · g_T · w` still carried as a hypothesis
-(rung 4/5, #414/#418).  The divisor slot is moreover bundled as a homomorphism into `μ_n(F)` in
+— ⚠️ **rung 5 only, never rung 4**, and performed in `WeilPairingProductRelation` (#845).
+The divisor slot is moreover bundled as a homomorphism into `μ_n(F)` in
 `WeilPairingDivisorSlotHom` (#746).  What remains at the `μ_n` level is Galois-equivariance
 (#456), the same bundling in the *translation* slot (which needs a datum uniform in the
 translation point, a genuinely different statement), and non-degeneracy — which is **not**

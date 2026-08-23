@@ -131,7 +131,9 @@ general `F` needs the function-field base-change layer, which is deliberately de
   unavailable.  Both it and the antisymmetry corollary are merged, as `WeilPairingAntisymmetric`
   (`#723`), on `[Field F]` and `[W.IsElliptic]` alone.  What that file still carries is the
   *production* of the product relation `g_{S ⊕ T} = g_S · g_T · w`, as the hypothesis `hprod`
-  (rung 4/5, `#414`/`#418`).  Its derivation consumes `e_n(T, T) = 1` at **three** points, `S`, `T`
+  — ⚠️ **rung 5 only, never rung 4**, and discharged from rung-5 data in
+  `EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`).  Its derivation consumes
+  `e_n(T, T) = 1` at **three** points, `S`, `T`
   and `S ⊕ T` — i.e. the theorem below, `hprin` and all, applied three times — so end-to-end
   antisymmetry is neither more nor less gated than this file already is.
 

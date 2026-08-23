@@ -58,7 +58,8 @@ closes it.
 Ward-, normality- and rung-4-independent: needs only `[Field F] [W.IsElliptic]` and the already
 delivered root-of-unity data.  Bilinearity in the divisor slot `S` and antisymmetry are merged at
 the `F(W)` level (`WeilPairingAntisymmetric`, #723) on the same `[Field F] [W.IsElliptic]`, with
-only the production of `g_{S ⊕ S'} = g_S · g_{S'} · w` still carried as a hypothesis (rung 4/5,
+only the production of `g_{S ⊕ S'} = g_S · g_{S'} · w` still carried as a hypothesis (⚠️ rung 5
+only, never rung 4, and performed in `WeilPairingProductRelation`, `#845`; the issues below name
 #414/#418); their `μ_n` lift is merged as `WeilPairingAntisymmetricMu` (#733), by the same descent
 through `algebraMap_coe_rootsOfUnity_injective` used below.  Alternating `e_n(S, S) = 1` and
 Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is out of scope and is
