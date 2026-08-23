@@ -73,7 +73,8 @@ Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
 `n = 2`, for `S = (x, y)` a nonzero affine `2`-torsion point, the argument is
 
 1. take `g_S ≠ 0` with `u · g_S ^ 2 = [2]∗ f_S` — `exists_gS_two` (`NthRootOfPullback`), whose
-   hypothesis `hprin` is the **one gated input**;
+   hypothesis `hprin` was the **one gated input** and is discharged over `[IsAlgClosed F]` by
+   `#791` (see below);
 2. `e_2(S, T) = 1` says exactly `τ_T∗ g_S = g_S` — merged, as
    `weilPairingElt_eq_one_iff_translateEndo_fixed` (`WeilPairingAlternating`, `#465`);
 3. so `g_S ∈ Fixed(E[2])`, via `mem_fixedFieldTwo_iff` and `translateAut_apply_some`
@@ -93,13 +94,27 @@ Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
 `finrank_fixedFieldTwo`, whose input is `card_torsionTwoMul` and hence `card_torsion_two` — the
 roots of the `2`-division cubic, which does not go through Ward.  Ward (`#254`/`#258`/`#260`/`#261`)
 gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#251`.  So at `n = 2` the dependency the
-old prose named is *discharged*, and the gate is `hprin`, i.e. rung 5 (`#418`) — for which see
-`NthRootOfPullback`.  ⚠️ Its own gate used to be the fibre description of `[2]∗`, `#639` **rung 9**
-(`#774`, *not* `#701`, which is rung 8 and merely counts the fibre).  **Rung 9 is merged**
-(`MulByTwoFibreInfinity`, then `MulByTwoFibreAffine`), so at `n = 2` what `hprin` still waits on is
-the class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = 0` — merged
-material assembled, not a geometric fact.  At `n = 3` it is not yet so; see the `n = 3` account
-below, which is the only place that says why.
+old prose named is *discharged*, and what took its place was `hprin`, i.e. rung 5 (`#418`) — for
+which see `NthRootOfPullback`.  ⚠️ Its own gate used to be the fibre description of `[2]∗`, `#639`
+**rung 9** (`#774`, *not* `#701`, rung 8, which merely counts the fibre).  **Rung 9 is merged**
+(`MulByTwoFibreInfinity`, then `MulByTwoFibreAffine`), and the class-group computation that was
+then all that remained of it has since been run: ✅ **at `n = 2`, over an algebraically closed base
+field, `hprin` is discharged** (`EllipticCurves.FunctionField.PullbackPrincipalityTwo`, `#791`),
+which also carries the hypothesis-free rung-5 statement `exists_gS_two_of_isAlgClosed`.
+`exists_gS_two` itself is unchanged and keeps `hprin`, because it is the general-field statement and
+over an arbitrary `F` the gate is untouched.  At `n = 3` the position is different; see the `n = 3`
+account below, which is the only place that says why.
+
+So over `[IsAlgClosed F]` and `[W.IsElliptic]`, **no step of the list above is gated any longer** —
+step 7's Dedekind hypothesis included, by `isDedekindDomain_of_isAlgClosed`
+(`CoordinateRingNormalAlgClosed`), which is why the normality item in the out-of-scope list above
+does not bite here.  What stands between the list and a theorem is the assembly `#419` owns, not a
+missing input: `weilPairingElt` takes `g_S` as an *argument*
+(`weilPairingElt_eq_one_iff_translateEndo_fixed`), so a non-degeneracy statement has to thread one
+`g_S` through every `T`, and it inherits the hypotheses the ⚠️ below records.
+
+⚠️ Do not read that as "non-degeneracy is proved".  It is not, at either `n`; this section states
+what non-degeneracy *consumes*, and the claim above is about inputs, not about a theorem.
 
 ⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
 `exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the
@@ -113,10 +128,12 @@ only the first.
 ⚠️ **Step 4 carries `[IsAlgClosed F]`, and so does rung 9's fibre description** — `[W.IsElliptic]`
 for the contraction-is-doubling statement, `[IsAlgClosed F]` on top of it for the count, the pinned
 indices and the divisor identity — whereas this file carries `[W.IsElliptic]` and **not**
-`[IsAlgClosed F]`.  "The count is merged" and "the count is merged in the generality this theorem
-is stated in" are different claims; an assembled non-degeneracy statement would inherit
-`[IsAlgClosed F]`, which the `#418`/`#465` consumers already carry but the `WeilPairing*` files do
-not.
+`[IsAlgClosed F]`.  `#791`'s discharge of `hprin` inherits the same hypothesis twice over, from the
+fibre description and from the surjectivity of `[2]` on points (`exists_nsmul_two_eq`), which is why
+it lands in its own module rather than weakening `exists_gS_two` in place.  "The count is merged"
+and "the count is merged in the generality this theorem is stated in" are different claims; an
+assembled non-degeneracy statement would inherit `[IsAlgClosed F]`, which the `#418`/`#465`
+consumers already carry but the `WeilPairing*` files do not.
 
 **At `n = 3` every step of the argument now has an analogue, and the gate is the same gate.**
 Steps 1, 2, 5, 6 and 7 transpose (`exists_gS_three`, `mulByThreeEndo_algebraMap_base`), and steps 3
@@ -126,13 +143,14 @@ and 4 — which had no analogue at all when this section was first written — a
 `finrank_mulByThreeFieldRange` (`MulByThreeDegree`, `#775`, by `#682`'s tower with `4 ↦ 9`) on the
 left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-free —
 (`TranslationActionThree`, `#783`) on the right.  So at `n = 3` too the gate is `hprin`, rung 5
-(`#418`), and the `n = 2` and `n = 3` gaps are the **same** gap.
+(`#418`) — the **same** gate as at `n = 2`, and the last one left at either `n`.
 
-⚠️ **Same gate, but one rung further back, and the two `n` must not be collapsed into each other.**
-At `n = 2` `hprin` waits only on the class-group computation above, because rung 9 is merged.  At
-`n = 3` the fibre description itself is still missing — there is no `[3]` duplication formula at a
-point (`#404`) and `#763`'s count `4` is `[2]`-specific — so `hprin` at `n = 3` is not yet reducible
-to bookkeeping the way it is at `n = 2`.  This is the one asymmetry that survives
+⚠️ **Same gate, but the two `n` are two rungs apart and must not be collapsed into each other.**
+At `n = 2` `hprin` is discharged over an algebraically closed base field, rung 9 being merged and
+`#791` having run the computation on top of it.  At `n = 3` the fibre description itself is still
+missing — there is no `[3]` duplication formula at a point (`#404`) and `#763`'s count `4` is
+`[2]`-specific — so `hprin` at `n = 3` is not even reducible to bookkeeping, which is what it had
+become at `n = 2` before `#791` did the bookkeeping.  This is the one asymmetry that survives
 `#775`/`#783`/`#784`, and it is neither a count nor Artin.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
