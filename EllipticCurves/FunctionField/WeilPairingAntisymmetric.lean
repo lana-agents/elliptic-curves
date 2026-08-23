@@ -70,7 +70,7 @@ rung 6.
 `e(h_R, g_R) = 1` is a hypothesis, not a conclusion — antisymmetry does not *prove* the alternating
 property anywhere, it consumes it.  That is not a defect: `S`, `T` and `S ⊕ T` are all `n`-torsion,
 so over an algebraically closed field all three instances come from the same merged theorem
-(`exists_weilPairingElt_self_eq_one_of_algClosed`, resp. `_three`), at three different points.
+(`exists_weilPairingElt_self_eq_one_of_algClosed_two`, resp. `_three`), at three different points.
 
 Note also that only **one** of the three needs the divisor-slot step, so only `e_n(h_R, w) = 1` is
 required of the correction factor; `e_n(h_S, w)` and `e_n(h_T, w)` never appear.

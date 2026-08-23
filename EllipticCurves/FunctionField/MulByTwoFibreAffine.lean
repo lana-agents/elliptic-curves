@@ -406,7 +406,7 @@ theorem comapProjPointTwo_add_torsion_two (h2 : (2 : F) ≠ 0) {S P : W.Point} (
 omit [W.IsElliptic] [IsAlgClosed F] in
 /-- **`R ↦ P ⊕ R` is injective into the places**, for `R` ranging over `E[2]`: the group law is
 cancellative and `projPointOfPoint` is injective. -/
-theorem projPointOfPoint_add_injective (P : W.Point) :
+theorem projPointOfPoint_add_injective_two (P : W.Point) :
     Function.Injective fun R : W.torsion 2 => projPointOfPoint W (P + R) :=
   fun _ _ hEq => Subtype.ext (add_right_injective P (projPointOfPoint_injective hEq))
 
@@ -414,7 +414,7 @@ omit [DecidableEq F] in
 /-- **The fibre of `[2]` over any rational point has exactly four elements.**
 
 `≥ 4` is `{ P ⊕ R : R ∈ E[2] }` for a `P` with `2 • P = S` (`exists_nsmul_two_eq`), four distinct
-elements by `card_torsion_two` and `projPointOfPoint_add_injective`, all in the fibre by
+elements by `card_torsion_two` and `projPointOfPoint_add_injective_two`, all in the fibre by
 `comapProjPointTwo_add_torsion_two`; `≤ 4` is `#763`'s `card_fibre_comapProjPointTwo_le_four`.
 
 At `S = O` this is `MulByTwoFibreInfinity`'s `card_fibre_comapProjPointTwo_none` reproved
@@ -432,7 +432,7 @@ theorem card_fibre_comapProjPointTwo_projPointOfPoint (h2 : (2 : F) ≠ 0) (S : 
   rw [← hcard, ← Finset.card_univ]
   exact Finset.card_le_card_of_injOn (fun R => projPointOfPoint W (P + R))
     (fun R _ => (Set.Finite.mem_toFinset _).2 (comapProjPointTwo_add_torsion_two h2 hP R))
-    (Set.injOn_of_injective (projPointOfPoint_add_injective P))
+    (Set.injOn_of_injective (projPointOfPoint_add_injective_two P))
 
 /-- **The fibre of `[2]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[2] }`**, for any `P`
 with `2 • P = S`.
@@ -459,7 +459,7 @@ theorem fibre_comapProjPointTwo_eq_range (h2 : (2 : F) ≠ 0) {S P : W.Point} (h
     rw [Set.ncard_eq_toFinset_card _ hfin]
     exact card_fibre_comapProjPointTwo_projPointOfPoint h2 S
   have h2' : (Set.range fun R : W.torsion 2 => projPointOfPoint W (P + R)).ncard = 4 := by
-    rw [← Nat.card_coe_set_eq, Nat.card_range_of_injective (projPointOfPoint_add_injective P),
+    rw [← Nat.card_coe_set_eq, Nat.card_range_of_injective (projPointOfPoint_add_injective_two P),
       card_torsion_two h2]
   omega
 
@@ -546,7 +546,7 @@ theorem pullbackDivisorTwo_single_eq_sum_torsion [Fintype (W.torsion 2)] (h2 : (
     rw [hq, Finsupp.single_eq_same, mul_one,
       ramificationIdxTwo_eq_one_of_comapProjPointTwo_eq_projPointOfPoint h2 hq,
       Finset.sum_eq_single R₀ (fun R _ hRne => if_neg fun hc =>
-        hRne (projPointOfPoint_add_injective P (hc.trans hR₀.symm)))
+        hRne (projPointOfPoint_add_injective_two P (hc.trans hR₀.symm)))
       (fun hc => absurd (Finset.mem_univ R₀) hc), if_pos hR₀]
   · rw [Finsupp.single_apply, if_neg fun hc => hq hc.symm, mul_zero, Finset.sum_eq_zero]
     intro R _

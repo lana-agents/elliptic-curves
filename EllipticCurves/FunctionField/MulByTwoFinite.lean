@@ -34,9 +34,9 @@ morphism of degree `4 = 2²`. This file supplies the **integrality datum** for t
 The mechanism is the identity `x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)`, i.e. `mulByTwoEndo h2 (genX)`
 multiplied by the (nonvanishing) denominator `Ψ₂Sq(genX)` returns the numerator `Φ₂(genX)` — so
 substituting `genX` into `q` gives `Φ₂(genX) - x(2 • P)·Ψ₂Sq(genX) = 0`. This is the same
-annihilating polynomial used in the dominance argument `isAlgebraic_genX_of`, here read *relative to
-the image subfield* `[2]∗F(W)` (rather than the relative algebraic closure of `F`), which upgrades
-algebraicity to integrality of degree `≤ 4`.
+annihilating polynomial used in the dominance argument `isAlgebraic_genX_of_two`, here read
+*relative to the image subfield* `[2]∗F(W)` (rather than the relative algebraic closure of `F`),
+which upgrades algebraicity to integrality of degree `≤ 4`.
 
 ## Scope
 

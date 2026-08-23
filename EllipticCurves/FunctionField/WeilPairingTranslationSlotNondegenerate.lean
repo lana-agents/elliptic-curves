@@ -47,7 +47,7 @@ defined.
 
 ## ⚠️ Where the bundling changes the statement rather than restating it
 
-`eq_zero_of_forall_weilPairingMu_eq_one`'s trivial-pairing hypothesis is a `∀` over `x₂ y₂ h₂`,
+`eq_zero_of_forall_weilPairingMu_eq_one_two`'s trivial-pairing hypothesis is a `∀` over `x₂ y₂ h₂`,
 over torsion membership, **and over `hpow`** — four binders, the last of which
 `WeilPairingNondegenerateMu` has to spend a docstring section explaining ("the extra binder is type
 theory, not mathematics").  In `eq_zero_of_weilPairingTorsionMuHom_two_eq_one` that entire
@@ -197,9 +197,9 @@ open Classical in
 /-- **Silverman III.8.1(d) at `n = 2`, as a statement about the map**: if `e_2(S, ·)` is the
 trivial homomorphism then `S = O`.
 
-⚠️ Compare `eq_zero_of_forall_weilPairingMu_eq_one`, whose trivial-pairing hypothesis is a `∀` over
-`x₂ y₂ h₂`, over torsion membership **and over `hpow`**.  Here it is the single equation `φ = 1`.
-That is the whole gain from bundling, and it is why the binder apology in
+⚠️ Compare `eq_zero_of_forall_weilPairingMu_eq_one_two`, whose trivial-pairing hypothesis is a `∀`
+over `x₂ y₂ h₂`, over torsion membership **and over `hpow`**.  Here it is the single equation `φ =
+1`. That is the whole gain from bundling, and it is why the binder apology in
 `WeilPairingNondegenerateMu`'s docstring does not have to be repeated. -/
 theorem eq_zero_of_weilPairingTorsionMuHom_two_eq_one (h2 : (2 : F) ≠ 0) {S : W.Point}
     {f gS : W.FunctionField} (hf : f ≠ 0)
@@ -207,7 +207,7 @@ theorem eq_zero_of_weilPairingTorsionMuHom_two_eq_one (h2 : (2 : F) ≠ 0) {S : 
     {u : W.CoordinateRingˣ} (hu : (u : W.CoordinateRing) • gS ^ 2 = mulByTwoEndo h2 f)
     (hone : weilPairingTorsionMuHom_two h2 hgS hu = 1) :
     S = 0 := by
-  refine eq_zero_of_forall_weilPairingMu_eq_one h2 hf hfdiv hgS hu fun x₂ y₂ h₂ hmem hpow => ?_
+  refine eq_zero_of_forall_weilPairingMu_eq_one_two h2 hf hfdiv hgS hu fun x₂ y₂ h₂ hmem hpow => ?_
   have hval := DFunLike.congr_fun hone
     (Multiplicative.ofAdd (⟨Point.some x₂ y₂ h₂, hmem⟩ : W.torsion 2))
   rwa [weilPairingTorsionMuHom_two_apply_some h2 hgS hu h₂ hmem hpow] at hval

@@ -53,13 +53,13 @@ thread, since a reader of this file would otherwise reasonably expect it to be a
 
 ## Main statements
 
-* `WeierstrassCurve.Affine.exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed` — at `n = 2`:
-  for a nonsingular affine `2`-torsion `T` there is a function `f_T` with projective divisor
+* `WeierstrassCurve.Affine.exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_two` — at `n =
+  2`: for a nonsingular affine `2`-torsion `T` there is a function `f_T` with projective divisor
   `2(T) − 2(O)` such that **every** nonzero `g` with `u · g ^ 2 = [2]∗ f_T`, for some unit `u` of
   `F[W]`, satisfies `τ_T∗ g = g` and `e_2(T, T) = 1`.
 * `WeierstrassCurve.Affine.exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_three` — the same
   at `n = 3`, with cube roots of `[3]∗ f_T`.
-* `WeierstrassCurve.Affine.exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed` and
+* `WeierstrassCurve.Affine.exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_two` and
   `WeierstrassCurve.Affine.exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_three` — the same
   two in the value group: `weilPairingMu(T, T) = 1` in `μ_n(F)`, for every `n` with `[NeZero n]`.
   The root-of-unity datum `hpow` that `weilPairingMu` is indexed by costs nothing, because the
@@ -129,11 +129,11 @@ For a nonsingular affine `2`-torsion point `T = (x₂, y₂)` there is a nonzero
 divisor is `2(T) − 2(O)` such that *every* nonzero `g` with `u · g ^ 2 = [2]∗ f_T`, for a unit `u`
 of `F[W]`, is fixed by the translation `τ_T∗` — hence `e_2(T, T) = 1` for every such `g`.
 
-`exists_forall_weilPairingElt_self_eq_one_of_algClosed` (`WeilPairingRootIndependence`) is this
+`exists_forall_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingRootIndependence`) is this
 statement with the principality of `[2]∗((T) − (O))` carried as the hypothesis `hprin`, and
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` (`PullbackPrincipalityTwo`) is exactly that
 hypothesis, proved.  The two compose with nothing in between. -/
-theorem exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
+theorem exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2) :
     ∃ f : W.FunctionField, f ≠ 0 ∧
       divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (2 : ℤ)
@@ -141,15 +141,16 @@ theorem exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed (h2 : (2 : F) �
         ∀ g : W.FunctionField, g ≠ 0 →
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) →
             translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
-  exists_forall_weilPairingElt_self_eq_one_of_algClosed h2 h htors fun _ hf hfdiv =>
+  exists_forall_weilPairingElt_self_eq_one_of_algClosed_two h2 h htors fun _ hf hfdiv =>
     exists_nsmul_divisor_eq_divisor_mulByTwoEndo h2 h htors hf hfdiv
 
 open Classical in
 /-- **`e_3(T, T) = 1` for every cube root, over an algebraically closed field, with no hypothesis
 beyond the setting.**
 
-The `n = 3` twin of `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed`, discharged the same
-way from `exists_nsmul_divisor_eq_divisor_mulByThreeEndo` (`PullbackPrincipalityThree`, `#825`).
+The `n = 3` twin of `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_two`, discharged the
+same way from `exists_nsmul_divisor_eq_divisor_mulByThreeEndo` (`PullbackPrincipalityThree`,
+`#825`).
 
 ⚠️ `h2` and `h3` are both genuinely needed, and not for symmetric reasons: `h3` enters only through
 `mulByThreeEndo`, which the statement mentions, while `h2` enters through the doubling slope that
@@ -178,7 +179,7 @@ lands in `μ_n` for `n ≠ 2`.
 The `μ_n`-level reduction is `weilPairingMu_self_of_translateEndo_fixed`
 (`WeilPairingAlternatingMu`), whose own hypothesis is the translation-invariance that the theorem
 above supplies for every `g`. -/
-theorem exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠ 0)
+theorem exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2) (n : ℕ) [NeZero n] :
     ∃ f : W.FunctionField, f ≠ 0 ∧
       divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (2 : ℤ)
@@ -187,7 +188,7 @@ theorem exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) →
             ∃ hpow : weilPairingElt h.left g ^ n = 1, weilPairingMu h.left hpow = 1 := by
   obtain ⟨f, hf, hdivproj, hall⟩ :=
-    exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed h2 h htors
+    exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_two h2 h htors
   refine ⟨f, hf, hdivproj, fun g hg hgroot => ?_⟩
   obtain ⟨htinv, halt⟩ := hall g hg hgroot
   exact ⟨by rw [halt, one_pow], weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
@@ -195,7 +196,7 @@ theorem exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed (h2 : (2 : F) ≠
 open Classical in
 /-- **The root-independent alternating property at `n = 3` in the value group**:
 `weilPairingMu(T, T) = 1` in `μ_n(F)` for *every* cube root of `[3]∗ f_T`.  The `n = 3` twin of
-`exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed`, proved the same way. -/
+`exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_two`, proved the same way. -/
 theorem exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_three (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 3)
     (n : ℕ) [NeZero n] :
@@ -292,7 +293,7 @@ example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
           (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) →
           translateEndo exampleNonsingular.left g = g ∧
             weilPairingElt exampleNonsingular.left g = 1 :=
-  exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed exampleTwo exampleNonsingular
+  exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_two exampleTwo exampleNonsingular
     exampleTorsion
 
 open Classical in
@@ -307,7 +308,7 @@ example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
           (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) →
           ∃ hpow : weilPairingElt exampleNonsingular.left g ^ 2 = 1,
             weilPairingMu exampleNonsingular.left hpow = 1 :=
-  exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed exampleTwo exampleNonsingular
+  exists_forall_weilPairingMu_self_eq_one_of_isAlgClosed_two exampleTwo exampleNonsingular
     exampleTorsion 2
 
 open Classical in

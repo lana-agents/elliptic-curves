@@ -222,6 +222,30 @@ claim in a way that a count of assembled slots is not.
 `[IsAlgClosed F]`, while `card_torsion_three` needs it — so the sandwich, and everything
 `MulByThreeGalois` exports off it, carries the union.
 
+## Naming: `_two` / `_three` track the **isogeny**, not the exponent
+
+A `_two` or `_three` suffix on this front says which multiplication-by-`n` endomorphism the
+statement is about — `mulByTwoEndo` versus `mulByThreeEndo` — and nothing else.  ⚠️ It does **not**
+say the exponent is fixed: `weilPairingElt_pow_eq_one_of_gS_two` has a free `{n : ℕ}` and concludes
+`e_n(S, T) ^ n = 1`, and its `n = 2`-ness lives entirely in the `mulByTwoEndo h2 f` on the right of
+its rung-5 hypothesis.  A declaration can be general in the exponent and specific to the isogeny,
+and most of the suffixed ones are.
+
+⚠️ **An unsuffixed name therefore means "general in the isogeny", and that is now the only thing it
+can mean.**  It used to mean that *or* "`n = 2`, written before anyone needed `n = 3`", with nothing
+in the name to distinguish them; `#886` measured fifteen declarations carrying the second reading
+and gave them their `_two`.  The names that are correctly bare are the ones that take the product
+relation `hprod` as a hypothesis and mention no `mulBy*Endo` at all —
+`weilPairingElt_divisorSlot_add` and `weilPairingMu_divisorSlot_add`, each of which has a `_two` and
+a `_three` specialisation beside it.
+
+⚠️ One pair is deliberately *not* on this scheme: `weilPairingElt_pow_eq_one_of_gS_torsion` and
+`weilPairingElt_pow_eq_one_of_gS_two_torsion` are different theorems, not a bare/suffixed pair — the
+first discharges `hcomm` from a `translatePoint`-level hypothesis and the second from a
+`torsionPoint`-level one.  Reading the statement is what settles it, which is the general rule
+whenever `_three` might be naming something other than an isogeny (`coeff_formalW_three` names the
+coefficient index `3`).
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.
@@ -301,7 +325,7 @@ theorem translateEndo_algebraMap_unit {x₂ y₂ : F} (h₂ : W.Equation x₂ y�
 /-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and the two named inputs.** Combines
 `translateEndo_pow_eq_self_of` (which produces `translateEndo h₂ (g ^ n) = g ^ n`) with
 `weilPairingElt_pow_eq_one`.  Here `h = [n]∗ f_S = mulByTwoEndo h2 f` and `g = g_S`. -/
-theorem weilPairingElt_pow_eq_one_of_gS {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
+theorem weilPairingElt_pow_eq_one_of_gS_two {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f)
@@ -311,7 +335,7 @@ theorem weilPairingElt_pow_eq_one_of_gS {x₂ y₂ : F} (h₂ : W.Equation x₂ 
   weilPairingElt_pow_eq_one h₂ hg (translateEndo_pow_eq_self_of h₂ hu hcomm huf)
 
 /-- **`e_n(S, T) ^ n = 1`, concrete `n = 3` instance.** The `mulByThreeEndo` analogue of
-`weilPairingElt_pow_eq_one_of_gS`: here the pulled-back principal function is
+`weilPairingElt_pow_eq_one_of_gS_two`: here the pulled-back principal function is
 `h = [3]∗ f_S = mulByThreeEndo h2 h3 f` and `g = g_S` is the rung-5 `n = 3` root
 (`exists_gS_three`, `u · g ^ 3 = mulByThreeEndo h2 h3 f`).  Nothing in the reduction is specific to
 `n = 2`: `translateEndo_pow_eq_self_of` and `weilPairingElt_pow_eq_one` are `n`-agnostic, so the two
@@ -327,17 +351,18 @@ theorem weilPairingElt_pow_eq_one_of_gS_three {x₂ y₂ : F} (h₂ : W.Equation
   weilPairingElt_pow_eq_one h₂ hg (translateEndo_pow_eq_self_of h₂ hu hcomm huf)
 
 /-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 2`).**  The `huf` hypothesis
-of `weilPairingElt_pow_eq_one_of_gS` is now discharged by `translateEndo_algebraMap_unit` (the unit
-`u` is a constant), leaving only the geometric commuting identity `hcomm` (`[n](P + T) = [n]P`). -/
-theorem weilPairingElt_pow_eq_one_of_gS' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
+of `weilPairingElt_pow_eq_one_of_gS_two` is now discharged by `translateEndo_algebraMap_unit`
+(the unit `u` is a constant), leaving only the geometric commuting identity `hcomm`
+(`[n](P + T) = [n]P`). -/
+theorem weilPairingElt_pow_eq_one_of_gS_two' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
     weilPairingElt h₂ g ^ n = 1 :=
-  weilPairingElt_pow_eq_one_of_gS h₂ h2 hg hu hcomm (translateEndo_algebraMap_unit h₂ u)
+  weilPairingElt_pow_eq_one_of_gS_two h₂ h2 hg hu hcomm (translateEndo_algebraMap_unit h₂ u)
 
 /-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 3`).**  The `mulByThreeEndo`
-analogue of `weilPairingElt_pow_eq_one_of_gS'`; `huf` is discharged by
+analogue of `weilPairingElt_pow_eq_one_of_gS_two'`; `huf` is discharged by
 `translateEndo_algebraMap_unit`, leaving only `hcomm`. -/
 theorem weilPairingElt_pow_eq_one_of_gS_three' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}

@@ -77,7 +77,7 @@ At each of `n = 2` and `n = 3`, mirroring the three headlines of the correspondi
   **`WeierstrassCurve.Affine.exists_gS_three_weilPairingMu_ne_one`** — the headlines: rung 5 and
   non-degeneracy together, with no hypothesis beyond the setting and a nonsingular affine
   `n`-torsion point.
-* `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one` and
+* `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one_two` and
   `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one_three` — Silverman III.8.1(d) in
   `μ_n(F)`: `e_n(S, ·) ≡ 1` on `E[n]` forces `S = O`.
 
@@ -179,18 +179,18 @@ theorem exists_gS_two_weilPairingMu_ne_one (h2 : (2 : F) ≠ 0) (h : W.Nonsingul
 open Classical in
 /-- **Silverman III.8.1(d) at `n = 2`, in `μ_2(F)`: `e_2(S, ·) ≡ 1` forces `S = O`.**
 
-The `μ_2(F)` mirror of `eq_zero_of_forall_weilPairingElt_eq_one`, with the same
+The `μ_2(F)` mirror of `eq_zero_of_forall_weilPairingElt_eq_one_two`, with the same
 `pointDivisorAff`-uniform divisor hypothesis and the same freedom in `S`, which ranges over all of
 `W.Point` with no torsion hypothesis.  See the module docstring for why the trivial-pairing
 hypothesis quantifies over `hpow`. -/
-theorem eq_zero_of_forall_weilPairingMu_eq_one (h2 : (2 : F) ≠ 0) {S : W.Point}
+theorem eq_zero_of_forall_weilPairingMu_eq_one_two (h2 : (2 : F) ≠ 0) {S : W.Point}
     {f gS : W.FunctionField} (hf : f ≠ 0)
     (hfdiv : divisor W f = (2 : ℤ) • pointDivisorAff W S) (hgS : gS ≠ 0)
     {u : W.CoordinateRingˣ} (hu : (u : W.CoordinateRing) • gS ^ 2 = mulByTwoEndo h2 f)
     (hone : ∀ (x₂ y₂ : F) (h₂ : W.Nonsingular x₂ y₂), Point.some x₂ y₂ h₂ ∈ W.torsion 2 →
       ∀ hpow : weilPairingElt h₂.left gS ^ 2 = 1, weilPairingMu h₂.left hpow = 1) :
     S = 0 :=
-  eq_zero_of_forall_weilPairingElt_eq_one h2 hf hfdiv hgS hu fun x₂ y₂ h₂ hmem =>
+  eq_zero_of_forall_weilPairingElt_eq_one_two h2 hf hfdiv hgS hu fun x₂ y₂ h₂ hmem =>
     (weilPairingMu_eq_one_iff h₂.left
         (weilPairingElt_pow_eq_one_of_gS_two_torsion h₂.left h2
           (add_self_eq_zero_of_mem_torsion_two hmem) hgS hu)).mp

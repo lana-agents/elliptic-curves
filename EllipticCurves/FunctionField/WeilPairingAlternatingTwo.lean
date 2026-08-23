@@ -81,7 +81,7 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
   computation happens.  It is stated over an **arbitrary** field, with the telescoping constant, the
   square root and the doubling relation all as hypotheses, so that the `[3]` analogue can reuse it
   verbatim;
-* **`exists_weilPairingElt_self_eq_one_of_algClosed`** — `e_2(T, T) = 1` over `F̄`.
+* **`exists_weilPairingElt_self_eq_one_of_algClosed_two`** — `e_2(T, T) = 1` over `F̄`.
 
 ## Which hypotheses are load-bearing
 
@@ -265,7 +265,7 @@ it — there are a principal function `f_T` with `div f_T = 2(T) − 2(O)` and a
 
 `hprin` is the only gated hypothesis; everything else is discharged here.  See the module docstring
 for why the point `P` with `[2]P = T` costs nothing over `F̄`. -/
-theorem exists_weilPairingElt_self_eq_one_of_algClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+theorem exists_weilPairingElt_self_eq_one_of_algClosed_two [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
       divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →

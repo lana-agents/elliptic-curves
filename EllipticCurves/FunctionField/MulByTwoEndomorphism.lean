@@ -32,7 +32,7 @@ argument is used: the `x`-coordinate image is a *nonconstant rational function* 
 
 * `transcendental_genX` (from `TranslationEndomorphism`): the generic `x`-coordinate `genX = x(P)`
   is transcendental over `F`.
-* `isAlgebraic_genX_of`: if the `x`-coordinate `x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)` of the *doubled*
+* `isAlgebraic_genX_of_two`: if the `x`-coordinate `x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)` of the *doubled*
   generic point is algebraic over `F`, then so is `genX = x(P)`. Indeed `genX` is then a root of the
   polynomial `Φ₂ - x(2 • P) · Ψ₂Sq`, which is nonzero because `Φ₂` has degree `4` while `Ψ₂Sq` has
   degree `≤ 3` (`Mathlib`'s `natDegree_Φ` / `natDegree_Ψ₂Sq_le`), so its degree-`4` coefficient is
@@ -49,7 +49,7 @@ law, no `slope`), only `(2 : F) ≠ 0`.
 
 ## Main definitions and statements
 
-* `WeierstrassCurve.Affine.CoordinateRing.isAlgebraic_genX_of`.
+* `WeierstrassCurve.Affine.CoordinateRing.isAlgebraic_genX_of_two`.
 * `WeierstrassCurve.Affine.CoordinateRing.mulByTwoCoordHom_injective`.
 * `WeierstrassCurve.Affine.CoordinateRing.mulByTwoEndo`: the endomorphism `F(W) →+* F(W)`, with
   `mulByTwoEndo_algebraMap` (its value on `F[W]`) and the generator images `mulByTwoEndo_genX` and
@@ -93,7 +93,7 @@ noncomputable def mulByTwoAlgHom (h2 : (2 : F) ≠ 0) :
 /-- **Dominance of `[2]`, key step.** If the `x`-coordinate of the doubled generic point
 `x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)` (= `mulByTwoCoordHom h2 (mk W (C X))`) is algebraic over `F`, then
 so is the generic `x`-coordinate `genX = x(P)`. -/
-lemma isAlgebraic_genX_of (h2 : (2 : F) ≠ 0)
+lemma isAlgebraic_genX_of_two (h2 : (2 : F) ≠ 0)
     (hu : IsAlgebraic F (mulByTwoCoordHom h2 (mk W (C X)))) :
     IsAlgebraic F (genX W) := by
   rw [mulByTwoCoordHom_X] at hu
@@ -141,7 +141,7 @@ lemma isAlgebraic_genX_of (h2 : (2 : F) ≠ 0)
 /-- **Multiplication-by-`2` is dominant: `mulByTwoCoordHom h2` is injective.** If it were not, its
 kernel would be a nonzero prime — hence maximal, as `F[W]` has Krull dimension `≤ 1` — so the
 residue field would be algebraic over `F` (Zariski), forcing the generic `x`-coordinate `x(2 • P)`
-to be algebraic and, via `isAlgebraic_genX_of`, `genX` itself to be algebraic, contradicting
+to be algebraic and, via `isAlgebraic_genX_of_two`, `genX` itself to be algebraic, contradicting
 `transcendental_genX`. -/
 lemma mulByTwoCoordHom_injective (h2 : (2 : F) ≠ 0) :
     Function.Injective (mulByTwoCoordHom (W := W) h2) := by
@@ -155,7 +155,7 @@ lemma mulByTwoCoordHom_injective (h2 : (2 : F) ≠ 0) :
     have hu : IsAlgebraic F (g (mk W (C X))) :=
       isAlgebraic_of_ker_maximal g hmax (mk W (C X))
     rw [hg, mulByTwoAlgHom_apply] at hu
-    exact transcendental_genX (isAlgebraic_genX_of h2 hu)
+    exact transcendental_genX (isAlgebraic_genX_of_two h2 hu)
   exact key
 
 /-- **The multiplication-by-`2` endomorphism of the function field.** The ring endomorphism

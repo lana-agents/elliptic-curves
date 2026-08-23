@@ -15,7 +15,7 @@ The rung-5 root `g_S` is never constructed uniquely.  `exists_smul_pow_eq_of_nsm
 `F[W]`, because that is all the divisor determines (`exists_unit_of_divisor_eq`).  Consequently the
 two merged alternating headlines
 
-* `exists_weilPairingElt_self_eq_one_of_algClosed` (`WeilPairingAlternatingTwo`, `#688`),
+* `exists_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingAlternatingTwo`, `#688`),
 * `exists_weilPairingElt_self_eq_one_of_algClosed_three` (`WeilPairingAlternatingThree`, `#719`),
 
 quantify the root **existentially**: they say that *some* `n`-th root of `[n]∗ f_T` pairs trivially
@@ -59,7 +59,7 @@ roots of the same function have the same Weil-pairing element.**
 * `weilPairingElt_eq_of_divisor_eq`, `weilPairingElt_eq_of_nsmul_divisor_eq`;
 * **`weilPairingElt_eq_of_smul_pow_eq`** — the payoff, in exactly the shape the rung-5 datum
   `u · g ^ n = [n]∗ f_S` comes in;
-* **`exists_forall_weilPairingElt_self_eq_one_of_algClosed`** and
+* **`exists_forall_weilPairingElt_self_eq_one_of_algClosed_two`** and
   **`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`** — the two headlines with the
   inner `∃ g` replaced by `∀ g`.  ⚠️ These two, and only these two, carry `hprin`; the `is`-forms
   with it discharged are in `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`.
@@ -201,12 +201,12 @@ statements here keep it so that a future general-field discharge has somewhere t
 
 open Classical in
 /-- **`e_2(T, T) = 1` for every square root, over an algebraically closed field.**  The `∀ g` form
-of `exists_weilPairingElt_self_eq_one_of_algClosed` (`#688`).
+of `exists_weilPairingElt_self_eq_one_of_algClosed_two` (`#688`).
 
 The `translateEndo h.left g = g` half is free: for a nonzero `g` it is *equivalent* to
 `weilPairingElt h.left g = 1` by `weilPairingElt_eq_one_iff_translateEndo_fixed`, so only the
 pairing value has to be transported, and `weilPairingElt_eq_of_smul_pow_eq` does that. -/
-theorem exists_forall_weilPairingElt_self_eq_one_of_algClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+theorem exists_forall_weilPairingElt_self_eq_one_of_algClosed_two [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
       divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
@@ -219,7 +219,7 @@ theorem exists_forall_weilPairingElt_self_eq_one_of_algClosed [IsAlgClosed F] (h
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) →
             translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 := by
   obtain ⟨f, hf, hdivproj, g₀, hg₀, ⟨u₀, hu₀⟩, -, hone⟩ :=
-    exists_weilPairingElt_self_eq_one_of_algClosed h2 h htors hprin
+    exists_weilPairingElt_self_eq_one_of_algClosed_two h2 h htors hprin
   refine ⟨f, hf, hdivproj, fun g hg hgroot => ?_⟩
   obtain ⟨u, hu⟩ := hgroot
   have hval : weilPairingElt h.left g = 1 :=

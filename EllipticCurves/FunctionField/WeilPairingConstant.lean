@@ -19,7 +19,7 @@ e_n(S, T) := weilPairingElt h₂ g = τ_T∗(g) / g,   τ_T∗ = translateEndo h
 
 is already known to be an `n`-th root of unity: `e_n(S, T) ^ n = 1`
 (`weilPairingElt_pow_eq_one`, and its concrete `n = 2 / n = 3` combined forms
-`weilPairingElt_pow_eq_one_of_gS' / _three'`).
+`weilPairingElt_pow_eq_one_of_gS_two' / _three'`).
 
 This file discharges the **`e_n`-is-a-constant** gate of rung 6 — the fact that upgrades the
 conditional translation-slot bilinearity `weilPairingElt_translatePoint_add_of_const`
@@ -112,18 +112,18 @@ theorem weilPairingElt_isConstant [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equat
   exists_algebraMap_of_pow_eq_one hn hpow
 
 /-- **The `n = 2`-track Weil-pairing element is a constant.**  Specialises
-`weilPairingElt_isConstant` to the concrete combined datum `weilPairingElt_pow_eq_one_of_gS'`, which
-supplies `e_n(S, T) ^ n = 1` from a coordinate-ring unit relation `u • g ^ n = mulByTwoEndo h2 f`
-and the translation-commuting `hcomm`. -/
-theorem weilPairingElt_isConstant_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+`weilPairingElt_isConstant` to the concrete combined datum `weilPairingElt_pow_eq_one_of_gS_two'`,
+which supplies `e_n(S, T) ^ n = 1` from a coordinate-ring unit relation `u • g ^ n = mulByTwoEndo h2
+f` and the translation-commuting `hcomm`. -/
+theorem weilPairingElt_isConstant_of_gS_two' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hn : n ≠ 0)
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
     ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c :=
-  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm)
+  weilPairingElt_isConstant h₂ hn (weilPairingElt_pow_eq_one_of_gS_two' h₂ h2 hg hu hcomm)
 
 /-- **The `n = 3`-track Weil-pairing element is a constant.**  The `mulByThreeEndo` mirror of
-`weilPairingElt_isConstant_of_gS'`, over the concrete datum
+`weilPairingElt_isConstant_of_gS_two'`, over the concrete datum
 `weilPairingElt_pow_eq_one_of_gS_three'`. -/
 theorem weilPairingElt_isConstant_of_gS_three' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}
@@ -172,17 +172,17 @@ theorem weilPairingElt_isRootOfUnity [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Eq
   rw [map_pow, ← hc, hpow, map_one]
 
 /-- **The `n = 2`-track Weil-pairing element lands in `μ_n(F)`.**  Specialises
-`weilPairingElt_isRootOfUnity` to the concrete combined datum `weilPairingElt_pow_eq_one_of_gS'`,
-mirroring `weilPairingElt_isConstant_of_gS'`. -/
-theorem weilPairingElt_isRootOfUnity_of_gS' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
+`weilPairingElt_isRootOfUnity` to the concrete combined datum
+`weilPairingElt_pow_eq_one_of_gS_two'`, mirroring `weilPairingElt_isConstant_of_gS_two'`. -/
+theorem weilPairingElt_isRootOfUnity_of_gS_two' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hn : n ≠ 0)
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
     (hcomm : translateEndo h₂ (mulByTwoEndo h2 f) = mulByTwoEndo h2 f) :
     ∃ c : F, weilPairingElt h₂ g = algebraMap F W.FunctionField c ∧ c ^ n = 1 :=
-  weilPairingElt_isRootOfUnity h₂ hn (weilPairingElt_pow_eq_one_of_gS' h₂ h2 hg hu hcomm)
+  weilPairingElt_isRootOfUnity h₂ hn (weilPairingElt_pow_eq_one_of_gS_two' h₂ h2 hg hu hcomm)
 
 /-- **The `n = 3`-track Weil-pairing element lands in `μ_n(F)`.**  The `mulByThreeEndo` mirror of
-`weilPairingElt_isRootOfUnity_of_gS'`, over the concrete datum
+`weilPairingElt_isRootOfUnity_of_gS_two'`, over the concrete datum
 `weilPairingElt_pow_eq_one_of_gS_three'`. -/
 theorem weilPairingElt_isRootOfUnity_of_gS_three' [W.IsElliptic] {x₂ y₂ : F}
     (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField}
