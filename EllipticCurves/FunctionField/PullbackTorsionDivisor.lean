@@ -35,8 +35,14 @@ it commutes with `(n : ℤ) • ·`, and `divisorProj_mulByTwoEndo` moves the pu
 
 ## What remains for `#418`
 
-Rung 5 (`#418`, the `n`-th root `g_S` with `g_S^n = c·(f_S ∘ [n])`) is blocked on a hypothesis its
-two approved PRs carry abstractly and call `hprin`:
+⚠️ **Read this section as the history of a gate, not as its current status.**  At `n = 2` over an
+algebraically closed base field the hypothesis below is discharged (`#791`,
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`); at `n = 3`, and over a general field at
+either `n`, everything here still stands.  The account is kept because two of the three things it
+retires — the Ward attribution and the chart mismatch — were priced wrongly more than once.
+
+Rung 5 (`#418`, the `n`-th root `g_S` with `g_S^n = c·(f_S ∘ [n])`) carries a hypothesis its two
+approved PRs call `hprin`:
 
 ```
 hprin : ∃ g₀ ≠ 0, n • divisor W g₀ = divisor W (mulByTwoEndo h2 f_S)
@@ -74,9 +80,12 @@ on top of it — neither of which this file carries (its variable block is `[Fie
 `[IsDedekindDomain W.CoordinateRing]`).  So the gate is discharged *over an algebraically closed
 base field*, not in the generality the declarations below are stated in.
 
-What is left of `hprin` at `n = 2`, over such a base field, is the class-group computation
-`∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0`; this file does not do
-it either.
+✅ What was left of `hprin` at `n = 2`, over such a base field — the class-group computation
+`∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 · toClass P = toClass ([2]S) = 0` — is **done**, in
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo` (`#791`), which also supplies the
+hypothesis-free rung-5 statement `exists_gS_two_of_isAlgClosed`.  *This* file still does not do it,
+and the sentence one line up still applies to it: the discharge carries `[IsAlgClosed F]` and
+`[W.IsElliptic]`, which the declarations below do not.  At `n = 3` nothing changes.
 
 ### The chart mismatch is *not* a second gate (`#765`)
 
@@ -103,13 +112,14 @@ and `n • pullbackDivisorTwo ((S) − (O))` is supported on the whole `[2]`-fib
 Only its *proof step* generalises, and that step is the one line above.
 
 So there was **one** gate on `hprin`, not two: the fibre description — and as of `#774` that gate
-is merged.  This file still does not discharge `hprin`; the chart was never why, and what is left
-is the class-group computation above.
+is merged.  This file still does not discharge `hprin`; the chart was never why, and the class-group
+computation that was left is `#791`'s, not this file's.
 
 ## What is *not* here
 
-* Any attempt to discharge principality.  See above: what is left of it is the class-group
-  computation, the fibre description having landed with `#774`.
+* Any attempt to discharge principality.  That is `#791`'s
+  `EllipticCurves.FunctionField.PullbackPrincipalityTwo`, over an algebraically closed base field
+  and at `n = 2` only; this file is stated over an arbitrary field and adds nothing to it.
 * Any restatement of rung 5's `exists_gS_two` / `exists_gS_three` in projective terms.  That is a
   change to merged rung-5 code and needs its own issue.
 * The degree formula, values of `ramificationIdx`, `[3]∗`.
