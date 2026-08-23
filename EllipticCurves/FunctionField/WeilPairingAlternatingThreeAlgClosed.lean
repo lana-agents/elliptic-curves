@@ -46,14 +46,15 @@ Both are certified on `y² + y = x³` over `AlgebraicClosure ℚ` with the `3`-t
 
 ## Scope
 
-⚠️ **The `∀ g` form is still gated, at both `n`, and this file does not change that.**
+⚠️ **The `∀ g` form is not what the two statements below say, and it lives elsewhere.**
 `exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`
 (`EllipticCurves.FunctionField.WeilPairingRootIndependence`) strengthens the existential root to
 *every* cube root of `[3]∗ f_T`, and it carries the same `hprin` in its own signature — as does its
 `n = 2` twin `exists_forall_weilPairingElt_self_eq_one_of_algClosed`, which
-`WeilPairingAlternatingTwoAlgClosed` did **not** discharge either.  Both discharges are now
-available (`PullbackPrincipalityTwo`, `PullbackPrincipalityThree`) and neither has been performed;
-do not read the two statements below as covering the `∀ g` form.
+`WeilPairingAlternatingTwoAlgClosed` did **not** discharge either.  ⚠️ That omission was symmetric,
+not an `n = 3` asymmetry.  Both are now discharged, at both `n` and in one place, in
+`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`); do not read the two
+statements below as covering the `∀ g` form.
 
 ⚠️ **`[IsAlgClosed F]` is load-bearing and enters twice, independently.**  Once through the
 discharge (`PullbackPrincipalityThree`, itself through the surjectivity of `[3]` on points and

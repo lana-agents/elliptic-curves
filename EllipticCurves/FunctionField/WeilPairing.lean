@@ -164,19 +164,20 @@ left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-f
 `EllipticCurves.FunctionField.PullbackPrincipalityThree` at `n = 3`, on top of
 `EllipticCurves.FunctionField.MulByThreeFibre`'s `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`.  The asymmetry
 that survived `#775`/`#783`/`#784` is therefore gone: what remains at `n = 3` is not a gate but an
-absence of assembly, and it is now a *partial* absence.  Two of the rung-6 slots at `n = 3` are
-assembled: the alternating property, as `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
-(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`), and
+absence of assembly, and that absence is now **closed**.  All four named rung-6 slots at `n = 3`
+are assembled: the alternating property, as
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`, `#829`);
 Galois-equivariance, as `exists_weilPairingElt_galois_three`
-(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`), and non-degeneracy, as
+(`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#830`); non-degeneracy, as
 `exists_gS_three_weilPairingElt_ne_one`
-(`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`, `#831`).  What is left is the `∀ g`
-root-independent form (`exists_forall_weilPairingElt_self_eq_one_of_algClosed_three`,
-`WeilPairingRootIndependence`), which still carries its `hprin` in its own signature and has not
-been instantiated against `exists_gS_three_of_isAlgClosed`.  ⚠️ That one is **not** an `n = 3`
-asymmetry: its `n = 2` twin is unassembled too, and `#836` covers both.
+(`EllipticCurves.FunctionField.WeilPairingNondegenerateThree`, `#831`); and the `∀ g`
+root-independent form, as `exists_forall_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed`, `#836`, which discharged the
+same `hprin` at `n = 2` in the same file — ⚠️ that omission was symmetric, not an `n = 3`
+asymmetry).
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
-statement from either of the above.
+statement from any of the above.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**
