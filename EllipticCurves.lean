@@ -269,6 +269,7 @@ import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.ThreeTorsionStructure
+import EllipticCurves.Torsion.TriplingCoords
 import EllipticCurves.Torsion.TriplingSurjective
 import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoPrimaryBasis
