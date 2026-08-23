@@ -77,8 +77,11 @@ The hypothesis-free rung-5 statement is `exists_gS_two_of_isAlgClosed` **in that
 `exists_gS_two` below is deliberately left as it is, since it is the general-field statement and the
 discharge is not available in this file's generality.  Nothing in *this* file or in `#774` does it.
 
-At `n = 3` the geometric fact is still missing: there is no `[3]` duplication formula at a point
-(`#404`) and `#763`'s count `4` is `[2]`-specific.
+At `n = 3` the geometric fact is still missing, and by one rung: the `[3]` fibre description does
+not exist, while both of its inputs do — the tripling formula at a closed point
+(`EllipticCurves.Torsion.TriplingCoords`) and the count `∑_{p ↦ q} e_p = 9`
+(`EllipticCurves.FunctionField.MulByThreeRamification`).  What that rung would take, and why it is
+not a transcription, is `EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note.
 
 ## Main statements
 

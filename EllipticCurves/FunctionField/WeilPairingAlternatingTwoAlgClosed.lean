@@ -41,11 +41,15 @@ alternating files have been able to write.
 
 ⚠️ **`n = 2` only.**  `WeilPairingAlternatingThree`'s
 `exists_weilPairingElt_self_eq_one_of_algClosed_three` keeps its `hprin`, and nothing here helps
-it: the discharge consumed is `[2]`-specific twice over — there is no `[3]` duplication formula at
-a closed point (`#404`), and the count `4` that `PullbackPrincipalityTwo`'s class computation
-collapses is the order of `E[2]`.  The `n = 3` gap is that one hypothesis and it is not a
+it: the discharge consumed runs through `PullbackPrincipalityTwo`'s class computation, whose
+count `4` is the order of `E[2]`.  ⚠️ Its `n = 3` inputs are all merged — the tripling formula at a
+closed point (`EllipticCurves.Torsion.TriplingCoords`), the count `∑_{p ↦ q} e_p = 9`
+(`EllipticCurves.FunctionField.MulByThreeRamification`), and `card_torsion_three`
+(`EllipticCurves.Torsion.ThreeTorsionStructure`) for the `9` the class computation would collapse —
+so the `n = 3` gap is the fibre description alone.  That is one rung, and it is still not a
 transcription exercise; `#775` bet once that an `n = 3` statement was a copy-paste of its `n = 2`
-counterpart and paid for it.
+counterpart and paid for it, and
+`EllipticCurves.FunctionField.MulByTwoFibreAffine`'s scope note says where the `[3]` crux differs.
 
 ⚠️ **`[IsAlgClosed F]` is load-bearing and enters twice, independently.**  Once through the
 discharge (`PullbackPrincipalityTwo`, itself through the surjectivity of `[2]` on points and

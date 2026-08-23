@@ -96,8 +96,9 @@ is proved there in general, the second only in the form `Ideal.inertiaDeg 𝔪 P
 this paragraph names that remains unproved.
 
 Also not here: `[3]∗` and general `[n]∗` (the degree `4` is `[2]`-specific, but everything before
-the `[2]∗` section of this file is stated for an arbitrary `φ` and will serve them unchanged);
-`#E[n] = n²`; and any comparison with `degPt`.
+the `[2]∗` section of this file is stated for an arbitrary `φ` and serves them unchanged — the
+`[3]∗` instantiation is `EllipticCurves.FunctionField.MulByThreeRamification`, and general `[n]∗`
+has no case, `mulByNEndo` not existing); `#E[n] = n²`; and any comparison with `degPt`.
 
 ## References
 

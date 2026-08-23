@@ -81,13 +81,14 @@ the point and not on the characteristic.
 ⚠️ **This is pure point arithmetic.**  No places, no divisors, no function field: like
 `DoublingCoords`, this file is imported *by* the function-field layer and not the other way round.
 
-⚠️ **This does not discharge `hprin` at `n = 3`, and does not come close.**  What it supplies is the
-first rung of the `n = 3` mirror of `#774` — the `[2]`-fibre description that `#791` consumed.  The
-rung above it is now `EllipticCurves.FunctionField.MulByThreePlacePullback`, which supplies
-`comapProjPointThree`, `ramificationIdxThree` and `pullbackDivisorThree` and computes the index at
-the point at infinity.  The rest of the mirror still does not exist: the `n = 3` analogue of
+⚠️ **This does not discharge `hprin` at `n = 3`.**  What it supplies is the first rung of the
+`n = 3` mirror of `#774` — the `[2]`-fibre description that `#791` consumed.  The rung above it is
+now `EllipticCurves.FunctionField.MulByThreePlacePullback`, which supplies `comapProjPointThree`,
+`ramificationIdxThree` and `pullbackDivisorThree` and computes the index at infinity; and above
+that, `EllipticCurves.FunctionField.MulByThreeRamification` supplies the `n = 3` analogue of
 `#763`'s ramification-index arithmetic — the step that made `#774` cheap once the coordinates were
-available — has to be built before a fibre description follows.  The count it will have to be
+available.  What still does not exist is the fibre description those two rungs and this one feed:
+not one value of `comapProjPointThree` at an affine place is known.  The count it will have to be
 matched against is `9` (`card_torsion_three`, `EllipticCurves.Torsion.ThreeTorsionStructure`,
 merged, and not Ward-gated); the degree input is
 `EllipticCurves.FunctionField.MulByThreeDegree`, not anything here.
