@@ -80,13 +80,10 @@ Let `S` be a nonsingular affine `2`-torsion point and pick `P` with `2 • P = S
 
 ## Scope
 
-⚠️ **This is `n = 2` only.**  `exists_gS_three` keeps its `hprin` and nothing here helps it — but
-the `n = 3` fibre description this file's computation runs on top of is no longer what is missing:
-it is `EllipticCurves.FunctionField.MulByThreeFibre`.  What is missing is the `n = 3` mirror of
-*this* file, the class-group computation
-`∑_R toClass (P ⊕ R) − ∑_R toClass R = 9 · toClass P = toClass (3S) = 0`, and it is not an
-instantiation of the `n = 2` one.  ⚠️ Nobody has scouted it, and the cheapness of the fibre rung
-says nothing about it: what is below is class-group bookkeeping, not place theory.
+⚠️ **This is `n = 2` only, but the `n = 3` mirror exists.**  Nothing below is stated at `n = 3`;
+the mirror is `EllipticCurves.FunctionField.PullbackPrincipalityThree`, which consumes this file's
+`n`-free layer — `affinePart`, `pointDivisorAff`, `classOfDivisor_pointDivisorAff`,
+`classOfDivisor_sub` and `classOfDivisor_sum`, none of which mentions `[2]` — unchanged.
 
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_two`'s.**  Everything from
 `pullbackDivisorTwo_single_sub_single_eq_sum_torsion` onwards carries `[IsAlgClosed F]` and

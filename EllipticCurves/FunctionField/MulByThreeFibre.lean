@@ -21,7 +21,8 @@ comapProjPointThree h2 h3 (projPointOfPoint P) = projPointOfPoint (3 • P)
 
 for **every** `P : W.Point`, with no case hypothesis — the `n = 3` mirror of `#774`
 (`MulByTwoFibreInfinity` together with `MulByTwoFibreAffine`), and the last geometric rung below
-`hprin` at `n = 3` (`#418`).
+`hprin` at `n = 3` (`#418`), which is discharged on top of it in
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`.
 
 From it, over an algebraically closed base field: the fibre over any rational point is the coset
 `{ P ⊕ R : R ∈ E[3] }`, it has exactly nine elements, every ramification index on it is `1`, and
@@ -130,8 +131,9 @@ met head-on.
 
 * **`hprin` at `n = 3`, and therefore `#418`.**  The fibre description is an *input* to the
   class-group computation `∑_R toClass (P ⊕ R) − ∑_R toClass R = 9 · toClass P = toClass (3S) = 0`,
-  not the computation itself.  This file unblocks that computation — the mirror of
-  `EllipticCurves.FunctionField.PullbackPrincipalityTwo` (`#791`) — and does not perform it.
+  not the computation itself.  That computation is
+  `EllipticCurves.FunctionField.PullbackPrincipalityThree`, which consumes this file; nothing below
+  performs it.
 * **The fibre over a place that is not the closed point of an `F`-rational point.**  Over an
   algebraically closed base field every closed point *ought* to be rational, but that is a
   Nullstellensatz statement about `HeightOneSpectrum W.CoordinateRing` and it is nowhere in this

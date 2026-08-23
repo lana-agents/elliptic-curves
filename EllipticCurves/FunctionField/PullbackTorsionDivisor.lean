@@ -35,11 +35,12 @@ it commutes with `(n : ℤ) • ·`, and `divisorProj_mulByTwoEndo` moves the pu
 
 ## What remains for `#418`
 
-⚠️ **Read this section as the history of a gate, not as its current status.**  At `n = 2` over an
-algebraically closed base field the hypothesis below is discharged (`#791`,
-`EllipticCurves.FunctionField.PullbackPrincipalityTwo`); at `n = 3`, and over a general field at
-either `n`, everything here still stands.  The account is kept because two of the three things it
-retires — the Ward attribution and the chart mismatch — were priced wrongly more than once.
+⚠️ **Read this section as the history of a gate, not as its current status.**  Over an
+algebraically closed base field the hypothesis below is discharged at **both** `n = 2` (`#791`,
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`) and `n = 3`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThree`); over a general field, at either `n`,
+everything here still stands.  The account is kept because two of the three things it retires —
+the Ward attribution and the chart mismatch — were priced wrongly more than once.
 
 Rung 5 (`#418`, the `n`-th root `g_S` with `g_S^n = c·(f_S ∘ [n])`) carries a hypothesis its two
 approved PRs call `hprin`:

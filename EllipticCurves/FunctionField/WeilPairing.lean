@@ -155,15 +155,17 @@ and 4 — which had no analogue at all when this section was first written — a
 `finrank_mulByThreeFieldRange` (`MulByThreeDegree`, `#775`, by `#682`'s tower with `4 ↦ 9`) on the
 left, and `card_torsionThreeMul` — hence `card_torsion_three`, likewise Ward-free —
 (`TranslationActionThree`, `#783`) on the right.  So at `n = 3` too the gate is `hprin`, rung 5
-(`#418`) — the **same** gate as at `n = 2`, and the last one left at either `n`.
+(`#418`) — the **same** gate as at `n = 2`.
 
-⚠️ **Same gate, but the two `n` are one rung apart and must not be collapsed into each other.**
-At `n = 2` `hprin` is discharged over an algebraically closed base field, rung 9 being merged and
-`#791` having run the computation on top of it.  At `n = 3` the fibre description is merged too
-(`EllipticCurves.FunctionField.MulByThreeFibre`), so `hprin` there is now in exactly the position
-`hprin` at `n = 2` was in before `#791`: what is left is the class-group computation on top of the
-fibre description, and nobody has scouted it.  This is the one asymmetry that
-survives `#775`/`#783`/`#784`, and it is neither a count nor Artin.
+⚠️ **And it is now discharged at both `n`, over an algebraically closed base field.**
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo` did it at `n = 2` (`#791`) and
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` at `n = 3`, on top of
+`EllipticCurves.FunctionField.MulByThreeFibre`'s `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`.  The asymmetry
+that survived `#775`/`#783`/`#784` is therefore gone: what remains at `n = 3` is not a gate but an
+absence of assembly — the rung-6 statements that consume rung-5 data still carry their `hprin` in
+their own signatures, and instantiating them against `exists_gS_three_of_isAlgClosed` has not been
+done.  ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
+statement from either of the above.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**

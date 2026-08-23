@@ -112,8 +112,11 @@ and cancelling the common factor `(τ_P∗ g) · (τ_Q∗ g) ≠ 0` leaves `τ_T
   instance** for `[W.IsElliptic]` over an **arbitrary** field
   (`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`), so instance search supplies it and
   no caller ever has to.
-* `hprin`, the **`#418` datum**: principality of `[3]∗((T) − (O))`.  It is rung-4/5 gated and is
-  *not* discharged here.
+* `hprin`, the **`#418` datum**: principality of `[3]∗((T) − (O))`.  It is *not* discharged here.
+  ⚠️ It is discharged **elsewhere**, over an algebraically closed base field:
+  `exists_gS_three_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityThree`).  So a caller over `F̄` need not
+  supply it, and the headline below is instantiable — see the Non-vacuity section.
 
 Because `P` is produced over `F̄`, the conclusion is a statement about `F̄`; obtaining it over a
 general `F` needs the function-field base-change layer, which is deliberately deferred (`#692`).
@@ -346,10 +349,12 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_three [IsAlgClosed F] (h2
 
 /-! ### Non-vacuity
 
-The headline cannot be instantiated outright, for one reason: `hprin` is a hypothesis, and at
-`n = 3` it is `#418`, still open.  ⚠️ Unlike at `n = 2`, where it is discharged over `F̄` and the
-headline is certified outright in
-`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`.
+The headline is not instantiated outright **here**, because `hprin` is a hypothesis of the theorem
+below.  ⚠️ **That is now an omission and not an obstruction**: `hprin` at `n = 3` is discharged over
+`F̄` by `exists_gS_three_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThree`), exactly as `#791` discharges it at
+`n = 2` for `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`.  The `n = 3` twin of
+that file has not been written; nothing blocks it.
 `[IsDedekindDomain W.CoordinateRing]` is **not** a second reason and never was: it is a global
 instance for `[W.IsElliptic]` over an arbitrary field
 (`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`).  What is certified below is that
