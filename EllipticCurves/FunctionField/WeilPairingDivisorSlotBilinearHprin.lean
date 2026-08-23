@@ -366,9 +366,24 @@ end AlgClosedRecovery
 deliberately shipped no certificate.  `#910`'s headlines take the roots and their rung-5
 certificates as *hypotheses*, so a block there could only have restated them.  These headlines take
 **no root data at all** — `h2`, four nonsingular points, three torsion memberships and `hadd` — so
-over `ℚ` every hypothesis but `hprin` is discharged concretely and what remains is exactly the
-claim the file makes.  ⚠️ `#856`'s own certificates live over `AlgebraicClosure ℚ`, where
-`AlgClosedRecovery` already applies; these do not.
+over `ℚ` every hypothesis but `hprin` is discharged concretely, and each certificate below
+restates the headline's conclusion **in full**, rung-5 conjuncts included.  ⚠️ `#856`'s own
+certificates live over `AlgebraicClosure ℚ`, where `AlgClosedRecovery` already applies; these do
+not.
+
+⚠️ **"In full" is load-bearing, and it was a repair.**  These four certificates originally
+`obtain`ed the headline and then projected, restating only
+`∃ gS gT gR, e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T)` — and *that* statement is proved by
+`⟨1, 1, 1, by rw [weilPairingElt_one, one_mul]⟩` with **no hypothesis at all**, since
+`weilPairingElt_one` (`WeilPairingAntisymmetricMu`) gives `e_n(P, 1) = 1`.  The proof was doing real
+work — the elaborator did discharge every hypothesis but `hprin` at concrete `ℚ` data — but the
+*statement* did not record it, so nothing stopped a later edit from swapping in the trivial term and
+leaving the file green.
+
+> **The test, before shipping any `ℚ` non-vacuity block: can `⟨1, 1, 1, by simp⟩` prove your
+> statement?**  If it can, the block is decorative in exactly the way `#910`'s standard warns
+> against, however genuine the proof behind it is.  Restate the headline's conclusion in full; never
+> `obtain`-and-project.
 
 ⚠️ At `n = 2` the curve `y² = x³ − x` has **three** distinct rational `2`-torsion points and
 `exampleAdd` verifies `(0, 0) ⊕ (1, 0) = (−1, 0)` by Mathlib's secant formula, so `S`, `T` and `R`
@@ -441,14 +456,24 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
         ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
           2 • divisor exampleCurve g₀
             = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ gS gT gR : exampleCurve.FunctionField,
+    ∃ gS gT gR : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
       weilPairingElt exampleNsS.left gR
-        = weilPairingElt exampleNsS.left gS * weilPairingElt exampleNsS.left gT := by
-  obtain ⟨gS, gT, gR, _, _, _, _, _, _, hbil⟩ :=
-    exists_weilPairingElt_divisorSlot_add_two_of_hprin exampleTwo exampleNsS exampleNsS exampleNsT
-      exampleNsR (by convert exampleTorsS) (by convert exampleTorsS) (by convert exampleTorsT)
-      (by convert exampleAdd) fun h hm f hf hd => hprin h (by convert hm) f hf hd
-  exact ⟨gS, gT, gR, hbil⟩
+        = weilPairingElt exampleNsS.left gS * weilPairingElt exampleNsS.left gT :=
+  exists_weilPairingElt_divisorSlot_add_two_of_hprin exampleTwo exampleNsS exampleNsS exampleNsT
+    exampleNsR (by convert exampleTorsS) (by convert exampleTorsS) (by convert exampleTorsT)
+    (by convert exampleAdd) fun h hm f hf hd => hprin h (by convert hm) f hf hd
 
 open Classical in
 /-- **Divisor-slot bilinearity at `n = 2` in `μ_2(ℚ)`, on a curve over `ℚ`.**  ⚠️ The three `hpow`
@@ -461,17 +486,27 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
         ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
           2 • divisor exampleCurve g₀
             = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ (gS gT gR : exampleCurve.FunctionField)
-      (hpowS : weilPairingElt exampleNsS.left gS ^ 2 = 1)
-      (hpowT : weilPairingElt exampleNsS.left gT ^ 2 = 1)
-      (hpowR : weilPairingElt exampleNsS.left gR ^ 2 = 1),
-      weilPairingMu exampleNsS.left hpowR
-        = weilPairingMu exampleNsS.left hpowS * weilPairingMu exampleNsS.left hpowT := by
-  obtain ⟨gS, gT, gR, _, _, _, _, _, _, hpowS, hpowT, hpowR, hbil⟩ :=
-    exists_weilPairingMu_divisorSlot_add_two_of_hprin exampleTwo exampleNsS exampleNsS exampleNsT
-      exampleNsR (by convert exampleTorsS) (by convert exampleTorsS) (by convert exampleTorsT)
-      (by convert exampleAdd) fun h hm f hf hd => hprin h (by convert hm) f hf hd
-  exact ⟨gS, gT, gR, hpowS, hpowT, hpowR, hbil⟩
+    ∃ gS gT gR : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
+        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
+        ∃ u : exampleCurve.CoordinateRingˣ,
+          (u : exampleCurve.CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      ∃ hpowS : weilPairingElt exampleNsS.left gS ^ 2 = 1,
+        ∃ hpowT : weilPairingElt exampleNsS.left gT ^ 2 = 1,
+          ∃ hpowR : weilPairingElt exampleNsS.left gR ^ 2 = 1,
+            weilPairingMu exampleNsS.left hpowR
+              = weilPairingMu exampleNsS.left hpowS * weilPairingMu exampleNsS.left hpowT :=
+  exists_weilPairingMu_divisorSlot_add_two_of_hprin exampleTwo exampleNsS exampleNsS exampleNsT
+    exampleNsR (by convert exampleTorsS) (by convert exampleTorsS) (by convert exampleTorsT)
+    (by convert exampleAdd) fun h hm f hf hd => hprin h (by convert hm) f hf hd
 
 /-- The curve `y² + y = x³` over `ℚ`, of discriminant `−27`. -/
 private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
@@ -518,15 +553,31 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurveThree.Nonsingular x y),
         ∃ g₀ : exampleCurveThree.FunctionField, g₀ ≠ 0 ∧
           3 • divisor exampleCurveThree g₀
             = divisor exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)) :
-    ∃ gS gT gR : exampleCurveThree.FunctionField,
+    ∃ gS gT gR : exampleCurveThree.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gS ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gT ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeR.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gR ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
       weilPairingElt exampleNsThreeS.left gR
-        = weilPairingElt exampleNsThreeS.left gS * weilPairingElt exampleNsThreeS.left gT := by
-  obtain ⟨gS, gT, gR, _, _, _, _, _, _, hbil⟩ :=
-    exists_weilPairingElt_divisorSlot_add_three_of_hprin exampleTwo exampleThree exampleNsThreeS
-      exampleNsThreeS exampleNsThreeS exampleNsThreeR (by convert exampleTorsThreeS)
-      (by convert exampleTorsThreeS) (by convert exampleTorsThreeS) (by convert exampleAddThree)
-      fun h hm f hf hd => hprin h (by convert hm) f hf hd
-  exact ⟨gS, gT, gR, hbil⟩
+        = weilPairingElt exampleNsThreeS.left gS * weilPairingElt exampleNsThreeS.left gT :=
+  exists_weilPairingElt_divisorSlot_add_three_of_hprin exampleTwo exampleThree exampleNsThreeS
+    exampleNsThreeS exampleNsThreeS exampleNsThreeR (by convert exampleTorsThreeS)
+    (by convert exampleTorsThreeS) (by convert exampleTorsThreeS) (by convert exampleAddThree)
+    fun h hm f hf hd => hprin h (by convert hm) f hf hd
 
 open Classical in
 /-- **Divisor-slot bilinearity at `n = 3` in `μ_3(ℚ)`, on a curve over `ℚ`.**  ⚠️ Here
@@ -538,18 +589,35 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurveThree.Nonsingular x y),
         ∃ g₀ : exampleCurveThree.FunctionField, g₀ ≠ 0 ∧
           3 • divisor exampleCurveThree g₀
             = divisor exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)) :
-    ∃ (gS gT gR : exampleCurveThree.FunctionField)
-      (hpowS : weilPairingElt exampleNsThreeS.left gS ^ 3 = 1)
-      (hpowT : weilPairingElt exampleNsThreeS.left gT ^ 3 = 1)
-      (hpowR : weilPairingElt exampleNsThreeS.left gR ^ 3 = 1),
-      weilPairingMu exampleNsThreeS.left hpowR
-        = weilPairingMu exampleNsThreeS.left hpowS * weilPairingMu exampleNsThreeS.left hpowT := by
-  obtain ⟨gS, gT, gR, _, _, _, _, _, _, hpowS, hpowT, hpowR, hbil⟩ :=
-    exists_weilPairingMu_divisorSlot_add_three_of_hprin exampleTwo exampleThree exampleNsThreeS
-      exampleNsThreeS exampleNsThreeS exampleNsThreeR (by convert exampleTorsThreeS)
-      (by convert exampleTorsThreeS) (by convert exampleTorsThreeS) (by convert exampleAddThree)
-      fun h hm f hf hd => hprin h (by convert hm) f hf hd
-  exact ⟨gS, gT, gR, hpowS, hpowT, hpowR, hbil⟩
+    ∃ gS gT gR : exampleCurveThree.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gS ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gT ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
+        divisor exampleCurveThree f
+          = Finsupp.single (pointClosedPoint exampleNsThreeR.left) (3 : ℤ) ∧
+        ∃ u : exampleCurveThree.CoordinateRingˣ,
+          (u : exampleCurveThree.CoordinateRing) • gR ^ 3
+            = mulByThreeEndo exampleTwo exampleThree f) ∧
+      ∃ hpowS : weilPairingElt exampleNsThreeS.left gS ^ 3 = 1,
+        ∃ hpowT : weilPairingElt exampleNsThreeS.left gT ^ 3 = 1,
+          ∃ hpowR : weilPairingElt exampleNsThreeS.left gR ^ 3 = 1,
+            weilPairingMu exampleNsThreeS.left hpowR
+              = weilPairingMu exampleNsThreeS.left hpowS
+                  * weilPairingMu exampleNsThreeS.left hpowT :=
+  exists_weilPairingMu_divisorSlot_add_three_of_hprin exampleTwo exampleThree exampleNsThreeS
+    exampleNsThreeS exampleNsThreeS exampleNsThreeR (by convert exampleTorsThreeS)
+    (by convert exampleTorsThreeS) (by convert exampleTorsThreeS) (by convert exampleAddThree)
+    fun h hm f hf hd => hprin h (by convert hm) f hf hd
 
 end Nonvacuity
 
