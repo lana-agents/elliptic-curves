@@ -85,8 +85,17 @@ group, where the content actually is:
 
 ## Scope
 
-The elliptic-curve statements are `ℓ = 2` only, for the usual reason: `galoisRepMatrixTwo` needs a
-basis of `T₂E` and the basis comes from the `2`-primary tower. The `GLₙ(ℤ_[p])` statements are not.
+The elliptic-curve statements are `ℓ = 2` only, because their input is. ⚠️ The reason this
+paragraph used to give — *"for the usual reason: `galoisRepMatrixTwo` needs a basis of `T₂E` and
+the basis comes from the `2`-primary tower"* — no longer explains the restriction, for the reason
+`EllipticCurves.TateModule.Image` now records at length: `galoisRepMatrixThree` exists
+(`EllipticCurves.TateModule.MatrixRepThree`) over a basis of `T₃E`, so the matrix representation
+is not what confines anything to `ℓ = 2`. The chain that does is
+`continuous_galoisRepMatrixTwo` → `#619` → this file, and its first link is `ℓ = 2` only. ⚠️ This
+also cashes the *"reusable verbatim when odd `ℓ` opens"* promise made above about
+`Matrix.GeneralLinearGroup.profiniteGrpPadicInt`: odd `ℓ` has opened at `ℓ = 3` for the matrix
+representation, and that statement is indeed reusable there unchanged. The `GLₙ(ℤ_[p])` statements
+are `ℓ`-free throughout.
 
 `profiniteGrpHomGaloisRepMatrixTwo` carries a **universe restriction**, `S F : Type`, which the
 other statements do not. `Category ProfiniteGrp.{u}` lives at a fixed universe, so the `⟶` form

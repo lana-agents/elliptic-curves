@@ -76,13 +76,21 @@ On the source side the same discrimination is already available: `T₂E` is not 
 
 ## Scope
 
-`ℓ = 2` only: the basis comes from `EllipticCurves.TateModule.Free`, which is `2`-primary. ⚠️ The
-clause this paragraph used to carry — *"Odd `ℓ` needs `T_ℓE ≅ ℤ_ℓ²`, which is gated on the
-finiteness of `E[ℓ^k]`"* — is false at `ℓ = 3` on both counts: `E[3^k]` is finite
+`ℓ = 2` only, because the statements below are. ⚠️ **Two clauses this paragraph used to carry are
+false and are replaced.** The first, *"Odd `ℓ` needs `T_ℓE ≅ ℤ_ℓ²`, which is gated on the
+finiteness of `E[ℓ^k]`"*, is false at `ℓ = 3` on both counts: `E[3^k]` is finite
 (`finite_torsion_three_pow`, `EllipticCurves.Torsion.ThreePrimary`) and `T₃E ≅ ℤ₃²` is proved
-(`EllipticCurves.TateModule.FreeThree`). What is missing at `ℓ = 3` is the matrix representation
-`galoisRepMatrixThree`, which nothing in this development states yet. At `ℓ ≥ 5` the gate is real
-and it is the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, not finiteness alone.
+(`EllipticCurves.TateModule.FreeThree`). The second, *"What is missing at `ℓ = 3` is the matrix
+representation `galoisRepMatrixThree`, which nothing in this development states yet"*, is false
+too: it is stated, in `EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport
+`EllipticCurves.TateModule.PrimaryMatrixRep`.
+
+⚠️ **What is missing at `ℓ = 3` is therefore continuity itself, i.e. this file.** Its inputs are
+`tateModule.instContinuousSMulPadicInt` and `tateModule.continuous_galois_smul`, both already
+`ℓ`-generic, plus the profinite side of `T₃E`, which is a different dependency — see
+`EllipticCurves.TateModule.Profinite`, still `ℓ = 2` only. So the `ℓ = 3` twin of this file is a
+genuine follow-up rather than a one-line instantiation, and it is not blocked. At `ℓ ≥ 5` the gate
+is real and it is the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, not finiteness alone.
 
 Everything is stated for a base change `W'⁄F` of a curve `W' : Affine S` rather than for a bare
 `W : Affine F`, matching the representation section of `EllipticCurves.TateModule.MatrixRep`. This

@@ -215,8 +215,8 @@ the choice. Unconditional: `galoisRepMatrixTwo b` is `galoisRep 2` postcomposed 
 theorem ker_galoisRepMatrixTwo :
     (galoisRepMatrixTwo b).ker = (galoisRep (W' := W') (F := F) 2).ker := by
   ext σ
-  simp only [MonoidHom.mem_ker, galoisRepMatrixTwo, MonoidHom.coe_comp, Function.comp_apply,
-    MulEquiv.coe_toMonoidHom, EmbeddingLike.map_eq_one_iff]
+  simp only [MonoidHom.mem_ker, galoisRepMatrixTwo, galoisRepMatrix, MonoidHom.coe_comp,
+    Function.comp_apply, MulEquiv.coe_toMonoidHom, EmbeddingLike.map_eq_one_iff]
 
 /-- **`ρ_{E,2}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `2`-power
 torsion point.** The headline reading of the level filtration. -/

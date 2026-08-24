@@ -73,8 +73,8 @@ theorem linearEquivMulEquivGL_eq : b.linearEquivMulEquivGL = (matrixAutEquivTwo 
 `Module.Basis.linearEquivMulEquivGL`, so every lemma about the latter applies to it. -/
 theorem galoisRepMatrixTwo_eq (σ : F ≃ₐ[S] F) :
     galoisRepMatrixTwo b σ = b.linearEquivMulEquivGL (galoisRep 2 σ) := by
-  rw [galoisRepMatrixTwo, MonoidHom.comp_apply, MulEquiv.coe_toMonoidHom, matrixAutEquivTwo_eq,
-    MulEquiv.symm_symm]
+  have hc : galoisRepMatrixTwo b σ = (matrixAutEquivTwo b).symm (galoisRep 2 σ) := rfl
+  rw [hc, matrixAutEquivTwo_eq, MulEquiv.symm_symm]
 
 /-- The entries of `ρ_{E,2}(σ)`, re-derived from the general entry formula. This is
 `galoisRepMatrixTwo_apply_coe`; it is restated here to confirm that the two chains produce the same
