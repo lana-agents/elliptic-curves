@@ -26,7 +26,7 @@ normalisation `z(O) = 0` this shows the local-parameter map is **surjective**
 `E₁(K) ≅ Ê(𝔪)` (issue #361).  ⚠️ The two things this paragraph used to call *"the remaining
 content"* are both merged: the injectivity of `zParam` (equivalently
 `pointOfParam (zParam P) = P` on `E₁`) is `WeierstrassCurve.zParam_injective`, in the sibling
-sibling `EllipticCurves/Reduction/KernelBijection.lean`, and the addition-law
+file `EllipticCurves/Reduction/KernelBijection.lean`, and the addition-law
 compatibility `z(P + Q) = F_E(z P, z Q)` is `WeierstrassCurve.zParamHatEquiv_map_add`; together
 they package `zParam` into the group isomorphism `WeierstrassCurve.E₁AddEquiv`
 (`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
