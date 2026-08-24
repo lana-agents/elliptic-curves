@@ -79,13 +79,15 @@ upstream in Mathlib rather than here.
 ## Explicitly out of scope
 
 * **The perfect-pairing statement** — that `weilPairingTwoHom` is *bijective* onto
-  `Multiplicative E[2] →* μ_2(F̄)`, identifying `E[n]` with its own dual.  ⚠️ Reachable, and the
-  route is worth recording so it is not re-spiked: `Mathlib.GroupTheory.FiniteAbelian.Duality`'s
-  `card_monoidHom_of_hasEnoughRootsOfUnity` gives `Nat.card (G →* Mˣ) = Nat.card G`, and
-  `EllipticCurves.Torsion.TwoTorsion`'s `card_torsion_two` gives `#E[2] = 4`; injective between
-  finite sets of equal size is bijective.  The unpriced step is the *target*: the bundled hom lands
-  in `rootsOfUnity 2 F` where Mathlib's duality is stated for `Fˣ`, and bridging them needs
-  `Monoid.exponent (Multiplicative E[2]) = 2`.
+  `Multiplicative E[2] →* μ_2(F̄)`, identifying `E[n]` with its own dual.  ⚠️ **Landed**, as
+  `EllipticCurves.FunctionField.WeilPairingPerfect` (`#940`), off
+  `Mathlib.GroupTheory.FiniteAbelian.Duality`'s `card_monoidHom_of_hasEnoughRootsOfUnity`.  ⚠️ Two
+  corrections to the route this bullet used to predict, kept because they are the reusable part:
+  the `rootsOfUnity 2 F`-versus-`Fˣ` bridge is one `MonoidHom.codRestrict` and **not**
+  `rootsOfUnityUnitsMulEquiv`, and `Monoid.exponent (Multiplicative E[2]) = 2` is **not** needed —
+  `∀ g, g ^ n = 1` plus `HasEnoughRootsOfUnity.of_dvd` does the same job without having to rule out
+  `E[2]` being trivial.  `card_torsion_two` turns out not to be needed either, except to name the
+  number `4`.
 * **General `n`** — see the two obstructions above.
 * **The arbitrary-field (`_of_hprin`) form** — see the section above; the statement is false over a
   general field, so this is not a lift that has been skipped.
