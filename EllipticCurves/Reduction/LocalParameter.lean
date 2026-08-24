@@ -23,7 +23,9 @@ to `0`.
 
 This is deliverable 1 of issue #361 (the `zParam` map into `𝔪` + membership + `map_zero`).  The
 addition-law compatibility `z(P + Q) = F_E(z P, z Q)` (the heart, AEC IV.1 / VII.2.2) and the
-packaging into the group isomorphism `E₁(K) ≃+ Ê(𝔪)` are deferred to the sibling bricks.
+packaging into the group isomorphism `E₁(K) ≃+ Ê(𝔪)` are not here; both are **merged**, as
+`WeierstrassCurve.zParamHatEquiv_map_add` and `WeierstrassCurve.E₁AddEquiv`
+(`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
 
 ## Main definitions
 

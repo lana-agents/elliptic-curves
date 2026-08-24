@@ -23,9 +23,13 @@ constitute a genuine nonsingular point `pointOfParam z` of `W` which
 Hence `pointOfParam` is a right inverse of `zParam` on `𝔪 ∖ {0}`, and together with the
 normalisation `z(O) = 0` this shows the local-parameter map is **surjective**
 (`zParam_surjective`).  This is the set-level *inverse-half* rung of the identification
-`E₁(K) ≅ Ê(𝔪)` (issue #361); the remaining content is the addition-law compatibility
-`z(P + Q) = F_E(z P, z Q)` and the injectivity of `zParam` (equivalently
-`pointOfParam (zParam P) = P` on `E₁`), which package `zParam` into the group isomorphism.
+`E₁(K) ≅ Ê(𝔪)` (issue #361).  ⚠️ The two things this paragraph used to call *"the remaining
+content"* are both merged: the injectivity of `zParam` (equivalently
+`pointOfParam (zParam P) = P` on `E₁`) is `WeierstrassCurve.zParam_injective`, in the sibling
+sibling `EllipticCurves/Reduction/KernelBijection.lean`, and the addition-law
+compatibility `z(P + Q) = F_E(z P, z Q)` is `WeierstrassCurve.zParamHatEquiv_map_add`; together
+they package `zParam` into the group isomorphism `WeierstrassCurve.E₁AddEquiv`
+(`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
 
 ## Main definitions
 

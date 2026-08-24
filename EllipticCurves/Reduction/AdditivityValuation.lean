@@ -20,9 +20,24 @@ The load-bearing consequence is that the **negation denominator**
 is congruent to `1` modulo `𝔪`, hence a unit and in particular **nonzero**.  This discharges the
 `den ≠ 0` (`hden`) hypothesis of `WeierstrassCurve.localParam_add_secant` /
 `WeierstrassCurve.localParam_add_of_X_ne` (`Reduction/ThirdChordAffine.lean`), one of the four
-non-degeneracy side conditions of the secant additivity identity of #367.  (The remaining
-`w₃ ≠ 0` / `X₃ ∉ {x₁, x₂}` conditions, the doubling case #373, and the inverse case remain for the
-full `E₁(K)` subgroup closure.)
+non-degeneracy side conditions of the secant additivity identity of #367.
+
+⚠️ This paragraph used to close *"(The remaining `w₃ ≠ 0` / `X₃ ∉ {x₁, x₂}` conditions, the doubling
+case #373, and the inverse case remain for the full `E₁(K)` subgroup closure.)"*  **All four are
+merged**, and one of them not by being discharged but by being *removed*:
+
+* `w₃ ≠ 0` — `WeierstrassCurve.thirdChordW_ne_zero` (`Reduction/ThirdChordNonvanishing.lean`);
+* `X₃ ∉ {x₁, x₂}` — ⚠️ **eliminated, not discharged**:
+  `WeierstrassCurve.addX_eq_thirdChordX_of_secant` (`Reduction/ThirdChordAffineUncond.lean`, #376)
+  proves `addX = X₃` as a `(z, w)`-level field
+  identity, so the hypothesis never arises; see `WeierstrassCurve.localParam_add_of_X_ne_uncond`;
+* the doubling case — `WeierstrassCurve.thirdChordPoint_functional_eq_diag`
+  (`Reduction/FormalGroupTangent.lean`, #373) and `localParam_add_of_X_eq_uncond`;
+* the inverse case — `WeierstrassCurve.adicEvalMv_formalGroupZW_eq_zero_of_X_eq`
+  (`Reduction/InverseAdditivity.lean`), unconditional at `2`-torsion via
+  `zParamHatEquiv_neg_uncond` (`Reduction/KernelNegationUncond.lean`, #377);
+* and the subgroup closure itself is `WeierstrassCurve.reducesToZero_add` / `E₁`
+  (`Reduction/KernelAddClosure.lean`).
 
 ## Main results
 

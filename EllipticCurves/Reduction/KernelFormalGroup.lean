@@ -35,10 +35,13 @@ genuine formal-group carrier — the packaging groundwork of issue #368:
   `𝔪`-adic evaluation of the genuine pole-free law `formalGroupZW`.  This is the exact object the
   addition-law compatibility (issue #367) must identify with `zParam (P + Q)`.
 
-The remaining content of issue #368 (upgrading `zParamHatEquiv` to a **group isomorphism**
-`E₁(K) ≃+ Ê(𝔪)`) needs the addition-law compatibility `zParam (P + Q) = zParam P ⊕ zParam Q`
-(issue #367, AEC IV.1 / VII.2.2), which simultaneously makes `E₁(K)` an `AddSubgroup`.  Nothing here
-depends on that heart; it is set-level packaging over the merged sorry-free bricks.
+Upgrading `zParamHatEquiv` to a **group isomorphism** `E₁(K) ≃+ Ê(𝔪)` needs the addition-law
+compatibility `zParam (P + Q) = zParam P ⊕ zParam Q` (issue #367, AEC IV.1 / VII.2.2), which
+simultaneously makes `E₁(K)` an `AddSubgroup`.  ⚠️ That was called *"the remaining content of issue
+#368"* here and is **merged**: `WeierstrassCurve.zParamHatEquiv_map_add` and
+`WeierstrassCurve.E₁AddEquiv` (`EllipticCurves/Reduction/KernelFormalGroupIso.lean`), with
+the subgroup `WeierstrassCurve.E₁` in `EllipticCurves/Reduction/KernelAddClosure.lean`.  Nothing in
+*this* file depends on that heart; it is set-level packaging over the merged sorry-free bricks.
 
 ## References
 

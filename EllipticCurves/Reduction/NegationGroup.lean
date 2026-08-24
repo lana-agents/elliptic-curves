@@ -31,7 +31,10 @@ their formal-group sum is `0`.  Since `Ê(𝔪)` is a group, `z(P) ⊕ z(-P) = 0
 The hypothesis `P ≠ -P` rules out the identity `O` (there `-P = P`) and the `2`-torsion points;
 for those the statement `z(-P) = ⊖ z(P)` still holds but reduces, respectively, to
 `0 = ⊖ 0` and to `z(P)` being formal-`2`-torsion, which needs the doubling additivity rather than
-this vertical slice.
+this vertical slice.  ⚠️ That corner is **not open**: it is
+`WeierstrassCurve.zParamHatEquiv_neg_uncond` (`Reduction/KernelNegationUncond.lean`, #377), whose
+analytic content is the doubling vertical additivity `z ⊕ z = 0` at a `2`-torsion parameter.  *The
+`P ≠ -P` restriction is a statement about this file's method, not about the tree.*
 
 ## Main results
 

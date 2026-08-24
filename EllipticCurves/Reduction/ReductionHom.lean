@@ -35,6 +35,15 @@ rung lemmas already on `main`:
 * `WeierstrassCurve.redPt_add` — `redPt (P + Q) = redPt P + redPt Q` for all `P, Q`.
 * `WeierstrassCurve.redHom` — the reduction homomorphism `(W⁄K).Point →+ (reduction R W).Point`.
 * `WeierstrassCurve.E₁_eq_ker` — `E₁ R W = (redHom R W).ker`.
+* `WeierstrassCurve.redPt_add_eq_right_of_reducesToZero` / `redPt_add_eq_left_of_reducesToZero` —
+  the **general** "kernel acts trivially" statement: adding a point of `E₁(K)` does not change the
+  reduction of an *arbitrary* summand.  The two named special cases in the rung files
+  (`redPt_add_of_reducesToZero_left`, `Reduction/KernelVerticalReduction.lean`, which assumes both
+  summands in `E₁(K)`; `redPt_add_of_mem_E₁_left`, `Reduction/KernelIntegralReduction.lean`, which
+  assumes the other summand integral) are both upstream of `redPt_add` and so could not state it.
+* `WeierstrassCurve.redQuotientHom` and `redQuotientHom_injective` — the descended map
+  `E(K) ⧸ E₁(K) →+ Ẽ(k)` and its injectivity, the statement whose well-definedness the
+  kernel × integral rung computes.
 
 ## References
 
@@ -117,5 +126,55 @@ via `redPt_eq_zero_iff`. -/
 theorem E₁_eq_ker : E₁ R W = (redHom R W).ker := by
   ext P
   rw [mem_E₁, AddMonoidHom.mem_ker, redHom_apply, redPt_eq_zero_iff]
+
+/-! ### The kernel acts trivially, and the induced injection on `E(K) ⧸ E₁(K)` -/
+
+open Classical in
+/-- **The reduction kernel acts trivially on reductions.**  If `P` reduces to the origin then
+adding it changes nothing: `redPt (P + Q) = redPt Q` for an **arbitrary** `Q`.
+
+This is the general "kernel acts trivially" statement.  Its two named special cases live upstream
+and cannot state it, because they are upstream of `redPt_add`:
+`redPt_add_of_reducesToZero_left` (`Reduction/KernelVerticalReduction.lean`) additionally assumes
+`Q ∈ E₁(K)`, and `redPt_add_of_mem_E₁_left` (`Reduction/KernelIntegralReduction.lean`) additionally
+assumes `Q` integral.  Here `Q` ranges over all of `(W⁄K).Point`. -/
+theorem redPt_add_eq_right_of_reducesToZero {P Q : W.toAffine.Point}
+    (hP : ReducesToZero R W P) : redPt R W (P + Q) = redPt R W Q := by
+  rw [redPt_add R W, (redPt_eq_zero_iff R W P).mpr hP, zero_add]
+
+open Classical in
+/-- **The reduction kernel acts trivially on reductions**, on the right: `redPt (P + Q) = redPt P`
+for `Q` reducing to the origin and an **arbitrary** `P`.  The mirror of
+`redPt_add_eq_right_of_reducesToZero`. -/
+theorem redPt_add_eq_left_of_reducesToZero {P Q : W.toAffine.Point}
+    (hQ : ReducesToZero R W Q) : redPt R W (P + Q) = redPt R W P := by
+  rw [redPt_add R W, (redPt_eq_zero_iff R W Q).mpr hQ, add_zero]
+
+open Classical in
+/-- **The reduction map descends to the quotient by its kernel**:
+`redQuotientHom : E(K) ⧸ E₁(K) →+ Ẽ(k)`.  Since `E₁(K)` is exactly `redHom`'s kernel
+(`E₁_eq_ker`), `QuotientAddGroup.lift` applies with no side condition beyond `mem_E₁`.
+
+This is the map whose *well-definedness* is what the kernel × integral case
+`redPt_add_of_mem_E₁_left` (`Reduction/KernelIntegralReduction.lean`) computes. -/
+noncomputable def redQuotientHom :
+    W.toAffine.Point ⧸ E₁ R W →+ (reduction R W).toAffine.Point :=
+  QuotientAddGroup.lift (E₁ R W) (redHom R W) fun _P hP =>
+    AddMonoidHom.mem_ker.mp (by rw [← E₁_eq_ker]; exact hP)
+
+open Classical in
+@[simp] theorem redQuotientHom_mk (P : W.toAffine.Point) :
+    redQuotientHom R W (QuotientAddGroup.mk P) = redPt R W P := rfl
+
+open Classical in
+/-- **`E(K) ⧸ E₁(K)` embeds in `Ẽ(k)`.**  The descended reduction map is injective, since a class
+whose reduction vanishes is represented by a point of `E₁(K)` and is therefore `0`. -/
+theorem redQuotientHom_injective : Function.Injective (redQuotientHom R W) := by
+  refine (injective_iff_map_eq_zero (redQuotientHom R W)).mpr fun a ha => ?_
+  induction a using QuotientAddGroup.induction_on with
+  | H P =>
+    rw [redQuotientHom_mk] at ha
+    rw [QuotientAddGroup.eq_zero_iff, mem_E₁, ← redPt_eq_zero_iff]
+    exact ha
 
 end WeierstrassCurve

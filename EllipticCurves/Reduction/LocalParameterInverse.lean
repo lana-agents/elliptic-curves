@@ -42,8 +42,10 @@ formal-series side (`FormalGroup/`) and the affine points of the reduction theor
 * `WeierstrassCurve.localParam_xParam_yParam` — **the local parameter recovers `z`**:
   `-x(z)/y(z) = z`, so `z ↦ (x(z), y(z))` is a section of `P ↦ z(P)`.
 
-These deliver the set-level inverse half of the identification `E₁(K) ≅ Ê(𝔪)` (issue #361); the
-addition-law compatibility `z(P + Q) = F_E(z P, z Q)` remains.
+These deliver the set-level inverse half of the identification `E₁(K) ≅ Ê(𝔪)` (issue #361).  ⚠️
+This paragraph used to end *"the addition-law compatibility `z(P + Q) = F_E(z P, z Q)` remains"*;
+it does not — it is `WeierstrassCurve.zParamHatEquiv_map_add`, and the identification is closed by
+`WeierstrassCurve.E₁AddEquiv` (`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
 
 ## References
 

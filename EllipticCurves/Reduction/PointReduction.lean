@@ -24,7 +24,10 @@ Building on the coordinate-valuation analysis of `EllipticCurves/Reduction/Point
 
 The kernel `redPt ⁻¹' {0}` is exactly the `ReducesToZero` (`E₁(K)`) predicate; see
 `redPt_eq_zero_iff`.  The group-homomorphism property and the identification `E₁(K) ≅ Ê(𝔪)` are
-deferred to the sibling issues.
+proved in sibling files, not here: `WeierstrassCurve.redPt_add` / `redHom` / `E₁_eq_ker`
+(`EllipticCurves/Reduction/ReductionHom.lean`) and `WeierstrassCurve.E₁AddEquiv`
+(`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).  ⚠️ This sentence used to say they were
+*"deferred to the sibling issues"*; both landed a week after it was written.
 
 ## Main definitions
 

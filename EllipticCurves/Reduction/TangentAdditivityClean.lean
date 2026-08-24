@@ -29,8 +29,17 @@ configuration, where the third tangent point coincides with `±P`).
 
 This is the doubling analog of the merged secant `localParam_add_of_X_ne_of_distinct`
 (`Reduction/SecantAdditivity.lean`, PR #95): both leave only the honestly-degenerate distinctness
-condition, to be handled by the eventual full case analysis together with the inverse (`Q = -P`)
-case in the `E₁(K)` subgroup assembly of #367.
+condition.
+
+⚠️ That condition was expected here to be *"handled by the eventual full case analysis"*.  **It was
+removed instead**: `WeierstrassCurve.addX_eq_thirdChordX_of_doubling`
+(`Reduction/ThirdChordAffineUncond.lean`, #376) proves `addX = X₃` on the diagonal as a field
+identity with no distinctness of `X₃`, and `WeierstrassCurve.localParam_add_of_X_eq_uncond`
+(`Reduction/AdditivityUncond.lean`) is this statement with `hd` gone.  The inverse (`Q = -P`) case
+is `WeierstrassCurve.adicEvalMv_formalGroupZW_eq_zero_of_X_eq`
+(`Reduction/InverseAdditivity.lean`), unconditional at `2`-torsion via `zParamHatEquiv_neg_uncond`
+(`Reduction/KernelNegationUncond.lean`, #377), and the `E₁(K)` subgroup assembly of #367 is
+`WeierstrassCurve.reducesToZero_add` / `E₁` (`Reduction/KernelAddClosure.lean`).
 
 ## Main result
 

@@ -25,20 +25,29 @@ just-landed diagonal-derivative brick
 * `WeierstrassCurve.derivative_formalW` — the **differentiated Weierstrass functional equation** at
   the power-series level: `w′ = 3z² + (a₁ + 2a₂z)w + (a₁z + a₂z²)w′ + a₄w² + 2(a₃ + a₄z)w·w′
   + 3a₆w²·w′`, obtained by applying the formal derivative `d⁄dX` to `formalW_eq`.
+* `WeierstrassCurve.wParamDeriv` — the numeric derivative `w′(z) = adicEval z (d⁄dX formalW) ∈ R`,
+  the diagonal counterpart of `wParam`.
 * `WeierstrassCurve.chordSlope_diag` — on the diagonal `z₁ = z₂ = z`, the numeric chord slope
-  `λ = chordSlope` equals the `𝔪`-adic value of the formal derivative `w′(z)`
-  (`= adicEval z (d⁄dX formalW)`).  This is the identity "the tangent slope is the derivative".
+  `λ = chordSlope` equals `wParamDeriv z`.  This is the identity "the tangent slope is the
+  derivative".
 * `WeierstrassCurve.wParamDeriv_tangency` — the numeric image of `derivative_formalW` under
   `adicEval z`: the tangency relation among `z`, `w(z)`, and `w′(z) = λ`, the second relation the
   doubling Vieta needs (in place of the secant's second known point).
 
-## Remaining for #373
+and, in the final section, the lemma those two exist for:
 
-The doubling third-chord lemma `thirdChordPoint_functional_eq_diag` itself: close the
-double-root Vieta by a `linear_combination` of the value equation `wParam_functional_eq`, the
-tangency relation `wParamDeriv_tangency` (with `λ = chordSlope_diag`), and `formalThirdRoot_vieta`
-(which on the diagonal reads `A·(t + 2z) + S = 0`).  Its algebraic certificate is the double-root
-analog of the secant certificate.
+* `WeierstrassCurve.thirdChordPoint_functional_eq_diag` — **the doubling third-chord lemma**: on the
+  diagonal the pair `(t, λt + ν)` solves the numeric Weierstrass functional equation.  The
+  double-root Vieta is closed by a `linear_combination` of the value equation
+  `wParam_functional_eq`, the tangency relation `wParamDeriv_tangency` (with `λ = chordSlope_diag`),
+  and `formalThirdRoot_vieta` (which on the diagonal reads `A·(t + 2z) + S = 0`) — the double-root
+  analog of the secant certificate.
+
+⚠️ **This file used to carry a `## Remaining for #373` section prescribing exactly that recipe for
+exactly that lemma, twenty-one minutes before the lemma was added to this same file.**  The
+follow-up landed the theorem into this file's own final section, left the paragraph calling it
+missing, and left it out of this list.  *A "what remains" section is stale the moment the work lands
+in the file it sits in, and no build can tell.*
 
 ## References
 
