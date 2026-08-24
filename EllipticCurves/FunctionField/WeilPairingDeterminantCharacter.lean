@@ -170,9 +170,14 @@ open Classical in
 ⚠️ **Injectivity is not proved; it is deduced from the rank.**  Both sides have `ZMod 3`-rank `2`
 (`finrank_torsion_three` and `Module.finrank_fin_fun`), so
 `LinearMap.injective_iff_surjective_of_finrank_eq_finrank` turns the surjectivity above into
-bijectivity.  In particular `#951`'s independence lemma
-`intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_three` is *not* used anywhere in this file — the
-counting that `#E[3] = 9` already performed inside `finrank_torsion_three` does its work. -/
+bijectivity, off the counting that `#E[3] = 9` already performed inside `finrank_torsion_three`.
+
+⚠️ **That buys less than "independent of `#951`'s independence lemma", and the file's Scope section
+says so.**  `intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_three` is not *cited* anywhere below, but
+`exists_zsmul_add_zsmul_eq_three` — which is cited — proves injectivity of `(ℤ/3)² → E[3]` with it
+before it counts, at `EllipticCurves/FunctionField/WeilPairingDeterminant.lean:357`.  So it is
+consumed one level down and this file is not independent of it; what the rank argument buys is only
+that injectivity is not re-derived here. -/
 noncomputable def torsionThreePairingEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {P T : W.torsion 3} (hPT : weilPairingThree h2 h3 P T ≠ 1) :
     (Fin 2 → ZMod 3) ≃ₗ[ZMod 3] W.torsion 3 :=
@@ -264,7 +269,7 @@ theorem coe_galoisDetMod_three_eq_galoisModularCyclotomicChar (σ : F ≃ₐ[S] 
   obtain ⟨P, T, hPT⟩ := exists_weilPairingThree_ne_one (W := W⁄F) h2 h3
   obtain ⟨a, b, c, d, hP, hT, hdet⟩ :=
     exists_smul_eq_zsmul_add_zsmul_and_det_three_eq (W := W) σ h2 h3 hPT
-  set bas := basisTorsionThreeOfPairing (W := W⁄F) h2 h3 hPT with hbas
+  set bas := basisTorsionThreeOfPairing (W := W⁄F) h2 h3 hPT
   set M : Matrix (Fin 2) (Fin 2) (ZMod 3) :=
     !![(a : ZMod 3), (b : ZMod 3); (c : ZMod 3), (d : ZMod 3)] with hMdef
   have hb0 : bas 0 = P := basisTorsionThreeOfPairing_zero h2 h3 hPT
