@@ -260,6 +260,11 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   is a statement about the **base field** rather than about the pairing, and the first consumer of
   `#938`'s surjectivity that is not itself a pairing statement — equivariance alone would only say
   that `σ` permutes the values it takes).
+* **the same corollary in Silverman's own words**, `μ_3 ⊆ K`, together with
+  `ker ρ_{E,3} ≤ ker χ_3` (`EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois`, `#947`;
+  ⚠️ that file also proves `χ_3` of `ℚ` is **not** trivial, so the hypothesis of this bullet and the
+  one above can genuinely fail — and ⚠️ the kernel inclusion is *not* `det ρ_{E,3} = χ_3`, which
+  still wants a basis of `E[3]` this development does not have).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does

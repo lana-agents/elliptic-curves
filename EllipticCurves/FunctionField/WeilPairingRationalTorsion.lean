@@ -83,15 +83,23 @@ about a curve over `F` itself, everything else about a curve over `S` base-chang
   **twice**, by the crux and independently by the prime-order step in
   `MonoidHom.surjective_of_ne_one_of_natCard_prime`.  This theorem inherits both, so `#940`'s
   "blocked only once" does not transfer to it.
-* **The field-theoretic restatement** `μ_3(F) ⊆ (⊥ : IntermediateField S F)`, i.e. literally
-  `μ_3 ⊆ K`.  ⚠️ Turning "fixed by every `σ`" into "lies in the base field" needs `[IsGalois S F]`,
-  and this front carries no `IsGalois` instance anywhere.  The pointwise-fixed form stated here is
-  what `galoisModularCyclotomicChar_eq_one_iff` speaks and what a consumer can check; nothing below
-  delivers the `⊆` statement, and naming it here is so that nobody prices it as delivered.
-* **Exhibiting a `σ` with `χ_3 σ ≠ 1`**, which is what would make the contrapositive bite over `ℚ`.
-  That needs an automorphism of `AlgebraicClosure ℚ` moving a primitive cube root of unity — a
-  statement about the base field with nothing to do with the curve, declared out of scope by `#944`
-  and still unspiked.  The first two refutations below are the checkable substitutes.
+* **The field-theoretic restatement**, i.e. literally `μ_3 ⊆ K`.  Turning "fixed by every `σ`"
+  into "lies in the base field" needs `[IsGalois S F]`, which nothing *here* asks for.  ⚠️ This
+  bullet used to add "and this front carries no `IsGalois` instance anywhere", which was true but
+  misleading about the cost: the instance is blocked by a **synthesis trap**, not missing.  It is
+  delivered as `mem_range_algebraMap_of_torsion_three_fixed`
+  (`EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois`, `#947`), which repairs the trap
+  in two `private instance` lines and is then one term off the theorem below.  The pointwise-fixed
+  form stated here remains what `galoisModularCyclotomicChar_eq_one_iff` speaks and what a consumer
+  without `[IsGalois S F]` can check.
+* **Exhibiting a `σ` with `χ_3 σ ≠ 1`**, which is what makes the contrapositive bite over `ℚ`.
+  ⚠️ This bullet used to say it needed an automorphism of `AlgebraicClosure ℚ` moving a primitive
+  cube root of unity and was unspiked.  **Both halves were wrong**, and the correction is worth more
+  than the statement: it is `exists_galoisModularCyclotomicChar_three_ne_one`
+  (`EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois`, `#947`), and **no automorphism
+  is constructed** — if every `σ` fixed every cube root of unity each would lie in `ℚ`, and the only
+  rational cube root of `1` is `1`, contradicting `Nat.card μ_3(Q̄) = 3`.  The first two refutations
+  below remain the in-file checkable substitutes.
 * **An `n = 2` form with a torsion hypothesis.**  There is no such theorem to write, because the
   conclusion holds without one.  Recording that is the deliverable; a hypothesis-carrying
   restatement would be strictly weaker than what is proved.
