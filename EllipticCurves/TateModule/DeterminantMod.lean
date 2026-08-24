@@ -305,10 +305,14 @@ would follow — but only after `.some` had picked one of the isomorphisms, putt
 choice into the proof of a choice-independent number.  `Module.card_eq_pow_finrank` against
 `card_torsion_three` avoids it, and it makes visible that the load-bearing input is `#E[3] = 9`.
 
-⚠️ `h2` enters through the **separability of `Ψ₃`** — a root of `Ψ₃` is never a root of `Ψ₂Sq` — and
-not through the value group, which is where `h3` enters, and the proof consumes it at exactly one
-place, `card_torsion_three h2 h3`.  ⚠️ The two hypotheses are therefore not interchangeable; see the
-third measured run below for what a substitution test does and does not establish about that. -/
+⚠️ The script below consumes `h2` at exactly one place, `card_torsion_three h2 h3`, but **inside
+that lemma `h2` is used three times over and not once**: `card_setOf_equation_eq_two h2` (the fibre
+above an `x` has exactly two points), `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃ h2` (a root of `Ψ₃` is never a
+root of `Ψ₂Sq`) and `card_roots_Ψ₃ h2 h3`.  ⚠️ So "`h2` enters through the separability of `Ψ₃`" is
+too narrow a reading — the fibre count is at least as fundamental, and `card_roots_Ψ₃` consumes both
+hypotheses at once, so they do not split cleanly into "`h2` for `Ψ₃`, `h3` for the value group".
+The two are not interchangeable; see the third measured run below for what does and does not
+establish that. -/
 theorem finrank_torsion_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.finrank (ZMod 3) (W.torsion 3) = 2 := by
   haveI := W.finite_torsion_three h3
@@ -346,9 +350,12 @@ The certificate curve is this front's standard `n = 3` one, `y² + y = x³` over
 `AlgebraicClosure ℚ` with **`S = ℚ` and not `S = F`** — over `S = F` the group `Gal(F/S)` is trivial
 and the schema certificate for `galoisDetMod` says nothing.
 
-⚠️ **Three measured runs, one of which refuted what this file's first draft asserted, and the third
-of which reports two errors rather than one.**  All were re-run against the text as committed, with
-`lake env lean` on this file from the project root.
+⚠️ **Four measured runs under three headings, one of which refuted what this file's first draft
+asserted.**  ⚠️ The third heading carries two runs on purpose — a substitution test and a deletion
+test — because they establish different things and only the second establishes anything;
+the substitution test additionally reports **two** errors, a `Type mismatch` at the certificate
+followed by the `Application type mismatch` at the argument, and only the second is quoted.  All
+were re-run against the text as committed, with `lake env lean` on this file from the project root.
 ⚠️ That command reports errors in the `<file>:<line>:<col>: error(<tag>):` form quoted below;
 `lake build` reports the same errors with an `error: <file>:<line>:<col>:` prefix instead.  ⚠️ And
 `lake env lean` does **not** apply the `leanOptions` of `lakefile.toml`, so it does not run
@@ -382,21 +389,25 @@ of which reports two errors rather than one.**  All were re-run against the text
   ```
   ⚠️ **That error says only that `3 ≠ 0` is not `2 ≠ 0`, and it would say the same of a hypothesis
   the proof never used** — a substituted argument is not a deleted input, which is the distinction
-  this front recorded against `#951`.  The claim that `h2` is *used* needs the proof, and there it
-  is measured too: dropping `h2` from `finrank_torsion_three` and re-running its script verbatim
-  fails one level in, at
+  this front recorded against `#951`.  ⚠️ Substituting `h3` for `h2` one level in, at
+  `card_torsion_three`, is the *same* test and no better: it too reports a type mismatch rather than
+  an unprovable goal.  The test that shows `h2` is load-bearing has to **delete** it from the
+  statement and leave the script alone, and then the goal is what is left standing.  ⚠️ That run
+  emits two messages as well — an `` Unknown identifier `h2` `` where the script still names it, and
+  the one that carries the information:
   ```
-  error: Application type mismatch: The argument
-    h3
-  has type
-    3 ≠ 0
-  but is expected to have type
-    2 ≠ 0
-  in the application
-    card_torsion_three h3
+  error: unsolved goals
+  …
+  h3 : 3 ≠ 0
+  …
+  hpow : Nat.card ↥(W.torsion 3) = 3 ^ Module.finrank (ZMod 3) ↥(W.torsion 3)
+  ⊢ Module.finrank (ZMod 3) ↥(W.torsion 3) = 2
   ```
-  so `h2` reaches the rank through `#E[3] = 9` and through nothing else, while `h3` enters twice
-  over, through the value group and through `finite_torsion_three`. -/
+  ⚠️ Read that hypothesis list: `hpow` **survives**, because `Module.card_eq_pow_finrank` never
+  wanted `h2`, and `finite_torsion_three`/`finite_torsion_three_zmod` do not either.  What is lost
+  is only `card_torsion_three`, so the cardinality is never evaluated and the rank is not wrong but
+  simply uncomputable from what remains.  That is the precise sense in which `#E[3] = 9` is the
+  load-bearing input. -/
 
 section Nonvacuity
 
