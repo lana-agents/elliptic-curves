@@ -69,8 +69,13 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 
 ## Scope
 
-Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which
-is not available. The `ℓ = 2` case went through the `2`-primary tower instead.
+Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` is not available, and the `ℓ = 2` case went
+through the `2`-primary tower instead. ⚠️ The reason this paragraph used to give — *"needs
+surjectivity of `[ℓ]` on `E(F̄)`, which is not available"* — is false at `ℓ = 3`:
+`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
+`(2 : F) ≠ 0` alone, and `EllipticCurves.Torsion.ThreePrimaryBasis` builds the `3`-primary coherent
+system out of it. What is missing at `ℓ = 3` is only the transport to `T₃E`. At `ℓ ≥ 5`
+surjectivity is genuinely unavailable.
 
 **Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds
 `galoisRep` purely as a group homomorphism and passing to matrices changes nothing about that, so

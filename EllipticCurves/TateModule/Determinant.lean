@@ -69,7 +69,12 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 
 ## Scope
 
-Only `ℓ = 2`; odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which is not available.
+Only `ℓ = 2`. ⚠️ The clause this paragraph used to carry — *"odd `ℓ` needs surjectivity of `[ℓ]`
+on `E(F̄)`, which is not available"* — is false at `ℓ = 3`: `nsmul_three_surjective`
+(`EllipticCurves.Torsion.TriplingSurjective`) supplies it from `(2 : F) ≠ 0` alone, and
+`EllipticCurves.Torsion.ThreePrimaryBasis` turns it into the coherent system `T₃E` would need. What
+is missing at `ℓ = 3` is the transport to `T₃E`, not the surjectivity. At `ℓ ≥ 5` surjectivity is
+genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`.
 
 **Continuity is not asserted**, here or anywhere on this front: `galoisRep` is built purely as a
 group homomorphism, and passing to determinants changes nothing about that.

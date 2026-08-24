@@ -39,7 +39,11 @@ content of the file.
   `j ≤ k`, **unconditionally** (`ker_galoisRepMod_pow_antitone`) — this is just `E[ℓ^j] ⊆ E[ℓ^k]`.
 * At `ℓ = 2` over an algebraically closed field with `2 ≠ 0` the hypothesis is discharged by
   `nsmul_two_surjective`, so `ker_galoisRepTwo_eq_iInf` and `galoisRepTwo_eq_one_iff` are
-  unconditional. No odd `ℓ` has that shortcut yet.
+  unconditional. ⚠️ The clause this bullet used to carry — *"No odd `ℓ` has that shortcut yet"* —
+  is false at `ℓ = 3`, where `nsmul_three_surjective`
+  (`EllipticCurves.Torsion.TriplingSurjective`) discharges the same hypothesis, also from
+  `(2 : F) ≠ 0` alone; the `ℓ = 3` specialisations are simply not stated in this file. No prime
+  `ℓ ≥ 5` has the shortcut.
 
 ## Why this is worth having
 
