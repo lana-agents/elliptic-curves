@@ -94,12 +94,20 @@ Odd `ℓ` is **not** covered *by this file*, and the `ℓ = 2` case went through
 therefore not the module but the matrix representation: `galoisRepMatrixThree` is simply not stated
 below"*, is now false too: `galoisRepMatrixThree` **is** stated, in
 `EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport this file now shares
-with it. ⚠️ Nothing is missing at `ℓ = 3` for the *matrix representation itself*, and — of the
-four-entry list `EllipticCurves.TateModule.MatrixRepThree`'s Naming section carries — nothing is
-missing for the surrounding apparatus either, with the single exception of
-`EllipticCurves.TateModule.MatrixRepCompat`. ⚠️ **That scoping clause is load-bearing and an
-earlier version of this sentence dropped it while keeping the count**, which made the sentence
-false: `EllipticCurves.TateModule.ImageProfinite` was never on that list and is still `ℓ = 2` only.
+with it. ⚠️ Nothing is missing at `ℓ = 3` for the *matrix representation itself*, and — as of the
+two extractions named below — nothing is missing at `ℓ = 3` for the three pieces of surrounding
+apparatus **that the rest of this paragraph names**: the determinant and trace characters, the
+conjugation law, and continuity. ⚠️ **Read the scope of that claim, because it used to be
+stated without one.** It ended *"nothing is missing for the surrounding apparatus either, with the
+single exception of `EllipticCurves.TateModule.MatrixRepCompat`"*, which dropped the scope and
+kept the count — and was then false twice over. First, the image
+(`EllipticCurves.TateModule.Image`, `EllipticCurves.TateModule.ImageProfinite`) was never in this
+paragraph's list and so was silently excluded from an exception clause that read as exhaustive;
+`EllipticCurves.TateModule.Determinant` is the file that tracks it, and does so correctly on the
+same tree. Second, `MatrixRepCompat` has since acquired its own `ℓ = 3` layer
+(`EllipticCurves.TateModule.MatrixRepCompatThree`, over the `ℓ`-generic
+`EllipticCurves.TateModule.PrimaryMatrixRepCompat`), so the exception is retired rather than
+re-trimmed.
 *A true scoped claim becomes a false claim when the scope is dropped and the numeral is kept.*
 ⚠️ **This sentence used to list
 "the determinant and trace characters", "the conjugation law" and "continuity" among what remained

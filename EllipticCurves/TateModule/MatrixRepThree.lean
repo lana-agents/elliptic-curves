@@ -44,12 +44,14 @@ exist and are consumed 100+ times.** `galoisRepMatrixTwo`, `matrixAutEquivTwo` a
 matching spellings would put the two primes on different footings for every downstream file that
 extends by pattern. ⚠️ The parenthetical this sentence used to carry — *"`MatrixRepBasisChange`,
 `MatrixContinuity`, `Determinant`, `MatrixRepCompat` are all `ℓ = 2` only today"* — has since
-gone false in three of its four entries: `Determinant`'s twin is
+gone false in all four of its entries: `Determinant`'s twin is
 `EllipticCurves.TateModule.DeterminantThree`, `MatrixRepBasisChange`'s is
-`EllipticCurves.TateModule.MatrixRepBasisChangeThree`, and `MatrixContinuity`'s is
-`EllipticCurves.TateModule.MatrixContinuityThree` — all three over `ℓ`-generic files that import
-this one. ⚠️ `MatrixRepCompat` is the last of the four still `ℓ = 2` only, and it is a separate
-follow-up.
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree`, `MatrixContinuity`'s is
+`EllipticCurves.TateModule.MatrixContinuityThree`, and `MatrixRepCompat`'s is
+`EllipticCurves.TateModule.MatrixRepCompatThree` — all four over `ℓ`-generic files that import
+this one. ⚠️ The clause that used to close this paragraph — *"`MatrixRepCompat` is the last of the
+four still `ℓ = 2` only, and it is a separate follow-up"* — was true when it was written and is
+now false: it **was** that follow-up.
 
 Each `Three` definition is *definitionally* its generic form, so a consumer may use either
 spelling and the generic lemmas apply to both. ⚠️ There is deliberately **no**

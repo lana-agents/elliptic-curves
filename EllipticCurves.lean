@@ -288,6 +288,7 @@ import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.MatrixRepBasisChange
 import EllipticCurves.TateModule.MatrixRepBasisChangeThree
 import EllipticCurves.TateModule.MatrixRepCompat
+import EllipticCurves.TateModule.MatrixRepCompatThree
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.PadicInverseLimit
@@ -297,6 +298,7 @@ import EllipticCurves.TateModule.PrimaryImage
 import EllipticCurves.TateModule.PrimaryMatrixContinuity
 import EllipticCurves.TateModule.PrimaryMatrixRep
 import EllipticCurves.TateModule.PrimaryMatrixRepBasisChange
+import EllipticCurves.TateModule.PrimaryMatrixRepCompat
 import EllipticCurves.TateModule.Profinite
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.CoordinateRingDedekind
