@@ -105,14 +105,19 @@ missing at `ℓ = 3` is only that `galoisDetThree` is not stated below"*, is now
 with them.
 
 ⚠️ Nothing is missing at `ℓ = 3` for the determinant and trace *themselves*; what remains `ℓ = 2`
-only is the image (`EllipticCurves.TateModule.Image`,
-`EllipticCurves.TateModule.ImageProfinite`), and it is a separate follow-up that nothing gates.
-⚠️ This list used to include two more entries and no longer does. *"The basis-change conjugation
+only is the profinite packaging of the image
+(`EllipticCurves.TateModule.ImageProfinite`), and it is a separate follow-up that nothing gates.
+⚠️ This list used to include three more entries and no longer does. *"The basis-change conjugation
 law (`EllipticCurves.TateModule.MatrixRepBasisChange`)"* is stated at every prime in
 `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`; *"continuity
 (`EllipticCurves.TateModule.MatrixContinuity`)"* is stated at every prime in
 `EllipticCurves.TateModule.PrimaryMatrixContinuity`, with an `ℓ = 3` layer in
-`EllipticCurves.TateModule.MatrixContinuityThree`. At `ℓ ≥ 5` surjectivity is
+`EllipticCurves.TateModule.MatrixContinuityThree`; and *"`EllipticCurves.TateModule.Image`"* is
+stated at every prime in `EllipticCurves.TateModule.PrimaryImage`, with an `ℓ = 3` layer in
+`EllipticCurves.TateModule.ImageThree` — `isClosed_range_galoisDetThree` is there. ⚠️ **That last
+one is not progress towards the cyclotomic-character identification**, which is what this file's
+reader will hope: knowing the image of a character is closed says nothing about which character it
+is. At `ℓ ≥ 5` surjectivity is
 genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, so the
 first clause still stands verbatim there.
 
