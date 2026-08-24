@@ -107,8 +107,13 @@ satisfiable, are certified in the `Nonvacuity` section at the end of this file.
 ## Main statements
 
 * `WeierstrassCurve.Affine.tateModule.proj_three_surjective`: `proj k : T₃E →+ E[3^k]` is onto.
-* `WeierstrassCurve.Affine.tateModule.infinite_tateModule_three` and
-  `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_three`: `T₃E` is not the zero module.
+* `WeierstrassCurve.Affine.tateModule.infinite_tateModule_three`,
+  `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_three` and
+  `WeierstrassCurve.Affine.tateModule.exists_ne_zero_tateModule_three`: `T₃E` is not the zero
+  module. ⚠️ These **three** rows, together with `proj_three_surjective`, are the **four** twins of
+  the four `…_two` rows in `EllipticCurves.TateModule.LevelStructure`'s `section Two`, held here
+  rather than there because that file may not import
+  `EllipticCurves.Torsion.ThreePrimaryBasis`.
 * `WeierstrassCurve.Affine.tateModule.nonempty_tateModuleEquivProd_three`:
   `Nonempty (T₃E ≃ₗ[ℤ_[3]] ℤ_[3] × ℤ_[3])`.
 * `WeierstrassCurve.Affine.tateModule.free_tateModule_three`: `Module.Free ℤ_[3] T₃E`.
@@ -156,6 +161,27 @@ theorem nontrivial_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Nontrivial (W.tateModule 3) :=
   nontrivial_tateModule_of_card (by norm_num) (proj_three_surjective h2)
     (card_torsion_three_pow_mul_self h2 h3)
+
+/-- **`T₃E` has a nonzero element.** The unbundled form of `nontrivial_tateModule_three`, and the
+twin of `exists_ne_zero_tateModule_two` (`EllipticCurves.TateModule.LevelStructure`).
+
+⚠️ It is here and not beside its `ℓ = 2` original because the `ℓ = 3` layer needs
+`EllipticCurves.Torsion.ThreePrimaryBasis`, which `LevelStructure.lean` deliberately does not
+import. *The three declarations around it were already split the same way; this is the fourth and
+it completes the group.* -/
+theorem exists_ne_zero_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    ∃ f : W.tateModule 3, f ≠ 0 :=
+  haveI := nontrivial_tateModule_three (W := W) h2 h3
+  exists_ne 0
+
+/-- ⚠️ **The `ℓ = 3` reading of `quotientProjEquiv`**, which is what generalising that unsuffixed
+declaration bought. `T₃E / 3^k T₃E ≃+ E[3^k]`, with no `…Three` name and no restatement: the
+generic form takes the surjectivity witness directly, and `nsmul_three_surjective` supplies it from
+`h2` alone. ⚠️ **No `h3`** — this is a level statement, not a counting one. Recorded as an
+`example` because a named twin would collide with the unsuffixed original. -/
+noncomputable example (h2 : (2 : F) ≠ 0) (k : ℕ) :
+    (W.tateModule 3 ⧸ (proj (W := W) (ℓ := 3) k).ker) ≃+ W.torsion (3 ^ k) :=
+  quotientProjEquiv (nsmul_three_surjective h2) k
 
 /-! ### `T₃E ≅ ℤ₃²` -/
 
@@ -280,6 +306,12 @@ open Classical in
 level projections and `#E[3^k] = 9^k` without ever mentioning the equivalence. -/
 example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
   infinite_tateModule_three exampleTwo exampleThree
+
+open Classical in
+/-- **The unbundled form is certified too**, by application rather than by `rfl`: on the same curve
+there is an actual nonzero element of `T₃E`, not merely a `Nontrivial` instance. -/
+example : ∃ f : (exampleCurveThree⁄exampleField).tateModule 3, f ≠ 0 :=
+  exists_ne_zero_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity
 

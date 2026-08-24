@@ -41,10 +41,24 @@ statement here with a real input, and its two inputs enter through different doo
 
 * `ker_galoisRepMatrix` (`EllipticCurves.TateModule.Kernel`) is unconditional and is stated at an
   arbitrary prime, so it applies to `galoisRepMatrixThree` — which is *definitionally*
-  `galoisRepMatrix` at `ℓ = 3` — with no restatement. ⚠️ There is deliberately no
+  `galoisRepMatrix` at `ℓ = 3` — with no restatement. ⚠️ **The clause this bullet used to carry has
+  gone false and its policy was reversed deliberately.** It read *"There is deliberately no
   `ker_galoisRepMatrixThree`; the proof below exhibits the generic lemma being used at `ℓ = 3`
   directly, which is the whole reason `EllipticCurves.TateModule.MatrixRepThree` declines to make
-  `Three` twins of already-generic *theorems*.
+  `Three` twins of already-generic theorems."* `WeierstrassCurve.Affine.ker_galoisRepMatrixThree`
+  now exists, in `EllipticCurves.TateModule.Kernel` beside its `ℓ = 2` twin. ⚠️ **The reason is the
+  proof below**: `isClosed_ker_galoisRepMatrixTwo` closes with `rw [ker_galoisRepMatrixTwo b]`,
+  while this file has to open with a `have hker := ker_galoisRepMatrix b` first, because `rw` cannot
+  see through the definitional equality that makes the generic lemma apply. *Definitional
+  applicability is not the same as being usable by `rw`, so declining the named twin does not save
+  work — it moves the work to every consumer at the un-named prime.* The `ℓ = 2` named theorems
+  predate the question and cannot be removed, so this is the same exception
+  `EllipticCurves.TateModule.MatrixRepThree` already makes for generic *definitions*, applied to
+  theorems for the same stated reason.
+* ⚠️ **The proof below is nonetheless left using the generic lemma**, not rewritten to
+  `rw [ker_galoisRepMatrixThree b]`, so that this file still exhibits the generic route being used
+  at `ℓ = 3` directly — and because rewriting it would invalidate the pasted deletion-test residual
+  below, in which `hker` appears. Either form works now; that is the point.
 * `isClosed_ker_galoisRepThree` (`EllipticCurves.TateModule.OpenKernel`) needs `h2` for the level
   filtration, through `nsmul_three_surjective`, and `h3` for the openness of each level kernel,
   through `finite_torsion_three_pow`. Its `ℓ = 2` twin needs only `h2` because at `ℓ = 2` both

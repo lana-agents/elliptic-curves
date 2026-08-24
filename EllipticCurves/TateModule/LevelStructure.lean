@@ -34,7 +34,9 @@ Over an algebraically closed field with `2 ≠ 0`, `nsmul_two_surjective` discha
 so `proj k : T_2 E →+ E[2^k]` is surjective for every `k`. Combined with the kernel computation this
 gives `T_2 E / 2^k T_2 E ≃+ E[2^k]`, and combined with `#E[2^k] = 4^k`
 (`EllipticCurves.Torsion.TwoPrimary`) it shows `T_2 E` is infinite. No hypothesis on `(3 : F)` is
-used.
+used — ⚠️ **and that sentence is about this layer only**: at `ℓ = 3`, `nsmul_three_surjective`
+likewise needs `(2 : F) ≠ 0` alone, and `(3 : F) ≠ 0` enters only through the *count*
+`#E[3^k] = 9^k`. `EllipticCurves.TateModule.FreeThree` records that split.
 
 ⚠️ The clause this paragraph used to carry — *"The analogous statements for `ℓ ≠ 2` wait on
 surjectivity of `[ℓ]`"* — is false at `ℓ = 3`, and so is the reading of its continuation that made
@@ -45,6 +47,16 @@ instances of everything in this file exist. They are stated in
 `EllipticCurves.Torsion.ThreePrimary` into a file whose subject is the levelwise-generic structure
 of `T_ℓE`. For `ℓ ≥ 5` the original sentence stands verbatim: the general coordinate formula is
 still the gate.
+
+⚠️ **The quotient statement is no longer part of this layer.**
+`WeierstrassCurve.Affine.tateModule.quotientProjEquiv` is stated at an arbitrary `ℓ`, above the
+`ℓ = 2` section, and takes the surjectivity witness directly; the `ℓ = 2` reading is
+`quotientProjEquiv (nsmul_two_surjective h2) k` and the `ℓ = 3` reading is
+`quotientProjEquiv (nsmul_three_surjective h2) k`, certified as an `example` in
+`EllipticCurves.TateModule.FreeThree`. It is unsuffixed, so it was generalised in place rather than
+twinned: a second `quotientProjEquiv` would be a name collision. *Renaming it to
+`quotientProjEquivTwo` and adding a `…Three` would also have avoided the collision, and was
+rejected because it renames a public declaration to buy nothing the generic form does not.*
 
 ## What this file does *not* do
 
@@ -67,11 +79,19 @@ are the ambient input that construction consumes.
 * `WeierstrassCurve.Affine.tateModule.infinite_tateModule_of_card` and
   `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_of_card`: `T_ℓE` is not the zero
   module, given level surjectivity and the count `#E[ℓ^k] = ℓ^k · ℓ^k`.
+* `WeierstrassCurve.Affine.tateModule.quotientProjEquiv`: `T_ℓ E / ℓ^k T_ℓ E ≃+ E[ℓ^k]`, given
+  level surjectivity. ⚠️ **Stated at an arbitrary `ℓ`.** The clause this bullet used to carry —
+  which listed it among *"the `ℓ = 2` instance"* — is retired: the declaration is unsuffixed and
+  was hardcoded at `2`, so it was generalised in place rather than twinned.
 * `WeierstrassCurve.Affine.tateModule.proj_two_surjective`,
   `WeierstrassCurve.Affine.tateModule.infinite_tateModule_two`,
   `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_two`,
-  `WeierstrassCurve.Affine.tateModule.exists_ne_zero_tateModule_two`,
-  `WeierstrassCurve.Affine.tateModule.quotientProjEquiv`: the `ℓ = 2` instance.
+  `WeierstrassCurve.Affine.tateModule.exists_ne_zero_tateModule_two`: the `ℓ = 2` instance.
+  ⚠️ **Their `ℓ = 3` twins all exist and are in `EllipticCurves.TateModule.FreeThree`**, not here —
+  `proj_three_surjective`, `infinite_tateModule_three`, `nontrivial_tateModule_three` and
+  `exists_ne_zero_tateModule_three` — because that file may import
+  `EllipticCurves.Torsion.ThreePrimaryBasis` and this one deliberately may not. *That file is
+  downstream of this one, so the citation can only run in this direction.*
 
 `nontrivial_tateModule_two` is worth singling out: `EllipticCurves.TateModule.Basic` proves nothing
 that would distinguish `T_ℓ E` from the zero module, so it is the statement that certifies the
@@ -266,6 +286,25 @@ lemma exists_nsmul_pow_eq_of_proj_surjective {k : ℕ}
   obtain ⟨f, hf⟩ := h ⟨x, hx⟩
   exact ⟨(f : ℕ → W.Point) (k + m), (smul_pow_coe f k m).trans (congrArg Subtype.val hf)⟩
 
+/-- **`T_ℓ E / ℓ^k T_ℓ E ≃+ E[ℓ^k]`**: the level-`k` projection identifies the quotient of the Tate
+module by its `ℓ^k`-multiples with the `ℓ^k`-torsion. The kernel really is `ℓ^k · T_ℓ E` by
+`mem_ker_proj_iff`.
+
+⚠️ **This declaration is unsuffixed and was stated at `ℓ = 2`; it is generalised in place, with no
+`…Two` or `…Three` twin, because a second `WeierstrassCurve.Affine.tateModule.quotientProjEquiv`
+would be a name collision rather than a duplication.** It carried `(h2 : (2 : F) ≠ 0)`,
+`[IsAlgClosed F]` and `[W.IsElliptic]`, and needed none of the three: the proof is
+`QuotientAddGroup.quotientKerEquivOfSurjective`, which knows nothing about the prime, and the only
+`ℓ = 2`-specific input was the surjectivity witness. It now takes that witness directly, in the
+shape `proj_surjective` already uses, so at `ℓ = 2` read it as
+`quotientProjEquiv (nsmul_two_surjective h2) k` and at `ℓ = 3` as
+`quotientProjEquiv (nsmul_three_surjective h2) k`. ⚠️ *The generalisation was free here, but
+"unsuffixed" answers only whether a twin is legal — it does not say the statement is already
+generic, and this one was hardcoded at `2` in three places.* -/
+noncomputable def quotientProjEquiv (hℓ : Function.Surjective fun P : W.Point => ℓ • P) (k : ℕ) :
+    (W.tateModule ℓ ⧸ (proj (W := W) (ℓ := ℓ) k).ker) ≃+ W.torsion (ℓ ^ k) :=
+  QuotientAddGroup.quotientKerEquivOfSurjective _ (proj_surjective hℓ k)
+
 /-! ## Non-vacuity from a levelwise count -/
 
 /-- **`T_ℓE` is infinite** as soon as the level projections are surjective and the levels grow:
@@ -332,12 +371,19 @@ theorem exists_ne_zero_tateModule_two (h2 : (2 : F) ≠ 0) : ∃ f : W.tateModul
   haveI := nontrivial_tateModule_two (W := W) h2
   exists_ne 0
 
-/-- **`T_2 E / 2^k T_2 E ≃+ E[2^k]`**: the level-`k` projection identifies the quotient of the Tate
-module by its `2^k`-multiples with the `2^k`-torsion. The kernel really is `2^k · T_2 E` by
-`mem_ker_proj_iff`. -/
-noncomputable def quotientProjEquiv (h2 : (2 : F) ≠ 0) (k : ℕ) :
+/-! ⚠️ **`T_2 E / 2^k T_2 E ≃+ E[2^k]` is no longer stated here and has no `…Two` name.** It used
+to be `quotientProjEquiv (h2 : (2 : F) ≠ 0) (k : ℕ)`, in this section; that declaration was
+unsuffixed, so it was generalised in place rather than twinned and now lives above, taking the
+surjectivity witness directly. -/
+
+/-- ⚠️ **Nothing was lost at `ℓ = 2` when `quotientProjEquiv` was generalised**: its old conclusion
+is still derivable here, verbatim, by feeding it `nsmul_two_surjective`. Recorded as an `example`
+rather than as prose because *the build cannot otherwise tell a namespace-preserving generalisation
+from a silent deletion* — both are green, and both leave every existing consumer working, there
+being none. -/
+noncomputable example (h2 : (2 : F) ≠ 0) (k : ℕ) :
     (W.tateModule 2 ⧸ (proj (W := W) (ℓ := 2) k).ker) ≃+ W.torsion (2 ^ k) :=
-  QuotientAddGroup.quotientKerEquivOfSurjective _ (proj_two_surjective h2 k)
+  quotientProjEquiv (nsmul_two_surjective h2) k
 
 end Two
 

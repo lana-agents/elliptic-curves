@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.Determinant
+import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.Torsion.TriplingSurjective
 
@@ -70,9 +71,19 @@ Nothing here claims that `ρ_ℓ` is *injective* — that `ker ρ_ℓ` is trivia
 * `WeierstrassCurve.Affine.galoisRepThree_eq_one_iff` : the unconditional `ℓ = 3` form.
 * `WeierstrassCurve.Affine.ker_galoisRepMatrix` : the matrix representation has the same kernel as
   `galoisRep ℓ`, for *every* basis and at every prime, and
-  `WeierstrassCurve.Affine.galoisRepMatrix_eq_one_iff` reads it off;
-  `WeierstrassCurve.Affine.ker_galoisRepMatrixTwo` and
-  `WeierstrassCurve.Affine.galoisRepMatrixTwo_eq_one_iff` are the `ℓ = 2` names.
+  `WeierstrassCurve.Affine.galoisRepMatrix_eq_one_iff` reads it off.
+  ⚠️ **The clause this bullet used to end with is retired**: it read *"`ker_galoisRepMatrixTwo` and
+  `galoisRepMatrixTwo_eq_one_iff` are the `ℓ = 2` names"*, and named only one prime because only
+  one prime had them. Both do now —
+  `WeierstrassCurve.Affine.ker_galoisRepMatrixTwo` / `…galoisRepMatrixTwo_eq_one_iff` at `ℓ = 2`
+  and `WeierstrassCurve.Affine.ker_galoisRepMatrixThree` / `…galoisRepMatrixThree_eq_one_iff` at
+  `ℓ = 3`.
+* `WeierstrassCurve.Affine.galoisDetTwo_eq_one_of_mem_ker` and
+  `WeierstrassCurve.Affine.galoisTraceTwo_eq_two_of_mem_ker`, with their `ℓ = 3` twins
+  `WeierstrassCurve.Affine.galoisDetThree_eq_one_of_mem_ker` and
+  `WeierstrassCurve.Affine.galoisTraceThree_eq_two_of_mem_ker` : the invariants on the kernel.
+  ⚠️ **The trace rows are the only ones that distinguish `T_ℓE` from the zero module**, and the
+  `two` in both their names is the **rank**, not the prime.
 
 ## References
 
@@ -267,11 +278,40 @@ end Three
 
 /-! ### The matrix representation
 
-⚠️ The two statements below are stated at an arbitrary prime and instantiated at `ℓ = 2`
-immediately after. They apply verbatim to `galoisRepMatrixThree`
-(`EllipticCurves.TateModule.MatrixRepThree`), which is *definitionally* `galoisRepMatrix` at
-`ℓ = 3`, so there are deliberately no `_three` restatements of them anywhere in this development.
--/
+⚠️ **The generic statements below need no per-prime restatement and get none**: they are stated at
+an arbitrary prime, and `galoisRepMatrixThree` (`EllipticCurves.TateModule.MatrixRepThree`) is
+*definitionally* `galoisRepMatrix` at `ℓ = 3`, so they apply to it verbatim.
+
+⚠️ **The clause this paragraph used to end with was about the wrong thing and is retired.** It read
+*"so there are deliberately no `_three` restatements of them anywhere in this development"* — which
+was a claim about the **named** `ℓ = 3` forms, not about the generic ones, and it was already
+contradicted, in the `MatrixTwo` section of this same file, by `ker_galoisRepMatrixTwo` and
+`galoisRepMatrixTwo_eq_one_iff`.
+**Both primes now carry the named forms**, per
+`EllipticCurves.TateModule.MatrixRepThree`'s settled rule that leaving `ℓ = 3` without the matching
+spellings puts the two primes on different footings for every downstream file that extends by
+pattern.
+
+⚠️ **That cost was already paid once, and it is measurable.** `isClosed_ker_galoisRepMatrixTwo`
+(`EllipticCurves.TateModule.MatrixRepBasisChange`) closes with `rw [ker_galoisRepMatrixTwo b]`;
+its twin `isClosed_ker_galoisRepMatrixThree`
+(`EllipticCurves.TateModule.MatrixRepBasisChangeThree`) has to open with a
+`have hker : … := ker_galoisRepMatrix b` first, **because `rw` cannot see through the definitional
+equality that makes the generic statement apply.** *Definitional applicability is not the same as
+being usable by `rw`, and a policy that conflates them exports work to every consumer at the
+un-named prime.*
+
+⚠️ **This reverses a policy stated in a second file, and that file records the reversal.**
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree` said *"there is deliberately no
+`ker_galoisRepMatrixThree` … which is the whole reason
+`EllipticCurves.TateModule.MatrixRepThree` declines to make `Three` twins of already-generic
+theorems"*. The exception `EllipticCurves.TateModule.MatrixRepThree` states for generic
+*definitions* — *"their `ℓ = 2` twins already exist and cannot be removed; leaving `ℓ = 3` without
+the matching spellings would put the two primes on different footings for every downstream file
+that extends by pattern"* — applies verbatim to these two theorems, whose `ℓ = 2` named forms are
+in the `MatrixTwo` section immediately below this paragraph. **The general rule is unchanged: a
+twin of an already-generic statement is duplication *unless the other prime already has the named
+form*.** -/
 
 variable {ℓ : ℕ} [Fact ℓ.Prime]
 
@@ -296,6 +336,8 @@ theorem galoisRepMatrix_eq_one_iff (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F)
     (hℓ : Function.Surjective fun P : (W'⁄F).Point => ℓ • P) (σ : F ≃ₐ[S] F) :
     galoisRepMatrix b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (ℓ ^ k)), σ • P = P := by
   rw [← MonoidHom.mem_ker, ker_galoisRepMatrix, MonoidHom.mem_ker, galoisRep_eq_one_iff ℓ hℓ]
+
+section MatrixTwo
 
 variable (b : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
 
@@ -332,5 +374,207 @@ theorem galoisTraceTwo_eq_two_of_mem_ker [IsAlgClosed F] [(W'⁄F).IsElliptic] (
     rw [MonoidHom.mem_ker.mp hσ, map_one]
   rw [h1]
   exact galoisTraceTwo_one (W' := W') (F := F) h2
+
+end MatrixTwo
+
+/-! ### The matrix representation at `ℓ = 3`
+
+⚠️ **The hypotheses are NOT uniform across the four rows and the asymmetry is the content.** Three
+of them carry `h2` alone; only `galoisTraceThree_eq_two_of_mem_ker` carries `h3` as well. The
+reason is the one the `§ The unconditional ℓ = 3 layer` heading above gives:
+`nsmul_three_surjective` needs `(2 : F) ≠ 0` alone, and `(3 : F) ≠ 0` enters the `ℓ = 3` story only
+through the *counting* theorem `card_torsion_three_pow` — which `galoisTraceThree_one` goes through
+and nothing else here does. ⚠️ *Do not infer the split from the `ℓ = 2` rows by symmetry; at `ℓ = 2`
+the two doors open with the same key and here they do not.*
+
+⚠️ **`galoisTraceThree_eq_two_of_mem_ker` is spelled with `_two`, and that is not a typo.** The
+first `Three` is the **prime**; the `two` is the **value** `2 = Module.finrank ℤ_[3] (T₃E)
+= tr(I₂)`, which is `2` at every prime. A mechanical `Two → Three` rename of the `ℓ = 2` row
+produces `…_eq_three_of_mem_ker`, whose statement is **false**. *A name is not a substitution
+target just because it contains a numeral; read what each numeral denotes.* -/
+
+section MatrixThree
+
+variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
+variable (b : Module.Basis (Fin 2) ℤ_[3] ((W'⁄F).tateModule 3))
+
+omit [IsAlgClosed F] [(W'⁄F).IsElliptic] in
+/-- **The matrix representation has the same kernel as `galoisRep 3`, in every basis.**
+`ker_galoisRepMatrix` at `ℓ = 3`, and unconditional exactly as at `ℓ = 2`.
+
+⚠️ The generic statement already applies to `galoisRepMatrixThree` definitionally; this named form
+exists so that `rw` can use it, which is the thing definitional applicability does not give — see
+the section heading above for the consumer that paid for its absence. -/
+theorem ker_galoisRepMatrixThree :
+    (galoisRepMatrixThree b).ker = (galoisRep (W' := W') (F := F) 3).ker :=
+  ker_galoisRepMatrix b
+
+/-- **`ρ_{E,3}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `3`-power
+torsion point.** The headline reading of the level filtration at `ℓ = 3`.
+
+⚠️ **`h2` alone**, with no `h3`: the hypothesis is `galoisRepMatrix_eq_one_iff`'s, namely
+`[3]`-surjectivity on `E(F̄)`, and `nsmul_three_surjective` supplies that from `(2 : F) ≠ 0`. -/
+theorem galoisRepMatrixThree_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
+    galoisRepMatrixThree b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (3 ^ k)), σ • P = P :=
+  galoisRepMatrix_eq_one_iff b (nsmul_three_surjective h2) σ
+
+omit [IsAlgClosed F] [(W'⁄F).IsElliptic] in
+/-- On `ker ρ_{E,3}` the determinant character is trivial.
+
+⚠️ **This is not progress towards `det ρ_{E,3} = χ_3`.** Every character is trivial on the kernel
+of the representation it is built from; the `3`-adic identification needs the Weil pairing on
+`E[3^k]` for *every* `k`, i.e. the `ωₙ` crux. The **mod-`3`** identity is a different statement
+about a different object and is
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`. -/
+theorem galoisDetThree_eq_one_of_mem_ker {σ : F ≃ₐ[S] F}
+    (hσ : σ ∈ (galoisRep (W' := W') (F := F) 3).ker) :
+    galoisDetThree (W' := W') (F := F) σ = 1 := by
+  rw [galoisDetThree_apply, MonoidHom.mem_ker.mp hσ, map_one]
+
+/-- On `ker ρ_{E,3}` the trace character takes the value `2`, **not** `0` and **not** `3`.
+
+This is the discriminating statement of the `ℓ = 3` layer, for the same reason its `ℓ = 2` twin is
+the discriminating statement of the file: `LinearMap.trace` is defined to be `0` on a module that is
+not free and finite, so every kernel identity above survives `T₃E = 0` intact and this one does not.
+The value `2` is `Module.finrank ℤ_[3] (T₃E)` and is available only because `T₃E` really is free of
+rank `2`, which is why `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` are
+carried rather than dropped.
+
+⚠️ **The `2` in the name is the rank, not the prime**, and this is the only row in the section that
+needs `h3` — it reaches the count `#E[3] = 9` through `galoisTraceThree_one`.
+
+⚠️ **Deletion test**, measured on this file as committed. Deleting `(h3 : (3 : F) ≠ 0)` from the
+signature and replacing `h3` by a hole — `refine galoisTraceThree_one (W' := W') (F := F) h2 ?_` —
+leaves, copy-paste:
+
+```
+error: unsolved goals
+S : Type u_1
+F : Type u_2
+inst✝⁵ : Field S
+inst✝⁴ : Field F
+inst✝³ : DecidableEq F
+inst✝² : Algebra S F
+W' : Affine S
+inst✝¹ : IsAlgClosed F
+inst✝ : WeierstrassCurve.IsElliptic W'⁄F
+h2 : 2 ≠ 0
+σ : Gal(F/S)
+hσ : σ ∈ (galoisRep 3).ker
+h1 : galoisTraceThree σ = galoisTraceThree 1
+⊢ 3 ≠ 0
+```
+
+⚠️ `h2` and `h1` both **survive** and the residual is a **goal**, which no type mismatch could
+produce. It is exactly the counting input, so the test *localises* `h3` to `#E[3] = 9` and confirms
+that the lifting step is `h3`-free. One mechanical edit accompanies it and adds no information
+(`exact` becomes `refine … ?_`).
+
+⚠️ **There IS a knock-on and it is disclosed**: the load-bearing `#916` certificate below consumes
+this theorem by application, so with the hypothesis deleted it reports a further
+`Function expected at galoisTraceThree_eq_two_of_mem_ker exampleTwo ?m` and an
+`Application type mismatch` on `exampleThree`. **That is not part of the test** — it is the
+certificate doing its job, and a deletion test that produced *no* knock-on here would mean the
+certificate was not consuming the declaration it certifies.
+
+⚠️ Two further notes, because *"character-for-character"* is this board's standard and two lines of
+this paste cannot meet it from the file as committed. The `file:line:col` header drifts when the
+docstring itself is added. And the section variable `b` is **absent** from the context above even
+though it is in scope: it is an *explicit* section variable, so Lean includes it only in
+declarations that mention it, and this one does not. *An explicit section variable that does not
+appear in the residual has not been dropped; it was never added.* -/
+theorem galoisTraceThree_eq_two_of_mem_ker (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    {σ : F ≃ₐ[S] F} (hσ : σ ∈ (galoisRep (W' := W') (F := F) 3).ker) :
+    galoisTraceThree (W' := W') (F := F) σ = 2 := by
+  have h1 : galoisTraceThree (W' := W') (F := F) σ = galoisTraceThree (W' := W') (F := F) 1 := by
+    unfold galoisTraceThree galoisTrace
+    rw [MonoidHom.mem_ker.mp hσ, map_one]
+  rw [h1]
+  exact galoisTraceThree_one (W' := W') (F := F) h2 h3
+
+end MatrixThree
+
+/-! ### Non-vacuity
+
+⚠️ **The risk in this file is specific and it is not the usual one.** Almost everything above
+survives `T₃E = 0` intact: `LinearMap.trace` is *defined* to be `0` on a module that is not free and
+finite, `galoisRep` on the zero module is trivial, and every kernel identity then holds for free.
+The single statement falsified by `T₃E = 0` is `galoisTraceThree_eq_two_of_mem_ker`, whose value
+`2` is `Module.finrank ℤ_[3] (T₃E)`. (Its `ℓ = 2` twin is falsified by `T₂E = 0` for the same
+reason; the count of one here is a count *at this prime*.)
+
+⚠️ **So a certificate that only exhibits a curve satisfying the hypotheses would certify nothing
+here; the load-bearing one has to consume the trace row.**
+
+⚠️ Neither `[Algebra.IsIntegral S F]` nor `[IsGalois S F]` appears in this file's `variable` block
+or in any statement above, so — unlike `EllipticCurves.TateModule.ImageThree` and
+`EllipticCurves.TateModule.ImageProfiniteThree` — no `ℚ`-algebra instance workaround is needed here
+at all, by either the `haveI` or the `attribute [local instance]` route. **Checked against the
+`variable` block, not assumed from the neighbouring files.** `open Classical in` *is* load-bearing:
+`exampleField` is `AlgebraicClosure ℚ`, which carries no `DecidableEq`.
+
+⚠️ Several `TateModule` files carry `private` copies of the same curve; this one is a duplicate by
+necessity rather than by oversight. -/
+
+section Nonvacuity
+
+/-- The curve `y² + y = x³` over `ℚ`, this development's standard `n = 3` certificate curve. -/
+private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+
+/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
+private abbrev exampleField : Type := AlgebraicClosure ℚ
+
+private instance : exampleCurveThree.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+/-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
+bare `inferInstance` from `[W.IsElliptic]`. -/
+private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
+  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+
+private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+
+private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+
+open Classical in
+/-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
+absolute Galois group is not trivial, the two invariants really do take the values claimed on
+`ker ρ_{E,3}` — and the trace really is `2`, which is the one statement at `ℓ = 3` in this file
+that a zero Tate module would falsify.
+
+It closes by **application** of `galoisTraceThree_eq_two_of_mem_ker` and
+`galoisDetThree_eq_one_of_mem_ker`, not by `rfl`, `decide` or `norm_num`, so it consumes the
+declarations it certifies. -/
+example : ∀ σ ∈ (galoisRep (W' := exampleCurveThree) (F := exampleField) 3).ker,
+    galoisTraceThree (W' := exampleCurveThree) (F := exampleField) σ = 2 ∧
+      galoisDetThree (W' := exampleCurveThree) (F := exampleField) σ = 1 :=
+  fun _ hσ => ⟨galoisTraceThree_eq_two_of_mem_ker exampleTwo exampleThree hσ,
+    galoisDetThree_eq_one_of_mem_ker hσ⟩
+
+open Classical in
+/-- **The matrix rows are certified on the same curve**, with the basis **existentially quantified
+inside the statement** rather than taken as an argument, so this does not certify a family that
+might be empty. Closes by application of `ker_galoisRepMatrixThree` and
+`galoisRepMatrixThree_eq_one_iff`. -/
+example : ∃ b : Module.Basis (Fin 2) ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3),
+    (galoisRepMatrixThree b).ker
+        = (galoisRep (W' := exampleCurveThree) (F := exampleField) 3).ker ∧
+      ∀ σ : exampleField ≃ₐ[ℚ] exampleField, galoisRepMatrixThree b σ = 1 ↔
+        ∀ (k : ℕ) (P : (exampleCurveThree⁄exampleField).torsion (3 ^ k)), σ • P = P := by
+  obtain ⟨b⟩ := tateModule.nonempty_basis_tateModule_three
+    (W := exampleCurveThree⁄exampleField) exampleTwo exampleThree
+  exact ⟨b, ker_galoisRepMatrixThree b, galoisRepMatrixThree_eq_one_iff b exampleTwo⟩
+
+open Classical in
+/-- **The module the representation acts on is not the zero module**, on the same curve, by a route
+that never mentions kernels or matrices: `T₃E` surjects onto `E[3^k]`, which has `9^k` elements.
+Without this the trace certificate above would be an assertion about `LinearMap.trace`'s default
+value on a degenerate module. -/
+example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+  tateModule.infinite_tateModule_three exampleTwo exampleThree
+
+end Nonvacuity
 
 end WeierstrassCurve.Affine
