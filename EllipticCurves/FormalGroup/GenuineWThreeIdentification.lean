@@ -22,8 +22,12 @@ This file proves, unconditionally over every `CommRing R`, the identity
 `HahnSeries.embedDoubleLaurent (W.formalW.subst W.formalGroupZW) = W.formalWThree`,
 
 i.e. the Laurent image of the sum-point `w`-series `w ∘ F_E` equals the transported third
-`w`-coordinate `W₃ = -y₃⁻¹`.  This is the single remaining identity of the Laurent route to the
+`w`-coordinate `W₃ = -y₃⁻¹`.  This was the single remaining identity of the Laurent route to the
 invariant-differential invariance `(★)` (issue #315), and the sole gate on the formal-group cascade.
+⚠️ **That gate is this file, and it is paid**: with `hdiff` (#338, `VietaDifferential`) the theorem
+below closes `(★)` in `EllipticCurves.FormalGroup.LogAdditivityUnconditional`, hence #315, hence
+#319, hence `WeierstrassCurve.formalGroup : FormalGroup R` over an arbitrary `CommRing R`
+(`EllipticCurves.FormalGroup.GroupLawBundleGeneral`, #263).  **The cascade is no longer gated.**
 
 ## Strategy
 

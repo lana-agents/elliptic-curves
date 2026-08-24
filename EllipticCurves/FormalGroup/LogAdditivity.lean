@@ -350,7 +350,11 @@ Assuming `(★)` in the form `(ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)`
 series is `pderivSnd` transported through the currying iso (`curry_pderivSnd`), and
 `pderivSnd_formalLogAdditivityDefect` evaluates it to `(ω_E ∘ F)·∂_{z₂}F − ω_E(z₂)`, which `(★)`
 kills.  This is the calculus discharge of `hderiv`; the geometric identity `(★)` itself is the sole
-remaining input, to be supplied from the merged `(z, w)` structure. -/
+input this lemma still takes.  ⚠️ *"to be supplied from the merged `(z, w)` structure"* is retired:
+it **has** been supplied, unconditionally, as
+`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`
+(`EllipticCurves.FormalGroup.LogAdditivityUnconditional`).  `hstar` stays a hypothesis here because
+this lemma is stated at the reduction, not at the conclusion. -/
 theorem derivativeFun_curry_formalLogAdditivityDefect_of_star [Algebra ℚ R]
     (hstar : W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
       = W.invariantDifferential.subst (X 1)) :
@@ -364,8 +368,14 @@ all the analytic rigidity and the `z₂`-calculus have been discharged:
 * the **identity axiom** `hF : F(z₁, 0) = z₁` (`finTwoEvalSndZero F = X`), and
 * the **invariant-differential invariance** `hstar : (ω_E ∘ F)·∂_{z₂}F = ω_E(z₂)` (the crux `(★)`).
 
-These two are the sole remaining content of `#315`; each is to be supplied from the merged
-`(z, w)` formal-group structure. -/
+These two are the sole hypotheses this lemma takes.  ⚠️ The clause it used to carry — *"These two
+are the sole remaining content of `#315`; each is to be supplied from the merged `(z, w)`
+formal-group structure"* — is retired: **`#315` has no remaining content.**  `hF` is
+`WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`'s `z₂ = 0` slice
+(`EllipticCurves.FormalGroup.GenuineLawTransfer`, #310) and `hstar` is
+`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`; feeding both into this
+very lemma is what `EllipticCurves.FormalGroup.LogAdditivityUnconditional` does to obtain the
+unconditional `formalLog_subst_formalGroupZW`. -/
 theorem formalLog_subst_formalGroupZW_of_identity_star [Algebra ℚ R]
     (hF : MvPowerSeries.finTwoEvalSndZero W.formalGroupZW = PowerSeries.X)
     (hstar : W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
