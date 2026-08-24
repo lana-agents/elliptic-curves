@@ -53,10 +53,18 @@ Together, `exists_smul_eq_zsmul_add_zsmul_and_det_three_eq` says of an **arbitra
 `det ρ_{E,3} = χ_3` with nothing left assumed.
 
 ⚠️ **What is not delivered is the bundling, not the content.**  Writing the conclusion as an
-equation between `LinearEquiv.det ∘ ρ_{E,3}` and `χ_3` needs a `Module (ZMod 3)` structure on `E[3]`
-and a `Basis` for it; `nonempty_torsionThree_addEquiv` supplies an `≃+` and not that.  A reader
-should not conclude from the absence of `LinearMap.det` below that the identification is
-unavailable — it is here, in coordinates.
+equation between `LinearEquiv.det ∘ ρ_{E,3}` and `χ_3` needs `E[3]` presented as a `ZMod 3`-module,
+with a determinant character built on it.  ⚠️ This paragraph originally added that it needs a
+`Basis` as well, and that `nonempty_torsionThree_addEquiv` "supplies an `≃+` and not that"; the
+first clause was wrong — `LinearEquiv.det` is basis-free — and the second, though true of
+`nonempty_torsionThree_addEquiv`, was read as saying the module structure is unavailable, and it is
+not.  `EllipticCurves.TateModule.DeterminantMod` (`#956`) supplies both halves: `torsionZModModule`
+is `AddCommGroup.zmodModule` applied to `nsmul_mem_torsion`, with no hypothesis at all, and
+`galoisDetMod 3 : G →* (ZMod 3)ˣ` is the bundled character, defined with no basis.  ⚠️ What is
+still undelivered is therefore *only* the identity `galoisDetMod 3 = χ_3` between that character
+and this file's coordinate statement, which neither file proves.  A reader should not conclude from
+the absence of `LinearMap.det` below that the identification is unavailable — it is here, in
+coordinates.
 
 ## ⚠️ `n = 2` is NOT the empty mirror it was in `#948`
 
