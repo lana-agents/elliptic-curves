@@ -17,9 +17,10 @@ import EllipticCurves.FunctionField.WeilPairingFunctionThree
 weilPairingTwo   : E[2] → E[2] → μ_2(F̄),      weilPairingThree : E[3] → E[3] → μ_3(F̄)
 ```
 
-and bundled each as a `MonoidHom` into a `MonoidHom` with `MonoidHom.ker _ = ⊥`.  That kernel
-statement says the **outer** slot is faithful: `S ↦ e_n(S, ·)` is injective.  This file adds the two
-things a reader reaches for next and which no file in the tree stated.
+and bundled each as `weilPairing{Two,Three}Hom`, a `MonoidHom` into a `MonoidHom`, with
+`MonoidHom.ker _ = ⊥`.  That kernel statement says the **outer** slot is faithful: `S ↦ e_n(S, ·)`
+is injective.  This file adds the two things a reader reaches for next and which no file in the
+tree stated.
 
 * **Surjectivity.** For `S ≠ 0` the map `T ↦ e_n(S, T)` is onto `μ_n(F̄)` — the pairing takes
   *every* `n`-th root of unity as a value, not merely some value `≠ 1`.
@@ -60,6 +61,9 @@ non-degeneracy.
   namespace.
 * `MonoidHom.surjective_of_ne_one_of_natCard_prime` — a nontrivial hom into a group of prime order
   is onto; a statement about groups, in the root namespace.
+* `WeierstrassCurve.Affine.weilPairingTwoHom_apply_ne_one`, `…weilPairingThreeHom_apply_ne_one` —
+  the slot map is nontrivial at a nonzero point; the only thing surjectivity takes from the merged
+  kernel statement.
 * `WeierstrassCurve.Affine.weilPairingTwo_surjective`, `…weilPairingThree_surjective`.
 * `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingTwo_eq_one'`, `…Three…`.
 * `WeierstrassCurve.Affine.ker_weilPairingTwoHom_flip`, `…Three…`.
@@ -94,13 +98,15 @@ upstream in Mathlib rather than here.
 
 /-- **`μ_n(F)` has exactly `n` elements** when `F` is algebraically closed and `n` is invertible in
 `F`.  ⚠️ The hypothesis `(n : F) ≠ 0` is literally the `h2` / `h3` this front already carries, so no
-new hypothesis appears at any call site.
+new hypothesis appears at any call site — and it is the *only* hypothesis: `NeZero n` follows from
+it rather than being asked for.
 
 A statement about a field and nothing else; it belongs in Mathlib beside
 `HasEnoughRootsOfUnity.natCard_rootsOfUnity`, which is its whole proof once the `NeZero` instance is
 supplied. -/
-theorem natCard_rootsOfUnity_of_ne_zero {F : Type*} [Field F] [IsAlgClosed F] {n : ℕ} [NeZero n]
+theorem natCard_rootsOfUnity_of_ne_zero {F : Type*} [Field F] [IsAlgClosed F] {n : ℕ}
     (hn : (n : F) ≠ 0) : Nat.card (rootsOfUnity n F) = n := by
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   haveI : NeZero ((n : ℕ) : F) := ⟨hn⟩
   exact HasEnoughRootsOfUnity.natCard_rootsOfUnity F n
 
