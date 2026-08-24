@@ -331,24 +331,32 @@ namespace with its base's.  ⚠️ Handle **both** suffix spellings — `X_of_hp
 `[^\s:({\[]+` for the name, never `[A-Za-z_]\w*`, for the truncation reason above.
 
 ⚠️ **The invariant is twin consistency, not a rule about the `exists_` prefix.**  The same stack
-walk finds **nineteen** `exists_` declarations inside `namespace CoordinateRing`, and they are there
-for two different reasons — which is why the count on its own settles nothing:
+walk finds **eleven** `exists_` declarations inside `namespace CoordinateRing`, and all eleven
+belong there on the merits.  Named, because a count on its own settles nothing and this paragraph
+has been wrong twice for exactly that reason:
 
-* **Eleven** are statements about the coordinate ring, its units and its places, and belong there on
-  the merits: `exists_eq_algebraMap_of_isUnit`, `exists_deg_eq`, `exists_deg_sub_lt`,
-  `exists_eq_algebraMap_of_deg_eq_zero`, `exists_leadingCoeff_ratio`,
-  `exists_equation_and_eq_XYIdeal_of_isMaximal`, `exists_algebraMap_of_pow_eq_one`,
-  `exists_generator_divisor_galois`, `exists_unit_galoisFunctionField_of_smul_pow` and the two
-  `exists_{scalar,unit}_galoisFunctionField_of_divisor_eq`.
-* **Eight** are rung-6 *headlines*: `exists_weilPairing{Elt,Mu}_galois_{two,three}`
-  (`WeilPairingGaloisRoot`) and their `_of_hprin` twins (`WeilPairingGaloisRootHprin`, `#923`).
-  ⚠️ **On the house pattern all eight are out of place**; the `_of_hprin` four are there only
-  because their twins are, which keeps the mechanical check green at the cost of the convention.
-  Moving them is `#918`-shaped work with its own before/after `#print axioms` and `#check @f`
-  protocol, tracked as `#927`; if it has landed, this bullet is empty and the count above is
-  **eleven**.
+* the ring, its units and its places — `exists_eq_algebraMap_of_isUnit`, `exists_deg_eq`,
+  `exists_deg_sub_lt`, `exists_eq_algebraMap_of_deg_eq_zero`,
+  `exists_equation_and_eq_XYIdeal_of_isMaximal`, `exists_generator_divisor_galois`,
+  `exists_unit_galoisFunctionField_of_smul_pow` and the two
+  `exists_{scalar,unit}_galoisFunctionField_of_divisor_eq`;
+* `exists_algebraMap_of_pow_eq_one`, about the **function field** rather than the ring — an `n`-th
+  root of unity in `F(W)` is a constant — which sits here because `F(W)` is `F[W]`'s fraction
+  field, not because it is a ring statement;
+* `exists_leadingCoeff_ratio`, a `private` `F[X]` degree lemma feeding `exists_deg_sub_lt`, which
+  is a statement about neither.  ⚠️ It is in the count because the stack walk collects `private`
+  declarations too — worth knowing before comparing totals with an implementation that does not.
 
-⚠️ **This paragraph previously said "fifteen … correctly placed, because they are statements about
+⚠️ **It read nineteen until `#927`**, the extra eight being rung-6 *headlines* —
+`exists_weilPairing{Elt,Mu}_galois_{two,three}` (`WeilPairingGaloisRoot`) and their `_of_hprin`
+twins (`WeilPairingGaloisRootHprin`, `#923`) — which on the house pattern were all out of place, the
+`_of_hprin` four only because their twins were.  `#927` moved all eight up to `Affine` in one PR,
+which is the only way to move any of them: this check sees a twin *pair* straddling two namespaces,
+so moving one file's four alone takes it from 0 to 4.  ⚠️ **That is the shape of every fix to this
+particular defect — the mechanical invariant and the house pattern can each be satisfied alone, and
+only a simultaneous move satisfies both.**
+
+⚠️ **Before that, this paragraph said "fifteen … correctly placed, because they are statements about
 the coordinate ring and its places", and that was wrong before either of the two 2026-08-23 merges
 touched the tree** — the fifteen already included `WeilPairingGaloisRoot`'s four headlines, which
 are not such statements.  The error was to name four genuine examples and generalise them to the
@@ -362,7 +370,9 @@ can still be wrong** — `#918` moved four declarations where only two had a mis
 moving the two alone would have split `exists_weilPairingTorsionMuHom_two` from its `_ne_one`
 sibling, a defect one name over that the check does not see.  Reading the file is still what settles
 placement.  The check has found exactly one breach so far, `#873`'s bundled-hom pair against
-`#913`'s, repaired by `#918`, and reports **0** as of `#923`.
+`#913`'s, repaired by `#918`, and reports **0** as of `#927` — which was a placement fix that did
+*not* start from a breach: the eight it moved had matching twins throughout, and it is the
+`exists_`-in-`CoordinateRing` column, not the mismatch column, that flagged them.
 
 ## References
 
