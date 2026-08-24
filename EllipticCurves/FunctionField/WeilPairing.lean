@@ -249,6 +249,11 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   whose argument is *not* blocked at composite `n` a second time — Mathlib's finite-abelian duality
   is stated for an arbitrary finite abelian group, so unlike `#938`'s surjectivity it would
   transcribe to any `n` at which `weilPairingNHom` existed).
+* **the cyclotomic form of Galois-equivariance** — `weilPairingThree_galois_eq_pow`,
+  `e_3(σ • S, σ • T) = e_3(S, T) ^ χ_3(σ)`
+  (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`, `#944`; ⚠️ the `n = 2` twin of
+  this bullet is *degenerate* — `(ZMod 2)ˣ` is a subsingleton, so `e_2` is unconditionally
+  `Gal(F/S)`-invariant and only at `n = 3` does the character record anything).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
