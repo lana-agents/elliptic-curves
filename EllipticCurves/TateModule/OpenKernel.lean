@@ -5,6 +5,8 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Kernel
+import EllipticCurves.Torsion.Multiplicative
+import EllipticCurves.Torsion.ThreePrimary
 import EllipticCurves.Torsion.TwoPrimary
 import Mathlib.Topology.LocallyConstant.Basic
 
@@ -51,12 +53,22 @@ at the price of the coordinate formula at `n = 3` and of `(3 : F) ≠ 0`. It rem
 prime `ℓ ≥ 5`. Either way `isOpen_ker_galoisRepMod` carries finiteness as a hypothesis rather than
 assuming it away, so the general statement applies verbatim at each `ℓ` where it is discharged.
 
+⚠️ **That last sentence is now cashed rather than promised.** The `§ Every 3-smooth level` section
+below discharges the hypothesis at `3 ^ k` (`finite_torsion_three_pow`) and, more generally, at
+every `3`-smooth `n ≠ 0` (`finite_torsion_of_smooth`, `EllipticCurves.Torsion.Multiplicative`).
+Nothing new is proved there: each of the four statements is one application of a theorem in this
+file to a theorem in `EllipticCurves.Torsion`.
+
 ## What this file does not do
 
 It says nothing about the *Tate module* as a topological space: compactness and profiniteness of
 `T_ℓ E` are a separate matter, and this file neither needs them nor supplies them. It also does not
 claim `ker ρ_{E,2}` is open — it is not, in general — nor anything about the image of `ρ_ℓ`, whose
-openness would be a statement about `F / S` that nothing here bears on. Continuity of
+openness would be a statement about `F / S` that nothing here bears on. ⚠️ **That disclaimer covers
+the `3`-smooth statements below verbatim.** Openness of every *level* kernel is exactly what
+`ker ρ_ℓ = ⨅ k, ker (galoisRepMod (ℓ ^ k))` fails to inherit — an infinite intersection of open
+subgroups is closed and no more — so widening the set of levels at which the level kernels are known
+open moves `ker ρ_ℓ` not at all. Continuity of
 `galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` with its `2`-adic topology is not proved here either, but
 it *is* available — `continuous_galoisRepMatrixTwo` in
 `EllipticCurves.TateModule.MatrixContinuity`, for an arbitrary basis. An earlier version of this
@@ -84,8 +96,14 @@ constant sequence.
   `WeierstrassCurve.Affine.openSubgroupKerGaloisRepMod` : it is open when `E[n]` is finite.
 * `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod` : the mod-`n` representation is locally
   constant.
-* `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_two_pow` : unconditional at `ℓ = 2`.
+* `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_two_pow`,
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional at `ℓ = 2`.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepTwo` : `ker ρ_{E,2}` is closed.
+* `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_smooth`,
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_smooth` : the same at every `3`-smooth
+  `n ≠ 0`, over a field in which `2` and `3` are invertible and with **no `[IsAlgClosed F]`**.
+* `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_three_pow`,
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_three_pow` : the `ℓ = 3` layer.
 
 ## References
 
@@ -188,5 +206,138 @@ theorem isClosed_ker_galoisRepTwo (h2 : (2 : F) ≠ 0) :
     (finite_torsion_two_pow h2 k))
 
 end Two
+
+/-! ### Every `3`-smooth level, and no algebraic closure
+
+⚠️ The two `_smooth` statements below sit **outside** any `[IsAlgClosed F]` block, and that is a
+measurement rather than a preference: their finiteness input `finite_torsion_of_smooth`
+(`EllipticCurves.Torsion.Multiplicative`) descends from `#E[2] ≤ 4` and `#E[3] ≤ 9`, which are
+bounds over an arbitrary field. The `2 ^ k` and `3 ^ k` layers do **not** share that property —
+their inputs `finite_torsion_two_pow` and `finite_torsion_three_pow` come from the *exact* counts
+`4 ^ k` and `9 ^ k`, and those are stated under `[IsAlgClosed F]`.
+
+⚠️ Measured, not assumed. Putting `omit [IsAlgClosed F] in` on `isOpen_ker_galoisRepMod_two_pow`
+above gives
+
+```
+error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  IsAlgClosed F
+```
+
+so the `ℓ = 2` layer really does use the instance and does not move out of its section. Conversely
+the `unusedSectionVars` linter is what says the two `_smooth` statements do not: written inside an
+`[IsAlgClosed F]` block they draw *"automatically included section variable(s) unused"*, which is
+why they are outside one.
+-/
+
+section Smooth
+
+variable [(W'⁄F).IsElliptic]
+
+/-- **The level kernels are open at every `3`-smooth `n ≠ 0`**, over a field in which `2` and `3`
+are invertible — and with **no algebraic closure**.
+
+⚠️ This does **not** subsume `isOpen_ker_galoisRepMod_two_pow`, even though `2 ^ k` is `3`-smooth:
+this statement needs `h3` and that one does not. Neither implies the other, so both are kept.
+
+⚠️ **Deletion test**, measured on this file as committed. Replacing the finiteness argument by a
+hole — `by refine isOpen_ker_galoisRepMod (W' := W') (F := F) _ ?_` — leaves:
+
+```
+error: unsolved goals
+S : Type u_1
+F : Type u_2
+inst✝⁵ : Field S
+inst✝⁴ : Field F
+inst✝³ : DecidableEq F
+inst✝² : Algebra S F
+W' : Affine S
+inst✝¹ : Algebra.IsIntegral S F
+inst✝ : WeierstrassCurve.IsElliptic W'⁄F
+h2 : 2 ≠ 0
+h3 : 3 ≠ 0
+n : ℕ
+hn : n ≠ 0
+hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3
+⊢ Finite ↥((W'⁄F).torsion n)
+```
+
+Two mechanical changes accompany the deletion and neither adds information: term mode becomes
+`by refine … ?_` so a hole is legal, and `W'`/`F` are pinned, which the term-mode form infers from
+the expected type. ⚠️ `h2`, `h3`, `hn` and `hfac` all **survive** in the context, so what is removed
+is a construction and not a hypothesis; and the residual is a **goal**, which no type mismatch could
+produce. It is exactly the finiteness input, which is what makes openness non-trivial: without it
+the same argument yields only `IsClosed`. -/
+theorem isOpen_ker_galoisRepMod_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
+  isOpen_ker_galoisRepMod _ (finite_torsion_of_smooth h2 h3 hn hfac)
+
+/-- **Each mod-`n` representation is locally constant at every `3`-smooth `n ≠ 0`**, with no
+algebraic closure.
+
+This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
+declines to make; its docstring says, copy-paste, that local constancy of the representation itself
+*"would need `E[n]` to be finite"*. At a `3`-smooth `n` it now is, and that sentence remains correct
+about what is needed.
+
+⚠️ The same deletion test run on this statement gives the **identical** residual goal
+`⊢ Finite ↥((W'⁄F).torsion n)` under the identical hypothesis list, measured — the two `_smooth`
+statements consume the same input through the same argument slot. -/
+theorem isLocallyConstant_galoisRepMod_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
+    (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    IsLocallyConstant (galoisRepMod (W' := W') (F := F) n) :=
+  isLocallyConstant_galoisRepMod _ (finite_torsion_of_smooth h2 h3 hn hfac)
+
+end Smooth
+
+section Three
+
+variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
+
+/-- **The level kernels of `ρ_{E,3}` are open**, over an algebraically closed field in which `2` and
+`3` are invertible: `finite_torsion_three_pow` discharges the finiteness hypothesis.
+
+⚠️ Unlike its `ℓ = 2` twin this one **does** consume the multiplication-by-`n` coordinate formula,
+at `n = 3`: `card_torsion_three_pow` reaches `#E[3^k] = 9^k` through
+`EllipticCurves.Torsion.TriplingSurjective`. The module docstring's sentence about `ℓ = 2` needing
+neither the elliptic-net recurrence nor the coordinate formula is a claim about `ℓ = 2` and must not
+be read here.
+
+⚠️ **Deletion test**, same shape as `isOpen_ker_galoisRepMod_smooth`'s and measured on this file as
+committed:
+
+```
+error: unsolved goals
+S : Type u_1
+F : Type u_2
+inst✝⁶ : Field S
+inst✝⁵ : Field F
+inst✝⁴ : DecidableEq F
+inst✝³ : Algebra S F
+W' : Affine S
+inst✝² : Algebra.IsIntegral S F
+inst✝¹ : IsAlgClosed F
+inst✝ : WeierstrassCurve.IsElliptic W'⁄F
+h2 : 2 ≠ 0
+h3 : 3 ≠ 0
+k : ℕ
+⊢ Finite ↥((W'⁄F).torsion (3 ^ k))
+```
+
+⚠️ Note `inst✝¹ : IsAlgClosed F` in this context and its **absence** from the `_smooth` one above.
+That is the asymmetry this section's header records, visible in the two goal states. -/
+theorem isOpen_ker_galoisRepMod_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
+    IsOpen ((galoisRepMod (W' := W') (F := F) (3 ^ k)).ker : Set (F ≃ₐ[S] F)) :=
+  isOpen_ker_galoisRepMod _ (finite_torsion_three_pow h2 h3 k)
+
+/-- Each mod-`3^k` representation is locally constant. The deletion test gives the identical
+residual goal `⊢ Finite ↥((W'⁄F).torsion (3 ^ k))` as `isOpen_ker_galoisRepMod_three_pow`,
+measured. -/
+theorem isLocallyConstant_galoisRepMod_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
+    IsLocallyConstant (galoisRepMod (W' := W') (F := F) (3 ^ k)) :=
+  isLocallyConstant_galoisRepMod _ (finite_torsion_three_pow h2 h3 k)
+
+end Three
 
 end WeierstrassCurve.Affine
