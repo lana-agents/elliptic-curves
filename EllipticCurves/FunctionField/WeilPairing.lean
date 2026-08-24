@@ -238,6 +238,12 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   (`EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate`, `#893`; ⚠️ this is
   `#878`'s non-degeneracy with the affine witness quantified away, so it reads as `φ ≠ 1` rather
   than as an inequation at a named point).
+* **surjectivity of the pairing onto `μ_3(F̄)`** — `weilPairingThree_surjective`
+  (`EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`; ⚠️ this is the first slot on this
+  front to consume the *order* of `μ_n(F̄)`, so `[IsAlgClosed F]` does a second job in it that it
+  does nowhere else here, and the statement is false — not merely unproved — over a general field).
+* **non-degeneracy in the second slot** — `ker_weilPairingThreeHom_flip`
+  (`EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
