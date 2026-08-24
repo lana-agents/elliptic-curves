@@ -81,9 +81,14 @@ So the three inputs that are `n`-dependent are all merged, and the work here is 
   which is nowhere in this tree.  The merged count `#E[3] = 9` (`card_torsion_three`,
   `Torsion.ThreeTorsionStructure`) is an independent theorem and is **not** used here.
   `PlaceRamificationInertia` carries the same warning at `n = 2`.
-* **A residue-degree companion.**  `sum_ramificationIdxTwo_mul_residueDegreeTwo` has no mirror
-  below, because `residueDegreeThree` does not exist; the identity it decorates is the one proved
-  here, and adding the decoration is a separate, purely notational step.
+* **A residue-degree companion.**  ⚠️ **The clause this bullet used to carry has been paid** — it
+  read *"`sum_ramificationIdxTwo_mul_residueDegreeTwo` has no mirror below, because
+  `residueDegreeThree` does not exist; the identity it decorates is the one proved here, and adding
+  the decoration is a separate, purely notational step"*.  It was a correct prediction: the step is
+  `EllipticCurves.FunctionField.MulByThreeResidueDegree`, which defines `residueDegreeThree` off
+  `#744`'s `φ`-generic `residueDegreeComap` and derives
+  `sum_ramificationIdxThree_mul_residueDegreeThree` from `sum_ramificationIdxThree_eq_nine` below in
+  three lines.  ⚠️ It is still not *here*, and cannot be: that file imports this one.
 * **General `n`.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
   endomorphisms this tree has.
 -/
