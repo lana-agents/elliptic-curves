@@ -78,7 +78,10 @@ they are the only places the affine/projective passage appears — free, per `#7
 * `WeierstrassCurve.Affine.weilPairingEltTwo` / `weilPairingTwo` — the pairing as a function
   `E[2] → E[2] → F(W)`, respectively `E[2] → E[2] → μ_2(F)`.
 * `WeierstrassCurve.Affine.weilPairingEltTwo_eq` — **the bridge**: the value at *any* rung-5 root
-  the caller holds.  Every merged headline is applied through this and nothing else.
+  the caller holds.  Every merged headline is applied through this and nothing else.  Its two
+  specialisations to an affine translation point are `weilPairingEltTwo_eq_weilPairingElt` at the
+  `F(W)` level and `weilPairingTwo_eq_weilPairingMu` at the `μ_2(F)` level; the latter is what a
+  headline stated against `weilPairingMu` — the Galois ones are — has to be read through.
 * `weilPairingTwo_add_right` / `weilPairingTwo_add_left` — bilinearity, in both slots.
 * `weilPairingTwo_self` — the alternating property; `weilPairingTwo_swap` — antisymmetry.
 * `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingTwo_eq_one` — non-degeneracy.
@@ -104,8 +107,9 @@ rung-5 root exists only at torsion points, and the translation slot's `μ_n`-mem
 `torsion_le_weilPairingPointSubgroup_two`, which is a statement about `W.torsion 2`.
 
 ⚠️ This is not Galois-equivariance (`#456`), not `#E[2] = 4` (merged, and not used here), and not
-general `n` (which needs `#404`'s `ωₙ` crux).  Nothing merged is edited: the file is purely
-additive and consumes only exported names.
+general `n` (which needs `#404`'s `ωₙ` crux).  ⚠️ `#456`'s two forms are re-read *through* the
+function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which
+is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an existential.
 
 ## References
 
@@ -325,6 +329,26 @@ theorem weilPairingEltTwo_eq_weilPairingElt (h2 : (2 : F) ≠ 0) {S : W.torsion 
     (h : W.Nonsingular x y) (hT : (T : W.Point) = Point.some x y h) :
     weilPairingEltTwo h2 S T = weilPairingElt h.left g := by
   rw [weilPairingEltTwo_eq h2 hg, hT, weilPairingPointElt_some]
+
+open Classical in
+/-- **The `μ_2(F)` bridge**, the value-group twin of `weilPairingEltTwo_eq_weilPairingElt`.
+
+⚠️ Needed because the merged Galois headlines state their `μ_n(F)` conclusion against
+`weilPairingMu`, so a consumer reading them through this function has to compare two elements of
+`rootsOfUnity 2 F` rather than two elements of `F(W)`.
+
+The proof is the only thing worth remembering here: two elements of `rootsOfUnity n F` are equal
+as soon as their images in `F` agree (`Subtype.ext` then `Units.ext`), and `algebraMap F F(W)` is
+injective, so the two `algebraMap_coe_…` defining properties turn the goal into the `F(W)`-level
+bridge above.  The `Classical.choose` inside `weilPairingTwo` is never unfolded. -/
+theorem weilPairingTwo_eq_weilPairingMu (h2 : (2 : F) ≠ 0) {S : W.torsion 2}
+    {g : W.FunctionField} (hg : IsWeilRootTwo h2 (S : W.Point) g) {T : W.torsion 2} {x y : F}
+    (h : W.Nonsingular x y) (hT : (T : W.Point) = Point.some x y h)
+    (hpow : weilPairingElt h.left g ^ 2 = 1) :
+    weilPairingTwo h2 S T = weilPairingMu h.left hpow := by
+  refine Subtype.ext (Units.ext ((algebraMap F W.FunctionField).injective ?_))
+  rw [algebraMap_coe_weilPairingTwo, algebraMap_coe_weilPairingMu,
+    weilPairingEltTwo_eq_weilPairingElt h2 hg h hT]
 
 open Classical in
 theorem weilPairingEltTwo_eq_one_of_right_eq_zero (h2 : (2 : F) ≠ 0) (S : W.torsion 2)
