@@ -28,10 +28,14 @@ line. `EllipticCurves.TateModule.ImageProfiniteThree` is the `ℓ = 3` layer.
 
 ⚠️ **Ten declarations that this file used to state now live in
 `EllipticCurves.TateModule.PrimaryImageProfinite`**, at the same full names, with the same
-statements and the same docstrings. Nine of them were already stated at an arbitrary prime `p` and
+statements and the same proofs. Nine of them were already stated at an arbitrary prime `p` and
 one — `profiniteGrpGalois` — mentions no prime at all, so none of them has, or needs, a per-prime
-twin. They moved because the generic file consumes them and cannot import this one, **not** because
-they were generalised: nothing about any of them changed.
+twin. They moved because the `ℓ`-generic file and the `ℓ = 3` layer consume them and neither
+imports this one, **not** because they were generalised: no statement and no proof changed.
+⚠️ **Two of the ten docstrings did change**, and
+`EllipticCurves.TateModule.PrimaryImageProfinite` records which two and why: one cashed a promise
+this extraction pays, and one repaired a citation that had gone stale before the move.
+*"Moved unchanged" is a claim about statements and proofs here, not about every byte.*
 
 * `MulOpposite.instTotallyDisconnectedSpace`, `Units.instTotallyDisconnectedSpace`,
   `Matrix.instCompactSpace`, `Matrix.instTotallyDisconnectedSpace` — the four instances this file

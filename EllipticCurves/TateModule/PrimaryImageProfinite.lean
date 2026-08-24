@@ -22,10 +22,10 @@ replaced by `ℓ`, or a citation of `EllipticCurves.TateModule.PrimaryImage`.
 `EllipticCurves.TateModule.ImageProfinite` becomes the `ℓ = 2` instantiation, and
 `EllipticCurves.TateModule.ImageProfiniteThree` is the `ℓ = 3` one.
 
-## What moved here byte-identically, and why the import graph forced it
+## What moved here, and why the import graph forced it
 
 ⚠️ **Ten declarations were moved out of `EllipticCurves.TateModule.ImageProfinite` rather than
-twinned**, with their statements, their namespaces and their docstrings unchanged. Nine of them
+twinned**, with their statements, their proofs and their namespaces byte-identical. Nine of them
 were already stated at an arbitrary prime `p` and one mentions no prime at all, so twinning them
 would have been pure duplication — but *leaving* them where they stood was not an option either,
 and the reason is the import graph and not their genericity:
@@ -40,6 +40,10 @@ about `im ρ_{E,ℓ}` needs `Matrix.GeneralLinearGroup.profiniteGrpPadicInt` and
 `PadicInt.profiniteGrpUnits` as the ambient profinite objects, so those two — and the six
 instances they rest on, and `WeierstrassCurve.Affine.profiniteGrpGalois`, which the categorical
 statement needs as its source — have to be *upstream* of the generic statements, not beside them.
+⚠️ That argument reaches **nine** of the ten. The tenth,
+`Matrix.GeneralLinearGroup.infinite_padicInt`, is consumed by no statement in this file; it moved
+for the *twin's* sake, because `EllipticCurves.TateModule.ImageProfiniteThree`'s non-vacuity
+certificate cites it and does not import `EllipticCurves.TateModule.ImageProfinite`.
 
 ⚠️ *Genericity is a property of a statement; position is a property of the import graph, and only
 the second decides whether a generic file can reach a declaration.* The ten are:
@@ -50,6 +54,19 @@ the second decides whether a generic file can reach a declaration.* The ten are:
   `profiniteGrpPadicInt`, `infinite_padicInt`;
 * `PadicInt`: `profiniteGrpUnits`;
 * `WeierstrassCurve.Affine`: `profiniteGrpGalois`.
+
+⚠️ **Eight of the ten arrived with their docstrings byte-identical as well. Two did not, and
+neither change is cosmetic:**
+
+* `Matrix.GeneralLinearGroup.profiniteGrpPadicInt` promised that *"nothing here is `2`-primary, so
+  this is what an odd-`ℓ` development **will consume** unchanged"*. This file is that development,
+  so the promise is written in the present tense here.
+* `Matrix.GeneralLinearGroup.infinite_padicInt` cited the direct non-discreteness proof in
+  `EllipticCurves.TateModule.MatrixContinuity`, which has not held it since it was extracted to
+  `EllipticCurves.TateModule.PrimaryMatrixContinuity`. ⚠️ *A citation can go stale before the
+  declaration carrying it moves, and a file reporting its arrivals as unchanged is the last place
+  a reader would look for the repair.* Hence these two bullets rather than a bare
+  *"byte-identical"*.
 
 ⚠️ The first four are **Mathlib gaps in root namespaces**, upstreamable as written. Moving them
 between files of this development does not change that and does not make them this file's
