@@ -4,8 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.MatrixRep
-import Mathlib.LinearAlgebra.Trace
-import Mathlib.LinearAlgebra.Matrix.Charpoly.Coeff
+import EllipticCurves.TateModule.PrimaryDeterminant
 
 /-!
 # The canonical invariants of `ρ_{E,2}` : determinant, trace, characteristic polynomial
@@ -42,6 +41,21 @@ This is the shape in which the arithmetic eventually lives — for `S` a number 
 Frobenius element the characteristic polynomial is `X² - a_p X + p`, with `galoisDetTwo` the
 cyclotomic character and `galoisTraceTwo` the trace of Frobenius.
 
+## What this file contains, and what it does not
+
+⚠️ **The invariants themselves are no longer here.** They are
+`EllipticCurves.TateModule.PrimaryDeterminant`, stated for an arbitrary prime `ℓ` in terms of one
+input, `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`, which only the two non-degeneracy statements
+consume. **This file supplies that input at `ℓ = 2` and contains no argument**: every proof below
+is one line, and every definition below is *definitionally* its generic form at `ℓ = 2`. The input
+is `nonempty_tateModuleEquivProd` (`EllipticCurves.TateModule.Free`).
+
+⚠️ **Every public name and statement this file had before the extraction is unchanged.** Sixteen
+declarations, same spellings, same types; consumers see no difference. This mirrors what
+`EllipticCurves.TateModule.MatrixRep` did when the matrix transport moved to
+`EllipticCurves.TateModule.PrimaryMatrixRep`, and what `EllipticCurves.TateModule.Free` did when
+`padicPairEquiv` moved to `EllipticCurves.TateModule.PrimaryFree`.
+
 ## Non-degeneracy
 
 Every statement here would be equally provable, and equally worthless, if `T₂E` were the zero
@@ -57,6 +71,14 @@ which holds precisely because `Module.finrank ℤ_[2] T₂E = 2`
 (`EllipticCurves.TateModule.Free`), and which is `0`, not `2`, for the zero module. It carries the
 hypotheses `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]` and `(2 : F) ≠ 0` for exactly that reason.
 
+⚠️ It is the **reason** the file needs any of them, but not the only statement that carries them:
+`charpoly_galoisRepMatrixTwo_one` sits in the same `Nondegenerate` section and uses all three, in
+the same way and for the same purpose — it passes `nonempty_tateModuleEquivProd h2` on. **Two**
+declarations, one input. Everything above the `Non-degeneracy` section is a transport along an
+equivalence and holds for a basis you were handed, whatever the basis is a basis of. That asymmetry
+is what makes the extraction to `EllipticCurves.TateModule.PrimaryDeterminant` a one-hypothesis
+affair.
+
 ## Using this file
 
 The hypotheses live on the *base-changed* curve `W'⁄F`, and `WeierstrassCurve.baseChange` is a
@@ -69,14 +91,25 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 
 ## Scope
 
-Only `ℓ = 2`. ⚠️ The clause this paragraph used to carry — *"odd `ℓ` needs surjectivity of `[ℓ]`
-on `E(F̄)`, which is not available"* — is false at `ℓ = 3`: `nsmul_three_surjective`
-(`EllipticCurves.Torsion.TriplingSurjective`) supplies it from `(2 : F) ≠ 0` alone, and
-`EllipticCurves.Torsion.ThreePrimaryBasis` turns it into the coherent system `T₃E` would need.
-⚠️ Its successor clause, *"what is missing at `ℓ = 3` is the transport to `T₃E`"*, is **also** now
-false: `EllipticCurves.TateModule.FreeThree` performs that transport. What is missing at `ℓ = 3` is
-only that `galoisDetThree` is not stated below. At `ℓ ≥ 5` surjectivity is genuinely unavailable,
-because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`.
+Only `ℓ = 2` *in this file*, and the `ℓ = 2` case went through the `2`-primary tower.
+
+⚠️ **Three clauses this paragraph used to carry are now false and are replaced.** The first,
+*"odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which is not available"*, is false at `ℓ = 3`:
+`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
+`(2 : F) ≠ 0` alone, and `EllipticCurves.Torsion.ThreePrimaryBasis` turns it into the coherent
+system `T₃E` needs. The second, *"what is missing at `ℓ = 3` is the transport to `T₃E`"*, is false
+as of `EllipticCurves.TateModule.FreeThree`, which performs that transport. The third, *"What is
+missing at `ℓ = 3` is only that `galoisDetThree` is not stated below"*, is now false too:
+`galoisDetThree` and `galoisTraceThree` **are** stated, in
+`EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic invariants this file now shares
+with them.
+
+⚠️ Nothing is missing at `ℓ = 3` for the determinant and trace *themselves*; what remains `ℓ = 2`
+only is the surrounding apparatus — continuity (`EllipticCurves.TateModule.MatrixContinuity`), the
+basis-change conjugation law (`EllipticCurves.TateModule.MatrixRepBasisChange`) and the image
+(`EllipticCurves.TateModule.Image`) — and each is a separate follow-up. At `ℓ ≥ 5` surjectivity is
+genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, so the
+first clause still stands verbatim there.
 
 **Continuity is not asserted**, here or anywhere on this front: `galoisRep` is built purely as a
 group homomorphism, and passing to determinants changes nothing about that.
@@ -98,6 +131,12 @@ half, and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still bl
 itself is different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at
 **every** level `E[2 ^ k]` in order to take the inverse limit, and this development has the pairing
 at `n = 2` and `n = 3` only. The gate is the general-`n` pairing, not the equivariance.
+
+⚠️ **`galoisDetThree` existing does not move that gate either, and this file will now look as
+though it does.** The `3`-adic identity `galoisDetThree = χ_3` over `ℤ_[3]` needs the pairing on
+`E[3^k]` for **every** `k`, i.e. the pairing at composite `n`, exactly as at `ℓ = 2`. The mod-`3`
+identity is a different statement about a different object (`galoisDetMod 3`, valued in
+`(ZMod 3)ˣ`), and it landed separately.
 
 ## Main definitions
 
@@ -134,30 +173,30 @@ variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : A
 This is `LinearEquiv.det` applied to the abstract representation `galoisRep 2`, so it involves no
 choice of basis. `coe_galoisDetTwo` says that the determinant of the matrix `galoisRepMatrixTwo b σ`
 computes it for every `b`; `det_galoisRepMatrixTwo_congr` is the resulting independence statement.
+Definitionally `galoisDet` at `ℓ = 2`.
 
 The identification of this character with the cyclotomic character needs the Weil pairing and is
 **not** proved in this development. -/
 noncomputable def galoisDetTwo : (F ≃ₐ[S] F) →* ℤ_[2]ˣ :=
-  (LinearEquiv.det : ((W'⁄F).tateModule 2 ≃ₗ[ℤ_[2]] (W'⁄F).tateModule 2) →* ℤ_[2]ˣ).comp
-    (galoisRep 2)
+  galoisDet (W' := W') (F := F) (ℓ := 2)
 
 /-- **The trace of the `2`-adic representation**, `tr ρ_{E,2} : G → ℤ_[2]`.
 
 Basis-free, like `galoisDetTwo`, since `LinearMap.trace` is. This is not a monoid homomorphism —
-the trace is not multiplicative — which is why it is packaged as a bare function. -/
+the trace is not multiplicative — which is why it is packaged as a bare function. Definitionally
+`galoisTrace` at `ℓ = 2`. -/
 noncomputable def galoisTraceTwo (σ : F ≃ₐ[S] F) : ℤ_[2] :=
-  LinearMap.trace ℤ_[2] ((W'⁄F).tateModule 2)
-    ((galoisRep 2 σ : (W'⁄F).tateModule 2 ≃ₗ[ℤ_[2]] (W'⁄F).tateModule 2) :
-      (W'⁄F).tateModule 2 →ₗ[ℤ_[2]] (W'⁄F).tateModule 2)
+  galoisTrace (W' := W') (F := F) (ℓ := 2) σ
 
 theorem galoisDetTwo_apply (σ : F ≃ₐ[S] F) :
     galoisDetTwo (W' := W') (F := F) σ
-      = LinearEquiv.det (M := (W'⁄F).tateModule 2) (galoisRep 2 σ) := rfl
+      = LinearEquiv.det (M := (W'⁄F).tateModule 2) (galoisRep 2 σ) :=
+  galoisDet_apply σ
 
 /-- The determinant character is trivial at the identity — immediate, and recorded only for
 symmetry with `galoisTraceTwo_one`. -/
 @[simp]
-theorem galoisDetTwo_one : galoisDetTwo (W' := W') (F := F) 1 = 1 := map_one _
+theorem galoisDetTwo_one : galoisDetTwo (W' := W') (F := F) 1 = 1 := galoisDet_one
 
 /-! ### Every basis computes the invariants -/
 
@@ -172,51 +211,48 @@ phrased in terms of. Everything else in this file follows from it. -/
 theorem galoisRepMatrixTwo_eq_toMatrix (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2])
       = LinearMap.toMatrix b b ((galoisRep 2 σ : (W'⁄F).tateModule 2 ≃ₗ[ℤ_[2]] _) :
-          (W'⁄F).tateModule 2 →ₗ[ℤ_[2]] (W'⁄F).tateModule 2) := by
-  ext i j
-  rw [galoisRepMatrixTwo_apply_coe, LinearMap.toMatrix_apply]
-  rfl
+          (W'⁄F).tateModule 2 →ₗ[ℤ_[2]] (W'⁄F).tateModule 2) :=
+  galoisRepMatrix_eq_toMatrix b σ
 
 /-- **The determinant of the matrix computes the determinant character**, for every basis `b`. -/
 theorem coe_galoisDetTwo (σ : F ≃ₐ[S] F) :
     ((galoisDetTwo (W' := W') (F := F) σ : ℤ_[2]ˣ) : ℤ_[2])
-      = (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det := by
-  rw [galoisRepMatrixTwo_eq_toMatrix, LinearMap.det_toMatrix, galoisDetTwo_apply,
-    LinearEquiv.coe_det]
+      = (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det :=
+  coe_galoisDet b σ
 
 /-- **The trace of the matrix computes the trace of the representation**, for every basis `b`. -/
 theorem trace_galoisRepMatrixTwo (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).trace
-      = galoisTraceTwo (W' := W') (F := F) σ := by
-  rw [galoisRepMatrixTwo_eq_toMatrix, galoisTraceTwo, LinearMap.trace_eq_matrix_trace ℤ_[2] b]
+      = galoisTraceTwo (W' := W') (F := F) σ :=
+  trace_galoisRepMatrix b σ
 
 /-- **The characteristic polynomial of `ρ_{E,2}(σ)`**, in terms of the two canonical invariants.
 Since the right-hand side does not mention `b`, neither does the characteristic polynomial. -/
 theorem charpoly_galoisRepMatrixTwo (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).charpoly
       = X ^ 2 - C (galoisTraceTwo (W' := W') (F := F) σ) * X
-        + C ((galoisDetTwo (W' := W') (F := F) σ : ℤ_[2]ˣ) : ℤ_[2]) := by
-  rw [Matrix.charpoly_fin_two, trace_galoisRepMatrixTwo, coe_galoisDetTwo]
+        + C ((galoisDetTwo (W' := W') (F := F) σ : ℤ_[2]ˣ) : ℤ_[2]) :=
+  charpoly_galoisRepMatrix b σ
 
 /-! ### Independence of the basis -/
 
 /-- **`det ρ_{E,2}(σ)` does not depend on the basis.** -/
 theorem det_galoisRepMatrixTwo_congr (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det
-      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det := by
-  rw [← coe_galoisDetTwo b, ← coe_galoisDetTwo b']
+      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det :=
+  det_galoisRepMatrix_congr b b' σ
 
 /-- **`tr ρ_{E,2}(σ)` does not depend on the basis.** -/
 theorem trace_galoisRepMatrixTwo_congr (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).trace
-      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).trace := by
-  rw [trace_galoisRepMatrixTwo b, trace_galoisRepMatrixTwo b']
+      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).trace :=
+  trace_galoisRepMatrix_congr b b' σ
 
 /-- **The characteristic polynomial of `ρ_{E,2}(σ)` does not depend on the basis.** -/
 theorem charpoly_galoisRepMatrixTwo_congr (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).charpoly
-      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).charpoly := by
-  rw [charpoly_galoisRepMatrixTwo b, charpoly_galoisRepMatrixTwo b']
+      = (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).charpoly :=
+  charpoly_galoisRepMatrix_congr b b' σ
 
 /-! ### Computation rules -/
 
@@ -224,22 +260,19 @@ theorem charpoly_galoisRepMatrixTwo_congr (σ : F ≃ₐ[S] F) :
 are the coordinate vectors of the Galois translates of the basis vectors. -/
 theorem coe_galoisDetTwo_eq (σ : F ≃ₐ[S] F) :
     ((galoisDetTwo (W' := W') (F := F) σ : ℤ_[2]ˣ) : ℤ_[2])
-      = b.repr (σ • b 0) 0 * b.repr (σ • b 1) 1 - b.repr (σ • b 1) 0 * b.repr (σ • b 0) 1 := by
-  rw [coe_galoisDetTwo b, Matrix.det_fin_two]
-  simp only [galoisRepMatrixTwo_apply_coe]
+      = b.repr (σ • b 0) 0 * b.repr (σ • b 1) 1 - b.repr (σ • b 1) 0 * b.repr (σ • b 0) 1 :=
+  coe_galoisDet_eq b σ
 
 /-- The trace in coordinates. -/
 theorem galoisTraceTwo_eq (σ : F ≃ₐ[S] F) :
-    galoisTraceTwo (W' := W') (F := F) σ = b.repr (σ • b 0) 0 + b.repr (σ • b 1) 1 := by
-  rw [← trace_galoisRepMatrixTwo b, Matrix.trace_fin_two]
-  simp only [galoisRepMatrixTwo_apply_coe]
+    galoisTraceTwo (W' := W') (F := F) σ = b.repr (σ • b 0) 0 + b.repr (σ • b 1) 1 :=
+  galoisTrace_eq b σ
 
 /-- The determinant of `galoisRepMatrixTwo b σ` is a unit — it is the value of a character with
 values in `ℤ_[2]ˣ`. -/
 theorem isUnit_det_galoisRepMatrixTwo (σ : F ≃ₐ[S] F) :
-    IsUnit (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det := by
-  rw [← coe_galoisDetTwo b]
-  exact (galoisDetTwo (W' := W') (F := F) σ).isUnit
+    IsUnit (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]).det :=
+  isUnit_det_galoisRepMatrix b σ
 
 /-! ### Non-degeneracy -/
 
@@ -250,24 +283,26 @@ variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
 /-- **`tr ρ_{E,2}(1) = 2`.** This is the statement that pins down what the rest of the file is
 about: it is `Module.finrank ℤ_[2] T₂E`, so it is `2` exactly because `T₂E` has rank two, and it
 would be `0` if `T₂E` were the zero module — which is the degenerate case that `LinearMap.trace`
-would otherwise silently allow. -/
+would otherwise silently allow.
+
+⚠️ This is one of exactly **two** places in the file where `[IsAlgClosed F]`,
+`[(W'⁄F).IsElliptic]` and `h2` are used at all — the other is
+`charpoly_galoisRepMatrixTwo_one` below, which uses them identically. Both use them only to produce
+`nonempty_tateModuleEquivProd h2`, which is the single hypothesis of
+`galoisTrace_one_of_nonempty`. ⚠️ Measured, not assumed: putting `omit [IsAlgClosed F]` on
+`charpoly_galoisRepMatrixTwo_one` gives `failed to synthesize instance of type class
+IsAlgClosed F`. -/
 theorem galoisTraceTwo_one (h2 : (2 : F) ≠ 0) :
-    galoisTraceTwo (W' := W') (F := F) 1 = 2 := by
-  haveI := tateModule.free_tateModule_two (W := W'⁄F) h2
-  haveI := tateModule.finite_tateModule_two (W := W'⁄F) h2
-  have h : ((galoisRep 2 (1 : F ≃ₐ[S] F) : (W'⁄F).tateModule 2 ≃ₗ[ℤ_[2]] _) :
-      (W'⁄F).tateModule 2 →ₗ[ℤ_[2]] (W'⁄F).tateModule 2) = LinearMap.id := by
-    rw [map_one]; rfl
-  rw [galoisTraceTwo, h, LinearMap.trace_id, tateModule.finrank_tateModule_two h2]
-  norm_num
+    galoisTraceTwo (W' := W') (F := F) 1 = 2 :=
+  galoisTrace_one_of_nonempty (tateModule.nonempty_tateModuleEquivProd h2)
 
 /-- **The characteristic polynomial of the identity is `(X - 1)²`.** Written out as
 `X² - 2X + 1`, this is `galoisTraceTwo_one` and `galoisDetTwo_one` combined, and is again a
 statement that fails for the zero module. -/
 theorem charpoly_galoisRepMatrixTwo_one (h2 : (2 : F) ≠ 0) :
     (galoisRepMatrixTwo b 1 : Matrix (Fin 2) (Fin 2) ℤ_[2]).charpoly
-      = X ^ 2 - C 2 * X + C 1 := by
-  rw [charpoly_galoisRepMatrixTwo b, galoisTraceTwo_one h2, galoisDetTwo_one, Units.val_one]
+      = X ^ 2 - C 2 * X + C 1 :=
+  charpoly_galoisRepMatrix_one_of_nonempty b (tateModule.nonempty_tateModuleEquivProd h2)
 
 end Nondegenerate
 

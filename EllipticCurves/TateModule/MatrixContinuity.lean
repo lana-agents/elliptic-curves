@@ -85,12 +85,28 @@ representation `galoisRepMatrixThree`, which nothing in this development states 
 too: it is stated, in `EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport
 `EllipticCurves.TateModule.PrimaryMatrixRep`.
 
-⚠️ **What is missing at `ℓ = 3` is therefore continuity itself, i.e. this file.** Its inputs are
-`tateModule.instContinuousSMulPadicInt` and `tateModule.continuous_galois_smul`, both already
-`ℓ`-generic, plus the profinite side of `T₃E`, which is a different dependency — see
-`EllipticCurves.TateModule.Profinite`, still `ℓ = 2` only. So the `ℓ = 3` twin of this file is a
-genuine follow-up rather than a one-line instantiation, and it is not blocked. At `ℓ ≥ 5` the gate
-is real and it is the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, not finiteness alone.
+⚠️ **What is missing at `ℓ = 3` is therefore continuity itself, i.e. this file.** Its inputs
+`tateModule.instContinuousSMulPadicInt` and `tateModule.continuous_galois_smul` are already
+`ℓ`-generic, and `galoisRepMatrixThree`, `galoisDetThree` and `galoisTraceThree` now all exist, so
+nothing here is blocked.
+
+⚠️ **A third clause, added when the second was repaired, was also false and is replaced.** It read
+*"plus the profinite side of `T₃E`, which is a different dependency — see
+`EllipticCurves.TateModule.Profinite`, still `ℓ = 2` only"*. Two things wrong with it: this file
+does not reach `EllipticCurves.TateModule.Profinite` at all — not directly and not transitively,
+measured by walking the `import` graph — so no proof below can consume anything from it and the
+single mention above is a prose cross-reference; and that file is **not** `ℓ = 2`
+only — its `variable` block is `(W : Affine F) (ℓ : ℕ)` and `compactSpace`, `isCompact_coe`,
+`levelFamily` and `isClosedEmbedding_levelFamily` are all stated at an arbitrary prime. Only four
+*instantiations* there are `ℓ = 2` — `compactSpace_two`, `not_discreteTopology_tateModule_two`,
+`profiniteAddGrpTwo` and `coe_profiniteAddGrpTwo`.
+
+⚠️ **The conclusion it was offered for is nonetheless right**: the `ℓ = 3` twin of this file is a
+genuine follow-up rather than a one-line instantiation, because this file proves
+`continuous_galoisDetTwo` and `continuous_galoisTraceTwo` as well as
+`continuous_galoisRepMatrixTwo`, and each of the eighteen declarations below has to be restated.
+It is work, not a gate. At `ℓ ≥ 5` the gate is real and it is the general coordinate formula
+`x(ℓP) = Φ_ℓ/ΨSq_ℓ`, not finiteness alone.
 
 Everything is stated for a base change `W'⁄F` of a curve `W' : Affine S` rather than for a bare
 `W : Affine F`, matching the representation section of `EllipticCurves.TateModule.MatrixRep`. This

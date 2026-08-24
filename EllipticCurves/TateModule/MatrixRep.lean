@@ -95,10 +95,13 @@ therefore not the module but the matrix representation: `galoisRepMatrixThree` i
 below"*, is now false too: `galoisRepMatrixThree` **is** stated, in
 `EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport this file now shares
 with it. ⚠️ Nothing is missing at `ℓ = 3` for the *matrix representation itself*; what remains
-`ℓ = 2` only is the surrounding apparatus — continuity, the conjugation law, the determinant and
-trace characters — and each is a separate follow-up named in
-`EllipticCurves.TateModule.MatrixRepThree`'s Scope. At `ℓ ≥ 5` surjectivity is genuinely
-unavailable, so the first clause still stands verbatim there.
+`ℓ = 2` only is the surrounding apparatus — continuity and the conjugation law — and each is a
+separate follow-up named in `EllipticCurves.TateModule.MatrixRepThree`'s Scope. ⚠️ **This sentence
+used to list "the determinant and trace characters" among them and that has gone false**:
+`galoisDetThree` and `galoisTraceThree` are stated in
+`EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic
+`EllipticCurves.TateModule.PrimaryDeterminant`. At `ℓ ≥ 5` surjectivity is genuinely unavailable,
+so the first clause still stands verbatim there.
 
 **Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds
 `galoisRep` purely as a group homomorphism and passing to matrices changes nothing about that, so
