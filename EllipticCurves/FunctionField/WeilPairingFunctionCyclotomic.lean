@@ -103,10 +103,13 @@ inconsistency introduced here — the *function*-level statements have been in `
   `μ_n(F)`; there is no exponent statement to make at the function-field level, where the action is
   `galoisFunctionField σ` and the value is not a root of unity in `F`.
 * **Non-degeneracy of the twist** — that some `σ` really has `χ_3 σ ≠ 1`, and hence that `e_3` is
-  *not* `Gal(F/ℚ)`-invariant.  ⚠️ True, and it needs an automorphism of `AlgebraicClosure ℚ`
-  moving a primitive cube root of unity; that is a Galois-theoretic existence statement about the
-  base field with nothing to do with the curve, and it is not spiked.  The Non-vacuity section
-  below makes the weaker, checkable point instead: the unconditional script *fails* at `n = 3`.
+  *not* `Gal(F/ℚ)`-invariant.  ⚠️ This bullet used to say the statement needed an automorphism of
+  `AlgebraicClosure ℚ` moving a primitive cube root of unity, and was unspiked.  **Both halves were
+  wrong.**  It is `exists_galoisModularCyclotomicChar_three_ne_one`
+  (`EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois`, `#947`), and no automorphism is
+  constructed: if every `σ` fixed every cube root of unity each would lie in `ℚ`, and the only
+  rational cube root of `1` is `1`, contradicting `Nat.card μ_3(Q̄) = 3`.  The Non-vacuity section
+  below still makes the weaker, in-file point that the unconditional script *fails* at `n = 3`.
 
 ## References
 
