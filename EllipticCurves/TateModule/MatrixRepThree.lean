@@ -63,8 +63,13 @@ spelling and the generic lemmas apply to both. ⚠️ There is deliberately **no
   (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still `ℓ = 2` only. Its statement
   is insensitive to `ℓ`, so it is the next extraction after this one; it is not done here because
   keeping this file to `MatrixRep.lean`'s nine names is what makes it reviewable.
-* **`galoisDetThree` and `galoisTraceThree` are not here** either
-  (`EllipticCurves.TateModule.Determinant`, still `ℓ = 2` only). Same reason.
+* **`galoisDetThree` and `galoisTraceThree` are not here** either. ⚠️ The parenthetical this
+  bullet used to carry — *"(`EllipticCurves.TateModule.Determinant`, still `ℓ = 2` only)"* — is
+  false: they are stated, in `EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic
+  invariants `EllipticCurves.TateModule.PrimaryDeterminant`. ⚠️ They are still not *here*, which is
+  what this bullet is about, and the reason is unchanged: keeping this file to `MatrixRep.lean`'s
+  nine names is what makes it reviewable. ⚠️ Note also that only *part* of that file needed this
+  one — the definitions and `galoisTraceThree_one` needed nothing from it at all.
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is NOT unblocked by this file**, and `Determinant.lean`
   will look as though it just got closer. The `3`-adic identity needs the Weil pairing on `E[3^k]`
   for **every** `k`, i.e. the pairing at composite `n`. The **mod-`3`** identity is a different

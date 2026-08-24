@@ -241,7 +241,7 @@ theorem galoisTraceTwo_eq_two_of_mem_ker [IsAlgClosed F] [(W'⁄F).IsElliptic] (
     {σ : F ≃ₐ[S] F} (hσ : σ ∈ (galoisRep (W' := W') (F := F) 2).ker) :
     galoisTraceTwo (W' := W') (F := F) σ = 2 := by
   have h1 : galoisTraceTwo (W' := W') (F := F) σ = galoisTraceTwo (W' := W') (F := F) 1 := by
-    unfold galoisTraceTwo
+    unfold galoisTraceTwo galoisTrace
     rw [MonoidHom.mem_ker.mp hσ, map_one]
   rw [h1]
   exact galoisTraceTwo_one (W' := W') (F := F) h2
