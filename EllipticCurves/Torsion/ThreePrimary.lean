@@ -415,7 +415,7 @@ prime power nor of the form `2 ^ k · 3`.
 ⚠️ The `3`-smoothness side condition is **not** `by decide`: the `Decidable` instance for
 `∀ p ∈ Nat.primeFactors 72, p = 2 ∨ p = 3` gets stuck rather than reducing, with
 `reduction got stuck at the Decidable instance List.decidableBAll …`. It is discharged by
-`primeFactors_seventytwo` below instead, which is the specialisation of
+`primeFactors_seventytwo` above instead, which is the specialisation of
 `EllipticCurves.Torsion.Multiplicative`'s private `primeFactors_two_pow_mul_three_pow`. -/
 example : Nat.card ((exampleCurveThree⁄exampleField).torsion 72) = 5184 := by
   have h := card_torsion_eq_sq_of_smooth (W := exampleCurveThree⁄exampleField) exampleTwo

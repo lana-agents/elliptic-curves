@@ -293,8 +293,8 @@ omit [W.IsElliptic] [IsAlgClosed F] in
 /-- **`E[3]` is a finite `ZMod 3`-module.**
 
 ⚠️ This is the half of `LinearEquiv.det`'s hypothesis that is *not* automatic; see the note above.
-`finite_torsion_three` (`EllipticCurves.Torsion.Finite`) supplies `Finite (E[3])` from `h3`, and
-`Module.Finite.of_finite` upgrades it.
+`finite_torsion_three` (`EllipticCurves.Torsion.ThreeTorsion`) supplies `Finite (E[3])` from `h3`,
+and `Module.Finite.of_finite` upgrades it.
 
 ⚠️ It cannot be an `instance`: it carries the hypothesis `(3 : F) ≠ 0`. -/
 theorem finite_torsion_three_zmod (h3 : (3 : F) ≠ 0) : Module.Finite (ZMod 3) (W.torsion 3) :=
