@@ -107,9 +107,11 @@ statement about a zero module is satisfiable by anything.
   have gone false and both are recorded rather than deleted.** The first read *"because their input
   `continuous_galoisRepMatrixTwo` is"*, which expired when
   `EllipticCurves.TateModule.MatrixContinuityThree` landed; the second read *"nothing gates their
-  `ℓ = 3` layer; it has simply not been written"*, and it has now been written. ⚠️ What remains
-  true of exactly one of the two files: `EllipticCurves.TateModule.ImageProfinite` is still `ℓ = 2`
-  only, ungated, and a separate follow-up.
+  `ℓ = 3` layer; it has simply not been written"*, and it has now been written. ⚠️ **A third
+  clause has since gone false in its turn** — it read *"what remains true of exactly one of the two
+  files: `EllipticCurves.TateModule.ImageProfinite` is still `ℓ = 2` only, ungated, and a separate
+  follow-up"*. That follow-up is `EllipticCurves.TateModule.ImageProfiniteThree`, over the
+  `ℓ`-generic `EllipticCurves.TateModule.PrimaryImageProfinite`.
 * **General odd `ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryDeterminant` is already
   stated at an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but
   its input `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `[5]`-surjectivity and `#E[5^k]`, both of which

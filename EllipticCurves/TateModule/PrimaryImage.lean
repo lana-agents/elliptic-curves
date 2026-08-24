@@ -110,8 +110,12 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
   prime, and closedness of its image does not bring it closer. It needs the Weil pairing at
   **every** level `E[ℓ^k]`; see `EllipticCurves.TateModule.PrimaryDeterminant`'s Scope.
 * **The profinite packaging is not here.** `EllipticCurves.TateModule.ImageProfinite` bundles the
-  image, the quotient and the representation as objects and a morphism of `ProfiniteGrp`; it is
-  `ℓ = 2` only and its `ℓ`-generic form is a separate follow-up over *this* file.
+  image, the quotient and the representation as objects and a morphism of `ProfiniteGrp`. ⚠️ **The
+  clause this bullet used to end with has been paid** — it read *"it is `ℓ = 2` only and its
+  `ℓ`-generic form is a separate follow-up over *this* file"*. That follow-up is
+  `EllipticCurves.TateModule.PrimaryImageProfinite`, which sits over this file, with
+  instantiations at `ℓ = 2` (`EllipticCurves.TateModule.ImageProfinite`) and `ℓ = 3`
+  (`EllipticCurves.TateModule.ImageProfiniteThree`).
 * ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic.** Its hypothesis
   `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ ≥ 5` on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of
   which need the general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux. What being

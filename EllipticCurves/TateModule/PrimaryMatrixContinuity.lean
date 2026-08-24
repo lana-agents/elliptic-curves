@@ -125,8 +125,12 @@ than proving it. The instantiating files close that separately, with `Infinite (
   layer; it has simply not been written"*. Closedness of the image is now stated at an arbitrary
   prime in `EllipticCurves.TateModule.PrimaryImage`, over *this* file, with instantiations at
   `ℓ = 2` (`EllipticCurves.TateModule.Image`) and `ℓ = 3`
-  (`EllipticCurves.TateModule.ImageThree`). `EllipticCurves.TateModule.ImageProfinite` — the
-  `ProfiniteGrp` packaging — is still `ℓ = 2` only, still ungated, and a separate follow-up.
+  (`EllipticCurves.TateModule.ImageThree`). ⚠️ **The clause that scoped that repair to one of the
+  two files has since been paid too**: it read *"`EllipticCurves.TateModule.ImageProfinite` — the
+  `ProfiniteGrp` packaging — is still `ℓ = 2` only, still ungated, and a separate follow-up"*. The
+  packaging is now stated at an arbitrary prime in
+  `EllipticCurves.TateModule.PrimaryImageProfinite`, with instantiations at `ℓ = 2` and `ℓ = 3`
+  (`EllipticCurves.TateModule.ImageProfiniteThree`).
   ⚠️ **Openness is a different matter and is not a follow-up at all**: it is Serre's theorem, it is
   *false* for curves with complex multiplication, and nothing here approaches it.
 * **Local constancy is false**, not merely unproved — see `EllipticCurves.TateModule.OpenKernel`.
