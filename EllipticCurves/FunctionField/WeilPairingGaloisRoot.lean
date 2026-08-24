@@ -120,6 +120,25 @@ formed at all, and it is discharged for `σT` rather than assumed a second time.
 is the canonical account of what non-degeneracy consumes (`#769`); over `F̄` it is merged at both
 `n`, as `WeilPairingNondegenerateTwo` (`#796`) and `WeilPairingNondegenerateThree` (`#831`).
 
+## Placement
+
+The lemma layer — the engine `weilPairingElt_galois_of_transport_pow`, the two transport statements
+`weilPairingElt_galois_of_gS_{two,three}` and their `μ_n(F)` companions — lives in
+`WeierstrassCurve.Affine.CoordinateRing`.  The four `exists_` headlines over `F̄` live one level up
+in `WeierstrassCurve.Affine`, reached with `open CoordinateRing`.  That is `#903`'s house pattern,
+demonstrated in `EllipticCurves.FunctionField.WeilPairingRootIndependence`.
+
+⚠️ **The headlines were moved up by `#927`; they used to be in the sub-namespace with the lemmas.**
+Nothing about them changed but the prefix — no statement, no proof, no binder.  ⚠️ The move had to
+be made **together with** the four `_of_hprin` twins in
+`EllipticCurves.FunctionField.WeilPairingGaloisRootHprin` (`#923`), which mirrored this file's
+placement for exactly the reason that made it wrong: `#918`'s tree-wide check only sees a twin
+*pair* straddling two namespaces, so moving either file's four alone would have taken it from 0 to
+4 while moving both keeps it at 0 and satisfies the house pattern as well.  A namespace move is
+invisible to a clean build here — every module on this front sits in `Affine` with
+`open CoordinateRing` and resolves either spelling — which is why `#927` ran `#check @f` and
+fully-qualified `#print axioms` on all eight names at **both** spellings, before and after.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.
@@ -127,7 +146,9 @@ is the canonical account of what non-degeneracy consumes (`#769`); over `F̄` it
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 
-namespace WeierstrassCurve.Affine.CoordinateRing
+namespace WeierstrassCurve.Affine
+
+namespace CoordinateRing
 
 variable {S F : Type*} [Field S] [Field F] [Algebra S F] {W : Affine S} [W.IsElliptic]
 
@@ -334,6 +355,13 @@ theorem weilPairingMu_galois_of_gS_three (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 
     (divisor_eq_equivMapDomain_of_smul_pow σ (mulByThreeEndo_algebraMap_base h2 h3)
       (galoisFunctionField_mulByThreeEndo σ h2 h3) three_ne_zero hg hg' hu hu'
       (divisor_eq_equivMapDomain_of_eq_single σ h hf hf')) hpow hpow'
+
+end CoordinateRing
+
+variable {S F : Type*} [Field S] [Field F] [Algebra S F] {W : Affine S} [W.IsElliptic]
+variable {x₂ y₂ x y : F}
+
+open CoordinateRing
 
 /-! ### Nothing carried, over an algebraically closed base field -/
 
@@ -558,7 +586,11 @@ pairing slot is `(0, 0)`: two distinct `2`-torsion points, so the certificate is
 two-point instance.  At `n = 3` both slots are `(0, 0)`, because the only nameable `3`-torsion
 points on `y² + y = x³` are `(0, 0)` and its negative `(0, −1)` — the `X = − 1` fibre of
 `Ψ₃ = 3X(X³ + 1)` is `y² + y + 1 = 0`, the primitive cube roots of unity.  The limitation is
-inherited from `#829`/`#845`/`#855` and is stated, not repaired. -/
+inherited from `#829`/`#845`/`#855` and is stated, not repaired.
+
+⚠️ The certificates sit in `WeierstrassCurve.Affine` alongside the headlines rather than in the
+sub-namespace, since `#927` closed `CoordinateRing` above them; they are `example`s and `private`
+definitions, so no name outside this file is affected. -/
 
 section Nonvacuity
 
@@ -742,4 +774,4 @@ example (σ : exampleField ≃ₐ[ℚ] exampleField) :
 
 end Nonvacuity
 
-end WeierstrassCurve.Affine.CoordinateRing
+end WeierstrassCurve.Affine

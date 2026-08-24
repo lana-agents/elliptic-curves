@@ -88,16 +88,20 @@ The review of `#910` settled the rule: **"mirror your twin" wins while every `_o
 twin**, the qualifier's position varying by design, because the only reader who cares is the one
 holding the two statements side by side.
 
-⚠️ **Placement mirrors the twin as well: `WeierstrassCurve.Affine.CoordinateRing`, not `Affine`.**
-That is *not* the house pattern `#903` settled — headlines belong one level up — but
-`WeilPairingGaloisRoot` states its four headlines inside `namespace CoordinateRing`, and `#918`
-landed a tree-wide check that a declaration and its twin share a namespace, currently reporting
-zero.  Stating these four in `Affine` would take it from 0 to 4, reintroducing in a feature module
-precisely the defect a refactor just removed.  ⚠️ **The honest reading is that
-`WeilPairingGaloisRoot`'s headlines are the ones out of place**; moving them is a `#918`-shaped
-change with its own before/after `#print axioms` and `#check @f` protocol and belongs in its own
-PR, not folded into this one.  Until then, twin consistency is the invariant with a mechanical test
-and it is the one to keep.
+⚠️ **Placement mirrors the twin as well, and both are now `WeierstrassCurve.Affine`.**  When this
+module landed (`#923`) it stated its four headlines in `WeierstrassCurve.Affine.CoordinateRing`,
+because `WeilPairingGaloisRoot` stated its four there and `#918`'s tree-wide check — that a
+declaration and its twin share a namespace — was reporting zero; stating these four in `Affine`
+alone would have taken it from 0 to 4.  That was the right call for a feature PR and the wrong
+resting place for the tree: it kept the mechanical invariant green by letting `#903`'s house
+pattern (lemma layer in `CoordinateRing`, `exists_` headlines one level up) drift further.
+
+`#927` resolved it the way `#918` did, by moving **all eight** headlines up together, so that both
+invariants hold at once and the check reads 0 before and 0 after.  ⚠️ **Move them together or not
+at all** is the whole content of that decision: moving one file's four is exactly the straddle the
+check exists to catch.  Nothing about the eight changed but the prefix — no statement, no proof, no
+binder, verified by `#check @f` and fully-qualified `#print axioms` on all eight at both spellings,
+before and after.
 
 ## Non-vacuity
 
@@ -121,8 +125,9 @@ and the certificate is at two distinct points.
 
 Nothing existing is renamed or reproved: this module is purely additive.  Out of scope: discharging
 `hprin`; any change to `WeilPairingGaloisRoot`'s statements or to the
-`weilPairingElt_galois_of_gS_*` engine, which needs nothing; moving `WeilPairingGaloisRoot`'s
-headlines up a namespace; general `n`; `#E[n] = n²`; Ward.
+`weilPairingElt_galois_of_gS_*` engine, which needs nothing; general `n`; `#E[n] = n²`; Ward.
+⚠️ Moving `WeilPairingGaloisRoot`'s headlines up a namespace was out of scope *of `#923`* and was
+done afterwards by `#927`, which moved these four with them; see the placement note above.
 
 ⚠️ **Non-degeneracy is not in scope and is not a lift of this kind.**
 `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` states a *second*, independent
@@ -137,7 +142,9 @@ there is nothing there to lift.
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 
-namespace WeierstrassCurve.Affine.CoordinateRing
+namespace WeierstrassCurve.Affine
+
+open CoordinateRing
 
 variable {S F : Type*} [Field S] [Field F] [Algebra S F] {W : Affine S} [W.IsElliptic]
 
@@ -562,4 +569,4 @@ example (σ : exampleField ≃ₐ[ℚ] exampleField)
 
 end Nonvacuity
 
-end WeierstrassCurve.Affine.CoordinateRing
+end WeierstrassCurve.Affine
