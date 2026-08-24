@@ -31,8 +31,10 @@ recovers `P` (`pointOfParam_localParamR`).  Assembling with the surjectivity giv
 * `WeierstrassCurve.zParam_bijective` — `zParam` is bijective.
 * `WeierstrassCurve.zParamEquiv` — the set bijection `E₁(K) ≃ 𝔪`.
 
-The remaining content of #361 is the addition-law compatibility `z(P + Q) = F_E(z P, z Q)`
-(AEC IV.1 / VII.2.2), which upgrades this set bijection to a group isomorphism `E₁(K) ≃+ Ê(𝔪)`.
+What #361 still wanted when this file landed was the addition-law compatibility
+`z(P + Q) = F_E(z P, z Q)` (AEC IV.1 / VII.2.2), which upgrades this set bijection to a group
+isomorphism `E₁(K) ≃+ Ê(𝔪)`.  ⚠️ **It is merged**: `WeierstrassCurve.zParamHatEquiv_map_add` and
+`WeierstrassCurve.E₁AddEquiv` (`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
 
 ## References
 

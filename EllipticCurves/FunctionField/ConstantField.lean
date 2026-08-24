@@ -29,13 +29,23 @@ algebraic closure `AlgebraicClosure F` is a domain, then `F` is relatively algeb
   (#162), conditional on the geometric-integrality datum
   `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)`.
 
-## Remaining for #434
+## The geometric-integrality hypothesis is discharged elsewhere — it is not open
 
-Discharging the hypothesis `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)` unconditionally —
-via `WeierstrassCurve.Affine.irreducible_polynomial` over the algebraically closed base (the
+⚠️ This section used to be headed *"Remaining for #434"* and to call the discharge of
+`IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)` *"the remaining, heavier follow-on"*.  **It is
+merged**, by exactly the route named here: `WeierstrassCurve.Affine.isDomain_tensor_functionField`
+(`EllipticCurves/FunctionField/ConstantFieldDomain.lean`) obtains it from
+`WeierstrassCurve.Affine.irreducible_polynomial` over the algebraically closed base — the
 Weierstrass polynomial stays irreducible, so `F̄ ⊗ F[W]` is a domain and `F̄ ⊗ F(W)` is a
-localisation of it) — turns both results and the `halg`-consuming lemmas of `WeilPairingConstant`
-unconditional. That base-change/tensor plumbing is the remaining, heavier follow-on.
+localisation of it — and it is registered as an **instance**, so the two results this file states
+are available unconditionally there, as
+`WeierstrassCurve.Affine.algebraicClosure_functionField_eq_bot`.  The
+`halg`-consuming lemmas of `WeilPairingConstant.lean` were made unconditional at the same time and
+carry no residual constant-field hypothesis.
+
+The conditional forms are kept here deliberately: they are the general field-theoretic statement
+(`algebraicClosure_eq_bot_of_isDomain_tensor` is about an arbitrary extension `E / F`) and this file
+must stay upstream of the tensor/localisation machinery that discharges the datum.
 -/
 
 open scoped TensorProduct IntermediateField

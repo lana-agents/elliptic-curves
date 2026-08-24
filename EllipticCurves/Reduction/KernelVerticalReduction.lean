@@ -10,9 +10,14 @@ import EllipticCurves.Reduction.KernelAddClosure
 
 Let `R` be a discrete valuation ring with fraction field `K = Frac R` and residue field `k`, and let
 `W : WeierstrassCurve K` have good reduction.  This file proves the two structurally cleanest
-special cases of the (still open in general) homomorphism property
-`redPt (P + Q) = redPt P + redPt Q` of the point-reduction map
-`redPt : (W⁄K).Point → (reduction R W).Point` (see `EllipticCurves/Reduction/PointReduction.lean`).
+special cases of the homomorphism property `redPt (P + Q) = redPt P + redPt Q` of the
+point-reduction map `redPt : (W⁄K).Point → (reduction R W).Point`
+(see `EllipticCurves/Reduction/PointReduction.lean`).
+
+⚠️ This paragraph used to call that property *"still open in general"*.  **It is not, and has not
+been since the day this file landed**: `WeierstrassCurve.redPt_add`
+(`EllipticCurves/Reduction/ReductionHom.lean`) proves it for all `P, Q`, in a file that imports
+*this* one.  The clause survived because nothing in a build can fail on it.
 
 ## Main results
 
@@ -23,7 +28,9 @@ special cases of the (still open in general) homomorphism property
 * `WeierstrassCurve.redPt_add_of_reducesToZero_left` / `redPt_add_of_reducesToZero_right` — the same
   (so **both** summands are still assumed in `E₁(K)`), phrased as `redPt (P + Q) = redPt Q` (resp.
   `= redPt P`).  Note these are *not* the general "kernel acts trivially" statement (`P ∈ E₁(K)`,
-  `Q` arbitrary), which is the harder kernel × integral case listed as omitted below.
+  `Q` arbitrary); that is `WeierstrassCurve.redPt_add_eq_right_of_reducesToZero` /
+  `redPt_add_eq_left_of_reducesToZero` (`EllipticCurves/Reduction/ReductionHom.lean`), which is
+  downstream of this file.
 * `WeierstrassCurve.redPt_add_of_Y_eq` — **literal vertical.**  If `x₁ = x₂` and `y₁ = negY x₂ y₂`
   over `K`, then `P + Q = O`, so `redPt (P + Q) = 0`.
 * `WeierstrassCurve.redPt_add_of_secant_vertical` — **reduced-vertical secant case.**  For two
@@ -33,23 +40,32 @@ special cases of the (still open in general) homomorphism property
   the leading `ℓ²` term of `addX` dominates, giving `1 < v (addX)`; hence `P + Q ∈ E₁(K)` and
   `redPt (P + Q) = 0`.
 
-## What is *not* covered here (the genuinely analytic content, deliberately omitted)
+## What is not covered *here* — both cases have since been proved elsewhere
 
-The two hard sub-cases that require Silverman AEC VII.2's cancellation-sensitive valuation
-bookkeeping are *not* proven here, and no proof holes are left for them (this file is complete):
+Two hard sub-cases are outside this file, and no proof holes are left for them (this file is
+complete).  Both have since landed, and ⚠️ **one of them by a route this file predicted wrongly** —
+which is why the original text is kept as a quotation rather than deleted:
 
-* **Kernel × integral (`redPt (P + Q) = redPt Q` for `P ∈ E₁(K)`, `Q` integral).**  One shows
-  `residue (addX) = residue x₂` by a first-order cancellation `ℓ² - x₁ = O(π)` using the Weierstrass
-  equation for the pole `P`, but pinning down `residue (addY) = residue y₂` (as opposed to its
-  negation) requires a *second*-order expansion of `addX - x₂` together with the leading identity
-  `y₁² ≈ x₁³`.  Only the full residue of `addY` distinguishes `Q̄` from `-Q̄`; this is left open.
-* **Reduced-vertical doubling / 2-torsion (`x₁ = x₂` over `K` but not literally negating, or the
-  secant `2`-torsion edge `v (y₁ - y₂) ≥ v (x₁ - x₂)`).**  Here the tangent/secant slope's pole is
-  governed by nonsingularity of the reduced `2`-torsion point, another analytic step not carried
-  out.
+* **Kernel × integral (`redPt (P + Q) = redPt Q` for `P ∈ E₁(K)`, `Q` integral)** — proved as
+  `WeierstrassCurve.redPt_add_of_mem_E₁_left` / `_right`
+  (`EllipticCurves/Reduction/KernelIntegralReduction.lean`).
 
-Both gaps reduce to the same missing "reduced `addY` residue" analysis and are the subject of the
-sibling additivity issues.
+  ⚠️ This paragraph predicted that pinning down `residue (addY) = residue y₂` *"requires a
+  **second**-order expansion of `addX - x₂` together with the leading identity `y₁² ≈ x₁³`"*.  **It
+  does not.**  The merged proof substitutes the two Weierstrass equations **once**, obtaining the
+  two exact identities `(addX - x₂)·d² = P₁` and `(negAddY - negY x₂ y₂)·d³ = P₂` and reading off
+  their weights against the Newton-polygon dichotomy.  *The obstruction was in the bookkeeping, not
+  in the order of the expansion.*
+* **Reduced-vertical doubling / `2`-torsion (`x₁ = x₂` over `K` but not literally negating, or the
+  secant `2`-torsion edge `v (y₁ - y₂) ≥ v (x₁ - x₂)`)** — proved as
+  `WeierstrassCurve.redPt_add_of_reduced_two_torsion_secant` /
+  `redPt_add_self_of_reduced_two_torsion` (`EllipticCurves/Reduction/TwoTorsionReduction.lean`), by
+  exactly the route this file named: the reduced tangent denominator vanishes, the slope is a pole,
+  and the `ℓ²` term of `addX` dominates.
+
+⚠️ The two are therefore *not* "the same missing reduced-`addY`-residue analysis": one needed a
+different substitution and the other needed a different non-vanishing input.  With them, the full
+`WeierstrassCurve.redPt_add` is assembled in `EllipticCurves/Reduction/ReductionHom.lean`.
 
 ## References
 
@@ -84,7 +100,10 @@ theorem redPt_add_of_reducesToZero {P Q : W.toAffine.Point}
 open Classical in
 /-- Kernel × kernel additivity, phrased with the left summand highlighted:
 `redPt (P + Q) = redPt Q` when **both** `P` and `Q` reduce to the origin.  (This is *not* the
-general kernel-acts-trivially statement, which allows arbitrary `Q`; see the module docstring.) -/
+general kernel-acts-trivially statement, which allows arbitrary `Q`; that is
+`WeierstrassCurve.redPt_add_eq_right_of_reducesToZero`, which lives in
+`EllipticCurves/Reduction/ReductionHom.lean` because it needs `redPt_add`, and so cannot be stated
+here — this file is upstream of it.) -/
 theorem redPt_add_of_reducesToZero_left {P Q : W.toAffine.Point}
     (hP : ReducesToZero R W P) (hQ : ReducesToZero R W Q) :
     redPt R W (P + Q) = redPt R W Q := by
@@ -93,7 +112,10 @@ theorem redPt_add_of_reducesToZero_left {P Q : W.toAffine.Point}
 open Classical in
 /-- Kernel × kernel additivity, phrased with the right summand highlighted:
 `redPt (P + Q) = redPt P` when **both** `P` and `Q` reduce to the origin.  (This is *not* the
-general kernel-acts-trivially statement, which allows arbitrary `P`; see the module docstring.) -/
+general kernel-acts-trivially statement, which allows arbitrary `P`; that is
+`WeierstrassCurve.redPt_add_eq_left_of_reducesToZero`, in
+`EllipticCurves/Reduction/ReductionHom.lean`, for the reason given on
+`redPt_add_of_reducesToZero_left`.) -/
 theorem redPt_add_of_reducesToZero_right {P Q : W.toAffine.Point}
     (hP : ReducesToZero R W P) (hQ : ReducesToZero R W Q) :
     redPt R W (P + Q) = redPt R W P := by

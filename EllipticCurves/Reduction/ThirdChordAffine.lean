@@ -31,9 +31,20 @@ Concretely, writing `X₃ = t / w₃`, `Y₃ = -1 / w₃` for the affine image (
   the addition law hinges on (Silverman AEC IV.1 / VII.2.2).
 * `WeierstrassCurve.localParam_add_secant` — **the coordinate-level additivity**:
   `-addX / addY = z₁ ⊕ z₂` in `K`, where `z₁ ⊕ z₂ = adicEvalMv 𝔪 ![z₁, z₂] formalGroupZW` is the
-  formal group law of the parameters.  The remaining work for #367 is the point-level assembly
-  (`P + Q = some (addX) (addY)` via `Point.add_of_X_ne`, the degenerate/doubling cases, and the
-  `ReducesToZero` subgroup closure).
+  formal group law of the parameters.
+* `WeierstrassCurve.localParam_add_of_X_ne` — the **point-level** secant additivity
+  `z(P + Q) = z(P) ⊕ z(Q)`, carrying the four non-degeneracy side conditions its sibling files then
+  discharge.  (⚠️ It was missing from this list.)
+
+⚠️ The `localParam_add_secant` bullet used to end *"The remaining work for #367 is the point-level
+assembly (`P + Q = some (addX) (addY)` via `Point.add_of_X_ne`, the degenerate/doubling cases, and
+the `ReducesToZero` subgroup closure)."*  **All three are merged**: the point-level secant and
+doubling identities are `WeierstrassCurve.localParam_add_of_X_ne_uncond` /
+`localParam_add_of_X_eq_uncond`
+(`Reduction/AdditivityUncond.lean`), the degenerate configurations were removed rather than
+enumerated (`addX_eq_thirdChordX_of_secant`, `Reduction/ThirdChordAffineUncond.lean`, #376), and the
+closure is `WeierstrassCurve.reducesToZero_add` / `E₁` (`Reduction/KernelAddClosure.lean`), from
+which `E₁AddEquiv` (`Reduction/KernelFormalGroupIso.lean`) closes #367/#368.
 
 ## References
 

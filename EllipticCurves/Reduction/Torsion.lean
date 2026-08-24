@@ -36,10 +36,13 @@ prime-to-`p` integer `m` is itself `O`.
 * `WeierstrassCurve.eq_zero_of_redPt_eq_zero_of_isUnit_nsmul` — the reduction-map phrasing: a
   point reducing to the origin with prime-to-`p` order is `O` (needs `HasGoodReduction`).
 
-The full restatement `reduction_injOn_torsion` (injectivity of the reduction map on all of
-`E(K)[m]`) additionally needs the reduction map to be a group homomorphism
-(`redPt (P + Q) = redPt P + redPt Q`, issue #360); given that, injectivity on `E(K)[m]` follows from
-the torsion-freeness proved here via `redPt (P - Q) = 0 ⇒ P - Q ∈ E₁(K)[m] = 0`.
+The full restatement `WeierstrassCurve.reduction_injOn_torsion` (injectivity of the reduction map
+on all of `E(K)[m]`) additionally needs the reduction map to be a group homomorphism
+(`redPt (P + Q) = redPt P + redPt Q`, issue #360).  ⚠️ **That is now merged**
+(`WeierstrassCurve.redPt_add`, `EllipticCurves/Reduction/ReductionHom.lean`), and the restatement
+with it: `reduction_injOn_torsion` lives in `EllipticCurves/Reduction/ReductionInjectivity.lean`
+and is proved by exactly the argument sketched here — `redPt (P - Q) = 0 ⇒ P - Q ∈ E₁(K)[m] = 0`.
+This file supplies its second input.
 
 ## References
 

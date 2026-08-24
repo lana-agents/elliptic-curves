@@ -25,9 +25,18 @@ packages that: `WeierstrassCurve.localParam_add_of_X_ne_of_distinct` states the 
 requiring **only** the genuinely-geometric distinctness `hd1, hd2` (which fail exactly in the
 `2P + Q = O` / `P + 2Q = O` configurations, where the third chord point coincides with `±P` / `±Q`).
 
-This is the clean secant-case API the remaining `E₁(K)` subgroup assembly of #367 consumes: the
-only side conditions left are the honestly-degenerate ones, to be handled by the eventual full
-case analysis together with the doubling (#373) and inverse (`Q = -P`) cases.
+This is the clean secant-case API the `E₁(K)` subgroup assembly of #367 consumes.
+
+⚠️ This paragraph used to say the surviving `hd1, hd2` would be *"handled by the eventual full case
+analysis"*.  **They were not handled; they were removed.**
+`WeierstrassCurve.addX_eq_thirdChordX_of_secant` (`Reduction/ThirdChordAffineUncond.lean`, #376)
+proves `addX = X₃` as a `(z, w)`-level symmetric-function field identity with no distinctness of
+`X₃` at all, and `WeierstrassCurve.localParam_add_of_X_ne_uncond`
+(`Reduction/AdditivityUncond.lean`) is this statement with `hd1, hd2` gone.  *The degenerate
+configurations were not enumerated; the proof stopped needing to know about them.*  The doubling
+(#373) and inverse (`Q = -P`) cases are likewise merged — `localParam_add_of_X_eq_uncond` and
+`adicEvalMv_formalGroupZW_eq_zero_of_X_eq` — and the assembly is
+`WeierstrassCurve.reducesToZero_add` / `E₁AddEquiv`.
 
 ## Main result
 
