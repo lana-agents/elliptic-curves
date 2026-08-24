@@ -240,10 +240,11 @@ variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
 `Module.finrank ℤ_[3] T₃E`, so it is `2` exactly because `T₃E` has rank two, and it would be `0` if
 `T₃E` were the zero module — the degenerate case `LinearMap.trace` would otherwise silently allow.
 
-⚠️ This is the only place in the file where `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]`, `h2` and `h3`
-are used at all, and they are used only to produce `nonempty_tateModuleEquivProd_three h2 h3`,
-which is the single hypothesis of `galoisTrace_one_of_nonempty`. Everything above holds for a basis
-you were handed.
+⚠️ This is one of exactly **two** places in the file where `[IsAlgClosed F]`,
+`[(W'⁄F).IsElliptic]`, `h2` and `h3` are used at all — the other is
+`charpoly_galoisRepMatrixThree_one` below, which uses them identically. Both use them only to
+produce `nonempty_tateModuleEquivProd_three h2 h3`, which is the single hypothesis of
+`galoisTrace_one_of_nonempty`. Everything above holds for a basis you were handed.
 
 ⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
 `(nonempty_tateModuleEquivProd_three h2 h3)` by a hole — `by refine

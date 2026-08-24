@@ -71,10 +71,13 @@ which holds precisely because `Module.finrank ℤ_[2] T₂E = 2`
 (`EllipticCurves.TateModule.Free`), and which is `0`, not `2`, for the zero module. It carries the
 hypotheses `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]` and `(2 : F) ≠ 0` for exactly that reason.
 
-⚠️ It is also the **only** statement in this file that needs any of them: everything above the
-`Non-degeneracy` section is a transport along an equivalence and holds for a basis you were
-handed, whatever the basis is a basis of. That asymmetry is what makes the extraction to
-`EllipticCurves.TateModule.PrimaryDeterminant` a one-hypothesis affair.
+⚠️ It is the **reason** the file needs any of them, but not the only statement that carries them:
+`charpoly_galoisRepMatrixTwo_one` sits in the same `Nondegenerate` section and uses all three, in
+the same way and for the same purpose — it passes `nonempty_tateModuleEquivProd h2` on. **Two**
+declarations, one input. Everything above the `Non-degeneracy` section is a transport along an
+equivalence and holds for a basis you were handed, whatever the basis is a basis of. That asymmetry
+is what makes the extraction to `EllipticCurves.TateModule.PrimaryDeterminant` a one-hypothesis
+affair.
 
 ## Using this file
 
@@ -282,9 +285,13 @@ about: it is `Module.finrank ℤ_[2] T₂E`, so it is `2` exactly because `T₂E
 would be `0` if `T₂E` were the zero module — which is the degenerate case that `LinearMap.trace`
 would otherwise silently allow.
 
-⚠️ This is the only place in the file where `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]` and `h2` are
-used at all, and they are used only to produce `nonempty_tateModuleEquivProd h2`, which is the
-single hypothesis of `galoisTrace_one_of_nonempty`. -/
+⚠️ This is one of exactly **two** places in the file where `[IsAlgClosed F]`,
+`[(W'⁄F).IsElliptic]` and `h2` are used at all — the other is
+`charpoly_galoisRepMatrixTwo_one` below, which uses them identically. Both use them only to produce
+`nonempty_tateModuleEquivProd h2`, which is the single hypothesis of
+`galoisTrace_one_of_nonempty`. ⚠️ Measured, not assumed: putting `omit [IsAlgClosed F]` on
+`charpoly_galoisRepMatrixTwo_one` gives `failed to synthesize instance of type class
+IsAlgClosed F`. -/
 theorem galoisTraceTwo_one (h2 : (2 : F) ≠ 0) :
     galoisTraceTwo (W' := W') (F := F) 1 = 2 :=
   galoisTrace_one_of_nonempty (tateModule.nonempty_tateModuleEquivProd h2)

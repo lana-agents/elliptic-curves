@@ -97,8 +97,9 @@ does not reach `EllipticCurves.TateModule.Profinite` at all — not directly and
 measured by walking the `import` graph — so no proof below can consume anything from it and the
 single mention above is a prose cross-reference; and that file is **not** `ℓ = 2`
 only — its `variable` block is `(W : Affine F) (ℓ : ℕ)` and `compactSpace`, `isCompact_coe`,
-`levelFamily` and `isClosedEmbedding_levelFamily` are all stated at an arbitrary prime. Only three
-*instantiations* there are `ℓ = 2`.
+`levelFamily` and `isClosedEmbedding_levelFamily` are all stated at an arbitrary prime. Only four
+*instantiations* there are `ℓ = 2` — `compactSpace_two`, `not_discreteTopology_tateModule_two`,
+`profiniteAddGrpTwo` and `coe_profiniteAddGrpTwo`.
 
 ⚠️ **The conclusion it was offered for is nonetheless right**: the `ℓ = 3` twin of this file is a
 genuine follow-up rather than a one-line instantiation, because this file proves

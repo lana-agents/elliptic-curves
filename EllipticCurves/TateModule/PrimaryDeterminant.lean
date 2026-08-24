@@ -282,9 +282,11 @@ about: it is `Module.finrank ℤ_[ℓ] T_ℓE`, so it is `2` exactly because `T_
 would be `0` if `T_ℓE` were the zero module — which is the degenerate case that `LinearMap.trace`
 would otherwise silently allow.
 
-⚠️ It is the only statement in this file that takes a hypothesis, and the hypothesis is the whole
-content: at `ℓ = 2` it is `nonempty_tateModuleEquivProd`, at `ℓ = 3` it is
-`nonempty_tateModuleEquivProd_three`, and at `ℓ ≥ 5` nothing supplies it.
+⚠️ It is the only statement in this file that *needs* a hypothesis, and the hypothesis is the
+whole content: at `ℓ = 2` it is `nonempty_tateModuleEquivProd`, at `ℓ = 3` it is
+`nonempty_tateModuleEquivProd_three`, and at `ℓ ≥ 5` nothing supplies it. ⚠️ It is **not** the only
+statement that *takes* one: `charpoly_galoisRepMatrix_one_of_nonempty` below takes the same `h` and
+passes it straight here, which is why the deletion test recorded below knocks on to it.
 
 ⚠️ **Deletion test**, measured on this file as committed. Deleting the hypothesis `h` from the
 statement and replacing `obtain ⟨e⟩ := h` by
