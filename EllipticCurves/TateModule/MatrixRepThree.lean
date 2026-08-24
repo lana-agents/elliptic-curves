@@ -57,8 +57,21 @@ spelling and the generic lemmas apply to both. ⚠️ There is deliberately **no
   route that it needs no such thing; **that sentence must not be read as applying here.** Ward's
   theorem and the elliptic-net recurrence remain unused at every `ℓ`.
 * **Continuity is not asserted.** `continuous_galoisRepMatrixTwo`
-  (`EllipticCurves.TateModule.MatrixContinuity`) is still `ℓ = 2` only; ⚠️ its `ℓ = 3` twin is a
-  separate follow-up, and it wants the profinite side, which is a different dependency.
+  (`EllipticCurves.TateModule.MatrixContinuity`) is still `ℓ = 2` only; its `ℓ = 3` twin is a
+  separate follow-up. ⚠️ **The reason this bullet used to give is wrong twice over** — copy-paste:
+  *"and it wants the profinite side, which is a different dependency"*.
+  `EllipticCurves.TateModule.MatrixContinuity`'s Scope section carried the same mistake in its own
+  words and has been repaired there too.
+  `EllipticCurves.TateModule.Profinite` is not a dependency of that file at all
+  (it imports `Continuity`, `Determinant` and `MatrixRep`), and it is not `ℓ = 2` only: its core is
+  stated at an arbitrary `ℓ` and it now has instantiated layers at `ℓ = 2` **and** `ℓ = 3`, five
+  declarations each (`compactSpace_*`, `isCompact_coe_*`, `not_discreteTopology_tateModule_*`,
+  `profiniteAddGrp*`, `coe_profiniteAddGrp*`). What actually makes the twin a follow-up is that
+  `MatrixContinuity` proves `continuous_galoisDetTwo` and `continuous_galoisTraceTwo` as well, so
+  all eighteen of its declarations have to be restated. ⚠️ Its **inputs** are no longer missing:
+  `galoisDetThree` and `galoisTraceThree` are stated in
+  `EllipticCurves.TateModule.DeterminantThree`, as the fourth bullet below says. It is work, not a
+  gate.
 * **The basis-change conjugation law is not here.** `galoisRepMatrixTwo_conj`
   (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still `ℓ = 2` only. Its statement
   is insensitive to `ℓ`, so it is the next extraction after this one; it is not done here because

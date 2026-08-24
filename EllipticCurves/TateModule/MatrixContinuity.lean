@@ -97,12 +97,17 @@ does not reach `EllipticCurves.TateModule.Profinite` at all — not directly and
 measured by walking the `import` graph — so no proof below can consume anything from it and the
 single mention above is a prose cross-reference; and that file is **not** `ℓ = 2`
 only — its `variable` block is `(W : Affine F) (ℓ : ℕ)` and `compactSpace`, `isCompact_coe`,
-`levelFamily` and `isClosedEmbedding_levelFamily` are all stated at an arbitrary prime. Only four
-*instantiations* there are `ℓ = 2` — `compactSpace_two`, `not_discreteTopology_tateModule_two`,
-`profiniteAddGrpTwo` and `coe_profiniteAddGrpTwo`.
+`levelFamily` and `isClosedEmbedding_levelFamily` are all stated at an arbitrary prime. Its
+*instantiated* layers are `ℓ = 2` and `ℓ = 3`, five declarations each: `compactSpace_*`,
+`isCompact_coe_*`, `not_discreteTopology_tateModule_*`, `profiniteAddGrp*` and
+`coe_profiniteAddGrp*`.
 
-⚠️ **The conclusion it was offered for is nonetheless right**: the `ℓ = 3` twin of this file is a
-genuine follow-up rather than a one-line instantiation, because this file proves
+⚠️ The cross-reference at *"`T₂E` is not discrete"* above is a **different** sentence and is
+correct: it cites a true statement of `EllipticCurves.TateModule.Profinite` as a fact, not as a
+gate.
+
+⚠️ **The conclusion the false clause was offered for is nonetheless right**: the `ℓ = 3` twin of
+this file is a genuine follow-up rather than a one-line instantiation, because this file proves
 `continuous_galoisDetTwo` and `continuous_galoisTraceTwo` as well as
 `continuous_galoisRepMatrixTwo`, and each of the eighteen declarations below has to be restated.
 It is work, not a gate. At `ℓ ≥ 5` the gate is real and it is the general coordinate formula

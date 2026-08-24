@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.Continuity
+import EllipticCurves.TateModule.FreeThree
 import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.Torsion.TwoPrimary
 import Mathlib.Topology.Algebra.Category.ProfiniteGrp.Basic
@@ -22,13 +23,22 @@ This file supplies the missing piece. It rests on two observations.
   it sits inside the much smaller product `∏_k E[ℓ^k]`, which **is** compact as soon as every level
   `E[ℓ^k]` is finite, and inside which `T_ℓ E` is cut out by the closed conditions
   `ℓ · g (k+1) = g k`.
-* At `ℓ = 2` the finiteness of every level is **already available and unconditional**:
-  `EllipticCurves.Torsion.TwoPrimary` proves `#E[2^k] = 4^k` from the tangent-line doubling
-  shortcut, with no appeal to Ward's theorem, to the elliptic-net recurrence, or to the
-  multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`.
+* At `ℓ = 2` **and at `ℓ = 3`** the finiteness of every level is **already available and
+  unconditional**: `EllipticCurves.Torsion.TwoPrimary` proves `#E[2^k] = 4^k` from the tangent-line
+  doubling shortcut, and `EllipticCurves.Torsion.ThreePrimary` proves `#E[3^k] = 9^k` by induction
+  from `#E[3] = 9`.
 
-So `T_2 E` is an honest profinite abelian group, and `ρ_{E,2}` is a continuous representation of a
-topological group *on a profinite module* rather than merely on a topological one.
+⚠️ **The two counts are not equally cheap, and a file that lists them side by side will be misread
+if it does not say so.** The `2`-primary one appeals neither to Ward's theorem, nor to the
+elliptic-net recurrence, nor to the multiplication-by-`n` coordinate formula
+`x(nP) = Φₙ(x)/ΨSqₙ(x)`. The `3`-primary one **does** consume that formula, at `n = 3`, through
+`EllipticCurves.Torsion.TriplingSurjective` — and it additionally needs `(3 : F) ≠ 0`.
+`EllipticCurves.TateModule.OpenKernel` draws exactly this distinction for the same pair of inputs;
+this file follows it rather than restating it in different words.
+
+So `T_2 E` and `T_3 E` are honest profinite abelian groups, and `ρ_{E,2}` and `ρ_{E,3}` are
+continuous representations of a topological group *on a profinite module* rather than merely on a
+topological one (`continuous_galoisRep`, which is stated at every prime `ℓ`).
 
 ## The topology is the inverse-limit topology — as a theorem
 
@@ -50,35 +60,60 @@ assertion made checkable. Compactness is then a two-line corollary of Tychonoff.
   `isClosedEmbedding_levelFamily`, `isOpen_ker_proj` and `iInf_ker_proj` are **unconditional**:
   they hold for every `ℓ` and every Weierstrass curve, finite levels or not.
 * `compactSpace` and `isCompact_coe` take the hypothesis `∀ k, Finite (W.torsion (ℓ ^ k))`.
-* `compactSpace_two`, `not_discreteTopology_tateModule_two` and `profiniteAddGrpTwo` discharge that
-  hypothesis **unconditionally at `ℓ = 2`** via `finite_torsion_two_pow`.
+* `compactSpace_two`, `isCompact_coe_two`, `not_discreteTopology_tateModule_two` and
+  `profiniteAddGrpTwo` discharge that hypothesis **unconditionally at `ℓ = 2`** via
+  `finite_torsion_two_pow`.
+* `compactSpace_three`, `isCompact_coe_three`, `not_discreteTopology_tateModule_three` and
+  `profiniteAddGrpThree` do the same **at `ℓ = 3`** via `finite_torsion_three_pow`, at the price of
+  `(3 : F) ≠ 0` and of the coordinate formula recorded above.
 
-**This supersedes, at `ℓ = 2`, the "No compactness" paragraph in the module docstring of
-`EllipticCurves.TateModule.Continuity`.** That paragraph says finiteness of `E[n]` "is not
-available in this development"; it is available for `n = 2^k`, and has been since the `2`-primary
-tower landed. For **odd** `ℓ` the paragraph still stands: `Finite (E[ℓ^k])` needs `#E[ℓ] ≤ ℓ²`,
-which needs the coordinate formula, so the general-`ℓ` statements below are left conditional rather
-than faked.
+**This supersedes, at `ℓ = 2` and at `ℓ = 3`, the "No compactness" paragraph in the module docstring
+of `EllipticCurves.TateModule.Continuity`.** ⚠️ That paragraph no longer *says* finiteness of `E[n]`
+"is not available in this development": `#985` repaired it, and it now quotes that clause and names
+it false at every `3`-smooth `n` (`finite_torsion_of_smooth`, in
+`EllipticCurves.Torsion.Multiplicative`) — wider than the `2^k` and `3^k` this file consumes.
+What is superseded is only the *conclusion* the clause was offered for. Compactness is still not
+that file's job, and it is this file's: `T_2 E` and `T_3 E` are compact, unconditionally.
+
+⚠️ **The clause this paragraph used to carry — *"For **odd** `ℓ` the paragraph still stands:
+`Finite (E[ℓ^k])` needs `#E[ℓ] ≤ ℓ²`, which needs the coordinate formula"* — is false at `ℓ = 3`.**
+The coordinate formula *is* available at `n = 3` (`EllipticCurves.Torsion.TriplingSurjective`), so
+naming it as the obstruction proved the wrong thing: it is a cost at `ℓ = 3`, not a gate. The clause
+is true for every prime `ℓ ≥ 5`, where the formula is the general `x(nP) = Φₙ/ΨSqₙ` and is genuinely
+unavailable, and it is restated in that form under `## Scope`. Either way `compactSpace` carries
+finiteness as a hypothesis rather than assuming it away, so it applies verbatim at each `ℓ` where
+the hypothesis is discharged — which is the whole reason the `ℓ = 3` layer below is four one-line
+theorems and not a new argument.
 
 ## Non-degeneracy
 
 `CompactSpace` is free for the zero module, and `ProfiniteAddGrp.of` accepts it, so a file proving
-`T_ℓ E` compact certifies nothing on its own. The discriminating statement is in the file:
-`not_discreteTopology_tateModule_two`, i.e. `T_2 E` is compact **and infinite**
-(`infinite_tateModule_two`), hence its topology is not the discrete one. A compact discrete space
-is finite, so this single statement rules out both degenerate readings at once — the zero module,
-and the possibility that "the profinite topology" is secretly discrete and every continuity theorem
-about it vacuous.
+`T_ℓ E` compact certifies nothing on its own. The discriminating statements are in the file:
+`not_discreteTopology_tateModule_two` and `not_discreteTopology_tateModule_three`, i.e. `T_2 E` and
+`T_3 E` are compact **and infinite** (`infinite_tateModule_two`,
+`infinite_tateModule_three`), hence their topologies are not the discrete one. A compact discrete
+space is finite, so each of these single statements rules out both degenerate readings at once — the
+zero module, and the possibility that "the profinite topology" is secretly discrete and every
+continuity theorem about it vacuous.
+
+⚠️ That closes the *degeneracy* half of non-vacuity but not the *inhabitation* half: every statement
+in the two layers below carries `[IsAlgClosed F]` and `[W.IsElliptic]`, and a theorem quantified
+over an empty class is vacuously true however many negations it asserts. The `### Non-vacuity`
+section at the end of the file closes that half on a curve that exists, for **both** `ℓ = 2` and
+`ℓ = 3`.
 
 ## Main statements
 
 * `WeierstrassCurve.Affine.tateModule.isClosedEmbedding_levelFamily` : `T_ℓ E ↪ ∏_k E[ℓ^k]` is a
   closed embedding — the topology on `T_ℓ E` *is* the inverse-limit topology.
 * `WeierstrassCurve.Affine.tateModule.compactSpace` : `T_ℓ E` is compact when every level is finite.
-* `WeierstrassCurve.Affine.tateModule.compactSpace_two` : `T_2 E` is compact, unconditionally.
-* `WeierstrassCurve.Affine.tateModule.not_discreteTopology_tateModule_two` : `T_2 E` is not
-  discrete.
-* `WeierstrassCurve.Affine.tateModule.profiniteAddGrpTwo` : `T_2 E` as an object of
+* `WeierstrassCurve.Affine.tateModule.compactSpace_two`,
+  `WeierstrassCurve.Affine.tateModule.compactSpace_three` : `T_2 E` and `T_3 E` are compact,
+  unconditionally.
+* `WeierstrassCurve.Affine.tateModule.not_discreteTopology_tateModule_two`,
+  `WeierstrassCurve.Affine.tateModule.not_discreteTopology_tateModule_three` : neither is discrete.
+* `WeierstrassCurve.Affine.tateModule.profiniteAddGrpTwo`,
+  `WeierstrassCurve.Affine.tateModule.profiniteAddGrpThree` : `T_2 E` and `T_3 E` as objects of
   `ProfiniteAddGrp`.
 * `WeierstrassCurve.Affine.tateModule.isOpen_ker_proj`,
   `WeierstrassCurve.Affine.tateModule.iInf_ker_proj` : the level filtration is a filtration by open
@@ -86,8 +121,28 @@ about it vacuous.
 
 ## Scope
 
-Nothing here bears on **odd `ℓ`** beyond the conditional statements, on `T_ℓ E ≅ ℤ_ℓ²`, on the
-image of `ρ_ℓ`, or on `det ρ_{E,2}` and the cyclotomic character.
+⚠️ **`ℓ ≥ 5` is where the gate actually is, and it has not moved.** `Finite (E[ℓ^k])` at a prime
+`ℓ ≥ 5` needs `#E[ℓ] ≤ ℓ²` and hence the general multiplication-by-`n` coordinate formula
+`x(nP) = Φₙ/ΨSqₙ`, which this development does not have. `compactSpace` and `isCompact_coe` will
+apply verbatim the day it lands — they take finiteness as a hypothesis and never assume it — so what
+is missing at `ℓ ≥ 5` is the input and not anything in this file.
+
+⚠️ **There is no `3`-smooth analogue of the two layers below, and a reader arriving from
+`EllipticCurves.TateModule.OpenKernel` will expect one.** That file's
+`isOpen_ker_galoisRepMod_smooth` exists because `isOpen_ker_galoisRepMod` takes
+`Finite ((W'⁄F).torsion n)` — a hypothesis about a **single** `n`, which `finite_torsion_of_smooth`
+supplies at every `3`-smooth `n`. `compactSpace` takes `∀ k, Finite (W.torsion (ℓ ^ k))` — a
+hypothesis about the **`ℓ`-power family** — and `3`-smoothness is a condition on one composite `n`,
+so it does not slot in. The four-theorem `2 ^ k` / `3 ^ k` / smooth / no-`IsAlgClosed` shape of that
+file therefore does **not** transpose here. This is not a gap: `T_ℓ E` is an inverse limit along
+powers of a single `ℓ` and is only of interest at prime `ℓ`, so a `3`-smooth `T_n E` is not a thing
+this development wants.
+
+Nothing here bears on `T_ℓ E ≅ ℤ_ℓ²`, on the image of `ρ_ℓ`, or on `det ρ_{E,ℓ}` and the cyclotomic
+character. ⚠️ In particular `compactSpace_three` is **not** progress towards `det ρ_{E,3} = χ_3`
+`3`-adically, which needs the Weil pairing on `E[3^k]` for every `k`; the mod-`3` identity
+`galoisDetMod 3 = χ_3` is a different statement and lives in
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 
 Continuity of `ρ_{E,2}` into `GL₂(ℤ_[2])` **with its `2`-adic topology** is likewise not supplied
 here, but it is available: `continuous_galoisRepMatrixTwo` in
@@ -210,7 +265,10 @@ theorem isCompact_coe (hfin : ∀ k, Finite (W.torsion (ℓ ^ k))) :
     IsCompact ((W.tateModule ℓ : Set (ℕ → W.Point))) :=
   isCompact_iff_compactSpace.2 (compactSpace W ℓ hfin)
 
-/-! ### The unconditional `ℓ = 2` layer -/
+/-! ### The unconditional `ℓ = 2` layer
+
+⚠️ *Unconditional* here means *no finiteness hypothesis*, not *no hypotheses*: `[IsAlgClosed F]`,
+`[W.IsElliptic]` and `(2 : F) ≠ 0` are all still carried, because `#E[2^k] = 4^k` is. -/
 
 section Two
 
@@ -222,6 +280,13 @@ doubling identity, so this is independent of Ward's theorem, of the elliptic-net
 the coordinate formula `x(nP) = Φₙ/ΨSqₙ`. -/
 theorem compactSpace_two (h2 : (2 : F) ≠ 0) : CompactSpace (W.tateModule 2) :=
   compactSpace W 2 (finite_torsion_two_pow h2)
+
+/-- The set form of `compactSpace_two`. ⚠️ Added alongside `isCompact_coe_three` rather than for a
+consumer: `isCompact_coe` had no instantiated layer at all, and giving it one only at `ℓ = 3` would
+have left the file asserting a fact about `T_3 E` that it declines to assert about `T_2 E`. -/
+theorem isCompact_coe_two (h2 : (2 : F) ≠ 0) :
+    IsCompact ((W.tateModule 2 : Set (ℕ → W.Point))) :=
+  isCompact_coe W 2 (finite_torsion_two_pow h2)
 
 /-- **`T_2 E` is compact but not discrete.**
 
@@ -255,6 +320,98 @@ theorem coe_profiniteAddGrpTwo (h2 : (2 : F) ≠ 0) :
 
 end Two
 
+/-! ### The unconditional `ℓ = 3` layer
+
+Four one-line instantiations of the conditional statements above, discharging
+`∀ k, Finite (W.torsion (3 ^ k))` with `finite_torsion_three_pow`
+(`EllipticCurves.Torsion.ThreePrimary`). Nothing new is proved here.
+
+⚠️ **The price is not the same as at `ℓ = 2` and the docstrings below say so individually.** Each
+statement carries `(3 : F) ≠ 0` in addition to `(2 : F) ≠ 0`, and its finiteness input reaches
+`#E[3^k] = 9^k` through the multiplication-by-`n` coordinate formula at `n = 3`
+(`EllipticCurves.Torsion.TriplingSurjective`), which the `2`-primary count does not use. -/
+
+section Three
+
+variable [IsAlgClosed F] [W.IsElliptic]
+
+/-- **`T_3 E` is compact**, with no hypothesis beyond `(2 : F) ≠ 0` and `(3 : F) ≠ 0`. The
+finiteness of every level is `finite_torsion_three_pow`, which comes from `#E[3^k] = 9^k`.
+
+⚠️ Unlike `compactSpace_two` this **does** consume the multiplication-by-`n` coordinate formula, at
+`n = 3`: `card_torsion_three_pow` reaches the count through
+`EllipticCurves.Torsion.TriplingSurjective`. `compactSpace_two`'s docstring says its count needs
+neither the elliptic-net recurrence nor that formula; that is a claim about `ℓ = 2` and must not be
+read here.
+
+⚠️ **Deletion test**, run on this file as committed: replacing the proof by
+`by refine compactSpace W 3 ?_` — deleting the `finite_torsion_three_pow h2 h3` argument and
+changing nothing else — leaves
+
+```
+error: unsolved goals
+F : Type u_1
+inst✝³ : Field F
+inst✝² : DecidableEq F
+W : Affine F
+inst✝¹ : IsAlgClosed F
+inst✝ : WeierstrassCurve.IsElliptic W
+h2 : 2 ≠ 0
+h3 : 3 ≠ 0
+⊢ ∀ (k : ℕ), Finite ↥(W.torsion (3 ^ k))
+```
+
+a **goal** rather than a type mismatch, and it is exactly the hypothesis of `compactSpace`.
+
+⚠️ `[IsAlgClosed F]` is **measured** to be necessary here rather than assumed to be. Placing
+`omit [IsAlgClosed F] in` on this theorem, immediately above its docstring, gives
+`failed to synthesize instance of type class IsAlgClosed F` — `card_torsion_three_pow` is an exact
+count and is stated over an algebraically closed field. The `unusedSectionVars` linter answers in
+the other direction and is silent on every declaration in this section. ⚠️ Two traps in reproducing
+that: the `omit` line must go **above** the docstring, not between it and the `theorem` keyword,
+where it is a parse error; and the run additionally reports `coe_profiniteAddGrpThree` as having an
+unused section variable, which is a **cascade** of this theorem failing and not a finding about
+that one. -/
+theorem compactSpace_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    CompactSpace (W.tateModule 3) :=
+  compactSpace W 3 (finite_torsion_three_pow h2 h3)
+
+/-- The set form of `compactSpace_three`: `T_3 E` is a compact subset of `ℕ → E(F)`. As at `ℓ = 2`,
+the ambient space is not compact. -/
+theorem isCompact_coe_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    IsCompact ((W.tateModule 3 : Set (ℕ → W.Point))) :=
+  isCompact_coe W 3 (finite_torsion_three_pow h2 h3)
+
+/-- **`T_3 E` is compact but not discrete**, the `ℓ = 3` twin of
+`not_discreteTopology_tateModule_two` and, as there, the statement that rules out the degenerate
+readings: a compact *discrete* space is finite, whereas `T_3 E` is infinite.
+
+⚠️ The infinitude input is `infinite_tateModule_three`
+(`EllipticCurves.TateModule.FreeThree`) and it is **not** in the same file as its `ℓ = 2`
+counterpart — `infinite_tateModule_two` is in `EllipticCurves.TateModule.LevelStructure`. That is
+the whole reason this file imports `EllipticCurves.TateModule.FreeThree`; the compactness half needs
+only `EllipticCurves.Torsion.ThreePrimary`. -/
+theorem not_discreteTopology_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    ¬ DiscreteTopology (W.tateModule 3) := by
+  intro hd
+  haveI := hd
+  haveI := compactSpace_three W h2 h3
+  haveI := infinite_tateModule_three (W := W) h2 h3
+  haveI : Finite (W.tateModule 3) := finite_of_compact_of_discrete
+  exact not_finite (W.tateModule 3)
+
+/-- **`T_3 E` as an object of `ProfiniteAddGrp`**, exactly as `profiniteAddGrpTwo`. -/
+def profiniteAddGrpThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) : ProfiniteAddGrp :=
+  haveI := compactSpace_three W h2 h3
+  ProfiniteAddGrp.of (W.tateModule 3)
+
+@[simp]
+theorem coe_profiniteAddGrpThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    (profiniteAddGrpThree W h2 h3 : Type _) = W.tateModule 3 :=
+  rfl
+
+end Three
+
 /-! ### The level filtration is a filtration by open subgroups -/
 
 /-- The kernel of the level-`k` projection is **open**: `E[ℓ^k]` is discrete and `proj k` is
@@ -277,6 +434,65 @@ theorem iInf_ker_proj : (⨅ k : ℕ, (proj (W := W) (ℓ := ℓ) k).ker) = ⊥ 
   refine le_antisymm (fun f hf => ?_) bot_le
   simp only [AddSubgroup.mem_iInf, AddMonoidHom.mem_ker] at hf
   exact AddSubgroup.mem_bot.2 (tateModule.ext fun k => congrArg Subtype.val (hf k))
+
+/-! ### Non-vacuity
+
+⚠️ Everything in the two unconditional layers above carries `[IsAlgClosed F]` and `[W.IsElliptic]`,
+so `ℚ` cannot witness it and every one of those statements would be vacuously true if nothing
+inhabited those classes. `[IsAlgClosed F]`, `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` are
+simultaneously satisfiable on this development's standard certificate curve `y² + y = x³` over an
+algebraic closure of `ℚ`, which is the curve `EllipticCurves.Torsion.ThreePrimary` and
+`EllipticCurves.TateModule.FreeThree` use for the same purpose. ⚠️ Those files' copies of the
+boilerplate are `private`, so this one is a duplicate by necessity rather than by oversight.
+
+⚠️ **This closes a different risk from `not_discreteTopology_tateModule_two` and
+`not_discreteTopology_tateModule_three`.** Those rule out the *degenerate* readings — the zero
+module, and a secretly discrete topology. This rules out an *empty hypothesis class*. Neither
+implies the other, and the file previously closed only the first. -/
+
+section Nonvacuity
+
+/-- The curve `y² + y = x³` over `ℚ`, this development's standard certificate curve. -/
+private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+
+/-- An algebraic closure of `ℚ`: a field of characteristic `0`, so both `2 ≠ 0` and `3 ≠ 0`. -/
+private abbrev exampleField : Type := AlgebraicClosure ℚ
+
+private instance : exampleCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+/-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
+bare `inferInstance` from `[W.IsElliptic]`. -/
+private instance : (exampleCurve⁄exampleField).IsElliptic :=
+  inferInstanceAs (exampleCurve.map (algebraMap ℚ exampleField)).IsElliptic
+
+private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+
+private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+
+open Classical in
+/-- **On a curve that exists**: `T_2 E` and `T_3 E` are both compact and both non-discrete.
+
+⚠️ It closes by **application** of the four theorems above, not by `rfl`, `decide` or `norm_num`, so
+it consumes them. Its only content beyond that is that `exampleCurve⁄exampleField` inhabits
+`[IsAlgClosed F]` and `[W.IsElliptic]` at all — which is precisely the half a statement quantified
+over those classes cannot certify about itself.
+
+⚠️ Both `ℓ = 2` clauses are here even though this issue's deliverable is the `ℓ = 3` layer: the
+`ℓ = 2` layer has been on `main` since this file landed and had **no** named curve either, and the
+boilerplate above serves both at no extra cost. -/
+example : CompactSpace ((exampleCurve⁄exampleField).tateModule 2) ∧
+    ¬ DiscreteTopology ((exampleCurve⁄exampleField).tateModule 2) ∧
+    CompactSpace ((exampleCurve⁄exampleField).tateModule 3) ∧
+    ¬ DiscreteTopology ((exampleCurve⁄exampleField).tateModule 3) :=
+  ⟨compactSpace_two _ exampleTwo,
+    not_discreteTopology_tateModule_two _ exampleTwo,
+    compactSpace_three _ exampleTwo exampleThree,
+    not_discreteTopology_tateModule_three _ exampleTwo exampleThree⟩
+
+end Nonvacuity
 
 end tateModule
 
