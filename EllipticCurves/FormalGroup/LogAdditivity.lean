@@ -75,17 +75,20 @@ By the univariate rigidity principle proved here it suffices to check that the c
   now conditional on *only the two geometric facts* `hF : F(z₁,0)=z₁` and `hstar : (★)` — all the
   analytic rigidity and the `z₂`-calculus are discharged.
 
-## Remaining step
+## What is left here, and what has since been paid elsewhere
 
 The unconditional `formalLog_subst_formalGroupZW` is *not* proved here.  With
-`formalLog_subst_formalGroupZW_of_identity_star`, the two remaining hypotheses are now *purely
-geometric* (the rigidity principle and the whole `z₂`-derivative calculus are discharged):
+`formalLog_subst_formalGroupZW_of_identity_star`, the two hypotheses this file leaves open are
+*purely geometric* (the rigidity principle and the whole `z₂`-derivative calculus are discharged):
 
 * **`hbase` = `hF`** is reduced by `constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity`
-  to the identity axiom `finTwoEvalSndZero W.formalGroupZW = X` (`F(z₁,0) = z₁`).  For
-  `formalGroupZW` this is *not yet available*: it is equivalent to the pending identification
-  `formalGroupZW = formalGroupSeries`, whose `z₂ = 0` slice is `z₁` by
-  `coeff_formalGroupLaurent_zero`.
+  to the identity axiom `finTwoEvalSndZero W.formalGroupZW = X` (`F(z₁,0) = z₁`).  That reduction
+  is this file's, and it stands.  ⚠️ **What has changed is its input.**  The clause this bullet
+  used to carry — *"For `formalGroupZW` this is not yet available: it is equivalent to the pending
+  identification `formalGroupZW = formalGroupSeries`"* — named a gate that has since been paid:
+  `WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`
+  (`EllipticCurves.FormalGroup.GenuineLawTransfer`, issue #310) is a merged, unconditional theorem
+  over every `CommRing R`, and its `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`.
   (Note the normalisation coefficients `constantCoeff`, `coeff (single 0 1)`, `coeff (single 1 1)`
   alone do **not** imply `F(z₁,0)=z₁`: e.g. `z₁ + z₂ + c(z₁² + z₂²)` satisfies them yet fails it.)
 * **`hderiv` = `hstar` = `(★)`** is the invariant-differential invariance `(ω_E ∘ F)·∂_{z₂}F =
@@ -93,9 +96,16 @@ geometric* (the rigidity principle and the whole `z₂`-derivative calculus are 
   `z₂`-constant coefficient `z₁` is non-nilpotent) is now resolved by the merged `MvPowerSeries`
   `z₂`-partial derivative and its chain rule (`EllipticCurves.FormalGroup.MvPowerSeriesPderiv`), so
   `hderiv` is reduced to `hstar` alone by `derivativeFun_curry_formalLogAdditivityDefect_of_star`.
-  What remains is the **geometric** identity `(★)` itself, from the merged `(z, w)` structure
-  (`formalW_subst_formalGroupZW_fixed`, `formalCubicResidual_root_zero/one`,
-  `invariantDifferential_mul_invDiffDen`).  This is the genuine remaining content; no `sorry` used.
+  What is left open *here* is the **geometric** identity `(★)` itself, from the merged `(z, w)`
+  structure (`formalW_subst_formalGroupZW_fixed`, `formalCubicResidual_root_zero/one`,
+  `invariantDifferential_mul_invDiffDen`); no `sorry` used.  ⚠️ **It is no longer open anywhere
+  else**: `(★)` is a merged unconditional theorem,
+  `WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`
+  (`EllipticCurves.FormalGroup.LogAdditivityUnconditional`), closed on the Laurent side from #333
+  and #338 — ⚠️ **not** through the identification #310.  Feeding both discharged hypotheses into
+  this file's `formalLog_subst_formalGroupZW_of_identity_star` is exactly what
+  `EllipticCurves.FormalGroup.LogAdditivityUnconditional` does, so the unconditional additivity
+  (issue #315) exists and this file's conditional form is its input, not a frontier.
 
 ## References
 
@@ -249,9 +259,12 @@ theorem formalLogAdditivityDefect_eq [Algebra ℚ R] :
 axiom in the form `finTwoEvalSndZero F = X` (the `z₂ = 0` slice of the genuine group law `F` is the
 inner variable `z₁`), the `z₂`-constant coefficient of the curried additivity defect vanishes: it is
 `log_E(z₁) − log_E(z₁) − log_E(0) = 0` by naturality of substitution under `z₂ ↦ 0`
-(`MvPowerSeries.finTwoEvalSndZero_subst`).  The remaining input `finTwoEvalSndZero W.formalGroupZW =
-X` is the formal-group identity axiom, equivalent to the pending identification `formalGroupZW =
-formalGroupSeries` (whose `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`). -/
+(`MvPowerSeries.finTwoEvalSndZero_subst`).  The input `finTwoEvalSndZero W.formalGroupZW = X` is
+the formal-group identity axiom, equivalent to the identification `formalGroupZW =
+formalGroupSeries` (whose `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`).  ⚠️ That
+identification is **no longer pending** — `WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`
+(`EllipticCurves.FormalGroup.GenuineLawTransfer`, #310) is merged and unconditional; the hypothesis
+`hF` is kept here because this lemma is stated at the reduction, not at the conclusion. -/
 theorem constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity [Algebra ℚ R]
     (hF : MvPowerSeries.finTwoEvalSndZero W.formalGroupZW = PowerSeries.X) :
     PowerSeries.constantCoeff

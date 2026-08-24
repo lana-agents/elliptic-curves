@@ -30,8 +30,17 @@ Write `Z := φ(z₃')`, `μ := φ(λ_zw)`, `ν_L := φ(ν_zw)`, `λ := formalLam
 This reduction is `embedDoubleLaurent_formalThirdRoot_mul_formalYThree_of_K1_K4` below (sorry-free).
 The inputs `(K1)`/`(K4)` encode that the projective-linear change of coordinates `z = -x/y`,
 `w = -1/y` maps the `(x, y)`-secant's third intersection `(x₃, Y)` to the `(z, w)`-chord's third
-intersection `(Z, P)` (Silverman AEC IV.1, Theorem 1.1); establishing them is the remaining
-research-grade crux (see below) and is left open.
+intersection `(Z, P)` (Silverman AEC IV.1, Theorem 1.1); establishing them is the research-grade
+crux of **this** route (see below) and is left open.
+
+⚠️ **"Left open" is a statement about this route, not about the identification.**  The goal this
+file reduces — `embedDoubleLaurent W.formalGroupZW = W.formalGroupLaurent` — is merged and
+unconditional over every `CommRing R` as `WeierstrassCurve.embedDoubleLaurent_formalGroupZW`
+(`EllipticCurves.FormalGroup.GenuineLawTransfer`, issue #310), reached by the third-root matching
+of `EllipticCurves.FormalGroup.GenuineLawIdentification` and the universal-domain transfer.
+`(K1)`/`(K4)` were never proved and nothing downstream waits on them; the reduction and the bridge
+lemmas below are kept because they are sorry-free, reusable, and the `IsUnit W.formalNu` lead is
+still the shortest description of what this route would need.
 
 ## Bridge lemmas provided (all sorry-free, reusable)
 

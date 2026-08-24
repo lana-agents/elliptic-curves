@@ -24,14 +24,32 @@ associativity of `F` is a transport of the associativity of ordinary addition `+
 
 ## Why this is independent of the identification `#310`/`#314`
 
-The invariant-differential invariance `(★)` that discharges `hadd` unconditionally is gated on the
-Laurent identification `#310` (see `InvariantDifferentialInvariance.lean`).  This file, by contrast,
-takes `hadd` as a *hypothesis* and proves the **forward implication**
+This file takes `hadd` as a *hypothesis* and proves the **forward implication**
 `log-additivity ⟹ associativity`,
 which needs no identification and is not circular: it consumes `#315`'s output, it does not feed
-`(★)`.  The instant `#315` lands the unconditional `hadd`, the unconditional associativity
-`W.formalGroupZW_assoc_of_logAdditivity hadd …` drops out, ready for the `FormalGroup R` bundle of
-`#263` (`assoc` field / `assoc'`).
+`(★)`.  That independence is a property of the proof and is permanent.
+
+⚠️ **Two clauses this section used to carry have gone false, for two unrelated reasons, and both
+are recorded rather than deleted.**
+
+* It read *"The invariant-differential invariance `(★)` that discharges `hadd` unconditionally is
+  gated on the Laurent identification `#310`"*.  ⚠️ **That named the wrong gate**, and it would
+  have named the wrong gate even had `#310` still been open: `(★)` is closed on the Laurent side
+  from `hWF` (#333, `GenuineWThreeIdentification.lean`) and `hdiff` (#338,
+  `VietaDifferential.lean`), by the route `InvariantDifferentialInvariance.lean` sets out — not
+  through the identification at all.  ⚠️ Separately, `#310` **has** landed
+  (`embedDoubleLaurent_formalGroupZW`, `GenuineLawTransfer.lean`).  *A gate clause can be false
+  because the gate was paid and false because it was never the gate; repairing only the date leaves
+  the dependency wrong.*
+* It read *"The instant `#315` lands the unconditional `hadd`, the unconditional associativity …
+  drops out"*.  It has landed, and it did drop out:
+  `WeierstrassCurve.formalGroupZW_assoc_unconditional`
+  (`EllipticCurves.FormalGroup.GroupLawAssocUnconditional`, `#319`) is this file's
+  `formalGroupZW_assoc` with `WeierstrassCurve.formalLog_subst_formalGroupZW`
+  (`EllipticCurves.FormalGroup.LogAdditivityUnconditional`, `#315`) fed in.  ⚠️ **And the `#263`
+  bundle went further than the promise**: `WeierstrassCurve.formalGroup : FormalGroup R` in
+  `EllipticCurves.FormalGroup.GroupLawBundleGeneral` is unconditional over an **arbitrary**
+  `CommRing R`, not merely over a `ℚ`-algebra, by the universality transfer.
 
 ## Main results (all sorry-free)
 

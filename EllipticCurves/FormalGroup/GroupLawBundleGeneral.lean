@@ -159,8 +159,12 @@ universal curve `univ` (`S = MvPolynomial (Fin 5) ℤ`); injectivity of `algebra
 to `S` (`AssocId.of_map_injective`); and base change along `W.specialize` transports it to `W`
 (`AssocId.map`, using `univ.map W.specialize = W`).
 
-`hℚ` is discharged unconditionally the instant #315 lands (see the module docstring), making this
-associativity unconditional over any `CommRing R`. -/
+⚠️ **`hℚ` is discharged unconditionally**, by `WeierstrassCurve.formalGroupZW_assoc_unconditional`
+(`EllipticCurves.FormalGroup.GroupLawAssocUnconditional`, #319) over `#315`'s
+`formalLog_subst_formalGroupZW`, so this associativity **is** unconditional over any `CommRing R`.
+⚠️ The clause this docstring used to carry — *"`hℚ` is discharged unconditionally the instant #315
+lands"* — is retired: it has landed, and `formalGroupZW_assoc_ratAlgebra` below feeds it in, which
+is what `WeierstrassCurve.formalGroup` is built from. -/
 theorem formalGroupZW_assoc_of_ratAlgebra
     (hℚ : ∀ (C : Type) [CommRing C] [Algebra ℚ C] (V : WeierstrassCurve C),
       V.formalGroupZW.subst ![V.formalGroupZW.subst ![(X 0 : MvPowerSeries (Fin 3) C), X 1], X 2]
