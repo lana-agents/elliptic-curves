@@ -154,8 +154,8 @@ the ⚠️ below records.
 
 ⚠️ **"Non-degeneracy is proved" is true only over an algebraically closed base field**, where it
 is `#796` at `n = 2` and `#831` at `n = 3`.  Over a general field at either `n` it is not, and for
-general `n` this section remains an account of what non-degeneracy *consumes* rather than of a
-theorem.
+general `n` this section remains an account of what non-degeneracy *consumes* rather than of
+a theorem.
 
 ⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
 `exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the
@@ -244,6 +244,11 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   does nowhere else here, and the statement is false — not merely unproved — over a general field).
 * **non-degeneracy in the second slot** — `ker_weilPairingThreeHom_flip`
   (`EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`).
+* **perfectness** — `bijective_weilPairingThreeHom`, bundled as `weilPairingThreeEquiv`
+  (`EllipticCurves.FunctionField.WeilPairingPerfect`, `#940`; ⚠️ this is the only slot on this front
+  whose argument is *not* blocked at composite `n` a second time — Mathlib's finite-abelian duality
+  is stated for an arbitrary finite abelian group, so unlike `#938`'s surjectivity it would
+  transcribe to any `n` at which `weilPairingNHom` existed).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
@@ -328,11 +333,11 @@ running only the first is what lets a breach through:
 > print the new declaration's axioms **fully qualified**, *and* print the same for the declaration
 > it claims to mirror.  If the prefixes differ, that is the finding.
 
-The second half generalises to a check over every module at once.  Walk each file tracking
-`namespace` and `end` as a stack, record each declaration's enclosing namespace, then for every name
-ending `_of_hprin`, `_ne_one`, `_of_isAlgClosed`, `_of_algClosed` or `_baseChange` compare its
-namespace with its base's.  ⚠️ Handle **both** suffix spellings — `X_of_hprin_{two,three}` mirrors
-`X_{two,three}`, since `#910`'s review settled that *"mirror your twin" wins while every
+The second half generalises to a check over every module at once.  Walk each file tracking the
+`namespace`/`end` pairs as a stack, record each declaration's enclosing namespace, then for every
+name ending `_of_hprin`, `_ne_one`, `_of_isAlgClosed`, `_of_algClosed` or `_baseChange` compare
+its namespace with its base's.  ⚠️ Handle **both** suffix spellings — `X_of_hprin_{two,three}`
+mirrors `X_{two,three}`, since `#910`'s review settled that *"mirror your twin" wins while every
 `_of_hprin` file has a twin*, so the qualifier's position varies by design.  ⚠️ And use
 `[^\s:({\[]+` for the name, never `[A-Za-z_]\w*`, for the truncation reason above.
 
