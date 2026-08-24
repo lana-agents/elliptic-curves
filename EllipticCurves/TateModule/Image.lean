@@ -51,7 +51,8 @@ separable, and the instance does not apply.
 
 `GL₂(ℤ_[2])` is itself compact, so inside it *closed* and *compact* agree, and a reader may suspect
 that `isClosed_range_galoisRepMatrixTwo` says nothing at all. The honest answer is a
-counterexample, and it is proved below rather than asserted:
+counterexample, and it is proved rather than asserted — ⚠️ **but no longer in this file**, as the
+paragraph after next records:
 
 `Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup` exhibits a subgroup of `GL₂(ℤ_[p])`
 that is **not** closed — the unipotent line `n ↦ !![1, n; 0, 1]` restricted to `n : ℤ`. It is the
@@ -155,7 +156,10 @@ theorem isCompact_range_galoisRepMatrixTwo :
 
 This is the classical statement, and the standing hypothesis of every theorem about the image of an
 `ℓ`-adic representation. It is not a formality: `GL₂(ℤ_[2])` has subgroups that are not closed, and
-`Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup` below exhibits one. -/
+`Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup` exhibits one. ⚠️ That counterexample
+is **not** in this file: it is stated at an arbitrary prime `p` in
+`EllipticCurves.TateModule.PrimaryImage` and is cited here, exactly as
+`EllipticCurves.TateModule.ImageThree` cites it at `ℓ = 3`. -/
 theorem isClosed_range_galoisRepMatrixTwo :
     IsClosed ((galoisRepMatrixTwo b).range : Set (GL (Fin 2) ℤ_[2])) :=
   isClosed_range_galoisRepMatrix b
