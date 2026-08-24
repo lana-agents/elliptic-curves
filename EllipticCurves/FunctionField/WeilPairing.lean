@@ -260,6 +260,13 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   is a statement about the **base field** rather than about the pairing, and the first consumer of
   `#938`'s surjectivity that is not itself a pairing statement — equivariance alone would only say
   that `σ` permutes the values it takes).
+* **the determinant identity**, Silverman III.8.1(e) — `det ρ_{E,3} = χ_3` in coordinates, i.e.
+  `exists_smul_eq_zsmul_add_zsmul_and_det_three_eq`
+  (`EllipticCurves.FunctionField.WeilPairingDeterminant`; ⚠️ it needs **no** basis machinery — the
+  four matrix entries are integers in hypotheses, and the spanning lemma that makes those
+  hypotheses always satisfiable is a *counting* argument off `#E[3] = 9`, not a linear-algebra one.
+  ⚠️ It does **not** touch `EllipticCurves.TateModule.Determinant`'s `2`-adic `galoisDetTwo`, which
+  needs the pairing at every level `E[2 ^ k]`).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does

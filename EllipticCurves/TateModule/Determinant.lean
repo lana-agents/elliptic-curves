@@ -75,10 +75,18 @@ Only `ℓ = 2`; odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which is no
 group homomorphism, and passing to determinants changes nothing about that.
 
 **The identification of `galoisDetTwo` with the cyclotomic character is not proved here.** It is
-the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1), but it needs the
-Weil pairing and its Galois equivariance, none of which is available yet. Nothing below should be
-read as supplying it. Also out of scope: injectivity of `ρ_{E,2}`, and any description of its
-image.
+the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1). Nothing below
+should be read as supplying it. Also out of scope: injectivity of `ρ_{E,2}`, and any description of
+its image.
+
+⚠️ This paragraph used to add "but it needs the Weil pairing and its Galois equivariance, none of
+which is available yet", and that reason has expired: the pairing is Galois-equivariant in
+cyclotomic form (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`), and
+`EllipticCurves.FunctionField.WeilPairingDeterminant` proves the identification **mod `n`**, at
+`n = 2` and `n = 3`, in coordinates. What still blocks `galoisDetTwo` itself is different and
+narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at **every** level `E[2 ^ k]`
+in order to take the inverse limit, and this development has the pairing at `n = 2` and `n = 3`
+only. The gate is the general-`n` pairing, not the equivariance.
 
 ## Main definitions
 
