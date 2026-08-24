@@ -93,11 +93,23 @@ to `F̄` at both `n`; general `n` (`#404`'s `ωₙ`); bundling into `weilPairing
 (`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level theorems or
 their proofs.
 
-⚠️ **This is not a perfect-pairing statement.**  Non-degeneracy in one slot is what Silverman
-III.8.1(d) asserts and what is proved here.  A statement that `e_n` is a perfect pairing on
-`E[n] × E[n]` would want a pairing defined on `W.Point × W.Point`; there is none in this tree, since
-`weilPairingElt` takes a *function*.  `#873` records that gap as the drift this front keeps paying
-for; nothing here narrows it.
+⚠️ **This is not a perfect-pairing statement, but one exists.**  Non-degeneracy in one slot is
+what Silverman III.8.1(d) asserts and what is proved here.  Perfectness is
+`bijective_weilPairing{Two,Three}Hom`, bundled as `weilPairing{Two,Three}Equiv`
+(`EllipticCurves.FunctionField.WeilPairingPerfect`, `#940`): the bundled map
+`Multiplicative E[n] →* (Multiplicative E[n] →* μ_n(F̄))` is **bijective**, so `E[n]` is its own
+dual.  Nothing here narrows the distance to it — that remains true — but this file's six headlines
+are not the input either; `#940` runs off `ker_weilPairing{Two,Three}Hom` and
+`Mathlib.GroupTheory.FiniteAbelian.Duality`.
+
+⚠️ **The reason this bullet gave was wrong as well as its conclusion.**  It read *"A statement that
+`e_n` is a perfect pairing on `E[n] × E[n]` would want a pairing defined on `W.Point × W.Point`;
+there is none in this tree, since `weilPairingElt` takes a *function*"*.  A perfect-pairing
+statement wants a pairing on `E[n]`, and it is `EllipticCurves.FunctionField.WeilPairingFunctionTwo`
+(`#922`) that supplies one — whose own scope section says the pairing **has to be** a function of
+`E[2] × E[2]` and not of `W.Point × W.Point`, because the rung-5 root exists only at torsion points.
+So the missing object was never the one this bullet named, and naming the wrong obstruction is what
+made the statement look further away than it was.
 
 ⚠️ **The statements below are pinned to `Classical.propDecidable`**, as the two `F(W)` files are:
 `open Classical in` is required, not decorative, because `TorsionTwoMul` / `TorsionThreeMul` bake

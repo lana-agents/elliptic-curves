@@ -101,10 +101,27 @@ Subsingleton.elim _ _`.
 ⚠️ **This is not antisymmetry.**  `weilPairingElt_mul_swap_eq_one` (`WeilPairingAntisymmetric`)
 consumes the alternating property at three points, which this file supplies unconditionally over
 `F̄` at both `n` and in the applicable form — but it also needs the product relation
-`g_{S ⊕ T} = g_S · g_T · w` as the hypothesis `hprod`, which is rung-4/5 gated (`#414`/`#418`) and
-which nothing here touches.  Nor is this bilinearity, Galois-equivariance, general `n`, or
-non-degeneracy, which at `n = 3` is `EllipticCurves.FunctionField.WeilPairingNondegenerateThree`
-(`#831`) and is independent of this file in both directions.
+`g_{S ⊕ T} = g_S · g_T · w` as the hypothesis `hprod`, which nothing here touches.  ⚠️ `hprod` is
+**rung 5 only and never rung 4**, as this bullet used to say it was (*"which is rung-4/5 gated
+(`#414`/`#418`)"*): it follows from rung-5 data alone and is produced in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`), which composes it with the
+*existential* alternating headlines of `WeilPairingAlternating{Two,Three}AlgClosed` — ⚠️ **not**
+with the `∀ g` forms stated here, which `#845` does not consume — into unconditional antisymmetry
+over `F̄` at both `n`.  Nor is this bilinearity, Galois-equivariance, general `n`, or
+non-degeneracy, which at `n = 3` is
+`EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`) and is independent of this
+file in both directions.
+
+⚠️ **This clause was false before it was written, and the interval is the finding.**  `#845`
+(`a57f242`, 2026-08-23 **08:07:38**) both produced `hprod` and retired this exact paragraph in
+`WeilPairingAlternatingTwoAlgClosed` and `WeilPairingAlternatingThreeAlgClosed`, where it reads
+*"`hprod` is **not** rung-4 gated, as this bullet used to say"*.  This file was created
+**forty-two minutes later** by `d3422a0` (`#836`, 2026-08-23 08:49:44), copying the paragraph from
+its pre-repair state.  The two PRs were in flight together, touched disjoint files, and merged
+cleanly — so **nothing in the mechanics could see it**.  The lesson is not "re-read your own file":
+`#836`'s author had no reason to.  It is that **a PR which repairs a sentence must grep the tree for
+that sentence again after landing**, because every branch already open carries a copy of the old
+one.
 
 ## References
 

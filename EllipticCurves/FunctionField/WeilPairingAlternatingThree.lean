@@ -119,7 +119,16 @@ and cancelling the common factor `(τ_P∗ g) · (τ_Q∗ g) ≠ 0` leaves `τ_T
   supply it, and the headline below is instantiable — see the Non-vacuity section.
 
 Because `P` is produced over `F̄`, the conclusion is a statement about `F̄`; obtaining it over a
-general `F` needs the function-field base-change layer, which is deliberately deferred (`#692`).
+general `F` needs the function-field base-change layer, which is **not built here** — but is built,
+and applied to exactly this headline, in
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange` (`#899`), whose
+`exists_weilPairingElt_self_eq_one_of_hprin_three` is
+`exists_weilPairingElt_self_eq_one_of_algClosed_three` **verbatim minus `[IsAlgClosed F]`**.
+⚠️ This paragraph used to call the layer *"deliberately deferred (`#692`)"*; the descent is done,
+and `#692`'s *endomorphism* half — the only half it uses — merged in PR #356.
+⚠️ The `n = 3` descent is also where the two extras this file's cube case carries actually bite:
+`#899` records that `htors` has to be known over `F̄` and that `map_negY` is needed where `n = 2`
+closes by proof irrelevance.
 
 ## Explicitly not here
 

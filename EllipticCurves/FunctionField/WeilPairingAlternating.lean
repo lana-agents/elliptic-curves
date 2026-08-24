@@ -94,9 +94,22 @@ two products against the tree:
   (`EllipticCurves.Torsion.TriplingSurjective`), both needing only `(2 : F) ≠ 0` — so
   `translateEndo` expresses `τ_P` unchanged.  That is how
   `EllipticCurves.FunctionField.WeilPairingAlternatingTwo` closed #465 deliverable 2 at `n = 2`,
-  using neither a base change nor a translation along a non-rational point.  What is left is
-  descending an `F̄`-statement to a general `F`, which is the function-field base-change layer
-  (deferred, #692), and #418 itself.
+  using neither a base change nor a translation along a non-rational point.
+
+  ⚠️ **The descent to a general `F` has since been performed, and `hprin` is all that is left.**
+  This bullet used to end *"What is left is descending an `F̄`-statement to a general `F`, which is
+  the function-field base-change layer (deferred, #692), and #418 itself"*.  The **route** was
+  right and the **status** was wrong:
+  `EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`
+  (`#899`) runs exactly that descent, through the injective `functionFieldMap` of
+  `EllipticCurves.FunctionField.FunctionFieldBaseChange` (`#692`), and ships
+  `exists_weilPairingElt_self_eq_one_of_hprin_{two,three}` — the merged `F̄` theorems **verbatim
+  minus `[IsAlgClosed F]`**, same `hprin`, no hypothesis added.
+
+  ⚠️ **`#692` is not "deferred"; its endomorphism half is merged and its divisor half is not**, and
+  only the endomorphism half is used here — `#899`'s docstring says so explicitly, and the three
+  intertwiners `functionFieldMap_{translateEndo,mulByTwoEndo,mulByThreeEndo}` are its whole input.
+  Reading `#692` as a single undelivered block is what kept this bullet looking current.
 
 This file supplies the ungated scaffolding both halves plug into.
 

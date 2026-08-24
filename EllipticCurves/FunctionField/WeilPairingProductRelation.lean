@@ -154,8 +154,17 @@ variable [DecidableEq F]
 
 ⚠️ **This needs no `[IsAlgClosed F]`, no rung 4, no `hprin` and no Ward** — only `[W.IsElliptic]`
 over an arbitrary field, and it has been available since `DivisorPrincipality` (`#726`) merged.
-Six files on this front defer the product relation `hprod` as *"rung-4/5 gated"*; that deferral was
-about this statement and it was wrong.
+Every file on this front that deferred the product relation `hprod` as *"rung-4/5 gated"* was
+deferring **this** statement, and the deferral was wrong.
+
+⚠️ **This docstring used to open that sentence with a live count** — *"Six files on this front defer
+the product relation `hprod` …"* — in the present tense.  A count of the files carrying a clause is
+falsified by the next PR that repairs one, including the PR the count is written in: this file's own
+commit retired the clause in thirteen other files at once.  ⚠️ **State the position, never a
+tally.**  The module docstring's *Why `hprod` was never rung-4 gated* section is the position, and
+it does not decay.  No `WeilPairing*` file asserts the deferral any longer; one `FunctionField/`
+file outside that family still carries the exact phrase — `DivisorProd.lean`, where it decorates
+the genuinely open rung-5 divisor identity `divisor W g_T = [n]∗(T)` and is **correct**, not stale.
 
 The whole proof is that `classOfDivisor_single_pointClosedPoint` identifies the divisor class of a
 rational point `(P)` with `Point.toClass P`, together with the fact that `Point.toClass` is a group
