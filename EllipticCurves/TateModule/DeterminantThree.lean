@@ -101,12 +101,15 @@ statement about a zero module is satisfiable by anything.
   `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` and at `ℓ = 3` in
   `EllipticCurves.TateModule.MatrixRepBasisChangeThree`. Neither file consumes this one; the
   conjugation law does not touch the determinant.
-* **The image is not here.** `EllipticCurves.TateModule.Image` and
-  `EllipticCurves.TateModule.ImageProfinite` are still `ℓ = 2` only. ⚠️ **The reason this bullet
-  used to give — *"because their input `continuous_galoisRepMatrixTwo` is"* — has expired**:
-  `continuous_galoisRepMatrixThree` exists
-  (`EllipticCurves.TateModule.MatrixContinuityThree`), so nothing gates their `ℓ = 3` layer; it has
-  simply not been written.
+* **The image is not here**, and it is no longer missing at `ℓ = 3` either:
+  `isClosed_range_galoisDetThree` is in `EllipticCurves.TateModule.ImageThree`, over the
+  `ℓ`-generic `EllipticCurves.TateModule.PrimaryImage`. ⚠️ **Two successive clauses of this bullet
+  have gone false and both are recorded rather than deleted.** The first read *"because their input
+  `continuous_galoisRepMatrixTwo` is"*, which expired when
+  `EllipticCurves.TateModule.MatrixContinuityThree` landed; the second read *"nothing gates their
+  `ℓ = 3` layer; it has simply not been written"*, and it has now been written. ⚠️ What remains
+  true of exactly one of the two files: `EllipticCurves.TateModule.ImageProfinite` is still `ℓ = 2`
+  only, ungated, and a separate follow-up.
 * **General odd `ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryDeterminant` is already
   stated at an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but
   its input `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `[5]`-surjectivity and `#E[5^k]`, both of which

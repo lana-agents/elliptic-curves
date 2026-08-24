@@ -54,7 +54,7 @@ curve. With them in scope, `CompactSpace`, `TotallyDisconnectedSpace`, `T2Space`
 * `WeierstrassCurve.Affine.profiniteGrpRangeGaloisRepMatrixTwo` — the image of `ρ_{E,2}` as a
   profinite group, via `ProfiniteGrp.ofClosedSubgroup` and `#619`'s closedness.
 * `WeierstrassCurve.Affine.profiniteGrpQuotientKerGaloisRepMatrixTwo` — `G ⧸ ker ρ_{E,2}` as a
-  profinite group. This consumes `#619`'s `quotientKerContinuousMulEquivRange` in the `.symm`
+  profinite group. This consumes `quotientKerContinuousMulEquivRange` in the `.symm`
   direction; a bare `MulEquiv` would not have sufficed, since transporting compactness and total
   disconnectedness needs the homeomorphism.
 * `WeierstrassCurve.Affine.continuousGaloisRepMatrixTwo` and
@@ -80,8 +80,10 @@ group, where the content actually is:
   *corollary* of infiniteness, since a compact discrete space is finite. The direct proof is kept
   because it needs no compactness and is what a reader of `MatrixContinuity.lean` has in hand.
 * `Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup`
-  (`EllipticCurves.TateModule.Image`) — `GL₂(ℤ_[2])` has subgroups that are not closed, so
-  `ofClosedSubgroup` is being applied to a hypothesis that is not free.
+  (`EllipticCurves.TateModule.PrimaryImage`) — `GL₂(ℤ_[p])` has subgroups that are not closed, so
+  `ofClosedSubgroup` is being applied to a hypothesis that is not free. ⚠️ This bullet used to cite
+  `EllipticCurves.TateModule.Image` and to say `ℤ_[2]`; the statement moved when that file became
+  an instantiation layer, and it is now `p`-generic.
 
 ## Scope
 
@@ -93,8 +95,11 @@ the basis comes from the `2`-primary tower"* — no longer explains the restrict
 is not what confines anything to `ℓ = 2`. ⚠️ **Neither is continuity, any more, and the clause
 that said so is retired**: it read *"The chain that does is `continuous_galoisRepMatrixTwo` →
 `#619` → this file, and its first link is `ℓ = 2` only"*. `continuous_galoisRepMatrixThree` exists
-(`EllipticCurves.TateModule.MatrixContinuityThree`), so nothing gates the `ℓ = 3` layer of this
-file; it simply has not been written, and that is a follow-up. ⚠️ This
+(`EllipticCurves.TateModule.MatrixContinuityThree`), and ⚠️ **the second link has since gone too**:
+the image itself is `ℓ`-generic in `EllipticCurves.TateModule.PrimaryImage`, with an `ℓ = 3` layer
+in `EllipticCurves.TateModule.ImageThree`, so `isClosed_range_galoisRepMatrixThree` is available.
+**Nothing gates the `ℓ = 3` layer of this file; it simply has not been written**, and that is a
+follow-up. ⚠️ This
 also cashes the *"reusable verbatim when odd `ℓ` opens"* promise made above about
 `Matrix.GeneralLinearGroup.profiniteGrpPadicInt`: odd `ℓ` has opened at `ℓ = 3` for the matrix
 representation, and that statement is indeed reusable there unchanged. The `GLₙ(ℤ_[p])` statements
@@ -237,7 +242,8 @@ variable (b : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
 /-- The image of `ρ_{E,2}` packaged as a `ClosedSubgroup` of `GL₂(ℤ_[2])`, which is the input
 `ProfiniteGrp.ofClosedSubgroup` wants. Closedness is `#619`'s
 `isClosed_range_galoisRepMatrixTwo`, and it is not free: `GL₂(ℤ_[2])` has subgroups that are not
-closed (`Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup`). -/
+closed (`Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup`, now stated at an arbitrary
+prime in `EllipticCurves.TateModule.PrimaryImage`). -/
 noncomputable def closedSubgroupRangeGaloisRepMatrixTwo : ClosedSubgroup (GL (Fin 2) ℤ_[2]) where
   toSubgroup := (galoisRepMatrixTwo b).range
   isClosed' := isClosed_range_galoisRepMatrixTwo b
@@ -259,7 +265,8 @@ theorem coe_profiniteGrpRangeGaloisRepMatrixTwo :
 
 /-- **`G ⧸ ker ρ_{E,2}` is a profinite group.**
 
-Transported along `#619`'s `quotientKerContinuousMulEquivRange`, used in the `.symm` direction. The
+Transported along `quotientKerContinuousMulEquivRange`
+(`EllipticCurves.TateModule.PrimaryImage`, `ℓ`-generic), used in the `.symm` direction. The
 transport needs a *homeomorphism*: compactness and total disconnectedness do not travel along a
 bare `MulEquiv`, and a continuous bijective homomorphism is not a homeomorphism in general. This is
 where the topological first isomorphism theorem earns its keep. -/

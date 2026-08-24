@@ -103,10 +103,13 @@ On the source side the corresponding statement is `tateModule.not_discreteTopolo
   `(ZMod 3)ˣ`, not `ℤ_[3]ˣ` — and it landed separately as
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`. Continuity of a character says
   nothing about which character it is.
-* **The image is not here.** `EllipticCurves.TateModule.Image` and
-  `EllipticCurves.TateModule.ImageProfinite` are `ℓ = 2` only **because their input
-  `continuous_galoisRepMatrixTwo` is**. ⚠️ This file removes that reason and so unblocks them; that
-  is a *separate* follow-up, deliberately not folded in here.
+* **The image is not here.** ⚠️ **The clause this bullet used to carry is doubly out of date** —
+  it read *"`EllipticCurves.TateModule.Image` and `EllipticCurves.TateModule.ImageProfinite` are
+  `ℓ = 2` only **because their input `continuous_galoisRepMatrixTwo` is**; this file removes that
+  reason and so unblocks them"*. It did, and the follow-up it predicted has landed for the first of
+  the two: `EllipticCurves.TateModule.ImageThree`, over the `ℓ`-generic
+  `EllipticCurves.TateModule.PrimaryImage`. `EllipticCurves.TateModule.ImageProfinite` is still
+  `ℓ = 2` only and still ungated.
 * **The basis-change conjugation law is not here**, and it is not missing at `ℓ = 3` either:
   `galoisRepMatrixThree_conj` is in `EllipticCurves.TateModule.MatrixRepBasisChangeThree`, over the
   `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`. ⚠️ It is a different file,
