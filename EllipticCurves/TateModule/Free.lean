@@ -26,7 +26,11 @@ structural description of any Tate module in this development.
 The construction is in `EllipticCurves.TateModule.PrimaryFree`, stated for an arbitrary prime `ℓ`
 in terms of three inputs: a coherent system of generating pairs of the groups `E[ℓ^k]`, the count
 `#E[ℓ^k] = ℓ^k · ℓ^k`, and finiteness of `E[ℓ^k]`. **This file supplies those three inputs at
-`ℓ = 2` and specialises every statement; it contains no argument.** They are
+`ℓ = 2`; it contains no argument.** ⚠️ It used to add *"and specialises every statement"*, which
+overstates in exactly the way the same sentence in `EllipticCurves.Torsion.TwoPrimaryBasis` did
+before it was repaired: it specialises **4** of `EllipticCurves.TateModule.PrimaryFree`'s **12**
+public declarations, and the eight `padicPair…` names are consumed **unspecialised** at a general
+`ℓ`, which is the subject of the ⚠️ note below. They are
 
 * `exists_compatible_basis` (`EllipticCurves.Torsion.TwoPrimaryBasis`), the coherent system.
   Coherence is essential and is not supplied by the structure theorem: `E[2^k] ≃+ (ZMod (2^k))²`

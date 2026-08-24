@@ -26,7 +26,11 @@ odd one.
 The construction is in `EllipticCurves.TateModule.PrimaryFree`, stated for an arbitrary prime `ℓ`
 in terms of three inputs: a coherent system of generating pairs of the groups `E[ℓ^k]`, the count
 `#E[ℓ^k] = ℓ^k · ℓ^k`, and finiteness of `E[ℓ^k]`. **This file supplies those three inputs at
-`ℓ = 3` and specialises every statement; it contains no argument.** They are
+`ℓ = 3`; it contains no argument.** ⚠️ It used to add *"and specialises every statement"*, which
+overstates in exactly the way the same sentence in `EllipticCurves.Torsion.ThreePrimaryBasis` did
+before it was repaired: it specialises **4** of `EllipticCurves.TateModule.PrimaryFree`'s **12**
+public declarations, and the eight `padicPair…` names are consumed **unspecialised** at a general
+`ℓ`, which is what the `## Naming` section below says. They are
 
 * `exists_compatible_basis_three` (`EllipticCurves.Torsion.ThreePrimaryBasis`), the coherent
   system — coherence is essential and is not supplied by the structure theorem:

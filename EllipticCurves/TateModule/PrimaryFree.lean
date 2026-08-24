@@ -29,9 +29,15 @@ facts the argument consumes, and proves nothing about either.
   `[ℓ]`-surjectivity, and it is the input a levelwise structure theorem does **not** give:
   `E[ℓ^k] ≃+ (ZMod (ℓ^k))²` holds at each level *independently*, and a family of unrelated
   isomorphisms says nothing about an inverse limit.
-* `hcard` and `hfin` — `#E[ℓ^k] = ℓ^k · ℓ^k`, and that group is finite. These are consumed at
-  exactly one point, the injectivity half (`padicPairHom_injective`), through
-  `EllipticCurves.Torsion.PrimaryBasis.zmod_pair_eq_zero_iff_of_card`.
+* `hcard` and `hfin` — `#E[ℓ^k] = ℓ^k · ℓ^k`, and that group is finite. **Two** declarations
+  below actually use them, and they are the two halves of bijectivity:
+  `padicPairHom_injective`, through
+  `EllipticCurves.Torsion.PrimaryBasis.zmod_pair_eq_zero_iff_of_card`, and
+  `padicPairHom_surjective`, through
+  `EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of_card`, which is what identifies
+  the level-`(k+1)` coefficients with the level-`k` ones. Everything from `padicPairEquiv` onwards
+  only *passes them on* to those two, and `padicPairFamily`, `padicPairFamily_mem`, `padicPairHom`
+  and `padicPairHom_apply_coe` do not take them at all: those are `hbasis` alone.
 
 ⚠️ **Taking the prime-specific inputs as hypotheses is this development's established idiom** for
 exactly this situation: `EllipticCurves.TateModule.LevelStructure.proj_surjective` is stated that
@@ -65,13 +71,15 @@ level `k` through its residue `toZModPow k a`.
   `(toZModPow k a).val • P k + (toZModPow k b).val • Q k = 0`, so `toZModPow k a = 0` and
   `toZModPow k b = 0` by uniqueness of coefficients (`zmod_pair_eq_zero_iff_of_card`, the
   injectivity half of the levelwise basis property), whence `a = b = 0` by
-  `PadicInt.ext_of_toZModPow`. ⚠️ This is the **only** declaration below that uses `hcard`/`hfin`.
+  `PadicInt.ext_of_toZModPow`.
 * **`Φ` is surjective** (`padicPairHom_surjective`). Write each `f k` as
   `(α k).val • P k + (β k).val • Q k`, possible by the surjectivity half
   (`exists_zmod_pair_eq`). The sequences `α, β` are *compatible*: applying `ℓ • −` to level `k+1`
   and using coherence rewrites `f k` with the level-`(k+1)` coefficients reduced mod `ℓ^k`, and
   uniqueness at level `k` forces `ZMod.castHom … (α (k+1)) = α k`. So `α, β` lie in
   `PadicInt.compatSeq ℓ` and `PadicInt.compatSeqEquiv` converts them back into `ℓ`-adic integers.
+  ⚠️ That "uniqueness at level `k`" is `torsionPairHom_bijective_of_card`, so this half consumes
+  `hcard`/`hfin` too — the two hypotheses are **not** an injectivity-only price.
 
 The last step is exactly what `EllipticCurves.TateModule.PadicInverseLimit` was built for:
 `ℤ_[ℓ] = lim_k ZMod (ℓ^k)` as an explicit equivalence rather than only a universal property.
@@ -251,9 +259,9 @@ lemma padicPairHom_apply_coe
 /-- **`Φ` is injective.** Uniqueness of the coefficients at every level forces all residues of `a`
 and `b` to vanish, and a `ℓ`-adic integer is determined by its residues.
 
-⚠️ This is the **only** declaration in this file that consumes a cardinality, and therefore the
-only one whose `ℓ = 2` and `ℓ = 3` instances need the counting theorems `card_torsion_two_pow` and
-`card_torsion_three_pow`. -/
+⚠️ This is one of the **two** declarations in this file that consume a cardinality — the other is
+`padicPairHom_surjective` — and therefore one of the two whose `ℓ = 2` and `ℓ = 3` instances need
+the counting theorems `card_torsion_two_pow` and `card_torsion_three_pow`. -/
 theorem padicPairHom_injective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))
@@ -273,7 +281,11 @@ theorem padicPairHom_injective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
 
 /-- **`Φ` is surjective.** The levelwise coefficient pairs of a compatible family are themselves a
 compatible sequence, so they come from a pair of `ℓ`-adic integers via
-`PadicInt.compatSeqEquiv`. -/
+`PadicInt.compatSeqEquiv`.
+
+⚠️ This is the second of the two declarations in this file that consume a cardinality: the
+compatibility of those pairs is exactly *uniqueness* of the level-`k` coefficients, and uniqueness
+is what `torsionPairHom_bijective_of_card` extracts from `hcard`. -/
 theorem padicPairHom_surjective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))

@@ -40,8 +40,10 @@ before. Nothing here is new Galois theory: it is a transport along an equivalenc
 `E[2^k]`, and different systems give representations differing by conjugation. So the matrix
 representation takes a basis as an argument, and only its *existence* is stated choice-freely
 (`exists_galoisRepMatrixTwo`). This follows the packaging already used in
-`EllipticCurves.TateModule.Free`, where `padicPairEquiv` carries the basis and `Module.Free` /
-`Module.finrank` do not.
+`EllipticCurves.TateModule.PrimaryFree`, where `padicPairEquiv` carries the basis and `Module.Free`
+/ `Module.finrank` do not. ⚠️ That reference used to name `EllipticCurves.TateModule.Free`, which
+declared `padicPairEquiv` until the construction was extracted to a general `ℓ`; `Free` is now the
+`ℓ = 2` list of instantiations and declares none of the `padicPair…` names.
 
 ## The two lemmas that make it usable
 
