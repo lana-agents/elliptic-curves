@@ -144,8 +144,16 @@ met head-on.
   `card_torsion_two` is at `n = 2`.  ⚠️ And `∑_{p ↦ q} e_p = 9` is a statement about **places** of
   `F(W)`; the passage to a count of points runs through "a separable isogeny has `#ker = deg`",
   which no file in this tree contains.
-* **The weighted identity** `∑ e_p · deg p = 9`.  `residueDegreeThree` does not exist, so
-  `sum_ramificationIdxTwo_mul_residueDegreeTwo` still has no `n = 3` mirror.
+* **The weighted identity** `∑ e_p · f_p = 9`.  ⚠️ **The clause this bullet used to carry has been
+  paid** — it read *"`residueDegreeThree` does not exist, so
+  `sum_ramificationIdxTwo_mul_residueDegreeTwo` still has no `n = 3` mirror"*.  The mirror is
+  `sum_ramificationIdxThree_mul_residueDegreeThree`
+  (`EllipticCurves.FunctionField.MulByThreeResidueDegree`), which consumes
+  `EllipticCurves.FunctionField.MulByThreeRamification` rather than this file.  ⚠️ This bullet's
+  heading used to write the weight as `deg p`, and `MulByThreePlacePullback`'s opening sentence
+  still does; what exists is the **relative** degree `f_p = [κ(p) : κ([3]⁻¹ p)]`, which agrees with
+  `[κ(p) : F]` only because the base field is algebraically closed.  The correction is recorded
+  there too, next to the sentence that carries it.
 * **General `n`.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
   endomorphisms this tree has.  `#404`'s general `ωₙ` is untouched.
 

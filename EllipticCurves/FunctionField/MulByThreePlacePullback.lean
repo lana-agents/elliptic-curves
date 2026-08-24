@@ -106,8 +106,20 @@ place other than infinity.  At `n = 2` that is the work of
 machinery on top of a fundamental identity, and nothing here approaches either.  The identity is
 `EllipticCurves.FunctionField.MulByThreeRamification`, which instantiates
 `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`) at `[3]∗` on top of this file and
-proves the **unweighted** `∑_{p ↦ q} e_p = 9`.  The weighted form still has no `n = 3` case:
-`residueDegreeThree` does not exist, so `sum_ramificationIdxTwo_mul_residueDegreeTwo` has no mirror.
+proves the **unweighted** `∑_{p ↦ q} e_p = 9`.  ⚠️ **The sentence that used to end this paragraph
+has been paid** — it read *"The weighted form still has no `n = 3` case: `residueDegreeThree` does
+not exist, so `sum_ramificationIdxTwo_mul_residueDegreeTwo` has no mirror"*.  The mirror is
+`sum_ramificationIdxThree_mul_residueDegreeThree`
+(`EllipticCurves.FunctionField.MulByThreeResidueDegree`), which consumes
+`EllipticCurves.FunctionField.MulByThreeRamification` and hence this file — so the first sentence of
+this paragraph stands unchanged: nothing *here* approaches either.
+
+⚠️ One correction while retiring it: the `deg p` written above is `[κ(p) : F]`
+(`residueDegreeProj`), and the weight in the fundamental identity is the **relative** degree
+`f_p = [κ(p) : κ([3]⁻¹ p)]` (`residueDegreeThree`).  Over an algebraically closed base field both
+are `1` and the distinction is invisible; it is the relative one that survives when the base field
+is not closed, and it is the one `sum_ramificationIdxTwo_mul_residueDegreeTwo` already used at
+`n = 2`.
 
 ⚠️ **`[W.IsElliptic]` is absent from every declaration below, and that is not bookkeeping.**  What
 makes this section more than a restatement of the general one is that `[3]∗` is a *proper*
