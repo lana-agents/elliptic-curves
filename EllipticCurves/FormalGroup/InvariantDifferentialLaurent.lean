@@ -31,7 +31,21 @@ involving `WF = w ∘ F` needs `WF`'s Laurent image, which is what this file sup
   identity `formalW_subst_formalGroupZW_fixed`, using the merged identification
   `embedDoubleLaurent F = W.formalGroupLaurent` (`embedDoubleLaurent_formalGroupZW`).
 
-## The remaining gap (reducing the Laurent route to a single identity)
+## The gap this section used to name — CLOSED, by route 2 below
+
+⚠️ **This section is retained as the reduction it always was, but it is no longer a statement of
+missing work.**  The single identity it isolates is
+`WeierstrassCurve.embedDoubleLaurent_formalW_subst_formalGroupZW`
+(`EllipticCurves.FormalGroup.GenuineWThreeIdentification`, issue #333), merged and unconditional
+over every `CommRing R`.  ⚠️ **Route 2 of the two offered below is the one that was taken**, and it
+consumes this file's own main result: `embedDoubleLaurent_formalW_subst_formalGroupZW_univ` pairs
+`embedDoubleLaurent_formalW_subst_formalGroupZW_functional_eq` with
+`formalWThree_functional_eq` at the universal curve, cancels the bracket by
+`bracket_univ_ne_zero` — ⚠️ rather than by the inner-pole-freeness argument route 1 proposes —
+and base-changes along `W.specialize`.  With `#338` it closes `(★)` and hence #315; see
+`EllipticCurves.FormalGroup.LogAdditivityUnconditional`.
+
+## The reduction of the Laurent route to a single identity
 
 `WeierstrassCurve.formalWThree_functional_eq`
 (`EllipticCurves.FormalGroup.WThreeFunctionalEq`) proves that the transported third `w`-coordinate
@@ -46,7 +60,8 @@ the Laurent route is therefore exactly the single identity
 power series), so this identity is equivalent to the **inner pole-freeness of `-y₃⁻¹`** — a genuine
 #286-magnitude fact that the #286/#310 identification of `F_E` itself deliberately side-stepped (it
 was closed by the third-root matching of `EllipticCurves.FormalGroup.GenuineLawIdentification` /
-`UniversalIdentification`, not the `w`-fixed-point uniqueness route).  Two routes to close it:
+`UniversalIdentification`, not the `w`-fixed-point uniqueness route).  Two routes were open to
+close it, and ⚠️ **route 2 is the one `#333` took**:
 
 1. **Uniqueness route.** Show `W₃` is inner pole-free, so `HahnSeries.ofDoubleLaurent W₃` is genuine
    `MvPowerSeries (Fin 2) R`; apply `ofDoubleLaurent` to `formalWThree_functional_eq` (valid because

@@ -43,7 +43,9 @@ unconditional log-additivity `formalLog_subst_formalGroupZW` (#315, `LogAdditivi
 ```
 fun C _ _ V => V.formalGroupZW_assoc V.formalLog_subst_formalGroupZW
 ```
-This term (`ratAlgebraAssoc` below) discharges `hℚ`, turning every result here unconditional over an
+This term (`formalGroupZW_assoc_ratAlgebra` below — ⚠️ this docstring used to call it
+`ratAlgebraAssoc`, which is not a declaration in this or any file) discharges `hℚ`, turning every
+result here unconditional over an
 arbitrary `CommRing R`, closing #263.
 
 ## Strategy — universality transfer (Silverman AEC IV.1, Thm 1.1)
@@ -159,8 +161,12 @@ universal curve `univ` (`S = MvPolynomial (Fin 5) ℤ`); injectivity of `algebra
 to `S` (`AssocId.of_map_injective`); and base change along `W.specialize` transports it to `W`
 (`AssocId.map`, using `univ.map W.specialize = W`).
 
-`hℚ` is discharged unconditionally the instant #315 lands (see the module docstring), making this
-associativity unconditional over any `CommRing R`. -/
+⚠️ **`hℚ` is discharged unconditionally**, by `WeierstrassCurve.formalGroupZW_assoc_unconditional`
+(`EllipticCurves.FormalGroup.GroupLawAssocUnconditional`, #319) over `#315`'s
+`formalLog_subst_formalGroupZW`, so this associativity **is** unconditional over any `CommRing R`.
+⚠️ The clause this docstring used to carry — *"`hℚ` is discharged unconditionally the instant #315
+lands"* — is retired: it has landed, and `formalGroupZW_assoc_ratAlgebra` below feeds it in, which
+is what `WeierstrassCurve.formalGroup` is built from. -/
 theorem formalGroupZW_assoc_of_ratAlgebra
     (hℚ : ∀ (C : Type) [CommRing C] [Algebra ℚ C] (V : WeierstrassCurve C),
       V.formalGroupZW.subst ![V.formalGroupZW.subst ![(X 0 : MvPowerSeries (Fin 3) C), X 1], X 2]
@@ -179,7 +185,12 @@ theorem formalGroupZW_assoc_of_ratAlgebra
 
 /-- **The Weierstrass formal group law as a `FormalGroup R` over an arbitrary `CommRing R`**, built
 on the genuine `(z, w)` series `W.formalGroupZW`, conditional on the ℚ-algebra associativity
-hypothesis `hℚ` (see the module docstring — discharged unconditionally once #315 lands).  The
+hypothesis `hℚ`.  ⚠️ The clause this docstring used to carry — *"discharged unconditionally once
+#315 lands"* — is retired, and it is the **second** occurrence of that promise in this file: `hℚ`
+**is** discharged, by `formalGroupZW_assoc_ratAlgebra` below (`formalGroupZW_assoc_unconditional`,
+`EllipticCurves.FormalGroup.GroupLawAssocUnconditional`, #319, over `#315`'s
+`formalLog_subst_formalGroupZW`).  The bundle that feeds it in is `formalGroup` below; **this
+`hℚ`-parametrised form is retained as the engine `formalGroup` is built from, not as a gap.**  The
 normalisation fields come from `GenuineLaw.lean`; the `assoc` field is
 `formalGroupZW_assoc_of_ratAlgebra`.  Unlike the ℚ-algebra bundle
 `formalGroupOfLogAdditivity` (#324), this is available over a char-`p` base. -/

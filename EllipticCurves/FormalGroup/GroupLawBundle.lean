@@ -27,9 +27,17 @@ structure fields:
   conditional on the log-additivity hypothesis `hadd` of #315), already in the exact
   `FormalGroup.assoc`-field shape.
 
-The only remaining hypothesis is `hadd`; the instant #315 lands it unconditionally
-(`W.formalLog_subst_formalGroupZW`), feeding it here yields an unconditional
-`FormalGroup R` over any `ℚ`-algebra.  The general-`CommRing R` version of parent #263 follows by
+⚠️ **The clause this paragraph used to carry has been paid, and by something stronger than it
+promised.**  It read *"The only remaining hypothesis is `hadd`; the instant #315 lands it
+unconditionally (`W.formalLog_subst_formalGroupZW`), feeding it here yields an unconditional
+`FormalGroup R` over any `ℚ`-algebra"*.  `#315` landed
+(`EllipticCurves.FormalGroup.LogAdditivityUnconditional`) — but ⚠️ **the unconditional bundle is
+not here and is not restricted to `ℚ`-algebras**: `WeierstrassCurve.formalGroup : FormalGroup R`
+and `WeierstrassCurve.formalGroup_isComm` live in
+`EllipticCurves.FormalGroup.GroupLawBundleGeneral` over an **arbitrary** `CommRing R`, by the
+universality transfer described next.  *A promise can be overtaken rather than merely fulfilled,
+and a reader sent to the fulfilment gets the weaker theorem.*  The general-`CommRing R` version of
+parent #263 follows by
 the universality transfer (specialise at `Frac(ℤ[a₁, …, a₆])`, base-change via #318
 `map_formalGroupZW`).
 
@@ -71,8 +79,13 @@ theorem formalGroupZW_subst_swap :
 /-- **The Weierstrass formal group law as a `FormalGroup R`**, built on the genuine `(z, w)` series
 `W.formalGroupZW`, over a `ℚ`-algebra `R` and conditional on the log-additivity hypothesis `hadd`
 of #315.  The `assoc` field is `W.formalGroupZW_assoc hadd` (#319); the normalisation fields come
-from `GenuineLaw.lean`.  The instant #315 discharges `hadd` unconditionally, this becomes an
-unconditional `FormalGroup R` over any `ℚ`-algebra (the last-mile packaging of #263). -/
+from `GenuineLaw.lean`.  ⚠️ `#315` has since discharged `hadd` unconditionally
+(`WeierstrassCurve.formalLog_subst_formalGroupZW`,
+`EllipticCurves.FormalGroup.LogAdditivityUnconditional`), so this definition is no longer the
+last-mile packaging of #263: ⚠️ **that is `WeierstrassCurve.formalGroup`
+(`EllipticCurves.FormalGroup.GroupLawBundleGeneral`), unconditional over an arbitrary
+`CommRing R`.**  This conditional form is kept because it is what the general bundle is built
+from. -/
 noncomputable def formalGroupOfLogAdditivity [Algebra ℚ R]
     (hadd : W.formalLog.subst W.formalGroupZW
       = W.formalLog.subst (X 0) + W.formalLog.subst (X 1)) :
