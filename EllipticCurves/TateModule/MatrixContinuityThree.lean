@@ -175,9 +175,10 @@ apparatus those files listed, nothing is still `ℓ = 2` only. ⚠️ The clause
 sentence — *"only `EllipticCurves.TateModule.MatrixRepCompat` is still `ℓ = 2` only"* — was true
 when it was written; `EllipticCurves.TateModule.MatrixRepCompatThree`, over the `ℓ`-generic
 `EllipticCurves.TateModule.PrimaryMatrixRepCompat`, has since retired it. ⚠️ **The scope of the
-sentence is load-bearing and must stay**: `EllipticCurves.TateModule.Image` and
-`EllipticCurves.TateModule.ImageProfinite` have no `ℓ = 3` layer, and they were never in those
-files' lists. -/
+sentence is load-bearing and must stay**: it is a claim about the apparatus *those three files
+listed*, and the image (`EllipticCurves.TateModule.Image`,
+`EllipticCurves.TateModule.ImageProfinite`) was never in any of their lists. Whatever is true of
+the image is tracked by this file's own Scope bullet above, not here. -/
 theorem continuous_galoisRepMatrixThree : Continuous (galoisRepMatrixThree b) :=
   continuous_galoisRepMatrix b
 

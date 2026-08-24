@@ -100,13 +100,14 @@ apparatus **that the rest of this paragraph names**: the determinant and trace c
 conjugation law, and continuity. ⚠️ **Read the scope of that claim, because it used to be
 stated without one.** It ended *"nothing is missing for the surrounding apparatus either, with the
 single exception of `EllipticCurves.TateModule.MatrixRepCompat`"*, which dropped the scope and
-kept the count — and was then false twice over: `EllipticCurves.TateModule.Image` and
-`EllipticCurves.TateModule.ImageProfinite` have no `ℓ = 3` layer either and were never in this
-paragraph's list, which is what `EllipticCurves.TateModule.Determinant` says correctly of the same
-tree; and `MatrixRepCompat` has since acquired its own `ℓ = 3` layer
+kept the count — and was then false twice over. First, the image
+(`EllipticCurves.TateModule.Image`, `EllipticCurves.TateModule.ImageProfinite`) was never in this
+paragraph's list and so was silently excluded from an exception clause that read as exhaustive;
+`EllipticCurves.TateModule.Determinant` is the file that tracks it, and does so correctly on the
+same tree. Second, `MatrixRepCompat` has since acquired its own `ℓ = 3` layer
 (`EllipticCurves.TateModule.MatrixRepCompatThree`, over the `ℓ`-generic
-`EllipticCurves.TateModule.PrimaryMatrixRepCompat`). So the image is what is left `ℓ = 2` only in
-the surrounding apparatus, and it is a separate follow-up that nothing gates.
+`EllipticCurves.TateModule.PrimaryMatrixRepCompat`), so the exception is retired rather than
+re-trimmed.
 ⚠️ **This sentence used to list
 "the determinant and trace characters", "the conjugation law" and "continuity" among what remained
 `ℓ = 2` only, and all three have gone false**: `galoisDetThree` and `galoisTraceThree` are stated
