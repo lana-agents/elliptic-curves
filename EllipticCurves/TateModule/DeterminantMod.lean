@@ -35,8 +35,11 @@ at `ℓ = 2`.
 ⚠️ **It supplies the left-hand side of `det ρ_{E,3} = χ_3` and nothing else.**  The cyclotomic
 character does not appear below, the Weil pairing does not appear below, and nothing here should be
 read as progress on the identification that `EllipticCurves.TateModule.Determinant` names as the
-reason the determinant is interesting.  That identification is a separate deliverable and it needs
-the pairing.
+reason the determinant is interesting.  That identification is a separate deliverable, it needs the
+pairing, and it is delivered — at `n = 3` — in
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`), which imports this file.
+⚠️ Nothing below changed when it landed: this file still supplies only the left-hand side, and the
+statement `galoisDetMod 3 = χ_3` is not available from this file's imports.
 
 ⚠️ **`EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`) proves that identification in
 coordinates, and priced this file's object as out of reach.**  It states `a * d - b * c ≡ χ_n(σ)`
@@ -61,8 +64,16 @@ repaired in place in the same pull request as this file, so a grep of `main` wil
 has an **equation**; this file has an **object**.  A coordinate determinant is a number attached to
 a chosen pair; `galoisDetMod n` is a group homomorphism `G →* (ZMod n)ˣ`, which is the form a
 representation-theoretic consumer wants and the form `galoisDetTwo` already takes `2`-adically.
-⚠️ Proving that the two agree — `galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms — is
-neither file's content and is the natural next deliverable.
+⚠️ That the two agree — `galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms — is neither
+file's content; it is `galoisDetMod_three_eq_galoisModularCyclotomicChar` in
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`), which consumes this file's
+`galoisDetMod`, `galoisRepModLinear_apply_coe`, `finite_torsion_three_zmod` and
+`finrank_torsion_three`, and `#951`'s coordinate identity.  ⚠️ It does **not** cite
+`basisTorsionThree`: it builds its own basis out of the pairing pair, because `#951`'s hypotheses
+are about a *given* `P` and `T` while `basisTorsionThree` is an arbitrary basis.  So the sentence
+below calling `basisTorsionThree` "the interface a coordinate computation downstream will need"
+predicted the wrong interface; what the downstream computation needed was `finrank_torsion_three`,
+from which it builds the basis it can name.
 
 ## ⚠️ `LinearEquiv.det` is basis-free, and that is why no `Gal(F/S)`-stable basis is needed
 

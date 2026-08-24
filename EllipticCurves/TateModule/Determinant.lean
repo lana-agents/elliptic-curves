@@ -83,10 +83,14 @@ its image.
 which is available yet", and that reason has expired: the pairing is Galois-equivariant in
 cyclotomic form (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`), and
 `EllipticCurves.FunctionField.WeilPairingDeterminant` proves the identification **mod `n`**, at
-`n = 2` and `n = 3`, in coordinates. What still blocks `galoisDetTwo` itself is different and
-narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at **every** level `E[2 ^ k]`
-in order to take the inverse limit, and this development has the pairing at `n = 2` and `n = 3`
-only. The gate is the general-`n` pairing, not the equivariance.
+`n = 2` and `n = 3`, in coordinates. ⚠️ At `n = 3` it is no longer only in coordinates:
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`) proves
+`galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms `G →* (ZMod 3)ˣ`, with no basis and
+no chosen pair in the statement. ⚠️ Be exact about which half that moves: it is the **mod-`3`**
+half, and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo`
+itself is different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at
+**every** level `E[2 ^ k]` in order to take the inverse limit, and this development has the pairing
+at `n = 2` and `n = 3` only. The gate is the general-`n` pairing, not the equivariance.
 
 ## Main definitions
 
