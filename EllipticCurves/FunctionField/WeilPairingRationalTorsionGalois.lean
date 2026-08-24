@@ -84,10 +84,15 @@ The two statements about `ℚ ⊆ AlgebraicClosure ℚ` mention no curve and sit
 inputs the same way, and a curve namespace on a curve-free statement is `#903`'s defect one level
 up.  ⚠️ Their natural home is `EllipticCurves.Galois.CyclotomicCharacter`, whose own docstring says
 the character "is a genuine invariant of `σ`, and not bookkeeping that could be trivial for every
-`σ` … no concrete field is needed to see it" — a claim these two finally *witness*.  Neither takes
-`natCard_rootsOfUnity_of_ne_zero` (the count is an argument), so moving them is a pure relocation;
-they are here only to keep `Mathlib.FieldTheory.Galois.Infinite` out of the import closure of a file
-that most of this development depends on.
+`σ` … no concrete field is needed to see it" — a claim these two finally *witness*.  ⚠️ Moving them
+there would **not** be a pure relocation, though: neither *statement* mentions
+`natCard_rootsOfUnity_of_ne_zero` — the second takes the count as an argument — but the *proof* of
+`exists_restrictRootsOfUnity_three_ne_self` calls it, and it lives in
+`EllipticCurves.FunctionField.WeilPairingSurjective`, which
+`EllipticCurves.Galois.CyclotomicCharacter` does not import (measured: the identifier is unknown
+there).  A move has to carry that lemma with it.  They are here for that reason and to keep
+`Mathlib.FieldTheory.Galois.Infinite` out of the import closure of a file that most of this
+development depends on.
 
 Everything else is in `WeierstrassCurve.Affine` with `open CoordinateRing`, and `open Classical in`
 on everything mentioning `torsion`.
