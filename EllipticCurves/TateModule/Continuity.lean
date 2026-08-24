@@ -98,10 +98,20 @@ directly.
 
 ## Scope
 
-**No compactness.** `T_ℓE` is profinite only because each `E[ℓ^k]` is finite, and finiteness of
-`E[n]` is not available in this development (it needs the division-polynomial characterisation of
-`E[n]`). What is available here — Hausdorff, totally disconnected, a topological group — follows
-from the construction and is recorded below.
+**No compactness**, and that scoping decision is unchanged. ⚠️ The *reason* this paragraph used to
+give for it was two false clauses. The first, *"finiteness of `E[n]` is not available in this
+development"*, is false for every `3`-smooth `n`: `finite_torsion_of_smooth`
+(`EllipticCurves.Torsion.Multiplicative`), and its special cases `finite_torsion_two_pow` and
+`finite_torsion_three_pow`. The second, *"(it needs the division-polynomial characterisation of
+`E[n]`)"*, is a claim about a **route**, and the route actually taken denies it —
+`card_torsion_le_sq_of_smooth`'s own docstring says the bound is obtained from `#E[2] ≤ 4` and
+`#E[3] ≤ 9` *"purely by multiplicativity — no multiplication-by-`n` coordinate formula and no
+elliptic-net recurrence are involved"*. Compactness is simply not this file's job: `T₂E` is compact,
+unconditionally, and it is proved as `compactSpace_two` in
+`EllipticCurves.TateModule.Profinite`, out of the generic `compactSpace` there, which takes
+levelwise finiteness as a hypothesis exactly as this file's neighbours do. What is available here —
+Hausdorff, totally disconnected, a topological group — follows from the construction and is
+recorded below.
 
 **The target topology in `continuous_galoisRep` is the topology of pointwise convergence** on
 `T_ℓE → T_ℓE`, not the compact-open topology and not an operator topology. Continuity of the

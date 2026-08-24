@@ -38,9 +38,21 @@ multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**.
 Together with `EllipticCurves.Torsion.Coprime` (exact gluing at coprime factors) and
 `EllipticCurves.Torsion.Multiplicative` (the bound `#E[mn] ≤ #E[m] · #E[n]` in general), the
 structure theorem for a general `n` is now reduced to **prime powers**. Those genuinely need
-surjectivity of `[p]` on `E(F̄)`, which is not available; only the exponent-one cases `p = 2` and
-`p = 3` are known, whence the concrete result at `n = 6`. In particular this file does *not* give
-`#E[4] = 16` or `#E[9] = 81`.
+surjectivity of `[p]` on `E(F̄)`. ⚠️ Two clauses this paragraph used to carry about that are false
+and are replaced. The first, *"which is not available"*, is false at `p = 2`
+(`nsmul_two_surjective`, `EllipticCurves.Torsion.DoublingSurjective`) and at `p = 3`
+(`nsmul_three_surjective`, `EllipticCurves.Torsion.TriplingSurjective`); it stands verbatim for
+every prime `p ≥ 5`, which still needs the general coordinate formula `x(nP) = Φₙ/ΨSqₙ`. The
+second, *"only the exponent-one cases `p = 2` and `p = 3` are known"*, is false at every exponent:
+`nonempty_torsionTwoPow_addEquiv` (`EllipticCurves.Torsion.TwoPrimary`) and
+`nonempty_torsionThreePow_addEquiv` (`EllipticCurves.Torsion.ThreePrimary`) give every `2 ^ k` and
+every `3 ^ k`, and gluing them gives every `3`-smooth `n`
+(`nonempty_torsion_addEquiv_zmod_sq_of_smooth`). The concrete result at `n = 6` below is one
+instance of that.
+
+⚠️ **In particular this file does *not* give `#E[4] = 16` or `#E[9] = 81`.** That sentence is about
+*this file's contents*, not about the development, and it is still true: those counts live in
+`EllipticCurves.Torsion.TwoPrimary` and `EllipticCurves.Torsion.ThreePrimary`.
 
 ## Main statements
 
