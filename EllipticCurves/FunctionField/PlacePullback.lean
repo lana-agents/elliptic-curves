@@ -488,7 +488,13 @@ Two things that does **not** give.  It is the *field degree* `[F(W) : [2]∗F(W)
 formula `∑_{p ↦ q} e_p · deg p = 4`, which additionally needs the residue degrees (`#743`, `#749`)
 and a fundamental identity (`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`) — both
 of which now exist, so the degree formula holds over an algebraically closed base field, but it is
-not proved from anything in this file; and it says nothing about `#E[n] = n²`, whose connection to
+not proved from anything in this file.  ⚠️ **And in this spelling it is `degProjPt`, not the
+relative residue degree**: `PlaceRamificationInertia` proves the `f_p`-weighted form, and the
+`deg p`-weighted form written here is `sum_ramificationIdxTwo_mul_degProjPt`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`), which needs the identification
+`degProjPt = residueDegreeProj` and therefore an algebraically closed base field for a second,
+independent reason.  Over a general field the two weights are different quantities and only the
+relative one is expected to survive.  It says nothing about `#E[n] = n²` either, whose connection to
 the field degree runs
 through a counting argument for separable isogenies that is nowhere in this tree.  (The
 *separability* of `F(W) / [2]∗F(W)` itself is available — `MulByTwoGalois`, `#759` — but the step

@@ -121,6 +121,18 @@ are `1` and the distinction is invisible; it is the relative one that survives w
 is not closed, and it is the one `sum_ramificationIdxTwo_mul_residueDegreeTwo` already used at
 `n = 2`.
 
+⚠️ **A second reading of `deg p` is in the tree and it is not this one.**
+`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity` glosses `deg p` as `degPt`, the *relative
+ideal norm to `F[X]`* of `EllipticCurves.FunctionField.DivisorDegree`, where this paragraph glosses
+it as `[κ(p) : F]` (`residueDegreeProj`).  **Both glosses were written into the tree within a day
+of each other and they name different objects.**  They agree over an algebraically closed base
+field — that is `degProjPt_eq_residueDegreeProj`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`), a theorem and not a definitional
+coincidence — and over a general field neither the agreement nor either `= 1` claim is available.
+So `deg p` in a docstring on this front is ambiguous by two readings and unambiguous by value only
+over `F̄`; the `deg p`-weighted identity at `n = 3` is
+`sum_ramificationIdxThree_mul_degProjPt`, in that same file, and it takes the `degPt` reading.
+
 ⚠️ **`[W.IsElliptic]` is absent from every declaration below, and that is not bookkeeping.**  What
 makes this section more than a restatement of the general one is that `[3]∗` is a *proper*
 embedding: `finrank_mulByThreeRange_functionField = 9` and `not_surjective_mulByThreeEndo`

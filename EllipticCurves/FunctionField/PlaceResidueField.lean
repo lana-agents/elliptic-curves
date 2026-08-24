@@ -77,7 +77,17 @@ is about the encoding, not about the mathematics.
   belongs with the computation of the degree, not with the definition.
 * **Any comparison with `degPt`** (`DivisorDegree.lean`).  `degPt v` is
   `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)`, a *relative ideal norm to `F[X]`*, not
-  a residue-field degree.  The two agree, and nothing below assumes it.
+  a residue-field degree.  Nothing below assumes any relation between the two.
+  ⚠️ **This bullet used to end** *"The two agree, and nothing below assumes it."*  The second half
+  was and remains true; the first half was an **assertion without a proof**, and it stayed one for
+  as long as it stood.  It is now a theorem *over an algebraically closed base field* —
+  `degPt_eq_residueDegreeProj` and `degProjPt_eq_residueDegreeProj`
+  (`EllipticCurves.FunctionField.PlaceDegreeComparison`), both by way of `degPt = 1`, which the
+  maximal-ideal classification of `EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed`
+  supplies.  ⚠️ **Over a general base field it is open**, and the definition below is deliberately
+  not rephrased in terms of `degPt`: the obstruction is that Mathlib's
+  `Ideal.relNorm_eq_pow_of_isMaximal` carries `[PerfectField (FractionRing R)]`, and `RatFunc F` is
+  not perfect in characteristic `p`.  That file's Scope section is the account.
 * **`IsDiscreteValuationRing (placeOf W p)`.**  A principal maximal ideal is not that typeclass —
   it wants *every* ideal principal, which is a separate argument off the same order function.  That
   argument is `EllipticCurves.FunctionField.PlaceDiscreteValuationRing` (`#753`), which imports this

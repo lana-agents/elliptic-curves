@@ -90,8 +90,11 @@ separable isogeny has as many points in its kernel as its degree — is nowhere 
 though the separability of `F(W) / [2]∗F(W)` now is (`MulByTwoGalois`, `#759`).  Do not assume the
 step.  The full degree formula `∑_{p ↦ q} e_p · deg p = 4` is also out of scope here — this file
 supplies its right-hand side, and the sum needs residue degrees (`#743`, `#749`) and a fundamental
-identity (`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`).  Those exist now; the
-counting step of the previous sentence still does not.
+identity (`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`).  Those exist now, and
+so, in the `deg p` spelling this sentence uses, does the formula itself:
+`sum_ramificationIdxTwo_mul_degProjPt`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`), over an algebraically closed base field.
+The counting step of the previous sentence still does not.
 
 ## References
 
