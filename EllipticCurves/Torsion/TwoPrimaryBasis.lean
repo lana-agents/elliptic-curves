@@ -99,13 +99,6 @@ theorem exists_compatible_basis (h2 : (2 : F) ≠ 0) :
 
 /-! ### The explicit isomorphism `(ℤ/2^kℤ)² ≃+ E[2^k]` -/
 
-/-- `#E[2^k] = 2^k · 2^k`, the form in which `card_torsion_two_pow` is consumed by
-`torsionPairHom_bijective_of_card`. -/
-private lemma card_torsion_two_pow_mul_self (h2 : (2 : F) ≠ 0) (k : ℕ) :
-    Nat.card (W.torsion (2 ^ k)) = 2 ^ k * 2 ^ k := by
-  rw [card_torsion_two_pow h2, ← pow_add, ← two_mul, pow_mul]
-  norm_num
-
 /-- `torsionPairHom` is bijective: it is surjective by `exists_zmod_pair_eq`, and both sides have
 `4 ^ k` elements by `card_torsion_two_pow`. -/
 theorem torsionPairHom_bijective (h2 : (2 : F) ≠ 0) {k : ℕ} {P Q : W.Point}

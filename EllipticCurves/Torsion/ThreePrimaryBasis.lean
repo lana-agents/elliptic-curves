@@ -78,7 +78,10 @@ different places.**
   recurrence remain unused.
 * **`T₃E ≅ ℤ₃²` is not in scope.** This file delivers the coherent system, which is the input
   `EllipticCurves.TateModule.Free` consumes at `ℓ = 2`; the `ℓ = 3` Tate module is a separate
-  module and a separate deliverable.
+  module and a separate deliverable. That deliverable now exists — it is
+  `EllipticCurves.TateModule.FreeThree`, which consumes `exists_compatible_basis_three` below
+  through the `ℓ`-generic `EllipticCurves.TateModule.PrimaryFree` — and this bullet remains a
+  statement about *this file's* scope, not about the development's.
 
 ## Main statements
 
@@ -167,16 +170,6 @@ theorem exists_compatible_basis_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) 
     (exists_closure_pair_eq_torsion_three h2 h3)
 
 /-! ### The explicit isomorphism `(ℤ/3^kℤ)² ≃+ E[3^k]` -/
-
-/-- `#E[3^k] = 3^k · 3^k`, the form in which `card_torsion_three_pow` is consumed by
-`torsionPairHom_bijective_of_card`.
-
-⚠️ `9 ^ k` is not definitionally `3 ^ k * 3 ^ k`; the rewrite chain that converts one into the
-other is the single line where `EllipticCurves.Torsion.ThreePrimary`'s count is used. -/
-private lemma card_torsion_three_pow_mul_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
-    Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k := by
-  rw [card_torsion_three_pow h2 h3, ← pow_add, ← two_mul, pow_mul]
-  norm_num
 
 /-- `torsionPairHom` is bijective at `3 ^ k`: it is surjective by `exists_zmod_pair_eq`, and both
 sides have `9 ^ k` elements by `card_torsion_three_pow`. -/

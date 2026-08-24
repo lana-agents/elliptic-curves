@@ -53,7 +53,8 @@ the `3`-primary tower on it and glues the two towers, giving `E[n] ≅ (ℤ/nℤ
 ## Main statements
 
 * `WeierstrassCurve.Affine.card_torsion_mul_two`: `#E[2n] = 4 · #E[n]`.
-* `WeierstrassCurve.Affine.card_torsion_two_pow`: `#E[2^k] = 4^k`.
+* `WeierstrassCurve.Affine.card_torsion_two_pow`: `#E[2^k] = 4^k`, and
+  `WeierstrassCurve.Affine.card_torsion_two_pow_mul_self`, the same count written `2^k · 2^k`.
 * `WeierstrassCurve.Affine.nonempty_torsionTwoPow_addEquiv`: `E[2^k] ≃+ (ℤ/2^kℤ)²`.
 * `WeierstrassCurve.Affine.card_torsion_four`, `…nonempty_torsionFour_addEquiv`: `#E[4] = 16` and
   `E[4] ≃+ (ℤ/4ℤ)²`.
@@ -119,6 +120,21 @@ theorem finite_torsion_two_pow (h2 : (2 : F) ≠ 0) (k : ℕ) : Finite (W.torsio
     rw [card_torsion_two_pow h2]
     positivity
   exact (Nat.card_ne_zero.mp h).2
+
+/-- **`#E[2^k] = 2^k · 2^k`**, the same count as `card_torsion_two_pow` in the shape every
+consumer that compares `E[2^k]` with `(ZMod (2^k))²` needs it: as a product of two copies of the
+modulus rather than as a power of `4`.
+
+⚠️ `4 ^ k` is **not** definitionally `2 ^ k * 2 ^ k`, so the conversion is a real rewrite and not a
+`rfl`. It is stated once here rather than repeated at each call site;
+`EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of_card`,
+`EllipticCurves.TateModule.LevelStructure.infinite_tateModule_of_card` and
+`EllipticCurves.TateModule.PrimaryFree.padicPairHom_injective` all take their cardinality
+hypothesis in exactly this form. -/
+theorem card_torsion_two_pow_mul_self (h2 : (2 : F) ≠ 0) (k : ℕ) :
+    Nat.card (W.torsion (2 ^ k)) = 2 ^ k * 2 ^ k := by
+  rw [card_torsion_two_pow h2, ← pow_add, ← two_mul, pow_mul]
+  norm_num
 
 /-! ## The structure of `E[2^k]` -/
 

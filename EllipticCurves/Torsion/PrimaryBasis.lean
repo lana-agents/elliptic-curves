@@ -101,7 +101,7 @@ open scoped AddSubgroup
 
 /-! ### Coefficients modulo `n` acting on `n`-torsion elements of an abelian group
 
-The four declarations of this section mention no curve; they are statements about an arbitrary
+The six declarations of this section mention no curve; they are statements about an arbitrary
 additive commutative group and their natural home is Mathlib. They are placed at the root namespace
 for that reason, following the placement discipline that
 `EllipticCurves.TateModule.DeterminantMod` states for `AddEquiv.toZModLinearEquiv` and

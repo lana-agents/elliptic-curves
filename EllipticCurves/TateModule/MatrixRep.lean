@@ -69,12 +69,15 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 
 ## Scope
 
-Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` is not available, and the `ℓ = 2` case went
-through the `2`-primary tower instead. ⚠️ The reason this paragraph used to give — *"needs
-surjectivity of `[ℓ]` on `E(F̄)`, which is not available"* — is false at `ℓ = 3`:
+Odd `ℓ` is **not** covered *by this file*, and the `ℓ = 2` case went through the `2`-primary tower.
+⚠️ **Two clauses this paragraph used to carry are now false and are replaced.** The first,
+*"needs surjectivity of `[ℓ]` on `E(F̄)`, which is not available"*, is false at `ℓ = 3`:
 `nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
-`(2 : F) ≠ 0` alone, and `EllipticCurves.Torsion.ThreePrimaryBasis` builds the `3`-primary coherent
-system out of it. What is missing at `ℓ = 3` is only the transport to `T₃E`. At `ℓ ≥ 5`
+`(2 : F) ≠ 0` alone. The second, *"`T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` is not available"* — together with
+*"what is missing at `ℓ = 3` is only the transport to `T₃E`"* — is false as of
+`EllipticCurves.TateModule.FreeThree`, which performs exactly that transport and delivers
+`Module.Free ℤ_[3] T₃E` and `finrank ℤ_[3] T₃E = 2`. What is missing at `ℓ = 3` is therefore not the
+module but the matrix representation: `galoisRepMatrixThree` is simply not stated below. At `ℓ ≥ 5`
 surjectivity is genuinely unavailable.
 
 **Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds

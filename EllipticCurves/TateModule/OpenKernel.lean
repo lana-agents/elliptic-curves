@@ -44,9 +44,12 @@ where the difference shows up: locally constant at each finite level
 At `ℓ = 2` the finiteness input is unconditional: `EllipticCurves.Torsion.TwoPrimary` proves
 `finite_torsion_two_pow` from the count `#E[2^k] = 4^k`, which comes from the tangent-line doubling
 shortcut and needs neither the elliptic-net recurrence nor the coordinate formula
-`x(nP) = Φₙ/ΨSqₙ`. For odd `ℓ` the finiteness of `E[ℓ^k]` is still open, so
-`isOpen_ker_galoisRepMod` carries it as a hypothesis rather than assuming it away — the general
-statement applies verbatim the day that lands.
+`x(nP) = Φₙ/ΨSqₙ`. ⚠️ The clause this paragraph used to carry — *"For odd `ℓ` the finiteness of
+`E[ℓ^k]` is still open"* — is false at `ℓ = 3` and was already false when it was written:
+`finite_torsion_three_pow` (`EllipticCurves.Torsion.ThreePrimary`) proves it from `#E[3^k] = 9^k`,
+at the price of the coordinate formula at `n = 3` and of `(3 : F) ≠ 0`. It remains open for every
+prime `ℓ ≥ 5`. Either way `isOpen_ker_galoisRepMod` carries finiteness as a hypothesis rather than
+assuming it away, so the general statement applies verbatim at each `ℓ` where it is discharged.
 
 ## What this file does not do
 
