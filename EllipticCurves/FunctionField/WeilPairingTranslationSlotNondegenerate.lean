@@ -94,14 +94,17 @@ theorem named as the gate is the theorem that refutes it.  `#E[n] = n²` over `F
 
 ⚠️ **Nothing about this front is weaker than the clause suggested; the clause credited a false
 statement with being merely open.**  What non-degeneracy asserts about the map is `≠ 1`, which is
-what this file proves and is sharp — on the canonical root the same slot is even *onto* `μ_n(F̄)`
-(`weilPairingTwo_surjective`, `EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`).  And
+what this file proves and is sharp — on the canonical root and for `S ≠ O` the same slot is even
+*onto* `μ_n(F̄)` (`weilPairingTwo_surjective`,
+`EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`).  And
 the statement that *is* injective, and in fact bijective, is the **other** slot `S ↦ e_n(S, ·)`
 into the dual group: `bijective_weilPairingTwoHom`
 (`EllipticCurves.FunctionField.WeilPairingPerfect`, `#940`).  The conceptual reason a fixed slot
-cannot be injective is `e_n(S, S) = 1`, which puts `⟨S⟩` in the kernel over any base field; this
-tree proves that identity only in an `∃`-shape that produces its own root, so
-`not_injective_weilPairingTorsionMuHom_{two,three}` is the counting refutation instead.
+cannot be injective is `e_n(S, S) = 1`, which puts `⟨S⟩` in the kernel whenever `S` is an
+`F`-rational point of order `n`; this tree proves that identity only in an `∃`-shape that produces
+its own root, so `not_injective_weilPairingTorsionMuHom_{two,three}` is the counting refutation
+instead — and it is the counting argument, not the group-theoretic one, that `[IsAlgClosed F]` is
+load-bearing for.
 
 ⚠️ **This clause was born after the sweep that should have made it unwritable, and no sweep could
 have caught it.**

@@ -71,8 +71,10 @@ type-synonym transport is one rewrite, `Nat.card_congr Multiplicative.toAdd`, wh
 `EllipticCurves.FunctionField.WeilPairingPerfect`'s `not_bijective_one_two` already uses.
 
 ⚠️ The *conceptual* reason for the failure is different and is deliberately not what is formalised
-here: `e_n(S, S) = 1`, so `⟨S⟩` lies in the kernel and injectivity fails for every `n ≥ 2` over
-**any** base field, closed or not.  This tree does prove that alternating identity, but only in an
+here: `e_n(S, S) = 1`, so for an `F`-rational `S` of order `n ≥ 2` the subgroup `⟨S⟩` lies in the
+kernel and injectivity fails over **any** base field, closed or not.  ⚠️ **That argument needs such
+an `S`, and the statements below name none** — see `## Scope`.  This tree does prove that
+alternating identity, but only in an
 `∃`-shape that produces its own root and certificate
 (`exists_weilPairingMu_self_eq_one_of_isAlgClosed_two`,
 `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`), so it cannot be applied to the
@@ -89,9 +91,16 @@ one would not.
 
 Everything below carries `[IsAlgClosed F]`, and it is load-bearing twice over: both cardinalities
 are theorems about an algebraically closed field.  Over a general field `#E[n]` can be smaller than
-`n²` and `#μ_n(F)` smaller than `n`, so the counting argument says nothing — the statement is still
-false there, but for the group-theoretic reason the `## The proof, and the standard reason it does
-not use` section gives, which is not formalised.
+`n²` and `#μ_n(F)` smaller than `n`, so the counting argument says nothing.
+
+⚠️ **And over a general field the conclusion is not merely unproved — it can be false.**  The
+statements below fix no `S` and impose no `S ≠ O`; `hu` is satisfied over *any* field by
+`f = gS = 1`, `u = 1` (both sides are `1`, since `mulByTwoEndo` is a ring hom).  So on a curve
+whose rational `n`-torsion is trivial — `y² = x³ + x + 1` over `ℚ` at `n = 2`, where the cubic has
+no rational root, so `E[2](ℚ) = {O}` — the domain `Multiplicative (W.torsion 2)` is a subsingleton
+and the map *is* injective.  What survives over a general field is the group-theoretic statement
+for an `F`-rational `S` of order `n` that the `## The proof, and the standard reason it does not
+use` section gives, and that is not formalised.
 
 ## References
 
