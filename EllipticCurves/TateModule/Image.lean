@@ -106,7 +106,10 @@ complex multiplication, and nothing about compactness approaches it; **surjectiv
 or any lower bound on the image; **injectivity** of `ρ_{E,2}` — an isomorphism onto `G ⧸ ker ρ`
 says nothing about whether `ker ρ` is trivial; the identification of `det ρ_{E,2}` with the
 cyclotomic character, which is Weil-pairing gated; and the profinite packaging, which is
-`EllipticCurves.TateModule.ImageProfinite` and is still `ℓ = 2` only.
+`EllipticCurves.TateModule.ImageProfinite`. ⚠️ The clause that used to follow —
+*"and is still `ℓ = 2` only"* — is retired: that file is now the `ℓ = 2` layer of
+`EllipticCurves.TateModule.PrimaryImageProfinite`, with an `ℓ = 3` layer in
+`EllipticCurves.TateModule.ImageProfiniteThree`.
 
 ## Main statements
 
