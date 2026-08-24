@@ -111,8 +111,12 @@ The forward map composes with `Subgroup.subtype` and the inverse is `MonoidHom.c
 homomorphism `ψ : G →* Fˣ` out of a group with `g ^ n = 1` satisfies `(ψ g) ^ n = 1`, so it lands
 in `rootsOfUnity n F` whether or not it was told to.  Both round-trips are `rfl`.
 
-A statement about a group and a field and nothing else; it belongs in Mathlib. -/
-noncomputable def monoidHomRootsOfUnityEquiv {F : Type*} [Field F] {G : Type*} [CommGroup G]
+A statement about a group and a field and nothing else; it belongs in Mathlib.
+
+⚠️ Not `noncomputable`: every field is `MonoidHom.comp`, `Subgroup.subtype` or
+`MonoidHom.codRestrict`, and nothing here chooses.  `#print axioms` agrees — this is the one
+declaration in the file that does not depend on `Classical.choice`. -/
+def monoidHomRootsOfUnityEquiv {F : Type*} [Field F] {G : Type*} [CommGroup G]
     {n : ℕ} (hG : ∀ g : G, g ^ n = 1) : (G →* (rootsOfUnity n F)) ≃ (G →* Fˣ) where
   toFun φ := (rootsOfUnity n F).subtype.comp φ
   invFun ψ := ψ.codRestrict (rootsOfUnity n F) (fun g => by
@@ -249,20 +253,26 @@ Everything above carries `[IsAlgClosed F]` and `[W.IsElliptic]`, so `ℚ` cannot
 curves are `WeilPairingSurjective`'s own — `y² = x³ − x` at `n = 2` and `y² + y = x³` at `n = 3`,
 both over `AlgebraicClosure ℚ`.
 
-⚠️ **Which certificate is load-bearing, and an honest account of what is not available here.**
-`#925`'s technique is to substitute a degenerate argument and compile the refutation; `#936`'s is to
-generalise the named data and check the script stops closing.  **Neither transfers**: the
-perfectness statements have no point argument to degenerate and no named data to generalise — they
-are universally quantified in the curve alone.  So the bijectivity certificates are honest but
-**weightless** in `#916`'s sense: they say the construction elaborates on a curve that exists.
-Rather than dress one of them up, this block adds the certificates that *do* carry weight:
+⚠️ **Which certificates are load-bearing.**  A bare named-curve instance of a bijectivity claim is
+weightless in `#916`'s sense — it says the construction elaborates on a curve that exists.  Two of
+this block's certificates carry real weight, by two different tests.
+
+⚠️ **The refutations, `#925`'s test.**  `#925`'s technique is to substitute a degenerate argument
+and compile the refutation, and it **does** apply here — the degenerate substitution is in the
+**map** slot, not in a point slot.  `not_bijective_one_two` and `not_bijective_one_three` below
+compile the statement that the *trivial* bilinear map on the very same curve is **not** bijective,
+so the perfectness theorems are facts about this pairing and not about the shape of the sentence.
+⚠️ Each refutation consumes `card_torsion_two` or `card_torsion_three` — the same independent input
+the numeric certificate below consumes — so the pair certifies that input in both directions.
+
+> **The generalisation, which is the reusable part**: when a statement has no argument to
+> degenerate, look for a *degenerate inhabitant of the object it is about*.  "Is this map
+> bijective" has no point slot, but it does have a map slot, and `1` lives in it.
 
 ⚠️ **The numeric ones.**  `Nat.card (Multiplicative E[2] →* μ_2) = 4` and its `n = 3` analogue are
 false at every other value, they consume `card_torsion_two` / `card_torsion_three` on top of the
 duality count, and `:= rfl` does not prove them (checked: it reports
-`Type mismatch: rfl has type ?m = ?m`, `Nat.card … = 4` being no reducible identity).  A
-certificate that names a number an independent input had to supply is the strongest thing available
-on a statement with no degenerate instance. -/
+`Type mismatch: rfl has type ?m = ?m`, `Nat.card … = 4` being no reducible identity). -/
 
 section Nonvacuity
 
@@ -302,6 +312,24 @@ example :
     Nat.card (Multiplicative (exampleCurveTwo.torsion 2) →* rootsOfUnity 2 exampleField) = 4 :=
   natCard_monoidHom_torsionTwo exampleTwo
 
+open Classical in
+/-- **⚠️ Why the bijectivity certificate above is not weightless**: the *same* claim about the
+*trivial* bilinear map on the *same* curve is false, because `E[2]` has four elements and a constant
+map is not injective.  This is a refutation checked by the build, not a failed proof attempt, and it
+consumes `card_torsion_two` exactly as the numeric certificate does. -/
+private theorem not_bijective_one_two :
+    ¬ Function.Bijective
+      (1 : Multiplicative (exampleCurveTwo.torsion 2) →*
+        Multiplicative (exampleCurveTwo.torsion 2) →* rootsOfUnity 2 exampleField) := by
+  intro hbij
+  haveI := exampleCurveTwo.finite_torsion_two exampleTwo
+  have hcard : Nat.card (Multiplicative (exampleCurveTwo.torsion 2)) = 4 := by
+    rw [Nat.card_congr Multiplicative.toAdd, card_torsion_two exampleTwo]
+  haveI hsub : Subsingleton (Multiplicative (exampleCurveTwo.torsion 2)) :=
+    ⟨fun a b => hbij.injective (by simp)⟩
+  rw [Nat.card_eq_one_iff_unique.mpr ⟨hsub, ⟨1⟩⟩] at hcard
+  exact absurd hcard (by norm_num)
+
 /-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, this tree's `n = 3` certificate curve. -/
 private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
 
@@ -329,6 +357,22 @@ nine elements. -/
 example :
     Nat.card (Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField) = 9 :=
   natCard_monoidHom_torsionThree exampleTwo exampleThree
+
+open Classical in
+/-- **⚠️ Why the bijectivity certificate above is not weightless**, at `n = 3`: the trivial bilinear
+map on the same curve is not bijective, `E[3]` having nine elements. -/
+private theorem not_bijective_one_three :
+    ¬ Function.Bijective
+      (1 : Multiplicative (exampleCurveThree.torsion 3) →*
+        Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField) := by
+  intro hbij
+  haveI := exampleCurveThree.finite_torsion_three exampleThree
+  have hcard : Nat.card (Multiplicative (exampleCurveThree.torsion 3)) = 9 := by
+    rw [Nat.card_congr Multiplicative.toAdd, card_torsion_three exampleTwo exampleThree]
+  haveI hsub : Subsingleton (Multiplicative (exampleCurveThree.torsion 3)) :=
+    ⟨fun a b => hbij.injective (by simp)⟩
+  rw [Nat.card_eq_one_iff_unique.mpr ⟨hsub, ⟨1⟩⟩] at hcard
+  exact absurd hcard (by norm_num)
 
 end Nonvacuity
 
