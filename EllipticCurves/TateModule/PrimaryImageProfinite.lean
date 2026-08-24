@@ -330,9 +330,17 @@ noncomputable def closedSubgroupRangeGaloisRepMatrix : ClosedSubgroup (GL (Fin 2
 /-- **The image of `ρ_{E,ℓ}` is a profinite group.**
 
 A closed subgroup of a profinite group is profinite, and `GL₂(ℤ_[ℓ])` is profinite by
-`Matrix.GeneralLinearGroup.profiniteGrpPadicInt`. Together with
-`WeierstrassCurve.Affine.isClosed_ker_galoisRep`, this presents the `ℓ`-adic representation of `E`
-as a map of profinite groups with profinite image. -/
+`Matrix.GeneralLinearGroup.profiniteGrpPadicInt`. Together with closedness of the kernel, this
+presents the `ℓ`-adic representation of `E` as a map of profinite groups with profinite image.
+
+⚠️ **Closedness of the kernel has no `ℓ`-generic form to cite**, so this docstring names no
+declaration where the `ℓ = 2` one named `isClosed_ker_galoisRepMatrixTwo`: the tree has
+`WeierstrassCurve.Affine.isClosed_ker_galoisRepMatrixTwo` and
+`WeierstrassCurve.Affine.isClosed_ker_galoisRepMatrixThree`
+(`EllipticCurves.TateModule.MatrixRepBasisChange` and
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree`), and no statement of either at an arbitrary
+prime. *A generic file cannot cite a generic name that does not exist.*
+`EllipticCurves.TateModule.ImageProfinite` names its own, at `ℓ = 2`. -/
 noncomputable def profiniteGrpRangeGaloisRepMatrix : ProfiniteGrp :=
   ProfiniteGrp.ofClosedSubgroup (G := Matrix.GeneralLinearGroup.profiniteGrpPadicInt ℓ (Fin 2))
     (closedSubgroupRangeGaloisRepMatrix b)

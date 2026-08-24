@@ -34,8 +34,13 @@ twin. They moved because the generic file consumes them and cannot import this o
 they were generalised: nothing about any of them changed.
 
 * `MulOpposite.instTotallyDisconnectedSpace`, `Units.instTotallyDisconnectedSpace`,
-  `Matrix.instCompactSpace`, `Matrix.instTotallyDisconnectedSpace` — the four Mathlib gaps, still
-  upstreamable as written, together with the analysis of why Mathlib does not have them.
+  `Matrix.instCompactSpace`, `Matrix.instTotallyDisconnectedSpace` — the four instances this file
+  had to state, still upstreamable as written, together with the analysis of why Mathlib does not
+  have them. ⚠️ **These four are not the same four as the *"four topological instances"* above**:
+  that sentence counts the four links of the chain that fails, one of which
+  (`TotallyDisconnectedSpace ℤ_[p]`) is not missing from Mathlib at all but reachable only through
+  an import nothing on this front had. Hence *"three of which are gaps"* there and four
+  declarations here.
 * `Matrix.GeneralLinearGroup.compactSpace_padicInt`,
   `Matrix.GeneralLinearGroup.totallyDisconnectedSpace_padicInt`,
   `Matrix.GeneralLinearGroup.profiniteGrpPadicInt`, `Matrix.GeneralLinearGroup.infinite_padicInt`,

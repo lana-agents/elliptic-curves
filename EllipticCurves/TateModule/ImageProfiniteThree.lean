@@ -432,7 +432,11 @@ private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
   inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
 
 /-- The `ℚ`-algebra instance trap, as `EllipticCurves.TateModule.MatrixContinuityThree` documents
-it. Introduced with `haveI` at the point of use, not registered as an instance. -/
+it. ⚠️ **Registered below with `attribute [local instance]`, not introduced with `haveI` at the
+point of use** — that is the idiom every earlier certificate block on this front uses, and it is a
+clause of `EllipticCurves.TateModule.ImageThree`'s docstring for this same lemma that does **not**
+travel here. See the `Non-vacuity` section above and the note on `attribute [local instance]`
+below for why the `haveI` form runs too late in this file. -/
 private lemma exampleIsIntegral : Algebra.IsIntegral ℚ exampleField := by
   have : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := by
     rw [show (DivisionRing.toRatAlgebra : Algebra ℚ (AlgebraicClosure ℚ))
