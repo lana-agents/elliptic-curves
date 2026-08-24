@@ -36,8 +36,18 @@ The remaining regularity of `z_c - z_i` (equivalently `x₃ - x_i`, since
 `z_c - z_i = -ν·(x₃ - x_i)·(Y·y_i)⁻¹` with `ν, Y, y_i` units) is **false over a general commutative
 ring** — the leading coefficient of `x₃ - x_i` is `-2`, not a unit in e.g. characteristic `2`.  It
 holds when `(R⸨X⸩)⸨X⸩` is a domain, and the general case follows by base change from the universal
-curve over `ℤ[a₁, …, a₆]` (a characteristic-`0` domain).  That transfer is the sole remaining step
-for #314; everything geometric is discharged here.
+curve over `ℤ[a₁, …, a₆]` (a characteristic-`0` domain).  Everything geometric is discharged here.
+
+⚠️ **The clause this paragraph used to carry — *"That transfer is the sole remaining step for
+#314"* — is retired: the transfer was made, and by this file's own downstream consumers.**
+`EllipticCurves.FormalGroup.UniversalIdentification` instantiates
+`embedDoubleLaurent_formalGroupZW_of_regular` below at the universal curve `univ` over
+`MvPolynomial (Fin 5) ℤ`, discharging both regularity hypotheses there, and
+`EllipticCurves.FormalGroup.GenuineLawTransfer` base-changes the result along `W.specialize` to
+`WeierstrassCurve.embedDoubleLaurent_formalGroupZW`, unconditional over an arbitrary `CommRing R`
+(#323, closing #314 and #286).  ⚠️ **Nothing about `#314` remains open**, and the two regularity
+hypotheses of `embedDoubleLaurent_formalGroupZW_of_regular` are kept because this lemma is stated
+at the reduction, not at the conclusion.
 
 ## References
 

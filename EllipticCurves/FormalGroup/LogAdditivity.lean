@@ -58,7 +58,7 @@ By the univariate rigidity principle proved here it suffices to check that the c
 * `MvPowerSeries.finTwoEvalSndZero` : the `z₂ ↦ 0` evaluation `MvPowerSeries (Fin 2) R →+* R⟦z₁⟧`,
   with `MvPowerSeries.finTwoEvalSndZero_subst` its **substitution naturality**
   `finTwoEvalSndZero (f.subst G) = f.subst (finTwoEvalSndZero G)` — the priority-1 naturality lemma,
-  in the form that typechecks (see "Remaining step").
+  in the form that typechecks (see "What is left here, and what has since been paid elsewhere").
 * `WeierstrassCurve.constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity` : the base fact
   `hbase`, reduced (via the naturality above) to the single formal-group **identity axiom**
   `finTwoEvalSndZero F = X`, i.e. `F(z₁, 0) = z₁`.
@@ -77,6 +77,10 @@ By the univariate rigidity principle proved here it suffices to check that the c
 
 ## What is left here, and what has since been paid elsewhere
 
+⚠️ This section was titled *"Remaining step"* until the `#1034` sweep retitled it.  The two
+cross-references to it elsewhere in this file — in "What this file provides" above, and in the
+"Naturality of substitution under the `z₂ ↦ 0` evaluation" section note — quote the new title.
+
 The unconditional `formalLog_subst_formalGroupZW` is *not* proved here.  With
 `formalLog_subst_formalGroupZW_of_identity_star`, the two hypotheses this file leaves open are
 *purely geometric* (the rigidity principle and the whole `z₂`-derivative calculus are discharged):
@@ -85,10 +89,15 @@ The unconditional `formalLog_subst_formalGroupZW` is *not* proved here.  With
   to the identity axiom `finTwoEvalSndZero W.formalGroupZW = X` (`F(z₁,0) = z₁`).  That reduction
   is this file's, and it stands.  ⚠️ **What has changed is its input.**  The clause this bullet
   used to carry — *"For `formalGroupZW` this is not yet available: it is equivalent to the pending
-  identification `formalGroupZW = formalGroupSeries`"* — named a gate that has since been paid:
-  `WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`
-  (`EllipticCurves.FormalGroup.GenuineLawTransfer`, issue #310) is a merged, unconditional theorem
-  over every `CommRing R`, and its `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`.
+  identification `formalGroupZW = formalGroupSeries`"* — is retired, and ⚠️ **it named the wrong
+  input as well as the wrong tense.**  The identity axiom is merged and unconditional as
+  `WeierstrassCurve.finTwoEvalSndZero_formalGroupZW`
+  (`EllipticCurves.FormalGroup.GroupLawBaseSlice`), proved **directly** from the `z₂ = 0` slices of
+  the Vieta data — that file does not import `EllipticCurves.FormalGroup.GenuineLawTransfer`, even
+  transitively, so the merged route to `hF` **cannot** pass through the identification `#310`.
+  `#310` has landed (`WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`) and does imply the
+  axiom, its `z₂ = 0` slice being `z₁` by `coeff_formalGroupLaurent_zero`; it is simply not what
+  pays this bullet, and the tree could not have used it here.
   (Note the normalisation coefficients `constantCoeff`, `coeff (single 0 1)`, `coeff (single 1 1)`
   alone do **not** imply `F(z₁,0)=z₁`: e.g. `z₁ + z₂ + c(z₁² + z₂²)` satisfies them yet fails it.)
 * **`hderiv` = `hstar` = `(★)`** is the invariant-differential invariance `(ω_E ∘ F)·∂_{z₂}F =
@@ -161,7 +170,8 @@ coefficient, so `PowerSeries.HasSubst` holds — unlike the full currying to `R�
 nilpotent in `R⟦z₁⟧` and hence forbids the univariate substitution
 `f.subst (mvPowerSeriesFinTwoCurry F)`.  This is why the derivative crux `(★)` cannot be
 discharged by a direct application of
-`PowerSeries.derivative_subst`; see the module "Remaining step". -/
+`PowerSeries.derivative_subst`; see the module docstring's "What is left here, and what has since
+been paid elsewhere". -/
 
 namespace MvPowerSeries
 
@@ -260,11 +270,12 @@ axiom in the form `finTwoEvalSndZero F = X` (the `z₂ = 0` slice of the genuine
 inner variable `z₁`), the `z₂`-constant coefficient of the curried additivity defect vanishes: it is
 `log_E(z₁) − log_E(z₁) − log_E(0) = 0` by naturality of substitution under `z₂ ↦ 0`
 (`MvPowerSeries.finTwoEvalSndZero_subst`).  The input `finTwoEvalSndZero W.formalGroupZW = X` is
-the formal-group identity axiom, equivalent to the identification `formalGroupZW =
-formalGroupSeries` (whose `z₂ = 0` slice is `z₁` by `coeff_formalGroupLaurent_zero`).  ⚠️ That
-identification is **no longer pending** — `WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`
-(`EllipticCurves.FormalGroup.GenuineLawTransfer`, #310) is merged and unconditional; the hypothesis
-`hF` is kept here because this lemma is stated at the reduction, not at the conclusion. -/
+the formal-group identity axiom.  ⚠️ The clause this docstring used to carry — *"equivalent to the
+**pending** identification `formalGroupZW = formalGroupSeries`"* — is retired: the axiom is merged
+and unconditional as `WeierstrassCurve.finTwoEvalSndZero_formalGroupZW`
+(`EllipticCurves.FormalGroup.GroupLawBaseSlice`), proved directly and **not** through that
+identification, which `GroupLawBaseSlice` does not import.  The hypothesis `hF` is kept here
+because this lemma is stated at the reduction, not at the conclusion. -/
 theorem constantCoeff_curry_formalLogAdditivityDefect_of_baseIdentity [Algebra ℚ R]
     (hF : MvPowerSeries.finTwoEvalSndZero W.formalGroupZW = PowerSeries.X) :
     PowerSeries.constantCoeff
@@ -292,8 +303,17 @@ currying isomorphism, the additivity identity `log_E(F) = log_E(z₁) + log_E(z�
 * `hderiv` : the `z₂`-derivative of `Δ` vanishes (the invariant-differential invariance `(★)`).
 
 The proof is pure rigidity (`eq_zero_of_derivativeFun_eq_zero`) plus injectivity of the currying
-ring isomorphism.  Discharging `hbase`/`hderiv` unconditionally is the remaining step documented in
-the module header. -/
+ring isomorphism.  ⚠️ The clause this docstring used to carry — *"Discharging `hbase`/`hderiv`
+unconditionally is the remaining step documented in the module header"* — is retired: **both are
+discharged**, and neither is discharged here.  `hbase` comes from
+`WeierstrassCurve.finTwoEvalSndZero_formalGroupZW`
+(`EllipticCurves.FormalGroup.GroupLawBaseSlice`) and `hderiv` from
+`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`
+(`EllipticCurves.FormalGroup.LogAdditivityUnconditional`); the two reach
+`formalLog_subst_formalGroupZW_of_identity_star` below through
+`formalLog_subst_formalGroupZW_of_star` and `formalLog_subst_formalGroupZW_of_hWF_hdiff`, yielding
+the unconditional `WeierstrassCurve.formalLog_subst_formalGroupZW` (#315).  This lemma keeps them
+as hypotheses because it is stated at the reduction, not at the conclusion. -/
 theorem formalLog_subst_formalGroupZW_of_curryRigidity [Algebra ℚ R]
     (hbase : PowerSeries.constantCoeff
       (mvPowerSeriesFinTwoCurry W.formalLogAdditivityDefect) = 0)
@@ -371,11 +391,15 @@ all the analytic rigidity and the `z₂`-calculus have been discharged:
 These two are the sole hypotheses this lemma takes.  ⚠️ The clause it used to carry — *"These two
 are the sole remaining content of `#315`; each is to be supplied from the merged `(z, w)`
 formal-group structure"* — is retired: **`#315` has no remaining content.**  `hF` is
-`WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`'s `z₂ = 0` slice
-(`EllipticCurves.FormalGroup.GenuineLawTransfer`, #310) and `hstar` is
-`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`; feeding both into this
-very lemma is what `EllipticCurves.FormalGroup.LogAdditivityUnconditional` does to obtain the
-unconditional `formalLog_subst_formalGroupZW`. -/
+`WeierstrassCurve.finTwoEvalSndZero_formalGroupZW`
+(`EllipticCurves.FormalGroup.GroupLawBaseSlice`) and `hstar` is
+`WeierstrassCurve.invariantDifferential_subst_formalGroupZW_mul_pderivSnd`
+(`EllipticCurves.FormalGroup.LogAdditivityUnconditional`).  Both are fed into **this very lemma**:
+`formalLog_subst_formalGroupZW_of_star` supplies `hF` from `finTwoEvalSndZero_formalGroupZW` and
+takes `hstar`, `formalLog_subst_formalGroupZW_of_hWF_hdiff` supplies `hstar` from `#333`/`#338`,
+and `LogAdditivityUnconditional.formalLog_subst_formalGroupZW` is that composite.  ⚠️ **`hF` does
+not come from the identification `#310`**: `GroupLawBaseSlice` proves it directly from the `z₂ = 0`
+slices of the Vieta data and does not import `GenuineLawTransfer`, even transitively. -/
 theorem formalLog_subst_formalGroupZW_of_identity_star [Algebra ℚ R]
     (hF : MvPowerSeries.finTwoEvalSndZero W.formalGroupZW = PowerSeries.X)
     (hstar : W.invariantDifferential.subst W.formalGroupZW * pderivSnd W.formalGroupZW
