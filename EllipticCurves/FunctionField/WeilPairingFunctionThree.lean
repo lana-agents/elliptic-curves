@@ -54,7 +54,10 @@ to expand.
 * `WeierstrassCurve.Affine.weilPairingEltThree` / `weilPairingThree` — the pairing as a function
   `E[3] → E[3] → F(W)`, respectively `E[3] → E[3] → μ_3(F)`.
 * `WeierstrassCurve.Affine.weilPairingEltThree_eq` — **the bridge**: the value at *any* rung-5 root
-  the caller holds.  Every merged headline is applied through this and nothing else.
+  the caller holds.  Every merged headline is applied through this and nothing else.  Its two
+  specialisations to an affine translation point are `weilPairingEltThree_eq_weilPairingElt` at the
+  `F(W)` level and `weilPairingThree_eq_weilPairingMu` at the `μ_3(F)` level; the latter is what a
+  headline stated against `weilPairingMu` — the Galois ones are — has to be read through.
 * `weilPairingThree_add_right` / `weilPairingThree_add_left` — bilinearity, in both slots.
 * `weilPairingThree_self` — the alternating property; `weilPairingThree_swap` — antisymmetry.
 * `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingThree_eq_one` — non-degeneracy.
@@ -85,7 +88,9 @@ the fibre point `P` with `[3]P = T` (`WeilPairingRootIndependenceAlgClosed` reco
 
 ⚠️ This is not Galois-equivariance (`#456`; the `F(W)`-level and `μ_n`-level forms are merged in
 `WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (which needs `#404`'s
-`ωₙ` crux), and not `#E[3] = 9`.
+`ωₙ` crux), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the function of this
+file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is where
+`σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
 
 ## References
 
@@ -300,6 +305,23 @@ theorem weilPairingEltThree_eq_weilPairingElt (h2 : (2 : F) ≠ 0) (h3 : (3 : F)
     {T : W.torsion 3} {x y : F} (h : W.Nonsingular x y) (hT : (T : W.Point) = Point.some x y h) :
     weilPairingEltThree h2 h3 S T = weilPairingElt h.left g := by
   rw [weilPairingEltThree_eq h2 h3 hg, hT, weilPairingPointElt_some]
+
+open Classical in
+/-- **The `μ_3(F)` bridge**, the value-group twin of `weilPairingEltThree_eq_weilPairingElt` and the
+`n = 3` mirror of `weilPairingTwo_eq_weilPairingMu`.
+
+⚠️ Needed because the merged Galois headlines state their `μ_n(F)` conclusion against
+`weilPairingMu`, so a consumer reading them through this function has to compare two elements of
+`rootsOfUnity 3 F` rather than two elements of `F(W)`.  See the `n = 2` twin for why the proof is
+`Subtype.ext`/`Units.ext` and injectivity of `algebraMap` and nothing else. -/
+theorem weilPairingThree_eq_weilPairingMu (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    {S : W.torsion 3} {g : W.FunctionField} (hg : IsWeilRootThree h2 h3 (S : W.Point) g)
+    {T : W.torsion 3} {x y : F} (h : W.Nonsingular x y) (hT : (T : W.Point) = Point.some x y h)
+    (hpow : weilPairingElt h.left g ^ 3 = 1) :
+    weilPairingThree h2 h3 S T = weilPairingMu h.left hpow := by
+  refine Subtype.ext (Units.ext ((algebraMap F W.FunctionField).injective ?_))
+  rw [algebraMap_coe_weilPairingThree, algebraMap_coe_weilPairingMu,
+    weilPairingEltThree_eq_weilPairingElt h2 h3 hg h hT]
 
 open Classical in
 theorem weilPairingEltThree_eq_one_of_right_eq_zero (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
