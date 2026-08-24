@@ -171,8 +171,13 @@ missing: the first two of those files also name the basis-change conjugation law
 `galoisRepMatrixTwo_conj` (`EllipticCurves.TateModule.MatrixRepBasisChange`), which is a different
 file and a different follow-up. That one has since been paid as well —
 `galoisRepMatrixThree_conj`, `EllipticCurves.TateModule.MatrixRepBasisChangeThree` — so of the
-apparatus those files listed, only `EllipticCurves.TateModule.MatrixRepCompat` is still `ℓ = 2`
-only. -/
+apparatus those files listed, nothing is still `ℓ = 2` only. ⚠️ The clause that used to end that
+sentence — *"only `EllipticCurves.TateModule.MatrixRepCompat` is still `ℓ = 2` only"* — was true
+when it was written; `EllipticCurves.TateModule.MatrixRepCompatThree`, over the `ℓ`-generic
+`EllipticCurves.TateModule.PrimaryMatrixRepCompat`, has since retired it. ⚠️ **The scope of the
+sentence is load-bearing and must stay**: `EllipticCurves.TateModule.Image` and
+`EllipticCurves.TateModule.ImageProfinite` have no `ℓ = 3` layer, and they were never in those
+files' lists. -/
 theorem continuous_galoisRepMatrixThree : Continuous (galoisRepMatrixThree b) :=
   continuous_galoisRepMatrix b
 

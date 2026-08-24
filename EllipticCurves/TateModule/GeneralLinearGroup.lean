@@ -23,12 +23,20 @@ equivalence `(M →ₗ[R] M) ≃ₐ[R] Matrix n n R`, together with entry formul
 automorphism *and of its inverse* — the latter has no counterpart in Mathlib, and entry formulas
 are the only thing a consumer ever needs once the equivalence exists.
 
-The two spellings agree, and are not left as unrelated definitions:
-`EllipticCurves.TateModule.MatrixRepCompat` proves
+The two spellings agree, and are not left as unrelated definitions: `linearEquivMulEquivGL_symm`
+below says that `b.linearEquivMulEquivGL.symm` **is** the Mathlib composite, for an arbitrary
+basis of an arbitrary module over an arbitrary commutative ring. In particular the two conventions
+differ by no transpose: both take column `j` of the matrix to be the coordinate vector of the
+image of `b j`.
+
+⚠️ **That statement used to be a scope limitation rather than a theorem**, and the sentence that
+carried it read *"`EllipticCurves.TateModule.MatrixRepCompat` proves
 `b.linearEquivMulEquivGL = (matrixAutEquivTwo b).symm` for the basis of `T₂E` that this
-development actually uses, `matrixAutEquivTwo` being the Mathlib composite above. In particular
-the two conventions differ by no transpose: both take column `j` of the matrix to be the
-coordinate vector of the image of `b j`.
+development actually uses"*. Neither side of the identity mentions a prime, a Tate module or a
+curve, so there was nothing to restrict; the elliptic-curve readings are now corollaries, in
+`EllipticCurves.TateModule.PrimaryMatrixRepCompat` at an arbitrary prime and in
+`EllipticCurves.TateModule.MatrixRepCompat` / `EllipticCurves.TateModule.MatrixRepCompatThree`
+at `ℓ = 2` and `ℓ = 3`.
 
 There is nothing about elliptic curves here; the file is stated for an arbitrary commutative ring.
 
@@ -41,7 +49,9 @@ converts the abstract Galois representation `ρ_2 : G → Aut_{ℤ_2}(T₂E)` of
 `EllipticCurves.TateModule.GaloisAction` into the classical matrix representation
 `ρ_{E,2} : G → GL₂(ℤ_2)`. That representation lives in `EllipticCurves.TateModule.MatrixRep`,
 which reaches `GL₂` along a different chain (`Matrix.GeneralLinearGroup.toLin'`);
-`EllipticCurves.TateModule.MatrixRepCompat` proves the two chains agree.
+`EllipticCurves.TateModule.PrimaryMatrixRepCompat` transports `linearEquivMulEquivGL_symm` to that
+setting at an arbitrary prime, and `EllipticCurves.TateModule.MatrixRepCompat` and
+`EllipticCurves.TateModule.MatrixRepCompatThree` read it off at `ℓ = 2` and `ℓ = 3`.
 
 ## Main definitions
 
@@ -53,6 +63,9 @@ which reaches `GL₂` along a different chain (`Matrix.GeneralLinearGroup.toLin'
 * `Module.Basis.coe_linearEquivMulEquivGL_apply`: the matrix entry formula
   `(b.linearEquivMulEquivGL e) i j = b.repr (e (b j)) i`, matching Mathlib's convention for
   `LinearMap.toMatrix` (column `j` records the image of the `j`-th basis vector).
+* `Module.Basis.linearEquivMulEquivGL_symm`: the two chains agree,
+  `b.linearEquivMulEquivGL.symm = (Matrix.GeneralLinearGroup.toLin' b).trans
+  (LinearMap.GeneralLinearGroup.generalLinearEquiv R M)`.
 -/
 
 namespace Module.Basis
@@ -85,5 +98,27 @@ theorem coe_inv_linearEquivMulEquivGL_apply (b : Basis n R M) (e : M ≃ₗ[R] M
     rw [← map_inv]
     rfl
   rw [this, coe_linearEquivMulEquivGL_apply]
+
+/-- **The two chains from a basis to `GL n R` agree.** `b.linearEquivMulEquivGL` goes `Aut → GL`
+through `LinearMap.toMatrixAlgEquiv`; the Mathlib composite
+`(Matrix.GeneralLinearGroup.toLin' b).trans (LinearMap.GeneralLinearGroup.generalLinearEquiv R M)`
+goes `GL → Aut` through `Matrix.toLinAlgEquiv`. Both send a matrix `A` to the endomorphism
+`v ↦ ∑ i, (A *ᵥ b.repr v) i • b i`, so they are mutually inverse — in particular the two
+conventions differ by no transpose.
+
+⚠️ Nothing here is about a prime, a Tate module or an elliptic curve; see the module docstring for
+why this used to be stated only for a basis of `T₂E`. -/
+theorem linearEquivMulEquivGL_symm (b : Basis n R M) :
+    b.linearEquivMulEquivGL.symm
+      = (Matrix.GeneralLinearGroup.toLin' b).trans
+          (LinearMap.GeneralLinearGroup.generalLinearEquiv R M) := by
+  refine MulEquiv.ext fun A => LinearEquiv.ext fun v => ?_
+  have hl : ((Matrix.GeneralLinearGroup.toLin' b).trans
+      (LinearMap.GeneralLinearGroup.generalLinearEquiv R M)) A v
+      = (Matrix.GeneralLinearGroup.toLin' b A).toLinearEquiv v := rfl
+  have hr : b.linearEquivMulEquivGL.symm A v
+      = Matrix.toLinAlgEquiv b (A : Matrix n n R) v := rfl
+  rw [hl, Matrix.GeneralLinearGroup.toLin'_apply b A v, Fintype.linearCombination_apply, hr,
+    Matrix.toLinAlgEquiv_apply]
 
 end Module.Basis
