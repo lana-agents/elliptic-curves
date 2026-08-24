@@ -79,7 +79,9 @@ and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` —
   mirror is `EllipticCurves.FunctionField.WeilPairingFunctionThree` (`#925`), which defines
   `weilPairingThree : E[3] → E[3] → μ_3(F)`, bundles it as `weilPairingThreeHom` and states
   `ker_weilPairingThreeHom h2 h3 = ⊥`; it carries the same single gate and, for the same reason,
-  the same absence of an `_of_hprin` twin.
+  the same absence of an `_of_hprin` twin.  Galois-equivariance of those two functions —
+  `σ(e_n(S, T)) = e_n(σ • S, σ • T)` as an equation at both the `F(W⁄F)` and the `μ_n(F)` level —
+  is `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`).
 * **Non-degeneracy** — out of scope *of this file*, and **not** Ward-gated; see the next section,
   which is the canonical account of what it consumes.  Over an algebraically closed base field it
   is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
