@@ -100,8 +100,13 @@ and **not** `#940`'s, since `exists_weilPairing{Two,Three}_ne_one` routes throug
 which is blocked at composite `n` twice.  The **trace** of `ρ_{E,n}` has no pairing-theoretic
 description at all and `galoisTraceTwo` is untouched by any of this.
 
-⚠️ `ker ρ_{E,3} ≤ ker χ_3` is an immediate corollary of the headline — a `σ` fixing `E[3]` pointwise
-has matrix `(1, 0, 0, 1)` — but it is `#947`'s deliverable and is not restated here.
+⚠️ `ker ρ_{E,3} ≤ ker χ_3` is the special case of the headline in which `σ` has matrix
+`(1, 0, 0, 1)`.  It is already merged as
+`EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois`'s
+`ker_galoisRepMod_three_le_ker_galoisModularCyclotomicChar` (`#947`), proved directly from `#948`,
+and is not restated here.  ⚠️ That file's two statements that the determinant identity "needs a
+basis of `E[3]` as a free `ℤ/3`-module together with its Galois action" were written before this
+one existed and are retired by it; the repair is in this PR.
 
 ## References
 

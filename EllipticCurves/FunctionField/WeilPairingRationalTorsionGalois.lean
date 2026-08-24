@@ -110,9 +110,9 @@ on everything mentioning `torsion`.
   composite `n` twice — by the crux and independently by the prime-order step.  `#940`'s "blocked
   only once" must not be quoted against this file.
 * **`det ρ_{E,3} = χ_3`.**  ⚠️ `ker_galoisRepMod_three_le_ker_galoisModularCyclotomicChar` compares
-  *kernels* and is strictly weaker, and nothing below moves the determinant identity.  ⚠️ This bullet
-  originally added that the identity "needs a basis of `E[3]` as a free `ℤ/3`-module together with
-  its Galois action, which does not exist here"; that reason was wrong and has been retired.
+  *kernels* and is strictly weaker, and nothing below moves the determinant identity.  ⚠️ This
+  bullet originally added that the identity "needs a basis of `E[3]` as a free `ℤ/3`-module together
+  with its Galois action, which does not exist here"; that reason was wrong and has been retired.
   `EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`) proves it in coordinates, taking
   the four matrix entries as integers in hypotheses — no module structure and no `Basis` anywhere.
 * **The `ℓ`-adic level**, `ker ρ_{E,ℓ} ≤ ker χ_ℓ` for the Tate module.  Wants the pairing on
