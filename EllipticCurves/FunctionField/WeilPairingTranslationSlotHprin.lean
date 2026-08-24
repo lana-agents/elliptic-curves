@@ -131,9 +131,15 @@ genuinely load-bearing and enters twice (`WeilPairingNondegenerateTwo:81`).  Not
 their consumers carry `[IsAlgClosed F]` already and would gain nothing, the judgement `#903`, `#907`
 and `#910` all reached.
 
-⚠️ **The two slots are still not combined into a single bilinearity statement.**  That wants a
-pairing on `W.Point × W.Point`; there is none in this tree, and `#861` records it as separate work
-with its own design question.
+⚠️ **The two slots are not combined *here*, and the reason this bullet used to give was wrong.**
+It read *"The two slots are still not combined into a single bilinearity statement.  That wants a
+pairing on `W.Point × W.Point`; there is none in this tree …"*.  They **are** combined, in
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) and `…FunctionThree` (`#925`) — as
+`weilPairingTwoHom : Multiplicative E[2] →* (Multiplicative E[2] →* μ_2(F))`, bilinear in both slots
+— and the combination came from restricting the pairing to `E[n]`, not from extending it to
+`W.Point`.  ⚠️ There is still no pairing on `W.Point × W.Point`, which is a different and still-true
+claim; and the `hprin`-gated statements here are not superseded by `#922`/`#925`, whose
+`[IsAlgClosed F]` does **not** lift (`#899`'s test: their gate produces a *witness*).
 
 ## Non-vacuity
 

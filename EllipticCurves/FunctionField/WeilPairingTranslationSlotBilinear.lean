@@ -100,10 +100,23 @@ translation slot wants a map out of the torsion subgroup of `W.Point` rather tha
 subobject of `F(W)`, and nothing here touches that obstruction; any change to the five existing
 `translatePoint_add` theorems or their proofs.
 
-⚠️ **The two slots are not combined into a single bilinearity statement.**  That would want a
-pairing defined on `W.Point × W.Point`; there is none in this tree, and the divisor slot is a slot
-of `weilPairingElt`, which takes a *function*.  Combining them is a separate piece of work with a
-separate design question, not a corollary of these four theorems.
+⚠️ **The two slots are combined elsewhere, and not by extending either of them.**  This bullet
+used to read *"The two slots are not combined into a single bilinearity statement.  That would want
+a pairing defined on `W.Point × W.Point`; there is none in this tree …"*.  The **route it predicted
+is what was wrong**: the combination did not arrive by extending the pairing up to `W.Point`, it
+arrived by restricting it down to `E[n]`.
+`EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) makes `e_2` a function of two torsion
+points and bundles it as
+`weilPairingTwoHom : Multiplicative E[2] →* (Multiplicative E[2] →* μ_2(F))`, whose two `map_mul'`
+fields are `weilPairingTwo_add_left` and `weilPairingTwo_add_right` — bilinearity in both slots, in
+one object.  `WeilPairingFunctionThree` (`#925`) is the `n = 3` mirror.
+
+⚠️ **The literal claim about `W.Point × W.Point` is still true and is not the same claim.**  There
+is no pairing on `W.Point × W.Point` in this tree, and `#922`'s scope section argues there cannot
+usefully be one: the rung-5 root exists only at torsion points.  Combining the two slots *at this
+level* — where the divisor slot is a slot of `weilPairingElt`, which takes a *function* — remains a
+separate piece of work with a separate design question, and is not a corollary of these four
+theorems.
 
 ## Non-vacuity
 

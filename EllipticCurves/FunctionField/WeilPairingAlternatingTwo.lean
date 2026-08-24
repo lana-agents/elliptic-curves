@@ -81,7 +81,11 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
   computation happens.  It is stated over an **arbitrary** field, with the telescoping constant, the
   square root and the doubling relation all as hypotheses, so that the `[3]` analogue can reuse it
   verbatim;
-* **`exists_weilPairingElt_self_eq_one_of_algClosed_two`** — `e_2(T, T) = 1` over `F̄`.
+* **`exists_weilPairingElt_self_eq_one_of_algClosed_two`** — `e_2(T, T) = 1` over `F̄`;
+* `divisor_eq_single_of_divisorProj_eq_single_sub_single` — the projective-to-affine divisor bridge.
+  ⚠️ It was absent from this list until the `#1050` sweep, and it is not an internal: it is stated
+  for an arbitrary `n : ℤ` and `WeilPairingAlternatingThree` reuses it verbatim rather than
+  reproving it, which is exactly why a reader looks for it here.
 
 ## Which hypotheses are load-bearing
 
@@ -103,8 +107,15 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
   has somewhere to land.
 
 Because `P` is produced over `F̄`, the conclusion is a statement about `F̄`; obtaining it over a
-general `F` needs the function-field base-change layer, which is deliberately deferred (`#692`) and
-is not built here.
+general `F` needs the function-field base-change layer, which is **not built here** — but is built,
+and applied to exactly this headline, in
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange` (`#899`).  ⚠️ That file's
+`exists_weilPairingElt_self_eq_one_of_hprin_two` is
+`exists_weilPairingElt_self_eq_one_of_algClosed_two` **verbatim minus `[IsAlgClosed F]`**: same
+`hprin`, same conclusion, no hypothesis added.  ⚠️ This paragraph used to
+call the layer *"deliberately deferred (`#692`)"*, which is now wrong twice over — the descent is
+done, and `#692`'s *endomorphism* half (the only half `#899` uses) has been merged since PR #356.
+Only `#692`'s divisor half remains open, and nothing on the alternating front wants it.
 
 ## Explicitly not here
 

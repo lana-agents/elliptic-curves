@@ -57,10 +57,23 @@ Ward-gated — `WeilPairing`'s scope section is the canonical account of what it
 
 Bilinearity in the divisor slot `S` is **not** here, but it is no longer deferred: it is
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (#723), together with the antisymmetry
-corollary `e_n(T, S) = e_n(S, T)⁻¹` that consumes both slots.  What is rung-4 gated there is only
-the *production* of the product relation `g_{S ⊕ S'} = g_S · g_{S'} · w`, which is carried as an
-explicit hypothesis in the same style as `hfix` here; the correction factor `w` is invisible to
-`e_n(·, T)`, so everything downstream of that relation is ungated.
+corollary `e_n(T, S) = e_n(S, T)⁻¹` that consumes both slots.  What `#723` carries is only the
+*production* of the product relation `g_{S ⊕ S'} = g_S · g_{S'} · w`, as an explicit hypothesis in
+the same style as `hfix` here; the correction factor `w` is invisible to `e_n(·, T)`, so everything
+downstream of that relation is ungated.
+
+⚠️ **That production is rung 5 only and never rung 4**, and it is *performed* in
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`), from the Abel–Jacobi statement
+that `(S) + (T) − (S ⊕ T)` is principal (`DivisorPrincipality`, `#726`).  ⚠️ This sentence used to
+read *"What is rung-4 gated there is only the production of the product relation …"*, and the
+`rung-4` in it was wrong about the *route*, not merely early: `hprod` never needed the divisor-level
+`[n]∗` at all.
+
+⚠️ **This was the one file `#845`'s own sweep missed.**  `#845` (commit `a57f242`, whose subject is
+literally *"`hprod` is not rung-4 gated"*) retired this claim in thirteen files in one commit; this
+file was not among them, and the clause had been here since 2026-08-20.  A sweep that repairs a
+sentence in thirteen files and leaves it in a fourteenth is indistinguishable, to a later reader of
+the fourteenth, from a sentence nobody has looked at.
 
 ⚠️ **The two theorems below are instantiated.**  Over an algebraically closed field, at `n = 2` and
 `n = 3`, `exists_weilPairingElt_translatePoint_add_{two,three}` and their `μ_n(F)` twins

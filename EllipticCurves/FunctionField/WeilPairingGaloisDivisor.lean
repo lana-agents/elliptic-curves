@@ -60,8 +60,11 @@ the rung-5 *relation* rather than from the rung-5 divisor, and never computes `d
   `weilPairingMu_galois_of_divisor_eq` — the Galois-equivariance of `e_n`, at the level of
   `F(W⁄F)` and of `μ_n(F)`, with the divisor hypothesis in place of `htr`.
 
-Nothing here edits `WeilPairingGalois.lean` or `WeilPairingGaloisMu.lean`; the qualification of
-their "rung-4/5-gated" remarks is stated from this file, naming them.
+Nothing here edited `WeilPairingGalois.lean` or `WeilPairingGaloisMu.lean`; the qualification was
+stated from this file, naming them.  ⚠️ **Both have since been repaired at the source** and now say
+the unconditional form is *"**not** rung-4-gated"* (`WeilPairingGalois`) and that the file is
+*"rung-4-independent"* (`WeilPairingGaloisMu`), so this sentence's earlier reference to
+*"their 'rung-4/5-gated' remarks"* no longer resolves to any text in either file.
 
 ## The translation slot has *not* moved
 
