@@ -77,13 +77,24 @@ needed here, so it is not stated.
 
 ## Scope
 
-`ℓ = 2` only, because `galoisRepMatrixTwo` is. ⚠️ The reason this paragraph used to give —
-*"a basis of `T_ℓE` is available only at `ℓ = 2`, through the `2`-primary tower"* — is false as of
+`ℓ = 2` only, because the statements below are. ⚠️ **Three clauses this paragraph used to carry
+are false and are replaced, and the third went false most recently.** The first,
+*"a basis of `T_ℓE` is available only at `ℓ = 2`, through the `2`-primary tower"*, is false as of
 `EllipticCurves.TateModule.FreeThree`, which gives `Module.Free ℤ_[3] T₃E` and
 `finrank ℤ_[3] T₃E = 2` and hence a basis at `ℓ = 3`. So is the deadline in its continuation,
-*"once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ`"*: that day has arrived at `ℓ = 3`. The conjugation
-law itself is insensitive to `ℓ` and will transfer verbatim as soon as an `ℓ = 3` matrix
-representation is stated; at `ℓ ≥ 5` the Tate module itself is still out of reach.
+*"once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ`"*: that day arrived at `ℓ = 3`. The third,
+*"[the conjugation law] will transfer verbatim as soon as an `ℓ = 3` matrix representation is
+stated"*, is a **deadline that has now passed**: `galoisRepMatrixThree` is stated, in
+`EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport
+`EllipticCurves.TateModule.PrimaryMatrixRep`.
+
+⚠️ **So this file is `ℓ = 2` only by omission and not by obstruction.** The conjugation law is
+insensitive to `ℓ` — nothing below uses `2` for anything but the type — and extracting it to
+`PrimaryMatrixRep`-style genericity is a mechanical follow-up that nothing blocks. It was
+deliberately left out of the extraction that created `galoisRepMatrixThree`, to keep that change
+to `MatrixRep.lean`'s own declarations. ⚠️ Do not read *"`ℓ = 2` only"* here as a claim that odd
+`ℓ` is gated: at `ℓ ≥ 5` the Tate module itself is still out of reach, and **that** is the real
+gate, but it is not this file's.
 
 Nothing here bears on **whether the conjugacy class is nontrivial**, i.e. on the image of
 `ρ_{E,2}`: that is a statement about `F / S`, and `G` may be trivial for all this file knows. What

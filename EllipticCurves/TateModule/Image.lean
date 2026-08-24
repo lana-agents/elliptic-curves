@@ -74,9 +74,17 @@ the one above, which is about the ambient group `GL₂(ℤ_[2])`, together with
 
 ## Scope
 
-`ℓ = 2` only, for the usual reason: `galoisRepMatrixTwo` needs a basis of `T₂E` and the basis comes
-from the `2`-primary tower. Everything is stated for a base change `W'⁄F`, matching
-`EllipticCurves.TateModule.MatrixRep` and `EllipticCurves.TateModule.MatrixContinuity`.
+`ℓ = 2` only, because the statements below are. ⚠️ The reason this paragraph used to give —
+*"for the usual reason: `galoisRepMatrixTwo` needs a basis of `T₂E` and the basis comes from the
+`2`-primary tower"* — no longer explains the restriction. Both halves of it remain true of
+`galoisRepMatrixTwo`, but they stopped being a *reason*: `galoisRepMatrixThree` exists
+(`EllipticCurves.TateModule.MatrixRepThree`) over a basis of `T₃E`
+(`EllipticCurves.TateModule.FreeThree`), so a matrix representation is no longer what confines an
+`ℓ = 2` statement to `ℓ = 2`. What confines *this* file is that its real input,
+`continuous_galoisRepMatrixTwo` (`EllipticCurves.TateModule.MatrixContinuity`), is `ℓ = 2` only.
+⚠️ At `ℓ ≥ 5` there is still a genuine gate and it is `T_ℓE ≅ ℤ_ℓ²` itself. Everything is stated
+for a base change `W'⁄F`, matching `EllipticCurves.TateModule.MatrixRep` and
+`EllipticCurves.TateModule.MatrixContinuity`.
 
 Not proved here: **openness** of the image — that is Serre's theorem, it is *false* for curves with
 complex multiplication, and nothing about compactness approaches it; **surjectivity** of `ρ_{E,2}`,
