@@ -30,8 +30,27 @@ determinant with `LinearMap.det_toMatrix` and quoting `#951`'s coordinate comput
 matrix.  ⚠️ **So the statement below is a genuine generalisation with no consumer**, and it is
 recorded as such rather than presented as infrastructure.  Its value is prospective: a general-`n`
 or `ℓ`-adic treatment wanting the transformation law without a Galois group has to prove exactly
-this, and `galoisDetMod_three_eq_galoisModularCyclotomicChar` becomes the special case
-`α = ρ_{E,3}(σ)` of it.
+this.
+
+⚠️ The clause this paragraph used to carry — *"`galoisDetMod_three_eq_galoisModularCyclotomicChar`
+becomes the special case `α = ρ_{E,3}(σ)` of it"* — is **false**, and it was false when it was
+written.  `#958`'s theorem is an identity of *monoid homomorphisms*
+`(F ≃ₐ[S] F) →* (ZMod 3)ˣ`; the headline below instantiated at `α = ρ_{E,3}(σ)` is an equation
+between two *pairing values*, in which `galoisModularCyclotomicChar` does not occur at all.  Those
+are different propositions and no instantiation turns the first into the second.
+
+What the headline actually is: the **Galois-free half** of `#958`.  The other half is
+`galoisModularCyclotomicChar_three_eq_det`
+(`EllipticCurves.FunctionField.WeilPairingDeterminant`, consumed there by
+`exists_smul_eq_zsmul_add_zsmul_and_det_three_eq`), which is where Galois-equivariance of `e_3` and
+the definition of `χ_3` are spent; `#958` combines the two.  ⚠️ **Nothing this file adds reaches
+that half** — `det_eq_intCast_of_zsmul_add_zsmul` below is the matrix step and nothing more — and
+`#958` neither depends on this file nor is an instance of it.
+
+⚠️ The weaker reading a few lines above — that the Galois statement is a **corollary** of a fact
+about the pairing alone — is not affected and stays: `det ρ = χ` does follow from the pairing law
+*together with* the Galois inputs, and "corollary" does not claim it needs nothing else.  It is
+*"special case"* that overreaches.
 
 ## The route taken, and why
 
@@ -83,7 +102,9 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
 * `weilPairingThree_linearMap` — the headline, with nothing assumed about `α`.
 * `weilPairingThree_linearEquiv` — the headline for `α : E[3] ≃ₗ[ZMod 3] E[3]`, which is the form
   `#957` asked for and the form Silverman III.8.1(e) is a corollary of.
-* `exists_weilPairingThree_linearEquiv_det_ne_one` — the non-vacuity certificate.
+* `exists_weilPairingThree_linearEquiv_det_ne_one` — the non-vacuity certificate against a
+  constantly-`1` pairing.  ⚠️ The `#### On a curve that exists` block additionally rules out an
+  empty hypothesis class, which is a different risk; see the `Non-vacuity` section below.
 * `not_forall_weilPairingThree_linearMap_of_zsmul_add_zsmul`,
   `not_forall_det_eq_intCast_of_zsmul_add_zsmul` — refutations R1 and R3, as theorems rather than
   as compiler transcripts.
@@ -92,9 +113,10 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
 
 * **`n = 3` only.**  ⚠️ The `n = 2` analogue is *not* stated, and the reason is infrastructural
   rather than mathematical: `EllipticCurves.TateModule.DeterminantMod` supplies
-  `finrank_torsion_three` and `finite_torsion_three_zmod` and has **no `n = 2` counterpart** —
-  `grep -rn 'finrank_torsion_two\|basisTorsionTwo\|finite_torsion_two_zmod' EllipticCurves/`
-  returns nothing — so there is no `ZMod 2`-basis of `E[2]` to run the argument against.  ⚠️ It is
+  `finrank_torsion_three` and `finite_torsion_three_zmod` and has **no `n = 2` counterpart** — a
+  tree-wide grep for `finrank_torsion_two`, `basisTorsionTwo` and `finite_torsion_two_zmod` finds
+  no declaration by any of those names, in this module or anywhere else — so there is no
+  `ZMod 2`-basis of `E[2]` to run the argument against.  ⚠️ It is
   worth recording that the `n = 2` statement would **not** be content-free, contrary to the usual
   reading: `(ZMod 2)ˣ` is trivial, so the *equivalence* version degenerates to "every automorphism
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
@@ -123,6 +145,15 @@ read as a determinant, so the certificate exhibits the file's own content rather
 The only step closed by `decide` is the arithmetic `((0 * 0 − 1 * 1 : ℤ) : ZMod 3) ≠ 1` at the very
 end; everything before it consumes `det_eq_intCast_of_zsmul_add_zsmul` and
 `weilPairingThree_linearEquiv` (`#944`).
+
+⚠️ **That certificate does not close the other half of `#916`, and an earlier version of this
+section read as though it did.**  Every statement in this file carries `[IsAlgClosed F]` and
+`[W.IsElliptic]`, and a theorem quantified over an *empty* class of instances is vacuously true no
+matter how many inequalities it asserts.  The `#### On a curve that exists` block at the end of the
+file rules that out on `#936`'s curve `y² + y = x³` over `AlgebraicClosure ℚ`, by **applying** the
+certificate rather than by `rfl`, `decide` or `norm_num`.  ⚠️ The two are independent: the first
+rules out a constantly-`1` pairing, the second rules out an empty hypothesis class, and neither
+implies the other.
 
 ⚠️ **Three refutations.**  R1 and R3 are *proved*, as the two `not_forall_…` theorems below: the
 statements really are false without their `hPT`, not merely unproved, so no compiler transcript is
@@ -357,12 +388,22 @@ theorem weilPairingThree_linearMap (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   simp [ZMod.natCast_val]
 
 open Classical in
-/-- **The headline for a `ZMod 3`-linear automorphism**, which is the statement `#957` asked for and
-the one Silverman *AEC* III.8.1(e) is the `α = ρ_{E,3}(σ)` case of.
+/-- **The headline for a `ZMod 3`-linear automorphism**, which is the statement `#957` asked for.
 
-A one-line corollary: `LinearEquiv.coe_det` says `(LinearEquiv.det α : ZMod 3)` is
-`LinearMap.det (α : E[3] →ₗ[ZMod 3] E[3])`, and the endomorphism version above is stated about
-exactly that. -/
+A one-line corollary of the endomorphism version above: `LinearEquiv.coe_det` says
+`(LinearEquiv.det α : ZMod 3)` is `LinearMap.det (α : E[3] →ₗ[ZMod 3] E[3])`, and that version is
+stated about exactly that.
+
+⚠️ The clause this docstring used to carry — copy-paste, with the quotation left unemphasised
+because it contains emphasis of its own:
+
+> the one Silverman *AEC* III.8.1(e) is the `α = ρ_{E,3}(σ)` case of
+
+is **false** in the direction it asserts, for the reason given in the
+module docstring: instantiating this at `α = ρ_{E,3}(σ)` produces an equation between two pairing
+values, not `galoisDetMod 3 σ = χ_3 σ`.  This is the **Galois-free half** of
+`galoisDetMod_three_eq_galoisModularCyclotomicChar`; the half that is missing is
+`galoisModularCyclotomicChar_three_eq_det`, which this file does not touch. -/
 theorem weilPairingThree_linearEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (α : W.torsion 3 ≃ₗ[ZMod 3] W.torsion 3) (x y : W.torsion 3) :
     weilPairingThree h2 h3 (α x) (α y)
@@ -374,10 +415,29 @@ end LinearDeterminant
 
 /-! ### Non-vacuity
 
-The certificate below is stated for an arbitrary curve rather than on a named one, because it needs
-no algebraically closed *base*: `exists_weilPairingThree_ne_one` already produces the pair, and the
-`α` is built from it.  ⚠️ It restates the headline in full rather than projecting out of an
-`obtain` (`#916`), and it adds the two inequalities that make the headline non-trivial at that `α`.
+Two certificates, closing two different risks, and neither replaces the other.
+
+* `exists_weilPairingThree_linearEquiv_det_ne_one` is stated over an **arbitrary** `F` and `W`,
+  because nothing here needs a Galois group and so nothing here needs a base field `S` with
+  `Gal(F/S)` non-trivial — the reason `#951` and `#958` had to name `S = ℚ`.  It closes the risk
+  this file actually runs: the headline is an equation between two pairing values and would also
+  hold of a pairing that was constantly `1`.  ⚠️ It restates the headline in full rather than
+  projecting out of an `obtain` (`#916`), and adds the two inequalities that make the headline
+  non-trivial at that `α`.
+* ⚠️ **That is not what `#916` asks for, and an earlier version of this section gave the first
+  bullet as the reason no named curve appears.**  A statement quantified over
+  `[IsAlgClosed F] [W.IsElliptic]` is vacuous if nothing inhabits those classes, and only a curve
+  that exists rules that out.  The `#### On a curve that exists` block below is that curve —
+  `y² + y = x³` over `AlgebraicClosure ℚ`, this front's standard certificate curve — and it is a
+  *different* fact from the first bullet rather than a weaker restatement of it.
+
+⚠️ **The `open Classical in` on each declaration here is load-bearing and is house style for the
+whole `WeilPairing*` family.**  These files carry no `[DecidableEq F]` in their `variable` blocks,
+so `weilPairingThree`'s decidability argument is filled by `Classical.propDecidable` and baked into
+every statement.  A consumer that *does* have a real `DecidableEq F` in scope gets
+`synthesized type class instance is not definitionally equal to expression inferred by typing
+rules`; the fix is to mirror the section header rather than to fight it, and the named-curve
+block below is the worked example of doing so.
 -/
 
 section Nonvacuity
@@ -478,6 +538,56 @@ theorem not_forall_det_eq_intCast_of_zsmul_add_zsmul :
   intro h
   have hid := h 0 0 LinearMap.id 0 0 0 0 (by simp) (by simp)
   simp at hid
+
+/-! #### On a curve that exists
+
+⚠️ Everything above carries `[IsAlgClosed F]` and `[W.IsElliptic]`, so `ℚ` cannot witness it and the
+statements would all be vacuously true if nothing inhabited those classes.  The block below rules
+that out on `#936`'s curve `y² + y = x³` base-changed to `AlgebraicClosure ℚ`, the same curve
+`EllipticCurves.FunctionField.WeilPairingDeterminant` and
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` use.  ⚠️ Those files' copies are
+`private`, so this one is a duplicate by necessity rather than by oversight.
+-/
+
+/-- The curve `y² + y = x³` over `ℚ`, `#936`'s `n = 3` certificate curve. -/
+private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+
+/-- An algebraically closed extension of `ℚ`.  ⚠️ Unlike `#951`'s and `#958`'s copies, no base field
+`S` is named here: nothing in this file mentions a Galois group, so `Gal(F/S)` never appears. -/
+private abbrev exampleField : Type := AlgebraicClosure ℚ
+
+private instance : exampleCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+
+private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+
+open Classical in
+/-- **The transformation law on a curve that exists** (`#916`), restated in full rather than
+projected out of an `obtain`.
+
+⚠️ This closes a *different* risk from `exists_weilPairingThree_linearEquiv_det_ne_one`: that one
+rules out a constantly-`1` pairing, this one rules out an empty hypothesis class.  Neither implies
+the other.
+
+⚠️ It closes by **application** of the abstract certificate, not by `rfl`, `decide` or `norm_num`,
+so it consumes the theorem it certifies (`#944`).  Its only real content beyond that is that
+`exampleCurve⁄exampleField` satisfies `[IsAlgClosed F]` and `[W.IsElliptic]` at all. -/
+example :
+    ∃ (P T : (exampleCurve⁄exampleField).torsion 3)
+      (α : (exampleCurve⁄exampleField).torsion 3 ≃ₗ[ZMod 3]
+        (exampleCurve⁄exampleField).torsion 3),
+      weilPairingThree exampleTwo exampleThree P T ≠ 1 ∧
+        ((LinearEquiv.det α : (ZMod 3)ˣ) : ZMod 3) ≠ 1 ∧
+        weilPairingThree exampleTwo exampleThree (α P) (α T)
+          ≠ weilPairingThree exampleTwo exampleThree P T ∧
+        weilPairingThree exampleTwo exampleThree (α P) (α T)
+          = weilPairingThree exampleTwo exampleThree P T
+              ^ ((LinearEquiv.det α : (ZMod 3)ˣ) : ZMod 3).val :=
+  exists_weilPairingThree_linearEquiv_det_ne_one exampleTwo exampleThree
 
 end Nonvacuity
 
