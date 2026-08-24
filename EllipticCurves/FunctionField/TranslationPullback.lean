@@ -66,7 +66,8 @@ The extension is `WeierstrassCurve.Affine.CoordinateRing.translateEndo`
 
 ⚠️ **The predicted route was not taken, and the difference is worth keeping.**  No pullback along
 `-T` is ever built, and nothing is composed.  The cancellation `(P + T) + (-T) = P` is used
-*inside the dominance argument* instead: `isAlgebraic_genX_of_two` evaluates it at the generic
+*inside the dominance argument* instead: `genX_mem_algebraicClosure_of` (again
+`EllipticCurves.FunctionField.TranslationEndomorphism`) evaluates it at the generic
 point to conclude that if the translated coordinates are algebraic over `F` then so is `genX`,
 contradicting `transcendental_genX`; injectivity then comes from the kernel being a maximal ideal
 of the one-dimensional domain `F[W]` and Zariski's lemma.  A `-T` pullback would have been a second

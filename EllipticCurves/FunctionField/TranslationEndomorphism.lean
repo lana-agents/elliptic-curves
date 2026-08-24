@@ -27,11 +27,22 @@ translation, proved here as follows.
 
 * `transcendental_genX`: the generic `x`-coordinate `genX = x(P)` is transcendental over `F`
   (it is the image of the polynomial variable `X` under the injective map `F[X] → F(W)`).
-* `isAlgebraic_genX_of_two`: if the coordinates `x(P + T)`, `y(P + T)` of the *translated* generic
-  point are algebraic over `F`, then so is `genX = x(P)`. This is the group-law cancellation
+* `genX_mem_algebraicClosure_of`: if the coordinates `x(P + T)`, `y(P + T)` of the *translated*
+  generic point are algebraic over `F`, then so is `genX = x(P)`. This is the group-law cancellation
   `(P + T) + (-T) = P`, evaluated at the generic point `P = (genX, genY)` of `W ⁄ F(W)`, together
   with the fact that the affine addition/slope/negation formulae preserve the relative algebraic
   closure `algebraicClosure F F(W)`.
+  ⚠️ **This bullet named a lemma that is not in this file, from the first commit until `#1049`,
+  and a mechanical rename then made the wrong name *resolve*.**  As written on 2026-08-09 it said
+  `isAlgebraic_genX_of`, while the lemma it describes has always been
+  `genX_mem_algebraicClosure_of`, and no declaration of that name existed anywhere — the reference
+  simply dangled.  One hour later `EllipticCurves.FunctionField.MulByTwoEndomorphism` was created
+  and declared `isAlgebraic_genX_of` for the *doubling* statement
+  (`x(2 • P) = Φ₂(genX)/Ψ₂Sq(genX)` algebraic ⇒ `genX` algebraic), a different hypothesis reached
+  by a different argument — that file's own dominance section opens by saying so — and the
+  dangling reference silently became a reference to the wrong lemma.  The `_two` rename sweep
+  (`#360`) then rewrote the token here as though it were an occurrence of the declaration it had
+  renamed, which it was not.
 * If `translateCoordHom h₂` were not injective, its kernel would be a nonzero prime of the
   one-dimensional domain `F[W]` (Krull dimension `≤ 1` is `EllipticCurves.Torsion`'s
   `CoordinateRingDedekind`), hence maximal; by Zariski's lemma
