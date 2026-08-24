@@ -107,8 +107,11 @@ so the first clause still stands verbatim there.
 `galoisRep` purely as a group homomorphism and passing to matrices changes nothing about that, so
 nothing below should be read as supplying continuity. It is supplied downstream, for an arbitrary
 basis and with no compatibility hypothesis, by `continuous_galoisRepMatrixTwo` in
-`EllipticCurves.TateModule.MatrixContinuity`. ⚠️ That file is `ℓ = 2` only and this file's
-extraction does not change it. Also out of scope: injectivity of `ρ`, its determinant character
+`EllipticCurves.TateModule.MatrixContinuity`. ⚠️ **That file is no longer `ℓ = 2` only**, and this
+paragraph used to say it was: its argument is now `ℓ`-generic in
+`EllipticCurves.TateModule.PrimaryMatrixContinuity`, with an `ℓ = 3` instantiation in
+`EllipticCurves.TateModule.MatrixContinuityThree`. ⚠️ What remains true is that continuity is not
+asserted *here*. Also out of scope: injectivity of `ρ`, its determinant character
 `det ∘ ρ : G → ℤ_[2]ˣ` and the comparison with the cyclotomic character (which needs the Weil
 pairing), and any description of the image.
 

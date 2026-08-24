@@ -90,8 +90,11 @@ paragraph used to give — *"for the usual reason: `galoisRepMatrixTwo` needs a 
 the basis comes from the `2`-primary tower"* — no longer explains the restriction, for the reason
 `EllipticCurves.TateModule.Image` now records at length: `galoisRepMatrixThree` exists
 (`EllipticCurves.TateModule.MatrixRepThree`) over a basis of `T₃E`, so the matrix representation
-is not what confines anything to `ℓ = 2`. The chain that does is
-`continuous_galoisRepMatrixTwo` → `#619` → this file, and its first link is `ℓ = 2` only. ⚠️ This
+is not what confines anything to `ℓ = 2`. ⚠️ **Neither is continuity, any more, and the clause
+that said so is retired**: it read *"The chain that does is `continuous_galoisRepMatrixTwo` →
+`#619` → this file, and its first link is `ℓ = 2` only"*. `continuous_galoisRepMatrixThree` exists
+(`EllipticCurves.TateModule.MatrixContinuityThree`), so nothing gates the `ℓ = 3` layer of this
+file; it simply has not been written, and that is a follow-up. ⚠️ This
 also cashes the *"reusable verbatim when odd `ℓ` opens"* promise made above about
 `Matrix.GeneralLinearGroup.profiniteGrpPadicInt`: odd `ℓ` has opened at `ℓ = 3` for the matrix
 representation, and that statement is indeed reusable there unchanged. The `GLₙ(ℤ_[p])` statements

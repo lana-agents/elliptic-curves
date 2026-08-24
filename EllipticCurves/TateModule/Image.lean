@@ -80,8 +80,13 @@ the one above, which is about the ambient group `GL₂(ℤ_[2])`, together with
 `galoisRepMatrixTwo`, but they stopped being a *reason*: `galoisRepMatrixThree` exists
 (`EllipticCurves.TateModule.MatrixRepThree`) over a basis of `T₃E`
 (`EllipticCurves.TateModule.FreeThree`), so a matrix representation is no longer what confines an
-`ℓ = 2` statement to `ℓ = 2`. What confines *this* file is that its real input,
-`continuous_galoisRepMatrixTwo` (`EllipticCurves.TateModule.MatrixContinuity`), is `ℓ = 2` only.
+`ℓ = 2` statement to `ℓ = 2`. ⚠️ **Nor is continuity, any more, and the clause that said so is
+retired**: it read *"What confines this file is that its real input,
+`continuous_galoisRepMatrixTwo` (`EllipticCurves.TateModule.MatrixContinuity`), is `ℓ = 2` only"*.
+`continuous_galoisRepMatrixThree` exists (`EllipticCurves.TateModule.MatrixContinuityThree`), over
+the `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixContinuity`. ⚠️ **So nothing gates the
+`ℓ = 3` layer of this file; it simply has not been written**, and that is a follow-up, deliberately
+not folded into the extraction that unblocked it.
 ⚠️ At `ℓ ≥ 5` there is still a genuine gate and it is `T_ℓE ≅ ℤ_ℓ²` itself. Everything is stated
 for a base change `W'⁄F`, matching `EllipticCurves.TateModule.MatrixRep` and
 `EllipticCurves.TateModule.MatrixContinuity`.
