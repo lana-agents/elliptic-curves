@@ -48,13 +48,38 @@ localization — is the reusable brick `isIntegrallyClosed_localization_of_nonsi
 * `isDedekindDomain_of_maximalIdeal_classification` — the same hypothesis yields
   `IsDedekindDomain W.CoordinateRing`, composing with `CoordinateRing.isDedekindDomain`.
 
-## The remaining gap
+## The gap this file left, and how it was closed
 
-The one input still carried as a hypothesis is the maximal-ideal classification `hcl`.  Over an
-algebraically closed field it is the weak Nullstellensatz for the two-generator quotient
-`F[W] = F[X][Y]/(W.polynomial)` together with `W.IsElliptic ⇒` every point nonsingular; over a
-general field the closed points have residue field a finite extension of `F` and one needs either a
-finer classification or `IsIntegrallyClosed` descent along `F[W] → F̄[W]`.  See `#396` / `#469`.
+⚠️ **This section used to be headed `## The remaining gap`** and to say that the maximal-ideal
+classification `hcl` *"is the one input still carried as a hypothesis"*.  It still is, in this
+file — `isIntegrallyClosed_of_maximalIdeal_classification` below takes it — but it is no longer a
+gap in the tree, and the two routes it offered did not fare equally.
+
+* Over an algebraically closed field the classification is
+  `exists_equation_and_eq_XYIdeal_of_isMaximal`
+  (`EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed`), which is the weak Nullstellensatz
+  argument sketched here — Zariski's lemma on `F[W] ⧸ m`, then
+  `IsAlgClosed.algebraMap_bijective_of_isIntegral` to read off the point — and that file fires
+  `IsIntegrallyClosed.of_localization_maximal` directly rather than through
+  `isIntegrallyClosed_of_maximalIdeal_classification`.
+* Over a general field, ⚠️ **the "finer classification" was never built and is still nowhere in
+  this tree.**  It is the *other* option this paragraph named that was taken:
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` descends `IsIntegrallyClosed` along
+  `F[W] → F̄[W]` by `IsIntegrallyClosed.of_faithfullyFlat`
+  (`EllipticCurves.FunctionField.IntegrallyClosedDescent`), and registers
+  `IsIntegrallyClosed W.CoordinateRing` and `IsDedekindDomain W.CoordinateRing` as **global
+  instances** for every `[W.IsElliptic]`.  A reader who prices the general case off this paragraph
+  will price the wrong one of the two.
+
+⚠️ **The whole `#396` / `#469` ladder was written and closed inside one afternoon, and none of
+its five rungs was revisited.**  Pickaxe dating (`git log --format=%ci -S'<clause>' -- <file>`),
+all on 2026-08-16: `LocalRingUnit` predicted the Taylor brick and the Nakayama step at 10:40;
+`LocalRingTaylor` landed the first at 11:24 and predicted the second; `LocalRingUniformizer` landed
+it at 11:48 and predicted the passage to `IsIntegrallyClosed`; `LocalRingNormal` landed that at
+12:30 and predicted the maximal-ideal classification; `CoordinateRingNormalAlgClosed` landed it at
+12:48 and predicted the general-base-field descent, which `CoordinateRingNormalGeneral` registered
+as a **global instance** at 13:59.  Three hours and nineteen minutes, five files, five surviving
+predictions.
 
 ## References
 

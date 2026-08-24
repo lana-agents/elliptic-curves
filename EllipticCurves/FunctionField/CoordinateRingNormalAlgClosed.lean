@@ -43,8 +43,29 @@ Two ingredients combine:
 * `isIntegrallyClosed_of_isAlgClosed`: `IsIntegrallyClosed W.CoordinateRing`.
 * `isDedekindDomain_of_isAlgClosed`: `IsDedekindDomain W.CoordinateRing`.
 
-The general (non-algebraically-closed) base field needs the finite-residue-field closed points or an
-integral-closedness descent along `F[W] → F̄[W]`, and is left to a follow-on.
+⚠️ **This paragraph used to read** *"The general (non-algebraically-closed) base field needs the
+finite-residue-field closed points or an integral-closedness descent along `F[W] → F̄[W]`, and is
+left to a follow-on."*  The follow-on is `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`,
+which registers `IsIntegrallyClosed W.CoordinateRing` and `IsDedekindDomain W.CoordinateRing` as
+**global instances** for every `[W.IsElliptic]` over an arbitrary field — so a downstream consumer
+no longer supplies either by hand.
+
+⚠️ **Of the two options named, only the second was taken**: the descent along `F[W] → F̄[W]`, by
+`IsIntegrallyClosed.of_faithfullyFlat`
+(`EllipticCurves.FunctionField.IntegrallyClosedDescent`) against the faithful flatness of
+`EllipticCurves.FunctionField.CoordinateRingBaseChange`, with `isIntegrallyClosed_of_isAlgClosed`
+below as its input over `F̄`.  The finite-residue-field classification of closed points over a
+general field was never built and is still nowhere in this tree.
+
+⚠️ **The whole `#396` / `#469` ladder was written and closed inside one afternoon, and none of
+its five rungs was revisited.**  Pickaxe dating (`git log --format=%ci -S'<clause>' -- <file>`),
+all on 2026-08-16: `LocalRingUnit` predicted the Taylor brick and the Nakayama step at 10:40;
+`LocalRingTaylor` landed the first at 11:24 and predicted the second; `LocalRingUniformizer` landed
+it at 11:48 and predicted the passage to `IsIntegrallyClosed`; `LocalRingNormal` landed that at
+12:30 and predicted the maximal-ideal classification; `CoordinateRingNormalAlgClosed` landed it at
+12:48 and predicted the general-base-field descent, which `CoordinateRingNormalGeneral` registered
+as a **global instance** at 13:59.  Three hours and nineteen minutes, five files, five surviving
+predictions.
 -/
 
 open Polynomial

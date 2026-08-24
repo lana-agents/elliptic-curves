@@ -63,10 +63,21 @@ depends on `q` alone.
 
 ## What is *not* here
 
-* **The degree formula** `∑_{p ↦ q} e_p · deg p = deg φ` (classically `4` for `[2]`).  Fibre
-  finiteness makes that sum *statable* for the first time, and nothing more: no lower bound on
-  `deg φ` exists in this tree (`PlacePullback` is explicit that `MulByTwoFinite` gives only
-  "finite, of degree `≤ 4`"), and no value of `ramificationIdx` is computed anywhere below.
+* **The degree formula** `∑_{p ↦ q} e_p · f_p = deg φ` (classically `4` for `[2]`).  Fibre
+  finiteness makes that sum *statable* for the first time, and nothing below proves it; no value of
+  `ramificationIdx` is computed here either.
+  ⚠️ **This bullet used to add** *"no lower bound on `deg φ` exists in this tree (`PlacePullback`
+  is explicit that `MulByTwoFinite` gives only "finite, of degree `≤ 4`")"*.  **That went false two
+  hours after it was written**: `finrank_mulByTwoRange_functionField = 4`
+  (`EllipticCurves.FunctionField.MulByTwoDegree`) is the lower bound, and with it
+  `not_surjective_mulByTwoEndo`.  The identity itself is
+  `sum_ramificationIdxTwo_mul_residueDegreeTwo`
+  (`EllipticCurves.FunctionField.PlaceRamificationInertia`), over an algebraically closed base
+  field, and it consumes this file's `finite_comapProjPointTwo_preimage_singleton` to index the sum.
+  ⚠️ The weight there is the **relative** residue degree `f_p = [κ(p) : κ(φ⁻¹ p)]`
+  (`residueDegreeTwo`), not `deg p` = `degPt`, which is a relative ideal norm to `F[X]`; the two
+  agree over an algebraically closed base and only the relative one survives when the base field is
+  not closed.
 * **Any computation of `ramificationIdx`.**  `pullbackDivisor` is built *from* it and is as abstract
   as it is.  The point at infinity for `[2]` was a separate piece of work and has since been done,
   in `EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity` (`#670`); the resulting computed

@@ -45,12 +45,31 @@ it collapses the two generators of the maximal ideal to a single uniformizer.
 * `taylor_cotangent_mem_sq` — the cotangent relation
   `W_X(x,y)·XClass + W_Y(x,y)·YClass ∈ (XYIdeal W x (C y))²` at an on-curve point.
 
-## Out of scope (the remaining #469 work)
+## Out of scope *here* — and both later rungs have since been built
+
+⚠️ **This section used to be headed `## Out of scope (the remaining #469 work)`.**  Its two bullets
+are still out of scope for this file and are no longer out of scope for the project:
 
 * The **Nakayama** step producing the single uniformizer from this relation plus the unit fact of
-  `LocalRingUnit.lean`, and hence `(maximalIdeal (Localization.AtPrime (XYIdeal …))).IsPrincipal`.
-* The passage `principal ⇒ IsIntegrallyClosed ⇒ IsDedekindDomain` and the `F` vs `F̄`
-  classification / integral descent (see `#469`).
+  `EllipticCurves.FunctionField.LocalRingUnit` is `maximalIdeal_isPrincipal_of_nonsingular`
+  (`EllipticCurves.FunctionField.LocalRingUniformizer`) — the `#469` milestone, and it consumes
+  `taylor_cotangent_mem_sq` below exactly as this bullet predicted.
+* The passage `principal ⇒ IsIntegrallyClosed ⇒ IsDedekindDomain` is
+  `EllipticCurves.FunctionField.LocalRingNormal`, and the `F` vs `F̄` classification / integral
+  descent is `EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed` together with
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, which makes
+  `IsDedekindDomain W.CoordinateRing` a global instance for every elliptic curve over an arbitrary
+  field.
+
+⚠️ **The whole `#396` / `#469` ladder was written and closed inside one afternoon, and none of
+its five rungs was revisited.**  Pickaxe dating (`git log --format=%ci -S'<clause>' -- <file>`),
+all on 2026-08-16: `LocalRingUnit` predicted the Taylor brick and the Nakayama step at 10:40;
+`LocalRingTaylor` landed the first at 11:24 and predicted the second; `LocalRingUniformizer` landed
+it at 11:48 and predicted the passage to `IsIntegrallyClosed`; `LocalRingNormal` landed that at
+12:30 and predicted the maximal-ideal classification; `CoordinateRingNormalAlgClosed` landed it at
+12:48 and predicted the general-base-field descent, which `CoordinateRingNormalGeneral` registered
+as a **global instance** at 13:59.  Three hours and nineteen minutes, five files, five surviving
+predictions.
 
 ## References
 
