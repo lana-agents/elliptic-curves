@@ -3,8 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
-import EllipticCurves.TateModule.LevelStructure
-import EllipticCurves.TateModule.PadicInverseLimit
+import EllipticCurves.TateModule.PrimaryFree
 import EllipticCurves.Torsion.TwoPrimaryBasis
 
 /-!
@@ -20,48 +19,39 @@ Module.Free ℤ_[2] (W.tateModule 2)          Module.finrank ℤ_[2] (W.tateModu
 ```
 
 This is the `ℓ = 2` case of the general statement `T_ℓE ≅ ℤ_ℓ²` for `ℓ ≠ char F`, and the first
-structural description of any Tate module in this development. Nothing here uses Ward's theorem,
-the elliptic-net recurrence, or the multiplication-by-`n` coordinate formula `x(nP) = Φₙ/ΨSqₙ`: at
-`ℓ = 2` the whole `2`-primary tower is available from surjectivity of `[2]` on `E(F̄)` alone.
+structural description of any Tate module in this development.
 
-## The construction
+## What this file contains, and what it does not
 
-Fix a system of generating pairs `P k, Q k` of `E[2^k]` that is *coherent* for the transition maps,
-i.e. `2 • P (k+1) = P k` and `2 • Q (k+1) = Q k`
-(`EllipticCurves.Torsion.TwoPrimaryBasis.exists_compatible_basis`). Coherence is essential and is
-not supplied by the structure theorem: `E[2^k] ≃+ (ZMod (2^k))²` holds at each level
-*independently*, and a family of unrelated isomorphisms says nothing about an inverse limit. The
-map is
+The construction is in `EllipticCurves.TateModule.PrimaryFree`, stated for an arbitrary prime `ℓ`
+in terms of three inputs: a coherent system of generating pairs of the groups `E[ℓ^k]`, the count
+`#E[ℓ^k] = ℓ^k · ℓ^k`, and finiteness of `E[ℓ^k]`. **This file supplies those three inputs at
+`ℓ = 2`; it contains no argument.** ⚠️ It used to add *"and specialises every statement"*, which
+overstates in exactly the way the same sentence in `EllipticCurves.Torsion.TwoPrimaryBasis` did
+before it was repaired: it specialises **4** of `EllipticCurves.TateModule.PrimaryFree`'s **12**
+public declarations, and the eight `padicPair…` names are consumed **unspecialised** at a general
+`ℓ`, which is the subject of the ⚠️ note below. They are
 
-```
-Φ : ℤ_[2] × ℤ_[2] → (ℕ → W.Point),
-Φ (a, b) k = (PadicInt.toZModPow k a).val • P k + (PadicInt.toZModPow k b).val • Q k,
-```
+* `exists_compatible_basis` (`EllipticCurves.Torsion.TwoPrimaryBasis`), the coherent system.
+  Coherence is essential and is not supplied by the structure theorem: `E[2^k] ≃+ (ZMod (2^k))²`
+  holds at each level *independently*, and a family of unrelated isomorphisms says nothing about an
+  inverse limit.
+* `card_torsion_two_pow_mul_self` and `finite_torsion_two_pow`
+  (`EllipticCurves.Torsion.TwoPrimary`).
 
-matching the `ℤ_[2]`-action on `T₂E` from `EllipticCurves.TateModule.Basic`, where `a` acts on
-level `k` through its residue `toZModPow k a`.
+⚠️ **The names `padicPairFamily`, `padicPairHom`, `padicPairEquiv` and their lemmas are no longer
+declared in this file.** They live in `EllipticCurves.TateModule.PrimaryFree` at a general `ℓ`, in
+the same namespace `WeierstrassCurve.Affine.tateModule`, so `padicPairEquiv …` still resolves here
+and in every consumer; but their *statements* are the general ones and their `h2` argument has been
+replaced by the two cardinality inputs. Only the four `Nonempty`/`Free`/`finrank`/`Finite`
+statements below keep the exact signatures this file used to publish.
 
-* **`Φ` lands in `T₂E`** (`padicPairFamily_mem`). Level membership is `AddSubgroup.nsmul_mem`.
-  Compatibility is the one real computation: `2 • Φ (a, b) (k+1)` moves the `2` past the residue
-  coefficients onto `P (k+1)`, `Q (k+1)`, where coherence turns it into `P k`, `Q k`; the
-  coefficients are then reduced from level `k+1` to level `k`, which is legitimate because `P k`
-  and `Q k` are killed by `2^k`.
-* **`Φ` is `ℤ_[2]`-linear** (`padicPairHom`). Both `map_add` and `map_smul` reduce to the statement
-  that natural numbers with the same residue mod `2^k` act identically on `E[2^k]`, applied to
-  `map_add` / `map_mul` of `toZModPow k`.
-* **`Φ` is injective** (`padicPairHom_injective`). If `Φ (a, b) = 0` then at every level
-  `(toZModPow k a).val • P k + (toZModPow k b).val • Q k = 0`, so `toZModPow k a = 0` and
-  `toZModPow k b = 0` by uniqueness of coefficients (`zmod_pair_eq_zero_iff`, the injectivity half
-  of the levelwise basis property), whence `a = b = 0` by `PadicInt.ext_of_toZModPow`.
-* **`Φ` is surjective** (`padicPairHom_surjective`). Write each `f k` as
-  `(α k).val • P k + (β k).val • Q k`, possible by the surjectivity half
-  (`exists_zmod_pair_eq`). The sequences `α, β` are *compatible*: applying `2 • −` to level `k+1`
-  and using coherence rewrites `f k` with the level-`(k+1)` coefficients reduced mod `2^k`, and
-  uniqueness at level `k` forces `ZMod.castHom … (α (k+1)) = α k`. So `α, β` lie in
-  `PadicInt.compatSeq 2` and `PadicInt.compatSeqEquiv` converts them back into `2`-adic integers.
-
-The last step is exactly what `EllipticCurves.TateModule.PadicInverseLimit` was built for:
-`ℤ_[2] = lim_k ZMod (2^k)` as an explicit equivalence rather than only a universal property.
+Nothing here uses Ward's theorem, the elliptic-net recurrence, or the multiplication-by-`n`
+coordinate formula `x(nP) = Φₙ/ΨSqₙ`: at `ℓ = 2` the whole `2`-primary tower is available from
+surjectivity of `[2]` on `E(F̄)` alone. ⚠️ That sentence is true of *this* file and of `ℓ = 2`; it
+is **not** true of `EllipticCurves.TateModule.FreeThree`, which reaches the same conclusion at
+`ℓ = 3` through `EllipticCurves.Torsion.TriplingSurjective` and therefore does consume the
+coordinate formula at `n = 3`.
 
 ## Non-vacuity
 
@@ -73,16 +63,20 @@ infinite. That statement lives there and is imported, not restated.
 
 ## Scope
 
-Odd `ℓ` is **not** covered: the tower rests on surjectivity of `[2]`, and `[ℓ]`-surjectivity for
-odd `ℓ` still needs `x(ℓP) = Φ_ℓ/ΨSq_ℓ`. The Galois action on `T₂E`
-(`EllipticCurves.TateModule.GaloisAction`) and the representation `ρ_{E,2} : G_F → GL₂(ℤ_2)` are a
-separate follow-up, which the rank statement here makes meaningful for the first time.
+Odd `ℓ` is not covered **by this file**, which is about `ℓ = 2` only. ⚠️ Earlier revisions said odd
+`ℓ` was not covered *by the development*, "because the tower rests on surjectivity of `[2]`, and
+`[ℓ]`-surjectivity for odd `ℓ` still needs `x(ℓP) = Φ_ℓ/ΨSq_ℓ`". Naming the clause: *"the tower
+rests on surjectivity of `[2]`"* is now false of the development:
+`EllipticCurves.TateModule.PrimaryFree` rests on surjectivity of `[ℓ]`, and
+`EllipticCurves.Torsion.TriplingSurjective` pays that at `ℓ = 3`. The rest of the old sentence
+survives verbatim **for `ℓ ≥ 5`**, where `x(ℓP) = Φ_ℓ/ΨSq_ℓ` is still the gate.
+
+The Galois action on `T₂E` (`EllipticCurves.TateModule.GaloisAction`) and the representation
+`ρ_{E,2} : G_F → GL₂(ℤ_2)` are a separate follow-up, which the rank statement here makes meaningful
+for the first time.
 
 ## Main statements
 
-* `WeierstrassCurve.Affine.tateModule.padicPairEquiv`: the equivalence
-  `ℤ_[2] × ℤ_[2] ≃ₗ[ℤ_[2]] T₂E` attached to a coherent system of generating pairs.
-* `WeierstrassCurve.Affine.tateModule.padicPairEquiv_apply_coe`: its levelwise formula.
 * `WeierstrassCurve.Affine.tateModule.nonempty_tateModuleEquivProd`:
   `Nonempty (T₂E ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2])`.
 * `WeierstrassCurve.Affine.tateModule.free_tateModule_two`: `Module.Free ℤ_[2] T₂E`.
@@ -99,202 +93,11 @@ separate follow-up, which the rank statement here makes meaningful for the first
 
 open scoped AddSubgroup
 
-open PadicInt
-
 namespace WeierstrassCurve.Affine
 
 namespace tateModule
 
 variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F}
-
-/-! ### Reducing a `ℓ`-adic residue from one level to a lower one -/
-
-section Residues
-
-variable {ℓ : ℕ} [Fact ℓ.Prime]
-
-/-- The residues of a `ℓ`-adic integer at two levels agree after reduction to the lower one.
-
-`EllipticCurves.TateModule.Basic` proves the `n = m + 1` case as a `private` lemma
-(`toZModPow_val_modEq`) for its own use; `private` does not cross file boundaries, so the general
-statement is proved here rather than by editing that file. -/
-private lemma toZModPow_val_natCast_eq (a : ℤ_[ℓ]) {m n : ℕ} (h : m ≤ n) :
-    (((toZModPow n a).val : ℕ) : ZMod (ℓ ^ m)) = (((toZModPow m a).val : ℕ) : ZMod (ℓ ^ m)) := by
-  haveI : NeZero (ℓ ^ n) := ⟨(pow_pos (Fact.out : ℓ.Prime).pos n).ne'⟩
-  haveI : NeZero (ℓ ^ m) := ⟨(pow_pos (Fact.out : ℓ.Prime).pos m).ne'⟩
-  rw [ZMod.natCast_val, ZMod.natCast_val, ZMod.cast_id, cast_toZModPow m n h]
-
-end Residues
-
-/-! ### The map `Φ (a, b) k = (toZModPow k a).val • P k + (toZModPow k b).val • Q k` -/
-
-section Basis
-
-variable [IsAlgClosed F] [W.IsElliptic]
-
-/-- The compatible family attached to a pair of `2`-adic integers and a coherent system of
-generating pairs: at level `k` the residues of `a` and `b` modulo `2^k` are used as coefficients
-on `P k` and `Q k`. -/
-noncomputable def padicPairFamily (P Q : ℕ → W.Point) (ab : ℤ_[2] × ℤ_[2]) : ℕ → W.Point := fun k =>
-  (toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k
-
-variable {P Q : ℕ → W.Point}
-
-omit [IsAlgClosed F] [W.IsElliptic] in
-private lemma mem_torsion_fst
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k)) (k : ℕ) :
-    P k ∈ W.torsion (2 ^ k) := by
-  have hmem : P k ∈ ({P k, Q k} : Set W.Point) := Set.mem_insert _ _
-  rw [← hgen k]
-  exact AddSubgroup.subset_closure hmem
-
-omit [IsAlgClosed F] [W.IsElliptic] in
-private lemma mem_torsion_snd
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k)) (k : ℕ) :
-    Q k ∈ W.torsion (2 ^ k) := by
-  have hmem : Q k ∈ ({P k, Q k} : Set W.Point) := Set.mem_insert_of_mem _ rfl
-  rw [← hgen k]
-  exact AddSubgroup.subset_closure hmem
-
-omit [IsAlgClosed F] [W.IsElliptic] in
-/-- `Φ (a, b)` is a compatible family, i.e. an element of `T₂E`. Coherence of the system
-(`2 • P (k+1) = P k`) is what makes the level-`(k+1)` value descend to the level-`k` one. -/
-lemma padicPairFamily_mem
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) (ab : ℤ_[2] × ℤ_[2]) :
-    padicPairFamily P Q ab ∈ W.tateModule 2 := by
-  refine ⟨fun k => AddSubgroup.add_mem _
-    (AddSubgroup.nsmul_mem _ (mem_torsion_fst hgen k) _)
-    (AddSubgroup.nsmul_mem _ (mem_torsion_snd hgen k) _), fun k => ?_⟩
-  change 2 • ((toZModPow (k + 1) ab.1).val • P (k + 1) + (toZModPow (k + 1) ab.2).val • Q (k + 1))
-      = (toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k
-  rw [smul_add, smul_comm 2 (toZModPow (k + 1) ab.1).val,
-    smul_comm 2 (toZModPow (k + 1) ab.2).val, hP k, hQ k,
-    nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_fst hgen k)
-      (toZModPow_val_natCast_eq ab.1 k.le_succ),
-    nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_snd hgen k)
-      (toZModPow_val_natCast_eq ab.2 k.le_succ)]
-
-omit [IsAlgClosed F] [W.IsElliptic] in
-/-- **The `ℤ_[2]`-linear map `ℤ_[2] × ℤ_[2] →ₗ[ℤ_[2]] T₂E`** attached to a coherent system of
-generating pairs. -/
-noncomputable def padicPairHom
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) :
-    ℤ_[2] × ℤ_[2] →ₗ[ℤ_[2]] W.tateModule 2 where
-  toFun ab := ⟨padicPairFamily P Q ab, padicPairFamily_mem hgen hP hQ ab⟩
-  map_add' ab cd := by
-    refine tateModule.ext fun k => ?_
-    change (toZModPow k (ab.1 + cd.1)).val • P k + (toZModPow k (ab.2 + cd.2)).val • Q k
-        = ((toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k)
-          + ((toZModPow k cd.1).val • P k + (toZModPow k cd.2).val • Q k)
-    rw [nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_fst hgen k)
-        (t := (toZModPow k ab.1).val + (toZModPow k cd.1).val)
-        (by push_cast [ZMod.natCast_val, ZMod.cast_id, map_add]; ring),
-      nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_snd hgen k)
-        (t := (toZModPow k ab.2).val + (toZModPow k cd.2).val)
-        (by push_cast [ZMod.natCast_val, ZMod.cast_id, map_add]; ring),
-      add_nsmul, add_nsmul]
-    abel
-  map_smul' c ab := by
-    refine tateModule.ext fun k => ?_
-    rw [smul_coe]
-    change (toZModPow k (c * ab.1)).val • P k + (toZModPow k (c * ab.2)).val • Q k
-        = (toZModPow k c).val • ((toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k)
-    rw [smul_add, smul_smul, smul_smul,
-      nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_fst hgen k)
-        (t := (toZModPow k c).val * (toZModPow k ab.1).val)
-        (by push_cast [ZMod.natCast_val, ZMod.cast_id, map_mul]; ring),
-      nsmul_eq_of_natCast_eq (ℓ := 2) (mem_torsion_snd hgen k)
-        (t := (toZModPow k c).val * (toZModPow k ab.2).val)
-        (by push_cast [ZMod.natCast_val, ZMod.cast_id, map_mul]; ring)]
-
-omit [IsAlgClosed F] [W.IsElliptic] in
-@[simp]
-lemma padicPairHom_apply_coe
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) (ab : ℤ_[2] × ℤ_[2])
-    (k : ℕ) :
-    ((padicPairHom hgen hP hQ ab : W.tateModule 2) : ℕ → W.Point) k
-      = (toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k := rfl
-
-/-! ### Injectivity and surjectivity -/
-
-/-- **`Φ` is injective.** Uniqueness of the coefficients at every level forces all residues of `a`
-and `b` to vanish, and a `2`-adic integer is determined by its residues. -/
-theorem padicPairHom_injective (h2 : (2 : F) ≠ 0)
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) :
-    Function.Injective (padicPairHom hgen hP hQ) := by
-  refine (injective_iff_map_eq_zero _).mpr fun ab hab => ?_
-  have hlev : ∀ k, toZModPow k ab.1 = 0 ∧ toZModPow k ab.2 = 0 := by
-    intro k
-    refine (zmod_pair_eq_zero_iff h2 (hgen k)).mp ?_
-    have := congrArg (fun f : W.tateModule 2 => (f : ℕ → W.Point) k) hab
-    simpa [padicPairHom, padicPairFamily] using this
-  refine Prod.ext ?_ ?_
-  · exact ext_of_toZModPow.mp fun n => by rw [(hlev n).1]; simp
-  · exact ext_of_toZModPow.mp fun n => by rw [(hlev n).2]; simp
-
-/-- **`Φ` is surjective.** The levelwise coefficient pairs of a compatible family are themselves a
-compatible sequence, so they come from a pair of `2`-adic integers via
-`PadicInt.compatSeqEquiv`. -/
-theorem padicPairHom_surjective (h2 : (2 : F) ≠ 0)
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) :
-    Function.Surjective (padicPairHom hgen hP hQ) := by
-  intro f
-  choose α β hαβ using fun k => exists_zmod_pair_eq (hgen k) (f.2.1 k)
-  -- The level-`(k+1)` coefficients, reduced mod `2^k`, also describe `f k`; uniqueness at level
-  -- `k` then identifies them with the level-`k` coefficients.
-  have hcompat : ∀ k, (ZMod.castHom (pow_dvd_pow 2 k.le_succ) (ZMod (2 ^ k)) (α (k + 1)) = α k)
-      ∧ ZMod.castHom (pow_dvd_pow 2 k.le_succ) (ZMod (2 ^ k)) (β (k + 1)) = β k := by
-    intro k
-    have hstep : (α (k + 1)).val • P k + (β (k + 1)).val • Q k = (f : ℕ → W.Point) k := by
-      rw [← smul_coe_succ f k, ← hαβ (k + 1), smul_add,
-        smul_comm 2 (α (k + 1)).val, smul_comm 2 (β (k + 1)).val, hP k, hQ k]
-    have hred : ∀ {x : W.Point} (_ : x ∈ W.torsion (2 ^ k)) (a : ZMod (2 ^ (k + 1))),
-        a.val • x = (ZMod.castHom (pow_dvd_pow 2 k.le_succ) (ZMod (2 ^ k)) a).val • x := by
-      intro x hx a
-      refine nsmul_eq_of_natCast_eq (ℓ := 2) hx ?_
-      rw [ZMod.natCast_val, ZMod.natCast_val, ZMod.cast_id, ZMod.castHom_apply]
-    rw [hred (mem_torsion_fst hgen k) (α (k + 1)), hred (mem_torsion_snd hgen k) (β (k + 1))]
-      at hstep
-    have hfk : (ZMod.castHom (pow_dvd_pow 2 k.le_succ) (ZMod (2 ^ k)) (α (k + 1)),
-        ZMod.castHom (pow_dvd_pow 2 k.le_succ) (ZMod (2 ^ k)) (β (k + 1))) = (α k, β k) := by
-      refine (torsionPairHom_bijective h2 (hgen k)).1 (Subtype.ext ?_)
-      rw [torsionPairHom_apply_coe, torsionPairHom_apply_coe, hstep, hαβ k]
-    exact ⟨congrArg Prod.fst hfk, congrArg Prod.snd hfk⟩
-  have hαmem : α ∈ compatSeq 2 := fun k => (hcompat k).1
-  have hβmem : β ∈ compatSeq 2 := fun k => (hcompat k).2
-  refine ⟨(compatSeqEquiv.symm ⟨α, hαmem⟩, compatSeqEquiv.symm ⟨β, hβmem⟩), tateModule.ext
-    fun k => ?_⟩
-  rw [padicPairHom_apply_coe]
-  simpa using hαβ k
-
-/-! ### The equivalence, freeness and the rank -/
-
-/-- **`T₂E ≅ ℤ₂²`**: the equivalence `ℤ_[2] × ℤ_[2] ≃ₗ[ℤ_[2]] T₂E` attached to a coherent system of
-generating pairs of the groups `E[2^k]`. -/
-noncomputable def padicPairEquiv (h2 : (2 : F) ≠ 0)
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) :
-    (ℤ_[2] × ℤ_[2]) ≃ₗ[ℤ_[2]] W.tateModule 2 :=
-  LinearEquiv.ofBijective _
-    ⟨padicPairHom_injective h2 hgen hP hQ, padicPairHom_surjective h2 hgen hP hQ⟩
-
-/-- The level-`k` value of the family attached to `(a, b)`: the residues of `a` and `b` modulo
-`2^k` read as coefficients on the level-`k` basis. This is the identity that a later analysis of
-the Galois action on `T₂E` will run on. -/
-@[simp]
-lemma padicPairEquiv_apply_coe (h2 : (2 : F) ≠ 0)
-    (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k))
-    (hP : ∀ k, 2 • P (k + 1) = P k) (hQ : ∀ k, 2 • Q (k + 1) = Q k) (ab : ℤ_[2] × ℤ_[2])
-    (k : ℕ) :
-    ((padicPairEquiv h2 hgen hP hQ ab : W.tateModule 2) : ℕ → W.Point) k
-      = (toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k := rfl
-
-end Basis
 
 section Structure
 
@@ -305,26 +108,26 @@ isomorphism depends on a choice of coherent system of generating pairs, so it is
 `Nonempty`; the choice-free consequences are `free_tateModule_two` and
 `finrank_tateModule_two`. -/
 theorem nonempty_tateModuleEquivProd (h2 : (2 : F) ≠ 0) :
-    Nonempty (W.tateModule 2 ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]) := by
-  obtain ⟨P, Q, hgen, hP, hQ⟩ := exists_compatible_basis (W := W) h2
-  exact ⟨(padicPairEquiv h2 hgen hP hQ).symm⟩
+    Nonempty (W.tateModule 2 ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]) :=
+  nonempty_tateModuleEquivProd_of_card (finite_torsion_two_pow h2)
+    (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` is a free `ℤ_[2]`-module** (Silverman, *AEC*, III.7.1 at `ℓ = 2`). -/
-theorem free_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Free ℤ_[2] (W.tateModule 2) := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd (W := W) h2
-  exact Module.Free.of_equiv e.symm
+theorem free_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Free ℤ_[2] (W.tateModule 2) :=
+  free_tateModule_of_card (finite_torsion_two_pow h2)
+    (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` has rank two over `ℤ_[2]`.** -/
 theorem finrank_tateModule_two (h2 : (2 : F) ≠ 0) :
-    Module.finrank ℤ_[2] (W.tateModule 2) = 2 := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd (W := W) h2
-  rw [e.finrank_eq, Module.finrank_prod, Module.finrank_self]
+    Module.finrank ℤ_[2] (W.tateModule 2) = 2 :=
+  finrank_tateModule_of_card (finite_torsion_two_pow h2)
+    (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` is a finitely generated `ℤ_[2]`-module.** Free of rank two, so in particular finite as
 a module; this is the shape `ρ_{E,2} : G_F → GL₂(ℤ_2)` will need. -/
-theorem finite_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Finite ℤ_[2] (W.tateModule 2) := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd (W := W) h2
-  exact Module.Finite.equiv e.symm
+theorem finite_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Finite ℤ_[2] (W.tateModule 2) :=
+  finite_tateModule_of_card (finite_torsion_two_pow h2)
+    (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 end Structure
 

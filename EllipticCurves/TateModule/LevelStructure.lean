@@ -34,8 +34,17 @@ Over an algebraically closed field with `2 ≠ 0`, `nsmul_two_surjective` discha
 so `proj k : T_2 E →+ E[2^k]` is surjective for every `k`. Combined with the kernel computation this
 gives `T_2 E / 2^k T_2 E ≃+ E[2^k]`, and combined with `#E[2^k] = 4^k`
 (`EllipticCurves.Torsion.TwoPrimary`) it shows `T_2 E` is infinite. No hypothesis on `(3 : F)` is
-used. The analogous statements for `ℓ ≠ 2` wait on surjectivity of `[ℓ]`, which for `ℓ = 3` already
-needs the multiplication-by-`n` coordinate formula `x(nP) = Φₙ/ΨSqₙ`.
+used.
+
+⚠️ The clause this paragraph used to carry — *"The analogous statements for `ℓ ≠ 2` wait on
+surjectivity of `[ℓ]`"* — is false at `ℓ = 3`, and so is the reading of its continuation that made
+`x(nP) = Φₙ/ΨSqₙ` a *gate*: at `n = 3` that formula is **proved**
+(`EllipticCurves.Torsion.TriplingSurjective`), so `[3]`-surjectivity is available and the `ℓ = 3`
+instances of everything in this file exist. They are stated in
+`EllipticCurves.TateModule.FreeThree` rather than here, so as not to drag
+`EllipticCurves.Torsion.ThreePrimary` into a file whose subject is the levelwise-generic structure
+of `T_ℓE`. For `ℓ ≥ 5` the original sentence stands verbatim: the general coordinate formula is
+still the gate.
 
 ## What this file does *not* do
 
@@ -55,6 +64,9 @@ are the ambient input that construction consumes.
 * `WeierstrassCurve.Affine.tateModule.proj_surjective`: the level projections are surjective when
   `[ℓ]` is surjective on `W.Point`; `…exists_mem_tateModule_apply_eq`, its unbundled form; and
   `…exists_nsmul_pow_eq_of_proj_surjective`, the converse divisibility content of that conclusion.
+* `WeierstrassCurve.Affine.tateModule.infinite_tateModule_of_card` and
+  `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_of_card`: `T_ℓE` is not the zero
+  module, given level surjectivity and the count `#E[ℓ^k] = ℓ^k · ℓ^k`.
 * `WeierstrassCurve.Affine.tateModule.proj_two_surjective`,
   `WeierstrassCurve.Affine.tateModule.infinite_tateModule_two`,
   `WeierstrassCurve.Affine.tateModule.nontrivial_tateModule_two`,
@@ -63,7 +75,9 @@ are the ambient input that construction consumes.
 
 `nontrivial_tateModule_two` is worth singling out: `EllipticCurves.TateModule.Basic` proves nothing
 that would distinguish `T_ℓ E` from the zero module, so it is the statement that certifies the
-construction there is not vacuous.
+construction there is not vacuous. It is now a one-line instance of
+`nontrivial_tateModule_of_card`, whose `ℓ = 3` instance is `infinite_tateModule_three` in
+`EllipticCurves.TateModule.FreeThree`.
 
 ## References
 
@@ -252,6 +266,41 @@ lemma exists_nsmul_pow_eq_of_proj_surjective {k : ℕ}
   obtain ⟨f, hf⟩ := h ⟨x, hx⟩
   exact ⟨(f : ℕ → W.Point) (k + m), (smul_pow_coe f k m).trans (congrArg Subtype.val hf)⟩
 
+/-! ## Non-vacuity from a levelwise count -/
+
+/-- **`T_ℓE` is infinite** as soon as the level projections are surjective and the levels grow:
+were `T_ℓE` finite with `N` elements it would surject onto `E[ℓ^N]`, which has `ℓ^N · ℓ^N > N`
+elements.
+
+The cardinality is taken as a hypothesis in the form `#E[ℓ^k] = ℓ^k · ℓ^k`, which is the shape the
+`ℓ`-primary counting theorems are consumed in throughout this development
+(`EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of_card`). -/
+theorem infinite_tateModule_of_card (hℓ : 1 < ℓ)
+    (hproj : ∀ k, Function.Surjective (proj (W := W) (ℓ := ℓ) k))
+    (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k) :
+    Infinite (W.tateModule ℓ) := by
+  rw [← not_finite_iff_infinite]
+  intro hfin
+  set N := Nat.card (W.tateModule ℓ) with hN
+  have hle : Nat.card (W.torsion (ℓ ^ N)) ≤ N := Nat.card_le_card_of_surjective _ (hproj N)
+  rw [hcard N] at hle
+  have hlt : N < ℓ ^ N := Nat.lt_pow_self hℓ
+  have hmul : ℓ ^ N ≤ ℓ ^ N * ℓ ^ N := Nat.le_mul_of_pos_left _ (pow_pos (by omega) N)
+  omega
+
+/-- **`T_ℓE` is nontrivial**, i.e. it is not the zero module, under the hypotheses of
+`infinite_tateModule_of_card`.
+
+Weaker than `infinite_tateModule_of_card`, but this is the form a consumer usually wants: every
+statement in `EllipticCurves.TateModule.Basic` holds vacuously for the zero module, so citing
+`Nontrivial` is what certifies that the Tate module constructed there has content. -/
+theorem nontrivial_tateModule_of_card (hℓ : 1 < ℓ)
+    (hproj : ∀ k, Function.Surjective (proj (W := W) (ℓ := ℓ) k))
+    (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k) :
+    Nontrivial (W.tateModule ℓ) :=
+  haveI := infinite_tateModule_of_card hℓ hproj hcard
+  inferInstance
+
 /-! ## The `ℓ = 2` instance -/
 
 section Two
@@ -265,15 +314,9 @@ theorem proj_two_surjective (h2 : (2 : F) ≠ 0) (k : ℕ) :
   proj_surjective (nsmul_two_surjective h2) k
 
 /-- **`T_2 E` is infinite.** It surjects onto `E[2^k]`, which has `4^k` elements, for every `k`. -/
-theorem infinite_tateModule_two (h2 : (2 : F) ≠ 0) : Infinite (W.tateModule 2) := by
-  rw [← not_finite_iff_infinite]
-  intro hfin
-  set N := Nat.card (W.tateModule 2) with hN
-  have hle : Nat.card (W.torsion (2 ^ N)) ≤ N :=
-    Nat.card_le_card_of_surjective _ (proj_two_surjective h2 N)
-  rw [card_torsion_two_pow h2] at hle
-  have hlt : N < 4 ^ N := Nat.lt_pow_self (by norm_num)
-  omega
+theorem infinite_tateModule_two (h2 : (2 : F) ≠ 0) : Infinite (W.tateModule 2) :=
+  infinite_tateModule_of_card (by norm_num) (proj_two_surjective h2)
+    (card_torsion_two_pow_mul_self h2)
 
 /-- **`T_2 E` is nontrivial**, i.e. it is not the zero module.
 
@@ -281,8 +324,8 @@ Weaker than `infinite_tateModule_two`, but this is the form a consumer usually w
 statement in `EllipticCurves.TateModule.Basic` holds vacuously for the zero module, so citing
 `Nontrivial` is what certifies that the Tate module constructed there has content. -/
 theorem nontrivial_tateModule_two (h2 : (2 : F) ≠ 0) : Nontrivial (W.tateModule 2) :=
-  haveI := infinite_tateModule_two (W := W) h2
-  inferInstance
+  nontrivial_tateModule_of_card (by norm_num) (proj_two_surjective h2)
+    (card_torsion_two_pow_mul_self h2)
 
 /-- **`T_2 E` has a nonzero element.** The unbundled form of `nontrivial_tateModule_two`. -/
 theorem exists_ne_zero_tateModule_two (h2 : (2 : F) ≠ 0) : ∃ f : W.tateModule 2, f ≠ 0 :=

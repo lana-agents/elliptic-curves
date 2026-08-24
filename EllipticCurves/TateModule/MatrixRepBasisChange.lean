@@ -77,9 +77,13 @@ needed here, so it is not stated.
 
 ## Scope
 
-`ℓ = 2` only, for the usual reason: a basis of `T_ℓE` is available only at `ℓ = 2`, through the
-`2`-primary tower. The conjugation law itself is insensitive to `ℓ` and will transfer verbatim
-once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ` (`#268`, gated on `#251`/`#252`).
+`ℓ = 2` only, because `galoisRepMatrixTwo` is. ⚠️ The reason this paragraph used to give —
+*"a basis of `T_ℓE` is available only at `ℓ = 2`, through the `2`-primary tower"* — is false as of
+`EllipticCurves.TateModule.FreeThree`, which gives `Module.Free ℤ_[3] T₃E` and
+`finrank ℤ_[3] T₃E = 2` and hence a basis at `ℓ = 3`. So is the deadline in its continuation,
+*"once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ`"*: that day has arrived at `ℓ = 3`. The conjugation
+law itself is insensitive to `ℓ` and will transfer verbatim as soon as an `ℓ = 3` matrix
+representation is stated; at `ℓ ≥ 5` the Tate module itself is still out of reach.
 
 Nothing here bears on **whether the conjugacy class is nontrivial**, i.e. on the image of
 `ρ_{E,2}`: that is a statement about `F / S`, and `G` may be trivial for all this file knows. What

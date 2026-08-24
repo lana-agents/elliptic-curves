@@ -81,11 +81,14 @@ first open index is `n = 5`:
 * `[p]`-surjectivity for a prime `p ≥ 5` needs it too, so neither the bound nor the tower is within
   reach at `p = 5` by the route used here.
 
-`T₃E ≅ ℤ₃²` is **not** delivered. `EllipticCurves.TateModule.Free` obtains `T₂E ≅ ℤ₂²` from the
-*coherent* system of generating pairs of `EllipticCurves.Torsion.TwoPrimaryBasis`, and is explicit
-that levelwise structure theorems are not enough: *"a family of unrelated isomorphisms says nothing
-about an inverse limit"*. What is delivered below is the levelwise half at `ℓ = 3`, which is its
-input and not its conclusion.
+⚠️ This paragraph used to open *"`T₃E ≅ ℤ₃²` is **not** delivered"*, and that clause is now false:
+`EllipticCurves.TateModule.FreeThree` delivers it. The rest of the paragraph is still exactly
+right and is what that file consumes. `EllipticCurves.TateModule.PrimaryFree` obtains
+`T_ℓE ≅ ℤ_ℓ²` from a *coherent* system of generating pairs — at `ℓ = 3` the one built by
+`EllipticCurves.Torsion.ThreePrimaryBasis` — and is explicit that levelwise structure theorems are
+not enough: *"a family of unrelated isomorphisms says nothing about an inverse limit"*. What is
+delivered below is the levelwise half at `ℓ = 3`, which is that construction's input and not its
+conclusion.
 
 ## ⚠️ Where `h3` enters, measured
 
@@ -114,7 +117,8 @@ rewrites to match.
 * `Nat.exists_eq_two_pow_mul_three_pow`: a nonzero `n` with every prime factor `2` or `3` is a
   `2 ^ a * 3 ^ b`.
 * `WeierstrassCurve.Affine.card_torsion_mul_three`: `#E[3n] = 9 · #E[n]`.
-* `WeierstrassCurve.Affine.card_torsion_three_pow`: `#E[3^k] = 9^k`.
+* `WeierstrassCurve.Affine.card_torsion_three_pow`: `#E[3^k] = 9^k`, and
+  `WeierstrassCurve.Affine.card_torsion_three_pow_mul_self`, the same count written `3^k · 3^k`.
 * `WeierstrassCurve.Affine.finite_torsion_three_pow`: `E[3^k]` is finite.
 * `WeierstrassCurve.Affine.nonempty_torsionThreePow_addEquiv`: `E[3^k] ≃+ (ℤ/3^kℤ)²`.
 * `WeierstrassCurve.Affine.card_torsion_nine`, `…nonempty_torsionNine_addEquiv`: `#E[9] = 81` and
@@ -230,6 +234,18 @@ theorem finite_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : 
     rw [card_torsion_three_pow h2 h3]
     positivity
   exact (Nat.card_ne_zero.mp h).2
+
+/-- **`#E[3^k] = 3^k · 3^k`**, the same count as `card_torsion_three_pow` in the shape every
+consumer that compares `E[3^k]` with `(ZMod (3^k))²` needs it: as a product of two copies of the
+modulus rather than as a power of `9`.
+
+⚠️ `9 ^ k` is **not** definitionally `3 ^ k * 3 ^ k`, so the conversion is a real rewrite and not a
+`rfl`. It is stated once here rather than repeated at each call site; it is the mirror of
+`EllipticCurves.Torsion.TwoPrimary.card_torsion_two_pow_mul_self`. -/
+theorem card_torsion_three_pow_mul_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
+    Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k := by
+  rw [card_torsion_three_pow h2 h3, ← pow_add, ← two_mul, pow_mul]
+  norm_num
 
 /-! ## The structure of `E[3^k]` -/
 

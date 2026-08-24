@@ -25,8 +25,12 @@ module `T₂E = lim_k E[2^k]` — needs a **coherent** system instead:
 
 The construction is in `EllipticCurves.Torsion.PrimaryBasis`, stated for an arbitrary `ℓ` in terms
 of two inputs: surjectivity of `[ℓ]` on `E(F̄)`, and a generating pair of `E[ℓ]`. **This file
-supplies those two inputs at `ℓ = 2` and specialises every statement; it contains no argument.**
-The two inputs are
+supplies those two inputs at `ℓ = 2`; it contains no argument.** ⚠️ It used to add *"and specialises
+every statement"*, which overstates: it specialises **8** of `PrimaryBasis.lean`'s **22** public
+statements. Four more — `closure_pair_eq_torsion_succ`, `torsionPairHom`,
+`torsionPairHom_apply_coe`, `exists_zmod_pair_eq` — are stated there at a general modulus `n` with
+no field hypothesis, so a consumer at `ℓ = 2` calls them **unspecialised**, exactly as one at
+`ℓ = 3` does. The two inputs are
 
 * `nsmul_two_surjective` (`EllipticCurves.Torsion.DoublingSurjective`), and
 * `nonempty_torsionTwo_addEquiv` (`EllipticCurves.Torsion.TwoTorsion`), which
@@ -98,13 +102,6 @@ theorem exists_compatible_basis (h2 : (2 : F) ≠ 0) :
     (exists_closure_pair_eq_torsion_two h2)
 
 /-! ### The explicit isomorphism `(ℤ/2^kℤ)² ≃+ E[2^k]` -/
-
-/-- `#E[2^k] = 2^k · 2^k`, the form in which `card_torsion_two_pow` is consumed by
-`torsionPairHom_bijective_of_card`. -/
-private lemma card_torsion_two_pow_mul_self (h2 : (2 : F) ≠ 0) (k : ℕ) :
-    Nat.card (W.torsion (2 ^ k)) = 2 ^ k * 2 ^ k := by
-  rw [card_torsion_two_pow h2, ← pow_add, ← two_mul, pow_mul]
-  norm_num
 
 /-- `torsionPairHom` is bijective: it is surjective by `exists_zmod_pair_eq`, and both sides have
 `4 ^ k` elements by `card_torsion_two_pow`. -/

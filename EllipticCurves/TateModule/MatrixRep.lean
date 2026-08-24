@@ -40,8 +40,10 @@ before. Nothing here is new Galois theory: it is a transport along an equivalenc
 `E[2^k]`, and different systems give representations differing by conjugation. So the matrix
 representation takes a basis as an argument, and only its *existence* is stated choice-freely
 (`exists_galoisRepMatrixTwo`). This follows the packaging already used in
-`EllipticCurves.TateModule.Free`, where `padicPairEquiv` carries the basis and `Module.Free` /
-`Module.finrank` do not.
+`EllipticCurves.TateModule.PrimaryFree`, where `padicPairEquiv` carries the basis and `Module.Free`
+/ `Module.finrank` do not. ⚠️ That reference used to name `EllipticCurves.TateModule.Free`, which
+declared `padicPairEquiv` until the construction was extracted to a general `ℓ`; `Free` is now the
+`ℓ = 2` list of instantiations and declares none of the `padicPair…` names.
 
 ## The two lemmas that make it usable
 
@@ -69,12 +71,15 @@ haveI : (W'⁄F).IsElliptic := inferInstanceAs (W'.map (algebraMap S F)).IsEllip
 
 ## Scope
 
-Odd `ℓ` is **not** covered: `T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` is not available, and the `ℓ = 2` case went
-through the `2`-primary tower instead. ⚠️ The reason this paragraph used to give — *"needs
-surjectivity of `[ℓ]` on `E(F̄)`, which is not available"* — is false at `ℓ = 3`:
+Odd `ℓ` is **not** covered *by this file*, and the `ℓ = 2` case went through the `2`-primary tower.
+⚠️ **Two clauses this paragraph used to carry are now false and are replaced.** The first,
+*"needs surjectivity of `[ℓ]` on `E(F̄)`, which is not available"*, is false at `ℓ = 3`:
 `nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
-`(2 : F) ≠ 0` alone, and `EllipticCurves.Torsion.ThreePrimaryBasis` builds the `3`-primary coherent
-system out of it. What is missing at `ℓ = 3` is only the transport to `T₃E`. At `ℓ ≥ 5`
+`(2 : F) ≠ 0` alone. The second, *"`T_ℓE ≅ ℤ_ℓ²` at odd `ℓ` is not available"* — together with
+*"what is missing at `ℓ = 3` is only the transport to `T₃E`"* — is false as of
+`EllipticCurves.TateModule.FreeThree`, which performs exactly that transport and delivers
+`Module.Free ℤ_[3] T₃E` and `finrank ℤ_[3] T₃E = 2`. What is missing at `ℓ = 3` is therefore not the
+module but the matrix representation: `galoisRepMatrixThree` is simply not stated below. At `ℓ ≥ 5`
 surjectivity is genuinely unavailable.
 
 **Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds
