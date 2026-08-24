@@ -5,7 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.OpenKernel
-import Mathlib.LinearAlgebra.Matrix.Basis
+import EllipticCurves.TateModule.PrimaryMatrixRepBasisChange
 
 /-!
 # Changing the basis conjugates `ρ_{E,2}`
@@ -29,9 +29,9 @@ Each individual consequence of "changing the basis only conjugates" was previous
 by a separate ad hoc argument or left as a remark:
 
 * the **kernel** does not depend on `b` — proved directly in `EllipticCurves.TateModule.Kernel`
-  (`ker_galoisRepMatrixTwo`) from the fact that `(matrixAutEquivTwo b).symm` is injective, which is
-  a shorter route than conjugation and is left alone here; this file only adds the topological
-  corollary `isClosed_ker_galoisRepMatrixTwo`;
+  (`ker_galoisRepMatrix`, and `ker_galoisRepMatrixTwo` at `ℓ = 2`) from the fact that
+  `(matrixAutEquiv b).symm` is injective, which is a shorter route than conjugation and is left
+  alone here; this file only adds the topological corollary `isClosed_ker_galoisRepMatrixTwo`;
 * `det`, `trace` and `charpoly` do not depend on `b` — proved in
   `EllipticCurves.TateModule.Determinant`, again by a direct argument;
 * **continuity** does not depend on `b` — this turned out to need no argument at all, since
@@ -41,7 +41,22 @@ by a separate ad hoc argument or left as a remark:
 The conjugation law is the single statement all three are instances of, and unlike them it also
 covers the invariants nobody has yet formalised (the image up to conjugacy — see
 `range_galoisRepMatrixTwo_map`, the characteristic ideal, reductions mod `2^k`, …). It is stated
-here once so that no future file has to re-derive it.
+once so that no future file has to re-derive it.
+
+## What is in this file, and what moved out of it
+
+⚠️ **The argument is no longer here.** The conjugation law is proved at an arbitrary prime in
+`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`, and every theorem below is a one-line
+instantiation of it at `ℓ = 2` — except `isClosed_ker_galoisRepMatrixTwo`, which is the one
+statement of the file that consumes something genuinely `ℓ`-indexed
+(`isClosed_ker_galoisRepTwo`, `EllipticCurves.TateModule.OpenKernel`).
+
+⚠️ `basisChangeGL` and its seven lemmas, including the non-vacuity certificate
+`tateModule.basisChangeGL_reindex_swap_ne_one`, **moved** to that file unchanged: same namespace
+`WeierstrassCurve.Affine.tateModule`, same statements, same proofs. They were always stated over an
+arbitrary commutative ring and an arbitrary finite-rank free module, so nothing about them became
+more general; the move is forced by the import graph, since this file imports
+`EllipticCurves.TateModule.OpenKernel` and an `ℓ`-generic file must not.
 
 ## A historical note, and a correction to three module docstrings
 
@@ -51,7 +66,7 @@ recorded that continuity of `galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` was una
 **false**, and `EllipticCurves.TateModule.MatrixContinuity` proves it false: `b.equivFun.symm` is
 continuous for *any* basis, its source `Fin 2 → ℤ_[2]` is compact and its target is Hausdorff, so
 `b.equivFun` is continuous by `Continuous.homeoOfEquivCompactToT2`. No compatibility with the level
-filtration enters. The three docstrings are corrected in the same commit as this file; they are
+filtration enters. The three docstrings were corrected in the same commit as this file; they are
 recorded here too because the claim survived three merged pull requests and a reader who has seen
 it should be able to find its refutation.
 
@@ -59,11 +74,6 @@ The corollary is that continuity is basis-independent for the trivial reason —
 and *not* because conjugation is a homeomorphism. The conjugation-is-a-homeomorphism argument is
 still the correct one for a hypothetical `ρ` known continuous in one basis only, but it is not
 needed here, so it is not stated.
-
-## Main definitions
-
-* `WeierstrassCurve.Affine.tateModule.basisChangeGL` : the change-of-basis matrix `b'.toMatrix b`
-  packaged as an element of `GL ι R`, with `b.toMatrix b'` as its inverse.
 
 ## Main statements
 
@@ -77,29 +87,40 @@ needed here, so it is not stated.
 
 ## Scope
 
-`ℓ = 2` only, because the statements below are. ⚠️ **Three clauses this paragraph used to carry
-are false and are replaced, and the third went false most recently.** The first,
-*"a basis of `T_ℓE` is available only at `ℓ = 2`, through the `2`-primary tower"*, is false as of
-`EllipticCurves.TateModule.FreeThree`, which gives `Module.Free ℤ_[3] T₃E` and
-`finrank ℤ_[3] T₃E = 2` and hence a basis at `ℓ = 3`. So is the deadline in its continuation,
-*"once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ`"*: that day arrived at `ℓ = 3`. The third,
-*"[the conjugation law] will transfer verbatim as soon as an `ℓ = 3` matrix representation is
-stated"*, is a **deadline that has now passed**: `galoisRepMatrixThree` is stated, in
-`EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport
-`EllipticCurves.TateModule.PrimaryMatrixRep`.
+`ℓ = 2` only, because the statements below are — they are the `ℓ = 2` *names*, kept because
+`galoisRepMatrixTwo` predates the extraction and is consumed throughout this development. ⚠️ **The
+conjugation law itself is not.**
 
-⚠️ **So this file is `ℓ = 2` only by omission and not by obstruction.** The conjugation law is
-insensitive to `ℓ` — nothing below uses `2` for anything but the type — and extracting it to
-`PrimaryMatrixRep`-style genericity is a mechanical follow-up that nothing blocks. It was
-deliberately left out of the extraction that created `galoisRepMatrixThree`, to keep that change
-to `MatrixRep.lean`'s own declarations. ⚠️ Do not read *"`ℓ = 2` only"* here as a claim that odd
-`ℓ` is gated: at `ℓ ≥ 5` the Tate module itself is still out of reach, and **that** is the real
-gate, but it is not this file's.
+⚠️ Three clauses this paragraph carried before that were **false** were replaced in an earlier
+commit and are not re-derived here; they are recorded so the history is not lost. They were
+*"a basis of `T_ℓE` is available only at `ℓ = 2`, through the `2`-primary tower"* and its
+continuation *"once `T_ℓE ≅ ℤ_ℓ²` is available at odd `ℓ`"*, both false as of
+`EllipticCurves.TateModule.FreeThree`; and *"[the conjugation law] will transfer verbatim as soon
+as an `ℓ = 3` matrix representation is stated"*, a deadline that passed with
+`EllipticCurves.TateModule.MatrixRepThree`.
+
+What this paragraph used to end with was a clause that was **right**, and it is quoted rather than
+deleted because what changed is not its truth but its tense:
+
+> ⚠️ **So this file is `ℓ = 2` only by omission and not by obstruction.** The conjugation law is
+> insensitive to `ℓ` — nothing below uses `2` for anything but the type — and extracting it to
+> `PrimaryMatrixRep`-style genericity is a mechanical follow-up that nothing blocks.
+
+The omission has stopped being one. The extraction is
+`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` and the `ℓ = 3` instantiation is
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree`.
+
+⚠️ **The tail of that clause still stands verbatim and is the part a reader should keep**: do not
+read *"`ℓ = 2` only"* here as a claim that odd `ℓ` is gated. At `ℓ ≥ 5` the Tate module itself is
+out of reach — `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated on `[ℓ]`-surjectivity and `#E[ℓ^k]`, i.e. on the
+general coordinate formula `x(nP) = Φₙ/ΨSqₙ` — and **that** is the real gate, but it is not this
+file's and it is not the conjugation law's.
 
 Nothing here bears on **whether the conjugacy class is nontrivial**, i.e. on the image of
 `ρ_{E,2}`: that is a statement about `F / S`, and `G` may be trivial for all this file knows. What
 *is* discriminated is that the conjugating element is genuinely not always `1`
-(`basisChangeGL_reindex_swap_ne_one`), so the law is not `b' = b` in disguise.
+(`tateModule.basisChangeGL_reindex_swap_ne_one`, stated over an arbitrary `Nontrivial` commutative
+ring in the generic file and **not** restated here), so the law is not `b' = b` in disguise.
 
 ## References
 
@@ -110,67 +131,6 @@ open Matrix
 
 namespace WeierstrassCurve.Affine
 
-namespace tateModule
-
-/-! ### The change-of-basis element of `GL ι R`
-
-This section is about an arbitrary finite-rank free module; nothing about elliptic curves enters.
-It is `Module.Basis.toMatrix` packaged as a *unit*, which is what a conjugation statement needs and
-which Mathlib does not provide (it has `Module.Basis.invertibleToMatrix`, an `Invertible` instance
-on the matrix, but no `GL`-valued form). -/
-
-variable {ι R M : Type*} [Fintype ι] [DecidableEq ι] [CommRing R] [AddCommGroup M] [Module R M]
-
-/-- The change of basis from `b` to `b'` as an element of `GL ι R`: the matrix `b'.toMatrix b`,
-whose two-sided inverse is `b.toMatrix b'`.
-
-The direction is fixed by `basisChangeGL_mulVec`: this is the matrix taking `b`-coordinates to
-`b'`-coordinates. -/
-noncomputable def basisChangeGL (b b' : Module.Basis ι R M) : GL ι R :=
-  ⟨b'.toMatrix b, b.toMatrix b', b'.toMatrix_mul_toMatrix_flip b,
-    b.toMatrix_mul_toMatrix_flip b'⟩
-
-variable (b b' : Module.Basis ι R M)
-
-@[simp]
-lemma coe_basisChangeGL : (basisChangeGL b b' : Matrix ι ι R) = b'.toMatrix b := rfl
-
-@[simp]
-lemma coe_basisChangeGL_inv : ((basisChangeGL b b')⁻¹ : GL ι R).val = b.toMatrix b' := rfl
-
-/-- **`basisChangeGL b b'` converts `b`-coordinates into `b'`-coordinates.** This is the
-computation rule; everything else about `basisChangeGL` follows from it. -/
-@[simp]
-lemma basisChangeGL_mulVec (m : M) :
-    (basisChangeGL b b' : Matrix ι ι R) *ᵥ ⇑(b.repr m) = ⇑(b'.repr m) :=
-  b.toMatrix_mulVec_repr b' m
-
-@[simp]
-lemma basisChangeGL_self : basisChangeGL b b = 1 :=
-  Units.ext <| by simp
-
-lemma basisChangeGL_mul (b'' : Module.Basis ι R M) :
-    basisChangeGL b' b'' * basisChangeGL b b' = basisChangeGL b b'' :=
-  Units.ext <| by simp [Module.Basis.toMatrix_mul_toMatrix]
-
-lemma basisChangeGL_symm : (basisChangeGL b b')⁻¹ = basisChangeGL b' b := rfl
-
-/-- **The conjugating element is not always `1`.** Reindexing a basis of a rank-`2` module along
-the transposition of the two indices changes it, and the resulting change-of-basis element is the
-permutation matrix, whose `(0, 0)` entry is `0`.
-
-This is the non-vacuity certificate for `galoisRepMatrixTwo_conj`: without it, the conjugation law
-would be consistent with `basisChangeGL` being constantly `1`, i.e. with the law saying nothing
-beyond `b' = b`. -/
-lemma basisChangeGL_reindex_swap_ne_one [Nontrivial R] (c : Module.Basis (Fin 2) R M) :
-    basisChangeGL c (c.reindex (Equiv.swap 0 1)) ≠ 1 := by
-  intro h
-  have h00 := congrFun₂
-    (congrArg (fun u : GL (Fin 2) R => (u : Matrix (Fin 2) (Fin 2) R)) h) 0 0
-  simp [Module.Basis.toMatrix_apply] at h00
-
-end tateModule
-
 /-! ### The conjugation law for `ρ_{E,2}` -/
 
 variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : Affine S}
@@ -180,22 +140,17 @@ variable (b b' : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
 open tateModule in
 /-- **The matrix form of the conjugation law**: `ρ_{b'}(σ)` and `ρ_b(σ)` intertwine the change of
 basis. Stated multiplicatively rather than as a conjugation because that is the form the proof
-produces and the form with no inverses in it. -/
+produces and the form with no inverses in it. `coe_galoisRepMatrix_mul_basisChange` at `ℓ = 2`. -/
 theorem coe_galoisRepMatrixTwo_mul_basisChange (σ : F ≃ₐ[S] F) :
     (galoisRepMatrixTwo b' σ : Matrix (Fin 2) (Fin 2) ℤ_[2]) * b'.toMatrix b
-      = b'.toMatrix b * (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]) := by
-  refine Matrix.ext_iff_mulVec.2 fun v => ?_
-  obtain ⟨m, rfl⟩ : ∃ m, ⇑(b.repr m) = v :=
-    ⟨b.equivFun.symm v, by rw [← Module.Basis.equivFun_apply]; exact b.equivFun.apply_symm_apply v⟩
-  rw [← Matrix.mulVec_mulVec, ← Matrix.mulVec_mulVec, Module.Basis.toMatrix_mulVec_repr,
-    ← galoisRepMatrixTwo_mulVec, ← galoisRepMatrixTwo_mulVec, Module.Basis.toMatrix_mulVec_repr]
+      = b'.toMatrix b * (galoisRepMatrixTwo b σ : Matrix (Fin 2) (Fin 2) ℤ_[2]) :=
+  coe_galoisRepMatrix_mul_basisChange b b' σ
 
 open tateModule in
 /-- **`ρ_{b'}(σ) · c = c · ρ_b(σ)`** in `GL₂(ℤ_[2])`, where `c = basisChangeGL b b'`. -/
 theorem galoisRepMatrixTwo_mul_basisChangeGL (σ : F ≃ₐ[S] F) :
     galoisRepMatrixTwo b' σ * basisChangeGL b b' = basisChangeGL b b' * galoisRepMatrixTwo b σ :=
-  Units.ext <| by
-    simpa [coe_basisChangeGL] using coe_galoisRepMatrixTwo_mul_basisChange b b' σ
+  galoisRepMatrix_mul_basisChangeGL b b' σ
 
 open tateModule in
 /-- **Changing the basis conjugates the `2`-adic representation.**
@@ -207,8 +162,8 @@ up to conjugation"*, and it is what makes every conjugation-invariant of `ρ_{E,
 its determinant and trace, its image up to conjugacy — independent of the choice. -/
 theorem galoisRepMatrixTwo_conj (σ : F ≃ₐ[S] F) :
     galoisRepMatrixTwo b' σ
-      = basisChangeGL b b' * galoisRepMatrixTwo b σ * (basisChangeGL b b')⁻¹ := by
-  rw [← galoisRepMatrixTwo_mul_basisChangeGL, mul_inv_cancel_right]
+      = basisChangeGL b b' * galoisRepMatrixTwo b σ * (basisChangeGL b b')⁻¹ :=
+  galoisRepMatrix_conj b b' σ
 
 open tateModule in
 /-- **The conjugation law as an identity of representations**, not merely of their values: the two
@@ -217,23 +172,26 @@ form to quote when the point is that the *representation* is well defined up to 
 theorem galoisRepMatrixTwo_eq_conj_comp :
     galoisRepMatrixTwo b' =
       (MulAut.conj (basisChangeGL b b')).toMonoidHom.comp (galoisRepMatrixTwo b) :=
-  MonoidHom.ext fun σ => by
-    simpa using galoisRepMatrixTwo_conj b b' σ
+  galoisRepMatrix_eq_conj_comp b b'
 
 open tateModule in
 /-- **The image of `ρ_{E,2}` is well defined up to conjugacy in `GL₂(ℤ_[2])`.** Not merely
 isomorphic: it is carried onto the other by an inner automorphism of the ambient group. -/
 theorem range_galoisRepMatrixTwo_map :
     (galoisRepMatrixTwo b').range =
-      (galoisRepMatrixTwo b).range.map (MulAut.conj (basisChangeGL b b')).toMonoidHom := by
-  rw [galoisRepMatrixTwo_eq_conj_comp b b', MonoidHom.range_comp]
+      (galoisRepMatrixTwo b).range.map (MulAut.conj (basisChangeGL b b')).toMonoidHom :=
+  range_galoisRepMatrix_map b b'
 
 /-- **`ker ρ_{E,2}` is closed in `G`, in every basis.**
 
 `ker_galoisRepMatrixTwo` of `EllipticCurves.TateModule.Kernel` identifies the kernel with
 `ker (galoisRep 2)`, which `isClosed_ker_galoisRepTwo` of `EllipticCurves.TateModule.OpenKernel`
 shows is closed; this is the two together, in the shape a consumer of the matrix representation
-wants. Note it is *closed* and not, in general, open — see `OpenKernel.lean`. -/
+wants. Note it is *closed* and not, in general, open — see `OpenKernel.lean`.
+
+⚠️ This is the one statement of this file that is **not** an instantiation of a generic theorem:
+its second input is `ℓ = 2`-specific. Its `ℓ = 3` twin is `isClosed_ker_galoisRepMatrixThree`
+(`EllipticCurves.TateModule.MatrixRepBasisChangeThree`), which carries `h3` as well. -/
 theorem isClosed_ker_galoisRepMatrixTwo [Algebra.IsIntegral S F] [IsAlgClosed F]
     [(W'⁄F).IsElliptic] (h2 : (2 : F) ≠ 0) :
     IsClosed ((galoisRepMatrixTwo b).ker : Set (F ≃ₐ[S] F)) := by
