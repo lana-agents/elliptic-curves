@@ -61,10 +61,13 @@ statement here with a real input, and its two inputs enter through different doo
   `EllipticCurves.Torsion.TriplingSurjective`. `EllipticCurves.TateModule.MatrixRepBasisChange`
   says of the `ℓ = 2` route that it needs no such thing; that sentence must not be read here.
   Ward's theorem and the elliptic-net recurrence remain unused at every `ℓ`.
-* ⚠️ **Continuity is not asserted**, at either prime. `continuous_galoisRepMatrixTwo`
+* ⚠️ **Continuity is not asserted**, at either prime — but it is no longer *missing* at either.
+  The clause this bullet used to carry — *"`continuous_galoisRepMatrixTwo`
   (`EllipticCurves.TateModule.MatrixContinuity`) is `ℓ = 2` only; its `ℓ = 3` twin is a separate
-  follow-up, and it is work rather than a gate — all three of its inputs
-  (`galoisRepMatrixThree`, `galoisDetThree`, `galoisTraceThree`) are stated.
+  follow-up"* — was a correct prediction and has been paid:
+  `continuous_galoisRepMatrixThree` is in `EllipticCurves.TateModule.MatrixContinuityThree`, over
+  the `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixContinuity`. ⚠️ Neither of those files
+  consumes this one, and none of the five statements below asserts continuity of anything.
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is not touched by any of this.** The conjugation law says
   the determinant does not depend on the basis, which is already known directly
   (`EllipticCurves.TateModule.Determinant`); the `3`-adic identity with the cyclotomic character

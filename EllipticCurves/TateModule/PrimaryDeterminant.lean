@@ -102,8 +102,12 @@ four.
 * **Continuity is not asserted**, here or anywhere on this front: `galoisRep` is built purely as a
   group homomorphism and passing to determinants changes nothing about that. It is supplied
   downstream at `ℓ = 2` by `continuous_galoisDetTwo` in
-  `EllipticCurves.TateModule.MatrixContinuity`; ⚠️ that file is still `ℓ = 2` only and this
-  extraction does not make it generic.
+  `EllipticCurves.TateModule.MatrixContinuity`. ⚠️ **That file is no longer `ℓ = 2` only**, and
+  this bullet used to say it was: `continuous_galoisDet_of_basis` and
+  `continuous_galoisTrace_of_basis` are stated at an arbitrary prime in
+  `EllipticCurves.TateModule.PrimaryMatrixContinuity`, over the definitions of *this* file. ⚠️ What
+  remains true is the first half of the bullet: continuity is not asserted here, and this
+  extraction did not supply it.
 * **The identification of `galoisDet` with the cyclotomic character is not proved here**, at any
   prime. See `EllipticCurves.TateModule.Determinant`'s Scope for what does and does not block it;
   ⚠️ the short version is that it needs the Weil pairing at **every** level `E[ℓ^k]`, and the

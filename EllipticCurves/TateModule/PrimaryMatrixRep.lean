@@ -101,8 +101,12 @@ by name.
 * **Continuity is not asserted here.** `EllipticCurves.TateModule.GaloisAction` builds `galoisRep`
   purely as a group homomorphism and passing to matrices changes nothing about that. Continuity is
   supplied downstream at `ℓ = 2` by `continuous_galoisRepMatrixTwo` in
-  `EllipticCurves.TateModule.MatrixContinuity`; ⚠️ that file is still `ℓ = 2` only, and this
-  extraction does **not** make it generic.
+  `EllipticCurves.TateModule.MatrixContinuity`. ⚠️ **That file is no longer `ℓ = 2` only**, and
+  this bullet used to say it was: the argument is now `ℓ`-generic in
+  `EllipticCurves.TateModule.PrimaryMatrixContinuity`, with instantiations at `ℓ = 2` and at
+  `ℓ = 3` (`EllipticCurves.TateModule.MatrixContinuityThree`). ⚠️ What remains true is the first
+  half of the bullet: *this* extraction does not supply continuity, and nothing below should be
+  read as doing so.
 * **The basis-change conjugation law is not here**, but it is no longer `ℓ = 2` only. ⚠️ The
   clause this bullet used to carry — *"It is `galoisRepMatrixTwo_conj` in
   `EllipticCurves.TateModule.MatrixRepBasisChange`, likewise still `ℓ = 2` only"* — is false: the
