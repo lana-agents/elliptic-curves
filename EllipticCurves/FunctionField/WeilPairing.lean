@@ -254,6 +254,12 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`, `#944`; ⚠️ the `n = 2` twin of
   this bullet is *degenerate* — `(ZMod 2)ˣ` is a subsingleton, so `e_2` is unconditionally
   `Gal(F/S)`-invariant and only at `n = 3` does the character record anything).
+* **the arithmetic corollary**, Silverman III.8.1.1 — `E[3] ⊆ E(K) ⟹ μ_3 ⊆ K`, i.e.
+  `forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed`
+  (`EllipticCurves.FunctionField.WeilPairingRationalTorsion`; ⚠️ the first entry on this list that
+  is a statement about the **base field** rather than about the pairing, and the first consumer of
+  `#938`'s surjectivity that is not itself a pairing statement — equivariance alone would only say
+  that `σ` permutes the values it takes).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
