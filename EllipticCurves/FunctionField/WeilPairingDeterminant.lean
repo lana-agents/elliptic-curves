@@ -60,11 +60,13 @@ first clause was wrong — `LinearEquiv.det` is basis-free — and the second, t
 `nonempty_torsionThree_addEquiv`, was read as saying the module structure is unavailable, and it is
 not.  `EllipticCurves.TateModule.DeterminantMod` (`#956`) supplies both halves: `torsionZModModule`
 is `AddCommGroup.zmodModule` applied to `nsmul_mem_torsion`, with no hypothesis at all, and
-`galoisDetMod 3 : G →* (ZMod 3)ˣ` is the bundled character, defined with no basis.  ⚠️ What is
-still undelivered is therefore *only* the identity `galoisDetMod 3 = χ_3` between that character
-and this file's coordinate statement, which neither file proves.  A reader should not conclude from
-the absence of `LinearMap.det` below that the identification is unavailable — it is here, in
-coordinates.
+`galoisDetMod 3 : G →* (ZMod 3)ˣ` is the bundled character, defined with no basis.  ⚠️ The identity
+`galoisDetMod 3 = χ_3` between that character and this file's coordinate statement is now proved
+too, in `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`), and it consumes
+`exists_smul_eq_zsmul_add_zsmul_and_det_three_eq` below — so this paragraph's "not delivered" is
+spent, and what it named as the remaining gap is closed.  A reader should not conclude from the
+absence of `LinearMap.det` below that the identification is unavailable — it is here, in
+coordinates, and bundled one file away.
 
 ## ⚠️ `n = 2` is NOT the empty mirror it was in `#948`
 
@@ -478,9 +480,11 @@ integers are only determined mod `3`, but so is the conclusion
 choice.
 
 ⚠️ Read as `det ρ_{E,3} = χ_3` this is the whole content of the identification.  What it is not is
-an equation between `LinearEquiv.det ∘ ρ_{E,3}` and `χ_3`; see this file's Scope section for why
-that bundling is a separate, structural, matter, and for why none of it touches
-`EllipticCurves.TateModule.Determinant`'s `2`-adic `galoisDetTwo`. -/
+an equation between `LinearEquiv.det ∘ ρ_{E,3}` and `χ_3`; that bundling is a separate, structural,
+matter, and it is `galoisDetMod_three_eq_galoisModularCyclotomicChar`
+(`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`, `#958`), a consumer of the
+statement below.  ⚠️ None of it touches `EllipticCurves.TateModule.Determinant`'s `2`-adic
+`galoisDetTwo`. -/
 theorem exists_smul_eq_zsmul_add_zsmul_and_det_three_eq (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {P T : (W⁄F).torsion 3} (hPT : weilPairingThree h2 h3 P T ≠ 1) :
     ∃ a b c d : ℤ, σ • P = a • P + c • T ∧ σ • T = b • P + d • T ∧

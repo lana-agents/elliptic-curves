@@ -272,6 +272,13 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   those hypotheses always satisfiable is a *counting* argument off `#E[3] = 9`, not a
   linear-algebra one.  ⚠️ It does **not** touch `EllipticCurves.TateModule.Determinant`'s `2`-adic
   `galoisDetTwo`, which needs the pairing at every level `E[2 ^ k]`).
+* **the determinant identity as an identity of characters** — `det ρ_{E,3} = χ_3` with no basis and
+  no chosen pair anywhere in the statement, i.e. `galoisDetMod_three_eq_galoisModularCyclotomicChar`
+  (`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`, `#958`; ⚠️ this is the bundled
+  form of the previous bullet, not a second theorem — it consumes `#951`'s coordinate identity and
+  `#956`'s `galoisDetMod`, and the pair `(P, T)` that the previous bullet quantifies over is
+  produced inside its proof.  ⚠️ Its `n = 2` twin is content-free, `(ZMod 2)ˣ` being a
+  subsingleton, and it is still **not** the `ℓ`-adic `galoisDetTwo = χ_2`).
 
 ⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
 statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
