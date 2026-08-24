@@ -11,7 +11,7 @@ import EllipticCurves.Torsion.TwoPrimary
 import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
-# The level kernels of `ρ_{E,2}` are open, and `ker ρ_{E,2}` is closed
+# The level kernels of `ρ_{E,ℓ}` are open, and `ker ρ_{E,ℓ}` is closed
 
 `EllipticCurves.TateModule.Kernel` proves the level filtration
 
@@ -27,7 +27,8 @@ The two headline results are
 
 * `isOpen_ker_galoisRepMod` — `ker (galoisRepMod n)` is **open**, provided `E[n]` is finite;
 * `isClosed_ker_galoisRepTwo` — `ker ρ_{E,2}` is **closed**, unconditionally over an algebraically
-  closed field of characteristic `≠ 2`.
+  closed field of characteristic `≠ 2`, and `isClosed_ker_galoisRepThree` — the same at `ℓ = 3`,
+  where `(3 : F) ≠ 0` is needed as well.
 
 ## Why finiteness is the hinge, and where it comes from
 
@@ -104,6 +105,7 @@ constant sequence.
   `n ≠ 0`, over a field in which `2` and `3` are invertible and with **no `[IsAlgClosed F]`**.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_three_pow`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_three_pow` : the `ℓ = 3` layer.
+* `WeierstrassCurve.Affine.isClosed_ker_galoisRepThree` : `ker ρ_{E,3}` is closed.
 
 ## References
 
@@ -337,6 +339,23 @@ measured. -/
 theorem isLocallyConstant_galoisRepMod_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     IsLocallyConstant (galoisRepMod (W' := W') (F := F) (3 ^ k)) :=
   isLocallyConstant_galoisRepMod _ (finite_torsion_three_pow h2 h3 k)
+
+/-- **`ker ρ_{E,3}` is closed.** By `ker_galoisRepThree_eq_iInf`
+(`EllipticCurves.TateModule.Kernel`) it is `⨅ k, ker (galoisRepMod (3^k))`, a countable
+intersection of open — hence also closed — subgroups.
+
+⚠️ **Both `h2` and `h3` are needed, and they enter through different doors.** `h2` alone gives the
+level filtration, because `nsmul_three_surjective` needs nothing more; `h3` is what
+`finite_torsion_three_pow` needs to make each level kernel *open*. Its `ℓ = 2` twin
+`isClosed_ker_galoisRepTwo` carries only `h2` because at `ℓ = 2` both doors open with it.
+
+It is **not** claimed open, and in general it is not — see `isClosed_ker_galoisRepTwo` for the
+reason, which is insensitive to `ℓ`. -/
+theorem isClosed_ker_galoisRepThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    IsClosed ((galoisRep (W' := W') (F := F) 3).ker : Set (F ≃ₐ[S] F)) := by
+  rw [ker_galoisRepThree_eq_iInf h2, Subgroup.coe_iInf]
+  exact isClosed_iInter fun k => OpenSubgroup.isClosed (openSubgroupKerGaloisRepMod (3 ^ k)
+    (finite_torsion_three_pow h2 h3 k))
 
 end Three
 

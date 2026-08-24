@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.TateModule.Determinant
 import EllipticCurves.TateModule.LevelStructure
+import EllipticCurves.Torsion.TriplingSurjective
 
 /-!
 # The level filtration of `ρ_ℓ` : `ker ρ_ℓ = ⋂_k ker (G → Aut E[ℓ^k])`
@@ -39,11 +40,13 @@ content of the file.
   `j ≤ k`, **unconditionally** (`ker_galoisRepMod_pow_antitone`) — this is just `E[ℓ^j] ⊆ E[ℓ^k]`.
 * At `ℓ = 2` over an algebraically closed field with `2 ≠ 0` the hypothesis is discharged by
   `nsmul_two_surjective`, so `ker_galoisRepTwo_eq_iInf` and `galoisRepTwo_eq_one_iff` are
-  unconditional. ⚠️ The clause this bullet used to carry — *"No odd `ℓ` has that shortcut yet"* —
-  is false at `ℓ = 3`, where `nsmul_three_surjective`
+  unconditional. ⚠️ Two clauses this bullet used to carry are false and are replaced. The first,
+  *"No odd `ℓ` has that shortcut yet"*, is false at `ℓ = 3`, where `nsmul_three_surjective`
   (`EllipticCurves.Torsion.TriplingSurjective`) discharges the same hypothesis, also from
-  `(2 : F) ≠ 0` alone; the `ℓ = 3` specialisations are simply not stated in this file. No prime
-  `ℓ ≥ 5` has the shortcut.
+  `(2 : F) ≠ 0` alone. The second, *"the `ℓ = 3` specialisations are simply not stated in this
+  file"*, was a description of this file and is no longer one: `ker_galoisRepThree_eq_iInf` and
+  `galoisRepThree_eq_one_iff` are stated below, and they carry `h2` and **not** `h3`, for the
+  reason the `§ The unconditional ℓ = 3 layer` heading gives. No prime `ℓ ≥ 5` has the shortcut.
 
 ## Why this is worth having
 
@@ -64,8 +67,12 @@ Nothing here claims that `ρ_ℓ` is *injective* — that `ker ρ_ℓ` is trivia
   `WeierstrassCurve.Affine.galoisRep_eq_one_iff`.
 * `WeierstrassCurve.Affine.ker_galoisRepMod_pow_antitone` : the congruence tower is descending.
 * `WeierstrassCurve.Affine.galoisRepTwo_eq_one_iff` : the unconditional `ℓ = 2` form.
-* `WeierstrassCurve.Affine.ker_galoisRepMatrixTwo` : the matrix representation has the same kernel
-  as `galoisRep 2`, for *every* basis, and `galoisRepMatrixTwo_eq_one_iff` reads it off.
+* `WeierstrassCurve.Affine.galoisRepThree_eq_one_iff` : the unconditional `ℓ = 3` form.
+* `WeierstrassCurve.Affine.ker_galoisRepMatrix` : the matrix representation has the same kernel as
+  `galoisRep ℓ`, for *every* basis and at every prime, and
+  `WeierstrassCurve.Affine.galoisRepMatrix_eq_one_iff` reads it off;
+  `WeierstrassCurve.Affine.ker_galoisRepMatrixTwo` and
+  `WeierstrassCurve.Affine.galoisRepMatrixTwo_eq_one_iff` are the `ℓ = 2` names.
 
 ## References
 
@@ -204,26 +211,106 @@ theorem galoisRepTwo_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
 
 end Two
 
-/-! ### The matrix representation -/
+/-! ### The unconditional `ℓ = 3` layer
+
+⚠️ **Only `h2` appears below, and that is not an oversight.** The hypothesis
+`ker_galoisRep_eq_iInf` wants is surjectivity of multiplication by `3` on `E(F̄)`, and
+`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
+`(2 : F) ≠ 0` alone — `(3 : F) ≠ 0` enters the `ℓ = 3` story only through the *counting* theorem
+`card_torsion_three_pow`, which nothing in this file consumes.
+`EllipticCurves.TateModule.FreeThree` records the same split for the module.
+-/
+
+section Three
+
+variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
+
+/-- **`ker ρ_{E,3} = ⋂_k ker (G → Aut E[3^k])`**, unconditionally over an algebraically closed
+field of characteristic `≠ 2`: multiplication by `3` is surjective on `E(F̄)`, which discharges the
+hypothesis of `ker_galoisRep_eq_iInf`.
+
+⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
+`(nsmul_three_surjective h2)` by a hole —
+`by refine ker_galoisRep_eq_iInf (W' := W') (F := F) 3 ?_` — leaves
+
+```
+error: unsolved goals
+S : Type u_1
+F : Type u_2
+inst✝⁵ : Field S
+inst✝⁴ : Field F
+inst✝³ : DecidableEq F
+inst✝² : Algebra S F
+W' : Affine S
+inst✝¹ : IsAlgClosed F
+inst✝ : WeierstrassCurve.IsElliptic W'⁄F
+h2 : 2 ≠ 0
+⊢ Function.Surjective fun P ↦ 3 • P
+```
+
+⚠️ `h2` **survives** in the context, so what is removed is a construction and not a hypothesis;
+and the residual is a **goal**, which no type mismatch could produce. It is exactly
+`[3]`-surjectivity, which is where the whole cost of the `ℓ = 3` case sits: no prime `ℓ ≥ 5` has it,
+and without it the inclusion `ker ρ_ℓ ≤ ker (galoisRepMod (ℓ^k))` is unavailable. -/
+theorem ker_galoisRepThree_eq_iInf (h2 : (2 : F) ≠ 0) :
+    (galoisRep (W' := W') (F := F) 3).ker
+      = ⨅ k, (galoisRepMod (W' := W') (F := F) (3 ^ k)).ker :=
+  ker_galoisRep_eq_iInf 3 (nsmul_three_surjective h2)
+
+/-- **`ρ_{E,3}(σ) = 1` iff `σ` fixes every `3`-power torsion point**, unconditionally over an
+algebraically closed field of characteristic `≠ 2`. -/
+theorem galoisRepThree_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
+    galoisRep (W' := W') 3 σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (3 ^ k)), σ • P = P :=
+  galoisRep_eq_one_iff 3 (nsmul_three_surjective h2) σ
+
+end Three
+
+/-! ### The matrix representation
+
+⚠️ The two statements below are stated at an arbitrary prime and instantiated at `ℓ = 2`
+immediately after. They apply verbatim to `galoisRepMatrixThree`
+(`EllipticCurves.TateModule.MatrixRepThree`), which is *definitionally* `galoisRepMatrix` at
+`ℓ = 3`, so there are deliberately no `_three` restatements of them anywhere in this development.
+-/
+
+variable {ℓ : ℕ} [Fact ℓ.Prime]
+
+/-- **The matrix representation has the same kernel as `galoisRep ℓ`, in every basis.** Changing
+the basis conjugates `ρ_{E,ℓ}` (`galoisRepMatrix_conj`,
+`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`), so the kernel — unlike the individual
+matrices — does not depend on the choice. Unconditional, and proved by a shorter route than
+conjugation: `galoisRepMatrix b` is `galoisRep ℓ` postcomposed with the *equivalence*
+`(matrixAutEquiv b).symm`. -/
+theorem ker_galoisRepMatrix (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F).tateModule ℓ)) :
+    (galoisRepMatrix b).ker = (galoisRep (W' := W') (F := F) ℓ).ker := by
+  ext σ
+  simp only [MonoidHom.mem_ker, galoisRepMatrix, MonoidHom.coe_comp,
+    Function.comp_apply, MulEquiv.coe_toMonoidHom, EmbeddingLike.map_eq_one_iff]
+
+/-- **`ρ_{E,ℓ}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `ℓ`-power
+torsion point.** The headline reading of the level filtration.
+
+The hypothesis is `ker_galoisRep_eq_iInf`'s and not the matrix layer's: passing to matrices is an
+equivalence and adds nothing. -/
+theorem galoisRepMatrix_eq_one_iff (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F).tateModule ℓ))
+    (hℓ : Function.Surjective fun P : (W'⁄F).Point => ℓ • P) (σ : F ≃ₐ[S] F) :
+    galoisRepMatrix b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (ℓ ^ k)), σ • P = P := by
+  rw [← MonoidHom.mem_ker, ker_galoisRepMatrix, MonoidHom.mem_ker, galoisRep_eq_one_iff ℓ hℓ]
 
 variable (b : Module.Basis (Fin 2) ℤ_[2] ((W'⁄F).tateModule 2))
 
-/-- **The matrix representation has the same kernel as `galoisRep 2`, in every basis.** Changing
-the basis conjugates `ρ_{E,2}`, so the kernel — unlike the individual matrices — does not depend on
-the choice. Unconditional: `galoisRepMatrixTwo b` is `galoisRep 2` postcomposed with the
-*equivalence* `(matrixAutEquivTwo b).symm`. -/
+/-- **The matrix representation has the same kernel as `galoisRep 2`, in every basis.**
+`ker_galoisRepMatrix` at `ℓ = 2`. -/
 theorem ker_galoisRepMatrixTwo :
-    (galoisRepMatrixTwo b).ker = (galoisRep (W' := W') (F := F) 2).ker := by
-  ext σ
-  simp only [MonoidHom.mem_ker, galoisRepMatrixTwo, galoisRepMatrix, MonoidHom.coe_comp,
-    Function.comp_apply, MulEquiv.coe_toMonoidHom, EmbeddingLike.map_eq_one_iff]
+    (galoisRepMatrixTwo b).ker = (galoisRep (W' := W') (F := F) 2).ker :=
+  ker_galoisRepMatrix b
 
 /-- **`ρ_{E,2}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `2`-power
 torsion point.** The headline reading of the level filtration. -/
 theorem galoisRepMatrixTwo_eq_one_iff [IsAlgClosed F] [(W'⁄F).IsElliptic] (h2 : (2 : F) ≠ 0)
     (σ : F ≃ₐ[S] F) :
-    galoisRepMatrixTwo b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (2 ^ k)), σ • P = P := by
-  rw [← MonoidHom.mem_ker, ker_galoisRepMatrixTwo, MonoidHom.mem_ker, galoisRepTwo_eq_one_iff h2]
+    galoisRepMatrixTwo b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (2 ^ k)), σ • P = P :=
+  galoisRepMatrix_eq_one_iff b (nsmul_two_surjective h2) σ
 
 /-- On `ker ρ_{E,2}` the determinant character is trivial. -/
 theorem galoisDetTwo_eq_one_of_mem_ker {σ : F ≃ₐ[S] F}
