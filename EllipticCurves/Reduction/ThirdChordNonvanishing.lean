@@ -17,7 +17,18 @@ The secant coordinate identity `localParam_add_secant` / the point-level `localP
 (`Reduction/ThirdChordAffine.lean`) carry a hypothesis `hw : w₃ ≠ 0` (geometrically: the third
 chord point is not at infinity, i.e. `P + Q ≠ O`).  This file **discharges** it in the secant case,
 so — together with the `hden : den ≠ 0` discharge (`Reduction/AdditivityValuation.lean`) — two of
-the four non-degeneracy side conditions of the secant additivity are now unconditional.
+the four non-degeneracy side conditions of `localParam_add_of_X_ne` are discharged.
+
+⚠️ **That count is a tally, and it has since decayed: the other two are gone as well.**  This
+sentence closed *"two of the four non-degeneracy side conditions of the secant additivity are now
+unconditional"*, which is still true of `localParam_add_of_X_ne` itself and no longer describes the
+front.  The distinctness pair `hd1, hd2` was **removed rather than discharged** — #376's
+`addX_eq_thirdChordX_of_secant` (`EllipticCurves.Reduction.ThirdChordAffineUncond`) proves
+`addX = X₃` as a `(z, w)`-level symmetric-function field identity that never mentions `X₃`'s
+distinctness, and `localParam_add_of_X_ne_uncond`
+(`EllipticCurves.Reduction.AdditivityUncond`) is the secant additivity with all four side
+conditions gone.  `EllipticCurves.Reduction.SecantAdditivity`, which consumes this file, records
+the same thing.  **State the position, not a tally.**
 
 The key observation is that `(t, w₃)` solves the same numeric Weierstrass functional equation as the
 coordinate expansion `wParam`, and both `t, w₃` lie in `𝔪`; by uniqueness of the small solution

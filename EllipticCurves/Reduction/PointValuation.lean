@@ -14,7 +14,13 @@ Let `R` be a discrete valuation ring with fraction field `K = Frac R` and residu
 `W : WeierstrassCurve K` be given by an **integral** Weierstrass equation (`IsIntegral R W`, so all
 coefficients `aᵢ` lie in `R`).  Following Silverman (AEC VII.2 Prop 2.1) we analyse the valuations
 of the coordinates of an affine point `P = (x, y)` on `W`, and define the predicate that `P`
-**reduces to the origin** — the eventual membership relation of the kernel of reduction `E₁(K)`.
+**reduces to the origin** — the membership relation of the kernel of reduction `E₁(K)`.
+
+⚠️ **This sentence called it the *"eventual"* membership relation, and it stopped being eventual.**
+`E₁ R W : AddSubgroup (W⁄K).Point` exists (`EllipticCurves.Reduction.KernelAddClosure`, #367) and
+`mem_E₁` is `P ∈ E₁ R W ↔ ReducesToZero R W P`, proved by `Iff.rfl` — so the predicate defined here
+is not a stand-in for the eventual relation, it **is** it, definitionally.  The subgroup structure
+is what was eventual, and it arrived.
 
 We use the multiplicative `ℤᵐ⁰ = WithZero (Multiplicative ℤ)`-valued valuation
 `valuation K (maximalIdeal R)` (exactly the one used by Mathlib's `EllipticCurve/Reduction.lean`),
@@ -112,7 +118,8 @@ theorem valuation_neg_x_div_y_lt_one (W : WeierstrassCurve K) [IsIntegral R W]
 
 /-! ### The `E₁(K)` predicate: points reducing to the origin -/
 
-/-- A point `P` of `W` over `K` **reduces to the origin** (the eventual `E₁(K)` membership): either
+/-- A point `P` of `W` over `K` **reduces to the origin** (`E₁(K)` membership, definitionally: see
+`mem_E₁` in `EllipticCurves.Reduction.KernelAddClosure`): either
 `P = 0`, or `P = some x y` whose `x`-coordinate has a pole (`1 < v x`).  For a point on an integral
 model this is equivalent to reducing to `Õ` on the reduced curve (Silverman AEC VII.2). -/
 def ReducesToZero (W : WeierstrassCurve K) [IsIntegral R W] : W.toAffine.Point → Prop

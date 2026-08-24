@@ -28,10 +28,33 @@ every configuration of the reduced points `P̄, Q̄ ∈ Ẽ(k)`, dispatching to 
 * `redPt_add_of_reduced_two_torsion_secant` / `redPt_add_self_of_reduced_two_torsion` (#385) — the
   reduced `2`-torsion edge `P̄ = Q̄ = -P̄`.
 
-The remaining (kernel) cases needed for the full `map_add` — `P` or `Q` in `E₁(K)` — are the
-kernel × kernel closure `redPt_add_of_reducesToZero` (#382, already on `main`) and the
-kernel × integral case (#384); this file is exactly the on-`main` brick that the #383 assembly glues
-to those to obtain the unconditional homomorphism.
+The kernel cases needed for the full `map_add` — `P` or `Q` in `E₁(K)` — are the kernel × kernel
+closure `redPt_add_of_reducesToZero` (#382) and the kernel × integral case (#384), and this file is
+one of the four bricks the #383 assembly glues together to obtain the unconditional homomorphism.
+
+⚠️ **That assembly is not pending: it is `EllipticCurves.Reduction.ReductionHom`, and this
+paragraph predicted it in the future tense for fifteen days.**  As written on 2026-08-09 it said the
+kernel cases *"**are** … the kernel × integral case (#384)"* and that this file is *"exactly the
+on-`main` brick that the #383 assembly glues to those"* — a prediction that both were still to come.
+Both landed the same afternoon:
+
+* **#384** — `redPt_add_of_mem_E₁_left` and `redPt_add_of_mem_E₁_right`
+  (`EllipticCurves.Reduction.KernelIntegralReduction`), committed **nine minutes** after this
+  paragraph was;
+* **#383** — `redPt_add`, unconditional in both summands, together with the packaged homomorphism
+  `redHom`, the kernel identification `E₁_eq_ker` and the descended `redQuotientHom`
+  (`EllipticCurves.Reduction.ReductionHom`), **thirty-six minutes** later.
+
+⚠️ **What the paragraph got right is the part that stays.**  This file really does prove only the
+both-integral case, `redPt_add_of_both_integral` really is one brick of four, and `ReductionHom`
+really does glue it to the other three — its own dispatch list names this file, by theorem name and
+by issue number.  **Nothing here is superseded; the theorem named in this file's `## Main result`
+section is exactly what `ReductionHom` consumes.**
+
+⚠️ The citation runs one way only, and that is why this went unnoticed: `ReductionHom` imports this
+file and names it, this file imports and names nothing downstream, and no build could ever object.
+A reader arriving at `ReductionHom` learns that the homomorphism is finished; a reader arriving
+here — which is where the case dispatch is explained — learned that it was not.
 
 ## Main result
 
