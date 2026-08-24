@@ -243,7 +243,7 @@ closing — and all three failures were compiled and are quoted verbatim, not pa
   `⊢ weilPairingThree … exampleSThree exampleSThree = weilPairingThree … (σ • exampleSThree)
   (σ • exampleSThree)` under `error: unsolved goals`.
 * Naming the theorem that does not exist gives
-  `error(lean.unknownIdentifier): Unknown identifier ``weilPairingThree_galois_eq_self`` `.
+  `` error(lean.unknownIdentifier): Unknown identifier `weilPairingThree_galois_eq_self` ``.
   ⚠️ That is the compiled half of this file's asymmetry: at `n = 2` the invariance is a theorem, at
   `n = 3` there is nothing to apply.
 
