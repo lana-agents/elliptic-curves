@@ -43,6 +43,13 @@ Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}`. Still open:
   shortcut that makes `[2]` elementary is special to doubling; `[3]` genuinely needs
   `x(3P) = Φ₃/Ψ₃²`.
 
+⚠️ **The second bullet is no longer open, and only its "still open" status was ever wrong.** Both of
+its other clauses are true and stay true: `[3]` does genuinely need `x(3P) = Φ₃/Ψ₃²`, and the
+tangent-line shortcut is special to doubling. That formula was proved the day after this file, in
+`EllipticCurves.Torsion.TriplingSurjective`, and `EllipticCurves.Torsion.ThreePrimary` now builds
+the `3`-primary tower on it and glues the two towers, giving `E[n] ≅ (ℤ/nℤ)²` for **every**
+`3`-smooth `n`. The first bullet is untouched and the first open index is still `n = 5`.
+
 ## Main statements
 
 * `WeierstrassCurve.Affine.card_torsion_mul_two`: `#E[2n] = 4 · #E[n]`.
@@ -184,7 +191,9 @@ theorem nonempty_torsionFour_addEquiv (h2 : (2 : F) ≠ 0) :
 
 /-- **`E[2^k · 3] ≃+ (ℤ/2^k·3ℤ)²`**: the `2`-primary tower glued to the sharp `n = 3` case along the
 coprime factorisation `2^k ⊥ 3`. Together with `nonempty_torsionTwoPow_addEquiv` this is the widest
-slice of the structure theorem available without the multiplication-by-`n` coordinate formula. -/
+slice of the structure theorem available without the multiplication-by-`n` coordinate formula.
+A wider slice — every `3`-smooth `n` — is available *with* that formula at `n = 3`, and is
+`EllipticCurves.Torsion.ThreePrimary`'s `nonempty_torsion_addEquiv_zmod_sq_of_smooth`. -/
 theorem nonempty_torsionTwoPowMulThree_addEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Nonempty (W.torsion (2 ^ k * 3) ≃+ ZMod (2 ^ k * 3) × ZMod (2 ^ k * 3)) :=
   nonempty_torsion_addEquiv_zmod_sq_of_coprime
