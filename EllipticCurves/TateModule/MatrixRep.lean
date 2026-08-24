@@ -108,6 +108,7 @@ same tree. Second, `MatrixRepCompat` has since acquired its own `ℓ = 3` layer
 (`EllipticCurves.TateModule.MatrixRepCompatThree`, over the `ℓ`-generic
 `EllipticCurves.TateModule.PrimaryMatrixRepCompat`), so the exception is retired rather than
 re-trimmed.
+*A true scoped claim becomes a false claim when the scope is dropped and the numeral is kept.*
 ⚠️ **This sentence used to list
 "the determinant and trace characters", "the conjugation law" and "continuity" among what remained
 `ℓ = 2` only, and all three have gone false**: `galoisDetThree` and `galoisTraceThree` are stated
