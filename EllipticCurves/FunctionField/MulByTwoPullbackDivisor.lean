@@ -30,8 +30,16 @@ imports the other, so the corollary has nowhere to live but here.
 statement about `[2]∗` on divisors reads `e_p · D (comap p)` with both factors opaque; this one is
 an identity between the input and the output divisor.
 
-What it is *not*: it is not the degree formula `∑_{p ↦ q} e_p · deg p = 4`, of which no case is
-proved anywhere below, and it says nothing at an affine place.  It is one coefficient, at one point.
+What it is *not*: it is not the degree formula `∑_{p ↦ q} e_p · deg p = 4`, and it says nothing at
+an affine place.  It is one coefficient, at one point.
+
+⚠️ **This paragraph used to add that the degree formula had *"no case proved anywhere below"*.**
+That was true when written and is not now: the formula holds over an algebraically closed base
+field in both spellings of the weight — `sum_ramificationIdxTwo_mul_residueDegreeTwo`
+(`EllipticCurves.FunctionField.PlaceRamificationInertia`) with the relative residue degree `f_p`,
+and `sum_ramificationIdxTwo_mul_degProjPt`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`) with `deg p` itself.  Neither is proved
+here, and the `What it is *not*` sentence is unchanged in what it claims about *this* file.
 
 ⚠️ Earlier wording said `[2]` "genuinely ramifies at the `2`-torsion points" when `char F ≠ 2`.
 That is **false**: `EllipticCurves.FunctionField.MulByTwoFibreInfinity` (`#774`) computes the index

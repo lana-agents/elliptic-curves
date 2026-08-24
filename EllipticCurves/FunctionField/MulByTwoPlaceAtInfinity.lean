@@ -88,10 +88,14 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
   field.  Nothing *here* proves any of it: this file computes two values at one place.
   ⚠️ And the weight is not what this bullet wrote.  What the merged identity carries is the
   **relative** residue degree `f_p = [κ(p) : κ([2]⁻¹ p)]` (`residueDegreeTwo`), not `deg p`; the
-  latter is `degPt` (`EllipticCurves.FunctionField.DivisorDegree`), a relative ideal norm to `F[X]`,
-  and `∑ e_p · degPt p = 4` in that spelling is proved nowhere.  The two agree over an
-  algebraically closed base and the distinction is invisible there; it is the relative one that
-  survives when the base field is not closed.
+  latter is `degPt` (`EllipticCurves.FunctionField.DivisorDegree`), a relative ideal norm to `F[X]`.
+  ⚠️ **That last sentence read** *"`∑ e_p · degPt p = 4` in that spelling is proved nowhere"*, and
+  it has been paid: the `degPt`-weighted form is `sum_ramificationIdxTwo_mul_degProjPt`
+  (`EllipticCurves.FunctionField.PlaceDegreeComparison`), off the identification
+  `degProjPt = residueDegreeProj`, which that file proves over an algebraically closed base field.
+  So the two weights agree over such a base and the distinction is invisible there — ⚠️ but the
+  agreement is *itself* a theorem with that hypothesis, not a definitional coincidence, and it is
+  the relative weight that is expected to survive when the base field is not closed.
 * `[3]∗`.  The argument transposes verbatim once `MulByThree*` supplies the two hypotheses of
   `comapProjPoint`, with `natDegree (Φ 3) = 9` and `natDegree (ΨSq 3) = 8` in place of `4` and `3`.
   It has been transposed, in `EllipticCurves.FunctionField.MulByThreePlacePullback`, which imports
