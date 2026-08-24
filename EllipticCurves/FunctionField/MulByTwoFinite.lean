@@ -41,12 +41,28 @@ which upgrades algebraicity to integrality of degree `≤ 4`.
 ## Scope
 
 This delivers the sanctioned first brick of issue #421 (Rung 4 / Brick C): the degree-`≤ 4`
-integrality of `genX` over `[2]∗F(W)`. The complementary facts — integrality of the generic
-`y`-coordinate `genY` (which follows by transitivity, being integral over `[2]∗F(W)[genX]` via the
-monic-in-`Y` Weierstrass equation), the full module-finiteness `Module.Finite ([2]∗F(W)) F(W)`, and
-the identification of the Dedekind ring `B` (the integral closure of `[2]∗F[W]` in `F(W)`, subtle
-because `[2]∗F[W] ⊄ F[W]`) — remain for a follow-on. Only `[Field F]` and `(2 : F) ≠ 0` are used;
+integrality of `genX` over `[2]∗F(W)`. Only `[Field F]` and `(2 : F) ≠ 0` are used;
 Ward-independent, no normality instance.
+
+⚠️ **This paragraph used to list three complementary facts and say they *"remain for a
+follow-on"*.  Two of the three are merged**, and the prediction of how they would go was right in
+both cases:
+
+* integrality of the generic `y`-coordinate `genY`, *"which follows by transitivity, being integral
+  over `[2]∗F(W)[genX]` via the monic-in-`Y` Weierstrass equation"* — that is
+  `mulByTwoRange_isIntegral_genY` (`EllipticCurves.FunctionField.MulByTwoModuleFinite`), by exactly
+  that argument;
+* the module-finiteness `Module.Finite ([2]∗F(W)) F(W)` — `module_finite_mulByTwoRange`
+  (`EllipticCurves.FunctionField.MulByTwoExtensionFinite`).  The matching *lower* bound, which this
+  paragraph did not ask for, is `finrank_mulByTwoRange_functionField = 4`
+  (`EllipticCurves.FunctionField.MulByTwoDegree`).
+
+⚠️ **The third is genuinely open and must not be retired with them**: the identification of the
+Dedekind ring `B = integralClosure ([2]∗F[W]) F(W)`, subtle because `[2]∗F[W] ⊄ F[W]`.  That is
+`#421`'s remainder, and `EllipticCurves.FunctionField.PlaceResidueComap` records why the fundamental
+identity did **not** wait for it: route (c) works over the valuation ring of a *place* of
+`[2]∗F(W)`, not over the affine coordinate ring, so `#421`'s `B` is a different `B` and is not on
+the path.
 
 ## References
 

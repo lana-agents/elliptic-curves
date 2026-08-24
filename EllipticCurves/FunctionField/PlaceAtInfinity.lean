@@ -64,15 +64,33 @@ rank two with basis `{1, Y}` (Mathlib's `CoordinateRing.basis`), so it has an al
 The affine/projective mismatch is the standing obstruction on the divisor-theoretic Weil-pairing
 front of this project.  `EllipticCurves.FunctionField.PrincipalDivisorOfPoint` records it
 explicitly: the classical divisor of `f_P` is `n·(P) − n·(O)`, but the `−n·(O)` term "lives off this
-chart and is invisible to `divisor W`".  Both the divisor-level pullback `[n]∗` (project issue
-`#414`/`#422`) and the divisor-pullback-under-translation formula that the alternating property
-needs (`#465`) are blocked on the *projective* divisor theory, since neither `[n]` nor a
-translation `τ_T` preserves the affine chart.
+chart and is invisible to `divisor W`".  Neither the divisor-level pullback `[n]∗` (project issue
+`#414`/`#422`) nor the divisor-pullback-under-translation formula that the alternating property
+needs (`#465`) can be stated on the affine chart, since neither `[n]` nor a translation `τ_T`
+preserves it.
 
 This file is the first rung of that theory built the function-field way: the missing place, its
-uniformizer, and its independence from the affine places.  It does **not** yet give the degree-zero
-theorem `∑_v ord_v(f)·deg(v) + ordInfty(f) = 0`, which additionally needs the residue degrees of
-the affine closed points; that is the natural next rung and is deliberately out of scope here.
+uniformizer, and its independence from the affine places.  It does **not** give the degree-zero
+theorem; that is the next rung, and it is out of scope here.
+
+⚠️ **This section used to say the two pullbacks *"are blocked on the projective divisor theory"*
+and that the degree-zero theorem *"is the natural next rung"*.  Both rungs have been built.**
+
+* The degree-zero theorem `∑_v ord_v(f)·deg(v) + ordInfty(f) = 0` is
+  `degDiv_divisor_add_ordInfty` (`EllipticCurves.FunctionField.DivisorDegree`) — **five minutes**
+  after this paragraph was written, by pickaxe — and is repackaged as a single equation
+  `degProj (divisorProj f) = 0` in `EllipticCurves.FunctionField.ProjectiveDivisor`.  ⚠️ It does
+  **not** go through the residue degrees of the affine closed points, as this paragraph predicted:
+  `degPt` is `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)`, a relative ideal norm, and
+  the proof is an induction over the prime factorisation using multiplicativity of `relNorm`.  The
+  residue degrees exist separately (`residueDegreeProj`,
+  `EllipticCurves.FunctionField.PlaceResidueDegree`) and the two are known to agree only
+  informally — no file in this tree proves `degPt v = residueDegreeProj W (some v)`.
+* `[n]∗` on divisors is `pullbackDivisor` (`EllipticCurves.FunctionField.PullbackDivisor`), with
+  the `[2]` instantiation `divisorProj_mulByTwoEndo`, and the divisor pullback under translation is
+  `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`).  Both are statements
+  about `divisorProj` on `ProjPoint W`; the *affine* `divisor W` still does not transport, which is
+  the mismatch this file exists to dissolve rather than a residue of it.
 
 ## Design
 

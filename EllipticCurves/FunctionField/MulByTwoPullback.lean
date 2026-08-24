@@ -56,16 +56,33 @@ of `mk W (W.ψ 2)`, and the latter is nonzero because `ψ₂ = 2Y + a₁X + a₃
 * `WeierstrassCurve.Affine.CoordinateRing.mulByTwoCoordHom`: the multiplication-by-`2` pullback
   `F[W] →+* F(W)`, with generator images `mulByTwoCoordHom_X` and `mulByTwoCoordHom_root`.
 
-## Remaining work
+## The endomorphism is built elsewhere, and the prediction was half right
 
-Extending `mulByTwoCoordHom : F[W] →+* F(W)` to the full endomorphism `F(W) →+* F(W)` needs
-`Function.Injective (mulByTwoCoordHom h2)` (so that `IsFractionRing.lift` applies) — i.e. that the
-duplication map is *dominant*. Dominance follows because the `x`-coordinate image
-`Φ₂(genX)/Ψ₂Sq(genX)` is a nonconstant rational function of `genX`, forcing `genX` algebraic over
-the image, contradicting its transcendence; this is the same architecture as
-`TranslationEndomorphism` and is deferred to a follow-up. The reusable crux — the on-curve doubling
-identity at the generic
-point — is what this file establishes.
+⚠️ **This section used to be headed `## Remaining work`** and to read:
+
+> Extending `mulByTwoCoordHom : F[W] →+* F(W)` to the full endomorphism `F(W) →+* F(W)` needs
+> `Function.Injective (mulByTwoCoordHom h2)` (so that `IsFractionRing.lift` applies) — i.e. that
+> the duplication map is *dominant*. Dominance follows because the `x`-coordinate image
+> `Φ₂(genX)/Ψ₂Sq(genX)` is a nonconstant rational function of `genX`, forcing `genX` algebraic
+> over the image, contradicting its transcendence; this is the same architecture as
+> `TranslationEndomorphism` and is deferred to a follow-up.
+
+The extension is `WeierstrassCurve.Affine.CoordinateRing.mulByTwoEndo`
+(`EllipticCurves.FunctionField.MulByTwoEndomorphism`), off `mulByTwoCoordHom_injective`, and the
+predicted *argument* is the argument that was used: `isAlgebraic_genX_of_two` annihilates `genX`
+by `Φ₂ − x(2 • P) · Ψ₂Sq`, which is nonzero because `deg Φ₂ = 4 > 3 ≥ deg Ψ₂Sq`, and
+`transcendental_genX` closes it.
+
+⚠️ **The one word that is wrong is "same".**  `MulByTwoEndomorphism`'s own docstring opens its
+dominance section with *"Unlike translation — whose dominance used the inverse morphism `· + (-T)`
+and the point group law — the multiplication-by-`2` map has no inverse morphism, so a different
+(and slightly simpler) argument is used"*.  So the architecture is **not** that of
+`TranslationEndomorphism`; the two share only the final Zariski/Krull-dimension step.  The
+prediction was right about the route and wrong about the analogy, which is why it is quoted rather
+than deleted.
+
+The reusable crux — the on-curve doubling identity at the generic point — is what this file
+establishes.
 
 ## References
 

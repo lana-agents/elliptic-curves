@@ -30,11 +30,18 @@ these via `isIntegral_trans` gives integrality of `genY` over `[2]∗F(W)`.
 ## Scope
 
 This adds the `genY` half to the merged `genX` half. Together they say both generic coordinates are
-integral over `[2]∗F(W)`. The remaining Brick-C item — the full `Module.Finite ([2]∗F(W)) F(W)` /
-`Algebra.IsIntegral` and the Dedekind-`B` identification (subtle because `[2]∗F[W] ⊄ F[W]`) — is
-left for a follow-on; the two integrality facts here are its inputs (`F(W) = [2]∗F(W)[genX, genY]`
-with both generators integral). Only `[Field F]` and `(2 : F) ≠ 0` are used; Ward- and
+integral over `[2]∗F(W)`. Only `[Field F]` and `(2 : F) ≠ 0` are used; Ward- and
 normality-independent.
+
+⚠️ **This paragraph used to name two things as *"the remaining Brick-C item"*, and only one of them
+is still remaining.**  The full `Module.Finite ([2]∗F(W)) F(W)` is `module_finite_mulByTwoRange`
+(`EllipticCurves.FunctionField.MulByTwoExtensionFinite`), and it consumes the two integrality facts
+below exactly as predicted here, through `F(W) = [2]∗F(W)[genX, genY]`.  ⚠️ The Dedekind-`B`
+identification — `B = integralClosure ([2]∗F[W]) F(W)`, subtle because `[2]∗F[W] ⊄ F[W]` — is
+**open**, and is `#421`'s remainder; the retirement of the module-finiteness clause does not cover
+it.  It is also
+not on the path to the fundamental identity, which goes through a place of `[2]∗F(W)` rather than
+through the coordinate ring — see `EllipticCurves.FunctionField.PlaceResidueComap`'s route decision.
 
 ## References
 

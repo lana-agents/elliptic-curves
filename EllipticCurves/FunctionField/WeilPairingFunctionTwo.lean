@@ -98,9 +98,16 @@ reaches an obstruction of that shape.  A general-field version would have to tak
 of roots as a hypothesis, which is a different design; the `_of_hprin` twins on this front weaken a
 hypothesis, and there is no hypothesis here to weaken.
 
-⚠️ **`n = 2` only.**  The `n = 3` mirror is a separate issue and is **not** a transcription:
-`WeilPairingAlternatingThree` records that the cube case takes `htors` at the `translatePoint` level
-and needs `map_negY` where `n = 2` uses proof irrelevance.
+⚠️ **`n = 2` only.**  ⚠️ **This bullet used to read** *"The `n = 3` mirror is a separate issue and
+is **not** a transcription: `WeilPairingAlternatingThree` records that the cube case takes `htors`
+at the `translatePoint` level and needs `map_negY` where `n = 2` uses proof irrelevance."*  Both
+halves of that were right; only the tense is wrong.  The mirror is
+`EllipticCurves.FunctionField.WeilPairingFunctionThree` (`#925`), which defines `IsWeilRootThree`,
+`weilPairingThree`, `weilPairingThreeHom` and `ker_weilPairingThreeHom`, and it *was* a separate
+issue and *was* not a transcription — its own docstring flags
+`weilPairingEltThree_add_left`, the degenerate case of divisor-slot bilinearity, as the one argument
+that is genuinely different.  This file already cites `WeilPairingFunctionThree` by name below, in
+the `divisor_eq_of_divisorProj_eq` docstring; the two statements coexisted for a while.
 
 ⚠️ **The pairing is a function of `E[2] × E[2]`, not of `W.Point × W.Point`.**  It has to be: the
 rung-5 root exists only at torsion points, and the translation slot's `μ_n`-membership is

@@ -110,10 +110,17 @@ covers `O` and the affine points at once, which is why `#922` could take it as i
 verbatim.
 
 ⚠️ Inventing a *further* spelling of the pairing here would still be the drift this front keeps
-paying for; the packaging work belongs in `WeilPairingFunctionTwo` and was done there.  ⚠️ **At
-`n = 3` there is still no such pairing** — `#922` is `n = 2` only — so
-`EllipticCurves.FunctionField.WeilPairingNondegenerateThree` remains the closest statement at that
-index.
+paying for; the packaging work belongs in `WeilPairingFunctionTwo` and was done there.
+
+⚠️ **This bullet used to end** *"At `n = 3` there is still no such pairing — `#922` is `n = 2`
+only — so `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` remains the closest
+statement at that index."*  **Both conjuncts are false.**  `weilPairingThree : E[3] → E[3] → μ_3(F)`
+exists, with `ker_weilPairingThreeHom = ⊥`, in
+`EllipticCurves.FunctionField.WeilPairingFunctionThree` (`#925`) — the `n = 3` mirror of `#922`,
+written thirty-four minutes after this sentence was.  And `WeilPairingNondegenerateThree` is
+therefore not *"the closest statement at that index"* but the **input** `#925` consumes, standing
+to it exactly as this file stands to `#922`; its own docstring already says so, in the same wording
+this `## Scope` section uses for the `n = 2` pair.
 
 ## References
 

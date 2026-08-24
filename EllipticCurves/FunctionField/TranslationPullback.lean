@@ -50,15 +50,34 @@ image to be the `x`- and `y`-coordinates of `P + T`, and discharge the obligatio
 * `WeierstrassCurve.Affine.CoordinateRing.translateCoordHom`: the translation pullback
   `F[W] →+* F(W)`, with generator images `translateCoordHom_X` and `translateCoordHom_root`.
 
-## Remaining work
+## The endomorphism is built elsewhere, and the route predicted here was not taken
 
-Extending `translateCoordHom : F[W] →+* F(W)` to the full endomorphism `F(W) →+* F(W)` needs
-`Function.Injective (translateCoordHom h₂)` (so that `IsFractionRing.lift` applies) — i.e. that the
-translation map is *dominant*. This is true because `T` is defined over `F`, so `P ↦ P + T` is an
-`F`-automorphism of the curve with inverse `P ↦ P + (-T)`; the clean route is to build the pullback
-along `-T` and compose. That is deferred to a follow-up (it requires the coordinate-level identity
-`(P + T) + (-T) = P`). The reusable crux — the generic point on the curve and the on-curve identity
-for `P + T` — is what this file establishes.
+⚠️ **This section used to be headed `## Remaining work`** and to read:
+
+> Extending `translateCoordHom : F[W] →+* F(W)` to the full endomorphism `F(W) →+* F(W)` needs
+> `Function.Injective (translateCoordHom h₂)` (so that `IsFractionRing.lift` applies) — i.e. that
+> the translation map is *dominant*. This is true because `T` is defined over `F`, so `P ↦ P + T`
+> is an `F`-automorphism of the curve with inverse `P ↦ P + (-T)`; the clean route is to build the
+> pullback along `-T` and compose. That is deferred to a follow-up (it requires the
+> coordinate-level identity `(P + T) + (-T) = P`).
+
+The extension is `WeierstrassCurve.Affine.CoordinateRing.translateEndo`
+(`EllipticCurves.FunctionField.TranslationEndomorphism`), off `translateCoordHom_injective`.
+
+⚠️ **The predicted route was not taken, and the difference is worth keeping.**  No pullback along
+`-T` is ever built, and nothing is composed.  The cancellation `(P + T) + (-T) = P` is used
+*inside the dominance argument* instead: `isAlgebraic_genX_of_two` evaluates it at the generic
+point to conclude that if the translated coordinates are algebraic over `F` then so is `genX`,
+contradicting `transcendental_genX`; injectivity then comes from the kernel being a maximal ideal
+of the one-dimensional domain `F[W]` and Zariski's lemma.  A `-T` pullback would have been a second
+`AdjoinRoot.lift` with its own on-curve obligation; the identity turned out to be needed only as a
+group relation.  The composition-with-`-T` statement does exist, but one layer higher and for a
+different purpose — `translateEndo_comp_zero`
+(`EllipticCurves.FunctionField.TranslationAutomorphism`), which upgrades the already-built
+endomorphism to an `AlgEquiv`.
+
+The reusable crux — the generic point on the curve and the on-curve identity for `P + T` — is what
+this file establishes.
 
 ## References
 

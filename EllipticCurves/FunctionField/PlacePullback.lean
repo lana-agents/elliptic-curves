@@ -76,10 +76,20 @@ that are needed here are re-proved below rather than by editing a merged file.
 
 ## What is *not* here
 
-* **`pullbackDivisor : (ProjPoint W →₀ ℤ) →+ (ProjPoint W →₀ ℤ)`.**  Defining `[n]∗` on *divisors*
-  needs each fibre `(comapProjPoint φ) ⁻¹' {q}` to be finite — the "finitely many places above a
-  place of a finite extension" theorem — which is not in this tree.  Everything below is pointwise
-  and needs none of it.  In particular `Finsupp.mapDomain (comapProjPoint …)` is **not** the divisor
+* **`pullbackDivisor : (ProjPoint W →₀ ℤ) →+ (ProjPoint W →₀ ℤ)`.**  Not *here*: everything below
+  is pointwise.  ⚠️ **This bullet used to continue** *"Defining `[n]∗` on divisors needs each fibre
+  `(comapProjPoint φ) ⁻¹' {q}` to be finite — the "finitely many places above a place of a finite
+  extension" theorem — which is not in this tree."*  It is
+  `EllipticCurves.FunctionField.PullbackDivisor`, which imports this file.
+  ⚠️ **And the theorem named is not the one that was used.**  That file's own docstring records
+  that the classical route — the integral closure of a valuation ring, and Mathlib's
+  `IsDedekindDomain.primesOverFinset` — *"is not available here"*, because `[2]∗F[W] ⊄ F[W]` puts
+  the AKLB picture on the wrong spectrum.  What it does instead is take a uniformizer `π` at `q`
+  and observe that the whole fibre sits inside the support of the single divisor
+  `divisorProj W (φ π)`, since `divisorProj W (φ π) p = e_p ≠ 0` there by `ramificationIdx_pos`
+  below: *"the finiteness of the fibre is the finiteness of a `Finsupp`, read backwards"*.  The
+  obstruction this bullet named was real and was dissolved rather than met.
+  In particular `Finsupp.mapDomain (comapProjPoint …)` is **not** the divisor
   pullback: it pushes forward along the contraction, which is the wrong direction and gives a
   different divisor.
 * **Any computation of `ramificationIdx`.**  It is *defined* as the value of the transported order

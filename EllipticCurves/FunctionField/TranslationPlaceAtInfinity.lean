@@ -84,8 +84,19 @@ The `2`-torsion corner is not excluded anywhere: when `-T = T` the coefficient
 ## What is *not* here
 
 * The action on affine points, `mapProjPoint (translateAlgEquiv h_T) (some (pointClosedPoint h_P))
-  = some (pointClosedPoint h_{P ⊖ T})`.  That needs an evaluation-composition lemma
-  (`(τ_{-T} f)(P) = f (P ⊖ T)` at the level of `evalEvalHom`), which does not exist yet.
+  = some (pointClosedPoint h_{P ⊖ T})`.  Not here; it is
+  `mapProjPoint_translateAlgEquiv_pointClosedPoint_affine`
+  (`EllipticCurves.FunctionField.TranslationProjAction`), which consumes this file's identification
+  at the point at infinity.
+  ⚠️ **This bullet used to add** *"That needs an evaluation-composition lemma
+  (`(τ_{-T} f)(P) = f (P ⊖ T)` at the level of `evalEvalHom`), which does not exist yet."*  **The
+  route is wrong, and not merely stale.**  That lemma still does not exist, and it cannot: as
+  `TranslationProjAction` records, `translateCoordHom h_S : F[W] →+* F(W)` lands in the function
+  field, so the composite `evalEvalHom h_P ∘ translateCoordHom h_S` does not typecheck at all.
+  What was used instead is the group structure of the action — the closed point of `P` is already
+  in the orbit of the point at infinity under `τ_{-P}`, `mapProjPointHom` is a monoid homomorphism,
+  and `τ_S (τ_{-P} (O)) = τ_{S ⊖ P} (O) = P ⊖ S` — so the three-way secant/tangent/vertical case
+  split this bullet implicitly priced never occurs.  Twenty minutes separate the two commits.
 * The transport of `divisorProj` along an arbitrary automorphism — that is
   `EllipticCurves.FunctionField.PlaceOrder`, which this file consumes rather than reproves.
 * The action on *all* of `ProjPoint W`, and hence `#465` deliverable 2 in full: only the two orbits

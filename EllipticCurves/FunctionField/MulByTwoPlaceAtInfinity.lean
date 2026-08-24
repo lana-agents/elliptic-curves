@@ -75,9 +75,23 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
   algebraically closed base field.  What ramifies there is the degree-`4` map `x ∘ [2] : ℙ¹ → ℙ¹`
   — which is exactly the `Ψ₂Sq` vanishing this file exploits — and not `[2] : E → E`, a separable
   isogeny.  Indices at a place lying over an *affine* place are still computed nowhere.
-* **The degree formula `∑_{p ↦ q} e_p · deg p = 4`.**  That needs finiteness of the fibres of
+* **The degree formula `∑_{p ↦ q} e_p · f_p = 4`.**  ⚠️ **This bullet used to read** *"The degree
+  formula `∑_{p ↦ q} e_p · deg p = 4`.  That needs finiteness of the fibres of
   `comapProjPointTwo`, which is not in this tree; it is also what `pullbackDivisor` as a map of
-  `Finsupp`s (`#414`/`#422` deliverable 1) waits on.
+  `Finsupp`s (`#414`/`#422` deliverable 1) waits on."*  **Both named obstructions were already
+  merged when that sentence was written** — `finite_comapProjPointTwo_preimage_singleton` and
+  `pullbackDivisorTwo` are `EllipticCurves.FunctionField.PullbackDivisor`, which entered the tree
+  twenty-three minutes *before* this clause did and which this file neither imports nor is imported
+  by, so nothing could fail on it.  The identity itself is
+  `sum_ramificationIdxTwo_mul_residueDegreeTwo`
+  (`EllipticCurves.FunctionField.PlaceRamificationInertia`), over an algebraically closed base
+  field.  Nothing *here* proves any of it: this file computes two values at one place.
+  ⚠️ And the weight is not what this bullet wrote.  What the merged identity carries is the
+  **relative** residue degree `f_p = [κ(p) : κ([2]⁻¹ p)]` (`residueDegreeTwo`), not `deg p`; the
+  latter is `degPt` (`EllipticCurves.FunctionField.DivisorDegree`), a relative ideal norm to `F[X]`,
+  and `∑ e_p · degPt p = 4` in that spelling is proved nowhere.  The two agree over an
+  algebraically closed base and the distinction is invisible there; it is the relative one that
+  survives when the base field is not closed.
 * `[3]∗`.  The argument transposes verbatim once `MulByThree*` supplies the two hypotheses of
   `comapProjPoint`, with `natDegree (Φ 3) = 9` and `natDegree (ΨSq 3) = 8` in place of `4` and `3`.
   It has been transposed, in `EllipticCurves.FunctionField.MulByThreePlacePullback`, which imports

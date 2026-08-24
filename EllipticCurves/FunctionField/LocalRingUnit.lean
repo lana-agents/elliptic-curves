@@ -42,14 +42,51 @@ the localization at it (`IsLocalization.AtPrime.isUnit_to_map_iff`).  Applying t
 `W_X(x, y)` / `W_Y(x, y)` (`evalEval_polynomialX` / `evalEval_polynomialY`), gives the unit facts,
 and the disjunction defining `W.Nonsingular x y` packages them.
 
-## Out of scope (the remaining #469 work)
+## Out of scope *here* — and every later rung has since been built
+
+⚠️ **This section used to be headed `## Out of scope (the remaining #469 work)`** and to call its
+three bullets unbuilt: the Taylor expansion and the Nakayama step *"the mathematical heart of
+`#469`, still to be built"*, the passage to `IsDedekindDomain` *"mechanical once the milestone
+lands"*, and the `F` vs `F̄` classification *"a separate follow-on"*.  **All three are merged**, and
+the "mechanical" one was right.
 
 * The **Taylor / first-order expansion** of `W.polynomial` inside `AdjoinRoot`
-  (`0 = W.polynomial ≡ W_X·(X - x) + W_Y·(Y - y)` mod `(X - x, Y - y)²`) and the **Nakayama** step
-  producing the single uniformizer — the mathematical heart of `#469`, still to be built.
+  (`0 = W.polynomial ≡ W_X·(X - x) + W_Y·(Y - y)` mod `(X - x, Y - y)²`) is
+  `polynomial_taylor` / `taylor_cotangent_mem_sq`
+  (`EllipticCurves.FunctionField.LocalRingTaylor`), and the **Nakayama** step producing the single
+  uniformizer is `maximalIdeal_isPrincipal_of_nonsingular`
+  (`EllipticCurves.FunctionField.LocalRingUniformizer`) — the `#469` milestone.
 * The passage `principal maximal ideal ⇒ IsIntegrallyClosed ⇒ IsDedekindDomain` and the
-  `of_localization_maximal` assembly — mechanical once the milestone lands (see `#469`).
-* The `F` vs `F̄` closed-point classification / integral descent — a separate follow-on (`#469`).
+  `of_localization_maximal` assembly is
+  `EllipticCurves.FunctionField.LocalRingNormal`
+  (`isIntegrallyClosed_localization_of_nonsingular`, then
+  `isIntegrallyClosed_of_maximalIdeal_classification`).
+* The `F` vs `F̄` closed-point classification is
+  `exists_equation_and_eq_XYIdeal_of_isMaximal`
+  (`EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed`), and the integral descent is
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, which registers
+  `IsIntegrallyClosed W.CoordinateRing` and `IsDedekindDomain W.CoordinateRing` as **global
+  instances** for every `[W.IsElliptic]` over an arbitrary field.  ⚠️ Of the two options the sibling
+  clauses in `EllipticCurves.FunctionField.LocalRingNormal` and
+  `EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed` offered — a finer classification of
+  closed points over `F`, or descent along `F[W] → F̄[W]` — it is the **second** that was taken,
+  through
+  `IsIntegrallyClosed.of_faithfullyFlat` (`EllipticCurves.FunctionField.IntegrallyClosedDescent`);
+  the finite-residue-field classification over a general field is still nowhere in this tree and
+  turned out not to be needed.
+
+Nothing in the list is out of scope for the *project* any more; all three are out of scope for
+**this file**, which is the first brick and stays the first brick.
+
+⚠️ **The whole `#396` / `#469` ladder was written and closed inside one afternoon, and none of
+its five rungs was revisited.**  Pickaxe dating (`git log --format=%ci -S'<clause>' -- <file>`),
+all on 2026-08-16: `LocalRingUnit` predicted the Taylor brick and the Nakayama step at 10:40;
+`LocalRingTaylor` landed the first at 11:24 and predicted the second; `LocalRingUniformizer` landed
+it at 11:48 and predicted the passage to `IsIntegrallyClosed`; `LocalRingNormal` landed that at
+12:30 and predicted the maximal-ideal classification; `CoordinateRingNormalAlgClosed` landed it at
+12:48 and predicted the general-base-field descent, which `CoordinateRingNormalGeneral` registered
+as a **global instance** at 13:59.  Three hours and nineteen minutes, five files, five surviving
+predictions.
 
 ## References
 
