@@ -94,9 +94,13 @@ statement about a zero module is satisfiable by anything.
   *"their `ℓ = 3` twins are a separate follow-up, and they are what makes that file's `ℓ = 3` twin
   a real piece of work rather than an instantiation"*: the follow-up has landed, and the twin is
   seven one-line instantiations, not eighteen restatements.
-* **The basis-change conjugation law is not here.** `galoisRepMatrixTwo_conj`
-  (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still `ℓ = 2` only. Its statement
-  is insensitive to `ℓ`, so it is a mechanical follow-up that nothing blocks.
+* **The basis-change conjugation law is not here.** ⚠️ The clause this bullet used to carry —
+  *"`galoisRepMatrixTwo_conj` (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still
+  `ℓ = 2` only. Its statement is insensitive to `ℓ`, so it is a mechanical follow-up that nothing
+  blocks"* — was a correct prediction and has been paid: the law is stated at an arbitrary prime in
+  `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` and at `ℓ = 3` in
+  `EllipticCurves.TateModule.MatrixRepBasisChangeThree`. Neither file consumes this one; the
+  conjugation law does not touch the determinant.
 * **The image is not here.** `EllipticCurves.TateModule.Image` and
   `EllipticCurves.TateModule.ImageProfinite` are still `ℓ = 2` only. ⚠️ **The reason this bullet
   used to give — *"because their input `continuous_galoisRepMatrixTwo` is"* — has expired**:

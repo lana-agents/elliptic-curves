@@ -94,14 +94,18 @@ Odd `ℓ` is **not** covered *by this file*, and the `ℓ = 2` case went through
 therefore not the module but the matrix representation: `galoisRepMatrixThree` is simply not stated
 below"*, is now false too: `galoisRepMatrixThree` **is** stated, in
 `EllipticCurves.TateModule.MatrixRepThree`, over the `ℓ`-generic transport this file now shares
-with it. ⚠️ Nothing is missing at `ℓ = 3` for the *matrix representation itself*; what remains
-`ℓ = 2` only is the surrounding apparatus — continuity and the conjugation law — and each is a
-separate follow-up named in `EllipticCurves.TateModule.MatrixRepThree`'s Scope. ⚠️ **This sentence
-used to list "the determinant and trace characters" among them and that has gone false**:
-`galoisDetThree` and `galoisTraceThree` are stated in
-`EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic
-`EllipticCurves.TateModule.PrimaryDeterminant`. At `ℓ ≥ 5` surjectivity is genuinely unavailable,
-so the first clause still stands verbatim there.
+with it. ⚠️ Nothing is missing at `ℓ = 3` for the *matrix representation itself*, and — as of the
+two extractions named below — nothing is missing for the surrounding apparatus either, with the
+single exception of `EllipticCurves.TateModule.MatrixRepCompat`. ⚠️ **This sentence used to list
+"the determinant and trace characters", "the conjugation law" and "continuity" among what remained
+`ℓ = 2` only, and all three have gone false**: `galoisDetThree` and `galoisTraceThree` are stated
+in `EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic
+`EllipticCurves.TateModule.PrimaryDeterminant`; the conjugation law is stated at every prime in
+`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` and at `ℓ = 3` in
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree`; and continuity is stated at every prime in
+`EllipticCurves.TateModule.PrimaryMatrixContinuity` and at `ℓ = 3` in
+`EllipticCurves.TateModule.MatrixContinuityThree`. At `ℓ ≥ 5` surjectivity is genuinely
+unavailable, so the first clause still stands verbatim there.
 
 **Continuity is not asserted *in this file*.** `EllipticCurves.TateModule.GaloisAction` builds
 `galoisRep` purely as a group homomorphism and passing to matrices changes nothing about that, so

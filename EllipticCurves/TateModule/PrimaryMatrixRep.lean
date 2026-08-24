@@ -107,8 +107,14 @@ by name.
   `ℓ = 3` (`EllipticCurves.TateModule.MatrixContinuityThree`). ⚠️ What remains true is the first
   half of the bullet: *this* extraction does not supply continuity, and nothing below should be
   read as doing so.
-* **The basis-change conjugation law is not here.** It is `galoisRepMatrixTwo_conj` in
-  `EllipticCurves.TateModule.MatrixRepBasisChange`, ⚠️ likewise still `ℓ = 2` only.
+* **The basis-change conjugation law is not here**, but it is no longer `ℓ = 2` only. ⚠️ The
+  clause this bullet used to carry — *"It is `galoisRepMatrixTwo_conj` in
+  `EllipticCurves.TateModule.MatrixRepBasisChange`, likewise still `ℓ = 2` only"* — is false: the
+  law is proved at an arbitrary prime in
+  `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`, which imports *this* file and states
+  `galoisRepMatrix_conj` about `galoisRepMatrix` below. `galoisRepMatrixTwo_conj` and
+  `galoisRepMatrixThree_conj` are its two instantiations. It is out of scope here for the reason
+  the rest of this file is: it is a separate module, not a separate prime.
 * Also out of scope: injectivity of `ρ`, its determinant character `det ∘ ρ : G → ℤ_[ℓ]ˣ`, the
   comparison with the cyclotomic character, and any description of the image.
 * ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic.** Its hypothesis

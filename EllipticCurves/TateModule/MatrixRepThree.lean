@@ -42,10 +42,14 @@ definitions below are a deliberate exception, and the reason is that their `ℓ 
 exist and are consumed 100+ times.** `galoisRepMatrixTwo`, `matrixAutEquivTwo` and
 `tateModuleBasisTwo` predate the extraction and cannot be removed; leaving `ℓ = 3` without the
 matching spellings would put the two primes on different footings for every downstream file that
-extends by pattern (`MatrixRepBasisChange` and `MatrixRepCompat` are still `ℓ = 2` only today, and
-each is a separate follow-up; ⚠️ `Determinant` and `MatrixContinuity` were on that list when it was
-written and are not any more — see `EllipticCurves.TateModule.DeterminantThree` and
-`EllipticCurves.TateModule.MatrixContinuityThree`).
+extends by pattern. ⚠️ The parenthetical this sentence used to carry — *"`MatrixRepBasisChange`,
+`MatrixContinuity`, `Determinant`, `MatrixRepCompat` are all `ℓ = 2` only today"* — has since
+gone false in three of its four entries: `Determinant`'s twin is
+`EllipticCurves.TateModule.DeterminantThree`, `MatrixRepBasisChange`'s is
+`EllipticCurves.TateModule.MatrixRepBasisChangeThree`, and `MatrixContinuity`'s is
+`EllipticCurves.TateModule.MatrixContinuityThree` — all three over `ℓ`-generic files that import
+this one. ⚠️ `MatrixRepCompat` is the last of the four still `ℓ = 2` only, and it is a separate
+follow-up.
 
 Each `Three` definition is *definitionally* its generic form, so a consumer may use either
 spelling and the generic lemmas apply to both. ⚠️ There is deliberately **no**
@@ -72,9 +76,14 @@ spelling and the generic lemmas apply to both. ⚠️ There is deliberately **no
   carried unsuffixed names and were generalised in place, two were already stated at an arbitrary
   prime `p` and are cited, and seven are the `Two`-suffixed statements that got twins.
   `EllipticCurves.TateModule.MatrixContinuity` records the split.
-* **The basis-change conjugation law is not here.** `galoisRepMatrixTwo_conj`
-  (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still `ℓ = 2` only. Its statement
-  is insensitive to `ℓ`, so it is the next extraction after this one; it is not done here because
+* **The basis-change conjugation law is not here.** ⚠️ Two clauses this bullet used to carry are
+  false. The first, *"`galoisRepMatrixTwo_conj`
+  (`EllipticCurves.TateModule.MatrixRepBasisChange`) is likewise still `ℓ = 2` only"*: the law is
+  stated at an arbitrary prime in `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` and
+  instantiated at `ℓ = 3` in `EllipticCurves.TateModule.MatrixRepBasisChangeThree`, which imports
+  this file. The second, *"it is the next extraction after this one"*, was a prediction and it came
+  true, so it is no longer a description of anything outstanding. ⚠️ The five conjugation
+  statements are still not *here*, which is what this bullet is about, and the reason is unchanged:
   keeping this file to `MatrixRep.lean`'s nine names is what makes it reviewable.
 * **`galoisDetThree` and `galoisTraceThree` are not here** either. ⚠️ The parenthetical this
   bullet used to carry — *"(`EllipticCurves.TateModule.Determinant`, still `ℓ = 2` only)"* — is
@@ -182,9 +191,12 @@ reading `galoisRep 3` through a basis of `T₃E`. Definitionally `galoisRepMatri
 ⚠️ This is the declaration whose absence `EllipticCurves.TateModule.MatrixRep` and
 `EllipticCurves.TateModule.MatrixRepBasisChange` each named, in their own words, as the only thing
 missing at `ℓ = 3` after `#974`. ⚠️ The sentence that used to follow — *"Nothing else about those
-files changes: continuity and the conjugation law are still stated at `ℓ = 2` only"* — is now half
-false: continuity is stated at `ℓ = 3` in `EllipticCurves.TateModule.MatrixContinuityThree`. The
-conjugation law (`EllipticCurves.TateModule.MatrixRepBasisChange`) is still `ℓ = 2` only. -/
+files changes: continuity and the conjugation law are still stated at `ℓ = 2` only"* — is now false
+in both halves: continuity is stated at `ℓ = 3` in
+`EllipticCurves.TateModule.MatrixContinuityThree`, and the conjugation law is stated at every prime
+(`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`) and at `ℓ = 3`
+(`EllipticCurves.TateModule.MatrixRepBasisChangeThree`). All three of those files consume this
+declaration. -/
 noncomputable def galoisRepMatrixThree : (F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[3] :=
   galoisRepMatrix b
 

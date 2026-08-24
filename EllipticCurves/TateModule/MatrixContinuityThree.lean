@@ -107,8 +107,11 @@ On the source side the corresponding statement is `tateModule.not_discreteTopolo
   `EllipticCurves.TateModule.ImageProfinite` are `ℓ = 2` only **because their input
   `continuous_galoisRepMatrixTwo` is**. ⚠️ This file removes that reason and so unblocks them; that
   is a *separate* follow-up, deliberately not folded in here.
-* **The basis-change conjugation law is not here.** `galoisRepMatrixTwo_conj`
-  (`EllipticCurves.TateModule.MatrixRepBasisChange`) is a different file and a different follow-up.
+* **The basis-change conjugation law is not here**, and it is not missing at `ℓ = 3` either:
+  `galoisRepMatrixThree_conj` is in `EllipticCurves.TateModule.MatrixRepBasisChangeThree`, over the
+  `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`. ⚠️ It is a different file,
+  it consumes nothing from this one and this one consumes nothing from it — the conjugation law is
+  about two bases and says nothing about any topology.
 * **General odd `ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryMatrixContinuity` is already
   stated at an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but
   its input `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `[5]`-surjectivity and `#E[5^k]`, both of which
@@ -166,7 +169,10 @@ topology on `GL₂(ℤ_[3])`.
 named, in their own words, as missing at `ℓ = 3` after `#994`. ⚠️ It was **not** the only thing
 missing: the first two of those files also name the basis-change conjugation law
 `galoisRepMatrixTwo_conj` (`EllipticCurves.TateModule.MatrixRepBasisChange`), which is a different
-file and is still `ℓ = 2` only. -/
+file and a different follow-up. That one has since been paid as well —
+`galoisRepMatrixThree_conj`, `EllipticCurves.TateModule.MatrixRepBasisChangeThree` — so of the
+apparatus those files listed, only `EllipticCurves.TateModule.MatrixRepCompat` is still `ℓ = 2`
+only. -/
 theorem continuous_galoisRepMatrixThree : Continuous (galoisRepMatrixThree b) :=
   continuous_galoisRepMatrix b
 

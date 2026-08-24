@@ -120,9 +120,11 @@ than proving it. The instantiating files close that separately, with `Infinite (
   Weil pairing at **every** level `E[ℓ^k]`, and the mod-`n` identity is a different statement about
   a different object.
 * **Openness and closedness of the image are not here.** `EllipticCurves.TateModule.Image` and
-  `EllipticCurves.TateModule.ImageProfinite` consume `continuous_galoisRepMatrixTwo` and are
-  `ℓ = 2` only for that reason; their `ℓ`-generic forms are a separate follow-up, not scope creep
-  folded in here.
+  `EllipticCurves.TateModule.ImageProfinite` consume `continuous_galoisRepMatrixTwo` and are still
+  `ℓ = 2` only. ⚠️ Both halves of that sentence are true and it is **no longer a reason**: this
+  file is what their `ℓ = 2`-ness used to rest on, and both of them now say so in their own words.
+  Nothing gates their `ℓ = 3` layer; it has simply not been written, and it is a separate
+  follow-up rather than scope creep folded in here.
 * **Local constancy is false**, not merely unproved — see `EllipticCurves.TateModule.OpenKernel`.
 * ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic.** Its hypothesis
   `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ ≥ 5` on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of

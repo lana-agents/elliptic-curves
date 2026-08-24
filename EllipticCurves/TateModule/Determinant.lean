@@ -105,9 +105,14 @@ missing at `ℓ = 3` is only that `galoisDetThree` is not stated below"*, is now
 with them.
 
 ⚠️ Nothing is missing at `ℓ = 3` for the determinant and trace *themselves*; what remains `ℓ = 2`
-only is the surrounding apparatus — continuity (`EllipticCurves.TateModule.MatrixContinuity`), the
-basis-change conjugation law (`EllipticCurves.TateModule.MatrixRepBasisChange`) and the image
-(`EllipticCurves.TateModule.Image`) — and each is a separate follow-up. At `ℓ ≥ 5` surjectivity is
+only is the image (`EllipticCurves.TateModule.Image`,
+`EllipticCurves.TateModule.ImageProfinite`), and it is a separate follow-up that nothing gates.
+⚠️ This list used to include two more entries and no longer does. *"The basis-change conjugation
+law (`EllipticCurves.TateModule.MatrixRepBasisChange`)"* is stated at every prime in
+`EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`; *"continuity
+(`EllipticCurves.TateModule.MatrixContinuity`)"* is stated at every prime in
+`EllipticCurves.TateModule.PrimaryMatrixContinuity`, with an `ℓ = 3` layer in
+`EllipticCurves.TateModule.MatrixContinuityThree`. At `ℓ ≥ 5` surjectivity is
 genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, so the
 first clause still stands verbatim there.
 
