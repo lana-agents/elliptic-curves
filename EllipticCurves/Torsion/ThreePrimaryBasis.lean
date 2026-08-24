@@ -30,9 +30,13 @@ The same is true at `ℓ = 3`. This file supplies the missing coherent system:
 
 The construction is in `EllipticCurves.Torsion.PrimaryBasis`, stated for an arbitrary `ℓ` in terms
 of two inputs: surjectivity of `[ℓ]` on `E(F̄)`, and a generating pair of `E[ℓ]`. **This file
-supplies those two inputs at `ℓ = 3` and specialises every statement; it contains no argument, and
-it duplicates no proof from `EllipticCurves.Torsion.TwoPrimaryBasis`, which is the same list of
-instantiations at `ℓ = 2`.** The two inputs are
+supplies those two inputs at `ℓ = 3`; it contains no argument, and it duplicates no proof from
+`EllipticCurves.Torsion.TwoPrimaryBasis`, which is the same list of instantiations at `ℓ = 2`.**
+⚠️ It used to add *"and specialises every statement"*, which overstates in the same way that file's
+copy of the sentence did: it specialises **8** of `PrimaryBasis.lean`'s **22** public statements,
+and the four stated there at a general modulus `n` — `closure_pair_eq_torsion_succ`,
+`torsionPairHom`, `torsionPairHom_apply_coe`, `exists_zmod_pair_eq` — are consumed **unspecialised**
+at `ℓ = 3`, which is why there is no `exists_zmod_pair_eq_three`. The two inputs are
 
 * `nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`), and
 * `nonempty_torsionThree_addEquiv` (`EllipticCurves.Torsion.ThreeTorsionStructure`), which

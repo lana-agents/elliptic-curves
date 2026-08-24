@@ -25,8 +25,12 @@ module `T₂E = lim_k E[2^k]` — needs a **coherent** system instead:
 
 The construction is in `EllipticCurves.Torsion.PrimaryBasis`, stated for an arbitrary `ℓ` in terms
 of two inputs: surjectivity of `[ℓ]` on `E(F̄)`, and a generating pair of `E[ℓ]`. **This file
-supplies those two inputs at `ℓ = 2` and specialises every statement; it contains no argument.**
-The two inputs are
+supplies those two inputs at `ℓ = 2`; it contains no argument.** ⚠️ It used to add *"and specialises
+every statement"*, which overstates: it specialises **8** of `PrimaryBasis.lean`'s **22** public
+statements. Four more — `closure_pair_eq_torsion_succ`, `torsionPairHom`,
+`torsionPairHom_apply_coe`, `exists_zmod_pair_eq` — are stated there at a general modulus `n` with
+no field hypothesis, so a consumer at `ℓ = 2` calls them **unspecialised**, exactly as one at
+`ℓ = 3` does. The two inputs are
 
 * `nsmul_two_surjective` (`EllipticCurves.Torsion.DoublingSurjective`), and
 * `nonempty_torsionTwo_addEquiv` (`EllipticCurves.Torsion.TwoTorsion`), which
