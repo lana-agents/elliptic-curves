@@ -153,12 +153,7 @@ open Classical in
 
 Same three cases as the `F(W⁄F)` form, off `exists_weilPairingMu_galois_two` and
 `weilPairingTwo_eq_weilPairingMu`.  ⚠️ The translation point's `2`-torsion hypothesis, which
-that theorem asks for and its `F(W⁄F)` twin does not, is free here — it is `hT ▸ T.2`.
-
-⚠️ The line above is wrapped so that no prose line begins with a Lean keyword.  This tree's
-declaration and namespace audits are stack walks over line-initial keywords, so a docstring
-starting a line with one pushes a phantom frame; `WeilPairingGaloisDivisor.lean:94` is the
-recorded instance, and this file is checked line by line against that. -/
+that theorem asks for and its `F(W⁄F)` twin does not, is free here — it is `hT ▸ T.2`. -/
 theorem weilPairingTwo_galois (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) (P T : (W⁄F).torsion 2) :
     restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 2 (weilPairingTwo h2 P T)
       = weilPairingTwo h2 (σ • P) (σ • T) := by
