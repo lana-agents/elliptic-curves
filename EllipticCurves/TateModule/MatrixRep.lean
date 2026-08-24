@@ -99,7 +99,10 @@ four-entry list `EllipticCurves.TateModule.MatrixRepThree`'s Naming section carr
 missing for the surrounding apparatus either, with the single exception of
 `EllipticCurves.TateModule.MatrixRepCompat`. ⚠️ **That scoping clause is load-bearing and an
 earlier version of this sentence dropped it while keeping the count**, which made the sentence
-false: `EllipticCurves.TateModule.ImageProfinite` was never on that list and is still `ℓ = 2` only.
+false: `EllipticCurves.TateModule.ImageProfinite` was never on that list. ⚠️ The clause that used
+to close that sentence — *"and is still `ℓ = 2` only"* — has since been paid as well, by
+`EllipticCurves.TateModule.PrimaryImageProfinite` and
+`EllipticCurves.TateModule.ImageProfiniteThree`; **the scoping lesson does not depend on it.**
 *A true scoped claim becomes a false claim when the scope is dropped and the numeral is kept.*
 ⚠️ **This sentence used to list
 "the determinant and trace characters", "the conjugation law" and "continuity" among what remained

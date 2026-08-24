@@ -111,9 +111,13 @@ offered instead is `Infinite (T₃E)`, by a route that never mentions images or 
   `(ZMod 3)ˣ`, not `ℤ_[3]ˣ` — and it landed separately as
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`. Knowing that the image of a
   character is closed says nothing about which character it is.
-* **The profinite packaging is not here.** `EllipticCurves.TateModule.ImageProfinite` is still
-  `ℓ = 2` only; its `ℓ = 3` layer is a separate follow-up over
-  `EllipticCurves.TateModule.PrimaryImage`, and nothing gates it once this lands.
+* **The profinite packaging is not here.** ⚠️ **The clause this bullet used to carry has been
+  paid** — it read *"`EllipticCurves.TateModule.ImageProfinite` is still `ℓ = 2` only; its `ℓ = 3`
+  layer is a separate follow-up over `EllipticCurves.TateModule.PrimaryImage`, and nothing gates it
+  once this lands"*. It landed, and it went over
+  `EllipticCurves.TateModule.PrimaryImageProfinite` — which sits over
+  `EllipticCurves.TateModule.PrimaryImage` — as
+  `EllipticCurves.TateModule.ImageProfiniteThree`. The packaging is still not in *this* file.
 * **General odd `ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryImage` is already stated at
   an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but its input
   `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `[5]`-surjectivity and `#E[5^k]`, both of which need the

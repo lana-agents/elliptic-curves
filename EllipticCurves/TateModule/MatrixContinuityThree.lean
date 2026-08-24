@@ -106,10 +106,14 @@ On the source side the corresponding statement is `tateModule.not_discreteTopolo
 * **The image is not here.** ⚠️ **The clause this bullet used to carry is doubly out of date** —
   it read *"`EllipticCurves.TateModule.Image` and `EllipticCurves.TateModule.ImageProfinite` are
   `ℓ = 2` only **because their input `continuous_galoisRepMatrixTwo` is**; this file removes that
-  reason and so unblocks them"*. It did, and the follow-up it predicted has landed for the first of
-  the two: `EllipticCurves.TateModule.ImageThree`, over the `ℓ`-generic
-  `EllipticCurves.TateModule.PrimaryImage`. `EllipticCurves.TateModule.ImageProfinite` is still
-  `ℓ = 2` only and still ungated.
+  reason and so unblocks them"*. It did, and the follow-up it predicted has now landed for **both**
+  of them: `EllipticCurves.TateModule.ImageThree`, over the `ℓ`-generic
+  `EllipticCurves.TateModule.PrimaryImage`, and
+  `EllipticCurves.TateModule.ImageProfiniteThree`, over the `ℓ`-generic
+  `EllipticCurves.TateModule.PrimaryImageProfinite`. ⚠️ A second clause of this bullet has
+  therefore expired in its turn: it read *"`EllipticCurves.TateModule.ImageProfinite` is still
+  `ℓ = 2` only and still ungated"*, and it was true of exactly one file until that file was
+  extracted.
 * **The basis-change conjugation law is not here**, and it is not missing at `ℓ = 3` either:
   `galoisRepMatrixThree_conj` is in `EllipticCurves.TateModule.MatrixRepBasisChangeThree`, over the
   `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`. ⚠️ It is a different file,

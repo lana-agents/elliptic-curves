@@ -104,9 +104,12 @@ missing at `ℓ = 3` is only that `galoisDetThree` is not stated below"*, is now
 `EllipticCurves.TateModule.DeterminantThree`, over the `ℓ`-generic invariants this file now shares
 with them.
 
-⚠️ Nothing is missing at `ℓ = 3` for the determinant and trace *themselves*; what remains `ℓ = 2`
-only is the profinite packaging of the image
-(`EllipticCurves.TateModule.ImageProfinite`), and it is a separate follow-up that nothing gates.
+⚠️ Nothing is missing at `ℓ = 3` for the determinant and trace *themselves*. ⚠️ **The clause that
+used to complete this sentence has been paid and is retired**: it read *"what remains `ℓ = 2` only
+is the profinite packaging of the image (`EllipticCurves.TateModule.ImageProfinite`), and it is a
+separate follow-up that nothing gates"*. That follow-up is
+`EllipticCurves.TateModule.ImageProfiniteThree`, over the `ℓ`-generic
+`EllipticCurves.TateModule.PrimaryImageProfinite`.
 ⚠️ This list used to include three more entries and no longer does. *"The basis-change conjugation
 law (`EllipticCurves.TateModule.MatrixRepBasisChange`)"* is stated at every prime in
 `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange`; *"continuity
