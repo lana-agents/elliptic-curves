@@ -38,18 +38,24 @@ read as progress on the identification that `EllipticCurves.TateModule.Determina
 reason the determinant is interesting.  That identification is a separate deliverable and it needs
 the pairing.
 
-⚠️ **`#951` proves that identification in coordinates, and declares this file's object out of
-reach.**  It states `a * d - b * c ≡ χ_n(σ)` for a *chosen* generating pair, with the four matrix
-entries carried as integers in hypotheses — deliberately using no `Module (ZMod n)` structure, no
-basis and no `LinearMap.det`.  Its Scope section then names
+⚠️ **`EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`) proves that identification in
+coordinates, and priced this file's object as out of reach.**  It states `a * d - b * c ≡ χ_n(σ)`
+for a *chosen* generating pair, with the four matrix entries carried as integers in hypotheses —
+deliberately using no `Module (ZMod n)` structure, no basis and no `LinearMap.det`.  Verbatim,
+its Scope section said
 
-> the `LinearEquiv.det` bundling at mod `3`, which needs a `Module (ZMod 3)` structure
-> `nonempty_torsionThree_addEquiv` does not give
+> Writing the conclusion as an equation between `LinearEquiv.det ∘ ρ_{E,3}` and `χ_3` needs a
+> `Module (ZMod 3)` structure on `E[3]` and a `Basis` for it; `nonempty_torsionThree_addEquiv`
+> supplies an `≃+` and not that.
 
-as out of scope.  **The second half of that sentence is false, and this file is the compiled
-refutation.**  The `Module (ZMod 3)` structure does not come from `nonempty_torsionThree_addEquiv`
-at all: it is `AddCommGroup.zmodModule` applied to `nsmul_mem_torsion`, and it is *unconditional* —
-no algebraically closed field, no ellipticity, no `#E[3] = 9`.  See `torsionZModModule`.
+⚠️ **Be exact about which clause of that is wrong, because two of the three are true.**  The
+`Basis` clause is false — `LinearEquiv.det` is basis-free, and `galoisDetMod` below uses no basis.
+The `Module (ZMod 3)` clause is true, and so is the clause about `nonempty_torsionThree_addEquiv`,
+since an `≃+` is indeed not a module structure.  What fails is the *inference*, that no such
+module structure is available at all.  `AddCommGroup.zmodModule` applied to `nsmul_mem_torsion`
+supplies one, *unconditionally* — no algebraically closed field, no ellipticity, no `#E[3] = 9`.
+See `torsionZModModule`.  ⚠️ The quotation is of the text as `#951` merged it; that sentence is
+repaired in place in the same pull request as this file, so a grep of `main` will not find it.
 
 ⚠️ The two are complementary rather than competing, and it is worth being exact about how.  `#951`
 has an **equation**; this file has an **object**.  A coordinate determinant is a number attached to
@@ -300,8 +306,9 @@ choice into the proof of a choice-independent number.  `Module.card_eq_pow_finra
 `card_torsion_three` avoids it, and it makes visible that the load-bearing input is `#E[3] = 9`.
 
 ⚠️ `h2` enters through the **separability of `Ψ₃`** — a root of `Ψ₃` is never a root of `Ψ₂Sq` — and
-not through the value group, which is where `h3` enters.  The two hypotheses are not
-interchangeable; the second refutation below is the compiled proof that they are not. -/
+not through the value group, which is where `h3` enters, and the proof consumes it at exactly one
+place, `card_torsion_three h2 h3`.  ⚠️ The two hypotheses are therefore not interchangeable; see the
+third measured run below for what a substitution test does and does not establish about that. -/
 theorem finrank_torsion_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.finrank (ZMod 3) (W.torsion 3) = 2 := by
   haveI := W.finite_torsion_three h3
@@ -339,8 +346,9 @@ The certificate curve is this front's standard `n = 3` one, `y² + y = x³` over
 `AlgebraicClosure ℚ` with **`S = ℚ` and not `S = F`** — over `S = F` the group `Gal(F/S)` is trivial
 and the schema certificate for `galoisDetMod` says nothing.
 
-⚠️ **Three measured runs, one of which refuted what this file's first draft asserted.**  All three
-were re-run against the text as committed, with `lake env lean` on this file from the project root.
+⚠️ **Three measured runs, one of which refuted what this file's first draft asserted, and the third
+of which reports two errors rather than one.**  All were re-run against the text as committed, with
+`lake env lean` on this file from the project root.
 ⚠️ That command reports errors in the `<file>:<line>:<col>: error(<tag>):` form quoted below;
 `lake build` reports the same errors with an `error: <file>:<line>:<col>:` prefix instead.  ⚠️ And
 `lake env lean` does **not** apply the `leanOptions` of `lakefile.toml`, so it does not run
@@ -360,8 +368,8 @@ were re-run against the text as committed, with `lake env lean` on this file fro
   ```
   So the two halves of `LinearEquiv.det`'s hypothesis have genuinely different costs here, and only
   one of them needs a hypothesis on `F`.
-* **`(2 : F) ≠ 0` is load-bearing in the rank statement, not decoration.**  Deleting `exampleTwo`
-  from the `finrank_torsion_three` certificate gives
+* **`(2 : F) ≠ 0` is consumed by the rank statement, and here is exactly how much a substitution
+  test shows.**  Passing `exampleThree` where the certificate wants `exampleTwo` gives
   ```
   error: Application type mismatch: The argument
     exampleThree
@@ -372,8 +380,23 @@ were re-run against the text as committed, with `lake env lean` on this file fro
   in the application
     finrank_torsion_three exampleThree
   ```
-  `h2` enters through the separability of `Ψ₃`, `h3` through the value group; the type checker is
-  what says they cannot be swapped. -/
+  ⚠️ **That error says only that `3 ≠ 0` is not `2 ≠ 0`, and it would say the same of a hypothesis
+  the proof never used** — a substituted argument is not a deleted input, which is the distinction
+  this front recorded against `#951`.  The claim that `h2` is *used* needs the proof, and there it
+  is measured too: dropping `h2` from `finrank_torsion_three` and re-running its script verbatim
+  fails one level in, at
+  ```
+  error: Application type mismatch: The argument
+    h3
+  has type
+    3 ≠ 0
+  but is expected to have type
+    2 ≠ 0
+  in the application
+    card_torsion_three h3
+  ```
+  so `h2` reaches the rank through `#E[3] = 9` and through nothing else, while `h3` enters twice
+  over, through the value group and through `finite_torsion_three`. -/
 
 section Nonvacuity
 
