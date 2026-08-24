@@ -68,8 +68,12 @@ assertion made checkable. Compactness is then a two-line corollary of Tychonoff.
   `(3 : F) ≠ 0` and of the coordinate formula recorded above.
 
 **This supersedes, at `ℓ = 2` and at `ℓ = 3`, the "No compactness" paragraph in the module docstring
-of `EllipticCurves.TateModule.Continuity`.** That paragraph says finiteness of `E[n]` "is not
-available in this development"; it is available for `n = 2^k` and for `n = 3^k`.
+of `EllipticCurves.TateModule.Continuity`.** ⚠️ That paragraph no longer *says* finiteness of `E[n]`
+"is not available in this development": `#985` repaired it, and it now quotes that clause and names
+it false at every `3`-smooth `n` (`finite_torsion_of_smooth`, in
+`EllipticCurves.Torsion.Multiplicative`) — wider than the `2^k` and `3^k` this file consumes.
+What is superseded is only the *conclusion* the clause was offered for. Compactness is still not
+that file's job, and it is this file's: `T_2 E` and `T_3 E` are compact, unconditionally.
 
 ⚠️ **The clause this paragraph used to carry — *"For **odd** `ℓ` the paragraph still stands:
 `Finite (E[ℓ^k])` needs `#E[ℓ] ≤ ℓ²`, which needs the coordinate formula"* — is false at `ℓ = 3`.**
