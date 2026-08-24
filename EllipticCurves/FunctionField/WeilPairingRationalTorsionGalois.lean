@@ -110,10 +110,11 @@ on everything mentioning `torsion`.
   composite `n` twice — by the crux and independently by the prime-order step.  `#940`'s "blocked
   only once" must not be quoted against this file.
 * **`det ρ_{E,3} = χ_3`.**  ⚠️ `ker_galoisRepMod_three_le_ker_galoisModularCyclotomicChar` compares
-  *kernels* and is strictly weaker.  The determinant identity — named in
-  `EllipticCurves.TateModule.Determinant` as the goal this whole front is for — needs a basis of
-  `E[3]` as a free `ℤ/3`-module together with its Galois action, which does not exist here.  Nothing
-  below moves it.
+  *kernels* and is strictly weaker, and nothing below moves the determinant identity.  ⚠️ This
+  bullet originally added that the identity "needs a basis of `E[3]` as a free `ℤ/3`-module together
+  with its Galois action, which does not exist here"; that reason was wrong and has been retired.
+  `EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`) proves it in coordinates, taking
+  the four matrix entries as integers in hypotheses — no module structure and no `Basis` anywhere.
 * **The `ℓ`-adic level**, `ker ρ_{E,ℓ} ≤ ker χ_ℓ` for the Tate module.  Wants the pairing on
   `E[ℓ ^ k]` for every `k`.
 * **The `IntermediateField` spelling** `μ_3(F) ⊆ (⊥ : IntermediateField S F)`.  It is
@@ -243,8 +244,10 @@ kernel to exactly `#948`'s hypothesis, so the inclusion is that theorem with no 
 This is the shape the Tate-module front can consume without knowing anything about the pairing.
 
 ⚠️ **This is not `det ρ_{E,3} = χ_3` and must not be read as progress on it.**  An inclusion of
-kernels is strictly weaker than an identity of characters: the determinant statement needs a basis
-of `E[3]` as a free `ℤ/3`-module together with its Galois action, and this development has none.
+kernels is strictly weaker than an identity of characters; the identity itself is
+`exists_smul_eq_zsmul_add_zsmul_and_det_three_eq`
+(`EllipticCurves.FunctionField.WeilPairingDeterminant`, `#951`), of which this inclusion is the
+special case where `σ` has matrix `(1, 0, 0, 1)`.
 
 ⚠️ `galoisRepMod` is stated under a `[DecidableEq F]` section variable while this front runs under
 `open Classical in`.  That is not a mismatch — both `torsion` and `galoisRepMod` pick up the same
