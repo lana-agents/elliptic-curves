@@ -19,7 +19,7 @@ the opposite and points back at this one**, so do not expect to find the quote t
 > ⚠️ **There is no `W.Point`-level pairing in this tree**, so "non-degeneracy" cannot be stated as a
 > property of a bilinear map.
 
-`WeilPairingTranslationSlotBilinear` (`#861`) and `WeilPairingTranslationSlotHom` (`#873`) say the
+`WeilPairingTranslationSlotBilinear` (`#873`) and `WeilPairingTranslationSlotHom` (`#890`) say the
 same and call it separate work.  Every rung-6 property on this board is currently a statement of
 the shape
 
@@ -44,9 +44,9 @@ input is merged; the content is a definition, one well-definedness lemma, and a 
 a square root of.  It depends on neither, and both halves are merged:
 
 * **Same `f`, different root** — `weilPairingElt_eq_of_smul_pow_eq` (`WeilPairingRootIndependence`,
-  `#719`).
+  `#724`).
 * **Different `f` with the same divisor** — `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq`
-  (`WeilPairingProductRelationRootIndependent`, `#910`), which is generic in the pullback `φ` and
+  (`WeilPairingProductRelationRootIndependent`, `#854`), which is generic in the pullback `φ` and
   runs the argument *two functions with equal divisors differ by a unit of `F[W]`, a unit is a
   nonzero constant, `φ` fixes constants, a nonzero constant has trivial divisor*.
 
@@ -117,6 +117,37 @@ rung-5 root exists only at torsion points, and the translation slot's `μ_n`-mem
 general `n` (which needs `#404`'s `ωₙ` crux).  ⚠️ `#456`'s two forms are re-read *through* the
 function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which
 is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an existential.
+
+## ⚠️ Eight issue numbers in this file were wrong while the names beside them were right
+
+Corrected **in place**, not retired: a wrong number was wrong the day it was typed, so nothing
+here *became* false and there is no clause to quote.  Ground truth for a number attached to a
+**file** is `git log --diff-filter=A --format=%s -- <file>`, whose subject reads
+`… (#issue) (#PR)`; for a number attached to a **declaration** it is the same command run on the
+module that declares it.
+
+* `WeilPairingTranslationSlotBilinear` was `#861` — its creation commit says **`#873`**, and
+  `#861` is its divisor-slot sibling.
+* `WeilPairingTranslationSlotHom` was `#873` — its creation commit says **`#890`**.  The same
+  off-by-one shift, in the same sentence.
+* `weilPairingElt_eq_of_smul_pow_eq` was `#719` — it is declared in `WeilPairingRootIndependence`
+  (**`#724`**); `#719` is the `n = 3` alternating assembly, a sibling on this front.
+* `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` was `#910`, twice — it is declared in
+  `WeilPairingProductRelationRootIndependent` (**`#854`**); `#910` is that module's `hprin` twin.
+* `weilPairingPointMu` and `weilPairingPointElt_add` were `#873` — both are declared in
+  `WeilPairingTranslationSlotHom` (**`#890`**), so this is the first shift again one level down.
+* `exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` was `#836` — it is declared in
+  `WeilPairingAlternatingTwoAlgClosed` (**`#801`**).  `#836` is the `∀ g` root-independent file,
+  which this one also imports, so the number resolved to a real import.
+* `exists_weilPairingElt_divisorSlot_add_two` was `#912` — it is declared in
+  `WeilPairingDivisorSlotBilinear` (**`#861`**); `#912` is that module's `hprin` twin, whose
+  corresponding headline is named `…_of_hprin` and is *not* what `weilPairingEltTwo_add_left`
+  calls.
+
+⚠️ Every one of the wrong numbers resolves to real adjacent work on this front.  That is what makes
+the class invisible: `#print axioms`, `mk_all`, the signature differ, the build and even a strict
+"resolve each backticked name to its declaring module" check all pass, because the *names* are
+right.
 
 ## References
 
@@ -205,7 +236,7 @@ open Classical in
 give the same pairing value at *every* point of `W`, the point at infinity included.
 
 At `O` both values are `1`.  At an affine point this is
-`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` (`#910`) instantiated at `φ = [2]∗`, whose `hfdiv`
+`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` (`#854`) instantiated at `φ = [2]∗`, whose `hfdiv`
 is the two roots' divisor conditions read transitively — which is exactly why `IsWeilRootTwo` pins
 `div f` rather than `f`. -/
 theorem weilPairingPointElt_eq_of_isWeilRootTwo (h2 : (2 : F) ≠ 0) {S : W.Point}
@@ -301,7 +332,7 @@ theorem weilPairingEltTwo_zero_left (h2 : (2 : F) ≠ 0) (T : W.torsion 2) :
 
 open Classical in
 /-- **The Weil pairing at `n = 2`, valued in `μ_2(F)`.**  The value group form, off
-`weilPairingPointMu` (`#873`). -/
+`weilPairingPointMu` (`#890`). -/
 noncomputable def weilPairingTwo (h2 : (2 : F) ≠ 0) (S T : W.torsion 2) : rootsOfUnity 2 F :=
   weilPairingPointMu (weilPairingRootTwo_ne_zero h2 S)
     (weilPairingPointElt_weilPairingRootTwo_pow h2 S T)
@@ -372,7 +403,7 @@ theorem weilPairingEltTwo_eq_one_of_left_eq_zero (h2 : (2 : F) ≠ 0) {S : W.tor
 
 open Classical in
 /-- **`e_2(S, T₁ ⊕ T₂) = e_2(S, T₁) · e_2(S, T₂)`**, as an equation between values of a function.
-`weilPairingPointElt_add` (`#873`) with its root-of-unity datum supplied by the chosen root. -/
+`weilPairingPointElt_add` (`#890`) with its root-of-unity datum supplied by the chosen root. -/
 theorem weilPairingEltTwo_add_right (h2 : (2 : F) ≠ 0) (S T₁ T₂ : W.torsion 2) :
     weilPairingEltTwo h2 S (T₁ + T₂)
       = weilPairingEltTwo h2 S T₁ * weilPairingEltTwo h2 S T₂ := by
@@ -384,7 +415,7 @@ theorem weilPairingEltTwo_add_right (h2 : (2 : F) ≠ 0) (S T₁ T₂ : W.torsio
 
 open Classical in
 /-- **`e_2(S, S) = 1`.**  At `O` this is `weilPairingEltTwo_zero_left`; at an affine `S` it is
-`exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` (`#836`) read through the bridge, its `f`
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` (`#801`) read through the bridge, its `f`
 converted from the projective divisor condition by `divisor_eq_of_divisorProj_eq`. -/
 @[simp]
 theorem weilPairingEltTwo_self (h2 : (2 : F) ≠ 0) (S : W.torsion 2) :
@@ -407,7 +438,7 @@ theorem weilPairingEltTwo_self (h2 : (2 : F) ≠ 0) (S : W.torsion 2) :
 open Classical in
 /-- **`e_2(S₁ ⊕ S₂, T) = e_2(S₁, T) · e_2(S₂, T)`.**
 
-`exists_weilPairingElt_divisorSlot_add_two` (`#912`) read through the bridge — but only in the case
+`exists_weilPairingElt_divisorSlot_add_two` (`#861`) read through the bridge — but only in the case
 where all four points are affine.  ⚠️ **The other three cases are not instances of it and are done
 here:** `T = O` (all three values are `1`), `S₁ = O` or `S₂ = O` (the corner lemmas), and
 `S₁ ⊕ S₂ = O` with both affine, where a `2`-torsion point being its own negative forces `S₂ = S₁`

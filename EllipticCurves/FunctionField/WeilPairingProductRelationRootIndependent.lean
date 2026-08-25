@@ -34,14 +34,14 @@ real work".
 
 ⚠️ **None of that is needed, and `#836` is not used here at all.**  The observation that collapses
 it is one file older than either: `weilPairingElt_eq_of_nsmul_divisor_eq`
-(`WeilPairingRootIndependence`, `#719`) says the pairing element depends on its root **only through
+(`WeilPairingRootIndependence`, `#724`) says the pairing element depends on its root **only through
 the root's divisor**, and the divisor is pinned by the rung-5 relation `u · g ^ n = [n]∗ f`
 together with `div f`.  So two roots attached to two functions with the *same divisor* give the
 *same* pairing element, and the existential headline's own roots can simply be swapped for the
 caller's.
 
 `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` below is that statement.  It generalises
-`weilPairingElt_eq_of_smul_pow_eq` (`#719`), which needs the two roots to sit over *literally the
+`weilPairingElt_eq_of_smul_pow_eq` (`#724`), which needs the two roots to sit over *literally the
 same* function; here they sit over two functions with the same divisor, which is what a caller
 supplying their own `f_S` actually has.  ⚠️ It is generic in the pullback `φ`, for the reason `#845`
 gives: nothing in the argument sees `[2]∗` or `[3]∗`, and a future divisor-level `[n]∗`
@@ -73,7 +73,7 @@ torsion is **derived** from `hadd` inside `#845`, never assumed here.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
 `F̄`; general `n` (`#404`'s `ωₙ`); divisor-slot bilinearity, whose envelope needs `g_R` and the
-correction factor as data (`#861`); non-degeneracy; any change to `#719`'s, `#723`'s, `#845`'s or
+correction factor as data (`#861`); non-degeneracy; any change to `#724`'s, `#723`'s, `#845`'s or
 `#855`'s proofs.
 
 ⚠️ **This file does not introduce a `W.Point`-level pairing**, and `WeilPairingProductRelation`'s
@@ -104,6 +104,16 @@ of unity — so the certificate is taken at `S = T = (0, 0)`, `R = (0, −1)`.  
 are simultaneously satisfiable, which is what a non-vacuity certificate is for, but it does **not**
 exhibit `S ≠ T`.  That limitation is inherited from `#845`/`#855` and is not addressed here.
 
+## ⚠️ Four `#719` citations in this file meant `#724`
+
+Corrected in place, not retired — the number was wrong when it was typed.
+`WeilPairingRootIndependence`'s creation commit reads
+`… does not depend on which n-th root is chosen (#724) (#296)`, and that module is one of this
+file's two imports.  `#719` is the `n = 3` alternating assembly, in `WeilPairingAlternatingThree`,
+which this file does **not** import — the import graph is what settles the fourth site: there the
+number appears in a bare list of four issues in the Scope section above, with no module beside it
+to check against.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
@@ -124,7 +134,7 @@ One lemma, and it is the whole content of the file. -/
 If `u₁ · g₁ ^ m = φ f₁` and `u₂ · g₂ ^ m = φ f₂` with `div f₁ = div f₂`, then
 `e_n(T, g₁) = e_n(T, g₂)`.
 
-This is `weilPairingElt_eq_of_smul_pow_eq` (`WeilPairingRootIndependence`, `#719`) with "the same
+This is `weilPairingElt_eq_of_smul_pow_eq` (`WeilPairingRootIndependence`, `#724`) with "the same
 function" relaxed to "the same divisor", which is the form a caller holding their own `f_S` is in.
 Two functions with equal divisors differ by a unit of `F[W]` (`exists_unit_of_divisor_eq`), a unit
 is a nonzero constant of `F` (`exists_eq_algebraMap_of_isUnit`, `#398`), `φ` fixes the base field by

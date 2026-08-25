@@ -26,7 +26,7 @@ that `2 • P` **is** the division-polynomial doubling point.
 ## Where this was, and why it moves here
 
 The `y`-coordinate identity already existed in this tree — but only at the **generic point**, as
-`addY_gen_eq_mulByTwo` (`EllipticCurves.FunctionField.GenericDoubling`, `#630`), stated over the
+`addY_gen_eq_mulByTwo` (`EllipticCurves.FunctionField.GenericDoubling`, `#433`), stated over the
 base-changed curve `W ⁄ F(W)` at `(genX, genY)`.  `#774` priced the specialisation of that identity
 to a closed point as the open question on the affine half of the `[2]`-fibre description, and
 flagged that `addY_gen_eq_mulByTwo`'s proof is a `linear_combination` under
@@ -64,6 +64,15 @@ proof and ask which of its inputs actually mention the generic point.
   *are* instances (take the base-changed curve over `F(W)` and the point `(genX, genY)`), and
   collapsing the duplication would be a worthwhile follow-up, but it edits a merged file for no
   mathematical gain and is deliberately left out.
+
+## ⚠️ `GenericDoubling` was cited as `#630`; it is `#433`
+
+Corrected in place rather than retired — the number was wrong when it was typed.  That module's
+creation commit subject is *"feat(FunctionField): the doubling correspondence
+`𝒫 + 𝒫 = ([2]∗genX, [2]∗genY)` for the generic point (#433, #419) (#163)"*, so the issue is
+**`#433`**, and `addY_gen_eq_mulByTwo` is introduced by that same commit.  `#630` is the Dedekind
+divisor-transport infrastructure issue, whose module is `FunctionField/DivisorTransport` — real work
+on this tree, unrelated to the doubling correspondence.
 
 ## References
 

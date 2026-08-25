@@ -28,7 +28,7 @@ threaded and `mulByThreeEndo` for `mulByTwoEndo`.  Two of them are worth naming 
 what make the mirror cheap rather than merely possible:
 
 * `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` (`WeilPairingProductRelationRootIndependent`,
-  `#910`) is generic in the pullback `φ` **and in the exponent `m`** — the exponent was already a
+  `#854`) is generic in the pullback `φ` **and in the exponent `m`** — the exponent was already a
   variable, so well-definedness needs nothing added.
 * `eq_zero_of_forall_weilPairingElt_eq_one_three` (`WeilPairingNondegenerateThree`, `#831`) states
   its divisor hypothesis as `divisor W f = (3 : ℤ) • pointDivisorAff W S`, the same uniform
@@ -91,6 +91,23 @@ the fibre point `P` with `[3]P = T` (`WeilPairingRootIndependenceAlgClosed` reco
 `ωₙ` crux), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the function of this
 file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is where
 `σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
+
+## ⚠️ Five issue numbers in this file were wrong while the names beside them were right
+
+Corrected in place rather than retired — a wrong number was wrong when it was typed, so no clause
+here *became* false.  Ground truth is the creating commit of the module that declares the name
+(`git log --diff-filter=A --format=%s -- <file>`, subject `… (#issue) (#PR)`).
+
+* `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` was `#910`, twice — declared in
+  `WeilPairingProductRelationRootIndependent` (**`#854`**).  `#910` is that module's `hprin` twin.
+* `weilPairingPointMu` and `weilPairingPointElt_add` were `#873` — both declared in
+  `WeilPairingTranslationSlotHom` (**`#890`**), the same shift `WeilPairingFunctionTwo` carried.
+* `exists_weilPairingElt_self_eq_one_of_isAlgClosed_three` was `#836` — declared in
+  `WeilPairingAlternatingThreeAlgClosed` (**`#829`**), which is the module this file imports for
+  it.
+
+⚠️ Each wrong number names real adjacent work, so none of them looked wrong; an issue number is a
+citation and the only check is against its source.
 
 ## References
 
@@ -164,7 +181,7 @@ open Classical in
 give the same pairing value at *every* point of `W`, the point at infinity included.
 
 At `O` both values are `1`.  At an affine point this is
-`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` (`#910`) instantiated at `φ = [3]∗` and `m = 3` —
+`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` (`#854`) instantiated at `φ = [3]∗` and `m = 3` —
 both were already variables there — with its `hfdiv` the two roots' divisor conditions read
 transitively, which is exactly why `IsWeilRootThree` pins `div f` rather than `f`. -/
 theorem weilPairingPointElt_eq_of_isWeilRootThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
@@ -267,7 +284,7 @@ theorem weilPairingEltThree_zero_left (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) 
 
 open Classical in
 /-- **The Weil pairing at `n = 3`, valued in `μ_3(F)`.**  The value group form, off
-`weilPairingPointMu` (`#873`). -/
+`weilPairingPointMu` (`#890`). -/
 noncomputable def weilPairingThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (S T : W.torsion 3) :
     rootsOfUnity 3 F :=
   weilPairingPointMu (weilPairingRootThree_ne_zero h2 h3 S)
@@ -340,7 +357,7 @@ theorem weilPairingEltThree_eq_one_of_left_eq_zero (h2 : (2 : F) ≠ 0) (h3 : (3
 
 open Classical in
 /-- **`e_3(S, T₁ ⊕ T₂) = e_3(S, T₁) · e_3(S, T₂)`**, as an equation between values of a function.
-`weilPairingPointElt_add` (`#873`) with its root-of-unity datum supplied by the chosen root. -/
+`weilPairingPointElt_add` (`#890`) with its root-of-unity datum supplied by the chosen root. -/
 theorem weilPairingEltThree_add_right (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (S T₁ T₂ : W.torsion 3) :
     weilPairingEltThree h2 h3 S (T₁ + T₂)
@@ -353,7 +370,7 @@ theorem weilPairingEltThree_add_right (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
 
 open Classical in
 /-- **`e_3(S, S) = 1`.**  At `O` this is `weilPairingEltThree_zero_left`; at an affine `S` it is
-`exists_weilPairingElt_self_eq_one_of_isAlgClosed_three` (`#836`) read through the bridge, its `f`
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_three` (`#829`) read through the bridge, its `f`
 converted from the projective divisor condition by `divisor_eq_of_divisorProj_eq`. -/
 @[simp]
 theorem weilPairingEltThree_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (S : W.torsion 3) :

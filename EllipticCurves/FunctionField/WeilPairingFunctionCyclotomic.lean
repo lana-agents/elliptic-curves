@@ -10,7 +10,7 @@ import EllipticCurves.Galois.CyclotomicCharacter
 /-!
 # `e_n(σS, σT) = e_n(S, T) ^ χ_n(σ)` for the Weil pairing as a function of two points
 
-`EllipticCurves.FunctionField.WeilPairingCyclotomic` (`#867`) put the Galois-equivariance of the
+`EllipticCurves.FunctionField.WeilPairingCyclotomic` (`#638`) put the Galois-equivariance of the
 Weil pairing into Silverman's exponent form
 
 ```
@@ -110,6 +110,14 @@ inconsistency introduced here — the *function*-level statements have been in `
   constructed: if every `σ` fixed every cube root of unity each would lie in `ℚ`, and the only
   rational cube root of `1` is `1`, contradicting `Nat.card μ_3(Q̄) = 3`.  The Non-vacuity section
   below still makes the weaker, in-file point that the unconditional script *fails* at `n = 3`.
+
+## ⚠️ `WeilPairingCyclotomic` was cited as `#867`; it is `#638`
+
+Corrected in place rather than retired — the number was wrong when it was typed.  That module's
+creation commit subject is *"feat(Galois): the cyclotomic character of `Gal(F/S)`, and
+`e_n(σS, σT) = e_n(S, T)^χ_n(σ)` (#638) (#260)"*, so the issue is **`#638`**.  `#867` is the
+*"two public lemmas retire seven private copies of the `n • P = 0` unfolding"* refactor: real work,
+on this tree, with nothing to do with the character.
 
 ## References
 
