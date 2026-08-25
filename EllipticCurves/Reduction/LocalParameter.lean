@@ -10,7 +10,7 @@ import EllipticCurves.Reduction.PointReduction
 
 Let `R` be a discrete valuation ring with fraction field `K = Frac R` and residue field `k`, and let
 `W : WeierstrassCurve K` be given by an integral Weierstrass equation (`IsIntegral R W`).  Following
-Silverman (AEC VII.2, IV.1) the eventual identification `E₁(K) ≅ Ê(𝔪)` is built through the
+Silverman (AEC VII.2, IV.1) the identification `E₁(K) ≅ Ê(𝔪)` is built through the
 **local parameter** `z(P) = -x(P)/y(P)`.  This file supplies the *set-level* half of that
 identification: the parameter as a map into the maximal ideal `𝔪` of `R`, together with its
 membership and normalisation (`z(O) = 0`).
@@ -26,6 +26,24 @@ addition-law compatibility `z(P + Q) = F_E(z P, z Q)` (the heart, AEC IV.1 / VII
 packaging into the group isomorphism `E₁(K) ≃+ Ê(𝔪)` are not here; both are **merged**, as
 `WeierstrassCurve.zParamHatEquiv_map_add` and `WeierstrassCurve.E₁AddEquiv`
 (`EllipticCurves/Reduction/KernelFormalGroupIso.lean`).
+
+⚠️ **The opening paragraph used to call it the *"eventual"* identification, and the word outlived
+the thing it described.**  `WeierstrassCurve.E₁AddEquiv`
+(`EllipticCurves.Reduction.KernelFormalGroupIso`, #368) has existed since 2026-08-09, and the
+paragraph opening *"This is deliverable 1 of issue #361"* already says so.
+
+⚠️ **The two were one claim written twice, and a keyword sweep split it in half.**  Both entered in
+the same commit on 2026-08-02, when neither theorem existed: *"the **eventual** identification"* and
+*"are **deferred to the sibling bricks**"*.  Both stopped being true at the same instant, when
+`E₁AddEquiv` landed on 2026-08-09, and #1045's stale-gate sweep repaired only the second of them,
+fifteen days on.  The reason is mechanical rather than a lapse: *"deferred to"* and *"sibling"* are
+matched by **both** of that sweep's keyword greps, and *"eventual"* is matched by **neither**.
+⚠️ **A claim spread over two sentences is repaired as a whole only if both sentences match the
+grep.**  When one does not, the sweep leaves the file asserting the repair and the original at once,
+which is a worse state than the uniformly stale one it started from.
+
+⚠️ What the retired word got right, and what the opening paragraph still says: this file supplies
+only the *set-level* half of the identification, and nothing about that scope has changed.
 
 ## Main definitions
 
