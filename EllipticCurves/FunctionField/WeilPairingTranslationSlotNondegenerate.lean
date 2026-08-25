@@ -77,11 +77,56 @@ else** — the single source is `hprin`, i.e. `exists_gS_{two,three}_of_isAlgClo
 as for every other `[IsAlgClosed F]` on this front.  No hypothesis is added to any envelope: only
 the conclusions move.
 
-Out of scope: **injectivity** of the map, which is a different statement and is Ward/`#242`-gated
-through `#E[n] = n²`; combining the two slots into a pairing on `W.Point × W.Point` (`#873`/`#890`
-both record that as a separate design question and it stays one); general `n` (`#404`'s `ωₙ`);
-`hprin` over a general field, open at both `n`.  Nothing existing is renamed or reproved: this
-module is purely additive.
+Out of scope: combining the two slots into a pairing on `W.Point × W.Point` (`#873`/`#890` both
+record that as a separate design question and it stays one); general `n` (`#404`'s `ωₙ`); `hprin`
+over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
+purely additive.
+
+⚠️ **That list used to open** *"**injectivity** of the map, which is a different statement and is
+Ward/`#242`-gated through `#E[n] = n²`"*.  It was right that injectivity is a different statement
+and wrong about everything else: **injectivity of `e_n(S, ·)` is not open, it is false**, and the
+theorem named as the gate is the theorem that refutes it.  `#E[n] = n²` over `F̄` is merged at both
+`n` (`card_torsion_two`, `card_torsion_three`), `#μ_n(F̄) = n` is merged
+(`natCard_rootsOfUnity_of_ne_zero`), and `n² > n`, so no injection exists.  The refutation is
+`not_injective_weilPairingTorsionMuHom_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective`), with
+`ker_weilPairingTorsionMuHom_{two,three}_ne_bot` beside the `ker_…_ne_top` family proved here.
+
+⚠️ **Nothing about this front is weaker than the clause suggested; the clause credited a false
+statement with being merely open.**  What non-degeneracy asserts about the map is `≠ 1`, which is
+what this file proves and is sharp — on the canonical root and for `S ≠ O` the same slot is even
+*onto* `μ_n(F̄)` (`weilPairingTwo_surjective`,
+`EllipticCurves.FunctionField.WeilPairingSurjective`, `#938`).  And
+the statement that *is* injective, and in fact bijective, is the **other** slot `S ↦ e_n(S, ·)`
+into the dual group: `bijective_weilPairingTwoHom`
+(`EllipticCurves.FunctionField.WeilPairingPerfect`, `#940`).  The conceptual reason a fixed slot
+cannot be injective is `e_n(S, S) = 1`, which puts `⟨S⟩` in the kernel whenever `S` is an
+`F`-rational point of order `n`; this tree proves that identity only in an `∃`-shape that produces
+its own root, so `not_injective_weilPairingTorsionMuHom_{two,three}` is the counting refutation
+instead — and it is the counting argument, not the group-theoretic one, that `[IsAlgClosed F]` is
+load-bearing for.
+
+⚠️ **This clause was born after the sweep that should have made it unwritable, and no sweep could
+have caught it.**
+
+| | commit | time |
+|---|---|---|
+| `card_torsion_two` (`#E[2] = 4`), the theorem named as the gate | `7089d8d` | 08-19 21:23:26 |
+| `#769` retires *"non-degeneracy is Ward-gated"*, eighteen files | `1969c65` | 08-22 22:14:20 |
+| `#785` audits the `#769` pointer sites, finds a nineteenth copy | `1792fba` | 08-23 00:56:50 |
+| `weilPairingTorsionMuHom_two` is defined | `f167fbc` | 08-23 15:08:54 |
+| **this file is created, carrying the clause** | `42d6afa` | 08-23 **15:47:52** |
+
+(All 2026.)
+
+Fourteen hours and fifty-one minutes after the audit closed, and thirty-nine minutes after the map
+itself existed, a **twentieth** instance of the retired sentence shape — *"`X` is Ward/`#242`-gated
+through `#E[n] = n²`"* — entered a file neither sweep could have read.  ⚠️ **A retirement sweep
+does not inoculate the tree against the same sentence being written again the next day**, and
+re-running `#769`'s grep would not have found this one either: it was
+keyed on *non-degeneracy*, and this clause hangs the same gate on *injectivity* — a neighbouring
+statement, one word apart, and the one where `#242` at `n = 2` is not a discharged gate but a
+refutation.
 
 ## Placement
 
