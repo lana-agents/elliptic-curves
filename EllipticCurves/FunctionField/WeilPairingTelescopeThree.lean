@@ -111,8 +111,13 @@ was done on `ProjPoint W`.  Everything below is `divisorProj`.
 
 ## What is *not* here
 
-* Step A at `n = 3` — the general commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗` for `[3]P = T`.  Only the
-  degenerate `[3]T = O` case exists today (`TranslationTriplingComm`).
+* Step A at `n = 3` — the general commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗` for `[3]P = T`.  ⚠️ **It
+  is not here, and it does exist**: this bullet used to end *"Only the degenerate `[3]T = O` case
+  exists today (`TranslationTriplingComm`)"*, and the general form is
+  `translateEndo_mulByThreeEndo_apply_general`
+  (`EllipticCurves.FunctionField.TranslationTriplingCommGeneral`), which
+  `EllipticCurves.FunctionField.WeilPairingAlternatingThree` consumes as exactly this step.  Nothing
+  about *this* file changes: the telescoping below is the first product and never mentions `[3]∗`.
 * The assembly, `e_3(T, T) = 1`, `#418`, `[3]∗`, `mulByThreeEndo`, `g_T` — none of them occurs in
   any statement below.
 * `[IsAlgClosed F]`.  Deliberately absent: this half is true over any field, and the hypothesis

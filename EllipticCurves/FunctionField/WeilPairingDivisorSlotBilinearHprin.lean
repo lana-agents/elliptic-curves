@@ -8,7 +8,7 @@ import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear
 /-!
 # Divisor-slot bilinearity over an ARBITRARY field, with `hprin` the only gate (rung 6)
 
-`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#856`) proves that for a fixed
+`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`) proves that for a fixed
 `n`-torsion translation point `P` the Weil pairing is multiplicative in its **divisor** slot,
 
 ```
@@ -19,14 +19,22 @@ with no hypothesis beyond the setting — over an algebraically closed field.  *
 that `[IsAlgClosed F]` from all four of its headlines**, at the cost of the single hypothesis
 `hprin` and of nothing else.
 
+⚠️ **Every reference to that twin in this file used to read `#856` — twelve times — and `#856` is
+not an issue of this project at all.**  The twin is `#861`, per the commit that created it.  ⚠️ A
+number that resolves to *nothing* is the easier half of this defect; the harder half is next door,
+where `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependentHprin` cited its own
+twin as `#868` — a real issue about something else.  Neither is visible to an identifier check, to
+`#print axioms` or to the build: **the module name was right in every one of the twenty-three
+sentences, and only the number was wrong.**
+
 ## Where the instance came from, which is the only question that mattered
 
-⚠️ `#856` names its own gate, in its own docstring, and the sentence is the whole plan of this file:
+⚠️ `#861` names its own gate, in its own docstring, and the sentence is the whole plan of this file:
 
 > `[IsAlgClosed F]` enters only through `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), that
 > is, only through `hprin`.
 
-That is checkable and was checked: `grep -n IsAlgClosed` over `#856` returns two
+That is checkable and was checked: `grep -n IsAlgClosed` over `#861` returns two
 `variable [IsAlgClosed F]` lines and six uses, all of them the rung-5 producer applied at `S`, `T`
 and `R` inside the two `weilPairingElt` headlines.  The two `weilPairingMu` headlines call it
 nowhere — they consume the `weilPairingElt` ones.
@@ -36,7 +44,7 @@ The replacement is `exists_gS_{two,three}` itself
 takes `hprin`; `EllipticCurves.FunctionField.PullbackPrincipalityTwo` derives the `F̄` corollary
 from it in one term.  So the edit is six call sites,
 `exists_gS_two_of_isAlgClosed h2 hS hmS` ↦ `exists_gS_two h2 hS hmS (hprin hS hmS)`, and each body
-is otherwise its `#856` twin's transcribed.  ⚠️ **Nothing about curves is proved here.**
+is otherwise its `#861` twin's transcribed.  ⚠️ **Nothing about curves is proved here.**
 
 ⚠️ **No second instance is incurred, and this is the one place the trade could have been bad.**
 `exists_gS_two` carries `[IsDedekindDomain W.CoordinateRing]`, which reads like swapping one gate
@@ -54,14 +62,22 @@ Neither appears in any statement below.
 
 `hprin` produces a witness, so it does not descend.  Over `F̄` it is discharged by
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and `exists_nsmul_divisor_eq_divisor_mulByThreeEndo`;
-over a general field it is open, and with this file it is the only thing between this tree and the
-whole of rung 6 over an arbitrary field — alternating (`#899`), antisymmetry with roots produced
-(`#907`) and supplied (`#910`), and now bilinearity.
+over a general field it is open, and with this file it is the only thing between this tree and
+**four named rung-6 families** over an arbitrary field: alternating (`#899`), antisymmetry with
+roots produced (`#907`) and supplied (`#910`), and now divisor-slot bilinearity.
+
+⚠️ **That sentence used to say *"the whole of rung 6 over an arbitrary field"*, and a completeness
+claim needs its domain stated.**  The domain is those four families and, since `#913`, the
+translation slot — and no more.  **Non-degeneracy is not among them and is not a lift**:
+`EllipticCurves.FunctionField.WeilPairing`'s scope section records that it carries a second,
+independent `[IsAlgClosed F]` through `card_torsion_two`, and that against `E(F)[n]` over a
+non-closed `F` it is *false*, so there is nothing there for `hprin` to be the last gate of.  The
+undomained form of this sentence is the one `#923` was filed to correct.
 
 ## On the name shape
 
 The names below are the twin's with `_of_hprin` appended, so `…_divisorSlot_add_two_of_hprin`, the
-index staying where `#856` puts it.  ⚠️ This is deliberate and is the first file written after the
+index staying where `#861` puts it.  ⚠️ This is deliberate and is the first file written after the
 review of `#910` settled the rule on the record: **"mirror your twin" wins while every `_of_hprin`
 file has a twin**, because the only reader who cares where the qualifier sits is the one holding
 the two statements side by side.  `#907` writes `…_of_hprin_two` for the same reason — its twin
@@ -74,7 +90,7 @@ At `n = 2` and `n = 3`, in the function field and in `μ_n(F)`:
 * `WeierstrassCurve.Affine.exists_weilPairingElt_divisorSlot_add_{two,three}_of_hprin`;
 * `WeierstrassCurve.Affine.exists_weilPairingMu_divisorSlot_add_{two,three}_of_hprin`.
 
-⚠️ As in `#856`, `P` is a **fourth** point, a priori independent of `S`, `T` and `R`, and its
+⚠️ As in `#861`, `P` is a **fourth** point, a priori independent of `S`, `T` and `R`, and its
 `n`-torsion is genuinely needed — it is what makes `e_n(P, c · [n]∗k) = 1`.  `R`'s torsion is
 **derived** from `hadd` and never assumed.  In the `μ_n(F)` statements the three `hpow` data are
 produced rather than assumed, from the rung-5 certificates the envelope already carries.
@@ -89,9 +105,9 @@ and their rung-5 certificates as *hypotheses*, so a block could only have restat
 headlines take no root data at all** — their hypotheses are `h2`, four nonsingular points, three
 torsion memberships and `hadd` — so over `ℚ` everything but `hprin` is discharged concretely, and
 the block demonstrates exactly the claim the title makes.  Both `n` are certified below, over `ℚ`
-itself and not over `AlgebraicClosure ℚ`, which is where `#856`'s own certificates live.
+itself and not over `AlgebraicClosure ℚ`, which is where `#861`'s own certificates live.
 
-Out of scope: discharging `hprin`; any edit to `#856`'s, `#845`'s or `#855`'s statements, none of
+Out of scope: discharging `hprin`; any edit to `#861`'s, `#845`'s or `#855`'s statements, none of
 which are deprecated — their consumers carry `[IsAlgClosed F]` already and gain nothing;
 `WeilPairingDivisorSlotHom`'s bundled `weilPairingMuHom`, which wants a `hpow` datum uniform in the
 slot variable and is a different statement; non-degeneracy; Ward; rung 4.
@@ -121,7 +137,7 @@ with `[IsAlgClosed F]` in place of `hprin`; the conclusion is identical and no o
 added.  The three roots are produced together with their rung-5 certificates, and the root at `R`
 is **exposed**, because divisor-slot bilinearity is a statement about it.
 
-⚠️ No alternating property is consumed, at any of the four points — that is `#856`'s finding, not a
+⚠️ No alternating property is consumed, at any of the four points — that is `#861`'s finding, not a
 new one, and it is why this lift needs nothing from `#899`. -/
 theorem exists_weilPairingElt_divisorSlot_add_two_of_hprin (h2 : (2 : F) ≠ 0)
     {xP yP xS yS xT yT xR yR : F} (hP : W.Nonsingular xP yP) (hS : W.Nonsingular xS yS)
@@ -167,7 +183,7 @@ data: they are bound existentially because `weilPairingMu` is indexed by the *pr
 `weilPairingElt_pow_eq_one_of_gS_two_torsion` (`TranslationTorsion`) applied at `P` with each root.
 
 ⚠️ The `μ_n` index `n` is free and is not tied to the `2`-torsion of the four points; that is
-`#856`'s arrangement, unchanged. -/
+`#861`'s arrangement, unchanged. -/
 theorem exists_weilPairingMu_divisorSlot_add_two_of_hprin (h2 : (2 : F) ≠ 0)
     {xP yP xS yS xT yT xR yR : F} (hP : W.Nonsingular xP yP) (hS : W.Nonsingular xS yS)
     (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
@@ -367,7 +383,7 @@ deliberately shipped no certificate.  `#910`'s headlines take the roots and thei
 certificates as *hypotheses*, so a block there could only have restated them.  These headlines take
 **no root data at all** — `h2`, four nonsingular points, three torsion memberships and `hadd` — so
 over `ℚ` every hypothesis but `hprin` is discharged concretely, and each certificate below
-restates the headline's conclusion **in full**, rung-5 conjuncts included.  ⚠️ `#856`'s own
+restates the headline's conclusion **in full**, rung-5 conjuncts included.  ⚠️ `#861`'s own
 certificates live over `AlgebraicClosure ℚ`, where `AlgClosedRecovery` already applies; these do
 not.
 
@@ -390,7 +406,7 @@ leaving the file green.
 are pairwise distinct.  The translation point is `P = S`: the curve has no fourth `2`-torsion point
 to name and `P` is a free variable of the headline.  At `n = 3` on `y² + y = x³` the only nameable
 `3`-torsion points are `(0, 0)` and its negative `(0, −1)`, so `P = S = T = (0, 0)` and
-`R = (0, −1)` is forced — the limitation is `#856`'s, inherited and stated rather than repaired.
+`R = (0, −1)` is forced — the limitation is `#861`'s, inherited and stated rather than repaired.
 
 ⚠️ **Every `by convert` below is load-bearing, and there are twenty — five per certificate.**
 `ℚ` has a genuine `DecidableEq` instance, so anything stated over `ℚ` is indexed by

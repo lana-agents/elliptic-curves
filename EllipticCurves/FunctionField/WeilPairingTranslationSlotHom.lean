@@ -113,11 +113,27 @@ arbitrary field.
 
 Out of scope: **combining the two slots** into a pairing on `W.Point × W.Point` — `#873` records
 that as a separate design question and it stays one, since the divisor slot is a slot of
-`weilPairingElt`, which takes a *function* and not a point.  **Non-degeneracy as a statement about
-this map** (`weilPairingTorsionMuHom ≠ 1`), the obvious next corollary, which wants
-`WeilPairingNondegenerateMu`'s six headlines as input and its own issue.  General `n` (`#404`'s
-`ωₙ`); `hprin` over a general field, open at both `n`.  Nothing existing is renamed or reproved:
-this module is purely additive.
+`weilPairingElt`, which takes a *function* and not a point.  General `n` (`#404`'s `ωₙ`); `hprin`
+over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
+purely additive.
+
+⚠️ **The out-of-scope list in this `## Scope` section used to open with one more entry, and that
+entry was filed and delivered.**  It read *"**Non-degeneracy as a statement about this map**
+(`weilPairingTorsionMuHom ≠ 1`), the obvious
+next corollary, which wants `WeilPairingNondegenerateMu`'s six headlines as input and its own
+issue."*  The issue is `#893`, and it is
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate`:
+`weilPairingTorsionMuHom_{two,three}_ne_one`, the proper-kernel form
+`ker_weilPairingTorsionMuHom_{two,three}_ne_top`, and the Silverman III.8.1(d) converse
+`eq_zero_of_weilPairingTorsionMuHom_{two,three}_eq_one`.  ⚠️ The prediction was right about the
+input — that file consumes exactly `WeilPairingNondegenerateMu`'s headlines — and right that it
+belonged in its own module, which is why nothing here changed when it landed.
+
+⚠️ **Injectivity of the same map is a different statement and is not merely open**: it is false,
+and `not_injective_weilPairingTorsionMuHom_{two,three}`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective`) is the refutation, off
+`#E[n] = n²` against `#μ_n(F̄) = n`.  Non-degeneracy is `≠ 1`; it is not injectivity, and the two
+are not steps of one ladder.
 
 ## Placement
 

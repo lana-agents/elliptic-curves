@@ -12,13 +12,24 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHom
 Two rung-6 fronts are confined to `F̄` by the same single input, and this file lifts both off it:
 
 * **translation-slot bilinearity**, `e_n(R, g) = e_n(P, g) · e_n(Q, g)` for `P ⊕ Q = R`
-  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#861`), at the `F(W)` level
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`), at the `F(W)` level
   and in `μ_n(F)`;
 * the **bundled homomorphism** `e_n(S, ·) : E[n] → μ_n(F)`
-  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`, `#873`).
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`, `#890`).
 
 All six headlines lose `[IsAlgClosed F]` and gain the single hypothesis `hprin` — the principality
 of `[n]∗(S)` at the divisor point — and nothing else.
+
+⚠️ **Both twins were cited by the wrong issue number throughout this file, consistently and by one
+place.**  `WeilPairingTranslationSlotBilinear` read `#861`, which is the *divisor*-slot file, and
+`WeilPairingTranslationSlotHom` read `#873`, which is the translation-slot *bilinearity* file; the
+`…_ne_one` pair read `#890`, which is the bundling.  The correct numbers, from the commits that
+created them, are `#873`, `#890` and `#893`, and they are what this file now uses.  ⚠️ **A shifted
+citation is worse than a dangling one**: every number resolved, to a real neighbouring issue on the
+same front, so nothing mechanical could object — and a reader following one arrived at a file whose
+subject matter was close enough to look right.  The one surviving `#861` is deliberate and correct:
+*"Contrast `#861`'s divisor-slot sibling"* in the non-vacuity section really does mean
+`WeilPairingDivisorSlotBilinear`.
 
 ## Why it is a substitution and not an argument
 
@@ -100,10 +111,10 @@ than a nested `namespace`.  ⚠️ `#903`: the build resolves either spelling fr
 opens `CoordinateRing`, so only `#print axioms` on the **fully qualified** name — and negatively on
 the `…CoordinateRing.…` one — checks this.
 
-⚠️ **The twins did not all start out here, and the history is the point.**  `#861`'s four were
-already in `WeierstrassCurve.Affine`; `#873`'s two `exists_weilPairingTorsionMuHom_{two,three}` were
+⚠️ **The twins did not all start out here, and the history is the point.**  `#873`'s four were
+already in `WeierstrassCurve.Affine`; `#890`'s two `exists_weilPairingTorsionMuHom_{two,three}` were
 inside `namespace CoordinateRing`, so when this file landed it held the *only* two twin-namespace
-mismatches in the tree.  `#918` moved those two — and `#890`'s `…_ne_one` pair with them, since
+mismatches in the tree.  `#918` moved those two — and `#893`'s `…_ne_one` pair with them, since
 splitting a family from its own non-degeneracy statement would only have relocated the mismatch —
 and generalised `#903`'s protocol into a check that runs over every module at once:
 
@@ -127,7 +138,7 @@ Out of scope: discharging `hprin`; the **divisor**-slot family
 (`WeilPairingDivisorSlotBilinear`), which produces roots at three points and so wants `#907`'s
 quantified shape; general `n` (`#404`'s `ωₙ`); rung 4; non-degeneracy, where `[IsAlgClosed F]` is
 genuinely load-bearing and enters twice (`WeilPairingNondegenerateTwo:81`).  Nothing here edits
-`#861`'s or `#873`'s statements or proofs, and the `_of_isAlgClosed` forms are **not** deprecated:
+`#873`'s or `#890`'s statements or proofs, and the `_of_isAlgClosed` forms are **not** deprecated:
 their consumers carry `[IsAlgClosed F]` already and would gain nothing, the judgement `#903`, `#907`
 and `#910` all reached.
 
@@ -159,7 +170,7 @@ Two blocks, and they answer different questions:
 statements: on `y² + y = x³` only `(0, 0)` and its negative `(0, −1)` are nameable —
 `Ψ₃ = 3X(X³ + 1)`, and the `X = −1` fibre is `y² + y + 1 = 0`, whose roots are primitive cube roots
 of unity — so `P = Q = S` is forced, and the certificate would exhibit strictly less than the
-`n = 2` one while reading as more.  `#861` records the same limitation for its own `F̄`
+`n = 2` one while reading as more.  `#873` records the same limitation for its own `F̄`
 certificate; it is stated, not repaired.
 
 ## References
@@ -182,7 +193,7 @@ open Classical in
 e_2(R, g) = e_2(P, g) · e_2(Q, g),     for  P ⊕ Q = R.
 ```
 
-`exists_weilPairingElt_translatePoint_add_two` (`#861`) verbatim, with
+`exists_weilPairingElt_translatePoint_add_two` (`#873`) verbatim, with
 `exists_gS_two_of_isAlgClosed` replaced by `exists_gS_two` (`NthRootOfPullback`) and `hprin`
 threaded.
 
@@ -223,7 +234,7 @@ only gate.**
 μ_n(R, g) = μ_n(P, g) · μ_n(Q, g)   in rootsOfUnity n F.
 ```
 
-`exists_weilPairingMu_translatePoint_add_two` (`#861`) verbatim, with the root producer swapped.
+`exists_weilPairingMu_translatePoint_add_two` (`#873`) verbatim, with the root producer swapped.
 The three `hpow` data are bound existentially because `weilPairingMu` is indexed by the *proof*, and
 they are **produced** — not assumed — from the single rung-5 certificate the envelope already
 carries, by `weilPairingElt_pow_eq_one_of_gS_two_torsion` (`TranslationTorsion`) at each of `P`,
@@ -270,7 +281,7 @@ open Classical in
 /-- **`e_2(S, ·) : E[2] → μ_2(F)` is a group homomorphism over an arbitrary field, with `hprin` the
 only gate.**
 
-`exists_weilPairingTorsionMuHom_two` (`#873`) verbatim, with the root producer swapped.  ⚠️ The
+`exists_weilPairingTorsionMuHom_two` (`#890`) verbatim, with the root producer swapped.  ⚠️ The
 whole of `E[2]` is the domain, named as a group rather than point by point, so this is the one
 headline here whose statement constrains a single point — the divisor point `S`, which is also the
 only point `hprin` mentions. -/
@@ -398,7 +409,7 @@ exactly like `hprin` from the outside, and this is what distinguishes the two.
 binder shorter than `#907`'s `fun h hm _ hf hd => …`, which is the point-local shape showing
 through.
 
-They also show that `#861`'s and `#873`'s headlines are **subsumed** by this file's.  That is not a
+They also show that `#873`'s and `#890`'s headlines are **subsumed** by this file's.  That is not a
 reason to deprecate them: their consumers all carry `[IsAlgClosed F]` already and would gain
 nothing. -/
 
@@ -509,7 +520,7 @@ end AlgClosedRecovery
 
 /-! ### Non-vacuity, over a field that is NOT algebraically closed
 
-⚠️ The base field below is **`ℚ`**, so neither `#861`'s nor `#873`'s headline nor the
+⚠️ The base field below is **`ℚ`**, so neither `#873`'s nor `#890`'s headline nor the
 `AlgClosedRecovery` block above applies to it, and `hprin` is the only hypothesis left over.
 
 `y² = x³ − x` has **three** rational `2`-torsion points, `(0, 0)`, `(1, 0)` and `(−1, 0)`, and
