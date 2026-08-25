@@ -124,9 +124,16 @@ Only `#692`'s divisor half remains open, and nothing on the alternating front wa
   supplies a point `P` with `[3]P = T`, and it costs no more hypotheses than the `n = 2` one, since
   `#690` found that `(3 : F) ≠ 0` is not needed — only `h2 : (2 : F) ≠ 0`, exactly as
   `exists_nsmul_two_eq` above.  Step B at `n = 3` is merged as well
-  (`WeilPairingTelescopeThree`, `#712`).  What is genuinely left at `n = 3` is step A, the general
-  commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗` for `[3]P = T` (`#713`), plus `hprin` — the same `#418`
-  gate as at `n = 2`, unchanged and blocking both.
+  (`WeilPairingTelescopeThree`, `#712`).  ⚠️ **And so is the rest of it.**  This bullet used to end
+  *"What is genuinely left at `n = 3` is step A, the general commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗`
+  for `[3]P = T` (`#713`), plus `hprin` — the same `#418` gate as at `n = 2`, unchanged and blocking
+  both."*  Step A is `translateEndo_mulByThreeEndo_apply_general`
+  (`EllipticCurves.FunctionField.TranslationTriplingCommGeneral`); `hprin` is discharged over `F̄`
+  at `n = 3` by `EllipticCurves.FunctionField.PullbackPrincipalityThree` (`#825`); and the assembly
+  those two were the last inputs to is
+  `EllipticCurves.FunctionField.WeilPairingAlternatingThree` (`#719`), hypothesis-free over `F̄` in
+  `…WeilPairingAlternatingThreeAlgClosed` (`#829`).  ⚠️ `hprin` over a **general** field is what is
+  still open, at both `n` alike, and it is not an `n = 3` asymmetry.
 * The `τ_O` half of that sentence, stated precisely, because it is easy to over-read.  In the
   second product `∏_i τ_{[i]P}∗ g_T` the `i = 0` factor is `τ_O`, and that alone is what
   `translatePointEndo` (`#689`) is for; whether it is *needed* depends only on whether the product

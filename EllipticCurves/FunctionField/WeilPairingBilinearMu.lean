@@ -62,8 +62,17 @@ only the production of `g_{S ⊕ S'} = g_S · g_{S'} · w` still carried as a hy
 only, never rung 4, and performed in `WeilPairingProductRelation`, `#845`; the issues below name
 #414/#418); their `μ_n` lift is merged as `WeilPairingAntisymmetricMu` (#733), by the same descent
 through `algebraMap_coe_rootsOfUnity_injective` used below.  Alternating `e_n(S, S) = 1` and
-Galois-equivariance remain separate/gated #419 sub-items; non-degeneracy is out of scope and is
-**not** Ward-gated — `WeilPairing`'s scope section is the canonical account of it (#769).
+Galois-equivariance are separate #419 sub-items and are not here; non-degeneracy is out of scope and
+is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of it (#769).
+
+⚠️ **That sentence used to call those two *"separate/gated"* sub-items, and neither is gated any
+longer.**  Alternating is merged at both `n` over `F̄`
+(`WeilPairingAlternating{Two,Three}AlgClosed`) and over an arbitrary field with `hprin`
+(`WeilPairingAlternatingBaseChange`, `#899`);
+Galois-equivariance is merged at the `μ_n(F)` level with nothing carried
+(`exists_weilPairingMu_galois_{two,three}`, `WeilPairingGaloisRoot`, `#859`), and as an equation on
+the pairing *function* in `WeilPairingFunctionGalois` (`#936`).  **Separate they remain; gated they
+are not**, and the single word carried the whole difference.
 
 ⚠️ **The theorem below is instantiated.**  `exists_weilPairingMu_translatePoint_add_{two,three}`
 (`EllipticCurves.FunctionField.WeilPairingTranslationSlotBilinear`, `#873`) apply it over `F̄` at

@@ -48,9 +48,35 @@ definition of `e_n(S, T)`, its non-vanishing, and the `μ_n`-membership `e_n ^ n
 * `hcomm : translateEndo h₂ ([n]∗ f_S) = [n]∗ f_S` (the `[n](P + T) = [n]P` commuting identity),
 * `huf`   : `translateEndo h₂` fixes the unit `u`  (the unit `u` of `F[W]` is a constant),
 
-both of which are genuine rational-function identities carried here as hypotheses, to be discharged
-by a follow-on.  Everything else — the definition, non-vanishing, the `n`-th-root-of-unity property,
-and the cancellation reducing the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` — is unconditional.
+both of which are genuine rational-function identities carried here as hypotheses.  Everything else
+— the definition, non-vanishing, the `n`-th-root-of-unity property, and the cancellation reducing
+the two inputs to `τ_T∗(g_S ^ n) = g_S ^ n` — is unconditional.
+
+⚠️ **Both named inputs are discharged, and the sentence that stood here promised otherwise.**  It
+ended *"carried here as hypotheses, **to be discharged by a follow-on**"*.  It entered on
+2026-08-10 and every follow-on it promised had landed within six days:
+
+* **`huf` is discharged in this file**, by `translateEndo_algebraMap_unit` (2026-08-15) — a unit of
+  `F[W]` is a nonzero constant and `translateEndo` is an `F`-algebra map, so the discharge is
+  unconditional in `u`.  The `hcomm`-only forms `weilPairingElt_pow_eq_one_of_gS_{two,three}'`
+  already consume it, and its own docstring says which hypothesis it retires;
+* **`hcomm` is discharged at both `n` from a torsion hypothesis** (2026-08-15/16) —
+  `translateEndo_mulByTwoEndo_apply` (`EllipticCurves.FunctionField.TranslationDoublingComm`) and
+  `translateEndo_mulByThreeEndo_apply` (`EllipticCurves.FunctionField.TranslationTriplingComm`),
+  with the general `[n]P = T` forms in the `…CommGeneral` modules beside them.
+
+⚠️ **`huf`'s discharge is a declaration of this very file, landed by a PR on this very issue
+`#419`** — so a reader of this paragraph learned the opposite of what
+`translateEndo_algebraMap_unit`, further down this file, states in its own docstring.  And the
+citation runs one way only:
+`TranslationDoublingComm` opens by quoting this hypothesis block as the thing it discharges, while
+this paragraph named neither discharger.  No build can object to either half.
+
+⚠️ **The hypothesis-taking forms are not superseded and are not deprecated.**  Carrying `hcomm` and
+`huf` is what lets a caller supply its own datum, and `WeilPairingRootIndependence` and the
+`WeilPairingConstant` layer consume them in exactly that shape.  What was wrong was *"to be
+discharged by a follow-on"*, not *"carried here as hypotheses"*.  ⚠️ And the general-`n` `hcomm`
+still has no case at all: it would need `mulByNEndo`, which does not exist (`#404`'s `ωₙ`).
 
 ## Explicitly out of scope (as issue #419 records)
 

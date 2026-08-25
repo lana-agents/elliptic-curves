@@ -153,8 +153,16 @@ weilPairingElt h₂ g = 1 ↔ translateEndo h₂ g = g.
 ```
 
 This is the Ward- and normality-independent reduction of the alternating property to the single
-geometric fact `τ_T∗ g_T = g_T`; the latter is discharged by the product-over-`⟨T⟩` /
-divisor-telescoping argument (#465 deliverable 2), which is gated on the divisor calculus. -/
+geometric fact `τ_T∗ g_T = g_T`, which the product-over-`⟨T⟩` / divisor-telescoping argument
+(#465 deliverable 2) supplies.
+
+⚠️ **That argument has been run**, at `n = 2` in
+`EllipticCurves.FunctionField.WeilPairingAlternatingTwo` and at `n = 3` in
+`EllipticCurves.FunctionField.WeilPairingAlternatingThree`, with `hprin` discharged over `F̄` in
+the two `…AlgClosed` files and the `[IsAlgClosed F]` removed again over an arbitrary field by
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`.  This sentence used to end
+*"which is gated on the divisor calculus"*; the reduction below is unchanged and still ungated, but
+what it reduces to is no longer open at either `n`. -/
 theorem weilPairingElt_eq_one_iff_translateEndo_fixed {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {g : W.FunctionField} (hg : g ≠ 0) :
     weilPairingElt h₂ g = 1 ↔ translateEndo h₂ g = g := by
@@ -165,8 +173,15 @@ theorem weilPairingElt_eq_one_iff_translateEndo_fixed {x₂ y₂ : F} (h₂ : W.
 `e_n(T, T) = τ_T∗(g_T) / g_T = g_T / g_T = 1`.
 
 The forward direction of `weilPairingElt_eq_one_iff_translateEndo_fixed`; the hypothesis `htinv` is
-the single genuinely-gated input, to be discharged by the product-over-`⟨T⟩` argument
-(#465 deliverable 2). -/
+the single carried input, and the product-over-`⟨T⟩` argument (#465 deliverable 2) is what supplies
+it.
+
+⚠️ *"to be discharged by"* is what this sentence used to say, and it is discharged:
+`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed` and
+`…WeilPairingAlternatingThreeAlgClosed` produce `τ_T∗ g_T = g_T` over `F̄` with no hypothesis
+beyond the setting, and `…WeilPairingAlternatingBaseChange` does it over an arbitrary field with
+`hprin`.  Keeping `htinv` as a hypothesis here is still right — a caller holding its own root
+applies this — but nobody is waiting on it. -/
 theorem weilPairingElt_self_of_translateEndo_fixed {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {g : W.FunctionField} (hg : g ≠ 0) (htinv : translateEndo h₂ g = g) :
     weilPairingElt h₂ g = 1 :=

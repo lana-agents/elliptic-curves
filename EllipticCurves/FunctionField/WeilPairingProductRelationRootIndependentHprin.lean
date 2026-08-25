@@ -9,7 +9,7 @@ import EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent
 /-!
 # Antisymmetry for supplied roots over an ARBITRARY field, with `hprin` the only gate (rung 6)
 
-`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent` (`#868`) states
+`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent` (`#854`) states
 antisymmetry
 
 ```
@@ -21,14 +21,21 @@ consumer holding a root from elsewhere can actually apply.  It does so over an a
 field.  **This file removes that `[IsAlgClosed F]` from all eight of its headlines**, at the cost of
 the single hypothesis `hprin` and of nothing else.
 
+⚠️ **Every reference to that twin in this file used to read `#868` — eleven times — and `#868` is a
+different issue**: the one that moved the two `μ_n` descent lemmas next to the theorems they
+generalise.  The twin is `#854`, per the commit that created it.  ⚠️ **Existence is not resolution,
+and an issue number is where that bites hardest**: `#868` resolves, to real and adjacent work on
+this same front, so no identifier check and no build can see the mistake — only opening the issue
+can.
+
 ## Where the instance came from, which is the only question that mattered
 
 ⚠️ `#907`'s delivery note predicted this file would need *"a different substitution with a different
-justification"*, on the grounds that `#868` reaches a caller's root through
+justification"*, on the grounds that `#854` reaches a caller's root through
 `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` rather than through the alternating property.
 **The route claim is right and the conclusion drawn from it was wrong.**  That lemma carries no
-`[IsAlgClosed F]` and no torsion hypothesis — `#868`'s docstring says so — so it was never the gate.
-The instance enters `#868` in exactly one way: its headlines call `#845`'s
+`[IsAlgClosed F]` and no torsion hypothesis — `#854`'s docstring says so — so it was never the gate.
+The instance enters `#854` in exactly one way: its headlines call `#845`'s
 `exists_weilPairingElt_mul_swap_eq_one_{two,three}`, which `#907` has since generalised.
 
 The lesson, recorded here because a reader of this file is the person who will next need it:
@@ -36,16 +43,16 @@ The lesson, recorded here because a reader of this file is the person who will n
 plus a glance at which declarations sit below each `variable [IsAlgClosed F]` line answers it in a
 minute; reasoning about proof routes answered it wrongly.
 
-⚠️ **Nothing about curves is proved here.**  Each body is its `#868` twin's, transcribed, with one
+⚠️ **Nothing about curves is proved here.**  Each body is its `#854` twin's, transcribed, with one
 call swapped — `exists_weilPairingElt_mul_swap_eq_one_{two,three}` becomes
 `…_of_hprin_{two,three}` with `hprin` threaded through.  A reader should check this file by putting
 the two side by side; the normalised diff is the intended review.
 
 ## ⚠️ On the name shape, which deliberately does not match `#907`
 
-`#868` suffixes as `…_two_of_isAlgClosed` — the `_two` **before** the qualifier — while `#907`
-writes `…_of_hprin_two`, with it after.  The names below follow **`#868`**, giving
-`…_two_of_hprin`, because they sit beside `#868`'s and a reader comparing the two families wants the
+`#854` suffixes as `…_two_of_isAlgClosed` — the `_two` **before** the qualifier — while `#907`
+writes `…_of_hprin_two`, with it after.  The names below follow **`#854`**, giving
+`…_two_of_hprin`, because they sit beside `#854`'s and a reader comparing the two families wants the
 shapes to line up.  Both spellings are consistent with the `## Naming` section of
 `EllipticCurves.FunctionField.WeilPairing`, which constrains what `_two`/`_three` *mean* and not
 where they sit.
@@ -70,7 +77,7 @@ At `n = 2` and `n = 3`, in the function field and in `μ_n(F)`:
 
 ⚠️ In the `μ_n(F)` statements the index `n` is the index of the **value group** and is not tied to
 the torsion of `S` and `T`; the two `hpow` data are hypotheses because `weilPairingMu` is indexed by
-the *proof*.  That is `#868`'s arrangement, unchanged.
+the *proof*.  That is `#854`'s arrangement, unchanged.
 
 On placement: everything is in `WeierstrassCurve.Affine`, with `open CoordinateRing` rather than a
 nested `namespace`.  ⚠️ `#903`: only `#print axioms` on the **fully qualified** name checks that.
@@ -80,7 +87,7 @@ nested `namespace`.  ⚠️ `#903`: only `#print axioms` on the **fully qualifie
 Every other file on this front ends with a certificate over a concrete curve.  This one does not,
 deliberately.
 
-`#868`'s certificates *produce* their roots, from `exists_gS_{two,three}_of_isAlgClosed` — a route
+`#854`'s certificates *produce* their roots, from `exists_gS_{two,three}_of_isAlgClosed` — a route
 that exists only over `F̄`, so it cannot be copied here.  What is left to certify over `ℚ` is the
 **point-side** configuration: three pairwise-distinct rational `n`-torsion points with `S ⊕ T = R`.
 ⚠️ `EllipticCurves.FunctionField.WeilPairingProductRelationHprin` (`#907`) already certifies exactly
@@ -97,7 +104,7 @@ non-vacuity block" is otherwise indistinguishable from an oversight.**
 
 Out of scope: discharging `hprin`, which is existence-shaped and never descends (`#899`'s test — is
 the obstruction used to prove an equality, or to produce a witness?); any edit to `#845`'s, `#855`'s
-or `#868`'s statements, none of which are deprecated, their consumers already carrying
+or `#854`'s statements, none of which are deprecated, their consumers already carrying
 `[IsAlgClosed F]`; non-degeneracy; Ward; rung 4.
 -/
 

@@ -59,20 +59,38 @@ maps back to its `weilPairingElt` via `algebraMap_coe_weilPairingMu` (#457); the
 ## Scope
 
 Ward-, normality- and rung-4-independent: needs only `[Field F] [W.IsElliptic]` and the
-root-of-unity data (already delivered).  The single genuinely-gated input remains the
-translation-invariance `τ_T∗ g_T = g_T`, carried as an explicit hypothesis exactly as in the
-`F(W)`-level reduction (#465, deliverable 2 — the product-over-`⟨T⟩` / divisor-telescoping
-discharge, gated on the divisor calculus).  Antisymmetry (`e_n(T, S) = e_n(S, T)⁻¹`) is *not*
+root-of-unity data (already delivered).  The single carried input is the translation-invariance
+`τ_T∗ g_T = g_T`, taken as an explicit hypothesis exactly as in the `F(W)`-level reduction
+(#465, deliverable 2 — the product-over-`⟨T⟩` / divisor-telescoping discharge).  ⚠️ That
+parenthesis used to end *"gated on the divisor calculus"*; the discharge has been run at both `n`
+over `F̄` (`WeilPairingAlternating{Two,Three}AlgClosed`) and over an arbitrary field with `hprin`
+(`WeilPairingAlternatingBaseChange`), so the hypothesis is carried by design and not by blockage.
+Antisymmetry (`e_n(T, S) = e_n(S, T)⁻¹`) is *not*
 among what remains: it and the divisor-slot bilinearity it runs on are merged at the `F(W)` level
 as `WeilPairingAntisymmetric` (#723), and their `μ_n` lift — the same descent performed here — is
 merged as `WeilPairingAntisymmetricMu` (#733).  Both need `[Field F] [W.IsElliptic]` and nothing
 more, with only the production of `g_{S ⊕ T} = g_S · g_T · w` still carried as a hypothesis
 — ⚠️ **rung 5 only, never rung 4**, and performed in `WeilPairingProductRelation` (#845).
 The divisor slot is moreover bundled as a homomorphism into `μ_n(F)` in
-`WeilPairingDivisorSlotHom` (#746).  What remains at the `μ_n` level is Galois-equivariance
-(#456), the same bundling in the *translation* slot (which needs a datum uniform in the
-translation point, a genuinely different statement), and non-degeneracy — which is **not**
-Ward-gated; `WeilPairing`'s scope section is the canonical account of what it consumes (#769).
+`WeilPairingDivisorSlotHom` (#746).
+
+⚠️ **This paragraph used to close with a list of what was left at the `μ_n` level, and all three
+entries have landed.**  It read *"What remains at the `μ_n` level is Galois-equivariance (`#456`),
+the same bundling in the *translation* slot …, and non-degeneracy"*:
+
+* Galois-equivariance in `μ_n(F)` — `exists_weilPairingMu_galois_{two,three}`
+  (`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, `#859`), with the two `hpow` produced;
+* the translation-slot bundling — `weilPairingTorsionMuHom_{two,three}`
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`, `#890`).  ⚠️ The parenthesis was
+  right about *why* it is a different statement: the datum had to become a **membership**, and
+  `weilPairingPointSubgroup` is what makes it one;
+* non-degeneracy in `μ_n(F)` — `exists_gS_{two,three}_weilPairingMu_ne_one`
+  (`EllipticCurves.FunctionField.WeilPairingNondegenerateMu`, `#878`), over `F̄`.
+
+⚠️ **State the position, never a tally**: what is left over `F̄` is not a shorter list but `hprin`
+over a **general** field (`#962`) and general `n` (`#404`'s `ωₙ`).  Non-degeneracy is still **not**
+Ward-gated; `WeilPairing`'s scope section is the canonical account of what it consumes (#769), and
+over a non-closed field it is not merely unproved — see that account.
 
 ## References
 
@@ -118,8 +136,14 @@ translation `τ_T∗` fixes the rung-5 root `g_T` (`htinv : translateEndo h₂ g
 `μ_n(F)`-packaged Weil-pairing element `weilPairingMu(T, T)` is the group identity `1`.
 
 The forward direction of `weilPairingMu_eq_one_iff_translateEndo_fixed`; the hypothesis `htinv` is
-the single genuinely-gated input, to be discharged by the product-over-`⟨T⟩` argument
-(#465 deliverable 2). -/
+the single carried input, and the product-over-`⟨T⟩` argument (#465 deliverable 2) is what supplies
+it.
+
+⚠️ *"to be discharged by"* is what this sentence used to say, and it is discharged — at both `n`
+over `F̄` in `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed` and
+`…WeilPairingAlternatingThreeAlgClosed`, and over an arbitrary field with `hprin` in
+`…WeilPairingAlternatingBaseChange`, whose `exists_weilPairingMu_self_eq_one_of_hprin_{two,three}`
+are the `μ_n(F)` companions of exactly this statement. -/
 theorem weilPairingMu_self_of_translateEndo_fixed {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     {g : W.FunctionField} (hg : g ≠ 0) {n : ℕ} [NeZero n]
     (hpow : weilPairingElt h₂ g ^ n = 1) (htinv : translateEndo h₂ g = g) :
