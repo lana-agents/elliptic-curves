@@ -194,7 +194,7 @@ theorem degDiv_eq_sum (D : HeightOneSpectrum W.CoordinateRing →₀ ℤ) :
 
 namespace CoordinateRing
 
-variable (h2 : (2 : F) ≠ 0) (q : ProjPoint W)
+variable (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (q : ProjPoint W)
 
 /-- **The fundamental identity for `[2]` with the point degrees**, `∑_{p ↦ q} e_p · deg p = 4`.
 
@@ -208,8 +208,6 @@ theorem sum_ramificationIdxTwo_mul_degProjPt :
       (ramificationIdxTwo h2 p).toNat * degProjPt W p = 4 := by
   rw [← sum_ramificationIdxTwo_eq_four h2 q]
   exact Finset.sum_congr rfl fun p _ => by rw [degProjPt_eq_one, mul_one]
-
-variable (h3 : (3 : F) ≠ 0)
 
 /-- **The fundamental identity for `[3]` with the point degrees**, `∑_{p ↦ q} e_p · deg p = 9`.
 
@@ -232,7 +230,8 @@ and `(3 : F) ≠ 0`.  That instance set is strictly stronger than the one
 serve here and a curve over an algebraically closed field is committed instead.
 
 `y² = x³ - x` over `AlgebraicClosure ℚ` is the same equation that file uses for its own headline;
-characteristic zero discharges both nonvanishing hypotheses. -/
+characteristic zero discharges both nonvanishing hypotheses, and both fundamental identities are
+committed on it, at `n = 2` and at `n = 3`. -/
 
 section Nonvacuity
 
@@ -258,13 +257,28 @@ example {f : exampleCurve.FunctionField} (hf : f ≠ 0) :
     (divisorProj exampleCurve f).sum (fun _ n => n) = 0 := by
   rw [← degProj_eq_sum, degProj_divisorProj hf]
 
-/-- Both nonvanishing hypotheses of the fundamental identities hold in characteristic zero, so the
-`∑ e_p · deg p` spelling is committed and not merely stated. -/
+/-- The `n = 2` fundamental identity in the `∑ e_p · deg p` spelling, committed and not merely
+stated: characteristic zero discharges `(2 : F) ≠ 0`. -/
 example (q : ProjPoint exampleCurve) :
     ∑ p ∈ (CoordinateRing.finite_comapProjPointTwo_preimage_singleton
         (W := exampleCurve) two_ne_zero q).toFinset,
       (CoordinateRing.ramificationIdxTwo two_ne_zero p).toNat * degProjPt exampleCurve p = 4 :=
   CoordinateRing.sum_ramificationIdxTwo_mul_degProjPt two_ne_zero q
+
+/-- The `n = 3` mirror, committed on the same curve: characteristic zero discharges `(3 : F) ≠ 0`
+as well, so *both* nonvanishing hypotheses of the two fundamental identities are met.
+
+⚠️ This example is also the regression test for the binder order of
+`sum_ramificationIdxThree_mul_degProjPt`.  It is applied here as `h2 h3 q`, which is the order
+`sum_ramificationIdxThree_eq_nine`, `sum_ramificationIdxThree_mul_residueDegreeThree` and
+`finite_comapProjPointThree_preimage_singleton` all use; an `h2 q h3` signature fails to elaborate
+against it. -/
+example (q : ProjPoint exampleCurve) :
+    ∑ p ∈ (CoordinateRing.finite_comapProjPointThree_preimage_singleton
+        (W := exampleCurve) two_ne_zero (by norm_num) q).toFinset,
+      (CoordinateRing.ramificationIdxThree two_ne_zero (by norm_num) p).toNat
+        * degProjPt exampleCurve p = 9 :=
+  CoordinateRing.sum_ramificationIdxThree_mul_degProjPt two_ne_zero (by norm_num) q
 
 end Nonvacuity
 
