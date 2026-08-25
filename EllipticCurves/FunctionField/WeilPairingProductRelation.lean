@@ -100,7 +100,7 @@ every statement quantified over rung-5 data, and everything at `n = 3`.
 ⚠️ **A caller who already holds a root cannot apply those headlines**, and the `∀ g` forms that
 serve such a caller are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`
 (`#854`), at both `n` and at both levels.  They are *transfers* of the statements here and prove
-nothing new: `weilPairingElt_eq_of_nsmul_divisor_eq` (`WeilPairingRootIndependence`, `#719`) makes
+nothing new: `weilPairingElt_eq_of_nsmul_divisor_eq` (`WeilPairingRootIndependence`, `#724`) makes
 the pairing element depend on its root only through the root's divisor, which the rung-5 relation
 pins, so the roots produced below can simply be exchanged for the caller's.  Moving the roots into
 the hypotheses is not by itself a `W.Point`-level pairing and that file says so too — ⚠️ though it
@@ -122,6 +122,14 @@ does not use and does not advance.
 ⚠️ **The `n = 2` and `n = 3` statements are pinned to `Classical.propDecidable`**, because they
 mention `W.torsion n` and the base-field group law.  The generic layer above is not, and carries
 `[DecidableEq F]` as an ordinary instance argument.
+
+## ⚠️ `WeilPairingRootIndependence` was cited as `#719`; it is `#724`
+
+Corrected in place rather than retired.  That module's creation commit subject is
+*"feat(FunctionField): the Weil-pairing element does not depend on which n-th root is chosen (#724)
+(#296)"*, so the issue is **`#724`**.  `#719` is the `n = 3` alternating assembly `e_3(T, T) = 1`,
+whose module is `WeilPairingAlternatingThree` — real, adjacent, on this same front, and not this
+one.
 
 ## References
 

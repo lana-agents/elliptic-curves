@@ -9,7 +9,7 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate
 /-!
 # `e_n(S, ·) : E[n] → μ_n(F̄)` is **never** injective, at `n = 2` and `n = 3`
 
-`EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate` (`#903`) proves that the
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate` (`#893`) proves that the
 bundled translation slot
 
 ```lean
@@ -102,6 +102,19 @@ and the map *is* injective.  What survives over a general field is the group-the
 for an `F`-rational `S` of order `n` that the `## The proof, and the standard reason it does not
 use` section gives, and that is not formalised.
 
+## ⚠️ Two `#903` citations in this file meant `#893`
+
+Corrected in place, not retired.  `WeilPairingTranslationSlotNondegenerate`'s creation commit reads
+`… (#893) (#357)`, so the module citation at the head of this file and the list of curve sources
+in the non-vacuity section both wanted **`#893`**.  `#903` is the *"only `#print axioms` on the
+fully qualified name checks placement"* protocol issue, whose PR is a namespace and suffix
+refactor of `WeilPairingAlternatingBaseChange` and which certifies no curve — a digit
+transposition that lands on a real issue, which is the more dangerous kind than one that lands on
+nothing.
+
+⚠️ This file was created on 2026-08-25, so the class is not historical residue that a one-time
+sweep drains: the tree was still generating it on the day it was first swept.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1 — non-degeneracy is
@@ -181,7 +194,7 @@ end CoordinateRing
 /-! ### Non-vacuity
 
 A negative headline needs a witness that its hypotheses are satisfiable, or it is a statement about
-the empty set.  The curves are the ones `#845`/`#861`/`#873`/`#890`/`#903` use — `y² = x³ − x` with
+the empty set.  The curves are the ones `#845`/`#861`/`#873`/`#890`/`#893` use — `y² = x³ − x` with
 `S = (0, 0) ∈ E[2]` and `y² + y = x³` with `S = (0, 0) ∈ E[3]`, both over `AlgebraicClosure ℚ` —
 and the rung-5 root and its certificate are produced by `exists_gS_two_of_isAlgClosed` and
 `exists_gS_three_of_isAlgClosed`, so nothing is assumed.

@@ -46,7 +46,7 @@ statements below is the first sentence of this section on its own.
 ⚠️ **Neither is antisymmetry, and `#854` predicted that it was.**  The `∀ g` antisymmetry headlines
 (`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`) reach a root that
 arrives from elsewhere by a different mechanism — `weilPairingElt_eq_of_nsmul_divisor_eq`
-(`WeilPairingRootIndependence`, `#719`) makes the pairing element depend on its root only through
+(`WeilPairingRootIndependence`, `#724`) makes the pairing element depend on its root only through
 the root's divisor, so the existential headline's own roots can be exchanged for the caller's after
 the fact.  That file uses nothing from this one.  Recorded here rather than only on the issue
 thread, since a reader of this file would otherwise reasonably expect it to be a consumer.
@@ -122,6 +122,14 @@ cleanly — so **nothing in the mechanics could see it**.  The lesson is not "re
 `#836`'s author had no reason to.  It is that **a PR which repairs a sentence must grep the tree for
 that sentence again after landing**, because every branch already open carries a copy of the old
 one.
+
+## ⚠️ `WeilPairingRootIndependence` was cited as `#719`; it is `#724`
+
+Corrected in place rather than retired.  Its creation commit reads
+`… does not depend on which n-th root is chosen (#724) (#296)`; `#719` is the `n = 3` alternating
+assembly.  ⚠️ The two `#791` citations in this file are **correct** and are deliberately untouched:
+`PullbackPrincipalityTwo` is `#791`, and *"`#791`'s consumer"* attaches the number to that issue
+rather than to the module named next to it.
 
 ## References
 

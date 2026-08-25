@@ -17,7 +17,7 @@ e_n(P, S) · e_n(Q, S) = e_n(P ⊕ Q, S).
 This is the other half of bilinearity from
 `EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear` (`#861`), and it is the last of the
 four slots of `#419` to be instantiated.  Five theorems on `main` state it —
-`weilPairingElt_translatePoint_add{,_of_const}` (`WeilPairingBilinear`, `#450`),
+`weilPairingElt_translatePoint_add{,_of_const}` (`WeilPairingBilinear`, `#419`),
 `weilPairingElt_translatePoint_add_of_pow_eq_one` (`WeilPairingConstant`),
 `weilPairingElt_translatePoint_add_of_baseField` (`WeilPairingBilinearBaseField`, `#451`) and
 `weilPairingMu_translatePoint_add_of_baseField` (`WeilPairingBilinearMu`, `#459`) — and every one
@@ -134,6 +134,16 @@ are nameable — `Ψ₃ = 3X(X³ + 1)`, and the `X = −1` fibre is `y² + y + 1
 primitive cube roots of unity — so `P = Q = S = (0, 0)` and `R = (0, −1)` is forced.  The
 certificate shows the hypotheses are simultaneously satisfiable, which is what it is for; it does
 not exhibit `P ≠ Q`.  Stated, not repaired.
+
+## ⚠️ `WeilPairingBilinear` was cited as `#450`, which is not an issue of this project
+
+Corrected in place rather than retired.  That module's creation commit subject is
+*"feat(FunctionField): bilinearity of the Weil-pairing element in the translation slot (#419, #432
+keystone) (#161)"*, so the issue is **`#419`** — the rung-6 parent this same sentence already names.
+⚠️ `#450` is issue 450 of **project 9 (Formal schemes)**, *"442d: inversion self-product cocycle"*:
+a number can resolve in a *different project*, which is a failure mode a same-project checker
+reports as dangling and never explains.  The `#451` and `#459` in the same sentence were checked and
+are **correct**.
 
 ## References
 

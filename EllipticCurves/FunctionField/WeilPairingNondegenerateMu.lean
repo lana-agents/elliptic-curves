@@ -10,7 +10,7 @@ import EllipticCurves.FunctionField.WeilPairingRootsOfUnity
 /-!
 # Non-degeneracy of the Weil pairing in `μ_n(F)`, unconditionally over `F̄` (rung 6)
 
-`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#791`) and
+`EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
 `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`) prove non-degeneracy as an
 inequation in the function field: some affine `T ∈ E[n]` has `e_n(S, T) ≠ 1` in `F(W)`.  This file
 restates all six of their headlines as inequations in the group `rootsOfUnity n F`, at `n = 2` and
@@ -127,6 +127,18 @@ transposes without change.
 ⚠️ The certificate scaffolding is **duplicated** from the two `F(W)` files rather than imported:
 theirs is `private`, so it is not visible here, and de-`private`-ing it would edit two files this
 one otherwise does not touch.  `#855` set that precedent.
+
+## ⚠️ `WeilPairingNondegenerateTwo` was cited as `#791`; it is `#796`
+
+Corrected in place, not retired.  Its creation commit subject ends *"non-degeneracy of the Weil
+pairing at `n = 2` over an algebraically closed field (#796) (#323)"*; `#791` is
+`exists_gS_two_of_isAlgClosed`'s issue, which this file also cites — correctly — in the docstring
+of `exists_gS_two_weilPairingMu_ne_one`.
+
+⚠️ Note that the *same sentence* cites `WeilPairingNondegenerateThree` as `#831`, which is
+**right**.  So this was not a file-wide copy of one bad number but a single slip inside an
+otherwise correct sentence — a different generating mechanism from a systematic shift, and the
+reason "check the file once and move on" is not a sound strategy either way round.
 
 ## References
 
