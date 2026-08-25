@@ -96,13 +96,32 @@ and `f` the relative residue degree, together with the tower `[κ(v) : F] = f ·
 multiplicativity of `Ideal.natDegreeGenerator`.  Mathlib proves the first step as
 `Ideal.relNorm_eq_pow_of_isMaximal` — ⚠️ **but under `[PerfectField (FractionRing R)]`**, and here
 `R = F[X]`, whose fraction field is `RatFunc F`, which is **not perfect in characteristic `p`**:
-`X` has no `p`-th root in it.  The Galois-hypothesis variant `relNorm_eq_pow_of_isPrime_isGalois`
-wants `IsGalois (RatFunc F) F(W)`, which a Weierstrass extension is not in general.
+`X` has no `p`-th root in it.
 
-⚠️ So the general statement needs either a perfect-base-field restriction or an argument that does
-not factor through `relNorm`.  **Which of those is right is not known here, and this docstring
-deliberately does not predict one** — four sweeps of this tree have been spent retiring sentences
-that named a route and got it wrong.
+⚠️ **This paragraph used to continue** *"The Galois-hypothesis variant
+`relNorm_eq_pow_of_isPrime_isGalois` wants `IsGalois (RatFunc F) F(W)`, which a Weierstrass
+extension is not in general."*  **The quoted clause is false and the number of hypotheses it
+saved was zero.**  `EllipticCurves.FunctionField.NegYGalois` proves
+`WeierstrassCurve.Affine.CoordinateRing.isGalois_ratFunc` — `IsGalois (RatFunc F) F(W)` for every
+elliptic curve over every field, in **every** characteristic — off the hyperelliptic involution
+`ι` of `EllipticCurves.FunctionField.NegYInvolution` and Artin's theorem on fixed fields, against
+the merged degree `[F(W) : F(x)] = 2`.  It also proves
+`isGalois_fractionRing_polynomial`, which is the `FractionRing F[X]` spelling
+`relNorm_eq_pow_of_isPrime_isGalois` literally consumes.
+
+⚠️ **That does not make the general comparison provable, and nothing below changes.**  What the
+retired clause got wrong was the *reason* the Galois variant is unavailable, not the conclusion
+that this file's statements need `[IsAlgClosed F]`: `relNorm_eq_pow_of_isPrime_isGalois` also
+wants `[IsDedekindDomain F[X]]`, `[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]`,
+`[IsTorsionFree F[X] F[W]]` and `P.LiesOver p` with `[p.IsMaximal]`, and then its output still has
+to be combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the multiplicativity of
+`Ideal.natDegreeGenerator`.  **None of that is done anywhere in this tree.**
+
+⚠️ So the general statement needs either a perfect-base-field restriction, or the remaining
+`relNorm` hypotheses plus the tower, or an argument that does not factor through `relNorm`.
+**Which of those is right is still not known here, and this docstring deliberately does not
+predict one** — four sweeps of this tree have been spent retiring sentences that named a route and
+got it wrong, and the clause retired just above was one of them.
 
 ## What is deliberately *not* changed
 
