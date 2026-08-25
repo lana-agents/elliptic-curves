@@ -104,15 +104,24 @@ characteristic-`2` curve for this reason.
 
 ## Free theorems, measured rather than promised
 
-Two merged transport theorems are already generic in the automorphism, so they apply to `ι` with
-nothing added and — deliberately — with no import taken here for the sake of restating them:
+Two merged transport theorems are already generic in the automorphism, so `ι` needs **no new
+transport theorem** — one instantiates the generic one, and no import is taken here for the sake of
+restating it.  ⚠️ *Generic in the automorphism* is not *hypothesis-free*: both carry
+`[IsDedekindDomain W.CoordinateRing]`, which is a hypothesis of the divisor layer everywhere and is
+**not** available for a bare `W` over a bare field — the `## Scope` section of
+`EllipticCurves.FunctionField.DivisorTransport` records that it is discharged over an algebraically
+closed field.  The instantiations below were type-checked, not asserted:
 
 * `divisorProj_algEquiv` (`EllipticCurves.FunctionField.PlaceOrder`) is stated for an arbitrary
-  `σ : F(W) ≃ₐ[F] F(W)`, so `divisorProj W (ι f) = (divisorProj W f).mapDomain (mapProjPoint ι)`
-  holds the moment `ι` exists;
+  `σ : F(W) ≃ₐ[F] F(W)`, so
+  `divisorProj W (ι f) = (divisorProj W f).mapDomain (mapProjPoint ι)` is
+  `divisorProj_algEquiv (negYAlgEquiv W) hf` — given `[IsDedekindDomain W.CoordinateRing]` and
+  `hf : f ≠ 0`, the two hypotheses the generic statement already carries;
 * `divisor_ringEquivOfRingEquiv` (`EllipticCurves.FunctionField.DivisorTransport`) is stated for an
-  arbitrary `e : F[W] ≃+* F[W]`, and `negYEquiv` is `ringEquivOfRingEquiv (negYCoordEquiv W)` by
-  definition, so the **affine** divisor transport of `ι` is also immediate.
+  arbitrary `e : F[W] ≃+* F[W]`, and `negYEquiv` is
+  `IsFractionRing.ringEquivOfRingEquiv (negYCoordEquiv W).toRingEquiv` by definition, so the
+  **affine** divisor transport of `ι` is `divisor_ringEquivOfRingEquiv _ f` — no hypothesis on `f`,
+  but the same `[IsDedekindDomain W.CoordinateRing]`.
 
 ⚠️ Neither is a new theorem and neither is restated below; the point of recording them is that a
 reader looking for the divisor behaviour of `ι` should reach for the generic lemma rather than file
