@@ -86,7 +86,7 @@ a count of torsion points runs through *"a separable isogeny has `#ker = deg`"*,
 this tree contains.  `PlaceRamificationInertia`, `MulByThreeResidueDegree` and `MulByTwoDegree` all
 carry the same warning and all three are right.
 
-## Scope — ⚠️ the general base field is open, and the obstruction is a hypothesis, not an effort
+## Scope — ⚠️ the general base field is open, and every hypothesis of the route is discharged
 
 Everything below carries `[IsAlgClosed F]`, and **that is not a convenience**: over a general field
 `degPt v = residueDegreeProj W (some v)` is not proved here and does not follow from anything below.
@@ -126,8 +126,12 @@ it after all.
 ⚠️ **The second step is what is still missing, and it is now the only thing missing.**  That
 `relNorm` value has to be combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the
 multiplicativity of `Ideal.natDegreeGenerator` before it becomes
-`degPt v = residueDegreeProj W (some v)`.  **That assembly is done nowhere in this tree**, and
-until it is, every statement below keeps `[IsAlgClosed F]` and the general comparison stays open.
+`degPt v = residueDegreeProj W (some v)`.  ⚠️ **Both of those ingredients also already exist** —
+the tower is Mathlib's `Module.finrank_mul_finrank`, and the multiplicativity is
+`Ideal.natDegreeGenerator_mul` of `EllipticCurves.FunctionField.DivisorDegree`, which this file
+transitively imports — so naming them is naming what the assembly *consumes*, not what it lacks.
+**What is absent is the assembly itself**, which is written nowhere in this tree, and until it is
+written every statement below keeps `[IsAlgClosed F]` and the general comparison stays open.
 
 ⚠️ So the remaining obstruction is a computation rather than a missing hypothesis — which is the
 opposite of what the retired clause said, and this paragraph is deliberately not predicting the

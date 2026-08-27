@@ -38,9 +38,12 @@ Artin's theorem on fixed fields closes the sandwich — so the extension **is** 
 field and in every characteristic.  `isGalois_ratFunc` below is the statement in the exact shape
 that sentence named, and the sentence is repaired in place, in the same PR that proves it.
 
-⚠️ **What that repair does *not* do is close the degree comparison.**  See the `## Scope` section
-below: `relNorm_eq_pow_of_isPrime_isGalois` has hypotheses beyond the Galois one, and none of them
-is discharged here.
+⚠️ **What that repair does *not* do is close the degree comparison** — but ⚠️ **be careful how far
+that goes**, because the four remaining typeclass hypotheses of
+`relNorm_eq_pow_of_isPrime_isGalois` are *all* discharged elsewhere in this tree or in Mathlib, so
+`Ideal.relNorm F[X] P = p ^ P.inertiaDeg F[X]` does go through over a general field.  What is not
+done is the step after it.  The `## Scope` section below is the precise statement, and this file
+proves no `relNorm` statement of its own.
 
 ## Main definitions
 
@@ -109,17 +112,20 @@ statement below is false.
   `IsGalois`, `relNorm_eq_pow_of_isPrime_isGalois` wants `[IsDedekindDomain F[X]]`,
   `[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]` and `[Module.IsTorsionFree F[X] F[W]]`,
   and all four already hold for an elliptic curve over an arbitrary field — the `F[X]`-side ones
-  and torsion-freeness from Mathlib, `[IsDedekindDomain F[W]]` from
-  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral.instIsDedekindDomain` and
-  `[Module.Finite F[X] F[W]]` from
-  `EllipticCurves.FunctionField.DivisorDegree.instModuleFiniteCoordinateRing`.  With
-  `isGalois_fractionRing_polynomial` in hand, `Ideal.relNorm F[X] P = p ^ P.inertiaDeg F[X]`
-  therefore goes through over a general field for `P` prime lying over a maximal `p`.  What is
-  **not** done is the step after it: combining that with the tower `[κ(v) : F] = f · [κ(p) : F]`
-  and the multiplicativity of `Ideal.natDegreeGenerator`.  This file mentions no place, no divisor
-  and no `ProjPoint`, and proves no `relNorm` statement at all — so a reader who takes
-  `isGalois_fractionRing_polynomial` as "the general degree comparison is done" is still reading
-  more than landed.
+  and torsion-freeness from Mathlib, `[Module.Finite F[X] F[W]]` from
+  `EllipticCurves.Torsion.CoordinateRingDedekind.instModuleFinite`, and `[IsDedekindDomain F[W]]`
+  from `EllipticCurves.FunctionField.CoordinateRingNormalGeneral.instIsDedekindDomain`.
+  ⚠️ **Only three of the four are in scope in *this* file**: `CoordinateRingNormalGeneral` is not
+  among the imports above, so a consumer that wants the Dedekind instance alongside
+  `isGalois_fractionRing_polynomial` must import it — the instance is global, the import is not
+  automatic.  With all five in hand, `Ideal.relNorm F[X] P = p ^ P.inertiaDeg F[X]` goes through
+  over a general field for `P` prime lying over a maximal `p`.  What is **not** done is the step
+  after it: assembling that with the tower `[κ(v) : F] = f · [κ(p) : F]`
+  (`Module.finrank_mul_finrank`) and the multiplicativity of `Ideal.natDegreeGenerator`
+  (`Ideal.natDegreeGenerator_mul`) — both of which also exist, so what is missing is the assembly
+  and nothing else.  This file mentions no place, no divisor and no `ProjPoint`, and proves no
+  `relNorm` statement at all — so a reader who takes `isGalois_fractionRing_polynomial` as "the
+  general degree comparison is done" is still reading more than landed.
 * **Not a statement about `Gal(F(W)/F(x))` as a group.**  `IsGalois` is delivered;
   `ratFuncRange_eq_fixedField_negYGroup` is what an identification of the Galois group with `⟨ι⟩`
   would start from, and it is not carried out.
