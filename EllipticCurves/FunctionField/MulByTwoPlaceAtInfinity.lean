@@ -91,11 +91,14 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
   latter is `degPt` (`EllipticCurves.FunctionField.DivisorDegree`), a relative ideal norm to `F[X]`.
   ⚠️ **That last sentence read** *"`∑ e_p · degPt p = 4` in that spelling is proved nowhere"*, and
   it has been paid: the `degPt`-weighted form is `sum_ramificationIdxTwo_mul_degProjPt`
-  (`EllipticCurves.FunctionField.PlaceDegreeComparison`), off the identification
-  `degProjPt = residueDegreeProj`, which that file proves over an algebraically closed base field.
-  So the two weights agree over such a base and the distinction is invisible there — ⚠️ but the
-  agreement is *itself* a theorem with that hypothesis, not a definitional coincidence, and it is
-  the relative weight that is expected to survive when the base field is not closed.
+  (`EllipticCurves.FunctionField.PlaceDegreeComparison`).  ⚠️ **And a follow-up clause here read**
+  *"off the identification `degProjPt = residueDegreeProj`, which that file proves over an
+  algebraically closed base field"* — **the hypothesis in that clause is wrong**:
+  `degProjPt_eq_residueDegreeProj` holds over **every** field.  What the weighted identity above
+  actually consumes is `degProjPt_eq_one`, which is a different theorem and does keep
+  `[IsAlgClosed F]`.  ⚠️ The substance of the warning is untouched: `f_p = [κ(p) : κ([2]⁻¹ p)]` and
+  `deg p` are different quantities, they agree in value only over `F̄`, and it is the relative one
+  that is expected to survive when the base field is not closed.
 * `[3]∗`.  The argument transposes verbatim once `MulByThree*` supplies the two hypotheses of
   `comapProjPoint`, with `natDegree (Φ 3) = 9` and `natDegree (ΨSq 3) = 8` in place of `4` and `3`.
   It has been transposed, in `EllipticCurves.FunctionField.MulByThreePlacePullback`, which imports

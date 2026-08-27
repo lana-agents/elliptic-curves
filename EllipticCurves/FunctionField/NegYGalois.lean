@@ -38,9 +38,10 @@ Artin's theorem on fixed fields closes the sandwich — so the extension **is** 
 field and in every characteristic.  `isGalois_ratFunc` below is the statement in the exact shape
 that sentence named, and the sentence is repaired in place, in the same PR that proves it.
 
-⚠️ **What that repair does *not* do is close the degree comparison.**  See the `## Scope` section
-below: `relNorm_eq_pow_of_isPrime_isGalois` has hypotheses beyond the Galois one, and none of them
-is discharged here.
+⚠️ **This file does not close the degree comparison, and that is a statement about this file
+rather than about the tree.**  `EllipticCurves.FunctionField.PlaceDegreeComparison` does close it,
+over an arbitrary base field, one `haveI` away from `isGalois_fractionRing_polynomial` — see the
+`## Scope` section below, whose original wording predicted otherwise and was wrong.
 
 ## Main definitions
 
@@ -103,15 +104,20 @@ statement below is false.
 
 ## Scope — what is deliberately *not* claimed
 
-* ⚠️ **Not `degPt v = residueDegreeProj W (some v)` over a general field.**  That is
-  `PlaceDegreeComparison`'s open problem and it stays open.  `relNorm_eq_pow_of_isPrime_isGalois`
-  additionally wants `[IsDedekindDomain F[X]]`, `[IsDedekindDomain F[W]]`,
-  `[Module.Finite F[X] F[W]]`, `[IsTorsionFree F[X] F[W]]`, `P.LiesOver p` and `[p.IsMaximal]`,
-  and then the result has to be
-  combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the multiplicativity of
-  `Ideal.natDegreeGenerator`.  **None of that is done here**, this file mentions no place, no
-  divisor and no `ProjPoint`, and a reader who takes `isGalois_fractionRing_polynomial` as
-  "the general degree comparison is unblocked" is reading more than landed.
+* ⚠️ **Not `degPt v = residueDegreeProj W (some v)`.**  This file mentions no place, no divisor and
+  no `ProjPoint`, and nothing below is a statement about either degree function.  ⚠️ **But the
+  reason is scope and not difficulty**: the comparison is proved over an *arbitrary* base field in
+  `EllipticCurves.FunctionField.PlaceDegreeComparison`, and `isGalois_fractionRing_polynomial` is
+  the hypothesis that was missing.  ⚠️ **This bullet used to continue** *"That is
+  `PlaceDegreeComparison`'s open problem and it stays open"* and then to list
+  `[IsDedekindDomain F[X]]`, `[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]`,
+  `[IsTorsionFree F[X] F[W]]`, `P.LiesOver p` and `[p.IsMaximal]` as further obstacles.  **The
+  prediction was wrong and the list was misleading**: every one of those four typeclasses is
+  supplied by `inferInstance` in this tree, the last two are hypotheses of the statement rather
+  than obstacles, and only the tower `[κ(v) : F] = f · [κ(p) : F]` was genuinely absent.  ⚠️ **The
+  clause "none of that is done *here*" was, and remains, true of this file** — the defect was the
+  generalisation to the tree, which `PlaceDegreeComparison`'s `## Scope` made and this bullet
+  echoed.
 * **Not a statement about `Gal(F(W)/F(x))` as a group.**  `IsGalois` is delivered;
   `ratFuncRange_eq_fixedField_negYGroup` is what an identification of the Galois group with `⟨ι⟩`
   would start from, and it is not carried out.

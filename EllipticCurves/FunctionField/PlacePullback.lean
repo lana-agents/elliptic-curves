@@ -491,9 +491,12 @@ of which now exist, so the degree formula holds over an algebraically closed bas
 not proved from anything in this file.  ⚠️ **And in this spelling it is `degProjPt`, not the
 relative residue degree**: `PlaceRamificationInertia` proves the `f_p`-weighted form, and the
 `deg p`-weighted form written here is `sum_ramificationIdxTwo_mul_degProjPt`
-(`EllipticCurves.FunctionField.PlaceDegreeComparison`), which needs the identification
-`degProjPt = residueDegreeProj` and therefore an algebraically closed base field for a second,
-independent reason.  Over a general field the two weights are different quantities and only the
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`).  ⚠️ **That last clause read** *"which needs
+the identification `degProjPt = residueDegreeProj` and therefore an algebraically closed base field
+for a second, independent reason"* — **the second reason has evaporated**:
+`degProjPt_eq_residueDegreeProj` is now proved over an arbitrary base field.  The weighted identity
+keeps `[IsAlgClosed F]` for the *first* reason only, namely that it is a reweighting by
+`degProjPt_eq_one`.  Over a general field the two weights are different quantities and only the
 relative one is expected to survive.  It says nothing about `#E[n] = n²` either, whose connection to
 the field degree runs
 through a counting argument for separable isogenies that is nowhere in this tree.  (The
