@@ -22,8 +22,18 @@ F(x)  =  Fixed(⟨ι⟩)  ⊆  F(W),      [F(W) : F(x)] = 2 = |⟨ι⟩| = [F(W)
 
 so `F(W) / F(x)` is **separable, normal and Galois**, again with no hypothesis on the
 characteristic and — unlike `EllipticCurves.FunctionField.MulByTwoGalois` — with **no
-`[IsAlgClosed F]` and no `(2 : F) ≠ 0`**.  Every result below is therefore an `instance` rather
-than a `theorem` a consumer has to fire with `haveI`.
+`[IsAlgClosed F]` and no `(2 : F) ≠ 0`**.
+
+⚠️ **This paragraph used to continue** *"Every result below is therefore an `instance` rather than
+a `theorem` a consumer has to fire with `haveI`."*  **That over-stated it, and this file refutes it
+twice.**  The `F(W) / F(x)` package proper is instances — `isSeparable_ratFuncRange`,
+`normal_ratFuncRange`, `isGalois_ratFuncRange` and `isGalois_ratFunc` — but
+`isGalois_fractionRing_polynomial` is a `theorem` that a consumer **must** fire with `haveI`, and
+`EllipticCurves.FunctionField.PlaceDegreeComparison` does exactly that.  The reason is not an
+oversight: the `Algebra (FractionRing F[X]) W.FunctionField` its statement is made over is supplied
+by `FractionRing.liftAlgebra` as a **`local instance`** the consumer opts into, so the result
+cannot be registered globally.  ⚠️ Of the fifteen public declarations here, five are instances and
+eight are theorems; *"every result"* was never the right quantifier.
 
 ## ⚠️ This retires a merged sentence, and that is half the point of the file
 
@@ -118,6 +128,21 @@ statement below is false.
   clause "none of that is done *here*" was, and remains, true of this file** — the defect was the
   generalisation to the tree, which `PlaceDegreeComparison`'s `## Scope` made and this bullet
   echoed.
+
+  ⚠️ **And *"in this tree"* is not *"in this file"*.**  The clause *"every one of those four
+  typeclasses is supplied by `inferInstance` in this tree"* is a **tree-level** claim and is true as
+  one; a `## Scope` section is exactly where the difference from a **file-level** claim bites.
+  Under this file's own imports only **three** of the four resolve: `IsDedekindDomain F[X]` and
+  `Module.IsTorsionFree F[X] F[W]` are Mathlib's, and `Module.Finite F[X] F[W]` is
+  `instModuleFinite` of `EllipticCurves.Torsion.CoordinateRingDedekind`, which this file reaches.
+  The fourth, `IsDedekindDomain F[W]`, does **not** resolve here: it is `instIsDedekindDomain` of
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, and this file does not import that
+  module.  ⚠️ **That is a fact about scope and not about strength.**  The instance is global for
+  `[W.IsElliptic]` over an arbitrary base field and carries no side condition; it is simply not in
+  this file's environment.  A consumer wanting it beside `isGalois_fractionRing_polynomial` names
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` in its own imports.  ⚠️ The import is
+  **deliberately not added here**: no declaration in this file needs the Dedekind instance, and an
+  import added to make a docstring true is the wrong repair.
 * **Not a statement about `Gal(F(W)/F(x))` as a group.**  `IsGalois` is delivered;
   `ratFuncRange_eq_fixedField_negYGroup` is what an identification of the Galois group with `⟨ι⟩`
   would start from, and it is not carried out.
