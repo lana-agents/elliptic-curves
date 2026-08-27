@@ -38,7 +38,10 @@ the affine point `(x, y)`, and the divisor `f_P` with `div f_P = n·(P) − n·(
 Maximality of `⟨X - x, Y - y⟩` needs only that `F` is a field; the closed-point *packaging*
 `pointClosedPoint` additionally carries `[IsDedekindDomain W.CoordinateRing]`, since
 `HeightOneSpectrum` is defined for a Dedekind domain. On a nonsingular curve this holds (see
-`EllipticCurves.Torsion.CoordinateRingDedekind`, modulo the normality input); keeping it as a
+`EllipticCurves.Torsion.CoordinateRingDedekind` for the Noetherian and dimension pillars); ⚠️ the
+*"modulo the normality input"* this sentence used to carry is **spent** — normality is a
+global instance for `[W.IsElliptic]` over an arbitrary field, `instIsDedekindDomain` of
+`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`. Keeping it as a
 hypothesis decouples the bridge from that discharge, exactly as the order calculus in
 `EllipticCurves.FunctionField.Divisors` does.
 

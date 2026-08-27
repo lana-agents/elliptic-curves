@@ -25,7 +25,12 @@ the values at `0`, `1`, inverses — is then a direct consequence of the corresp
 The whole development is stated under an explicit hypothesis `[IsDedekindDomain W.CoordinateRing]`.
 On a **nonsingular** Weierstrass curve this holds: the two unconditional Dedekind pillars
 (Noetherian, Krull dimension `≤ 1`) are `EllipticCurves.Torsion.CoordinateRingDedekind`, and the
-remaining integrally-closed (normality) input follows from nonsingularity. Keeping it as a
+remaining integrally-closed (normality) input follows from nonsingularity. ⚠️ That discharge is
+**done, and is a global instance**: `instIsDedekindDomain` of
+`EllipticCurves.FunctionField.CoordinateRingNormalGeneral` supplies
+`[IsDedekindDomain W.CoordinateRing]` for every `[W.IsElliptic]` over an **arbitrary** field, with
+no `[IsAlgClosed F]` — so for an elliptic curve the hypothesis carried throughout this file is a
+binder, not an obligation. Keeping it as a
 hypothesis here decouples the divisor calculus from the normality discharge, so the divisor layer
 is available to any consumer that supplies (or assumes) Dedekindness. This is the divisor / order
 substrate the divisor-theoretic Weil pairing (issue #244) is built on.
