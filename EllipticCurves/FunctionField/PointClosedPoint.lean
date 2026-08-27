@@ -39,9 +39,12 @@ Maximality of `⟨X - x, Y - y⟩` needs only that `F` is a field; the closed-po
 `pointClosedPoint` additionally carries `[IsDedekindDomain W.CoordinateRing]`, since
 `HeightOneSpectrum` is defined for a Dedekind domain. On a nonsingular curve this holds (see
 `EllipticCurves.Torsion.CoordinateRingDedekind` for the Noetherian and dimension pillars); ⚠️ the
-*"modulo the normality input"* this sentence used to carry is **spent** — normality is a
-global instance for `[W.IsElliptic]` over an arbitrary field, `instIsDedekindDomain` of
-`EllipticCurves.FunctionField.CoordinateRingNormalGeneral`. Keeping it as a
+*"modulo the normality input"* this sentence used to carry is **spent**. Both halves are global
+instances of `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` for `[W.IsElliptic]` over
+an arbitrary field: normality is `instIsIntegrallyClosed`, and `instIsDedekindDomain` is the
+conclusion it feeds. ⚠️ Name the right one — that module's docstring separates them
+(*"Follows from `instIsIntegrallyClosed` via the conditional `isDedekindDomain`"*), and this tree
+says *normality* for `IsIntegrallyClosed` throughout. Keeping it as a
 hypothesis decouples the bridge from that discharge, exactly as the order calculus in
 `EllipticCurves.FunctionField.Divisors` does.
 
