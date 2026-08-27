@@ -60,10 +60,33 @@ explicit gap:
   group reaches for.
 
 ⚠️ This list is **selective, and deliberately so**: the file has 28 public declarations, plus 4
-non-public ones (2 `def`s and 2 `instance`s in the non-vacuity section).  `mk_polynomialY_ne_zero`,
-`Δ_eq_zero_of_polynomialY_eq_zero`, `natDegree_polynomialY_le` and the `negYCoordHom_*` /
-`negYAlgEquiv_gen*` simp lemmas are omitted as steps of the two headlines rather than results in
-their own right.  The count is stated because PR #413's body said *"24"*, which under-reported it.
+non-public ones (2 `def`s and 2 `instance`s in the non-vacuity section).  Twelve are listed above
+and **sixteen are omitted** as steps of the two headlines rather than results in their own right —
+among them `mk_polynomialY_ne_zero`, `Δ_eq_zero_of_polynomialY_eq_zero`, `natDegree_polynomialY_le`,
+the four `negYCoordHom_*` lemmas, `negYAlgEquiv_genPsi` and `negYAlgEquiv_genY'`.  ⚠️ **Not**
+`negYAlgEquiv_genX`, `negYAlgEquiv_genY` or `negYAlgEquiv_negYAlgEquiv`, which are listed above: a
+glob over `negYAlgEquiv_gen*` would be a claim about a set that the list five lines up refutes.
+
+⚠️ **The count is stated because PR #413's body said *"24"*, and the reason it did is worth more
+than the correction.**  The declaration-count detector this tree's checklists mandate,
+
+```
+grep -nE '^(private |noncomputable |protected )*(theorem|lemma|def|abbrev|instance) ' <f> | wc -l
+```
+
+returns exactly **24** on this file, against a true 32 (28 public + 4 private).  It cannot see a
+declaration written `@[simp] lemma …` on one line, and there are **eight** of those here.  So the
+"24" was very likely the prescribed check answering, not a total copied from the section headers.
+A better first approximation allows the attribute prefix,
+
+```
+grep -cE '^(@\[[^]]*\] *)*(private |noncomputable |protected |nonrec |scoped )*'\
+'(theorem|lemma|def|abbrev|instance|structure|class) '
+```
+
+⚠️ but it is still not sound: it cannot see an `@[...]` on its own line, nor an
+`attribute [...] in` standing before a docstring.  **The only reliable count is taken from
+comment-stripped source with the attribute prefix consumed.**
 
 ## Why this is cheap, and where the one piece of mathematics is
 
