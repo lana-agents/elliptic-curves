@@ -358,15 +358,34 @@ end IsAlgClosed
 
 /-! ### Non-vacuity
 
-Every statement above carries `[IsAlgClosed F]`, `[W.IsElliptic]` and
-`[IsDedekindDomain W.CoordinateRing]` at once, and the two fundamental identities add `(2 : F) ≠ 0`
-and `(3 : F) ≠ 0`.  That instance set is strictly stronger than the one
-`EllipticCurves.FunctionField.PlaceResidueDegree` certifies, so its `ℚ`-rational curve does not
-serve here and a curve over an algebraically closed field is committed instead.
+⚠️ **Two hypothesis sets are certified here, not one, and they need different curves.**  The two
+comparisons of the `## The general comparison, step by step` section carry `[W.IsElliptic]` and
+`[IsDedekindDomain W.CoordinateRing]` and **no hypothesis on `F` beyond `[Field F]`**; everything
+inside `section IsAlgClosed` adds `[IsAlgClosed F]`, and the two fundamental identities add
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0` on top of that.  So a single curve cannot serve: an algebraically
+closed base is *required* by the second set and *invisible* to the first.
 
-`y² = x³ - x` over `AlgebraicClosure ℚ` is the same equation that file uses for its own headline;
-characteristic zero discharges both nonvanishing hypotheses, and both fundamental identities are
-committed on it, at `n = 2` and at `n = 3`. -/
+⚠️ **This paragraph used to read** *"Every statement above carries `[IsAlgClosed F]`,
+`[W.IsElliptic]` and `[IsDedekindDomain W.CoordinateRing]` at once … That instance set is strictly
+stronger than the one `EllipticCurves.FunctionField.PlaceResidueDegree` certifies, so its
+`ℚ`-rational curve does not serve here and a curve over an algebraically closed field is committed
+instead."*  **The first clause stopped being true when `[IsAlgClosed F]` left
+`degPt_eq_residueDegreeProj` and `degProjPt_eq_residueDegreeProj`**, and with it the conclusion:
+a `ℚ`-rational curve is now exactly what the general comparison needs, and `exampleCurveRat` is one.
+The comparison with `EllipticCurves.FunctionField.PlaceResidueDegree` survives for the
+`section IsAlgClosed` half, which is what it was written about.
+
+The same equation `y² = x³ - x` is committed twice, once over each kind of base field:
+
+* over `AlgebraicClosure ℚ` (`exampleCurve`) — the equation that
+  `EllipticCurves.FunctionField.PlaceResidueDegree` uses for its own headline; characteristic zero
+  discharges both nonvanishing hypotheses, and both fundamental identities are committed on it, at
+  `n = 2` and at `n = 3`;
+* over `ℚ` (`exampleCurveRat`) — ⚠️ **the certificate for the general comparison**, since over `F̄`
+  that comparison is the merged `degPt_eq_one` reweighted and says nothing new.
+  `not_isAlgClosed_rat` commits *"`ℚ` is not algebraically closed"* as a theorem rather than
+  asserting it in prose beside the example.  ⚠️ What is **not** certified there is the common
+  *value*: `degPt_eq_one` is false over `ℚ` and nothing here computes what replaces it. -/
 
 section Nonvacuity
 
@@ -381,8 +400,12 @@ private instance : exampleCurve.IsElliptic := by
   norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
-/-- **The headline, committed**: on a named curve over a named algebraically closed field, the
-relative ideal norm and the residue-field degree agree at every place. -/
+/-- **The comparison on a named curve over a named algebraically closed field**: the relative ideal
+norm and the residue-field degree agree at every place.
+
+⚠️ This is the weaker of the two certificates and is kept for the `section IsAlgClosed` statements
+that follow it, which need this base field.  Over `F̄` the comparison is `degPt_eq_one` reweighted;
+the certificate for the general statement is the `exampleCurveRat` one. -/
 example (p : ProjPoint exampleCurve) :
     degProjPt exampleCurve p = residueDegreeProj exampleCurve p :=
   degProjPt_eq_residueDegreeProj exampleCurve p
