@@ -96,8 +96,11 @@ characteristic-`2` curve for this reason.
   `Algebra.IsSeparable ↥(ratFuncRange W) F(W)` and `IsGalois ↥(ratFuncRange W) F(W)` in every
   characteristic, by the `EllipticCurves.FunctionField.MulByTwoGalois` template with `⟨ι⟩` in place
   of `TorsionTwoMul W` — `ι` fixes `genX`, Artin computes the degree of the fixed field, and
-  `finrank_ratFuncRange` says `[F(W) : F(x)] = 2`.  That is a separate issue and none of it is
-  attempted here; in particular this file proves **no** statement about `ratFuncRange W`.
+  `finrank_ratFuncRange` says `[F(W) : F(x)] = 2`.  None of it is attempted here; in particular
+  this file proves **no** statement about `ratFuncRange W`.  ⚠️ It is carried out, by exactly that
+  route, in `EllipticCurves.FunctionField.NegYGalois` — `isGalois_ratFuncRange`, and
+  `isGalois_ratFunc` for the abstract `RatFunc F`.  This sentence is a forward pointer and not an
+  import: nothing in this file depends on that one.
 * `polynomial_comp_negPolynomial`, `Δ_eq_zero_of_two_eq_zero`, `natDegree_polynomialY_le` and
   `polynomialY_ne_zero` are curve-generic and are upstream-Mathlib candidates; they are kept here
   because they have no other consumer in this tree yet.
