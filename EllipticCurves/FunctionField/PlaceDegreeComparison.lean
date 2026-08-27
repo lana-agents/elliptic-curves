@@ -109,19 +109,31 @@ the merged degree `[F(W) : F(x)] = 2`.  It also proves
 `isGalois_fractionRing_polynomial`, which is the `FractionRing F[X]` spelling
 `relNorm_eq_pow_of_isPrime_isGalois` literally consumes.
 
-⚠️ **That does not make the general comparison provable, and nothing below changes.**  What the
-retired clause got wrong was the *reason* the Galois variant is unavailable, not the conclusion
-that this file's statements need `[IsAlgClosed F]`: `relNorm_eq_pow_of_isPrime_isGalois` also
-wants `[IsDedekindDomain F[X]]`, `[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]`,
-`[IsTorsionFree F[X] F[W]]` and `P.LiesOver p` with `[p.IsMaximal]`, and then its output still has
-to be combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the multiplicativity of
-`Ideal.natDegreeGenerator`.  **None of that is done anywhere in this tree.**
+⚠️ **The Galois hypothesis is discharged, and so is every other typeclass hypothesis of that
+lemma.**  Besides `IsGalois`, `relNorm_eq_pow_of_isPrime_isGalois` wants `[IsDedekindDomain F[X]]`,
+`[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]` and `[Module.IsTorsionFree F[X] F[W]]`, and
+— checked by elaboration, not by reading — **all four already hold for an elliptic curve over an
+arbitrary field**: the two `F[X]`-side ones and the torsion-freeness from Mathlib's generic
+instances, `[IsDedekindDomain F[W]]` from
+`EllipticCurves.FunctionField.CoordinateRingNormalGeneral.instIsDedekindDomain`, and
+`[Module.Finite F[X] F[W]]` from
+`EllipticCurves.FunctionField.DivisorDegree.instModuleFiniteCoordinateRing`.  So for a prime `P`
+of `F[W]` lying over a maximal `p` of `F[X]`,
+`Ideal.relNorm F[X] P = p ^ P.inertiaDeg F[X]` **is now available over a general base field**: the
+first step of the classical route is unblocked, and `[PerfectField (RatFunc F)]` is not needed for
+it after all.
 
-⚠️ So the general statement needs either a perfect-base-field restriction, or the remaining
-`relNorm` hypotheses plus the tower, or an argument that does not factor through `relNorm`.
-**Which of those is right is still not known here, and this docstring deliberately does not
-predict one** — four sweeps of this tree have been spent retiring sentences that named a route and
-got it wrong, and the clause retired just above was one of them.
+⚠️ **The second step is what is still missing, and it is now the only thing missing.**  That
+`relNorm` value has to be combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the
+multiplicativity of `Ideal.natDegreeGenerator` before it becomes
+`degPt v = residueDegreeProj W (some v)`.  **That assembly is done nowhere in this tree**, and
+until it is, every statement below keeps `[IsAlgClosed F]` and the general comparison stays open.
+
+⚠️ So the remaining obstruction is a computation rather than a missing hypothesis — which is the
+opposite of what the retired clause said, and this paragraph is deliberately not predicting the
+price of that computation.  Four sweeps of this tree have been spent retiring sentences that named
+a route and got it wrong; the clause retired just above was one of them, and a replacement that
+over-states what is left would be another.
 
 ## What is deliberately *not* changed
 

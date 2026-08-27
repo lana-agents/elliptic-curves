@@ -104,14 +104,22 @@ statement below is false.
 ## Scope — what is deliberately *not* claimed
 
 * ⚠️ **Not `degPt v = residueDegreeProj W (some v)` over a general field.**  That is
-  `PlaceDegreeComparison`'s open problem and it stays open.  `relNorm_eq_pow_of_isPrime_isGalois`
-  additionally wants `[IsDedekindDomain F[X]]`, `[IsDedekindDomain F[W]]`,
-  `[Module.Finite F[X] F[W]]`, `[IsTorsionFree F[X] F[W]]`, `P.LiesOver p` and `[p.IsMaximal]`,
-  and then the result has to be
-  combined with the tower `[κ(v) : F] = f · [κ(p) : F]` and the multiplicativity of
-  `Ideal.natDegreeGenerator`.  **None of that is done here**, this file mentions no place, no
-  divisor and no `ProjPoint`, and a reader who takes `isGalois_fractionRing_polynomial` as
-  "the general degree comparison is unblocked" is reading more than landed.
+  `PlaceDegreeComparison`'s open problem and it stays open.  ⚠️ **But be precise about what is
+  left**, because the honest statement is stronger than "nothing is unblocked": besides
+  `IsGalois`, `relNorm_eq_pow_of_isPrime_isGalois` wants `[IsDedekindDomain F[X]]`,
+  `[IsDedekindDomain F[W]]`, `[Module.Finite F[X] F[W]]` and `[Module.IsTorsionFree F[X] F[W]]`,
+  and all four already hold for an elliptic curve over an arbitrary field — the `F[X]`-side ones
+  and torsion-freeness from Mathlib, `[IsDedekindDomain F[W]]` from
+  `EllipticCurves.FunctionField.CoordinateRingNormalGeneral.instIsDedekindDomain` and
+  `[Module.Finite F[X] F[W]]` from
+  `EllipticCurves.FunctionField.DivisorDegree.instModuleFiniteCoordinateRing`.  With
+  `isGalois_fractionRing_polynomial` in hand, `Ideal.relNorm F[X] P = p ^ P.inertiaDeg F[X]`
+  therefore goes through over a general field for `P` prime lying over a maximal `p`.  What is
+  **not** done is the step after it: combining that with the tower `[κ(v) : F] = f · [κ(p) : F]`
+  and the multiplicativity of `Ideal.natDegreeGenerator`.  This file mentions no place, no divisor
+  and no `ProjPoint`, and proves no `relNorm` statement at all — so a reader who takes
+  `isGalois_fractionRing_polynomial` as "the general degree comparison is done" is still reading
+  more than landed.
 * **Not a statement about `Gal(F(W)/F(x))` as a group.**  `IsGalois` is delivered;
   `ratFuncRange_eq_fixedField_negYGroup` is what an identification of the Galois group with `⟨ι⟩`
   would start from, and it is not carried out.
