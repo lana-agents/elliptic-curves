@@ -80,14 +80,19 @@ is about the encoding, not about the mathematics.
   a residue-field degree.  Nothing below assumes any relation between the two.
   ⚠️ **This bullet used to end** *"The two agree, and nothing below assumes it."*  The second half
   was and remains true; the first half was an **assertion without a proof**, and it stayed one for
-  as long as it stood.  It is now a theorem *over an algebraically closed base field* —
+  as long as it stood.  It is now a theorem over **every** base field —
   `degPt_eq_residueDegreeProj` and `degProjPt_eq_residueDegreeProj`
-  (`EllipticCurves.FunctionField.PlaceDegreeComparison`), both by way of `degPt = 1`, which the
-  maximal-ideal classification of `EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed`
-  supplies.  ⚠️ **Over a general base field it is open**, and the definition below is deliberately
-  not rephrased in terms of `degPt`: the obstruction is that Mathlib's
+  (`EllipticCurves.FunctionField.PlaceDegreeComparison`).  ⚠️ **A later revision of this bullet
+  read** *"It is now a theorem over an algebraically closed base field, both by way of
+  `degPt = 1` … ⚠️ Over a general base field it is open, and the obstruction is that Mathlib's
   `Ideal.relNorm_eq_pow_of_isMaximal` carries `[PerfectField (FractionRing R)]`, and `RatFunc F` is
-  not perfect in characteristic `p`.  That file's Scope section is the account.
+  not perfect in characteristic `p`."*  **The prediction was wrong, though its diagnosis was not**:
+  the perfect-field route really is unavailable, and the general comparison goes through
+  `Ideal.relNorm_eq_pow_of_isPrime_isGalois` instead, whose Galois hypothesis is
+  `EllipticCurves.FunctionField.NegYGalois`'s `isGalois_fractionRing_polynomial`.  ⚠️ The `F̄` route
+  *"by way of `degPt = 1`"* is still there, still needs `[IsAlgClosed F]`, and still says strictly
+  more where it applies — it computes the common value.  The definition below is deliberately not
+  rephrased in terms of `degPt`: the two remain different constructions.
 * **`IsDiscreteValuationRing (placeOf W p)`.**  A principal maximal ideal is not that typeclass —
   it wants *every* ideal principal, which is a separate argument off the same order function.  That
   argument is `EllipticCurves.FunctionField.PlaceDiscreteValuationRing` (`#753`), which imports this

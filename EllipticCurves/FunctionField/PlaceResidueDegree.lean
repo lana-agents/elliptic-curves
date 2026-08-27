@@ -85,10 +85,13 @@ mathematics: `[0 : 1 : 0]` is a rational point of every Weierstrass curve.
   `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)` — a *relative ideal norm to `F[X]`*,
   not a residue-field degree.  Nothing below assumes any relation between the two.
   ⚠️ **This bullet used to end** *"The two agree; nothing below assumes it."*  The comparison is a
-  theorem *over an algebraically closed base field* and was not one when that sentence was written:
-  it is `degProjPt_eq_residueDegreeProj` (`EllipticCurves.FunctionField.PlaceDegreeComparison`),
-  and `residueDegreeProj_eq_one` below is one of its two halves.  ⚠️ **Over a general base field it
-  is open** — see that file's Scope section, which names the Mathlib hypothesis in the way.
+  theorem and was not one when that sentence was written: it is
+  `degProjPt_eq_residueDegreeProj` (`EllipticCurves.FunctionField.PlaceDegreeComparison`), and
+  `residueDegreeProj_eq_one` below is one half of its `[IsAlgClosed F]` route.  ⚠️ **A later
+  revision of this bullet added** *"Over a general base field it is open — see that file's Scope
+  section, which names the Mathlib hypothesis in the way."*  **That is false**: the comparison holds
+  over every field, by the relative-ideal-norm route rather than by `residueDegreeProj_eq_one`.
+  The second half of the original sentence survives untouched — **nothing below assumes it.**
 * The relative residue degree `[κ(p) : κ(q)]` along `[2]`, the contraction `κ(q) → κ(p)`,
   ramification indices, and the fundamental identity `∑ e_p · f_p = 4`.
 * `IsDiscreteValuationRing (placeOf W p)`; `[3]∗`; Ward; `#418`; `#465`.

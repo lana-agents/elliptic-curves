@@ -84,8 +84,15 @@ and that the degree-zero theorem *"is the natural next rung"*.  Both rungs have 
   `degPt` is `Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)`, a relative ideal norm, and
   the proof is an induction over the prime factorisation using multiplicativity of `relNorm`.  The
   residue degrees exist separately (`residueDegreeProj`,
-  `EllipticCurves.FunctionField.PlaceResidueDegree`) and the two are known to agree only
-  informally — no file in this tree proves `degPt v = residueDegreeProj W (some v)`.
+  `EllipticCurves.FunctionField.PlaceResidueDegree`).  ⚠️ **This bullet used to end** *"and the two
+  are known to agree only informally — no file in this tree proves
+  `degPt v = residueDegreeProj W (some v)`"*, **which is false**: that equation is
+  `degPt_eq_residueDegreeProj`, its projective form is `degProjPt_eq_residueDegreeProj`, and both
+  live in `EllipticCurves.FunctionField.PlaceDegreeComparison` carrying `[W.IsElliptic]` and
+  `[IsDedekindDomain W.CoordinateRing]` and **no hypothesis on `F` beyond `[Field F]`**.  ⚠️ What
+  survives the retirement is this bullet's own opening claim — that `degDiv_divisor_add_ordInfty`
+  does **not** go through the residue degrees of the affine closed points — which is a claim about
+  the *proof* and is untouched by the two functions turning out to agree.
 * `[n]∗` on divisors is `pullbackDivisor` (`EllipticCurves.FunctionField.PullbackDivisor`), with
   the `[2]` instantiation `divisorProj_mulByTwoEndo`, and the divisor pullback under translation is
   `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`).  Both are statements

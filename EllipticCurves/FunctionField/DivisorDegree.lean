@@ -30,7 +30,9 @@ accounted for by `ordInfty`.
 
 ## Main definitions
 
-* `Ideal.natDegreeGenerator` — the degree of an ideal of `F[X]`, i.e. of a generator;
+* `Ideal.natDegreeGenerator` — the degree of an ideal of `F[X]`, i.e. of a generator, together
+  with its additivity `natDegreeGenerator_mul`, the power law `natDegreeGenerator_pow` and the
+  identification `natDegreeGenerator_eq_finrank_quotient` with `[F[X] ⧸ I : F]`;
 * `WeierstrassCurve.Affine.ordIdeal` / `divisorIdeal` — the order of an *ideal* of `F[W]` at a
   closed point, and the corresponding divisor.  These are what the factorisation induction runs on;
 * `WeierstrassCurve.Affine.degPt` — the degree of a closed point;
@@ -115,6 +117,29 @@ lemma natDegreeGenerator_mul {I J : Ideal F[X]} (hI : I ≠ 0) (hJ : J ≠ 0) :
   refine natDegree_mul ?_ ?_
   · simpa [Ideal.span_singleton_eq_bot] using hI
   · simpa [Ideal.span_singleton_eq_bot] using hJ
+
+/-- **The degree of a power**, `deg (I ^ n) = n · deg I`, by induction off
+`natDegreeGenerator_mul`.  The nonvanishing hypothesis is the one that lemma needs: over `F[X]`
+the zero ideal is `span {0}` and `natDegree 0 = 0`, so additivity genuinely fails there. -/
+lemma natDegreeGenerator_pow {I : Ideal F[X]} (hI : I ≠ 0) (n : ℕ) :
+    natDegreeGenerator (I ^ n) = n * natDegreeGenerator I := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ, natDegreeGenerator_mul (pow_ne_zero n hI) hI, ih]; ring
+
+/-- **The degree of an ideal of `F[X]` is the dimension of its quotient over `F`.**
+
+This is what turns `natDegreeGenerator` — a statement about a *generator*, chosen — into a
+statement about the residue ring, and it is the bridge the general-base-field degree comparison
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`) crosses.  Mathlib's
+`finrank_quotient_span_eq_natDegree` does the work; ⚠️ it needs **no** hypothesis on `I`, because
+both sides are `0` when `I = 0` (`Module.finrank` of an infinite-dimensional module is `0`, and
+`natDegree 0 = 0`). -/
+lemma natDegreeGenerator_eq_finrank_quotient (I : Ideal F[X]) :
+    natDegreeGenerator I = Module.finrank F (F[X] ⧸ I) := by
+  conv_lhs => rw [← Ideal.span_singleton_generator I]
+  conv_rhs => rw [← Ideal.span_singleton_generator I]
+  rw [natDegreeGenerator_span, finrank_quotient_span_eq_natDegree]
 
 end Ideal
 
