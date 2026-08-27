@@ -87,9 +87,16 @@ is bijective, `O.comap σ.symm` is the *image* `σ '' O`, which is the covariant
 
 * `τ_T` itself, and every divisor pullback (`#465`, `#414`, `#422`).  This file makes the *target*
   of those constructions well-defined; it constructs none of them.
-* **A witness `σ ≠ 1` for the automorphism action.**  See `mapProjPointHom`'s docstring: the
-  natural candidate is the hyperelliptic involution, and producing it as an `AlgEquiv` is real work
-  that is not attempted here.  No claim of non-triviality of the action is made.
+* **A witness `σ ≠ 1` for the automorphism action.**  ⚠️ **This bullet used to end** *"the natural
+  candidate is the hyperelliptic involution, and producing it as an `AlgEquiv` is real work that is
+  not attempted here."*  **The `AlgEquiv` now exists**: `negYAlgEquiv` of
+  `EllipticCurves.FunctionField.NegYInvolution`, with `negYAlgEquiv_ne_one` giving `ι ≠ 1` for
+  `[W.IsElliptic]` in **every** characteristic.  What is still not here is unchanged and is the
+  half that matters: ⚠️ **no claim about the induced permutation of places is made.**
+  `mapProjPoint ι ≠ 1` is a strictly further statement — it needs a place that `ι` moves — and it
+  is proved nowhere.  A reader who takes the automorphism witness for a statement about the action
+  is reading more than landed.  See `mapProjPointHom`'s docstring for the two witnesses and what
+  separates them.
 * Riemann–Roch, the genus, the divisor class group, and any identification of `O` with a discrete
   valuation ring beyond `exists_zpow_eq` (`#650`).
 
@@ -385,12 +392,22 @@ The `comap σ.symm` convention (rather than `comap σ`) is what makes this a hom
 an anti-homomorphism; see the module docstring.
 
 **No non-triviality is claimed *here*.**  This file constructs no `σ ≠ 1`, and cannot: the
-witness lives in the translation subtree, which it must not import.  One exists —
+witnesses live downstream, in modules it must not import.  **Two exist, and they are not
+interchangeable.**
+
 `CoordinateRing.translateAlgEquiv_ne_one`
 (`EllipticCurves.FunctionField.TranslationAutomorphism`) says translation by an affine point is
 never the identity automorphism, so `Aut_F F(W)` is nontrivial as soon as `W` has an affine
-`F`-point.  Whether the induced *permutation* `mapProjPoint` of that `σ` is nontrivial is a strictly
-further question — an automorphism that is not the identity could a priori fix every place — and it
+`F`-point.  `CoordinateRing.negYAlgEquiv_ne_one`
+(`EllipticCurves.FunctionField.NegYInvolution`) says the hyperelliptic involution `ι` is not the
+identity for every `[W.IsElliptic]` in every characteristic — ⚠️ **no affine `F`-point and no
+characteristic hypothesis**, so it is the cheaper witness that `Aut_F F(W)` is nontrivial, and
+`nontrivial_algEquiv` in that module is it in usable form.
+
+⚠️ **For the *permutation* the two are in opposite states, and that is why both are named here.**
+Whether the induced `mapProjPoint` of a nonidentity `σ` is nontrivial is a strictly
+further question — an automorphism that is not the identity could a priori fix every place.  For
+`ι` it is **unproved**: nothing in this tree exhibits a place that `ι` moves.  For translation it
 is settled downstream, in `EllipticCurves.FunctionField.TranslationPlaceAtInfinity`:
 `mapProjPoint_translateAlgEquiv_none` computes `mapProjPoint W (translateAlgEquiv h₂) none` to be
 the closed point of `−T`, whence `mapProjPoint_translateAlgEquiv_ne_one`.  So this homomorphism has

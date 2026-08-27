@@ -34,6 +34,11 @@ explicit gap:
   `F[W] →ₐ[F[X]] F[W]`, sending the class of `Y` to the class of `W.negPolynomial`;
 * `WeierstrassCurve.Affine.CoordinateRing.negYCoordEquiv` — the same map as an `AlgEquiv`, it being
   its own inverse;
+* `WeierstrassCurve.Affine.CoordinateRing.negYEquiv` — the induced `F(W) ≃+* F(W)`, namely
+  `IsFractionRing.ringEquivOfRingEquiv (negYCoordEquiv W).toRingEquiv`.  ⚠️ It is public and is not
+  an implementation detail: it is the term `divisor_ringEquivOfRingEquiv` is instantiated at in the
+  `## Free theorems` section below, so a reader chasing the affine divisor transport of `ι` lands
+  on it;
 * `WeierstrassCurve.Affine.CoordinateRing.negYAlgEquiv` — the involution of the function field,
   `F(W) ≃ₐ[F] F(W)`.
 
@@ -49,7 +54,16 @@ explicit gap:
 * `WeierstrassCurve.Affine.polynomialY_ne_zero` — hence `W.polynomialY ≠ 0` for an elliptic curve
   over a nontrivial ring, in **every** characteristic;
 * **`WeierstrassCurve.Affine.CoordinateRing.negYAlgEquiv_ne_one`** — the headline: `ι ≠ 1` whenever
-  `[W.IsElliptic]`.
+  `[W.IsElliptic]`;
+* **`WeierstrassCurve.Affine.CoordinateRing.nontrivial_algEquiv`** — `Nontrivial (F(W) ≃ₐ[F] F(W))`,
+  the usable repackaging of the headline and what a consumer wanting a nontrivial automorphism
+  group reaches for.
+
+⚠️ This list is **selective, and deliberately so**: the file has 28 public declarations, plus 4
+non-public ones (2 `def`s and 2 `instance`s in the non-vacuity section).  `mk_polynomialY_ne_zero`,
+`Δ_eq_zero_of_polynomialY_eq_zero`, `natDegree_polynomialY_le` and the `negYCoordHom_*` /
+`negYAlgEquiv_gen*` simp lemmas are omitted as steps of the two headlines rather than results in
+their own right.  The count is stated because PR #413's body said *"24"*, which under-reported it.
 
 ## Why this is cheap, and where the one piece of mathematics is
 
@@ -109,11 +123,35 @@ characteristic-`2` curve for this reason.
 
 Two merged transport theorems are already generic in the automorphism, so `ι` needs **no new
 transport theorem** — one instantiates the generic one, and no import is taken here for the sake of
-restating it.  ⚠️ *Generic in the automorphism* is not *hypothesis-free*: both carry
-`[IsDedekindDomain W.CoordinateRing]`, which is a hypothesis of the divisor layer everywhere and is
-**not** available for a bare `W` over a bare field — the `## Scope` section of
+restating it.  Both carry `[IsDedekindDomain W.CoordinateRing]`, the standing hypothesis of the
+divisor layer.
+
+⚠️ **This paragraph used to continue** *"which is a hypothesis of the divisor layer everywhere and
+is **not** available for a bare `W` over a bare field — the `## Scope` section of
 `EllipticCurves.FunctionField.DivisorTransport` records that it is discharged over an algebraically
-closed field.  The instantiations below were type-checked, not asserted:
+closed field."*  **The quoted clause is false**, and it is false about this file's own subject:
+`EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers `instIsDedekindDomain` as a
+**global instance for `[W.IsElliptic]` over an arbitrary field**, with no `[IsAlgClosed F]`, so for
+every curve this file talks about the hypothesis costs nothing.  The clause was copied from
+`DivisorTransport`'s `## Scope`, whose own `variable` line carries **no** `[W.IsElliptic]` — where
+it was true and merely superseded; restating it here, under `[W.IsElliptic]`, made it false.
+⚠️ **Name the binder a hypothesis claim is relative to, every time.**
+
+⚠️ **Availability is not the same as scope, and the difference bites here.**
+`CoordinateRingNormalGeneral` is not among this file's imports, so
+`IsDedekindDomain W.CoordinateRing` is not synthesised inside `NegYInvolution` itself.  It costs a
+consumer nothing all the same — `EllipticCurves.FunctionField.PlaceOrder`, the module that supplies
+`divisorProj_algEquiv`, does reach it, so anyone in a position to *use* the two instantiations
+listed in this section already has the instance.  The
+spike that measures this is stated for the `variable` line
+
+```
+{F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
+```
+
+— `[W.IsElliptic]` and nothing else, no `[IsDedekindDomain W.CoordinateRing]` and no
+`[IsAlgClosed F]` — and the two instantiations that follow were type-checked under it, not
+asserted:
 
 * `divisorProj_algEquiv` (`EllipticCurves.FunctionField.PlaceOrder`) is stated for an arbitrary
   `σ : F(W) ≃ₐ[F] F(W)`, so

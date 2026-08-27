@@ -67,10 +67,28 @@ argument for the alternating property of the Weil pairing (`#465` deliverable 2)
 ## Scope
 
 The Dedekind hypothesis `[IsDedekindDomain W.CoordinateRing]` is carried as a hypothesis, as
-everywhere in the divisor layer. It is satisfiable and not a disguised falsehood: over an
-algebraically closed field it is discharged by
-`WeierstrassCurve.Affine.CoordinateRing.isDedekindDomain_of_isAlgClosed`, and that discharge is
-exercised as an `example` below rather than asserted in prose.
+everywhere in the divisor layer. It is satisfiable and not a disguised falsehood, and **two
+different discharges apply, at two different strengths**:
+
+* for an **elliptic** curve over an **arbitrary** field it is a *global instance*,
+  `instIsDedekindDomain` of `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` — no
+  `[IsAlgClosed F]`, nothing to supply by hand;
+* over an **algebraically closed** field, with no `[W.IsElliptic]`, it is
+  `WeierstrassCurve.Affine.CoordinateRing.isDedekindDomain_of_isAlgClosed`.
+
+⚠️ **This section used to name only the second**, which made it *true but weaker than the tree*,
+and a reader took away "you need `F̄`". It is the second discharge that the
+`### The Dedekind hypothesis is satisfiable` section exercises as an `example`, and that is not an
+oversight: this file's `variable` line is `{W : Affine F}` with **no `[W.IsElliptic]`**, so the
+general instance does not apply to its own subject, and `CoordinateRingNormalGeneral` is not among
+its imports. Adding a `[W.IsElliptic]` sibling
+`example` would therefore be a new dependency rather than a new certificate, so it is deliberately
+**not** added; the general discharge is recorded here in prose, with its module named, and is
+exercised where it is in scope.
+
+⚠️ **Do not restate the algebraically-closed sentence in a file that carries `[W.IsElliptic]`** —
+`EllipticCurves.FunctionField.NegYInvolution` did, and a clause that was true here became false
+there.
 
 ## References
 
@@ -204,7 +222,9 @@ end WeierstrassCurve.Affine.CoordinateRing
 
 Every statement above carries `[IsDedekindDomain _.CoordinateRing]` as a hypothesis. Over an
 algebraically closed field it is discharged, so none of the above is vacuous for want of the
-hypothesis. -/
+hypothesis. ⚠️ That is the discharge available *here*, not the strongest one in the tree: see the
+`## Scope` section of the module docstring, which records the global instance for an elliptic curve
+over an arbitrary field. -/
 
 example {F : Type*} [Field F] [IsAlgClosed F] {W : WeierstrassCurve.Affine F} [W.IsElliptic] :
     IsDedekindDomain W.CoordinateRing :=
