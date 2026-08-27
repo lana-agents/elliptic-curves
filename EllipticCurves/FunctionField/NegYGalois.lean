@@ -297,8 +297,17 @@ attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_l
 consumer writes `attribute [local instance] FractionRing.liftAlgebra` — exactly as
 `Mathlib.RingTheory.Ideal.Norm.RelNorm` does — and then this fires.
 
-⚠️ **It does not on its own give the degree comparison**; see the `## Scope` section of the module
-docstring for the hypotheses of `relNorm_eq_pow_of_isPrime_isGalois` that remain undischarged.
+⚠️ **It does not on its own give the degree comparison** — that is a statement about places and
+degree functions, and this file mentions neither.  It is the *hypothesis* the comparison consumes:
+`degPt_eq_residueDegreeProj` (`EllipticCurves.FunctionField.PlaceDegreeComparison`) fires this
+theorem with `haveI`, its projective form is `degProjPt_eq_residueDegreeProj`, and both hold over
+an arbitrary base field.
+
+⚠️ **This paragraph used to continue** *"see the `## Scope` section of the module docstring for the
+hypotheses of `relNorm_eq_pow_of_isPrime_isGalois` that remain undischarged"*.  **That forward
+reference is retired**: the `## Scope` section now records that there are none — all four
+typeclasses are supplied by `inferInstance` in this tree — so it promised the reader a list the
+section it points at says does not exist.
 
 The proof is `IsGalois.of_equiv_equiv` along `FractionRing.algEquiv F[X] (RatFunc F)`, whose
 commuting square is checked on `F[X]` by `IsLocalization.ringHom_ext` — two ring homomorphisms out
