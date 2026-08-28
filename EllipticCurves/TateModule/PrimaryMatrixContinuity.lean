@@ -87,13 +87,25 @@ instantiate with — see Scope.
 first nine declarations — everything about `coordHomeomorph` — need **no**
 `[Algebra.IsIntegral S F]` and **no** `Nonempty` hypothesis: they are statements about the
 `ℤ_[ℓ]`-module structure of `T_ℓE` alone, and their only topological input
+`tateModule.instContinuousSMulPadicInt` (`EllipticCurves.TateModule.Continuity`) does not carry
+`[Algebra.IsIntegral S F]` **in its signature**, because its term uses none of it. The remaining
+seven need `[Algebra.IsIntegral S F]`, because every one of them goes through
+`tateModule.continuous_galois_smul`, a `theorem` whose signature does carry it — that is the
+*Galois* input, and it is what makes the orbit maps continuous. Of those seven, only the last three
+additionally need the `Nonempty` hypothesis, and they need it for a different reason: to obtain a
+basis rather than be handed one.
+
+⚠️ **The `omit` written ahead of `tateModule.instContinuousSMulPadicInt` is not the reason, and
+this section used to say that it was** — it read *"their only topological input
 `tateModule.instContinuousSMulPadicInt` carries an explicit `omit [Algebra.IsIntegral S F]` in
-`EllipticCurves.TateModule.Continuity`. The remaining seven need
-`[Algebra.IsIntegral S F]`, because every one of them goes through
-`tateModule.continuous_galois_smul`, which does not omit it — that is the *Galois* input, and it is
-what makes the orbit maps continuous. Of those seven, only the last three additionally need the
-`Nonempty` hypothesis, and they need it for a different reason: to obtain a basis rather than be
-handed one.
+`EllipticCurves.TateModule.Continuity`"*. That declaration is an `instance`, and on
+`leanprover/lean4:v4.32.0` an `omit … in` is read only for a `theorem` (`Lean.Elab.MutualDef`,
+`withHeaderSecVars`); ahead of a `def`, an `abbrev` or an `instance` it is accepted and discarded,
+with no error and no `unusedSectionVars` report. The conclusion is unchanged and was never in
+doubt; only its evidence was void. ⚠️ **A claim about a signature is a claim about what the
+elaborator prints** — check it with `#check @`, not by reading the `omit` written ahead of the
+declaration. `EllipticCurves.TateModule.PrimaryImageProfinite`'s `## Hypotheses` section records
+the one declaration in this development whose inert `omit` did leave a binder in the signature.
 
 ## Non-degeneracy: the codomain is not discrete
 
