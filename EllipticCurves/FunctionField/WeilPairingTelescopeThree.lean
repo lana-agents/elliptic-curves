@@ -241,9 +241,13 @@ theorem exists_mul_translateEndo_mul_translateEndo_eq_algebraMap [DecidableEq F]
 
 /-! ### Non-vacuity
 
-The telescoping is stated for an affine `3`-torsion point, and the whole file is conditional on
-`[IsDedekindDomain W.CoordinateRing]`, so it is worth exhibiting a curve carrying such a point with
-every instance discharged.  `WeilPairingTelescopeTwo`'s certificate `y² = x³ − x` will not serve:
+The telescoping is stated for an affine `3`-torsion point, so it is worth exhibiting a curve
+carrying such a point with every instance discharged.  ⚠️ This paragraph used to give a second
+reason — *"the whole file is conditional on `[IsDedekindDomain W.CoordinateRing]`"* — and that
+reason was already false when it was written: the binder is in this file's variable block, but the
+instance is **global** for `[W.IsElliptic]` over an **arbitrary** field
+(`CoordinateRingNormalGeneral`'s `instIsDedekindDomain`, `#476`/`#479`), so it is not a condition
+on the curve.  `WeilPairingTelescopeTwo`'s certificate `y² = x³ − x` will not serve:
 it has no rational `3`-torsion.  The curve here is `y² + y = x³` over `ℚ`, of discriminant `−27`,
 on which `(0, 0)` has order `3` — it is not fixed by negation (`negY 0 0 = −1`) and `Ψ₃` vanishes
 at `0`, since `b₂ = b₄ = b₈ = 0`, so `Ψ₃ = 3X⁴ + 3b₆X` has no constant term. -/

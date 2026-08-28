@@ -23,9 +23,13 @@ relation
 hprod :  g_R = g_S · g_T · w        (for S ⊕ T = R)
 ```
 
-carried as a hypothesis, and every file on this front defers the *production* of `hprod` in the
+carried as a hypothesis, and every file on this front deferred the *production* of `hprod` in the
 same words — *"rung-4/5 gated (`#414`/`#418`)"*.  **This file produces it, and the deferral was
-wrong.**
+wrong.**  ⚠️ **The verb here was *"defers"*, in the present tense, and no file defers it now** —
+`exists_divisor_eq_add_sub_single_of_add_eq`'s docstring records where the phrase survives and why
+the one free-standing use left in the tree is correct.  This is the same defect `#1050` repaired in
+that docstring — *"State the position, never a tally"* — one level up, in the sentence that states
+the position.
 
 ## ⚠️ Why `hprod` was never rung-4 gated
 

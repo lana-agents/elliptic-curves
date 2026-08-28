@@ -33,7 +33,22 @@ that single translation-invariance fact:
 * `weilPairingElt_self_of_translateEndo_fixed`     — its forward direction, the reduction
   `τ_T∗ g_T = g_T ⟹ e_n(T, T) = 1`.
 
-## Why the remaining content is genuinely gated
+## Why the classical route is gated, and why the property is not
+
+⚠️ **This section is about the classical *route*, not about the status of the property.**  It
+used to be headed *"Why the remaining content is genuinely gated"*, and every route fact in this
+section is still exactly right; what went stale is the conclusion a reader drew from them.
+`τ_T∗ g_T = g_T` is **discharged**: at both `n` over `F̄` with no hypothesis beyond the setting
+(`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`,
+`…WeilPairingAlternatingThreeAlgClosed`) and over an **arbitrary** field with `hprin`
+(`…WeilPairingAlternatingBaseChange`, `#899`) — and the declaration docstrings of
+`weilPairingElt_eq_one_iff_translateEndo_fixed` and `weilPairingElt_self_of_translateEndo_fixed`
+have said so since `#1053`'s first sweep, in this file, under a section heading that said the
+opposite: that sweep repaired both declaration docstrings here and did not reach this section.
+⚠️ It was discharged by a **different route**: `[IsAlgClosed F]` makes the halving point `P`
+rational (`exists_nsmul_two_eq`), so the second product runs with no base change, and step 2's
+`div g_T = [n]∗(T)` is never computed.  A gate belongs to a route, and this one is not the route
+that was taken.
 
 Being an `n`-th root of unity — `e_n(T, T) ^ n = 1`, already available from
 `weilPairingElt_pow_eq_one` (PR #156) — is *not* enough to force `e_n(T, T) = 1`.  Pinning the
@@ -55,11 +70,17 @@ the form `[n]∗D` is fixed by the translation permutation; `div g_T = [n]∗((T
 form, each `τ_{[i]T}∗ g_T` therefore has the **same** divisor as `g_T`, and
 `div (∏_i τ_{[i]T}∗ g_T) = n · div g_T ≠ 0`.  There is no cancellation to be had in that product.
 
-That discharge of the `htinv : τ_T∗ g_T = g_T` hypothesis is the substantial, gated part of the
-alternating property (issue #465, deliverable 2).  It runs on the divisor / order-of-vanishing
-calculus of `F(W)` (conditional on `IsDedekindDomain W.CoordinateRing`, #396) and on the rung-5
-divisor identity `div g_T = [n]∗(T)` (#418, rung-4 gated).  It also needs a
-divisor-pullback-under-translation formula, and **that formula is now in `FunctionField/`**:
+That discharge of the `htinv : τ_T∗ g_T = g_T` hypothesis is the substantial part of the
+alternating property (issue #465, deliverable 2).  ⚠️ This sentence used to call it *"the
+substantial, **gated** part"* and to run the divisor calculus *"conditional on
+`IsDedekindDomain W.CoordinateRing`, #396"*; **both are wrong now, and the second went false nine
+hours after it was written.**  `#465` is closed, and `IsDedekindDomain W.CoordinateRing` is a
+**global instance** for `[W.IsElliptic]` over an **arbitrary** field
+(`CoordinateRingNormalGeneral`'s `instIsDedekindDomain`, `#476`/`#479`), so it is not a condition
+on anything and it is not `#396`.  The two-product route of this section still runs on that
+divisor calculus and on the rung-5 divisor identity `div g_T = [n]∗(T)` (#418, rung-4 gated),
+which **is** genuinely still missing.  It also needs a divisor-pullback-under-translation
+formula, and **that formula is now in `FunctionField/`**:
 
 * `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`, #658) —
   `divisorProj W (translateEndo h_T f) = (divisorProj W f).mapDomain (mapProjPoint W
@@ -115,8 +136,12 @@ This file supplies the ungated scaffolding both halves plug into.
 
 ## Out of scope
 
-* **Discharging `τ_T∗ g_T = g_T`** — the product-over-`⟨T⟩` argument (#465 deliverable 2), gated as
-  above.
+* **Discharging `τ_T∗ g_T = g_T`** — the product-over-`⟨T⟩` argument (#465 deliverable 2).  ⚠️
+  This bullet used to end *"gated as above"*.  It is not: it is done, at both `n` over `F̄` in
+  `EllipticCurves.FunctionField.WeilPairingAlternatingTwo` / `…Three` with `hprin` discharged in
+  the two `…AlgClosed` files, and over an arbitrary field with `hprin` in
+  `…WeilPairingAlternatingBaseChange`.  Out of scope *of this file*, which supplies the reduction
+  and not the discharge — and `hprin` over a **general** field is what is still open (`#962`).
 * **Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹`** — merged, as `WeilPairingAntisymmetric` (`#723`),
   together with the divisor-slot bilinearity it runs on; both need `[Field F]` and `[W.IsElliptic]`
   and nothing else.  What stays gated there is only the *production* of the product relation

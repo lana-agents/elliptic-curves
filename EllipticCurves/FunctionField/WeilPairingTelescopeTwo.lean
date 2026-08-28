@@ -148,10 +148,15 @@ theorem exists_mul_translateEndo_eq_algebraMap [DecidableEq F] (h : W.Nonsingula
 
 /-! ### Non-vacuity
 
-The telescoping is stated for an affine `2`-torsion point, and the whole file is conditional on
-`[IsDedekindDomain W.CoordinateRing]`, so it is worth exhibiting a curve carrying such a point with
-every instance discharged.  `y² = x³ - x` over `ℚ` has discriminant `64` and `(0, 0)` is `2`-torsion
-on it. -/
+The telescoping is stated for an affine `2`-torsion point, so it is worth exhibiting a curve
+carrying such a point with every instance discharged.  `y² = x³ - x` over `ℚ` has discriminant `64`
+and `(0, 0)` is `2`-torsion on it.  ⚠️ This paragraph used to give a second reason — *"the whole
+file is conditional on `[IsDedekindDomain W.CoordinateRing]`"* — and that reason was already
+false when it was written: `[IsDedekindDomain W.CoordinateRing]` is a binder in this file's
+variable block, so `#check` shows it, but it is a **global instance** for `[W.IsElliptic]` over an
+**arbitrary** field (`CoordinateRingNormalGeneral`'s `instIsDedekindDomain`, `#476`/`#479`,
+merged four days earlier), not a condition on the curve.  The certificate is worth having for the
+`2`-torsion point; it certifies nothing about that instance. -/
 
 section Nonvacuity
 
