@@ -26,7 +26,7 @@ algebraic closure `AlgebraicClosure F` is a domain, then `F` is relatively algeb
 * `WeierstrassCurve.Affine.algebraicClosure_functionField_eq_bot_of_isDomain_tensor` — the keystone
   specialised to the function field `F(W)` of a Weierstrass curve, delivering the exact `halg`
   hypothesis (`algebraicClosure F W.FunctionField = ⊥`) carried by `WeilPairingConstant.lean`
-  (#162), conditional on the geometric-integrality datum
+  (PR #162), conditional on the geometric-integrality datum
   `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)`.
 
 ## The geometric-integrality hypothesis is discharged elsewhere — it is not open
@@ -98,7 +98,7 @@ variable {F : Type*} [Field F] {W : Affine F}
 keystone bridge `algebraicClosure_eq_bot_of_isDomain_tensor` to `E = W.FunctionField`: given the
 geometric-integrality datum `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)`, the base field `F`
 is relatively algebraically closed in `F(W)`.  This is exactly the `halg` hypothesis carried by
-`WeilPairingConstant.lean` (#162); supplying it makes the Weil-pairing element's constancy and
+`WeilPairingConstant.lean` (PR #162); supplying it makes the Weil-pairing element's constancy and
 translation-slot bilinearity unconditional. -/
 theorem algebraicClosure_functionField_eq_bot_of_isDomain_tensor
     (hdom : IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)) :

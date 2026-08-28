@@ -41,7 +41,7 @@ base field of characteristic `≠ 2`, and the inclusion `[2]∗F(W) ⊆ Fixed(G)
 `Algebra.IsSeparable.of_integral`, which wants characteristic zero.
 
 The `CharZero`-free route is Artin's theorem: translation by a `2`-torsion point fixes `[2]∗f`
-pointwise (`translateEndo_mulByTwoEndo_apply`, `#164`), so `[2]∗F(W) ⊆ Fixed(G)`, and
+pointwise (`translateEndo_mulByTwoEndo_apply`, PR #164), so `[2]∗F(W) ⊆ Fixed(G)`, and
 `FixedPoints.finrank_eq_card` gives `[F(W) : Fixed(G)] = |G| = 4`.  Both outer degrees being `4`,
 the sandwich `[2]∗F(W) ⊆ Fixed(G) ⊆ F(W)` closes and `Fixed(G) = [2]∗F(W)` exactly — whence
 separability and normality for free, from Mathlib's `FixedPoints.isSeparable` and
@@ -295,7 +295,7 @@ lemma translatePoint_add_self_of_mem_torsion_two {x y : F} (h : W.Nonsingular x 
 
 open Classical in
 /-- **Translation by a `2`-torsion point fixes `[2]∗f`.**  The affine case is the merged
-`translateEndo_mulByTwoEndo_apply` (`#164`), which says `[2] ∘ τ_T = [2]` when `T + T = O`; the
+`translateEndo_mulByTwoEndo_apply` (PR #164), which says `[2] ∘ τ_T = [2]` when `T + T = O`; the
 point at infinity acts as the identity by construction. -/
 theorem translateAut_mulByTwoEndo (h2 : (2 : F) ≠ 0) {P : W.Point} (hP : P ∈ W.torsion 2)
     (f : W.FunctionField) : translateAut P (mulByTwoEndo h2 f) = mulByTwoEndo h2 f := by

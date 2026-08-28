@@ -98,7 +98,7 @@ instance isDomain_tensor_coordinateRing :
 /-- **The function field base-changes to a domain.**  The base change of `W.FunctionField` to the
 algebraic closure `F̄ := AlgebraicClosure F` is an integral domain.  This is the exact
 `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)` datum carried by `ConstantField.lean` (#434)
-and `WeilPairingConstant.lean` (#162). -/
+and `WeilPairingConstant.lean` (PR #162). -/
 instance isDomain_tensor_functionField :
     IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField) := by
   set F' := AlgebraicClosure F
@@ -132,7 +132,7 @@ curve `W` over a field `F`, the base field `F` is relatively algebraically close
 field `F(W)`: `algebraicClosure F W.FunctionField = ⊥`.  Equivalently, `F` is the full field of
 constants of `F(W)`.
 
-This discharges the `halg` hypothesis carried by `WeilPairingConstant.lean` (#162), making the
+This discharges the `halg` hypothesis carried by `WeilPairingConstant.lean` (PR #162), making the
 Weil-pairing element's constancy and translation-slot bilinearity unconditional. -/
 theorem algebraicClosure_functionField_eq_bot :
     algebraicClosure F W.FunctionField = ⊥ :=

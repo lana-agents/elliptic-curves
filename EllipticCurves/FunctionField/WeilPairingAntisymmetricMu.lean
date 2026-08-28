@@ -239,7 +239,7 @@ variable {xT yT : F}
 open Classical in
 /-- **A `[2]∗`-pullback contributes the identity of `μ_n(F)`, for a `2`-torsion translation
 point.**  `weilPairingElt_mulByTwoEndo_of_baseField` (`#723`, off the merged `hcomm` discharge
-`translateEndo_mulByTwoEndo_apply`, `#164`) through `weilPairingMu_eq_one_iff`. -/
+`translateEndo_mulByTwoEndo_apply`, PR #164) through `weilPairingMu_eq_one_iff`. -/
 theorem weilPairingMu_mulByTwoEndo_of_baseField (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
     (htors : torsionPoint hT + torsionPoint hT = 0) {f : W.FunctionField} (hf : f ≠ 0) {n : ℕ}
     [NeZero n] (hpow : weilPairingElt hT (mulByTwoEndo h2 f) ^ n = 1) :
@@ -495,9 +495,9 @@ what antisymmetry costs was wrong: it is **cheaper**, because divisor-slot bilin
 alternating property at no point at all — `weilPairingMu_divisorSlot_add`'s hypotheses are `hprod`,
 `hw` and the three `hpow`, and there is no `halt` among them.  The route is the descent
 `weilPairingMu_divisorSlot_add_of_weilPairingElt` — ⚠️ which is now stated **in this file**,
-immediately above `weilPairingMu_divisorSlot_add` (`#868`) — and not this theorem, for `#855`'s
-reason: an existential envelope exposes its roots and their certificates but not the `g_R` and `w`
-that were quantified away inside it. -/
+immediately above `weilPairingMu_divisorSlot_add`, having been moved here by `#868` — and not this
+theorem, for `#855`'s reason: an existential envelope exposes its roots and their certificates but
+not the `g_R` and `w` that were quantified away inside it. -/
 
 section Nonvacuity
 

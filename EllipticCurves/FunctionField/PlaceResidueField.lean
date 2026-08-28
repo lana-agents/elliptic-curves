@@ -198,7 +198,7 @@ theorem isUnit_placeOf_iff {p : ProjPoint W} (x : placeOf W p) :
     exact ⟨fun hh => ⟨h, by omega⟩, fun hh => by omega⟩
 
 /-- **The maximal ideal of a place is principal.**  A uniformizer exists at every place
-(`exists_divisorProj_eq_one`, `#651`), and generates it.
+(`exists_divisorProj_eq_one`, `#658`), and generates it.
 
 This is *not* yet `IsDiscreteValuationRing (placeOf W p)`, which additionally wants *every* ideal
 to be principal.  That is `isDiscreteValuationRing_placeOf`

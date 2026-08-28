@@ -47,7 +47,7 @@ produces it at `n = 2` and `exists_gS_three_of_isAlgClosed` (`#825`) at `n = 3`.
 ## The route, in one line each
 
 1. `div f' = σ_*(div f)` (point data, `divisor_eq_equivMapDomain_of_eq_single`, `#635`) gives
-   `div (σ⋆ f) = div f'`, hence `f' = c · σ⋆ f` for a constant `c` (`#402` + `#398`).
+   `div (σ⋆ f) = div f'`, hence `f' = c · σ⋆ f` for a constant `c` (`#402` + `#419`).
 2. Applying `Φ = [n]∗`, which fixes constants (`mulByTwoEndo_algebraMap_base`) and commutes with
    `σ⋆` (`galoisFunctionField_mulByTwoEndo`, `#461`), gives `Φ f' = c · σ⋆(Φ f)`.
 3. Substituting the two rung-5 relations turns that into

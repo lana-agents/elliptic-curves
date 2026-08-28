@@ -118,7 +118,7 @@ general `n` (which needs `#404`'s `ωₙ` crux).  ⚠️ `#456`'s two forms are 
 function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which
 is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an existential.
 
-## ⚠️ Eight issue numbers in this file were wrong while the names beside them were right
+## ⚠️ Nine issue numbers in this file were wrong while the names beside them were right
 
 Corrected **in place**, not retired: a wrong number was wrong the day it was typed, so nothing
 here *became* false and there is no clause to quote.  Ground truth for a number attached to a

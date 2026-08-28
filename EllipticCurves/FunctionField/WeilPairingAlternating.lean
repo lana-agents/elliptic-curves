@@ -36,9 +36,9 @@ that single translation-invariance fact:
 ## Why the remaining content is genuinely gated
 
 Being an `n`-th root of unity — `e_n(T, T) ^ n = 1`, already available from
-`weilPairingElt_pow_eq_one` (#156) — is *not* enough to force `e_n(T, T) = 1`.  Pinning the ratio to
-exactly `1` is the classical **product-over-`⟨T⟩`** argument (Silverman AEC III.8.1(d)), and it
-runs in **two** products, over two *different* translation points:
+`weilPairingElt_pow_eq_one` (PR #156) — is *not* enough to force `e_n(T, T) = 1`.  Pinning the
+ratio to exactly `1` is the classical **product-over-`⟨T⟩`** argument (Silverman AEC III.8.1(d)),
+and it runs in **two** products, over two *different* translation points:
 
 1. **The divisor telescoping, on `f_T`.**  From `div f_T = n(T) − n(O)` one gets
    `div (f_T ∘ τ_{[i]T}) = n((1 − i)T) − n((−i)T)`, and summing over `i = 0, …, n − 1` the two

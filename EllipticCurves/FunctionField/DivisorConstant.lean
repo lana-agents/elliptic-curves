@@ -19,7 +19,7 @@ is exactly an **`F*`-scalar**. This file closes that gap, and records the `divis
 case that the ambiguity statement specialises to.
 
 The two facts are the same fact. `#402` produces a unit `u : F[W]ˣ`, and
-`EllipticCurves.FunctionField.CoordinateRingUnits`'s `exists_eq_algebraMap_of_isUnit` (`#398`) says
+`EllipticCurves.FunctionField.CoordinateRingUnits`'s `exists_eq_algebraMap_of_isUnit` (`#419`) says
 that every unit of the affine coordinate ring of a Weierstrass curve is a nonzero constant — the
 affine coordinate ring has no interesting units, because a unit would have to have degree `0` in
 the `{1, Y}`-basis over `F[X]`. Composing the two turns `F[W]ˣ` into `F*`, which is the form every
@@ -52,7 +52,7 @@ The product-over-`⟨T⟩` / divisor-telescoping argument for the **alternating 
 `τ_T∗ g_T = g_T`. The last two steps are exactly `divisor_eq_zero_iff`, and the review thread on
 `#465` named this "`divisor = 0 ⟹ constant` convenience" as one of the three pieces that step still
 needed. It is the one of the three that is **not** gated: it needs neither rung 4/5 nor the
-divisor-pullback-under-translation formula, only `#402` and `#398`.
+divisor-pullback-under-translation formula, only `#402` and `#419`.
 
 It is equally the honest form of the well-definedness backbone of the pairing itself: the rung-1
 generator `f_P` with `div f_P = n·(P) − n·(O)` is canonical **up to `F*`**, not merely up to
@@ -64,7 +64,7 @@ generator `f_P` with `div f_P = n·(P) − n·(O)` is canonical **up to `F*`**, 
 `[IsDedekindDomain W.CoordinateRing]` were unsatisfiable. Neither holds:
 
 * `WeierstrassCurve.Affine.divisor_genX_ne_zero` — the generic `x`-coordinate `genX W` has
-  **nonzero** divisor. It is not a constant (`genX_ne`, `#403`) and it is nonzero, so the theorem
+  **nonzero** divisor. It is not a constant (`genX_ne`, `#406`) and it is nonzero, so the theorem
   above applies in the contrapositive. So `divisor W f = 0` is a genuine restriction.
 * The hypothesis is discharged for every elliptic curve by
   `EllipticCurves.FunctionField.DivisorTheoryElliptic`'s `IsDedekindDomain W.CoordinateRing`
@@ -117,7 +117,7 @@ lemma divisor_algebraMap_base {c : F} (hc : c ≠ 0) :
 
 The affine form of "a function on a complete curve with no zeros and no poles is constant". By
 `exists_unit_of_divisor_eq` (`#402`) applied against `1`, such an `f` satisfies `u • f = 1` for a
-unit `u : F[W]ˣ`; by `exists_eq_algebraMap_of_isUnit` (`#398`) that unit is a nonzero constant
+unit `u : F[W]ˣ`; by `exists_eq_algebraMap_of_isUnit` (`#419`) that unit is a nonzero constant
 `c : F`, and `f = c⁻¹`.
 
 Note that only the *affine* closed points enter: the conclusion is nonetheless the classical one,
@@ -156,7 +156,7 @@ theorem divisor_ne_zero_of_forall_ne {f : W.FunctionField} (hf : f ≠ 0)
 /-- **The divisor determines a rational function up to an `F*`-scalar** (order form).
 
 This is the sharp form of `exists_unit_of_ord_eq` (`#402`), which produces only a unit of `F[W]`.
-The two agree because `F[W]ˣ = F*` (`exists_eq_algebraMap_of_isUnit`, `#398`), but the `F*` form is
+The two agree because `F[W]ˣ = F*` (`exists_eq_algebraMap_of_isUnit`, `#419`), but the `F*` form is
 what consumers need: an `F*`-scalar can be cancelled, and it commutes with every `F`-algebra
 endomorphism of `F(W)` — `translateEndo` in particular. -/
 theorem exists_scalar_of_ord_eq {f g : W.FunctionField} (hf : f ≠ 0) (hg : g ≠ 0)
@@ -193,7 +193,7 @@ theorem divisor_eq_iff_exists_scalar {f g : W.FunctionField} (hf : f ≠ 0) (hg 
 
 /-- **The generic `x`-coordinate has a nonzero divisor.**
 
-`genX W` is the image in `F(W)` of the coordinate function `x`, and `genX_ne` (`#403`) says it
+`genX W` is the image in `F(W)` of the coordinate function `x`, and `genX_ne` (`#406`) says it
 differs from `algebraMap F F(W) c` for **every** `c : F` — in particular from `0`. So
 `divisor_ne_zero_of_forall_ne` applies, and `divisor W f = 0` is a genuine restriction rather than
 a property every rational function enjoys. -/

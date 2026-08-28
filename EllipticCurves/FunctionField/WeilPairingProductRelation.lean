@@ -53,7 +53,7 @@ Write `k` for the Abel–Jacobi function and `f_•`, `g_•`, `u_•` for the r
 1. `div (f_S · f_T) = n(S) + n(T) = div (f_R · k ^ n)`, so the quotient has trivial divisor and is
    a constant (`exists_eq_algebraMap_of_divisor_eq_zero`, `#629`): `f_S · f_T = c · f_R · k ^ n`.
 2. Apply the pullback `φ`, which fixes constants, and substitute `u_• • g_• ^ n = φ f_•`.  The
-   units are constants (`exists_eq_algebraMap_of_isUnit`, `#398`).
+   units are constants (`exists_eq_algebraMap_of_isUnit`, `#419`).
 3. `z := g_S · g_T · (g_R · φ k)⁻¹` then satisfies `z ^ n = ` a constant, so `n • div z = 0`, so
    `div z = 0`, so `z` is a constant by (1) again.
 4. Rearranged: `g_R = g_S · g_T · (c · φ (k⁻¹))` — ⚠️ **exactly the shape the consumer already
@@ -244,7 +244,7 @@ hypothesis — a ring homomorphism out of a field is injective.
 writes the same factor as `c · (h ∘ [n])`.
 
 The chain, after step 1: pull back along `φ`, substitute the roots and absorb the three units
-(constants, by `exists_eq_algebraMap_of_isUnit`, `#398`); then `z := g_S · g_T · (g_R · φ k)⁻¹`
+(constants, by `exists_eq_algebraMap_of_isUnit`, `#419`); then `z := g_S · g_T · (g_R · φ k)⁻¹`
 satisfies `z ^ n = ` a constant, so `n • div z = 0`, so `div z = 0` since `n ≠ 0` and the divisor
 group is torsion-free, so `z` is itself a constant. -/
 theorem exists_prod_eq_of_pullback (φ : W.FunctionField →+* W.FunctionField)
