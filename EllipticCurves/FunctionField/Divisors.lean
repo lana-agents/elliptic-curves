@@ -54,7 +54,12 @@ The classical identity `deg (div f) = 0` (principal divisors have degree zero) i
 the **projective/complete** curve: on the affine chart the poles of `f` at the point(s) at infinity
 are invisible, so `∑ v, ord v f` (suitably weighted by residue degrees) is *not* zero in general.
 Degrees are therefore not developed here; they belong to the projective completion and are left to
-a downstream file.
+a downstream file. ⚠️ That file exists, and there are two of them:
+`EllipticCurves.FunctionField.DivisorDegree` builds `degPt` and `degDiv` and proves
+`degDiv (div f) + ordInfty f = 0`, and `EllipticCurves.FunctionField.ProjectiveDivisor` puts the
+affine orders and `ordInfty` on one object and states the same theorem as
+`degProj (divisorProj f) = 0`. Both are downstream of this file, so no declaration here can name
+either; the omission is scope, and the pointer is what the sentence was missing.
 
 ## References
 

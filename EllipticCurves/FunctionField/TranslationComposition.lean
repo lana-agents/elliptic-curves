@@ -54,6 +54,15 @@ The only hypothesis on `P`, `Q`, `R` is the group relation `hsum` above; it pres
 degenerate corner `P ⊕ Q = O` (off the affine chart) is out of scope, as is discharging `hsum` from
 an `F`-level point identity (a mechanical base-change transport, left as a follow-on).
 
+⚠️ Both are still out of scope *of this file*, and both are merged elsewhere; the `## Scope`
+sentence is left word for word because `EllipticCurves.FunctionField.TranslationAutomorphism`
+quotes it. That module, which imports this one, states the degenerate corner separately as
+`translateEndo_comp_zero` — from `translatePoint hP + translatePoint hQ = 0`, and concluding
+`RingHom.id` rather than a `translateEndo hR`, since `hR` here ranges over affine points and `O` is
+not one. The base-change transport is `CoordinateRing.translatePoint_add`
+(`EllipticCurves.FunctionField.WeilPairingBilinearBaseField`, also downstream), which turns the
+`F`-level relation `torsionPoint hP + torsionPoint hQ = torsionPoint hR` into `hsum` verbatim.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.2, III.3.4, III.8.
