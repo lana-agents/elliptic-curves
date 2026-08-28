@@ -135,9 +135,32 @@ content; reach for it unless the categorical packaging is what is wanted.
 ## Hypotheses
 
 The variable block is `EllipticCurves.TateModule.PrimaryImage`'s, unchanged:
-`[Algebra.IsIntegral S F]` and `[IsGalois S F]` throughout, with `[IsGalois S F]` omitted on the
-two `continuousGaloisRepMatrix` rows — continuity of `ρ_{E,ℓ}` needs no compactness of `G` — and
-`[Algebra.IsIntegral S F]` omitted on `profiniteGrpGalois`, which is not about the curve at all.
+`[Algebra.IsIntegral S F]` and `[IsGalois S F]` throughout. Neither `continuousGaloisRepMatrix`
+nor `continuousGaloisRepMatrix_apply` carries `[IsGalois S F]` — continuity of `ρ_{E,ℓ}` needs no
+compactness of `G` — and `profiniteGrpGalois`, which is not about the curve at all, needs no
+`[Algebra.IsIntegral S F]`: `ProfiniteGrp.of (F ≃ₐ[S] F)` elaborates with `[IsGalois S F]` in
+its place.
+
+⚠️ **`profiniteGrpGalois` carries `[Algebra.IsIntegral S F]` all the same: the `omit` written
+ahead of it does not remove it.** Read the signature, not the source — `#check @profiniteGrpGalois`
+prints `… → [Algebra.IsIntegral S F] → [IsGalois S F] → ProfiniteGrp`. The cause is Lean's rather
+than this file's: `omit … in` is applied only when the declaration that follows is a `theorem`
+(`Lean.Elab.MutualDef`, `withHeaderSecVars`), so ahead of a `def`, an `abbrev` or an `instance` it
+parses, is accepted and is **silently ignored** — no error, no `unusedSectionVars` report, nothing
+the build can see. What such a declaration keeps is exactly the section variables its term uses,
+and this term does use the binder: with the variable in scope, the `TotallyDisconnectedSpace`
+argument of `ProfiniteGrp.of` is synthesised through it (visible under `pp.explicit`), whereas
+with the variable out of scope the same term elaborates through `[IsGalois S F]`. Nothing
+downstream pays for it, because `[IsGalois S F]` supplies `Algebra.IsIntegral S F` by instance
+search, so a caller carrying the hypothesis this file assumes anyway gets the binder for free.
+
+⚠️ The same reading is owed to the two `omit`s on the `continuousGaloisRepMatrix` rows.
+`continuousGaloisRepMatrix_apply` is a `theorem`, so its `omit` is what drops `[IsGalois S F]`;
+`continuousGaloisRepMatrix` is a `def`, so there the clean signature is the term's doing and the
+`omit` beside it is decoration. **A prose claim about a signature is checkable by `#check @` and
+by nothing else** — no build, no linter and no grep sees this class of defect, which is why this
+section states what the elaborator prints rather than what the source asks for.
+
 ⚠️ `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]` and `h2` do **not** appear anywhere in this file: at an
 arbitrary prime the basis-free determinant rows take `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`
 directly, and it is the instantiation layers that pay for it — `h2` at `ℓ = 2` and `h2` together
@@ -466,7 +489,13 @@ variable (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F).tateModule ℓ))
 omit [Algebra.IsIntegral S F] in
 /-- **`Gal(F/S)` as an object of `ProfiniteGrp`.** Mathlib already supplies every instance this
 needs — `CompactSpace`, `TotallyDisconnectedSpace` and `IsTopologicalGroup` for `F ≃ₐ[S] F` under
-`[IsGalois S F]` — so nothing is proved here; the point is to name the object. -/
+`[IsGalois S F]` — so nothing is proved here; the point is to name the object.
+
+⚠️ **The `omit` ahead of this declaration is inert, and the signature keeps
+`[Algebra.IsIntegral S F]`.** `omit … in` acts on a `theorem` and is silently ignored ahead of an
+`abbrev`; `#check @profiniteGrpGalois` is the only thing that sees the difference. Harmless —
+`[IsGalois S F]` supplies the binder by instance search — but do not read the `omit` as removing
+it. This module's **Hypotheses** section carries the measurement and the mechanism. -/
 noncomputable abbrev profiniteGrpGalois : ProfiniteGrp := ProfiniteGrp.of (F ≃ₐ[S] F)
 
 /-- **`ρ_{E,ℓ}` is a morphism of profinite groups** `Gal(F/S) ⟶ GL₂(ℤ_[ℓ])`.
