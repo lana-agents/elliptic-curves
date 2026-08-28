@@ -402,8 +402,14 @@ because it contains emphasis of its own:
 is **false** in the direction it asserts, for the reason given in the
 module docstring: instantiating this at `α = ρ_{E,3}(σ)` produces an equation between two pairing
 values, not `galoisDetMod 3 σ = χ_3 σ`.  This is the **Galois-free half** of
-`galoisDetMod_three_eq_galoisModularCyclotomicChar`; the half that is missing is
-`galoisModularCyclotomicChar_three_eq_det`, which this file does not touch. -/
+`galoisDetMod_three_eq_galoisModularCyclotomicChar`; the other half is
+`galoisModularCyclotomicChar_three_eq_det`, which this file does not touch.
+
+⚠️ That other half used to be described here as *"the half that is **missing**"*, and it was
+false when it was written: the theorem is merged, in
+`EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`), which is in this file's own import
+closure.  The module docstring above states the same split correctly (*"The other half is …"*), so
+one commit wrote both readings into one file and only the declaration docstring got it wrong. -/
 theorem weilPairingThree_linearEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (α : W.torsion 3 ≃ₗ[ZMod 3] W.torsion 3) (x y : W.torsion 3) :
     weilPairingThree h2 h3 (α x) (α y)
