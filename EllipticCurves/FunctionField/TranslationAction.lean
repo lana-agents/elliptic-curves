@@ -86,10 +86,13 @@ which is noncomputable and should stay inside that `haveI` rather than appearing
 
 ## Scope
 
-The sandwich `Fixed(E[2]) = [2]∗F(W)`, `IsGalois`, and the separability instance are the sibling
-issue and are **not** here.  Nothing here mentions divisors, places, or `ProjPoint`, and nothing
-here is `[3]`- or general-`[n]`-flavoured: `card_torsion_two` is the `n = 2` computation, and
-`#682`'s degree `4` is `[2]`-specific.
+The sandwich `Fixed(E[2]) = [2]∗F(W)`, Artin's degree `finrank_fixedFieldTwo = 4`, `IsGalois` and
+the separability package are **not** here: they are the sibling issue `#759`, merged as
+`EllipticCurves.FunctionField.MulByTwoGalois`, which imports this file.  ⚠️ Those statements carry
+`[IsAlgClosed F]`, which this file does not assume: `mulByTwoRange_le_fixedPoints` needs only
+`[W.IsElliptic]` and `(2 : F) ≠ 0`.  Nothing here mentions divisors, places, or `ProjPoint`, and
+nothing here is `[3]`- or general-`[n]`-flavoured: `card_torsion_two` is the `n = 2` computation,
+and `#682`'s degree `4` is `[2]`-specific.
 
 ## References
 
@@ -313,7 +316,11 @@ theorem mulByTwoEndo_mem_fixedPoints (h2 : (2 : F) ≠ 0) (f : W.FunctionField) 
 
 open Classical in
 /-- **`[2]∗F(W) ⊆ Fixed(E[2])`**, the inclusion half of the sandwich that identifies the two.  The
-reverse inclusion is a degree count (Artin's theorem against `#682`) and is not proved here. -/
+reverse inclusion is a degree count (Artin's theorem against `#682`) and is not proved here: it is
+`fixedPoints_subfield_eq_mulByTwoEndoFieldRange`
+(`EllipticCurves.FunctionField.MulByTwoGalois`, downstream of this file), which states the
+corresponding equality of subfields and carries `[IsAlgClosed F]` — a hypothesis absent from this
+statement's own signature. -/
 theorem mulByTwoRange_le_fixedPoints (h2 : (2 : F) ≠ 0) :
     (mulByTwoEndo (W := W) h2).range
       ≤ (FixedPoints.subfield (TorsionTwoMul W) W.FunctionField).toSubring := by
