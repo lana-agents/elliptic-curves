@@ -28,10 +28,20 @@ bilinearity in the **divisor** slot `S` that it runs on.
 
 ## What was deferred, and why the deferral overpriced it
 
-Every file that mentions divisor-slot bilinearity defers it in the same words —
-`WeilPairingBilinear`'s scope note says it "needs `g_{S ⊕ S'} = g_S · g_{S'}` up to a constant, a
-divisor-level statement gated on rung 4", and `WeilPairingAlternatingThree`'s "Explicitly not here"
-list defers antisymmetry to it.
+⚠️ **Both sentences that stood here quoted text that no longer exists, and the first of them
+never did.**  They read:
+
+> Every file that mentions divisor-slot bilinearity defers it in the same words —
+> `WeilPairingBilinear`'s scope note says it *"needs `g_{S ⊕ S'} = g_S · g_{S'}` up to a constant,
+> a divisor-level statement gated on rung 4"*, and `WeilPairingAlternatingThree`'s *"Explicitly not
+> here"* list defers antisymmetry to it.
+
+The commit that created this file (`#723`) is the same commit that **removed** that clause from
+`WeilPairingBilinear`, which since then has said divisor-slot bilinearity *"is **not** here, but it
+is no longer deferred"* and names this file; so the quotation was dangling before it was pushed.
+`WeilPairingAlternatingThree`'s list was repaired a day and a half later, by `#728`, and now says
+antisymmetry *"is neither more nor less gated than this file already is"*.  ⚠️ **Kept as a
+quotation rather than deleted** (`#972`): the deferral is what this section exists to price.
 
 That is right about *what* is missing and wrong about what it costs.  ⚠️ **It is also wrong that
 the production of `g_R = g_S · g_T · w` is rung-4 gated**, as this file used to say here: it

@@ -22,8 +22,16 @@ weilPairingElt_galois_of_divisor_eq :
   divisor g' = σ_*(divisor g)  →  σ⋆(e_n(S, T)) = e_n(σS, σT),
 ```
 
-and then says the residual gate is `divisor g_S = [n]∗(S)` — the rung-5 characterising identity,
-which is gated on rung 4 (`#421`/`#422`).  Every file on this front has repeated that reading.
+and then said the residual gate is `divisor g_S = [n]∗(S)` — the rung-5 characterising identity,
+which is gated on rung 4 (`#421`/`#422`).  Every file on this front had repeated that reading.
+
+⚠️ **The tense is the repair.**  This paragraph stood in the present tense — *"and then says …
+Every file on this front has repeated that reading"* — from the moment it was written, and the
+commit that wrote it is the same commit that retired the reading at its source:
+`EllipticCurves.FunctionField.WeilPairingGaloisDivisor` now records the guess as *"wrong"* and
+points at this file, and `…WeilPairingGalois`, `…WeilPairingGaloisMu` and
+`…WeilPairingCyclotomic` were repaired with it.  A reader sent to any of the four to see the claim
+finds its refutation instead.
 
 **It is not the gate.**  What the pairing needs is that the divisors of `σ⋆ g_S` and of `g_{σS}`
 agree, and *that* follows from the rung-5 datum in the shape it is actually produced in,

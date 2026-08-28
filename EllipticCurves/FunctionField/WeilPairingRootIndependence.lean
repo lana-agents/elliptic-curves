@@ -82,9 +82,14 @@ is a genuinely different statement that needs root extraction.  It is not attemp
 
 ## Non-vacuity
 
-Everything through `weilPairingElt_eq_of_smul_pow_eq` is ungated apart from the standing
-`[IsDedekindDomain W.CoordinateRing]` of the divisor calculus (`#396`), and is instantiable
-wherever that instance is.  The two headline corollaries inherit `hprin` from the theorems they
+Everything through `weilPairingElt_eq_of_smul_pow_eq` is ungated, and is instantiable on any
+elliptic curve over any field.  ⚠️ **This paragraph used to say *"ungated apart from the standing
+`[IsDedekindDomain W.CoordinateRing]` of the divisor calculus (`#396`)"*, and that clause was false
+on the day it was typed** — `instIsDedekindDomain` (`CoordinateRingNormalGeneral`, `#476`/`#479`)
+had been a global instance for `[W.IsElliptic]` over an arbitrary field for four days.  ⚠️ The
+`Nonvacuity` section of this file has said so since `#802`'s tree-wide normality audit; that audit
+repaired that docstring in this file and left this paragraph standing — one file, two docstrings,
+one of them corrected.  The two headline corollaries inherit `hprin` from the theorems they
 consume, so they admit no certificate on a concrete curve — for exactly the reason
 `WeilPairingAlternatingTwo`'s own non-vacuity section gives, and no new one.
 
