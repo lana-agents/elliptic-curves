@@ -196,11 +196,18 @@ same section — was wrong in the other direction.** It read:
 * **No consumer is re-plumbed.**  Both stale docstrings said *"nothing below assumes it"*, and that
   was true and stays true: this file adds a bridge and crosses nothing over it.  Rewriting the
   `f_p`-weighted statements to use `degPt`, or the reverse, is a separate and reviewable decision.
-* **`residueDegreeProj`'s defining docstring still says it is *not* `degPt`**, and that sentence is
-  correct as a statement about definitions: the two are different constructions, and what is proved
-  here is an equality of *values*, not an identification of notions.  ⚠️ Its parenthetical reason —
-  *"which is a relative ideal norm to `F[X]`"* — is still right; what is no longer right anywhere in
-  this tree is any claim that the two are **only** known to agree over `F̄`.
+* **Neither degree function is rephrased in terms of the other**, and both defining docstrings now
+  name this comparison.  ⚠️ This bullet used to read that `residueDegreeProj`'s docstring *"still
+  says it is **not** `degPt`"*, and stop there because that sentence is *"correct as a statement
+  about definitions"*.  The ground was right — the two are different constructions, and what is
+  proved here is an equality of *values*, not an identification of notions — but it stopped one file
+  short: `degPt`'s own docstring (`EllipticCurves.FunctionField.DivisorDegree`) carried the
+  **mirror** gloss, *"its residue degree over `F`"*, which is that same equality asserted in the
+  positive, seven days before this file proved it.  Read side by side, one denied a *definitional*
+  identity and the other asserted the equality outright, and neither named a theorem.  Both now
+  point here; the parenthetical
+  *"which is a relative ideal norm to `F[X]`"* is still right, and what is no longer right anywhere
+  in this tree is any claim that the two are **only** known to agree over `F̄`.
 * **No binder is removed anywhere else.**  `[IsAlgClosed F]` stays on `degPt_eq_one`,
   `degProjPt_eq_one`, `degProj_eq_sum`, `degDiv_eq_sum` and the two fundamental identities, where it
   is load-bearing.
