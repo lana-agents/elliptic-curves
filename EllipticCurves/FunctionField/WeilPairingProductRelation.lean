@@ -91,15 +91,27 @@ about; the headlines therefore produce `g_S` and `g_T` together with their rung-
 exactly as `exists_gS_two_weilPairingElt_ne_one` does for non-degeneracy.  Inventing a
 `W.Point`-level pairing *here* would still be the drift this front keeps paying for.
 
-⚠️ **There now is one, at `n = 2`, and it does not need this file.**
+⚠️ **There now is one, at both `n`, and it does not need this file.**
 `EllipticCurves.FunctionField.WeilPairingFunctionTwo` (`#922`) makes `e_2` a function of two torsion
 points, and `weilPairingEltTwo_mul_swap` derives antisymmetry in two tactic lines by expanding
-`e_2(S ⊕ T, S ⊕ T) = 1` — Silverman's own derivation, using none of the machinery below.  ⚠️ **That
-is the general fact and it is worth knowing before depending on this file: the product relation
-`g_{S ⊕ T} = g_S · g_T · w` is needed only to relate three *separately chosen* roots.**  Once the
-choice is made once and proved irrelevant, divisor-slot bilinearity already contains it.  What the
-file remains the right tool for is precisely the caller who has not made that choice — which is
-every statement quantified over rung-5 data, and everything at `n = 3`.
+`e_2(S ⊕ T, S ⊕ T) = 1` — Silverman's own derivation, using none of the machinery below.
+`EllipticCurves.FunctionField.WeilPairingFunctionThree` (`#925`) is the `n = 3` mirror, with
+`weilPairingEltThree_mul_swap` and `weilPairingEltThree_swap`; its own docstring prices that
+derivation at four tactic lines rather than two.  Both functions live over `[IsAlgClosed F]` and
+carry nothing beyond the characteristic hypotheses the endomorphisms need — `h2` at `n = 2`, `h2`
+and `h3` at `n = 3` (elaborated, not read off the source) — so the two `n` stand on the same footing
+here.  ⚠️ **That is the general fact and it is worth knowing before depending on this file:
+the product relation `g_{S ⊕ T} = g_S · g_T · w` is needed only to relate three *separately chosen*
+roots.**  Once the choice is made once and proved irrelevant, divisor-slot bilinearity already
+contains it.  What the file remains the right tool for is precisely the caller who has not made that
+choice — which is every statement quantified over rung-5 data.
+
+⚠️ **This paragraph used to say `n = 2` above and to end** *"— which is every statement quantified
+over rung-5 data, and everything at `n = 3`"*.  It was true for **thirty-four minutes**: it was
+written at 2026-08-23 23:12 by the sweep that repaired the sentences `#922` had falsified, and
+`#925`'s module landed at 23:46 the same evening.  ⚠️ **No build here can see that, and none ever
+could**: `WeilPairingFunctionThree` imports this file, not the other way round, so the theorem that
+falsifies the sentence is downstream of it — the sibling shape, one rung apart.
 
 ⚠️ **A caller who already holds a root cannot apply those headlines**, and the `∀ g` forms that
 serve such a caller are in `EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`
