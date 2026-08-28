@@ -36,8 +36,9 @@ W_X(x, y)·[X - x] + W_Y(x, y)·[Y - y]  ∈  ⟨X - x, Y - y⟩².
 ```
 This is `taylor_cotangent_mem_sq` — precisely the linear relation in the cotangent space
 `m/m²` (with scalar coefficients `W_X(x, y)`, `W_Y(x, y)`) that the Nakayama step of `#469` uses:
-combined with the unit fact `isUnit_mk_polynomial{X,Y}_of_nonsingular` (`LocalRingUnit.lean`, #185),
-it collapses the two generators of the maximal ideal to a single uniformizer.
+combined with the unit fact `isUnit_mk_polynomial{X,Y}_of_nonsingular`
+(`LocalRingUnit.lean`, PR #185), it collapses the two generators of the maximal ideal to a single
+uniformizer.
 
 ## Main statements
 
