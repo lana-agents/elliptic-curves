@@ -97,7 +97,13 @@ different means.
   `EllipticCurves.FunctionField.MulByThreeRamification`; general `[n]∗` has no case, `mulByNEndo`
   not existing.
 * Any comparison with `degPt` (`DivisorDegree.lean`), which is a relative ideal norm to `F[X]` and
-  not a residue-field degree.
+  so not *definitionally* a residue-field degree.  ⚠️ **This bullet used to end** *"and not a
+  residue-field degree"*, with no qualifier, and that is the one reading of it that is now wrong:
+  the two constructions really do differ, but their **values agree over an arbitrary base field** —
+  `degPt_eq_residueDegreeProj` at an affine place and `degProjPt_eq_residueDegreeProj` at every
+  `p : ProjPoint W` (`EllipticCurves.FunctionField.PlaceDegreeComparison`).  ⚠️ Only the gloss
+  changes: that file is **downstream** of this one, so no comparison is made here and nothing below
+  assumes any relation between the two.
 
 ## The `_of_isAlgClosed` companions live here, not in `PlaceBelowIntegralClosure`
 

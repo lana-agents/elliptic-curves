@@ -138,12 +138,21 @@ and computes none, and `#774` (`EllipticCurves.FunctionField.MulByTwoFibreInfini
 `F`-rational point, where the index is `1`; a place over a closed point with a nontrivial residue
 extension is **still not anywhere**.  Also not here: any
 comparison of `residueDegreeProj` with `degPt` (`DivisorDegree.lean`), which is a relative ideal
-norm to `F[X]` and not a residue-field degree; the unconditional
+norm to `F[X]` and so not *definitionally* a residue-field degree; the unconditional
 `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` (`#763` proves only the `[IsAlgClosed F]` form
 `= 1`); and `#E[n] = n²`, whose link to the field degree runs through the count "a separable isogeny
 has `#ker = deg`".  That last one is **not** (c-ii): the separability of `F(W) / [2]∗F(W)` is
 available (`#759`), and the counting step is a different statement that this tree does not have.
 Do not assume it.
+
+⚠️ **The `degPt` item in that list used to read** *"a relative ideal norm to `F[X]` and not a
+residue-field degree"*, with no qualifier.  The two constructions really do differ, but their
+**values agree over an arbitrary base field**: `degPt_eq_residueDegreeProj` at an affine place and
+`degProjPt_eq_residueDegreeProj` at every `p : ProjPoint W`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`).  ⚠️ Only that gloss changes — the list item
+itself stays true, because that file is **downstream** of this one, so the comparison genuinely is
+not made here and nothing below assumes any relation between the two.  The other two entries in the
+list are untouched by this repair.
 
 ## References
 
