@@ -73,11 +73,15 @@ form, each `τ_{[i]T}∗ g_T` therefore has the **same** divisor as `g_T`, and
 That discharge of the `htinv : τ_T∗ g_T = g_T` hypothesis is the substantial part of the
 alternating property (issue #465, deliverable 2).  ⚠️ This sentence used to call it *"the
 substantial, **gated** part"* and to run the divisor calculus *"conditional on
-`IsDedekindDomain W.CoordinateRing`, #396"*; **both are wrong now, and the second went false nine
-hours after it was written.**  `#465` is closed, and `IsDedekindDomain W.CoordinateRing` is a
-**global instance** for `[W.IsElliptic]` over an **arbitrary** field
-(`CoordinateRingNormalGeneral`'s `instIsDedekindDomain`, `#476`/`#479`), so it is not a condition
-on anything and it is not `#396`.  The two-product route of this section still runs on that
+`IsDedekindDomain W.CoordinateRing`, #396"*; **the first is wrong now, and the second names the
+wrong issue.**  `#465` is closed, and `IsDedekindDomain W.CoordinateRing` holds for
+`[W.IsElliptic]` over an **arbitrary** field — it is `CoordinateRingNormalGeneral`'s
+`instIsDedekindDomain` (`#476`/`#479`), not `#396`'s, and it costs nothing wherever that module is
+imported.  ⚠️ **This file does not import it**, and neither does anything in its transitive import
+closure, so under `WeilPairingAlternating.lean`'s own imports `IsDedekindDomain W.CoordinateRing`
+does **not** synthesize: *in this file it is still a condition*, and the discharge, when it is
+written, carries the import or the binder.  *"Global in the tree"* and *"in scope here"* are
+different claims (`#1099`).  The two-product route of this section still runs on that
 divisor calculus and on the rung-5 divisor identity `div g_T = [n]∗(T)` (#418, rung-4 gated),
 which **is** genuinely still missing.  It also needs a divisor-pullback-under-translation
 formula, and **that formula is now in `FunctionField/`**:
