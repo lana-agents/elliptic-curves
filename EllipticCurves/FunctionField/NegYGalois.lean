@@ -132,9 +132,15 @@ statement below is false.
   ⚠️ **And *"in this tree"* is not *"in this file"*.**  The clause *"every one of those four
   typeclasses is supplied by `inferInstance` in this tree"* is a **tree-level** claim and is true as
   one; a `## Scope` section is exactly where the difference from a **file-level** claim bites.
-  Under this file's own imports only **three** of the four resolve: `IsDedekindDomain F[X]` and
-  `Module.IsTorsionFree F[X] F[W]` are Mathlib's, and `Module.Finite F[X] F[W]` is
-  `instModuleFinite` of `EllipticCurves.Torsion.CoordinateRingDedekind`, which this file reaches.
+  Under this file's own imports only **three** of the four resolve, and ⚠️ **only one of those
+  three is Mathlib's**: `IsDedekindDomain F[X]`.  `Module.Finite F[X] F[W]` is
+  `CoordinateRing.instModuleFinite` of `EllipticCurves.Torsion.CoordinateRingDedekind`, which this
+  file reaches, and `Module.IsTorsionFree F[X] F[W]` has **no instance of its own** in Mathlib or
+  in this tree at all: it is Mathlib's `Module.Flat.isTorsionFree`, fired through
+  `Module.FaithfullyFlat.toFlat`, `Module.FaithfullyFlat.of_isIntegral_of_isDomain` and
+  `Algebra.IsIntegral.of_finite`, whose `Module.Finite` premise is that same tree instance.
+  ⚠️ So it is tree-dependent for exactly the reason `Module.Finite` is, and `import Mathlib` alone
+  does not give it.
   The fourth, `IsDedekindDomain F[W]`, does **not** resolve here: it is `instIsDedekindDomain` of
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral`, and this file does not import that
   module.  ⚠️ **That is a fact about scope and not about strength.**  The instance is global for
