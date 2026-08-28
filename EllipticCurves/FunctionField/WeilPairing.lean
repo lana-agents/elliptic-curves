@@ -444,13 +444,20 @@ placement.  The check has found exactly one breach so far, `#873`'s bundled-hom 
 ## Citing a number: which number, and which thing it is attached to
 
 ⚠️ **A backticked `#N` in this tree names a taxis issue.  A pull-request number is written
-`PR #N`** — unlabelled, outside backticks.  `WeilPairingBilinearBaseField`,
+`PR #N`**, with the number outside the backticks.  `WeilPairingBilinearBaseField`,
 `WeilPairingProductRelationHprin` and `EllipticCurves.FormalGroup.VietaDifferential` are the
 pattern; `grep -rnoE '(\*\*PR\*\*|\bPR) *#[0-9]+' EllipticCurves` enumerates the sites that follow
 it.  ⚠️ The two registers are indistinguishable to a reader when the label is missing, and *worse*
 than indistinguishable when the number also resolves as an issue: `#166`, carried unlabelled beside
-`translatePoint_add_self` until this section was written, is a live issue of project **13**, about
-the Jacobi triple product.
+`translatePoint_add_self` until this section was written, is an issue of project **13**, about the
+Jacobi triple product.
+
+⚠️ **The rule is about the number and not about what precedes it.**  It holds beside a **module
+path** exactly as it holds beside a declaration.  ⚠️ And a path spelled with a slash and a `.lean`
+suffix matches no declaration-anchored regex — the three citation shapes censused so far all anchor
+on an identifier — so a number in that position sits in **no** census.  `TranslationTorsion` and
+`TranslationTriplingComm` cite the *same* module there, one by its issue `#433` and one by its pull
+request `PR #164`.
 
 ⚠️ **The number that belongs beside a name is the LEAF issue that delivered it, not whatever the
 creation commit's subject says.**  Those differ routinely, and the subject is the coarser of the
