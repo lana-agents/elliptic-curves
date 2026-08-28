@@ -144,7 +144,7 @@ is the basis swap `P ↔ T`, whose determinant is `−1`; ⚠️ that is precise
 read as a determinant, so the certificate exhibits the file's own content rather than a side fact.
 The only step closed by `decide` is the arithmetic `((0 * 0 − 1 * 1 : ℤ) : ZMod 3) ≠ 1` at the very
 end; everything before it consumes `det_eq_intCast_of_zsmul_add_zsmul` and
-`weilPairingThree_linearEquiv` (`#944`).
+`weilPairingThree_linearEquiv` (`#957`).
 
 ⚠️ **That certificate does not close the other half of `#916`, and an earlier version of this
 section read as though it did.**  Every statement in this file carries `[IsAlgClosed F]` and
@@ -458,7 +458,7 @@ says the exponent `det α` is doing work at this `α`, not merely being `1`.
 
 ⚠️ Only the final arithmetic step `((0 * 0 − 1 * 1 : ℤ) : ZMod 3) ≠ 1` is closed by `decide`; the
 determinant is computed by `det_eq_intCast_of_zsmul_add_zsmul` and the headline instance is
-`weilPairingThree_linearEquiv` (`#944`). -/
+`weilPairingThree_linearEquiv` (`#957`). -/
 theorem exists_weilPairingThree_linearEquiv_det_ne_one (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     ∃ (P T : W.torsion 3) (α : W.torsion 3 ≃ₗ[ZMod 3] W.torsion 3),
       weilPairingThree h2 h3 P T ≠ 1 ∧

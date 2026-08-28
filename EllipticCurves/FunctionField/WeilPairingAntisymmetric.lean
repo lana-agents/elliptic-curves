@@ -49,7 +49,7 @@ that *consumes* `hprod` is ungated too, because the correction factor `w` is inv
   base field (`translateEndo_algebraMap_base`, `#432`);
 * a pullback `[n]∗f` contributes `1` (`weilPairingElt_mulByTwoEndo`,
   `weilPairingElt_mulByThreeEndo`), since `τ_T∗` fixes it whenever `T` is `n`-torsion — which is
-  exactly the merged `hcomm` discharge `translateEndo_mulByTwoEndo_apply` (`#164`) /
+  exactly the merged `hcomm` discharge `translateEndo_mulByTwoEndo_apply` (PR #164) /
   `translateEndo_mulByThreeEndo_apply`.
 
 So the classical shape `g_{S⊕T} = c · g_S · g_T · (h ∘ [n])` costs **nothing** downstream, and the
@@ -163,7 +163,7 @@ theorem weilPairingElt_algebraMap {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) 
 variable {xT yT : F}
 
 /-- **A `[2]∗`-pullback contributes `1`, for a `2`-torsion translation point.**  The merged `hcomm`
-discharge `translateEndo_mulByTwoEndo_apply` (`#164`) says `τ_T∗` fixes `[2]∗f` outright whenever
+discharge `translateEndo_mulByTwoEndo_apply` (PR #164) says `τ_T∗` fixes `[2]∗f` outright whenever
 `𝒯_T + 𝒯_T = 0`, and a fixed nonzero element has pairing value `1`. -/
 theorem weilPairingElt_mulByTwoEndo (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
     (htors : translatePoint hT + translatePoint hT = 0) {f : W.FunctionField} (hf : f ≠ 0) :
@@ -175,7 +175,7 @@ theorem weilPairingElt_mulByTwoEndo (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
 open Classical in
 /-- **A `[2]∗`-pullback contributes `1`, from the base-field `2`-torsion of `T`.**  The
 `torsionPoint` form of `weilPairingElt_mulByTwoEndo`, transporting `T + T = 0` in `W.Point` through
-`translatePoint_add_self` (`#166`). -/
+`translatePoint_add_self` (PR #166). -/
 theorem weilPairingElt_mulByTwoEndo_of_baseField (hT : W.Equation xT yT) (h2 : (2 : F) ≠ 0)
     (htors : torsionPoint hT + torsionPoint hT = 0) {f : W.FunctionField} (hf : f ≠ 0) :
     weilPairingElt hT (mulByTwoEndo h2 f) = 1 :=

@@ -137,7 +137,7 @@ If `u₁ · g₁ ^ m = φ f₁` and `u₂ · g₂ ^ m = φ f₂` with `div f₁ 
 This is `weilPairingElt_eq_of_smul_pow_eq` (`WeilPairingRootIndependence`, `#724`) with "the same
 function" relaxed to "the same divisor", which is the form a caller holding their own `f_S` is in.
 Two functions with equal divisors differ by a unit of `F[W]` (`exists_unit_of_divisor_eq`), a unit
-is a nonzero constant of `F` (`exists_eq_algebraMap_of_isUnit`, `#398`), `φ` fixes the base field by
+is a nonzero constant of `F` (`exists_eq_algebraMap_of_isUnit`, `#419`), `φ` fixes the base field by
 `hφc`, and a nonzero constant has trivial divisor (`divisor_algebraMap_base`, `#629`) — so `φ f₁`
 and `φ f₂` have the same divisor, and the `m`-fold divisors of the two roots agree.
 

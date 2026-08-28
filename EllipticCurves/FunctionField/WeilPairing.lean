@@ -90,7 +90,7 @@ still has no case at all: it would need `mulByNEndo`, which does not exist (`#40
   ⚠️ **Do not compress that into "rung 6 is complete over an arbitrary field".**  A completeness
   claim needs its domain stated, and the domain is those six families and no more.
   **Non-degeneracy is not among them and is not a lift**: `WeilPairingNondegenerateTwo` carries a
-  second, independent `[IsAlgClosed F]` dependence through `card_torsion_two` (`#759`), and
+  second, independent `[IsAlgClosed F]` dependence through `card_torsion_two` (`#528`), and
   non-degeneracy against `E(F)[n]` over a non-closed `F` is *false*, so there is nothing there to
   lift and filing it as one would be an error.  ⚠️ The undomained version of that sentence is what
   `#923` was filed to correct, three times over: **enumerate the domain from the issue tree, not
@@ -440,6 +440,52 @@ placement.  The check has found exactly one breach so far, `#873`'s bundled-hom 
 `#913`'s, repaired by `#918`, and reports **0** as of `#927` — which was a placement fix that did
 *not* start from a breach: the eight it moved had matching twins throughout, and it is the
 `exists_`-in-`CoordinateRing` column, not the mismatch column, that flagged them.
+
+## Citing a number: which number, and which thing it is attached to
+
+⚠️ **A backticked `#N` in this tree names a taxis issue.  A pull-request number is written
+`PR #N`** — unlabelled, outside backticks.  `WeilPairingBilinearBaseField`,
+`WeilPairingProductRelationHprin` and `EllipticCurves.FormalGroup.VietaDifferential` are the
+pattern; `grep -rnoE '(\*\*PR\*\*|\bPR) *#[0-9]+' EllipticCurves` enumerates the sites that follow
+it.  ⚠️ The two registers are indistinguishable to a reader when the label is missing, and *worse*
+than indistinguishable when the number also resolves as an issue: `#166`, carried unlabelled beside
+`translatePoint_add_self` until this section was written, is a live issue of project **13**, about
+the Jacobi triple product.
+
+⚠️ **The number that belongs beside a name is the LEAF issue that delivered it, not whatever the
+creation commit's subject says.**  Those differ routinely, and the subject is the coarser of the
+two.  `WeilPairingRootsOfUnity`'s creation subject is *"the Weil-pairing element as an element of
+μ_n(F) (#419) (#177)"*, and `#419` is the rung-6 **parent**; the leaf is `#457`, so every
+`algebraMap_coe_weilPairingMu` (`#457`) citation on this front is right and the subject is what is
+imprecise.  The same holds for `translatePoint_add_add_self` (`#444`) against its subject's `#433`.
+
+⚠️ **When the parenthesis names a module *and* a declaration, the number belongs to the
+declaration.**  It is the single largest source of false positives in a file-level check, because a
+long-lived module accumulates one number per issue that extended it:
+`EllipticCurves.FunctionField.WeilPairingGaloisRoot` is cited under three different numbers —
+`#456` for `exists_weilPairingElt_galois_two`, `#830` for `exists_weilPairingElt_galois_three` and
+`#859` for `exists_weilPairingMu_galois_three` — and **all three are right**.  Its creation subject
+names only the first.
+
+⚠️ **So the mechanical check has one hop it cannot make, and that is the rest of its false-positive
+rate.**  Its ground truth is `git log --diff-filter=A --follow --format=%s -- <file>`, and three
+subject shapes are in use: `… (#issue) (#PR)`, `… (#leaf, #parent) (#PR)`, and `… (#PR)` alone —
+the last carries no issue number at all, which is why `WeilPairingFunctionGalois` (`#936`) and
+`WeilPairingFunctionThree` (`#925`) cannot be checked against git and are nevertheless correct.
+Deciding whether a flagged number is a *child* of the subject's number is a **tracker** query, not
+a git one.  ⚠️ **Report such a candidate; never repair it from the subject alone.**
+
+⚠️ **A number can be bound to a move, or to a claim, rather than to the identifier it follows — and
+must then say which in the same parenthesis.**  `weilPairingMu_divisorSlot_add_of_weilPairingElt`
+was written under `#861` and moved beside the theorem it generalises by `#868`;
+`weilPairingMu_eq_one_iff` was written under `#733` and moved by `#883`.
+`WeilPairingNondegenerateMu` names its mover inside the parenthesis and is the form to copy.  A
+claim binding wants the declaration spelled out instead: *"`galoisFunctionField σ` fixes `genX`"* is
+`galoisFunctionField_genX` (`#455`), and nothing about `genX` itself (`#406`).
+
+⚠️ **A count in a recording header counts corrected sites** — not modified lines, and not distinct
+names.  The three agree on almost every file and diverge exactly where one sentence carries two
+corrections, which is the line nobody re-derives.
 
 ## References
 

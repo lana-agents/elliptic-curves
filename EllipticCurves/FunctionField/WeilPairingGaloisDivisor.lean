@@ -142,7 +142,7 @@ theorem exists_unit_galoisFunctionField_of_divisor_eq (σ : F ≃ₐ[S] F)
 field, not merely a unit of `F[W⁄F]`.
 
 The two are the same statement, because the units of a Weierstrass coordinate ring are exactly the
-nonzero constants (`#398`, via `#629`'s `Elliptic.exists_scalar_of_divisor_eq`). The `F*` form is
+nonzero constants (`#419`, via `#629`'s `Elliptic.exists_scalar_of_divisor_eq`). The `F*` form is
 the one to reach for when the transported root must be *identified* rather than merely cancelled in
 a ratio: an `F[W⁄F]ˣ` is opaque, whereas an `F`-scalar is fixed by `translateEndo` and can be
 compared with an `n`-th root of unity. -/
@@ -206,7 +206,8 @@ theorem weilPairingMu_galois_of_divisor_eq (σ : F ≃ₐ[S] F) (h₂ : (W⁄F).
 
 /-- **The generic `x`-coordinate satisfies the divisor hypothesis against itself**, for every `σ`.
 
-`galoisFunctionField σ` fixes `genX` (`#455`), so `σ_*(divisor (genX)) = divisor (genX)` by
+`galoisFunctionField σ` fixes `genX` — that is `galoisFunctionField_genX` (`#455`), not a fact
+about `genX` itself (`#406`) — so `σ_*(divisor (genX)) = divisor (genX)` by
 `divisor_galoisFunctionField` (`#630`). Since `Elliptic.divisor_genX_ne_zero` (`#629`) says that
 divisor is **nonzero**, the hypothesis of the theorems above is satisfiable at a function that is
 not a constant — the case in which they would say nothing. -/

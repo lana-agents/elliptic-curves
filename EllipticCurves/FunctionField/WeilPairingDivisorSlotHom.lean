@@ -152,8 +152,8 @@ theorem weilPairingEltHom_apply {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (g
 `weilPairingEltHom` being a monoid hom.  Not available before the bundling: the pointwise
 development of `#723` has only the binary `weilPairingElt_mul`.
 
-Not to be confused with `weilPairingElt_pow_eq_one` (`WeilPairingConstant.lean`, `#454`), which is
-the statement that `e_n(g, T) ^ n = 1` for the *particular* exponent `n`. -/
+Not to be confused with `weilPairingElt_pow_eq_one` (`WeilPairing.lean`, `#419`), which is the
+statement that `e_n(g, T) ^ n = 1` for the *particular* exponent `n`. -/
 @[simp]
 theorem weilPairingElt_pow {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (g : W.FunctionField) (k : ℕ) :
     weilPairingElt h₂ (g ^ k) = weilPairingElt h₂ g ^ k :=

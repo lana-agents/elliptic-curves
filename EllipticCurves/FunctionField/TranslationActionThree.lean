@@ -37,10 +37,10 @@ What is genuinely `n = 3` is therefore only: the restriction of `translateAutHom
 instances, the count, and the inclusion.
 
 The one input that has no `n`-agnostic form is
-`translateEndo_mulByThreeEndo_apply` (`TranslationTriplingComm`, the `n = 3` twin of `#164`): it
-says `[3] ∘ τ_T = [3]` when `T ⊕ T ⊕ T = O`, and it is merged and unconditional.  There is no
-missing ingredient of that kind at `n = 3`; if this argument looks harder than the `n = 2` one, that
-lemma is the first thing to check.
+`translateEndo_mulByThreeEndo_apply` (`TranslationTriplingComm`, the `n = 3` twin of
+`translateEndo_mulByTwoEndo_apply`, PR #164): it says `[3] ∘ τ_T = [3]` when `T ⊕ T ⊕ T = O`, and
+it is merged and unconditional.  There is no missing ingredient of that kind at `n = 3`; if this
+argument looks harder than the `n = 2` one, that lemma is the first thing to check.
 
 ## Why: Artin's theorem at `n = 3`
 

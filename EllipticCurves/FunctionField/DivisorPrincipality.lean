@@ -55,7 +55,7 @@ rational point into a statement about the **group law**:
 ```
 
 The `←` direction is `exists_generator_divisor_eq_of_torsion` (`PrincipalDivisorOfPoint.lean`,
-`#401`); the `→` direction is new here, and with it `n·(P)` is principal for *no other* reason than
+`#409`); the `→` direction is new here, and with it `n·(P)` is principal for *no other* reason than
 torsion.  At `n = 1` it says a single affine rational point is **never** a principal divisor, which
 is the certificate that the criterion has teeth: it rules out functions that no amount of
 exhibiting could rule out.
@@ -298,7 +298,7 @@ theorem classOfDivisor_single_pointClosedPoint_natCast (h : W.Nonsingular x y) (
 
 /-- **`n·(P)` is a principal divisor exactly when `P` is `n`-torsion.**
 
-The `←` direction is `exists_generator_divisor_eq_of_torsion` (`#401`), which produces the rung-1
+The `←` direction is `exists_generator_divisor_eq_of_torsion` (`#409`), which produces the rung-1
 function `f_P` from the principal-ideal statement.  The `→` direction is the content added here: it
 says `n·(P)` is principal for *no other reason* than torsion, which no amount of exhibiting
 generators could establish.
@@ -335,7 +335,7 @@ theorem not_exists_divisor_eq_single_pointClosedPoint (h : W.Nonsingular x y) :
   exact Point.some_ne_zero h (by simpa using mem_torsion_iff.mp h1)
 
 /-- Consistency check: the `←` direction of `exists_divisor_eq_single_iff_mem_torsion` is verbatim
-the conclusion of `exists_generator_divisor_eq_of_torsion` (`PrincipalDivisorOfPoint.lean`, `#401`),
+the conclusion of `exists_generator_divisor_eq_of_torsion` (`PrincipalDivisorOfPoint.lean`, `#409`),
 so the criterion agrees with the already-merged production of `f_P` and the content added above is
 exactly the forward direction. -/
 example (h : W.Nonsingular x y) {n : ℕ} (hP : Point.some x y h ∈ W.torsion n) :
