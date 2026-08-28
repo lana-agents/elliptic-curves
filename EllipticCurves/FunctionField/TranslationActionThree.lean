@@ -231,7 +231,11 @@ theorem mulByThreeEndo_mem_fixedPoints (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
 
 open Classical in
 /-- **`[3]∗F(W) ⊆ Fixed(E[3])`**, the inclusion half of the sandwich that identifies the two.  The
-reverse inclusion is a degree count (Artin's theorem against `#775`) and is not proved here. -/
+reverse inclusion is a degree count (Artin's theorem against `#775`) and is not proved here: it is
+`fixedPoints_subfield_eq_mulByThreeEndoFieldRange`
+(`EllipticCurves.FunctionField.MulByThreeGalois`, downstream of this file), which states the
+corresponding equality of subfields and carries `[IsAlgClosed F]` — a hypothesis absent from this
+statement's own signature. -/
 theorem mulByThreeRange_le_fixedPoints (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     (mulByThreeEndo (W := W) h2 h3).range
       ≤ (FixedPoints.subfield (TorsionThreeMul W) W.FunctionField).toSubring := by
