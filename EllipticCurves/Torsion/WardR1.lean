@@ -37,7 +37,20 @@ that `normEDS` satisfies `IsEllipticDvdSequence`"). This file assembles the reus
   over a *domain* (where nonzero `W`-values may be cancelled) and then transferred to an arbitrary
   `CommRing` via `IsEllipticNet.map_rel` and the evaluation `Xᵢ ↦ b, c, d`.
 
-The remaining `∀ p q` core — the Ward induction over the domain — is left to a follow-up.
+The remaining `∀ p q` core is carried out in `EllipticCurves.Torsion.WardR1Core`, which imports
+this file. ⚠️ **Ward's `r = 1` slice is still open**, but the remainder is narrower than *"the
+induction over the domain"*: that file proves the diagonal `p = q` slice **unconditionally**
+(`normEDS_rel_one_diag`, `Affine.ψ_rel_one_diag`) together with the full `UnivEDS → R` transfer,
+and isolates everything left as the **single** hypothesis `WardGapCore` — for natural `b ≥ 2` and
+`a ≥ b + 3`, `rel (normEDS X₀ X₁ X₂) a b 1 0 = 0` over `UnivEDS` — with `normEDS_rel_one_of_gapCore`
+and `Affine.ψ_rel_one_of_gapCore` conditional on it. That hypothesis is all that is left of the
+`r = 1` slice of the Mathlib `TODO`, and that file records why it admits no bounded-degree
+certificate. ⚠️ This sentence used to read *"The
+remaining `∀ p q` core — the Ward induction over the domain — is left to a follow-up"*: the
+follow-up was written, and what went stale is the size it ascribes to the remainder. ⚠️ Every
+name in this paragraph is a forward reference: that module imports this file and is not in this
+file's import closure, so nothing below uses any of them. `UnivEDS` is the exception — it is
+defined here.
 
 ## Main statements
 
