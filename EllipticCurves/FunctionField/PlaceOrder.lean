@@ -29,12 +29,33 @@ divisorProj W (translateEndo h_T f)
 ```
 
 **That last statement is the one `#465` deliverable 2 has been blocked on**, and which
-`EllipticCurves.FunctionField.WeilPairingAlternating` and
-`EllipticCurves.FunctionField.DivisorTransport` both record as missing — the latter with the
-diagnosis that `translateEndo` is not `IsFractionRing.ringEquivOfRingEquiv e` for any ring
-automorphism `e` of `F[W]`, *because it moves the points at infinity*.  Nothing here contradicts
-that diagnosis; the affine divisor `divisor W` really does not transport.  It is `divisorProj`,
-on the projective point set, that does.
+`EllipticCurves.FunctionField.DivisorTransport` records as missing, with the diagnosis that
+`translateEndo` is not `IsFractionRing.ringEquivOfRingEquiv e` for any ring automorphism `e` of
+`F[W]`, *because it moves the points at infinity*.  Nothing here contradicts that diagnosis: the
+formula that module names is the **affine** one, and the affine divisor `divisor W` really does
+not transport.  It is `divisorProj`, on the projective point set, that does.
+
+⚠️ **This paragraph used to name `EllipticCurves.FunctionField.WeilPairingAlternating` beside it,
+as a second module recording that statement as missing.**  ⚠️ **The note it named was retired by a
+commit that edited this module too, and this paragraph was not part of what that commit edited**:
+`cf3783d` (2026-08-20 18:26:50) rewrote that module to name `divisorProj_translateEndo`, proved
+here, as the pullback its product-over-`⟨T⟩` argument runs on, and in the same change extended the
+Scope section of this one, five hours and fifteen minutes after this module landed in `7ffe193`
+(13:11:24 the same day).  ⚠️ A retirement has to reach the modules that cite
+the retired sentence, and one of them can be the module the same commit is already editing.
+
+⚠️ **Deliverable 2 is no longer blocked, and what unblocked it is the theorem proved here.**
+`exists_weilPairingElt_self_eq_one_of_algClosed_two`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`) and
+`exists_weilPairingElt_self_eq_one_of_algClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThree`) prove `e_n(T, T) = 1` over an
+algebraically closed base field, on the telescoping functions
+`exists_mul_translateEndo_eq_algebraMap`
+(`EllipticCurves.FunctionField.WeilPairingTelescopeTwo`) and
+`exists_mul_translateEndo_mul_translateEndo_eq_algebraMap`
+(`EllipticCurves.FunctionField.WeilPairingTelescopeThree`), whose divisor steps rewrite with
+`divisorProj_translateEndo`.  What that route never needs is the **affine** formula, which is why
+`EllipticCurves.FunctionField.DivisorTransport`'s diagnosis is untouched by any of this.
 
 ## Why it is not a corollary of rung 4, and the route
 
