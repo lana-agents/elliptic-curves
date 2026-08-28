@@ -63,6 +63,14 @@ the residue field of `pointClosedPoint h` with `F`.  Combined with the degree-ze
 upgrades `#409`'s `div f_S = n·(S)` to the full classical `n·(S) − n·(O)`, which is the shape the
 Weil-pairing rungs want.
 
+⚠️ **This file's opening gloss — *"its residue degree over `F`"* — is a theorem, and a later
+one.**  That
+`degPt v` really is `[κ(v) : F]`, in the `Module.finrank` spelling `residueDegreeProj W (some v)`
+of `EllipticCurves.FunctionField.PlaceResidueField`, is `degPt_eq_residueDegreeProj`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`), over an arbitrary base field — proved seven
+days after this file asserted it.  ⚠️ Nothing here rests on it: that file is **downstream**, and
+`degPt` is built and consumed throughout this one purely as a relative ideal norm.
+
 ## Design
 
 Everything carries `[IsDedekindDomain W.CoordinateRing]` as an explicit hypothesis, as
@@ -208,7 +216,13 @@ lemma divisorIdeal_prime (v : HeightOneSpectrum W.CoordinateRing) :
 /-! ### The degree of a point and of a divisor -/
 
 /-- The **degree of a closed point**: its residue degree over `F`, computed through the relative
-ideal norm to `F[X]`. -/
+ideal norm to `F[X]`.
+
+⚠️ *"Its residue degree over `F`"* is a **theorem** about this definition and not a reading of it,
+and it was asserted here seven days before it was proved: `degPt v = residueDegreeProj W (some v)`
+is `degPt_eq_residueDegreeProj` (`EllipticCurves.FunctionField.PlaceDegreeComparison`), over an
+arbitrary base field.  ⚠️ That file is **downstream** of this one, so nothing here may use the
+comparison and nothing does — `degPt` is developed entirely through `Ideal.relNorm`. -/
 noncomputable def degPt (v : HeightOneSpectrum W.CoordinateRing) : ℕ :=
   Ideal.natDegreeGenerator (Ideal.relNorm F[X] v.asIdeal)
 

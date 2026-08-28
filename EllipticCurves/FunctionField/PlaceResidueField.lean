@@ -265,7 +265,13 @@ variable (W) in
 
 ⚠️ Nothing below computes this, and it is *not* known to be nonzero here: `Module.finrank` returns
 `0` on an infinite-dimensional module, so finiteness is a theorem, not a convention.  It is also
-**not** `degPt` (`DivisorDegree.lean`), which is a relative ideal norm to `F[X]`. -/
+not *definitionally* `degPt` (`DivisorDegree.lean`), which is a relative ideal norm to `F[X]`.
+
+⚠️ **The values agree all the same, over an arbitrary base field**: `degPt_eq_residueDegreeProj` at
+an affine place, `degProjPt_eq_residueDegreeProj` at every `p : ProjPoint W`
+(`EllipticCurves.FunctionField.PlaceDegreeComparison`).  This sentence used to read *"It is also
+**not** `degPt` …"* and stop there — correct about the constructions, and leaving a reader standing
+at the definition with no route to the theorem. -/
 noncomputable def residueDegreeProj (p : ProjPoint W) : ℕ :=
   Module.finrank F (residueFieldProj W p)
 
