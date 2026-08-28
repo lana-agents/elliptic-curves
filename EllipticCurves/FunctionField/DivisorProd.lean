@@ -25,10 +25,15 @@ divisor-theoretic Weil pairing (`e_n(T, T) = 1`, Silverman AEC III.8.1(d), issue
 2): there one forms `h := ∏_{i} τ_{iT}∗ f_T` and computes `divisor W h` by pushing the divisor
 through the product — precisely `divisor_prod`.
 
-The argument's remaining ingredients (a divisor-pullback-under-translation formula for
-`translateEndo`, the characterising identity `divisor W g_T = [n]∗(T)` — rung-4/5 gated — and the
-`⟨T⟩` enumeration with the `{(1 − i)T} = {−iT}` multiset telescoping) are separate follow-ons; this
-file lands the reusable, fully ungated product homomorphism law that they all consume.
+⚠️ **This paragraph used to list *"a divisor-pullback-under-translation formula for
+`translateEndo`"* first among *"the argument's remaining ingredients"*.  It is not remaining**: the
+projective one is `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`, `#658`),
+downstream of this file, and it is what the telescoping argument rewrites with; only the **affine**
+formula is undelivered, and `EllipticCurves.FunctionField.DivisorTransport` is where that is
+recorded.  ⚠️ The other two ingredients that sentence listed — `divisor W g_T = [n]∗(T)`, which is
+`#418`, and the `⟨T⟩` enumeration with the `{(1 − i)T} = {−iT}` multiset telescoping — are **not**
+adjudicated here, in either direction.  This file lands the reusable, fully ungated product
+homomorphism law that they all consume.
 
 ## References
 

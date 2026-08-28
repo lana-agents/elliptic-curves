@@ -77,7 +77,14 @@ then a comparison of integer powers in a linearly ordered commutative group, val
 No `[IsDedekindDomain W.CoordinateRing]` and no `[W.IsElliptic]` are needed for the main line; the
 Dedekind hypothesis appears only in the last section, for the affine-places certificate.  The
 **affine branch** `genX W ∈ O` is not proved here, nor is any assembly into a classification of all
-places; those are separate issues.  Ward-independent, normality-independent.
+places.  ⚠️ **That clause used to end *"those are separate issues"*, and both are now done.**
+`EllipticCurves.FunctionField.Places`, which imports this file, proves the affine branch as
+`exists_heightOneSpectrum_of_genX_mem` — off `IsDedekindDomain.exists_valuationSubringAtPrime_eq`,
+which is the *"general Dedekind statement about `F[W] ⊆ O`"* this file's opening reduces that branch
+to — and assembles the two branches into `exists_placeOf_eq`: every proper valuation subring of
+`F(W)` containing `F` is `placeOf W p` for some `p : ProjPoint W`.  ⚠️ Both of those carry
+`[IsDedekindDomain W.CoordinateRing]`, exactly the hypothesis this section says the main line does
+without, so naming them does not weaken that claim.  Ward-independent, normality-independent.
 
 ## References
 

@@ -50,10 +50,17 @@ ring `F[W]` — it moves the point(s) at infinity — so it is not `ringEquivOfR
 `e : F[W] ≃+* F[W]`, the induced map on affine closed points is only partially defined, and the
 behaviour at the excluded points is genuine mathematics rather than bookkeeping. The
 divisor-pullback-under-translation formula
-`divisor W (translateEndo h_T g) = (shift of divisor g)` — the crux of the product-over-`⟨T⟩`
-argument for the alternating property of the Weil pairing (`#465` deliverable 2) — is therefore
-**not** delivered here and is exactly as open as it was before. The same caveat is recorded in
-`#526`.
+`divisor W (translateEndo h_T g) = (shift of divisor g)` is therefore **not** delivered here. The
+same caveat is recorded in `#526`.
+
+⚠️ **That sentence used to call the formula *"the crux of the product-over-`⟨T⟩` argument for the
+alternating property of the Weil pairing (`#465` deliverable 2)"* and *"exactly as open as it was
+before"*.  Neither clause survives.** The argument ran to completion at `n = 2` and at `n = 3` over
+an algebraically closed base field, and it ran on the **projective** pullback
+`divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`, `#658`) — a module
+incomparable to this one in the import order, neither reaching it nor reached by it. ⚠️ What is
+untouched by that is this section's own claim: the **affine** `divisor W` does not transport under
+`translateEndo`, because `translateEndo` is not `ringEquivOfRingEquiv e` for any `e`.
 
 ## Main statements
 

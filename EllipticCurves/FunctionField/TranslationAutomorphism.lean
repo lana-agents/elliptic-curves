@@ -62,8 +62,13 @@ divisor pullback under translation is stated against.  ⚠️ That pullback is *
 **not** `#465` deliverable 2, both of which this bullet used to say.  It is
 `divisorProj_translateEndo` (`EllipticCurves.FunctionField.PlaceOrder`), on the projective divisor
 group; only the affine `divisor W` fails to transport.  And deliverable 2 — the alternating
-property — is proved at both `n = 2` and `n = 3` over `F̄`, by a route that needs no such
-pullback.
+property — is proved at both `n = 2` and `n = 3` over `F̄`.  ⚠️ **That sentence used to end *"by a
+route that needs no such pullback"*, and with `divisorProj_translateEndo` as the antecedent it was
+false**: the route runs on the telescoping functions of
+`EllipticCurves.FunctionField.WeilPairingTelescopeTwo` and
+`EllipticCurves.FunctionField.WeilPairingTelescopeThree`, both downstream of this file, and their
+divisor steps rewrite with exactly that theorem.  What the route never needs is the **affine**
+formula, which is the one `EllipticCurves.FunctionField.DivisorTransport` records as undelivered.
 
 ## References
 
