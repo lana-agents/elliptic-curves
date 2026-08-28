@@ -140,9 +140,15 @@ one of the five carries `[Algebra.IsIntegral S F]`, which this file does not ass
 `EllipticCurves.TateModule.MatrixContinuity` is **downstream**: it imports this file, and this
 file does not import it. `EllipticCurves.TateModule.Continuity` is a **sibling**: neither imports
 the other, and its whole `EllipticCurves` import closure is `EllipticCurves.TateModule.Basic`,
-`EllipticCurves.TateModule.GaloisAction` and `EllipticCurves.Torsion.Defs`. Every name in this
-paragraph is therefore a forward reference and nothing below may use one. What remains true is the
-first half: continuity is not asserted *here*.
+`EllipticCurves.TateModule.GaloisAction` and `EllipticCurves.Torsion.Defs`. So
+`continuous_galoisDetTwo_of_basis`, `continuous_galoisTraceTwo_of_basis`, `continuous_galoisDetTwo`,
+`continuous_galoisTraceTwo` and `continuous_galoisRep` are all forward references from this file,
+and nothing below uses one. ⚠️ **That does not extend to the three closure modules just listed.**
+They appear only as evidence for the sibling claim; all three are in *this* file's own import
+closure, and this file uses two of them below — `galoisRep` is
+`EllipticCurves.TateModule.GaloisAction`'s and `tateModule` is
+`EllipticCurves.TateModule.Basic`'s. What remains true is the first half: continuity is not
+asserted *here*.
 
 **The identification of `galoisDetTwo` with the cyclotomic character is not proved here.** It is
 the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1). Nothing below

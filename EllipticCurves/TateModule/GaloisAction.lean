@@ -159,9 +159,11 @@ end tateModule
 `ρ_ℓ : (F ≃ₐ[S] F) →* (T_ℓ E ≃ₗ[ℤ_[ℓ]] T_ℓ E)`, sending a Galois automorphism to the
 `ℤ_ℓ`-linear automorphism of the Tate module it induces. When `F / S` is the separable closure and
 `ℓ ≠ char S`, this is the classical representation `Gal(S̄ / S) → GL₂(ℤ_ℓ)` of Silverman AEC III.7.
-Continuity is not asserted here; it is proved downstream as `continuous_galoisRep`
-(`EllipticCurves.TateModule.Continuity`), which assumes `[Algebra.IsIntegral S F]` on top of this
-file's hypotheses, so a consumer of `ρ_ℓ` does not get it for free. -/
+Continuity is not asserted here. It is proved downstream as `continuous_galoisRep`
+(`EllipticCurves.TateModule.Continuity`), and in exactly one shape: for the **Krull** topology on
+`F ≃ₐ[S] F` and **pointwise convergence** on `T_ℓ E → T_ℓ E`, not for the compact-open topology and
+not for `GL₂(ℤ_[ℓ])` with its `ℓ`-adic topology. It also assumes `[Algebra.IsIntegral S F]` on top
+of this file's hypotheses, so a consumer of `ρ_ℓ` does not get it for free. -/
 noncomputable def galoisRep [Fact ℓ.Prime] :
     (F ≃ₐ[S] F) →* ((W'⁄F).tateModule ℓ ≃ₗ[ℤ_[ℓ]] (W'⁄F).tateModule ℓ) :=
   DistribMulAction.toModuleAut ℤ_[ℓ] ((W'⁄F).tateModule ℓ)

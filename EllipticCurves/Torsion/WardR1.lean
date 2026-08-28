@@ -45,12 +45,15 @@ and isolates everything left as the **single** hypothesis `WardGapCore` — for 
 `a ≥ b + 3`, `rel (normEDS X₀ X₁ X₂) a b 1 0 = 0` over `UnivEDS` — with `normEDS_rel_one_of_gapCore`
 and `Affine.ψ_rel_one_of_gapCore` conditional on it. That hypothesis is all that is left of the
 `r = 1` slice of the Mathlib `TODO`, and that file records why it admits no bounded-degree
-certificate. ⚠️ This sentence used to read *"The
-remaining `∀ p q` core — the Ward induction over the domain — is left to a follow-up"*: the
-follow-up was written, and what went stale is the size it ascribes to the remainder. ⚠️ Every
-name in this paragraph is a forward reference: that module imports this file and is not in this
-file's import closure, so nothing below uses any of them. `UnivEDS` is the exception — it is
-defined here.
+certificate. ⚠️ This sentence used to read *"The remaining `∀ p q` core — the Ward
+induction over the domain — is left to a follow-up"*: the follow-up was written, and what went
+stale is the size it ascribes to the remainder. ⚠️ Every name this paragraph takes from
+`EllipticCurves.Torsion.WardR1Core` — `WardGapCore`, `normEDS_rel_one_diag`,
+`Affine.ψ_rel_one_diag`, `normEDS_rel_one_of_gapCore`, `Affine.ψ_rel_one_of_gapCore` — is a forward
+reference: that module imports this file and is not in this file's import closure, so nothing below
+uses any of them. Nothing else in the paragraph is: `UnivEDS` is defined below in this file, and
+`rel` (Mathlib's `IsEllipticNet.rel`) and `normEDS` are Mathlib's — all three are what the
+statements below are about.
 
 ## Main statements
 
