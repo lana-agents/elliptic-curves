@@ -89,10 +89,10 @@ which is noncomputable and should stay inside that `haveI` rather than appearing
 The sandwich `Fixed(E[2]) = [2]∗F(W)`, Artin's degree `finrank_fixedFieldTwo = 4`, `IsGalois` and
 the separability package are **not** here: they are the sibling issue `#759`, merged as
 `EllipticCurves.FunctionField.MulByTwoGalois`, which imports this file.  ⚠️ Those statements carry
-`[IsAlgClosed F]`, which this file does not assume: `mulByTwoRange_le_fixedPoints` needs only
-`[W.IsElliptic]` and `(2 : F) ≠ 0`.  Nothing here mentions divisors, places, or `ProjPoint`, and
-nothing here is `[3]`- or general-`[n]`-flavoured: `card_torsion_two` is the `n = 2` computation,
-and `#682`'s degree `4` is `[2]`-specific.
+`[IsAlgClosed F]`; `mulByTwoRange_le_fixedPoints` does not — it needs only `[W.IsElliptic]` and
+`(2 : F) ≠ 0`.  Nothing here mentions divisors, places, or `ProjPoint`, and nothing here is
+`[3]`- or general-`[n]`-flavoured: `card_torsion_two` is the `n = 2` computation, and `#682`'s
+degree `4` is `[2]`-specific.
 
 ## References
 
