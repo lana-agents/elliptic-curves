@@ -27,7 +27,7 @@ htors : translatePoint hT + translatePoint hT + translatePoint hT = 0.
 ```
 
 It is the exact `mulByThreeEndo` mirror of the merged `n = 2`
-`FunctionField/TranslationDoublingComm.lean` (#164); the one wrinkle is that tripling is the
+`FunctionField/TranslationDoublingComm.lean` (PR #164); the one wrinkle is that tripling is the
 two-step secant sum `(2•𝒫) + 𝒫`, so the naturality push goes through the doubled point first.
 
 ## Main results
