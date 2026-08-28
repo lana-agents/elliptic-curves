@@ -162,8 +162,15 @@ end tateModule
 Continuity is not asserted here. It is proved downstream as `continuous_galoisRep`
 (`EllipticCurves.TateModule.Continuity`), and in exactly one shape: for the **Krull** topology on
 `F ≃ₐ[S] F` and **pointwise convergence** on `T_ℓ E → T_ℓ E`, not for the compact-open topology and
-not for `GL₂(ℤ_[ℓ])` with its `ℓ`-adic topology. It also assumes `[Algebra.IsIntegral S F]` on top
-of this file's hypotheses, so a consumer of `ρ_ℓ` does not get it for free. -/
+not for `GL₂(ℤ_[ℓ])` with its `ℓ`-adic topology. ⚠️ **That last negation has a discharger**, and it
+is a different theorem in a different file: `continuous_galoisRepMatrix`
+(`EllipticCurves.TateModule.PrimaryMatrixContinuity`), stated at an arbitrary prime as here, of
+which `continuous_galoisRepMatrixTwo` (`EllipticCurves.TateModule.MatrixContinuity`) is the `ℓ = 2`
+instance by definition. `continuous_galoisRepMatrix` is continuity of `galoisRepMatrix b`, which
+takes a basis `b` of `T_ℓ E` as an argument that `ρ_ℓ` does not carry, and both of those files are
+downstream of this one, so neither theorem is nameable here. `continuous_galoisRep` also assumes
+`[Algebra.IsIntegral S F]` on top of this file's hypotheses, so a consumer of `ρ_ℓ` does not get it
+for free. -/
 noncomputable def galoisRep [Fact ℓ.Prime] :
     (F ≃ₐ[S] F) →* ((W'⁄F).tateModule ℓ ≃ₗ[ℤ_[ℓ]] (W'⁄F).tateModule ℓ) :=
   DistribMulAction.toModuleAut ℤ_[ℓ] ((W'⁄F).tateModule ℓ)
