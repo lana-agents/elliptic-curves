@@ -20,7 +20,7 @@ For the `n = 3` track — and for a *uniform* treatment of every `n` — the cle
 canonical `F`-algebra map `F → F(W)`.  Because it is an `AddMonoidHom`, it commutes with `nsmul`
 and sends `0` to `0`, so *any* `n`-torsion relation `n • T = 0` over the base field transports
 verbatim to `n • (translatePoint hT) = 0` over `F(W)`.  This is exactly the commuting datum the
-`n = 3` `hcomm` discharge (the `mulByThreeEndo` mirror of `TranslationDoublingComm.lean` #164)
+`n = 3` `hcomm` discharge (the `mulByThreeEndo` mirror of `TranslationDoublingComm.lean` PR #164)
 consumes, and it subsumes the `n = 2` case.
 
 The key observation making Mathlib's `Point.map` directly usable here is that the base-changed curve
@@ -89,7 +89,7 @@ open Classical in
 /-- **The `n = 3` transport form.**  From the base-field `3`-torsion relation
 `T + T + T = 0` in `W.Point`, the constant translate satisfies
 `translatePoint hT + translatePoint hT + translatePoint hT = 0` over `F(W)` — the commuting datum
-the `n = 3` `hcomm` discharge (`mulByThreeEndo` mirror of `TranslationDoublingComm.lean` #164)
+the `n = 3` `hcomm` discharge (`mulByThreeEndo` mirror of `TranslationDoublingComm.lean` PR #164)
 consumes.  A specialisation of `translatePoint_nsmul_eq_zero` at `n = 3`. -/
 theorem translatePoint_add_add_self (hT : W.Equation xT yT)
     (htors : torsionPoint hT + torsionPoint hT + torsionPoint hT = 0) :
