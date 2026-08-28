@@ -124,8 +124,31 @@ is. At `ℓ ≥ 5` surjectivity is
 genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, so the
 first clause still stands verbatim there.
 
-**Continuity is not asserted**, here or anywhere on this front: `galoisRep` is built purely as a
-group homomorphism, and passing to determinants changes nothing about that.
+**Continuity is not asserted in this file**: `galoisRep` is built purely as a group homomorphism,
+and passing to determinants changes nothing about that.
+
+⚠️ **This paragraph used to say *"here or anywhere on this front"*, and that half is false.**
+`EllipticCurves.TateModule.MatrixContinuity` proves `continuous_galoisDetTwo_of_basis` and
+`continuous_galoisTraceTwo_of_basis` — continuity of `galoisDetTwo` and of `galoisTraceTwo`, the
+two definitions of *this* file — with `continuous_galoisDetTwo` and `continuous_galoisTraceTwo`
+removing the basis argument under `[IsAlgClosed F]`, `[(W'⁄F).IsElliptic]` and `(2 : F) ≠ 0`.
+`EllipticCurves.TateModule.Continuity` proves `continuous_galoisRep`, which is about `galoisRep`
+and so belongs to `EllipticCurves.TateModule.GaloisAction`, not to anything defined here. Every
+one of the five carries `[Algebra.IsIntegral S F]`, which this file does not assume.
+
+⚠️ **Neither module is nameable here, and the reason differs between them.**
+`EllipticCurves.TateModule.MatrixContinuity` is **downstream**: it imports this file, and this
+file does not import it. `EllipticCurves.TateModule.Continuity` is a **sibling**: neither imports
+the other, and its whole `EllipticCurves` import closure is `EllipticCurves.TateModule.Basic`,
+`EllipticCurves.TateModule.GaloisAction` and `EllipticCurves.Torsion.Defs`. So
+`continuous_galoisDetTwo_of_basis`, `continuous_galoisTraceTwo_of_basis`, `continuous_galoisDetTwo`,
+`continuous_galoisTraceTwo` and `continuous_galoisRep` are all forward references from this file,
+and nothing below uses one. ⚠️ **That does not extend to the three closure modules just listed.**
+They appear only as evidence for the sibling claim; all three are in *this* file's own import
+closure, and this file uses two of them below — `galoisRep` is
+`EllipticCurves.TateModule.GaloisAction`'s and `tateModule` is
+`EllipticCurves.TateModule.Basic`'s. What remains true is the first half: continuity is not
+asserted *here*.
 
 **The identification of `galoisDetTwo` with the cyclotomic character is not proved here.** It is
 the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1). Nothing below
