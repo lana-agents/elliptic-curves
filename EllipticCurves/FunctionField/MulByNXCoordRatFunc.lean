@@ -62,16 +62,21 @@ presentation a degree computation consumes.
 ## ⚠️ What this does **not** give
 
 * **No degree, and in particular not `[F(W) : [n]∗F(W)] = n²`.**  `#1169`'s measurement
-  (`EllipticCurves.FunctionField.MulByNPlacePullback`) records that rung 3 of `#639` is gated
-  *twice* at general `n`: by `x ∘ [n] ∈ F(x)`, which is what this file supplies, **and** by the
-  reduced degrees `natDegree (Φ n) = n²` against `natDegree (ΨSq n) = n² - 1` with the coprimality
-  `#681`.  `RatFunc.finrank_eq_max_natDegree` reads the degree off the *reduced* numerator and
-  denominator of `nMulRatFunc W n`, and nothing here says what those are — `nMulRatFunc` is
-  produced by an inverse isomorphism, not by writing down a fraction.  That second gate is
-  `#404` / `#251`'s and is untouched.
+  (`EllipticCurves.FunctionField.MulByNPlacePullback`) records that rung 3 of `#639` needs, on top
+  of `x ∘ [n] ∈ F(x)` — which is what this file supplies — the *reduced* numerator and denominator
+  of the fraction, which is what `RatFunc.finrank_eq_max_natDegree` reads the degree off.  Nothing
+  here says what those are: `nMulRatFunc` is produced by an inverse isomorphism, not by writing
+  down a fraction, so it has no numerator and no denominator to read.  ⚠️ **Being an element of
+  `F(x)` is not being a written-down rational function**, and it is the second that a degree count
+  consumes.
+
+  ⚠️ What remains is therefore `nMulRatFunc W n = Φₙ/ΨSqₙ` (`#404` / `#251`), the coprimality
+  `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`; `#681` is the merged `n = 2` instance and
+  is *not* the general gate), and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  ⚠️ The degrees themselves are
+  **not** gated — `natDegree_Φ` and `natDegree_ΨSq` are Mathlib's at general `n`.
 
   ⚠️ **A reader who takes this file for "rung 3 generalises at general `n`" has misread it.**  What
-  it does is reduce rung 3 from two gates to one.
+  it does is remove one of rung 3's gates.
 * **Nothing about rung 4.**  `ordInfty ([n]∗ genX) = -2` is *false* at general `n`
   (`MulByNPlacePullback`), and nothing here changes that.
 * **It does not close `#404`.**  The coordinates of `[n]` as an explicit fraction remain
