@@ -238,7 +238,11 @@ simultaneously satisfiable, and `mulByNEndoOfAlgClosed` is a `def`, so nothing s
 hypotheses being contradictory. They are certified below on this development's standard certificate
 curve `y² + y = x³` over an algebraic closure of `ℚ` — the curve
 `EllipticCurves.Torsion.ThreePrimary` and `EllipticCurves.Torsion.ThreePrimaryBasis` use for the
-same purpose — at `n = 5`, the first index beyond the merged `n = 2` and `n = 3`. -/
+same purpose — at `n = 5`, an index beyond the merged `n = 2` and `n = 3`.
+
+⚠️ **The superlative this sentence used to carry has been corrected** — it read *"the first index
+beyond the merged `n = 2` and `n = 3`"*, and `5` is not that: `4` is.  Nothing here needs the first
+such index, only one past `3`, and `5` is what the certificate below elaborates at. -/
 
 section Nonvacuity
 
@@ -262,7 +266,7 @@ private lemma exampleTwoN : (2 : exampleFieldN) ≠ 0 := by norm_num
 
 open Classical in
 /-- **⚠️ THE CERTIFICATE, part one.** On a curve that exists, the generic point is genuinely not
-`5`-torsion — `5` being the first index beyond the merged `n = 2` and `n = 3`. -/
+`5`-torsion — `5` being an index beyond the merged `n = 2` and `n = 3`. -/
 example : (5 : ℕ) • genericPoint (W := exampleCurveN⁄exampleFieldN) ≠ 0 :=
   ne_zero_of_transcendental_xCoord
     (transcendental_xCoord_nsmul_of_isAlgClosed exampleTwoN (by norm_num))
