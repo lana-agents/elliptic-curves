@@ -122,8 +122,13 @@ field `hprin` is still open at both `n`**, and this file says nothing about it.
 count of points: that passage runs through "a separable isogeny has `#ker = deg`", which no file in
 this tree contains.
 
-⚠️ **General `n` is untouched.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two
-concrete endomorphisms this tree has, and `#404`'s general `ωₙ` is not approached.
+⚠️ **General `n` is untouched *here*.**  ⚠️ **The clause this paragraph used to carry has been
+paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
+endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+`EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, and its divisor
+pullback is `pullbackDivisorN` (`EllipticCurves.FunctionField.MulByNPlacePullback`).  ⚠️ The
+principality of `[n]∗((S) − (O))` is a different statement from either of those and is not
+approached here, and `#404`'s general `ωₙ` is untouched.
 
 ## References
 

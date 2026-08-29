@@ -98,7 +98,13 @@ this paragraph names that remains unproved.
 Also not here: `[3]∗` and general `[n]∗` (the degree `4` is `[2]`-specific, but everything before
 the `[2]∗` section of this file is stated for an arbitrary `φ` and serves them unchanged — the
 `[3]∗` instantiation is `EllipticCurves.FunctionField.MulByThreeRamification`, and general `[n]∗`
-has no case, `mulByNEndo` not existing); `#E[n] = n²`; and any comparison with `degPt`.
+has no case here); `#E[n] = n²`; and any comparison with `degPt`.
+
+⚠️ **The reason clause the general-`[n]∗` parenthetical used to give has been paid** — it read
+*"`mulByNEndo` not existing"*.  `[n]∗` at every `n` is `mulByNEndo`,
+`EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+`EllipticCurves.FunctionField.MulByNPlacePullback`.  What keeps the identity above `[2]`-specific
+is its right-hand side `4`, not the endomorphism.
 
 ## References
 

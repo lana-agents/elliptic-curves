@@ -89,8 +89,12 @@ So the three inputs that are `n`-dependent are all merged, and the work here is 
   `#744`'s `φ`-generic `residueDegreeComap` and derives
   `sum_ramificationIdxThree_mul_residueDegreeThree` from `sum_ramificationIdxThree_eq_nine` below in
   three lines.  ⚠️ It is still not *here*, and cannot be: that file imports this one.
-* **General `n`.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
-  endomorphisms this tree has.
+* **General `n`.**  ⚠️ **The clause this bullet used to carry has been paid** — it read
+  *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete endomorphisms this tree
+  has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+  `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ The `9` is `[3]`-specific and nothing
+  general-`n` is attempted here.
 -/
 
 open Module IsDedekindDomain
