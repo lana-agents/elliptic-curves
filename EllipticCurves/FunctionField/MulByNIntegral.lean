@@ -63,8 +63,12 @@ The route here is a transcendence-degree count and uses no coordinate formula at
 ⚠️ **No degree.**  `finrank_mulByTwoFieldRange` gets `[F(W) : [2]∗F(W)] = 4` from
 `deg Φ₂ = 4` against `deg Ψ₂Sq = 3` and the coprimality `#681`, and `#775` gets `9` the same way at
 `n = 3`.  Nothing in this file computes a `finrank`, and `[F(W) : [n]∗F(W)] = n²` at general `n`
-**stays gated on `#404` / `#251`**: there is no group-law substitute for that degree count.  What
-generalises is that the degree is *finite*.
+**stays gated**: there is no group-law substitute for that degree count.  ⚠️ It is *not* gated on
+the degrees, though — `natDegree_Φ` and `natDegree_ΨSq` are **Mathlib**'s at general `n`.  What is
+missing is `x ∘ [n] ∈ F(x)` (`#404` / `#251`), the coprimality
+`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`), and the `(n : F) ≠ 0` that `natDegree_ΨSq`
+carries and `mulByNEndo` does not; `EllipticCurves.FunctionField.MulByNPlacePullback` argues each of
+them.  What generalises is that the degree is *finite*.
 
 ⚠️ **No separability.**  `Algebra.IsSeparable ([n]∗F(W)) F(W)` is what `#754` carries as a
 hypothesis; in characteristic zero it follows from finiteness
@@ -280,7 +284,8 @@ theorem module_finite_mulByNEndoFieldRange (n : ℕ)
 /-- **`F(W)` is a finite module over `[n]∗F(W)` over `F̄`**, for every `n ≠ 0` — the
 `mulByNEndoOfAlgClosed` corollary, with no hypothesis left except `n ≠ 0` and `(2 : F) ≠ 0`.
 
-⚠️ Still no degree.  `[F(W) : [n]∗F(W)] = n²` is `#404` / `#251`'s, over `F̄` as everywhere else. -/
+⚠️ Still no degree.  `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n] ∈ F(x)` (`#404` / `#251`), `#1184` and
+`(n : F) ≠ 0`, as *"What this is not"* above records — over `F̄` as everywhere else. -/
 theorem module_finite_mulByNEndoOfAlgClosedFieldRange [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) :
     Module.Finite ↥(mulByNEndoOfAlgClosed (W := W) h2 hn).fieldRange W.FunctionField :=

@@ -34,11 +34,21 @@ alone*.  The two that do are these.
 
 ⚠️ **`[F(W) : [n]∗F(W)] = n²` is not here** (`#682` at `n = 2`, `#775` at `n = 3`).  What does
 survive is that the degree is **finite** — `module_finite_mulByNEndoFieldRange`,
-`EllipticCurves.FunctionField.MulByNIntegral`, from non-constancy alone.  The *value* is gated
-twice over.  `finrank_mulByTwoFieldRange` reads it off the tower `F(W) ⊇ F(x) ⊇ F(x ∘ [2])`, and
-that tower needs (i) `x ∘ [n] ∈ F(x)`, which at `n = 2` is `doublingRatFunc`, an element of
-`RatFunc F` written down from `Φ₂/Ψ₂Sq`, and (ii) the reduced degrees `natDegree (Φ n) = n²` and
-`natDegree (ΨSq n) = n² - 1` with the coprimality `#681`.  Both are `#404` / `#251`.  ⚠️ Note that
+`EllipticCurves.FunctionField.MulByNIntegral`, from non-constancy alone.  The *value* is gated.
+`finrank_mulByTwoFieldRange` reads it off the tower `F(W) ⊇ F(x) ⊇ F(x ∘ [2])`, and that tower needs
+(i) `x ∘ [n] ∈ F(x)`, which at `n = 2` is `doublingRatFunc`, an element of `RatFunc F` written down
+from `Φ₂/Ψ₂Sq`, and (ii) the reduced degrees of `Φ n` and `ΨSq n` with the coprimality that makes
+*reduced* legitimate.  ⚠️ **Only (i) is `#404` / `#251`, and the degrees inside (ii) are not gated
+at all.**  They are **Mathlib**'s at general `n` — `natDegree_Φ` and `natDegree_ΨSq`,
+`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`, the first over any nontrivial
+ring and the second under `(n : F) ≠ 0` — and `MulByThreePlacePullback` and `MulByThreeDegree`
+already close their degree computations with both of them at general index.  What (ii) is missing is
+`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n`, which is `#1184`:
+`EllipticCurves.DivisionPolynomial.Coprime` proves it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
+merged) and at `n = 3`, each by its own certificate against `Δ²`, and that file's own *"What is not
+here"* names the general case as an open induction.  And `natDegree_ΨSq`'s `(n : F) ≠ 0` is a
+further gate — the same side condition the rung-4 paragraph below shows `mulByNEndo` does not
+carry.  ⚠️ Note that
 (i) is *true* at general `n` for a reason the group law does supply — `x(-P) = x(P)`, so
 `x(n • 𝒫)` is fixed by the hyperelliptic involution `negYAlgEquiv`
 (`EllipticCurves.FunctionField.NegYInvolution`) — but turning that into membership in `F(x)` needs
@@ -73,15 +83,19 @@ companions `#701` and `#1046`.
 ## Main definitions and statements
 
 * `WeierstrassCurve.Affine.CoordinateRing.comapProjPointN` and `…ramificationIdxN` — the contraction
-  of a place along `[n]∗` and its ramification index;
+  of a place along `[n]∗` and its ramification index, with `…placeOf_comapProjPointN` identifying
+  the contracted place as the comap of the place and `…ramificationIdxN_pos` giving `0 < e_p`;
 * `…divisorProj_mulByNEndo_apply` — `ord_p (f ∘ [n]) = e_p · ord_{[n]⁻¹ p} (f)`;
 * `…dvd_divisorProj_mulByNEndo` — the divisibility corollary `#422` states;
 * `…finite_comapProjPointN_preimage_singleton` — finitely many places lie above a place;
-* `…pullbackDivisorN` and `…divisorProj_mulByNEndo` — `div (f ∘ [n]) = [n]∗ (div f)`;
+* `…pullbackDivisorN`, its defining `…pullbackDivisorN_apply` and `…divisorProj_mulByNEndo` —
+  `div (f ∘ [n]) = [n]∗ (div f)`;
 * `…comapProjPointNOfAlgClosed`, `…ramificationIdxNOfAlgClosed`, `…pullbackDivisorNOfAlgClosed`,
   `…divisorProj_mulByNEndoOfAlgClosed_apply`, `…divisorProj_mulByNEndoOfAlgClosed` and
-  `…finite_comapProjPointNOfAlgClosed_preimage_singleton` — the same six over `F̄`, where the
-  transcendence hypothesis is automatic and only `n ≠ 0` and `(2 : F) ≠ 0` remain;
+  `…finite_comapProjPointNOfAlgClosed_preimage_singleton` — the same statements over `F̄`, where the
+  transcendence hypothesis is automatic and only `n ≠ 0` and `(2 : F) ≠ 0` remain.  ⚠️ This list is
+  shorter than the one above it: `…dvd_divisorProj_mulByNEndo` is the general-`n` result with no
+  `OfAlgClosed` twin;
 * `…comapProjPointN_two` and `…ramificationIdxN_two` — at `n = 2` this layer **is** the merged one.
 
 ## References
