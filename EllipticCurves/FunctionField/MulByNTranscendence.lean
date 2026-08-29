@@ -36,8 +36,7 @@ c = τ_T∗ c = τ_T∗ (n • 𝒫) = n • (𝒫 + 𝒯) = n • 𝒫 + n • 
 so `n • 𝒯 = 0`, i.e. **every** base-field point is `n`-torsion.  Contrapositively, one base-field
 point that is not `n`-torsion suffices:
 
-* `exists_nsmul_ne_zero` (`nsmul_genericPoint_ne_torsionPointMap`, then
-  `transcendental_xCoord_nsmul_genericPoint`).
+* `nsmul_genericPoint_ne_torsionPointMap`, then `transcendental_xCoord_nsmul_genericPoint`.
 
 ⚠️ Turning *"the `x`-coordinate is algebraic"* into *"the point is constant"* is the second half,
 and it is where the merged `algebraicClosure_functionField_eq_bot` (`ConstantFieldDomain.lean`) is
