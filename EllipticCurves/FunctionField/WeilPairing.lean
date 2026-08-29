@@ -75,8 +75,18 @@ this paragraph named neither discharger.  No build can object to either half.
 ⚠️ **The hypothesis-taking forms are not superseded and are not deprecated.**  Carrying `hcomm` and
 `huf` is what lets a caller supply its own datum, and `WeilPairingRootIndependence` and the
 `WeilPairingConstant` layer consume them in exactly that shape.  What was wrong was *"to be
-discharged by a follow-on"*, not *"carried here as hypotheses"*.  ⚠️ And the general-`n` `hcomm`
-still has no case at all: it would need `mulByNEndo`, which does not exist (`#404`'s `ωₙ`).
+discharged by a follow-on"*, not *"carried here as hypotheses"*.
+
+⚠️ **The clause that used to close that paragraph has been paid, and it was wrong twice over** —
+it read *"And the general-`n` `hcomm` still has no case at all: it would need `mulByNEndo`, which
+does not exist (`#404`'s `ωₙ`)"*.  `mulByNEndo` is
+`EllipticCurves.FunctionField.MulByNPullback`'s, at every `n`, and it is built from the **group
+law**, so it never needed `#404`'s `ωₙ` — that parenthetical named as a gate the very crux the
+group-law construction bypasses.  The general-`n` commutation is
+`translateEndo_mulByNEndo_apply_general`
+(`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`), which takes `[n]P = T` as a
+hypothesis exactly as its `n = 2, 3` siblings above do; ⚠️ that file's own docstring records what
+is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relation.
 
 ## Explicitly out of scope (as issue #419 records)
 

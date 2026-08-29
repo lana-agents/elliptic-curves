@@ -62,13 +62,22 @@ The group step is the only place where `n` is visibly present.  At `n = 2` it is
 and `abel` discharges it — the issue's worry that `abel` might not fire on `(W ⁄ F(W)).Point` was
 unfounded; Mathlib's `Point.instAddCommGroup` is enough and no `AddCommGroup` shim was needed.
 
-**Consequence for general `n`.** The route is now non-speculative in its group-theoretic half: the
-same three lines would prove `τ_P∗ ∘ [n]∗ = [n]∗ ∘ τ_T∗` for any `n`, with `abel` handling the
-`n`-fold rearrangement.  What does *not* yet exist for general `n` is the input the route consumes:
-`mulByNEndo` and the correspondence `𝒫 + ⋯ + 𝒫 = (mulByNEndo genX, mulByNEndo genY)` are built
-separately at `n = 2` (`GenericDoubling`) and `n = 3` (`GenericTripling`) out of the explicit
-addition formulæ, and a uniform `n` needs the `ωₙ` crux (`#404`).  So general `n` is gated on
-`#403`/`#404`, not on this file's technique.  It is not attempted here.
+**Consequence for general `n`, and it has been carried out.** The route is non-speculative in its
+group-theoretic half: the same three lines prove `τ_P∗ ∘ [n]∗ = [n]∗ ∘ τ_T∗` for any `n`, with
+`abel` handling the `n`-fold rearrangement.
+
+⚠️ **The clause this paragraph used to carry has been paid** — it read *"What does not yet exist
+for general `n` is the input the route consumes: `mulByNEndo` and the correspondence
+`𝒫 + ⋯ + 𝒫 = (mulByNEndo genX, mulByNEndo genY)` are built separately at `n = 2`
+(`GenericDoubling`) and `n = 3` (`GenericTripling`) out of the explicit addition formulæ, and a
+uniform `n` needs the `ωₙ` crux (`#404`).  So general `n` is gated on `#403`/`#404`, not on this
+file's technique."*  Both named inputs are `EllipticCurves.FunctionField.MulByNPullback`'s at
+every `n` — `mulByNEndo` and `nsmul_genericPoint_eq` — built from the **group law**, so the `ωₙ`
+gating was never real.  The theorem those inputs were wanted for is
+`translateEndo_mulByNEndo_apply_general` and its siblings in
+`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`, proved along exactly this route.
+⚠️ *It is not attempted here* — that clause is file-scoped and stays true; this file remains the
+`n = 3` slice.
 
 ## What is *not* here
 

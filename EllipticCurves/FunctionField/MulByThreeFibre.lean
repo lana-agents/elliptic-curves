@@ -154,8 +154,13 @@ met head-on.
   still does; what exists is the **relative** degree `f_p = [κ(p) : κ([3]⁻¹ p)]`, which agrees with
   `[κ(p) : F]` only because the base field is algebraically closed.  The correction is recorded
   there too, next to the sentence that carries it.
-* **General `n`.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
-  endomorphisms this tree has.  `#404`'s general `ωₙ` is untouched.
+* **General `n`.**  ⚠️ **The clause this bullet used to carry has been paid** — it read
+  *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete endomorphisms this tree
+  has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  `EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, with its place
+  layer in `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ Nothing general-`n` is
+  attempted *here*: the identification of the contraction with tripling, and the count, are
+  `[3]`-specific below.  `#404`'s general `ωₙ` is untouched — and it is not what `[n]∗` needed.
 
 ## References
 

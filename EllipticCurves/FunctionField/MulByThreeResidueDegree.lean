@@ -98,12 +98,25 @@ there, and the closure is exactly what collapses it to `sum_ramificationIdxThree
 `residueDegreeProj_eq_one`, and what it produces is used as an equation, but the *general* weighted
 identity is a different theorem rather than a descent of this one.
 
-* **The general (non-closed-field) weighted identity stays out.**
-  `sum_ramificationIdxTwo_mul_residueDegreeTwo`'s docstring records that it *"would need the
-  inertia compatibility unconditionally — [and] is what a later issue owes"*.  That debt is
-  `n`-independent, it is unchanged by this file, and nothing below pays any part of it.
-* **General `n` stays out.**  `mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
-  endomorphisms this tree has, and `#404`'s general `ωₙ` is untouched.
+* **The general (non-closed-field) weighted identity stays out of *this file*.**
+  ⚠️ **The clause this bullet used to carry has been paid** — it read
+  *"`sum_ramificationIdxTwo_mul_residueDegreeTwo`'s docstring records that it 'would need the
+  inertia compatibility unconditionally — [and] is what a later issue owes'.  That debt is
+  `n`-independent, it is unchanged by this file, and nothing below pays any part of it."*  The
+  debt is discharged in `EllipticCurves.FunctionField.PlaceInertiaGeneral`, which imports this
+  file: `ideal_inertiaDeg_eq_residueDegreeComap` is the inertia compatibility over an arbitrary
+  field, `sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre` the uncollapsed
+  `∑_{p ↦ q} e_p · f_p = finrank`, and
+  `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` / `…_of_charZero` the `[2]∗` forms
+  with no `[IsAlgClosed F]`.  ⚠️ The `n`-independent half of that machinery is stated for an
+  arbitrary `φ` and serves `[3]` unchanged; what is still absent *here* is a `[3]` weighted
+  identity without `[IsAlgClosed F]`.
+* **General `n` stays out of this file.**  ⚠️ **The clause this bullet used to carry has been
+  paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
+  endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+  `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ No general-`n` residue degree is
+  defined here, and `#404`'s general `ωₙ` is untouched — it is not what `[n]∗` needed.
 * **The ramification side is not re-examined.**  `ramificationIdxThree_none` (`[3]` is unramified at
   infinity) is merged and is not consumed below: the residue degree at infinity is `1` for a reason
   that has nothing to do with ramification, namely that `[0 : 1 : 0]` is a rational point of every

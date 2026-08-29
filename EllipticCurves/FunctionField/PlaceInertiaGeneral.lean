@@ -12,14 +12,17 @@ import EllipticCurves.FunctionField.PlaceRamificationInertia
 
 `EllipticCurves.FunctionField.PlaceRamificationInertia` proves the two local compatibilities that
 connect this development's ramification data to Mathlib's `Ideal.ramificationIdx` and
-`Ideal.inertiaDeg`.  **One of them is stated over an arbitrary field and one is not.**  That file's
-`## What is *not* here` records the gap in one sentence:
+`Ideal.inertiaDeg`.  **One of them was stated over an arbitrary field and one was not.**  That
+file's `## What is *not* here` recorded the gap in one sentence:
 
 > *"the unconditional `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` is **not** proved, and would
 > need `B ⧸ P` to be identified with the residue field of the localisation `B_v = placeOf W p` and
 > `A ⧸ 𝔪_A` with `κ(q)`, compatibly with the two algebra maps."*
 
-This file is that sentence, discharged.  With it, the fundamental identity
+This file is that sentence, discharged.  ⚠️ **The sentence itself is retired in place there**, as a
+quotation marked paid and pointing here, so do not expect to find it standing in that file's
+`## What is *not* here`; the same is true of the *"is what a later issue owes"* clause on
+`sum_ramificationIdxTwo_mul_residueDegreeTwo`.  With it, the fundamental identity
 
 ```
 ∑_{p ↦ q} e_p · f_p = [F(W) : φ F(W)]

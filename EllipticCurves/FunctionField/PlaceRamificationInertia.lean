@@ -78,14 +78,22 @@ different means.
 
 ## What is *not* here
 
-* **The general form of the inertia compatibility.**  `ideal_inertiaDeg_eq_one` is the
-  `[IsAlgClosed F]` form that `#763`'s deliverable 1 calls "cheap partial credit"; the unconditional
+* **The general form of the inertia compatibility is not in *this file*.**
+  `ideal_inertiaDeg_eq_one` is the `[IsAlgClosed F]` form that `#763`'s deliverable 1 calls "cheap
+  partial credit", and `sum_ramificationIdxTwo_mul_residueDegreeTwo` below is stated over
+  `[IsAlgClosed F]`, where `residueDegreeTwo h2 p = 1` at every place and the statement collapses
+  to the previous one.
+  ⚠️ **The clauses this bullet used to carry have been paid** — it read *"the unconditional
   `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` is **not** proved, and would need `B ⧸ P` to be
   identified with the residue field of the localisation `B_v = placeOf W p` and `A ⧸ 𝔪_A` with
-  `κ(q)`, compatibly with the two algebra maps.  Consequently
-  `sum_ramificationIdxTwo_mul_residueDegreeTwo` is stated over `[IsAlgClosed F]`, where
-  `residueDegreeTwo h2 p = 1` at every place and the statement collapses to the previous one.  Over
-  `ℚ` what is available is `sum_ramificationIdx_mul_inertiaDeg_placeBelow`, in Mathlib's indexing.
+  `κ(q)`, compatibly with the two algebra maps … Over `ℚ` what is available is
+  `sum_ramificationIdx_mul_inertiaDeg_placeBelow`, in Mathlib's indexing."*  Both identifications
+  are made and the compatibility is proved over an arbitrary field in
+  `EllipticCurves.FunctionField.PlaceInertiaGeneral`, which imports this file:
+  `placeComapEquivPlaceBelow`, `valuationSubringAtPrimeEquivPlace` and
+  `ideal_inertiaDeg_eq_residueDegreeComap`.  The fibre-indexed identity follows there as
+  `sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre`, and over `ℚ` the `[2]∗` form in *this*
+  file's own indexing is `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_charZero`.
 * **`#E[2] = 4`.**  The identity says the fibre of `[2]` over a place has total ramification `4`;
   it says nothing about the number of `2`-torsion *points*.  The classical link runs through
   "a separable isogeny has `#ker = deg`", which is **not** in this tree — separability of the field
@@ -94,8 +102,12 @@ different means.
 * `[3]∗` and general `[n]∗`: everything before the `[2]∗` section is stated for an arbitrary `φ` and
   serves them unchanged, but the right-hand side `4` is `[2]`-specific (`#682`'s tower rests on
   `max (deg Φ₂) (deg Ψ₂Sq) = 4`).  The `[3]∗` instantiation, with `9` in place of the `4`, is
-  `EllipticCurves.FunctionField.MulByThreeRamification`; general `[n]∗` has no case, `mulByNEndo`
-  not existing.
+  `EllipticCurves.FunctionField.MulByThreeRamification`; general `[n]∗` has no case here.
+  ⚠️ **The reason clause this bullet used to give has been paid** — it read *"`mulByNEndo` not
+  existing"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+  `EllipticCurves.FunctionField.MulByNPlacePullback`; what is `[2]`-specific is the `4`, as this
+  bullet already says.
 * Any comparison with `degPt` (`DivisorDegree.lean`), which is a relative ideal norm to `F[X]` and
   so not *definitionally* a residue-field degree.  ⚠️ **This bullet used to end** *"and not a
   residue-field degree"*, with no qualifier, and that is the one reading of it that is now wrong:
@@ -497,8 +509,14 @@ theorem sum_ramificationIdxTwo_eq_four :
 Over an algebraically closed base field `f_p = 1` at every place (`#744`'s
 `residueDegreeTwo_eq_one_of_residueDegreeProj_eq_one` fed by `#749`'s `residueDegreeProj_eq_one`),
 so this is the previous statement.  It is stated separately because it is the shape Silverman II.2
-and Stichtenoth III.1.11 record, and because the general version — which would need the inertia
-compatibility unconditionally — is what a later issue owes. -/
+and Stichtenoth III.1.11 record, and because the general version needs the inertia compatibility
+unconditionally.
+
+⚠️ **The clause this docstring used to end with has been paid** — it read *"is what a later issue
+owes"*.  The general version is
+`EllipticCurves.FunctionField.PlaceInertiaGeneral`'s
+`sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `…_of_charZero`, in a file that
+imports this one. -/
 theorem sum_ramificationIdxTwo_mul_residueDegreeTwo :
     ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton h2 q).toFinset,
       (ramificationIdxTwo h2 p).toNat * residueDegreeTwo h2 p = 4 := by
