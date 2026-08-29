@@ -42,6 +42,10 @@ the validation of the route.
 * `…pointAlgHom` — the same as an `F`-algebra homomorphism.
 * `…pointEndo` — the induced endomorphism `F(W) →+* F(W)`, for `x` transcendental over `F`.
 * `…mulByNCoordHom`, `…mulByNEndo` — the specialisation at the point `n • 𝒫`.
+* `…mulByNEndoAlgHom` — `[n]∗` as an `F`-algebra endomorphism of `F(W)`, which is the form
+  `genPointHom` consumes.  It lives here, beside its own `commutes'` field
+  `mulByNEndo_algebraMap_base`, exactly as `#699` placed `mulByTwoEndoAlgHom` in `MulByTwoFinite`
+  and `TranslationTriplingCommGeneral` placed `mulByThreeEndoAlgHom` in `MulByThreeFinite`.
 
 ## Main statements
 
@@ -286,6 +290,21 @@ lemma mulByNEndo_algebraMap_base (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (c : F) :
     mulByNEndo n hn (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c :=
   pointEndo_algebraMap_base _ _ c
+
+/-- **`[n]∗` as an `F`-algebra endomorphism of `F(W)`.**  `mulByNEndo` is a bare `RingHom`; the
+generic-point transport of `TranslationMulByNCommGeneral` (`Point.map`, through `genPointHom`)
+needs an `F`-algebra endomorphism.  It is `mulByNEndo` together with `mulByNEndo_algebraMap_base`,
+and it lives here — beside its own `commutes'` field — following the placement `#699` chose for
+`mulByTwoEndoAlgHom` and `TranslationTriplingCommGeneral` chose for `mulByThreeEndoAlgHom`. -/
+noncomputable def mulByNEndoAlgHom (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    W.FunctionField →ₐ[F] W.FunctionField where
+  toRingHom := mulByNEndo n hn
+  commutes' := mulByNEndo_algebraMap_base n hn
+
+@[simp] lemma mulByNEndoAlgHom_apply (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (f : W.FunctionField) :
+    mulByNEndoAlgHom n hn f = mulByNEndo n hn f := rfl
 
 /-- `[n]∗` is injective: it is a ring homomorphism out of a field. -/
 lemma mulByNEndo_injective (n : ℕ)
