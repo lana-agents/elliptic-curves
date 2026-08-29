@@ -92,6 +92,7 @@ import EllipticCurves.FunctionField.MulByNIntegral
 import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByNPullback
 import EllipticCurves.FunctionField.MulByNTranscendence
+import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByThreeExtensionFinite
