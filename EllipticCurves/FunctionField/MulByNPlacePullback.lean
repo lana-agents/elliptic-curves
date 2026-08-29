@@ -50,8 +50,11 @@ result, not a gap**.  `ordInfty_mulByTwoEndo_genX`
 (`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity`) and `ord_mulByTwoEndo_genX_neg`
 (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`) both open with `rw [mulByTwoEndo_genX h2, …]`
 and then count degrees of `Φ₂` and `Ψ₂Sq`; `mulByNEndo_genX` rewrites instead to `x(n • 𝒫)`, about
-which the group law says only that it satisfies the Weierstrass equation.  That pins
-`ordInfty (x(n • 𝒫)) = -2k` and `ordInfty (y(n • 𝒫)) = -3k` for **some** `k ≥ 1`, and no more.
+which the group law says only that it satisfies the Weierstrass equation.  ⚠️ **That alone pins
+nothing at infinity** — `x(𝒫 + T)` for a fixed `T ≠ O` satisfies the same equation and has *no* pole
+there.  What pins `ordInfty (x(n • 𝒫)) = -2k` and `ordInfty (y(n • 𝒫)) = -3k` for **some** `k ≥ 1`
+is that `[n]` fixes the point at infinity — which is the `comapProjPointN … none = none` recorded
+below as itself absent.  Even granted it, `k` is unpinned, and that is as far as one gets.
 
 ⚠️ **`k = 1` is false at general `n`.**  `mulByNEndo n hn` carries no hypothesis on `(n : F)`, and
 none is available: over `F̄` of characteristic `p > 2` the transcendence hypothesis at `n = p` is
