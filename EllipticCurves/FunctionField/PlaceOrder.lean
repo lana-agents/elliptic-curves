@@ -28,13 +28,60 @@ divisorProj W (translateEndo h_T f)
     = (divisorProj W f).mapDomain (mapProjPoint W (translateAlgEquiv h_T)).
 ```
 
-**That last statement is the one `#465` deliverable 2 has been blocked on**, and which
-`EllipticCurves.FunctionField.WeilPairingAlternating` and
-`EllipticCurves.FunctionField.DivisorTransport` both record as missing — the latter with the
-diagnosis that `translateEndo` is not `IsFractionRing.ringEquivOfRingEquiv e` for any ring
-automorphism `e` of `F[W]`, *because it moves the points at infinity*.  Nothing here contradicts
-that diagnosis; the affine divisor `divisor W` really does not transport.  It is `divisorProj`,
-on the projective point set, that does.
+**That last statement is the one `#465` deliverable 2 has been blocked on**, and the one
+`EllipticCurves.FunctionField.DivisorTransport` declines to deliver, with the diagnosis that
+`translateEndo` is not `IsFractionRing.ringEquivOfRingEquiv e` for any ring automorphism `e` of
+`F[W]`, *because it moves the point(s) at infinity*.  Nothing here contradicts that diagnosis: the
+formula that module names is the **affine** one, and the affine divisor `divisor W` really does
+not transport.  It is `divisorProj`, on the projective point set, that does.
+
+⚠️ **This paragraph used to name `EllipticCurves.FunctionField.WeilPairingAlternating` beside it,
+as a second module recording that statement as missing.**  ⚠️ **The note it named was retired by a
+commit that edited this module too, and this paragraph was not part of what that commit edited**:
+`cf3783d` (2026-08-20 18:26:50) rewrote that module to name `divisorProj_translateEndo`, proved
+here, as the pullback its product-over-`⟨T⟩` argument runs on, and in the same change extended the
+Scope section of this one, five hours and fifteen minutes after this module landed in `7ffe193`
+(13:11:24 the same day).  ⚠️ A retirement has to reach the modules that cite
+the retired sentence, and one of them can be the module the same commit is already editing.
+
+⚠️ **The surviving half of that sentence has since been narrowed too, by a later commit and not by
+this one, which is why the paragraph above says *"declines to deliver"* and not *"records as
+missing"*.**  `abcf196` (2026-08-28 12:59:46) retired
+`EllipticCurves.FunctionField.DivisorTransport`'s *"exactly as open as it was before"*: that module
+now declines to deliver the **affine** formula in its own text, and no longer reports the statement
+as missing from the tree.
+
+⚠️ **Deliverable 2 is discharged at `n = 2` and `n = 3` over an algebraically closed base field,
+and the theorem proved here is one of its inputs** — so read *"has been blocked on"* above as
+history and not as current status.  With no hypothesis beyond the setting, the two statements are
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_two`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed`) and
+`exists_weilPairingElt_self_eq_one_of_isAlgClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`).
+
+⚠️ **The two names that differ from those only by the missing `is` are the *conditional*
+statements, and citing them for the discharge renames a hypothesis out of existence.**
+`exists_weilPairingElt_self_eq_one_of_algClosed_two`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`) and
+`exists_weilPairingElt_self_eq_one_of_algClosed_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThree`) reach the same conclusions carrying
+the principality hypothesis `hprin`, which is the `#418` datum; each `…AlgClosed` statement is its
+conditional twin applied to `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` (resp.
+`…mulByThreeEndo`, `EllipticCurves.FunctionField.PullbackPrincipalityTwo` / `…Three`), which is
+that hypothesis proved, with nothing in between.  The `## Main statements` section of
+`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed` states the naming rule that
+forces the `is`.  Over an arbitrary field the same conclusions hold with `hprin` still carried, as
+`exists_weilPairingElt_self_eq_one_of_hprin_two` and `…_three`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`); discharging `hprin` there is
+open (`#962`), and so is every `n` outside `{2, 3}`.
+
+Each of those six statements runs on the telescoping functions
+`exists_mul_translateEndo_eq_algebraMap`
+(`EllipticCurves.FunctionField.WeilPairingTelescopeTwo`) and
+`exists_mul_translateEndo_mul_translateEndo_eq_algebraMap`
+(`EllipticCurves.FunctionField.WeilPairingTelescopeThree`), whose divisor steps rewrite with
+`divisorProj_translateEndo`.  What none of them needs is the **affine** formula, which is why
+`EllipticCurves.FunctionField.DivisorTransport`'s diagnosis is untouched by any of this.
 
 ## Why it is not a corollary of rung 4, and the route
 

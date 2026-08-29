@@ -13,8 +13,8 @@ import EllipticCurves.FunctionField.PullbackDivisor
 `EllipticCurves.FunctionField.PlacePullback` contracts places of `F(W)` along a non-invertible
 `F`-embedding `φ` and produces a ramification index; `EllipticCurves.FunctionField.PullbackDivisor`
 assembles the two into `φ∗` on the projective divisor group.  Both are stated for an abstract `φ`
-subject to two hypotheses, both instantiate them at `mulByTwoEndo`, and both say in their own
-docstrings that `[3]∗` is *available and deliberately deferred*.  This file takes the deferral up:
+subject to two hypotheses, and both instantiate them at `mulByTwoEndo` alone.  This file supplies
+the `[3]∗` instantiation:
 
 ```
 comapProjPointThree h2 h3 : ProjPoint W → ProjPoint W        the contraction of a place along [3]∗
@@ -29,6 +29,18 @@ and then computes both factors at the one place every consumer needs first:
 comapProjPointThree h2 h3 none = none            [3] fixes the point at infinity
 ramificationIdxThree h2 h3 none = 1              and is unramified there.
 ```
+
+⚠️ **This module used to say that `EllipticCurves.FunctionField.PlacePullback` and
+`EllipticCurves.FunctionField.PullbackDivisor` say in their own docstrings that `[3]∗` is
+*"available and deliberately deferred"*, and neither of them says it.**  ⚠️ **The clause was
+falsified by the commit that wrote it**: `4655d18` (2026-08-23 03:42:22) created this module and in
+the same change rewrote both of those bullets to point at it — `PlacePullback`'s adding that the
+index at infinity is computed here too, `PullbackDivisor`'s naming `pullbackDivisorThree` and
+`div (f ∘ [3]) = [3]∗ (div f)` — so the clause never described the tree it was committed into.
+What each of them still says is that its general section applies to `[3]∗` verbatim once the two
+hypotheses are supplied for `mulByThreeEndo`, and that it *"is deliberately not instantiated"*
+there.  ⚠️ A sentence about what another module's docstring says is a claim about that module, and
+it decays exactly as that docstring does.
 
 ## The two hypotheses were already discharged
 
