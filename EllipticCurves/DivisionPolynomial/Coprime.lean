@@ -92,8 +92,15 @@ this file.
 
 ## What is *not* here
 
-* The general `IsCoprime (W.Φ n) (W.ΨSq n)`. Only `n = 2` and `n = 3` are proved, each by its own
-  ad-hoc certificate; the general case is a much larger induction and no consumer needs it yet.
+* The general `IsCoprime (W.Φ n) (W.ΨSq n)`. Only `n = 2` and `n = 3` are proved, and — as *"The
+  `n = 3` certificate is a congruence, not a resultant"* above sets out — `n = 3` is **not** a
+  certificate of its own: it runs through `preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul` and back to the `n = 2`
+  certificate, so `bezout_Φ_two_Ψ₂Sq` and `bezout_Ψ₃_Ψ₂Sq` remain the only `Δ²`-identities here.
+  The general case is a much larger induction; it is `#1184`, and
+  `EllipticCurves.FunctionField.MulByNPlacePullback`'s rung-3 paragraph names it as one of the
+  inputs that `[F(W) : [n]∗F(W)] = n²` at general `n` still needs.
+  ⚠️ **The clause this bullet used to carry has been corrected** — it read *"each by its own ad-hoc
+  certificate"*, which the section named above contradicts.
 * Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`.
 * Anything about `RatFunc`, function fields, or the degree of `[n]`. The consumers are the middle
   steps of the towers computing `[F(W) : [2]∗F(W)] = 4` and `[F(W) : [3]∗F(W)] = 9`, in

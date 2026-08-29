@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.MulByNPullback
+import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.NegYGalois
 import EllipticCurves.FunctionField.TranslationDoublingCommGeneral
 
@@ -43,21 +44,32 @@ with the Galois package `isGalois_ratFuncRange` / `isGalois_ratFunc` on top of i
 one where the group law enters — `x(n • 𝒫)` is `ι`-fixed — together with the `RatFunc F`
 presentation a degree computation consumes.
 
-## Main results
+## Main definitions and statements
+
+⚠️ Every public declaration of this file is listed.  Two of them are `def`s, which is why the
+heading is not `## Main results`.
 
 * `IntermediateField.mem_fixedField_zpowers_iff` — for a single automorphism, membership of the
   fixed field of the subgroup it generates is just being fixed by it; the general form of the
   stabilizer argument `NegYGalois`'s `genX_mem_fixedField_negYGroup` runs inline;
 * `WeierstrassCurve.Affine.Point.xCoord_neg` — `x(-P) = x(P)`, junk values included;
 * `WeierstrassCurve.Affine.CoordinateRing.mem_ratFuncRange_iff_negYAlgEquiv_eq` — the merged fixed
-  field in the pointwise form a caller uses: `z ∈ F(x) ↔ ι z = z`;
+  field in the pointwise form a caller uses: `z ∈ F(x) ↔ ι z = z` — with the one-directional
+  `…mem_ratFuncRange_of_negYAlgEquiv_eq`, which is the direction this file consumes;
+* `WeierstrassCurve.Affine.CoordinateRing.xCoord_genPointHom` — the `x`-coordinate transports along
+  the point action of an `F`-algebra endomorphism;
 * `WeierstrassCurve.Affine.CoordinateRing.genPointHom_negYAlgEquiv_genericPoint` — `ι` acts on
   `(W ⁄ F(W)).Point` as negation of the generic point;
+* `WeierstrassCurve.Affine.CoordinateRing.negYAlgEquiv_xCoord_nsmul_genericPoint` — `ι` fixes
+  `x(n • 𝒫)`.  ⚠️ This is the step where the group law enters and the only one that is not
+  transport;
 * `WeierstrassCurve.Affine.CoordinateRing.xCoord_nsmul_genericPoint_mem_ratFuncRange` — the
   headline: `(n • 𝒫).xCoord ∈ F(x)` for every `n : ℕ`, with no hypothesis on `n` and none on `F`;
+* `WeierstrassCurve.Affine.CoordinateRing.ratFuncPreimage` with `algebraMap_ratFuncPreimage` — the
+  name in `RatFunc F` of an element of `F(x)`, through the merged `ratFuncEquivRatFuncRange`;
 * `WeierstrassCurve.Affine.CoordinateRing.nMulRatFunc` with `algebraMap_nMulRatFunc` — the same
-  element named in `RatFunc F`, and `nMulRatFunc_two` identifying it at `n = 2` with the merged
-  `doublingRatFunc`.
+  element named in `RatFunc F`, and `nMulRatFunc_two` / `nMulRatFunc_three` identifying it at
+  `n = 2` and `n = 3` with the merged `doublingRatFunc` and `triplingRatFunc`.
 
 ## ⚠️ What this does **not** give
 
@@ -234,13 +246,32 @@ Both have the same image in `F(W)` — `algebraMap_doublingRatFunc` and
 homomorphism of fields.
 
 ⚠️ This is the check that the group-law construction produces the *same* rational function the
-duplication formula does, at the one index where the latter exists.  It does not transport that
-formula's degrees: `doublingRatFunc` is *defined* as `Φ₂/Ψ₂Sq` and `nMulRatFunc W 2` is now known
-to equal it, but `nMulRatFunc W n` for `n ≠ 2, 3` has no such presentation. -/
+division polynomials do.  `n = 2` is one of the **two** indices at which the tree writes such a
+fraction down; `nMulRatFunc_three` is the other.  It does not transport those formulæ's degrees:
+`doublingRatFunc` is *defined* as `Φ₂/Ψ₂Sq` and `nMulRatFunc W 2` is now known to equal it, but
+`nMulRatFunc W n` for `n ≠ 2, 3` has no such presentation. -/
 theorem nMulRatFunc_two [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
     nMulRatFunc W 2 = doublingRatFunc W := by
   refine (algebraMap (RatFunc F) W.FunctionField).injective ?_
   rw [algebraMap_nMulRatFunc, algebraMap_doublingRatFunc h2, xCoord_two_nsmul_genericPoint h2]
+
+open Classical in
+/-- **The validation at `n = 3`: `nMulRatFunc W 3 = triplingRatFunc W`.**
+
+The same argument as `nMulRatFunc_two` against the merged `algebraMap_triplingRatFunc` and
+`xCoord_three_nsmul_genericPoint` (`EllipticCurves.FunctionField.MulByThreeDegree` and
+`…MulByNPullback`), and the reason this file imports `MulByThreeDegree` at all.
+
+⚠️ `n = 2` and `n = 3` are the **only** indices at which the group-law construction can be checked
+against a written-down fraction, because they are the only indices at which the tree writes one
+down: `#682` and `#775` are the merged degree computations and there is no `Φₙ/ΨSqₙ` presentation
+of `nMulRatFunc W n` at any other `n`.  That presentation at general `n` is `#404` / `#251`'s and
+is what a degree count needs; see the module docstring. -/
+theorem nMulRatFunc_three [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    nMulRatFunc W 3 = triplingRatFunc W := by
+  refine (algebraMap (RatFunc F) W.FunctionField).injective ?_
+  rw [algebraMap_nMulRatFunc, algebraMap_triplingRatFunc h2 h3,
+    xCoord_three_nsmul_genericPoint h2 h3]
 
 /-! ### Non-vacuity
 
