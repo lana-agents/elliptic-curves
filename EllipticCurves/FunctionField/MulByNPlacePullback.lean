@@ -38,22 +38,32 @@ survive is that the degree is **finite** — `module_finite_mulByNEndoFieldRange
 `finrank_mulByTwoFieldRange` reads it off the tower `F(W) ⊇ F(x) ⊇ F(x ∘ [2])`, and that tower needs
 (i) `x ∘ [n] ∈ F(x)`, which at `n = 2` is `doublingRatFunc`, an element of `RatFunc F` written down
 from `Φ₂/Ψ₂Sq`, and (ii) the reduced degrees of `Φ n` and `ΨSq n` with the coprimality that makes
-*reduced* legitimate.  ⚠️ **Only (i) is `#404` / `#251`, and the degrees inside (ii) are not gated
-at all.**  They are **Mathlib**'s at general `n` — `natDegree_Φ` and `natDegree_ΨSq`,
-`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`, the first over any nontrivial
-ring and the second under `(n : F) ≠ 0` — and `MulByThreePlacePullback` and `MulByThreeDegree`
-already close their degree computations with both of them at general index.  What (ii) is missing is
+*reduced* legitimate.
+
+⚠️ **(i) is discharged.**  `x(-P) = x(P)`, so `x(n • 𝒫)` is fixed by the hyperelliptic involution
+`negYAlgEquiv`, and `F(x)` **is** the fixed field of that involution:
+`ratFuncRange_eq_fixedField_negYGroup`, `EllipticCurves.FunctionField.NegYGalois`, over an arbitrary
+field and in every characteristic.  The consequence `(n • 𝒫).xCoord ∈ F(x)` for every `n`, with its
+`RatFunc F` name `nMulRatFunc`, is `EllipticCurves.FunctionField.MulByNXCoordRatFunc`.  ⚠️ **This
+paragraph originally called (i) *"the cheapest visible follow-up"* and said the fixed field did not
+exist**; it had checked `NegYInvolution`, where it indeed is not, and missed `NegYGalois`, where it
+was already merged.
+
+⚠️ **What (ii) still needs is *not* the degrees.**  `natDegree_Φ` and `natDegree_ΨSq` are
+**Mathlib**'s at general `n` (`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`,
+the first over any nontrivial ring, the second under `(n : F) ≠ 0`), and `MulByThreePlacePullback`
+and `MulByThreeDegree` already close their degree computations with both of them at general index.
+Three other things are missing.  **First**, the identification of `nMulRatFunc W n` *as* the
+fraction `Φₙ/ΨSqₙ`, which is `#404` / `#251`: `nMulRatFunc` is produced by an inverse isomorphism,
+so `RatFunc.finrank_eq_max_natDegree` has no numerator and no denominator to read off it — being an
+element of `F(x)` is not being a *written-down* rational function.  **Second**,
 `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n`, which is `#1184`:
-`EllipticCurves.DivisionPolynomial.Coprime` proves it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
-merged) and at `n = 3`, each by its own certificate against `Δ²`, and that file's own *"What is not
-here"* names the general case as an open induction.  And `natDegree_ΨSq`'s `(n : F) ≠ 0` is a
-further gate — the same side condition the rung-4 paragraph below shows `mulByNEndo` does not
-carry.  ⚠️ Note that
-(i) is *true* at general `n` for a reason the group law does supply — `x(-P) = x(P)`, so
-`x(n • 𝒫)` is fixed by the hyperelliptic involution `negYAlgEquiv`
-(`EllipticCurves.FunctionField.NegYInvolution`) — but turning that into membership in `F(x)` needs
-`F(x)` identified as the fixed field of that involution, which is **not** among that file's
-results.  It is the cheapest visible follow-up on this front and it would still leave (ii).
+`EllipticCurves.DivisionPolynomial.Coprime` has it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
+merged) by a Bézout certificate against `Δ²`, and at `n = 3` by the congruence
+`preΨ₄² ≡ Ψ₂Sq⁴ (mod Ψ₃)` reducing to that same `n = 2` certificate rather than to a new one — that
+file computes no second `Δ²` identity — and its own *"What is not here"* calls the general case an
+open induction.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`, the same side condition the rung-4
+paragraph below shows `mulByNEndo` does not carry.
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
 result, not a gap**.  `ordInfty_mulByTwoEndo_genX`
