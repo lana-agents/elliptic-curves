@@ -115,6 +115,14 @@ something needs it.
 except in the final section, where the comparison with the affine places is stated (`ord` is only
 defined under that hypothesis).
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`deg_mk_Y` carried `@[simp]` and **could never fire**: its LHS is `deg W (mk W Y)`, and
+`AdjoinRoot.mk_X` — itself `@[simp]` — rewrites `mk W Y` to `AdjoinRoot.root W.polynomial` before
+the pattern is tried. Measured with Mathlib's `simpNF` environment linter, which had never been run
+on this tree. The lemma is unchanged and still has consumers in
+`EllipticCurves.FunctionField.PlaceResidueDegree` and `…ValuationAtInfinity`.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], II.1–II.3.
@@ -245,7 +253,6 @@ lemma deg_mk_C (p : F[X]) : deg W (mk W (C p)) = 2 * p.natDegree := by
   simp [natDegree_pow]
 
 /-- The coordinate function `y` has a **triple** pole at infinity. -/
-@[simp]
 lemma deg_mk_Y : deg W (mk W Y) = 3 := by
   have h : mk W Y = (0 : F[X]) • (1 : W.CoordinateRing) + (1 : F[X]) • mk W Y := by
     rw [zero_smul, zero_add, one_smul]
