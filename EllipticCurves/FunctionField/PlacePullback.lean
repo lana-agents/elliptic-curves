@@ -31,7 +31,9 @@ multiplied by a ramification index.  This file supplies both halves.
 * `WeierstrassCurve.Affine.exists_pos_forall_eq_mul_of_nonneg_iff` — a `ℤ`-valued order function is
   determined by its nonnegativity locus *up to a positive factor*;
 * `WeierstrassCurve.Affine.comapProjPoint` — the contraction of a place of the target along `φ`,
-  a map `ProjPoint W → ProjPoint W`;
+  a map `ProjPoint W → ProjPoint W`, with `comapProjPoint_eq_iff` its characterisation and
+  `WeierstrassCurve.Affine.comapProjPoint_comp` the **contravariant** composition law
+  `comapProjPoint (φ ∘ ψ) = comapProjPoint ψ ∘ comapProjPoint φ`;
 * `WeierstrassCurve.Affine.ramificationIdx` and
   **`WeierstrassCurve.Affine.divisorProj_comp_apply`**:
   `divisorProj W (φ f) p = e_p * divisorProj W f (comapProjPoint … p)` with `0 < e_p`;
@@ -323,6 +325,30 @@ theorem comapProjPoint_eq_iff {p q : ProjPoint W} :
     comapProjPoint hφF hφint p = q ↔ placeOf W q = (placeOf W p).comap φ :=
   ⟨fun h => h ▸ placeOf_comapProjPoint hφF hφint p,
     fun h => placeOf_injective ((placeOf_comapProjPoint hφF hφint p).trans h.symm)⟩
+
+/-- **The contraction along a composite is the composite of the contractions, in the opposite
+order**: `comapProjPoint (φ ∘ ψ) = comapProjPoint ψ ∘ comapProjPoint φ`.
+
+⚠️ **The order is the content of this lemma.**  `comapProjPoint` is contravariant, so it reverses
+the composition; on points it is the *forward* map, and reading it as covariant gives a statement
+that is still true at `φ = ψ` and false in general.  Everything is forced by
+`ValuationSubring.comap_comap`, which pulls a place of the target back through `ψ` first and then
+through `φ`.
+
+The composite's own two hypotheses are taken as arguments rather than assembled from `hφF`/`hψF`
+and `hφint`/`hψint`.  For `hcF` that would be routine, but `hcint` — integrality of `F(W)` over
+the image of a composite — does **not** follow from the two componentwise integrality statements in
+one step, and a caller that has it (as `[m · n]∗` does, from
+`EllipticCurves.FunctionField.MulByNIntegral`) should supply it directly. -/
+theorem comapProjPoint_comp {ψ : W.FunctionField →+* W.FunctionField}
+    (hψF : ∀ c : F, ψ (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c)
+    (hψint : ∀ z : W.FunctionField, ψ.IsIntegralElem z)
+    (hcF : ∀ c : F, (φ.comp ψ) (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c)
+    (hcint : ∀ z : W.FunctionField, (φ.comp ψ).IsIntegralElem z) (p : ProjPoint W) :
+    comapProjPoint hcF hcint p = comapProjPoint hψF hψint (comapProjPoint hφF hφint p) := by
+  refine placeOf_injective ?_
+  rw [placeOf_comapProjPoint, placeOf_comapProjPoint, placeOf_comapProjPoint,
+    ValuationSubring.comap_comap]
 
 end Contraction
 

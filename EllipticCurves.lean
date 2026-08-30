@@ -91,6 +91,7 @@ import EllipticCurves.FunctionField.LocalRingUnit
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNDegreeTower
 import EllipticCurves.FunctionField.MulByNIntegral
+import EllipticCurves.FunctionField.MulByNPlaceComposition
 import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByNPullback
 import EllipticCurves.FunctionField.MulByNTranscendence
