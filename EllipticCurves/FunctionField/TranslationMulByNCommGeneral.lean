@@ -36,6 +36,10 @@ round gives a false statement.
 * `translateEndo_mulByNEndo_apply_general` — its applied form;
 * `translateEndo_mulByNEndo_apply_of_baseField` — the same, from the **base-field** relation
   `n • P = T` in `W.Point`;
+* `translateEndoAlgHom_comp_mulByNEndoAlgHom_torsion`,
+  `translateEndo_mulByNEndo_comp_torsion`, `translateEndo_mulByNEndo_apply_torsion` and
+  `…_torsion_of_baseField` — **the torsion case** `τ_T∗ ∘ [n]∗ = [n]∗` for an `n`-torsion `T`,
+  whose target point is `O` and which therefore is not an instance of the four above;
 * `translateEndo_mulByNEndoOfAlgClosed_apply` — over `F̄` with `2 ≠ 0`, where the transcendence
   hypothesis is automatic for every `n ≠ 0`;
 * `mulByNEndoAlgHom_two`, `mulByNEndoAlgHom_three` — the identification of `[n]∗` at `n = 2, 3`
@@ -83,7 +87,9 @@ discharges it at `n = 4` over `ℚ`.
   surjectivity result (`nsmul_three_surjective`, `Torsion/TriplingSurjective`, `#690`); there is no
   general `n` counterpart on this tree, and producing one needs the place theory of `mulByNEndo`.
   So `translateEndo_mulByNEndo_apply_of_baseField` takes the relation `n • P = T` as a hypothesis
-  and does not attempt to discharge it.
+  and does not attempt to discharge it.  ⚠️ The **torsion** statements need none of this: their
+  hypothesis is `n • T = 0`, which a member of `E[n]` carries by definition, so
+  `translateEndo_mulByNEndo_apply_torsion_of_baseField` leaves nothing undischarged.
 * **Any rewriting of `TranslationTriplingComm`'s ~250 lines of coordinate work.**  Whether they are
   now redundant is a `#699`-style de-duplication question and belongs in its own issue, as the
   `n = 3` file already recorded.
@@ -173,6 +179,72 @@ theorem translateEndo_mulByNEndo_apply_of_baseField (hP : W.Equation xP yP) (hT 
     translateEndo hP (mulByNEndo n hn f) = mulByNEndo n hn (translateEndo hT f) := by
   refine translateEndo_mulByNEndo_apply_general hP hT n hn ?_ f
   rw [← torsionPointMap_torsionPoint hP, ← torsionPointMap_torsionPoint hT, ← map_nsmul, hmul]
+
+/-! ### The torsion case: `[n] ∘ τ_T = [n]` when `T` is `n`-torsion
+
+⚠️ The statements above take **two affine points** `P`, `T` with `[n]P = T`.  The case a translation
+*action* of `E[n]` needs is `[n]T = O`, whose target point is the point at infinity — which is not
+affine, so it cannot be substituted for `hT` above and is a separate statement rather than an
+instance.  It is the general-`n` form of the merged `translateEndo_mulByTwoEndo_apply`
+(`EllipticCurves.FunctionField.TranslationDoublingComm`) and
+`translateEndo_mulByThreeEndo_apply` (`EllipticCurves.FunctionField.TranslationTriplingComm`), and
+the proof is the one above with `add_zero` in place of the hypothesis. -/
+
+/-- **The torsion commutation, as `F`-algebra endomorphisms.**  For an affine `n`-torsion point `T`
+of `(W ⁄ F(W)).Point`,
+
+```
+τ_T∗ ∘ [n]∗ = [n]∗.
+```
+
+⚠️ Unlike the statements above there is **no second point**: the group calculation is
+`n • (𝒫 + 𝒯) = n • 𝒫 + n • 𝒯 = n • 𝒫`, so the composite collapses rather than commuting past
+another translation. -/
+theorem translateEndoAlgHom_comp_mulByNEndoAlgHom_torsion (hT : W.Equation xT yT) (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (htors : n • translatePoint hT = 0) :
+    (translateEndoAlgHom hT).comp (mulByNEndoAlgHom n hn) = mulByNEndoAlgHom n hn := by
+  refine algHom_ext_of_genPointHom ?_
+  simp only [← genPointHom_comp, genPointHom_genericPoint_mulByN,
+    genPointHom_genericPoint_translate, map_nsmul]
+  rw [nsmul_add, htors, add_zero]
+
+/-- **The torsion commutation, as ring homomorphisms.**  `(translateEndo hT).comp (mulByNEndo n hn)
+= mulByNEndo n hn` whenever `n • T = 0`. -/
+theorem translateEndo_mulByNEndo_comp_torsion (hT : W.Equation xT yT) (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (htors : n • translatePoint hT = 0) :
+    (translateEndo hT).comp (mulByNEndo n hn) = mulByNEndo n hn :=
+  congrArg AlgHom.toRingHom (translateEndoAlgHom_comp_mulByNEndoAlgHom_torsion hT n hn htors)
+
+/-- **The torsion commutation in applied form**, and the one a consumer holding an element of `E[n]`
+uses: `τ_T∗ ([n]∗ f) = [n]∗ f` for every `f : F(W)`.
+
+This is the shape `EllipticCurves.FunctionField.TranslationActionN` consumes to prove
+`[n]∗F(W) ⊆ Fixed(E[n])`, and the exact general-`n` analogue of the datum
+`EllipticCurves.FunctionField.TranslationActionThree` takes from
+`translateEndo_mulByThreeEndo_apply`. -/
+theorem translateEndo_mulByNEndo_apply_torsion (hT : W.Equation xT yT) (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (htors : n • translatePoint hT = 0) (f : W.FunctionField) :
+    translateEndo hT (mulByNEndo n hn f) = mulByNEndo n hn f := by
+  have h := translateEndo_mulByNEndo_comp_torsion hT n hn htors
+  exact congr($h f)
+
+open Classical in
+/-- **The torsion commutation from a base-field relation.**  The hypothesis a caller actually has is
+`n • T = 0` in `W.Point`; `translatePoint_nsmul_eq_zero`
+(`EllipticCurves.FunctionField.TranslationTorsionMap`) is the uniform transport to the `F(W)`-level
+relation, at every `n`.
+
+⚠️ Unlike `translateEndo_mulByNEndo_apply_of_baseField`, nothing here is left undischarged: that
+statement needs `[n]`-surjectivity on `E(F̄)` to produce its `P`, and this one needs no `P` at
+all. -/
+theorem translateEndo_mulByNEndo_apply_torsion_of_baseField (hT : W.Equation xT yT) (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (htors : n • torsionPoint hT = 0) (f : W.FunctionField) :
+    translateEndo hT (mulByNEndo n hn f) = mulByNEndo n hn f :=
+  translateEndo_mulByNEndo_apply_torsion hT n hn (translatePoint_nsmul_eq_zero hT htors) f
 
 /-! ### Over an algebraically closed field -/
 

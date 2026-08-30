@@ -72,11 +72,20 @@ tower has to be built by hand out of `IntermediateField.inclusion` and
   **Normality is not transitive** — `ℚ(⁴√2) / ℚ(√2) / ℚ` is the standard counterexample, both
   storeys normal and the composite not — so the argument below, which is nothing but a tower,
   cannot reach it.  ⚠️ The *statement* `IsGalois ([n]∗F(W)) F(W)` is nevertheless **true** at every
-  `3`-smooth `n`, with Galois group `E[n]` acting by translation.  Reaching it needs the general-`n`
-  analogue of `EllipticCurves.FunctionField.TranslationAction` /
+  `3`-smooth `n`, with Galois group `E[n]` acting by translation.
+  ⚠️ **The clause this bullet used to end with priced that route and the price was wrong** — it
+  read *"Reaching it needs the general-`n` analogue of
+  `EllipticCurves.FunctionField.TranslationAction` /
   `EllipticCurves.FunctionField.TranslationActionThree` — a `TorsionNMul` action with `FaithfulSMul`
   and `card = n²` — which is a different and much larger build.  **What is missing is the method,
-  not the truth.**
+  not the truth.**"*  The action is `EllipticCurves.FunctionField.TranslationActionN` (`#1232`) and
+  it is **short**, because every input it needs was already merged when the clause was written:
+  `translateAutHom` is `n`-agnostic, `translatePoint_nsmul_eq_zero` is the uniform torsion
+  transport at every `n`, and `card_torsion_eq_sq_of_smooth` (`#1209`) supplies `card = n²`.  ⚠️
+  **The bullet's heading is still true and so is everything before this clause**: what that file
+  delivers is the action, its faithfulness and the inclusion `[n]∗F(W) ⊆ Fixed(E[n])` — the reverse
+  inclusion, and with it `Normal` and `IsGalois`, is the Artin sandwich against `#1213`'s degree and
+  is still not in this tree.  What was missing was never the method; it was one half of it.
 * **No `#E[n] = n²`, and no isogeny counting.**  `EllipticCurves.FunctionField.MulByTwoDegree` and
   `EllipticCurves.FunctionField.MulByTwoFibreInfinity` both record that the step *"a separable
   isogeny has as many points in its kernel as its degree"* is nowhere in this tree.  That stays
