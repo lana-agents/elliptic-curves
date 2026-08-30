@@ -149,9 +149,16 @@ statement below is false.
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` in its own imports.  ⚠️ The import is
   **deliberately not added here**: no declaration in this file needs the Dedekind instance, and an
   import added to make a docstring true is the wrong repair.
-* **Not a statement about `Gal(F(W)/F(x))` as a group.**  `IsGalois` is delivered;
-  `ratFuncRange_eq_fixedField_negYGroup` is what an identification of the Galois group with `⟨ι⟩`
-  would start from, and it is not carried out.
+* ⚠️ **Not a statement about `Gal(F(W)/F(x))` as a group — RETIRED, it landed.**  This bullet used
+  to read *"`IsGalois` is delivered; `ratFuncRange_eq_fixedField_negYGroup` is what an
+  identification of the Galois group with `⟨ι⟩` would start from, and it is not carried out."*  It
+  is `negYGroupGaloisEquiv` in `EllipticCurves.FunctionField.NegYGaloisGroup`, and it does start
+  from `ratFuncRange_eq_fixedField_negYGroup` — but through the `Subfield` form
+  `fixedPoints_subfield_eq_ratFuncRange`, since `FixedPoints.toAlgAutMulEquiv` has a `Subfield`
+  base and the sandwich below is an `IntermediateField` equality.  ⚠️ **The half of that file worth
+  knowing about here** is `forall_eq_or_forall_eq_negYAlgEquiv`: every `F(x)`-automorphism of
+  `F(W)` is `1` or `ι`.  The `≃*` alone says only that two groups of order `2` are isomorphic,
+  which is no information; `card_negYGroup` below already gave the order.
 * **Not `mapProjPoint ι ≠ 1`.**  `NegYInvolution`'s `## Scope` is explicit that `ι ≠ 1` is a
   statement about the automorphism and not about the permutation of `ProjPoint W` it induces, and
   nothing here changes that.
