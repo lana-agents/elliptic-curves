@@ -275,7 +275,13 @@ theorem finrank_integralClosure_placeBelowThree_of_isAlgClosed :
   finrank_integralClosure_placeBelowThree h2 h3
     (isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed h2 h3) q
 
-/-- **The `primesOver` ↔ fibre dictionary**, over an algebraically closed base field. -/
+/-- **The `primesOver` ↔ fibre dictionary**, over an algebraically closed base field.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): the `_of_isAlgClosed` suffix is the hypothesis-naming
+convention this file's theorems use — `finrank_integralClosure_placeBelowThree_of_isAlgClosed`
+directly above is the same name for the same hypothesis — and renaming the `def` alone would break
+that pairing to satisfy a linter that flags underscores in `def` names. -/
+@[nolint defsWithUnderscore]
 noncomputable def primesOverEquivFibreThree_of_isAlgClosed :
     ↥((IsLocalRing.maximalIdeal ↥(placeBelowThree W h2 h3 q)).primesOver
         ↥(integralClosure ↥(placeBelowThree W h2 h3 q) W.FunctionField))

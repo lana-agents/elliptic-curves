@@ -121,7 +121,14 @@ theorem valuation_neg_x_div_y_lt_one (W : WeierstrassCurve K) [IsIntegral R W]
 /-- A point `P` of `W` over `K` **reduces to the origin** (`E₁(K)` membership, definitionally: see
 `mem_E₁` in `EllipticCurves.Reduction.KernelAddClosure`): either
 `P = 0`, or `P = some x y` whose `x`-coordinate has a pole (`1 < v x`).  For a point on an integral
-model this is equivalent to reducing to `Õ` on the reduced curve (Silverman AEC VII.2). -/
+model this is equivalent to reducing to `Õ` on the reduced curve (Silverman AEC VII.2).
+
+⚠️ **`[IsIntegral R W]` is unused in the elaborated term and is kept on purpose** (`#1277`,
+`nolint unusedArguments`; `#1272`'s Part C reached the same verdict).  The predicate *means*
+"reduces to `Õ` on an integral model", the instance is that model, and the whole API around it
+(`reducesToZero_zero` and the rest) takes it — so dropping it here would change a type and split
+the predicate from its own theory. -/
+@[nolint unusedArguments]
 def ReducesToZero (W : WeierstrassCurve K) [IsIntegral R W] : W.toAffine.Point → Prop
   | .zero => True
   | .some x _ _ => 1 < valuation K (maximalIdeal R) x

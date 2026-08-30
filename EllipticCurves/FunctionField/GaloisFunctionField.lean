@@ -257,8 +257,17 @@ section IsElliptic
 variable [W.IsElliptic]
 
 /-- The base-changed curve `W⁄F` is elliptic (bridging the `WeierstrassCurve.map` instance across
-the `baseChange` definition, which is not unfolded during instance synthesis). -/
-instance : (W⁄F).IsElliptic := inferInstanceAs (W.map (algebraMap S F)).IsElliptic
+the `baseChange` definition, which is not unfolded during instance synthesis).
+
+⚠️ **Named rather than anonymous** (`#1277`).  Left anonymous, this got the auto-generated name
+`…CoordinateRing.instIsEllipticBaseChange_ellipticCurves`, with the lake **library** name appended.
+That is not collision disambiguation — the unsuffixed name exists nowhere in the environment; it is
+`Lean.Elab.NameGen.mkBaseNameWithSuffix` (`Lean/Elab/DeclNameGen.lean`, v4.32.0) appending
+`moduleToSuffix project` because the elaborated type mentions no constant of this project.  ⚠️ The
+`defsWithUnderscore` linter does **not** report this one, because `IsElliptic` is a `Prop` and the
+linter skips proofs; it is the same defect as the five the linter does report. -/
+instance instIsEllipticBaseChange : (W⁄F).IsElliptic :=
+  inferInstanceAs (W.map (algebraMap S F)).IsElliptic
 
 open Classical in
 /-- **Equivariance of the translation endomorphism.**

@@ -95,7 +95,15 @@ variable {F : Type*} [Field F] {W : Affine F} [IsDedekindDomain W.CoordinateRing
 together with the point at infinity, which is `none`.
 
 An `abbrev` rather than a `def`, so that `Option`'s `DecidableEq` and `ext` API applies with no
-re-derivation and `cases p` splits into the two cases everywhere below. -/
+re-derivation and `cases p` splits into the two cases everywhere below.
+
+⚠️ **`[IsDedekindDomain W.CoordinateRing]` is unused in the elaborated term and is kept on
+purpose** (`#1277`, `nolint unusedArguments`).  Mathlib does exactly the same thing one level down:
+`IsDedekindDomain.HeightOneSpectrum`, which this is `Option` of, is declared
+`@[ext, nolint unusedArguments]` under `variable [IsDedekindDomain R]`.  The instance is what makes
+the height-one spectrum the object one means, and every consumer supplies it; the `omit` on the next
+declaration is the same author decision written the other way round. -/
+@[nolint unusedArguments]
 abbrev ProjPoint (W : Affine F) [IsDedekindDomain W.CoordinateRing] : Type _ :=
   Option (HeightOneSpectrum W.CoordinateRing)
 

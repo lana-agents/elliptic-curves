@@ -265,7 +265,16 @@ theorem point_add_neg (F : FormalGroup R) {h : MvPowerSeries σ R} (hh : PowerSe
 
 variable (F : FormalGroup R)
 
-instance : Neg (F.Point σ) where
+/-- **Negation on `F.Point σ`**, `x ↦ i(x)` for the formal inverse `i`.
+
+⚠️ **Named rather than anonymous** (`#1277`).  An anonymous `instance` whose elaborated type
+mentions no constant of this project gets `moduleToSuffix` appended by
+`Lean.Elab.NameGen.mkBaseNameWithSuffix` — here `_ellipticCurves`, the lake library name — so the
+auto-generated name was ``FormalGroup.instNegPoint_ellipticCurves``.  That is not a
+collision (the unsuffixed name exists nowhere); it is the library name leaking into the API, and it
+would change if the library were renamed.  The name below is Lean's own generated name with the
+suffix removed, so nothing else moves. -/
+instance instNegPoint : Neg (F.Point σ) where
   neg x := ⟨(formalInv F).subst x.val, by
     have h := (hasSubst_formalInv F).comp x.prop
     rwa [PowerSeries.coe_substAlgHom x.prop] at h⟩
@@ -273,7 +282,12 @@ instance : Neg (F.Point σ) where
 @[simp] lemma neg_apply (x : F.Point σ) :
     (-x).val = (formalInv F).subst x.val := rfl
 
-instance : AddGroup (F.Point σ) :=
+/-- **`F.Point σ` is an additive group.**  The monoid structure together with `instNegPoint`;
+`neg_add_cancel` comes from `point_add_neg`.
+
+⚠️ Named rather than anonymous, for the reason given on `instNegPoint`: the auto-generated name
+was `FormalGroup.instAddGroupPoint_ellipticCurves`. -/
+instance instAddGroupPoint : AddGroup (F.Point σ) :=
   { (inferInstance : AddMonoid (F.Point σ)), (inferInstance : Neg (F.Point σ)) with
     zsmul := zsmulRec
     neg_add_cancel := by
@@ -282,7 +296,11 @@ instance : AddGroup (F.Point σ) :=
         exact point_add_neg F y.prop)
       exact neg_add_cancel_of_add_neg_cancel hrn }
 
-instance [F.IsComm] : AddCommGroup (F.Point σ) :=
+/-- **`F.Point σ` is an additive commutative group** when the law is commutative.
+
+⚠️ Named rather than anonymous, for the reason given on `instNegPoint`: the auto-generated name
+was `FormalGroup.instAddCommGroupPointOfIsComm_ellipticCurves`. -/
+instance instAddCommGroupPointOfIsComm [F.IsComm] : AddCommGroup (F.Point σ) :=
   { (inferInstance : AddGroup (F.Point σ)), (inferInstance : AddCommMonoid (F.Point σ)) with }
 
 end FormalGroup

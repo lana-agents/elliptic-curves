@@ -436,7 +436,13 @@ theorem continuousGaloisRepMatrix_apply (σ : F ≃ₐ[S] F) :
 /-- The image of `det ρ_{E,ℓ}` as a closed subgroup of `ℤ_[ℓ]ˣ`.
 
 Takes a basis even though `galoisDet` is basis-free, because continuity of `galoisDet` is proved
-through one. See `closedSubgroupRangeGaloisDet_of_nonempty` for the form that discharges it. -/
+through one. See `closedSubgroupRangeGaloisDet_of_nonempty` for the form that discharges it.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): `_of_basis` names the hypothesis, exactly as the theorem
+`isClosed_range_galoisDet_of_basis` this is built from does, and as the theorem
+`coe_profiniteGrpRangeGaloisDet_of_basis` below does. The four `_of_basis` / `_of_nonempty` names in
+this section are one naming decision, not four. -/
+@[nolint defsWithUnderscore]
 noncomputable def closedSubgroupRangeGaloisDet_of_basis
     (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F).tateModule ℓ)) : ClosedSubgroup ℤ_[ℓ]ˣ where
   toSubgroup := (galoisDet (W' := W') (F := F) (ℓ := ℓ)).range
@@ -445,7 +451,10 @@ noncomputable def closedSubgroupRangeGaloisDet_of_basis
 /-- **The image of the determinant character `det ρ_{E,ℓ} : G →* ℤ_[ℓ]ˣ` is a profinite group.**
 
 This is the layer the (Weil-pairing gated) identification of `det ρ_{E,ℓ}` with the cyclotomic
-character will consume. ⚠️ Nothing here identifies it. -/
+character will consume. ⚠️ Nothing here identifies it.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`) — see `closedSubgroupRangeGaloisDet_of_basis`. -/
+@[nolint defsWithUnderscore]
 noncomputable def profiniteGrpRangeGaloisDet_of_basis
     (b : Module.Basis (Fin 2) ℤ_[ℓ] ((W'⁄F).tateModule ℓ)) : ProfiniteGrp :=
   ProfiniteGrp.ofClosedSubgroup (G := PadicInt.profiniteGrpUnits ℓ)
@@ -460,13 +469,19 @@ theorem coe_profiniteGrpRangeGaloisDet_of_basis
 /-- The image of `det ρ_{E,ℓ}` as a closed subgroup of `ℤ_[ℓ]ˣ`, with no basis supplied: a basis
 exists as soon as `T_ℓE` is `ℤ_[ℓ]`-linearly `ℤ_[ℓ]²`, and `IsClosed` is a `Prop`, so the choice
 can be discharged. ⚠️ This is where the `ℓ = 2` and `ℓ = 3` layers pay differently: `h2` alone at
-`ℓ = 2`, and `h2` together with `h3` at `ℓ = 3`. -/
+`ℓ = 2`, and `h2` together with `h3` at `ℓ = 3`.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`) — see `closedSubgroupRangeGaloisDet_of_basis`. -/
+@[nolint defsWithUnderscore]
 noncomputable def closedSubgroupRangeGaloisDet_of_nonempty
     (h : Nonempty ((W'⁄F).tateModule ℓ ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])) : ClosedSubgroup ℤ_[ℓ]ˣ where
   toSubgroup := (galoisDet (W' := W') (F := F) (ℓ := ℓ)).range
   isClosed' := isClosed_range_galoisDet_of_nonempty h
 
-/-- **The image of `det ρ_{E,ℓ}` is a profinite group**, basis-free form. -/
+/-- **The image of `det ρ_{E,ℓ}` is a profinite group**, basis-free form.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`) — see `closedSubgroupRangeGaloisDet_of_basis`. -/
+@[nolint defsWithUnderscore]
 noncomputable def profiniteGrpRangeGaloisDet_of_nonempty
     (h : Nonempty ((W'⁄F).tateModule ℓ ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])) : ProfiniteGrp :=
   ProfiniteGrp.ofClosedSubgroup (G := PadicInt.profiniteGrpUnits ℓ)

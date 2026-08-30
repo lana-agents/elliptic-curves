@@ -212,7 +212,14 @@ open scoped AddSubgroup
 
 Unconditional: no algebraically closed field, no ellipticity, no characteristic hypothesis.  It is
 the instance the whole file rests on, and the reason there was no mod-`n` determinant before is that
-it had not been written down. -/
+it had not been written down.
+
+⚠️ **`[NeZero n]` is unused in the elaborated term and is kept on purpose** (`#1277`,
+`nolint unusedArguments`; `#1272`'s Part C reached the same verdict).  `ZMod 0 = ℤ` and the module
+structure does survive at `n = 0`, but the object this instance names is *`E[n]` as a
+`ZMod n`-module* and every consumer is at `n ≠ 0`; dropping it would change the instance's type
+and every mention of it downstream. -/
+@[nolint unusedArguments]
 instance torsionZModModule {F : Type*} [Field F] [DecidableEq F] {W : Affine F} (n : ℕ)
     [NeZero n] : Module (ZMod n) (W.torsion n) :=
   AddCommGroup.zmodModule fun P => nsmul_mem_torsion P

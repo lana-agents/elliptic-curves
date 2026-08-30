@@ -488,7 +488,12 @@ theorem finrank_integralClosure_placeBelowTwo_of_isAlgClosed :
   finrank_integralClosure_placeBelowTwo h2
     (isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed h2) q
 
-/-- **The `primesOver` ↔ fibre dictionary**, over an algebraically closed base field. -/
+/-- **The `primesOver` ↔ fibre dictionary**, over an algebraically closed base field.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): `_of_isAlgClosed` matches
+`finrank_integralClosure_placeBelowTwo_of_isAlgClosed` directly above, which is the theorem this
+`def` is the dictionary for. -/
+@[nolint defsWithUnderscore]
 noncomputable def primesOverEquivFibreTwo_of_isAlgClosed :
     ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo W h2 q)).primesOver
         ↥(integralClosure ↥(placeBelowTwo W h2 q) W.FunctionField))

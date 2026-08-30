@@ -131,7 +131,13 @@ theorem weilPairingElt_mem_range_algebraMap_rootsOfUnity [W.IsElliptic] {x₂ y�
 
 /-- **The `n = 2`-track Weil-pairing element as an element of `μ_n(F)`.**  Feeds the concrete
 combined datum `weilPairingElt_pow_eq_one_of_gS_two'` to `weilPairingMu`, mirroring
-`weilPairingElt_isRootOfUnity_of_gS_two'`. -/
+`weilPairingElt_isRootOfUnity_of_gS_two'`.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): the `_of_gS_two'` suffix names the concrete rung-5 datum
+this is built from, and is shared verbatim with the theorems
+`weilPairingElt_pow_eq_one_of_gS_two'` and `weilPairingElt_isRootOfUnity_of_gS_two'` that it
+consumes. -/
+@[nolint defsWithUnderscore]
 noncomputable def weilPairingMu_of_gS_two' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} [NeZero n]
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
@@ -141,7 +147,11 @@ noncomputable def weilPairingMu_of_gS_two' [W.IsElliptic] {x₂ y₂ : F} (h₂ 
 
 /-- **The `n = 3`-track Weil-pairing element as an element of `μ_n(F)`.**  The `mulByThreeEndo`
 mirror of `weilPairingMu_of_gS_two'`, over the concrete datum
-`weilPairingElt_pow_eq_one_of_gS_three'`. -/
+`weilPairingElt_pow_eq_one_of_gS_three'`.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): as for `weilPairingMu_of_gS_two'` — the suffix is shared
+with the theorem supplying the datum. -/
+@[nolint defsWithUnderscore]
 noncomputable def weilPairingMu_of_gS_three' [W.IsElliptic] {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}
     [NeZero n] (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)

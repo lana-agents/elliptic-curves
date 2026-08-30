@@ -514,7 +514,11 @@ theorem finite_primesOver_maximalIdeal_placeBelowTwo :
     (mulByTwoEndo_isIntegralElem h2)
 
 /-- **The dictionary in characteristic zero, unconditionally**, off `#754`'s
-`isSeparable_mulByTwoEndoFieldRange`. -/
+`isSeparable_mulByTwoEndoFieldRange`.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): `_of_charZero` is the hypothesis-naming convention the
+theorems around it use, and the `def` is named to match them. -/
+@[nolint defsWithUnderscore]
 noncomputable def primesOverEquivFibreTwo_of_charZero [CharZero F] :
     ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo W h2 q)).primesOver
         ↥(integralClosure ↥(placeBelowTwo W h2 q) W.FunctionField))

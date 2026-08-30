@@ -3,6 +3,13 @@ version = "0.1.0"
 keywords = ["math"]
 defaultTargets = ["EllipticCurves"]
 
+# `lake lint` runs Mathlib's environment linters (`simpNF`, `unusedArguments`,
+# `defsWithUnderscore`, `synTaut`, `docBlame`, …) through Batteries' driver.  These are *not* the
+# `weak.linter.mathlibStandardSet` linters below: those fire during elaboration and are syntactic,
+# these run as a post-hoc pass over the elaborated environment.  Without this line `lake lint` is a
+# no-op, which is why the suite had never been run here before `#1277`.
+lintDriver = "batteries/runLinter"
+
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
 relaxedAutoImplicit = false
