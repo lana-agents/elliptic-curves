@@ -292,6 +292,7 @@ import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Determinant
 import EllipticCurves.TateModule.DeterminantMod
+import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.Free
 import EllipticCurves.TateModule.FreeThree

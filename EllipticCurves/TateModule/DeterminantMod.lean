@@ -141,13 +141,27 @@ the pairing.  Putting the character here would invert the layering.
   *mod `2`* is content-free — `(ZMod 2)ˣ` is trivial, so both sides are `1` — and is **not** the
   `ℓ`-adic statement over `ℤ_[2]`, which remains open.  The two are easily confused and only one of
   them is interesting.
-* **Finiteness and rank at general `n`.**  Only `n = 3` is done, because only `n = 3` has
+* **Finiteness and rank at general `n`** — ⚠️ **still out of scope of *this file*, but no longer
+  out of reach.**  This bullet used to read *"Only `n = 3` is done, because only `n = 3` has
   `card_torsion_three` available.  ⚠️ `n = 2` has `exists_closure_pair_eq_torsion_two` and could be
-  done the same way; it is not done here because nothing consumes it.  ⚠️ And at composite `n`,
-  `ZMod n` is not a field, so even freeness stops being automatic.
+  done the same way; it is not done here because nothing consumes it."*  Both clauses are spent:
+  `EllipticCurves.Torsion.ThreePrimary`'s `nonempty_torsion_addEquiv_zmod_sq_of_smooth` supplies the
+  structure theorem at every `3`-smooth `n`, and `EllipticCurves.TateModule.DeterminantModSmooth`
+  (`#1240`) turns it into `Module.Free`, `Module.Finite`, `finrank = 2` and a `Fin 2`-basis there —
+  including the `n = 2` instances, which it takes from `card_torsion_two` rather than from
+  `exists_closure_pair_eq_torsion_two`.  ⚠️ **The third clause was not stale and is the reason that
+  file exists**: *"at composite `n`, `ZMod n` is not a field, so even freeness stops being
+  automatic"* is true, `Module.Free (ZMod 12) (E[12])` is genuinely not found by instance search,
+  and freeness there is a theorem transported along a chosen isomorphism rather than the
+  `inferInstance` it is at `n = 2` and `n = 3`.  ⚠️ Nothing below changed when that file landed:
+  `finrank_torsion_three` is still proved here from the cardinality, precisely to keep an arbitrary
+  choice out of the proof of a choice-independent number, and the general statement — which makes
+  that choice — does not replace it.
 * **A `Gal(F/S)`-stable basis of `E[3]`.**  Does not exist in general and is not needed.
 * **The trace and characteristic polynomial** mod `n`.  `galoisTraceTwo`'s finite-level analogue
-  would need the same freeness input and has no consumer.
+  would need the same freeness input and has no consumer.  ⚠️ Only the first half of that is spent:
+  `EllipticCurves.TateModule.DeterminantModSmooth` supplies the freeness input at every `3`-smooth
+  `n`, and there is still no consumer.
 
 ## References
 
@@ -237,7 +251,8 @@ determinant is, and Mathlib defines it without one.
 
 ⚠️ Definable with no hypotheses at all, and *worthless* without freeness: `LinearMap.det` is `1` on
 a module that is not free and finite.  See `finrank_torsion_three` for the statement that rules that
-out at `n = 3`. -/
+out at `n = 3`, and `EllipticCurves.TateModule.DeterminantModSmooth`'s `finrank_torsion_of_smooth`
+for the one that rules it out at every `3`-smooth `n > 1`. -/
 noncomputable def galoisDetMod : (F ≃ₐ[S] F) →* (ZMod n)ˣ :=
   (LinearEquiv.det : ((W'⁄F).torsion n ≃ₗ[ZMod n] (W'⁄F).torsion n) →* (ZMod n)ˣ).comp
     (galoisRepModLinear n)
