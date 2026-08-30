@@ -110,10 +110,13 @@ rather than fixing a canonical one.
 ## What is *not* here
 
 * **No degree at `n = 5`, and no general `n`.**  See the second section above.
-* **Nothing at infinity.**  `comapProjPointN … none = none` — *"`[n]` fixes the point at infinity"*
-  — is still absent (`EllipticCurves.FunctionField.MulByNPlacePullback`), and the composition law
-  below does not supply it: that would need the corresponding composition law for
-  `comapProjPoint`, which is a statement about places and a different argument.
+* **Nothing at infinity — *here*.**  `comapProjPointN … none = none` (*"`[n]` fixes the point at
+  infinity"*) is not proved below: it needs the corresponding composition law for
+  `comapProjPoint`, which is a statement about places and a different argument.  ⚠️ **That argument
+  has since been made**, in `EllipticCurves.FunctionField.MulByNPlaceComposition` (`#1214`), which
+  consumes this file's `mulByNEndo_mul` and gets `none ↦ none` — and `e_∞ = 1`, and
+  `ordInfty ([n]∗ genX) = -2` — at every `3`-smooth `n`.  This bullet is about the contents of this
+  file and not about the tree.
 * **No `ωₙ`, no coprimality, no elliptic net.**  `#404`, `#1184` and Ward (`#260`) are untouched and
   unused; the whole file runs on the group law and four Mathlib `relfinrank` lemmas.
 

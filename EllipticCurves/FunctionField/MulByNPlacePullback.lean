@@ -94,15 +94,17 @@ unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq
 the same side condition the rung-4 paragraph below shows `mulByNEndo` does not carry.
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
-result, not a gap**.  `ordInfty_mulByTwoEndo_genX`
+result, not a gap** — at *general* `n`; at every `3`-smooth `n` it is
+`EllipticCurves.FunctionField.MulByNPlaceComposition.ordInfty_mulByNEndo_genX_of_smooth`, reached by
+composition rather than by the degree count this paragraph is about.  `ordInfty_mulByTwoEndo_genX`
 (`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity`) and `ord_mulByTwoEndo_genX_neg`
 (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`) both open with `rw [mulByTwoEndo_genX h2, …]`
 and then count degrees of `Φ₂` and `Ψ₂Sq`; `mulByNEndo_genX` rewrites instead to `x(n • 𝒫)`, about
 which the group law says only that it satisfies the Weierstrass equation.  ⚠️ **That alone pins
 nothing at infinity** — `x(𝒫 + T)` for a fixed `T ≠ O` satisfies the same equation and has *no* pole
 there.  What pins `ordInfty (x(n • 𝒫)) = -2k` and `ordInfty (y(n • 𝒫)) = -3k` for **some** `k ≥ 1`
-is that `[n]` fixes the point at infinity — which is the `comapProjPointN … none = none` recorded
-below as itself absent.  Even granted it, `k` is unpinned, and that is as far as one gets.
+is that `[n]` fixes the point at infinity — which is the `comapProjPointN … none = none` discussed
+below.  Even granted it, `k` is unpinned, and that is as far as *this* route gets.
 
 ⚠️ **`k = 1` is false at general `n`.**  `mulByNEndo n hn` carries no hypothesis on `(n : F)`, and
 none is available: over `F̄` of characteristic `p > 2` the transcendence hypothesis at `n = p` is
@@ -115,8 +117,20 @@ III.4.10 and V.3.1 read together; it is stated here as the reason nothing is lan
 formalised** in this tree.
 
 Consequently `comapProjPointN … none = none` (*"`[n]` fixes the point at infinity"*) is **also**
-absent: `comapProjPointTwo_none` is proved from the pole order, and so are the residue-degree
-companions `#701` and `#1046`.
+absent *from this file*: `comapProjPointTwo_none` is proved from the pole order, and so are the
+residue-degree companions `#701` and `#1046`.
+
+⚠️ **This paragraph used to conclude that the statement is absent from the tree, and that is now
+false at every `3`-smooth `n`.**  `EllipticCurves.FunctionField.MulByNPlaceComposition` (`#1214`)
+proves it — and the index `e_∞ = 1`, and `ordInfty ([n]∗ genX) = -2` — with **no pole order**:
+`[m · n]∗ = [m]∗ ∘ [n]∗` (`EllipticCurves.FunctionField.MulByNComposition`, `#1213`) transports
+through the contravariant `comapProjPoint` to a composition law for the contraction, and the merged
+`comapProjPointTwo_none` / `comapProjPointThree_none` compose up.  The reasoning above is not
+refuted: it is a correct account of why the *pole-order* route stops at `{2, 3}`, and it is why the
+statement at general `n` — and everything in the `k = 1` paragraph, which is about characteristic
+`p` and so about an `n` divisible by `p` — still stands.  ⚠️ `#701` and `#1046` are **not**
+delivered at `3`-smooth `n` by that file; the residue degree is a separate question it does not
+touch.
 
 ## Main definitions and statements
 
@@ -135,6 +149,8 @@ companions `#701` and `#1046`.
   shorter than the one above it: `…dvd_divisorProj_mulByNEndo` is the general-`n` result with no
   `OfAlgClosed` twin;
 * `…comapProjPointN_two` and `…ramificationIdxN_two` — at `n = 2` this layer **is** the merged one.
+  The `n = 1` and `n = 3` companions are in
+  `EllipticCurves.FunctionField.MulByNPlaceComposition`, which needs them for its induction.
 
 ## References
 
@@ -163,8 +179,12 @@ noncomputable def comapProjPointN (n : ℕ)
 /-- **The ramification index of `[n]∗`.**  The general-`n` form of the merged `ramificationIdxTwo`.
 
 ⚠️ It is *defined* as the value of the transported order at a uniformizer, exactly as at `n = 2`.
-Nothing below computes it at any particular place, and in particular nothing says it is `1` at the
-place at infinity — that is `#670`'s statement and it is not available at general `n`. -/
+Nothing below computes it at any particular place, and in particular nothing here says it is `1` at
+the place at infinity — that is `#670`'s statement, and at general `n` it is **false** (see the
+module docstring).  ⚠️ At every `3`-smooth `n` it is `1`:
+`EllipticCurves.FunctionField.MulByNPlaceComposition.ramificationIdxN_none_of_smooth`, by
+multiplicativity of this index along `[m · n]∗ = [m]∗ ∘ [n]∗` rather than by any computation
+here. -/
 noncomputable def ramificationIdxN (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (p : ProjPoint W) : ℤ :=
   ramificationIdx (mulByNEndo_algebraMap_base n hn) (mulByNEndo_isIntegralElem n hn) p
