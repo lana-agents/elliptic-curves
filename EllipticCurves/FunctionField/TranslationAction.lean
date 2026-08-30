@@ -37,8 +37,12 @@ base field of characteristic `≠ 2`, and the inclusion `[2]∗F(W) ⊆ Fixed(G)
 `F(W)` is a degree-`4` extension of `[2]∗F(W)` (`finrank_mulByTwoRange_functionField`, `#682`), and
 `Ideal.sum_ramification_inertia_eq_finrank` — the route the fundamental identity
 `∑_{p ↦ q} e_p · f_p = 4` goes through — needs `Module.Finite` for an integral closure, hence
-`Algebra.IsSeparable ([2]∗F(W)) F(W)`.  The only route to that currently in the tree is
-`Algebra.IsSeparable.of_integral`, which wants characteristic zero.
+`Algebra.IsSeparable ([2]∗F(W)) F(W)`.  ⚠️ **When this file was written that had exactly one route
+in the tree**, `Algebra.IsSeparable.of_integral`, which wants characteristic zero — and the sentence
+saying so outlived the fact, because the `CharZero`-free route described next is now merged
+(`EllipticCurves.FunctionField.MulByTwoGalois`, `#759`), with the `3`-smooth `n` generalisation in
+`EllipticCurves.FunctionField.MulByNSeparable` (`#1219`).  What follows is the motivation this file
+was built from, not a current inventory.
 
 The `CharZero`-free route is Artin's theorem: translation by a `2`-torsion point fixes `[2]∗f`
 pointwise (`translateEndo_mulByTwoEndo_apply`, PR #164), so `[2]∗F(W) ⊆ Fixed(G)`, and

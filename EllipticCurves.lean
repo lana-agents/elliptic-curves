@@ -94,6 +94,7 @@ import EllipticCurves.FunctionField.MulByNIntegral
 import EllipticCurves.FunctionField.MulByNPlaceComposition
 import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByNPullback
+import EllipticCurves.FunctionField.MulByNSeparable
 import EllipticCurves.FunctionField.MulByNTranscendence
 import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 import EllipticCurves.FunctionField.MulByThreeDegree
