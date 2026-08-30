@@ -91,9 +91,19 @@ compatibilities, and both are theorems rather than transports of a definition:
 `#755` prices the dictionary separately from the identity for exactly this reason, and this file is
 the dictionary.  Both compatibilities and the identity itself are
 `EllipticCurves.FunctionField.PlaceRamificationInertia` (`#763`), which imports this file: the first
-is proved there in general, the second only in the form `Ideal.inertiaDeg 𝔪 P = 1` over
-`[IsAlgClosed F]` — the general `= residueDegreeTwo h2 p` is still open, and is the one statement
-this paragraph names that remains unproved.
+is proved there in general, the second there only in the form `Ideal.inertiaDeg 𝔪 P = 1` over
+`[IsAlgClosed F]`.
+
+⚠️ **The clause this paragraph used to end with has been paid.**  It read *"the general
+`= residueDegreeTwo h2 p` is still open, and is the one statement this paragraph names that
+remains unproved"*.  `ideal_inertiaDeg_eq_residueDegreeComap`
+(`EllipticCurves.FunctionField.PlaceInertiaGeneral`, `#1167`) proves
+`Ideal.inertiaDeg 𝔪 P = residueDegreeComap hφF hφint p` for an **arbitrary** `φ` and, in its own
+words, *"assumes nothing about `F`"*; `residueDegreeTwo` is `residueDegreeComap` at `mulByTwoEndo`
+by definition, so `φ = [2]∗` is exactly the statement named above.  ⚠️ Everything else in the
+paragraph stands: the ramification clause was already general, and `#763` really does prove only
+the `[IsAlgClosed F]` form of the inertia one — the general form is downstream of it, in
+`PlaceInertiaGeneral`, which imports `PlaceRamificationInertia`, which imports this file.
 
 Also not here: `[3]∗` and general `[n]∗` (the degree `4` is `[2]`-specific, but everything before
 the `[2]∗` section of this file is stated for an arbitrary `φ` and serves them unchanged — the

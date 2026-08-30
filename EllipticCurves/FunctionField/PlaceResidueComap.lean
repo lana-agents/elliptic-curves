@@ -143,10 +143,12 @@ extension is **still not anywhere**.  Also not here: any
 comparison of `residueDegreeProj` with `degPt` (`DivisorDegree.lean`), which is a relative ideal
 norm to `F[X]` and so not *definitionally* a residue-field degree; the unconditional
 `Ideal.inertiaDeg 𝔪 P = residueDegreeTwo h2 p` (`#763` proves only the `[IsAlgClosed F]` form
-`= 1`); and `#E[n] = n²`, whose link to the field degree runs through the count "a separable isogeny
-has `#ker = deg`".  That last one is **not** (c-ii): the separability of `F(W) / [2]∗F(W)` is
-available (`#759`), and the counting step is a different statement that this tree does not have.
-Do not assume it.
+`= 1`; ⚠️ it is *not here*, but it is no longer nowhere —
+`EllipticCurves.FunctionField.PlaceInertiaGeneral`'s `ideal_inertiaDeg_eq_residueDegreeComap`
+(`#1167`) proves it for an arbitrary `φ` over an arbitrary field); and `#E[n] = n²`, whose link to
+the field degree runs through the count "a separable isogeny has `#ker = deg`".  That last one is
+**not** (c-ii): the separability of `F(W) / [2]∗F(W)` is available (`#759`), and the counting step
+is a different statement that this tree does not have.  Do not assume it.
 
 ⚠️ **The `degPt` item in that list used to read** *"a relative ideal norm to `F[X]` and not a
 residue-field degree"*, with no qualifier.  The two constructions really do differ, but their
