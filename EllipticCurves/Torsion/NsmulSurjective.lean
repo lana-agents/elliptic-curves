@@ -67,16 +67,26 @@ was written.
   sharp `natDegree_ΨSq` carries `(n : R) ≠ 0` and is *not* used.  `TriplingSurjective`'s docstring
   records that this is exactly what makes `nsmul_three_surjective` hold in characteristic `3`; the
   same economy survives at general `n`.
-* **No Bézout certificate.**  Input (2) is taken in the weak pointwise form
-  `∀ x, (ΨSqₙ).eval x = 0 → (Φₙ).eval x ≠ 0`, which is what the two available instances establish
-  directly — at `n = 2` through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` and at `n = 3` through
-  `Φ_three_eval_ne_zero_of_Ψ₃`, neither of which needs a resultant or an identity
-  `A·Φₙ + B·ΨSqₙ = Δ`.
+* **No Bézout certificate — in this file.**  Input (2) is taken in the weak pointwise form
+  `∀ x, (ΨSqₙ).eval x = 0 → (Φₙ).eval x ≠ 0`, and nothing here asks for more.
   The full coprimality `IsCoprime (W.Φ n) (W.ΨSq n)` — issue `#1184`, proved in this tree only at
   `n = 2` and `n = 3` — is **strictly stronger** than what is used, and
   `eval_Φ_ne_zero_of_isCoprime` below is the one-line bridge that lets it be plugged in if it ever
   lands at general `n`.  ⚠️ It is a bridge and not a dependency: `#1184` is not in this file's
   import closure.
+
+  ⚠️ **This bullet used to continue *"…which is what the two available instances establish
+  directly — at `n = 2` through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` and at `n = 3` through
+  `Φ_three_eval_ne_zero_of_Ψ₃`, neither of which needs a resultant or an identity
+  `A·Φₙ + B·ΨSqₙ = Δ`"*, and that is no longer how the two instances are proved.**  Both
+  `eval_Φ_two_ne_zero_of_root_ΨSq` (`EllipticCurves.Torsion.DoublingSurjective`) and
+  `eval_Φ_three_ne_zero_of_root_ΨSq` (`EllipticCurves.Torsion.TriplingSurjective`) now route
+  through `eval_Φ_ne_zero_of_eval_ΨSq_ne_zero` and the `IsCoprime` instances of
+  `EllipticCurves.DivisionPolynomial.Coprime`, which **do** rest on `Δ`-certificates — in exchange
+  for dropping `[IsAlgClosed F]` and `(2 : F) ≠ 0` from both statements.  The two certificate-free
+  proofs are retained verbatim as `example`s beside them, so neither route left the tree.
+  **The economy of *this* file is unaffected**: its interface is still the pointwise statement, it
+  still asks for no certificate, and `Coprime` is still not in its import closure.
 
 ## Main definitions
 
@@ -141,8 +151,13 @@ lemma exists_eval_Φ_eq [IsAlgClosed F] {n : ℕ} (hn : n ≠ 0) (x₀ : F) :
 /-- The bridge from the Bézout form of coprimality to the pointwise no-common-root hypothesis used
 below.  `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` is issue `#1184` and is available in this tree
 only at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`) and `n = 3` (`isCoprime_Φ_three_ΨSq_three`); the
-surjectivity engine below needs only the conclusion, which both available instances obtain without
-any Bézout certificate. -/
+surjectivity engine below needs only the conclusion.
+
+⚠️ This docstring used to end *"…which both available instances obtain without any Bézout
+certificate"*.  That was true of the instances as they were merged and is no longer true of them:
+both now route through `EllipticCurves.DivisionPolynomial.Coprime`, which is what let them drop
+`[IsAlgClosed F]` and `(2 : F) ≠ 0`.  The certificate-free proofs survive as `example`s beside
+them.  Nothing in this file changed with them, and `#1184` is still not in its import closure. -/
 lemma eval_Φ_ne_zero_of_isCoprime {n : ℕ} (h : IsCoprime (W.Φ n) (W.ΨSq n)) {x : F}
     (hx : (W.ΨSq n).eval x = 0) : (W.Φ n).eval x ≠ 0 := by
   obtain ⟨a, b, hab⟩ := h
