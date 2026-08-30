@@ -99,7 +99,14 @@ Same shape as `finite_torsionThreeMul` in `TranslationActionThree`, and for the 
 ## What is *not* here
 
 * General `[n]∗`: `#775`'s degree `9` is `[3]`-specific and `card_torsion_three` is the `n = 3`
-  count.  The general case waits on `#E[n] = n²` and on `#403`/`#404`/`#405`.
+  count, so nothing below is proved at any other index.  ⚠️ **This bullet used to add that "the
+  general case waits on `#E[n] = n²` and on `#403`/`#404`/`#405`", and that is false at every
+  `3`-smooth `n`.**  `EllipticCurves.FunctionField.MulByNSeparable` (`#1219`) composes this file's
+  separability with `MulByTwoGalois`'s along `[m · n]∗ = [m]∗ ∘ [n]∗` (`#1213`), and separability is
+  transitive in towers, so `Algebra.IsSeparable ([n]∗F(W)) F(W)` holds at every `n` whose prime
+  factors are `2` and `3` — waiting on none of those four.  What they gate is the *general* `n`, and
+  the first index at which they are needed is `n = 5`.  ⚠️ `Normal` and `IsGalois` do **not** come
+  along, because normality is not transitive; see that file.
 * Non-degeneracy of `e_3` (`#419`), which is what consumes this.  Nothing below mentions the
   Weil pairing, places, divisors or `ProjPoint`.
 * Any statement about `Gal(F(W) / [3]∗F(W))` as a group — `IsGalois` is delivered, its Galois

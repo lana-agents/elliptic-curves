@@ -93,7 +93,11 @@ shape as `finite_torsionTwoMul` in `TranslationAction`, and for the same reason.
 ## What is *not* here
 
 * `[3]∗` and general `[n]∗`: `#682`'s degree `4` is `[2]`-specific and `card_torsion_two` is the
-  `n = 2` count.
+  `n = 2` count, so nothing below is proved at any other index.  ⚠️ That is a statement about *this
+  file*, not about the tree: `EllipticCurves.FunctionField.MulByThreeGalois` has the `n = 3`
+  package, and `EllipticCurves.FunctionField.MulByNSeparable` (`#1219`) composes the two along
+  `[m · n]∗ = [m]∗ ∘ [n]∗` (`#1213`) to get separability at every `3`-smooth `n`.  Only the
+  separability half generalises that way — normality is not transitive.
 * The fundamental identity (`#755`), and the module-finiteness of an integral closure that consumes
   this (`#754`).  Nothing below mentions places, divisors or `ProjPoint`.
 * Any statement about `Gal(F(W) / [2]∗F(W))` as a group — `IsGalois` is delivered, its Galois

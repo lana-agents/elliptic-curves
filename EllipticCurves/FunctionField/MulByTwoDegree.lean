@@ -104,8 +104,11 @@ letting it be inferred.
 This is the field degree of `[2]`, i.e. `deg [n] = n²` at `n = 2` in the sense of Silverman
 *AEC* II.2.  It is **not** a route to `#E[n] = n²`: the counting argument connecting the two — a
 separable isogeny has as many points in its kernel as its degree — is nowhere in this tree, even
-though the separability of `F(W) / [2]∗F(W)` now is (`MulByTwoGalois`, `#759`).  Do not assume the
-step.  The full degree formula `∑_{p ↦ q} e_p · deg p = 4` is also out of scope here — this file
+though the separability of `F(W) / [2]∗F(W)` now is (`MulByTwoGalois`, `#759`; and at every
+`3`-smooth `n`, `EllipticCurves.FunctionField.MulByNSeparable`).  ⚠️ The counting step is missing at
+**every** index, so widening the separability changes nothing here.  Do not assume the step.
+
+The full degree formula `∑_{p ↦ q} e_p · deg p = 4` is also out of scope here — this file
 supplies its right-hand side, and the sum needs residue degrees (`#743`, `#749`) and a fundamental
 identity (`EllipticCurves.FunctionField.PlaceRamificationInertia`, `#763`).  Those exist now, and
 so, in the `deg p` spelling this sentence uses, does the formula itself:
