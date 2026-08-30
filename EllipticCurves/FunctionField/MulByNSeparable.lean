@@ -67,8 +67,13 @@ tower has to be built by hand out of `IntermediateField.inclusion` and
 
 ## ⚠️ What is *not* here, and one of them is an obstruction rather than a gap
 
-* **No `Normal`, and so no `IsGalois`, at any `n ∉ {2, 3}`.**  Both Galois files deliver `normal_…`
-  and `isGalois_…` beside separability, so the omission is conspicuous; it is not an oversight.
+* **No `Normal`, and so no `IsGalois`, *by the argument in this file*, at any `n ∉ {2, 3}`.**  Both
+  Galois files deliver `normal_…` and `isGalois_…` beside separability, so the omission is
+  conspicuous; it is not an oversight.  ⚠️ **The emphasis is a correction**: the heading used to
+  read *"No `Normal`, and so no `IsGalois`, at any `n ∉ {2, 3}`"* flat, which read as a claim about
+  the tree, and as a claim about the tree it is **false** at every `3`-smooth `n` —
+  `EllipticCurves.FunctionField.MulByNGalois` (`#1233`) proves both.  As a claim about *this file's
+  route* it was and remains exactly right, and the reason is the next sentence.
   **Normality is not transitive** — `ℚ(⁴√2) / ℚ(√2) / ℚ` is the standard counterexample, both
   storeys normal and the composite not — so the argument below, which is nothing but a tower,
   cannot reach it.  ⚠️ The *statement* `IsGalois ([n]∗F(W)) F(W)` is nevertheless **true** at every
@@ -82,10 +87,12 @@ tower has to be built by hand out of `IntermediateField.inclusion` and
   it is **short**, because every input it needs was already merged when the clause was written:
   `translateAutHom` is `n`-agnostic, `translatePoint_nsmul_eq_zero` is the uniform torsion
   transport at every `n`, and `card_torsion_eq_sq_of_smooth` (`#1209`) supplies `card = n²`.  ⚠️
-  **The bullet's heading is still true and so is everything before this clause**: what that file
-  delivers is the action, its faithfulness and the inclusion `[n]∗F(W) ⊆ Fixed(E[n])` — the reverse
-  inclusion, and with it `Normal` and `IsGalois`, is the Artin sandwich against `#1213`'s degree and
-  is still not in this tree.  What was missing was never the method; it was one half of it.
+  **Both halves have since landed.**  `TranslationActionN` gives the action, its faithfulness and
+  the inclusion `[n]∗F(W) ⊆ Fixed(E[n])`; `EllipticCurves.FunctionField.MulByNGalois` (`#1233`)
+  closes the Artin sandwich against `#1213`'s degree, so `Fixed(E[n]) = [n]∗F(W)` and
+  `normal_mulByNFieldRange_of_smooth` / `isGalois_mulByNFieldRange_of_smooth` hold at every
+  `3`-smooth `n`.  What was missing was never the truth; it was the method, and it has been paid in
+  two files rather than one.
 * **No `#E[n] = n²`, and no isogeny counting.**  `EllipticCurves.FunctionField.MulByTwoDegree` and
   `EllipticCurves.FunctionField.MulByTwoFibreInfinity` both record that the step *"a separable
   isogeny has as many points in its kernel as its degree"* is nowhere in this tree.  That stays
@@ -269,8 +276,13 @@ The hypotheses `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` are tho
 `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), which is `#E[n] = n²` at it.
 
 ⚠️ The first index this does **not** cover is `n = 5`; the argument manufactures no new prime.  ⚠️
-This is separability only — `Normal`, and so `IsGalois`, does *not* follow, because normality is not
-transitive.  See the module docstring. -/
+This is separability only, and `Normal` does *not* follow **from it**, because normality is not
+transitive.  ⚠️ That sentence used to end *"— `Normal`, and so `IsGalois`, does not follow"* without
+the emphasis, which read as a claim about the tree; `Normal` and `IsGalois` are now proved at
+exactly these hypotheses by a different route, in
+`EllipticCurves.FunctionField.MulByNGalois` (`#1233`).  That file consumes this theorem as the
+separable half of `isGalois_mulByNFieldRange_of_smooth` and mints no separability of its own.  See
+the module docstring. -/
 theorem isSeparable_mulByNFieldRange_of_smooth [IsAlgClosed F]
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
