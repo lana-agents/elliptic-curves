@@ -63,7 +63,13 @@ The route here is a transcendence-degree count and uses no coordinate formula at
 ⚠️ **No degree.**  `finrank_mulByTwoFieldRange` gets `[F(W) : [2]∗F(W)] = 4` from
 `deg Φ₂ = 4` against `deg Ψ₂Sq = 3` and the coprimality `#681`, and `#775` gets `9` the same way at
 `n = 3`.  Nothing in this file computes a `finrank`, and `[F(W) : [n]∗F(W)] = n²` at general `n`
-**stays gated**: there is no group-law substitute for that degree count.  ⚠️ It is *not* gated on
+**stays gated**.  ⚠️ This paragraph used to add *"there is no group-law substitute for that degree
+count"*, and that is **false at a `3`-smooth `n`**: `#1213`
+(`EllipticCurves.FunctionField.MulByNComposition`) proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group
+law alone, and degrees multiply in towers, so `4` and `9` give `n²` at every `n` whose prime factors
+are `2` and `3`.  The group law is exactly the substitute there; what it cannot do is manufacture a
+new prime, which is why `n = 5` is untouched and the rest of this paragraph stands.  ⚠️ It is *not*
+gated on
 the degrees, though — `natDegree_Φ` and `natDegree_ΨSq` are **Mathlib**'s at general `n` — nor on
 `x ∘ [n] ∈ F(x)`, which is `EllipticCurves.FunctionField.MulByNXCoordRatFunc`.  What is missing is
 that element *written down* as the reduced fraction `Φₙ/ΨSqₙ` (`#404` / `#251`), the coprimality
@@ -285,9 +291,11 @@ theorem module_finite_mulByNEndoFieldRange (n : ℕ)
 /-- **`F(W)` is a finite module over `[n]∗F(W)` over `F̄`**, for every `n ≠ 0` — the
 `mulByNEndoOfAlgClosed` corollary, with no hypothesis left except `n ≠ 0` and `(2 : F) ≠ 0`.
 
-⚠️ Still no degree.  `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n]` written down as `Φₙ/ΨSqₙ`
-(`#404` / `#251`), `#1184` and `(n : F) ≠ 0`, as *"What this is not"* above records — over `F̄` as
-everywhere else. -/
+⚠️ Still no degree.  At a **general** `n`, `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n]` written down as
+`Φₙ/ΨSqₙ` (`#404` / `#251`), `#1184` and `(n : F) ≠ 0`, as *"What this is not"* above records — over
+`F̄` as everywhere else.  ⚠️ At a `3`-smooth `n` it needs none of them:
+`EllipticCurves.FunctionField.MulByNComposition` gets it from `[m · n]∗ = [m]∗ ∘ [n]∗` and the two
+merged degrees. -/
 theorem module_finite_mulByNEndoOfAlgClosedFieldRange [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) :
     Module.Finite ↥(mulByNEndoOfAlgClosed (W := W) h2 hn).fieldRange W.FunctionField :=

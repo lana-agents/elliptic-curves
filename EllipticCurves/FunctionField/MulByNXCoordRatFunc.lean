@@ -96,6 +96,12 @@ heading is not `## Main results`.
   and nothing else about `n`.  So the element this file names is the tower's entire input; what is
   still missing is the **degree** of that element, which is the three gates listed just above.  That
   file proves no degree at any `n` outside `{2, 3}` either.
+
+  ⚠️ **The tree does know degrees outside `{2, 3}`, by a different route.**
+  `EllipticCurves.FunctionField.MulByNComposition` proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group
+  law, so the two merged degrees multiply up to `[F(W) : [n]∗F(W)] = n²` at every `3`-smooth `n` —
+  with no fraction, no coprimality and no `(n : F) ≠ 0`.  The three gates above are what stands
+  between `3`-smooth and general `n`; they are not what stands between `{2, 3}` and everything else.
 * **Nothing about rung 4.**  `ordInfty ([n]∗ genX) = -2` is *false* at general `n`
   (`MulByNPlacePullback`), and nothing here changes that.
 * **It does not close `#404`.**  The coordinates of `[n]` as an explicit fraction remain
