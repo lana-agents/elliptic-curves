@@ -55,6 +55,14 @@ The bookkeeping is done with `IntermediateField.relfinrank`, whose two tower law
 `relfinrank_comap_comap_eq_relfinrank_of_le`) remove the need to build any `Algebra` instance
 between the intermediate fields by hand.
 
+⚠️ **Only the middle degree in that diagram is about `[2]`.**  Everything else — the two edges
+labelled `2`, both transports, and the cancellation — never mentions the index, so the diagram is
+proved once and for all as `finrank_fieldRange_eq_finrank_adjoin` below, with `4` left as the
+variable `[F(x) : F(r)]`.  `finrank_mulByTwoFieldRange` is then that lemma against
+`finrank_adjoin_doublingRatFunc`, and `[3]` and `[n]` are the same lemma against their own middle
+degrees (`EllipticCurves.FunctionField.MulByThreeDegree`,
+`EllipticCurves.FunctionField.MulByNDegreeTower`).
+
 ## Retiring a caveat
 
 `FunctionField/PlacePullback.lean`'s module docstring used to record that "*there is no proof that
@@ -75,7 +83,16 @@ letting it be inferred.
 * `RatFunc.natDegree_num_div_of_isCoprime`, `RatFunc.natDegree_denom_div_of_isCoprime` — for a
   coprime pair `p, q` the reduced numerator and denominator of `p / q : RatFunc F` have exactly the
   degrees of `p` and `q`.  General facts about `RatFunc`, proved here for want of a better home.
+* `ratFuncRange` and `ratFuncRange_eq_adjoin` — `F(x) ⊆ F(W)` as an intermediate field, and its
+  identification with `F⟮genX W⟯`.
 * `finrank_ratFuncRange` — `[F(W) : F(x)] = 2`, with `F(x)` realised as an intermediate field.
+* `finrank_fieldRange_eq_finrank_adjoin` — **the tower with the index erased**: for *any*
+  `F`-algebra endomorphism `σ` of `F(W)` with `σ x` the image of `r : RatFunc F`, one has
+  `[F(W) : σF(W)] = [F(x) : F(r)]`.  It carries no `[W.IsElliptic]` and nothing about `σ` beyond
+  that hypothesis, and it is what both
+  `finrank_mulByTwoFieldRange` below and `finrank_mulByThreeFieldRange`
+  (`EllipticCurves.FunctionField.MulByThreeDegree`) are proved by.
+* `doublingRatFunc` and `algebraMap_doublingRatFunc` — the `RatFunc F` presentation of `x₂`.
 * `finrank_adjoin_doublingRatFunc` — `[F(x) : F(x₂)] = 4`.
 * `finrank_mulByTwoFieldRange` — `[F(W) : [2]∗F(W)] = 4`, stated for the `AlgHom.fieldRange`.
 * `finrank_mulByTwoRange_functionField` — **the headline**, stated for the `RingHom.range` that
@@ -178,6 +195,61 @@ theorem finrank_ratFuncRange : finrank ↥(ratFuncRange W) W.FunctionField = 2 :
     (RingEquiv.refl _) (by ext f; rfl)
   rw [← this, finrank_ratFunc_functionField]
 
+/-! ### The tower, with the index erased -/
+
+/-- **`[F(W) : σF(W)] = [F(x) : F(r)]`** for an `F`-algebra endomorphism `σ` of `F(W)` whose value
+at the generic `x`-coordinate is the image of `r : RatFunc F`.
+
+This is the module docstring's diagram with the middle degree left as a variable: the `4` on the two
+`F(x)`-edges is whatever `[F(x) : F(r)]` happens to be, the `2` on the other two edges is
+`finrank_ratFuncRange` on both lines, and cancelling it leaves the middle degree unchanged.  Both
+`relfinrank`s are computed by transport — the first by pulling the pair `(σF(x), F(x))` back along
+`F(x) ≅ RatFunc F`, where it becomes `(F⟮r⟯, ⊤)`; the second by pushing `(F(x), ⊤)` forward along
+the injection `σ`.
+
+⚠️ Nothing about `σ` is used beyond `hr` and the automatic injectivity of a homomorphism of fields —
+in particular `σ` need not be a multiplication map — and **no `[W.IsElliptic]`** appears: the only
+input about `F(W)` is `finrank_ratFuncRange`, which carries none.  `finrank_mulByTwoFieldRange`
+below and `finrank_mulByThreeFieldRange` (`EllipticCurves.FunctionField.MulByThreeDegree`) are its
+two instances in this tree; `finrank_mulByNFieldRange_eq_finrank_adjoin`
+(`EllipticCurves.FunctionField.MulByNDegreeTower`) is its instance at `[n]∗` for every `n`. -/
+theorem finrank_fieldRange_eq_finrank_adjoin (σ : W.FunctionField →ₐ[F] W.FunctionField)
+    (r : RatFunc F) (hr : algebraMap (RatFunc F) W.FunctionField r = σ (genX W)) :
+    finrank ↥σ.fieldRange W.FunctionField
+      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) := by
+  set ι := IsScalarTower.toAlgHom F (RatFunc F) W.FunctionField with hι
+  set S := (ratFuncRange W).map σ with hSdef
+  have hSadj : S = F⟮σ (genX W)⟯ := by
+    rw [hSdef, ratFuncRange_eq_adjoin, IntermediateField.adjoin_map, Set.image_singleton]
+  have hd : ι r = σ (genX W) := hr
+  have hSmap : S = (F⟮r⟯).map ι := by
+    rw [IntermediateField.adjoin_map, Set.image_singleton, hd, hSadj]
+  -- `S = σF(x)` sits inside both `F(x)` and `σF(W)`
+  have hSFx : S ≤ ratFuncRange W := by
+    rw [hSadj, IntermediateField.adjoin_simple_le_iff, ← hd]
+    exact ⟨r, rfl⟩
+  have hSA : S ≤ σ.fieldRange := by
+    rw [hSdef, AlgHom.fieldRange_eq_map]
+    exact IntermediateField.map_mono σ le_top
+  -- `[F(x) : σF(x)] = [F(x) : F(r)]`, by pulling back along `F(x) ≅ RatFunc F`
+  have hrel1 : relfinrank S (ratFuncRange W)
+      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) := by
+    rw [← IntermediateField.relfinrank_comap_comap_eq_relfinrank_of_le S (ratFuncRange W) ι le_rfl]
+    have hc1 : (ratFuncRange W).comap ι = ⊤ := by
+      rw [eq_top_iff]; intro x _; exact ⟨x, rfl⟩
+    have hc2 : S.comap ι = F⟮r⟯ := by rw [hSmap, IntermediateField.comap_map]
+    rw [hc1, hc2, IntermediateField.relfinrank_top_right]
+  -- `[σF(W) : σF(x)] = 2`, by pushing `(F(x), ⊤)` forward along `σ`
+  have hrel2 : relfinrank S σ.fieldRange = 2 := by
+    rw [hSdef, AlgHom.fieldRange_eq_map, IntermediateField.relfinrank_map_map,
+      IntermediateField.relfinrank_top_right, finrank_ratFuncRange]
+  have htot : finrank ↥S W.FunctionField
+      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) * 2 := by
+    rw [← IntermediateField.relfinrank_mul_finrank_top hSFx, hrel1, finrank_ratFuncRange]
+  have hfin := IntermediateField.relfinrank_mul_finrank_top hSA
+  rw [hrel2, htot] at hfin
+  omega
+
 /-! ### The middle of the tower: `[F(x) : F(x₂)] = 4` -/
 
 variable (W) in
@@ -225,50 +297,15 @@ variable [W.IsElliptic]
 /-- **`[F(W) : [2]∗F(W)] = 4`**, stated for the range of `mulByTwoEndoAlgHom` as an intermediate
 field.  See `finrank_mulByTwoRange_functionField` for the `RingHom.range` form.
 
-The proof is the tower of the module docstring.  Writing `S = F(x₂)` for the image of `F(x)` under
-`[2]∗`, the two decompositions of `[F(W) : S]` are
-
-```
-relfinrank S F(x)      * [F(W) : F(x)]      = 4 * 2 = 8,
-relfinrank S [2]∗F(W)  * [F(W) : [2]∗F(W)]  = 2 * ?,
-```
-
-and the second factor of the second line is the answer.  Both `relfinrank`s are computed by
-transport: the first by pulling the pair `(S, F(x))` back along `F(x) ≅ RatFunc F`, where it becomes
-`(F⟮Φ₂/Ψ₂Sq⟯, ⊤)`; the second by pushing the pair `(F(x), ⊤)` forward along the injection `[2]∗`. -/
+The proof is the tower of the module docstring, and it is *not* written out here: it is
+`finrank_fieldRange_eq_finrank_adjoin` above, at `σ = [2]∗` and `r = Φ₂/Ψ₂Sq`, composed with the
+middle degree `finrank_adjoin_doublingRatFunc`.  The two hypotheses `(2 : F) ≠ 0` and
+`[W.IsElliptic]` are consumed entirely by those two inputs — `algebraMap_doublingRatFunc` needs the
+first, coprimality of `Φ₂` and `Ψ₂Sq` the second — and the tower itself needs neither. -/
 theorem finrank_mulByTwoFieldRange (h2 : (2 : F) ≠ 0) :
     finrank ↥(mulByTwoEndoAlgHom (W := W) h2).fieldRange W.FunctionField = 4 := by
-  set σ := mulByTwoEndoAlgHom (W := W) h2 with hσ
-  set ι := IsScalarTower.toAlgHom F (RatFunc F) W.FunctionField with hι
-  set S := (ratFuncRange W).map σ with hSdef
-  have hSadj : S = F⟮σ (genX W)⟯ := by
-    rw [hSdef, ratFuncRange_eq_adjoin, IntermediateField.adjoin_map, Set.image_singleton]
-  have hd : ι (doublingRatFunc W) = σ (genX W) := algebraMap_doublingRatFunc h2
-  have hSmap : S = (F⟮doublingRatFunc W⟯).map ι := by
-    rw [IntermediateField.adjoin_map, Set.image_singleton, hd, hSadj]
-  -- `S = F(x₂)` sits inside both `F(x)` and `[2]∗F(W)`
-  have hSFx : S ≤ ratFuncRange W := by
-    rw [hSadj, IntermediateField.adjoin_simple_le_iff, ← hd]
-    exact ⟨doublingRatFunc W, rfl⟩
-  have hSA : S ≤ σ.fieldRange := by
-    rw [hSdef, AlgHom.fieldRange_eq_map]
-    exact IntermediateField.map_mono σ le_top
-  -- `[F(x) : F(x₂)] = 4`, by pulling back along `F(x) ≅ RatFunc F`
-  have hrel1 : relfinrank S (ratFuncRange W) = 4 := by
-    rw [← IntermediateField.relfinrank_comap_comap_eq_relfinrank_of_le S (ratFuncRange W) ι le_rfl]
-    have hc1 : (ratFuncRange W).comap ι = ⊤ := by
-      rw [eq_top_iff]; intro x _; exact ⟨x, rfl⟩
-    have hc2 : S.comap ι = F⟮doublingRatFunc W⟯ := by rw [hSmap, IntermediateField.comap_map]
-    rw [hc1, hc2, IntermediateField.relfinrank_top_right, finrank_adjoin_doublingRatFunc h2]
-  -- `[[2]∗F(W) : F(x₂)] = 2`, by pushing `(F(x), ⊤)` forward along `[2]∗`
-  have hrel2 : relfinrank S σ.fieldRange = 2 := by
-    rw [hSdef, AlgHom.fieldRange_eq_map, IntermediateField.relfinrank_map_map,
-      IntermediateField.relfinrank_top_right, finrank_ratFuncRange]
-  have h8 : finrank ↥S W.FunctionField = 8 := by
-    rw [← IntermediateField.relfinrank_mul_finrank_top hSFx, hrel1, finrank_ratFuncRange]
-  have hfin := IntermediateField.relfinrank_mul_finrank_top hSA
-  rw [hrel2, h8] at hfin
-  omega
+  rw [finrank_fieldRange_eq_finrank_adjoin _ _ (algebraMap_doublingRatFunc h2),
+    finrank_adjoin_doublingRatFunc h2]
 
 /-- **The degree of multiplication by two: `[F(W) : [2]∗F(W)] = 4`.**
 
