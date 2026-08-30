@@ -47,6 +47,14 @@ there and in `EllipticCurves.FunctionField.MulByNPlacePullback` are unchanged:
 `finrank_fieldRange_eq_of_eq_ΦDivΨSq` below is the conditional statement those three gates
 discharge, so a future `n` at which they are available needs nothing further from this side.
 
+⚠️ **A reader must not conclude that `n²` is unavailable outside `{2, 3}`.**  It is available at
+every `3`-smooth `n`, by a route that goes nowhere near this file:
+`EllipticCurves.FunctionField.MulByNComposition` (`#1213`) proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the
+group law and multiplies the two merged degrees up in the tower.  That route evaluates no
+`finrank F⟮nMulRatFunc W n⟯ (RatFunc F)` and meets none of the three gates; at every `3`-smooth `n`
+its conclusion is strictly stronger than `finrank_mulByNFieldRange_of_nMulRatFunc_eq`'s, which
+carries three hypotheses.  What the three gates now stand between is `3`-smooth and *general* `n`.
+
 ## Where the tower lives, and why not here
 
 `finrank_fieldRange_eq_finrank_adjoin` is **not** in this file.  It needs only `ratFuncRange`,
@@ -90,7 +98,10 @@ heading is not `## Main results`.
 
 * **No new degree.**  Nothing below evaluates `finrank F⟮nMulRatFunc W n⟯ (RatFunc F)` at any `n`;
   the `example`s do it at `n = 2` and `n = 3` only, and each of those goes through a merged
-  identification (`nMulRatFunc_two`, `nMulRatFunc_three`).
+  identification (`nMulRatFunc_two`, `nMulRatFunc_three`).  ⚠️ New degrees *do* exist in the tree —
+  `[F(W) : [n]∗F(W)] = n²` at every `3`-smooth `n`,
+  `EllipticCurves.FunctionField.MulByNComposition` — but they are not proved here and not by this
+  route; see *"What this changes, and what it does not"* above.
 * **No re-derivation of `finrank_mulByTwoFieldRange` / `finrank_mulByThreeFieldRange`.**  This file
   used to carry two `example`s doing that; since those two theorems are now *proved* by
   `finrank_fieldRange_eq_finrank_adjoin`, an `example` re-deriving them would be circular

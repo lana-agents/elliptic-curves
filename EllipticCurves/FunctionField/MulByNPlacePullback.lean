@@ -34,8 +34,18 @@ alone*.  The two that do are these.
 
 ⚠️ **`[F(W) : [n]∗F(W)] = n²` is not here** (`#682` at `n = 2`, `#775` at `n = 3`).  What does
 survive is that the degree is **finite** — `module_finite_mulByNEndoFieldRange`,
-`EllipticCurves.FunctionField.MulByNIntegral`, from non-constancy alone.  The *value* is gated.
-`finrank_mulByTwoFieldRange` reads it off the tower `F(W) ⊇ F(x) ⊇ F(x ∘ [2])`, and that tower needs
+`EllipticCurves.FunctionField.MulByNIntegral`, from non-constancy alone.
+
+⚠️ **The *value* is gated at a general `n`, but not at every `n`.**  `#1213`
+(`EllipticCurves.FunctionField.MulByNComposition`) proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group
+law and multiplies the two merged degrees up:
+`[F(W) : [n]∗F(W)] = n²` holds for every **`3`-smooth** `n`, with none of the three gates below and
+no division polynomial in the argument.  What the three gates stand between is `3`-smooth and
+*general* `n` — the first index they are needed at is `n = 5`.  Everything in the rest of this
+paragraph is about that general-`n` statement and is unaffected.
+
+`finrank_mulByTwoFieldRange` reads the value off the tower `F(W) ⊇ F(x) ⊇ F(x ∘ [2])`, and that
+tower needs
 (i) `x ∘ [n] ∈ F(x)`, which at `n = 2` is `doublingRatFunc`, an element of `RatFunc F` written down
 from `Φ₂/Ψ₂Sq`, and (ii) the reduced degrees of `Φ n` and `ΨSq n` with the coprimality that makes
 *reduced* legitimate.
