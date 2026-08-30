@@ -116,8 +116,11 @@ identity is a different theorem rather than a descent of this one.
   `∑_{p ↦ q} e_p · f_p = finrank`, and
   `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` / `…_of_charZero` the `[2]∗` forms
   with no `[IsAlgClosed F]`.  ⚠️ The `n`-independent half of that machinery is stated for an
-  arbitrary `φ` and serves `[3]` unchanged; what is still absent *here* is a `[3]` weighted
-  identity without `[IsAlgClosed F]`.
+  arbitrary `φ` and serves `[3]` unchanged; a `[3]` weighted identity without `[IsAlgClosed F]` is
+  still absent *here*.  ⚠️ **The clause this bullet used to carry said it was absent, full stop, and
+  that is now false of the tree**: `sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero`
+  (`EllipticCurves.FunctionField.MulByNInertia`, `#1221`) is exactly it, obtained by instantiating
+  the arbitrary-`φ` identity at `[n]∗` and bridging back into this file's indexing at `n = 3`.
 * **General `n` stays out of this file.**  ⚠️ **The clause this bullet used to carry has been
   paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
   endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,

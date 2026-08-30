@@ -115,7 +115,17 @@ extension to a count of `E[2]`.
 * `IsDedekindDomain` of the integral closure, and route (a) of `#744`'s decision — `#421`'s
   `B = integralClosure ([2]∗F[W]) F(W)` is a **different** `B`, over the affine coordinate ring
   rather than over a place, and route (c) does not need it.
-* Separability of `[2]` in characteristic `p`, as above; `[3]∗` and general `[n]∗`; `#E[n] = n²`.
+* Separability of `[2]` **as an isogeny** in characteristic `p`, as above; `[3]∗` and general
+  `[n]∗`; the step from the degree to `#E[n] = n²`.
+  ⚠️ **This bullet used to read *"Separability of `[2]` in characteristic `p`, as above; `[3]∗` and
+  general `[n]∗`; `#E[n] = n²`"*, and only the first clause was ever a claim about the tree.**  The
+  other two now have merged homes and the bullet reads as though they did not: `placeBelowThree`
+  and `finrank_integralClosure_placeBelowThree` are in
+  `EllipticCurves.FunctionField.MulByThreeRamification`, `placeBelowN` and
+  `finrank_integralClosure_placeBelowN_of_smooth` in `EllipticCurves.FunctionField.MulByNInertia`
+  (`#1221`, at every `3`-smooth `n`), and `#E[n] = n²` itself is `card_torsion_eq_sq_of_smooth`
+  (`EllipticCurves.Torsion.ThreePrimary`) — by the torsion route, not by the isogeny count, which is
+  the thing that really is absent and which the paragraph above states correctly.
 
 ## References
 

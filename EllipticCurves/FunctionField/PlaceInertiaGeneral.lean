@@ -77,7 +77,10 @@ itself read through `φ.fieldRange ↪ F(W)`.
 * **`sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable`** (namespace
   `WeierstrassCurve.Affine.CoordinateRing`) and `…_of_charZero` — the `[2]∗` instantiation,
   `∑_{p ↦ q} e_p · f_p = 4`, with separability carried as a hypothesis and discharged over
-  `[CharZero F]`;
+  `[CharZero F]`.  ⚠️ **This is no longer the only instantiation in the tree**:
+  `EllipticCurves.FunctionField.MulByNInertia` (`#1221`) instantiates the general theorem at
+  `φ = [n]∗` for every `n`, with the same two hypothesis shapes and with the right-hand side
+  evaluated to `n²` at every `3`-smooth `n`;
 * `CoordinateRing.residueDegreeProj_projPointOfPoint` and
   `CoordinateRing.residueDegreeTwo_projPointOfPoint`, both in `WeierstrassCurve.Affine` — at an
   `F`-**rational** point the residue degree is `1`, over an arbitrary field.  This is what a
@@ -105,12 +108,15 @@ about algebraically closed base fields whose generalisations are false.  What is
 arbitrary field is the *rational-point* case, which is what
 `residueDegreeProj_projPointOfPoint` supplies.
 
-⚠️ **`[3]∗` is not instantiated here.**  Everything before the `[2]∗` section is stated for an
-arbitrary `φ`, so the mirror is an instantiation; but
+⚠️ **`[3]∗` is not instantiated here**, and the sentence is about *this file* only.  Everything
+before the `[2]∗` section is stated for an arbitrary `φ`, so the mirror is an instantiation; but
 `sum_ramificationIdxThree_mul_residueDegreeThree`
 (`EllipticCurves.FunctionField.MulByThreeResidueDegree`) is not restated, and `#1046`'s record that
 the `n = 3` residue-degree layer was an instantiation rather than a re-derivation is the reason to
-price it separately rather than assume it.
+price it separately rather than assume it.  ⚠️ It **is** instantiated elsewhere now:
+`EllipticCurves.FunctionField.MulByNInertia` (`#1221`) does the `[n]∗` case for every `n` and
+derives the `[3]`-indexed `∑_{p ↦ q} e_p · f_p = 9` over `[CharZero F]` from it — the form
+`MulByThreeResidueDegree` records as missing, its own being `[IsAlgClosed F]`-only.
 
 ⚠️ **The non-vacuity section below certifies that the hypotheses are satisfiable over `ℚ`, and it
 does not exhibit a place with `f_p > 1`.**  The statements are strictly stronger than their

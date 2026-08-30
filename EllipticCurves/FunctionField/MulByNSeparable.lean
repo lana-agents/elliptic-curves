@@ -92,10 +92,15 @@ tower has to be built by hand out of `IntermediateField.inclusion` and
   fixing `F` and integrality).  At a `3`-smooth `n` the first is
   `module_finite_mulByNEndoFieldRange` (`EllipticCurves.FunctionField.MulByNIntegral`, general `n`)
   and the second is `isSeparable_mulByNEndoFieldRange_of_smooth` below, so both instance
-  hypotheses are now available.  ⚠️ **Instantiating it is nevertheless not done here**, and the
-  remaining work is real rather than notational: the identity's right-hand side is a `finrank` of an
-  integral closure over `placeBelow`, not `n²`, and `[IsDedekindDomain W.CoordinateRing]` has to be
-  carried.  Filed rather than reached for.
+  hypotheses are now available.  ⚠️ **The clause this bullet used to carry has been paid** — it
+  read *"Instantiating it is nevertheless not done here, and the remaining work is real rather than
+  notational: the identity's right-hand side is a `finrank` of an integral closure over
+  `placeBelow`, not `n²`, and `[IsDedekindDomain W.CoordinateRing]` has to be carried.  Filed rather
+  than reached for."*  It was filed as `#1221` and paid in
+  `EllipticCurves.FunctionField.MulByNInertia`, which imports this file; the pricing was right, and
+  the `finrank`-versus-`n²` distinction it names turns out to be the *content* rather than an
+  obstacle — the identity holds at every `n` in characteristic zero, and only the value `n²` is
+  `3`-smooth.
 
 ## Main statements
 
