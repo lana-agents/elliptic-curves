@@ -124,6 +124,7 @@ import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.MulByTwoPullback
 import EllipticCurves.FunctionField.MulByTwoPullbackDivisor
 import EllipticCurves.FunctionField.NegYGalois
+import EllipticCurves.FunctionField.NegYGaloisGroup
 import EllipticCurves.FunctionField.NegYInvolution
 import EllipticCurves.FunctionField.NthRootOfPullback
 import EllipticCurves.FunctionField.PlaceAtInfinity

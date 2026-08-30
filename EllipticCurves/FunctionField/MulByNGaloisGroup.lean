@@ -118,11 +118,16 @@ is in namespace `WeierstrassCurve.Affine.CoordinateRing`.
 
 * **Nothing at `n = 5`.**  Both sides of Artin's theorem are `3`-smooth and a group isomorphism
   manufactures no new prime.
-* **Not `Gal(F(W) / F(x)) ≃* ⟨ι⟩`.**  `EllipticCurves.FunctionField.NegYGalois` carries the same
-  shape of bullet for the hyperelliptic involution and names
-  `ratFuncRange_eq_fixedField_negYGroup` as what such an identification would start from.  It is a
-  different fixed-point setup in a different file and is untouched here; `Subfield.autMulEquivOfEq`
-  is what it would consume.
+* **Not `Gal(F(W) / F(x)) ≃* ⟨ι⟩`.**  It is a different fixed-point setup in a different file and
+  is untouched here — but it is no longer absent from the tree: ⚠️ **this bullet used to end**
+  *"`Subfield.autMulEquivOfEq` is what it would consume"*, and
+  `EllipticCurves.FunctionField.NegYGaloisGroup` now consumes it, in
+  `negYGroupGaloisEquiv`.  ⚠️ That file needs one step this one did not: its merged sandwich
+  `ratFuncRange_eq_fixedField_negYGroup` is an `IntermediateField` equality, so it drops to the
+  `Subfield` level by `SetLike.ext` before the helper applies.  ⚠️ **And it is sharper in one
+  respect than anything here**: it carries neither `[IsAlgClosed F]` nor a condition on the
+  characteristic, so it holds in characteristic `2`, where every statement in this file is
+  unavailable.
 * **No `#E[n] = n²` from a degree.**  `card_torsionNMul` is an **input**, proved by the torsion
   route in `EllipticCurves.Torsion.ThreePrimary`.  Six merged files record that *"a separable
   isogeny has as many points in its kernel as its degree"* is absent from this tree and all six are
