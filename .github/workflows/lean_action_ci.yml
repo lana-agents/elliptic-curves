@@ -15,3 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: leanprover/lean-action@v1
+        with:
+          # `lean-action` runs `lake lint` (Mathlib's *environment* linters, via the
+          # `lintDriver` line in `lakefile.toml`) whenever `lake check-lint` finds a driver.
+          # Under the default `lint: default` a missing driver is merely logged
+          # ("lake check-lint failed -> will not run lake lint") and the job stays green, so
+          # deleting that one line would silently un-gate the suite.  `lint: "true"` turns
+          # that case into a hard failure instead.  See the `## Linting` section of README.md.
+          lint: "true"
