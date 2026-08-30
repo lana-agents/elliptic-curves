@@ -51,9 +51,19 @@ map `functionFieldMap` of
 > prove an equality, or to produce a witness?*  Worth applying to every remaining `[IsAlgClosed F]`
 > on this front before assuming it is `hprin` in disguise.
 
-⚠️ **No divisor-level base-change compatibility is used here**, and `#692`'s *Remaining work*
-section will lead a reader to expect otherwise.  The three endomorphism intertwiners
-(`functionFieldMap_translateEndo`, `_mulByTwoEndo`, `_mulByThreeEndo`) are the whole input.
+⚠️ **No divisor-level base-change compatibility is used here.**  The three endomorphism
+intertwiners (`functionFieldMap_translateEndo`, `_mulByTwoEndo`, `_mulByThreeEndo`) are the whole
+input.
+
+⚠️ **That sentence used to continue** *"and `#692`'s *Remaining work* section will lead a reader to
+expect otherwise"*, **and it no longer will**: `FunctionFieldBaseChange`'s `## Remaining work` used
+to price `weilPairingElt` as part of the divisor half, and `#1271` removed the clause and supplied
+the transport as `functionFieldMap_weilPairingElt`
+(`EllipticCurves.FunctionField.WeilPairingEltBaseChange`) — one `rw`, from `map_div₀` and
+`functionFieldMap_translateEndo`.  Do not go looking for the misleading sentence; it is quoted as
+retired in the very section it used to be in.  ⚠️ The *first* half of this paragraph is untouched by
+that: `divisor` and `divisorProj` still do not transport, that is still `#692`'s open remainder, and
+nothing below uses them.
 
 ## Main results
 

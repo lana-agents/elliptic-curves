@@ -19,14 +19,24 @@ Let `W` be a Weierstrass curve over a field `F`, with affine coordinate ring
 
 and proves that it is **not the identity** as soon as `W` is elliptic.
 
-`EllipticCurves.FunctionField.Places`, section *"What is not here"*, records the second half as an
-explicit gap:
+`EllipticCurves.FunctionField.Places`, in its `## What is *not* here` section, **used to record**
+the second half as an explicit gap:
 
 > **A witness `σ ≠ 1` for the automorphism action.**  See `mapProjPointHom`'s docstring: the
 > natural candidate is the hyperelliptic involution, and producing it as an `AlgEquiv` is real work
 > that is not attempted here.  No claim of non-triviality of the action is made.
 
-`negYAlgEquiv_ne_one` is that witness.
+`negYAlgEquiv_ne_one` is that witness.  ⚠️ **The quotation above is that bullet's wording before
+`1198891`; `Places` now records the discharge and names `negYAlgEquiv`, so do not expect to find
+the sentence there.**
+
+⚠️ **What that bullet still says is the half this file does not supply, and it is worth carrying
+here rather than leaving to a reader who follows the pointer.**  In `Places`' words: *"**no claim
+about the induced permutation of places is made.** `mapProjPoint ι ≠ 1` is a strictly further
+statement — it needs a place that `ι` moves — and it is proved nowhere."*  So `negYAlgEquiv_ne_one`
+is a witness that the **automorphism** is nontrivial, and nothing below upgrades it to a statement
+that the induced permutation of `ProjPoint W` is.  The two witnesses and what separates them are in
+`mapProjPointHom`'s docstring.
 
 ## Main definitions
 
