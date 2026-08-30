@@ -109,8 +109,14 @@ Nothing is deleted here; the de-duplication question is a separate one.
   it stand `[5]`-surjectivity and `#E[5]`, i.e. the general multiplication-by-`n` coordinate
   formula.  `hfac` is not removable by anything in this file.
 * **A mod-`n` matrix representation** `G →* GL (Fin 2) (ZMod n)` through `basisTorsionOfSmooth`.
-  It is the finite-level analogue of `EllipticCurves.TateModule.MatrixRep`, it is basis-dependent,
-  and it needs the `MatrixRepBasisChange` treatment to be worth having.
+  ⚠️ **Spent, and it is the only bullet in this list that was.**  It used to continue *"it is the
+  finite-level analogue of `EllipticCurves.TateModule.MatrixRep`, it is basis-dependent, and it
+  needs the `MatrixRepBasisChange` treatment to be worth having"*, and all three clauses were
+  right: `EllipticCurves.TateModule.MatrixRepMod` (`#1242`) defines `galoisRepModMatrix` on a basis
+  this file supplies, ships the conjugation law `galoisRepModMatrix_conj` the third clause asked
+  for, and identifies `det ∘ ρ_{E,n}` with `galoisDetMod n`.  ⚠️ What remains out of scope of *this
+  file* is only the location — that file is a consumer of `basisTorsionOfSmooth`, and nothing below
+  changed when it landed.
 * **The trace and the characteristic polynomial mod `n`.**  ⚠️ `DeterminantMod` records that
   `galoisTraceTwo`'s finite-level analogue *"would need the same freeness input and has no
   consumer"*.  Only the first half of that is retired here: the freeness input now exists, and the
