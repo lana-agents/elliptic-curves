@@ -88,6 +88,7 @@ import EllipticCurves.FunctionField.LocalRingNormal
 import EllipticCurves.FunctionField.LocalRingTaylor
 import EllipticCurves.FunctionField.LocalRingUniformizer
 import EllipticCurves.FunctionField.LocalRingUnit
+import EllipticCurves.FunctionField.MatrixRepDeterminantCharacter
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNDegreeTower
 import EllipticCurves.FunctionField.MulByNGalois
