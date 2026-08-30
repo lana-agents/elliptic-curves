@@ -224,6 +224,7 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective
 import EllipticCurves.Galois.CyclotomicCharacter
+import EllipticCurves.Galois.SubfieldAut
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.NewtonPolygon
 import EllipticCurves.Reduction.AdditivityUncond
