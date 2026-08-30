@@ -74,7 +74,7 @@ Measured at commit `d5951f8`; the counts drift, the structure does not.
 ```
 EllipticCurves.lean          -- root module, imports the whole library
 EllipticCurves/
-├── Basic.lean               -- project entry point; re-exports Mathlib foundations
+├── Basic.lean               -- re-exports two Mathlib roots; nothing imports it
 ├── NewtonPolygon.lean       -- the slope-3/2 dichotomy at a pole of a Weierstrass equation
 ├── DivisionPolynomial/      --   1 file   coprimality of the division polynomials
 ├── FormalGroup/             --  57 files  the Weierstrass formal group law and Ê(𝔪)
@@ -88,6 +88,19 @@ EllipticCurves/
 360 `.lean` files in total. `FunctionField/` is flat rather than nested; within it the
 file-name prefixes `MulByTwo`/`MulByThree`/`MulByN`, `Translation`, `Place`, `Divisor` and
 `WeilPairing` are what group the material.
+
+`Basic.lean` re-exports two Mathlib roots and nothing in the library imports it. The tree's only
+`import EllipticCurves.Basic` line is the one `mk_all` writes into `EllipticCurves.lean`, and
+nothing imports that either, so those re-exports currently reach no module. Measured at `6e5245c`:
+
+```bash
+grep -rn "^import EllipticCurves\.Basic$" --include=*.lean . | grep -v '^./\.lake'
+```
+
+The `.lake` filter is not optional: without it the census also reads the vendored Mathlib and
+Batteries sources. Substitute `EllipticCurves\.Galois\.SubfieldAut` for a control that returns
+three hits rather than one. The `^import` anchor is safe only because all 360 files here use the
+plain spelling; Mathlib's own files say `public import`, which this pattern would not match.
 
 New files should be added under `EllipticCurves/` and imported from the root
 `EllipticCurves.lean` module (kept in sync with `lake exe mk_all`).
