@@ -39,11 +39,21 @@ Two inputs, both already available.
 
   — the `n = 2` instance of `x(nP) = Φₙ(x)/ΨSqₙ(x)`, in a form that needs no division.
 
-* **`Φ₂` and `Ψ₂Sq` have no common root.** A common root `x` would be a root of
-  `Ψ₃ = X · Ψ₂Sq - Φ₂` as well, and `EllipticCurves.Torsion.ThreeTorsionStructure` shows that a root
-  of `Ψ₃` is never a root of `Ψ₂Sq` (`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`): the point above it would have
-  both partial derivatives of the Weierstrass polynomial vanishing. **No resultant computation and
-  no identity of the form `A · Φ₂ + B · Ψ₂Sq = Δ` is needed.**
+* **`Φ₂` and `Ψ₂Sq` have no common root.** Two routes reach this, and the file carries both.
+
+  The route the theorem takes is the general one: `eval_Φ_two_ne_zero_of_root_ΨSq` is the `n = 2`
+  instance of `eval_Φ_ne_zero_of_eval_ΨSq_ne_zero`
+  (`EllipticCurves.DivisionPolynomial.Coprime`), whose adjacent factors at `n = 2` are `ΨSq₃ = Ψ₃²`
+  and `ΨSq₁ = 1`, so the only input is `isCoprime_Ψ₃_Ψ₂Sq` read at a root. ⚠️ **It carries neither
+  `[IsAlgClosed F]` nor `(2 : F) ≠ 0`** — see *"The hypotheses of input (2)"* below.
+
+  The geometric route is retained immediately after it, as a compiled `example`: a common root `x`
+  would be a root of `Ψ₃ = X · Ψ₂Sq - Φ₂` as well, and
+  `EllipticCurves.Torsion.ThreeTorsionStructure` shows that a root of `Ψ₃` is never a root of
+  `Ψ₂Sq` (`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`): the point above it would have both partial derivatives
+  of the Weierstrass polynomial vanishing. That route needs **no resultant computation and no
+  identity of the form `A · Φ₂ + B · Ψ₂Sq = Δ`** — but it does need the algebraic closure and the
+  characteristic condition, which is the whole of the trade recorded below.
 
 ⚠️ **Those two inputs are the whole of what is `n`-specific here, and the argument that consumes
 them is not in this file.** `EllipticCurves.Torsion.NsmulSurjective` runs it once at general `n`:
@@ -57,7 +67,7 @@ No hypothesis on `(3 : F)` is used anywhere.
 ## Main statements
 
 * `WeierstrassCurve.Affine.eval_Φ_two_ne_zero_of_root_ΨSq`: `Φ₂` and `Ψ₂Sq` have no common root —
-  input (2) of the engine at `n = 2`.
+  input (2) of the engine at `n = 2`, over any field with `Δ` a unit.
 * `WeierstrassCurve.Affine.addX_self_mul_Ψ₂Sq_eval`: the doubling formula `x(2P) · Ψ₂Sq(x) = Φ₂(x)`.
 * `WeierstrassCurve.Affine.hasXCoordFormula_two`: that formula in the form the engine consumes —
   input (1) at `n = 2`.
@@ -95,15 +105,62 @@ lemma Φ_two_eval (x : F) : (W.Φ 2).eval x = x * W.Ψ₂Sq.eval x - W.Ψ₃.eva
 
 ⚠️ The degree count and the root extraction that used to stand here are `n`-independent and are now
 `natDegree_Φ_sub_C_mul_ΨSq` and `exists_eval_Φ_eq` in
-`EllipticCurves.Torsion.NsmulSurjective`. -/
+`EllipticCurves.Torsion.NsmulSurjective`.
 
-/-- **`Φ₂` and `Ψ₂Sq` have no common root.** A common root would be a root of
-`Ψ₃ = X·Ψ₂Sq − Φ₂`, and a root of `Ψ₃` is never a root of `Ψ₂Sq`
-(`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`). **No resultant computation and no identity of the form
-`A · Φ₂ + B · Ψ₂Sq = Δ` is needed.**
+### The hypotheses of input (2)
 
-This is the `hroot` hypothesis of `exists_nsmul_eq_of_hasXCoordFormula` at `n = 2`. -/
-theorem eval_Φ_two_ne_zero_of_root_ΨSq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x : F)
+⚠️ **`eval_Φ_two_ne_zero_of_root_ΨSq` used to carry `[IsAlgClosed F]` and `(2 : F) ≠ 0`, and it no
+longer does.** Its docstring used to end *"No resultant computation and no identity of the form
+`A · Φ₂ + B · Ψ₂Sq = Δ` is needed"*, describing the geometric route through
+`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, which is a statement about the points above an `x` and is where
+both hypotheses came from.
+
+The trade is explicit and it is not free in both directions:
+
+* what is gained — the statement is now about polynomials over a field with `Δ` a unit and nothing
+  else, matching the `hroot` argument of `exists_nsmul_eq_of_hasXCoordFormula`, which mentions no
+  closure either;
+* what is paid — the general route runs through `isCoprime_Ψ₃_Ψ₂Sq`, which **is** proved from a
+  `Δ`-certificate for the pair `(Ψ₃, Ψ₂Sq)` in `EllipticCurves.DivisionPolynomial.Coprime`. So the
+  economy sentence above survives only in its literal reading: no certificate for the pair
+  `(Φ₂, Ψ₂Sq)` is needed, and one for `(Ψ₃, Ψ₂Sq)` now is.
+
+⚠️ **Neither route is discarded.** The geometric one is kept as a compiled `example` below, so the
+closure-free statement and the certificate-free proof both stay in the file. -/
+
+/-- **`Φ₂` and `Ψ₂Sq` have no common root**, over any field over which `W` is elliptic — with **no
+algebraic closure and no hypothesis on `(2 : F)`**.
+
+`ΨSq₃ = Ψ₃²` and `ΨSq₁ = 1` are the factors adjacent to `ΨSq₂ = Ψ₂Sq`, so this is the `n = 2`
+instance of `eval_Φ_ne_zero_of_eval_ΨSq_ne_zero`
+(`EllipticCurves.DivisionPolynomial.Coprime`) and its only input is `isCoprime_Ψ₃_Ψ₂Sq` read at a
+root, through Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`.
+
+This is the `hroot` hypothesis of `exists_nsmul_eq_of_hasXCoordFormula` at `n = 2`.  For the
+geometric route that this replaced, and for what the replacement costs, see *"The hypotheses of
+input (2)"* above and the `example` below. -/
+theorem eval_Φ_two_ne_zero_of_root_ΨSq [W.IsElliptic] (x : F)
+    (hx : (W.ΨSq 2).eval x = 0) : (W.Φ 2).eval x ≠ 0 := by
+  have hΨ₃ : W.Ψ₃.eval x ≠ 0 := by
+    have h := Polynomial.aeval_ne_zero_of_isCoprime (S := F) W.isCoprime_Ψ₃_Ψ₂Sq x
+    rw [ΨSq_two] at hx
+    simpa [Polynomial.coe_aeval_eq_eval, hx] using h
+  refine eval_Φ_ne_zero_of_eval_ΨSq_ne_zero hx ?_ ?_
+  · rw [show (2 : ℤ) + 1 = 3 from rfl, ΨSq_three, eval_pow]
+    exact pow_ne_zero _ hΨ₃
+  · rw [show (2 : ℤ) - 1 = 1 from rfl, ΨSq_one, eval_one]
+    exact one_ne_zero
+
+/-- **The geometric route to input (2), retained.**  This is the proof
+`eval_Φ_two_ne_zero_of_root_ΨSq` used to carry, verbatim, under the two hypotheses it used to
+carry: a common root of `Φ₂` and `Ψ₂Sq` would be a root of `Ψ₃ = X·Ψ₂Sq − Φ₂`, and a root of `Ψ₃`
+is never a root of `Ψ₂Sq`.
+
+⚠️ It is an `example` and not a theorem because its conclusion **is**
+`eval_Φ_two_ne_zero_of_root_ΨSq`'s, under strictly more hypotheses; a second name on a weaker form
+of the same statement is the worse outcome.  It is kept because it is the only place in this tree
+where input (2) is obtained with no Bézout certificate at all. -/
+example [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x : F)
     (hx : (W.ΨSq 2).eval x = 0) : (W.Φ 2).eval x ≠ 0 := by
   rw [ΨSq_two] at hx
   intro h0
@@ -137,7 +194,7 @@ lemma exists_addX_self_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x
   obtain ⟨x, hx⟩ := exists_eval_Φ_eq (W := W) (n := 2) (by norm_num) x₀
   simp only [Nat.cast_ofNat, ΨSq_two] at hx
   have hne : W.Ψ₂Sq.eval x ≠ 0 := fun h0 =>
-    eval_Φ_two_ne_zero_of_root_ΨSq h2 x (by rw [ΨSq_two]; exact h0) (by rw [hx, h0, mul_zero])
+    eval_Φ_two_ne_zero_of_root_ΨSq x (by rw [ΨSq_two]; exact h0) (by rw [hx, h0, mul_zero])
   obtain ⟨y, hy⟩ := exists_equation (W := W) h2 x
   have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hy
   have hyne : y ≠ W.negY x y := by
@@ -188,7 +245,7 @@ The two inputs above, fed to `exists_nsmul_eq_of_hasXCoordFormula`. -/
 theorem exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (Q : W.Point) :
     ∃ P : W.Point, 2 • P = Q :=
   exists_nsmul_eq_of_hasXCoordFormula h2 (by norm_num)
-    (by simp only [Nat.cast_ofNat]; exact eval_Φ_two_ne_zero_of_root_ΨSq h2)
+    (by simp only [Nat.cast_ofNat]; exact eval_Φ_two_ne_zero_of_root_ΨSq)
     hasXCoordFormula_two Q
 
 /-- **Multiplication by `2` is surjective on `E(F̄)`**, stated as `Function.Surjective`. -/

@@ -141,11 +141,17 @@ Whether a future proof of the surviving `ΨSq` obligation is easier pointwise th
 untouched by anything here.
 
 ⚠️ **One thing the pointwise register does buy, and it is a hypothesis count rather than a route.**
-The two `example`s at the end of the file land the merged `hroot` instances
+The two `example`s at the end of the file land the `hroot` instances
 `eval_Φ_two_ne_zero_of_root_ΨSq` and `eval_Φ_three_ne_zero_of_root_ΨSq` with `[IsAlgClosed F]` and
 `(2 : F) ≠ 0` **both dropped**, because they go through `isCoprime_Ψ₃_Ψ₂Sq` in this file rather
-than through a statement about the points above an `x`.  Both consuming files import this one, so
-that is a live de-duplication question; it is measured in that section and acted on nowhere.
+than through a statement about the points above an `x`.
+
+⚠️ **That sentence used to end *"it is measured in that section and acted on nowhere"*, and it has
+since been acted on.**  Both downstream statements were narrowed to exactly the hypotheses measured
+here, in `EllipticCurves.Torsion.DoublingSurjective` and
+`EllipticCurves.Torsion.TriplingSurjective`, which import this file directly and transitively.
+Nothing in this file moved: the two `example`s stay `example`s, and what they measure is now what
+the two downstream theorems say.
 
 ## Main definitions and statements
 
@@ -416,11 +422,17 @@ theorem isCoprime_Φ_ΨSq_of_isCoprime_ΨSq {n : ℤ} (hs : IsCoprime (W.ΨSq (n
 
 ⚠️ **`EllipticCurves.Torsion.NsmulSurjective` does not consume `IsCoprime (Φₙ) (ΨSqₙ)`.**  Its
 surjectivity engine takes the strictly weaker *pointwise* hypothesis
-`∀ x, ΨSqₙ(x) = 0 → Φₙ(x) ≠ 0`, and records that this tree obtains that weakening at `n = 2` and
+`∀ x, ΨSqₙ(x) = 0 → Φₙ(x) ≠ 0`, and recorded that this tree obtained that weakening at `n = 2` and
 `n = 3` without any Bézout certificate — where the two `IsCoprime` instances above cost an explicit
 `Δ²` certificate and a congruence argument reusing it.  `#1184`'s planning note asks, on that
 evidence, whether the pointwise statement is therefore the cheaper **general** target and should be
 spiked first.
+
+⚠️ **The past tense is deliberate.**  The two certificate-free arguments still exist, as `example`s
+in the two downstream files, but they are no longer how those files' `hroot` instances are proved:
+both now route through this file, paying a `Δ`-certificate for a *neighbouring* pair in order to
+drop `[IsAlgClosed F]` and `(2 : F) ≠ 0`.  That trade changes nothing below — the question `#1184`'s
+note asks is about general `n`, where neither certificate is available at all.
 
 The lemmas below answer that, and the answer is **no**.  At a root of `ΨSqₙ` the identity
 `Φ_eq_neg_adjacent_add` leaves `Φₙ(x) = −preΨₙ₊₁(x) · preΨₙ₋₁(x) · Eₙ(x)`, whose square is
@@ -596,24 +608,34 @@ duplication.**  Their conclusions are the conclusions of `eval_Φ_two_ne_zero_of
 (`EllipticCurves.Torsion.DoublingSurjective`) and `eval_Φ_three_ne_zero_of_root_ΨSq`
 (`EllipticCurves.Torsion.TriplingSurjective`) — the two `hroot` instances of
 `exists_nsmul_eq_of_hasXCoordFormula` — character for character once `Affine F` is unfolded to
-`WeierstrassCurve F`, which it is by `abbrev`.  **The hypotheses are not the same**, and that is
-the point of putting them here:
+`WeierstrassCurve F`, which it is by `abbrev`.
 
-* the merged statements carry, at `n = 2` and at `n = 3` alike, `[Field F]`, `[IsAlgClosed F]`,
-  `[W.IsElliptic]` and `(2 : F) ≠ 0`;
-* the route below carries `[CommRing R]`, `[IsDomain R]` and `[W.IsElliptic]`, and nothing else.
+⚠️ **The three sentences that used to follow have been acted on and are retired.**  They read:
 
-Both readings were taken from the elaborator, not from the source.
+> **The hypotheses are not the same**, and that is the point of putting them here: the merged
+> statements carry, at `n = 2` and at `n = 3` alike, `[Field F]`, `[IsAlgClosed F]`,
+> `[W.IsElliptic]` and `(2 : F) ≠ 0`; the route below carries `[CommRing R]`, `[IsDomain R]` and
+> `[W.IsElliptic]`, and nothing else. … **Nothing is changed at either site here** — narrowing a
+> merged signature is a separate decision with its own call-site check, and this section records
+> the measurement so that decision can be made on it.
+
+That decision has been made and the call-site check run: both downstream statements now carry
+`[Field F]` and `[W.IsElliptic]` and nothing else, and each is proved by the corresponding
+`example` below, transcribed into the ambient `[Field F]`.  The remaining difference is only that
+those files fix a field where this one takes a domain.
+
+⚠️ **What the narrowing cost, recorded here because this is where the trade is visible.**  The
+merged proofs reached `hroot` through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`
+(`EllipticCurves.Torsion.ThreeTorsionStructure`), a statement about the points above an `x`, which
+is where the closure and the characteristic condition came from — and which needs **no Bézout
+certificate of any kind**.  The route below reaches it through `isCoprime_Ψ₃_Ψ₂Sq` and
+`isCoprime_preΨ₄_Ψ₃`, which carry neither hypothesis but **do** rest on the `Δ` certificates at the
+top of this file.  Both downstream files therefore keep their old proof verbatim, as an `example`
+under the old hypotheses, so that neither route leaves the tree.
 
 ⚠️ **`DoublingSurjective` imports this file directly and `TriplingSurjective` imports
-`DoublingSurjective`**, so the general route is available at both sites and the difference is a
-`#699`-class de-duplication question, not an import problem.  The merged proofs reach `hroot`
-through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` (`EllipticCurves.Torsion.ThreeTorsionStructure`), which is a
-statement about the points above an `x` and therefore carries the algebraic closure and the
-characteristic condition; the route below reaches it through `isCoprime_Ψ₃_Ψ₂Sq`, which is in this
-file and carries neither.  ⚠️ **Nothing is changed at either site here** — narrowing a merged
-signature is a separate decision with its own call-site check, and this section records the
-measurement so that decision can be made on it.
+`DoublingSurjective`**, which is what made the narrowing a `#699`-class de-duplication question
+rather than an import problem.
 
 ⚠️ **They are `example`s and not theorems** for the reason the `IsCoprime` pair above gives: the
 statements already have names downstream, and a third name on the same statement is the worse
