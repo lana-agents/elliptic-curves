@@ -327,6 +327,7 @@ import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
+import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaTwo
