@@ -6,7 +6,7 @@ Authors: The Elliptic Curves formalisation contributors
 import Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Basic
 
 /-!
-# Coprimality of division polynomials: `(Φ₂, Ψ₂Sq)`, `(Ψ₃, Ψ₂Sq)` and `(Φ₃, ΨSq₃)`
+# Coprimality of division polynomials: `(Φ₂, Ψ₂Sq)`, `(Ψ₃, Ψ₂Sq)`, `(Φ₃, ΨSq₃)`, general `n`
 
 For a Weierstrass curve `W` over a commutative ring, the division polynomials
 
@@ -41,7 +41,9 @@ needs none of it, works over an arbitrary commutative ring, and is checked by `r
 Mathlib has no coprimality statement anywhere under
 `Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/` (checked against `v4.32.0`), so
 everything here is new; it is an upstream candidate, since nothing
-below mentions function fields, places or divisors.
+below mentions function fields, places or divisors.  ⚠️ That is now truest of the general-`n`
+reduction, which uses only Mathlib's own `Φ` and `ΨSq` and holds over an arbitrary commutative
+ring: it is the piece of this file with no hypothesis to negotiate.
 
 ## Where the certificate comes from, and the one subtlety
 
@@ -79,8 +81,40 @@ So the discriminant still does all the work at `n = 3`, but only through the `n 
 **no new Bézout identity is computed**, and the two `Δ²`-certificates above remain the only ones in
 this file.
 
-## Main results
+## ⚠️ At general `n`, `Φ` is not the difficulty — and this file now says so with a theorem
 
+Mathlib *defines* `Φₙ = X · ΨSqₙ − preΨₙ₊₁ · preΨₙ₋₁ · Eₙ`, where `Eₙ` is `1` for even `n` and
+`Ψ₂Sq` for odd `n`.  Two consequences, both unconditional in `n` and in the ring:
+
+* modulo `ΨSqₙ`, `Φₙ` **is** the adjacent product `−preΨₙ₊₁ · preΨₙ₋₁ · Eₙ`
+  (`Φ_eq_neg_adjacent_add`);
+* the square of that product is `ΨSqₙ₊₁ · ΨSqₙ₋₁` (`ΨSq_succ_mul_ΨSq_pred`) — because `n + 1` and
+  `n - 1` have the same parity, so the two `if`s in `ΨSq` contribute `Eₙ²` between them.
+
+Together they give `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`:
+
+```lean
+IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n) → IsCoprime (W.Φ n) (W.ΨSq n)
+```
+
+with **no `[W.IsElliptic]`, no hypothesis on `n`, and no characteristic assumption**.  So the
+general-`n` problem is not about `Φ` at all: it is the classical statement that `ψₘ` and `ψₙ` have
+no common root when `gcd(m, n) = 1`, specialised to `m = n ± 1`.
+
+⚠️ **This proves no new coprimality.**  It transports one, and it is recorded here because the
+board had the general case filed as *"a much larger induction"* with no route written down; the
+route is now written down and the remaining obligation is a statement about `ΨSq` alone.  The two
+`example`s at the end of the file discharge that obligation at `n = 2` and `n = 3` and so recover
+both merged results through the general lemma — `n = 3` included, whose hand proof is precisely
+this argument done once by hand.
+
+## Main definitions and statements
+
+⚠️ Every public declaration of this file is listed.  Two of them are `def`s, which is why the
+heading is not `## Main results`.
+
+* `WeierstrassCurve.bezoutΦTwo` and `WeierstrassCurve.bezoutΨ₂Sq` — the two Sylvester-adjugate
+  cofactors the `Δ²` certificate is stated with;
 * `WeierstrassCurve.Φ_two_eq` — `Φ₂ = X·Ψ₂Sq − Ψ₃` (**relocated** here from
   `EllipticCurves.Torsion.DoublingSurjective`, which now imports it);
 * `WeierstrassCurve.bezout_Φ_two_Ψ₂Sq` and `WeierstrassCurve.bezout_Ψ₃_Ψ₂Sq` — the certificates;
@@ -88,7 +122,12 @@ this file.
   commutative ring;
 * **`WeierstrassCurve.isCoprime_Φ_two_Ψ₂Sq`**, **`WeierstrassCurve.isCoprime_Ψ₃_Ψ₂Sq`**,
   `WeierstrassCurve.isCoprime_preΨ₄_Ψ₃` and **`WeierstrassCurve.isCoprime_Φ_three_ΨSq_three`** —
-  the coprimality, for `[W.IsElliptic]`.
+  the coprimality, for `[W.IsElliptic]`;
+* `WeierstrassCurve.Φ_eq_neg_adjacent_add` and `WeierstrassCurve.ΨSq_succ_mul_ΨSq_pred` — the two
+  unconditional identities behind the general-`n` reduction;
+* **`WeierstrassCurve.isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`** and its two-hypothesis form
+  `WeierstrassCurve.isCoprime_Φ_ΨSq_of_isCoprime_ΨSq` — the reduction itself, at every `n : ℤ` over
+  an arbitrary commutative ring.
 
 ## What is *not* here
 
@@ -96,11 +135,28 @@ this file.
   `n = 3` certificate is a congruence, not a resultant"* above sets out — `n = 3` is **not** a
   certificate of its own: it runs through `preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul` and back to the `n = 2`
   certificate, so `bezout_Φ_two_Ψ₂Sq` and `bezout_Ψ₃_Ψ₂Sq` remain the only `Δ²`-identities here.
-  The general case is a much larger induction; it is `#1184`, and
-  `EllipticCurves.FunctionField.MulByNPlacePullback`'s rung-3 paragraph names it as one of the
-  inputs that `[F(W) : [n]∗F(W)] = n²` at general `n` still needs.
+  The general case is `#1184`, and `EllipticCurves.FunctionField.MulByNPlacePullback`'s rung-3
+  paragraph names it as one of the inputs that `[F(W) : [n]∗F(W)] = n²` at general `n` still needs.
   ⚠️ **The clause this bullet used to carry has been corrected** — it read *"each by its own ad-hoc
   certificate"*, which the section named above contradicts.
+  ⚠️ **A second clause has been narrowed**: it read *"the general case is a much larger
+  induction"*, with no route written down.  Half of it is now discharged unconditionally — see
+  *"At general `n`, `Φ` is not the difficulty"* above — and what an induction is still owed is
+  `IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)`, in which `Φ` does not appear.
+* **`IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` at general `n`** — the obligation the
+  reduction leaves, and the only thing between this file and the general case.  Neither route to it
+  is available in this development, and it is worth saying where each stops:
+  * the **root argument** — a common root would be an `x`-coordinate that is both `n`- and
+    `(n ± 1)`-torsion, hence `O`, which is not affine — needs the torsion characterisation
+    `n • P = O ↔ Ψₙ(x P) = 0` (`#251`) and a base change to `F̄`.  Neither is imported here.
+  * the **recurrence argument** runs through the divisibility structure of `preΨ`, which is
+    Mathlib's `preNormEDS (W.Ψ₂Sq ^ 2) W.Ψ₃ W.preΨ₄`.  ⚠️ That `normEDS` satisfies
+    `IsEllipticDvdSequence` is an explicit **Mathlib TODO**
+    (`Mathlib.NumberTheory.EllipticDivisibilitySequence`).  `IsEllipticDvdSequence` is
+    `IsEllipticSequence ∧ IsDvdSequence`, and its **first** conjunct is what this development
+    tracks as `#254` / `#258` / `#260`.  ⚠️ Even granted in full it yields *divisibility*, not the
+    strong-divisibility `gcd(ψₘ, ψₙ) = ψ_{gcd(m, n)}` that coprimality of neighbours needs — so it
+    is a lower bound on the work here, not a route.
 * Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`.
 * Anything about `RatFunc`, function fields, or the degree of `[n]`. The consumers are the middle
   steps of the towers computing `[F(W) : [2]∗F(W)] = 4` and `[F(W) : [3]∗F(W)] = 9`, in
@@ -239,6 +295,71 @@ theorem preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul :
       + 4 * C W.b₂ * C W.b₈ * X ^ 3 + 7 * C W.b₆ ^ 2 * X ^ 2 + 8 * C W.b₄ * C W.b₈ * X ^ 2
       + 6 * C W.b₆ * C W.b₈ * X + C W.b₈ ^ 2) * hb
 
+/-! ### The general-`n` reduction: `Φₙ` disappears
+
+Everything in this section holds over an arbitrary commutative ring, at every `n : ℤ`, with no
+`[W.IsElliptic]` and no hypothesis on `n`.  It is stated separately from the two certificates above
+because it proves no coprimality at all: it *transports* one.
+-/
+
+/-- **`Φₙ` is `X · ΨSqₙ` minus the adjacent product**, which is Mathlib's definition of `Φ`
+rearranged so that the `ΨSqₙ`-multiple is visible.
+
+Writing `Eₙ := if Even n then 1 else Ψ₂Sq`, the adjacent product is `preΨₙ₊₁ · preΨₙ₋₁ · Eₙ`. -/
+theorem Φ_eq_neg_adjacent_add (n : ℤ) :
+    W.Φ n = -(W.preΨ (n + 1) * W.preΨ (n - 1) * (if Even n then 1 else W.Ψ₂Sq))
+      + W.ΨSq n * X := by
+  rw [WeierstrassCurve.Φ]
+  ring
+
+/-- **The adjacent product is a square: `ΨSqₙ₊₁ · ΨSqₙ₋₁ = (preΨₙ₊₁ · preΨₙ₋₁ · Eₙ)²`.**
+
+`n + 1` and `n - 1` have the same parity, opposite to `n`'s, so the two `if`s in `ΨSq` fire
+together and the factor they contribute is `Ψ₂Sq²` when `n` is odd and `1` when `n` is even —
+which is exactly `Eₙ²`.  Nothing is divided by and no hypothesis on `n` is needed. -/
+theorem ΨSq_succ_mul_ΨSq_pred (n : ℤ) :
+    W.ΨSq (n + 1) * W.ΨSq (n - 1)
+      = (W.preΨ (n + 1) * W.preΨ (n - 1) * (if Even n then 1 else W.Ψ₂Sq)) ^ 2 := by
+  have hs : ¬Even (n + 1) ↔ Even n := by simp
+  have hp : ¬Even (n - 1) ↔ Even n := by simp
+  simp only [ΨSq]
+  by_cases hn : Even n
+  · rw [if_neg (by simpa [hs] using hn), if_neg (by simpa [hp] using hn), if_pos hn]
+    ring
+  · rw [if_pos (by simpa [hs] using hn), if_pos (by simpa [hp] using hn), if_neg hn]
+    ring
+
+section ImplicitW
+
+variable {W}
+
+/-- **`IsCoprime (Φₙ) (ΨSqₙ)` follows from coprimality of the *adjacent* division polynomials**,
+at every `n : ℤ`, over an arbitrary commutative ring, with no `[W.IsElliptic]`.
+
+Modulo `ΨSqₙ` the identity `Φ_eq_neg_adjacent_add` leaves `Φₙ ≡ −preΨₙ₊₁ · preΨₙ₋₁ · Eₙ`, and
+`ΨSq_succ_mul_ΨSq_pred` says the square of that product is `ΨSqₙ₊₁ · ΨSqₙ₋₁`.  A factor of a
+coprime element is coprime, so the hypothesis descends to the product itself and
+`IsCoprime.add_mul_left_left` finishes.
+
+⚠️ **This eliminates `Φ` from the general-`n` problem.**  What is left is a statement about `ΨSq`
+alone, and it is the classical *"`ψₘ` and `ψₙ` have no common root unless `gcd(m, n) > 1`"* at
+`m = n ± 1`.  That statement is **not** proved in this development at general `n`; see this file's
+`## What is *not* here`. -/
+theorem isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent {n : ℤ}
+    (h : IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)) :
+    IsCoprime (W.Φ n) (W.ΨSq n) := by
+  rw [W.ΨSq_succ_mul_ΨSq_pred n] at h
+  rw [W.Φ_eq_neg_adjacent_add n]
+  exact (h.of_isCoprime_of_dvd_left (dvd_pow_self _ two_ne_zero)).neg_left.add_mul_left_left X
+
+/-- The two-hypothesis form of `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`, which is the shape an
+induction on the recurrence would produce: `ΨSqₙ` coprime to each neighbour separately. -/
+theorem isCoprime_Φ_ΨSq_of_isCoprime_ΨSq {n : ℤ} (hs : IsCoprime (W.ΨSq (n + 1)) (W.ΨSq n))
+    (hp : IsCoprime (W.ΨSq (n - 1)) (W.ΨSq n)) : IsCoprime (W.Φ n) (W.ΨSq n) :=
+  isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent (hs.mul_left hp)
+
+end ImplicitW
+
 /-! ### Coprimality -/
 
 section IsElliptic
@@ -288,6 +409,35 @@ theorem isCoprime_Φ_three_ΨSq_three : IsCoprime (W.Φ 3) (W.ΨSq 3) := by
     exact ((W.isCoprime_preΨ₄_Ψ₃.mul_left W.isCoprime_Ψ₃_Ψ₂Sq.symm).neg_left).add_mul_left_left _
   rw [WeierstrassCurve.ΨSq_three]
   exact h.pow_right
+
+/-! #### ⚠️ The general reduction, validated at both merged indices
+
+`isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent` is unconditional, so nothing above rules out its
+hypothesis being unsatisfiable.  The two examples below discharge it at the only two indices at
+which this file proves anything, and in doing so **re-derive both merged coprimality statements
+through the general route** — including `isCoprime_Φ_three_ΨSq_three`, whose hand proof above is
+the `n = 3` instance of exactly this argument.
+
+⚠️ They are `example`s and not theorems on purpose: their statements are literally
+`isCoprime_Φ_two_Ψ₂Sq` (`ΨSq 2 = Ψ₂Sq`) and `isCoprime_Φ_three_ΨSq_three`, so naming them would put
+two names on one statement. -/
+
+/-- **The reduction at `n = 2`.**  The adjacent product is `ΨSq₃ · ΨSq₁ = Ψ₃² · 1`, so the
+hypothesis is `isCoprime_Ψ₃_Ψ₂Sq` squared. -/
+example : IsCoprime (W.Φ 2) (W.ΨSq 2) := by
+  refine isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent ?_
+  rw [show (2 : ℤ) + 1 = 3 from rfl, show (2 : ℤ) - 1 = 1 from rfl, ΨSq_three, ΨSq_one, ΨSq_two,
+    mul_one]
+  exact W.isCoprime_Ψ₃_Ψ₂Sq.pow_left
+
+/-- **The reduction at `n = 3`.**  The adjacent product is `ΨSq₄ · ΨSq₂ = preΨ₄² · Ψ₂Sq · Ψ₂Sq`
+against `ΨSq₃ = Ψ₃²`, so the hypothesis is `isCoprime_preΨ₄_Ψ₃` and `isCoprime_Ψ₃_Ψ₂Sq` — the same
+two inputs the hand proof above uses, assembled by the general lemma instead of by hand. -/
+example : IsCoprime (W.Φ 3) (W.ΨSq 3) := by
+  refine isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent ?_
+  rw [show (3 : ℤ) + 1 = 4 from rfl, show (3 : ℤ) - 1 = 2 from rfl, ΨSq_four, ΨSq_two, ΨSq_three]
+  exact ((W.isCoprime_preΨ₄_Ψ₃.pow_left.mul_left W.isCoprime_Ψ₃_Ψ₂Sq.symm).mul_left
+    W.isCoprime_Ψ₃_Ψ₂Sq.symm).pow_right
 
 end IsElliptic
 
