@@ -62,6 +62,14 @@ neither `[W.IsElliptic]` nor `[DecidableEq F]`, only `(2 : F) ≠ 0` and `(3 : F
 * `WeierstrassCurve.Affine.CoordinateRing.mulByThreeEndo`, with `mulByThreeEndo_algebraMap`,
   `mulByThreeEndo_genX`, and `mulByThreeEndo_genY`.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`mulByThreeCoordHom_X` carried `@[simp]` and **could never fire**: its LHS is `mk W (C X)`, and
+`AdjoinRoot.mk_C` — itself `@[simp]` — rewrites that to `AdjoinRoot.of W.polynomial X` before the
+pattern is tried. Measured with Mathlib's `simpNF` environment linter, which had never been run on
+this tree. The lemma is unchanged and has thirteen named consumers across three other files; only
+the attribute went.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.6, III.8.
@@ -150,7 +158,7 @@ noncomputable def mulByThreeCoordHom (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
 
 /-- Image of the `x`-generator under the multiplication-by-`3` pullback: the `x`-coordinate of
 `3 • P`. -/
-@[simp] lemma mulByThreeCoordHom_X (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+lemma mulByThreeCoordHom_X (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     mulByThreeCoordHom h2 h3 (mk W (C X)) =
       ((W.map (algebraMap F W.FunctionField)).Φ 3).eval (genX W) /
         ((W.map (algebraMap F W.FunctionField)).ΨSq 3).eval (genX W) := by

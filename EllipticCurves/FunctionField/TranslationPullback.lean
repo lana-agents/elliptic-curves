@@ -80,6 +80,14 @@ endomorphism to an `AlgEquiv`.
 The reusable crux — the generic point on the curve and the on-curve identity for `P + T` — is what
 this file establishes.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`translateCoordHom_X` carried `@[simp]` and **could never fire**: its LHS is `mk W (C X)`, and
+`AdjoinRoot.mk_C` — itself `@[simp]` — rewrites that to `AdjoinRoot.of W.polynomial X` before the
+pattern is tried. Measured with Mathlib's `simpNF` environment linter, which had never been run on
+this tree. The lemma is unchanged and still used by name here and in
+`EllipticCurves.FunctionField.TranslationEndomorphism`.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.2 (the addition law),
@@ -166,7 +174,7 @@ noncomputable def translateCoordHom (h₂ : W.Equation x₂ y₂) :
 
 open Classical in
 /-- Image of the `x`-generator under the translation pullback: the `x`-coordinate of `P + T`. -/
-@[simp] lemma translateCoordHom_X (h₂ : W.Equation x₂ y₂) :
+lemma translateCoordHom_X (h₂ : W.Equation x₂ y₂) :
     translateCoordHom h₂ (mk W (C X)) =
       (W.map (algebraMap F W.FunctionField)).addX (genX W) (algebraMap F W.FunctionField x₂)
         ((W.map (algebraMap F W.FunctionField)).slope (genX W) (algebraMap F W.FunctionField x₂)

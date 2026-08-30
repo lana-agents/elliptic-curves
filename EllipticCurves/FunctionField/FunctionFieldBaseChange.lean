@@ -87,6 +87,25 @@ not an `import`: that module sits above this one.
 element built from it — which is why the ease of that transport says nothing about the difficulty
 of this section's remaining work.
 
+## ⚠️ Eight `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
+
+`functionFieldMap_map_a₁`, `_map_a₃`, `_Φ_eval`, `_Ψ₂Sq_eval`, `_ΨSq_eval`, `_preΨ₄_eval`,
+`_preΨ_eval` and `_ψ_evalEval` all carried `@[simp]` and **none of them could ever fire**.
+Measured with Mathlib's `simpNF` environment linter, which had never been run on this tree.
+
+Each LHS mentions `W.map (algebraMap F W.FunctionField)` under a division polynomial or a
+coefficient projection. `simp` normalises bottom-up, so `WeierstrassCurve.map_a₁` / `map_a₃` /
+`map_Φ` / `map_ΨSq` / `map_Ψ₂Sq` / `map_preΨ` / `map_preΨ₄` / `map_ψ` — all `@[simp]` in Mathlib —
+rewrite that subterm first, and for the `…_eval` family `Polynomial.eval_map_algebraMap` then turns
+`eval x (p.map (algebraMap ..))` into `aeval x p`. By the time the outer pattern is tried it is
+gone, so the attribute bought nothing and cost a discrimination-tree entry on every `simp` here.
+
+⚠️ **The lemmas themselves are wanted and are unchanged.** Their consumers are the four
+`simp only [...]` lists in `functionFieldMap_mulByTwoCoordHom` and
+`functionFieldMap_mulByThreeCoordHom` below, where the competing `map_*` lemmas are *not* in the
+list, so the LHS does match and the lemma does fire. **Restating the LHS in simp normal form would
+break exactly those call sites**, which is why the repair was to drop the attribute instead.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8 (the Weil pairing).
@@ -198,7 +217,6 @@ private lemma functionFieldMap_evalEval_gen (q : W.FunctionField[X][Y]) :
   rw [← functionFieldMap_genX W K, ← functionFieldMap_genY W K]
   exact (Polynomial.map_mapRingHom_evalEval ..).symm
 
-@[simp]
 theorem functionFieldMap_map_a₁ :
     functionFieldMap W K (W.map (algebraMap F W.FunctionField)).a₁
       = ((W.map (algebraMap F K)).map
@@ -206,7 +224,6 @@ theorem functionFieldMap_map_a₁ :
   rw [← map_map_functionFieldMap]
   exact (WeierstrassCurve.map_a₁ ..).symm
 
-@[simp]
 theorem functionFieldMap_map_a₃ :
     functionFieldMap W K (W.map (algebraMap F W.FunctionField)).a₃
       = ((W.map (algebraMap F K)).map
@@ -214,7 +231,6 @@ theorem functionFieldMap_map_a₃ :
   rw [← map_map_functionFieldMap]
   exact (WeierstrassCurve.map_a₃ ..).symm
 
-@[simp]
 theorem functionFieldMap_Φ_eval (n : ℤ) :
     functionFieldMap W K (((W.map (algebraMap F W.FunctionField)).Φ n).eval (genX W))
       = (((W.map (algebraMap F K)).map
@@ -223,7 +239,6 @@ theorem functionFieldMap_Φ_eval (n : ℤ) :
   conv_rhs => rw [← map_map_functionFieldMap, WeierstrassCurve.map_Φ]
   rw [functionFieldMap_eval_genX]
 
-@[simp]
 theorem functionFieldMap_Ψ₂Sq_eval :
     functionFieldMap W K ((W.map (algebraMap F W.FunctionField)).Ψ₂Sq.eval (genX W))
       = ((W.map (algebraMap F K)).map
@@ -232,7 +247,6 @@ theorem functionFieldMap_Ψ₂Sq_eval :
   conv_rhs => rw [← map_map_functionFieldMap, WeierstrassCurve.map_Ψ₂Sq]
   rw [functionFieldMap_eval_genX]
 
-@[simp]
 theorem functionFieldMap_ΨSq_eval (n : ℤ) :
     functionFieldMap W K (((W.map (algebraMap F W.FunctionField)).ΨSq n).eval (genX W))
       = (((W.map (algebraMap F K)).map
@@ -241,7 +255,6 @@ theorem functionFieldMap_ΨSq_eval (n : ℤ) :
   conv_rhs => rw [← map_map_functionFieldMap, WeierstrassCurve.map_ΨSq]
   rw [functionFieldMap_eval_genX]
 
-@[simp]
 theorem functionFieldMap_preΨ₄_eval :
     functionFieldMap W K ((W.map (algebraMap F W.FunctionField)).preΨ₄.eval (genX W))
       = ((W.map (algebraMap F K)).map
@@ -250,7 +263,6 @@ theorem functionFieldMap_preΨ₄_eval :
   conv_rhs => rw [← map_map_functionFieldMap, WeierstrassCurve.map_preΨ₄]
   rw [functionFieldMap_eval_genX]
 
-@[simp]
 theorem functionFieldMap_preΨ_eval (n : ℤ) :
     functionFieldMap W K (((W.map (algebraMap F W.FunctionField)).preΨ n).eval (genX W))
       = (((W.map (algebraMap F K)).map
@@ -259,7 +271,6 @@ theorem functionFieldMap_preΨ_eval (n : ℤ) :
   conv_rhs => rw [← map_map_functionFieldMap, WeierstrassCurve.map_preΨ]
   rw [functionFieldMap_eval_genX]
 
-@[simp]
 theorem functionFieldMap_ψ_evalEval (n : ℤ) :
     functionFieldMap W K
         (((W.map (algebraMap F W.FunctionField)).ψ n).evalEval (genX W) (genY W))

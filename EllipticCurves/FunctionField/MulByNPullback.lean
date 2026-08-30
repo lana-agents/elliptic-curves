@@ -60,6 +60,13 @@ the validation of the route.
 * `…mulByNEndo_one`, `…mulByNEndo_two`, `…mulByNEndo_three` — the identity, `mulByTwoEndo` and
   `mulByThreeEndo`.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`pointCoordHom_X` carried `@[simp]` and **could never fire**: its LHS is `mk W (C X)`, and
+`AdjoinRoot.mk_C` — itself `@[simp]` — rewrites that to `AdjoinRoot.of W.polynomial X` before the
+pattern is tried. Measured with Mathlib's `simpNF` environment linter, which had never been run on
+this tree. The lemma is unchanged and still used by name below.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.4, III.6, III.8.
@@ -136,7 +143,7 @@ noncomputable def pointCoordHom {x y : W.FunctionField}
   AdjoinRoot.lift (eval₂RingHom (algebraMap F W.FunctionField) x) y
     (by rw [eval₂_eval₂RingHom_apply, ← map_polynomial]; exact h)
 
-@[simp] lemma pointCoordHom_X {x y : W.FunctionField}
+lemma pointCoordHom_X {x y : W.FunctionField}
     (h : (W.map (algebraMap F W.FunctionField)).Equation x y) :
     pointCoordHom h (mk W (C Polynomial.X)) = x := by
   rw [pointCoordHom, show mk W (C Polynomial.X) = AdjoinRoot.of W.polynomial Polynomial.X from rfl,

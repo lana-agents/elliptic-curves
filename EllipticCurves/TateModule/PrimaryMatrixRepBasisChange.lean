@@ -86,6 +86,13 @@ instances, and this one does too.
   general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux. What being generic buys is that
   when that gate is paid, the `ℓ = 5` file is again a list of instantiations.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`basisChangeGL_mulVec` carried `@[simp]`, and the default simp set **already proves it** — through
+`coe_basisChangeGL` and `Module.Basis.toMatrix_mulVec_repr`. Measured with Mathlib's `simpNF`
+environment linter, which had never been run on this tree. The lemma is unchanged and is still
+used by name below.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.7.
@@ -125,7 +132,6 @@ lemma coe_basisChangeGL_inv : ((basisChangeGL b b')⁻¹ : GL ι R).val = b.toMa
 
 /-- **`basisChangeGL b b'` converts `b`-coordinates into `b'`-coordinates.** This is the
 computation rule; everything else about `basisChangeGL` follows from it. -/
-@[simp]
 lemma basisChangeGL_mulVec (m : M) :
     (basisChangeGL b b' : Matrix ι ι R) *ᵥ ⇑(b.repr m) = ⇑(b'.repr m) :=
   b.toMatrix_mulVec_repr b' m

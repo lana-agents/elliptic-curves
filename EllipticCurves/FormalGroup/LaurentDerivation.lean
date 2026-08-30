@@ -29,6 +29,14 @@ formulas.
   `MvPowerSeries.pderivSnd` with the outer Laurent derivative `LaurentSeries.derivative ℤ`:
   `embedDoubleLaurent (pderivSnd φ) = derivative ℤ (embedDoubleLaurent φ)`.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`derivative_C` carried `@[simp]`, and the default simp set **already proves it** — through
+`HahnSeries.C_apply`, `derivative_apply`, `hasseDeriv_single`, `Ring.choose_one_right'` and
+`map_zero`. Measured with Mathlib's `simpNF` environment linter, which had never been run on this
+tree. The lemma is unchanged and still has four consumers outside this file; only the attribute
+went.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], IV.4, Theorem 4.2; IV.5,
@@ -129,7 +137,6 @@ theorem derivative_mul (f g : R⸨X⸩) :
   exact add_comm _ _
 
 /-- The derivative of a constant Laurent series `HahnSeries.C c` vanishes. -/
-@[simp]
 theorem derivative_C (c : R) : derivative ℤ (HahnSeries.C c : R⸨X⸩) = 0 := by
   rw [HahnSeries.C_apply, derivative_apply, hasseDeriv_single, Ring.choose_one_right,
     zero_smul, HahnSeries.single_eq_zero]

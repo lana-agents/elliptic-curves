@@ -77,6 +77,14 @@ statement that it is *all* of them — which is what makes an `F`-automorphism o
 and which `#465` needs — is rung 4 of `#639` and is not proved here.  No pullback of any kind is
 constructed.  Ward-independent, normality-independent.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`divisorProj_genX_apply_none` carried `@[simp]`, and the default simp set **already proves it** —
+through `divisorProj_apply_none` and `ordInfty_genX`. Measured with Mathlib's `simpNF` environment
+linter, which had never been run on this tree. The lemma is unchanged and still has consumers in
+`EllipticCurves.FunctionField.PlaceResidueComap` and `…PlaceResidueDegree`; only the attribute
+went.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], II.3.
@@ -399,7 +407,6 @@ theorem divisorProj_eq_single_sub_single_of_torsion [DecidableEq F] {x y : F}
 /-! ### The group is not trivial -/
 
 /-- The generic `x`-coordinate has a double pole at the point at infinity. -/
-@[simp]
 lemma divisorProj_genX_apply_none :
     divisorProj W (CoordinateRing.genX W) none = -2 := by
   rw [divisorProj_apply_none, ordInfty_genX]
