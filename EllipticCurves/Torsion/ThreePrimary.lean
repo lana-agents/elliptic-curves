@@ -14,21 +14,26 @@ import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 Over an algebraically closed field `F` with `(2 : F) ≠ 0` multiplication by `3` is surjective on
 `E(F̄)` (`EllipticCurves.Torsion.TriplingSurjective`), and over such a field with additionally
 `(3 : F) ≠ 0` the count `#E[3] = 9` is sharp
-(`EllipticCurves.Torsion.ThreeTorsionStructure`). Feeding those two facts into the divisibility
-engine of `EllipticCurves.Torsion.Divisible` — which says that `#A[m · n] = #A[m] · #A[n]` as soon
-as `[n]` is surjective on `A` — and iterating gives the whole `3`-primary part of
-the structure theorem (Silverman, *AEC*, III.6, Corollary 6.4):
+(`EllipticCurves.Torsion.ThreeTorsionStructure`). Those two facts are exactly the input of
+`EllipticCurves.Torsion.PrimaryTower`, which runs the ascent once at general `p` — through the
+divisibility engine of `EllipticCurves.Torsion.Divisible`, which says that
+`#A[m · n] = #A[m] · #A[n]` as soon as `[n]` is surjective on `A` — and iterating gives the whole
+`3`-primary part of the structure theorem (Silverman, *AEC*, III.6, Corollary 6.4):
 
 ```
 Nat.card (W.torsion (3 ^ k)) = 9 ^ k        and        W.torsion (3 ^ k) ≃+ ZMod (3^k) × ZMod (3^k).
 ```
 
-This is the exact mirror of `EllipticCurves.Torsion.TwoPrimary`, and gluing the two towers along
-the coprime factorisation `2 ^ a ⊥ 3 ^ b` extends the structure theorem from the indices
-`2 ^ k`, `3`, `2 ^ k · 3` known before this file to **every `3`-smooth `n`** — every `n` all of
-whose prime factors are `2` or `3`. In particular `#E[9] = 81` and `E[9] ≃+ ℤ/9ℤ × ℤ/9ℤ`, which is
-the first instance of the structure theorem at an *odd* prime power, and `E[36] ≃+ ℤ/36ℤ × ℤ/36ℤ`,
-the first at an index divisible by two distinct prime squares.
+⚠️ **The ascent itself is not in this file**, and neither is it in
+`EllipticCurves.Torsion.TwoPrimary`: the two were the same argument with `3` for `2`, and
+`EllipticCurves.Torsion.PrimaryTower` is that argument with the index erased. What is `n`-specific
+here — and it is all that ever was — is the pair `nsmul_three_surjective`, `card_torsion_three`.
+
+Gluing the two towers along the coprime factorisation `2 ^ a ⊥ 3 ^ b` extends the structure theorem
+from the indices `2 ^ k`, `3`, `2 ^ k · 3` known before this file to **every `3`-smooth `n`** —
+every `n` all of whose prime factors are `2` or `3`. In particular `#E[9] = 81` and
+`E[9] ≃+ ℤ/9ℤ × ℤ/9ℤ`, which is the first instance of the structure theorem at an *odd* prime power,
+and `E[36] ≃+ ℤ/36ℤ × ℤ/36ℤ`, the first at an index divisible by two distinct prime squares.
 
 ## ⚠️ The gate this file closes had been paid for a day after it was named
 
@@ -103,14 +108,19 @@ error: unsolved goals
 h2 : 2 ≠ 0
 h3 : 3 ≠ 0
 n : ℕ
-hcast : W.torsion (n * 3) = W.Point[↑n * 3]
-⊢ Nat.card ↥(W.torsion 3) * Nat.card ↥W.Point[↑n] = 9 * Nat.card ↥(W.torsion n)
+⊢ Nat.card ↥(W.torsion 3) * Nat.card ↥(W.torsion n) = 9 * Nat.card ↥(W.torsion n)
 ```
 
-The count has already *factored* — that is the divisibility engine, and it needed only `h2` — and
-what is missing is precisely the value `9`. Deleting the factorisation instead leaves the unfactored
-`⊢ Nat.card ↥W.Point[↑n * 3] = 9 * Nat.card ↥(W.torsion n)`, with nothing for the remaining
-rewrites to match.
+The count has already *factored* — that is `card_torsion_mul_of_surjective`, and it needed only
+`h2` — and what is missing is precisely the value `9`. Deleting the factorisation instead makes the
+remaining rewrite fail outright, *"did not find an occurrence of the pattern
+`Nat.card ↥(torsion ?m 3)`"*, there being no `W.torsion 3` in `#E[3n] = 9 · #E[n]` to rewrite.
+
+⚠️ This measurement was re-run when the ascent moved to `EllipticCurves.Torsion.PrimaryTower`; its
+conclusion is unchanged, but the goal it quotes is not the one the earlier proof produced — that one
+carried a `hcast` hypothesis and displayed `W.Point[↑n]` rather than `W.torsion n`. **A quoted
+compiler output is a claim about a proof that no longer exists the moment the proof is rewritten**,
+and it is invisible to every other check in this tree.
 
 ## Main statements
 
@@ -183,19 +193,12 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F}
 
 variable [IsAlgClosed F] [W.IsElliptic]
 
-/-! ## The tower `#E[3^k] = 9^k` -/
+/-! ## The tower `#E[3^k] = 9^k`
 
-/-- Multiplication by `3` on `W.Point`, with the integer scalar `(3 : ℤ)` that
-`AddSubgroup.torsionBy` uses, is surjective. This is `nsmul_three_surjective` transported along
-`natCast_zsmul`; it is the only bridge needed between `TriplingSurjective` and `Divisible`. -/
-private lemma zsmul_three_surjective (h2 : (2 : F) ≠ 0) :
-    Function.Surjective fun P : W.Point => (3 : ℤ) • P := by
-  intro Q
-  obtain ⟨P, hP⟩ := nsmul_three_surjective h2 Q
-  refine ⟨P, ?_⟩
-  change (3 : ℤ) • P = Q
-  rw [show (3 : ℤ) = ((3 : ℕ) : ℤ) from rfl, natCast_zsmul]
-  exact hP
+⚠️ **The tower itself is not built here.** `EllipticCurves.Torsion.PrimaryTower` climbs it once at
+general `p`, from surjectivity of `[p]` and the count `#E[p] = p²`; this file supplies those two at
+`p = 3`, as `nsmul_three_surjective` and `card_torsion_three`, and everything below is an
+instance. -/
 
 /-- **`#E[3n] = 9 · #E[n]`.** Multiplication by `3` is a surjection `E[3n] → E[n]` with kernel
 `E[3]`, and `#E[3] = 9`.
@@ -208,44 +211,36 @@ tree; the statement here holds for every `n`, and it is precisely the case `3 �
 coprimality — that makes the `3`-primary tower work. -/
 theorem card_torsion_mul_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (n : ℕ) :
     Nat.card (W.torsion (n * 3)) = 9 * Nat.card (W.torsion n) := by
-  have hcast : W.torsion (n * 3) = W.Point[(n : ℤ) * (3 : ℤ)] :=
-    congrArg (fun k : ℤ => W.Point[k]) (by push_cast; ring)
-  rw [hcast, AddSubgroup.card_torsionBy_mul_of_surjective (n : ℤ) (zsmul_three_surjective h2),
-    show W.Point[(3 : ℤ)] = W.torsion 3 from rfl, card_torsion_three h2 h3, mul_comm]
+  rw [card_torsion_mul_of_surjective (nsmul_three_surjective h2) n, card_torsion_three h2 h3]
 
 /-- **The `3`-primary tower: `#E[3^k] = 9^k`.** By induction from `#E[1] = 1`, each step
 multiplying by `#E[3] = 9`. Since `9 ^ k = (3 ^ k) ^ 2`, this says `E[3^k]` attains the bound
 `#E[n] ≤ n²`. -/
 theorem card_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Nat.card (W.torsion (3 ^ k)) = 9 ^ k := by
-  induction k with
-  | zero => simp [torsion_one]
-  | succ k ih =>
-    rw [pow_succ, card_torsion_mul_three h2 h3, ih, pow_succ]
-    ring
+  rw [card_torsion_pow_of_surjective (nsmul_three_surjective h2) k, card_torsion_three h2 h3]
 
 /-- `E[3^k]` is finite. This is read off the count `#E[3^k] = 9^k ≠ 0` rather than from the
 `3`-smooth finiteness of `EllipticCurves.Torsion.Multiplicative`, matching how
 `finite_torsion_two_pow` is obtained; here neither hypothesis is spurious, since both are already
 carried by the count. -/
 theorem finite_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
-    Finite (W.torsion (3 ^ k)) := by
-  have h : Nat.card (W.torsion (3 ^ k)) ≠ 0 := by
-    rw [card_torsion_three_pow h2 h3]
-    positivity
-  exact (Nat.card_ne_zero.mp h).2
+    Finite (W.torsion (3 ^ k)) :=
+  finite_torsion_pow three_ne_zero (nsmul_three_surjective h2)
+    (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-- **`#E[3^k] = 3^k · 3^k`**, the same count as `card_torsion_three_pow` in the shape every
 consumer that compares `E[3^k]` with `(ZMod (3^k))²` needs it: as a product of two copies of the
 modulus rather than as a power of `9`.
 
 ⚠️ `9 ^ k` is **not** definitionally `3 ^ k * 3 ^ k`, so the conversion is a real rewrite and not a
-`rfl`. It is stated once here rather than repeated at each call site; it is the mirror of
-`EllipticCurves.Torsion.TwoPrimary.card_torsion_two_pow_mul_self`. -/
+`rfl`. It is stated at general `p` in `EllipticCurves.Torsion.PrimaryTower` rather than repeated at
+each call site; `EllipticCurves.Torsion.TwoPrimary.card_torsion_two_pow_mul_self` is the other
+instance. -/
 theorem card_torsion_three_pow_mul_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
-    Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k := by
-  rw [card_torsion_three_pow h2 h3, ← pow_add, ← two_mul, pow_mul]
-  norm_num
+    Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k :=
+  card_torsion_pow_mul_self (nsmul_three_surjective h2)
+    (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-! ## The structure of `E[3^k]` -/
 
@@ -253,55 +248,19 @@ theorem card_torsion_three_pow_mul_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0
 `3 ≠ 0`, the `3^k`-torsion subgroup of an elliptic curve is isomorphic to `ℤ/3^kℤ × ℤ/3^kℤ`.
 
 The count `#E[3^k] = 9^k = (3^k)²` goes into the classification core
-`AddCommGroup.equiv_zmod_sq_of_card_sq`, whose rank hypothesis is checked prime by prime.
+`AddCommGroup.equiv_zmod_sq_of_card_sq`, whose rank hypothesis is checked prime by prime — and that
+check is now run once, at general `p`, in `nonempty_torsionPow_addEquiv`.
 
-⚠️ **The case split is the mirror image of the one in `nonempty_torsionTwoPow_addEquiv`, and it is
-not symmetric.** There, `p = 2` was the counting branch and every odd `p` the coprimality branch;
-here `p = 3` is the counting branch, using `#E[3] = 9`, and **every** `p ≠ 3` — including `p = 2` —
-is the coprimality branch, where an element killed by both `p` and `3 ^ k` is killed by `1`. -/
+⚠️ **This docstring used to call its case split "the mirror image" of the one in
+`nonempty_torsionTwoPow_addEquiv` and "not symmetric", and that was the shape of the abstraction
+seen from the inside.** At general prime `p` the split is `q = p` (the counting branch, using
+`#E[p] = p²`) against every `q ≠ p` (the coprimality branch, where an element killed by both `q` and
+`p ^ k` is killed by `1`). ⚠️ `Nat.prime_three` is the **only** thing this instance adds to the two
+inputs, and primality is needed for nothing else in the tower. -/
 theorem nonempty_torsionThreePow_addEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
-    Nonempty (W.torsion (3 ^ k) ≃+ ZMod (3 ^ k) × ZMod (3 ^ k)) := by
-  haveI := finite_torsion_three_pow (W := W) h2 h3 k
-  haveI := W.finite_torsion_three h3
-  have hcard : Nat.card (W.torsion (3 ^ k)) = (3 ^ k) ^ 2 := by
-    rw [card_torsion_three_pow h2 h3, ← pow_mul, mul_comm k 2, pow_mul]
-    norm_num
-  refine AddCommGroup.equiv_zmod_sq_of_card_sq (by positivity : 0 < 3 ^ k)
-    (fun a => nsmul_mem_torsion a) hcard ?_
-  intro p hp
-  rcases eq_or_ne p 3 with rfl | hp3
-  · -- an element of `E[3^k]` killed by `3` is a point of `E[3]`, and `#E[3] = 9 = 3²`
-    have hinj : Function.Injective
-        fun a : {a : W.torsion (3 ^ k) // (3 : ℕ) • a = 0} => (⟨(a.1 : W.Point), by
-          rw [mem_torsion_iff]
-          exact congrArg Subtype.val a.2⟩ : W.torsion 3) := by
-      intro a b hab
-      simp only [Subtype.mk.injEq] at hab
-      exact Subtype.ext (Subtype.ext hab)
-    calc Nat.card {a : W.torsion (3 ^ k) // (3 : ℕ) • a = 0}
-        ≤ Nat.card (W.torsion 3) := Nat.card_le_card_of_injective _ hinj
-      _ = 3 ^ 2 := by rw [card_torsion_three h2 h3]; norm_num
-  · -- for a prime `p ≠ 3`, an element of `E[3^k]` killed by `p` is killed by `1`
-    have hcop : IsCoprime (p : ℤ) ((3 : ℤ) ^ k) := by
-      have hnat : Nat.Coprime p (3 ^ k) :=
-        Nat.Coprime.pow_right k ((Nat.coprime_primes hp Nat.prime_three).mpr hp3)
-      simpa using Nat.isCoprime_iff_coprime.mpr hnat
-    obtain ⟨u, v, huv⟩ := hcop
-    have hzero : ∀ a : W.torsion (3 ^ k), (p : ℕ) • a = 0 → a = 0 := by
-      intro a ha
-      have hpa : (p : ℤ) • a = 0 := by rw [show (p : ℤ) = ((p : ℕ) : ℤ) from rfl, natCast_zsmul, ha]
-      have hka : ((3 : ℤ) ^ k) • a = 0 := by
-        rw [show ((3 : ℤ) ^ k) = (((3 ^ k : ℕ)) : ℤ) by push_cast; ring, natCast_zsmul]
-        exact nsmul_mem_torsion a
-      have h1 : ((1 : ℤ)) • a = 0 := by
-        rw [← huv, add_smul, mul_smul, mul_smul, hpa, hka, smul_zero, smul_zero, add_zero]
-      simpa using h1
-    have hcard1 : Nat.card {a : W.torsion (3 ^ k) // (p : ℕ) • a = 0} = 1 := by
-      rw [Nat.card_eq_one_iff_unique]
-      exact ⟨⟨fun a b => Subtype.ext ((hzero a.1 a.2).trans (hzero b.1 b.2).symm)⟩,
-        ⟨⟨0, by simp⟩⟩⟩
-    rw [hcard1]
-    exact Nat.one_le_pow 2 p hp.pos
+    Nonempty (W.torsion (3 ^ k) ≃+ ZMod (3 ^ k) × ZMod (3 ^ k)) :=
+  nonempty_torsionPow_addEquiv Nat.prime_three (nsmul_three_surjective h2)
+    (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-! ## Named instances -/
 

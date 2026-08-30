@@ -332,6 +332,7 @@ import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.PrimaryBasis
+import EllipticCurves.Torsion.PrimaryTower
 import EllipticCurves.Torsion.ThreePrimary
 import EllipticCurves.Torsion.ThreePrimaryBasis
 import EllipticCurves.Torsion.ThreeTorsion
