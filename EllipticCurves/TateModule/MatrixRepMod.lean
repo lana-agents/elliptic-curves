@@ -88,8 +88,17 @@ not mention the curve.
 ⚠️ **This is not `det ρ_{E,n} = χ_n`.**  `det_galoisRepModMatrix` identifies two determinants of the
 *same* representation.  The cyclotomic character is the Weil pairing, and the identification
 `galoisDetMod 3 = χ_3` lives in `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`
-(`#958`), one directory away and downstream of this one — composing the two is a statement for a
-`FunctionField/` file, not for this one.
+(`#958`), one directory away and downstream of this one.
+
+⚠️ **The clause that used to end that paragraph — *"composing the two is a statement for a
+`FunctionField/` file, not for this one"* — has been acted on and is RETIRED.**  The composition is
+`det_galoisRepModMatrix_three_eq_galoisModularCyclotomicChar` in
+`EllipticCurves.FunctionField.MatrixRepDeterminantCharacter` (`#1260`), which imports this file and
+`WeilPairingDeterminantCharacter` and is a leaf: **nothing here or elsewhere under `TateModule/`
+imports it**, and the sentence above about where the identification lives is unchanged and still
+right.  What that file adds beyond the composition is the consequence neither half can state —
+given a `σ` with `χ_3(σ) ≠ 1`, the image of `ρ_{E,3}` is not contained in `SL₂(ℤ/3)`, which needs a
+matrix and a `Matrix.SpecialLinearGroup` and therefore cannot live under `TateModule/` either.
 
 **`#951` is not subsumed, and the reason is structural.**
 `EllipticCurves.FunctionField.WeilPairingDeterminant` proves `a * d − b * c ≡ χ_n(σ)` with the four
