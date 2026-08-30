@@ -58,13 +58,22 @@ Run the second suite with:
 lake lint            # auto-detects the default target, `EllipticCurves`
 ```
 
-It takes about 17 s on top of a warm build (measured; also 15 s on a CI runner),
-and prints `-- Linting passed for EllipticCurves.` when clean.
+It takes roughly 10–20 s on top of a warm build (measured: ~11 s locally, 15–18 s on a
+CI runner), and prints `-- Linting passed for EllipticCurves.` when clean.
 
-CI runs it on every push and pull request: `leanprover/lean-action@v1` probes for a
-lint driver and runs `lake lint` itself when it finds one. **The driver is the single
-line `lintDriver = "batteries/runLinter"` in `lakefile.toml`** — remove it and both
-`lake lint` and the CI gate silently become no-ops, with no error and no warning.
+CI runs it on every push and pull request: `leanprover/lean-action@v1` probes with
+`lake check-lint` and runs `lake lint` itself when it finds a driver. **The driver is the
+single line `lintDriver = "batteries/runLinter"` in `lakefile.toml`**, and it is
+load-bearing. Remove it and the two halves behave very differently:
+
+* `lake lint` **fails loudly** — `error: no lint driver configured and builtin linting
+  is disabled`, exit 1. Locally you cannot miss it.
+* CI, under `lean-action`'s default `lint: default`, would **not**: the probe fails, the
+  action logs `lake check-lint failed -> will not run lake lint`, and the job stays green
+  with the suite never run. That is the silent failure mode, and it is why the workflow
+  passes `lint: "true"` explicitly — that setting turns a missing driver into
+  `::error::lake check-lint failed: could not find a lint driver` and a red job, rather
+  than a skipped step.
 
 That silence is not hypothetical: the suite had never been run on this repository at
 all, and when it first was, it reported 53 findings — 33 `@[simp]` lemmas whose

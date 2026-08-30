@@ -6,8 +6,10 @@ defaultTargets = ["EllipticCurves"]
 # `lake lint` runs Mathlib's environment linters (`simpNF`, `unusedArguments`,
 # `defsWithUnderscore`, `synTaut`, `docBlame`, …) through Batteries' driver.  These are *not* the
 # `weak.linter.mathlibStandardSet` linters below: those fire during elaboration and are syntactic,
-# these run as a post-hoc pass over the elaborated environment.  Without this line `lake lint` is a
-# no-op, which is why the suite had never been run here before `#1277`.
+# these run as a post-hoc pass over the elaborated environment.  Without this line `lake lint` fails
+# with `no lint driver configured` (exit 1) and CI's `lean-action` lint step is skipped — which is
+# why the suite had never been run here before `#1277`.  ⚠️ Deleting it un-gates CI, so the workflow
+# passes `lint: "true"` to make that a hard failure; see the `## Linting` section of README.md.
 lintDriver = "batteries/runLinter"
 
 [leanOptions]
