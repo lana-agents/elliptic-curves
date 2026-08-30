@@ -230,7 +230,11 @@ algebraic closure and no hypothesis on `(2 : F)`**.
 `n = 3` instance of `eval_Φ_ne_zero_of_eval_ΨSq_ne_zero`
 (`EllipticCurves.DivisionPolynomial.Coprime`) and its inputs are `isCoprime_preΨ₄_Ψ₃` and
 `isCoprime_Ψ₃_Ψ₂Sq` read at a root — the same two inputs the hand proof of
-`isCoprime_Φ_three_ΨSq_three` uses, one point at a time.
+`isCoprime_Φ_three_ΨSq_three` uses, one point at a time.  Reading a coprimality at a root is
+`Polynomial.eval_ne_zero_of_isCoprime`, in the same file.  ⚠️ **The proof below used to open with a
+local `have key : ∀ {a b : F[X]}, IsCoprime a b → b.eval x = 0 → a.eval x ≠ 0`**, which was that
+lemma restated inside a proof because it was `private` where it lived; `#1255` made it public and
+the local copy is gone.
 
 This is the `hroot` hypothesis of `exists_nsmul_eq_of_hasXCoordFormula` at `n = 3`.  ⚠️ The degree
 count and the root extraction that used to stand here are `n`-independent and are now
@@ -242,16 +246,13 @@ theorem eval_Φ_three_ne_zero_of_root_ΨSq [W.IsElliptic] (x : F)
     refine pow_eq_zero_iff two_ne_zero |>.mp ?_
     rw [← eval_pow, ← ΨSq_three]
     exact hx
-  have key : ∀ {a b : F[X]}, IsCoprime a b → b.eval x = 0 → a.eval x ≠ 0 := by
-    intro a b h hb
-    have h' := Polynomial.aeval_ne_zero_of_isCoprime (S := F) h x
-    simpa [Polynomial.coe_aeval_eq_eval, hb] using h'
   refine eval_Φ_ne_zero_of_eval_ΨSq_ne_zero hx ?_ ?_
   · rw [show (3 : ℤ) + 1 = 4 from rfl, ΨSq_four, eval_mul, eval_pow]
-    exact mul_ne_zero (pow_ne_zero _ (key W.isCoprime_preΨ₄_Ψ₃ h3))
-      (key W.isCoprime_Ψ₃_Ψ₂Sq.symm h3)
+    exact mul_ne_zero
+      (pow_ne_zero _ (Polynomial.eval_ne_zero_of_isCoprime W.isCoprime_preΨ₄_Ψ₃ h3))
+      (Polynomial.eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq.symm h3)
   · rw [show (3 : ℤ) - 1 = 2 from rfl, ΨSq_two]
-    exact key W.isCoprime_Ψ₃_Ψ₂Sq.symm h3
+    exact Polynomial.eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq.symm h3
 
 /-- **The geometric route to input (2), retained.**  This is the proof
 `eval_Φ_three_ne_zero_of_root_ΨSq` used to carry, verbatim, under the two hypotheses it used to

@@ -157,14 +157,29 @@ surjectivity engine below needs only the conclusion.
 certificate"*.  That was true of the instances as they were merged and is no longer true of them:
 both now route through `EllipticCurves.DivisionPolynomial.Coprime`, which is what let them drop
 `[IsAlgClosed F]` and `(2 : F) ≠ 0`.  The certificate-free proofs survive as `example`s beside
-them.  Nothing in this file changed with them, and `#1184` is still not in its import closure. -/
+them.  Nothing in this file changed with them, and `#1184` is still not in its import closure.
+
+⚠️ **The proof used to unfold the Bézout witness by hand** — `obtain ⟨a, b, hab⟩ := h`, then
+`congrArg (Polynomial.eval x)` and eight `eval_*` rewrites to reach `1 = 0`.  Not a step of that
+used `Φ` or `ΨSq`: it was a reproof of Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`,
+specialised in the statement only.  `#1255` replaced it by a derivation from that lemma, which
+needs **no new import** — it is already in scope here.
+
+⚠️ **The statement stays specialised to `(Φₙ, ΨSqₙ)`, and that was a decision** (`#1255`, item 2),
+not an oversight.  An environment census — walking `env.constants` and testing `getUsedConstants`
+over every value *and* type — reports **zero** consumers, so there is no call site pulling either
+way and the tie is broken on reading.  Two reasons for the specialised form: it is named for what
+it bridges, `#1184`'s `IsCoprime` into the `hroot` hypothesis below, and it reads that way at the
+call site; and the general form is already a public lemma in this tree,
+`Polynomial.eval_ne_zero_of_isCoprime` (`EllipticCurves.DivisionPolynomial.Coprime`), which this
+file **cannot see** — restating it here would turn a specialisation into a literal duplicate, which
+is the worse of the two shapes.  See *"The de-duplication question, decided"* in that file for the
+priced alternatives. -/
 lemma eval_Φ_ne_zero_of_isCoprime {n : ℕ} (h : IsCoprime (W.Φ n) (W.ΨSq n)) {x : F}
     (hx : (W.ΨSq n).eval x = 0) : (W.Φ n).eval x ≠ 0 := by
-  obtain ⟨a, b, hab⟩ := h
-  intro h0
-  have heval := congrArg (Polynomial.eval x) hab
-  rw [eval_add, eval_mul, eval_mul, h0, hx, mul_zero, mul_zero, add_zero, eval_one] at heval
-  exact zero_ne_one heval
+  have h' := Polynomial.aeval_ne_zero_of_isCoprime (S := F) h x
+  simp only [Polynomial.coe_aeval_eq_eval] at h'
+  exact h'.resolve_right (not_not.mpr hx)
 
 /-! ## The coordinate formula as a hypothesis -/
 

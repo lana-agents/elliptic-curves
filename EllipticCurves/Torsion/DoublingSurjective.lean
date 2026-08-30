@@ -134,17 +134,18 @@ algebraic closure and no hypothesis on `(2 : F)`**.
 `ΨSq₃ = Ψ₃²` and `ΨSq₁ = 1` are the factors adjacent to `ΨSq₂ = Ψ₂Sq`, so this is the `n = 2`
 instance of `eval_Φ_ne_zero_of_eval_ΨSq_ne_zero`
 (`EllipticCurves.DivisionPolynomial.Coprime`) and its only input is `isCoprime_Ψ₃_Ψ₂Sq` read at a
-root, through Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`.
+root, through `Polynomial.eval_ne_zero_of_isCoprime` in that same file.  ⚠️ **This docstring used
+to say *"through Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`"***, which was accurate when the
+step was inlined here; `#1255` made the `eval`-shaped adapter public rather than leave a third
+inline copy of it, and Mathlib's `aeval` lemma is now reached one step further away.
 
 This is the `hroot` hypothesis of `exists_nsmul_eq_of_hasXCoordFormula` at `n = 2`.  For the
 geometric route that this replaced, and for what the replacement costs, see *"The hypotheses of
 input (2)"* above and the `example` below. -/
 theorem eval_Φ_two_ne_zero_of_root_ΨSq [W.IsElliptic] (x : F)
     (hx : (W.ΨSq 2).eval x = 0) : (W.Φ 2).eval x ≠ 0 := by
-  have hΨ₃ : W.Ψ₃.eval x ≠ 0 := by
-    have h := Polynomial.aeval_ne_zero_of_isCoprime (S := F) W.isCoprime_Ψ₃_Ψ₂Sq x
-    rw [ΨSq_two] at hx
-    simpa [Polynomial.coe_aeval_eq_eval, hx] using h
+  have hΨ₃ : W.Ψ₃.eval x ≠ 0 :=
+    Polynomial.eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq (by rwa [ΨSq_two] at hx)
   refine eval_Φ_ne_zero_of_eval_ΨSq_ne_zero hx ?_ ?_
   · rw [show (2 : ℤ) + 1 = 3 from rfl, ΨSq_three, eval_pow]
     exact pow_ne_zero _ hΨ₃

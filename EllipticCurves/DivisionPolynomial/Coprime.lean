@@ -153,11 +153,60 @@ here, in `EllipticCurves.Torsion.DoublingSurjective` and
 Nothing in this file moved: the two `example`s stay `example`s, and what they measure is now what
 the two downstream theorems say.
 
+## The de-duplication question, decided (`#1255`)
+
+`Polynomial.eval_ne_zero_of_isCoprime` at the top of this file used to be `private`, and its
+docstring used to end:
+
+> ⚠️ `private` because it is not this file's subject and because it already exists twice — once in
+> Mathlib in the `aeval` shape it is derived from here, and once hand-proved as
+> `eval_Φ_ne_zero_of_isCoprime` (`EllipticCurves.Torsion.NsmulSurjective`), which specialises it to
+> `(Φₙ, ΨSqₙ)` and reproves it from the Bézout witness.  That duplication is a `#699`-class
+> question about a file outside this one's import closure, so it is recorded here and not acted on.
+
+⚠️ **That sentence is RETIRED: it has been acted on, and what it recorded was an undercount.**
+The census at `68fd254` — read from source, not inferred from names — found **five** sites, not
+three, because PR #465 had since inlined the same step twice more:
+
+1. `Polynomial.aeval_ne_zero_of_isCoprime`, Mathlib — the mathematics; `aeval`, a disjunction.
+2. the helper above, in this file — the general `eval` adapter, two lines, and it was `private`.
+3. `eval_Φ_ne_zero_of_isCoprime` (`EllipticCurves.Torsion.NsmulSurjective`) — specialised to
+   `(Φₙ, ΨSqₙ)`, and a **six-line reproof** that unfolded the Bézout witness by hand.
+4. `eval_Φ_three_ne_zero_of_root_ΨSq` (`EllipticCurves.Torsion.TriplingSurjective`) — a local
+   `have key`, the general adapter restated *inside a proof*.
+5. `eval_Φ_two_ne_zero_of_root_ΨSq` (`EllipticCurves.Torsion.DoublingSurjective`) — the same step
+   inlined at its single use.
+
+**Sites 4 and 5 are gone**, and they cost nothing to remove: both files already import this one, so
+de-privatising the helper — the option the `#699`-class framing did not enumerate — was purely
+subtractive, with **no new import in any file**.  Site 3 stays, and stays *specialised*; what
+changed there is that its six-line unfolding of the Bézout witness is now a two-line derivation
+from Mathlib, so it is an **adapter and not a reproof**.
+
+⚠️ **Two copies remain and that is the decision, not an omission.**  After the above there is
+exactly one general `eval` adapter in this tree (the one above) and one specialised statement that
+cannot see it — `EllipticCurves.Torsion.NsmulSurjective` is **not** in this file's dependents and
+this file imports nothing from the project, so they are siblings with no meet.  The two routes that
+would remove the second copy were priced and both rejected:
+
+* **Upstream an `eval` form to Mathlib** and consume it from both.  The only route that genuinely
+  removes a copy — and the helper above is stated and named for exactly that — but it is not this
+  tree's to land, so it cannot be this issue's deliverable.
+* **A new shared low-level file** imported by this one and by `NsmulSurjective`.  Measured at
+  `68fd254`: this file's `EllipticCurves`-import closure is **0** and `NsmulSurjective`'s is **7**,
+  containing no common module.  A new leaf would take them to **1** and **8** — spending this
+  file's empty-closure property — and would remove **no** declaration at all, since the specialised
+  statement stays either way and its proof is two lines from Mathlib or one line from a shared
+  home.  Not worth it.
+
 ## Main definitions and statements
 
 ⚠️ Every public declaration of this file is listed.  Two of them are `def`s, which is why the
-heading is not `## Main results`.
+heading is not `## Main results`.  All but the first are in namespace `WeierstrassCurve`.
 
+* `Polynomial.eval_ne_zero_of_isCoprime` — coprime polynomials have no common root, in `eval`
+  form: the only declaration here that mentions no curve, and the only one in namespace
+  `Polynomial`.  See *"The de-duplication question, decided"* above for why it lives in this file;
 * `WeierstrassCurve.bezoutΦTwo` and `WeierstrassCurve.bezoutΨ₂Sq` — the two Sylvester-adjugate
   cofactors the `Δ²` certificate is stated with;
 * `WeierstrassCurve.Φ_two_eq` — `Φ₂ = X·Ψ₂Sq − Ψ₃` (**relocated** here from
@@ -234,6 +283,36 @@ open Polynomial
 
 local macro "C_simp" : tactic =>
   `(tactic| simp only [map_ofNat, C_0, C_1, C_neg, C_add, C_sub, C_mul, C_pow])
+
+/-! ## The `eval` shadow of `Polynomial.aeval_ne_zero_of_isCoprime`
+
+⚠️ **Not about elliptic curves**, and the only declaration in this file that is not.  It is here
+because every consumer of it in this tree is downstream of this file and there is nowhere cheaper
+to put it — see *"The de-duplication question, decided"* in the module docstring. -/
+
+namespace Polynomial
+
+/-- **Coprime polynomials have no common root**, in `eval` form.
+
+Mathlib has this as `Polynomial.aeval_ne_zero_of_isCoprime`, whose conclusion is the disjunction
+`aeval s p ≠ 0 ∨ aeval s q ≠ 0` over an arbitrary `Nontrivial` algebra; at `S = R` the two shapes
+differ by `Polynomial.coe_aeval_eq_eval` and by discharging one side of the disjunction from the
+hypothesis.  ⚠️ **Mathlib has no `eval`-shaped form**: grepped at `v4.32.0`, the `aeval` lemma has
+its declaration in `Mathlib/Algebra/Polynomial/RingDivision.lean` and exactly three uses
+(`FieldTheory/IsAlgClosed/Basic`, `FieldTheory/RatFunc/Luroth`,
+`FieldTheory/SplittingField/Construction`), none of them an `eval` restatement.  So this two-line
+adapter is the whole content, and it is an upstream candidate exactly as it stands.
+
+⚠️ **This is deliberately in namespace `Polynomial` and not in `WeierstrassCurve`**, because
+nothing about it mentions a curve: it is stated for arbitrary `a b : R[X]` over an arbitrary
+`Nontrivial` commutative semiring, which is strictly more general than the `[CommRing R]
+[IsDomain R]` the section that used to hold it supplies. -/
+theorem eval_ne_zero_of_isCoprime {R : Type*} [CommSemiring R] [Nontrivial R] {a b : R[X]}
+    (h : IsCoprime a b) {x : R} (hb : b.eval x = 0) : a.eval x ≠ 0 := by
+  have h' := Polynomial.aeval_ne_zero_of_isCoprime (S := R) h x
+  simpa [Polynomial.coe_aeval_eq_eval, hb] using h'
+
+end Polynomial
 
 namespace WeierstrassCurve
 
@@ -643,26 +722,17 @@ outcome.
 
 ⚠️ **`[IsDomain R]` appears here and nowhere else in this file**, and it is spent in three places,
 none of them in a general statement: `pow_ne_zero` at `n = 2`, `pow_eq_zero_iff` extracting
-`Ψ₃(x) = 0` from `ΨSq₃(x) = 0` at `n = 3` — both `NoZeroDivisors` — and `Nontrivial` inside the
-`IsCoprime`-to-root helper below, without which `1 = 0` is not a contradiction.  The general lemmas
-above ask for `NoZeroDivisors` at most, and two of the four ask for nothing beyond `CommRing`. -/
+`Ψ₃(x) = 0` from `ΨSq₃(x) = 0` at `n = 3` — both `NoZeroDivisors` — and `Nontrivial` for
+`Polynomial.eval_ne_zero_of_isCoprime`, without which `1 = 0` is not a contradiction.  ⚠️ **That
+last clause used to read *"`Nontrivial` inside the `IsCoprime`-to-root helper below"***, and the
+word *below* is no longer right: `#1255` made that helper public and moved it to the top of this
+file, where it is stated at `[CommSemiring R] [Nontrivial R]` and asks for no domain at all.  The
+general lemmas above ask for `NoZeroDivisors` at most, and two of the four ask for nothing beyond
+`CommRing`. -/
 
 section Domain
 
 variable [IsDomain R]
-
-/-- The `eval` shadow of Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`: coprime polynomials have
-no common root.
-
-⚠️ `private` because it is not this file's subject and because it already exists twice — once in
-Mathlib in the `aeval` shape it is derived from here, and once hand-proved as
-`eval_Φ_ne_zero_of_isCoprime` (`EllipticCurves.Torsion.NsmulSurjective`), which specialises it to
-`(Φₙ, ΨSqₙ)` and reproves it from the Bézout witness.  That duplication is a `#699`-class question
-about a file outside this one's import closure, so it is recorded here and not acted on. -/
-private theorem eval_ne_zero_of_isCoprime {a b : R[X]} (h : IsCoprime a b) {x : R}
-    (hb : b.eval x = 0) : a.eval x ≠ 0 := by
-  have h' := Polynomial.aeval_ne_zero_of_isCoprime (S := R) h x
-  simpa [Polynomial.coe_aeval_eq_eval, hb] using h'
 
 /-- **The pointwise reduction at `n = 2`.**  The adjacent product is `ΨSq₃ · ΨSq₁ = Ψ₃² · 1`, so the
 hypothesis is `isCoprime_Ψ₃_Ψ₂Sq` read at the root — the same input the `IsCoprime` example above
