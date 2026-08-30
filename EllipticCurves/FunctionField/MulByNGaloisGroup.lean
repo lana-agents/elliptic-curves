@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FunctionField.MulByNGalois
+import EllipticCurves.Galois.SubfieldAut
 
 /-!
 # `Gal(F(W) / [n]∗F(W)) ≃* E[n]`: the Galois group is the group of translations
@@ -58,16 +59,26 @@ What Mathlib gives has `FixedPoints.subfield (E[n]) F(W)` as its base field, and
 theorems `fixedPoints_subfield_eq_mulByNEndoFieldRange` (`#1233`),
 `fixedPoints_subfield_eq_mulByTwoEndoFieldRange` (`#759`) and
 `fixedPoints_subfield_eq_mulByThreeEndoFieldRange` (`#775`) say that subfield **is** `[n]∗F(W)`.  So
-the only thing that had to be built is `Subfield.autMulEquivOfEq`, below.
+the only thing that had to be built is `Subfield.autMulEquivOfEq`.
 
-## `Subfield.autMulEquivOfEq` is curve-free, and Mathlib has no name for it
+## ⚠️ `Subfield.autMulEquivOfEq` is curve-free, and it no longer lives here
 
-`S = T` in `Subfield K` gives `(K ≃ₐ[S] K) ≃* (K ≃ₐ[T] K)`.  ⚠️ Grepped before writing it:
-`AlgEquiv.autCongr` moves the **top** field over a fixed base and is not this;
-`IntermediateField.equivOfEq` is an `AlgEquiv` between the two subfields themselves, not between
-their automorphism groups; and there is no hit for a base-changing `autCongr` anywhere in Mathlib.
-The section that holds it says in its own docstring that nothing about elliptic curves enters, and
-it is an upstream candidate.
+⚠️ **This heading used to read** *"`Subfield.autMulEquivOfEq` is curve-free, and Mathlib has no name
+for it"*, **and the sentence above it used to end** *"the only thing that had to be built is
+`Subfield.autMulEquivOfEq`, **below**"*.  The word *below* was true of this file until the
+declaration acquired a second consumer.  `EllipticCurves.FunctionField.NegYGaloisGroup` — a file
+about the hyperelliptic involution, which needs **none** of the `[n]∗` front and carries neither
+`[IsAlgClosed F]` nor a condition on the characteristic — could not reach it without importing this
+one, and paid the whole `[n]∗` closure for a six-line helper.
+
+So the declaration and its two `apply` lemmas now live in `EllipticCurves.Galois.SubfieldAut`, a
+leaf that imports nothing from this development and states the Mathlib-has-no-name-for-it argument
+itself.  ⚠️ **That argument is unchanged and still holds**: `AlgEquiv.autCongr` moves the **top**
+field over a fixed base and is not this, `IntermediateField.equivOfEq` is an `AlgEquiv` between the
+two subfields themselves rather than between their automorphism groups, and there is no hit for a
+base-changing `autCongr` anywhere in Mathlib.  This file imports that leaf and consumes the helper
+below exactly as before; no statement, proof or hypothesis here changed, and this file's own
+`EllipticCurves`-import closure grew by exactly the one leaf, from **70** modules to **71**.
 
 ## ⚠️ The two presentations of `[n]∗F(W)` give the *same type* here — no second declaration
 
@@ -92,19 +103,19 @@ hypotheses, and each is **sharper** than the general-`n` one at its index.
 
 ## Main definitions
 
-Every public declaration of this file is listed, here and under `## Main statements`.
-`Subfield.autMulEquivOfEq` and its two `apply` lemmas are in namespace `Subfield`; everything else
-is in namespace `WeierstrassCurve.Affine.CoordinateRing`.
+Every public declaration of this file is listed, here and under `## Main statements`.  Everything is
+in namespace `WeierstrassCurve.Affine.CoordinateRing`.  ⚠️ **This paragraph used to continue**
+*"`Subfield.autMulEquivOfEq` and its two `apply` lemmas are in namespace `Subfield`; everything else
+is in namespace …"*, **and the list below used to open with** *"`Subfield.autMulEquivOfEq` —
+transport of `Aut K` along an equality of base subfields"*.  Those three declarations moved to
+`EllipticCurves.Galois.SubfieldAut`; they are consumed here and no longer defined here.
 
-* `Subfield.autMulEquivOfEq` — transport of `Aut K` along an equality of base subfields;
 * `torsionNMulGaloisEquiv` — `E[n] ≃* Gal(F(W) / [n]∗F(W))` at every `3`-smooth `n ≠ 0`;
 * `torsionTwoMulGaloisEquiv`, `torsionThreeMulGaloisEquiv` — the same at `n = 2` and `n = 3`, at the
   merged hypotheses.
 
 ## Main statements
 
-* `Subfield.autMulEquivOfEq_apply` and `Subfield.autMulEquivOfEq_symm_apply` — the transport is the
-  identity on underlying functions;
 * `torsionNMulGaloisEquiv_apply`, `torsionTwoMulGaloisEquiv_apply`,
   `torsionThreeMulGaloisEquiv_apply` — the isomorphism **is** translation, by `rfl`;
 * `exists_mem_torsion_translateAut_eq_of_smooth`, `exists_mem_torsion_two_translateAut_eq`,
@@ -154,40 +165,6 @@ tree, which this file makes false.
 -/
 
 open Module Polynomial
-
-/-! ### Transport of the automorphism group along an equality of base subfields
-
-⚠️ **Nothing about elliptic curves enters this section.**  It is stated for an arbitrary field `K`
-and an arbitrary pair of equal subfields, and it is an upstream candidate: Mathlib has
-`AlgEquiv.autCongr` for a change of the *top* field and `IntermediateField.equivOfEq` for an
-`AlgEquiv` between the subfields themselves, but nothing that moves the base of an automorphism
-group along an equality. -/
-
-namespace Subfield
-
-variable {K : Type*} [Field K] {S T : Subfield K}
-
-/-- **Equal base subfields give isomorphic automorphism groups**, by the identity on underlying
-functions.
-
-An `S`-algebra automorphism of `K` is a ring automorphism that fixes `S` pointwise, and `S = T` says
-the two subsets are the same, so nothing is transported except the proof obligation.  The
-`MulEquiv` is therefore built out of `AlgEquiv.ofRingEquiv` in both directions and all three
-coherence fields are `rfl`. -/
-def autMulEquivOfEq (hST : S = T) : (K ≃ₐ[↥S] K) ≃* (K ≃ₐ[↥T] K) where
-  toFun e := AlgEquiv.ofRingEquiv (f := (e : K ≃+* K)) fun r => e.commutes ⟨r, hST.ge r.2⟩
-  invFun e := AlgEquiv.ofRingEquiv (f := (e : K ≃+* K)) fun r => e.commutes ⟨r, hST.le r.2⟩
-  left_inv _ := rfl
-  right_inv _ := rfl
-  map_mul' _ _ := rfl
-
-@[simp] lemma autMulEquivOfEq_apply (hST : S = T) (e : K ≃ₐ[↥S] K) (x : K) :
-    autMulEquivOfEq hST e x = e x := rfl
-
-@[simp] lemma autMulEquivOfEq_symm_apply (hST : S = T) (e : K ≃ₐ[↥T] K) (x : K) :
-    (autMulEquivOfEq hST).symm e x = e x := rfl
-
-end Subfield
 
 namespace WeierstrassCurve.Affine
 
