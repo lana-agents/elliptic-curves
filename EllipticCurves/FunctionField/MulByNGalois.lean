@@ -114,10 +114,17 @@ and then applies whatever wanted `[IsGalois ↥(mulByNEndo n h).fieldRange F(W)]
 
 ## What is *not* here
 
-* **`Gal(F(W) / [n]∗F(W)) ≅ E[n]` as a group.**  `IsGalois` is delivered; the Galois *group* is not
-  identified with `E[n]`.  Both merged Galois files decline the same identification and name their
-  own sandwich as what it would start from; `fixedFieldN_eq_mulByNFieldRange` is that starting point
-  here.  ⚠️ The equality of subfields is **not** the group isomorphism and must not be read as one.
+* ⚠️ **`Gal(F(W) / [n]∗F(W)) ≃* E[n]` as a group — RETIRED, it landed.**  This bullet used to read
+  *"`IsGalois` is delivered; the Galois *group* is not identified with `E[n]`.  Both merged Galois
+  files decline the same identification and name their own sandwich as what it would start from;
+  `fixedFieldN_eq_mulByNFieldRange` is that starting point here."*  The identification is
+  `torsionNMulGaloisEquiv` in `EllipticCurves.FunctionField.MulByNGaloisGroup`, and it starts from
+  `fixedPoints_subfield_eq_mulByNEndoFieldRange` below — the `Subfield` form of the sandwich, not
+  the `IntermediateField` one this bullet nominated, because `FixedPoints.toAlgAutMulEquiv` has a
+  `Subfield` base.  ⚠️ **The warning the bullet ended with stands and is worth keeping**: the
+  equality of subfields is *not* the group isomorphism.  What turns one into the other is Mathlib's
+  `FixedPoints.toAlgAutMulEquiv` — Artin's theorem in its bijective form — and the equality only
+  says which field the resulting group is over.
 * **Nothing at `n = 5`.**  Both outer degrees are `3`-smooth — `card_torsion_eq_sq_of_smooth` and
   `#1213`'s degree — so the sandwich has no side there.  The composition law manufactures no new
   prime and `IsGalois` does not either.

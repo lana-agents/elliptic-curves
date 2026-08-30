@@ -127,9 +127,14 @@ shape as `finite_torsionTwoMul` in `TranslationAction`, and for the same reason.
   `card_torsion_eq_sq_of_smooth`.  Keep using the names below at `n = 2`.
 * The fundamental identity (`#755`), and the module-finiteness of an integral closure that consumes
   this (`#754`).  Nothing below mentions places, divisors or `ProjPoint`.
-* Any statement about `Gal(F(W) / [2]∗F(W))` as a group — `IsGalois` is delivered, its Galois
-  *group* is not identified with `E[2]` here, though `fixedFieldTwo_eq_mulByTwoFieldRange` is what
-  such an identification would start from.
+* ⚠️ Any statement about `Gal(F(W) / [2]∗F(W))` as a group — **RETIRED, it landed.**  This bullet
+  used to read *"`IsGalois` is delivered, its Galois *group* is not identified with `E[2]` here,
+  though `fixedFieldTwo_eq_mulByTwoFieldRange` is what such an identification would start from."*
+  It is `torsionTwoMulGaloisEquiv` in `EllipticCurves.FunctionField.MulByNGaloisGroup`, built on
+  `fixedPoints_subfield_eq_mulByTwoEndoFieldRange` below rather than on the `IntermediateField`
+  form the bullet nominated.  ⚠️ **Still `n = 2`-specific, and for the reason above**: the
+  general-`n` equivalence carries `(3 : F) ≠ 0` as well, so it does not subsume the `n = 2` one and
+  this file's inputs remain the sharp ones at this index.
 
 ## References
 
