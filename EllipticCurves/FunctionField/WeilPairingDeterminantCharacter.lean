@@ -108,8 +108,14 @@ EllipticCurves/TateModule/` is empty, and this file's own imports cross the othe
   stating `free_torsion_three`.  ⚠️ It is also **not** the `ℓ`-adic `galoisDetTwo = χ_2` over
   `ℤ_[2]`, which is a genuine theorem and remains open: it needs the pairing at every level
   `E[2 ^ k]`, and this development has it at `k = 1` only.
-* **General `n`.**  Only `n = 3` is available, because only `n = 3` has `finrank_torsion_three`,
-  which in turn has only `card_torsion_three`.
+* **General `n`.**  Only `n = 3` is available.  ⚠️ **The reason this bullet used to give is spent
+  and the restriction is not.**  It read *"because only `n = 3` has `finrank_torsion_three`, which
+  in turn has only `card_torsion_three`"*, and both halves have been paid:
+  `card_torsion_eq_sq_of_smooth` gives `#E[n] = n²` and
+  `EllipticCurves.TateModule.DeterminantModSmooth`'s `finrank_torsion_of_smooth` (`#1240`) gives the
+  rank, at every `3`-smooth `n > 1`.  What confines this file to `n = 3` is now the **pairing**:
+  `weilPairingThree` and its `n = 2` twin are all this development has, and no rank statement
+  manufactures one.
 * **A `Gal(F/S)`-stable basis.**  Does not exist in general and is not needed; see the note above on
   why the headline mentions no basis.
 * **The trace and the characteristic polynomial** mod `n`.  No consumer.

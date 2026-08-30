@@ -111,12 +111,18 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
 
 ## Scope
 
-* **`n = 3` only.**  ⚠️ The `n = 2` analogue is *not* stated, and the reason is infrastructural
-  rather than mathematical: `EllipticCurves.TateModule.DeterminantMod` supplies
-  `finrank_torsion_three` and `finite_torsion_three_zmod` and has **no `n = 2` counterpart** — a
-  tree-wide grep for `finrank_torsion_two`, `basisTorsionTwo` and `finite_torsion_two_zmod` finds
-  no declaration by any of those names, in this module or anywhere else — so there is no
-  `ZMod 2`-basis of `E[2]` to run the argument against.  ⚠️ It is
+* **`n = 3` only.**  ⚠️ The `n = 2` analogue is *not* stated.  This bullet used to say the reason
+  was infrastructural rather than mathematical, namely that
+  `EllipticCurves.TateModule.DeterminantMod` supplies `finrank_torsion_three` and
+  `finite_torsion_three_zmod` and *"has **no `n = 2` counterpart** — a tree-wide grep for
+  `finrank_torsion_two`, `basisTorsionTwo` and `finite_torsion_two_zmod` finds no declaration by any
+  of those names, in this module or anywhere else — so there is no `ZMod 2`-basis of `E[2]` to run
+  the argument against."*  ⚠️ **That grep now returns three hits and the infrastructural reason is
+  spent**: `EllipticCurves.TateModule.DeterminantModSmooth` (`#1240`) states
+  `finrank_torsion_two`, `finite_torsion_two_zmod` and `basisTorsionTwo` under those exact names.
+  ⚠️ **That does not make the `n = 2` analogue available**, and nothing here should be read as
+  saying so: the missing basis was one blocker, the argument of this file is the other, and only the
+  first has been removed.  ⚠️ It is
   worth recording that the `n = 2` statement would **not** be content-free, contrary to the usual
   reading: `(ZMod 2)ˣ` is trivial, so the *equivalence* version degenerates to "every automorphism
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
