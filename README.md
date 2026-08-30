@@ -42,11 +42,13 @@ hold at small or restricted indices rather than in general.
   degree-zero theorem and the class group, the places of the projective curve, and the
   multiplication-by-`n` and translation-by-a-point pullbacks.
 * **The Weil pairing** `eₙ : E[n] × E[n] → μₙ` (`FunctionField/WeilPairing*.lean`) —
-  the pairing element is built from the divisor theory above at a general `n`; as a
-  function of two torsion points, with bilinearity, antisymmetry, the alternating
-  property, non-degeneracy, perfectness, Galois equivariance and the identification of
-  `det ρ_{E,n}` with the cyclotomic character `χₙ`, it is developed at `n = 2` and
-  `n = 3`.
+  the divisor-theoretic engine that extracts an `n`-th root of a function from an
+  `n`-divisible divisor is stated at a general `n` (`NthRootOfPullback.lean`), but the
+  root `g_S` it is applied to is constructed at `n = 2` and `n = 3` only, and so is
+  everything downstream of it: the pairing as a function of two torsion points, its
+  bilinearity, antisymmetry, the alternating property, non-degeneracy, perfectness,
+  Galois equivariance and the identification of `det ρ_{E,n}` with the cyclotomic
+  character `χₙ`.
 * **The Weierstrass formal group** (`FormalGroup/`) — the coordinate series `x(z)`,
   `y(z)`, the formal group law `F_E` as a genuine bivariate power series with its
   commutativity and associativity, the formal logarithm and exponential, the
