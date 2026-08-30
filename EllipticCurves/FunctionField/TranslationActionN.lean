@@ -78,6 +78,12 @@ where the value of the whole route is: `#1219` already has the separability by a
 `EllipticCurves.FunctionField.MulByNSeparable` records that a tower **cannot** reach `Normal`,
 normality not being transitive, and names this action as the missing method.
 
+⚠️ **The close has landed**, in `EllipticCurves.FunctionField.MulByNGalois` (`#1233`), which
+consumes `card_torsionNMul` and `mulByNRange_le_fixedPoints` below.  Everything in the paragraph
+above stays true — this file is still the first half, and the split is still what makes each half
+short — but *"the close is where the value is"* is now a description of a merged file rather than of
+a plan.
+
 ## The `DecidableEq F` convention
 
 The group law on `W.Point` is data-dependent on a `DecidableEq F` instance (Mathlib's `Point.add`
@@ -108,9 +114,12 @@ Every public declaration of this file is listed, and all are in namespace
 ## ⚠️ What is *not* here
 
 * **The reverse inclusion, and so no `Normal`, no `IsGalois`, and no `Fixed(E[n]) = [n]∗F(W)`.**
-  That is Artin's theorem against `#1213`'s degree and is a sibling issue, exactly as
+  That is Artin's theorem against `#1213`'s degree, and it is **not in this file**, exactly as
   `TranslationActionThree` splits from `EllipticCurves.FunctionField.MulByThreeGalois` — keeping
-  the split is what makes each half short.  ⚠️ Note that the inclusion proved here carries **no**
+  the split is what makes each half short.  ⚠️ **This bullet used to call it "a sibling issue"; it
+  is now a sibling *file*** — `EllipticCurves.FunctionField.MulByNGalois` (`#1233`), which imports
+  this one and consumes `card_torsionNMul` and `mulByNRange_le_fixedPoints`.  The scope statement is
+  unchanged: nothing below proves it.  ⚠️ Note that the inclusion proved here carries **no**
   `[IsAlgClosed F]` while the equality must, since one of its two degrees does.
 * **Nothing at `n = 5` in the count.**  `card_torsion_eq_sq_of_smooth` is `3`-smooth and this file
   manufactures no new prime.  The action, the faithfulness and the inclusion are unaffected — they
@@ -266,11 +275,16 @@ open Classical in
 every `n` at which `[n]` is non-constant and over an arbitrary base field.
 
 The reverse inclusion is a degree count — Artin's theorem against `#1213`'s
-`finrank_mulByNFieldRange_of_smooth` — and is **not** proved here; it is the general-`n` analogue of
-`fixedPoints_subfield_eq_mulByThreeFieldRange`
-(`EllipticCurves.FunctionField.MulByThreeGalois`), it carries `[IsAlgClosed F]` and `3`-smoothness,
-and it is a sibling issue.  ⚠️ Neither hypothesis appears in this statement's own signature, and
-that asymmetry is the point of splitting the two. -/
+`finrank_mulByNFieldRange_of_smooth` — and is **not** proved here; it is
+`fixedPoints_subfield_eq_mulByNEndoFieldRange` (`EllipticCurves.FunctionField.MulByNGalois`,
+`#1233`), the general-`n` analogue of `fixedPoints_subfield_eq_mulByThreeEndoFieldRange`
+(`EllipticCurves.FunctionField.MulByThreeGalois`), and it carries `[IsAlgClosed F]` and
+`3`-smoothness.  ⚠️ Neither hypothesis appears in this statement's own signature, and that asymmetry
+is the point of splitting the two.
+
+⚠️ **The `Three` name above is a correction**: this docstring shipped citing
+`fixedPoints_subfield_eq_mulByThreeFieldRange`, which is not a declaration in this tree — the
+`n = 3` statement has `Endo` in the middle, as the `Subfield` presentation always does here. -/
 theorem mulByNRange_le_fixedPoints (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) :
     (mulByNEndo (W := W) n hn).range

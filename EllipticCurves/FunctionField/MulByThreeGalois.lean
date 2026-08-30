@@ -105,8 +105,15 @@ Same shape as `finite_torsionThreeMul` in `TranslationActionThree`, and for the 
   separability with `MulByTwoGalois`'s along `[m · n]∗ = [m]∗ ∘ [n]∗` (`#1213`), and separability is
   transitive in towers, so `Algebra.IsSeparable ([n]∗F(W)) F(W)` holds at every `n` whose prime
   factors are `2` and `3` — waiting on none of those four.  What they gate is the *general* `n`, and
-  the first index at which they are needed is `n = 5`.  ⚠️ `Normal` and `IsGalois` do **not** come
-  along, because normality is not transitive; see that file.
+  the first index at which they are needed is `n = 5`.  ⚠️ **This bullet used to end *"`Normal` and
+  `IsGalois` do not come along, because normality is not transitive; see that file"*, and the reason
+  is still correct while the conclusion is not.**  Normality does not travel up `#1219`'s tower; but
+  `EllipticCurves.FunctionField.MulByNGalois` (`#1233`) gets it at every `3`-smooth `n` anyway, by
+  the general-`n` mirror of *this file's* argument — Artin's theorem against the `E[n]` translation
+  action of `EllipticCurves.FunctionField.TranslationActionN` (`#1232`) — which is not a tower and
+  is not obstructed.  ⚠️ The general-`n` package carries the same hypotheses as this file's at
+  `n = 3` and no fewer, so nothing below is superseded; `isGalois_mulByNFieldRange_three` certifies
+  that the two agree.
 * Non-degeneracy of `e_3` (`#419`), which is what consumes this.  Nothing below mentions the
   Weil pairing, places, divisors or `ProjPoint`.
 * Any statement about `Gal(F(W) / [3]∗F(W))` as a group — `IsGalois` is delivered, its Galois
