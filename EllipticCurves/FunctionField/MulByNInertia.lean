@@ -79,8 +79,13 @@ is narrower and still worth having:
   `n` can use it.  `residueDegreeN_three` (`EllipticCurves.FunctionField.MulByNResidueDegree`) and
   `sum_ramificationIdxN_mul_residueDegreeN_three` below are the bridge, and
   `sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero` is the
-  `[3]`-indexed statement they buy — which is, verbatim, what that file's `## What is not here`
-  says is still absent.
+  `[3]`-indexed statement they buy — which is, verbatim, what `MulByThreeResidueDegree`'s `## Scope`
+  section **used to say** is still absent.  ⚠️ **It no longer does, and the section is `## Scope`
+  and never was a `## What is not here`.**  That bullet was retired in the same commit that created
+  this file (`4a30e82`, `#1221`) and now names
+  `sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero` — i.e. this file — as exactly what
+  supplies it.  The citation is kept because it is the *reason* the statement below is written in
+  the `[3]`-indexing at all; it is not a live gap.
 
 At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `…_of_charZero`
 (`PlaceInertiaGeneral`) already say everything below at that index; the content there is the bridge
@@ -432,11 +437,15 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_three (h2 : (2 : F) ≠ 0) (h3 :
 /-- **`∑_{p ↦ q} e_p · f_p = 9` for `[3]∗` in characteristic zero** — the `[3]`-indexed weighted
 identity **without** `[IsAlgClosed F]`.
 
-⚠️ `EllipticCurves.FunctionField.MulByThreeResidueDegree` names exactly this as what is still
-absent, in a `## What is not here` bullet: *"what is still absent here is a `[3]` weighted identity
-without `[IsAlgClosed F]`"*.  It is the previous bridge composed with
-`sum_ramificationIdxN_mul_residueDegreeN_of_charZero` at `n = 3`, and it is stated here rather than
-left as a two-step so that the bullet can be retired against a name.
+⚠️ `EllipticCurves.FunctionField.MulByThreeResidueDegree` **named** exactly this as what was
+still absent, in what is its `## Scope` section (not a `## What is not here` — that file has no such
+heading): *"what is still absent *here* is a `[3]` weighted identity without `[IsAlgClosed F]`"*.
+It is the previous bridge composed with `sum_ramificationIdxN_mul_residueDegreeN_of_charZero` at
+`n = 3`, and it is stated here rather than left as a two-step so that the bullet could be retired
+against a name.  ⚠️ **It was — in the same commit (`4a30e82`) that added this file, which is why
+the quotation above is historical from the moment it was written.**  That bullet now reads *"the
+clause this bullet used to carry said it was absent, full stop, and that is now false of the
+tree"*, and names this declaration.  Do not go looking for the quoted sentence.
 
 The `n = 3` mirror of `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_charZero`
 (`EllipticCurves.FunctionField.PlaceInertiaGeneral`), which had none. -/

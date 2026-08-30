@@ -86,8 +86,10 @@ element of `F(x)` is not being a *written-down* rational function.  **Second**,
 `EllipticCurves.DivisionPolynomial.Coprime` has it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
 merged) by a Bézout certificate against `Δ²`, and at `n = 3` by the congruence
 `preΨ₄² ≡ Ψ₂Sq⁴ (mod Ψ₃)` reducing to that same `n = 2` certificate rather than to a new one — that
-file computes no second `Δ²` identity — and its own *"What is not here"* calls the general case an
-open induction.  ⚠️ After `#446` the statement that induction is owed on is
+file computes no second `Δ²` identity — and its own `## What is *not* here` **used to call** the
+general case *"a much larger induction"*.  ⚠️ **`#1184` narrowed that bullet and this citation of
+it was not refreshed**; the bullet's current form is the next sentence here.  ⚠️ After `#446` the
+statement that induction is owed on is
 `IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` and no longer mentions `Φ`:
 `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent` reduces this **Second** item to that one
 unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`,
