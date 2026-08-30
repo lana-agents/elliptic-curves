@@ -311,6 +311,7 @@ import EllipticCurves.TateModule.MatrixRepBasisChange
 import EllipticCurves.TateModule.MatrixRepBasisChangeThree
 import EllipticCurves.TateModule.MatrixRepCompat
 import EllipticCurves.TateModule.MatrixRepCompatThree
+import EllipticCurves.TateModule.MatrixRepMod
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.PadicInverseLimit
