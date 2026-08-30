@@ -36,8 +36,11 @@ public declarations, and the eight `padicPair…` names are consumed **unspecial
   system — coherence is essential and is not supplied by the structure theorem:
   `E[3^k] ≃+ (ZMod (3^k))²` holds at each level *independently*, and a family of unrelated
   isomorphisms says nothing about an inverse limit;
-* `card_torsion_three_pow_mul_self` and `finite_torsion_three_pow`
-  (`EllipticCurves.Torsion.ThreePrimary`).
+* `card_torsion_three_pow_mul_self` (`EllipticCurves.Torsion.ThreePrimary`). ⚠️ This bullet used
+  to name `finite_torsion_three_pow` alongside it, and this file used to pass it to all four
+  statements below. That hypothesis was dead all the way up the chain —
+  `torsionPairHom_bijective_of_card` needed only the finiteness of the *domain* `ZMod n × ZMod n` —
+  and was removed in `#1272`; nothing here uses `finite_torsion_three_pow` any more.
 
 ⚠️ **Two hypotheses, not one.** Where the `ℓ = 2` file `EllipticCurves.TateModule.Free` carries only
 `h2`, everything here carries both `h2` and `h3`, and the provenance is not symmetric:
@@ -220,26 +223,26 @@ structure theorem `nonempty_torsionThreePow_addEquiv` gives is an isomorphism at
 relation between levels, and no amount of that supplies this. -/
 theorem nonempty_tateModuleEquivProd_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Nonempty (W.tateModule 3 ≃ₗ[ℤ_[3]] ℤ_[3] × ℤ_[3]) :=
-  nonempty_tateModuleEquivProd_of_card (finite_torsion_three_pow h2 h3)
+  nonempty_tateModuleEquivProd_of_card
     (card_torsion_three_pow_mul_self h2 h3) (exists_compatible_basis_three h2 h3)
 
 /-- **`T₃E` is a free `ℤ_[3]`-module** (Silverman, *AEC*, III.7.1 at `ℓ = 3`). -/
 theorem free_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.Free ℤ_[3] (W.tateModule 3) :=
-  free_tateModule_of_card (finite_torsion_three_pow h2 h3)
+  free_tateModule_of_card
     (card_torsion_three_pow_mul_self h2 h3) (exists_compatible_basis_three h2 h3)
 
 /-- **`T₃E` has rank two over `ℤ_[3]`.** -/
 theorem finrank_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.finrank ℤ_[3] (W.tateModule 3) = 2 :=
-  finrank_tateModule_of_card (finite_torsion_three_pow h2 h3)
+  finrank_tateModule_of_card
     (card_torsion_three_pow_mul_self h2 h3) (exists_compatible_basis_three h2 h3)
 
 /-- **`T₃E` is a finitely generated `ℤ_[3]`-module.** Free of rank two, so in particular finite as
 a module; this is the shape `ρ_{E,3} : G_F → GL₂(ℤ_3)` would need. -/
 theorem finite_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.Finite ℤ_[3] (W.tateModule 3) :=
-  finite_tateModule_of_card (finite_torsion_three_pow h2 h3)
+  finite_tateModule_of_card
     (card_torsion_three_pow_mul_self h2 h3) (exists_compatible_basis_three h2 h3)
 
 end Three

@@ -252,8 +252,14 @@ variable {m n R : Type*} [TopologicalSpace R]
 
 /-- **A matrix space over a compact space is compact.** `Matrix m n R` is definitionally
 `m → n → R`, but instance search does not unfold the synonym, so `Pi.compactSpace` never fires and
-`CompactSpace (Matrix (Fin 2) (Fin 2) ℤ_[2])` is not found without this. Upstreamable. -/
-instance instCompactSpace [Finite m] [Finite n] [CompactSpace R] : CompactSpace (Matrix m n R) :=
+`CompactSpace (Matrix (Fin 2) (Fin 2) ℤ_[2])` is not found without this. Upstreamable.
+
+⚠️ **This instance used to carry `[Finite m] [Finite n]` and both were dead** — neither occurred in
+the remainder of the type nor in the value, measured on the elaborated environment at `2e44940`
+(`#1272`).  `Pi.compactSpace` is **Tychonoff**: an arbitrary product of compact spaces is compact,
+with no cardinality condition on the index. Dropping them matters for the upstream candidacy this
+docstring already claims — an instance with unnecessary hypotheses simply fires less often. -/
+instance instCompactSpace [CompactSpace R] : CompactSpace (Matrix m n R) :=
   inferInstanceAs (CompactSpace (m → n → R))
 
 /-- **A matrix space over a totally disconnected space is totally disconnected.** Same synonym
