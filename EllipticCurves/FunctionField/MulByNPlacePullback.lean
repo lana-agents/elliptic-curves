@@ -49,6 +49,19 @@ paragraph originally called (i) *"the cheapest visible follow-up"* and said the 
 exist**; it had checked `NegYInvolution`, where it indeed is not, and missed `NegYGalois`, where it
 was already merged.
 
+⚠️ **And the tower itself is no longer index-specific.**
+`EllipticCurves.FunctionField.MulByNDegreeTower` proves
+
+```
+[F(W) : [n]∗F(W)] = [F(x) : F(nMulRatFunc W n)]        for every n,
+```
+
+with no coprimality, no `(n : F) ≠ 0`, no written-down fraction and no `[IsAlgClosed F]` — the
+`finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange` this paragraph names are `example`s
+of it there.  ⚠️ So what is gated is **not the tower**: it is the *number on the right-hand side*,
+and that is exactly the three items below.  Nothing in this paragraph's list has been discharged by
+that file, and it proves no degree at any `n` outside `{2, 3}`.
+
 ⚠️ **What (ii) still needs is *not* the degrees.**  `natDegree_Φ` and `natDegree_ΨSq` are
 **Mathlib**'s at general `n` (`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`,
 the first over any nontrivial ring, the second under `(n : F) ≠ 0`), and `MulByThreePlacePullback`
@@ -62,8 +75,11 @@ element of `F(x)` is not being a *written-down* rational function.  **Second**,
 merged) by a Bézout certificate against `Δ²`, and at `n = 3` by the congruence
 `preΨ₄² ≡ Ψ₂Sq⁴ (mod Ψ₃)` reducing to that same `n = 2` certificate rather than to a new one — that
 file computes no second `Δ²` identity — and its own *"What is not here"* calls the general case an
-open induction.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`, the same side condition the rung-4
-paragraph below shows `mulByNEndo` does not carry.
+open induction.  ⚠️ After `#446` the statement that induction is owed on is
+`IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` and no longer mentions `Φ`:
+`isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent` reduces this **Second** item to that one
+unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`,
+the same side condition the rung-4 paragraph below shows `mulByNEndo` does not carry.
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
 result, not a gap**.  `ordInfty_mulByTwoEndo_genX`
