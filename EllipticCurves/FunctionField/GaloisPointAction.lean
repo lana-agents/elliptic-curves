@@ -142,13 +142,21 @@ open Point
 
 variable [W.IsElliptic] [DecidableEq F]
 
+omit [W.IsElliptic] in
 /-- **The closed-point map is `Gal(F/S)`-equivariant for the action `ρ` uses.**  If `σ` carries the
 affine point `(x, y)` to `(x', y')`, then `galoisPoint σ` carries the closed point of the first to
 the closed point of the second.
 
 This is `galoisPoint_pointClosedPoint` (`#635`) with its `equation_algEquiv` hypothesis replaced by
 point data, and it is the form a divisor-level computation of `det ρ` needs: `galoisPoint` is what
-acts on `divisor`, and `σ •` is what acts on `E(F)`. -/
+acts on `divisor`, and `σ •` is what acts on `E(F)`.
+
+⚠️ **`[W.IsElliptic]` is `omit`ted rather than absent from the section.**  It is on the `variable`
+line above because the rest of this section needs it; this theorem does not, and it did not before
+either — what changed is that `galoisPoint_pointClosedPoint`
+(`EllipticCurves.FunctionField.GaloisClosedPoint`) dropped a dead `[W.IsElliptic]` in `#1272`, so
+the instance stopped being reachable through the one step this proof takes and the
+`unusedSectionVars` linter began reporting it.  The `omit` is the linter's own suggested repair. -/
 theorem galoisPoint_pointClosedPoint_smul (σ : F ≃ₐ[S] F) {x y x' y' : F}
     (h : (W⁄F).Nonsingular x y) (h' : (W⁄F).Nonsingular x' y')
     (hP : σ • (Point.some x y h) = Point.some x' y' h') :

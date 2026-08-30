@@ -88,9 +88,16 @@ theorem hasMultiplicativeReduction_and_not_split_iff_not_isSquare
 reduction has either split multiplicative reduction or non-split multiplicative reduction
 (`mult ∧ ¬split`) — the two cases are exhaustive, and being contradictory they are exclusive.  In
 residue characteristic `≠ 2` which case holds is governed by whether `−c̃₆` is a square, via
-`hasMultiplicativeReduction_and_not_split_iff_not_isSquare_neg_c₆`. -/
+`hasMultiplicativeReduction_and_not_split_iff_not_isSquare_neg_c₆`.
+
+⚠️ **This statement used to carry `[IsMinimal R W]` and it was dead** — the instance occurred in
+neither the remainder of the type nor the proof term, measured on the elaborated environment at
+`2e44940` (`#1272`).  The dichotomy is `rcases em _`, i.e. excluded middle on
+`HasSplitMultiplicativeReduction`, and neither predicate takes minimality as an instance argument.
+⚠️ The two `iff` results above it **do** use `[IsMinimal R W]`; this is the one that does not, and
+the asymmetry is the point rather than an oversight. -/
 theorem HasMultiplicativeReduction.hasSplitMultiplicativeReduction_or_not
-    {W : WeierstrassCurve K} [IsMinimal R W] (hmult : W.HasMultiplicativeReduction R) :
+    {W : WeierstrassCurve K} (hmult : W.HasMultiplicativeReduction R) :
     W.HasSplitMultiplicativeReduction R ∨
       (W.HasMultiplicativeReduction R ∧ ¬ W.HasSplitMultiplicativeReduction R) := by
   rcases em (W.HasSplitMultiplicativeReduction R) with h | h

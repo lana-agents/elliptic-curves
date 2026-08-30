@@ -60,7 +60,11 @@ the addition law never appear: the only group-law input is the relation `hsum` i
   out distinct closed points (the non-vacuity backbone: without it the statement below could be
   vacuously symmetric).  `EllipticCurves.FunctionField.GaloisClosedPoint` has the same fact under
   the name `pointClosedPoint_inj`, but only for a base-changed curve `W⁄F`; the statement here is
-  for an arbitrary `W : Affine F`, hence the different name;
+  for an arbitrary `W : Affine F`, hence the different name.  ⚠️ It **used to carry**
+  `[IsDedekindDomain W.CoordinateRing]`, which was dead — the instance occurred in neither the
+  remainder of its type nor its proof term, measured on the elaborated environment at `2e44940`
+  (`#1272`) — so the binder is gone and the statement holds for an arbitrary coordinate ring.  Its
+  proof is `XYIdeal_inj` against `pointClosedPoint_asIdeal` and nothing else;
 * `WeierstrassCurve.Affine.CoordinateRing.translateAlgEquiv_mul` — `τ_P ∘ τ_Q = τ_R` whenever
   `P ⊕ Q = R`, as automorphisms;
 * **`WeierstrassCurve.Affine.mapProjPoint_translateAlgEquiv_pointClosedPoint_affine`** — the
@@ -147,7 +151,7 @@ theorem XYIdeal_inj {x' y' : F} (h : W.Equation x y)
 /-- **The point-to-closed-point map is injective.**  Without this, a statement of the form
 "`τ_S` sends the closed point of `P` to the closed point of `R`" would carry no information: the two
 closed points could coincide for trivial reasons. -/
-theorem eq_of_pointClosedPoint_eq [IsDedekindDomain W.CoordinateRing] {x' y' : F}
+theorem eq_of_pointClosedPoint_eq {x' y' : F}
     (h : W.Equation x y) (h' : W.Equation x' y')
     (hEq : pointClosedPoint h = pointClosedPoint h') : x = x' ∧ y = y' :=
   XYIdeal_inj h (by

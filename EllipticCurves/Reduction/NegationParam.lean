@@ -54,8 +54,16 @@ variable {K : Type*} [Field K] [Algebra R K] [IsFractionRing R K]
 
 /-- **The local parameter of a negated point on the pole branch.**  Negation fixes the
 `x`-coordinate, so `-P = (x, negY x y)` still has `1 < v x` and takes the genuine `-x/y` branch of
-`localParam`, giving `z(-P) = -x / negY x y`. -/
-theorem localParam_neg_some (W : WeierstrassCurve K) [IsIntegral R W]
+`localParam`, giving `z(-P) = -x / negY x y`.
+
+⚠️ **This statement used to carry `[IsIntegral R W]` and it was dead** — the instance occurred in
+neither the remainder of the type nor the proof term, measured on the elaborated environment at
+`2e44940` (`#1272`).  `localParam` itself takes no integrality hypothesis, and the proof is
+`Affine.Point.neg_some` followed by `localParam_some` and the `if_pos` on the same branch
+condition.  ⚠️ The integral model is still what makes the *statement interesting* — it is where
+`1 < v x` comes from in practice — and every other declaration in this file that mentions a
+reduction keeps it. -/
+theorem localParam_neg_some (W : WeierstrassCurve K)
     {x y : K} (h : W.toAffine.Nonsingular x y)
     (hx : 1 < valuation K (maximalIdeal R) x) :
     localParam R W (-(.some x y h)) = -x / W.toAffine.negY x y := by

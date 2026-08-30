@@ -50,6 +50,30 @@ fixes the two coordinate generators of `F[W⁄F]` and acts by `σ` on the consta
   for those, so that the `Gal(F/S)`-set of affine closed points is identified with the affine
   points: `galoisPoint σ (pointClosedPoint h₂) = pointClosedPoint (σ·h₂)`.
 
+## ⚠️ Three of the statements below are not statements about elliptic curves (`#1272`)
+
+`mapEquiv_galoisCoordRing_pointClosedPoint`, `pointClosedPoint_congr` and `pointClosedPoint_inj`
+**used to carry `[W.IsElliptic]`**, and it was dead: measured on the elaborated environment at
+`2e44940` — the instance's de Bruijn variable occurred in neither the remainder of the type nor the
+proof term of any of the three — so the binder was deleted and each statement became strictly more
+general at no cost.  What they actually rest on is `XYIdeal_inj`, `ker_evalEvalHom` and
+`map_XYIdeal_galoisCoordRing`, none of which asks for `Δ ≠ 0`.
+
+⚠️ **`[W.IsElliptic]` is not decoration everywhere on this front** — in
+`EllipticCurves.FunctionField.NegYGalois` it is exactly what makes the hyperelliptic involution
+differ from the identity in characteristic `2`, and every statement there is false without it.  The
+claim here is a measurement, not a policy, and it is about exactly the declarations that carry no
+`[W.IsElliptic]` today.
+
+⚠️ **And the boundary inside this very file is not where a reader would guess.**  Deleting the
+instance from `divisor_galoisFunctionField_of_eq_single`, `divisor_eq_equivMapDomain_of_eq_single`
+and `exists_generator_divisor_galois` as well — they look identical in shape to the ones above and
+the detector did **not** flag them — fails to elaborate, with `failed to synthesize instance of
+type class IsDedekindDomain (W⁄F).CoordinateRing` at fourteen positions.  Those three mention
+`divisor`, and `[W.IsElliptic]` is the only route to the Dedekind instance the `divisor` group
+needs; the ones above mention only `pointClosedPoint` and `XYIdeal`, which do not.  **The
+measurement is the boundary; visual similarity is not.**
+
 ## Scope
 
 Nothing here touches the translation slot: `translateEndo` does not preserve `F[W]`, is not
@@ -135,7 +159,7 @@ lemma map_XYIdeal_galoisCoordRing (σ : F ≃ₐ[S] F) (x y : F) :
 `HeightOneSpectrum (W⁄F).CoordinateRing` induced by `galoisCoordRing σ` — the one along which
 divisors are transported in `EllipticCurves.FunctionField.DivisorTransport` — sends the closed point
 cut out by `(x₂, y₂)` to the closed point cut out by `(σ x₂, σ y₂)`. -/
-theorem mapEquiv_galoisCoordRing_pointClosedPoint [W.IsElliptic] (σ : F ≃ₐ[S] F)
+theorem mapEquiv_galoisCoordRing_pointClosedPoint (σ : F ≃ₐ[S] F)
     (h₂ : (W⁄F).Equation x₂ y₂) :
     mapEquiv (galoisCoordRing σ) (pointClosedPoint h₂)
       = pointClosedPoint (equation_algEquiv σ h₂) := by
@@ -145,7 +169,7 @@ theorem mapEquiv_galoisCoordRing_pointClosedPoint [W.IsElliptic] (σ : F ≃ₐ[
 
 /-- The closed point of an affine point depends only on the point, not on the proof that it lies on
 the curve. -/
-lemma pointClosedPoint_congr [W.IsElliptic] {x y x' y' : F} (h : (W⁄F).Equation x y)
+lemma pointClosedPoint_congr {x y x' y' : F} (h : (W⁄F).Equation x y)
     (h' : (W⁄F).Equation x' y') (hx : x = x') (hy : y = y') :
     pointClosedPoint h = pointClosedPoint h' := by
   subst hx; subst hy; rfl
@@ -153,7 +177,7 @@ lemma pointClosedPoint_congr [W.IsElliptic] {x y x' y' : F} (h : (W⁄F).Equatio
 /-- **A closed point determines its affine point.** Two affine points of `W⁄F` cutting out the same
 closed point are equal: the ideal `⟨X - x, Y - y⟩` is the kernel of evaluation at `(x, y)`
 (`ker_evalEvalHom`), and `X - x` evaluated at `(x', y')` is `x' - x`. -/
-theorem pointClosedPoint_inj [W.IsElliptic] {x y x' y' : F} (h : (W⁄F).Equation x y)
+theorem pointClosedPoint_inj {x y x' y' : F} (h : (W⁄F).Equation x y)
     (h' : (W⁄F).Equation x' y') (he : pointClosedPoint h = pointClosedPoint h') :
     x = x' ∧ y = y' := by
   have hI : XYIdeal (W⁄F) x (C y) = XYIdeal (W⁄F) x' (C y') := congrArg HeightOneSpectrum.asIdeal he
@@ -175,7 +199,7 @@ This is the non-vacuity certificate for every divisor hypothesis phrased through
 `mapEquiv (galoisCoordRing σ)`: the transport is the identity on a closed point exactly when the
 Galois element is, so it is a genuine permutation of closed points and not bookkeeping. It holds for
 every curve and every `σ`, so no concrete curve is needed to see it. -/
-theorem mapEquiv_galoisCoordRing_pointClosedPoint_eq_self_iff [W.IsElliptic] (σ : F ≃ₐ[S] F)
+theorem mapEquiv_galoisCoordRing_pointClosedPoint_eq_self_iff (σ : F ≃ₐ[S] F)
     (h₂ : (W⁄F).Equation x₂ y₂) :
     mapEquiv (galoisCoordRing σ) (pointClosedPoint h₂) = pointClosedPoint h₂
       ↔ σ x₂ = x₂ ∧ σ y₂ = y₂ := by
@@ -185,7 +209,7 @@ theorem mapEquiv_galoisCoordRing_pointClosedPoint_eq_self_iff [W.IsElliptic] (σ
 /-! ### Divisors supported on affine points -/
 
 /-- The `σ`-transport of the divisor `n·(P)` of a single affine point is `n·(σP)`. -/
-theorem equivMapDomain_galoisCoordRing_single [W.IsElliptic] (σ : F ≃ₐ[S] F)
+theorem equivMapDomain_galoisCoordRing_single (σ : F ≃ₐ[S] F)
     (h₂ : (W⁄F).Equation x₂ y₂) (n : ℤ) :
     (Finsupp.single (pointClosedPoint h₂) n).equivMapDomain (mapEquiv (galoisCoordRing σ))
       = Finsupp.single (pointClosedPoint (equation_algEquiv σ h₂)) n := by
@@ -197,7 +221,7 @@ same multiplicities at their `σ`-images.
 This is the shape a pullback divisor `[n]∗(S)` will have — a sum over the preimages of `S` — so the
 `σ`-equivariance `[n]∗(σS) = σ_*([n]∗ S)` reduces through this lemma to the statement that `σ`
 permutes those preimages onto the preimages of `σS`. -/
-theorem equivMapDomain_galoisCoordRing_sum_single [W.IsElliptic] {ι : Type*} (σ : F ≃ₐ[S] F)
+theorem equivMapDomain_galoisCoordRing_sum_single {ι : Type*} (σ : F ≃ₐ[S] F)
     (s : Finset ι) {x y : ι → F} (h : ∀ i, (W⁄F).Equation (x i) (y i)) (n : ι → ℤ) :
     (∑ i ∈ s, Finsupp.single (pointClosedPoint (h i)) (n i)).equivMapDomain
         (mapEquiv (galoisCoordRing σ))
@@ -254,13 +278,13 @@ theorem exists_generator_divisor_galois [W.IsElliptic] [DecidableEq F] (σ : F �
 `mapEquiv_galoisCoordRing_pointClosedPoint` stated for the action `galoisPoint` of
 `EllipticCurves.FunctionField.GaloisFunctoriality`, which is where the fact that these permutations
 compose is proved. -/
-theorem galoisPoint_pointClosedPoint [W.IsElliptic] (σ : F ≃ₐ[S] F)
+theorem galoisPoint_pointClosedPoint (σ : F ≃ₐ[S] F)
     (h₂ : (W⁄F).Equation x₂ y₂) :
     galoisPoint σ (pointClosedPoint h₂) = pointClosedPoint (equation_algEquiv σ h₂) :=
   mapEquiv_galoisCoordRing_pointClosedPoint σ h₂
 
 /-- The action of `σ` on divisors sends `n·(P)` to `n·(σP)`. -/
-theorem galoisDivisor_single_pointClosedPoint [W.IsElliptic] (σ : F ≃ₐ[S] F)
+theorem galoisDivisor_single_pointClosedPoint (σ : F ≃ₐ[S] F)
     (h₂ : (W⁄F).Equation x₂ y₂) (n : ℤ) :
     galoisDivisor σ (Finsupp.single (pointClosedPoint h₂) n)
       = Finsupp.single (pointClosedPoint (equation_algEquiv σ h₂)) n := by

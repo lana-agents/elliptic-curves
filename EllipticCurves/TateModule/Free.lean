@@ -24,9 +24,13 @@ structural description of any Tate module in this development.
 ## What this file contains, and what it does not
 
 The construction is in `EllipticCurves.TateModule.PrimaryFree`, stated for an arbitrary prime `ℓ`
-in terms of three inputs: a coherent system of generating pairs of the groups `E[ℓ^k]`, the count
-`#E[ℓ^k] = ℓ^k · ℓ^k`, and finiteness of `E[ℓ^k]`. **This file supplies those three inputs at
-`ℓ = 2`; it contains no argument.** ⚠️ It used to add *"and specialises every statement"*, which
+in terms of **two** inputs: a coherent system of generating pairs of the groups `E[ℓ^k]`, and the
+count `#E[ℓ^k] = ℓ^k · ℓ^k`. **This file supplies those two inputs at `ℓ = 2`; it contains no
+argument.** ⚠️ **This sentence used to say *three* inputs, the third being finiteness of
+`E[ℓ^k]`**, and this file used to pass `finite_torsion_two_pow h2` to all four statements below.
+That hypothesis was dead all the way up the chain — `torsionPairHom_bijective_of_card` needed only
+the finiteness of the *domain* `ZMod n × ZMod n` — and was removed in `#1272`; the four call sites
+below lost the argument with it. ⚠️ It used to add *"and specialises every statement"*, which
 overstates in exactly the way the same sentence in `EllipticCurves.Torsion.TwoPrimaryBasis` did
 before it was repaired: it specialises **4** of `EllipticCurves.TateModule.PrimaryFree`'s **12**
 public declarations, and the eight `padicPair…` names are consumed **unspecialised** at a general
@@ -36,8 +40,8 @@ public declarations, and the eight `padicPair…` names are consumed **unspecial
   Coherence is essential and is not supplied by the structure theorem: `E[2^k] ≃+ (ZMod (2^k))²`
   holds at each level *independently*, and a family of unrelated isomorphisms says nothing about an
   inverse limit.
-* `card_torsion_two_pow_mul_self` and `finite_torsion_two_pow`
-  (`EllipticCurves.Torsion.TwoPrimary`).
+* `card_torsion_two_pow_mul_self` (`EllipticCurves.Torsion.TwoPrimary`). ⚠️ This bullet used to
+  name `finite_torsion_two_pow` alongside it; nothing in this file uses that theorem any more.
 
 ⚠️ **The names `padicPairFamily`, `padicPairHom`, `padicPairEquiv` and their lemmas are no longer
 declared in this file.** They live in `EllipticCurves.TateModule.PrimaryFree` at a general `ℓ`, in
@@ -109,24 +113,24 @@ isomorphism depends on a choice of coherent system of generating pairs, so it is
 `finrank_tateModule_two`. -/
 theorem nonempty_tateModuleEquivProd (h2 : (2 : F) ≠ 0) :
     Nonempty (W.tateModule 2 ≃ₗ[ℤ_[2]] ℤ_[2] × ℤ_[2]) :=
-  nonempty_tateModuleEquivProd_of_card (finite_torsion_two_pow h2)
+  nonempty_tateModuleEquivProd_of_card
     (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` is a free `ℤ_[2]`-module** (Silverman, *AEC*, III.7.1 at `ℓ = 2`). -/
 theorem free_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Free ℤ_[2] (W.tateModule 2) :=
-  free_tateModule_of_card (finite_torsion_two_pow h2)
+  free_tateModule_of_card
     (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` has rank two over `ℤ_[2]`.** -/
 theorem finrank_tateModule_two (h2 : (2 : F) ≠ 0) :
     Module.finrank ℤ_[2] (W.tateModule 2) = 2 :=
-  finrank_tateModule_of_card (finite_torsion_two_pow h2)
+  finrank_tateModule_of_card
     (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 /-- **`T₂E` is a finitely generated `ℤ_[2]`-module.** Free of rank two, so in particular finite as
 a module; this is the shape `ρ_{E,2} : G_F → GL₂(ℤ_2)` will need. -/
 theorem finite_tateModule_two (h2 : (2 : F) ≠ 0) : Module.Finite ℤ_[2] (W.tateModule 2) :=
-  finite_tateModule_of_card (finite_torsion_two_pow h2)
+  finite_tateModule_of_card
     (card_torsion_two_pow_mul_self h2) (exists_compatible_basis h2)
 
 end Structure

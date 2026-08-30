@@ -169,8 +169,17 @@ identity survives at `n = 0` as `max 0 0 = 0`.  The hypothesis `hn` is `natDegre
 maximum's.
 
 This is `finrank_adjoin_doublingRatFunc` / `finrank_adjoin_triplingRatFunc` with the index erased;
-both are recovered below. -/
-theorem finrank_adjoin_ΦDivΨSq [W.IsElliptic] {n : ℤ} (hn : ((n : ℤ) : F) ≠ 0)
+both are recovered below.
+
+⚠️ **This statement used to carry `[W.IsElliptic]` and it was dead** — the instance occurred in
+neither the remainder of the type nor the proof term, measured on the elaborated environment at
+`2e44940` (`#1272`).  Nothing in the proof knows what an elliptic curve is: it is
+`RatFunc.finrank_eq_max_natDegree` together with `RatFunc.natDegree_num_div_of_isCoprime`,
+`RatFunc.natDegree_denom_div_of_isCoprime` and Mathlib's `natDegree_Φ` / `natDegree_ΨSq`.  The
+number `n²` on the right is a fact about the division polynomials of an arbitrary `Affine F`; what
+the three gates in the module docstring stand between is *this* number and
+`[F(W) : [n]∗F(W)]`, and dropping the instance does not move any of them. -/
+theorem finrank_adjoin_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) ≠ 0)
     (hcop : IsCoprime (W.Φ n) (W.ΨSq n)) :
     finrank ↥(F⟮ΦDivΨSq W n⟯ : IntermediateField F (RatFunc F)) (RatFunc F) = n.natAbs ^ 2 := by
   have hq : W.ΨSq n ≠ 0 := W.ΨSq_ne_zero hn
@@ -184,7 +193,7 @@ theorem finrank_adjoin_ΦDivΨSq [W.IsElliptic] {n : ℤ} (hn : ((n : ℤ) : F) 
 /-- **`[F(W) : σF(W)] = n²`** for an endomorphism `σ` presented at `genX` by the written-down
 fraction `Φₙ/ΨSqₙ`.  This is the tower and the middle degree composed; it is stated separately
 because it is the exact shape a general-`n` rung 3 will consume. -/
-theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq [W.IsElliptic] {n : ℤ} (hn : ((n : ℤ) : F) ≠ 0)
+theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) ≠ 0)
     (hcop : IsCoprime (W.Φ n) (W.ΨSq n)) (σ : W.FunctionField →ₐ[F] W.FunctionField)
     (hσ : algebraMap (RatFunc F) W.FunctionField (ΦDivΨSq W n) = σ (genX W)) :
     finrank ↥σ.fieldRange W.FunctionField = n.natAbs ^ 2 := by

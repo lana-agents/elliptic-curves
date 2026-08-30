@@ -402,8 +402,18 @@ theorem exists_zmod_pair_eq {n : ℕ} [NeZero n] {P Q : W.Point}
 
 ⚠️ This is the **only** statement in this file that consumes a cardinality, and therefore the only
 one whose `ℓ = 2` and `ℓ = 3` instances need the counting theorems `card_torsion_two_pow` and
-`card_torsion_three_pow`. Everything above it is pure subgroup theory. -/
-theorem torsionPairHom_bijective_of_card {n : ℕ} [NeZero n] [Finite (W.torsion n)]
+`card_torsion_three_pow`. Everything above it is pure subgroup theory.
+
+⚠️ **It used to carry `[Finite ↥(W.torsion n)]` as well, and that hypothesis was dead** — the
+instance occurred in neither the remainder of the type nor the proof term, measured on the
+elaborated environment at `2e44940` (`#1272`).  The reason is that
+`Nat.bijective_iff_surjective_and_card` needs the **domain** finite, and the domain here is
+`ZMod n × ZMod n`, which `[NeZero n]` already makes finite; the finiteness of `E[n]` was never
+used.  ⚠️ Downstream this is not free bookkeeping:
+`EllipticCurves.TateModule.PrimaryFree.padicPairHom_surjective` threaded a `∀ k, Finite (E[ℓ^k])`
+hypothesis solely to feed this instance, and that hypothesis went with it — see that file's
+retired paragraphs. -/
+theorem torsionPairHom_bijective_of_card {n : ℕ} [NeZero n]
     (hcard : Nat.card (W.torsion n) = n * n) {P Q : W.Point}
     (hgen : AddSubgroup.closure ({P, Q} : Set W.Point) = W.torsion n) :
     Function.Bijective (torsionPairHom hgen) := by
@@ -417,14 +427,14 @@ theorem torsionPairHom_bijective_of_card {n : ℕ} [NeZero n] [Finite (W.torsion
 
 `AddCommGroup.equiv_zmod_sq_of_two_gen` concludes only `Nonempty`; inverse-limit arguments need the
 map itself, and in particular its injectivity, which is what this bundles. -/
-noncomputable def torsionPairEquivOfCard {n : ℕ} [NeZero n] [Finite (W.torsion n)]
+noncomputable def torsionPairEquivOfCard {n : ℕ} [NeZero n]
     (hcard : Nat.card (W.torsion n) = n * n) {P Q : W.Point}
     (hgen : AddSubgroup.closure ({P, Q} : Set W.Point) = W.torsion n) :
     ZMod n × ZMod n ≃+ W.torsion n :=
   AddEquiv.ofBijective _ (torsionPairHom_bijective_of_card hcard hgen)
 
 @[simp]
-lemma torsionPairEquivOfCard_apply_coe {n : ℕ} [NeZero n] [Finite (W.torsion n)]
+lemma torsionPairEquivOfCard_apply_coe {n : ℕ} [NeZero n]
     (hcard : Nat.card (W.torsion n) = n * n) {P Q : W.Point}
     (hgen : AddSubgroup.closure ({P, Q} : Set W.Point) = W.torsion n)
     (ab : ZMod n × ZMod n) :
@@ -434,7 +444,7 @@ lemma torsionPairEquivOfCard_apply_coe {n : ℕ} [NeZero n] [Finite (W.torsion n
 /-- **Uniqueness of the coefficients**: a `ZMod n`-combination of a generating pair vanishes only
 for zero coefficients. This is the half that `AddCommGroup.equiv_zmod_sq_of_two_gen` discards, and
 it is what identifies the inverse limit of a tower. -/
-theorem zmod_pair_eq_zero_iff_of_card {n : ℕ} [NeZero n] [Finite (W.torsion n)]
+theorem zmod_pair_eq_zero_iff_of_card {n : ℕ} [NeZero n]
     (hcard : Nat.card (W.torsion n) = n * n) {P Q : W.Point}
     (hgen : AddSubgroup.closure ({P, Q} : Set W.Point) = W.torsion n)
     {a b : ZMod n} : a.val • P + b.val • Q = 0 ↔ a = 0 ∧ b = 0 := by
@@ -454,7 +464,7 @@ they are distinct. This is the qualitative content of the injectivity half, and 
 the degenerate systems that the existential statements would otherwise permit — for instance a
 "basis" with `P = Q`, which is exactly the configuration that makes the inductive step
 `closure_pair_eq_torsion_succ` fail at `k = 0`. -/
-theorem ne_zero_and_ne_of_closure_pair_of_card {n : ℕ} [NeZero n] [Finite (W.torsion n)]
+theorem ne_zero_and_ne_of_closure_pair_of_card {n : ℕ} [NeZero n]
     (hcard : Nat.card (W.torsion n) = n * n) (hn : 1 < n) {P Q : W.Point}
     (hgen : AddSubgroup.closure ({P, Q} : Set W.Point) = W.torsion n) :
     P ≠ 0 ∧ Q ≠ 0 ∧ P ≠ Q := by

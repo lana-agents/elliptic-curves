@@ -29,15 +29,33 @@ facts the argument consumes, and proves nothing about either.
   `[ℓ]`-surjectivity, and it is the input a levelwise structure theorem does **not** give:
   `E[ℓ^k] ≃+ (ZMod (ℓ^k))²` holds at each level *independently*, and a family of unrelated
   isomorphisms says nothing about an inverse limit.
-* `hcard` and `hfin` — `#E[ℓ^k] = ℓ^k · ℓ^k`, and that group is finite. **Two** declarations
-  below actually use them, and they are the two halves of bijectivity:
-  `padicPairHom_injective`, through
+* `hcard` — `#E[ℓ^k] = ℓ^k · ℓ^k`. **Two** declarations below use it, and they are the two halves
+  of bijectivity: `padicPairHom_injective`, through
   `EllipticCurves.Torsion.PrimaryBasis.zmod_pair_eq_zero_iff_of_card`, and
   `padicPairHom_surjective`, through
   `EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of_card`, which is what identifies
   the level-`(k+1)` coefficients with the level-`k` ones. Everything from `padicPairEquiv` onwards
-  only *passes them on* to those two, and `padicPairFamily`, `padicPairFamily_mem`, `padicPairHom`
-  and `padicPairHom_apply_coe` do not take them at all: those are `hbasis` alone.
+  only *passes it on* to those two, and `padicPairFamily`, `padicPairFamily_mem`, `padicPairHom`
+  and `padicPairHom_apply_coe` do not take it at all: those are `hbasis` alone.
+⚠️ **There used to be a third input, `hfin`, and it is gone from every declaration in this file.**
+This list used to open *"`hcard` and `hfin` — `#E[ℓ^k] = ℓ^k · ℓ^k`, and that group is finite.
+**Two** declarations below actually use them, and they are the two halves of bijectivity"*. The
+`hcard` half of that is still exactly right; the `hfin` half was true of the text and false of the
+mathematics.
+
+`EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of_card` carried
+`[Finite ↥(W.torsion n)]`, and that instance occurred in neither the remainder of its type nor its
+proof term: `Nat.bijective_iff_surjective_and_card` asks for the **domain** to be finite, and the
+domain is `ZMod n × ZMod n`, which `[NeZero n]` already makes finite. The finiteness of `E[n]` was
+never used — there, or in the three declarations of that file which only pass it on
+(`torsionPairEquivOfCard`, `zmod_pair_eq_zero_iff_of_card`,
+`ne_zero_and_ne_of_closure_pair_of_card`). Deleting it (`#1272`) left `padicPairHom_injective` and
+`padicPairHom_surjective` each with one `haveI := hfin k` that elaborated away, and the `hfin`
+argument then unwound through `padicPairEquiv` to the four `Structure` results below.
+
+⚠️ **So `T_ℓE` is free of rank two on `hbasis` and `hcard` alone**, and a consumer no longer has to
+produce `∀ k, Finite (E[ℓ^k])` — which `EllipticCurves.TateModule.Free` and
+`EllipticCurves.TateModule.FreeThree` were each supplying, and no longer do.
 
 ⚠️ **Taking the prime-specific inputs as hypotheses is this development's established idiom** for
 exactly this situation: `EllipticCurves.TateModule.LevelStructure.proj_surjective` is stated that
@@ -79,7 +97,11 @@ level `k` through its residue `toZModPow k a`.
   uniqueness at level `k` forces `ZMod.castHom … (α (k+1)) = α k`. So `α, β` lie in
   `PadicInt.compatSeq ℓ` and `PadicInt.compatSeqEquiv` converts them back into `ℓ`-adic integers.
   ⚠️ That "uniqueness at level `k`" is `torsionPairHom_bijective_of_card`, so this half consumes
-  `hcard`/`hfin` too — the two hypotheses are **not** an injectivity-only price.
+  `hcard` too — the cardinality is **not** an injectivity-only price. ⚠️ **This sentence used to
+  read** *"so this half consumes `hcard`/`hfin` too — the two hypotheses are **not** an
+  injectivity-only price"*. It survives verbatim for `hcard`, which is the clause that was doing
+  the work; `hfin` no longer exists in this file at all — see the ⚠️ paragraph after the input list
+  above.
 
 The last step is exactly what `EllipticCurves.TateModule.PadicInverseLimit` was built for:
 `ℤ_[ℓ] = lim_k ZMod (ℓ^k)` as an explicit equivalence rather than only a universal property.
@@ -262,7 +284,7 @@ and `b` to vanish, and a `ℓ`-adic integer is determined by its residues.
 ⚠️ This is one of the **two** declarations in this file that consume a cardinality — the other is
 `padicPairHom_surjective` — and therefore one of the two whose `ℓ = 2` and `ℓ = 3` instances need
 the counting theorems `card_torsion_two_pow` and `card_torsion_three_pow`. -/
-theorem padicPairHom_injective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem padicPairHom_injective
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))
     (hP : ∀ k, ℓ • P (k + 1) = P k) (hQ : ∀ k, ℓ • Q (k + 1) = Q k) :
@@ -270,7 +292,6 @@ theorem padicPairHom_injective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
   refine (injective_iff_map_eq_zero _).mpr fun ab hab => ?_
   have hlev : ∀ k, toZModPow k ab.1 = 0 ∧ toZModPow k ab.2 = 0 := by
     intro k
-    haveI := hfin k
     haveI : NeZero (ℓ ^ k) := neZero_pow k
     refine (zmod_pair_eq_zero_iff_of_card (hcard k) (hgen k)).mp ?_
     have := congrArg (fun f : W.tateModule ℓ => (f : ℕ → W.Point) k) hab
@@ -286,7 +307,7 @@ compatible sequence, so they come from a pair of `ℓ`-adic integers via
 ⚠️ This is the second of the two declarations in this file that consume a cardinality: the
 compatibility of those pairs is exactly *uniqueness* of the level-`k` coefficients, and uniqueness
 is what `torsionPairHom_bijective_of_card` extracts from `hcard`. -/
-theorem padicPairHom_surjective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem padicPairHom_surjective
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))
     (hP : ∀ k, ℓ • P (k + 1) = P k) (hQ : ∀ k, ℓ • Q (k + 1) = Q k) :
@@ -300,7 +321,6 @@ theorem padicPairHom_surjective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
   have hcompat : ∀ k, (ZMod.castHom (pow_dvd_pow ℓ k.le_succ) (ZMod (ℓ ^ k)) (α (k + 1)) = α k)
       ∧ ZMod.castHom (pow_dvd_pow ℓ k.le_succ) (ZMod (ℓ ^ k)) (β (k + 1)) = β k := by
     intro k
-    haveI := hfin k
     haveI : NeZero (ℓ ^ k) := neZero_pow k
     have hstep : (α (k + 1)).val • P k + (β (k + 1)).val • Q k = (f : ℕ → W.Point) k := by
       rw [← smul_coe_succ f k, ← hαβ (k + 1), smul_add,
@@ -329,25 +349,25 @@ theorem padicPairHom_surjective (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
 
 /-- **`T_ℓE ≅ ℤ_ℓ²`**: the equivalence `ℤ_[ℓ] × ℤ_[ℓ] ≃ₗ[ℤ_[ℓ]] T_ℓE` attached to a coherent system
 of generating pairs of the groups `E[ℓ^k]`. -/
-noncomputable def padicPairEquiv (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+noncomputable def padicPairEquiv
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))
     (hP : ∀ k, ℓ • P (k + 1) = P k) (hQ : ∀ k, ℓ • Q (k + 1) = Q k) :
     (ℤ_[ℓ] × ℤ_[ℓ]) ≃ₗ[ℤ_[ℓ]] W.tateModule ℓ :=
   LinearEquiv.ofBijective _
-    ⟨padicPairHom_injective hfin hcard hgen hP hQ,
-      padicPairHom_surjective hfin hcard hgen hP hQ⟩
+    ⟨padicPairHom_injective hcard hgen hP hQ,
+      padicPairHom_surjective hcard hgen hP hQ⟩
 
 /-- The level-`k` value of the family attached to `(a, b)`: the residues of `a` and `b` modulo
 `ℓ^k` read as coefficients on the level-`k` basis. This is the identity that a later analysis of
 the Galois action on `T_ℓE` will run on. -/
 @[simp]
-lemma padicPairEquiv_apply_coe (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+lemma padicPairEquiv_apply_coe
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hgen : ∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k))
     (hP : ∀ k, ℓ • P (k + 1) = P k) (hQ : ∀ k, ℓ • Q (k + 1) = Q k) (ab : ℤ_[ℓ] × ℤ_[ℓ])
     (k : ℕ) :
-    ((padicPairEquiv hfin hcard hgen hP hQ ab : W.tateModule ℓ) : ℕ → W.Point) k
+    ((padicPairEquiv hcard hgen hP hQ ab : W.tateModule ℓ) : ℕ → W.Point) k
       = (toZModPow k ab.1).val • P k + (toZModPow k ab.2).val • Q k := rfl
 
 end Basis
@@ -360,44 +380,44 @@ variable [Fact ℓ.Prime]
 system of generating pairs exists and `#E[ℓ^k] = ℓ^k · ℓ^k`. The isomorphism depends on the choice
 of system, so it is stated as a `Nonempty`; the choice-free consequences are
 `free_tateModule_of_card` and `finrank_tateModule_of_card`. -/
-theorem nonempty_tateModuleEquivProd_of_card (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem nonempty_tateModuleEquivProd_of_card
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hbasis : ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k)) ∧
       (∀ k, ℓ • P (k + 1) = P k) ∧ (∀ k, ℓ • Q (k + 1) = Q k)) :
     Nonempty (W.tateModule ℓ ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ]) := by
   obtain ⟨P, Q, hgen, hP, hQ⟩ := hbasis
-  exact ⟨(padicPairEquiv hfin hcard hgen hP hQ).symm⟩
+  exact ⟨(padicPairEquiv hcard hgen hP hQ).symm⟩
 
 /-- **`T_ℓE` is a free `ℤ_[ℓ]`-module** (Silverman, *AEC*, III.7.1). -/
-theorem free_tateModule_of_card (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem free_tateModule_of_card
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hbasis : ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k)) ∧
       (∀ k, ℓ • P (k + 1) = P k) ∧ (∀ k, ℓ • Q (k + 1) = Q k)) :
     Module.Free ℤ_[ℓ] (W.tateModule ℓ) := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hfin hcard hbasis
+  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hcard hbasis
   exact Module.Free.of_equiv e.symm
 
 /-- **`T_ℓE` has rank two over `ℤ_[ℓ]`.** -/
-theorem finrank_tateModule_of_card (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem finrank_tateModule_of_card
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hbasis : ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k)) ∧
       (∀ k, ℓ • P (k + 1) = P k) ∧ (∀ k, ℓ • Q (k + 1) = Q k)) :
     Module.finrank ℤ_[ℓ] (W.tateModule ℓ) = 2 := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hfin hcard hbasis
+  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hcard hbasis
   rw [e.finrank_eq, Module.finrank_prod, Module.finrank_self]
 
 /-- **`T_ℓE` is a finitely generated `ℤ_[ℓ]`-module.** Free of rank two, so in particular finite as
 a module; this is the shape `ρ_{E,ℓ} : G_F → GL₂(ℤ_ℓ)` will need. -/
-theorem finite_tateModule_of_card (hfin : ∀ k, Finite (W.torsion (ℓ ^ k)))
+theorem finite_tateModule_of_card
     (hcard : ∀ k, Nat.card (W.torsion (ℓ ^ k)) = ℓ ^ k * ℓ ^ k)
     (hbasis : ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (ℓ ^ k)) ∧
       (∀ k, ℓ • P (k + 1) = P k) ∧ (∀ k, ℓ • Q (k + 1) = Q k)) :
     Module.Finite ℤ_[ℓ] (W.tateModule ℓ) := by
-  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hfin hcard hbasis
+  obtain ⟨e⟩ := nonempty_tateModuleEquivProd_of_card hcard hbasis
   exact Module.Finite.equiv e.symm
 
 end Structure
