@@ -9,14 +9,15 @@ import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 # The degree tower at general `n`: `[F(W) : σF(W)]` is the degree of one rational function
 
 Let `W` be a Weierstrass curve over a field `F`, with function field `F(W)` and rational function
-subfield `F(x) = ratFuncRange W ⊆ F(W)`.  This file proves that for **any** `F`-algebra
-endomorphism `σ` of `F(W)` whose value at the generic `x`-coordinate lies in `F(x)`,
+subfield `F(x) = ratFuncRange W ⊆ F(W)`.  `EllipticCurves.FunctionField.MulByTwoDegree`'s
+`finrank_fieldRange_eq_finrank_adjoin` says that for **any** `F`-algebra endomorphism `σ` of `F(W)`
+whose value at the generic `x`-coordinate lies in `F(x)`,
 
 ```
-[F(W) : σF(W)]  =  [F(x) : F(r)],        where  algebraMap (RatFunc F) F(W) r = σ (genX W),
+[F(W) : σF(W)]  =  [F(x) : F(r)],        where  algebraMap (RatFunc F) F(W) r = σ (genX W).
 ```
 
-and instantiates it at `σ = [n]∗` for every `n : ℕ`:
+This file instantiates that at `σ = [n]∗` for every `n : ℕ`:
 
 ```
 [F(W) : [n]∗F(W)]  =  [F(x) : F(nMulRatFunc W n)].
@@ -46,50 +47,35 @@ there and in `EllipticCurves.FunctionField.MulByNPlacePullback` are unchanged:
 `finrank_fieldRange_eq_of_eq_ΦDivΨSq` below is the conditional statement those three gates
 discharge, so a future `n` at which they are available needs nothing further from this side.
 
-## Where the argument comes from
+## Where the tower lives, and why not here
 
-It is `EllipticCurves.FunctionField.MulByTwoDegree`'s tower with the index erased.  Writing
-`S = σF(x)`, the two decompositions of `[F(W) : S]` are
+`finrank_fieldRange_eq_finrank_adjoin` is **not** in this file.  It needs only `ratFuncRange`,
+`ratFuncRange_eq_adjoin`, `finrank_ratFuncRange` and four Mathlib `relfinrank` lemmas, all of which
+are in `EllipticCurves.FunctionField.MulByTwoDegree`, so it lives there — immediately after
+`finrank_ratFuncRange` and above the two instances that consume it.  Putting it here instead would
+have made it inaccessible to `finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange`, which
+this file imports rather than the other way round.
 
-```
-relfinrank S F(x)   * [F(W) : F(x)]   = [F(x) : F(r)] * 2,
-relfinrank S σF(W)  * [F(W) : σF(W)]  = 2             * ?,
-```
-
-and the second factor of the second line is the answer.  Both `relfinrank`s are computed by
-transport: the first by pulling the pair `(S, F(x))` back along `F(x) ≅ RatFunc F`, where it becomes
-`(F⟮r⟯, ⊤)`; the second by pushing `(F(x), ⊤)` forward along the injection `σ`.  The factor `2`
-that cancels is `finrank_ratFuncRange`, and it is the *same* `2` on both lines — which is why the
-answer is the middle degree unchanged and why nothing about `σ` beyond `hr` is used.
-
-⚠️ **This argument was written out twice before this file existed**, at `finrank_mulByTwoFieldRange`
-and `finrank_mulByThreeFieldRange`, differing only in `2 ↔ 3`, `4 ↔ 9` and
-`doublingRatFunc ↔ triplingRatFunc`.  `MulByThreeDegree`'s module docstring says as much in words —
-*"it is literally that file's argument … Only the middle degree changes"*.  The four `example`s at
-the end of this file **re-derive both merged theorems from the general one**, which is the check
-that this is an abstraction of them rather than a third copy.
-
-⚠️ Those two merged proofs are **not** rewritten to call the general lemma.  That dedup is real and
-worth doing; it is left out deliberately so that this file adds a result without also editing merged
-code.  See *"What is not here"*.
+⚠️ The argument used to be written out **three** times: once at `finrank_mulByTwoFieldRange`, once
+at `finrank_mulByThreeFieldRange`, and once here.  It is now written once, and both merged theorems
+are two-line consequences of it — which is a stronger statement than any `example` in this file
+could make, because it is the merged proof terms themselves that go through the general lemma.
 
 ## Hypotheses, and the ones that turned out not to be needed
 
 `finrank_fieldRange_eq_finrank_adjoin` needs **no `[W.IsElliptic]`**: its only input about `F(W)` is
-`finrank_ratFuncRange`, which carries none.  `[W.IsElliptic]` enters this file only through
-`nMulRatFunc`, whose construction runs through the hyperelliptic involution's fixed field, and
-through the coprimality corollary, where it is what makes `Δ` a unit.
+`finrank_ratFuncRange`, which carries none.  Everything in *this* file does carry it, and for two
+unrelated reasons — `nMulRatFunc`, whose construction runs through the hyperelliptic involution's
+fixed field, and the coprimality corollary, where `[W.IsElliptic]` is what makes `Δ` a unit.
 
 ## Main definitions and statements
 
 ⚠️ Every public declaration of this file is listed.  One of them is a `def`, which is why the
 heading is not `## Main results`.
 
-* **`WeierstrassCurve.Affine.CoordinateRing.finrank_fieldRange_eq_finrank_adjoin`** — the tower, for
-  an arbitrary `F`-algebra endomorphism `σ` and an arbitrary `r : RatFunc F` with
-  `algebraMap _ _ r = σ (genX W)`; no `[W.IsElliptic]`;
-* **`WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_finrank_adjoin`** — its
-  instance at `[n]∗`, for every `n : ℕ`;
+* **`WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_finrank_adjoin`** — the
+  instance of `MulByTwoDegree`'s `finrank_fieldRange_eq_finrank_adjoin` at `[n]∗`, for every
+  `n : ℕ`;
 * `WeierstrassCurve.Affine.CoordinateRing.ΦDivΨSq` — the fraction `Φₙ/ΨSqₙ` in `RatFunc F` at
   general `n`, the common generalisation of the merged `doublingRatFunc` and `triplingRatFunc`,
   with `doublingRatFunc_eq_ΦDivΨSq` and `triplingRatFunc_eq_ΦDivΨSq` identifying it at `n = 2, 3`;
@@ -103,11 +89,12 @@ heading is not `## Main results`.
 ## What is *not* here
 
 * **No new degree.**  Nothing below evaluates `finrank F⟮nMulRatFunc W n⟯ (RatFunc F)` at any `n`;
-  the four `example`s do it at `n = 2` and `n = 3` only, and each of those goes through a merged
+  the `example`s do it at `n = 2` and `n = 3` only, and each of those goes through a merged
   identification (`nMulRatFunc_two`, `nMulRatFunc_three`).
-* **No rewrite of `finrank_mulByTwoFieldRange` / `finrank_mulByThreeFieldRange`.**  They still
-  contain the forty duplicated lines this file abstracts; replacing their bodies with
-  `finrank_fieldRange_eq_finrank_adjoin _ _ …` is a separate, purely subtractive change.
+* **No re-derivation of `finrank_mulByTwoFieldRange` / `finrank_mulByThreeFieldRange`.**  This file
+  used to carry two `example`s doing that; since those two theorems are now *proved* by
+  `finrank_fieldRange_eq_finrank_adjoin`, an `example` re-deriving them would be circular
+  decoration.  The `example`s that remain are about `[n]∗`, which neither merged theorem mentions.
 * **Nothing about `[n]∗` on divisors or places.**  This is a field degree.  Rung 4 of `#639`
   (`ordInfty ([n]∗ genX) = -2`) is *false* at general `n` and nothing here touches it; see
   `EllipticCurves.FunctionField.MulByNPlacePullback`.
@@ -125,52 +112,6 @@ namespace WeierstrassCurve.Affine
 namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F}
-
-/-! ### The tower, with the index erased -/
-
-/-- **`[F(W) : σF(W)] = [F(x) : F(r)]`** for an `F`-algebra endomorphism `σ` of `F(W)` whose value
-at the generic `x`-coordinate is the image of `r : RatFunc F`.
-
-The proof is the tower of the module docstring.  ⚠️ Nothing about `σ` is used beyond `hr` and the
-automatic injectivity of a homomorphism of fields — in particular `σ` need not be a multiplication
-map, and no hypothesis on `W` beyond being a Weierstrass curve over a field appears: this statement
-carries no `[W.IsElliptic]`. -/
-theorem finrank_fieldRange_eq_finrank_adjoin (σ : W.FunctionField →ₐ[F] W.FunctionField)
-    (r : RatFunc F) (hr : algebraMap (RatFunc F) W.FunctionField r = σ (genX W)) :
-    finrank ↥σ.fieldRange W.FunctionField
-      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) := by
-  set ι := IsScalarTower.toAlgHom F (RatFunc F) W.FunctionField with hι
-  set S := (ratFuncRange W).map σ with hSdef
-  have hSadj : S = F⟮σ (genX W)⟯ := by
-    rw [hSdef, ratFuncRange_eq_adjoin, IntermediateField.adjoin_map, Set.image_singleton]
-  have hd : ι r = σ (genX W) := hr
-  have hSmap : S = (F⟮r⟯).map ι := by
-    rw [IntermediateField.adjoin_map, Set.image_singleton, hd, hSadj]
-  -- `S = σF(x)` sits inside both `F(x)` and `σF(W)`
-  have hSFx : S ≤ ratFuncRange W := by
-    rw [hSadj, IntermediateField.adjoin_simple_le_iff, ← hd]
-    exact ⟨r, rfl⟩
-  have hSA : S ≤ σ.fieldRange := by
-    rw [hSdef, AlgHom.fieldRange_eq_map]
-    exact IntermediateField.map_mono σ le_top
-  -- `[F(x) : σF(x)] = [F(x) : F(r)]`, by pulling back along `F(x) ≅ RatFunc F`
-  have hrel1 : relfinrank S (ratFuncRange W)
-      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) := by
-    rw [← IntermediateField.relfinrank_comap_comap_eq_relfinrank_of_le S (ratFuncRange W) ι le_rfl]
-    have hc1 : (ratFuncRange W).comap ι = ⊤ := by
-      rw [eq_top_iff]; intro x _; exact ⟨x, rfl⟩
-    have hc2 : S.comap ι = F⟮r⟯ := by rw [hSmap, IntermediateField.comap_map]
-    rw [hc1, hc2, IntermediateField.relfinrank_top_right]
-  -- `[σF(W) : σF(x)] = 2`, by pushing `(F(x), ⊤)` forward along `σ`
-  have hrel2 : relfinrank S σ.fieldRange = 2 := by
-    rw [hSdef, AlgHom.fieldRange_eq_map, IntermediateField.relfinrank_map_map,
-      IntermediateField.relfinrank_top_right, finrank_ratFuncRange]
-  have htot : finrank ↥S W.FunctionField
-      = finrank ↥(F⟮r⟯ : IntermediateField F (RatFunc F)) (RatFunc F) * 2 := by
-    rw [← IntermediateField.relfinrank_mul_finrank_top hSFx, hrel1, finrank_ratFuncRange]
-  have hfin := IntermediateField.relfinrank_mul_finrank_top hSA
-  rw [hrel2, htot] at hfin
-  omega
 
 /-- **The degree of `[n]` is the degree of `nMulRatFunc W n`**, for every `n : ℕ`.
 
@@ -251,33 +192,19 @@ theorem finrank_mulByNFieldRange_of_nMulRatFunc_eq [W.IsElliptic] (n : ℕ)
   rw [finrank_mulByNFieldRange_eq_finrank_adjoin n hn, hfrac, finrank_adjoin_ΦDivΨSq hchar hcop]
   simp
 
-/-! ### ⚠️ Validation: both merged degrees are instances of the general lemma
+/-! ### ⚠️ Validation: the `[n]∗` form is not vacuous at the two indices where the answer is known
 
-`finrank_fieldRange_eq_finrank_adjoin` is an equality of two numbers neither of which it computes,
-so nothing above rules out its being useless.  The four `example`s below discharge that: the first
-two **re-derive the merged `finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange` from
-it**, in one line each, against exactly the inputs those files already prove; the last two do the
-same for the `[n]∗` form at the only two indices at which `nMulRatFunc` has been identified with a
-written-down fraction.
+`finrank_mulByNFieldRange_eq_finrank_adjoin` is an equality of two numbers neither of which it
+computes, so nothing above rules out its being useless.  The `example`s below discharge that at the
+only two indices at which `nMulRatFunc` has been identified with a written-down fraction, through
+the merged `nMulRatFunc_two` / `nMulRatFunc_three`, and the last one drives the fully gated form
+with all three of its hypotheses supplied.
 
-⚠️ They are `example`s and not theorems on purpose: the first two are literally the statements of
-`finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange`, and naming them would put two names
-on one statement. -/
+That the *tower* is not vacuous is no longer an `example`'s job: `finrank_mulByTwoFieldRange` and
+`finrank_mulByThreeFieldRange` are proved by it outright.
 
-/-- **`[F(W) : [2]∗F(W)] = 4` from the general tower** — the merged `finrank_mulByTwoFieldRange`,
-re-derived from `algebraMap_doublingRatFunc` and `finrank_adjoin_doublingRatFunc` alone. -/
-example [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
-    finrank ↥(mulByTwoEndoAlgHom (W := W) h2).fieldRange W.FunctionField = 4 := by
-  rw [finrank_fieldRange_eq_finrank_adjoin _ _ (algebraMap_doublingRatFunc h2),
-    finrank_adjoin_doublingRatFunc h2]
-
-/-- **`[F(W) : [3]∗F(W)] = 9` from the general tower** — the merged `finrank_mulByThreeFieldRange`,
-re-derived the same way.  ⚠️ The `n = 2` and `n = 3` proofs differ here only in which merged pair of
-lemmas is quoted, which is the whole content of the claim that the tower is `n`-independent. -/
-example [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
-    finrank ↥(mulByThreeEndoAlgHom (W := W) h2 h3).fieldRange W.FunctionField = 9 := by
-  rw [finrank_fieldRange_eq_finrank_adjoin _ _ (algebraMap_triplingRatFunc h2 h3),
-    finrank_adjoin_triplingRatFunc h3]
+⚠️ They are `example`s and not theorems on purpose: naming them would put a second name on a
+statement that already has one. -/
 
 /-- **The `[n]∗` form at `n = 2`**, through the merged `nMulRatFunc_two`. -/
 example [W.IsElliptic] (h2 : (2 : F) ≠ 0) :

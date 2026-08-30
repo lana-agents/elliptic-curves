@@ -36,10 +36,12 @@ Write `x = genX W`, `x₃ = [3]∗x = Φ₃(x)/ΨSq₃(x)`, and let `F(x) ⊆ F(
 ```
 
 This is `MulByTwoDegree`'s diagram with `4` replaced by `9`, and it is *literally* that file's
-argument: `ratFuncRange`, `finrank_ratFuncRange` and the two `RatFunc` degree lemmas
-(`RatFunc.natDegree_num_div_of_isCoprime`, `RatFunc.natDegree_denom_div_of_isCoprime`) are all
-`n`-independent and are imported rather than restated — which is why this file imports
-`MulByTwoDegree` even though nothing about `[2]` is used.  Only the middle degree changes:
+argument — **including the proof**.  `ratFuncRange`, `finrank_ratFuncRange`, the two `RatFunc`
+degree lemmas (`RatFunc.natDegree_num_div_of_isCoprime`, `RatFunc.natDegree_denom_div_of_isCoprime`)
+and the whole tower `finrank_fieldRange_eq_finrank_adjoin` are `n`-independent and are imported
+rather than restated — which is why this file imports `MulByTwoDegree` even though nothing about
+`[2]` is used.  Only the middle degree changes, and after the tower was extracted that is visible in
+the proof term of `finrank_mulByThreeFieldRange`, which is two lines long:
 
 * `[F(x) : F(x₃)] = max (deg Φ₃) (deg ΨSq₃) = max 9 8 = 9` by
   `RatFunc.finrank_eq_max_natDegree`, which needs `Φ₃/ΨSq₃` **in lowest terms**;
@@ -149,50 +151,15 @@ variable [W.IsElliptic]
 /-- **`[F(W) : [3]∗F(W)] = 9`**, stated for the range of `mulByThreeEndoAlgHom` as an intermediate
 field.  See `finrank_mulByThreeRange_functionField` for the `RingHom.range` form.
 
-The proof is the tower of the module docstring.  Writing `S = F(x₃)` for the image of `F(x)` under
-`[3]∗`, the two decompositions of `[F(W) : S]` are
-
-```
-relfinrank S F(x)      * [F(W) : F(x)]      = 9 * 2 = 18,
-relfinrank S [3]∗F(W)  * [F(W) : [3]∗F(W)]  = 2 * ?,
-```
-
-and the second factor of the second line is the answer.  Both `relfinrank`s are computed by
-transport: the first by pulling the pair `(S, F(x))` back along `F(x) ≅ RatFunc F`, where it becomes
-`(F⟮Φ₃/ΨSq₃⟯, ⊤)`; the second by pushing the pair `(F(x), ⊤)` forward along the injection `[3]∗`. -/
+The proof is the tower of the module docstring, and it is *not* written out here: it is
+`finrank_fieldRange_eq_finrank_adjoin` (`EllipticCurves.FunctionField.MulByTwoDegree`), at
+`σ = [3]∗` and `r = Φ₃/ΨSq₃`, composed with the middle degree `finrank_adjoin_triplingRatFunc`.
+Only the middle degree distinguishes this from `finrank_mulByTwoFieldRange`, and after the shared
+tower was extracted that is visible in the proof term rather than only in prose. -/
 theorem finrank_mulByThreeFieldRange (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     finrank ↥(mulByThreeEndoAlgHom (W := W) h2 h3).fieldRange W.FunctionField = 9 := by
-  set σ := mulByThreeEndoAlgHom (W := W) h2 h3 with hσ
-  set ι := IsScalarTower.toAlgHom F (RatFunc F) W.FunctionField with hι
-  set S := (ratFuncRange W).map σ with hSdef
-  have hSadj : S = F⟮σ (genX W)⟯ := by
-    rw [hSdef, ratFuncRange_eq_adjoin, IntermediateField.adjoin_map, Set.image_singleton]
-  have hd : ι (triplingRatFunc W) = σ (genX W) := algebraMap_triplingRatFunc h2 h3
-  have hSmap : S = (F⟮triplingRatFunc W⟯).map ι := by
-    rw [IntermediateField.adjoin_map, Set.image_singleton, hd, hSadj]
-  -- `S = F(x₃)` sits inside both `F(x)` and `[3]∗F(W)`
-  have hSFx : S ≤ ratFuncRange W := by
-    rw [hSadj, IntermediateField.adjoin_simple_le_iff, ← hd]
-    exact ⟨triplingRatFunc W, rfl⟩
-  have hSA : S ≤ σ.fieldRange := by
-    rw [hSdef, AlgHom.fieldRange_eq_map]
-    exact IntermediateField.map_mono σ le_top
-  -- `[F(x) : F(x₃)] = 9`, by pulling back along `F(x) ≅ RatFunc F`
-  have hrel1 : relfinrank S (ratFuncRange W) = 9 := by
-    rw [← IntermediateField.relfinrank_comap_comap_eq_relfinrank_of_le S (ratFuncRange W) ι le_rfl]
-    have hc1 : (ratFuncRange W).comap ι = ⊤ := by
-      rw [eq_top_iff]; intro x _; exact ⟨x, rfl⟩
-    have hc2 : S.comap ι = F⟮triplingRatFunc W⟯ := by rw [hSmap, IntermediateField.comap_map]
-    rw [hc1, hc2, IntermediateField.relfinrank_top_right, finrank_adjoin_triplingRatFunc h3]
-  -- `[[3]∗F(W) : F(x₃)] = 2`, by pushing `(F(x), ⊤)` forward along `[3]∗`
-  have hrel2 : relfinrank S σ.fieldRange = 2 := by
-    rw [hSdef, AlgHom.fieldRange_eq_map, IntermediateField.relfinrank_map_map,
-      IntermediateField.relfinrank_top_right, finrank_ratFuncRange]
-  have h18 : finrank ↥S W.FunctionField = 18 := by
-    rw [← IntermediateField.relfinrank_mul_finrank_top hSFx, hrel1, finrank_ratFuncRange]
-  have hfin := IntermediateField.relfinrank_mul_finrank_top hSA
-  rw [hrel2, h18] at hfin
-  omega
+  rw [finrank_fieldRange_eq_finrank_adjoin _ _ (algebraMap_triplingRatFunc h2 h3),
+    finrank_adjoin_triplingRatFunc h3]
 
 /-- **The degree of multiplication by three: `[F(W) : [3]∗F(W)] = 9`.**
 

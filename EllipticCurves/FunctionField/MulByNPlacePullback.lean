@@ -56,11 +56,13 @@ was already merged.
 [F(W) : [n]∗F(W)] = [F(x) : F(nMulRatFunc W n)]        for every n,
 ```
 
-with no coprimality, no `(n : F) ≠ 0`, no written-down fraction and no `[IsAlgClosed F]` — the
-`finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange` this paragraph names are `example`s
-of it there.  ⚠️ So what is gated is **not the tower**: it is the *number on the right-hand side*,
-and that is exactly the three items below.  Nothing in this paragraph's list has been discharged by
-that file, and it proves no degree at any `n` outside `{2, 3}`.
+with no coprimality, no `(n : F) ≠ 0`, no written-down fraction and no `[IsAlgClosed F]`.  The
+index-free tower it instantiates is `finrank_fieldRange_eq_finrank_adjoin`
+(`EllipticCurves.FunctionField.MulByTwoDegree`), and the `finrank_mulByTwoFieldRange` and
+`finrank_mulByThreeFieldRange` this paragraph names are **proved by** it — two lines each — rather
+than merely being instances of it.  ⚠️ So what is gated is **not the tower**: it is the *number on
+the right-hand side*, and that is exactly the three items below.  Nothing in this paragraph's list
+has been discharged by that file, and it proves no degree at any `n` outside `{2, 3}`.
 
 ⚠️ **What (ii) still needs is *not* the degrees.**  `natDegree_Φ` and `natDegree_ΨSq` are
 **Mathlib**'s at general `n` (`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`,
