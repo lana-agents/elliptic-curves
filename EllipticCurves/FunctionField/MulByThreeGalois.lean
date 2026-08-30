@@ -70,19 +70,39 @@ that is not the instance any statement is elaborated against.  There is no trans
 consumer should state its hypotheses for the `Subfield` presentation.  `#759` established both
 halves of this at `n = 2`, against its own issue's guess; nothing about it is `n`-dependent.
 
+⚠️ **That paragraph is about the `Subring`, and it used to be everything this file said about the
+`Subfield` column.**  Every word of it stays — there is no `Subring` version of anything, at any
+`n`, and there will not be — but it was read as covering the second presentation too, and it never
+did.  Until `#1244` the `Subfield` column really did hold separability alone:
+`normal_mulByThreeEndoFieldRange_of_isAlgClosed` and
+`isGalois_mulByThreeEndoFieldRange_of_isAlgClosed` simply did not exist, even though
+`↥(mulByThreeEndo h2 h3).fieldRange` *is* a `Field` type and the declaration crossing separability
+into it sits two lines away.  `#1233` found the gap while mirroring this file at general `n` and
+left it deliberately open; it is closed below, by `Normal.of_equiv_equiv` along the same
+`mulByThreeFieldRangeEquivSubfield`.  What blocks the `Subring` is the missing `Field` instance;
+nothing blocked the `Subfield`.
+
 ## Main results
 
-* **`WeierstrassCurve.Affine.CoordinateRing.fixedFieldThree`** — `Fixed(E[3])` as an
-  `IntermediateField F F(W)`, and `finrank_fixedFieldThree`: it has index `9`, by Artin;
-* **`WeierstrassCurve.Affine.CoordinateRing.fixedFieldThree_eq_mulByThreeFieldRange`** — the
-  sandwich, `Fixed(E[3]) = [3]∗F(W)`, and `fixedPoints_subfield_eq_mulByThreeEndoFieldRange` at the
-  `Subfield` level;
+Every public declaration of this file is listed, and all are in namespace
+`WeierstrassCurve.Affine.CoordinateRing`.
+
+* **`fixedFieldThree`** — `Fixed(E[3])` as an `IntermediateField F F(W)`, with
+  `mem_fixedFieldThree_iff`, and `finrank_fixedFieldThree`: it has index `9`, by Artin;
+* **`fixedFieldThree_eq_mulByThreeFieldRange`** — the sandwich, `Fixed(E[3]) = [3]∗F(W)`, and
+  `fixedPoints_subfield_eq_mulByThreeEndoFieldRange` at the `Subfield` level;
+* `mulByThreeFieldRangeEquivSubfield` — the identity map read as a `RingEquiv` between the
+  `IntermediateField` and `Subfield` presentations, along which everything below is transported;
 * **`isSeparable_mulByThreeFieldRange_of_isAlgClosed`** and
   **`isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed`** — separability in the two field
   presentations, with **no hypothesis on the characteristic beyond `(2 : F) ≠ 0` and
   `(3 : F) ≠ 0`**;
 * `normal_mulByThreeFieldRange_of_isAlgClosed` and `isGalois_mulByThreeFieldRange_of_isAlgClosed` —
-  the rest of the Galois package, which comes with it.
+  the rest of the Galois package, which comes with it;
+* `normal_mulByThreeEndoFieldRange_of_isAlgClosed` and
+  `isGalois_mulByThreeEndoFieldRange_of_isAlgClosed` (`#1244`) — that rest in the `Subfield`
+  presentation as well, so both field presentations now carry the whole package and not just
+  separability.
 
 ## How to fire these
 
@@ -279,6 +299,43 @@ theorem isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 
   exact Algebra.IsSeparable.of_equiv_equiv (mulByThreeFieldRangeEquivSubfield h2 h3)
     (RingEquiv.refl W.FunctionField) (by ext a; rfl)
 
+open Classical in
+/-- **Normality in the `Subfield` presentation**, the companion of the separability crossing
+directly above and carried across the same `mulByThreeFieldRangeEquivSubfield`, which is the
+identity on elements.
+
+⚠️ `Normal.of_equiv_equiv` takes its two ring isomorphisms **implicitly** and only `hcomp`
+explicitly, unlike `Algebra.IsSeparable.of_equiv_equiv` above, which takes all three positionally;
+hence the named arguments.  The `hcomp` goal is the same in both.
+
+⚠️ Proved here directly rather than specialised from
+`normal_mulByNEndoFieldRange_of_smooth` (`EllipticCurves.FunctionField.MulByNGalois`, `#1233`),
+whose hypotheses do coincide with these at `n = 3`: that file imports
+`EllipticCurves.FunctionField.MulByNSeparable`, which imports this one, so the specialisation would
+be an import cycle.
+
+There is deliberately no `Subring` version: see the module docstring. -/
+theorem normal_mulByThreeEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) :
+    Normal ↥(mulByThreeEndo (W := W) h2 h3).fieldRange W.FunctionField := by
+  haveI := normal_mulByThreeFieldRange_of_isAlgClosed (W := W) h2 h3
+  exact Normal.of_equiv_equiv (f := mulByThreeFieldRangeEquivSubfield h2 h3)
+    (g := RingEquiv.refl W.FunctionField) (by ext a; rfl)
+
+open Classical in
+/-- **`F(W) / [3]∗F(W)` is Galois, in the `Subfield` presentation.**  Separability and normality are
+both above, so this is `⟨⟩` off the two — the same shape as
+`isGalois_mulByThreeFieldRange_of_isAlgClosed` uses in the `IntermediateField` presentation, and as
+`isGalois_mulByNEndoFieldRange_of_smooth` uses at general `n`.  `IsGalois.of_equiv_equiv` would
+prove it in one step instead, but it re-does the separability transport that the declaration two
+above has already done. -/
+theorem isGalois_mulByThreeEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) :
+    IsGalois ↥(mulByThreeEndo (W := W) h2 h3).fieldRange W.FunctionField :=
+  haveI := isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed (W := W) h2 h3
+  haveI := normal_mulByThreeEndoFieldRange_of_isAlgClosed (W := W) h2 h3
+  ⟨⟩
+
 /-! ### Non-vacuity
 
 The headline needs `[IsAlgClosed F]`, `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` at once, and
@@ -334,6 +391,20 @@ example : IsGalois
     ↥(mulByThreeEndoAlgHom (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
     exampleCurveThree.FunctionField :=
   isGalois_mulByThreeFieldRange_of_isAlgClosed exampleTwo exampleThree
+
+open Classical in
+/-- Normality in the `Subfield` presentation, on the same curve. -/
+example : Normal
+    ↥(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
+    exampleCurveThree.FunctionField :=
+  normal_mulByThreeEndoFieldRange_of_isAlgClosed exampleTwo exampleThree
+
+open Classical in
+/-- And the whole Galois package in that presentation too — the statement `#1244` was filed for. -/
+example : IsGalois
+    ↥(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
+    exampleCurveThree.FunctionField :=
+  isGalois_mulByThreeEndoFieldRange_of_isAlgClosed exampleTwo exampleThree
 
 end Nonvacuity
 
