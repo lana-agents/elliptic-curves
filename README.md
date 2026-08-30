@@ -38,6 +38,40 @@ lake exe cache get   # download the Mathlib build cache
 lake build
 ```
 
+## Linting
+
+Two different linter suites apply to this project, and they are easy to confuse.
+
+* The **syntactic** linters run during elaboration and surface as build warnings.
+  They are enabled by `weak.linter.mathlibStandardSet = true` in `lakefile.toml`,
+  and `lake build --wfail` (see below) is what enforces them.
+* The **environment** linters — `simpNF`, `unusedArguments`, `defsWithUnderscore`,
+  `docBlame`, `synTaut`, `checkType`, `deprecatedNoSince`, `impossibleInstance`,
+  `nonClassInstance`, `simpComm`, `structureInType`, `subsetDotNotationLinter`,
+  `tacticDocs`, `unusedHavesSuffices` — are a **post-hoc pass over the elaborated
+  environment**, run by Batteries' `runLinter` driver. `lake build` never invokes
+  them, so a green, warning-free build says nothing at all about them.
+
+Run the second suite with:
+
+```bash
+lake lint            # auto-detects the default target, `EllipticCurves`
+```
+
+It takes about 17 s on top of a warm build (measured; also 15 s on a CI runner),
+and prints `-- Linting passed for EllipticCurves.` when clean.
+
+CI runs it on every push and pull request: `leanprover/lean-action@v1` probes for a
+lint driver and runs `lake lint` itself when it finds one. **The driver is the single
+line `lintDriver = "batteries/runLinter"` in `lakefile.toml`** — remove it and both
+`lake lint` and the CI gate silently become no-ops, with no error and no warning.
+
+That silence is not hypothetical: the suite had never been run on this repository at
+all, and when it first was, it reported 53 findings — 33 `@[simp]` lemmas whose
+left-hand side was not in simp-normal form (so they could never fire), 16 naming
+violations and 4 unused hypotheses — against a build that was, and had always been,
+warning-free.
+
 ## Development
 
 The `.orchestra/` folder contains scripts used to prepare and validate the
