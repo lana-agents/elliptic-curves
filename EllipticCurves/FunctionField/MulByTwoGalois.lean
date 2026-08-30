@@ -65,18 +65,37 @@ is not the instance any statement is elaborated against.  There is no transporta
 `Algebra.IsSeparable ↥(mulByTwoEndo h2).range F(W)` to be had.  This is the concrete reason a
 consumer should state its hypotheses for the `Subfield` presentation.
 
+⚠️ **That paragraph is about the `Subring`, and it used to be everything this file said about the
+`Subfield` column.**  Every word of it stays — there is no `Subring` version of anything, at any
+`n`, and there will not be — but it was read as covering the second presentation too, and it never
+did.  Until `#1244` the `Subfield` column really did hold separability alone:
+`normal_mulByTwoEndoFieldRange_of_isAlgClosed` and `isGalois_mulByTwoEndoFieldRange_of_isAlgClosed`
+simply did not exist, even though `↥(mulByTwoEndo h2).fieldRange` *is* a `Field` type and the
+declaration crossing separability into it sits two lines away.  `#1233` found the gap while
+mirroring this file at general `n` and left it deliberately open; it is closed below, by
+`Normal.of_equiv_equiv` along the same `mulByTwoFieldRangeEquivSubfield`.  What blocks the `Subring`
+is the missing `Field` instance; nothing blocked the `Subfield`.
+
 ## Main results
 
-* **`WeierstrassCurve.Affine.CoordinateRing.fixedFieldTwo`** — `Fixed(E[2])` as an
-  `IntermediateField F F(W)`, and `finrank_fixedFieldTwo`: it has index `4`, by Artin;
-* **`WeierstrassCurve.Affine.CoordinateRing.fixedFieldTwo_eq_mulByTwoFieldRange`** — the sandwich,
-  `Fixed(E[2]) = [2]∗F(W)`, and `fixedPoints_subfield_eq_mulByTwoEndoFieldRange` at the `Subfield`
-  level;
+Every public declaration of this file is listed, and all are in namespace
+`WeierstrassCurve.Affine.CoordinateRing`.
+
+* **`fixedFieldTwo`** — `Fixed(E[2])` as an `IntermediateField F F(W)`, with
+  `mem_fixedFieldTwo_iff`, and `finrank_fixedFieldTwo`: it has index `4`, by Artin;
+* **`fixedFieldTwo_eq_mulByTwoFieldRange`** — the sandwich, `Fixed(E[2]) = [2]∗F(W)`, and
+  `fixedPoints_subfield_eq_mulByTwoEndoFieldRange` at the `Subfield` level;
+* `mulByTwoFieldRangeEquivSubfield` — the identity map read as a `RingEquiv` between the
+  `IntermediateField` and `Subfield` presentations, along which everything below is transported;
 * **`isSeparable_mulByTwoFieldRange_of_isAlgClosed`** and
   **`isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed`** — separability in the two field
   presentations, with **no hypothesis on the characteristic beyond `(2 : F) ≠ 0`**;
 * `normal_mulByTwoFieldRange_of_isAlgClosed` and `isGalois_mulByTwoFieldRange_of_isAlgClosed` — the
-  rest of the Galois package, which comes with it.
+  rest of the Galois package, which comes with it;
+* `normal_mulByTwoEndoFieldRange_of_isAlgClosed` and
+  `isGalois_mulByTwoEndoFieldRange_of_isAlgClosed` (`#1244`) — that rest in the `Subfield`
+  presentation as well, so both field presentations now carry the whole package and not just
+  separability.
 
 ## How to fire these
 
@@ -257,6 +276,35 @@ theorem isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : 
   exact Algebra.IsSeparable.of_equiv_equiv (mulByTwoFieldRangeEquivSubfield h2)
     (RingEquiv.refl W.FunctionField) (by ext a; rfl)
 
+open Classical in
+/-- **Normality in the `Subfield` presentation**, the companion of the separability crossing
+directly above and carried across the same `mulByTwoFieldRangeEquivSubfield`, which is the identity
+on elements.
+
+⚠️ `Normal.of_equiv_equiv` takes its two ring isomorphisms **implicitly** and only `hcomp`
+explicitly, unlike `Algebra.IsSeparable.of_equiv_equiv` above, which takes all three positionally;
+hence the named arguments.  The `hcomp` goal is the same in both.
+
+There is deliberately no `Subring` version: see the module docstring. -/
+theorem normal_mulByTwoEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0) :
+    Normal ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField := by
+  haveI := normal_mulByTwoFieldRange_of_isAlgClosed (W := W) h2
+  exact Normal.of_equiv_equiv (f := mulByTwoFieldRangeEquivSubfield h2)
+    (g := RingEquiv.refl W.FunctionField) (by ext a; rfl)
+
+open Classical in
+/-- **`F(W) / [2]∗F(W)` is Galois, in the `Subfield` presentation.**  Separability and normality are
+both above, so this is `⟨⟩` off the two — the same shape as
+`isGalois_mulByTwoFieldRange_of_isAlgClosed` uses in the `IntermediateField` presentation, and as
+`isGalois_mulByNEndoFieldRange_of_smooth` uses at general `n`.  `IsGalois.of_equiv_equiv` would
+prove it in one step instead, but it re-does the separability transport that the declaration two
+above has already done. -/
+theorem isGalois_mulByTwoEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : (2 : F) ≠ 0) :
+    IsGalois ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField :=
+  haveI := isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed (W := W) h2
+  haveI := normal_mulByTwoEndoFieldRange_of_isAlgClosed (W := W) h2
+  ⟨⟩
+
 /-! ### Non-vacuity
 
 The headline needs `[IsAlgClosed F]`, `[W.IsElliptic]` and `(2 : F) ≠ 0` at once, and rests on a
@@ -300,6 +348,16 @@ example : Algebra.IsSeparable ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).f
 example : IsGalois ↥(mulByTwoEndoAlgHom (W := exampleCurve) exampleTwo).fieldRange
     exampleCurve.FunctionField :=
   isGalois_mulByTwoFieldRange_of_isAlgClosed exampleTwo
+
+/-- Normality in the `Subfield` presentation, on the same curve. -/
+example : Normal ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).fieldRange
+    exampleCurve.FunctionField :=
+  normal_mulByTwoEndoFieldRange_of_isAlgClosed exampleTwo
+
+/-- And the whole Galois package in that presentation too — the statement `#1244` was filed for. -/
+example : IsGalois ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).fieldRange
+    exampleCurve.FunctionField :=
+  isGalois_mulByTwoEndoFieldRange_of_isAlgClosed exampleTwo
 
 end Nonvacuity
 
