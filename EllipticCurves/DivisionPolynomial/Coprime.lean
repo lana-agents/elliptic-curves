@@ -108,6 +108,45 @@ route is now written down and the remaining obligation is a statement about `ΨS
 both merged results through the general lemma — `n = 3` included, whose hand proof is precisely
 this argument done once by hand.
 
+## ⚠️ The pointwise weakening is not a cheaper target, and that is a negative result
+
+`EllipticCurves.Torsion.NsmulSurjective` reduces surjectivity of `[n]` on `E(F̄)` to two inputs, of
+which the second is **not** the coprimality above but the strictly weaker pointwise statement
+
+```lean
+∀ x, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0
+```
+
+and that file records that this tree obtains the weakening at `n = 2` and `n = 3` with no Bézout
+certificate at all, where the `IsCoprime` instances here cost a `Δ²` certificate and a congruence
+argument reusing it.  On that evidence `#1184`'s planning note asks whether the weakening is the
+cheaper **general** target and should be spiked first.
+
+The answer is **no**, and `eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero` is the reason: at a root of
+`ΨSqₙ` the identity `Φ_eq_neg_adjacent_add` leaves `Φₙ(x) = −preΨₙ₊₁(x)·preΨₙ₋₁(x)·Eₙ(x)`, whose
+square is `ΨSqₙ₊₁(x)·ΨSqₙ₋₁(x)` by `ΨSq_succ_mul_ΨSq_pred`.  Over a ring with no zero divisors that
+makes the pointwise statement for `(Φₙ, ΨSqₙ)` **equivalent** to the pointwise statement for the
+adjacent pair, where the `IsCoprime` reduction is an implication in one direction only.
+
+⚠️ **So the weakening buys exactly the Bézout certificate and nothing else.**  It does not touch the
+`ΨSq`-neighbour difficulty, which is the whole of what survives either reduction.  A worker
+choosing between the two general targets is choosing between `IsCoprime (ΨSqₙ₊₁ · ΨSqₙ₋₁) (ΨSqₙ)`
+and *"`ΨSqₙ₊₁ · ΨSqₙ₋₁` and `ΨSqₙ` have no common root"*, and both floors recorded in
+*"What is not here"* below apply to the second exactly as they apply to the first.
+
+⚠️ **What this does not say.**  It does not say the two general targets are equivalent — they are
+not, and `#1184`'s remains the stronger.  It says that the `Φ`-to-`ΨSq` *reduction step*, which is
+where the observed `n = 2`/`n = 3` saving lives, is available in both registers at the same price.
+Whether a future proof of the surviving `ΨSq` obligation is easier pointwise than in Bézout form is
+untouched by anything here.
+
+⚠️ **One thing the pointwise register does buy, and it is a hypothesis count rather than a route.**
+The two `example`s at the end of the file land the merged `hroot` instances
+`eval_Φ_two_ne_zero_of_root_ΨSq` and `eval_Φ_three_ne_zero_of_root_ΨSq` with `[IsAlgClosed F]` and
+`(2 : F) ≠ 0` **both dropped**, because they go through `isCoprime_Ψ₃_Ψ₂Sq` in this file rather
+than through a statement about the points above an `x`.  Both consuming files import this one, so
+that is a live de-duplication question; it is measured in that section and acted on nowhere.
+
 ## Main definitions and statements
 
 ⚠️ Every public declaration of this file is listed.  Two of them are `def`s, which is why the
@@ -127,7 +166,14 @@ heading is not `## Main results`.
   unconditional identities behind the general-`n` reduction;
 * **`WeierstrassCurve.isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`** and its two-hypothesis form
   `WeierstrassCurve.isCoprime_Φ_ΨSq_of_isCoprime_ΨSq` — the reduction itself, at every `n : ℤ` over
-  an arbitrary commutative ring.
+  an arbitrary commutative ring;
+* `WeierstrassCurve.eval_Φ_sq_of_eval_ΨSq_eq_zero` — at a root of `ΨSqₙ`, `Φₙ(x)² =
+  ΨSqₙ₊₁(x)·ΨSqₙ₋₁(x)`, over an arbitrary commutative ring;
+* `WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero` and its two-factor form
+  `WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_ne_zero` — the pointwise reduction;
+* **`WeierstrassCurve.eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero`** and its quantified form
+  `WeierstrassCurve.forall_eval_Φ_ne_zero_iff` — the pointwise reduction as an **equivalence**, for
+  `[NoZeroDivisors R]`.
 
 ## What is *not* here
 
@@ -144,7 +190,10 @@ heading is not `## Main results`.
   *"At general `n`, `Φ` is not the difficulty"* above — and what an induction is still owed is
   `IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)`, in which `Φ` does not appear.
 * **`IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` at general `n`** — the obligation the
-  reduction leaves, and the only thing between this file and the general case.  Neither route to it
+  reduction leaves, and the only thing between this file and the general case.  ⚠️ Its pointwise
+  weakening, *"`ΨSqₙ₊₁ · ΨSqₙ₋₁` and `ΨSqₙ` have no common root in `R`"*, is **equally** missing and
+  is the obligation the pointwise reduction leaves; see *"The pointwise weakening is not a cheaper
+  target"* above, and read both floors below as applying to it too.  Neither route to it
   is available in this development, and it is worth saying where each stops:
   * the **root argument** — a common root would be an `x`-coordinate that is both `n`- and
     `(n ± 1)`-torsion, hence `O`, which is not affine — needs the torsion characterisation
@@ -157,7 +206,12 @@ heading is not `## Main results`.
     tracks as `#254` / `#258` / `#260`.  ⚠️ Even granted in full it yields *divisibility*, not the
     strong-divisibility `gcd(ψₘ, ψₙ) = ψ_{gcd(m, n)}` that coprimality of neighbours needs — so it
     is a lower bound on the work here, not a route.
-* Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`.
+* Any statement about **torsion points**, or `n • P = O ↔ Ψₙ = 0`.  ⚠️ **This bullet used to read
+  *"Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`"*, and the first word of that
+  list is no longer true**: `eval_Φ_sq_of_eval_ΨSq_eq_zero` and the three statements built on it are
+  statements about roots.  What has not changed, and is what the bullet was protecting, is that no
+  root here is ever the `x`-coordinate of a point — the pointwise statements quantify over `x : R`
+  and know nothing of `W.Point`, so the torsion characterisation is still absent and still `#251`.
 * Anything about `RatFunc`, function fields, or the degree of `[n]`. The consumers are the middle
   steps of the towers computing `[F(W) : [2]∗F(W)] = 4` and `[F(W) : [3]∗F(W)] = 9`, in
   `EllipticCurves.FunctionField.MulByTwoDegree` and
@@ -358,6 +412,97 @@ theorem isCoprime_Φ_ΨSq_of_isCoprime_ΨSq {n : ℤ} (hs : IsCoprime (W.ΨSq (n
     (hp : IsCoprime (W.ΨSq (n - 1)) (W.ΨSq n)) : IsCoprime (W.Φ n) (W.ΨSq n) :=
   isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent (hs.mul_left hp)
 
+/-! ### The pointwise reduction, and why the weaker statement is not the cheaper target
+
+⚠️ **`EllipticCurves.Torsion.NsmulSurjective` does not consume `IsCoprime (Φₙ) (ΨSqₙ)`.**  Its
+surjectivity engine takes the strictly weaker *pointwise* hypothesis
+`∀ x, ΨSqₙ(x) = 0 → Φₙ(x) ≠ 0`, and records that this tree obtains that weakening at `n = 2` and
+`n = 3` without any Bézout certificate — where the two `IsCoprime` instances above cost an explicit
+`Δ²` certificate and a congruence argument reusing it.  `#1184`'s planning note asks, on that
+evidence, whether the pointwise statement is therefore the cheaper **general** target and should be
+spiked first.
+
+The lemmas below answer that, and the answer is **no**.  At a root of `ΨSqₙ` the identity
+`Φ_eq_neg_adjacent_add` leaves `Φₙ(x) = −preΨₙ₊₁(x) · preΨₙ₋₁(x) · Eₙ(x)`, whose square is
+`ΨSqₙ₊₁(x) · ΨSqₙ₋₁(x)` by `ΨSq_succ_mul_ΨSq_pred`.  So over a ring with no zero divisors the
+pointwise statement for `(Φₙ, ΨSqₙ)` is **equivalent** to the pointwise statement for the adjacent
+pair — `eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero` — exactly as
+`isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent` makes the Bézout statements interderivable in one
+direction.
+
+⚠️ **What the weakening buys is therefore precisely the Bézout certificate and nothing else.**  It
+does not touch the `ΨSq`-neighbour difficulty, which is the whole of what survives the reduction
+above and is what this file's `## What is *not* here` records as open.  A worker choosing between
+the two targets is choosing between `IsCoprime (ΨSqₙ₊₁ · ΨSqₙ₋₁) (ΨSqₙ)` and *"`ΨSqₙ₊₁ · ΨSqₙ₋₁`
+and `ΨSqₙ` have no common root in `R`"*; the `Φ` in the question was never the difficulty in either
+form.
+
+Everything here holds at every `n : ℤ` with no `[W.IsElliptic]` and no hypothesis on `n`; only the
+converse direction asks for `[NoZeroDivisors R]`, and it asks for it because `a ^ 2 = 0` does not
+imply `a = 0` in a ring with nilpotents.
+-/
+
+/-- **At a root of `ΨSqₙ`, the square of `Φₙ` is the adjacent product.**
+
+`Φ_eq_neg_adjacent_add` writes `Φₙ` as `−preΨₙ₊₁ · preΨₙ₋₁ · Eₙ + ΨSqₙ · X`, so the `ΨSqₙ`-multiple
+drops out at a root and what is left is `±` the adjacent product; `ΨSq_succ_mul_ΨSq_pred` says the
+square of that product is `ΨSqₙ₊₁ · ΨSqₙ₋₁`, and the sign disappears in the squaring.
+
+⚠️ The hypothesis is used exactly once and only to delete the `ΨSqₙ · X` term.  Nothing here is
+divided by, so this holds over an arbitrary commutative ring at every `n : ℤ`. -/
+theorem eval_Φ_sq_of_eval_ΨSq_eq_zero {n : ℤ} {x : R} (hx : (W.ΨSq n).eval x = 0) :
+    (W.Φ n).eval x ^ 2 = (W.ΨSq (n + 1)).eval x * (W.ΨSq (n - 1)).eval x := by
+  rw [← eval_mul, W.ΨSq_succ_mul_ΨSq_pred n, W.Φ_eq_neg_adjacent_add n]
+  simp only [eval_pow, eval_add, eval_neg, eval_mul, hx, zero_mul, add_zero]
+  ring
+
+/-- **The pointwise analogue of `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`**: at a root of `ΨSqₙ`
+at which the adjacent product does not vanish, `Φₙ` does not vanish either.
+
+This is the direction the surjectivity engine of `EllipticCurves.Torsion.NsmulSurjective` consumes,
+and like the `IsCoprime` reduction it eliminates `Φ` from the problem.  It needs no hypothesis on
+`R` beyond `CommRing`: if `Φₙ(x)` were `0` its square would be `0` too, and
+`eval_Φ_sq_of_eval_ΨSq_eq_zero` identifies that square with the adjacent product. -/
+theorem eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero {n : ℤ} {x : R} (hx : (W.ΨSq n).eval x = 0)
+    (h : (W.ΨSq (n + 1)).eval x * (W.ΨSq (n - 1)).eval x ≠ 0) : (W.Φ n).eval x ≠ 0 := by
+  intro h0
+  refine h ?_
+  rw [← eval_Φ_sq_of_eval_ΨSq_eq_zero hx, h0]
+  ring
+
+section NoZeroDivisors
+
+variable [NoZeroDivisors R]
+
+/-- The two-factor form of `eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero`, matching
+`isCoprime_Φ_ΨSq_of_isCoprime_ΨSq`'s relation to the one-factor reduction. -/
+theorem eval_Φ_ne_zero_of_eval_ΨSq_ne_zero {n : ℤ} {x : R} (hx : (W.ΨSq n).eval x = 0)
+    (hs : (W.ΨSq (n + 1)).eval x ≠ 0) (hp : (W.ΨSq (n - 1)).eval x ≠ 0) :
+    (W.Φ n).eval x ≠ 0 :=
+  eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero hx (mul_ne_zero hs hp)
+
+/-- **The reduction is an equivalence**, and that is the point of this section: at a root of `ΨSqₙ`,
+`Φₙ` is nonzero *if and only if* the adjacent product is.
+
+⚠️ This is the sense in which the pointwise weakening of `#1184` is **not** a cheaper general
+target.  The reverse implication is where `[NoZeroDivisors R]` is spent — `Φₙ(x) ^ 2` being `0` is
+all the identity gives, and over a ring with nilpotents that is weaker than `Φₙ(x) = 0`. -/
+theorem eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero {n : ℤ} {x : R} (hx : (W.ΨSq n).eval x = 0) :
+    (W.Φ n).eval x ≠ 0 ↔ (W.ΨSq (n + 1)).eval x * (W.ΨSq (n - 1)).eval x ≠ 0 := by
+  rw [← eval_Φ_sq_of_eval_ΨSq_eq_zero hx, ne_eq, ne_eq, pow_eq_zero_iff two_ne_zero]
+
+/-- The quantified form.  The left-hand side is verbatim the second hypothesis of
+`nsmul_surjective_of_hasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), so this says what
+that engine's remaining index-dependent input *is*, once `Φ` is removed from it. -/
+theorem forall_eval_Φ_ne_zero_iff {n : ℤ} :
+    (∀ x : R, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0) ↔
+      ∀ x : R, (W.ΨSq n).eval x = 0 →
+        (W.ΨSq (n + 1)).eval x * (W.ΨSq (n - 1)).eval x ≠ 0 :=
+  ⟨fun h x hx => (eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero hx).mp (h x hx),
+    fun h x hx => (eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero hx).mpr (h x hx)⟩
+
+end NoZeroDivisors
+
 end ImplicitW
 
 /-! ### Coprimality -/
@@ -438,6 +583,92 @@ example : IsCoprime (W.Φ 3) (W.ΨSq 3) := by
   rw [show (3 : ℤ) + 1 = 4 from rfl, show (3 : ℤ) - 1 = 2 from rfl, ΨSq_four, ΨSq_two, ΨSq_three]
   exact ((W.isCoprime_preΨ₄_Ψ₃.pow_left.mul_left W.isCoprime_Ψ₃_Ψ₂Sq.symm).mul_left
     W.isCoprime_Ψ₃_Ψ₂Sq.symm).pow_right
+
+/-! #### ⚠️ The pointwise reduction, validated at the same two indices — and it lands both merged
+`hroot` instances with strictly fewer hypotheses
+
+`eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero` is unconditional too, so nothing above rules out
+*its* hypothesis being unsatisfiable.  The two examples below discharge it at `n = 2` and `n = 3`
+from the same inputs the two `IsCoprime` examples use, one point at a time.
+
+⚠️ **What they land already exists downstream, and this is a measurement rather than a
+duplication.**  Their conclusions are the conclusions of `eval_Φ_two_ne_zero_of_root_ΨSq`
+(`EllipticCurves.Torsion.DoublingSurjective`) and `eval_Φ_three_ne_zero_of_root_ΨSq`
+(`EllipticCurves.Torsion.TriplingSurjective`) — the two `hroot` instances of
+`exists_nsmul_eq_of_hasXCoordFormula` — character for character once `Affine F` is unfolded to
+`WeierstrassCurve F`, which it is by `abbrev`.  **The hypotheses are not the same**, and that is
+the point of putting them here:
+
+* the merged statements carry, at `n = 2` and at `n = 3` alike, `[Field F]`, `[IsAlgClosed F]`,
+  `[W.IsElliptic]` and `(2 : F) ≠ 0`;
+* the route below carries `[CommRing R]`, `[IsDomain R]` and `[W.IsElliptic]`, and nothing else.
+
+Both readings were taken from the elaborator, not from the source.
+
+⚠️ **`DoublingSurjective` imports this file directly and `TriplingSurjective` imports
+`DoublingSurjective`**, so the general route is available at both sites and the difference is a
+`#699`-class de-duplication question, not an import problem.  The merged proofs reach `hroot`
+through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` (`EllipticCurves.Torsion.ThreeTorsionStructure`), which is a
+statement about the points above an `x` and therefore carries the algebraic closure and the
+characteristic condition; the route below reaches it through `isCoprime_Ψ₃_Ψ₂Sq`, which is in this
+file and carries neither.  ⚠️ **Nothing is changed at either site here** — narrowing a merged
+signature is a separate decision with its own call-site check, and this section records the
+measurement so that decision can be made on it.
+
+⚠️ **They are `example`s and not theorems** for the reason the `IsCoprime` pair above gives: the
+statements already have names downstream, and a third name on the same statement is the worse
+outcome.
+
+⚠️ **`[IsDomain R]` appears here and nowhere else in this file**, and it is spent in three places,
+none of them in a general statement: `pow_ne_zero` at `n = 2`, `pow_eq_zero_iff` extracting
+`Ψ₃(x) = 0` from `ΨSq₃(x) = 0` at `n = 3` — both `NoZeroDivisors` — and `Nontrivial` inside the
+`IsCoprime`-to-root helper below, without which `1 = 0` is not a contradiction.  The general lemmas
+above ask for `NoZeroDivisors` at most, and two of the four ask for nothing beyond `CommRing`. -/
+
+section Domain
+
+variable [IsDomain R]
+
+/-- The `eval` shadow of Mathlib's `Polynomial.aeval_ne_zero_of_isCoprime`: coprime polynomials have
+no common root.
+
+⚠️ `private` because it is not this file's subject and because it already exists twice — once in
+Mathlib in the `aeval` shape it is derived from here, and once hand-proved as
+`eval_Φ_ne_zero_of_isCoprime` (`EllipticCurves.Torsion.NsmulSurjective`), which specialises it to
+`(Φₙ, ΨSqₙ)` and reproves it from the Bézout witness.  That duplication is a `#699`-class question
+about a file outside this one's import closure, so it is recorded here and not acted on. -/
+private theorem eval_ne_zero_of_isCoprime {a b : R[X]} (h : IsCoprime a b) {x : R}
+    (hb : b.eval x = 0) : a.eval x ≠ 0 := by
+  have h' := Polynomial.aeval_ne_zero_of_isCoprime (S := R) h x
+  simpa [Polynomial.coe_aeval_eq_eval, hb] using h'
+
+/-- **The pointwise reduction at `n = 2`.**  The adjacent product is `ΨSq₃ · ΨSq₁ = Ψ₃² · 1`, so the
+hypothesis is `isCoprime_Ψ₃_Ψ₂Sq` read at the root — the same input the `IsCoprime` example above
+uses, one point at a time. -/
+example (x : R) (hx : (W.ΨSq 2).eval x = 0) : (W.Φ 2).eval x ≠ 0 := by
+  refine eval_Φ_ne_zero_of_eval_ΨSq_ne_zero hx ?_ ?_
+  · rw [show (2 : ℤ) + 1 = 3 from rfl, ΨSq_three, eval_pow]
+    exact pow_ne_zero _ (eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq (by rwa [ΨSq_two] at hx))
+  · rw [show (2 : ℤ) - 1 = 1 from rfl, ΨSq_one, eval_one]
+    exact one_ne_zero
+
+/-- **The pointwise reduction at `n = 3`.**  The adjacent product is `ΨSq₄ · ΨSq₂
+= preΨ₄² · Ψ₂Sq · Ψ₂Sq`, so the hypotheses are `isCoprime_preΨ₄_Ψ₃` and `isCoprime_Ψ₃_Ψ₂Sq` at the
+root — again the two inputs of the `IsCoprime` example above, and of the hand proof of
+`isCoprime_Φ_three_ΨSq_three` before it. -/
+example (x : R) (hx : (W.ΨSq 3).eval x = 0) : (W.Φ 3).eval x ≠ 0 := by
+  have h3 : W.Ψ₃.eval x = 0 := by
+    refine pow_eq_zero_iff two_ne_zero |>.mp ?_
+    rw [← eval_pow, ← ΨSq_three]
+    exact hx
+  refine eval_Φ_ne_zero_of_eval_ΨSq_ne_zero hx ?_ ?_
+  · rw [show (3 : ℤ) + 1 = 4 from rfl, ΨSq_four, eval_mul, eval_pow]
+    exact mul_ne_zero (pow_ne_zero _ (eval_ne_zero_of_isCoprime W.isCoprime_preΨ₄_Ψ₃ h3))
+      (eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq.symm h3)
+  · rw [show (3 : ℤ) - 1 = 2 from rfl, ΨSq_two]
+    exact eval_ne_zero_of_isCoprime W.isCoprime_Ψ₃_Ψ₂Sq.symm h3
+
+end Domain
 
 end IsElliptic
 

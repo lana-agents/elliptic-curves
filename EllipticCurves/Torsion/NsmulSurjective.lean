@@ -38,9 +38,26 @@ it).  Beyond those two, nothing — no degree hypothesis, no Bézout certificate
 `(n : F)`.
 
 ⚠️ So `#1184` is **not** only a gate under rung 3's degree count, which is where it is filed: a
-weakening of it is also a gate under the structure theorem at every prime `p ≥ 5`.  The two
-instances that exist show the weakening is the cheaper target — neither `n = 2` nor `n = 3` obtains
-it through Bézout.
+weakening of it is also a gate under the structure theorem at every prime `p ≥ 5`.
+
+⚠️ **The next sentence of this paragraph used to read *"The two instances that exist show the
+weakening is the cheaper target — neither `n = 2` nor `n = 3` obtains it through Bézout"*, and its
+second half is still exactly right while its first half has been answered and refuted.**  What was
+measured is that at both available indices the pointwise input is obtained without a Bézout
+certificate; what was inferred from it is that the pointwise statement is therefore the cheaper
+target at general `n`.  It is not.  `eval_Φ_ne_zero_iff_of_eval_ΨSq_eq_zero`, in
+`EllipticCurves.DivisionPolynomial.Coprime`, shows that at a root of `ΨSqₙ` the square of `Φₙ`
+**is** the adjacent product `ΨSqₙ₊₁ · ΨSqₙ₋₁`.  So over a field the pointwise statement for
+`(Φₙ, ΨSqₙ)` is *equivalent* to the pointwise statement for the adjacent pair, and the surviving
+difficulty — that `ΨSqₙ` and its neighbours have no common root — is the same one `#1184` is left
+with after `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent`.  The weakening drops the Bézout certificate
+and nothing else.
+
+⚠️ **Nothing about this file changes.**  Its input is still the pointwise statement, that is still
+strictly weaker than `#1184`, and taking it in that form is still right — what is retired is only
+the claim that the general target is cheaper *because* of it.  Neither module named above is in
+this file's import closure and none is added; both directions were re-grepped when this paragraph
+was written.
 
 ## Two economies of the `n = 2` and `n = 3` arguments are preserved deliberately
 
