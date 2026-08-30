@@ -68,11 +68,24 @@ two.
 
 ## Remaining work
 
-The divisor-level compatibilities — `divisor`, `divisorProj`, and hence `weilPairingElt` — are not
-here. They are not coordinate computations: they need the behaviour of `functionFieldMap` on the
-places of `F(W)`, which is a genuinely different argument. A `Point.map` bridge identifying the
-base-changed torsion point with the image of the original is likewise still missing; the analogous
-gadget for `F → F(W)` is `torsionPointMap` (`TranslationTorsionMap.lean`).
+The divisor-level compatibilities — `divisor` and `divisorProj` — are not here. They are not
+coordinate computations: they need the behaviour of `functionFieldMap` on the places of `F(W)`,
+which is a genuinely different argument. A `Point.map` bridge identifying the base-changed torsion
+point with the image of the original is likewise still missing; the analogous gadget for
+`F → F(W)` is `torsionPointMap` (`TranslationTorsionMap.lean`).
+
+⚠️ **`weilPairingElt` was in that list and did not belong there.** The sentence above used to read
+*"The divisor-level compatibilities — `divisor`, `divisorProj`, **and hence `weilPairingElt`** —
+are not here."* The `divisor` / `divisorProj` half stands; the `weilPairingElt` clause was false.
+`weilPairingElt h₂ g` is `translateEndo h₂ g / g`, which mentions no place, no order of vanishing
+and no divisor, so `map_div₀` and `functionFieldMap_translateEndo` transport it in one `rw`. It is
+`EllipticCurves.FunctionField.WeilPairingEltBaseChange.functionFieldMap_weilPairingElt`, together
+with the descent corollaries that follow from `functionFieldMap_injective`. ⚠️ A prose pointer and
+not an `import`: that module sits above this one.
+
+⚠️ It is the **rung-5 datum** `div g_S = [n]∗(S)` that needs the divisor half, not the pairing
+element built from it — which is why the ease of that transport says nothing about the difficulty
+of this section's remaining work.
 
 ## References
 
