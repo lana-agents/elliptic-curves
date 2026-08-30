@@ -183,8 +183,19 @@ noncomputable def translateAlgHom {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) 
     translateAlgHom h₂ a = translateCoordHom h₂ a := rfl
 
 /-- The `F`-algebra structure on `F[W]` is finitely generated: `F[W]` is module-finite over the
-polynomial ring `F[X]`, which is finite type over `F`. -/
-instance : Algebra.FiniteType F W.CoordinateRing :=
+polynomial ring `F[X]`, which is finite type over `F`.
+
+⚠️ **Named rather than anonymous** (`#1277`).  An anonymous `instance` whose elaborated type
+mentions no constant of this project gets `moduleToSuffix` appended by
+`Lean.Elab.NameGen.mkBaseNameWithSuffix` — here `_ellipticCurves`, the lake library name — so the
+auto-generated name was ``…CoordinateRing.instFiniteType_ellipticCurves``.  That is not a
+collision (the unsuffixed name exists nowhere); it is the library name leaking into the API, and it
+would change if the library were renamed.  The name below is Lean's own generated name with the
+suffix removed, so nothing else moves.
+
+⚠️ The `defsWithUnderscore` linter does **not** report this one, because `Algebra.FiniteType` is a
+`Prop` and the linter skips proofs.  It is in the census all the same. -/
+instance instFiniteType : Algebra.FiniteType F W.CoordinateRing :=
   Algebra.FiniteType.trans (inferInstance : Algebra.FiniteType F F[X])
     (Module.Finite.finiteType (R := F[X]) W.CoordinateRing)
 

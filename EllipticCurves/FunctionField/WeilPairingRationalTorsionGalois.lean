@@ -135,13 +135,23 @@ section RationalCubeRoots
 `Algebra ℚ (AlgebraicClosure ℚ)` instance it settles on is `DivisionRing.toRatAlgebra`, whereas
 `AlgebraicClosure.isAlgebraic` is stated for `AlgebraicClosure.instAlgebra`, and the two unify only
 at default transparency.  `exact` uses default transparency, so naming the instance works where
-searching for it does not. -/
-private instance : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := AlgebraicClosure.isAlgebraic ℚ
+searching for it does not.
+
+⚠️ Named rather than anonymous (`#1277`): the auto-generated name was
+`instIsAlgebraicRatAlgebraicClosure_ellipticCurves`, with the lake library name appended because the
+type mentions no constant of this project.  `private` keeps it out of the linter's report but not
+out of the environment. -/
+private instance instIsAlgebraicRatAlgebraicClosure :
+    Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := AlgebraicClosure.isAlgebraic ℚ
 
 /-- `AlgebraicClosure ℚ` is an algebraic closure of `ℚ`, supplied by hand for the reason above: the
 library instance is blocked by the same unification failure, one level up.  With it,
-`IsGalois ℚ (AlgebraicClosure ℚ)` is found. -/
-private instance : IsAlgClosure ℚ (AlgebraicClosure ℚ) := ⟨inferInstance, inferInstance⟩
+`IsGalois ℚ (AlgebraicClosure ℚ)` is found.
+
+⚠️ Named rather than anonymous, as for `instIsAlgebraicRatAlgebraicClosure`: the auto-generated name
+was `instIsAlgClosureRatAlgebraicClosure_ellipticCurves`. -/
+private instance instIsAlgClosureRatAlgebraicClosure :
+    IsAlgClosure ℚ (AlgebraicClosure ℚ) := ⟨inferInstance, inferInstance⟩
 
 /-- **Some `σ ∈ Gal(Q̄/ℚ)` moves some cube root of unity.**
 

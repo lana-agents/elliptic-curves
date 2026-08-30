@@ -472,7 +472,12 @@ theorem torsion_le_weilPairingPointSubgroup_two (h2 : (2 : F) ≠ 0) {f g : W.Fu
 
 open Classical in
 /-- **`e_2(S, ·) : E[2] → μ_2(F)` as a homomorphism of groups**, for a rung-5 root `g` at `S` over
-an **arbitrary** field.  `weilPairingPointMuHom` restricted along the inclusion of `E[2]`. -/
+an **arbitrary** field.  `weilPairingPointMuHom` restricted along the inclusion of `E[2]`.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): `_two` is this development's index suffix for the
+concrete `n = 2` track — the same suffix every theorem on that track carries — and is not a
+compound name. -/
+@[nolint defsWithUnderscore]
 noncomputable def weilPairingTorsionMuHom_two (h2 : (2 : F) ≠ 0) {f g : W.FunctionField}
     {u : W.CoordinateRingˣ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) :
@@ -506,7 +511,11 @@ theorem torsion_le_weilPairingPointSubgroup_three (h2 : (2 : F) ≠ 0) (h3 : (3 
       (add_add_self_eq_zero_of_mem_torsion_three hP) hg hu
 
 open Classical in
-/-- **`e_3(S, ·) : E[3] → μ_3(F)` as a homomorphism of groups**, over an arbitrary field. -/
+/-- **`e_3(S, ·) : E[3] → μ_3(F)` as a homomorphism of groups**, over an arbitrary field.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): the `_three` index suffix, as for
+`weilPairingTorsionMuHom_two`. -/
+@[nolint defsWithUnderscore]
 noncomputable def weilPairingTorsionMuHom_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ 3 = mulByThreeEndo h2 h3 f) :

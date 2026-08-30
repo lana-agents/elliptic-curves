@@ -188,7 +188,14 @@ variable (W) in
 
 It is a `Subgroup` rather than a bespoke type, so `Subgroup.mulSemiringAction` supplies the action
 on `F(W)` and `Subgroup.instFaithfulSMulSubtypeMem` its faithfulness — both of which Artin's
-theorem needs and neither of which has to be built here. -/
+theorem needs and neither of which has to be built here.
+
+⚠️ **`[W.IsElliptic]` is unused in the elaborated term and is kept on purpose** (`#1277`,
+`nolint unusedArguments`; `#1272`'s Part C reached the same verdict).  Without `Δ ≠ 0` the
+hyperelliptic involution *is* the identity — see *"Why this needs no characteristic
+hypothesis"* above — and `⟨ι⟩` is the trivial subgroup, so a version without the instance would
+be a statement about nothing. -/
+@[nolint unusedArguments]
 noncomputable abbrev negYGroup (W : Affine F) [W.IsElliptic] :
     Subgroup (W.FunctionField ≃ₐ[F] W.FunctionField) :=
   Subgroup.zpowers (negYAlgEquiv W)

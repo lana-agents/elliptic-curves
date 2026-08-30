@@ -62,7 +62,17 @@ lemma galois_smul_def (σ : F ≃ₐ[S] F) (P : (W'⁄F).Point) :
     σ • P = Point.map (σ : F →ₐ[S] F) P :=
   rfl
 
-noncomputable instance : MulAction (F ≃ₐ[S] F) (W'⁄F).Point where
+/-- The `SMul` of `instSMulAlgEquiv` is an action: `1 • P = P` and `(στ) • P = σ • (τ • P)`, both
+by functoriality of `Point.map`.
+
+⚠️ **Named rather than anonymous** (`#1277`).  An anonymous `instance` whose elaborated type
+mentions no constant of this project gets `moduleToSuffix` appended by
+`Lean.Elab.NameGen.mkBaseNameWithSuffix` — here `_ellipticCurves`, the lake library name — so this
+was `…Point.instMulActionAlgEquivBaseChange_ellipticCurves`.  That is not a collision (the
+unsuffixed name exists nowhere); it is the library name leaking into the API.  The name chosen is
+`instSMulAlgEquiv`'s, directly above, rather than Lean's generated base name, because the three
+instances are one family and should read as one. -/
+noncomputable instance instMulActionAlgEquiv : MulAction (F ≃ₐ[S] F) (W'⁄F).Point where
   one_smul P := by cases P <;> rfl
   mul_smul σ τ P := by
     change Point.map ((σ * τ : F ≃ₐ[S] F) : F →ₐ[S] F) P
@@ -70,7 +80,13 @@ noncomputable instance : MulAction (F ≃ₐ[S] F) (W'⁄F).Point where
     rw [Point.map_map]
     rfl
 
-noncomputable instance : DistribMulAction (F ≃ₐ[S] F) (W'⁄F).Point where
+/-- The action is additive: `σ • 0 = 0` and `σ • (P + Q) = σ • P + σ • Q`, both from `Point.map`
+being an `AddMonoidHom`.
+
+⚠️ Named rather than anonymous, for the reason given on `instMulActionAlgEquiv`: the
+auto-generated name was `…Point.instDistribMulActionAlgEquivBaseChange_ellipticCurves`. -/
+noncomputable instance instDistribMulActionAlgEquiv :
+    DistribMulAction (F ≃ₐ[S] F) (W'⁄F).Point where
   smul_zero σ := (Point.map (σ : F →ₐ[S] F)).map_zero
   smul_add σ P Q := (Point.map (σ : F →ₐ[S] F)).map_add P Q
 
