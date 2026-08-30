@@ -53,6 +53,13 @@ to the elliptic-divisibility-sequence recurrence and to the multiplication-by-`n
 * `WeierstrassCurve.Affine.ψ_zero_evalEval`, `WeierstrassCurve.Affine.ψ_one_evalEval`,
   `WeierstrassCurve.Affine.ψ_two_evalEval`: the low-index base evaluations.
 
+## ⚠️ Two `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
+
+`ψ_zero_evalEval` and `ψ_one_evalEval` carried `@[simp]`, and the default simp set **already proves
+both** — through Mathlib's `ψ_zero` / `ψ_one` with `Polynomial.evalEval_zero` / `evalEval_one`.
+Measured with Mathlib's `simpNF` environment linter, which had never been run on this tree. Both
+lemmas are unchanged; only the attribute went.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.4.
@@ -114,12 +121,10 @@ end Eval
 section BaseCases
 
 /-- The `0`-division polynomial vanishes at every point: `ψ₀(x, y) = 0`. -/
-@[simp]
 lemma ψ_zero_evalEval : (W.ψ 0).evalEval x y = 0 := by
   rw [ψ_zero, evalEval_zero]
 
 /-- The `1`-division polynomial is the constant `1`: `ψ₁(x, y) = 1`. -/
-@[simp]
 lemma ψ_one_evalEval : (W.ψ 1).evalEval x y = 1 := by
   rw [ψ_one, evalEval_one]
 

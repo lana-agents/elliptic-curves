@@ -38,6 +38,15 @@ to the division polynomials, and are developed separately.
 * `WeierstrassCurve.Affine.torsion_zero`, `WeierstrassCurve.Affine.torsion_one`:
   `E[0] = ⊤` and `E[1] = ⊥`.
 * `WeierstrassCurve.Affine.torsion_mono`: `m ∣ n → E[m] ≤ E[n]`.
+
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`nsmul_mem_torsion` carried `@[simp]`, and it is a **straight duplicate of Mathlib's
+`AddSubgroup.torsionBy.nsmul`**, which is already `@[simp]` — so the default simp set proves it and
+the attribute only added a second entry for the same rewrite. Measured with Mathlib's `simpNF`
+environment linter, which had never been run on this tree. ⚠️ The lemma is kept and unchanged: it
+has eleven named consumers across five files, and the point of the name is to state the fact in
+`W.torsion` vocabulary rather than `AddSubgroup.torsionBy`.
 -/
 
 open scoped AddSubgroup
@@ -88,7 +97,6 @@ variable {W : Affine F}
 lemma mem_torsion_iff {n : ℕ} {P : W.Point} : P ∈ W.torsion n ↔ n • P = 0 :=
   AddSubgroup.torsionBy.nsmul_iff
 
-@[simp]
 lemma nsmul_mem_torsion {n : ℕ} (P : W.torsion n) : n • P = 0 :=
   AddSubgroup.torsionBy.nsmul P
 

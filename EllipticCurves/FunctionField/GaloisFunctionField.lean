@@ -56,6 +56,27 @@ generator images and endomorphism-commutation lemmas need no `Eq.mpr` casts.
 * `galoisFunctionField_translateEndo` — `σ⋆ ∘ translateEndo h = translateEndo (σ·h) ∘ σ⋆`;
 * `galoisFunctionField_mulByTwoEndo` / `_mulByThreeEndo` — `σ⋆ ∘ [n]∗ = [n]∗ ∘ σ⋆` for `n = 2, 3`.
 
+## ⚠️ Nine `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
+
+Measured with Mathlib's `simpNF` environment linter, which had never been run on this tree. Two
+mechanisms, and in both the attribute was inert:
+
+* `galoisFunctionField_Φ_eval`, `_Ψ₂Sq_eval`, `_ΨSq_eval`, `_preΨ₄_eval`, `_preΨ_eval` and
+  `_ψ_evalEval` have an LHS mentioning `(W⁄F).map (algebraMap F (W⁄F).FunctionField)` under a
+  division polynomial. `simp` normalises bottom-up, so Mathlib's `WeierstrassCurve.map_Φ` /
+  `map_ΨSq` / `map_Ψ₂Sq` / `map_preΨ` / `map_preΨ₄` / `map_ψ` rewrite that subterm first — and for
+  the `…_eval` family `Polynomial.eval_map_algebraMap` then turns `eval x (p.map (algebraMap ..))`
+  into `aeval x p`. The outer pattern never matches.
+* `galoisCoordEndo_mk_C_X`'s LHS is `mk (W⁄F) (C X)`, which `AdjoinRoot.mk_C` rewrites to
+  `AdjoinRoot.of (W⁄F).polynomial X` before the pattern is tried.
+* `galoisFunctionField_map_a₁` and `_map_a₃` are a different case: the default simp set **already
+  proves them**, through `map_a₁` / `baseChange_a₁`, `galoisFunctionField_algebraMap` and
+  `AlgEquiv.commutes`. The attribute was redundant rather than dead.
+
+⚠️ **Every one of the nine is still a named rewrite with live consumers** — in this file and, for
+`galoisCoordEndo_mk_C_X`, in `EllipticCurves.FunctionField.GaloisFunctoriality`. Only the attribute
+moved; no statement and no proof changed.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.
@@ -113,7 +134,7 @@ lemma galoisCoordEndo_of (σ : F ≃ₐ[S] F) (p : F[X]) :
   rw [galoisCoordEndo, AdjoinRoot.lift_root]
 
 /-- `galoisCoordEndo σ` fixes the `X`-generator `mk (C X)`. -/
-@[simp] lemma galoisCoordEndo_mk_C_X (σ : F ≃ₐ[S] F) :
+lemma galoisCoordEndo_mk_C_X (σ : F ≃ₐ[S] F) :
     galoisCoordEndo σ (mk (W⁄F) (C X)) = mk (W⁄F) (C X) := by
   have h : mk (W⁄F) (C X) = AdjoinRoot.of (W⁄F).polynomial X := rfl
   rw [h, galoisCoordEndo_of, Polynomial.map_X]
@@ -353,19 +374,19 @@ lemma galoisFunctionField_evalEval_gen (σ : F ≃ₐ[S] F) {q : (W⁄F).Functio
 
 /-- `σ⋆` fixes the coefficients `aᵢ` of the base-changed curve `W ⁄ F(W⁄F)` (they come from `S`),
 packaged as fixing the `a₁` coefficient. -/
-@[simp] lemma galoisFunctionField_map_a₁ (σ : F ≃ₐ[S] F) :
+lemma galoisFunctionField_map_a₁ (σ : F ≃ₐ[S] F) :
     galoisFunctionField σ (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₁)
       = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₁ :=
   congrArg WeierstrassCurve.a₁ (galoisFunctionField_curve_stable (W := W) σ)
 
 /-- `σ⋆` fixes the `a₃` coefficient of the base-changed curve `W ⁄ F(W⁄F)`. -/
-@[simp] lemma galoisFunctionField_map_a₃ (σ : F ≃ₐ[S] F) :
+lemma galoisFunctionField_map_a₃ (σ : F ≃ₐ[S] F) :
     galoisFunctionField σ (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₃)
       = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).a₃ :=
   congrArg WeierstrassCurve.a₃ (galoisFunctionField_curve_stable (W := W) σ)
 
 /-- `σ⋆` fixes `Φₙ(genX)` (the `x`-numerator of `[n]∗`). -/
-@[simp] lemma galoisFunctionField_Φ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+lemma galoisFunctionField_Φ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
     galoisFunctionField σ
         ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Φ n).eval (genX (W⁄F)))
       = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Φ n).eval (genX (W⁄F)) :=
@@ -373,7 +394,7 @@ packaged as fixing the `a₁` coefficient. -/
     (by simp only [← WeierstrassCurve.map_Φ, galoisFunctionField_curve_stable])
 
 /-- `σ⋆` fixes `Ψ₂Sq(genX)` (the `x`-denominator of `[2]∗`). -/
-@[simp] lemma galoisFunctionField_Ψ₂Sq_eval (σ : F ≃ₐ[S] F) :
+lemma galoisFunctionField_Ψ₂Sq_eval (σ : F ≃ₐ[S] F) :
     galoisFunctionField σ
         (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Ψ₂Sq.eval (genX (W⁄F)))
       = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).Ψ₂Sq.eval (genX (W⁄F)) :=
@@ -381,7 +402,7 @@ packaged as fixing the `a₁` coefficient. -/
     (by simp only [← WeierstrassCurve.map_Ψ₂Sq, galoisFunctionField_curve_stable])
 
 /-- `σ⋆` fixes `ΨSqₙ(genX)` (the `x`-denominator of `[n]∗`). -/
-@[simp] lemma galoisFunctionField_ΨSq_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+lemma galoisFunctionField_ΨSq_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
     galoisFunctionField σ
         ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ΨSq n).eval (genX (W⁄F)))
       = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ΨSq n).eval (genX (W⁄F)) :=
@@ -389,7 +410,7 @@ packaged as fixing the `a₁` coefficient. -/
     (by simp only [← WeierstrassCurve.map_ΨSq, galoisFunctionField_curve_stable])
 
 /-- `σ⋆` fixes `preΨ₄(genX)`. -/
-@[simp] lemma galoisFunctionField_preΨ₄_eval (σ : F ≃ₐ[S] F) :
+lemma galoisFunctionField_preΨ₄_eval (σ : F ≃ₐ[S] F) :
     galoisFunctionField σ
         (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ₄.eval (genX (W⁄F)))
       = ((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ₄.eval (genX (W⁄F)) :=
@@ -397,7 +418,7 @@ packaged as fixing the `a₁` coefficient. -/
     (by simp only [← WeierstrassCurve.map_preΨ₄, galoisFunctionField_curve_stable])
 
 /-- `σ⋆` fixes `preΨₙ(genX)`. -/
-@[simp] lemma galoisFunctionField_preΨ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
+lemma galoisFunctionField_preΨ_eval (σ : F ≃ₐ[S] F) (n : ℤ) :
     galoisFunctionField σ
         ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ n).eval (genX (W⁄F)))
       = (((W⁄F).map (algebraMap F (W⁄F).FunctionField)).preΨ n).eval (genX (W⁄F)) :=
@@ -405,7 +426,7 @@ packaged as fixing the `a₁` coefficient. -/
     (by simp only [← WeierstrassCurve.map_preΨ, galoisFunctionField_curve_stable])
 
 /-- `σ⋆` fixes `ψₙ(genX, genY)` (the bivariate division polynomial). -/
-@[simp] lemma galoisFunctionField_ψ_evalEval (σ : F ≃ₐ[S] F) (n : ℤ) :
+lemma galoisFunctionField_ψ_evalEval (σ : F ≃ₐ[S] F) (n : ℤ) :
     galoisFunctionField σ
         ((((W⁄F).map (algebraMap F (W⁄F).FunctionField)).ψ n).evalEval
           (genX (W⁄F)) (genY (W⁄F)))

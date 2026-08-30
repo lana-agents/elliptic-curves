@@ -61,6 +61,14 @@ commutativity of `W.formalGroupSeries` in the `FormalGroup.IsComm` form transfer
 * `WeierstrassCurve.formalGroupZW_comm` : `rename (swap 0 1) F = F`, i.e. `F(z₁,z₂) = F(z₂,z₁)`.
 * `WeierstrassCurve.coeff_formalGroupZW_swap` : the coefficient form of commutativity.
 
+## ⚠️ Three `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
+
+The three private variable-swap lemmas `rename_swap_C`, `rename_swap_X_zero` and
+`rename_swap_X_one` carried `@[simp]`, and the default simp set **already proves each of them** —
+through `MvPowerSeries.rename_C`, and `MvPowerSeries.rename_X` with `Equiv.swap_apply_left` /
+`Equiv.swap_apply_right`. Measured with Mathlib's `simpNF` environment linter, which had never been
+run on this tree. All three are still used by name below; only the attribute went.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], IV.1, Theorem 1.1.
@@ -125,18 +133,18 @@ private lemma rename_swap_invOfUnit (u : MvPowerSeries (Fin 2) R)
     _ = MvPowerSeries.invOfUnit (S u) 1 := by rw [h1, mul_one]
 
 /-- The variable swap fixes constant power series. -/
-@[simp] private lemma rename_swap_C (r : R) :
+private lemma rename_swap_C (r : R) :
     MvPowerSeries.rename (⇑(Equiv.swap (0 : Fin 2) 1)) (MvPowerSeries.C r) = MvPowerSeries.C r :=
   MvPowerSeries.rename_C _ r
 
 /-- The variable swap sends `z₁ ↦ z₂`. -/
-@[simp] private lemma rename_swap_X_zero :
+private lemma rename_swap_X_zero :
     MvPowerSeries.rename (⇑(Equiv.swap (0 : Fin 2) 1)) (MvPowerSeries.X 0)
       = (MvPowerSeries.X 1 : MvPowerSeries (Fin 2) R) := by
   rw [MvPowerSeries.rename_X, Equiv.swap_apply_left]
 
 /-- The variable swap sends `z₂ ↦ z₁`. -/
-@[simp] private lemma rename_swap_X_one :
+private lemma rename_swap_X_one :
     MvPowerSeries.rename (⇑(Equiv.swap (0 : Fin 2) 1)) (MvPowerSeries.X 1)
       = (MvPowerSeries.X 0 : MvPowerSeries (Fin 2) R) := by
   rw [MvPowerSeries.rename_X, Equiv.swap_apply_right]

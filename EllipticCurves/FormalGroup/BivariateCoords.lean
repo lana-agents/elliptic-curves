@@ -43,6 +43,14 @@ is well-defined.
   for `P₁` and `P₂`.
 * `WeierstrassCurve.isUnit_biX₂_sub_biX₁` : `x₂ - x₁` is a unit of `R⸨z₁⸩⸨z₂⸩`.
 
+## ⚠️ Two `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
+
+`HahnSeries.mapRingHom_single` and `HahnSeries.mapRingHom_C` carried `@[simp]` and **neither could
+ever fire**: `HahnSeries.mapRingHom_apply` is itself `@[simp]` and unfolds `mapRingHom f x` to
+`x.map f`, so the head of both patterns is gone before they are tried. Measured with Mathlib's
+`simpNF` environment linter, which had never been run on this tree. Both are still named rewrites
+with consumers here and in `EllipticCurves.FormalGroup.LaurentMap`; only the attribute went.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], IV.1.
@@ -67,12 +75,10 @@ noncomputable def mapRingHom (f : R →+* S) : HahnSeries Γ R →+* HahnSeries 
 @[simp]
 theorem mapRingHom_apply (f : R →+* S) (x : HahnSeries Γ R) : mapRingHom f x = x.map f := rfl
 
-@[simp]
 theorem mapRingHom_C (f : R →+* S) (r : R) :
     mapRingHom f (C r) = (C (f r) : HahnSeries Γ S) :=
   map_C r f
 
-@[simp]
 theorem mapRingHom_single (f : R →+* S) (a : Γ) (r : R) :
     mapRingHom f (single a r) = single a (f r) :=
   HahnSeries.map_single f.toAddMonoidHom.toZeroHom

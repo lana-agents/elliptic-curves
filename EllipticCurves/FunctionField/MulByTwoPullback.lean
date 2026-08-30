@@ -84,6 +84,14 @@ than deleted.
 The reusable crux — the on-curve doubling identity at the generic point — is what this file
 establishes.
 
+## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
+
+`mulByTwoCoordHom_X` carried `@[simp]` and **could never fire**: its LHS is `mk W (C X)`, and
+`AdjoinRoot.mk_C` — itself `@[simp]` — rewrites that to `AdjoinRoot.of W.polynomial X` before the
+pattern is tried. Measured with Mathlib's `simpNF` environment linter, which had never been run on
+this tree. The lemma is unchanged and has ten named consumers across four other files; only the
+attribute went.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.6 (the duplication
@@ -188,7 +196,7 @@ noncomputable def mulByTwoCoordHom (h2 : (2 : F) ≠ 0) :
 
 /-- Image of the `x`-generator under the multiplication-by-`2` pullback: the `x`-coordinate of
 `2 • P`. -/
-@[simp] lemma mulByTwoCoordHom_X (h2 : (2 : F) ≠ 0) :
+lemma mulByTwoCoordHom_X (h2 : (2 : F) ≠ 0) :
     mulByTwoCoordHom h2 (mk W (C X)) =
       ((W.map (algebraMap F W.FunctionField)).Φ 2).eval (genX W) /
         (W.map (algebraMap F W.FunctionField)).Ψ₂Sq.eval (genX W) := by
