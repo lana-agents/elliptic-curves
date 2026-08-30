@@ -136,9 +136,15 @@ Same shape as `finite_torsionThreeMul` in `TranslationActionThree`, and for the 
   that the two agree.
 * Non-degeneracy of `e_3` (`#419`), which is what consumes this.  Nothing below mentions the
   Weil pairing, places, divisors or `ProjPoint`.
-* Any statement about `Gal(F(W) / [3]∗F(W))` as a group — `IsGalois` is delivered, its Galois
-  *group* is not identified with `E[3]` here, though `fixedFieldThree_eq_mulByThreeFieldRange` is
-  what such an identification would start from.
+* ⚠️ Any statement about `Gal(F(W) / [3]∗F(W))` as a group — **RETIRED, it landed.**  This bullet
+  used to read *"`IsGalois` is delivered, its Galois *group* is not identified with `E[3]` here,
+  though `fixedFieldThree_eq_mulByThreeFieldRange` is what such an identification would start
+  from."*  It is `torsionThreeMulGaloisEquiv` in
+  `EllipticCurves.FunctionField.MulByNGaloisGroup`, built on
+  `fixedPoints_subfield_eq_mulByThreeEndoFieldRange` below rather than on the `IntermediateField`
+  form the bullet nominated.  ⚠️ It is built from **this file's** sandwich and not from the
+  general-`n` one, even though the hypotheses coincide at `n = 3`, because `mulByThreeEndo h2 h3`
+  and `mulByNEndo 3 h` are different terms.
 
 ## References
 
