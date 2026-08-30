@@ -89,6 +89,13 @@ heading is not `## Main results`.
 
   ⚠️ **A reader who takes this file for "rung 3 generalises at general `n`" has misread it.**  What
   it does is remove one of rung 3's gates.
+
+  ⚠️ **What `nMulRatFunc` *is* enough for is the whole tower.**
+  `EllipticCurves.FunctionField.MulByNDegreeTower` — which imports this file — proves
+  `[F(W) : [n]∗F(W)] = [F(x) : F(nMulRatFunc W n)]` for every `n`, out of `algebraMap_nMulRatFunc`
+  and nothing else about `n`.  So the element this file names is the tower's entire input; what is
+  still missing is the **degree** of that element, which is the three gates listed just above.  That
+  file proves no degree at any `n` outside `{2, 3}` either.
 * **Nothing about rung 4.**  `ordInfty ([n]∗ genX) = -2` is *false* at general `n`
   (`MulByNPlacePullback`), and nothing here changes that.
 * **It does not close `#404`.**  The coordinates of `[n]` as an explicit fraction remain
