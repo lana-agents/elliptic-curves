@@ -66,15 +66,17 @@ Write `p = Ψ₂Sq(x)`, `T = Ψ₃(x)`, `Q = preΨ₄(x)` for an affine point `P
   merged).  **No resultant computation and no Bézout certificate for `(Φ₃, Ψ₃)` is needed** — the
   `n = 3` mirror of the same economy in `DoublingSurjective`.
 
-Given a target `x₀`, the polynomial `Φ₃ − x₀·ΨSq₃` is monic of degree `9`, so over `F̄` it has a
-root `x₁`, at which `Ψ₃` is nonzero by the previous point.  Take any `P = (x₁, y₁)` above it.
+⚠️ **Those two inputs are the whole of what is `n`-specific here, and the argument that consumes
+them is not in this file.**  `EllipticCurves.Torsion.NsmulSurjective` runs it once at general `n`:
+the degree count on `Φₙ − x₀·ΨSqₙ`, the root extraction over `F̄`, the point above the root and the
+absorption of the sign ambiguity `nP = ±Q`.  This file packages the two inputs as
+`hasXCoordFormula_three` and `eval_Φ_three_ne_zero_of_root_ΨSq`.
 
-⚠️ **`P` may be `2`-torsion, and that case is not degenerate — it is a second, genuine branch.**
-`Ψ₂Sq(x₁) = 0` is not excluded (only `Ψ₃(x₁) ≠ 0` is), and there `2P = O`, so the secant
-construction of `3P = 2P + P` does not apply.  But then `Φ₃(x₁) = x₁·T²` and `ΨSq₃(x₁) = T²`, so the
-defining equation forces `x₁ = x₀` outright, and `3P = P` already has `x`-coordinate `x₀`.  Both
-branches end with `3P` affine of `x`-coordinate `x₀`, whence `3P = ±Q` by `Point.X_eq_iff`, and `−P`
-handles the sign.
+⚠️ **The point above the root may be `2`-torsion, and that case is not degenerate — it is a second,
+genuine branch of `hasXCoordFormula_three`.**  `Ψ₂Sq(x) = 0` is not excluded (only `Ψ₃(x) ≠ 0` is),
+and there `2P = O`, so the secant construction of `3P = 2P + P` does not apply.  But then
+`Φ₃(x) = x·T²` and `ΨSq₃(x) = T²`, so `Φ₃(x)/ΨSq₃(x) = x` and `3P = P` already has the right
+`x`-coordinate.
 
 ## Main statements
 
@@ -83,10 +85,12 @@ handles the sign.
   of `2P` computable in closed form;
 * `WeierstrassCurve.Affine.tripling_core` — the core relation
   `(p² − Q)² + 4T³ − (b₂ + 12x)·p·T² + 4Qp² = 0`;
-* `WeierstrassCurve.Affine.Φ_three_eval_ne_zero_of_Ψ₃` — `Φ₃` and `Ψ₃` have no common root;
-* `WeierstrassCurve.Affine.exists_eval_Φ_three_eq` — every `x₀` solves `Φ₃(x) = x₀·ΨSq₃(x)`;
+* `WeierstrassCurve.Affine.Φ_three_eval_ne_zero_of_Ψ₃` — `Φ₃` and `Ψ₃` have no common root, and
+  `WeierstrassCurve.Affine.eval_Φ_three_ne_zero_of_root_ΨSq` — the same fact in the form the engine
+  consumes, input (2) at `n = 3`;
 * `WeierstrassCurve.Affine.addX_add_self_mul_ΨSq_three_eval` — the tripling formula
-  `x(3P)·ΨSq₃(x) = Φ₃(x)`;
+  `x(3P)·ΨSq₃(x) = Φ₃(x)`, and `WeierstrassCurve.Affine.hasXCoordFormula_three` — the same formula
+  in the form the engine consumes, input (1) at `n = 3`;
 * `WeierstrassCurve.Affine.exists_nsmul_three_some` — every `x₀` is the `x`-coordinate of a tripled
   point;
 * **`WeierstrassCurve.Affine.exists_nsmul_three_eq`** and
@@ -94,7 +98,7 @@ handles the sign.
 
 ## Scope
 
-`DoublingSurjective.lean` is not edited.  Nothing here is about `#E[3] = 9`
+Nothing here is about `#E[3] = 9`
 (`Torsion/ThreeTorsionStructure.lean` has that), about the Weil pairing, or about general `[n]`:
 the classical route to `[n]`-surjectivity is Silverman III.4.10 through `deg [n] = n²`, which is
 rung-8 territory and a different piece of work.
@@ -194,26 +198,17 @@ lemma Φ_three_eval_ne_zero_of_Ψ₃ [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F
 
 /-! ## Solving the tripling equation for the `x`-coordinate -/
 
-/-- The auxiliary polynomial `Φ₃ − x₀·ΨSq₃` is monic of degree `9`: `Φ₃` is monic of degree `9`
-while `ΨSq₃` has degree at most `8`.  **No hypothesis on `(3 : F)`**: both facts are unconditional
-in Mathlib. -/
-lemma natDegree_Φ_three_sub_C_mul_ΨSq_three (x₀ : F) :
-    (W.Φ 3 - C x₀ * W.ΨSq 3).natDegree = 9 := by
-  have hΦ : (W.Φ 3).natDegree = 9 := by simpa using W.natDegree_Φ 3
-  have hΨ : (C x₀ * W.ΨSq 3).natDegree < 9 :=
-    lt_of_le_of_lt ((natDegree_C_mul_le x₀ (W.ΨSq 3)).trans (W.natDegree_ΨSq_le 3)) (by norm_num)
-  rw [natDegree_sub_eq_left_of_natDegree_lt (hΦ ▸ hΨ), hΦ]
+/-- **`Φ₃` and `ΨSq₃` have no common root.**  `ΨSq₃ = Ψ₃²`, so a root of `ΨSq₃` is a root of `Ψ₃`,
+and `Φ_three_eval_ne_zero_of_Ψ₃` is the statement that `Φ₃` does not vanish there.
 
-/-- **Every value of `x` solves the tripling equation.**  Over an algebraically closed field the
-degree-`9` polynomial `Φ₃ − x₀·ΨSq₃` has a root. -/
-lemma exists_eval_Φ_three_eq [IsAlgClosed F] (x₀ : F) :
-    ∃ x : F, (W.Φ 3).eval x = x₀ * (W.ΨSq 3).eval x := by
-  have hdeg : (W.Φ 3 - C x₀ * W.ΨSq 3).degree ≠ 0 :=
-    (natDegree_pos_iff_degree_pos.mp
-      (by rw [natDegree_Φ_three_sub_C_mul_ΨSq_three]; norm_num)).ne'
-  obtain ⟨x, hx⟩ := IsAlgClosed.exists_root _ hdeg
-  rw [IsRoot.def, eval_sub, eval_mul, eval_C, sub_eq_zero] at hx
-  exact ⟨x, hx⟩
+This is the `hroot` hypothesis of `exists_nsmul_eq_of_hasXCoordFormula` at `n = 3`.  ⚠️ The degree
+count and the root extraction that used to stand here are `n`-independent and are now
+`natDegree_Φ_sub_C_mul_ΨSq` and `exists_eval_Φ_eq` in
+`EllipticCurves.Torsion.NsmulSurjective`. -/
+theorem eval_Φ_three_ne_zero_of_root_ΨSq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x : F)
+    (hx : (W.ΨSq 3).eval x = 0) : (W.Φ 3).eval x ≠ 0 := by
+  rw [ΨSq_three_eval] at hx
+  exact Φ_three_eval_ne_zero_of_Ψ₃ h2 (pow_eq_zero_iff two_ne_zero |>.mp hx)
 
 
 /-! ## The tripling formula `x(3P) = Φ₃(x) / ΨSq₃(x)` -/
@@ -293,78 +288,81 @@ theorem addX_add_self_mul_ΨSq_three_eval (h2 : (2 : F) ≠ 0) {x y : F} (h : W.
   have hz := (mul_eq_zero.mp main).resolve_right h4
   linear_combination hz
 
+/-- **The coordinate formula at `n = 3`.**  Since `ΨSq₃ = Ψ₃²`, the hypothesis is `Ψ₃(x) ≠ 0`.
+
+⚠️ **Both branches are genuine.**  `Ψ₂Sq(x) = 0` is *not* excluded, and there `2P = O`, so the
+secant construction of `3P = 2P + P` does not apply; but then `Φ₃(x) = x·Ψ₃(x)²` and
+`ΨSq₃(x) = Ψ₃(x)²`, so `3P = P` already has `x`-coordinate `Φ₃(x)/ΨSq₃(x)`.  Otherwise
+`addX_add_self_mul_ΨSq_three_eval` computes it.  This file's module docstring records the same
+warning. -/
+theorem hasXCoordFormula_three (h2 : (2 : F) ≠ 0) : HasXCoordFormula W 3 := by
+  intro x y h hne
+  simp only [Nat.cast_ofNat] at hne ⊢
+  have hyeq : W.Equation x y := h.1
+  have hT : W.Ψ₃.eval x ≠ 0 := fun h0 => hne (by rw [ΨSq_three_eval, h0]; ring)
+  have h3P : (3 : ℕ) • Point.some x y h
+      = Point.some x y h + Point.some x y h + Point.some x y h := by
+    rw [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul]
+  by_cases hyeqn : y = W.negY x y
+  · -- `P` is `2`-torsion: `3 • P = P`, and `Φ₃(x)/ΨSq₃(x) = x`
+    have hs0 : 2 * y + W.a₁ * x + W.a₃ = 0 := by
+      have h' := hyeqn
+      rw [WeierstrassCurve.Affine.negY] at h'
+      linear_combination h'
+    have hp : W.Ψ₂Sq.eval x = 0 := by rw [Ψ₂Sq_eval_eq_sq hyeq, hs0]; ring
+    have hxx : (W.Φ 3).eval x / (W.ΨSq 3).eval x = x := by
+      rw [Φ_three_eval, hp, mul_zero, sub_zero, ΨSq_three_eval, mul_div_assoc,
+        div_self (pow_ne_zero 2 hT), mul_one]
+    have hns₃ : W.Nonsingular ((W.Φ 3).eval x / (W.ΨSq 3).eval x) y := by rw [hxx]; exact h
+    refine ⟨y, hns₃, ?_⟩
+    rw [h3P, Point.add_self_of_Y_eq hyeqn, zero_add]
+    simp only [Point.some.injEq, and_true]
+    exact hxx.symm
+  · -- the secant branch: `3 • P = 2 • P + P`
+    have hx₂ne : W.addX x x (W.slope x x y y) ≠ x := by
+      rw [Ne, addX_self_eq_iff hyeq hyeqn]
+      exact hT
+    have hX : W.addX (W.addX x x (W.slope x x y y)) x
+        (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)
+        = (W.Φ 3).eval x / (W.ΨSq 3).eval x := by
+      rw [eq_div_iff hne]
+      exact addX_add_self_mul_ΨSq_three_eval h2 hyeq hyeqn hT
+    have hns₃ : W.Nonsingular ((W.Φ 3).eval x / (W.ΨSq 3).eval x)
+        (W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
+          (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)) := by
+      rw [← hX]
+      exact nonsingular_add (nonsingular_add h h fun hxy => hyeqn hxy.right) h
+        fun hxy => hx₂ne hxy.left
+    refine ⟨W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
+        (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y),
+      hns₃, ?_⟩
+    rw [h3P, Point.add_self_of_Y_ne hyeqn, Point.add_of_X_ne hx₂ne]
+    simp only [Point.some.injEq, and_true]
+    exact hX
+
 /-- **Every `x`-coordinate is the `x`-coordinate of a tripled point.**  Over an algebraically closed
 field of characteristic `≠ 2`, for every `x₀` there is a point `P` with `3 • P` affine of
 `x`-coordinate `x₀`.
 
-Two branches, both genuine: if the point `P = (x, y)` produced above the root of `Φ₃ − x₀·ΨSq₃` is
-`2`-torsion then `3P = P` and the defining equation forces `x = x₀` directly; otherwise
-`3P = 2P + P`
-is the secant sum and `addX_add_self_mul_ΨSq_three_eval` computes its `x`-coordinate. -/
+The two inputs above, fed to `exists_nsmul_some_of_hasXCoordFormula`. -/
 theorem exists_nsmul_three_some [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x₀ : F) :
-    ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), (3 : ℕ) • P = Point.some x₀ y' h' := by
-  obtain ⟨x, hx⟩ := exists_eval_Φ_three_eq (W := W) x₀
-  have hT : W.Ψ₃.eval x ≠ 0 := by
-    intro h0
-    refine Φ_three_eval_ne_zero_of_Ψ₃ h2 h0 ?_
-    rw [hx, ΨSq_three_eval, h0]; ring
-  obtain ⟨y, hyeq⟩ := exists_equation (W := W) h2 x
-  have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hyeq
-  have h3P : (3 : ℕ) • Point.some x y hns
-      = Point.some x y hns + Point.some x y hns + Point.some x y hns := by
-    rw [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul]
-  by_cases hyne : y = W.negY x y
-  · -- `P` is `2`-torsion: `3 • P = P`, and the equation forces `x = x₀`
-    have hs0 : 2 * y + W.a₁ * x + W.a₃ = 0 := by
-      have h' := hyne
-      rw [WeierstrassCurve.Affine.negY] at h'
-      linear_combination h'
-    have hp : W.Ψ₂Sq.eval x = 0 := by
-      rw [Ψ₂Sq_eval_eq_sq hyeq, hs0]; ring
-    have hxx : x = x₀ := by
-      have hΦ := Φ_three_eval (W := W) x
-      rw [hp, mul_zero, sub_zero, hx, ΨSq_three_eval] at hΦ
-      exact mul_right_cancel₀ (pow_ne_zero 2 hT) hΦ.symm
-    subst hxx
-    exact ⟨Point.some x y hns, y, hns, by
-      rw [h3P, Point.add_self_of_Y_eq hyne, zero_add]⟩
-  · -- the generic case: `3 • P = 2 • P + P` is affine with `x`-coordinate `x₀`
-    have hx₂ne : W.addX x x (W.slope x x y y) ≠ x := by
-      rw [Ne, addX_self_eq_iff hyeq hyne]
-      exact hT
-    have hkey := addX_add_self_mul_ΨSq_three_eval h2 hyeq hyne hT
-    rw [hx, ΨSq_three_eval] at hkey
-    have hX : W.addX (W.addX x x (W.slope x x y y)) x
-        (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y) = x₀ :=
-      mul_right_cancel₀ (pow_ne_zero 2 hT) hkey
-    have hns₃ : W.Nonsingular
-        (W.addX (W.addX x x (W.slope x x y y)) x
-          (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y))
-        (W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
-          (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)) :=
-      nonsingular_add (nonsingular_add hns hns fun hxy => hyne hxy.right) hns
-        fun hxy => hx₂ne hxy.left
-    refine ⟨Point.some x y hns,
-      W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
-        (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y),
-      hX ▸ hns₃, ?_⟩
-    rw [h3P, Point.add_self_of_Y_ne hyne, Point.add_of_X_ne hx₂ne]
-    simp only [Point.some.injEq, and_true]
-    exact hX
+    ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), (3 : ℕ) • P = Point.some x₀ y' h' :=
+  exists_nsmul_some_of_hasXCoordFormula h2 (by norm_num)
+    (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq h2)
+    (hasXCoordFormula_three h2) x₀
 
 /-- **Multiplication by `3` is surjective on `E(F̄)`.**  Over an algebraically closed field of
-characteristic `≠ 2`, every point of an elliptic curve is three times another point.  The point at
-infinity is `3 • 0`; an affine `Q` is matched by `exists_nsmul_three_some`, which pins the
-`x`-coordinate, leaving the sign ambiguity `3P = ±Q` that `Point.X_eq_iff` resolves and `−P`
-absorbs. -/
+characteristic `≠ 2`, every point of an elliptic curve is three times another point.
+
+The two inputs above, fed to `exists_nsmul_eq_of_hasXCoordFormula`.  There the point at infinity is
+`3 • 0`, an affine `Q` is matched by `exists_nsmul_some_of_hasXCoordFormula`, which pins the
+`x`-coordinate, and the sign ambiguity `3P = ±Q` that `Point.X_eq_iff` leaves is absorbed by
+`−P`. -/
 theorem exists_nsmul_three_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (Q : W.Point) :
-    ∃ P : W.Point, (3 : ℕ) • P = Q := by
-  rcases Q with _ | ⟨x₀, y₀, hQ⟩
-  · exact ⟨0, smul_zero 3⟩
-  · obtain ⟨P, y', h', hP⟩ := exists_nsmul_three_some (W := W) h2 x₀
-    rcases (Point.X_eq_iff (h₁ := h') (h₂ := hQ)).mp rfl with hc | hc
-    · exact ⟨P, by rw [hP, hc]⟩
-    · exact ⟨-P, by rw [smul_neg, hP, hc, neg_neg]⟩
+    ∃ P : W.Point, (3 : ℕ) • P = Q :=
+  exists_nsmul_eq_of_hasXCoordFormula h2 (by norm_num)
+    (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq h2)
+    (hasXCoordFormula_three h2) Q
 
 /-- **Multiplication by `3` is surjective on `E(F̄)`**, stated as `Function.Surjective` — the
 `n = 3` analogue of `nsmul_two_surjective`, and the form `Torsion/Divisible.lean`'s

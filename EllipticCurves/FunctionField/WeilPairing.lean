@@ -382,9 +382,10 @@ the division polynomials are `Ψ`, `Φ`, `Ω`, `ψ`, `φ` with `₀`–`₉` sub
 collects names must admit them.  ⚠️ The failure mode is **truncation, not omission**, which is why
 it survives a glance at the regex: some of the affected names *begin* with a non-ASCII character,
 but the rest begin with ASCII and are silently cut short at the first Greek letter, so
-`exists_eval_Φ_three_eq` enters the set as `exists_eval_` — and the shortened string is what the
-twin lookup then queries.  Twelve names move on this account, `Φ_three_eval`, `preΩ_three`,
-`Ψ₃_eval_eq_zero_of_mem_torsion_three` and `natDegree_Φ_three_sub_C_mul_ΨSq_three` among them.
+`addX_add_self_mul_ΨSq_three_eval` enters the set as `addX_add_self_mul_` — and the shortened string
+is what the twin lookup then queries.  Eleven names move on this account, `Φ_three_eval`,
+`preΩ_three`, `Ψ₃_eval_eq_zero_of_mem_torsion_three` and `isCoprime_Φ_three_ΨSq_three` among
+them.
 The second difference is the **declaration-keyword list**: dropping `def` and `abbrev` moves two
 more.  ⚠️ Under all four combinations the **bare-twin bucket is unchanged**, which is the concrete
 reason it is the only bucket worth reporting.
