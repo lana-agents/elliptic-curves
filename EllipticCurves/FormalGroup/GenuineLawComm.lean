@@ -29,10 +29,32 @@ The proof is the manifest symmetry of the construction:
 * hence `F = −z₃' · D⁻¹` is swap-invariant (`formalGroupZW_comm`).
 
 This is the mathematical core of the commutativity of the Weierstrass formal group law, delivered on
-the genuine `(z, w)` construction (Silverman AEC IV.1, Theorem 1.1). Once the identification of
-`W.formalGroupZW` with the Laurent `W.formalGroupLaurent` / `W.formalGroupSeries` lands (the sibling
-identification issue), the commutativity of `W.formalGroupSeries` in the `FormalGroup.IsComm` form
-transfers immediately from `formalGroupZW_comm`.
+the genuine `(z, w)` construction (Silverman AEC IV.1, Theorem 1.1).
+
+## ⚠️ Both things this file used to defer have landed, and one of them was never deferred
+
+⚠️ **This paragraph used to read** *"Once the identification of `W.formalGroupZW` with the Laurent
+`W.formalGroupLaurent` / `W.formalGroupSeries` lands (the sibling identification issue), the
+commutativity of `W.formalGroupSeries` in the `FormalGroup.IsComm` form transfers immediately from
+`formalGroupZW_comm`."*  It tied two different statements to one gate, and neither is future work.
+
+* **The identification landed.**  `WeierstrassCurve.formalGroupSeries_eq_formalGroupZW`
+  (`EllipticCurves.FormalGroup.GenuineLawTransfer`, issue #310) is a merged, unconditional theorem
+  over every `CommRing R`.
+* **The transfer to `W.formalGroupSeries` was done, in a file downstream of this one.**
+  `WeierstrassCurve.formalGroupSeries_comm` (`EllipticCurves.FormalGroup.SeriesComm`) is
+  `W.formalGroupSeries.subst ![X 1, X 0] = W.formalGroupSeries`, proved by rewriting with that
+  identification and then with `formalGroupZW_subst_swap` — two rewrites, which is the *"transfers
+  immediately"* the retired sentence predicted.  ⚠️ That file has this one in its
+  `EllipticCurves`-import closure; the pointer could only ever go stale in this direction.
+* ⚠️ **The `FormalGroup.IsComm` clause named the wrong gate.**  Every `IsComm` witness in this tree
+  is built on `W.formalGroupZW` *directly*, out of `formalGroupZW_subst_swap`, on a bundle whose
+  `toPowerSeries` is `W.formalGroupZW` by `rfl` — `formalGroupOfLogAdditivity_isComm`
+  (`EllipticCurves.FormalGroup.GroupLawBundle`), `formalGroupOfRatAlgebra_isComm` and
+  `formalGroup_isComm` (`EllipticCurves.FormalGroup.GroupLawBundleGeneral`).  The first of those
+  lives in a file whose `EllipticCurves`-import closure is 14 modules and **does not contain**
+  `EllipticCurves.FormalGroup.GenuineLawTransfer`, so it cannot see the identification at all.  The
+  `IsComm` form was never gated on it; only the `formalGroupSeries` restatement was.
 
 ## Main results
 

@@ -26,8 +26,21 @@ This is the invertibility input consumed by the group `Ê(𝔪)` of a formal gro
 local ring (Silverman AEC IV.3, VII.2.2): for `m` prime to the residue characteristic `p`, `(m : A)`
 is a unit in the DVR `A`, so `[m]` is compositionally invertible, hence `[m] : Ê(𝔪) → Ê(𝔪)` is
 bijective and `Ê(𝔪)` is uniquely `m`-divisible (no nontrivial prime-to-`p` torsion).  Only positive
-`m` is needed there, so this ℕ-indexed series suffices; the extension to `m : ℤ` (via the additive
-inverse series) is handled once the `AddCommGroup` structure on `FormalGroup.Point` is available.
+`m` is needed there, so this ℕ-indexed series suffices.
+
+⚠️ **The `ℤ`-extension has landed, and it did not need the hypothesis this file used to price it
+against.**  This paragraph used to end *"; the extension to `m : ℤ` (via the additive inverse
+series) is handled once the `AddCommGroup` structure on `FormalGroup.Point` is available."*  It is
+`EllipticCurves.FormalGroup.MulByZ`, which has this file in its `EllipticCurves`-import closure:
+`FormalGroup.mulByZ : ℤ → PowerSeries R` with `[-m](z) := i([m](z))` for `i = F.formalInv` — the
+additive inverse series named above — together with `FormalGroup.zsmul_val_eq_mulByZ_subst` and
+`FormalGroup.zsmul_eq_zero_iff_mulByZ_subst`.
+
+⚠️ And the named precondition was **stronger than what the extension used**, which is the part worth
+keeping: `AddCommGroup (F.Point σ)` carries `[F.IsComm]`, whereas `AddGroup (F.Point σ)` — which is
+what `mulByZ` consumes, for its `zsmul` — is unconditional.  `MulByZ`'s own header says so.  So the
+ℕ-indexing here was never a commutativity restriction, and this file's `EllipticCurves`-import
+closure stays **0**: the pointer above is prose, not an import.
 
 The compositional inverse is Mathlib's `PowerSeries.substInvOfIsUnit`, which needs exactly
 `constantCoeff P = 0` and `IsUnit (P.coeff 1)`.

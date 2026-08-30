@@ -25,8 +25,17 @@ group**:
 where the right-hand `+` is ordinary addition in the additive group `𝔾ₐ = (R, +)` and `log_E(x)` is
 the `I`-adic evaluation `adicEval I x.property W.formalLog` of the logarithm at `x`.
 This is the group-theoretic incarnation (Silverman AEC IV.6, especially IV.6.4a) of the series
-identity.  Injectivity / the full isomorphism `Ê(𝔪) ≅ 𝔾ₐ` uses the exponential side and is left
-elsewhere.
+identity.
+
+⚠️ **The exponential side has landed and the isomorphism is closed.**  This paragraph used to end
+*"Injectivity / the full isomorphism `Ê(𝔪) ≅ 𝔾ₐ` uses the exponential side and is left
+elsewhere."*  *Elsewhere* is `EllipticCurves.FormalGroup.FormalExpHom`, which **imports this file**:
+`WeierstrassCurve.formalExpHom : ↥I →+ Ê(𝔪)`, the refinement `WeierstrassCurve.formalLogHom'` of
+`formalLogHom` landing in `↥I`, the mutual inverses `formalLogHom'_formalExpHom` /
+`formalExpHom_formalLogHom` — which are the injectivity half — and
+`WeierstrassCurve.formalExpAddEquiv : ↥I ≃+ Ê(𝔪)`, the full isomorphism (Silverman AEC IV.6.4b).
+⚠️ A pointer and not an import: the dependency runs from `FormalExpHom` to this file, so nothing
+here may reach the other way.
 
 ## Main definitions / results
 
