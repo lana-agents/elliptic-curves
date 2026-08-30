@@ -9,9 +9,10 @@ import Mathlib.AlgebraicGeometry.EllipticCurve.Reduction
 /-!
 # Elliptic curves
 
-This is the root of the `EllipticCurves` project, whose goal is to formalise the
-arithmetic of elliptic curves over local and global fields, following
-Silverman's *The Arithmetic of Elliptic Curves*.
+The `EllipticCurves` project formalises the arithmetic of elliptic curves over
+local and global fields, following Silverman's *The Arithmetic of Elliptic
+Curves*. This file is not the library's root module — that is
+`EllipticCurves.lean`, the `mk_all` aggregator that imports the whole library.
 
 The project builds on Mathlib's existing theory of Weierstrass and elliptic
 curves (`Mathlib.AlgebraicGeometry.EllipticCurve.*`). The two headline targets
