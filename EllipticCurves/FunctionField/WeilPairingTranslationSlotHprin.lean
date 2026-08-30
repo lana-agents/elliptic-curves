@@ -37,11 +37,11 @@ subject matter was close enough to look right.  The one surviving `#861` is deli
 plan of this file:
 
 > `[IsAlgClosed F]` enters through `exists_gS_two_of_isAlgClosed` (`#791`) alone.
-> — `WeilPairingTranslationSlotBilinear:154`
+> — `WeilPairingTranslationSlotBilinear`, on `exists_weilPairingElt_translatePoint_add_two`
 
 > The root at `S` and its rung-5 certificate are produced by `exists_gS_two_of_isAlgClosed`
 > (`#791`), which is the only place `[IsAlgClosed F]` enters.
-> — `WeilPairingTranslationSlotHom:504`
+> — `WeilPairingTranslationSlotHom`, on `exists_weilPairingTorsionMuHom_two`
 
 `exists_gS_two_of_isAlgClosed` (`PullbackPrincipalityTwo`) is itself `exists_gS_two`
 (`NthRootOfPullback`) with `hprin` discharged, and `exists_gS_two` carries **no** `[IsAlgClosed F]`
