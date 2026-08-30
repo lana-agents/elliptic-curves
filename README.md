@@ -74,7 +74,7 @@ Measured at commit `d5951f8`; the counts drift, the structure does not.
 ```
 EllipticCurves.lean          -- root module, imports the whole library
 EllipticCurves/
-├── Basic.lean               -- project entry point; re-exports Mathlib foundations
+├── Basic.lean               -- re-exports two Mathlib modules; only EllipticCurves.lean imports it
 ├── NewtonPolygon.lean       -- the slope-3/2 dichotomy at a pole of a Weierstrass equation
 ├── DivisionPolynomial/      --   1 file   coprimality of the division polynomials
 ├── FormalGroup/             --  57 files  the Weierstrass formal group law and Ê(𝔪)
