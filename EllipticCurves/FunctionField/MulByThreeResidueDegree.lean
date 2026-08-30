@@ -53,14 +53,21 @@ of `MulByThreeRamification` is the only placement available.
 ## ⚠️ One shape at `n = 2` that is a fossil and should not be mirrored
 
 `residueDegreeTwo_none_eq_one_of_ne_zero` (`PlaceResidueComap`) takes
-`residueDegreeProj W none ≠ 0` as a hypothesis, and `residueDegreeTwo_none_eq_one`
-(`PlaceRamificationInertia`) discharges it from `residueDegreeProj_none_eq_one` — which is
-unconditional and was merged in between.  So the hypothesis-taking form exists only because it was
-written before its own hypothesis became free.  `residueDegreeThree_none_eq_one` below is stated
-once, unconditionally, and reaches it by the *rational-place* route
+`residueDegreeProj W none ≠ 0` as a hypothesis, which `residueDegreeProj_none_eq_one` —
+unconditional, and merged in between — makes free.  So the hypothesis-taking form exists only
+because it was written before its own hypothesis became free.  `residueDegreeThree_none_eq_one`
+below is stated once, unconditionally, and reaches it by the *rational-place* route
 (`residueDegreeThree_eq_one_of_residueDegreeProj_eq_one`) rather than by the tower formula and
-`Nat.mul_eq_left`: with `residueDegreeProj_none_eq_one` in hand the collapse lemma applies directly,
-and the two-step at `n = 2` is a second fossil of the same ordering.
+`Nat.mul_eq_left`: with `residueDegreeProj_none_eq_one` in hand the collapse lemma applies directly.
+
+⚠️ **This section used to end** *"and the two-step at `n = 2` is a second fossil of the same
+ordering"*, describing `residueDegreeTwo_none_eq_one` (`PlaceRamificationInertia`) as discharging
+`_of_ne_zero`'s hypothesis.  **It no longer does.**  `#1225` states the rational-place route once
+for an arbitrary `φ` — `residueDegreeComap_none_eq_one`, in `PlaceRamificationInertia` — and
+`residueDegreeTwo_none_eq_one` is now its `φ = [2]∗` instance, so the fossil is retired rather than
+mirrored, which is what this section asked for.  `residueDegreeThree_none_eq_one` below is left as
+it stands: it is already the good route, and re-deriving it from the general lemma would trade a
+two-line proof for a two-line proof.
 
 ## Main definitions
 
@@ -116,7 +123,11 @@ identity is a different theorem rather than a descent of this one.
   endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
   `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ No general-`n` residue degree is
-  defined here, and `#404`'s general `ωₙ` is untouched — it is not what `[n]∗` needed.
+  defined here, and `#404`'s general `ωₙ` is untouched — it is not what `[n]∗` needed.  The
+  general-`n` residue degree is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which
+  imports this file and is this file with `mulByThreeEndo_*` replaced by `mulByNEndo_*` — plus the
+  observation that `residueDegreeThree_none_eq_one`'s route below is uniform in the endomorphism,
+  so `f_∞ = 1` holds at **every** `n` and not only at the two primes.
 * **The ramification side is not re-examined.**  `ramificationIdxThree_none` (`[3]` is unramified at
   infinity) is merged and is not consumed below: the residue degree at infinity is `1` for a reason
   that has nothing to do with ramification, namely that `[0 : 1 : 0]` is a rational point of every
@@ -175,10 +186,14 @@ theorem residueDegreeThree_eq_one_of_residueDegreeProj_eq_one (h2 : (2 : F) ≠ 
 closedness: `[0 : 1 : 0]` is a rational point of every Weierstrass curve, so
 `residueDegreeProj_none_eq_one` needs none either and this is the previous lemma applied to it.
 
-⚠️ The `n = 2` layer reaches the same statement in two steps — a hypothesis-taking
-`residueDegreeTwo_none_eq_one_of_ne_zero` and then `residueDegreeTwo_none_eq_one` discharging it
-through the tower formula — because it was written before `residueDegreeProj_none_eq_one` existed.
-That is a fossil of the merge order, not a design; see the module docstring. -/
+⚠️ **This paragraph used to say** that the `n = 2` layer reaches the same statement *"in two
+steps — a hypothesis-taking `residueDegreeTwo_none_eq_one_of_ne_zero` and then
+`residueDegreeTwo_none_eq_one` discharging it through the tower formula"*, and called that a fossil
+of the merge order.  **It no longer does that**: `#1225` states this proof once for an arbitrary
+endomorphism (`residueDegreeComap_none_eq_one`,
+`EllipticCurves.FunctionField.PlaceRamificationInertia`) and `residueDegreeTwo_none_eq_one` is now
+its instance.  ⚠️ The route below is unchanged and is *why* the general lemma exists: nothing in it
+mentions `[3]`, so it holds at every endomorphism — see the module docstring. -/
 theorem residueDegreeThree_none_eq_one (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     residueDegreeThree h2 h3 (none : ProjPoint W) = 1 :=
   residueDegreeThree_eq_one_of_residueDegreeProj_eq_one h2 h3 (residueDegreeProj_none_eq_one W)

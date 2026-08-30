@@ -43,7 +43,9 @@ the target is `φ x` with `φ x ∈ placeOf W p`, which is exactly membership of
   `F`-algebra tower `F → placeOf W q → placeOf W p`, from which Mathlib's
   `IsLocalRing.ResidueField` machinery supplies `Algebra κ(q) κ(p)` and `IsScalarTower F κ(q) κ(p)`
   with no further work;
-* **`WeierstrassCurve.Affine.residueDegreeComap`** — `f_p = [κ(p) : κ(q)]`;
+* **`WeierstrassCurve.Affine.residueDegreeComap`** — `f_p = [κ(p) : κ(q)]`, with
+  `WeierstrassCurve.Affine.residueDegreeComap_congr` saying it depends on `φ` and not on how `φ`
+  is presented;
 * **`WeierstrassCurve.Affine.residueDegreeProj_mul_residueDegreeComap`** — the tower formula
   `deg q · f_p = deg p`, i.e. `[κ(q) : F] · [κ(p) : κ(q)] = [κ(p) : F]`;
 * `WeierstrassCurve.Affine.residueDegreeComap_eq_one_of_residueDegreeProj_eq_one` — **the corollary
@@ -55,10 +57,11 @@ the target is `φ x` with `φ x ∈ placeOf W p`, which is exactly membership of
 * `WeierstrassCurve.Affine.CoordinateRing.residueDegreeTwo` and
   `residueDegreeProj_mul_residueDegreeTwo` — the `[2]∗` instantiation, plus
   `residueDegreeTwo_none_eq_one_of_ne_zero`, which computes `f_none = 1` at the point at infinity
-  from nothing but `residueDegreeProj W none ≠ 0`.  That hypothesis is discharged outright by
-  `#749`'s `residueDegreeProj_none_eq_one`, so the unconditional
+  from nothing but `residueDegreeProj W none ≠ 0`.  That hypothesis is free — `#749`'s
+  `residueDegreeProj_none_eq_one` is unconditional — so the unconditional
   `residueDegreeTwo_none_eq_one` in `EllipticCurves.FunctionField.PlaceRamificationInertia` is the
-  form to use.
+  form to use.  ⚠️ It is now an instance of `residueDegreeComap_none_eq_one` in that same file,
+  which says `f_∞ = 1` for an arbitrary `φ`; nothing about `[2]` is involved.
 
 ## What is *not* here: the fundamental identity, and the route decision that unblocked it
 
@@ -240,6 +243,25 @@ infinite-dimensional module.  `residueDegreeProj_mul_residueDegreeComap` is the 
 out — it is `1` as soon as `κ(p)` is `F`. -/
 noncomputable def residueDegreeComap (p : ProjPoint W) : ℕ :=
   Module.finrank (residueFieldProj W (comapProjPoint hφF hφint p)) (residueFieldProj W p)
+
+/-- **The relative residue degree depends on `φ` and not on the presentation of `φ`**: two
+`F`-fixing endomorphisms over which `F(W)` is integral that are *propositionally* equal have the
+same relative residue degree at every place.
+
+⚠️ This is not a triviality one can `rw` past, and it is what a consumer needs whenever the same
+endomorphism arrives under two names — as `[2]∗` does, where `mulByNEndo 2 h` and `mulByTwoEndo h2`
+are equal by `mulByNEndo_two` but not definitionally so.  `comapProjPoint` has
+`placeOf_comapProjPoint`, which isolates `φ` outside every instance position and lets a caller
+rewrite; `residueDegreeComap` has no such extraction, because the `Algebra κ(q) κ(p)` instance it
+takes a `finrank` of is built from `φ` itself.  So the crossing is made once, here, by `subst`:
+after it the two hypothesis pairs are proofs of the same `Prop` and definitional proof irrelevance
+closes the goal. -/
+theorem residueDegreeComap_congr {ψ : W.FunctionField →+* W.FunctionField}
+    (hψF : ∀ c : F, ψ (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c)
+    (hψint : ∀ z : W.FunctionField, ψ.IsIntegralElem z) (h : φ = ψ) (p : ProjPoint W) :
+    residueDegreeComap hφF hφint p = residueDegreeComap hψF hψint p := by
+  subst h
+  rfl
 
 /-- **The residue degrees are multiplicative**: `[κ(q) : F] · [κ(p) : κ(q)] = [κ(p) : F]` for
 `q = comapProjPoint φ p`.

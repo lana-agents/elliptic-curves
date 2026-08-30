@@ -56,6 +56,10 @@ different means.
 ## Main results
 
 * `WeierstrassCurve.Affine.count_eq_divisorProj` — the order bridge;
+* **`WeierstrassCurve.Affine.residueDegreeComap_none_eq_one`** — `f_∞ = 1` for an arbitrary `φ`,
+  with no `Module.Finite`, no separability and no hypothesis on `F`, together with its companion
+  `residueDegreeProj_comapProjPoint_none_eq_one`.  ⚠️ Unlike the ramification index, this one is
+  free at every `φ`; see its docstring;
 * **`WeierstrassCurve.Affine.ideal_ramificationIdx_eq_toNat`** and
   **`WeierstrassCurve.Affine.ideal_inertiaDeg_eq_one`** — the two compatibilities;
 * `WeierstrassCurve.Affine.sum_ramificationIdx_mul_inertiaDeg_placeBelow` — the fundamental
@@ -412,6 +416,41 @@ theorem sum_toNat_ramificationIdx_fibre [IsAlgClosed F] :
 
 end Dedekind
 
+/-! ### The relative residue degree at the point at infinity, for an arbitrary `φ`
+
+Unlike everything above, this needs neither `Module.Finite` nor separability — nor, for that
+matter, anything about `φ` beyond the two standing hypotheses.  It is stated here because this is
+the first module downstream of both halves it consumes: the collapse lemma
+`residueDegreeComap_eq_one_of_residueDegreeProj_eq_one`
+(`EllipticCurves.FunctionField.PlaceResidueComap`) and the unconditional
+`residueDegreeProj_none_eq_one` (`EllipticCurves.FunctionField.PlaceResidueDegree`). -/
+
+/-- **Every `F`-fixing endomorphism over which `F(W)` is integral is residually trivial at the
+point at infinity**: `f_∞ = 1`, with no hypothesis on `F` and none on `φ` beyond the standing two.
+
+The reason has nothing to do with ramification, or with the fibre, or with `φ`: `[0 : 1 : 0]` is a
+rational point of *every* Weierstrass curve, so `residueDegreeProj W none = 1` unconditionally, and
+the tower formula `[κ(q) : F] · f_∞ = [κ(∞) : F]` then reads `d · f_∞ = 1` in `ℕ`, which forces
+both factors to be `1`.
+
+⚠️ **Contrast the ramification index**, which is *not* like this: `ramificationIdxTwo_none` and
+`ramificationIdxThree_none` are proved from a pole order, and the general-`n` statement
+(`EllipticCurves.FunctionField.MulByNPlaceComposition`, `#1214`) holds only at `3`-smooth `n` and
+is false in general.  The two local invariants at infinity have genuinely different hypothesis
+sets, and that is the interesting thing about them. -/
+theorem residueDegreeComap_none_eq_one :
+    residueDegreeComap hφF hφint (none : ProjPoint W) = 1 :=
+  (residueDegreeComap_eq_one_of_residueDegreeProj_eq_one hφF hφint
+    (residueDegreeProj_none_eq_one W)).2
+
+/-- **The place below the point at infinity is rational too**, the other half of the same
+collapse: `[κ(comapProjPoint φ ∞) : F] = 1`.  A degree-one extension of `F` sits under nothing but
+`F`. -/
+theorem residueDegreeProj_comapProjPoint_none_eq_one :
+    residueDegreeProj W (comapProjPoint hφF hφint (none : ProjPoint W)) = 1 :=
+  (residueDegreeComap_eq_one_of_residueDegreeProj_eq_one hφF hφint
+    (residueDegreeProj_none_eq_one W)).1
+
 /-! ### The `[2]∗` instantiation
 
 Everything above is stated for an arbitrary `φ` fixing `F` with `F(W)` integral over its image, so
@@ -476,11 +515,18 @@ end IsAlgClosed
 omit [W.IsElliptic] in
 /-- **`[2]∗` is residually trivial at the point at infinity**, unconditionally.
 
-`#744` proved this under the hypothesis `residueDegreeProj W none ≠ 0`, which `#749`'s
-`residueDegreeProj_none_eq_one` — itself with no hypothesis on `F` — now discharges outright. -/
+⚠️ This is now the `φ = [2]∗` instance of `residueDegreeComap_none_eq_one` above, and nothing
+`[2]`-specific is used.  It used to run through the hypothesis-taking
+`residueDegreeTwo_none_eq_one_of_ne_zero` (`#744`, `EllipticCurves.FunctionField.PlaceResidueComap`)
+and discharge its hypothesis from `#749`'s `residueDegreeProj_none_eq_one` — a two-step that existed
+only because `#744` was written before `#749`.
+`EllipticCurves.FunctionField.MulByThreeResidueDegree` named that two-step *"a second fossil of the
+same ordering"* and declined to mirror it at `n = 3`;
+the general lemma retires it rather than copying it a third time.  The `_of_ne_zero` form stays: its
+hypothesis is genuinely weaker than `residueDegreeProj W none = 1`. -/
 theorem residueDegreeTwo_none_eq_one :
     residueDegreeTwo h2 (none : ProjPoint W) = 1 :=
-  residueDegreeTwo_none_eq_one_of_ne_zero h2 (by rw [residueDegreeProj_none_eq_one]; norm_num)
+  residueDegreeComap_none_eq_one _ _
 
 variable [IsAlgClosed F]
 

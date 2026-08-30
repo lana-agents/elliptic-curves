@@ -88,8 +88,13 @@ prime.
   `MulByNPlacePullback` says of itself; the content is the composition law and the two merged prime
   inputs.
 * **Nothing at `n = 5`, and nothing in characteristic `2` or `3`.**  See the second warning above.
-* **No residue degree.**  `#701` and `#1046`, the residue-degree companions at the point at
-  infinity, are absent for their own reasons and this file does not touch them.
+* **No residue degree — *here*.**  ⚠️ This bullet used to say that `#701` and `#1046`, *"the
+  residue-degree companions at the point at infinity"*, **are absent**.  Both clauses were loose.
+  `#701` and `#1046` are the *fibre sums* `∑_{p ↦ q} e_p · f_p = deg`, not the value of `f` at one
+  place, and their general-`n` form is `#1221`, still open.  The value at one place — `f_∞ = 1` —
+  is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), and ⚠️ it holds at **every** `n`
+  and does not consume this file: it needs no fibre statement, no `3`-smoothness and no hypothesis
+  on `F`.  What is true of *this* file is only that it proves nothing about residue degrees.
 * **No `ωₙ`, no coprimality, no elliptic net.**  `#404`, `#1184` and Ward (`#260`) are unused.
 
 ## References
