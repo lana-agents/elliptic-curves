@@ -91,7 +91,8 @@ prime.
 * **No residue degree — *here*.**  ⚠️ This bullet used to say that `#701` and `#1046`, *"the
   residue-degree companions at the point at infinity"*, **are absent**.  Both clauses were loose.
   `#701` and `#1046` are the *fibre sums* `∑_{p ↦ q} e_p · f_p = deg`, not the value of `f` at one
-  place, and their general-`n` form is `#1221`, still open.  The value at one place — `f_∞ = 1` —
+  place; ⚠️ **their general-`n` form was recorded here as still open, and is not**: it is
+  `EllipticCurves.FunctionField.MulByNInertia` (`#1221`).  The value at one place — `f_∞ = 1` —
   is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), and ⚠️ it holds at **every** `n`
   and does not consume this file: it needs no fibre statement, no `3`-smoothness and no hypothesis
   on `F`.  What is true of *this* file is only that it proves nothing about residue degrees.

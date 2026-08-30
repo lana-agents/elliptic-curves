@@ -129,13 +129,16 @@ through the contravariant `comapProjPoint` to a composition law for the contract
 refuted: it is a correct account of why the *pole-order* route stops at `{2, 3}`, and it is why the
 statement at general `n` — and everything in the `k = 1` paragraph, which is about characteristic
 `p` and so about an `n` divisible by `p` — still stands.  ⚠️ `#701` and `#1046` are **not**
-delivered at `3`-smooth `n` by that file, and are not delivered at any `n` yet: the fibre sum
-`∑_{p ↦ q} e_p · f_p = deg` at general `n` is `#1221`.  ⚠️ What *is* delivered, and at **every**
-`n`, is the relative residue degree at the point at infinity: `f_∞ = 1`,
-`EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), by an argument uniform in the
-endomorphism that needs neither the pole order nor the fibre statement.  The two local invariants
-at infinity are not alike — `e_∞ = 1` is `3`-smooth-only and false in general, `f_∞ = 1` is
-free.
+delivered at `3`-smooth `n` by that file.  ⚠️ **The clause that followed said they are not
+delivered at any `n` either, and that is now false of the tree**: the fibre sum
+`∑_{p ↦ q} e_p · f_p = [F(W) : [n]∗F(W)]` at general `n` is
+`EllipticCurves.FunctionField.MulByNInertia` (`#1221`) — at every `n` in characteristic zero, and
+with the right-hand side evaluated to `n²` at every `3`-smooth `n`.  ⚠️ What is delivered at
+**every** `n` with no hypothesis on `F` at all is the relative residue degree at the point at
+infinity: `f_∞ = 1`, `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), by an argument
+uniform in the endomorphism that needs neither the pole order nor the fibre statement.  The two
+local invariants at infinity are not alike — `e_∞ = 1` is `3`-smooth-only and false in general,
+`f_∞ = 1` is free.
 
 ## Main definitions and statements
 
