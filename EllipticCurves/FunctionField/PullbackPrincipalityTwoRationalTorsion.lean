@@ -665,7 +665,8 @@ private lemma exampleNsT : exampleCurve.Nonsingular 0 0 :=
 
 /-- `(2, 6)`, the point of `E(ℚ)` sitting above the root `x = 2` of `Φ₂ − x(T)·Ψ₂Sq`:
 `36 = 8 + 20 + 8`.  ⚠️ It is no longer named in any statement — it enters only as the `Equation`
-witness `exampleNsP.left` that `exists_nsmul_two_eq_some_of_root` takes above the root. -/
+witness `exampleNsP.left`, the **third** argument of
+`exists_nsmul_eq_some_of_root_of_mem_torsion_two`, which is what takes it above the root. -/
 private lemma exampleNsP : exampleCurve.Nonsingular 2 6 :=
   exampleCurve.equation_iff_nonsingular.mp (by
     norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
