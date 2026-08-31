@@ -16,7 +16,7 @@ import Mathlib.RingTheory.Flat.Basic
 `F` is the field of constants of `F(W)` — to the geometric-integrality datum
 `IsDomain (AlgebraicClosure F ⊗[F] W.FunctionField)`.  This file **discharges that hypothesis
 unconditionally**, making the constant-field statement (and hence the constancy / translation-slot
-bilinearity of the Weil-pairing element, #162) hold for `[Field F]` alone.
+bilinearity of the Weil-pairing element, PR #162) hold for `[Field F]` alone.
 
 ## Strategy
 

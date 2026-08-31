@@ -29,7 +29,7 @@ Both remaining inputs are now available as unconditional, merged theorems:
   (`∂_{z₂} x₃ = ω̃₂·(2·y₃ + a₁·x₃ + a₃)`, issue #338, `VietaDifferential.lean`).
 
 Feeding them into `formalLog_subst_formalGroupZW_of_hWF_hdiff` closes the entire `(★)`/`hstar`
-program that the approved partials #36/#45/#46/#58/#60/#61/#62 assembled.
+program that the approved partials assembled (PR #36, #45, #46, #58, #60, #61, #62).
 
 This unconditional `formalLog_subst_formalGroupZW` is exactly the hypothesis `hadd` that the
 route-2 associativity core `WeierstrassCurve.formalGroupZW_assoc` (#319, `GroupLawAssoc.lean`)

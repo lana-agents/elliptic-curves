@@ -23,7 +23,7 @@ For `P = (x₁, y₁)`, `Q = (x₂, y₂)` the additivity `redPt (P + Q) = redPt
 splitting on whether each summand is integral (`v xᵢ ≤ 1`) or a pole (`1 < v xᵢ`), routing to the
 rung lemmas already on `main`:
 
-* both integral → `redPt_add_of_both_integral` (#383/#120, the good-reduction locus);
+* both integral → `redPt_add_of_both_integral` (#383, PR #120, the good-reduction locus);
 * pole × integral / integral × pole → `redPt_add_of_mem_E₁_left` / `_right` (#384, the
   kernel-acts-trivially case), with the pole summand's `redPt` collapsing to `0` via
   `redPt_some_of_one_lt`;
