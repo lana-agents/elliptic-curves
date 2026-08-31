@@ -10,7 +10,7 @@ import EllipticCurves.Torsion.DivisionPolynomialEval
 
 Mathlib's `Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean` develops the
 `x`-coordinate division polynomials (`ψ₂, Ψ₂Sq, Ψ₃, preΨ₄, ΨSq, Ψ, Φ, ψ, φ`) but explicitly leaves
-the *`y`-coordinate* division polynomials `ωₙ` as a `TODO`. The sibling files
+the *`y`-coordinate* division polynomials `ωₙ` as a `TODO`. The downstream files
 `EllipticCurves/Torsion/OmegaTwo.lean` and `EllipticCurves/Torsion/OmegaThree.lean` supply the
 *point-evaluated* on-curve identity for the duplication (`n = 2`) and tripling (`n = 3`) maps.
 
@@ -27,6 +27,9 @@ The `y`-coordinate of `[n]P` is governed by the bracket appearing in the index-d
 
 and establish:
 
+* `preΨ_five` : the closed form `preΨ₅ = preΨ₄·Ψ₂Sq² − Ψ₃³`, from the odd `preΨ'` recurrence.
+* `preΨ₄_sq` : the univariate identity `preΨ₄² = 4Φ₂³ + b₂Φ₂²Ψ₂Sq + 2b₄Φ₂Ψ₂Sq² + b₆Ψ₂Sq³` relating
+  `preΨ₄`, `Φ₂` and `Ψ₂Sq`.
 * `preΩ_two`/`preΩ_three` : `preΩ₂ = preΨ₄` and `preΩ₃ = preΨ₅ − preΨ₄²`, reconciling with the exact
   univariate factors `Kᵥ` used in `OmegaTwo`/`OmegaThree` (validating the general definition against
   the two independently-proved low-index cases).
@@ -47,10 +50,15 @@ and establish:
 * `Affine.ψ_four_evalEval` : the `n = 2` specialisation, landing on Mathlib's `ψ_four`; a
   non-vacuity check on the general statement rather than new content.
 
+`preΨ_five` and `preΨ₄_sq` are pure `CommRing` statements about `preΨ` — no point, no field, no
+characteristic hypothesis — and they feed the `n = 2` and `n = 3` instances of the general-`n`
+on-curve engine in `EllipticCurves.Torsion.OmegaOnCurve`, which is why they live here rather than
+in the point-level files that used to hold them.
+
 The remaining crux for the full general-`n` on-curve identity `W.Equation (Φₙ/ΨSqₙ) (ωₙ/ψₙ³)` is the
 identification of the division-polynomial coordinates with the group-law multiple `n • P`
-(equivalently the univariate identity `ΨSqₙ`-weighted analogue of `preΨ₄_sq`/`hstar` for general
-`n`), which the
+(equivalently the univariate identity `ΨSqₙ`-weighted analogue of `preΨ₄_sq`/`hasPreΩSqAt_three`
+for general `n`), which the
 `OmegaTwo`/`OmegaThree` docstrings note is a separate, harder step; this file supplies the numerator
 infrastructure it consumes.
 
@@ -68,6 +76,24 @@ local macro "C_simp" : tactic =>
 namespace WeierstrassCurve
 
 variable {R : Type*} [CommRing R] (W : WeierstrassCurve R)
+
+/-- The closed form of the auxiliary `5`-division polynomial `preΨ₅ = preΨ₄·Ψ₂Sq² − Ψ₃³`, obtained
+from the odd recurrence for `preΨ'`. -/
+lemma preΨ_five : W.preΨ 5 = W.preΨ₄ * W.Ψ₂Sq ^ 2 - W.Ψ₃ ^ 3 := by
+  have H := W.preΨ'_odd 0
+  norm_num [preΨ'_four, preΨ'_two, preΨ'_one, preΨ'_three] at H
+  rw [show (5 : ℤ) = ((5 : ℕ) : ℤ) by norm_num, preΨ_ofNat]; exact H
+
+/-- The key univariate division-polynomial identity underlying the duplication formula: the square
+of `preΨ₄` is the cubic in `Φ₂` and `Ψ₂Sq` with the `bᵢ` as coefficients. Equivalently, this is the
+statement that `(Φ₂/Ψ₂Sq, preΨ₄/(2 ψ₂³))` — up to the linear correction absorbed into `ω₂` — solves
+the Weierstrass equation after clearing the `ψ₂²`-denominators. -/
+lemma preΨ₄_sq : W.preΨ₄ ^ 2 =
+    4 * W.Φ 2 ^ 3 + C W.b₂ * W.Φ 2 ^ 2 * W.Ψ₂Sq + 2 * C W.b₄ * W.Φ 2 * W.Ψ₂Sq ^ 2 +
+      C W.b₆ * W.Ψ₂Sq ^ 3 := by
+  rw [Φ_two, preΨ₄, Ψ₂Sq, b₂, b₄, b₆, b₈]
+  C_simp
+  ring1
 
 /-- The **univariate** `y`-coordinate division-polynomial numerator
 `preΩₙ = preΨₙ₊₂·preΨₙ₋₁² − preΨₙ₋₂·preΨₙ₊₁² ∈ R[X]`. It is the univariate factor of the bracket in

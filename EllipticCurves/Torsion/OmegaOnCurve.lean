@@ -4,8 +4,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
-import EllipticCurves.Torsion.OmegaThree
-import EllipticCurves.Torsion.OmegaTwo
 
 /-!
 # The on-curve identity for the division-polynomial coordinates, at general `n`
@@ -13,8 +11,8 @@ import EllipticCurves.Torsion.OmegaTwo
 Mathlib leaves the `y`-coordinate division polynomials `ωₙ` as a `TODO`, so there is no statement
 on the current pin that the multiplication-by-`n` coordinates `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` lie on the curve
 — the *on-curve identity* that the function-field pullback `[n]∗ : F(W) → F(W)` consumes.
-`EllipticCurves.Torsion.OmegaTwo` and `EllipticCurves.Torsion.OmegaThree` supply it at `n = 2` and
-`n = 3`, each by a bespoke computation.
+`EllipticCurves.Torsion.OmegaTwo` and `EllipticCurves.Torsion.OmegaThree` state it at `n = 2` and
+`n = 3`; both now import this file and read off their theorems from the engine below.
 
 This file separates that work into the part that depends on `n` and the part that does not, in
 exactly the shape `EllipticCurves.Torsion.NsmulSurjective` uses for the surjectivity engine.
@@ -60,9 +58,10 @@ the one in that numerator, which is why it reads `Ψ₂Sq` there and `2y + a₁x
 what predicted the shape before any of this was in Lean: `preΩₙ` has degree `3n²/2` for even `n` but
 only `(3n² − 3)/2` for odd `n`, the missing `3` being the degree of `Ψ₂Sq`.
 
-⚠️ **`preΨ₄_sq` (`OmegaTwo`) is literally this identity at `n = 2`**, and the `hstar` step inside
-`tripling_equation` (`OmegaThree`) is literally this identity at `n = 3`, evaluated at a point.
-Both were written before the general shape was named; neither file is changed here.
+⚠️ **`preΨ₄_sq` is literally this identity at `n = 2`**, and the `n = 3` case is literally the
+same algebra that `tripling_equation` used to run inline.  Both are univariate `CommRing` facts
+about `preΨ`, so both live in `EllipticCurves.Torsion.OmegaDivisionPolynomial`; the `n = 3` one is
+`hasPreΩSqAt_three` below, and it is proved here exactly once.
 
 ## Main definitions
 
@@ -89,11 +88,11 @@ Both were written before the general shape was named; neither file is changed he
 ## ⚠️ What this does and does not settle
 
 **Nothing is proved here at any index that was not already available.**  The instances are `n = 0`
-and `n = 1` (both immediate), `n = 2` (the merged `preΨ₄_sq`) and `n = 3` (the `hstar` step inside
-the merged `tripling_equation`).  What the file settles is **how much is needed at a new index, and
-that it is exactly one univariate identity** — no bivariate work, no hypothesis on `(n : F)`, no
-algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` is the crux left in
-issue `#404`.
+and `n = 1` (both immediate), `n = 2` (the merged `preΨ₄_sq`) and `n = 3` (the algebra that the
+merged `tripling_equation` used to run inline).  What the file settles is **how much is needed at a
+new index, and that it is exactly one univariate identity** — no bivariate work, no hypothesis on
+`(n : F)`, no algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` is the
+crux left in issue `#404`.
 
 ⚠️ **Why `n = 3` is committed in the evaluated form only, and why that is a measurement rather than
 a preference.**  The polynomial identity at `n = 3` is true over `ℤ` — it needs no characteristic
@@ -109,8 +108,8 @@ here:
   still climbing through **10.5 GB resident** after 90 s and was killed by hand.
 
 With `b₂, b₄, b₆` kept as atoms and `b₈` eliminated by division by `4` the same identity has
-**545 monomials** and closes in seconds — which is exactly what `OmegaThree` does, and exactly why
-it needs a field of characteristic `≠ 2`.  The remaining characteristic-free route, a
+**545 monomials** and closes in seconds — which is exactly what `hasPreΩSqAt_three` does, and
+exactly why it needs a field of characteristic `≠ 2`.  The remaining characteristic-free route, a
 `linear_combination` against `b_relation`, needs a cofactor that was computed here by exact
 division and has **275 monomials**: a hundred-line constant with no independent meaning.  None of
 the three was worth taking; the engine assumes characteristic `≠ 2` regardless, so the evaluated
@@ -195,8 +194,8 @@ lemma hasPreΩSq_one : W.HasPreΩSq 1 := by
   ring1
 
 /-- **The identity at `n = 2`.**  Since `preΩ₂ = preΨ₄` and `ΨSq₂ = Ψ₂Sq`, this is exactly the
-merged `WeierstrassCurve.preΨ₄_sq` of `EllipticCurves.Torsion.OmegaTwo`, which is where the
-duplication formula's heavy algebra already lives. -/
+merged `WeierstrassCurve.preΨ₄_sq` of `EllipticCurves.Torsion.OmegaDivisionPolynomial`, which is
+where the duplication formula's heavy algebra already lives. -/
 lemma hasPreΩSq_two : W.HasPreΩSq 2 := by
   rw [HasPreΩSq, preΩ_two, if_pos even_two, ΨSq_two, mul_one]
   exact W.preΨ₄_sq
@@ -207,9 +206,10 @@ variable {F : Type*} [Field F] {W : Affine F} {x y : F}
 
 /-- **The evaluated identity at `n = 3`**, over a field of characteristic `≠ 2`.
 
-Since `preΩ₃ = preΨ₅ − preΨ₄²` and `ΨSq₃ = Ψ₃²`, this is the `hstar` step inside
-`WeierstrassCurve.Affine.tripling_equation` (`EllipticCurves.Torsion.OmegaThree`), extracted and
-stated at a general `x`.  ⚠️ The characteristic hypothesis is an artefact of the proof, not of the
+Since `preΩ₃ = preΨ₅ − preΨ₄²` and `ΨSq₃ = Ψ₃²`, this is the univariate step that
+`WeierstrassCurve.Affine.tripling_equation` (`EllipticCurves.Torsion.OmegaThree`) used to run
+inline, stated at a general `x` and proved here once.  ⚠️ The characteristic hypothesis is an
+artefact of the proof, not of the
 statement: `4b₈ = b₂b₆ − b₄²` is eliminated by dividing by `4`, which keeps `b₂`, `b₄`, `b₆` as
 `ring` atoms and the normal form small.  The module docstring records what the characteristic-free
 route costs. -/
@@ -241,8 +241,9 @@ This is the uniform half of the on-curve identity, written once.  ⚠️ The `if
 numerator is the same parity factor as in `HasPreΩSq`, and it is not cosmetic: for odd `n` the
 "`ψ₂`-value" `2Y + a₁X + a₃` of the multiple carries a factor of `2y + a₁x + a₃`, whose square is
 `Ψ₂Sq(x)`, and for even `n` it does not.  `doubling_equation` and `tripling_equation` are the
-`n = 2` and `n = 3` cases; they are left where they are rather than re-derived here, since their
-statements are merged public API with consumers in `FunctionField/`. -/
+`n = 2` and `n = 3` cases, and are derived from this theorem in `EllipticCurves.Torsion.OmegaTwo`
+and `EllipticCurves.Torsion.OmegaThree`; their statements stay where they are, since they are
+merged public API with consumers in `FunctionField/`. -/
 theorem equation_of_hasPreΩSqAt {n : ℤ} (hΩ : W.HasPreΩSqAt n x) (h : W.Equation x y)
     (h2 : (2 : F) ≠ 0) (hψ : (W.ψ n).evalEval x y ≠ 0) :
     W.Equation ((W.Φ n).eval x / (W.ΨSq n).eval x)
