@@ -31,9 +31,34 @@ preΩₙ² · (if Even n then 1 else Ψ₂Sq) =
 
 with `preΩₙ = preΨₙ₊₂·preΨₙ₋₁² − preΨₙ₋₂·preΨₙ₊₁²` the univariate `y`-numerator of
 `EllipticCurves.Torsion.OmegaDivisionPolynomial`.  It is the completed-square form of the
-Weierstrass equation at the point `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)`, with all denominators cleared; the parity
-factor is a degree count, since `preΩₙ` has degree `3n²/2` for even `n` but only `(3n² − 3)/2` for
-odd `n`, the missing `3` being the degree of `Ψ₂Sq`.
+Weierstrass equation at the point `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)`, with all denominators cleared.
+
+### Why the parity factor is `if Even n then 1 else Ψ₂Sq`, and why the coordinates are `ωₙ/ψₙ³`
+
+The factor is a **theorem of the imported file**, not a fudge fitted to a degree count.
+`EllipticCurves.Torsion.OmegaDivisionPolynomial` proves `Ω_factor`,
+`Ψₙ₊₂·Ψₙ₋₁² − Ψₙ₋₂·Ψₙ₊₁² = (if Even n then ψ₂ else ψ₂²)·C(preΩₙ)`, and `ψ_mul_Ω`,
+`ψ₂ₙ·ψ₂ = ψₙ·Ωₙ`.  At a point `(x, y)` of `W` at which `ψ₂` does not vanish those combine, after
+cancelling the common `ψ₂`, into `WeierstrassCurve.Affine.ψ_two_mul_evalEval`:
+
+```
+(if Even n then 1 else ψ₂(x, y)) · preΩₙ(x) = ψ₂ₙ(x, y) / ψₙ(x, y).
+```
+
+That is what earns this file's repeated claim that its coordinates are `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)`: the
+`y`-value of `WeierstrassCurve.Affine.equation_of_hasPreΩSqAt` below is `ωₙ/ψₙ³` for `ωₙ` in the
+classical normalisation
+
+```
+2ωₙ = ψ₂ₙ/ψₙ − (a₁Φₙ + a₃ψₙ²)·ψₙ
+```
+
+of [Silverman, AEC][silverman2009], Exercise 3.7.  The factor in `HasPreΩSq` is the **square** of
+the one in that numerator, which is why it reads `Ψ₂Sq` there and `2y + a₁x + a₃` in the `y`-value.
+
+⚠️ **The degree count is kept, and it is an independent check rather than the evidence.**  It is
+what predicted the shape before any of this was in Lean: `preΩₙ` has degree `3n²/2` for even `n` but
+only `(3n² − 3)/2` for odd `n`, the missing `3` being the degree of `Ψ₂Sq`.
 
 ⚠️ **`preΨ₄_sq` (`OmegaTwo`) is literally this identity at `n = 2`**, and the `hstar` step inside
 `tripling_equation` (`OmegaThree`) is literally this identity at `n = 3`, evaluated at a point.
@@ -121,8 +146,9 @@ preΩₙ² · (if Even n then 1 else Ψ₂Sq) =
 
 This is the completed-square form `(2Y + a₁X + a₃)² = 4X³ + b₂X² + 2b₄X + b₆` of the Weierstrass
 equation, evaluated at the division-polynomial coordinates `X = Φₙ/ΨSqₙ` and `Y = ωₙ/ψₙ³` and
-cleared of denominators; the parity factor `if Even n then 1 else Ψ₂Sq` is forced by a degree count
-on `preΩₙ`.
+cleared of denominators.  The parity factor `if Even n then 1 else Ψ₂Sq` is the square of the one
+in the `y`-numerator, which `WeierstrassCurve.Affine.ψ_two_mul_evalEval` identifies with `ψ₂ₙ/ψₙ`;
+see the module docstring, where the degree count on `preΩₙ` is retained as an independent check.
 
 It is the one index-dependent input of `WeierstrassCurve.Affine.equation_of_hasPreΩSq` below, and
 establishing it at general `n` is the crux left in issue `#404`. -/
