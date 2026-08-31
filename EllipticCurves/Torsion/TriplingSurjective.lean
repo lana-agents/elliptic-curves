@@ -97,7 +97,10 @@ and there `2P = O`, so the secant construction of `3P = 2P + P` does not apply. 
 * `WeierstrassCurve.Affine.exists_nsmul_three_some` — every `x₀` is the `x`-coordinate of a tripled
   point;
 * **`WeierstrassCurve.Affine.exists_nsmul_three_eq`** and
-  **`WeierstrassCurve.Affine.nsmul_three_surjective`** — the headline.
+  **`WeierstrassCurve.Affine.nsmul_three_surjective`** — the headline;
+* `WeierstrassCurve.Affine.exists_nsmul_three_eq_some_of_root` — the finite-level companion of the
+  headline: a named affine point is three times another point given one root of `Φ₃ − x₀·Ψ₃²` with
+  a point of `W` above it, **over an arbitrary field**, with no algebraic closure.
 
 ## Scope
 
@@ -429,6 +432,44 @@ theorem nsmul_three_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 
     Function.Surjective fun P : W.Point => (3 : ℕ) • P :=
   exists_nsmul_three_eq h2
 
+/-! ## Tripling a named point over an arbitrary field -/
+
+/-- **A named affine point is three times another point** as soon as `Φ₃ − x₀·Ψ₃²` has a root
+carrying a point of `W` above it — over an **arbitrary field**, with no algebraic closure.
+
+This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root`
+(`EllipticCurves.Torsion.NsmulSurjective`) at `n = 3`, and the `n = 3` companion of
+`exists_nsmul_two_eq_some_of_root` (`EllipticCurves.Torsion.DoublingSurjective`).  Those two are
+the engine's finite-level layer's only instances anywhere in this tree, because `n = 2` and `n = 3`
+are the only indices at which both of its index-dependent inputs exist; `#251` is what stands
+between here and a general `n`.
+
+⚠️ **`h2` survives here and does not at `n = 2`, and the asymmetry is not an accident of the
+proof.**  Both existence steps of the merged `exists_nsmul_three_eq` — the root extraction and the
+point above the root — are promoted to arguments here, so `[IsAlgClosed F]` and `n ≠ 0` have no
+consumer left, exactly as at `n = 2`.  What survives is input (1): `hasXCoordFormula_two` needs
+nothing at all, while `hasXCoordFormula_three` needs `(2 : F) ≠ 0` for the secant construction of
+`3P = 2P + P`.  That is a hypothesis of the tripling *formula*, not of the closure, and no
+promotion of an existence step can remove it.
+
+⚠️ The hypothesis is stated on `W.Ψ₃.eval x ^ 2`, not on `(W.ΨSq 3).eval x`.  `ΨSq_three_eval`
+bridges them inside the proof, and `Ψ₃` is the name every consumer in this tree computes with — a
+hypothesis a caller has to restate before it can discharge it is a hypothesis nobody discharges.
+This is `exists_nsmul_two_eq_some_of_root`'s `Ψ₂Sq`-not-`ΨSq 2` decision at the next index.
+
+⚠️ Existence of a third part is genuinely a *hypothesis-shaped* statement over a field that is not
+algebraically closed — `exists_nsmul_three_eq` above is stated over `F̄` for a reason.  What this
+lemma buys is that the obstruction is entirely visible in one polynomial root, and the `Nonvacuity`
+section below discharges that root over `ℚ`. -/
+theorem exists_nsmul_three_eq_some_of_root [W.IsElliptic] (h2 : (2 : F) ≠ 0) {x₀ y₀ : F}
+    (hQ : W.Nonsingular x₀ y₀) {x y : F} (hxy : W.Equation x y)
+    (hx : (W.Φ 3).eval x = x₀ * W.Ψ₃.eval x ^ 2) :
+    ∃ P : W.Point, (3 : ℕ) • P = Point.some x₀ y₀ hQ :=
+  exists_nsmul_eq_some_of_hasXCoordFormula_of_root
+    (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
+    (hasXCoordFormula_three h2) hQ hxy
+    (by simpa only [Nat.cast_ofNat, ΨSq_three_eval] using hx)
+
 /-! ### Non-vacuity
 
 The tripling formula carries three hypotheses at once — the point is on the curve, is not fixed by
@@ -436,8 +477,28 @@ negation, and has `Ψ₃(x) ≠ 0` — so it is worth exhibiting a point satisfy
 `y² = x³ + 1` over `ℚ` the point `(2, 3)` does: `negY 2 3 = −3 ≠ 3`, and
 `Ψ₃(2) = 3·16 + 3·4·2 = 72`.
 
-(The surjectivity statements themselves need an algebraically closed base field; as with the merged
-`nsmul_two_surjective`, no committed instantiation is attempted here.) -/
+⚠️ **The three surjectivity statements above still need an algebraically closed base field, and no
+committed instantiation of them is attempted here** — as with the merged `nsmul_two_surjective`.
+What *is* instantiated below, on this same curve and this same `x = 2`, is
+`exists_nsmul_three_eq_some_of_root`, which needs no closure: the value that makes the tripling
+formula apply, `Ψ₃(2) = 72 ≠ 0`, sits at a root of `Φ₃ − (−1)·Ψ₃²`, and that one root makes
+`(−1, 0)` three times a **rational** point of `y² = x³ + 1`.
+
+⚠️ **A certificate over an algebraically closed field would certify `exists_nsmul_three_eq`
+instead**, and nothing the finite-level lemma adds; this is why the block is over `ℚ`.  It is the
+same rule `EllipticCurves.Torsion.DoublingSurjective`'s `ℚ` block states at `n = 2`.
+
+The arithmetic, from `b₂ = 0`, `b₄ = 0`, `b₆ = 4`, `b₈ = 0`:
+
+```
+Ψ₃    = 3X⁴ + 12X          Ψ₃(2)    = 48 + 24  = 72
+Ψ₂Sq  = 4X³ + 4            Ψ₂Sq(2)  = 32 + 4   = 36
+preΨ₄ = 2X⁶ + 40X³ − 16    preΨ₄(2) = 128 + 320 − 16 = 432
+Φ₃(2) = 2·72² − 432·36 = 10368 − 15552 = −5184 = (−1)·72².
+```
+
+⚠️ `Φ₃(2)` is read off `Φ_three_eval`, `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq`, rather than by unfolding
+`exampleCurve.Φ 3`, whose definition is a recursion. -/
 
 section Nonvacuity
 
@@ -449,13 +510,53 @@ private instance : exampleCurve.IsElliptic := by
   norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
+/-- The tripling point `P = (2, 3)` lies on the curve: `8 + 1 = 9 = 3²`. -/
+private lemma equation_exampleCurve_two : exampleCurve.Equation 2 3 := by
+  rw [Affine.equation_iff]; norm_num [exampleCurve]
+
+/-- The tripled point `Q = (−1, 0)` lies on the curve: `−1 + 1 = 0 = 0²`.  It is the point of order
+`2`, being fixed by negation. -/
+private lemma equation_exampleCurve_neg_one : exampleCurve.Equation (-1) 0 := by
+  rw [Affine.equation_iff]; norm_num [exampleCurve]
+
+/-- The three hypotheses of the tripling formula at `(2, 3)`, exhibited together.
+
+⚠️ Deliberately anonymous, and deliberately not folded into the certificate below: it is about
+`addX_add_self_mul_ΨSq_three_eval`'s hypotheses — on the curve, **not fixed by negation**, and
+`Ψ₃(x) ≠ 0` — which is a different job from being a root of `Φ₃ − x₀·Ψ₃²`.  Its first conjunct is
+`equation_exampleCurve_two` rather than a second copy of that proof. -/
 example : exampleCurve.Equation 2 3 ∧ (3 : ℚ) ≠ exampleCurve.negY 2 3
     ∧ exampleCurve.Ψ₃.eval 2 ≠ 0 := by
-  refine ⟨?_, ?_, ?_⟩
-  · norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+  refine ⟨equation_exampleCurve_two, ?_, ?_⟩
   · norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
   · norm_num [exampleCurve, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+/-- **The root that does the work**: `Φ₃(2) = −5184 = (−1) · Ψ₃(2)²`.
+
+Through `Φ_three_eval`, `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq`, giving `2·5184 − 432·36 = −5184`, rather than by
+unfolding `exampleCurve.Φ 3`, whose definition is a recursion. -/
+private lemma eval_Φ_three_exampleCurve :
+    (exampleCurve.Φ 3).eval 2 = (-1 : ℚ) * exampleCurve.Ψ₃.eval 2 ^ 2 := by
+  rw [Φ_three_eval]
+  simp only [WeierstrassCurve.preΨ₄, WeierstrassCurve.Ψ₃, WeierstrassCurve.Ψ₂Sq,
+    WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈,
+    exampleCurve]
+  norm_num
+
+/-- **`(−1, 0)` is three times a rational point of `y² = x³ + 1` over `ℚ`**, with no hypothesis on
+the base field beyond `(2 : ℚ) ≠ 0`.
+
+The witness the engine returns is `±(2, 3)`: `exists_nsmul_three_eq_some_of_root` hands back the
+point above the root, up to the sign `Point.X_eq_iff` leaves.  ⚠️ What makes this a certificate for
+the finite-level lemma rather than for `exists_nsmul_three_eq` is that `ℚ` is **not** algebraically
+closed — the whole content is that one root of `Φ₃ − x₀·Ψ₃²` is enough. -/
+private theorem exists_nsmul_three_eq_exampleCurve :
+    ∃ P : exampleCurve.Point,
+      (3 : ℕ) • P =
+        Point.some (-1) 0 (equation_iff_nonsingular.mp equation_exampleCurve_neg_one) :=
+  exists_nsmul_three_eq_some_of_root (by norm_num) _ equation_exampleCurve_two
+    eval_Φ_three_exampleCurve
 
 end Nonvacuity
 
