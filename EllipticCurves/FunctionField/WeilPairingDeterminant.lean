@@ -105,10 +105,20 @@ This development has the pairing at `n = 2` and `n = 3` and nowhere else, so the
 cannot be taken.  The only sentence there this file falsifies is the parenthetical claim that the
 Weil pairing and its Galois equivariance are unavailable.
 
-Also out of scope: general `n` (the `ωₙ` crux, `#404`); ⚠️ the ceiling inherited here is `#938`'s
+Also out of scope: general `n` (see below); ⚠️ the ceiling inherited here is `#938`'s
 and **not** `#940`'s, since `exists_weilPairing{Two,Three}_ne_one` routes through surjectivity,
 which is blocked at composite `n` twice.  The **trace** of `ρ_{E,n}` has no pairing-theoretic
 description at all and `galoisTraceTwo` is untouched by any of this.
+
+⚠️ **The reason this used to give for general `n` was wrong** — it read *"general `n` (the `ωₙ`
+crux, `#404`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the rung-5 root
+and the whole rung-6 translation slot are now stated at every `n`, with the non-constancy side
+condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general `n` waits on here is
+the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are names this tree declares
+at no index but `2` and `3` (`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`, `#922`/`#925`),
+and the `[IsAlgClosed F]` they carry enters through `hprin`, whose only producers are
+`exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).  ⚠️ Everything this paragraph says about a
+**second** obstruction is untouched and is still right; only the first one is renamed.
 
 ⚠️ `ker ρ_{E,3} ≤ ker χ_3` is the special case of the headline in which `σ` has matrix
 `(1, 0, 0, 1)`.  It is already merged as

@@ -74,8 +74,12 @@ about by name.
   (`EllipticCurves.TateModule.MatrixContinuityThree`).
 * ⚠️ **This does not unblock `det ρ_{E,3} = χ_3` `3`-adically**, and an entry formula for
   `ρ_{E,3}(σ)⁻¹` may look like progress towards it. The `3`-adic identity needs the Weil pairing on
-  `E[3^k]` for **every** `k`, i.e. the `ωₙ` crux. The **mod-`3`** identity is a different statement
-  about a different object and is
+  `E[3^k]` for **every** `k`. ⚠️ That is **not** the `ωₙ` crux, which is what this sentence used
+  to name: `3 ^ k` is `3`-smooth at every `k`, and the rung-5 root and the rung-6 translation
+  slot hold at every `3`-smooth `n` with no `y`-coordinate division polynomial anywhere
+  (`#1165`, `#1304`, `#1308`). What is missing up the tower is `hprin`, produced only at
+  `n = 2` and `n = 3` (`exists_gS_{two,three}_of_isAlgClosed`). The **mod-`3`** identity is a
+  different statement about a different object and is
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 * ⚠️ **Injectivity, surjectivity and openness of `ρ_{E,3}` all stay out.** An entry-by-entry
   agreement of two constructions of the same homomorphism says nothing about any of them.

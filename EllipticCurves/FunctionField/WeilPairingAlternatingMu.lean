@@ -88,9 +88,19 @@ the same bundling in the *translation* slot …, and non-degeneracy"*:
   (`EllipticCurves.FunctionField.WeilPairingNondegenerateMu`, `#878`), over `F̄`.
 
 ⚠️ **State the position, never a tally**: what is left over `F̄` is not a shorter list but `hprin`
-over a **general** field (`#962`) and general `n` (`#404`'s `ωₙ`).  Non-degeneracy is still **not**
+over a **general** field (`#962`) and general `n` (see below).  Non-degeneracy is still **not**
 Ward-gated; `WeilPairing`'s scope section is the canonical account of what it consumes (#769), and
 over a non-closed field it is not merely unproved — see that account.
+
+⚠️ **The reason that sentence used to give for general `n` was wrong** — it read *"general `n`
+(`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the rung-5
+root and the whole rung-6 translation slot are now stated at every `n`, with the non-constancy side
+condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  So the two items it lists are not
+independent: what is left over `F̄` is `hprin`, and its only producers over `F̄` are
+`exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is the fibre description
+`[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2` (`MulByTwoFibreAffine`) and
+`n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read along two axes, not two gates,
+and `#404` is not on this file's path at all.
 
 ## References
 

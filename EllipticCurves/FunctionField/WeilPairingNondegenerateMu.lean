@@ -88,10 +88,20 @@ by giving its coordinates.
 ## Scope
 
 Out of scope, and untouched: `hprin` over a **general** field, which is what confines all of this
-to `F̄` at both `n`; general `n` (`#404`'s `ωₙ`); bundling into `weilPairingMuHom`, which needs a
+to `F̄` at both `n`; general `n` (see below); bundling into `weilPairingMuHom`, which needs a
 `hpow` datum uniform in the slot variable and is a separate design question
 (`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level theorems or
 their proofs.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What confines
+the headlines above to `n = 2, 3` is the **same** `hprin` the previous clause already names: its
+only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is
+the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read
+along two axes, not two gates, and `#404` is not on this file's path at all.
 
 ⚠️ **This is not a perfect-pairing statement, but one exists.**  Non-degeneracy in one slot is
 what Silverman III.8.1(d) asserts and what is proved here.  Perfectness is

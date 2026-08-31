@@ -423,7 +423,11 @@ omit [IsAlgClosed F] [(W'⁄F).IsElliptic] in
 
 ⚠️ **This is not progress towards `det ρ_{E,3} = χ_3`.** Every character is trivial on the kernel
 of the representation it is built from; the `3`-adic identification needs the Weil pairing on
-`E[3^k]` for *every* `k`, i.e. the `ωₙ` crux. The **mod-`3`** identity is a different statement
+`E[3^k]` for *every* `k`. ⚠️ That is **not** the `ωₙ` crux, which is what this sentence used to
+name: `3 ^ k` is `3`-smooth at every `k`, and the rung-5 root and the rung-6 translation slot
+hold at every `3`-smooth `n` with no `y`-coordinate division polynomial anywhere (`#1165`,
+`#1304`, `#1308`). What is missing up the tower is `hprin`, produced only at `n = 2` and
+`n = 3` (`exists_gS_{two,three}_of_isAlgClosed`). The **mod-`3`** identity is a different statement
 about a different object and is
 `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`. -/
 theorem galoisDetThree_eq_one_of_mem_ker {σ : F ≃ₐ[S] F}

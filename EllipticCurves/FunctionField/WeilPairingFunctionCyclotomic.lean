@@ -86,10 +86,20 @@ inconsistency introduced here — the *function*-level statements have been in `
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, transitively Ward-blocked, as everywhere on this front.
+* **General `n`** — the two-slot pairing itself; see the end of this bullet.
   ⚠️ Like `#940` and unlike `#938`, the argument here carries **no second obstruction**: it is one
   rewrite of `#936`'s equation by a statement about `μ_n(F)` that is already general in `n`, so it
   transcribes to any `n` at which `weilPairingN` and its equivariance exist.
+  ⚠️ **The reason this used to give for general `n` was wrong** — it read *"`#404`'s `ωₙ` crux,
+  transitively Ward-blocked, as everywhere on this front"*.  `[n]∗` needs no `y`-coordinate division
+  polynomial (`#1165`), and the rung-5 root and the whole rung-6 translation slot are now stated at
+  every `n`, with the non-constancy side condition discharged at every `3`-smooth `n` (`#1304`,
+  `#1308`).  What general `n` waits on here is the **two-slot** pairing itself: `weilPairingN` and
+  `weilPairingNHom` are names this tree declares at no index but `2` and `3`
+  (`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]`
+  they carry enters through `hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed`
+  (`#791`/`#825`).  ⚠️ Everything this bullet says about a **second** obstruction is untouched and
+  is still right; only the first one is renamed.
 * **The `p`-adic level.**  `weilPairingMu_galois_of_transport_eq_pow_padic` states the `n = p ^ k`
   form off `galoisCyclotomicChar_toZModPow`, and `n = 2` is the level `k = 1` of `p = 2`.  ⚠️ It is
   absent here **on purpose and the reason is not cost**: at `n = 2` the exponent is `1` by the

@@ -87,10 +87,19 @@ disagree.  There is no hypothesis here to weaken, so there is no `_of_hprin` twi
 the fibre point `P` with `[3]P = T` (`WeilPairingRootIndependenceAlgClosed` records this).
 
 ⚠️ This is not Galois-equivariance (`#456`; the `F(W)`-level and `μ_n`-level forms are merged in
-`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (which needs `#404`'s
-`ωₙ` crux), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the function of this
+`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (see below), and not
+`#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the function of this
 file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is where
 `σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
+
+⚠️ **The reason this used to give for general `n` was wrong** — it read *"not general `n` (which
+needs `#404`'s `ωₙ` crux)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the
+rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general
+`n` waits on here is the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are names
+this tree declares at no index but `2` and `3` (`WeilPairingFunctionTwo`,
+`WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]` they carry enters through
+`hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).
 
 ## ⚠️ Five issue numbers in this file were wrong while the names beside them were right
 

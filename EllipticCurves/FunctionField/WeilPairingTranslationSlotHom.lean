@@ -141,9 +141,19 @@ arbitrary field.
 
 Out of scope: **combining the two slots** into a pairing on `W.Point × W.Point` — `#873` records
 that as a separate design question and it stays one, since the divisor slot is a slot of
-`weilPairingElt`, which takes a *function* and not a point.  General `n` (`#404`'s `ωₙ`); `hprin`
+`weilPairingElt`, which takes a *function* and not a point.  General `n` (see below); `hprin`
 over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
 purely additive.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"General `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  ⚠️ The sharper
+point is local to this file: `weilPairingPointMuHom` above is **already** stated at an arbitrary
+`n`, so the entry blamed `ωₙ` for a generality one of its own headline declarations had all along.
+What was `n`-specific was `torsion_le_weilPairingPointSubgroup_two` alone, and its general form is
+in `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` (`#1308`) together with
+`weilPairingTorsionMuHom_n`.  The `hprin` clause beside it is untouched and remains the real gate.
 
 ⚠️ **The out-of-scope list in this `## Scope` section used to open with one more entry, and that
 entry was filed and delivered.**  It read *"**Non-degeneracy as a statement about this map**

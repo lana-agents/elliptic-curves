@@ -75,9 +75,19 @@ setting of `#845`; the descent they consume carries neither `[IsAlgClosed F]` no
 hypothesis.  **No `#418`, no rung 4, no Ward, no normality beyond what `#845` already merged.**
 
 Out of scope: `hprin` over a **general** field, which is open at both `n` and is what confines
-these statements to `F̄`; general `n`, which wants `#404`'s `ωₙ`; bundling `e_n` as a `MonoidHom`
+these statements to `F̄`; general `n` (see below); bundling `e_n` as a `MonoidHom`
 into `μ_n(F)` in the divisor slot, which needs a `hpow` datum uniform in the slot variable and is
 a different statement (`WeilPairingDivisorSlotHom`); any change to `#845`'s or `#723`'s proofs.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n`, which wants `#404`'s `ωₙ`"*.  `[n]∗` needs no `y`-coordinate division polynomial
+(`#1165`), and the rung-5 root and the whole rung-6 translation slot are now stated at every `n`,
+with the non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What
+confines the headlines above to `n = 2, 3` is the **same** `hprin` the previous clause already
+names: its only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`),
+whose input is the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only
+at `n = 2` (`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one
+gate read along two axes, not two gates, and `#404` is not on this file's path at all.
 
 ⚠️ Also out of scope here, and **done elsewhere**: the headlines below inherit `#845`'s existential
 envelope, so a caller who already holds a root cannot apply them.  The `∀ g` forms at both levels

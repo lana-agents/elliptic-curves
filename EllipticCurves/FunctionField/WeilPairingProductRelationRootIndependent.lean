@@ -72,9 +72,19 @@ setting; the transfer lemma carries neither `[IsAlgClosed F]` nor any torsion hy
 torsion is **derived** from `hadd` inside `#845`, never assumed here.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
-`F̄`; general `n` (`#404`'s `ωₙ`); divisor-slot bilinearity, whose envelope needs `g_R` and the
+`F̄`; general `n` (see below); divisor-slot bilinearity, whose envelope needs `g_R` and the
 correction factor as data (`#861`); non-degeneracy; any change to `#724`'s, `#723`'s, `#845`'s or
 `#855`'s proofs.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What confines
+the headlines above to `n = 2, 3` is the **same** `hprin` the previous clause already names: its
+only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is
+the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read
+along two axes, not two gates, and `#404` is not on this file's path at all.
 
 ⚠️ **This file does not introduce a `W.Point`-level pairing**, and `WeilPairingProductRelation`'s
 Scope section is right that inventing one here would be drift.  ⚠️ **But moving the roots into the

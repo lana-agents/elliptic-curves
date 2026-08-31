@@ -105,10 +105,20 @@ on everything mentioning `torsion`.
   `exists_galoisModularCyclotomicChar_three_ne_one` is **false**.  `χ_2` is the trivial character of
   every extension (`galoisModularCyclotomicChar_two_eq_one`, `#944`), and `#948`'s
   `forall_mem_rootsOfUnity_two_fixed` says so without a curve.  There is nothing here to mirror.
-* **General `n`** — `#404`'s `ωₙ` crux.  ⚠️ The ceiling inherited here is `#938`'s and **not**
-  `#940`'s: everything routes through `#948`, which routes through surjectivity, which is blocked at
-  composite `n` twice — by the crux and independently by the prime-order step.  `#940`'s "blocked
-  only once" must not be quoted against this file.
+* **General `n`** — the two-slot pairing itself; see the end of this bullet.  ⚠️ The ceiling
+  inherited here is `#938`'s and **not** `#940`'s: everything routes through `#948`, which routes
+  through surjectivity, which is blocked at composite `n` twice — by the pairing's own ceiling and
+  independently by the prime-order step.  `#940`'s "blocked only once" must not be quoted against
+  this file.
+  ⚠️ **The reason this used to give for general `n` was wrong** — it read *"`#404`'s `ωₙ` crux"*.
+  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the rung-5 root and the whole
+  rung-6 translation slot are now stated at every `n`, with the non-constancy side condition
+  discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general `n` waits on here is the
+  **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are names this tree declares at
+  no index but `2` and `3` (`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`, `#922`/`#925`),
+  and the `[IsAlgClosed F]` they carry enters through `hprin`, whose only producers are
+  `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).  ⚠️ Everything this bullet says about a
+  **second** obstruction is untouched and is still right; only the first one is renamed.
 * **`det ρ_{E,3} = χ_3`.**  ⚠️ `ker_galoisRepMod_three_le_ker_galoisModularCyclotomicChar` compares
   *kernels* and is strictly weaker, and nothing below moves the determinant identity.  ⚠️ This
   bullet originally added that the identity "needs a basis of `E[3]` as a free `ℤ/3`-module together

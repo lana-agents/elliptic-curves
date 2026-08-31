@@ -78,9 +78,21 @@ as for every other `[IsAlgClosed F]` on this front.  No hypothesis is added to a
 the conclusions move.
 
 Out of scope: combining the two slots into a pairing on `W.Point × W.Point` (`#873`/`#890` both
-record that as a separate design question and it stays one); general `n` (`#404`'s `ωₙ`); `hprin`
+record that as a separate design question and it stays one); general `n` (see below); `hprin`
 over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
 purely additive.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What keeps
+*this* file at `n = 2, 3` is not `ωₙ` but the `[IsAlgClosed F]` its own paragraph above traces to a
+single source, `hprin`: its only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed`
+(`#791`/`#825`), whose input is the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) −
+(R))`, merged only at `n = 2` (`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️
+Non-degeneracy is also the one place on this front where the closure is **genuinely** load-bearing
+beyond `hprin` — `WeilPairingNondegenerateTwo`, module docstring, "the closure enters twice" — so
+the entry stays out of scope; only its reason moves.
 
 ⚠️ **That list used to open** *"**injectivity** of the map, which is a different statement and is
 Ward/`#242`-gated through `#E[n] = n²`"*.  It was right that injectivity is a different statement

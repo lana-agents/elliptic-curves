@@ -66,10 +66,20 @@ the non-vacuity section for what that costs a certificate.
 lemma they consume carries neither.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
-`F̄`; general `n` (`#404`'s `ωₙ`); rung 4 (`#414`/`#421`/`#422`) — `#845` established this line
+`F̄`; general `n` (see below); rung 4 (`#414`/`#421`/`#422`) — `#845` established this line
 does not need it; non-degeneracy; bundling into `weilPairingMuHom` (`WeilPairingDivisorSlotHom`),
 which wants a `hpow` datum uniform in the slot variable and is a different statement; any change to
 `WeilPairingAntisymmetric{,Mu}`'s or `#845`'s proofs.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What confines
+the headlines above to `n = 2, 3` is the **same** `hprin` the previous clause already names: its
+only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is
+the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read
+along two axes, not two gates, and `#404` is not on this file's path at all.
 
 ⚠️ **This file's headline is what the `W.Point`-level pairing's divisor slot is proved from.**  This
 sentence used to read *"there is no `W.Point`-level pairing in this tree and nothing here is a step
