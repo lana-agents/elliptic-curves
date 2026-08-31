@@ -127,6 +127,7 @@ import EllipticCurves.FunctionField.NegYGalois
 import EllipticCurves.FunctionField.NegYGaloisGroup
 import EllipticCurves.FunctionField.NegYInvolution
 import EllipticCurves.FunctionField.NthRootOfPullback
+import EllipticCurves.FunctionField.NthRootOfPullbackN
 import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceBelowIntegralClosure
 import EllipticCurves.FunctionField.PlaceDegreeComparison
