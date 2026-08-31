@@ -53,8 +53,8 @@ the validation of the route.
   `F`.  ⚠️ This is the *only* place a hypothesis beyond the group law is used, and it is exactly the
   dominance step `mulByTwoCoordHom_injective` / `mulByThreeCoordHom_injective` perform by an
   explicit degree count on `Φₙ`/`ΨSqₙ`.
-* `…functionField_ringHom_ext` — two ring endomorphisms of `F(W)` fixing `F` and agreeing on `genX`
-  and `genY` are equal.
+* `…functionField_ringHom_ext` — two ring homomorphisms out of `F(W)` into an arbitrary field,
+  fixing `F` and agreeing on `genX` and `genY`, are equal.
 * `…nsmul_genericPoint_eq` — the bridge `[n]∗` *realises* `𝒫 ↦ n • 𝒫`.
 * `…mulByNEndo_injective` — `[n]∗` is injective.
 * `…mulByNEndo_one`, `…mulByNEndo_two`, `…mulByNEndo_three` — the identity, `mulByTwoEndo` and
@@ -238,11 +238,17 @@ lemma genX_def : genX W = genPsi W (mk W (C Polynomial.X)) := rfl
 
 lemma genY_def : genY W = genPsi W (AdjoinRoot.root W.polynomial) := rfl
 
-/-- **Two endomorphisms of `F(W)` fixing `F` and agreeing on `genX` and `genY` are equal.**  The
-two-step transfer `AdjoinRoot.ringHom_ext` then `IsFractionRing.ringHom_ext` that several files in
-this directory perform inline; `genX` and `genY` generate `F[W]` over `F` and `F(W)` is its fraction
-field. -/
-lemma functionField_ringHom_ext {f g : W.FunctionField →+* W.FunctionField}
+/-- **Two ring homomorphisms out of `F(W)` fixing `F` and agreeing on `genX` and `genY` are
+equal.**  The two-step transfer `AdjoinRoot.ringHom_ext` then `IsFractionRing.ringHom_ext` that
+several files in this directory perform inline; `genX` and `genY` generate `F[W]` over `F` and
+`F(W)` is its fraction field.
+
+⚠️ The target `L` is an arbitrary field and need **not** be `F(W)`: the proof never composes `f`
+with itself, and `IsFractionRing.ringHom_ext` is already stated at an arbitrary target field.  The
+endomorphism case `L = F(W)` is what `TranslationDoublingCommGeneral` and `MulByNPullback` use;
+`EllipticCurves.FunctionField.FunctionFieldBaseChangeN` needs the case `L = K(W⁄K)`, which is why
+the statement is at this generality rather than the one the first consumer asked for. -/
+lemma functionField_ringHom_ext {L : Type*} [Field L] {f g : W.FunctionField →+* L}
     (hc : ∀ c : F, f (algebraMap F W.FunctionField c) = g (algebraMap F W.FunctionField c))
     (hX : f (genX W) = g (genX W)) (hY : f (genY W) = g (genY W)) : f = g := by
   have key : f.comp (genPsi W) = g.comp (genPsi W) := by

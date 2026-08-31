@@ -74,6 +74,7 @@ import EllipticCurves.FunctionField.DivisorTheoryElliptic
 import EllipticCurves.FunctionField.DivisorTransport
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.FunctionFieldBaseChange
+import EllipticCurves.FunctionField.FunctionFieldBaseChangeN
 import EllipticCurves.FunctionField.GaloisClosedPoint
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GaloisFunctoriality
@@ -176,6 +177,7 @@ import EllipticCurves.FunctionField.WeilPairing
 import EllipticCurves.FunctionField.WeilPairingAlternating
 import EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN
 import EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange
+import EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN
 import EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingAlternatingThree
