@@ -224,13 +224,34 @@ pairing at `n = 2`, on a named curve, over `ℚ`.
 
 ⚠️ **The curve is forced and the arithmetic is the content.**  `[2]P = T` with `T` of order `2`
 forces `ord P = 4`, so the curve needs `E(ℚ)_tors ⊇ ℤ/2 × ℤ/4` — rational `4`-torsion *above*
-rational full `2`-torsion.  `y² = x³ + 5x² + 4x = x(x+1)(x+4)` has both:
+rational full `2`-torsion.  `y² = x³ + 5x² + 4x = x(x+1)(x+4)` has both, and **each of the two
+facts is one identity between explicit polynomials**:
 
-* `E[2] = {O, (0,0), (−1,0), (−4,0)}`, since the cubic splits over `ℚ` with distinct roots
-  (`Δ = 2304 ≠ 0`), which is `hcard`;
-* `T = (0,0)` is halved by `P = (2, 6)`: the tangent there has slope
-  `(3·4 + 2·5·2 + 4)/(2·6) = 36/12 = 3`, so `x([2]P) = 9 − 5 − 4 = 0` and `y([2]P) = 3(2 − 0) − 6
-  = 0`.
+* `Ψ₂Sq = 4X³ + 20X² + 16X = 4 · X · (X + 1) · (X + 4)` splits over `ℚ`, so
+  `card_torsion_two_of_splits` (`EllipticCurves.Torsion.TwoTorsion`) gives `hcard`.  ⚠️ Splitting
+  alone does not give the count `4` — the three roots must be *distinct*, and that is
+  `Δ = 2304 ≠ 0`, i.e. `[W.IsElliptic]`, applied inside that lemma.
+* `Φ₂ = X⁴ − b₄X² − 2b₆X − b₈ = X⁴ − 8X² + 16 = (X² − 4)²` vanishes at `x = 2`, while `x(T) = 0`
+  makes the right-hand side `0 · Ψ₂Sq.eval 2` on the nose; the point `(2, 6)` sits above that root
+  (`36 = 8 + 20 + 8`).  So `exists_nsmul_two_eq_some_of_root`
+  (`EllipticCurves.Torsion.DoublingSurjective`) gives `hP`.
+
+⚠️ **Why this route rather than exhibiting the four points and doubling `(2, 6)` by hand.**  Both
+facts are true of `E(ℚ)` and both were once proved that way here — the lower bound by an injection
+`Fin 4 → E[2]` and a sixteen-way `fin_cases`, the halving by unfolding
+`addX`/`addY`/`negAddY`/`negY`/`slope`.  The route above is not merely shorter.  A `Splits` witness
+and a root of `Φ₂ − x₀·Ψ₂Sq` are statements about **two explicit polynomials over the base field**,
+so they are exactly the data that survives base change to a splitting field, which is the form
+`#962`'s descent will need; an injection out of `Fin 4` and an application of the affine addition
+formula are statements about `E(ℚ)` and transport to nothing.
+
+⚠️ **The halving is now anonymous, and the diagonal is ruled out by a lemma rather than by the
+witness.**  `exists_nsmul_two_eq_some_of_root` produces *some* `P` above the root, not the named
+`(2, 6)`, so `examplePNeT` — which said that two *named* points are distinct — no longer certifies
+that the pairing is not silently being run at `P = T`.  `ne_of_nsmul_two_eq_exampleT` replaces that
+check with the general fact: `2 • T = 0` and `T ≠ 0`, so no halving of `T` can be `T`.  That holds
+for **every** halving, which is strictly more than the old check gave, and it is why deleting the
+old check would have been a regression the build cannot see.
 
 ⚠️ **`y² = x³ − x` — this subtree's historical default — does not work here**, and the reason is the
 one that has now defeated several separate pieces of work on this board.  It *does* have full
@@ -248,7 +269,9 @@ no-op.  It is also exactly why the final application needs three `convert`s — 
 elaborated `open Classical in`, so their `torsion`-indexed inputs carry `Classical.propDecidable`
 while these lemmas carry `instDecidableEqRat`.  The two are propositionally but not syntactically
 equal and `convert` closes the gap by `Subsingleton.elim`.  This is the consumer side of the rule
-the module docstring states. -/
+the module docstring states.  ⚠️ The anonymous halving costs no fourth `convert`: `W.Point` is an
+inductive type that does not mention the instance, so `(P := P)` unifies and only the `2 • P` needs
+bridging. -/
 
 section Nonvacuity
 
@@ -267,17 +290,7 @@ private lemma exampleNsT : exampleCurve.Nonsingular 0 0 :=
   exampleCurve.equation_iff_nonsingular.mp (by
     norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
 
-/-- `(−1, 0)`, the `2`-torsion point cut out by `x + 1 = 0`. -/
-private lemma exampleNsR₁ : exampleCurve.Nonsingular (-1) 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
-
-/-- `(−4, 0)`, the `2`-torsion point cut out by `x + 4 = 0`. -/
-private lemma exampleNsR₂ : exampleCurve.Nonsingular (-4) 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
-
-/-- `P = (2, 6)`, the halving point: `36 = 8 + 20 + 8`. -/
+/-- `P = (2, 6)`, the point above the root of `Φ₂ − x(T)·Ψ₂Sq`: `36 = 8 + 20 + 8`. -/
 private lemma exampleNsP : exampleCurve.Nonsingular 2 6 :=
   exampleCurve.equation_iff_nonsingular.mp (by
     norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
@@ -285,60 +298,73 @@ private lemma exampleNsP : exampleCurve.Nonsingular 2 6 :=
 private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ exampleCurve.torsion 2 :=
   (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
 
-private lemma exampleTorR₁ : Point.some (-1 : ℚ) 0 exampleNsR₁ ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsR₁).mpr (by norm_num [exampleCurve])
+open Polynomial in
+/-- The `2`-torsion cubic of the example curve, factored: `4X³ + 20X² + 16X = 4·X·(X+1)·(X+4)`. -/
+private lemma Ψ₂Sq_exampleCurve :
+    exampleCurve.Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
+  simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, exampleCurve]
+  norm_num only
+  simp only [map_ofNat, map_one, Polynomial.C_0]
+  ring
 
-private lemma exampleTorR₂ : Point.some (-4 : ℚ) 0 exampleNsR₂ ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsR₂).mpr (by norm_num [exampleCurve])
+open Polynomial in
+/-- **The splitting hypothesis, discharged over `ℚ`** — a product of one constant and three monic
+linear factors is a `Splits` witness on the nose. -/
+private lemma splits_Ψ₂Sq_exampleCurve : exampleCurve.Ψ₂Sq.Splits := by
+  rw [Ψ₂Sq_exampleCurve]
+  exact (((Splits.C 4).mul Splits.X).mul (Splits.X_add_C 1)).mul (Splits.X_add_C 4)
 
-/-- The four rational `2`-torsion points, as a map out of `Fin 4`.  Named rather than inlined so
-that its injectivity — which is the whole of the lower bound in `exampleCard` — is a statement of
-its own. -/
-private noncomputable def exampleTorsionFour : Fin 4 → exampleCurve.torsion 2 :=
-  ![⟨0, zero_mem _⟩, ⟨Point.some (0 : ℚ) 0 exampleNsT, exampleTorT⟩,
-    ⟨Point.some (-1 : ℚ) 0 exampleNsR₁, exampleTorR₁⟩,
-    ⟨Point.some (-4 : ℚ) 0 exampleNsR₂, exampleTorR₂⟩]
+/-- **`#E[2] = 4` over `ℚ` for this curve**, which is `hcard`.
 
-private lemma exampleTorsionFour_injective : Function.Injective exampleTorsionFour := by
-  intro i j hij
-  fin_cases i <;> fin_cases j <;>
-    simp_all [exampleTorsionFour, Subtype.ext_iff]
+⚠️ The whole content is the factorisation of one cubic.  The alternative — `card_torsion_two_le`
+for `≤ 4` together with an explicit injection `Fin 4 → E[2]` for `≥ 4` — is what this block used to
+do, and it costs three more `Nonsingular` obligations, three more `mem_torsion` obligations and a
+sixteen-way `fin_cases`. -/
+private lemma exampleCard : Nat.card (exampleCurve.torsion 2) = 4 :=
+  card_torsion_two_of_splits exampleTwo splits_Ψ₂Sq_exampleCurve
 
-/-- **`#E[2] = 4` over `ℚ` for this curve**, which is `hcard`.  `card_torsion_two_le`
-(`EllipticCurves.Torsion.TwoTorsion`) is unconditional and supplies `≤`; `≥` is the four points
-above.  ⚠️ The upper bound is where an algebraic closure would have been useless anyway — what the
-closure buys in `card_torsion_two` is exactly this lower bound, and here it is bought by naming the
-roots instead. -/
-private lemma exampleCard : Nat.card (exampleCurve.torsion 2) = 4 := by
-  haveI := exampleCurve.finite_torsion_two exampleTwo
-  refine le_antisymm (card_torsion_two_le exampleTwo) ?_
-  simpa using Nat.card_le_card_of_injective exampleTorsionFour exampleTorsionFour_injective
+/-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, since `Φ₂ = (X² − 4)²` here.
 
-/-- **`P + P = T`**: the tangent at `(2, 6)` has slope `3`, so `x([2]P) = 9 − 5 − 4 = 0`. -/
-private lemma exampleDoubleP :
-    Point.some (2 : ℚ) 6 exampleNsP + Point.some (2 : ℚ) 6 exampleNsP
-      = Point.some (0 : ℚ) 0 exampleNsT := by
-  have hy : (6 : ℚ) ≠ exampleCurve.negY 2 6 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
-  rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
-  refine ⟨?_, ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
-      WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
-      WeierstrassCurve.Affine.slope]
+⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 144 − 288 = 0` — rather
+than by unfolding `W.Φ 2`, whose definition is a recursion. -/
+private lemma eval_Φ_two_exampleCurve :
+    (exampleCurve.Φ 2).eval 2 = (0 : ℚ) * exampleCurve.Ψ₂Sq.eval 2 := by
+  rw [Φ_two_eval]
+  simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleCurve]
+  norm_num
 
-/-- **`[2]P = T`** in `nsmul` form, which is the shape the headline takes. -/
-private lemma exampleTwoP :
-    ((2 : ℕ) • Point.some (2 : ℚ) 6 exampleNsP : exampleCurve.Point)
-      = Point.some (0 : ℚ) 0 exampleNsT := by
-  rw [two_nsmul]; exact exampleDoubleP
+/-- **`T = (0, 0)` is twice a rational point**, which is `hP`.
 
-/-- **`P ≠ T`**: the halving relates two *distinct* named affine points.  ⚠️ Checked rather than
-implied — `[2]P = T` at `P = T` would only say that `T` is fixed by `[2]`, and a certificate cannot
-claim to exercise the halving if it silently runs on the diagonal. -/
+⚠️ Obtained from the root of `Φ₂ − x(T)·Ψ₂Sq` at `x = 2` and the point `(2, 6)` above it, not from
+the affine addition formula: `exists_nsmul_two_eq_some_of_root` carries no hypothesis on `(2 : ℚ)`
+and no algebraic closure, so the arithmetic here is the polynomial identity above and nothing
+else. -/
+private lemma exampleExistsHalving :
+    ∃ P : exampleCurve.Point, 2 • P = Point.some (0 : ℚ) 0 exampleNsT :=
+  exists_nsmul_two_eq_some_of_root exampleNsT exampleNsP.left eval_Φ_two_exampleCurve
+
+/-- **`P ≠ T`**: the halving relates two *distinct* named affine points. -/
 private lemma examplePNeT :
     Point.some (2 : ℚ) 6 exampleNsP ≠ Point.some (0 : ℚ) 0 exampleNsT := by
   rw [ne_eq, Point.some.injEq]
   norm_num
+
+/-- **No halving of `T` is `T`** — the diagonal check, for the anonymous halving.
+
+⚠️ Checked rather than implied: `[2]P = T` at `P = T` would only say that `T` is fixed by `[2]`, and
+a certificate cannot claim to exercise the halving if it silently runs on the diagonal.  Since the
+halving produced by `exampleExistsHalving` is anonymous, the check cannot be made on a witness, and
+it does not need to be — `T` lies in `E[2]`, so `2 • T = 0`, and `2 • T = T` would force `T = 0`,
+which it is not.  This is strictly stronger than checking one named point. -/
+private lemma ne_of_nsmul_two_eq_exampleT {P : exampleCurve.Point}
+    (hP : 2 • P = Point.some (0 : ℚ) 0 exampleNsT) :
+    P ≠ Point.some (0 : ℚ) 0 exampleNsT := by
+  rintro rfl
+  have h0 : (Point.some (0 : ℚ) 0 exampleNsT : exampleCurve.Point) = 0 :=
+    hP.symm.trans (mem_torsion_iff.mp exampleTorT)
+  simp at h0
 
 /-- **The alternating property of the Weil pairing at `n = 2` over `ℚ`, with no hypothesis
 whatsoever.**
@@ -346,7 +372,7 @@ whatsoever.**
 ⚠️ Compare the merged statements at this index: `exists_weilPairingElt_self_eq_one_of_algClosed_two`
 carries `hprin` (`#418`), and `exists_weilPairingElt_self_eq_one_of_isAlgClosed_two` discharges it
 only over `F̄`.  This one is over `ℚ` and its hypothesis list is empty — `hcard` is `exampleCard`
-and the halving is `exampleTwoP`, both proved.
+and the halving is `exampleExistsHalving`, both proved.
 
 ⚠️ It is **not** evidence for `#962`, which asks for the same conclusion on a curve whose
 `2`-torsion is *not* rational.  What it certifies is that the hypotheses of
@@ -362,8 +388,9 @@ private theorem exampleAlternatingTwo :
           translateEndo exampleNsT.left g = g ∧ weilPairingElt exampleNsT.left g = 1 :=
   -- ⚠️ The three `convert`s are the entire price of the consumed theorem being elaborated
   -- `open Classical in`; see the section docstring.  They are `Subsingleton.elim` bookkeeping.
+  let ⟨P, hP⟩ := exampleExistsHalving
   exists_weilPairingElt_self_eq_one_of_card_two exampleTwo (by convert exampleCard) exampleNsT
-    (by convert exampleTorT) (P := Point.some (2 : ℚ) 6 exampleNsP) (by convert exampleTwoP)
+    (by convert exampleTorT) (P := P) (by convert hP)
 
 /-- **The `μ_n(ℚ)`-valued form over `ℚ`, also with no hypothesis.**  The same instantiation of
 `exists_weilPairingMu_self_eq_one_of_card_two`. -/
@@ -377,8 +404,9 @@ private theorem exampleAlternatingMuTwo (n : ℕ) [NeZero n] :
             (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
           ∃ hpow : weilPairingElt exampleNsT.left g ^ n = 1,
             weilPairingMu exampleNsT.left hpow = 1 :=
+  let ⟨P, hP⟩ := exampleExistsHalving
   exists_weilPairingMu_self_eq_one_of_card_two exampleTwo (by convert exampleCard) exampleNsT
-    (by convert exampleTorT) (P := Point.some (2 : ℚ) 6 exampleNsP) (by convert exampleTwoP) n
+    (by convert exampleTorT) (P := P) (by convert hP) n
 
 end Nonvacuity
 
