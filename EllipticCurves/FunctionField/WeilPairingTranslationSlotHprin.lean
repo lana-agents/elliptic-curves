@@ -136,11 +136,23 @@ the `AlgClosedRecovery` section adds it back locally and nowhere else.  Every he
 
 Out of scope: discharging `hprin`; the **divisor**-slot family
 (`WeilPairingDivisorSlotBilinear`), which produces roots at three points and so wants `#907`'s
-quantified shape; general `n` (`#404`'s `ωₙ`); rung 4; non-degeneracy, where `[IsAlgClosed F]` is
+quantified shape; general `n` (see below); rung 4; non-degeneracy, where `[IsAlgClosed F]` is
 genuinely load-bearing and enters twice (`WeilPairingNondegenerateTwo`, module docstring,
 "the closure enters twice").  Nothing here edits `#873`'s or `#890`'s statements or proofs, and the
 `_of_isAlgClosed` forms are **not** deprecated: their consumers carry `[IsAlgClosed F]` already and
 would gain nothing, the judgement `#903`, `#907` and `#910` all reached.
+
+⚠️ **General `n` is no longer out of scope, and the reason this bullet used to give was wrong.**  It
+read *"general `n` (`#404`'s `ωₙ`)"*, and `ωₙ` was never what gated it: `#1165` established that
+`[n]∗` needs no `y`-coordinate division polynomial, and the commutation these proofs consume states
+in its own docstring that it uses neither `ωₙ`, nor `#404`'s on-curve identity, nor Ward
+(`TranslationMulByNCommGeneral`).  The `n = 2, 3` restriction lived in exactly two places — the root
+producer `exists_gS_{two,three}`, generalised by `#1304`, and the single lemma
+`weilPairingElt_pow_eq_one_of_gS_two_torsion` — and all six headlines below now hold at every `n`,
+with the non-constancy side condition discharged at every `3`-smooth `n`, in
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` (`#1308`).  ⚠️ That file is
+**additive**: nothing here is deleted, deprecated, restated or re-proved, and it recovers all six
+statements below through the general forms rather than replacing them.
 
 ⚠️ **The two slots are not combined *here*, and the reason this bullet used to give was wrong.**
 It read *"The two slots are still not combined into a single bilinearity statement.  That wants a
