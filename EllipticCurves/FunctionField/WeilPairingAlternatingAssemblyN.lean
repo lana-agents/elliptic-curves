@@ -542,8 +542,23 @@ never inhabited is a hypothesis that could be false (`#916`).
   which is `2`-torsion, hence `6`-torsion, hence a legal `T`.
 
 So `n = 6` is the cheapest genuinely composite index over `ℚ`, and `6 = 2 · 3` is `3`-smooth, so the
-`_of_smooth` form applies.  The curve is `y² = x³ + 4x`, of discriminant `−4096`, with `P = (2, 4)`
-of order `4` and `T = [2]P = (0, 0)` of order `2`.
+`_of_smooth` form applies.  The curve is `y² = x³ + 4x`, of discriminant `−4096`, with `T = (0, 0)`
+of order `2` and a point of order `4` above it, at `x = 2`.
+
+⚠️ **That order argument is a theorem now, not prose, and the block below no longer re-derives it at
+this fixture.**  `exists_nsmul_eq_some_of_root_of_mem_torsion_two`
+(`EllipticCurves.Torsion.DoublingSurjective`) says: if `T` is `2`-torsion and `Φ₂ − x(T)·Ψ₂Sq` has a
+root carrying a point of `W` above it, then `[n]P = T` **and** `P ≠ T` for some `P`, at *every*
+`n ≡ 2 (mod 4)`.  The proof is the second bullet above, in general form — `[4]P = [2]([2]P) =
+[2]T = O`, hence `[4k + 2]P = [k]([4]P) + [2]P = T` — and the first bullet is why `n = 4` is *not*
+reachable by it (`4 % 4 = 0`).  So the only thing this block still has to supply at `n = 6` is one
+polynomial identity, `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, plus `6 % 4 = 2` by `norm_num`.
+
+⚠️ **Why a root rather than a tangent line.**  A root of `Φ₂ − x(T)·Ψ₂Sq` and the `2`-torsion of `T`
+are statements about explicit polynomials over the base field, so they are the data that survives
+base change to a splitting field; a doubling computed through `slope`/`addX`/`addY` at named
+coordinates transports to nothing.  That is the form `#962`'s descent will want, and it is the
+reason the collapse is a strengthening rather than a shortening.
 
 ⚠️ **A fixture note, because this fact has now been rediscovered three times on this front as three
 different-looking obstructions.**  `y² = x³ − x` — this subtree's historical default — has rational
@@ -585,18 +600,6 @@ private lemma exampleRatNsT : exampleRatCurve.Nonsingular 0 0 :=
   exampleRatCurve.equation_iff_nonsingular.mp (by
     norm_num [exampleRatCurve, WeierstrassCurve.Affine.equation_iff])
 
-/-- **`P + P = T`**: the tangent at `(2, 4)` has slope `2`, so `x([2]P) = 4 − 4 = 0`. -/
-private lemma exampleRatDoubleP :
-    Point.some (2 : ℚ) 4 exampleRatNsP + Point.some (2 : ℚ) 4 exampleRatNsP
-      = Point.some (0 : ℚ) 0 exampleRatNsT := by
-  have hy : (4 : ℚ) ≠ exampleRatCurve.negY 2 4 := by
-    norm_num [exampleRatCurve, WeierstrassCurve.Affine.negY]
-  rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
-  refine ⟨?_, ?_⟩ <;>
-    norm_num [exampleRatCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
-      WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
-      WeierstrassCurve.Affine.slope]
-
 /-- `T = (0, 0)` is `2`-torsion: `ψ₂(T) = 2·0 + 0·0 + 0 = 0`. -/
 private lemma exampleRatTorTwoT : Point.some (0 : ℚ) 0 exampleRatNsT ∈ exampleRatCurve.torsion 2 :=
   (mem_torsion_two_some_iff exampleRatNsT).mpr (by norm_num [exampleRatCurve])
@@ -619,34 +622,53 @@ private lemma exampleRatTorSixT :
   rw [mem_torsion_iff, show (6 : ℕ) = 2 * 3 from rfl, mul_nsmul, two_nsmul, exampleRatDoubleT,
     smul_zero]
 
-/-- **`[2]P = T`** in `nsmul` form, which is the shape the multiples below rewrite with.  ⚠️ Named
-rather than inlined: at `4 = 2 * 2` the `mul_nsmul` reversal cannot be dodged by reordering the
-factors, so the inner multiple has to be rewritten by a lemma of its own. -/
-private lemma exampleRatTwoP :
-    ((2 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point)
-      = Point.some (0 : ℚ) 0 exampleRatNsT := by
-  rw [two_nsmul]; exact exampleRatDoubleP
+/-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`.
 
-/-- **`[4]P = O`**: `P` has order `4`, from `[2]P = T` and `[2]T = O`. -/
-private lemma exampleRatFourP :
-    ((4 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point) = 0 := by
-  rw [show (4 : ℕ) = 2 * 2 from rfl, mul_nsmul, exampleRatTwoP, two_nsmul, exampleRatDoubleT]
+`y² = x³ + 4x` has `b₂ = 0`, `b₄ = 8`, `b₆ = 0`, `b₈ = −16`, so
+`Φ₂ = X⁴ − b₄X² − 2b₆X − b₈ = X⁴ − 8X² + 16 = (X² − 4)²` vanishes at `x = 2`, while `x(T) = 0`.
 
-/-- **The halving `[6]P = T`, discharged.**  `[6]P = [4]P + [2]P = O + T = T`.  ⚠️ This is the
-hypothesis the general assembly carries and the merged `n = 2` and `n = 3` assemblies do not, and
-it is the reason this block exists: here it is *proved*, not assumed. -/
-private lemma exampleRatSixP :
-    ((6 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point)
-      = Point.some (0 : ℚ) 0 exampleRatNsT := by
-  rw [show (6 : ℕ) = 4 + 2 from rfl, add_nsmul, exampleRatFourP, zero_add, exampleRatTwoP]
+⚠️ **`Φ₂` is literally the same polynomial as on `⟨0, 5, 0, 4, 0⟩`** — the curve
+`EllipticCurves.Torsion.DoublingSurjective` and `…WeilPairingAlternatingTwoRational` run their own
+blocks on — because the two share `b₄`, `b₆` and `b₈`.  `Ψ₂Sq` does **not** (`4X³ + 16X` here
+against `4X³ + 20X² + 16X` there), so `Ψ₃` and every evaluation differ: copy the proof shape from
+those files, recompute the numbers.
 
-/-- **`P ≠ T`**: the halving relates two *distinct* named affine points.  ⚠️ Checked rather than
-implied — `[n]P = T` at `P = T` would only say that `T` is fixed by `[n]`, and a certificate cannot
-claim to exercise the halving if it silently runs on the diagonal. -/
-private lemma exampleRatPNeT :
-    Point.some (2 : ℚ) 4 exampleRatNsP ≠ Point.some (0 : ℚ) 0 exampleRatNsT := by
-  rw [ne_eq, Point.some.injEq]
+⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 64 − 128 = 0` — rather
+than by unfolding `W.Φ 2`, whose definition is a recursion. -/
+private lemma eval_Φ_two_exampleRatCurve :
+    (exampleRatCurve.Φ 2).eval 2 = (0 : ℚ) * exampleRatCurve.Ψ₂Sq.eval 2 := by
+  rw [Φ_two_eval]
+  simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleRatCurve]
   norm_num
+
+/-- **The halving `[6]P = T`, discharged from a polynomial root**, together with the diagonal guard
+`P ≠ T`.
+
+This is the hypothesis the general assembly carries and the merged `n = 2` and `n = 3` assemblies do
+not, and it is the reason this block exists: here it is *proved*, not assumed.
+
+⚠️ **The order argument in the section docstring above is now a theorem rather than prose.**
+`exists_nsmul_eq_some_of_root_of_mem_torsion_two` (`EllipticCurves.Torsion.DoublingSurjective`)
+turns one root of `Φ₂ − x(T)·Ψ₂Sq` into `[n]P = T` at **every** `n ≡ 2 (mod 4)`, by way of
+`[4]P = [2]([2]P) = [2]T = O`; `6 % 4 = 2` is the whole of what is index-specific here, and it is
+discharged by `norm_num`.  Nothing in this block computes a tangent line any more.
+
+⚠️ **The guard is inside the existential, and that is load-bearing.**  `P` is anonymous, so the old
+coordinate form `(2, 4) ≠ (0, 0)` is not statable about it; but `P ≠ T` is a *consequence* of
+`[2]P = T` when `T` is non-zero `2`-torsion — `P = T` would force `T = [2]T = O` — so the
+certificate below binds its `P` from a witness satisfying **both** conjuncts and carries
+off-diagonality by construction, even though it binds the second component to `_`.  Do not "clean
+up" the unused conjunct.
+
+⚠️ `exampleRatNsP` survives this collapse in a different role: it is no longer the named summand of
+a doubling but the `W.Equation` witness above the root, supplied as `exampleRatNsP.left`. -/
+private lemma exampleRatExistsSixP :
+    ∃ P : exampleRatCurve.Point,
+      (6 : ℕ) • P = Point.some (0 : ℚ) 0 exampleRatNsT ∧
+        P ≠ Point.some (0 : ℚ) 0 exampleRatNsT :=
+  exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleRatNsT exampleRatTorTwoT
+    exampleRatNsP.left eval_Φ_two_exampleRatCurve (by norm_num)
 
 /-- **Every hypothesis but `hprin` is simultaneously satisfiable at `n = 6` over `ℚ`**, on a named
 curve, at a named affine `T` whose `6`-torsion is proved and a named affine `P`, distinct from `T`,
@@ -676,12 +698,16 @@ private theorem exampleRatAssemblySix
   -- ⚠️ The two `convert`s are the entire price of the consuming theorem being elaborated
   -- `open Classical in`, and they are bookkeeping rather than mathematics.  `ℚ` has a genuine
   -- `DecidableEq` instance which wins on priority even under `open Classical`, so
-  -- `exampleRatTorSixT` and `exampleRatSixP` are indexed by `instDecidableEqRat` while the
-  -- theorem's copies carry `Classical.propDecidable`; the two are propositionally but not
-  -- syntactically equal, and `convert` closes the gap by `Subsingleton.elim`.
+  -- `exampleRatTorSixT` and `hP` are indexed by `instDecidableEqRat` while the theorem's copies
+  -- carry `Classical.propDecidable`; the two are propositionally but not syntactically equal, and
+  -- `convert` closes the gap by `Subsingleton.elim`.  ⚠️ Both lemmas behind `hP` are on the
+  -- *producer* side and bind `[DecidableEq F]`, so over `ℚ` they land at `instDecidableEqRat` too:
+  -- the count of `convert`s is unchanged at two, which is the prediction this collapse was checked
+  -- against.
+  let ⟨P, hP, _⟩ := exampleRatExistsSixP
   exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth exampleRatTwo exampleRatThree
     (n := 6) (by norm_num) exampleSmooth exampleRatNsT (by convert exampleRatTorSixT)
-    (P := Point.some (2 : ℚ) 4 exampleRatNsP) (by convert exampleRatSixP) hprin
+    (P := P) (by convert hP) hprin
 
 end NonvacuityRat
 
