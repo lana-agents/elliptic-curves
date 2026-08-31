@@ -137,10 +137,10 @@ the `AlgClosedRecovery` section adds it back locally and nowhere else.  Every he
 Out of scope: discharging `hprin`; the **divisor**-slot family
 (`WeilPairingDivisorSlotBilinear`), which produces roots at three points and so wants `#907`'s
 quantified shape; general `n` (`#404`'s `ωₙ`); rung 4; non-degeneracy, where `[IsAlgClosed F]` is
-genuinely load-bearing and enters twice (`WeilPairingNondegenerateTwo:81`).  Nothing here edits
-`#873`'s or `#890`'s statements or proofs, and the `_of_isAlgClosed` forms are **not** deprecated:
-their consumers carry `[IsAlgClosed F]` already and would gain nothing, the judgement `#903`, `#907`
-and `#910` all reached.
+genuinely load-bearing and enters twice (`WeilPairingNondegenerateTwo`, module docstring,
+"the closure enters twice").  Nothing here edits `#873`'s or `#890`'s statements or proofs, and the
+`_of_isAlgClosed` forms are **not** deprecated: their consumers carry `[IsAlgClosed F]` already and
+would gain nothing, the judgement `#903`, `#907` and `#910` all reached.
 
 ⚠️ **The two slots are not combined *here*, and the reason this bullet used to give was wrong.**
 It read *"The two slots are still not combined into a single bilinearity statement.  That wants a
