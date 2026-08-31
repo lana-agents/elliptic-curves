@@ -233,8 +233,8 @@ rational full `2`-torsion.  `y² = x³ + 5x² + 4x = x(x+1)(x+4)` has both:
 
 ⚠️ **Both facts are read off polynomial identities, not off the group law**, and that is deliberate.
 `card_torsion_two_of_splits` (`EllipticCurves.Torsion.TwoTorsion`) and
-`exists_nsmul_two_eq_some_of_root` (`EllipticCurves.Torsion.DoublingSurjective`) hold over an
-arbitrary field; this block is their first call site outside the files that define them, and what it
+`exists_nsmul_eq_some_of_root_of_mem_torsion_two` (`EllipticCurves.Torsion.DoublingSurjective`)
+both hold over an arbitrary field, and this block calls them on a named curve over `ℚ`; what it
 demonstrates is that the two hypotheses of `exists_weilPairingElt_self_eq_one_of_card_two` are
 *checkable on a named curve by two polynomial computations*.  The block this replaced enumerated the
 four `2`-torsion points, proved an injection out of `Fin 4` by `fin_cases i <;> fin_cases j <;>
