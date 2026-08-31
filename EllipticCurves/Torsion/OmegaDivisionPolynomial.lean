@@ -56,11 +56,20 @@ on-curve engine in `EllipticCurves.Torsion.OmegaOnCurve`, which is why they live
 in the point-level files that used to hold them.
 
 The remaining crux for the full general-`n` on-curve identity `W.Equation (Φₙ/ΨSqₙ) (ωₙ/ψₙ³)` is the
-identification of the division-polynomial coordinates with the group-law multiple `n • P`
-(equivalently the univariate identity `ΨSqₙ`-weighted analogue of `preΨ₄_sq`/`hasPreΩSqAt_three`
-for general `n`), which the
-`OmegaTwo`/`OmegaThree` docstrings note is a separate, harder step; this file supplies the numerator
-infrastructure it consumes.
+**univariate** identity `WeierstrassCurve.HasPreΩSq` of `EllipticCurves.Torsion.OmegaOnCurve` — the
+`ΨSqₙ`-weighted, parity-corrected analogue of `preΨ₄_sq` at general `n`, established there for
+`n ∈ {0, ±1, ±2}` and, in the evaluated form `HasPreΩSqAt`, at `n = 3`. It is the *only*
+index-dependent input: the uniform half `WeierstrassCurve.Affine.equation_of_hasPreΩSqAt` derives
+the Weierstrass equation at the division-polynomial coordinates from it alone, over any field of
+characteristic `≠ 2` at a point with `ψₙ(x, y) ≠ 0`. This file supplies the numerator infrastructure
+both consume.
+
+⚠️ Identifying `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` is a **separate** statement
+(`#251`), not an equivalent of the above and not a gate on it — `equation_of_hasPreΩSqAt` takes no
+group-law input. `EllipticCurves.Torsion.DoublingCoords` and `EllipticCurves.Torsion.TriplingCoords`
+supply it at `n = 2` and `n = 3`. The `OmegaTwo`/`OmegaThree` docstrings make the same disclaimer,
+`OmegaTwo` calling the `2 • P` identification "a separate, harder statement not proved here" and
+`OmegaThree` calling the `3 • P` one "a separate statement" that `TriplingCoords` does prove.
 
 ## References
 
