@@ -3,6 +3,8 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.FunctionField.MulByNComposition
+import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
 import EllipticCurves.FunctionField.WeilPairingTelescopeN
 import EllipticCurves.Torsion.NsmulSmoothSurjective
@@ -56,12 +58,39 @@ which is what produces the halving point.  A general-`n` surjectivity of `[n]` o
 `#251`'s coordinate formula through `nsmul_surjective_of_hasXCoordFormula` — would lift this
 corollary to every `n` with nothing else changing.
 
+## ⚠️ The other `n = 5` gate is somewhere else, and the two are easy to swap
+
+`exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth` is the arbitrary-field companion of the
+corollary above, with the transcendence discharged and the halving point still a hypothesis.  For
+*that* statement the first unreachable index `n = 5` **is** the transcendence — as it is for every
+other `_of_smooth` statement on this front.  So the two corollaries below consume `hfac` in
+*opposite* places, and a reader who carries the paragraph above across to the `_of_smooth` form
+will get it exactly backwards.  Each statement says which is which.
+
 ## Main results
 
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n`** — over an arbitrary
   field, with `hprin` and the halving point as hypotheses;
+* **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth`** — the same
+  over an arbitrary field at `3`-smooth `n ≠ 0`, with the transcendence discharged;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`** — over
-  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis left.
+  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis left;
+* **`WeierstrassCurve.Affine.exists_weilPairingMu_self_eq_one_of_hprin_n`** and
+  **`…_of_hprin_n_of_algClosed`** — the `μ_m(F)`-valued twins of the first and third, in the shape
+  `exists_weilPairingMu_self_eq_one_of_hprin_two`
+  (`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`) has at `n = 2`.  ⚠️ Their index
+  `m` is arbitrary and **need not equal `n`**: the witness is manufactured from `1 ^ m = 1`, so the
+  statement is the group identity of `μ_m(F)` for whichever `m` the caller packaged the value in,
+  not a claim that `e_n` lands in `μ_m`.
+
+## Imports, measured rather than preferred
+
+`WeilPairingAlternatingMu` costs **3** further project modules in this file's closure
+(`…Mu`, `WeilPairingBilinearMu`, `WeilPairingRootsOfUnity`) and `MulByNComposition` costs **12**
+more, all of which `EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN` already builds.
+Neither cycles — nothing imports this file.  That is why the `μ` forms and the `_of_smooth`
+corollary live here rather than in a sibling module: a split would have bought a smaller closure for
+a file that is a leaf, at the price of separating four statements about one theorem.
 
 ## ⚠️ `open Classical in`, and why the `[DecidableEq F]` binder is *not* used here
 
@@ -80,8 +109,19 @@ so the next author does not re-litigate it:
   instance for a binder to be polymorphic over.  The certificate below costs zero `convert`s as it
   stands.
 
-The general lesson is narrower than "prefer the binder": **the binder pays exactly when a consumer
-over a field with a competing `DecidableEq` instance exists.**  Over `F̄` it buys nothing.
+The general lesson is narrower than "prefer the binder": **the binder is right for a *producer*, and
+`open Classical in` for a *consumer* of a `Classical`-fixed statement.**  Gate B fixes the instance,
+so a binder here does not remove the `convert`s — it moves them under a `Finset.prod` binder, which
+is worse.  Retrofitting gate B with the binder would make both free, and that retrofit belongs to
+gate B.  The `F̄` reading — *the binder pays exactly when a consumer over a field with a competing
+`DecidableEq` instance exists* — is the special case of this that the `AlgebraicClosure ℚ`
+certificate below exhibits: there is no competing instance there, so the binder would buy nothing.
+
+⚠️ The `ℚ` certificate at the end of the file is the *other* case, and it is the one that pins the
+rule down: `ℚ` does have a competing instance, `instDecidableEqRat`, which wins on priority even
+under `open Classical`, so that block pays exactly two `convert`s.  Writing `open Classical in` on
+its lemmas is a **no-op** for the same priority reason, and would hide the cost rather than remove
+it.
 
 ## What is *not* here
 
@@ -95,8 +135,11 @@ over a field with a competing `DecidableEq` instance exists.**  Over `F̄` it bu
   `functionFieldMap_mulByNEndo`, and `EllipticCurves.FunctionField.FunctionFieldBaseChange` has only
   the two numeral forms `functionFieldMap_mulByTwoEndo` and `functionFieldMap_mulByThreeEndo`.  That
   missing intertwiner is the whole of the remaining work and it is a separate piece.
-* `n = 5` on the algebraically closed corollary — see above; the obstruction is the halving point.
-* `ωₙ`, `#404`, `#251`, Ward, `μ_n`, bilinearity, non-degeneracy.
+* `n = 5` on either corollary — see above; the obstruction is the halving point on one and the
+  transcendence on the other.
+* `ωₙ`, `#404`, `#251`, Ward, bilinearity, non-degeneracy.  ⚠️ The `μ`-valued statements below are
+  the *value-group form of this one theorem* and nothing more; `μ_n`-valuedness of `e_n` in the
+  sense of `EllipticCurves.FunctionField.WeilPairingRootsOfUnity` is not re-proved here.
 
 ## References
 
@@ -161,6 +204,80 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
   exact ⟨f, hf, hdivproj, g, hg, ⟨u, hu⟩, htinv,
     weilPairingElt_self_of_translateEndo_fixed h.left hg htinv⟩
 
+open Classical in
+/-- **`e_n(T, T) = 1` at general `n` in the value group `μ_m(F)`, over an arbitrary field.**
+
+The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n`, and the general-`n` form of
+`exists_weilPairingMu_self_eq_one_of_hprin_two`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`).
+
+`weilPairingMu` is indexed by a proof that the pairing element is an `m`-th root of unity, so the
+statement *produces* one rather than taking it; that costs nothing, because the `Elt`-level theorem
+already gives `e_n(T, T) = 1` and `1 ^ m = 1`.
+
+⚠️ **The index `m` is arbitrary and need not equal `n`.**  This is the group identity of `μ_m(F)`
+for whichever `m` the caller has packaged the value in — it is *not* a claim that `e_n` lands in
+`μ_m` for `m ≠ n`.  Both merged `μ`-valued assemblies say the same of themselves, and the reason is
+the same: the root-of-unity witness is manufactured from `1 ^ m = 1`, which knows nothing about
+`n`. -/
+theorem exists_weilPairingMu_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    {P : W.Point} (hPT : n • P = Point.some xT yT h)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ = divisor W (mulByNEndo n hn f))
+    (m : ℕ) [NeZero m] :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n = mulByNEndo n hn f) ∧
+          ∃ hpow : weilPairingElt h.left g ^ m = 1, weilPairingMu h.left hpow = 1 := by
+  obtain ⟨f, hf, hdivproj, g, hg, hu, htinv, halt⟩ :=
+    exists_weilPairingElt_self_eq_one_of_hprin_n hnz hn h htors hPT hprin
+  exact ⟨f, hf, hdivproj, g, hg, hu, by rw [halt, one_pow],
+    weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
+
+/-! ### The assembly over an arbitrary field at `3`-smooth `n`
+
+One hypothesis of the core is discharged here and one is not: the transcendence comes from
+`transcendental_xCoord_nsmul_of_smooth`, and the halving point stays.  ⚠️ Read the placement of the
+`n = 5` gate carefully — it sits somewhere different here than it does one section below. -/
+
+open Classical in
+/-- **`e_n(T, T) = 1` at every `3`-smooth `n ≠ 0`, over an arbitrary field**, with the halving point
+still a hypothesis.
+
+The core with `hn` supplied by `transcendental_xCoord_nsmul_of_smooth`
+(`EllipticCurves.FunctionField.MulByNComposition`) and nothing else changed.
+
+⚠️ **For this corollary the first unreachable index `n = 5` is the transcendence**, as for every
+other `_of_smooth` statement on this front: the degree tower that supplies
+`Transcendental F (n • 𝒫).xCoord` manufactures no new prime.  Its neighbour
+`exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` stops at `5` for the *other* reason —
+there the transcendence is general in `n ≠ 0` and it is the halving point that needs `3`-smoothness.
+The two statements look alike and their `hfac` is consumed in opposite places; the module docstring
+records why. -/
+theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    {P : W.Point} (hPT : n • P = Point.some xT yT h)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hPT hprin
+
 /-! ### The assembly over an algebraically closed field -/
 
 section AlgClosed
@@ -196,6 +313,34 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
   let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth h2 hnz hfac (Point.some xT yT h)
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hP hprin
+
+open Classical in
+/-- **`e_n(T, T) = 1` in `μ_m(F̄)` at every `3`-smooth `n ≠ 0`**, with `hprin` the only hypothesis
+left.
+
+The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`, standing to it
+exactly as `exists_weilPairingMu_self_eq_one_of_hprin_n` stands to the core.  Both hypotheses the
+core takes on top of `hprin` are discharged, by the same two lemmas and for the same reasons.
+
+⚠️ As above, `m` is arbitrary and need not equal `n`. -/
+theorem exists_weilPairingMu_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F]
+    (h2 : (2 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hnz) f))
+    (m : ℕ) [NeZero m] :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hnz) f) ∧
+          ∃ hpow : weilPairingElt h.left g ^ m = 1, weilPairingMu h.left hpow = 1 :=
+  let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth h2 hnz hfac (Point.some xT yT h)
+  exists_weilPairingMu_self_eq_one_of_hprin_n hnz _ h htors hP hprin m
 
 end AlgClosed
 
@@ -274,7 +419,7 @@ private theorem exists_weilPairingElt_self_eq_one_of_algClosed_three_of_general 
 
 end Recovery
 
-/-! ### Non-vacuity at `n = 6`
+/-! ### Non-vacuity over `F̄` at `n = 6`
 
 ⚠️ **`hprin` is a hypothesis and it is `#418`, so the headline cannot be fully instantiated on any
 concrete curve.**  What is certified below is that *every other* hypothesis of the algebraically
@@ -291,9 +436,9 @@ factor at `i = 3` translates by `O` — and `WeilPairingTelescopeN`'s certificat
 one for the same reason.
 
 ⚠️ The curve is `y² = x³ + 1`, **not** this subtree's default `y² = x³ − x`: on the default every
-affine rational point is `2`-torsion, so there is no point of order `3` on it to exhibit.  That has
-now made a certificate impossible twice on this front (`#1325`, `#1328`) and the default is simply
-wrong for anything past `n = 3`.
+affine rational point is `2`-torsion, so there is no point of order `3` on it to exhibit.  That is
+the second of **three** independent rediscoveries of one fact about that fixture; the `ℚ` block
+below records all three together, and it is the right place to look before choosing a fourth curve.
 
 The base field is `AlgebraicClosure ℚ`, as `[IsAlgClosed F]` requires.  It carries no `DecidableEq`
 instance, so `open Classical in` supplies the same one the theorem's statement fixes and the
@@ -378,5 +523,166 @@ example
     exampleSmooth exampleNonsingularT exampleSixTorsion hprin
 
 end Nonvacuity
+
+/-! ### Non-vacuity over `ℚ` at `n = 6`, with the halving *proved*
+
+The section above certifies the algebraically closed corollary, where the halving point is produced
+*by the theorem*.  This one certifies the two statements that take it as a hypothesis — the core and
+`…_of_hprin_n_of_smooth` — over a field that is **not** algebraically closed, by exhibiting a
+concrete `P` with `[6]P = T` on a named curve over `ℚ`.  ⚠️ Without it nothing on this front
+exhibits a concrete halving at a composite index over a general field, and a hypothesis that is
+never inhabited is a hypothesis that could be false (`#916`).
+
+⚠️ **The index and the curve are both forced, and the arithmetic is the irreplaceable part.**
+`[n]P = T` together with `[n]T = O` forces `ord P ∣ n²`, and `T ≠ O` forces `ord P ∤ n`.
+
+* At `n = 4` that leaves `ord P ∈ {8, 16}`, and `ℤ/16` does not occur over `ℚ` — so a rational
+  certificate at `n = 4` needs a point of order `8`.
+* At `n = 6` it leaves `ord P ∈ {4, 9, 12, 18, 36}`, and **`ord P = 4` works**: then `[6]P = [2]P`,
+  which is `2`-torsion, hence `6`-torsion, hence a legal `T`.
+
+So `n = 6` is the cheapest genuinely composite index over `ℚ`, and `6 = 2 · 3` is `3`-smooth, so the
+`_of_smooth` form applies.  The curve is `y² = x³ + 4x`, of discriminant `−4096`, with `P = (2, 4)`
+of order `4` and `T = [2]P = (0, 0)` of order `2`.
+
+⚠️ **A fixture note, because this fact has now been rediscovered three times on this front as three
+different-looking obstructions.**  `y² = x³ − x` — this subtree's historical default — has rational
+torsion `(ℤ/2)²`.  That single fact appeared as *"no two distinct multiples"* (`#1325`), *"no point
+of order `3`"* (`#1328`), and *"no point of order `4`"* (here).  It is the wrong fixture at every
+index past `3`, and the right reflex is to change curve rather than to weaken the certificate.
+
+⚠️ **No `open Classical in` on any lemma of this block**, unlike every abstract-`F` statement above,
+and unlike the `AlgebraicClosure ℚ` block: it would be a *no-op*, because `ℚ` carries
+`instDecidableEqRat`, which wins on instance priority whatever is open.  That is exactly why the
+final application needs two `convert`s, and writing `open Classical in` here would hide the reason
+rather than remove it.  This is the consumer side of the rule the module docstring states: **the
+`[DecidableEq F]` binder is right for a producer, `open Classical in` for a consumer of a
+`Classical`-fixed statement**, and retrofitting the binder onto gate B — not onto this file — is
+what would make both free. -/
+
+section NonvacuityRat
+
+/-- The curve `y² = x³ + 4x` over `ℚ`, of discriminant `−4096`. -/
+private noncomputable def exampleRatCurve : Affine ℚ := ⟨0, 0, 0, 4, 0⟩
+
+private instance : exampleRatCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [exampleRatCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+private lemma exampleRatTwo : (2 : ℚ) ≠ 0 := by norm_num
+
+private lemma exampleRatThree : (3 : ℚ) ≠ 0 := by norm_num
+
+/-- `P = (2, 4)` is a nonsingular point of `y² = x³ + 4x`. -/
+private lemma exampleRatNsP : exampleRatCurve.Nonsingular 2 4 :=
+  exampleRatCurve.equation_iff_nonsingular.mp (by
+    norm_num [exampleRatCurve, WeierstrassCurve.Affine.equation_iff])
+
+/-- `T = (0, 0)` is a nonsingular point of `y² = x³ + 4x`; it is the `2`-torsion point cut out by
+`x = 0`. -/
+private lemma exampleRatNsT : exampleRatCurve.Nonsingular 0 0 :=
+  exampleRatCurve.equation_iff_nonsingular.mp (by
+    norm_num [exampleRatCurve, WeierstrassCurve.Affine.equation_iff])
+
+/-- **`P + P = T`**: the tangent at `(2, 4)` has slope `2`, so `x([2]P) = 4 − 4 = 0`. -/
+private lemma exampleRatDoubleP :
+    Point.some (2 : ℚ) 4 exampleRatNsP + Point.some (2 : ℚ) 4 exampleRatNsP
+      = Point.some (0 : ℚ) 0 exampleRatNsT := by
+  have hy : (4 : ℚ) ≠ exampleRatCurve.negY 2 4 := by
+    norm_num [exampleRatCurve, WeierstrassCurve.Affine.negY]
+  rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
+  refine ⟨?_, ?_⟩ <;>
+    norm_num [exampleRatCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
+      WeierstrassCurve.Affine.slope]
+
+/-- `T = (0, 0)` is `2`-torsion: `ψ₂(T) = 2·0 + 0·0 + 0 = 0`. -/
+private lemma exampleRatTorTwoT : Point.some (0 : ℚ) 0 exampleRatNsT ∈ exampleRatCurve.torsion 2 :=
+  (mem_torsion_two_some_iff exampleRatNsT).mpr (by norm_num [exampleRatCurve])
+
+/-- **`T + T = O`**, the `W.Point` form of `exampleRatTorTwoT`. -/
+private lemma exampleRatDoubleT :
+    Point.some (0 : ℚ) 0 exampleRatNsT + Point.some (0 : ℚ) 0 exampleRatNsT = 0 := by
+  have h := mem_torsion_iff.mp exampleRatTorTwoT
+  rwa [two_nsmul] at h
+
+/-- **`T` is `6`-torsion**, because it is `2`-torsion and `2 ∣ 6`.  ⚠️ Its order is `2`, strictly
+dividing `6`: the theorem asks for `n`-torsion and not for order exactly `n`, and this certificate
+runs at an index where the two differ — the same configuration the `AlgebraicClosure ℚ` block above
+exercises at a `T` of order `3`.
+
+⚠️ `mul_nsmul a m n : (m * n) • a = n • m • a` puts the factors out in the **opposite** order to the
+one written, so `6 = 2 * 3` is what produces `3 • (2 • T)` here. -/
+private lemma exampleRatTorSixT :
+    Point.some (0 : ℚ) 0 exampleRatNsT ∈ exampleRatCurve.torsion 6 := by
+  rw [mem_torsion_iff, show (6 : ℕ) = 2 * 3 from rfl, mul_nsmul, two_nsmul, exampleRatDoubleT,
+    smul_zero]
+
+/-- **`[2]P = T`** in `nsmul` form, which is the shape the multiples below rewrite with.  ⚠️ Named
+rather than inlined: at `4 = 2 * 2` the `mul_nsmul` reversal cannot be dodged by reordering the
+factors, so the inner multiple has to be rewritten by a lemma of its own. -/
+private lemma exampleRatTwoP :
+    ((2 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point)
+      = Point.some (0 : ℚ) 0 exampleRatNsT := by
+  rw [two_nsmul]; exact exampleRatDoubleP
+
+/-- **`[4]P = O`**: `P` has order `4`, from `[2]P = T` and `[2]T = O`. -/
+private lemma exampleRatFourP :
+    ((4 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point) = 0 := by
+  rw [show (4 : ℕ) = 2 * 2 from rfl, mul_nsmul, exampleRatTwoP, two_nsmul, exampleRatDoubleT]
+
+/-- **The halving `[6]P = T`, discharged.**  `[6]P = [4]P + [2]P = O + T = T`.  ⚠️ This is the
+hypothesis the general assembly carries and the merged `n = 2` and `n = 3` assemblies do not, and
+it is the reason this block exists: here it is *proved*, not assumed. -/
+private lemma exampleRatSixP :
+    ((6 : ℕ) • Point.some (2 : ℚ) 4 exampleRatNsP : exampleRatCurve.Point)
+      = Point.some (0 : ℚ) 0 exampleRatNsT := by
+  rw [show (6 : ℕ) = 4 + 2 from rfl, add_nsmul, exampleRatFourP, zero_add, exampleRatTwoP]
+
+/-- **`P ≠ T`**: the halving relates two *distinct* named affine points.  ⚠️ Checked rather than
+implied — `[n]P = T` at `P = T` would only say that `T` is fixed by `[n]`, and a certificate cannot
+claim to exercise the halving if it silently runs on the diagonal. -/
+private lemma exampleRatPNeT :
+    Point.some (2 : ℚ) 4 exampleRatNsP ≠ Point.some (0 : ℚ) 0 exampleRatNsT := by
+  rw [ne_eq, Point.some.injEq]
+  norm_num
+
+/-- **Every hypothesis but `hprin` is simultaneously satisfiable at `n = 6` over `ℚ`**, on a named
+curve, at a named affine `T` whose `6`-torsion is proved and a named affine `P`, distinct from `T`,
+whose halving relation `[6]P = T` is proved.
+
+⚠️ `hprin` is the **only** hypothesis left bound, exactly as in the merged `n = 2` and `n = 3`
+assemblies over a general field.  It is `#418` and nothing on this board discharges it at any index
+over a field that is not algebraically closed. -/
+private theorem exampleRatAssemblySix
+    (hprin : ∀ f : exampleRatCurve.FunctionField, f ≠ 0 →
+      divisor exampleRatCurve f
+          = Finsupp.single (pointClosedPoint exampleRatNsT.left) ((6 : ℕ) : ℤ) →
+        ∃ g₀ : exampleRatCurve.FunctionField, g₀ ≠ 0 ∧
+          (6 : ℕ) • divisor exampleRatCurve g₀ = divisor exampleRatCurve
+            (mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleRatTwo exampleRatThree
+              (by norm_num) exampleSmooth) f)) :
+    ∃ f : exampleRatCurve.FunctionField, f ≠ 0 ∧
+      divisorProj exampleRatCurve f
+          = Finsupp.single (some (pointClosedPoint exampleRatNsT.left)) ((6 : ℕ) : ℤ)
+            - Finsupp.single (none : ProjPoint exampleRatCurve) ((6 : ℕ) : ℤ) ∧
+        ∃ g : exampleRatCurve.FunctionField, g ≠ 0 ∧
+          (∃ u : exampleRatCurve.CoordinateRingˣ,
+            (u : exampleRatCurve.CoordinateRing) • g ^ (6 : ℕ)
+              = mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleRatTwo exampleRatThree
+                  (by norm_num) exampleSmooth) f) ∧
+          translateEndo exampleRatNsT.left g = g ∧ weilPairingElt exampleRatNsT.left g = 1 :=
+  -- ⚠️ The two `convert`s are the entire price of the consuming theorem being elaborated
+  -- `open Classical in`, and they are bookkeeping rather than mathematics.  `ℚ` has a genuine
+  -- `DecidableEq` instance which wins on priority even under `open Classical`, so
+  -- `exampleRatTorSixT` and `exampleRatSixP` are indexed by `instDecidableEqRat` while the
+  -- theorem's copies carry `Classical.propDecidable`; the two are propositionally but not
+  -- syntactically equal, and `convert` closes the gap by `Subsingleton.elim`.
+  exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth exampleRatTwo exampleRatThree
+    (n := 6) (by norm_num) exampleSmooth exampleRatNsT (by convert exampleRatTorSixT)
+    (P := Point.some (2 : ℚ) 4 exampleRatNsP) (by convert exampleRatSixP) hprin
+
+end NonvacuityRat
 
 end WeierstrassCurve.Affine
