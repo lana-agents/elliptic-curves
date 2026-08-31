@@ -82,9 +82,10 @@ The right-hand side is not in doubt: `finrank_mulByTwoRange_functionField`
 (`MulByTwoDegree.lean`) gives `[F(W) : [2]∗F(W)] = 4` under `[W.IsElliptic]`.  The three candidate
 routes to the sum were:
 
-**(c) Mathlib's `Ideal.sum_ramification_inertia_eq_finrank`** (`RamificationInertia/Basic.lean:72`).
-Contrary to the parent issue's premise, this needs no Dedekind hypothesis and no AKLB
-identification — only `[IsDomain R] [Module.Finite R S] [Module.Flat R S]` and a finite fibre
+**(c) Mathlib's `Ideal.sum_ramification_inertia_eq_finrank`**
+(`RingTheory/RamificationInertia/Basic.lean:72`).  Contrary to the parent issue's premise, this
+needs no Dedekind hypothesis and no AKLB identification — only
+`[IsDomain R] [Module.Finite R S] [Module.Flat R S]` and a finite fibre
 `[Fintype (p.primesOver S)]` — so it is the best of the three.  It still does not close, and for
 three separate reasons:
 
@@ -130,10 +131,10 @@ then prove it Dedekind — which is (c-ii) and more.
 **(b) localise by hand** — (c-i), (c-ii) and (c-iii) again, with no Mathlib assistance.
 
 One near-miss worth recording so it is not rediscovered: `sum_ramification_inertia_eq_finrank_fiber`
-(`RamificationInertia/Basic.lean:44`) needs only `[Algebra.QuasiFinite R S]`, which looks like an
-escape from (c-ii).  It is not: its right-hand side is `finrank κ(p) (p.Fiber S)`, and the step from
-there to `finrank R S` is `finrank_fiber_eq_finrank`, which reinstates `Module.Finite` and
-`Module.Flat` exactly.
+(`RingTheory/RamificationInertia/Basic.lean:44`) needs only `[Algebra.QuasiFinite R S]`, which
+looks like an escape from (c-ii).  It is not: its right-hand side is `finrank κ(p) (p.Fiber S)`,
+and the step from there to `finrank R S` is `finrank_fiber_eq_finrank`, which reinstates
+`Module.Finite` and `Module.Flat` exactly.
 
 Also not here: the individual value of `ramificationIdxTwo` at an affine place — `#763` sums them
 and computes none, and `#774` (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`, then

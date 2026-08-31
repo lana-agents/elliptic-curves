@@ -51,7 +51,7 @@ the `σ`-side hypothesis as `equation_algEquiv σ h.left` where the bridge produ
 closes every such mismatch and no transport lemma is needed** — this is the same observation
 `exists_weilPairingMu_galois_two`'s docstring records at the existential level.
 
-⚠️ `torsion` takes `[DecidableEq F]` (`Torsion/Defs.lean:76`) and `TateModule/GaloisAction`'s
+⚠️ `torsion` takes `[DecidableEq F]` (`Torsion/Defs.lean`) and `TateModule/GaloisAction`'s
 instances are generic in it, so `open Classical in` is enough and **no `Subsingleton.elim` bridge
 is required** anywhere in this file.
 
