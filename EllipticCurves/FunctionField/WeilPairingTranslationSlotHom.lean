@@ -63,11 +63,27 @@ this project.**  Corrected in place, not retired.  `#161` is the **pull request*
 `WeilPairingBilinear` (*"bilinearity of the Weil-pairing element in the translation slot (#419)"*),
 and `#450` is the same mis-citation of that same module that
 `WeilPairingTranslationSlotBilinear`'s own recording section resolves to `#419` — it is issue 450 of
-project **9**, and a pull request of this repository.  ⚠️ **The slash-pair is
-one referent, not two**: `hfix` is a hypothesis of exactly one module in this tree, and
-`WeilPairingBilinearBaseField` only *compares* to it —
+project **9**, and a pull request of this repository.  ⚠️ **The slash-pair is one referent, not
+two**: `hfix` *in this sense* — the translation `τ_P` fixing the **pairing value** `e_n(S, T_Q)` —
+is the hypothesis of exactly one declaration in this tree, `weilPairingElt_translatePoint_add`
+(`WeilPairingBilinear`); `WeilPairingBilinearBaseField` only *compares* to it, and its
 `weilPairingElt_translatePoint_add_of_baseField` takes `hpow`.  The sibling file was repaired on
 2026-08-28 and this copy was missed because no name precedes either number.
+
+⚠️ **The qualifier is load-bearing: an unqualified `hfix` count is false.**  `grep -rn '(hfix :'`
+returns **13 binder sites across seven modules** — 14 once the quotation in this paragraph is
+counted, which is why the grep is written out here rather than merely cited — and the name alone
+does not separate them.  Six of the seven modules bind a different hypothesis under it:
+`weilPairingElt_pow_eq_one` (`WeilPairing`) and
+`weilPairingElt_mul_left_of_translateEndo_fixed` (`WeilPairingRootIndependence`) fix a
+`translateEndo` point of a *plain function* rather than of a pairing value;
+`forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed` (`WeilPairingRationalTorsion`) and
+`galoisModularCyclotomicChar_three_eq_one_of_forall_fixed` (`WeilPairingRationalTorsionGalois`) fix
+`3`-torsion under a Galois automorphism; `eq_formalW_of_wOp_fixed` (`FormalGroup/Expansion`) and
+`eq_formalW_subst_of_wOpSubst_fixed` (`FormalGroup/ExpansionSubst`) fix a `wOp` point.  ⚠️ **So the
+collapse above rests on provenance, not on the count**: PR #161 is `WeilPairingBilinear`'s creating
+pull request, and that is what fixes the referent.  The count is stated here with its scope because
+a citation repair whose own evidence is unscoped is the defect it is repairing.
 
 > The generalisable point: **a scope note that names an obstruction freezes it.**  Both notes were
 > accurate beside the statement they were written for, and both were stale about the tree within
