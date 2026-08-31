@@ -307,9 +307,14 @@ gate.**  `exists_weilPairingElt_galois_two`'s envelope at every `n`, with the ru
 by `exists_gS_n` (`#1304`) rather than by `exists_gS_two_of_isAlgClosed`.
 
 ⚠️ **`hprin` is quantified over the point**, because the producer is called at `S` *and* at `σS` —
-`#918`'s shape, not the translation slot's point-local one.  `σS` is again a nonsingular affine
-`n`-torsion point, by `nonsingular_algEquiv` and `Point.mem_torsion_galois_smul_some`, **the latter
-already general in `n`**; the merged `n = 3` docstring says so outright.
+`#912`'s shape (`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinearHprin`), not `#913`'s
+point-local one (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin`).  It is forced
+rather than chosen: `exists_gS_n`'s own `hprin` names `pointClosedPoint h.1` for the point it is
+applied at, so a `hprin` bound to one point cannot serve both.
+`EllipticCurves.FunctionField.WeilPairingGaloisRootHprin` records the same choice at `n = 2, 3`.
+`σS` is again a nonsingular affine `n`-torsion point, by `nonsingular_algEquiv` and
+`Point.mem_torsion_galois_smul_some`, **the latter already general in `n`**; the merged `n = 3`
+docstring says so outright.
 
 ⚠️ The rung-5 data is returned rather than discarded, for the merged statements' reason:
 `weilPairingElt` takes the root `g` as an argument, so a consumer with its own root should use
