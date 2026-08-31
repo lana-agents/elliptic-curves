@@ -505,6 +505,23 @@ claim binding wants the declaration spelled out instead: *"`galoisFunctionField 
 names.  The three agree on almost every file and diverge exactly where one sentence carries two
 corrections, which is the line nobody re-derives.
 
+⚠️ **The rule at the head of this section was checked against the whole tree by resolving every
+number, not by matching a shape** (`#1303`).  A `#N` either is an issue of this project or it is
+not, one `list_issues` call settles all of them at once, and a survivor is then a pull request or
+nothing — so this check needs no adjacent name and has no recall hole.  **2992 occurrences, 296
+distinct numbers: 262 issues of project 83, 33 pull requests of this repository, and `#856` alone
+neither.**  All 40 `PR #N` sites were already correct, three of them (`PR #359`, `PR #413`,
+`PR #465`) on numbers that *also* resolve as issues of this project, which is precisely what the
+label buys.  Fourteen sites in seven files carried a pull-request number unlabelled and were
+repaired.
+
+⚠️ **Every earlier census of this class anchored the number to an adjacent name, so none of them
+could see a number that follows a *description*.**  `ConstantFieldDomain` wrote `PR #162` in one
+sentence and bare `#162` in another, in the same file, for the same pull request: the labelled one
+follows a backticked module, the bare one follows *"bilinearity of the Weil-pairing element"*.  The
+rest of the survivors had no name near them either — a slash-pair mixing the two registers
+(`(#383/#120)`), a seven-number list of merged partials, and two bare numbers mid-sentence.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.

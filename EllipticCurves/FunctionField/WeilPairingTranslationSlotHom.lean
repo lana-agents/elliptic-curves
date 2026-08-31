@@ -51,11 +51,23 @@ this bundling out of scope, and both located the difficulty in the `hpow` datum.
 solved here the same way `#746` solved it in the divisor slot — make the datum a **membership**
 rather than an argument, so that `weilPairingPointSubgroup` *is* the family of data.
 
-The other half was multiplicativity, which `#161`/`#450` carried as the hypothesis `hfix`: the
-value at `Q` has to be fixed by `τ_P`.  **That is no longer a hypothesis.**  `#434` discharged
-`algebraicClosure F F(W) = ⊥`, so `weilPairingElt_isRootOfUnity` (`WeilPairingConstant`) is
-unconditional given `e ^ n = 1` and `n ≠ 0`; the value is then a constant of `F`, and `translateAut
-P` is an `F`-**algebra** equivalence, so `AlgEquiv.commutes` fixes it outright.
+The other half was multiplicativity, which `WeilPairingBilinear` (`#419`) carried as the hypothesis
+`hfix`: the value at `Q` has to be fixed by `τ_P`.  **That is no longer a hypothesis.**  `#434`
+discharged `algebraicClosure F F(W) = ⊥`, so `weilPairingElt_isRootOfUnity`
+(`WeilPairingConstant`) is unconditional given `e ^ n = 1` and `n ≠ 0`; the value is then a constant
+of `F`, and `translateAut P` is an `F`-**algebra** equivalence, so `AlgEquiv.commutes` fixes it
+outright.
+
+⚠️ **That sentence used to read *"which `#161`/`#450` carried"*, and neither number is an issue of
+this project.**  Corrected in place, not retired.  `#161` is the **pull request** that created
+`WeilPairingBilinear` (*"bilinearity of the Weil-pairing element in the translation slot (#419)"*),
+and `#450` is the same mis-citation of that same module that
+`WeilPairingTranslationSlotBilinear`'s own recording section resolves to `#419` — it is issue 450 of
+project **9**, and a pull request of this repository.  ⚠️ **The slash-pair is
+one referent, not two**: `hfix` is a hypothesis of exactly one module in this tree, and
+`WeilPairingBilinearBaseField` only *compares* to it —
+`weilPairingElt_translatePoint_add_of_baseField` takes `hpow`.  The sibling file was repaired on
+2026-08-28 and this copy was missed because no name precedes either number.
 
 > The generalisable point: **a scope note that names an obstruction freezes it.**  Both notes were
 > accurate beside the statement they were written for, and both were stale about the tree within

@@ -85,6 +85,19 @@ so over an algebraically closed field all three instances come from the same mer
 Note also that only **one** of the three needs the divisor-slot step, so only `e_n(h_R, w) = 1` is
 required of the correction factor; `e_n(h_S, w)` and `e_n(h_T, w)` never appear.
 
+## ⚠️ `translatePoint_add` was cited as `#460`, which is a pull request and not an issue
+
+Corrected in place to **`#451`** rather than retired: a wrong register was wrong the day it was
+typed.  `translatePoint_add` is declared in `WeilPairingBilinearBaseField.lean`, introduced by
+*"discharge the `hsum` gate of e_n translation-slot bilinearity from a base-field group relation
+(#451, #419) (#172)"*, whose leaf is `#451`; `WeilPairingBilinearMu` and
+`WeilPairingAntisymmetricMu` already cite its `_of_baseField` sibling that way.
+
+⚠️ **`#460` was never right and did not rot.**  `git log -S` puts it in the commit that created this
+file (`#723`, PR #295, 2026-08-20), ten days before PR #460 existed.  It has since *acquired* a
+referent, which is worse than dangling: PR #460 is *"`E[n]` is free of rank 2 over `ZMod n` at every
+3-smooth `n`"*, so a reader who looks it up finds real, adjacent, wrong work.
+
 ## Main results
 
 * `weilPairingElt_mul` — `e(g₁ · g₂) = e(g₁) · e(g₂)`, unconditional;
@@ -284,7 +297,7 @@ e_n(S, T) · e_n(T, S) = 1.
 The inputs, in the order the proof uses them:
 
 * `hadd` — the base-field group relation `S ⊕ T = R` (transported to `F(W)` internally by
-  `translatePoint_add`, `#460`);
+  `translatePoint_add`, `#451`);
 * `hprod`/`hwR` — the divisor-slot datum at `R` only.  `e_n(w, S)` and `e_n(w, T)` are never needed;
 * `hpow` — the root-of-unity datum `e_n(g_S, T) ^ n = 1` that the merged translation-slot
   bilinearity `weilPairingElt_translatePoint_add_of_baseField` consumes.  The companion datum for

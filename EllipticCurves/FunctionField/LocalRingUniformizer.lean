@@ -20,7 +20,7 @@ the local-normality input for `IsIntegrallyClosed W.CoordinateRing`.
 ## The mathematics
 
 The load-bearing input is the **cotangent relation** already established in `LocalRingTaylor.lean`
-(`taylor_cotangent_mem_sq`, the Taylor/first-order brick, #186):
+(`taylor_cotangent_mem_sq`, the Taylor/first-order brick, PR #186):
 ```
 W_X(x, y)·[X - x] + W_Y(x, y)·[Y - y]  ∈  ⟨X - x, Y - y⟩²     in F[W].
 ```
