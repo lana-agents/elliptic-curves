@@ -88,6 +88,9 @@ existence steps that `EllipticCurves.Torsion.NsmulSurjective` promotes to argume
   point as soon as `Φ₂ − x₀·Ψ₂Sq` has a root carrying a point of `W` above it — **over an arbitrary
   field, with no hypothesis on `(2 : F)`**.  The `Nonvacuity` section discharges its hypotheses on
   `y² = x(x + 1)(x + 4)` over `ℚ`, where it halves the `2`-torsion point `(0, 0)`.
+* `WeierstrassCurve.Affine.exists_nsmul_eq_some_of_root_of_mem_torsion_two`: the same root gives
+  `[n]P = T` **and** `P ≠ T` at every `n ≡ 2 (mod 4)`, when `T` is `2`-torsion — the shape the
+  composite-index Weil-pairing assemblies take as a hypothesis.
 
 ## References
 
@@ -294,6 +297,77 @@ theorem exists_nsmul_two_eq_some_of_root [W.IsElliptic] {x₀ y₀ : F}
   exists_nsmul_eq_some_of_hasXCoordFormula_of_root
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_two_ne_zero_of_root_ΨSq)
     hasXCoordFormula_two hQ hxy (by simpa only [Nat.cast_ofNat, ΨSq_two] using hx)
+
+/-! ## From one halving to every index `n ≡ 2 (mod 4)`
+
+⚠️ **The halving of a `2`-torsion point is much more than a halving.**  If `T ∈ E[2]` and
+`[2]P = T` then `[4]P = [2]([2]P) = [2]T = O`, so `P` is killed by `4`; and for `n = 4k + 2`
+
+```
+[n]P = [4k]P + [2]P = [k]([4]P) + T = O + T = T.
+```
+
+So **one root of `Φ₂ − x₀·Ψ₂Sq` discharges the hypothesis `[n]P = T` at every index `n ≡ 2 (mod 4)`
+simultaneously**, over an arbitrary field, and the guard `P ≠ T` comes free: `P = T` would force
+`T = [2]P = [2]T = O`.
+
+⚠️ **Why this is not a curiosity.**  The consumers of `[n]P = T` in `FunctionField/` are the
+Weil-pairing assemblies, and at a *composite* `n` over a field that is not algebraically closed the
+halving is the hypothesis that is hardest to inhabit — `[n]P = T` with `[n]T = O` forces
+`ord P ∣ n²` and `T ≠ O` forces `ord P ∤ n`, which at `n = 4` already needs a point of order `8`.
+The congruence `n ≡ 2 (mod 4)` is exactly the range where a point of order `4` suffices, and a point
+of order `4` is what a single application of `exists_nsmul_two_eq_some_of_root` produces.
+
+⚠️ The congruence is stated as `n % 4 = 2` rather than as `∃ k, n = 4 * k + 2`, so that a caller
+at a literal index discharges it by `norm_num` with no witness to supply. -/
+
+/-- **A halving of a `2`-torsion point has order dividing `4`.**  `[4]P = [2]([2]P) = [2]T = O`.
+
+⚠️ `mul_nsmul a m n : (m * n) • a = n • m • a` puts the factors out in the **opposite** order to the
+one written.  At `4 = 2 * 2` that is invisible; it is not invisible at the call sites downstream, so
+the reversal is recorded here rather than rediscovered there. -/
+lemma nsmul_four_eq_zero_of_nsmul_two_eq {P T : W.Point} (hP : (2 : ℕ) • P = T)
+    (hT : T ∈ W.torsion 2) : (4 : ℕ) • P = 0 := by
+  rw [show (4 : ℕ) = 2 * 2 from rfl, mul_nsmul, hP]
+  exact mem_torsion_iff.mp hT
+
+/-- **A halving of a non-zero `2`-torsion point is never the point itself.**
+
+⚠️ This is a *theorem*, not a check on coordinates: it holds of **every** halving of `T`, on every
+curve, and its proof does not mention the fixture.  A certificate that instantiates `[n]P = T` at
+`P = T` would only be saying that `T` is fixed by `[n]`, so the guard is what makes the certificate
+about halving at all — and the enumeration form of it (`Point.some.injEq` plus `norm_num` on two
+pairs of coordinates) stops being available the moment `P` is produced by an existential. -/
+lemma ne_of_nsmul_two_eq {P T : W.Point} (hP : (2 : ℕ) • P = T) (hT : T ∈ W.torsion 2)
+    (hT0 : T ≠ 0) : P ≠ T := by
+  rintro rfl
+  exact hT0 (hP.symm.trans (mem_torsion_iff.mp hT))
+
+/-- **`[n]P = T` at every index `n ≡ 2 (mod 4)`**, from the single halving `[2]P = T` of a
+`2`-torsion point.  Writing `n = 4k + 2`, `[n]P = [k]([4]P) + [2]P = O + T`. -/
+lemma nsmul_eq_of_nsmul_two_eq {P T : W.Point} (hP : (2 : ℕ) • P = T) (hT : T ∈ W.torsion 2)
+    {n : ℕ} (hn : n % 4 = 2) : n • P = T := by
+  conv_lhs => rw [← Nat.div_add_mod n 4, hn]
+  rw [add_nsmul, mul_nsmul, nsmul_four_eq_zero_of_nsmul_two_eq hP hT, smul_zero, zero_add, hP]
+
+/-- **A named affine `2`-torsion point is `[n]` of another point, distinct from it, at every index
+`n ≡ 2 (mod 4)`** — as soon as `Φ₂ − x₀·Ψ₂Sq` has a root carrying a point of `W` above it, over an
+**arbitrary field** and with **no hypothesis on `(2 : F)`**.
+
+`exists_nsmul_two_eq_some_of_root` followed by `nsmul_eq_of_nsmul_two_eq` and `ne_of_nsmul_two_eq`.
+
+⚠️ **The guard `P ≠ T` is inside the existential on purpose.**  Shipped as a sibling lemma it would
+be applied nowhere: the `P` a consumer binds comes from this existential, so only a witness of
+**both** conjuncts is in its hands.  Folded in, off-diagonality is carried by construction even at a
+call site that binds the second component to `_`, and no later reader can delete it as unused
+without the build noticing. -/
+theorem exists_nsmul_eq_some_of_root_of_mem_torsion_two [W.IsElliptic] {x₀ y₀ : F}
+    (hQ : W.Nonsingular x₀ y₀) (hT : Point.some x₀ y₀ hQ ∈ W.torsion 2) {x y : F}
+    (hxy : W.Equation x y) (hx : (W.Φ 2).eval x = x₀ * W.Ψ₂Sq.eval x) {n : ℕ} (hn : n % 4 = 2) :
+    ∃ P : W.Point, n • P = Point.some x₀ y₀ hQ ∧ P ≠ Point.some x₀ y₀ hQ := by
+  obtain ⟨P, hP⟩ := exists_nsmul_two_eq_some_of_root hQ hxy hx
+  exact ⟨P, nsmul_eq_of_nsmul_two_eq hP hT hn,
+    ne_of_nsmul_two_eq hP hT (Point.some_ne_zero hQ)⟩
 
 /-! ## Non-vacuity: a rational halving over `ℚ`
 
