@@ -18,6 +18,21 @@ points of an elliptic curve as soon as two index-dependent facts are available:
 `F̄`, the choice of a point above the root, and the absorption of the sign ambiguity `nP = ±Q` — and
 this file is that uniform half, written once.
 
+## ⚠️ Where the algebraic closure enters, and the finite-level layer that does without it
+
+`[IsAlgClosed F]` is used in exactly **two** places in this file, both inside
+`exists_nsmul_some_of_hasXCoordFormula`: the root extraction `exists_eval_Φ_eq` and the point
+above the root `exists_equation`.  Nothing else here, and nothing this file imports on its behalf,
+needs a closed field.  Promoted to arguments they give
+`exists_nsmul_some_of_hasXCoordFormula_of_root` and its named-point form, which hold over an
+arbitrary field — and, because `(2 : F) ≠ 0` and `n ≠ 0` are consumed *only* by those two uses, in
+every characteristic and at every `n` as well.
+
+⚠️ The two uses are **dependent**: the point is sought above the root the first one produced.  So
+the finite-level form takes `x` and `y` as arguments rather than taking two independent
+hypotheses — the naive "add a `Splits` hypothesis and an `IsSquare` hypothesis" shape does not
+typecheck, because the second would have to mention a variable the first introduces.
+
 `EllipticCurves.Torsion.DoublingSurjective` and `EllipticCurves.Torsion.TriplingSurjective`, which
 **import this file**, supply the two inputs at `n = 2` and `n = 3` and obtain `nsmul_two_surjective`
 and `nsmul_three_surjective` as one-line instances of `nsmul_surjective_of_hasXCoordFormula`.
@@ -96,9 +111,15 @@ was written.
 ## Main statements
 
 * `WeierstrassCurve.Affine.natDegree_Φ_sub_C_mul_ΨSq`: `Φₙ − C x₀ · ΨSqₙ` has degree `n²`.
-* `WeierstrassCurve.Affine.exists_eval_Φ_eq`: over `F̄`, every `x₀` solves `Φₙ(x) = x₀·ΨSqₙ(x)`.
+* `WeierstrassCurve.Affine.exists_eval_Φ_eq_of_splits`: `x₀` solves `Φₙ(x) = x₀·ΨSqₙ(x)` whenever
+  `Φₙ − C x₀ · ΨSqₙ` splits; `WeierstrassCurve.Affine.exists_eval_Φ_eq` is the algebraically closed
+  case.
 * `WeierstrassCurve.Affine.eval_Φ_ne_zero_of_isCoprime`: `IsCoprime (Φₙ, ΨSqₙ)` implies the
   pointwise no-common-root hypothesis.
+* `WeierstrassCurve.Affine.exists_nsmul_some_of_hasXCoordFormula_of_root` and
+  `WeierstrassCurve.Affine.exists_nsmul_eq_some_of_hasXCoordFormula_of_root`: the finite-level
+  layer — a root of `Φₙ − x₀·ΨSqₙ` with a point of `W` above it makes `x₀`, respectively a named
+  affine point, an `n`-fold multiple, **over an arbitrary field and in every characteristic**.
 * `WeierstrassCurve.Affine.exists_nsmul_some_of_hasXCoordFormula`: every `x₀` is the `x`-coordinate
   of an `n`-fold multiple.
 * **`WeierstrassCurve.Affine.exists_nsmul_eq_of_hasXCoordFormula`** and
@@ -137,16 +158,36 @@ lemma natDegree_Φ_sub_C_mul_ΨSq {n : ℕ} (hn : n ≠ 0) (x₀ : F) :
     exact Nat.sub_lt hpos one_pos
   rw [natDegree_sub_eq_left_of_natDegree_lt (hΦ ▸ hΨ), hΦ]
 
-/-- **Every value of `x` solves the multiplication-by-`n` equation.**  Over an algebraically closed
-field the degree-`n²` polynomial `Φₙ − x₀·ΨSqₙ` has a root. -/
-lemma exists_eval_Φ_eq [IsAlgClosed F] {n : ℕ} (hn : n ≠ 0) (x₀ : F) :
+/-- **A value of `x` solves the multiplication-by-`n` equation as soon as `Φₙ − x₀·ΨSqₙ` splits.**
+The polynomial has degree `n²` by `natDegree_Φ_sub_C_mul_ΨSq`, so it is not constant and a
+splitting witness produces a root — Mathlib's `Polynomial.Splits.exists_eval_eq_zero`.
+
+⚠️ This is the **only** thing `exists_eval_Φ_eq` below ever used its algebraic closure for, and the
+hypothesis is a statement about one explicit polynomial at one explicit `x₀`, so a caller over a
+field that is not algebraically closed can discharge it on a named curve.  Over a splitting field
+of `Φₙ − x₀·ΨSqₙ` it holds by construction; transporting a *conclusion* back down to the base field
+is a descent problem and is not this lemma's business.
+
+⚠️ `Polynomial.Splits` takes **one** argument in this Mathlib — the `RingHom` form is gone.  A
+`Splits` obligation appearing inside a proof as `(f.map φ).Splits` says something about the API that
+consumes it, not about the arity of the predicate. -/
+lemma exists_eval_Φ_eq_of_splits {n : ℕ} (hn : n ≠ 0) (x₀ : F)
+    (hsplits : (W.Φ n - C x₀ * W.ΨSq n).Splits) :
     ∃ x : F, (W.Φ n).eval x = x₀ * (W.ΨSq n).eval x := by
   have hdeg : (W.Φ (n : ℤ) - C x₀ * W.ΨSq (n : ℤ)).degree ≠ 0 :=
     (natDegree_pos_iff_degree_pos.mp
       (by rw [natDegree_Φ_sub_C_mul_ΨSq hn]; exact Nat.pos_of_ne_zero (pow_ne_zero 2 hn))).ne'
-  obtain ⟨x, hx⟩ := IsAlgClosed.exists_root _ hdeg
-  rw [IsRoot.def, eval_sub, eval_mul, eval_C, sub_eq_zero] at hx
+  obtain ⟨x, hx⟩ := hsplits.exists_eval_eq_zero hdeg
+  rw [eval_sub, eval_mul, eval_C, sub_eq_zero] at hx
   exact ⟨x, hx⟩
+
+/-- **Every value of `x` solves the multiplication-by-`n` equation.**  Over an algebraically closed
+field the degree-`n²` polynomial `Φₙ − x₀·ΨSqₙ` has a root.
+
+The splitting hypothesis of `exists_eval_Φ_eq_of_splits`, discharged by `IsAlgClosed.splits`. -/
+lemma exists_eval_Φ_eq [IsAlgClosed F] {n : ℕ} (hn : n ≠ 0) (x₀ : F) :
+    ∃ x : F, (W.Φ n).eval x = x₀ * (W.ΨSq n).eval x :=
+  exists_eval_Φ_eq_of_splits hn x₀ (IsAlgClosed.splits _)
 
 /-- The bridge from the Bézout form of coprimality to the pointwise no-common-root hypothesis used
 below.  `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` is issue `#1184` and is available in this tree
@@ -202,6 +243,57 @@ def HasXCoordFormula (W : Affine F) (n : ℕ) : Prop :=
 
 /-! ## Surjectivity of multiplication by `n` -/
 
+/-- **A root of `Φₙ − x₀·ΨSqₙ` carrying a point of `W` above it makes `x₀` an `n`-fold
+`x`-coordinate**, over an arbitrary field.
+
+This is the engine's two closure uses promoted to arguments.  The merged
+`exists_nsmul_some_of_hasXCoordFormula` below obtains `x` from `exists_eval_Φ_eq` and `y` from
+`exists_equation`, and those are the only two
+places `[IsAlgClosed F]` enters anywhere in this file; supplied by hand, the remaining seven lines
+need no closure.
+
+⚠️ The two uses are **dependent** — the point is sought above the *root* the first use produced — so
+they cannot be bolted onto the merged statement as two independent hypotheses.  `x` and `y` are
+arguments, and that is the whole design content of the finite-level form.
+
+⚠️ **`h2` and `hn` are gone as well, and that is not an oversight.**  In the merged statement
+`(2 : F) ≠ 0` is consumed only by `exists_equation` and `n ≠ 0` only by the degree count inside
+`exists_eval_Φ_eq`.  Promote both uses and neither hypothesis has a consumer left: what is stated
+here holds in every characteristic, at every `n`, over every field. -/
+theorem exists_nsmul_some_of_hasXCoordFormula_of_root [W.IsElliptic] {n : ℕ}
+    (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0)
+    (hform : HasXCoordFormula W n) {x₀ x y : F} (hxy : W.Equation x y)
+    (hx : (W.Φ n).eval x = x₀ * (W.ΨSq n).eval x) :
+    ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), n • P = Point.some x₀ y' h' := by
+  have hne : (W.ΨSq n).eval x ≠ 0 := fun h0 => hroot x h0 (by rw [hx, h0, mul_zero])
+  have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hxy
+  obtain ⟨y', h', hP⟩ := hform hns hne
+  have hxx : (W.Φ n).eval x / (W.ΨSq n).eval x = x₀ := by
+    rw [hx, mul_div_assoc, div_self hne, mul_one]
+  subst hxx
+  exact ⟨Point.some x y hns, y', h', hP⟩
+
+/-- **A named affine point is an `n`-fold multiple**, over an arbitrary field, given a root of
+`Φₙ − x₀·ΨSqₙ` with a point of `W` above it.
+
+`exists_nsmul_some_of_hasXCoordFormula_of_root` pins the `x`-coordinate; what is left is the sign
+ambiguity `nP = ±Q`, which `Point.X_eq_iff` resolves and `−P` absorbs.  This is the form a
+certificate on a named curve wants: it produces `n • P = Q` for the `Q` the caller names, rather
+than for some point sharing its `x`-coordinate.
+
+⚠️ `exists_nsmul_eq_of_hasXCoordFormula` below is **not** routed through this lemma.  Its `none`
+branch has nothing in common with it, and the indirection would hide the two-case split that is the
+point of that proof. -/
+theorem exists_nsmul_eq_some_of_hasXCoordFormula_of_root [W.IsElliptic] {n : ℕ}
+    (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0)
+    (hform : HasXCoordFormula W n) {x₀ y₀ : F} (hQ : W.Nonsingular x₀ y₀) {x y : F}
+    (hxy : W.Equation x y) (hx : (W.Φ n).eval x = x₀ * (W.ΨSq n).eval x) :
+    ∃ P : W.Point, n • P = Point.some x₀ y₀ hQ := by
+  obtain ⟨P, y', h', hP⟩ := exists_nsmul_some_of_hasXCoordFormula_of_root hroot hform hxy hx
+  rcases (Point.X_eq_iff (h₁ := h') (h₂ := hQ)).mp rfl with hc | hc
+  · exact ⟨P, by rw [hP, hc]⟩
+  · exact ⟨-P, by rw [smul_neg, hP, hc, neg_neg]⟩
+
 /-- **Every value of `x` is the `x`-coordinate of an `n`-fold multiple.**  Over an algebraically
 closed field of characteristic `≠ 2`, given the coordinate formula at `n` and the absence of a
 common root of `Φₙ` and `ΨSqₙ`, every `x₀` is `x(nP)` for some point `P`.
@@ -214,14 +306,8 @@ theorem exists_nsmul_some_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic] (h2
     (hform : HasXCoordFormula W n) (x₀ : F) :
     ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), n • P = Point.some x₀ y' h' := by
   obtain ⟨x, hx⟩ := exists_eval_Φ_eq (W := W) hn x₀
-  have hne : (W.ΨSq n).eval x ≠ 0 := fun h0 => hroot x h0 (by rw [hx, h0, mul_zero])
   obtain ⟨y, hyeq⟩ := exists_equation (W := W) h2 x
-  have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hyeq
-  obtain ⟨y', h', hP⟩ := hform hns hne
-  have hxx : (W.Φ n).eval x / (W.ΨSq n).eval x = x₀ := by
-    rw [hx, mul_div_assoc, div_self hne, mul_one]
-  subst hxx
-  exact ⟨Point.some x y hns, y', h', hP⟩
+  exact exists_nsmul_some_of_hasXCoordFormula_of_root hroot hform hyeq hx
 
 /-- **Multiplication by `n` is surjective on `E(F̄)`**, given the coordinate formula at `n`.  The
 point at infinity is `n • 0`; an affine `Q` is matched by `exists_nsmul_some_of_hasXCoordFormula`,

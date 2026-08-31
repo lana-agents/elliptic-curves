@@ -64,6 +64,15 @@ resulting one-line instance of `exists_nsmul_eq_of_hasXCoordFormula`.
 
 No hypothesis on `(3 : F)` is used anywhere.
 
+## ⚠️ What survives over a field that is not algebraically closed
+
+Surjectivity does not — `y² = x³ − x` over `ℚ` has full rational `2`-torsion and no rational halving
+of any of it.  What survives is the **conditional** form: `exists_nsmul_two_eq_some_of_root` below
+says a named point is twice another as soon as `Φ₂ − x₀·Ψ₂Sq` has a root with a point of `W` above
+it, over any field and in any characteristic, because both of this file's inputs to the engine are
+already hypothesis-free.  The closure and `h2` of `exists_nsmul_two_eq` live entirely in the two
+existence steps that `EllipticCurves.Torsion.NsmulSurjective` promotes to arguments.
+
 ## Main statements
 
 * `WeierstrassCurve.Affine.eval_Φ_two_ne_zero_of_root_ΨSq`: `Φ₂` and `Ψ₂Sq` have no common root —
@@ -75,6 +84,10 @@ No hypothesis on `(3 : F)` is used anywhere.
   fixed by negation.
 * `WeierstrassCurve.Affine.exists_nsmul_two_eq`, `WeierstrassCurve.Affine.nsmul_two_surjective`:
   multiplication by `2` is surjective on `E(F̄)`.
+* `WeierstrassCurve.Affine.exists_nsmul_two_eq_some_of_root`: a named affine point is twice another
+  point as soon as `Φ₂ − x₀·Ψ₂Sq` has a root carrying a point of `W` above it — **over an arbitrary
+  field, with no hypothesis on `(2 : F)`**.  The `Nonvacuity` section discharges its hypotheses on
+  `y² = x(x + 1)(x + 4)` over `ℚ`, where it halves the `2`-torsion point `(0, 0)`.
 
 ## References
 
@@ -253,5 +266,98 @@ theorem exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) 
 theorem nsmul_two_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
     Function.Surjective fun P : W.Point => (2 : ℕ) • P :=
   exists_nsmul_two_eq h2
+
+/-! ## Halving a named point over an arbitrary field -/
+
+/-- **A named affine point is twice another point** as soon as `Φ₂ − x₀·Ψ₂Sq` has a root carrying a
+point of `W` above it — over an **arbitrary field**, with no algebraic closure and **no hypothesis
+on `(2 : F)`**.
+
+This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root` at `n = 2`, and it is hypothesis-free
+because both of the engine's index-dependent inputs already are:
+`eval_Φ_two_ne_zero_of_root_ΨSq` needs only `Δ` a unit, and `hasXCoordFormula_two` needs nothing at
+all.  ⚠️ The merged `exists_nsmul_two_eq` above carries `[IsAlgClosed F]` and `h2` **only** through
+the two existence steps of the engine; supply their conclusions and neither survives.
+
+⚠️ The hypothesis is stated on `W.Ψ₂Sq`, not on `W.ΨSq 2`.  `ΨSq_two` bridges them inside the
+proof, and `Ψ₂Sq` is the name every consumer in this tree uses — a hypothesis a caller has to
+restate before it can discharge it is a hypothesis nobody discharges.
+
+⚠️ Existence of a halving is genuinely a *hypothesis-shaped* statement over a field that is not
+algebraically closed: `y² = x³ − x` over `ℚ` has full rational `2`-torsion and **no** rational
+halving of any of it.  What this lemma buys is that the obstruction is entirely visible in one
+polynomial root — see the `Nonvacuity` section below. -/
+theorem exists_nsmul_two_eq_some_of_root [W.IsElliptic] {x₀ y₀ : F}
+    (hQ : W.Nonsingular x₀ y₀) {x y : F} (hxy : W.Equation x y)
+    (hx : (W.Φ 2).eval x = x₀ * W.Ψ₂Sq.eval x) :
+    ∃ P : W.Point, 2 • P = Point.some x₀ y₀ hQ :=
+  exists_nsmul_eq_some_of_hasXCoordFormula_of_root
+    (by simp only [Nat.cast_ofNat]; exact eval_Φ_two_ne_zero_of_root_ΨSq)
+    hasXCoordFormula_two hQ hxy (by simpa only [Nat.cast_ofNat, ΨSq_two] using hx)
+
+/-! ## Non-vacuity: a rational halving over `ℚ`
+
+⚠️ The certificate below **must** be over a field that is not algebraically closed, or it certifies
+`exists_nsmul_two_eq` instead of anything this section adds.
+
+`y² = x³ + 5x² + 4x = x(x + 1)(x + 4)` over `ℚ`, i.e. `⟨0, 5, 0, 4, 0⟩`, has `b₂ = 20`, `b₄ = 8`,
+`b₆ = 0`, `b₈ = −16` and `Δ = 2304 ≠ 0`.  Its `2`-torsion point `T = (0, 0)` is halved by
+`P = (2, 6)`, and the reason is a polynomial root:
+`Φ₂ = X⁴ − b₄X² − 2b₆X − b₈ = X⁴ − 8X² + 16 = (X² − 4)²` vanishes at `x = 2`, while `x(T) = 0`, so
+`Φ₂.eval 2 = 0 = x(T) · Ψ₂Sq.eval 2` on the nose.
+
+⚠️ **This is the hypothesis `hP : 2 • P = T` of `exists_gS_two_of_card` and of
+`exists_weilPairingElt_self_eq_one_of_card_two`** (`EllipticCurves.FunctionField.
+PullbackPrincipalityTwoRationalTorsion` and `…WeilPairingAlternatingTwoRational`), which both take
+it undischarged.  Those files exhibit the halving point by hand; this section derives it from the
+root, which is the form that generalises to a splitting field.
+
+⚠️ The curve is deliberately the same one those two files use, so that one `ℚ` fixture serves the
+`Torsion/` and `FunctionField/` fronts.  Its `2`-torsion is fully rational and `(0, 0)` is
+`2`-divisible because `0 − (−1) = 1` and `0 − (−4) = 4` are both rational squares, with the halving
+at `x = 0 + 1·2 = 2`; `y² = x³ − x`, this subtree's default curve, fails exactly that test. -/
+
+section Nonvacuity
+
+/-- The curve `y² = x³ + 5x² + 4x = x(x + 1)(x + 4)` over `ℚ`, of discriminant `2304`. -/
+private noncomputable def halvingExampleCurve : Affine ℚ := ⟨0, 5, 0, 4, 0⟩
+
+private instance : halvingExampleCurve.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  norm_num [halvingExampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+
+/-- The `2`-torsion point `T = (0, 0)` lies on the curve. -/
+private lemma equation_halvingExampleCurve_zero : halvingExampleCurve.Equation 0 0 := by
+  rw [Affine.equation_iff]; norm_num [halvingExampleCurve]
+
+/-- The halving point `P = (2, 6)` lies on the curve: `8 + 20 + 8 = 36 = 6²`. -/
+private lemma equation_halvingExampleCurve_two : halvingExampleCurve.Equation 2 6 := by
+  rw [Affine.equation_iff]; norm_num [halvingExampleCurve]
+
+/-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, since `Φ₂ = (X² − 4)²` here.
+
+⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 144 − 288 = 0` — rather
+than by unfolding `W.Φ 2`, whose definition is a recursion. -/
+private lemma eval_Φ_two_halvingExampleCurve :
+    (halvingExampleCurve.Φ 2).eval 2 = (0 : ℚ) * halvingExampleCurve.Ψ₂Sq.eval 2 := by
+  rw [Φ_two_eval]
+  simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈, halvingExampleCurve]
+  norm_num
+
+/-- **`(0, 0)` is twice a rational point of `y² = x(x + 1)(x + 4)` over `ℚ`, with no hypothesis
+whatsoever.**
+
+The `hP : 2 • P = T` that `exists_gS_two_of_card` and
+`exists_weilPairingElt_self_eq_one_of_card_two` take as an undischarged hypothesis, obtained here
+from one root of `Φ₂` over a field that is not algebraically closed. -/
+private theorem exists_nsmul_two_eq_halvingExampleCurve :
+    ∃ P : halvingExampleCurve.Point,
+      2 • P = Point.some 0 0 (equation_iff_nonsingular.mp equation_halvingExampleCurve_zero) :=
+  exists_nsmul_two_eq_some_of_root _ equation_halvingExampleCurve_two
+    eval_Φ_two_halvingExampleCurve
+
+end Nonvacuity
 
 end WeierstrassCurve.Affine
