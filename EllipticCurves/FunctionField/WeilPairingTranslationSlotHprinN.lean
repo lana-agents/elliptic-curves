@@ -108,6 +108,46 @@ this.
 * **No pairing on `W.Point × W.Point`**, and no effect on the two-slot `weilPairingTwoHom` /
   `weilPairingThreeHom` of `#922`/`#925`, whose `[IsAlgClosed F]` does not lift.
 
+## ⚠️ `ωₙ` is not the gate **here**, and that verdict does not transfer to the neighbours
+
+The heading at the top of this docstring says the twin's scope bullet blamed the wrong gate, and it
+did.  ⚠️ **The reason it was wrong is local to statements that take `hprin` as a hypothesis, and the
+same sentence is *correct* in every file that discharges it.**  The discriminator is recorded here
+because this is the file a reader carries the wrong generalisation out of.
+
+* **`hprin` a hypothesis** — this file and its twin.  The only `n`-indexed input is the
+  non-constancy of `[n]`, which is a side condition and not a coordinate statement:
+  `transcendental_xCoord_nsmul_of_smooth` discharges it at every `3`-smooth `n`, and
+  `transcendental_xCoord_nsmul_of_isAlgClosed` (`EllipticCurves.FunctionField.MulByNTranscendence`)
+  discharges it over `F̄` of characteristic `≠ 2` at **every** `n ≠ 0`.  No `ωₙ` at either index.
+* **`hprin` discharged** — every `_of_isAlgClosed` statement on this front.  It has exactly two
+  producers in this tree, `exists_gS_two_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityTwo`) and `exists_gS_three_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityThree`).  Those consume the fibre description,
+  which consumes `EllipticCurves.FunctionField.MulByTwoFibreAffine` and
+  `EllipticCurves.FunctionField.MulByThreeFibre`, and the step *those* need is the `y`-coordinate of
+  `n • P` in division-polynomial form: `addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`),
+  `y(2P) = ω₂/(2 ψ₂³)`, and its mirror `3 • (x, y) = (Φ₃/ΨSq₃, ω₃/(2 ψ₃³))`
+  (`EllipticCurves.Torsion.TriplingCoords`).  ⚠️ `DoublingCoords` names the general-`n` form of
+  exactly that content, in its own *What is not here* section: *"Any general `ωₙ` duplication
+  formula — that is `#404`, and nothing here approaches it."*
+
+So *"general `n` (`#404`'s `ωₙ`)"* is a true description of **this tree's route** to a general index
+wherever `hprin` is discharged, which is what a scope bullet claims.  ⚠️ It is not a claim that no
+other route exists and must not be strengthened into one.  ⚠️ **The bullets that say it elsewhere
+are therefore correct, and correcting them would install a falsehood.**  Matching the phrase
+*general `n`* or *uniform `n`* within 170 characters of `ωₙ`, on whitespace-normalised source,
+returns **39 sites in 30 modules**: 18 across the nine modules that say `ωₙ` is *not* used, and
+**21 — exactly one in each of 21 modules — citing it as the general-`n` gate, every one of those
+`hprin`-discharged and every one correct**.  ⚠️ Three of the 39 belong to the paragraph you are
+reading, which is why the match is written out here rather than merely cited: a later reader who
+runs it should not be startled by this file's own five hits.
+
+⚠️ **The cheapest check that the split is real**: of the six `…Hprin` modules only the twin ever
+carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRootHprin`,
+`WeilPairingProductRelationHprin` and `WeilPairingProductRelationRootIndependentHprin` never blamed
+`ωₙ`, and `#1308` corrected the one module that did.
+
 ## Non-vacuity
 
 Two blocks, answering different questions.
