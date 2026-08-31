@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.FormalGroup.ThirdRootMatching
+import EllipticCurves.UniversalCurve
 import Mathlib.RingTheory.MvPolynomial.Basic
 
 /-!
@@ -15,8 +16,9 @@ identification, reducing it to a single **regularity** hypothesis on the coordin
 `embedDoubleLaurent_formalGroupZW_of_regular` : given that `z_c - z₁` and `z_c - z₂` are regular
 (left-cancellable) in `(R⸨X⸩)⸨X⸩`, the `(z, w)`- and Laurent formal group laws agree.
 
-This file instantiates that reduction at the **universal curve** `Wuniv : WeierstrassCurve S` over
-`S := MvPolynomial (Fin 5) ℤ` with `aᵢ = MvPolynomial.X i`.  Because `S` is a characteristic-`0`
+This file instantiates that reduction at the **universal curve** `WeierstrassCurve.univ` over
+`S := MvPolynomial (Fin 5) ℤ` with `aᵢ = MvPolynomial.X i`, which is defined in
+`EllipticCurves.UniversalCurve`.  Because `S` is a characteristic-`0`
 integral domain, the double Laurent ring `(S⸨X⸩)⸨X⸩` is again an integral domain, so a nonzero
 element is a non-zero-divisor.  The two regularity hypotheses then follow from the two nonvanishing
 facts `z_c - z₁ ≠ 0` and `z_c - z₂ ≠ 0`.
@@ -34,16 +36,6 @@ coefficient is `-2 ≠ 0` (Silverman AEC IV.1, the `-2` leading-slope finding).
 open scoped LaurentSeries
 
 namespace WeierstrassCurve
-
-/-- The **universal Weierstrass curve** over `S := MvPolynomial (Fin 5) ℤ`, with `aᵢ = X i`.
-`S` is a characteristic-`0` integral domain, so its base change carries the unconditional
-identification. -/
-noncomputable def univ : WeierstrassCurve (MvPolynomial (Fin 5) ℤ) where
-  a₁ := MvPolynomial.X 0
-  a₂ := MvPolynomial.X 1
-  a₃ := MvPolynomial.X 2
-  a₄ := MvPolynomial.X 3
-  a₆ := MvPolynomial.X 4
 
 /-- The secant `y`-value times the coordinate-change third-point `z` is `-x₃`.  (Re-derivation of
 the private `secantY_mul_coordChangeZ` from `isUnit_thirdSecantY`, for use over an arbitrary base.)

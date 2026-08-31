@@ -34,6 +34,8 @@ and establish:
   univariate factors `Kᵥ` used in `OmegaTwo`/`OmegaThree` (validating the general definition against
   the two independently-proved low-index cases).
 * `preΩ_neg` : `preΩ` is an even function of the index.
+* `map_preΩ` : `preΩ` commutes with base change, the `preΩ` member of Mathlib's
+  `map_preΨ` / `map_ΨSq` / `map_Φ` family.
 * `ψ_mul_Ω` : the index-doubling bridge `ψ₂ₙ · ψ₂ = ψₙ · Ωₙ`, a repackaging of Mathlib's `ψ_even`.
 * `Ω_factor` : the parity factorisation, at the level of the honest bivariate polynomials `Ψ`,
   `Ψₙ₊₂·Ψₙ₋₁² − Ψₙ₋₂·Ψₙ₊₁² = (if Even n then ψ₂ else ψ₂²)·C(preΩₙ)`, exhibiting the bivariate
@@ -140,6 +142,14 @@ lemma preΩ_neg (n : ℤ) : W.preΩ (-n) = W.preΩ n := by
     show -n - 2 = -(n + 2) by ring, show -n + 1 = -(n - 1) by ring, preΨ_neg, preΨ_neg, preΨ_neg,
     preΨ_neg]
   ring
+
+/-- **`preΩ` commutes with base change**: `(W.map f).preΩ n = (W.preΩ n).map f`.  This is the
+`preΩ` member of Mathlib's `map_preΨ` / `map_ΨSq` / `map_Φ` family, and it is what lets a
+statement about `preΩ` be proved once over the universal curve and specialised — see
+`EllipticCurves.Torsion.OmegaUniversal`. -/
+lemma map_preΩ {S : Type*} [CommRing S] (f : R →+* S) (n : ℤ) :
+    (W.map f).preΩ n = (W.preΩ n).map f := by
+  simp only [preΩ, map_preΨ, Polynomial.map_sub, Polynomial.map_mul, Polynomial.map_pow]
 
 /-- **The index-doubling bridge.** `ψ₂ₙ · ψ₂ = ψₙ · Ωₙ`, a repackaging of Mathlib's `ψ_even` with
 the bivariate `y`-numerator `Ωₙ` factored out. -/
