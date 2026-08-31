@@ -44,8 +44,8 @@ Over the fibre of `[2]∗` above a rational point `S`:
 * the four points `P ⊕ R`, `R ∈ E[2]`, are distinct (`projPointOfPoint_add_injective_two` with
   `hcard`), lie in the fibre (`comapProjPointTwo_add_torsion_two`), and each has `f_p = 1` because
   it is rational — `residueDegreeTwo_projPointOfPoint`, which needs no hypothesis on `F`;
-* `e_p ≥ 1` everywhere (`ramificationIdxTwo_pos`) and `f_p ≥ 1` everywhere on the fibre
-  (`residueDegreeComap_pos` below);
+* `e_p ≥ 1` everywhere (`ramificationIdxTwo_pos`) and `f_p ≥ 1` everywhere
+  (`residueDegreeComap_pos` and its `[2]∗` instantiation `residueDegreeTwo_pos` below);
 * `∑_{p ↦ q} e_p · f_p = 4` (`sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable`).
 
 Four terms of a four-term bound already exhaust it, so every `e_p` is `1` and the fibre is exactly
@@ -53,6 +53,14 @@ the coset.  ⚠️ **The second bullet is not decoration.**  Without `f_p ≥ 1`
 in the fibre contributing `0` to the sum, and both the unramifiedness and the fibre description
 would fail; `residueDegreeComap_pos` is the one genuinely new lemma in this file and it is what
 closes that hole.
+
+⚠️ Positivity of `f_p` holds at *every* place, not only inside a fibre, and the proof is the
+**unconditional** tower formula `f^{proj}_{φ⁻¹p} · f_p = f^{proj}_p` against `degProjPt_pos` rather
+than ramification theory.  That is why the two positivity lemmas and
+`one_le_ramificationIdxTwo_mul_residueDegreeTwo` carry neither `hsep` nor a fibre-membership
+hypothesis, while `card_fibre_comapProjPointTwo_le_four_of_isSeparable` still carries `hsep` — the
+separability belongs to the *identity* the summands are compared against, not to the bound on a
+summand.
 
 ## Where the separability comes from
 
@@ -78,9 +86,10 @@ two lives inside `card_torsionTwoMul_of_card` and nowhere else.
 
 ## Main statements
 
-* `WeierstrassCurve.Affine.residueDegreeComap_pos` — `f_p > 0` for a place in the fibre of an
-  arbitrary `φ`, over an arbitrary field.  Mathlib's `Ideal.inertiaDeg_pos` through PR #437's
-  `ideal_inertiaDeg_eq_residueDegreeComap`.
+* `WeierstrassCurve.Affine.residueDegreeComap_pos` — `f_p > 0` at every place, for an arbitrary
+  `φ`, over an arbitrary field; and `…CoordinateRing.residueDegreeTwo_pos`, its `[2]∗`
+  instantiation.  Both are the tower formula `residueDegreeProj_mul_residueDegreeComap` against
+  `degProjPt_pos`, and neither needs separability, module-finiteness or a fibre.
 * `…CoordinateRing.isSeparable_mulByTwoEndoFieldRange_of_card` — the Galois package at `hcard`.
 * `…CoordinateRing.ramificationIdxTwo_eq_one_of_card`,
   `…CoordinateRing.fibre_comapProjPointTwo_eq_range_of_card` — the fibre over a rational point,
@@ -107,35 +116,45 @@ namespace WeierstrassCurve.Affine
 
 section Positivity
 
-variable {F : Type*} [Field F] {W : Affine F} [IsDedekindDomain W.CoordinateRing]
-  {φ : W.FunctionField →+* W.FunctionField} {q : ProjPoint W}
+variable {F : Type*} [Field F] {W : Affine F} [IsDedekindDomain W.CoordinateRing] [W.IsElliptic]
+  {φ : W.FunctionField →+* W.FunctionField}
   (hφF : ∀ c : F, φ (algebraMap F W.FunctionField c) = algebraMap F W.FunctionField c)
   (hφint : ∀ z : W.FunctionField, φ.IsIntegralElem z)
-  [Module.Finite ↥φ.fieldRange W.FunctionField]
-  [Algebra.IsSeparable ↥φ.fieldRange W.FunctionField]
 
 include hφF hφint in
-/-- **The relative residue degree at a place of the fibre is positive**, over an arbitrary field.
+/-- **The relative residue degree of `φ` is positive at every place**, over an arbitrary field.
 
-`residueDegreeComap` is a `finrank`, so it is `0` when the residue extension is
-infinite-dimensional; that this does not happen is Mathlib's `Ideal.inertiaDeg_pos`, transported by
-PR #437's `ideal_inertiaDeg_eq_residueDegreeComap`.
-
-⚠️ This is the lemma that lets a count inside a fibre conclude anything from a term being zero.  The
-merged `[IsAlgClosed F]` route never needed it, because there every `f_p` is `1` outright
+⚠️ This is a theorem and not a convention.  `residueDegreeComap` unfolds to a `Module.finrank`,
+which is `0` on an infinite-dimensional module, so nothing here is positive by definition; and it is
+the lemma that lets a count inside a fibre conclude anything from a term being zero.  The merged
+`[IsAlgClosed F]` route never needed it, because there every `f_p` is `1` outright
 (`residueDegreeProj_eq_one`); over an arbitrary field the `f_p` are unknown and only their
-positivity is available. -/
-theorem residueDegreeComap_pos {p : ProjPoint W} (hp : comapProjPoint hφF hφint p = q) :
-    0 < residueDegreeComap hφF hφint p := by
-  obtain ⟨v, hv⟩ := exists_projPointOfHeightOne_eq hφF hφint hp
-  haveI : v.asIdeal.LiesOver (maximalIdeal ↥(placeBelow φ q)) :=
-    ⟨((comapProjPoint_projPointOfHeightOne_eq_iff hφF hφint v).1 (by rw [hv]; exact hp)).symm⟩
-  haveI : Module.Finite ↥(placeBelow φ q)
-      ↥(integralClosure ↥(placeBelow φ q) W.FunctionField) :=
-    module_finite_integralClosure_placeBelow q
-  haveI : v.asIdeal.IsPrime := v.isPrime
-  rw [← hv, ← ideal_inertiaDeg_eq_residueDegreeComap hφF hφint v]
-  exact Ideal.inertiaDeg_pos v.asIdeal ↥(placeBelow φ q)
+positivity is available.
+
+**The proof does not touch ramification theory at all.**
+`residueDegreeProj_mul_residueDegreeComap` (`EllipticCurves.FunctionField.PlaceResidueComap`) is the
+*unconditional* tower formula `f^{proj}_{φ⁻¹p} · f_p = f^{proj}_p`, and `degProjPt_pos` says every
+closed point of the projective curve has positive degree; were `f_p` zero the product — hence
+`f^{proj}_p` — would be zero with it.
+
+⚠️ This replaces a route through Mathlib's `Ideal.inertiaDeg_pos` (via PR #437's
+`ideal_inertiaDeg_eq_residueDegreeComap` and a `LiesOver`/`Module.Finite`/`IsPrime` preamble), which
+carried `[Module.Finite ↥φ.fieldRange W.FunctionField]`,
+`[Algebra.IsSeparable ↥φ.fieldRange W.FunctionField]` and a fibre-membership hypothesis
+`comapProjPoint hφF hφint p = q`.  All three are gone; the one thing bought back is
+`[W.IsElliptic]`, which `degProjPt_eq_residueDegreeProj` needs and which every consumer in this
+tree already has.
+
+The transferable rule: **when you need positivity of one factor in a tower, the tower formula
+together with positivity of the total is usually shorter than the ramification-theoretic lemma for
+that factor — and it drops every hypothesis the ramification route needs.** -/
+theorem residueDegreeComap_pos (p : ProjPoint W) : 0 < residueDegreeComap hφF hφint p := by
+  have h := residueDegreeProj_mul_residueDegreeComap hφF hφint p
+  have hp : 0 < residueDegreeProj W p := by
+    rw [← degProjPt_eq_residueDegreeProj]; exact degProjPt_pos p
+  rcases Nat.eq_zero_or_pos (residueDegreeComap hφF hφint p) with h0 | h0
+  · rw [h0, Nat.mul_zero] at h; omega
+  · exact h0
 
 end Positivity
 
@@ -227,26 +246,27 @@ theorem isSeparable_mulByTwoEndoFieldRange_of_card (h2 : (2 : F) ≠ 0)
 /-! ### The fibre over a rational point, without an algebraic closure -/
 
 omit [DecidableEq F] in
-/-- `f_p > 0` for `[2]∗` at a place of a fibre — the instantiation of `residueDegreeComap_pos`. -/
-theorem residueDegreeTwo_pos_of_isSeparable (h2 : (2 : F) ≠ 0)
-    (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
-    {p q : ProjPoint W} (hp : comapProjPointTwo h2 p = q) : 0 < residueDegreeTwo h2 p := by
-  haveI := module_finite_mulByTwoEndoFieldRange (W := W) h2
-  haveI := hsep
-  exact residueDegreeComap_pos (mulByTwoEndo_algebraMap_base h2)
-    (mulByTwoEndo_isIntegralElem h2) hp
+/-- **`f_p > 0` for `[2]∗`, at every place of the projective curve** — the instantiation of
+`residueDegreeComap_pos`.
+
+⚠️ No separability, no module-finiteness and no fibre-membership hypothesis: this holds at *every*
+`p : ProjPoint W`, not only at the places lying over a named `q`. -/
+theorem residueDegreeTwo_pos (h2 : (2 : F) ≠ 0) (p : ProjPoint W) : 0 < residueDegreeTwo h2 p :=
+  residueDegreeComap_pos (mulByTwoEndo_algebraMap_base h2) (mulByTwoEndo_isIntegralElem h2) p
 
 omit [DecidableEq F] in
 /-- Every summand of the fundamental identity is at least `1`, which is what turns a sum of `4` into
 a bound on the number of places.  Both factors are positive: `e_p` by `ramificationIdxTwo_pos` and
-`f_p` by the previous lemma. -/
-theorem one_le_ramificationIdxTwo_mul_residueDegreeTwo (h2 : (2 : F) ≠ 0)
-    (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
-    {p q : ProjPoint W} (hp : comapProjPointTwo h2 p = q) :
+`f_p` by the previous lemma.
+
+⚠️ Like the two positivity lemmas it rests on, this is a statement about an *arbitrary* place: it
+needs neither separability nor membership of a fibre.  Only the identity `∑ e_p · f_p = 4` those
+summands are compared against does, which is why `hsep` survives on the next lemma and not here. -/
+theorem one_le_ramificationIdxTwo_mul_residueDegreeTwo (h2 : (2 : F) ≠ 0) (p : ProjPoint W) :
     1 ≤ (ramificationIdxTwo h2 p).toNat * residueDegreeTwo h2 p := by
   have he : 0 < (ramificationIdxTwo h2 p).toNat := by
     have := ramificationIdxTwo_pos h2 p; omega
-  have hf := residueDegreeTwo_pos_of_isSeparable h2 hsep hp
+  have hf := residueDegreeTwo_pos h2 p
   exact Nat.one_le_iff_ne_zero.2 (Nat.mul_ne_zero (by omega) (by omega))
 
 omit [DecidableEq F] in
@@ -261,10 +281,7 @@ theorem card_fibre_comapProjPointTwo_le_four_of_isSeparable (h2 : (2 : F) ≠ 0)
     (finite_comapProjPointTwo_preimage_singleton h2 q).toFinset.card ≤ 4 := by
   rw [Finset.card_eq_sum_ones,
     ← sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable h2 hsep q]
-  refine Finset.sum_le_sum fun p hp => ?_
-  have hmem : comapProjPointTwo h2 p = q :=
-    (Set.Finite.mem_toFinset (finite_comapProjPointTwo_preimage_singleton h2 q)).1 hp
-  exact one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 hsep hmem
+  exact Finset.sum_le_sum fun p _ => one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 p
 
 /-- **The fibre of `[2]` over a rational point has exactly four elements**, over an arbitrary field.
 
@@ -328,8 +345,6 @@ theorem ramificationIdxTwo_eq_one_of_card (h2 : (2 : F) ≠ 0)
   classical
   have hfin := finite_comapProjPointTwo_preimage_singleton h2 (projPointOfPoint W S)
   set s := hfin.toFinset with hs
-  have hmemfib : ∀ r ∈ s, comapProjPointTwo h2 r = projPointOfPoint W S := fun r hr =>
-    (Set.Finite.mem_toFinset hfin).1 hr
   have hmem : p ∈ s := (Set.Finite.mem_toFinset hfin).2 hp
   have hcards : s.card = 4 :=
     card_fibre_comapProjPointTwo_projPointOfPoint_of_card h2 hsep hcard hP
@@ -344,11 +359,10 @@ theorem ramificationIdxTwo_eq_one_of_card (h2 : (2 : F) ≠ 0)
       ≤ ∑ r ∈ s.erase p, (ramificationIdxTwo h2 r).toNat * residueDegreeTwo h2 r := by
     simpa using Finset.card_nsmul_le_sum (s.erase p)
       (fun r => (ramificationIdxTwo h2 r).toNat * residueDegreeTwo h2 r) 1
-      (fun r hr => one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 hsep
-        (hmemfib r (Finset.mem_of_mem_erase hr)))
+      (fun r _ => one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 r)
   have hec : (s.erase p).card = 3 := by rw [Finset.card_erase_of_mem hmem, hcards]
   have hprod : 1 ≤ (ramificationIdxTwo h2 p).toNat * residueDegreeTwo h2 p :=
-    one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 hsep hp
+    one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 p
   set k := (ramificationIdxTwo h2 p).toNat * residueDegreeTwo h2 p with hk
   have hone : k = 1 := by omega
   have hE : (ramificationIdxTwo h2 p).toNat = 1 :=
@@ -591,8 +605,15 @@ rational halving of a `2`-torsion point — i.e. rational `4`-torsion above rati
 * `E[2] = {O, (0,0), (−1,0), (−4,0)}` — the cubic splits over `ℚ` with distinct roots, so `hcard`
   holds and `Δ = 2304 ≠ 0`;
 * `T = (0,0)` is halved by `P = (2, 6)`: the tangent there has slope
-  `(3·4 + 2·5·2 + 4)/(2·6) = 36/12 = 3`, so `x([2]P) = 9 − 5 − 4 = 0` and `y([2]P) = 3(2−0) − 6 =
-0`.
+  `(3·4 + 2·5·2 + 4)/(2·6) = 36/12 = 3`, so `x([2]P) = 9 − 5 − 4 = 0` and
+  `y([2]P) = 3(2−0) − 6 = 0`.
+
+The recipe that finds such a curve, rather than the anecdote that this one works: for
+`y² = x(x − e₂)(x − e₃)` over `ℚ`, the `2`-torsion point `(e₁, 0)` is `2`-divisible exactly when
+`e₁ − e₂` and `e₁ − e₃` are **both rational squares**, and then `x(P) = e₁ + √((e₁−e₂)(e₁−e₃))`.
+Here `(e₁, e₂, e₃) = (0, −1, −4)` gives `1` and `4`, and the halving sits at `x = 0 + 2 = 2`.
+⚠️ That lets the next author *test* a candidate curve in one line instead of discovering the failure
+at the last lemma — which is what has happened every time the default curve was tried.
 
 ⚠️ **`y² = x³ − x` — this subtree's default curve — does not work here**, and the reason is the one
 that has now defeated four separate pieces of work on this board.  It *does* have full rational
