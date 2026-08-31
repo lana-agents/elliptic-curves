@@ -608,8 +608,8 @@ explicit polynomials**:
   `E[2] = {O, (0,0), (−1,0), (−4,0)}`;
 * `Φ₂ = X⁴ − b₄X² − 2b₆X − b₈ = X⁴ − 8X² + 16 = (X² − 4)²` vanishes at `x = 2`, while `x(T) = 0`
   makes the right-hand side `0 · Ψ₂Sq.eval 2` on the nose; the point `(2, 6)` sits above that root
-  (`36 = 8 + 20 + 8`).  So `exists_nsmul_two_eq_some_of_root`
-  (`EllipticCurves.Torsion.DoublingSurjective`) gives `hP`.
+  (`36 = 8 + 20 + 8`).  So `exists_nsmul_eq_some_of_root_of_mem_torsion_two`
+  (`EllipticCurves.Torsion.DoublingSurjective`) gives `hP`, with its diagonal guard attached.
 
 ⚠️ **Why this route rather than exhibiting the four points and doubling `(2, 6)` by hand.**  Both
 facts are true of `E(ℚ)` and both were once proved that way here — the lower bound by an injection
@@ -621,10 +621,11 @@ so they are exactly the data that survives base change to a splitting field, whi
 formula are statements about `E(ℚ)` and transport to nothing.
 
 ⚠️ **The halving is now anonymous, and that is what forced the diagonal guard this block never
-had.**  `exists_nsmul_two_eq_some_of_root` produces *some* `P` above the root, not the named
-`(2, 6)`, so `P ≠ T` can no longer be read off coordinates — and it never was here, since nothing
-in this block ever stated it.  `exampleExistsHalving` carries it as a second conjunct, proved from
-`2 • T = 0` and `T ≠ 0`, which holds for **every** halving of `T` rather than for one witness.
+had.**  The root produces *some* `P` above it, not the named `(2, 6)`, so `P ≠ T` can no longer be
+read off coordinates — and it never was here, since nothing in this block ever stated it.
+`exampleExistsHalving` carries it as a second conjunct, and it is not proved here at all: it is
+`ne_of_nsmul_two_eq` (`EllipticCurves.Torsion.DoublingSurjective`), which derives `P ≠ T` from
+`2 • T = 0` and `T ≠ 0` for **every** halving of a `2`-torsion point on **every** curve.
 
 The recipe that finds such a curve, rather than the anecdote that this one works: for
 `y² = x(x − e₂)(x − e₃)` over `ℚ`, the `2`-torsion point `(e₁, 0)` is `2`-divisible exactly when
@@ -722,23 +723,6 @@ private lemma eval_Φ_two_exampleCurve :
     WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleCurve]
   norm_num
 
-/-- **`P ≠ T` for *every* halving of `T`**, not merely for a hand-chosen one.
-
-⚠️ `[2]P = T` at `P = T` would only say that `T` is fixed by `[2]`, and a certificate cannot claim
-to exercise the halving if it silently runs on the diagonal.  This block never stated that guard at
-all — it exhibited `(2, 6)` and left the reader to compare coordinates — and once the halving is
-anonymous the coordinate comparison is not even statable.
-
-It does not need to be: `T` lies in `E[2]`, so `2 • T = 0`, while `2 • P = T` and `T` is a
-`Point.some`, hence nonzero.  Forced rather than computed, and independent of the fixture. -/
-private lemma examplePNeT {P : exampleCurve.Point}
-    (hP : (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT) :
-    P ≠ Point.some (0 : ℚ) 0 exampleNsT := by
-  rintro rfl
-  -- `hP` has become `0 = T`, which `simp` refutes on the constructors.
-  rw [mem_torsion_iff.mp exampleTorT] at hP
-  simp at hP
-
 /-- **`T = (0, 0)` is twice a rational point, and that point is not `T`** — the `hP` of
 `exists_gS_two_of_card`, derived from `eval_Φ_two_exampleCurve` rather than exhibited.
 
@@ -746,13 +730,18 @@ private lemma examplePNeT {P : exampleCurve.Point}
 `∃ P, 2 • P = T` it would be applied nowhere and the build could not see it go stale; here the `P`
 the certificate is instantiated at is bound from a witness satisfying **both** conjuncts, so
 off-diagonality is carried by construction even though `exampleRungFive` binds the second component
-to `_`. -/
+to `_`.  ⚠️ That second component must not be "cleaned up" as unused.
+
+⚠️ **Both conjuncts come from one general theorem** at `n = 2` —
+`exists_nsmul_eq_some_of_root_of_mem_torsion_two`, in
+`EllipticCurves.Torsion.DoublingSurjective` — rather than from a halving lemma plus a guard lemma
+restated in this file.  `[2]P = T` with `T ∈ E[2]` in fact gives `[n]P = T` at every `n ≡ 2 (mod 4)`
+there; `2 % 4 = 2` is what selects this index, and `by norm_num` is what discharges it. -/
 private lemma exampleExistsHalving :
     ∃ P : exampleCurve.Point,
-      (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT := by
-  obtain ⟨P, hP⟩ :=
-    exists_nsmul_two_eq_some_of_root exampleNsT exampleNsP.left eval_Φ_two_exampleCurve
-  exact ⟨P, hP, examplePNeT hP⟩
+      (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT :=
+  exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleNsT exampleTorT exampleNsP.left
+    eval_Φ_two_exampleCurve (by norm_num)
 
 /-- **Rung 5 of the Weil pairing at `n = 2` over `ℚ`, with no hypothesis whatsoever.**
 

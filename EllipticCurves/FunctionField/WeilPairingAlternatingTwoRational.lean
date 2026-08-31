@@ -286,9 +286,9 @@ private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ exampleCurve.t
 
 /-! Both hypotheses of the theorems above are **derived** here rather than exhibited, and that is
 the point of this block: `hcard` from the cubic `Ψ₂Sq` splitting over `ℚ`
-(`card_torsion_two_of_splits`, `EllipticCurves.Torsion.TwoTorsion`), and the halving from one root
-of `Φ₂ − x(T)·Ψ₂Sq` (`exists_nsmul_two_eq_some_of_root`,
-`EllipticCurves.Torsion.DoublingSurjective`).
+(`card_torsion_two_of_splits`, `EllipticCurves.Torsion.TwoTorsion`), and the halving — with its
+diagonal guard — from one root of `Φ₂ − x(T)·Ψ₂Sq`
+(`exists_nsmul_eq_some_of_root_of_mem_torsion_two`, `EllipticCurves.Torsion.DoublingSurjective`).
 
 ⚠️ Neither route names a second `2`-torsion point or computes a tangent line, and that is what makes
 them reusable: **a certificate on another curve changes only the two polynomial identities below.**
@@ -344,23 +344,6 @@ private lemma eval_Φ_two_exampleCurve :
     WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleCurve]
   norm_num
 
-/-- **`P ≠ T` for *every* halving of `T`**, not merely for a hand-chosen one.
-
-⚠️ This is the guard `WeilPairingAlternatingAssemblyN`'s `ℚ` block also carries: `[2]P = T` at
-`P = T` would only say that `T` is fixed by `[2]`, so without it a certificate could be silently on
-the diagonal and would exercise nothing.
-
-The enumeration route stated it of the named point `(2, 6)` and checked it by `norm_num` on
-coordinates.  Here it is a **theorem about whatever point the existence lemma produced**, and it is
-forced rather than computed: `T` lies in `E[2]`, so `[2]T = 0`, while `[2]P = T ≠ 0`. -/
-private lemma examplePNeT {P : exampleCurve.Point}
-    (hP : (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT) :
-    P ≠ Point.some (0 : ℚ) 0 exampleNsT := by
-  rintro rfl
-  -- `hP` has become `0 = T`, which `simp` refutes on the constructors.
-  rw [mem_torsion_iff.mp exampleTorT] at hP
-  simp at hP
-
 /-- **`T = (0, 0)` is twice a rational point, and that point is not `T`** — the `hP` of
 `exists_weilPairingElt_self_eq_one_of_card_two`, derived from `eval_Φ_two_exampleCurve` rather than
 exhibited.
@@ -368,13 +351,24 @@ exhibited.
 ⚠️ The halving point is no longer named in the statement.  It is still `(2, 6)` — that is the root
 the identity above is stated at — but nothing downstream needs its coordinates, and carrying the
 `≠ T` guard inside the existential is what keeps the certificate off the diagonal now that the
-point is anonymous. -/
+point is anonymous.
+
+⚠️ **Both conjuncts come from one general theorem** at `n = 2` —
+`exists_nsmul_eq_some_of_root_of_mem_torsion_two`, in
+`EllipticCurves.Torsion.DoublingSurjective` — rather than from a halving lemma plus a guard lemma
+restated in this file.  The guard is `ne_of_nsmul_two_eq` there: a theorem about
+**every** halving of a `2`-torsion point on **every** curve (`[2]T = 0` while `[2]P = T ≠ 0`), so it
+is neither a fact about `(2, 6)` nor a fact about this fixture.  `2 % 4 = 2` is what selects the
+index, and `by norm_num` is what discharges it.
+
+⚠️ The second conjunct is bound to `_` at both call sites below **on purpose** and must not be
+"cleaned up" as unused: the `P` they bind is a witness of *both* conjuncts, so off-diagonality is
+carried by construction and the build would notice if it failed. -/
 private lemma exampleExistsHalving :
     ∃ P : exampleCurve.Point,
-      (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT := by
-  obtain ⟨P, hP⟩ :=
-    exists_nsmul_two_eq_some_of_root exampleNsT exampleNsP.left eval_Φ_two_exampleCurve
-  exact ⟨P, hP, examplePNeT hP⟩
+      (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT :=
+  exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleNsT exampleTorT exampleNsP.left
+    eval_Φ_two_exampleCurve (by norm_num)
 
 /-- **The alternating property of the Weil pairing at `n = 2` over `ℚ`, with no hypothesis
 whatsoever.**
