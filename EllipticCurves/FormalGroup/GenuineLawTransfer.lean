@@ -34,7 +34,9 @@ by base change, using the Laurent-side naturality layer
 ## Strategy
 
 For `W : WeierstrassCurve R` let `f := W.specialize : S →+* R` be the ring hom `X i ↦ aᵢ`; then
-`univ.map f = W` (`univ_map_specialize`).  Apply the double base-change ring hom
+`univ.map f = W` (`univ_map_specialize`).  All three of `univ`, `specialize` and
+`univ_map_specialize` live in `EllipticCurves.UniversalCurve`, which imports only Mathlib.
+Apply the double base-change ring hom
 `Ψ f = HahnSeries.mapRingHom (HahnSeries.mapRingHom f)` to the universal identity: the left-hand
 side transports via `map_embedDoubleLaurent` + `map_formalGroupZW`, the right-hand side via
 `map_formalGroupLaurent`, and both `univ.map f` collapse to `W`.
@@ -50,20 +52,6 @@ open HahnSeries
 namespace WeierstrassCurve
 
 variable {R : Type*} [CommRing R]
-
-/-- The **specialisation homomorphism** `S = MvPolynomial (Fin 5) ℤ →+* R` sending the universal
-generators `X 0, …, X 4` to the coefficients `a₁, a₂, a₃, a₄, a₆` of `W`.  Base changing the
-universal curve along it recovers `W` (`univ_map_specialize`). -/
-noncomputable def specialize (W : WeierstrassCurve R) : MvPolynomial (Fin 5) ℤ →+* R :=
-  MvPolynomial.eval₂Hom (Int.castRingHom R) ![W.a₁, W.a₂, W.a₃, W.a₄, W.a₆]
-
-/-- Base changing the universal curve along `W.specialize` recovers `W`:
-`univ.map W.specialize = W`. -/
-theorem univ_map_specialize (W : WeierstrassCurve R) : univ.map W.specialize = W := by
-  ext <;>
-    simp only [WeierstrassCurve.map_a₁, WeierstrassCurve.map_a₂, WeierstrassCurve.map_a₃,
-      WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆, univ, specialize,
-      MvPolynomial.eval₂Hom_X', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]
 
 /-! ### The unconditional identification -/
 
