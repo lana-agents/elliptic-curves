@@ -91,6 +91,7 @@ import EllipticCurves.FunctionField.LocalRingUnit
 import EllipticCurves.FunctionField.MatrixRepDeterminantCharacter
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNDegreeTower
+import EllipticCurves.FunctionField.MulByNFibre
 import EllipticCurves.FunctionField.MulByNGalois
 import EllipticCurves.FunctionField.MulByNGaloisGroup
 import EllipticCurves.FunctionField.MulByNInertia
@@ -343,6 +344,7 @@ import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
+import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaThree
