@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.Determinant
 import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.LevelStructure
@@ -511,32 +512,30 @@ or in any statement above, so — unlike `EllipticCurves.TateModule.ImageThree` 
 `EllipticCurves.TateModule.ImageProfiniteThree` — no `ℚ`-algebra instance workaround is needed here
 at all, by either the `haveI` or the `attribute [local instance]` route. **Checked against the
 `variable` block, not assumed from the neighbouring files.** `open Classical in` *is* load-bearing:
-`exampleField` is `AlgebraicClosure ℚ`, which carries no `DecidableEq`.
+`AlgClosedQ` is `AlgebraicClosure ℚ`, which carries no `DecidableEq`.
 
-⚠️ Several `TateModule` files carry `private` copies of the same curve; this one is a duplicate by
-necessity rather than by oversight. -/
+⚠️ Every `TateModule` certificate block now names the one shared fixture
+`EllipticCurves.Fixture.y2AddYEqX3`; the `private` per-file copies this note used to describe are
+gone. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
@@ -547,9 +546,9 @@ that a zero Tate module would falsify.
 It closes by **application** of `galoisTraceThree_eq_two_of_mem_ker` and
 `galoisDetThree_eq_one_of_mem_ker`, not by `rfl`, `decide` or `norm_num`, so it consumes the
 declarations it certifies. -/
-example : ∀ σ ∈ (galoisRep (W' := exampleCurveThree) (F := exampleField) 3).ker,
-    galoisTraceThree (W' := exampleCurveThree) (F := exampleField) σ = 2 ∧
-      galoisDetThree (W' := exampleCurveThree) (F := exampleField) σ = 1 :=
+example : ∀ σ ∈ (galoisRep (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker,
+    galoisTraceThree (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) σ = 2 ∧
+      galoisDetThree (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) σ = 1 :=
   fun _ hσ => ⟨galoisTraceThree_eq_two_of_mem_ker exampleTwo exampleThree hσ,
     galoisDetThree_eq_one_of_mem_ker hσ⟩
 
@@ -558,13 +557,13 @@ open Classical in
 inside the statement** rather than taken as an argument, so this does not certify a family that
 might be empty. Closes by application of `ker_galoisRepMatrixThree` and
 `galoisRepMatrixThree_eq_one_iff`. -/
-example : ∃ b : Module.Basis (Fin 2) ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3),
+example : ∃ b : Module.Basis (Fin 2) ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3),
     (galoisRepMatrixThree b).ker
-        = (galoisRep (W' := exampleCurveThree) (F := exampleField) 3).ker ∧
-      ∀ σ : exampleField ≃ₐ[ℚ] exampleField, galoisRepMatrixThree b σ = 1 ↔
-        ∀ (k : ℕ) (P : (exampleCurveThree⁄exampleField).torsion (3 ^ k)), σ • P = P := by
+        = (galoisRep (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker ∧
+      ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ, galoisRepMatrixThree b σ = 1 ↔
+        ∀ (k : ℕ) (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion (3 ^ k)), σ • P = P := by
   obtain ⟨b⟩ := tateModule.nonempty_basis_tateModule_three
-    (W := exampleCurveThree⁄exampleField) exampleTwo exampleThree
+    (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo exampleThree
   exact ⟨b, ker_galoisRepMatrixThree b, galoisRepMatrixThree_eq_one_iff b exampleTwo⟩
 
 open Classical in
@@ -572,7 +571,7 @@ open Classical in
 that never mentions kernels or matrices: `T₃E` surjects onto `E[3^k]`, which has `9^k` elements.
 Without this the trace certificate above would be an assertion about `LinearMap.trace`'s default
 value on a degenerate module. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   tateModule.infinite_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity

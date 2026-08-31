@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.FreeThree
 import EllipticCurves.TateModule.LevelStructure
@@ -442,8 +443,8 @@ so `ℚ` cannot witness it and every one of those statements would be vacuously 
 inhabited those classes. `[IsAlgClosed F]`, `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` are
 simultaneously satisfiable on this development's standard certificate curve `y² + y = x³` over an
 algebraic closure of `ℚ`, which is the curve `EllipticCurves.Torsion.ThreePrimary` and
-`EllipticCurves.TateModule.FreeThree` use for the same purpose. ⚠️ Those files' copies of the
-boilerplate are `private`, so this one is a duplicate by necessity rather than by oversight.
+`EllipticCurves.TateModule.FreeThree` use for the same purpose — and all three now name the one
+shared fixture `EllipticCurves.Fixture.y2AddYEqX3` rather than each carrying a `private` copy.
 
 ⚠️ **This closes a different risk from `not_discreteTopology_tateModule_two` and
 `not_discreteTopology_tateModule_three`.** Those rule out the *degenerate* readings — the zero
@@ -452,41 +453,38 @@ implies the other, and the file previously closed only the first. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base, an algebraic closure of `ℚ` — of
+characteristic `0`, so that `2 ≠ 0` and `3 ≠ 0` — are the shared
+`EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also supply
+`(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the **base-changed**
+instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraic closure of `ℚ`: a field of characteristic `0`, so both `2 ≠ 0` and `3 ≠ 0`. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurve⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurve.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **On a curve that exists**: `T_2 E` and `T_3 E` are both compact and both non-discrete.
 
 ⚠️ It closes by **application** of the four theorems above, not by `rfl`, `decide` or `norm_num`, so
-it consumes them. Its only content beyond that is that `exampleCurve⁄exampleField` inhabits
+it consumes them. Its only content beyond that is that `(y2AddYEqX3 ℚ)⁄AlgClosedQ` inhabits
 `[IsAlgClosed F]` and `[W.IsElliptic]` at all — which is precisely the half a statement quantified
 over those classes cannot certify about itself.
 
 ⚠️ Both `ℓ = 2` clauses are here even though this issue's deliverable is the `ℓ = 3` layer: the
 `ℓ = 2` layer has been on `main` since this file landed and had **no** named curve either, and the
 boilerplate above serves both at no extra cost. -/
-example : CompactSpace ((exampleCurve⁄exampleField).tateModule 2) ∧
-    ¬ DiscreteTopology ((exampleCurve⁄exampleField).tateModule 2) ∧
-    CompactSpace ((exampleCurve⁄exampleField).tateModule 3) ∧
-    ¬ DiscreteTopology ((exampleCurve⁄exampleField).tateModule 3) :=
+example : CompactSpace (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 2) ∧
+    ¬ DiscreteTopology (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 2) ∧
+    CompactSpace (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) ∧
+    ¬ DiscreteTopology (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   ⟨compactSpace_two _ exampleTwo,
     not_discreteTopology_tateModule_two _ exampleTwo,
     compactSpace_three _ exampleTwo exampleThree,

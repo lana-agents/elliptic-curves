@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.PrimaryDeterminant
 
@@ -307,16 +308,16 @@ so `ℚ` cannot witness it and the statements would all be vacuously true if not
 classes. The block below rules that out on `y² + y = x³` base-changed to `AlgebraicClosure ℚ`, this
 front's standard `n = 3` certificate curve, with **`S = ℚ`** so that `Gal(F/S)` is not trivial —
 the same curve `EllipticCurves.TateModule.FreeThree` and `EllipticCurves.TateModule.MatrixRepThree`
-use. ⚠️ Those files' copies are `private`, so this one is a duplicate by necessity rather than by
-oversight.
+use. ⚠️ All three now name the one shared fixture `EllipticCurves.Fixture.y2AddYEqX3` rather than
+each carrying a `private` copy of it.
 
 ⚠️ **`open Classical in` is load-bearing on both certificates below, and it is not optional here.**
-The `TateModule` family carries `[DecidableEq F]` in its `variable` blocks, but `exampleField` is
+The `TateModule` family carries `[DecidableEq F]` in its `variable` blocks, but `AlgClosedQ` is
 `AlgebraicClosure ℚ`, which has no decidable equality, so the section variable cannot supply one
 and the block does not elaborate without it. `EllipticCurves.TateModule.MatrixRepThree` and
 `EllipticCurves.TateModule.FreeThree` do the same; this note is here because the failure mode is a
-`failed to synthesize instance of type class DecidableEq exampleField` at the `example`, several
-lines away from the `private abbrev` that causes it.
+`failed to synthesize instance of type class DecidableEq AlgClosedQ` at the `example`, several
+lines away from the `AlgClosedQ` fixture that causes it.
 
 ⚠️ **Two certificates, closing two different risks**, following the idiom
 `EllipticCurves.TateModule.MatrixRepThree` introduced: the first exhibits a curve on which
@@ -328,25 +329,22 @@ the module is not degenerate rather than see it.
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
@@ -354,7 +352,7 @@ absolute Galois group is not trivial, the trace of `ρ_{E,3}` at the identity re
 
 ⚠️ It closes by **application** of `galoisTraceThree_one`, not by `rfl`, `decide` or `norm_num`, so
 it consumes the theorem it certifies (`#944`). -/
-example : galoisTraceThree (W' := exampleCurveThree) (F := exampleField) 1 = 2 :=
+example : galoisTraceThree (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 1 = 2 :=
   galoisTraceThree_one exampleTwo exampleThree
 
 open Classical in
@@ -366,7 +364,7 @@ route that never mentions the determinant or the trace: `T₃E` surjects onto `E
 `galoisDetThree` and `galoisTraceThree` are definable over a zero module and every identity between
 them holds there; `galoisTraceThree_one` is what fails there, and this is the independent check
 that the module in question is genuinely infinite. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   tateModule.infinite_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity

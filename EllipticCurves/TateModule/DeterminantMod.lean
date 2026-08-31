@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.Kernel
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import Mathlib.Algebra.Module.ZMod
@@ -404,7 +405,7 @@ were re-run against the text as committed, with `lake env lean` on this file fro
   asking for `inferInstance` gives
   ```
   error(lean.synthInstanceFailed): failed to synthesize instance of type class
-    Module.Finite (ZMod 3) ↥((exampleCurveThree⁄exampleField).torsion 3)
+    Module.Finite (ZMod 3) ↥(((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3)
   ```
   So the two halves of `LinearEquiv.det`'s hypothesis have genuinely different costs here, and only
   one of them needs a hypothesis on `F`.
@@ -444,75 +445,72 @@ were re-run against the text as committed, with `lake env lean` on this file fro
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`; this is the idiom
 `EllipticCurves.TateModule.Determinant` documents for exactly that reason. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, `E[3]` really has rank `2` over
 `ZMod 3`, so `LinearEquiv.det` is not returning its junk value. -/
-example : Module.finrank (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3) = 2 :=
+example : Module.finrank (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) = 2 :=
   finrank_torsion_three exampleTwo exampleThree
 
 open Classical in
 /-- **Freeness is automatic**, and this is the certificate that says so: no hypothesis, no lemma of
 this development, just `inferInstance`, because `Field (ZMod 3)` is an instance.  ⚠️ This file's
 first draft claimed the opposite in a docstring; the run is what corrected it. -/
-example : Module.Free (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3) := inferInstance
+example : Module.Free (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) := inferInstance
 
 open Classical in
 /-- Finiteness, which is **not** automatic, restated in full. -/
-example : Module.Finite (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3) :=
+example : Module.Finite (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) :=
   finite_torsion_three_zmod exampleThree
 
 open Classical in
 /-- A `ZMod 3`-basis of `E[3]` on the same curve exists — the interface a coordinate computation
 downstream will consume. -/
-example : Nonempty (Module.Basis (Fin 2) (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3)) :=
+example : Nonempty (Module.Basis (Fin 2) (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3)) :=
   ⟨basisTorsionThree exampleTwo exampleThree⟩
 
 open Classical in
 /-- The `ZMod 3`-module structure on `E[3]` on the same curve, with no hypotheses at all:
 `torsionZModModule` is unconditional, and this is the check that it is found. -/
-example : Nonempty (Module (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3)) :=
+example : Nonempty (Module (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3)) :=
   ⟨inferInstance⟩
 
 open Classical in
 /-- The determinant character exists on a curve that exists and is trivial at `1`, restated in full
 rather than obtained-and-projected. -/
-example : galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3 1 = 1 :=
+example : galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3 1 = 1 :=
   galoisDetMod_one 3
 
 open Classical in
 /-- The determinant character on the same curve, at a schema `σ` in the kernel of `ρ_{E,3}`, with
 the conclusion written out. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField)
-    (hσ : σ ∈ (galoisRepMod (W' := exampleCurveThree) (F := exampleField) 3).ker) :
-    galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3 σ = 1 :=
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+    (hσ : σ ∈ (galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker) :
+    galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3 σ = 1 :=
   galoisDetMod_eq_one_of_mem_ker 3 hσ
 
 open Classical in
 /-- The kernel inclusion on the same curve, with both subgroups written out. -/
 example :
-    (galoisRepMod (W' := exampleCurveThree) (F := exampleField) 3).ker
-      ≤ (galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3).ker :=
+    (galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker
+      ≤ (galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker :=
   ker_galoisRepMod_le_ker_galoisDetMod 3
 
 end Nonvacuity
