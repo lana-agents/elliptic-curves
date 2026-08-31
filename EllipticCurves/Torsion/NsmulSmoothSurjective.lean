@@ -10,9 +10,15 @@ import EllipticCurves.Torsion.ThreePrimary
 
 `EllipticCurves.Torsion.DoublingSurjective` proves `nsmul_two_surjective` and
 `EllipticCurves.Torsion.TriplingSurjective` proves `nsmul_three_surjective`: over an algebraically
-closed field in which `2` is invertible, every point is twice — and, with `3` invertible too, three
-times — another point.  Each is a genuine computation, run through
-`nsmul_surjective_of_hasXCoordFormula` on the explicit coordinate formula at that index.
+closed field in which `2` is invertible, every point is twice — and three times — another point.
+Each is a genuine computation, run through `nsmul_surjective_of_hasXCoordFormula` on the explicit
+coordinate formula at that index.
+
+⚠️ **Both take `(2 : F) ≠ 0` and neither takes `(3 : F) ≠ 0`**, the tripling half included: it is
+derived through `hasXCoordFormula_three h2` (`EllipticCurves.Torsion.TriplingSurjective`), whose
+only field hypothesis is `h2`.  That is why `exists_two_pow_mul_three_pow_nsmul_eq` below carries
+`h2` and nothing else, and it is the one place in this file where a reader is likely to expect a
+hypothesis that is not there.
 
 **Surjectivity is multiplicative in the index and nothing in this tree said so.**  `[m · n] = [m] ∘
 [n]` on points is `mul_smul`, so the composite of two surjections is one, and the two merged indices
