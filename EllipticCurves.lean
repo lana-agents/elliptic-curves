@@ -150,6 +150,7 @@ import EllipticCurves.FunctionField.ProjectiveDivisor
 import EllipticCurves.FunctionField.PullbackDivisor
 import EllipticCurves.FunctionField.PullbackPrincipalityThree
 import EllipticCurves.FunctionField.PullbackPrincipalityTwo
+import EllipticCurves.FunctionField.PullbackPrincipalityTwoRational
 import EllipticCurves.FunctionField.PullbackTorsionDivisor
 import EllipticCurves.FunctionField.RatFuncExtension
 import EllipticCurves.FunctionField.RatFuncPlaces
