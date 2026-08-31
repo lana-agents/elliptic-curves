@@ -62,6 +62,9 @@ uses instead that an element killed by both `2` and `3` is killed by `1`.
 * `WeierstrassCurve.Affine.Y_ne_negY_of_Ψ₃_eval_eq_zero`: above a root of `Ψ₃` no point of `W` is
   fixed by negation.
 * `WeierstrassCurve.Affine.derivative_Ψ₃`: `Ψ₃' = 3 · Ψ₂Sq`.
+* `WeierstrassCurve.Affine.exists_equation_of_isSquare`: a point of `W` lies above `x` as soon as
+  `Ψ₂Sq.eval x` is a square, over any field of characteristic `≠ 2`;
+  `WeierstrassCurve.Affine.exists_equation` is the algebraically closed case.
 * `WeierstrassCurve.Affine.card_roots_Ψ₃`: `Ψ₃` has exactly four roots over an algebraically closed
   field of characteristic `≠ 2, 3`.
 * `WeierstrassCurve.Affine.card_torsion_three`: `#E[3] = 9`.
@@ -171,15 +174,39 @@ lemma card_setOf_equation_eq_two [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {x : F}
     Nat.card_coe_set_eq _
   rw [hcard, hset, Set.ncard_pair hne]
 
-/-- Over an algebraically closed field of characteristic `≠ 2` every value of `x` is the
-`x`-coordinate of a point of `W`: the Weierstrass equation is a quadratic in `y` whose discriminant
-`Ψ₂Sq.eval x` always has a square root. -/
-lemma exists_equation [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (x : F) : ∃ y : F, W.Equation x y := by
-  obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq (W.Ψ₂Sq.eval x) (n := 2) two_pos
+/-- **A point above `x` exists as soon as `Ψ₂Sq.eval x` is a square**, over any field of
+characteristic `≠ 2`.
+
+Away from characteristic `2` the Weierstrass equation at `x` is a quadratic in `y` with
+discriminant `Ψ₂Sq.eval x` (`equation_iff_sq`), so a square root `s` of that value produces the
+point `y = (s - a₁x - a₃)/2` by the quadratic formula.  ⚠️ This is the **only** thing
+`exists_equation` below ever used its algebraic closure for.
+
+⚠️ The hypothesis is `IsSquare`, not `∃ s, s ^ 2 = _`.  `IsSquare a` unfolds to `∃ r, a = r * r`,
+which is what `equation_iff_sq` wants after a single rewrite and what a caller over a field such as
+`ℚ` discharges by exhibiting the root; the `^ 2` form would cost a `sq` rewrite at every call site.
+
+⚠️ `card_setOf_equation_eq_two` above has the same closure use and is deliberately **not**
+generalised alongside this: it is a count rather than an existence, so its finite-level form would
+need the square to be nonzero as well, and no consumer in this tree wants that statement. -/
+lemma exists_equation_of_isSquare (h2 : (2 : F) ≠ 0) {x : F}
+    (hsq : IsSquare (W.Ψ₂Sq.eval x)) : ∃ y : F, W.Equation x y := by
+  obtain ⟨s, hs⟩ := hsq
   refine ⟨(s - W.a₁ * x - W.a₃) / 2, ?_⟩
-  rw [equation_iff_sq h2, ← hs]
+  rw [equation_iff_sq h2, hs]
   field_simp
   ring
+
+/-- Over an algebraically closed field of characteristic `≠ 2` every value of `x` is the
+`x`-coordinate of a point of `W`: the Weierstrass equation is a quadratic in `y` whose discriminant
+`Ψ₂Sq.eval x` always has a square root.
+
+The squareness hypothesis of `exists_equation_of_isSquare`, discharged by
+`IsAlgClosed.exists_pow_nat_eq`. -/
+lemma exists_equation [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (x : F) : ∃ y : F, W.Equation x y :=
+  exists_equation_of_isSquare h2
+    (by obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq (W.Ψ₂Sq.eval x) (n := 2) two_pos
+        exact ⟨s, by rw [← hs]; ring⟩)
 
 /-- A root of `Ψ₃` is never a root of `Ψ₂Sq`, stated without reference to a point above it. -/
 lemma Ψ₂Sq_eval_ne_zero_of_root_Ψ₃ [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) {x : F}
