@@ -43,7 +43,17 @@ prime order is `⊥` or `⊤`, so it is onto.
 general `n` existed.**  At composite `n` the image can be a proper nontrivial subgroup and
 surjectivity needs a genuinely different argument — the finite-abelian duality route sketched under
 *Explicitly out of scope* below.  So general `n` is blocked here **twice over**, and only one of the
-two obstructions is `#404`'s `ωₙ` crux.
+two obstructions is the pairing itself (see below).
+
+⚠️ **The reason this used to give for general `n` was wrong** — it read *"only one of the two
+obstructions is `#404`'s `ωₙ` crux"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`),
+and the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general
+`n` waits on here is the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are names
+this tree declares at no index but `2` and `3` (`WeilPairingFunctionTwo`,
+`WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]` they carry enters through
+`hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).  ⚠️ *Twice
+over* is untouched and is still right; only the first obstruction is renamed.
 
 ## `[IsAlgClosed F]` is used for a SECOND, independent reason here
 

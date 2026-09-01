@@ -115,9 +115,18 @@ rung-5 root exists only at torsion points, and the translation slot's `μ_n`-mem
 `torsion_le_weilPairingPointSubgroup_two`, which is a statement about `W.torsion 2`.
 
 ⚠️ This is not Galois-equivariance (`#456`), not `#E[2] = 4` (merged, and not used here), and not
-general `n` (which needs `#404`'s `ωₙ` crux).  ⚠️ `#456`'s two forms are re-read *through* the
+general `n` (see below).  ⚠️ `#456`'s two forms are re-read *through* the
 function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which
 is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an existential.
+
+⚠️ **The reason this used to give for general `n` was wrong** — it read *"not general `n` (which
+needs `#404`'s `ωₙ` crux)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the
+rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general
+`n` waits on here is the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are names
+this tree declares at no index but `2` and `3` (`WeilPairingFunctionTwo`,
+`WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]` they carry enters through
+`hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).
 
 ## ⚠️ Nine issue numbers in this file were wrong while the names beside them were right
 

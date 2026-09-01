@@ -86,7 +86,7 @@ one would not.
 ## Scope
 
 ⚠️ **This unblocks nothing.**  It removes a false claim about what is reachable; the frontier of
-`#244` is exactly where it was — `#404`'s `ωₙ` for general `n`, `hprin` over a general field
+`#244` is exactly where it was — general `n` (see below), `hprin` over a general field
 (`#962`), the projective divisor theory (`#639`).  ⚠️ **The clause this paragraph used to end
 with has been paid** — it read *"A general-`n` statement would need `mulByNEndo`, which does not
 exist"*.  `mulByNEndo` is `EllipticCurves.FunctionField.MulByNPullback`'s, at every `n`, and it
@@ -94,6 +94,17 @@ was never what a general-`n` version of *this* statement needed: the subject her
 `weilPairingTorsionMuHom_two` / `weilPairingTorsionMuHom_three`, and the counting inputs the
 argument runs on are `card_torsion_two` / `card_torsion_three`.  Both are `n`-indexed for reasons
 that have nothing to do with `[n]∗`.
+
+⚠️ **The `#404` clause in that same sentence has now been paid too, and it is the sibling of the one
+repaired just above.**  It read *"the frontier of `#244` is exactly where it was — `#404`'s `ωₙ` for
+general `n`"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the rung-5 root
+and the whole rung-6 translation slot are now stated at every `n`, with the non-constancy side
+condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  In particular
+`weilPairingTorsionMuHom_n`, the very map this file proves is not injective, exists at every `n`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`, `#1308`).  ⚠️ What a general-`n`
+version of *this* statement still lacks is what the paragraph above already says the argument runs
+on: `#E[n] = n²` and `#μ_n(F̄) = n`, merged only at `n = 2` and `n = 3` (`card_torsion_two`,
+`card_torsion_three`).  That is a counting gate, and it is not `ωₙ`.
 
 Everything below carries `[IsAlgClosed F]`, and it is load-bearing twice over: both cardinalities
 are theorems about an algebraically closed field.  Over a general field `#E[n]` can be smaller than

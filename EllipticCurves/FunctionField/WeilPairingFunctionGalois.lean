@@ -86,9 +86,19 @@ absent.**  Any such statement would be proved from the pointwise equations below
 is a separate question about which `MonoidHom` category the `σ`-action lives in; nothing here
 prejudges it.
 
-⚠️ This is not general `n` (which needs `#404`'s `ωₙ` crux, transitively Ward-blocked), not
+⚠️ This is not general `n` (see below), not
 `#E[n] = n²`, and not the `weilPairingElt`-level Galois statements, which are `#456` and are merged
 in `WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`.
+
+⚠️ **The reason this used to give for general `n` was wrong** — it read *"not general `n` (which
+needs `#404`'s `ωₙ` crux, transitively Ward-blocked)"*.  `[n]∗` needs no `y`-coordinate division
+polynomial (`#1165`), and the rung-5 root and the whole rung-6 translation slot are now stated at
+every `n`, with the non-constancy side condition discharged at every `3`-smooth `n` (`#1304`,
+`#1308`).  What general `n` waits on here is the **two-slot** pairing itself: `weilPairingN` and
+`weilPairingNHom` are names this tree declares at no index but `2` and `3`
+(`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]`
+they carry enters through `hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed`
+(`#791`/`#825`).
 
 ## References
 

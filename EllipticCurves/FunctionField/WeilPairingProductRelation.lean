@@ -133,8 +133,18 @@ from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_
 producer do **not**, and are stated without it.
 
 ⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at both `n`.
-So is general `n` (`#404`'s `ωₙ` crux), and rung 4 itself (`#414`/`#421`/`#422`) — which this file
+So is general `n` (see below), and rung 4 itself (`#414`/`#421`/`#422`) — which this file
 does not use and does not advance.
+
+⚠️ **The reason that sentence used to give for general `n` was wrong** — it read *"So is general `n`
+(`#404`'s `ωₙ` crux)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the
+rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  General `n` is
+out of scope here for the reason the same sentence gives one clause earlier, `hprin`: its only
+producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is the
+fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read
+along two axes, not two gates, and `#404` is not on this file's path at all.
 
 ⚠️ **The `n = 2` and `n = 3` statements are pinned to `Classical.propDecidable`**, because they
 mention `W.torsion n` and the base-field group law.  The generic layer above is not, and carries

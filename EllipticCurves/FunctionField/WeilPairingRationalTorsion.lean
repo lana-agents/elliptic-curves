@@ -79,11 +79,21 @@ about a curve over `F` itself, everything else about a curve over `S` base-chang
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, as everywhere on this front.  ⚠️ The ceiling here is
+* **General `n`** — the two-slot pairing itself; see the end of this bullet.  ⚠️ The ceiling here is
   `#938`'s and not `#940`'s, and the difference matters: surjectivity is blocked at composite `n`
-  **twice**, by the crux and independently by the prime-order step in
+  **twice**, by the pairing's own ceiling and independently by the prime-order step in
   `MonoidHom.surjective_of_ne_one_of_natCard_prime`.  This theorem inherits both, so `#940`'s
   "blocked only once" does not transfer to it.
+  ⚠️ **The reason this used to give for general `n` was wrong** — it read *"`#404`'s `ωₙ` crux, as
+  everywhere on this front"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the
+  rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+  non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general
+  `n` waits on here is the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are
+  names this tree declares at no index but `2` and `3` (`WeilPairingFunctionTwo`,
+  `WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]` they carry enters through
+  `hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).  ⚠️
+  Everything this bullet says about a **second** obstruction is untouched and is still right; only
+  the first one is renamed.
 * **The field-theoretic restatement**, i.e. literally `μ_3 ⊆ K`.  Turning "fixed by every `σ`"
   into "lies in the base field" needs `[IsGalois S F]`, which nothing *here* asks for.  ⚠️ This
   bullet used to add "and this front carries no `IsGalois` instance anywhere", which was true but

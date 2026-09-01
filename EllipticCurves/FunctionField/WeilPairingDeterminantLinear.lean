@@ -129,8 +129,18 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
   be `0` there.
 * **General `n` is out of scope** and is not merely unproved here: this development has the Weil
-  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ The ceiling is `#404`'s `ωₙ` crux for the
-  pairing itself, and `#938`'s double obstruction at composite `n`.
+  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ The ceiling is the two-slot pairing itself
+  at general `n`, and `#938`'s double obstruction at composite `n`.
+  ⚠️ **The reason this used to give for general `n` was wrong** — it read *"`#404`'s `ωₙ` crux for
+  the pairing itself"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and the
+  rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+  non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What general
+  `n` waits on here is the **two-slot** pairing itself: `weilPairingN` and `weilPairingNHom` are
+  names this tree declares at no index but `2` and `3` (`WeilPairingFunctionTwo`,
+  `WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]` they carry enters through
+  `hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`).  ⚠️
+  Everything this bullet says about a **second** obstruction is untouched and is still right; only
+  the first one is renamed.
 * ⚠️ **This does not touch `EllipticCurves.TateModule.Determinant`.**  `galoisDetTwo` there is
   `LinearEquiv.det` on the `2`-adic Tate module, and identifying it with the cyclotomic character
   needs the pairing at every level `E[2 ^ k]`.  Nothing below is a step towards that.

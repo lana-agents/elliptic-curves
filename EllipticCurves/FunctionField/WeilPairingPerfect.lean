@@ -82,12 +82,22 @@ as enforced by `#918` and `#927`.
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, transitively Ward-blocked, as everywhere on this front.
+* **General `n`** — the two-slot pairing itself; see the end of this bullet.
   ⚠️ **But the second obstruction `#938` carries does not apply here, and a reader will assume it
   does.**  `#938`'s surjectivity argument runs through a group of *prime* order and has no analogue
   at composite `n`; Mathlib's duality is stated for an arbitrary finite abelian group, so the
   argument in this file would transcribe unchanged to any `n` for which `weilPairingNHom` and
   `ker_weilPairingNHom` existed.  One obstruction here, two there.
+  ⚠️ **The reason this used to give for general `n` was wrong** — it read *"`#404`'s `ωₙ` crux,
+  transitively Ward-blocked, as everywhere on this front"*.  `[n]∗` needs no `y`-coordinate division
+  polynomial (`#1165`), and the rung-5 root and the whole rung-6 translation slot are now stated at
+  every `n`, with the non-constancy side condition discharged at every `3`-smooth `n` (`#1304`,
+  `#1308`).  What general `n` waits on here is the **two-slot** pairing itself: `weilPairingN` and
+  `weilPairingNHom` are names this tree declares at no index but `2` and `3`
+  (`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`, `#922`/`#925`), and the `[IsAlgClosed F]`
+  they carry enters through `hprin`, whose only producers are `exists_gS_{two,three}_of_isAlgClosed`
+  (`#791`/`#825`).  ⚠️ The count of obstructions in this bullet is untouched and is still right;
+  only the first one is renamed.
 * **`E[n] ≅ (ℤ/nℤ)²`** — `#242`/`#293`, a different statement whose `n = 2` and `n = 3` instances
   are already merged (`nonempty_torsionTwo_addEquiv`, `nonempty_torsionThree_addEquiv`).  ⚠️ This
   file deliberately does **not** route through them: the duality count needs only finiteness, and

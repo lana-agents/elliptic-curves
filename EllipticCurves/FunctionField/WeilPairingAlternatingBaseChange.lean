@@ -111,8 +111,18 @@ why a namespace mismatch here is invisible to the build: a consumer sitting in
 fully-qualified name is the only thing that checks it.
 
 Out of scope: discharging `hprin` over a general field, which is now the **only** gate; the
-divisor-level half of `#692`; general `n` (`#404`'s `ωₙ`); anything about
+divisor-level half of `#692`; general `n` (see below); anything about
 `WeilPairingAlternating{Two,Three}`, which are untouched.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  ⚠️ The same
+sentence already says `hprin` over a general field is **the only gate**, and that is right: its only
+producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input is the
+fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  General `n` was never a second entry
+beside it, and `#404` is not on this file's path.
 
 ## Non-vacuity
 

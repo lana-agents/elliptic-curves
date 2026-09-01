@@ -95,11 +95,23 @@ applied directly.  A reader looking for the `exact` to bind will not find one.
 `[Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]` throughout.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
-`F̄`; general `n` (`#404`'s `ωₙ`); rung 4 (`#414`/`#421`/`#422`), which is not in this path;
+`F̄`; general `n` (see below); rung 4 (`#414`/`#421`/`#422`), which is not in this path;
 non-degeneracy; bundling into `weilPairingMuHom` — `WeilPairingDivisorSlotHom` explains why the
 translation slot wants a map out of the torsion subgroup of `W.Point` rather than out of a
 subobject of `F(W)`, and nothing here touches that obstruction; any change to the five existing
 `translatePoint_add` theorems or their proofs.
+
+⚠️ **The general-`n` entry above used to carry a reason, and the reason was wrong** — it read
+*"general `n` (`#404`'s `ωₙ`)"*.  `[n]∗` needs no `y`-coordinate division polynomial (`#1165`), and
+the rung-5 root and the whole rung-6 translation slot are now stated at every `n`, with the
+non-constancy side condition discharged at every `3`-smooth `n` (`#1304`, `#1308`).  What confines
+the headlines above to `n = 2, 3` is the **same** `hprin` the previous clause already names:
+its only producers over `F̄` are `exists_gS_{two,three}_of_isAlgClosed` (`#791`/`#825`), whose input
+is the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))`, merged only at `n = 2`
+(`MulByTwoFibreAffine`) and `n = 3` (`MulByThreeFibre`).  ⚠️ So the two entries are one gate read
+along two axes, not two gates, and `#404` is not on this file's path at all.  The general-`n` forms
+of these statements, with `hprin` still a hypothesis, are
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` (`#1308`).
 
 ⚠️ **The two slots are combined elsewhere, and not by extending either of them.**  This bullet
 used to read *"The two slots are not combined into a single bilinearity statement.  That would want
