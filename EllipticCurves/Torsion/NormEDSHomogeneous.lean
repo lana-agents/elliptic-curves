@@ -31,30 +31,45 @@ division polynomials `ψₙ` of a Weierstrass curve this is the familiar stateme
 `n² - 1` under the scaling `(x, y) ↦ (u²x, u³y)`; here it is proved for `normEDS` directly, over an
 arbitrary `CommRing` and with no curve in sight.
 
-## Why this file exists: Ward's relator is homogeneous, and that constrains its proofs
+## The `r = 1` Ward relator is homogeneous too
 
-`IsEllipticNet.rel W p q 1 0` is the `r = 1` Ward relator whose vanishing for `normEDS` is the open
-half of Mathlib's `IsEllipticDvdSequence` `TODO` (see `EllipticCurves.Torsion.WardR1Core`, where
-what remains is isolated as `WeierstrassCurve.WardGapCore`). The last theorem below,
-`IsEllipticNet.rel_normEDS_homogeneous`, says that this relator is homogeneous of weight
-`2p² + 2q² + 2`:
+`IsEllipticNet.rel W p q 1 0` is the `r = 1` Ward relator, and
+`IsEllipticNet.rel_one_homogeneous_of_scaling` says it is homogeneous of weight `2p² + 2q² + 2`
+under **any** quadratic grading: if `u * W' n = u ^ n.natAbs ^ 2 * W n` for every `n`, then
 
 ```
-u ^ 4 * rel (normEDS (u ^ 3 * b) (u ^ 8 * c) (u ^ 12 * d)) p q 1 0
-  = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel (normEDS b c d) p q 1 0
+u ^ 4 * rel W' p q 1 0 = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel W p q 1 0.
 ```
 
-⚠️ **This is a constraint on what a `linear_combination` proof of Ward's theorem can look
-like.** Every relator is homogeneous, so in any identity `M * rel … a b 1 0 = ∑ cᵢ * gᵢ`
-between relators the weights must match term by term: each cofactor `cᵢ` is forced to be
-homogeneous of weight `deg M + deg (target) - deg (gᵢ)`. Because the weights grow
-*quadratically* in the indices, that is a tight constraint, and it is one a degree bound
-cannot see — it rules out cofactors of every degree at once rather than up to a search
-horizon.
+Nothing about `normEDS` enters: each of the three summands of `rel` is a four-fold product, and the
+weights add. The `normEDS` instance is `IsEllipticNet.rel_normEDS_homogeneous`.
+
+⚠️ **The `normEDS` instance is, on this tree, an identity between two zeros**, and the general
+statement is not. `WeierstrassCurve.normEDS_rel_one` of `EllipticCurves.Torsion.WardHalving` proves
+`rel (normEDS b c d) p q 1 0 = 0` unconditionally, so `rel_normEDS_homogeneous` is reproved by
+`rw [normEDS_rel_one, normEDS_rel_one, mul_zero, mul_zero]`; it is kept as the record of the grading
+of `normEDS`. A merely *graded* sequence need not satisfy Ward's relation, which is why
+`rel_one_homogeneous_of_scaling` still has content — `IsEllipticNet.exists_scaling_rel_one_ne_zero`
+exhibits `W n = n ^ 3` at `u = 2`, for which `rel W 3 2 1 0 = -12960`.
+⚠️ This file does **not** import `EllipticCurves.Torsion.WardHalving`, and `WardHalving` does not
+import this file either — the two are import-**incomparable**, not one a forward reference to the
+other. This file's only import is `Mathlib.NumberTheory.EllipticDivisibilitySequence`, so its
+closure contains no module of this project but itself, and the only module whose closure contains
+both it and `WardHalving` is the root aggregator `EllipticCurves`. So `normEDS_rel_one` is named
+here and **cannot** be used below.
 
 ⚠️ **What this file does and does not claim.** It proves the homogeneity. It does **not** claim any
 particular certificate does not exist: that is a statement about a search, not a theorem, and it is
-not formalised here. Nothing below bears on `WardGapCore`, which is untouched and not weakened.
+not formalised here.
+
+⚠️ **This paragraph used to price Ward's theorem as open.** It read *"the `r = 1` Ward relator whose
+vanishing for `normEDS` is the open half of Mathlib's `IsEllipticDvdSequence` TODO … what remains is
+isolated as `WeierstrassCurve.WardGapCore`"*, and went on to present the grading as a constraint on
+the `linear_combination` cofactors of a hoped-for proof. `WardGapCore` is now a theorem, proved by a
+strong induction on `|p| + |q|` that halves the index — no `linear_combination` over the relators,
+so the constraint was never used. ⚠️ Mathlib's `IsEllipticDvdSequence` TODO is nonetheless still
+open **upstream**, and only **half** closed here: its other conjunct,
+`IsDvdSequence (normEDS b c d)`, is proved neither in Mathlib nor in this tree.
 
 ## Main statements
 
@@ -65,8 +80,11 @@ not formalised here. Nothing below bears on `WardGapCore`, which is untouched an
   and at an integer index.
 * `not_normEDS_homogeneous_of_b_weight_ne` and its `c`, `d` companions : lowering any one of the
   three weights by `1` makes the scaling law false, so the weights are forced.
-* `IsEllipticNet.rel_normEDS_homogeneous` : the `r = 1` Ward relator of `normEDS` is homogeneous of
-  weight `2p² + 2q² + 2`.
+* `IsEllipticNet.rel_one_homogeneous_of_scaling` : the `r = 1` Ward relator of **any** quadratically
+  graded sequence is homogeneous of weight `2p² + 2q² + 2`.
+* `IsEllipticNet.rel_normEDS_homogeneous` : its `normEDS` instance — ⚠️ both sides vanish on this
+  tree; see its docstring.
+* `IsEllipticNet.exists_scaling_rel_one_ne_zero` : the general statement is not vacuous.
 
 ## References
 
@@ -305,17 +323,23 @@ private lemma natAbs_sq_shift (p q : ℤ) :
   zify [h]
   ring
 
-/-- **Ward's `r = 1` relator of `normEDS` is weighted-homogeneous** of weight
-`2 p ² + 2 q ² + 2`, for `deg b = 3`, `deg c = 8`, `deg d = 12`.
+/-- **The `r = 1` relator is weighted-homogeneous under any quadratic grading.**  If `W'` is `W`
+scaled by `u ^ (n ²)` in the sense that `u * W' n = u ^ n.natAbs ^ 2 * W n` for every `n`, then
 
-⚠️ This is a fact about the relator, not about `WeierstrassCurve.WardGapCore`: it says that any
-identity between relators must balance weights term by term, which forces the shape of every
-`linear_combination` cofactor in a proof of Ward's theorem.  It proves nothing about whether such a
-proof exists. -/
-theorem rel_normEDS_homogeneous (u b c d : R) (p q : ℤ) :
-    u ^ 4 * rel (normEDS (u ^ 3 * b) (u ^ 8 * c) (u ^ 12 * d)) p q 1 0
-      = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel (normEDS b c d) p q 1 0 := by
-  have h := normEDS_homogeneous u b c d
+```
+u ^ 4 * rel W' p q 1 0 = u ^ (2 p² + 2 q² + 2) * rel W p q 1 0.
+```
+
+Nothing about `normEDS` is used: the grading argument only ever needs the scaling law, and each of
+the three summands of `rel` is a four-fold product whose weights add.
+
+⚠️ Stated for a general `W` because the `normEDS` instance below is, on this tree, an identity
+between two zeros — see its docstring.  Here both relators can be nonzero;
+`exists_scaling_rel_one_ne_zero` is the witness. -/
+theorem rel_one_homogeneous_of_scaling {W W' : ℤ → R} (u : R)
+    (h : ∀ n : ℤ, u * W' n = u ^ n.natAbs ^ 2 * W n) (p q : ℤ) :
+    u ^ 4 * rel W' p q 1 0
+      = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel W p q 1 0 := by
   have h1 : ((1 : ℤ)).natAbs ^ 2 = 1 := by decide
   simp only [rel, add_zero]
   have t₁ := mul_four_homogeneous (h (p + q)) (h (p - q)) (h 1) (h 1)
@@ -328,5 +352,37 @@ theorem rel_normEDS_homogeneous (u b c d : R) (p q : ℤ) :
     show 2 * q.natAbs ^ 2 + 2 * p.natAbs ^ 2 + 2 = 2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2
       from by ring] at t₃
   linear_combination t₁ - t₂ + t₃
+
+/-- **Ward's `r = 1` relator of `normEDS` is weighted-homogeneous** of weight `2 p² + 2 q² + 2`, for
+`deg b = 3`, `deg c = 8`, `deg d = 12`.  Instance of `rel_one_homogeneous_of_scaling` at
+`normEDS_homogeneous`.
+
+⚠️ **On this tree both sides of this statement are `0`**, and have been since
+`WeierstrassCurve.normEDS_rel_one` of `EllipticCurves.Torsion.WardHalving` landed:
+`rw [normEDS_rel_one, normEDS_rel_one, mul_zero, mul_zero]` reproves it.  It is kept as the record
+of the grading of `normEDS`, not as a usable fact about the relator — for that use
+`rel_one_homogeneous_of_scaling`, which does not know that `rel (normEDS …) p q 1 0 = 0`.
+⚠️ Not a forward reference: this file does not import `EllipticCurves.Torsion.WardHalving` and is
+not imported by it, so `normEDS_rel_one` is named here and cannot be used. -/
+theorem rel_normEDS_homogeneous (u b c d : R) (p q : ℤ) :
+    u ^ 4 * rel (normEDS (u ^ 3 * b) (u ^ 8 * c) (u ^ 12 * d)) p q 1 0
+      = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel (normEDS b c d) p q 1 0 :=
+  rel_one_homogeneous_of_scaling u (normEDS_homogeneous u b c d) p q
+
+/-- **The hypothesis of `rel_one_homogeneous_of_scaling` is satisfiable with a relator that does not
+vanish**, so that lemma is not the identity between two zeros that its `normEDS` corollary above has
+become.  Witness: `W n = n ^ 3` at `u = 2`, with `W' n = 2 ^ (n² - 1) * n ^ 3`.
+
+⚠️ `n ↦ n ^ 3` is deliberately *not* an elliptic sequence — that is the point.  A graded sequence
+need not satisfy Ward's relation, which is exactly why the general lemma has content and the
+`normEDS` one no longer does. -/
+theorem exists_scaling_rel_one_ne_zero :
+    ∃ (W W' : ℤ → ℤ) (u : ℤ), (∀ n : ℤ, u * W' n = u ^ n.natAbs ^ 2 * W n) ∧
+      rel W 3 2 1 0 ≠ 0 := by
+  refine ⟨fun n => n ^ 3, fun n => 2 ^ (n.natAbs ^ 2 - 1) * n ^ 3, 2, fun n => ?_, by decide⟩
+  rcases eq_or_ne n 0 with rfl | hn
+  · norm_num
+  · have hk : 1 ≤ n.natAbs ^ 2 := Nat.one_le_pow _ _ (Int.natAbs_pos.mpr hn)
+    rw [← mul_assoc, ← pow_succ', Nat.sub_add_cancel hk]
 
 end IsEllipticNet
