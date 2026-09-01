@@ -123,8 +123,12 @@ is possible for a statement about `preΩ`.
 and `n = 1` (both immediate), `n = 2` (the merged `preΨ₄_sq`) and `n = 3` (the algebra that the
 merged `tripling_equation` used to run inline).  What the file settles is **how much is needed at a
 new index, and that it is exactly one univariate identity** — no bivariate work, no hypothesis on
-`(n : F)`, no algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` is the
-crux left in issue `#404`.
+`(n : F)`, no algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` **was**
+the crux left in issue `#404`; it is proved, at every index and over every commutative ring, by
+`WeierstrassCurve.hasPreΩSq` of `EllipticCurves.Torsion.OmegaCrux`, whose only index-dependent
+inputs are this file's `n = 1` and `n = 2` and `EllipticCurves.Torsion.OmegaCharZero`'s `n = 3`.
+⚠️ **The three instances below are exactly the base cases of that proof, so "nothing is proved here
+that was not already available" is unchanged and the instances are not decoration.**
 
 ⚠️ **`HasΨSqDoubling` proves nothing either.**  It is an equivalent phrasing of the same crux at the
 same index, and the equivalence — not a one-way reduction — is the whole of what is claimed for it.
@@ -208,7 +212,10 @@ in the `y`-numerator, which `WeierstrassCurve.Affine.ψ_two_mul_evalEval` identi
 see the module docstring, where the degree count on `preΩₙ` is retained as an independent check.
 
 It is the one index-dependent input of `WeierstrassCurve.Affine.equation_of_hasPreΩSq` below, and
-establishing it at general `n` is the crux left in issue `#404`. -/
+establishing it at general `n` was the crux left in issue `#404`.  ⚠️ It is now a theorem —
+`WeierstrassCurve.hasPreΩSq` of `EllipticCurves.Torsion.OmegaCrux` — so
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` there is `equation_of_hasPreΩSq` with this
+hypothesis discharged. -/
 def HasPreΩSq (n : ℤ) : Prop :=
   W.preΩ n ^ 2 * (if Even n then 1 else W.Ψ₂Sq) =
     4 * W.Φ n ^ 3 + C W.b₂ * W.Φ n ^ 2 * W.ΨSq n + 2 * C W.b₄ * W.Φ n * W.ΨSq n ^ 2 +
@@ -308,9 +315,13 @@ theorem hasPreΩSq_of_hasΨSqDoubling [IsDomain R] {n : ℤ} (hn : (n : R) ≠ 0
   rw [HasΨSqDoubling, ΨSq_two_mul] at h
   exact mul_left_cancel₀ (W.ΨSq_ne_zero hn) h
 
-/-- **The two forms of the crux are equivalent.**  This is the statement to cite when re-scoping
-`#404`: proving `HasΨSqDoubling n` for every curve over every commutative ring is the same job as
-proving `HasPreΩSq n`, and it is stated entirely in Mathlib's division-polynomial vocabulary. -/
+/-- **The two forms of the crux are equivalent.**  Proving `HasΨSqDoubling n` for every curve over
+every commutative ring is the same job as proving `HasPreΩSq n`, and it is stated entirely in
+Mathlib's division-polynomial vocabulary.
+
+⚠️ Both are now theorems (`WeierstrassCurve.hasΨSqDoubling` and `WeierstrassCurve.hasPreΩSq`,
+`EllipticCurves.Torsion.OmegaCrux`), and this equivalence is the crossing the closing proof makes:
+the induction runs on `HasΨSqDoubling`, the base cases are stated as `HasPreΩSq`. -/
 theorem hasPreΩSq_iff_hasΨSqDoubling [IsDomain R] {n : ℤ} (hn : (n : R) ≠ 0) :
     W.HasPreΩSq n ↔ W.HasΨSqDoubling n :=
   ⟨fun h => h.hasΨSqDoubling W, hasPreΩSq_of_hasΨSqDoubling W hn⟩

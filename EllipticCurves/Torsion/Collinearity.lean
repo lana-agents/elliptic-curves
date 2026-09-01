@@ -68,7 +68,14 @@ which says the three collinear points are the *three* intersections of that line
 `#404`'s crux `WeierstrassCurve.HasΨSqDoubling` — `ΨSq₂ₙ = ΨSqₙ·(4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² +
 b₆ΨSqₙ³)`, equivalently `Sₙ² = 4Xₙ³ + b₂Xₙ² + 2b₄Xₙ + b₆` at a point *of the curve* where
 `ΨSqₙ ≠ 0` (the curve equation is what turns `ψ_{2n}²` into `ΨSq_{2n}`) — is the on-curve
-statement, and it is the Vieta half that is missing.
+statement, and it is the Vieta half that is missing **here**.
+
+⚠️ **It is no longer missing, and this file is what supplied the other half.**
+`EllipticCurves.Torsion.NetVieta` proves that the Vieta defect `4(X_u+X_v+X_w) + b₂ - λ²` is the
+*same for every triple* — one further instance of the same `s ≠ 0` relation, at
+`(p, q, r, s) = (n-1, n-2, n, 1)` — so three base cases pin it to `0`, and
+`EllipticCurves.Torsion.OmegaCrux` cashes that out as `WeierstrassCurve.hasΨSqDoubling`.
+`cyclic_two_mul_eq_zero` below is the collinear half that proof consumes.
 
 ⚠️ **That split is measured, not proved here, and nothing below is conditional on it.**  The
 measurement: in the free model `W = normEDS b c d` over `𝔽_p`, `p = 2⁶¹ - 1`, with `x, b₂, b₄, b, c,
@@ -259,7 +266,8 @@ determinant with rows `(1, Xₙ, Sₙ)`.
 
 ⚠️ It is a statement about the division polynomials, **not** about `u • P`, `v • P`, `w • P`; see
 the module docstring.  ⚠️ It is also only the *collinear* half of the group law — the Vieta half,
-which is `#404`'s crux, is not proved here and nothing here is conditional on it. -/
+which is `#404`'s crux, is not proved here and nothing here is conditional on it.  It is proved in
+`EllipticCurves.Torsion.OmegaCrux`, from this lemma. -/
 theorem collinear_div (h : W.Equation x y) {u v w : ℤ} (huvw : u + v + w = 0)
     (hu : (W.ΨSq u).eval x ≠ 0) (hv : (W.ΨSq v).eval x ≠ 0) (hw : (W.ΨSq w).eval x ≠ 0) :
     (W.ψ (2 * u)).evalEval x y / (W.ΨSq u).eval x ^ 2

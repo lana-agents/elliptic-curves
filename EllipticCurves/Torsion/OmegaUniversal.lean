@@ -17,7 +17,9 @@ coordinates `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at general `n` to the single univar
 preΩₙ² · (if Even n then 1 else Ψ₂Sq) = 4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² + b₆ΨSqₙ³   in R[X],
 ```
 
-and proves it at `n ∈ {0, ±1, ±2}`.  Establishing it at general `n` is the crux left in `#404`.
+and proves it at `n ∈ {0, ±1, ±2}`.  Establishing it at general `n` was the crux left in `#404`; it
+is proved in `EllipticCurves.Torsion.OmegaCrux`, and **this file's reduction is on that route** —
+the closing proof reaches an arbitrary commutative ring through `hasPreΩSq_of_univQ` below.
 
 As stated, `HasPreΩSq n` is quantified over **every** commutative ring `R` and **every**
 `W : WeierstrassCurve R`.  This file shows it does not have to be.  Every polynomial in it —
@@ -57,14 +59,17 @@ What the reduction is *for* is cashed out one file later.
 `WeierstrassCurve.hasPreΩSq_three`: the polynomial identity at `n = 3` over **every** commutative
 ring, including where `2 = 0`, out of an evaluated lemma that assumes `(2 : F) ≠ 0` — and with no
 new algebra at all.  ⚠️ That is a new *index*, not a new *proof*: `HasPreΩSq` at **general** `n` is
-untouched by either file and is still the crux left in `#404`.
+untouched by either file.
 
-⚠️ **The circularity to be aware of before attacking the crux.**  The classical proof of this
-identity identifies `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` and then observes that
-a point of the curve satisfies the curve's equation.  That identification is the *other* open
-statement (`#251`), and `#251`'s own analysis records that it runs through `ωₙ`, i.e. through this
-identity.  The two are faces of one induction; a proof must either do both together or find the
-order in which neither is assumed.
+⚠️ **The circularity, and how it was avoided.**  The classical proof of this identity identifies
+`(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` and then observes that a point of the curve
+satisfies the curve's equation.  That identification is the *other* open statement (`#251`), and
+`#251`'s own analysis records that it runs through `ωₙ`, i.e. through this identity; the two look
+like faces of one induction.  **They are not.**  `EllipticCurves.Torsion.OmegaCrux` proves the
+identity at every `n` with **no group law, no `n • P` and no `#251` input**: the induction is on
+the *Vieta defect* of three division-polynomial points, which Ward's elliptic-net relation controls
+directly.  ⚠️ `#251` is untouched by that and remains open — what is refuted is the claim that it
+has to come first.
 
 ## References
 

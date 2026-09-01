@@ -81,7 +81,13 @@ certificate, and none of this touches `#404`'s crux, which is the statement at *
   instance is *true* — checked at `3 ≤ n ≤ 13` — and it is the one relation the shape of the
   identity suggests, but eliminating `e` through it leaves a nonzero remainder at both parities.
   So `#404` is not reducible to a single named slice of `#260`; it needs more of the elliptic-net
-  relations than that.
+  relations than that.  ⚠️ **Confirmed by the proof that closed it**
+  (`EllipticCurves.Torsion.OmegaCrux`): it consumes four separate relator instances — the `r = 1`
+  slice twice (`x`-differences and collinearity, through
+  `EllipticCurves.Torsion.Collinearity`), the `s ≠ 0` instance `rel W p (p+q) (p-q) q`, and the
+  `s ≠ 0` instance `rel W (n-1) (n-2) n 1` together with the odd base relator `rel W n (n-1) 1 0`.
+  ⚠️ It also does **not** run on `Tₙ` at all, which is why no uniform certificate on `Tₙ` was
+  found: the uniform step is a step on the Vieta defect.
 
 ## Cost, and what is deliberately absent
 
