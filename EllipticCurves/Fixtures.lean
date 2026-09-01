@@ -101,18 +101,25 @@ proves `IsElliptic`, and touches no point at all. Every consuming block imports 
 anyway for its own statements, so **this buys no build time**; it is here because a leaf that
 ~119 files import should carry the import it uses and no more.
 
-## The base-changed `IsElliptic` instances: the 18 that are NOT here, and the 4 that are alive
+## The base-changed `IsElliptic` instance: the one below, and the 18 it replaced
+
+`EllipticCurves.Fixture.instIsEllipticBaseChange` below is the general
+`[W.IsElliptic] → (W⁄F).IsElliptic` bridge for the whole library. ⚠️ **It mentions none of this
+module's curves and is stated for an arbitrary elliptic curve and an arbitrary base change**; its
+own docstring gives the copy-not-move reasoning and the second general instance it deliberately
+leaves in place. The rest of this section is the measurement that produced it, kept because it is
+the evidence, not the news.
 
 ⚠️ **Measured on `db0c65b` (`#1405`) and pinned to it**, in the sense the paragraph on counts above
-sets out. PR #535 (`#1397`) deletes one of the eighteen, so this is an 18-row measurement at that
-commit rather than a description of the tree today, and it must not be "corrected" to the current
-tree.
+sets out. It is an 18-row measurement at that commit and **must not be "corrected" to the current
+tree**, where the number of `private` base-change fixtures is **0**: PR #535 (`#1397`) deleted the
+first and `#1408` the other seventeen.
 
 `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by bare
-`inferInstance` from `[W.IsElliptic]`, and eighteen files carry their own two-line
+`inferInstance` from `[W.IsElliptic]`, and eighteen files used to carry their own two-line
 `private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic := inferInstanceAs …` to bridge it.
 `#1405` deleted each of the eighteen in turn and re-elaborated its own module with `lake env lean`.
-**Four are load-bearing; fourteen are dead.**
+**Four were load-bearing; fourteen were dead.**
 
 | module whose fixture is load-bearing | `failed to synthesize` after deleting it |
 | --- | --- |
@@ -121,15 +128,16 @@ tree.
 | `FunctionField.MulByNPlacePullback` | **12** = **3** `IsElliptic` + **9** `IsDedekindDomain` |
 | `FunctionField.MulByNTranscendence` | **4**, all `IsElliptic` |
 
-The other fourteen re-elaborate at exit `0` with **zero** errors. ⚠️ **Group the failures by class
+The other fourteen re-elaborated at exit `0` with **zero** errors. ⚠️ **Group the failures by class
 before quoting a count**: `MulByNPlacePullback`'s headline `12` is three quarters the *dependent*
 class `IsDedekindDomain ((y2AddYEqX3 ℚ)⁄AlgClosedQ).CoordinateRing`, and
 `grep -A1 "failed to synthesize" | grep "^  " | sort | uniq -c` is the whole recipe.
 
 ⚠️ **`private` hides a NAME, not an INSTANCE** (`#1397`). A `private instance` takes part in
 typeclass resolution in every module downstream of the one that declares it. So a dead fixture is
-dead because *another file's* `private` one is winning — measured, that is the supplier at all
-fourteen — and never because this module supplies it. This module supplies none of them.
+dead because *another file's* `private` one is winning — measured, that was the supplier at all
+fourteen, and at `db0c65b` this module declared no base-change instance for any of them to
+reach.
 
 **The rule, and it is exact on all eighteen.** A fixture is dead **iff** some other fixture-bearing
 module in its `EllipticCurves`-import closure elaborates against the *same* `Algebra ℚ AlgClosedQ`
@@ -144,14 +152,26 @@ answers differ**: `TateModule.FreeThree` has two fixture modules in closure and
 closure predicts both are dead and both are in fact load-bearing. Import distance has been the
 stated argument for this family more than once; run the deletion instead.
 
-⚠️ **None of the fourteen is deleted, and the reason is not that they are useful.** Each is kept
-alive only by another file's `private` fixture, which no import names and nothing pins; deleting
-them would replace fourteen independent two-line bridges with one hidden cascade rooted at
-`TateModule.FreeThree` and `Torsion.ThreePrimary`. `#1408` is the version that is safe, and it is
-**spiked**: a two-line general `(W⁄F).IsElliptic` instance *in this module* lets all eighteen be
-deleted with a green root build at the same job count. It needs nothing beyond the two Mathlib
-imports above, so the leaf property survives it — and ⚠️ **the leaf property is what makes it work,
-not what prevents it**, which is the opposite of what two of the fixture docstrings used to say.
+⚠️ **Deleting the fourteen dead ones on their own would have been the wrong move, and that is why
+`#1408` did something else.** Each was kept alive only by another file's `private` fixture, which
+no import names and nothing pins, and every `TateModule/` chain rooted at `TateModule.FreeThree`;
+removing them by themselves would have traded fourteen independent two-line bridges for one hidden
+cascade. `#1408` removed the cascade instead, by putting the quantified instance below in a module
+all eighteen already import — and a quantified instance is what the rule above says is needed,
+since it matches at either `Algebra ℚ AlgClosedQ` path where a fixture matches at only one.
+
+⚠️ **The leaf property is what makes that work, not what prevents it**, which is the opposite of
+what two of the fixture docstrings used to say. Their argument was that the tree's only general
+`(W⁄F).IsElliptic` sits in `EllipticCurves.FunctionField.GaloisFunctionField`, downstream of
+`Torsion/`, and that `Fixtures` is a leaf importing no `EllipticCurves` module at all. Both clauses
+are true; what is downstream is that instance's *address*, and the instance itself needs only
+`baseChange`, `map` and `IsElliptic` — all Mathlib, all already in this module's closure.
+
+⚠️ **What `#1408` did not change**: no `#916` certificate, no statement and no proof term. Root
+`lake build EllipticCurves --wfail` is green at the same job count as before, and the four
+positive-characteristic certificates listed at the top of this docstring are untouched — they are
+`IsElliptic` over `ZMod 2` / `ZMod 5`, not base changes, and the instance below does not serve
+them.
 
 ## Characteristic side-conditions
 
@@ -282,5 +302,46 @@ instance : (y2EqX3Add4X F).IsElliptic := by
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 end CharZero
+
+/-- **The base change `W⁄F` of an elliptic curve is elliptic.**
+
+⚠️ **This is the only declaration in this module stated for an arbitrary curve**: it mentions
+none of the five fixtures above and serves any `[W.IsElliptic]` over any base change. It lives
+here because of this module's leaf property rather than in spite of it — see below.
+
+`WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found from
+`[W.IsElliptic]` by bare `inferInstance`; `inferInstanceAs` on the unfolded `map` form is what
+closes it. That two-line bridge used to be written out privately in **eighteen** `section
+Nonvacuity` blocks, once per file. This instance replaces all of them (`#1408`).
+
+⚠️ **It needs nothing from `EllipticCurves` and nothing beyond this module's two Mathlib imports**,
+so the leaf property survives — and the leaf property is what makes the instance useful here. The
+library's other general `(W⁄F).IsElliptic` is
+`WeierstrassCurve.Affine.CoordinateRing.instIsEllipticBaseChange`, declared in
+`EllipticCurves.FunctionField.GaloisFunctionField`; that module is downstream of `TateModule/` and
+`Torsion/`, so fifteen of the eighteen sites could not reach it. Two docstrings used to give
+exactly that as the reason their fixture could not move here, adding that *"`Fixtures` is a leaf
+that imports no `EllipticCurves` module at all"*. Every clause was true and the conclusion was
+backwards: what is downstream is the *address* of that instance, not the instance, which needs only
+`baseChange`, `map` and `IsElliptic`.
+
+⚠️ **Copied, not moved, and the reason is a dependency direction rather than tidiness.**
+`instIsEllipticBaseChange` in `GaloisFunctionField` stays where it is. Relocating it would force
+that module — a real API file — to `import EllipticCurves.Fixtures`, and everything in this module
+exists to make non-vacuity certificates non-vacuous and is *not* part of the mathematical API. A
+certificate layer may depend on the API; the API must not depend on the certificate layer. The two
+are definitionally the same term, so no diamond arises and instance search simply picks one; the
+root build is green with both. ⚠️ Two further reasons not to move it: this one is stated over
+`[CommRing S] [CommRing F]` where that one sits in a field-and-`Algebra` `variable` block, so they
+are not interchangeable in general; and that one's docstring carries the `#1277`
+auto-generated-name finding, which is the only record of it.
+
+⚠️ **Named rather than anonymous, for that same `#1277` reason.** Left anonymous, an instance whose
+elaborated type mentions no constant of this project gets the lake **library** name appended by
+`Lean.Elab.NameGen.mkBaseNameWithSuffix`, and the `defsWithUnderscore` linter does not report it
+because `IsElliptic` is a `Prop`. -/
+instance instIsEllipticBaseChange {S F : Type*} [CommRing S] [CommRing F] [Algebra S F]
+    {W : WeierstrassCurve S} [W.IsElliptic] : (W⁄F).IsElliptic :=
+  inferInstanceAs (W.map (algebraMap S F)).IsElliptic
 
 end EllipticCurves.Fixture
