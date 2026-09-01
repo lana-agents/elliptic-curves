@@ -26,6 +26,71 @@ different types with the same elements.  This file is the one-declaration bridge
 brick its two consumers — `EllipticCurves.FunctionField.MulByNGaloisGroup` for `[n]∗F(W)` and
 `EllipticCurves.FunctionField.NegYGaloisGroup` for `F(x)` — had to build.
 
+## Import weight, and ⚠️ the `^import` regex that silently under-reads it
+
+Measured at `320f413` with a header-only walker (block comments skipped nesting-aware, so the
+`import Mathlib` inside `Mathlib/Tactic/Rify.lean`'s docstring is not read as an edge), over this
+project plus all nine `.lake/packages` — 9837 modules, the package's own nested `.lake/` build tree
+excluded.  Module counted in its own closure.
+
+| module | `EllipticCurves` closure | total closure | total under `^import\s` alone |
+| --- | --- | --- | --- |
+| `Galois.SubfieldAut` (this file) | **0** | **968** | 3 |
+| `FunctionField.NegYGaloisGroup` | 22 | 2668 | 47 |
+| `FunctionField.MulByNGaloisGroup` | 74 | 2802 | 115 |
+
+The relocation that created this file is what the first column is for: on **one tree**, across the
+single commit `008fea7`, `NegYGaloisGroup`'s project closure fell **71 → 19** — it is 22 today, the
+tree having grown from 359 modules to 387 — while `MulByNGaloisGroup` rose 70 → 71, the one new
+module being this one.  ⚠️ That saving is **52** modules as measured here; `#1259` and `#1267`
+record it as 53, and I have not reconciled the one-module difference — take the method above, not
+either number, as the thing to re-run.
+
+⚠️ **The third column is not a typo, and it is the reason to write this section down.**  Mathlib at
+this pin uses the Lean module system, so `Mathlib/Algebra/Algebra/Equiv.lean` — this file's own
+first import — opens `module` / `public import Mathlib.Algebra.Algebra.Hom`, and a script matching
+`^import\s+(\S+)` reads it as importing **nothing**.  The pattern that works is
+
+```python
+re.compile(r'^(?:public |private |meta |protected )*import\s+(?:all\s+)?(\S+)')
+```
+
+⚠️ **Why the bug does not announce itself.**  Nothing in this development writes `public import`, so
+the *project* column is exact under either pattern and every project-side sanity check passes.  Only
+the total is wrong, and it is wrong by a factor of 24 to 320 — a number small enough to look like a
+plausible import count rather than an absurd one.  Census, `.lean` files / with a `^public import `
+line / with a plain `^import ` line:
+
+| tree | files | `^public import ` | `^import ` |
+| --- | --- | --- | --- |
+| `EllipticCurves/` | 386 | **0** | **386** |
+| `.lake/packages/mathlib/Mathlib` | 8264 | **8246** | 381 |
+| batteries | 254 | 127 | 82 |
+| aesop | 250 | 125 | 161 |
+| proofwidgets | 46 | 25 | 5 |
+| importGraph | 37 | 18 | 22 |
+| Qq | 28 | 12 | 15 |
+| plausible | 28 | 6 | 17 |
+| Cli | 5 | 3 | 2 |
+| LeanSearchClient | 8 | 0 | 0 |
+
+⚠️ **The project row is the control**: if it does not come out `0` public and one plain
+`import` line per file, the census is reading the wrong tree.  (Its *file count* is not the
+control — it was 360 when this was first measured and is 386 now.)
+
+⚠️ **The module system is a toolchain convention, not a Mathlib one.**  **Eight** of the nine
+vendored packages use `public import` — every one but `LeanSearchClient`, which has no `import`
+line at all.  Scoping a verification `grep` to `Mathlib/` bounds the blind spot over Mathlib
+alone, while every closure above walks all nine.  The same holds for `import all M`, which
+suppresses nothing but must still be matched: `Mathlib/` writes it 23 times in 21 files,
+`MathlibTest/` in 10 more, and **Batteries in 13** — of the **10** `import all` modules inside
+this file's own closure, **5 are Batteries'**.
+
+⚠️ **Do not take a matching total as evidence your pattern is right.**  At this SHA, dropping the
+`(?:all\s+)?` alternative changes **none** of the three totals, because every `import all` target is
+reachable by another path — so that alternative is a correctness requirement whose omission is
+invisible in exactly the way `public import`'s is not.
+
 ## Mathlib has no name for this
 
 ⚠️ Re-grepped at Lean `v4.32.0` / Mathlib `v4.32.0` before this file was cut, and the position is
