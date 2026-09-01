@@ -42,7 +42,11 @@ which it does not, and that is not repeated here. `G`'s Krull topology is the pr
 `F / S` is Galois, and `[IsGalois S F]` is assumed by neither this file nor
 `EllipticCurves.TateModule.Continuity` — it is under that hypothesis, downstream again, that
 `profiniteGrpGalois` (`EllipticCurves.TateModule.PrimaryImageProfinite`) names `G` as an object of
-`ProfiniteGrp`, on instances Mathlib supplies.
+`ProfiniteGrp`, on instances Mathlib supplies. ⚠️ That one is not free either, and in two ways
+its source is careful about. Its signature keeps `[Algebra.IsIntegral S F]`: the `omit` written
+ahead of it is inert, because `omit … in` is ignored ahead of an `abbrev`. And it is stated in a
+small-universe section, for `S F : Type`, which this file's `Type*` does not meet. So it names `G`
+as a profinite group at a restricted generality, not the `G` of this file's `variable` line.
 
 ## Main definitions
 
