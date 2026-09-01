@@ -46,16 +46,35 @@ characteristic `2` — and `EllipticCurves.FunctionField.NegYGalois`,
 `EllipticCurves.FunctionField.NegYInvolution` and `EllipticCurves.FunctionField.MulByNDegreeTower`
 do the same over `ZMod 2`, `ZMod 2` and `ZMod 5`. In full, so that no sweep has to rediscover it:
 
-* `FunctionField/NegYGaloisGroup.lean:279`, `exampleCurveNegYGalois`, `⟨0,0,1,0,0⟩`, over
+* `FunctionField/NegYGaloisGroup.lean`, `exampleCurveNegYGalois`, `⟨0,0,1,0,0⟩`, over
   `exampleFieldNegYGalois`;
-* `FunctionField/NegYGalois.lean:393`, `exampleCurveChar2`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
-* `FunctionField/NegYInvolution.lean:468`, `exampleCurveTwo`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
-* `FunctionField/MulByNDegreeTower.lean:281`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`.
+* `FunctionField/NegYGalois.lean`, `exampleCurveChar2`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
+* `FunctionField/NegYInvolution.lean`, `exampleCurveTwo`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
+* `FunctionField/MulByNDegreeTower.lean`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`.
 
 All four prove `IsElliptic` by `decide +kernel`. ⚠️ `NegYGalois` and `NegYGaloisGroup` are two
 different files with near-identical names, both in `FunctionField/` and both certifying over
 `ZMod 2`; the quotation above belongs to `NegYGaloisGroup`, and `exampleFieldNegYGalois` is that
 file's own `private abbrev` for `ZMod 2`.
+
+⚠️ **Each row is a file plus a declaration name and carries NO line number, on purpose. Do not add
+them back.** The rows did carry `file.lean:NNN`, and three of the four went stale in one commit.
+The `#1373` sweep added a single `import` line to the top of each of the 98 files it migrated, so
+every line above such a file's `section Nonvacuity` block moved by `+1` and everything below it by
+that block's own delta: `393 → 391`, `468 → 466`, `281 → 282`, while `NegYGaloisGroup` — the one
+file of the four the sweep does not touch — stayed at `279`. ⚠️ **Nothing on this board detects
+that.** A build, `lake lint`, the `#907` name-keyed comparator, the environment enumeration and the
+`section Nonvacuity` source comparator are all silent on a docstring integer, so this list would
+have gone on being wrong for exactly as long as someone trusted it — which is the one thing it
+exists not to do. A declaration name resolves in one `grep -n` and never decays, and each row
+already names the curve literal and the base, so the number was carrying nothing a reader could not
+get more reliably without it. ⚠️ **The same reasoning applies to any `file.lean:NNN` anywhere in
+this library while the migration is in flight**: name the declaration, not the line.
+
+⚠️ **This is not the rule that governs the census below, and the two must not be conflated.** A
+count is a historical measurement and is pinned precisely so that it is *not* corrected to the
+current tree; an address is worth only what it resolves to. Do not read *"the numbers must not be
+corrected"* as covering anything in this list.
 
 Those bases are not of characteristic zero, so the instances below do not apply, and the missing
 piece is an import: `Mathlib.FieldTheory.Finite.Basic` is what supplies `Field (ZMod p)` and makes

@@ -182,7 +182,10 @@ bijectivity, off the counting that `#E[3] = 9` already performed inside `finrank
 ⚠️ **That buys less than "independent of `#951`'s independence lemma", and the file's Scope section
 says so.**  `intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_three` is not *cited* anywhere below, but
 `exists_zsmul_add_zsmul_eq_three` — which is cited — proves injectivity of `(ℤ/3)² → E[3]` with it
-before it counts, at `EllipticCurves/FunctionField/WeilPairingDeterminant.lean:357`.  So it is
+before it counts, inside its own proof in `EllipticCurves/FunctionField/WeilPairingDeterminant.lean`
+(the `obtain ⟨hu, hv⟩ :=` step).  ⚠️ This used to cite a line number there and the line had already
+moved — by nothing but the `import` line the `#1373` sweep added to that file.  The enclosing
+theorem and the step are named instead, because a name resolves and a number decays.  So it is
 consumed one level down and this file is not independent of it; what the rank argument buys is only
 that injectivity is not re-derived here. -/
 noncomputable def torsionThreePairingEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
