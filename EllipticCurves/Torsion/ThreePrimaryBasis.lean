@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.PrimaryBasis
 import EllipticCurves.Torsion.ThreePrimary
 
@@ -239,32 +240,32 @@ over an algebraic closure of `ℚ`, which is the curve
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` — this development's standard `n = 3` curve,
+chosen because `Ψ₃ = 3X(X³ + 1)` factors and `(0, 0)` is a rational `3`-torsion point — and its
+algebraically closed base are the shared `EllipticCurves.Fixture.y2AddYEqX3` and
+`EllipticCurves.Fixture.AlgClosedQ`, which also supply `(y2AddYEqX3 ℚ).IsElliptic` from a single
+`[CharZero F]` instance.  Only the **base-changed** instance below is still local to this file; see
+its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+bare `inferInstance` from `[W.IsElliptic]`.  ⚠️ It stays local rather than moving to
+`EllipticCurves.Fixtures` for the reason `EllipticCurves.Torsion.ThreePrimary`'s copy records: the
+only general `(W⁄F)` instance in the tree lives in `FunctionField/`, which is downstream. -/
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, the `3`-primary tower really does
 carry a coherent system of generating pairs. -/
-example : ∃ P Q : ℕ → (exampleCurveThree⁄exampleField).Point,
-    (∀ k, AddSubgroup.closure ({P k, Q k} : Set (exampleCurveThree⁄exampleField).Point)
-      = (exampleCurveThree⁄exampleField).torsion (3 ^ k)) ∧
+example : ∃ P Q : ℕ → ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Point,
+    (∀ k, AddSubgroup.closure ({P k, Q k} : Set ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Point)
+      = ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion (3 ^ k)) ∧
     (∀ k, 3 • P (k + 1) = P k) ∧ (∀ k, 3 • Q (k + 1) = Q k) :=
   exists_compatible_basis_three exampleTwo exampleThree
 
@@ -285,9 +286,9 @@ inst✝² : DecidableEq F
 W : Affine F
 inst✝¹ : IsAlgClosed F
 inst✝ : WeierstrassCurve.IsElliptic W
-P Q : ℕ → (exampleCurveThree⁄exampleField).Point
+P Q : ℕ → ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Point
 hgen : ∀ (k : ℕ),
-  AddSubgroup.closure {P k, Q k} = (exampleCurveThree⁄exampleField).torsion (3 ^ k)
+  AddSubgroup.closure {P k, Q k} = ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion (3 ^ k)
 ⊢ P 1 ≠ 0 ∧ Q 1 ≠ 0 ∧ P 1 ≠ Q 1
 ```
 
@@ -295,12 +296,15 @@ hgen : ∀ (k : ℕ),
 exactly the non-degeneracy, and `hgen` alone does not give it. (The ambient `F`, `W` and their
 instances appear in the context because this `example` sits inside the file's section variable
 block; they are not used.) ⚠️ The `hgen` line is reflowed here to stay inside 100 columns; the
-compiler prints it on one line. -/
-example : ∃ P Q : (exampleCurveThree⁄exampleField).Point,
-    AddSubgroup.closure ({P, Q} : Set (exampleCurveThree⁄exampleField).Point)
-      = (exampleCurveThree⁄exampleField).torsion (3 ^ 1) ∧ P ≠ 0 ∧ Q ≠ 0 ∧ P ≠ Q := by
+compiler prints it on one line.  ⚠️ The transcript was **re-run** when this block moved onto the
+shared fixtures — `refine ⟨P 1, Q 1, hgen 1, ?_⟩` in place of the `exact` — so the names in it are
+the ones the compiler prints today, not the pre-migration ones.  (`exact … ?_` instead reports
+`don't know how to synthesize placeholder for argument \`right\`` on the same goal.) -/
+example : ∃ P Q : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Point,
+    AddSubgroup.closure ({P, Q} : Set ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Point)
+      = ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion (3 ^ 1) ∧ P ≠ 0 ∧ Q ≠ 0 ∧ P ≠ Q := by
   obtain ⟨P, Q, hgen, -, -⟩ :=
-    exists_compatible_basis_three (W := exampleCurveThree⁄exampleField) exampleTwo exampleThree
+    exists_compatible_basis_three (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo exampleThree
   exact ⟨P 1, Q 1, hgen 1,
     ne_zero_and_ne_of_closure_pair_three exampleTwo exampleThree le_rfl (hgen 1)⟩
 

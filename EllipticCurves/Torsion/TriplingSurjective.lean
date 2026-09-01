@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.DoublingSurjective
 
 /-!
@@ -498,50 +499,51 @@ preΨ₄ = 2X⁶ + 40X³ − 16    preΨ₄(2) = 128 + 320 − 16 = 432
 ```
 
 ⚠️ `Φ₃(2)` is read off `Φ_three_eval`, `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq`, rather than by unfolding
-`exampleCurve.Φ 3`, whose definition is a recursion. -/
+`(y2EqX3AddOne ℚ).Φ 3`, whose definition is a recursion. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve is the shared `EllipticCurves.Fixture.y2EqX3AddOne` at `R = ℚ`:
+`y² = x³ + 1`, of discriminant `−432`.  ⚠️ It is the curve here because it carries the rational
+pair the tripling formula needs — `(2, 3)` is on it, is not fixed by negation, and has
+`Ψ₃(2) = 72 ≠ 0` — over a base that is **not** algebraically closed; the shared docstring records
+the same constraint.  `(y2EqX3AddOne ℚ).IsElliptic` comes from the single `[CharZero F]` instance
+in `Fixtures`. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- The tripling point `P = (2, 3)` lies on the curve: `8 + 1 = 9 = 3²`. -/
-private lemma equation_exampleCurve_two : exampleCurve.Equation 2 3 := by
-  rw [Affine.equation_iff]; norm_num [exampleCurve]
+private lemma equation_y2EqX3AddOne_two : (y2EqX3AddOne ℚ).Equation 2 3 := by
+  rw [Affine.equation_iff]; norm_num [y2EqX3AddOne]
 
 /-- The tripled point `Q = (−1, 0)` lies on the curve: `−1 + 1 = 0 = 0²`.  It is the point of order
 `2`, being fixed by negation. -/
-private lemma equation_exampleCurve_neg_one : exampleCurve.Equation (-1) 0 := by
-  rw [Affine.equation_iff]; norm_num [exampleCurve]
+private lemma equation_y2EqX3AddOne_neg_one : (y2EqX3AddOne ℚ).Equation (-1) 0 := by
+  rw [Affine.equation_iff]; norm_num [y2EqX3AddOne]
 
 /-- The three hypotheses of the tripling formula at `(2, 3)`, exhibited together.
 
 ⚠️ Deliberately anonymous, and deliberately not folded into the certificate below: it is about
 `addX_add_self_mul_ΨSq_three_eval`'s hypotheses — on the curve, **not fixed by negation**, and
 `Ψ₃(x) ≠ 0` — which is a different job from being a root of `Φ₃ − x₀·Ψ₃²`.  Its first conjunct is
-`equation_exampleCurve_two` rather than a second copy of that proof. -/
-example : exampleCurve.Equation 2 3 ∧ (3 : ℚ) ≠ exampleCurve.negY 2 3
-    ∧ exampleCurve.Ψ₃.eval 2 ≠ 0 := by
-  refine ⟨equation_exampleCurve_two, ?_, ?_⟩
-  · norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
-  · norm_num [exampleCurve, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+`equation_y2EqX3AddOne_two` rather than a second copy of that proof. -/
+example : (y2EqX3AddOne ℚ).Equation 2 3 ∧ (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3
+    ∧ (y2EqX3AddOne ℚ).Ψ₃.eval 2 ≠ 0 := by
+  refine ⟨equation_y2EqX3AddOne_two, ?_, ?_⟩
+  · norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
+  · norm_num [y2EqX3AddOne, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 /-- **The root that does the work**: `Φ₃(2) = −5184 = (−1) · Ψ₃(2)²`.
 
 Through `Φ_three_eval`, `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq`, giving `2·5184 − 432·36 = −5184`, rather than by
-unfolding `exampleCurve.Φ 3`, whose definition is a recursion. -/
-private lemma eval_Φ_three_exampleCurve :
-    (exampleCurve.Φ 3).eval 2 = (-1 : ℚ) * exampleCurve.Ψ₃.eval 2 ^ 2 := by
+unfolding `(y2EqX3AddOne ℚ).Φ 3`, whose definition is a recursion. -/
+private lemma eval_Φ_three_y2EqX3AddOne :
+    ((y2EqX3AddOne ℚ).Φ 3).eval 2 = (-1 : ℚ) * (y2EqX3AddOne ℚ).Ψ₃.eval 2 ^ 2 := by
   rw [Φ_three_eval]
   simp only [WeierstrassCurve.preΨ₄, WeierstrassCurve.Ψ₃, WeierstrassCurve.Ψ₂Sq,
     WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈,
-    exampleCurve]
+    y2EqX3AddOne]
   norm_num
 
 /-- **`(−1, 0)` is three times a rational point of `y² = x³ + 1` over `ℚ`**, with no hypothesis on
@@ -551,12 +553,12 @@ The witness the engine returns is `±(2, 3)`: `exists_nsmul_three_eq_some_of_roo
 point above the root, up to the sign `Point.X_eq_iff` leaves.  ⚠️ What makes this a certificate for
 the finite-level lemma rather than for `exists_nsmul_three_eq` is that `ℚ` is **not** algebraically
 closed — the whole content is that one root of `Φ₃ − x₀·Ψ₃²` is enough. -/
-private theorem exists_nsmul_three_eq_exampleCurve :
-    ∃ P : exampleCurve.Point,
+private theorem exists_nsmul_three_eq_y2EqX3AddOne :
+    ∃ P : (y2EqX3AddOne ℚ).Point,
       (3 : ℕ) • P =
-        Point.some (-1) 0 (equation_iff_nonsingular.mp equation_exampleCurve_neg_one) :=
-  exists_nsmul_three_eq_some_of_root (by norm_num) _ equation_exampleCurve_two
-    eval_Φ_three_exampleCurve
+        Point.some (-1) 0 (equation_iff_nonsingular.mp equation_y2EqX3AddOne_neg_one) :=
+  exists_nsmul_three_eq_some_of_root (by norm_num) _ equation_y2EqX3AddOne_two
+    eval_Φ_three_y2EqX3AddOne
 
 end Nonvacuity
 

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.DivisionPolynomial.Coprime
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.NsmulSurjective
 
 /-!
@@ -393,31 +394,35 @@ at `x = 0 + 1·2 = 2`; `y² = x³ − x`, this subtree's default curve, fails ex
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 5x² + 4x = x(x + 1)(x + 4)` over `ℚ`, of discriminant `2304`. -/
-private noncomputable def halvingExampleCurve : Affine ℚ := ⟨0, 5, 0, 4, 0⟩
+/-! The certificate curve is the shared `EllipticCurves.Fixture.y2EqX3Add5X2Add4X` at `R = ℚ`:
+`y² = x³ + 5x² + 4x = x(x + 1)(x + 4)`, of discriminant `2304`.  ⚠️ **It is chosen for split
+rational `2`-torsion**, which is what makes `T = (0, 0)` a named `ℚ`-point of order `2` and lets
+`Φ₂ = (X² − 4)²` be halved at the rational root `x = 2`; over a curve whose `2`-torsion is not
+rational there is no such `T` to halve and the certificate below would be about nothing.  The
+shared docstring records the same constraint, and the local lemma names were renamed to the fixture
+so that no name here points at a curve that is gone.
 
-private instance : halvingExampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [halvingExampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+`(y2EqX3Add5X2Add4X ℚ).IsElliptic` comes from the single `[CharZero F]` instance in `Fixtures`. -/
+
+open EllipticCurves.Fixture
 
 /-- The `2`-torsion point `T = (0, 0)` lies on the curve. -/
-private lemma equation_halvingExampleCurve_zero : halvingExampleCurve.Equation 0 0 := by
-  rw [Affine.equation_iff]; norm_num [halvingExampleCurve]
+private lemma equation_y2EqX3Add5X2Add4X_zero : (y2EqX3Add5X2Add4X ℚ).Equation 0 0 := by
+  rw [Affine.equation_iff]; norm_num [y2EqX3Add5X2Add4X]
 
 /-- The halving point `P = (2, 6)` lies on the curve: `8 + 20 + 8 = 36 = 6²`. -/
-private lemma equation_halvingExampleCurve_two : halvingExampleCurve.Equation 2 6 := by
-  rw [Affine.equation_iff]; norm_num [halvingExampleCurve]
+private lemma equation_y2EqX3Add5X2Add4X_two : (y2EqX3Add5X2Add4X ℚ).Equation 2 6 := by
+  rw [Affine.equation_iff]; norm_num [y2EqX3Add5X2Add4X]
 
 /-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, since `Φ₂ = (X² − 4)²` here.
 
 ⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 144 − 288 = 0` — rather
 than by unfolding `W.Φ 2`, whose definition is a recursion. -/
-private lemma eval_Φ_two_halvingExampleCurve :
-    (halvingExampleCurve.Φ 2).eval 2 = (0 : ℚ) * halvingExampleCurve.Ψ₂Sq.eval 2 := by
+private lemma eval_Φ_two_y2EqX3Add5X2Add4X :
+    ((y2EqX3Add5X2Add4X ℚ).Φ 2).eval 2 = (0 : ℚ) * (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.eval 2 := by
   rw [Φ_two_eval]
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈, halvingExampleCurve]
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈, y2EqX3Add5X2Add4X]
   norm_num
 
 /-- **`(0, 0)` is twice a rational point of `y² = x(x + 1)(x + 4)` over `ℚ`, with no hypothesis
@@ -426,11 +431,11 @@ whatsoever.**
 The `hP : 2 • P = T` that `exists_gS_two_of_card` and
 `exists_weilPairingElt_self_eq_one_of_card_two` take as an undischarged hypothesis, obtained here
 from one root of `Φ₂` over a field that is not algebraically closed. -/
-private theorem exists_nsmul_two_eq_halvingExampleCurve :
-    ∃ P : halvingExampleCurve.Point,
-      2 • P = Point.some 0 0 (equation_iff_nonsingular.mp equation_halvingExampleCurve_zero) :=
-  exists_nsmul_two_eq_some_of_root _ equation_halvingExampleCurve_two
-    eval_Φ_two_halvingExampleCurve
+private theorem exists_nsmul_two_eq_y2EqX3Add5X2Add4X :
+    ∃ P : (y2EqX3Add5X2Add4X ℚ).Point,
+      2 • P = Point.some 0 0 (equation_iff_nonsingular.mp equation_y2EqX3Add5X2Add4X_zero) :=
+  exists_nsmul_two_eq_some_of_root _ equation_y2EqX3Add5X2Add4X_two
+    eval_Φ_two_y2EqX3Add5X2Add4X
 
 end Nonvacuity
 

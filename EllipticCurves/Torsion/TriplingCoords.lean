@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.DoublingCoords
 import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.TriplingSurjective
@@ -297,38 +298,40 @@ the same answer arrives as `Φ₃(2)/ΨSq₃(2) = −5184/5184 = −1` and, sinc
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve is the shared `EllipticCurves.Fixture.y2EqX3AddOne` at `R = ℚ`:
+`y² = x³ + 1`, of discriminant `−432`.  ⚠️ It is the curve here because `(2, 3)` is a rational
+point that is neither `2`-torsion (`3 ≠ negY 2 3`) nor `3`-torsion (`Ψ₃(2) = 72 ≠ 0`), and its
+triple `(−1, 0)` is rational too — so both sides of the tripling correspondence can be *named* over
+a base that is not algebraically closed.  `Torsion.TriplingSurjective` certifies the existence half
+on the same curve; the shared docstring records the constraint.  `(y2EqX3AddOne ℚ).IsElliptic`
+comes from the single `[CharZero F]` instance in `Fixtures`. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `P = (2, 3)` lies on `y² = x³ + 1` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 2 3 :=
-  equation_iff_nonsingular.mp (by norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2EqX3AddOne ℚ).Nonsingular 2 3 :=
+  equation_iff_nonsingular.mp (by norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff])
 
 /-- `P` is not `2`-torsion. -/
-private lemma exampleNegY : (3 : ℚ) ≠ exampleCurve.negY 2 3 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+private lemma exampleNegY : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
 
 /-- `P` is not `3`-torsion: `Ψ₃(2) = 3·2⁴ + 3·b₆·2 = 48 + 24 = 72`. -/
-private lemma examplePsiThree : exampleCurve.Ψ₃.eval 2 = 72 := by
-  norm_num [exampleCurve, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+private lemma examplePsiThree : (y2EqX3AddOne ℚ).Ψ₃.eval 2 = 72 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
-private lemma examplePsiTwoSq : exampleCurve.Ψ₂Sq.eval 2 = 36 := by
-  norm_num [exampleCurve, WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+private lemma examplePsiTwoSq : (y2EqX3AddOne ℚ).Ψ₂Sq.eval 2 = 36 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆]
 
-private lemma examplePrePsiFour : exampleCurve.preΨ₄.eval 2 = 432 := by
+private lemma examplePrePsiFour : (y2EqX3AddOne ℚ).preΨ₄.eval 2 = 432 := by
   rw [preΨ₄_eval, examplePsiThree, examplePsiTwoSq]
-  norm_num [exampleCurve, WeierstrassCurve.b₂, WeierstrassCurve.b₄]
+  norm_num [y2EqX3AddOne, WeierstrassCurve.b₂, WeierstrassCurve.b₄]
 
 /-- `3 • P = (-1, 0)` lies on `y² = x³ + 1` and is nonsingular. -/
-private lemma exampleNonsingularThree : exampleCurve.Nonsingular (-1) 0 :=
-  equation_iff_nonsingular.mp (by norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularThree : (y2EqX3AddOne ℚ).Nonsingular (-1) 0 :=
+  equation_iff_nonsingular.mp (by norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff])
 
 /-- **The tripling correspondence on a curve that exists**, with both points named:
 `3 • (2, 3) = (-1, 0)` on `y² = x³ + 1` over `ℚ`. -/
@@ -336,7 +339,7 @@ example : (3 : ℕ) • Point.some (2 : ℚ) 3 exampleNonsingular
     = Point.some (-1) 0 exampleNonsingularThree := by
   rw [nsmul_three_eq_some (by norm_num) exampleNegY (by rw [examplePsiThree]; norm_num),
     Point.some.injEq]
-  have hψ : (exampleCurve.ψ 3).evalEval 2 3 = 72 := by
+  have hψ : ((y2EqX3AddOne ℚ).ψ 3).evalEval 2 3 = 72 := by
     rw [ψ_evalEval (equation_iff_nonsingular.mpr exampleNonsingular) 3, Ψ_three, evalEval_C,
       examplePsiThree]
   refine ⟨?_, ?_⟩
@@ -345,7 +348,7 @@ example : (3 : ℕ) • Point.some (2 : ℚ) 3 exampleNonsingular
   · rw [hψ, preΨ_five]
     simp only [eval_sub, eval_mul, eval_pow]
     rw [examplePrePsiFour, examplePsiTwoSq, examplePsiThree]
-    norm_num [exampleCurve]
+    norm_num [y2EqX3AddOne]
 
 end Nonvacuity
 

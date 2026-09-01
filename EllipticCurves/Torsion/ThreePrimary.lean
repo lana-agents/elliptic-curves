@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import EllipticCurves.Torsion.TriplingSurjective
 import EllipticCurves.Torsion.TwoPrimary
@@ -341,22 +342,28 @@ standard certificate curve `y² + y = x³` over an algebraic closure of `ℚ`. -
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` — this development's standard `n = 3` curve,
+chosen because `Ψ₃ = 3X(X³ + 1)` factors and `(0, 0)` is a rational `3`-torsion point — and its
+algebraically closed base are the shared `EllipticCurves.Fixture.y2AddYEqX3` and
+`EllipticCurves.Fixture.AlgClosedQ`, which also supply `(y2AddYEqX3 ℚ).IsElliptic` from a single
+`[CharZero F]` instance.  Only the **base-changed** instance below is still local to this file; see
+its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`; this is the idiom
-`EllipticCurves.TateModule.Determinant` documents for exactly that reason. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+`EllipticCurves.TateModule.Determinant` documents for exactly that reason.
+
+⚠️ **This one does not move to `EllipticCurves.Fixtures`**, and the reason is measured: deleting it
+here leaves three `failed to synthesize instance of type class WeierstrassCurve.IsElliptic
+(y2AddYEqX3 ℚ)⁄AlgClosedQ` errors, at the three certificates below.  A general
+`(W⁄F).IsElliptic` instance *does* exist in this tree —
+`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange` — but it is in
+`FunctionField/`, which is downstream of `Torsion/`; importing it here would invert the dependency
+direction, and `Fixtures` is a leaf that imports no `EllipticCurves` module at all. -/
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
 /-- Every prime factor of `72 = 2³ · 3²` is `2` or `3`. -/
 private lemma primeFactors_seventytwo : ∀ p ∈ (72 : ℕ).primeFactors, p = 2 ∨ p = 3 := by
@@ -367,20 +374,20 @@ private lemma primeFactors_seventytwo : ∀ p ∈ (72 : ℕ).primeFactors, p = 2
   · exact Or.inl ((Nat.prime_dvd_prime_iff_eq hpp Nat.prime_two).mp (hpp.dvd_of_dvd_pow h))
   · exact Or.inr ((Nat.prime_dvd_prime_iff_eq hpp Nat.prime_three).mp (hpp.dvd_of_dvd_pow h))
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, `E[9]` really has `81` points, so
 the `3`-primary tower is not a statement about an empty family of curves. -/
-example : Nat.card ((exampleCurveThree⁄exampleField).torsion 9) = 81 :=
+example : Nat.card (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 9) = 81 :=
   card_torsion_nine exampleTwo exampleThree
 
 open Classical in
 /-- The structure statement at the same index, restated in full rather than projected out of an
 existential. -/
-example : Nonempty ((exampleCurveThree⁄exampleField).torsion 9 ≃+ ZMod 9 × ZMod 9) :=
+example : Nonempty (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 9 ≃+ ZMod 9 × ZMod 9) :=
   nonempty_torsionNine_addEquiv exampleTwo exampleThree
 
 open Classical in
@@ -392,8 +399,8 @@ prime power nor of the form `2 ^ k · 3`.
 `reduction got stuck at the Decidable instance List.decidableBAll …`. It is discharged by
 `primeFactors_seventytwo` above instead, which is the specialisation of
 `EllipticCurves.Torsion.Multiplicative`'s private `primeFactors_two_pow_mul_three_pow`. -/
-example : Nat.card ((exampleCurveThree⁄exampleField).torsion 72) = 5184 := by
-  have h := card_torsion_eq_sq_of_smooth (W := exampleCurveThree⁄exampleField) exampleTwo
+example : Nat.card (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 72) = 5184 := by
+  have h := card_torsion_eq_sq_of_smooth (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo
     exampleThree (n := 72) (by norm_num) primeFactors_seventytwo
   norm_num at h
   exact h

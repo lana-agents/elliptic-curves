@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.Finite
@@ -383,40 +384,44 @@ would have fewer than four `2`-torsion points, and this file would not see it. -
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 5x² + 4x = x(x + 1)(x + 4)` over `ℚ`, of discriminant `2304`. -/
-private noncomputable def splitExampleCurve : Affine ℚ := ⟨0, 5, 0, 4, 0⟩
+/-! The certificate curve is the shared `EllipticCurves.Fixture.y2EqX3Add5X2Add4X` at `R = ℚ`:
+`y² = x³ + 5x² + 4x = x(x + 1)(x + 4)`, of discriminant `2304`.  ⚠️ **What this block tests is that
+the cubic splits over `ℚ`** — its three roots `0`, `−1`, `−4` are distinct and rational, so all
+three nontrivial `2`-torsion points are rational and `Splits` is discharged with no algebraic
+closure anywhere.  Substituting a curve whose cubic is irreducible over `ℚ` would leave everything
+below green and say nothing; the shared docstring records the same constraint, and the local lemma
+names below were renamed to the fixture so that no name here points at a curve that is gone.
 
-private instance : splitExampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [splitExampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+`(y2EqX3Add5X2Add4X ℚ).IsElliptic` comes from the single `[CharZero F]` instance in `Fixtures`. -/
+
+open EllipticCurves.Fixture
 
 /-- The `2`-torsion cubic of the example curve, factored: `4X³ + 20X² + 16X = 4·X·(X+1)·(X+4)`. -/
-private lemma Ψ₂Sq_splitExampleCurve :
-    splitExampleCurve.Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
+private lemma Ψ₂Sq_y2EqX3Add5X2Add4X :
+    (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, splitExampleCurve]
+    WeierstrassCurve.b₆, y2EqX3Add5X2Add4X]
   norm_num only
   simp only [map_ofNat, map_one, Polynomial.C_0]
   ring
 
 /-- **The splitting hypothesis, discharged over `ℚ`** — a product of one constant and three monic
 linear factors is a `Splits` witness on the nose. -/
-private lemma splits_Ψ₂Sq_splitExampleCurve : splitExampleCurve.Ψ₂Sq.Splits := by
-  rw [Ψ₂Sq_splitExampleCurve]
+private lemma splits_Ψ₂Sq_y2EqX3Add5X2Add4X : (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.Splits := by
+  rw [Ψ₂Sq_y2EqX3Add5X2Add4X]
   exact (((Splits.C 4).mul Splits.X).mul (Splits.X_add_C 1)).mul (Splits.X_add_C 4)
 
 /-- **`#E[2] = 4` over `ℚ`, with no hypothesis whatsoever**, for `y² = x(x + 1)(x + 4)`. -/
-private theorem card_torsion_two_splitExampleCurve :
-    Nat.card (splitExampleCurve.torsion 2) = 4 :=
-  card_torsion_two_of_splits (by norm_num) splits_Ψ₂Sq_splitExampleCurve
+private theorem card_torsion_two_y2EqX3Add5X2Add4X :
+    Nat.card ((y2EqX3Add5X2Add4X ℚ).torsion 2) = 4 :=
+  card_torsion_two_of_splits (by norm_num) splits_Ψ₂Sq_y2EqX3Add5X2Add4X
 
 /-- **`E[2] ≃+ ZMod 2 × ZMod 2` over `ℚ`, with no hypothesis whatsoever**, for
 `y² = x(x + 1)(x + 4)`.  This is the `n = 2` structure theorem on a curve over a field that is not
 algebraically closed. -/
-private theorem nonempty_torsionTwo_addEquiv_splitExampleCurve :
-    Nonempty (splitExampleCurve.torsion 2 ≃+ ZMod 2 × ZMod 2) :=
-  nonempty_torsionTwo_addEquiv_of_splits (by norm_num) splits_Ψ₂Sq_splitExampleCurve
+private theorem nonempty_torsionTwo_addEquiv_y2EqX3Add5X2Add4X :
+    Nonempty ((y2EqX3Add5X2Add4X ℚ).torsion 2 ≃+ ZMod 2 × ZMod 2) :=
+  nonempty_torsionTwo_addEquiv_of_splits (by norm_num) splits_Ψ₂Sq_y2EqX3Add5X2Add4X
 
 end Nonvacuity
 
