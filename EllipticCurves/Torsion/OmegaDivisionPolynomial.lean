@@ -60,7 +60,8 @@ in the point-level files that used to hold them.
 The remaining crux for the full general-`n` on-curve identity `W.Equation (Φₙ/ΨSqₙ) (ωₙ/ψₙ³)` is the
 **univariate** identity `WeierstrassCurve.HasPreΩSq` of `EllipticCurves.Torsion.OmegaOnCurve` — the
 `ΨSqₙ`-weighted, parity-corrected analogue of `preΨ₄_sq` at general `n`, established there for
-`n ∈ {0, ±1, ±2}` and, in the evaluated form `HasPreΩSqAt`, at `n = 3`. It is the *only*
+`n ∈ {0, ±1, ±2}`, and at `n = 3` in the evaluated form `HasPreΩSqAt` there and in the polynomial
+form in `EllipticCurves.Torsion.OmegaCharZero`. It is the *only*
 index-dependent input: the uniform half `WeierstrassCurve.Affine.equation_of_hasPreΩSqAt` derives
 the Weierstrass equation at the division-polynomial coordinates from it alone, over any field of
 characteristic `≠ 2` at a point with `ψₙ(x, y) ≠ 0`. This file supplies the numerator infrastructure
