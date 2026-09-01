@@ -42,21 +42,31 @@ that `normEDS` satisfies `IsEllipticDvdSequence`"). This file assembles the reus
   `CommRing` via `IsEllipticNet.map_rel` and the evaluation `Xᵢ ↦ b, c, d`.
 
 The remaining `∀ p q` core is carried out in `EllipticCurves.Torsion.WardR1Core`, which imports
-this file. ⚠️ **Ward's `r = 1` slice is still open**, but the remainder is narrower than *"the
-induction over the domain"*: that file proves the diagonal `p = q` slice **unconditionally**
+this file, and it is **closed**. That file proves the diagonal `p = q` slice **unconditionally**
 (`normEDS_rel_one_diag`, `Affine.ψ_rel_one_diag`) together with the full `UnivEDS → R` transfer,
 and isolates everything left as the **single** hypothesis `WardGapCore` — for natural `b ≥ 2` and
 `a ≥ b + 3`, `rel (normEDS X₀ X₁ X₂) a b 1 0 = 0` over `UnivEDS` — with `normEDS_rel_one_of_gapCore`
-and `Affine.ψ_rel_one_of_gapCore` conditional on it. That hypothesis is all that is left of the
-`r = 1` slice of the Mathlib `TODO`, and that file records why it admits no bounded-degree
-certificate. ⚠️ This sentence used to read *"The remaining `∀ p q` core — the Ward
-induction over the domain — is left to a follow-up"*: the follow-up was written, and what went
-stale is the size it ascribes to the remainder. ⚠️ Every name this paragraph takes from
-`EllipticCurves.Torsion.WardR1Core` — `WardGapCore`, `normEDS_rel_one_diag`,
-`Affine.ψ_rel_one_diag`, `normEDS_rel_one_of_gapCore`, `Affine.ψ_rel_one_of_gapCore` — is a forward
-reference: that module imports this file and is not in this file's import closure, so nothing below
-uses any of them. Nothing else in the paragraph is: `UnivEDS` is defined below in this file, and
-`rel` (Mathlib's `IsEllipticNet.rel`) and `normEDS` are Mathlib's — all three are what the
+and `Affine.ψ_rel_one_of_gapCore` conditional on it; and `EllipticCurves.Torsion.WardHalving`
+discharges that hypothesis (`WeierstrassCurve.wardGapCore`) by an elementary strong induction on
+`|p| + |q|` whose step halves the index. So `WeierstrassCurve.normEDS_rel_one` and
+`WeierstrassCurve.normEDS_isEllipticSequence` hold over an arbitrary `CommRing` with no hypothesis
+at all. ⚠️ That closes the elliptic-net half of the Mathlib `TODO` and only that half: the other
+conjunct, `IsDvdSequence (normEDS b c d)`, is proved neither in Mathlib nor here. ⚠️ And it does
+not contradict the *gap-axis* certificate search recorded in `WardR1Core`, which failed and still
+fails — the induction that works is along a different axis.
+
+⚠️ **This paragraph has now gone stale twice, the same way both times.** It first read *"The
+remaining `∀ p q` core — the Ward induction over the domain — is left to a follow-up"*: the
+follow-up was written, and what went stale was the size it ascribed to the remainder. It then read
+*"Ward's `r = 1` slice is still open"*, and the file that closed the slice — downstream, importing
+this one — never touched this sentence. Both times a claim about what is left outlived the work
+that falsified it, and both times that work was in a file this one cannot see. ⚠️ Every name this
+paragraph takes from `EllipticCurves.Torsion.WardR1Core` and `EllipticCurves.Torsion.WardHalving`
+— `WardGapCore`, `normEDS_rel_one_diag`, `Affine.ψ_rel_one_diag`, `normEDS_rel_one_of_gapCore`,
+`Affine.ψ_rel_one_of_gapCore`, `wardGapCore`, `normEDS_rel_one`, `normEDS_isEllipticSequence` — is
+a forward reference: those modules import this file and are not in this file's import closure, so
+nothing below uses any of them. Nothing else in the paragraph is: `UnivEDS` is defined below in this
+file, and `rel` (Mathlib's `IsEllipticNet.rel`) and `normEDS` are Mathlib's — all three are what the
 statements below are about.
 
 ## Main statements

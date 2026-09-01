@@ -29,8 +29,10 @@ This is (the `r = 1` slice of) the standing Mathlib `TODO` "prove that `normEDS`
 ## What this file delivers
 
 The full addition formula reduces, over the universal coefficient ring `UnivEDS = ℤ[X₀, X₁, X₂]`,
-to a **single research-grade core** — the gap `≥ 3` case, isolated here as the hypothesis
-`WardGapCore`. Everything else is discharged unconditionally and sorry-free:
+to a **single core** — the gap `≥ 3` case, isolated here as the hypothesis `WardGapCore`. That
+hypothesis is **discharged**, in `EllipticCurves.Torsion.WardHalving`; see *"Why the core is
+isolated here, and where it is discharged"* below. Everything else is discharged unconditionally
+and sorry-free in this file:
 
 * the ℤ → ℕ sign reduction (`IsEllipticNet.rel_one_neg_left`/`_right`) and the swap antisymmetry
   extending `b ≤ a` to all pairs (`IsEllipticNet.rel_one_swap`);
@@ -43,9 +45,11 @@ to a **single research-grade core** — the gap `≥ 3` case, isolated here as t
   `map_normEDS`) and the specialisation to the division polynomials `W.ψ` and their point-values.
 
 Consequently the whole `r = 1` slice is available **conditionally on the single fact `WardGapCore`**
-(`normEDS_rel_one_of_gapCore`, `Affine.ψ_rel_one_of_gapCore`, `..._evalEval_of_gapCore`): the
-instant `WardGapCore` is discharged, the full public API for the torsion tree (rungs #251, #255)
-follows by feeding it in.
+(`normEDS_rel_one_of_gapCore`, `Affine.ψ_rel_one_of_gapCore`, `..._evalEval_of_gapCore`), and
+feeding the hypothesis in is exactly how the unconditional form is obtained downstream:
+`EllipticCurves.Torsion.WardHalving` proves `WeierstrassCurve.wardGapCore : WardGapCore`, and its
+`WeierstrassCurve.normEDS_rel_one` is literally `normEDS_rel_one_of_gapCore b c d wardGapCore`. The
+`_of_gapCore` API below is therefore what that file consumes, not something it supersedes.
 
 ## ⚠️ The `r = 1` slice is not a slice: it **is** `IsEllipticSequence`
 
@@ -66,7 +70,8 @@ nothing else, and there is no further induction between the two.
 ⚠️ **This proves nothing about `WardGapCore` and does not weaken it.** It says how much the `r = 1`
 slice already buys, not that the slice is any closer. ⚠️ And it is **one of the two conjuncts** of
 Mathlib's `IsEllipticDvdSequence`: the other, `IsDvdSequence (normEDS b c d)`, is proved neither in
-Mathlib nor here, so discharging `WardGapCore` would close half of that `TODO`.
+Mathlib nor here, so discharging `WardGapCore` — done in `EllipticCurves.Torsion.WardHalving` —
+closes **half** of that `TODO` and no more.
 
 ⚠️ **The `s ≠ 0` layer is not a further rung either.** It is natural to read
 `normEDS_isEllipticSequence_of_gapCore` as the `s = 0` case of the four-index `IsEllipticNet`, with
@@ -78,18 +83,39 @@ layers of Mathlib's elliptic-net relation are this one hypothesis. ⚠️ Every 
 is a **forward reference**: that module imports this one and is not in this file's import closure,
 so nothing below uses any of them. It changes no statement here.
 
-## Why the core is isolated rather than proved
+## Why the core is isolated here, and where it is discharged
 
-`WardGapCore` cannot be closed by an elementary induction. Writing `h(p, q)` for the relator, the
-bands `|p − q| = 1, 2, 3` all admit uniform bounded-degree `linear_combination` certificates in the
-two-term recurrences, but it was verified — by an exact multivariate polynomial-certificate search
-(each `W(n)` an independent symbol) and against the literature (Ward 1948; Silverman AEC III,
-Exercise 3.7; Stange, *Elliptic nets and elliptic curves*; van der Poorten–Swart) — that the bands
-`|p − q| = 5, 7, …` admit **no** bounded-degree certificate even allowing every smaller relator plus
-both doublings: the minimum certificate degree grows with the gap. A complete proof needs the
-sigma-function four-term theta identity or the van der Poorten–Swart continued-fraction (Somos)
-machinery — a research-level formalisation, and precisely the open Mathlib `IsEllipticDvdSequence`
-TODO. `WardGapCore` names exactly that remaining content.
+⚠️ **`WardGapCore` is proved.** `EllipticCurves.Torsion.WardHalving` supplies
+`WeierstrassCurve.wardGapCore` by an **elementary** strong induction on `|p| + |q|` whose step
+**halves the index**: one `ring`-closed certificate per parity class of `(p, q)`, each expressing
+`W 2 ^ j * rel W p q 1 0` (with `j = 3, 1, 1, 2`) as a combination of the two two-term relators and
+of instances of `rel` whose `|p| + |q|` is strictly smaller on the range where the step is used.
+No sigma-function theta identity and no van der Poorten–Swart machinery appear in it. The core is
+stated here as a hypothesis because that is the form the downstream proof consumes — a division of
+labour, not an obstruction.
+
+⚠️ **The negative result that follows is about a different search, and it stands.** Writing
+`h(p, q)` for the relator, the bands `|p − q| = 1, 2, 3` all admit uniform bounded-degree
+`linear_combination` certificates in the two-term recurrences, but it was verified — by an exact
+multivariate polynomial-certificate search (each `W(n)` an independent symbol) and against the
+literature (Ward 1948; Silverman AEC III, Exercise 3.7; Stange, *Elliptic nets and elliptic
+curves*; van der Poorten–Swart) — that the bands `|p − q| = 5, 7, …` admit **no** bounded-degree
+certificate even allowing every smaller relator plus both doublings: the minimum certificate degree
+grows with the gap.
+
+⚠️ That search runs along the **gap** axis at a fixed index — derive the band `|p − q| = g` from
+the bands `|p − q| < g` at the *same* index. The induction that works never uses that axis: it
+halves the index instead, which is the recursion `normEDS` is actually defined by (`normEDSRec`,
+`preNormEDS'_even` / `preNormEDS'_odd`). Both facts hold at once. This section used to infer from
+the measurement that the core *"cannot be closed by an elementary induction"* and needs *"a
+research-level formalisation"*: the measurement was right, the inference was wrong, and it is the
+inference that has been retired. **Keep the measurement** — it is the only record here of why the
+gap-axis route is hopeless, and deleting it would invite a re-run of a search already known to fail.
+
+⚠️ Every name this section takes from `EllipticCurves.Torsion.WardHalving` — `wardGapCore` and
+`normEDS_rel_one` — is a **forward reference**: that module imports this one (through
+`EllipticCurves.Torsion.EllipticNetSlices`) and is not in this file's import closure, so nothing
+below uses either of them. It changes no statement here.
 
 ## Main statements
 
@@ -124,10 +150,11 @@ open MvPolynomial
 ring `UnivEDS = ℤ[X₀, X₁, X₂]`: for natural indices `b ≥ 2` and `a ≥ b + 3`,
 `rel (normEDS X₀ X₁ X₂) a b 1 0 = 0`.
 
-This single fact is the entire remaining content of Ward's `r = 1` slice (the standing Mathlib
-`IsEllipticDvdSequence` TODO); see the module documentation for why it resists an elementary
-induction. All of `normEDS_rel_one_of_gapCore` and its corollaries are unconditional apart from a
-hypothesis of this form. -/
+This single fact is the entire content of Ward's `r = 1` slice that is not proved in this file. It
+is **discharged** in `EllipticCurves.Torsion.WardHalving`, as `WeierstrassCurve.wardGapCore`, by an
+elementary index-halving induction — a forward reference, since that module imports this one. All
+of `normEDS_rel_one_of_gapCore` and its corollaries are unconditional apart from a hypothesis of
+this form, and that is how the unconditional theorems there are built. -/
 def WardGapCore : Prop :=
   ∀ a b : ℕ, 2 ≤ b → b + 3 ≤ a →
     IsEllipticNet.rel (normEDS (X 0 : UnivEDS) (X 1) (X 2)) (a : ℤ) (b : ℤ) 1 0 = 0
