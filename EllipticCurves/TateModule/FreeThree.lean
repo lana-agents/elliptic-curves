@@ -266,7 +266,22 @@ instance below is still local to this file; see its docstring for why. -/
 open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
+bare `inferInstance` from `[W.IsElliptic]`.
+
+⚠️ **Load-bearing, and the counter-example to reading this family off the import graph**
+(`#1405`, at `db0c65b`).  Deleting this instance leaves **five** `failed to synthesize instance of
+type class WeierstrassCurve.IsElliptic (y2AddYEqX3 ℚ)⁄AlgClosedQ` errors, spread over all three
+certificates below: three in the components of the first `example`'s proof term and one each in
+the other two.
+
+⚠️ Two fixture-bearing modules, `EllipticCurves.Torsion.ThreePrimary` and
+`EllipticCurves.Torsion.ThreePrimaryBasis`, **are** in this file's import closure, and their
+`private` instances are live here — `private` hides a *name*, not an *instance* — so import
+closure alone predicts this one is dead.  It is not: both of them elaborate against
+`AlgebraicClosure.instAlgebra` and this file reads `DivisionRing.toRatAlgebra`, so their
+`((y2AddYEqX3 ℚ)⁄AlgClosedQ)` is not the one written here.  Every `TateModule/` fixture downstream
+of this file is dead precisely because **this** instance supplies it.  `EllipticCurves.Fixtures`
+carries the 18-site matrix; `#1408` is the removal that would be safe. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 

@@ -355,13 +355,22 @@ open EllipticCurves.Fixture
 bare `inferInstance` from `[W.IsElliptic]`; this is the idiom
 `EllipticCurves.TateModule.Determinant` documents for exactly that reason.
 
-⚠️ **This one does not move to `EllipticCurves.Fixtures`**, and the reason is measured: deleting it
-here leaves three `failed to synthesize instance of type class WeierstrassCurve.IsElliptic
-(y2AddYEqX3 ℚ)⁄AlgClosedQ` errors, at the three certificates below.  A general
-`(W⁄F).IsElliptic` instance *does* exist in this tree —
-`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange` — but it is in
-`FunctionField/`, which is downstream of `Torsion/`; importing it here would invert the dependency
-direction, and `Fixtures` is a leaf that imports no `EllipticCurves` module at all. -/
+⚠️ **Load-bearing, and the count is measured** (`#1405`, at `db0c65b`): deleting this instance
+leaves **three** `failed to synthesize instance of type class WeierstrassCurve.IsElliptic
+(y2AddYEqX3 ℚ)⁄AlgClosedQ` errors, one in each of the three certificates below.  It is one of only
+four live instances among the library's eighteen base-change fixtures, and the reason is the
+simplest of the four: no other fixture-bearing module is in this file's import closure at all.
+
+⚠️ **The reason recorded here for not moving it to `EllipticCurves.Fixtures` was wrong**, and it is
+worth saying which part.  Every clause was true — the only general `(W⁄F).IsElliptic` instance in
+the tree, `EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange`, is in
+`FunctionField/`, which is downstream of `Torsion/`; and `Fixtures` is a leaf that imports no
+`EllipticCurves` module at all.  The conclusion drawn from them is not.  That instance's *address*
+is downstream, but the instance itself needs only `baseChange`, `map` and `IsElliptic`, all of them
+Mathlib and all already in `Fixtures`' import closure — so **being a leaf is the enabling condition
+rather than the obstacle**.  Spiked in `#1405`: a two-line copy in `Fixtures` lets all eighteen
+fixtures be deleted with a green root build at an unchanged job count.  `#1408` is that job, and
+until it lands this instance has to stay. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 

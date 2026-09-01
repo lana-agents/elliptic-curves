@@ -250,9 +250,19 @@ its docstring for why. -/
 open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`.  ⚠️ It stays local rather than moving to
-`EllipticCurves.Fixtures` for the reason `EllipticCurves.Torsion.ThreePrimary`'s copy records: the
-only general `(W⁄F)` instance in the tree lives in `FunctionField/`, which is downstream. -/
+bare `inferInstance` from `[W.IsElliptic]`.
+
+⚠️ **Measured dead** (`#1405`, at `db0c65b`): deleting this instance leaves the file elaborating
+with exit `0` and zero errors, because the `private` fixture in
+`EllipticCurves.Torsion.ThreePrimary` wins.  `private` hides a *name*, not an *instance*, so it is
+live in every module downstream of the one that declares it, and that one is on the same
+`Algebra ℚ AlgClosedQ` path (`AlgebraicClosure.instAlgebra`) as this file.
+
+⚠️ **That is not a licence to delete it**: the supplier is another file's `private` declaration,
+named by no import and pinned by nothing.  `#1408` is the safe removal.  ⚠️ This docstring used to
+say the instance stays local because the only general one lives downstream in `FunctionField/`;
+that reasoning is corrected in `EllipticCurves.Torsion.ThreePrimary`'s copy, and the matrix is in
+`EllipticCurves.Fixtures`. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
