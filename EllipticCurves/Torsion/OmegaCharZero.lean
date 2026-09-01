@@ -6,7 +6,6 @@ Authors: The Elliptic Curves formalisation contributors
 import EllipticCurves.Torsion.OmegaUniversal
 import Mathlib.Algebra.CharP.Algebra
 import Mathlib.Algebra.CharZero.Infinite
-import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
 # `HasPreΩSq` reduces to its EVALUATED form over a characteristic-`0` field
@@ -84,7 +83,12 @@ variable {R : Type*} [CommRing R]
 /-- **The converse of `HasPreΩSq.at`, over an infinite integral domain.**  The two sides of
 `HasPreΩSq n` are polynomials in `R[X]`; if they agree at every `x : R` and `R` is an infinite
 domain, they are equal.  ⚠️ Infiniteness is essential and is not a technicality — over a finite
-ring the evaluated identity at every point says nothing about the polynomials. -/
+ring the evaluated identity at every point says nothing about the polynomials.
+
+⚠️ It lives here rather than beside `HasPreΩSq.at` in `EllipticCurves.Torsion.OmegaOnCurve`, even
+though it elaborates against that file alone, because it is the first half of this file's
+reduction and is used only by `hasPreΩSq_of_forall_hasPreΩSqAt_charZero` below.  **That is
+settled; do not move it.** -/
 theorem hasPreΩSq_of_forall_hasPreΩSqAt [IsDomain R] [Infinite R] {W : WeierstrassCurve R} {n : ℤ}
     (h : ∀ x : R, W.HasPreΩSqAt n x) : W.HasPreΩSq n := by
   rw [HasPreΩSq]
@@ -101,11 +105,15 @@ private abbrev UnivBase : Type := MvPolynomial (Fin 5) ℚ
 
 /-- Its fraction field: a characteristic-`0` field, hence an infinite domain, into which the
 universal base injects.  It is `private` because no consumer should ever need to name it — the
-reduction below quantifies over all characteristic-`0` fields. -/
-private abbrev UnivFrac : Type := FractionRing UnivBase
+reduction below quantifies over all characteristic-`0` fields.
 
-private instance : CharZero UnivFrac :=
-  charZero_of_injective_algebraMap (IsFractionRing.injective UnivBase UnivFrac)
+⚠️ **`CharZero UnivFrac` is found by instance search and must not be supplied by hand.**  Mathlib's
+`IsFractionRing.charZero` is an instance and covers it; a `private instance` here proving the same
+thing by `charZero_of_injective_algebraMap` is dead weight.  ⚠️ That instance lives in the closure
+of `Mathlib.Algebra.CharP.Algebra`, which is why that import stays even though **no identifier from
+it appears in this file** — an import-pruner going by identifiers alone will delete it, and the
+file then fails at `hasPreΩSq_of_forall_charZero` with `failed to synthesize CharZero UnivFrac`. -/
+private abbrev UnivFrac : Type := FractionRing UnivBase
 
 /-- **`HasPreΩSq n` over every characteristic-`0` field gives it over every commutative ring.**
 Instantiate the hypothesis at the fraction field of `MvPolynomial (Fin 5) ℚ`, descend along the
