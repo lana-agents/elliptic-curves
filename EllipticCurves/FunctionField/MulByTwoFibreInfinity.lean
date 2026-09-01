@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceRamificationInertia
 import EllipticCurves.FunctionField.TranslationProjAction
@@ -384,35 +385,32 @@ witness a statement that needs an algebraically closed base field. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ - x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- **The fibre over infinity has four elements, on a curve that exists.** -/
 example :
     (finite_comapProjPointTwo_preimage_singleton exampleTwo
-      (none : ProjPoint exampleCurve)).toFinset.card = 4 :=
+      (none : ProjPoint (y2EqX3SubX AlgClosedQ))).toFinset.card = 4 :=
   card_fibre_comapProjPointTwo_none exampleTwo
 
 /-- **`[2]` is unramified above infinity, on the same curve.** -/
-example {p : ProjPoint exampleCurve} (hp : comapProjPointTwo exampleTwo p = none) :
+example {p : ProjPoint (y2EqX3SubX AlgClosedQ)} (hp : comapProjPointTwo exampleTwo p = none) :
     ramificationIdxTwo exampleTwo p = 1 :=
   ramificationIdxTwo_eq_one_of_comapProjPointTwo_eq_none exampleTwo hp
 
 /-- The fibre description at the point at infinity, on the same curve. -/
 example :
-    pullbackDivisorTwo exampleTwo (Finsupp.single (none : ProjPoint exampleCurve) (1 : ℤ))
+    pullbackDivisorTwo exampleTwo (Finsupp.single (none : ProjPoint (y2EqX3SubX AlgClosedQ)) (1
+        : ℤ))
       = ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton exampleTwo
-          (none : ProjPoint exampleCurve)).toFinset, Finsupp.single p (1 : ℤ) :=
+          (none : ProjPoint (y2EqX3SubX AlgClosedQ))).toFinset, Finsupp.single p (1 : ℤ) :=
   pullbackDivisorTwo_single_none exampleTwo
 
 end Nonvacuity

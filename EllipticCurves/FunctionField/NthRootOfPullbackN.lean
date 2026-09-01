@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.CoordinateRingNormalGeneral
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.NthRootOfPullback
@@ -216,25 +217,22 @@ private lemma primeFactors_four : ∀ p ∈ (4 : ℕ).primeFactors, p = 2 ∨ p 
   rw [show (4 : ℕ) = 2 ^ 2 from rfl] at hdvd
   exact Or.inl ((Nat.prime_dvd_prime_iff_eq hpp Nat.prime_two).mp (hpp.dvd_of_dvd_pow hdvd))
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-private lemma exampleNsP : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsP : (y2EqX3SubX ℚ).Nonsingular 0 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
-private lemma exampleTorTwo : Point.some (0 : ℚ) 0 exampleNsP ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsP).mpr (by norm_num [exampleCurve])
+private lemma exampleTorTwo : Point.some (0 : ℚ) 0 exampleNsP ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsP).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- `(0, 0)` is `4`-torsion because it is `2`-torsion: `4 • P = 2 • (2 • P)`. -/
-private lemma exampleTorFour : Point.some (0 : ℚ) 0 exampleNsP ∈ exampleCurve.torsion 4 := by
+private lemma exampleTorFour : Point.some (0 : ℚ) 0 exampleNsP ∈ (y2EqX3SubX ℚ).torsion 4 := by
   rw [mem_torsion_iff, show (4 : ℕ) = 2 * 2 from rfl, mul_nsmul,
     mem_torsion_iff.mp exampleTorTwo, smul_zero]
 
@@ -247,18 +245,18 @@ What this certifies is that every *other* hypothesis of `exists_gS_of_smooth` �
 composite index, the elliptic instance, non-singularity, and `n`-torsion — is inhabited at an index
 outside `{2, 3}`.  It does not certify that `hprin` can be met there; it cannot be, at present. -/
 private theorem exampleGSFour
-    (hprin : ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-      divisor exampleCurve f
+    (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3SubX ℚ) f
           = Finsupp.single (CoordinateRing.pointClosedPoint exampleNsP.1) (4 : ℤ) →
-      ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-        4 • divisor exampleCurve g₀ = divisor exampleCurve (mulByNEndo 4
+      ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+        4 • divisor (y2EqX3SubX ℚ) g₀ = divisor (y2EqX3SubX ℚ) (mulByNEndo 4
           (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree
             (by norm_num) primeFactors_four) f)) :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisor exampleCurve f
+    ∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+      divisor (y2EqX3SubX ℚ) f
           = Finsupp.single (CoordinateRing.pointClosedPoint exampleNsP.1) (4 : ℤ) ∧
-      ∃ gS : exampleCurve.FunctionField, gS ≠ 0 ∧
-        ∃ u : exampleCurve.CoordinateRingˣ, (u : exampleCurve.CoordinateRing) • gS ^ 4
+      ∃ gS : (y2EqX3SubX ℚ).FunctionField, gS ≠ 0 ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ, (u : (y2EqX3SubX ℚ).CoordinateRing) • gS ^ 4
           = mulByNEndo 4 (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree
               (by norm_num) primeFactors_four) f := by
   simpa only [Nat.cast_ofNat] using

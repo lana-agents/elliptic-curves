@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingRationalTorsion
 import EllipticCurves.TateModule.Kernel
 import Mathlib.FieldTheory.Galois.Infinite
@@ -320,20 +321,16 @@ and no curve with rational `3`-torsion is to hand in this tree.  Saying why beat
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, `#936`'s, `#944`'s and `#948`'s `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE: the hypothesis carried by this whole front can fail.**
 
@@ -341,42 +338,42 @@ Some `σ ∈ Gal(Q̄/ℚ)` has `χ_3 σ ≠ 1`.  Stated in full rather than obta
 with the count discharged by `natCard_rootsOfUnity_of_ne_zero` at `exampleThree` — which is exactly
 the discharge the curve-level statements perform internally, so the character named here is the one
 they name. -/
-example : ∃ σ : exampleField ≃ₐ[ℚ] exampleField,
-    galoisModularCyclotomicChar ℚ exampleField
-      (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree) σ ≠ 1 :=
+example : ∃ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
+    galoisModularCyclotomicChar ℚ AlgClosedQ
+      (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree) σ ≠ 1 :=
   exists_galoisModularCyclotomicChar_three_ne_one _
 
 /-- **And the underlying fact, also in full**: the Galois action on `μ_3(Q̄)` is not trivial. -/
-example : ∃ (σ : exampleField ≃ₐ[ℚ] exampleField) (ζ : rootsOfUnity 3 exampleField),
+example : ∃ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) (ζ : rootsOfUnity 3 AlgClosedQ),
     restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 3 ζ ≠ ζ :=
   exists_restrictRootsOfUnity_three_ne_self
 
 open Classical in
 /-- **The bundled character form, on a curve that exists.**  A schema instance in the hypothesis. -/
-example (hfix : ∀ (σ : exampleField ≃ₐ[ℚ] exampleField)
-      (P : (exampleCurveThree⁄exampleField).torsion 3), σ • P = P) :
-    galoisModularCyclotomicChar ℚ exampleField
-        (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)
-      = (1 : (exampleField ≃ₐ[ℚ] exampleField) →* (ZMod 3)ˣ) :=
-  galoisModularCyclotomicChar_three_eq_one_of_forall_fixed (W := exampleCurveThree) exampleTwo
+example (hfix : ∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+      (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3), σ • P = P) :
+    galoisModularCyclotomicChar ℚ AlgClosedQ
+        (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)
+      = (1 : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* (ZMod 3)ˣ) :=
+  galoisModularCyclotomicChar_three_eq_one_of_forall_fixed (W := y2AddYEqX3 ℚ) exampleTwo
     exampleThree hfix
 
 open Classical in
 /-- **`ker ρ_{E,3} ≤ ker χ_3` on the same curve**, with both subgroups written out. -/
 example :
-    (galoisRepMod (W' := exampleCurveThree) (F := exampleField) 3).ker
-      ≤ (galoisModularCyclotomicChar ℚ exampleField
-          (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)).ker :=
+    (galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3).ker
+      ≤ (galoisModularCyclotomicChar ℚ AlgClosedQ
+          (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)).ker :=
   ker_galoisRepMod_three_le_ker_galoisModularCyclotomicChar exampleTwo exampleThree
 
 open Classical in
 /-- **`μ_3 ⊆ ℚ` on the same curve** — the certificate that could not be written at all before the
 two `private instance` lines at the top of this file, and therefore the check that they work. -/
-example (hfix : ∀ (σ : exampleField ≃ₐ[ℚ] exampleField)
-      (P : (exampleCurveThree⁄exampleField).torsion 3), σ • P = P)
-    (ζ : rootsOfUnity 3 exampleField) :
-    ((ζ : exampleFieldˣ) : exampleField) ∈ Set.range (algebraMap ℚ exampleField) :=
-  mem_range_algebraMap_of_torsion_three_fixed (W := exampleCurveThree) exampleTwo exampleThree
+example (hfix : ∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+      (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3), σ • P = P)
+    (ζ : rootsOfUnity 3 AlgClosedQ) :
+    ((ζ : AlgClosedQˣ) : AlgClosedQ) ∈ Set.range (algebraMap ℚ AlgClosedQ) :=
+  mem_range_algebraMap_of_torsion_three_fixed (W := y2AddYEqX3 ℚ) exampleTwo exampleThree
     hfix ζ
 
 end Nonvacuity

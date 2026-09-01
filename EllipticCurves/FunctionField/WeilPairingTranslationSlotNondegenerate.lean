@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingNondegenerateMu
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotHom
 
@@ -389,60 +390,49 @@ trivial homomorphism. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+open EllipticCurves.Fixture
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleNsS : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsS : (y2EqX3SubX AlgClosedQ).Nonsingular 0 0 :=
+  (y2EqX3SubX AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 private lemma exampleTorS :
-    Point.some (0 : exampleField) 0 exampleNsS ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [exampleCurve])
+    Point.some (0 : AlgClosedQ) 0 exampleNsS ∈ (y2EqX3SubX AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is a non-trivial group homomorphism, on a curve that exists.**
 `S = (0, 0)` on `y² = x³ − x`; no hypothesis survives. -/
-example : ∃ (g : exampleCurve.FunctionField)
-    (φ : Multiplicative (exampleCurve.torsion 2) →* rootsOfUnity 2 exampleField), φ ≠ 1 ∧
-    ∀ P : exampleCurve.torsion 2,
-      algebraMap exampleField exampleCurve.FunctionField
-          ((φ (Multiplicative.ofAdd P) : exampleFieldˣ) : exampleField)
-        = weilPairingPointElt g (P : exampleCurve.Point) := by
+example : ∃ (g : (y2EqX3SubX AlgClosedQ).FunctionField)
+    (φ : Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2) →* rootsOfUnity 2 AlgClosedQ), φ ≠ 1 ∧
+    ∀ P : (y2EqX3SubX AlgClosedQ).torsion 2,
+      algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField
+          ((φ (Multiplicative.ofAdd P) : AlgClosedQˣ) : AlgClosedQ)
+        = weilPairingPointElt g (P : (y2EqX3SubX AlgClosedQ).Point) := by
   obtain ⟨g, -, -, φ, hφ, hval⟩ :=
     exists_weilPairingTorsionMuHom_two_ne_one exampleTwo exampleNsS exampleTorS
   exact ⟨g, φ, hφ, hval⟩
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleNsThreeS : exampleCurveThree.Nonsingular 0 0 :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsThreeS : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 :=
+  (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 private lemma exampleTorThreeS :
-    Point.some (0 : exampleField) 0 exampleNsThreeS ∈ exampleCurveThree.torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNsThreeS ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
       WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
@@ -450,12 +440,12 @@ open Classical in
 `S = (0, 0)` on `y² + y = x³`.  ⚠️ Only the *divisor* point has to be nameable: the translation
 slot is quantified as a group, so `#873`'s limitation — no second `3`-torsion point of this curve
 is nameable — does not bite, exactly as in `#890`. -/
-example : ∃ (g : exampleCurveThree.FunctionField)
-    (φ : Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField), φ ≠ 1 ∧
-    ∀ P : exampleCurveThree.torsion 3,
-      algebraMap exampleField exampleCurveThree.FunctionField
-          ((φ (Multiplicative.ofAdd P) : exampleFieldˣ) : exampleField)
-        = weilPairingPointElt g (P : exampleCurveThree.Point) := by
+example : ∃ (g : (y2AddYEqX3 AlgClosedQ).FunctionField)
+    (φ : Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3) →* rootsOfUnity 3 AlgClosedQ), φ ≠ 1 ∧
+    ∀ P : (y2AddYEqX3 AlgClosedQ).torsion 3,
+      algebraMap AlgClosedQ (y2AddYEqX3 AlgClosedQ).FunctionField
+          ((φ (Multiplicative.ofAdd P) : AlgClosedQˣ) : AlgClosedQ)
+        = weilPairingPointElt g (P : (y2AddYEqX3 AlgClosedQ).Point) := by
   obtain ⟨g, -, -, φ, hφ, hval⟩ := exists_weilPairingTorsionMuHom_three_ne_one exampleTwo
     exampleThree exampleNsThreeS exampleTorThreeS
   exact ⟨g, φ, hφ, hval⟩

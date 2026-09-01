@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingDeterminant
 import EllipticCurves.FunctionField.WeilPairingRationalTorsionGalois
 import EllipticCurves.TateModule.DeterminantMod
@@ -392,7 +393,7 @@ that none of them closes by `rfl` or by a rationality that consumes nothing.
 
   ```
   error: unsolved goals
-  ⊢ galoisDetMod 3 = galoisModularCyclotomicChar ℚ exampleField ⋯
+  ⊢ galoisDetMod 3 = galoisModularCyclotomicChar ℚ AlgClosedQ ⋯
   ```
 
 The `ker ρ_{E,3} ≤ ker χ_3` certificate is stated as an `example` on purpose: it is **not** a new
@@ -404,41 +405,37 @@ file subsumes that one. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- The headline on a curve that exists, with both sides written out. -/
-example : galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3
-    = galoisModularCyclotomicChar ℚ exampleField
-        (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree) :=
+example : galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3
+    = galoisModularCyclotomicChar ℚ AlgClosedQ
+        (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree) :=
   galoisDetMod_three_eq_galoisModularCyclotomicChar exampleTwo exampleThree
 
 open Classical in
 /-- Some `σ ∈ Gal(ℚ̄/ℚ)` has `det ρ_{E,3}(σ) ≠ 1`, on the same curve. -/
-example : ∃ σ : exampleField ≃ₐ[ℚ] exampleField,
-    galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3 σ ≠ 1 := by
+example : ∃ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
+    galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3 σ ≠ 1 := by
   obtain ⟨σ, hσ⟩ := exists_galoisModularCyclotomicChar_three_ne_one
-    (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)
+    (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)
   exact ⟨σ, galoisDetMod_three_ne_one_of_galoisModularCyclotomicChar_ne_one
-    (W := exampleCurveThree) exampleTwo exampleThree hσ⟩
+    (W := y2AddYEqX3 ℚ) exampleTwo exampleThree hσ⟩
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on `y² + y = x³` over `ℚ`, the mod-`3` determinant
@@ -446,13 +443,13 @@ character is **not** the trivial homomorphism `Gal(ℚ̄/ℚ) →* (ZMod 3)ˣ`.
 
 Unconditional, and the negated *character* equation rather than an existential about a point of the
 group. -/
-example : galoisDetMod (W' := exampleCurveThree) (F := exampleField) 3
-    ≠ (1 : (exampleField ≃ₐ[ℚ] exampleField) →* (ZMod 3)ˣ) := by
+example : galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3
+    ≠ (1 : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* (ZMod 3)ˣ) := by
   obtain ⟨σ, hσ⟩ := exists_galoisModularCyclotomicChar_three_ne_one
-    (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)
+    (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)
   intro hEq
   exact galoisDetMod_three_ne_one_of_galoisModularCyclotomicChar_ne_one
-    (W := exampleCurveThree) exampleTwo exampleThree hσ (by rw [hEq]; rfl)
+    (W := y2AddYEqX3 ℚ) exampleTwo exampleThree hσ (by rw [hEq]; rfl)
 
 open Classical in
 /-- **`ker ρ_{E,3} ≤ ker χ_3` re-derived from the headline.**

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationAction
 import EllipticCurves.FunctionField.TranslationMulByNCommGeneral
 import EllipticCurves.Torsion.ThreePrimary
@@ -315,22 +316,18 @@ and `T = (0, 0)` is `12`-torsion by `torsion_mono` because `3 ∣ 12`. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveN : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveN.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveN, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : exampleField) ≠ 0` is
+/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : AlgClosedQ) ≠ 0` is
 postponed and leaves the curve a metavariable at the use site. -/
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion.  Bounding `p` and
@@ -342,23 +339,23 @@ private lemma smoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p = 3 := b
   interval_cases p <;> revert hp1 hp2 <;> decide
 
 /-- `T = (0, 0)` lies on `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurveN.Nonsingular 0 0 :=
-  exampleCurveN.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveN, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 :=
+  (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `T = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`, and the side condition of
 `mem_torsion_three_some_iff'` is automatic. -/
 private lemma exampleTorsionThree :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurveN.torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveN, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- …and therefore `12`-torsion, by `torsion_mono` at `3 ∣ 12`. -/
 private lemma exampleTorsionTwelve :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurveN.torsion 12 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2AddYEqX3 AlgClosedQ).torsion 12 :=
   torsion_mono (by norm_num) exampleTorsionThree
 
 open Classical in
@@ -366,49 +363,51 @@ open Classical in
 issue depends on: the `MulSemiringAction` instance is keyed on the head `TorsionNMul W n` with `n` a
 variable, and it is still found at a concrete index with nothing supplied by hand. -/
 noncomputable example :
-    MulSemiringAction (TorsionNMul exampleCurveN 12) exampleCurveN.FunctionField :=
+    MulSemiringAction (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12)
+        (y2AddYEqX3 AlgClosedQ).FunctionField :=
   inferInstance
 
 open Classical in
-example : FaithfulSMul (TorsionNMul exampleCurveN 12) exampleCurveN.FunctionField :=
+example : FaithfulSMul (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12)
+    (y2AddYEqX3 AlgClosedQ).FunctionField :=
   inferInstance
 
 open Classical in
 /-- The acting group has more than one element, so the fixed field is not all of `F(W)` for a
 trivial reason. -/
-example : Nontrivial (TorsionNMul exampleCurveN 12) :=
+example : Nontrivial (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12) :=
   ⟨⟨Multiplicative.ofAdd ⟨_, exampleTorsionTwelve⟩, 1, by
     simp only [ne_eq, ← Multiplicative.toAdd.injective.eq_iff, Subtype.ext_iff]
     exact Point.some_ne_zero exampleNonsingular⟩⟩
 
 open Classical in
 /-- **`|E[12]| = 144` on a genuine curve**, at an index no merged file computes. -/
-example : Nat.card (TorsionNMul exampleCurveN 12) = 144 :=
+example : Nat.card (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12) = 144 :=
   card_torsionNMul exampleTwo exampleThree (by norm_num) smoothTwelve
 
 open Classical in
-example : Finite (TorsionNMul exampleCurveN 12) :=
+example : Finite (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12) :=
   finite_torsionNMul exampleTwo exampleThree (by norm_num) smoothTwelve
 
 open Classical in
 /-- The transcendence hypothesis at `n = 12`, discharged rather than assumed:
 `transcendental_xCoord_nsmul_of_isAlgClosed` gives it at every `n ≠ 0` over `F̄`. -/
 private lemma exampleTranscendentalTwelve :
-    Transcendental exampleField ((12 : ℕ) • genericPoint (W := exampleCurveN)).xCoord :=
+    Transcendental AlgClosedQ ((12 : ℕ) • genericPoint (W := y2AddYEqX3 AlgClosedQ)).xCoord :=
   transcendental_xCoord_nsmul_of_isAlgClosed exampleTwo (by norm_num)
 
 open Classical in
 /-- **`[12]∗F(W) ⊆ Fixed(E[12])`, committed.**  ⚠️ Neither `[IsAlgClosed F]` nor `3`-smoothness is
 used by the statement being certified — only by the curve it is certified on, which needs the first
 to have a `12`-torsion point to exhibit at all. -/
-example : (mulByNEndo (W := exampleCurveN) 12 exampleTranscendentalTwelve).range
-    ≤ (FixedPoints.subfield (TorsionNMul exampleCurveN 12)
-      exampleCurveN.FunctionField).toSubring :=
+example : (mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 12 exampleTranscendentalTwelve).range
+    ≤ (FixedPoints.subfield (TorsionNMul (y2AddYEqX3 AlgClosedQ) 12)
+      (y2AddYEqX3 AlgClosedQ).FunctionField).toSubring :=
   mulByNRange_le_fixedPoints 12 exampleTranscendentalTwelve
 
 open Classical in
-example (f : exampleCurveN.FunctionField) :
-    translateAut (Point.some (0 : exampleField) 0 exampleNonsingular)
+example (f : (y2AddYEqX3 AlgClosedQ).FunctionField) :
+    translateAut (Point.some (0 : AlgClosedQ) 0 exampleNonsingular)
         (mulByNEndo 12 exampleTranscendentalTwelve f)
       = mulByNEndo 12 exampleTranscendentalTwelve f :=
   translateAut_mulByNEndo 12 exampleTranscendentalTwelve exampleTorsionTwelve f

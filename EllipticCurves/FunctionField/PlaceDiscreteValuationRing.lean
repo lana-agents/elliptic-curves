@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlaceResidueField
 
 /-!
@@ -236,38 +237,35 @@ branches of `placeOf`, with every side condition discharged by instance search r
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- **The place at infinity of a curve that exists is a discrete valuation ring**, by instance
 search.  This is the branch of `placeOf` that is *not* a localisation of anything. -/
-example : IsDiscreteValuationRing (placeOf exampleCurve none) := inferInstance
+example : IsDiscreteValuationRing (placeOf (y2EqX3SubX ℚ) none) := inferInstance
 
 /-- **And so is every affine closed point**, by the same instance. -/
-example (v : HeightOneSpectrum exampleCurve.CoordinateRing) :
-    IsDiscreteValuationRing (placeOf exampleCurve (some v)) := inferInstance
+example (v : HeightOneSpectrum (y2EqX3SubX ℚ).CoordinateRing) :
+    IsDiscreteValuationRing (placeOf (y2EqX3SubX ℚ) (some v)) := inferInstance
 
 /-- There is at least one affine closed point to say that about, so the `some` branch of the
 previous certificate is not vacuous. -/
-example : Nonempty (HeightOneSpectrum exampleCurve.CoordinateRing) :=
+example : Nonempty (HeightOneSpectrum (y2EqX3SubX ℚ).CoordinateRing) :=
   nonempty_heightOneSpectrum
 
 /-- The by-products fire too, uniformly in `p`. -/
-example (p : ProjPoint exampleCurve) : IsNoetherianRing (placeOf exampleCurve p) :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) : IsNoetherianRing (placeOf (y2EqX3SubX ℚ) p) :=
   isNoetherianRing_placeOf p
 
-example (p : ProjPoint exampleCurve) : IsPrincipalIdealRing (placeOf exampleCurve p) :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) : IsPrincipalIdealRing (placeOf (y2EqX3SubX ℚ) p) :=
   inferInstance
 
 /-- **A uniformizer of a curve that exists really is irreducible.**  The dictionary of
 `irreducible_placeOf_iff` fired at a place of a genuine curve, with the uniformizer produced by
 `exists_divisorProj_eq_one` rather than assumed. -/
-example (p : ProjPoint exampleCurve) : ∃ π : placeOf exampleCurve p, Irreducible π := by
+example (p : ProjPoint (y2EqX3SubX ℚ)) : ∃ π : placeOf (y2EqX3SubX ℚ) p, Irreducible π := by
   obtain ⟨π, hπ0, hπ⟩ := exists_divisorProj_eq_one p
   exact ⟨⟨π, (mem_placeOf_iff_divisorProj_nonneg p hπ0).2 (by rw [hπ]; norm_num)⟩,
     (irreducible_placeOf_iff _).2 hπ⟩

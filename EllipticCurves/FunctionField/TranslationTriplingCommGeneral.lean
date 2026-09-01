@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeFinite
 import EllipticCurves.FunctionField.TranslationDoublingCommGeneral
 import EllipticCurves.FunctionField.TranslationTriplingComm
@@ -188,25 +189,22 @@ to `(0, 1)` and triples to the `2`-torsion point `T = (-1, 0)`, both affine. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
-private def exampleCurveTriple : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveTriple.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveTriple, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `P = (2, 3)` lies on `y² = x³ + 1`. -/
-private lemma exampleEqP : exampleCurveTriple.Equation 2 3 := by
-  norm_num [exampleCurveTriple, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqP : (y2EqX3AddOne ℚ).Equation 2 3 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `2P = (0, 1)` lies on `y² = x³ + 1`. -/
-private lemma exampleEqTwoP : exampleCurveTriple.Equation 0 1 := by
-  norm_num [exampleCurveTriple, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqTwoP : (y2EqX3AddOne ℚ).Equation 0 1 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `T = 3P = (-1, 0)` lies on `y² = x³ + 1`. -/
-private lemma exampleEqT : exampleCurveTriple.Equation (-1) 0 := by
-  norm_num [exampleCurveTriple, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqT : (y2EqX3AddOne ℚ).Equation (-1) 0 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 open Classical in
 /-- `[3](2, 3) = (-1, 0)`: the tangent at `P` has slope `2`, giving `2P = (0, 1)`; the secant
@@ -214,27 +212,27 @@ through `(0, 1)` and `(2, 3)` has slope `1`, giving `3P = (-1, 0)`. -/
 private lemma exampleTriple :
     torsionPoint exampleEqP + torsionPoint exampleEqP + torsionPoint exampleEqP
       = torsionPoint exampleEqT := by
-  have hy : (3 : ℚ) ≠ exampleCurveTriple.negY 2 3 := by
-    norm_num [exampleCurveTriple, WeierstrassCurve.Affine.negY]
+  have hy : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   have hdouble : Point.some (2 : ℚ) 3
-        (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqP)
-      + Point.some (2 : ℚ) 3 (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqP)
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
+      + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
       = Point.some (0 : ℚ) 1
-        (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqTwoP) := by
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqTwoP) := by
     rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurveTriple, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   have hx : (0 : ℚ) ≠ 2 := by norm_num
   have hsecant : Point.some (0 : ℚ) 1
-        (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqTwoP)
-      + Point.some (2 : ℚ) 3 (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqP)
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqTwoP)
+      + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
       = Point.some (-1 : ℚ) 0
-        (exampleCurveTriple.equation_iff_nonsingular.mp exampleEqT) := by
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqT) := by
     rw [Point.add_of_X_ne hx, Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurveTriple, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   change Point.some (2 : ℚ) 3 _ + Point.some (2 : ℚ) 3 _ + Point.some (2 : ℚ) 3 _
@@ -248,9 +246,9 @@ private lemma exampleTriple :
 -- `DecidableEq ℚ` instances.  (The `n = 2` file needs `using 4`; the extra layer here is the third
 -- summand.)
 open Classical in
-example (f : exampleCurveTriple.FunctionField) :
+example (f : (y2EqX3AddOne ℚ).FunctionField) :
     translateEndo exampleEqP
-        (mulByThreeEndo (W := exampleCurveTriple) (by norm_num) (by norm_num) f)
+        (mulByThreeEndo (W := y2EqX3AddOne ℚ) (by norm_num) (by norm_num) f)
       = mulByThreeEndo (by norm_num) (by norm_num) (translateEndo exampleEqT f) :=
   translateEndo_mulByThreeEndo_apply_of_baseField exampleEqP exampleEqT
     (by norm_num) (by norm_num) (by convert exampleTriple using 5) f

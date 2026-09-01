@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.ProjectiveDivisor
 import EllipticCurves.FunctionField.CoordinateRingNormalAlgClosed
 import EllipticCurves.FunctionField.MulByThreeResidueDegree
@@ -378,17 +379,17 @@ stronger than the one `EllipticCurves.FunctionField.PlaceResidueDegree` certifie
 `ℚ`-rational curve does not serve here and a curve over an algebraically closed field is committed
 instead."*  **The first clause stopped being true when `[IsAlgClosed F]` left
 `degPt_eq_residueDegreeProj` and `degProjPt_eq_residueDegreeProj`**, and with it the conclusion:
-a `ℚ`-rational curve is now exactly what the general comparison needs, and `exampleCurveRat` is one.
+a `ℚ`-rational curve is now exactly what the general comparison needs, and `(y2EqX3SubX ℚ)` is one.
 The comparison with `EllipticCurves.FunctionField.PlaceResidueDegree` survives for the
 `section IsAlgClosed` half, which is what it was written about.
 
 The same equation `y² = x³ - x` is committed twice, once over each kind of base field:
 
-* over `AlgebraicClosure ℚ` (`exampleCurve`) — the equation that
+* over `AlgebraicClosure ℚ` (`(y2EqX3SubX AlgClosedQ)`) — the equation that
   `EllipticCurves.FunctionField.PlaceResidueDegree` uses for its own headline; characteristic zero
   discharges both nonvanishing hypotheses, and both fundamental identities are committed on it, at
   `n = 2` and at `n = 3`;
-* over `ℚ` (`exampleCurveRat`) — ⚠️ **the certificate for the general comparison**, since over `F̄`
+* over `ℚ` (`(y2EqX3SubX ℚ)`) — ⚠️ **the certificate for the general comparison**, since over `F̄`
   that comparison is the merged `degPt_eq_one` reweighted and says nothing new.
   `not_isAlgClosed_rat` commits *"`ℚ` is not algebraically closed"* as a theorem rather than
   asserting it in prose beside the example.  ⚠️ What is **not** certified there is the common
@@ -396,38 +397,35 @@ The same equation `y² = x³ - x` is committed twice, once over each kind of bas
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ - x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- **The comparison on a named curve over a named algebraically closed field**: the relative ideal
 norm and the residue-field degree agree at every place.
 
 ⚠️ This is the weaker of the two certificates and is kept for the `section IsAlgClosed` statements
 that follow it, which need this base field.  Over `F̄` the comparison is `degPt_eq_one` reweighted;
-the certificate for the general statement is the `exampleCurveRat` one. -/
-example (p : ProjPoint exampleCurve) :
-    degProjPt exampleCurve p = residueDegreeProj exampleCurve p :=
-  degProjPt_eq_residueDegreeProj exampleCurve p
+the certificate for the general statement is the `(y2EqX3SubX ℚ)` one. -/
+example (p : ProjPoint (y2EqX3SubX AlgClosedQ)) :
+    degProjPt (y2EqX3SubX AlgClosedQ) p = residueDegreeProj (y2EqX3SubX AlgClosedQ) p :=
+  degProjPt_eq_residueDegreeProj (y2EqX3SubX AlgClosedQ) p
 
 /-- The degree-zero theorem, read as *"as many zeros as poles"* on the same curve. -/
-example {f : exampleCurve.FunctionField} (hf : f ≠ 0) :
-    (divisorProj exampleCurve f).sum (fun _ n => n) = 0 := by
+example {f : (y2EqX3SubX AlgClosedQ).FunctionField} (hf : f ≠ 0) :
+    (divisorProj (y2EqX3SubX AlgClosedQ) f).sum (fun _ n => n) = 0 := by
   rw [← degProj_eq_sum, degProj_divisorProj hf]
 
 /-- The `n = 2` fundamental identity in the `∑ e_p · deg p` spelling, committed and not merely
 stated: characteristic zero discharges `(2 : F) ≠ 0`. -/
-example (q : ProjPoint exampleCurve) :
+example (q : ProjPoint (y2EqX3SubX AlgClosedQ)) :
     ∑ p ∈ (CoordinateRing.finite_comapProjPointTwo_preimage_singleton
-        (W := exampleCurve) two_ne_zero q).toFinset,
-      (CoordinateRing.ramificationIdxTwo two_ne_zero p).toNat * degProjPt exampleCurve p = 4 :=
+        (W := y2EqX3SubX AlgClosedQ) two_ne_zero q).toFinset,
+      (CoordinateRing.ramificationIdxTwo two_ne_zero p).toNat * degProjPt
+          (y2EqX3SubX AlgClosedQ) p = 4 :=
   CoordinateRing.sum_ramificationIdxTwo_mul_degProjPt two_ne_zero q
 
 /-- The `n = 3` mirror, committed on the same curve: characteristic zero discharges `(3 : F) ≠ 0`
@@ -438,11 +436,11 @@ as well, so *both* nonvanishing hypotheses of the two fundamental identities are
 `sum_ramificationIdxThree_eq_nine`, `sum_ramificationIdxThree_mul_residueDegreeThree` and
 `finite_comapProjPointThree_preimage_singleton` all use; an `h2 q h3` signature fails to elaborate
 against it. -/
-example (q : ProjPoint exampleCurve) :
+example (q : ProjPoint (y2EqX3SubX AlgClosedQ)) :
     ∑ p ∈ (CoordinateRing.finite_comapProjPointThree_preimage_singleton
-        (W := exampleCurve) two_ne_zero (by norm_num) q).toFinset,
+        (W := y2EqX3SubX AlgClosedQ) two_ne_zero (by norm_num) q).toFinset,
       (CoordinateRing.ramificationIdxThree two_ne_zero (by norm_num) p).toNat
-        * degProjPt exampleCurve p = 9 :=
+        * degProjPt (y2EqX3SubX AlgClosedQ) p = 9 :=
   CoordinateRing.sum_ramificationIdxThree_mul_degProjPt two_ne_zero (by norm_num) q
 
 /-! ⚠️ **The certificate that matters for the general comparison**: a base field that is *not*
@@ -451,16 +449,9 @@ reweighted and says nothing new; the content of `degProjPt_eq_residueDegreeProj`
 it survives when `degPt_eq_one` fails, and `ℚ` is where it fails.  `not_isAlgClosed_rat` commits
 the second fact as a theorem rather than asserting it in prose beside the example. -/
 
-/-- The same equation `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveRat : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurveRat.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveRat, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
 /-- ⚠️ **`ℚ` is not algebraically closed** — the hypothesis this file used to carry everywhere, and
-the reason the `exampleCurveRat` example is not a restatement of the `exampleCurve` one.  If `ℚ`
+the reason the `(y2EqX3SubX ℚ)` example is not a restatement of the `(y2EqX3SubX AlgClosedQ)`
+one.  If `ℚ`
 were algebraically closed, `-1` would have a square root in it. -/
 private theorem not_isAlgClosed_rat : ¬ IsAlgClosed ℚ := fun h => by
   obtain ⟨z, hz⟩ := @IsAlgClosed.exists_pow_nat_eq ℚ _ h (-1) 2 two_pos
@@ -471,9 +462,9 @@ private theorem not_isAlgClosed_rat : ¬ IsAlgClosed ℚ := fun h => by
 ⚠️ Note what is *not* claimed: the common value is **not** asserted to be `1`.  Over `ℚ` an affine
 closed point can have a number field as its residue field, `degPt_eq_one` is false, and this
 example is exactly the statement that the two degree functions agree anyway. -/
-example (p : ProjPoint exampleCurveRat) :
-    degProjPt exampleCurveRat p = residueDegreeProj exampleCurveRat p :=
-  degProjPt_eq_residueDegreeProj exampleCurveRat p
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    degProjPt (y2EqX3SubX ℚ) p = residueDegreeProj (y2EqX3SubX ℚ) p :=
+  degProjPt_eq_residueDegreeProj (y2EqX3SubX ℚ) p
 
 end Nonvacuity
 

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNGalois
 import EllipticCurves.Galois.SubfieldAut
 
@@ -330,20 +331,16 @@ prove nothing about a general-`n` file.  ⚠️ Every hypothesis is **produced**
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveGaloisGroup : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveGaloisGroup.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveGaloisGroup, WeierstrassCurve.Δ, WeierstrassCurve.b₂,
-    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion. -/
@@ -354,33 +351,33 @@ private lemma exampleSmoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p =
   interval_cases p <;> revert hp1 hp2 <;> decide
 
 private lemma exampleTranscendentalTwelve :
-    Transcendental exampleField
-      ((12 : ℕ) • genericPoint (W := exampleCurveGaloisGroup)).xCoord :=
+    Transcendental AlgClosedQ
+      ((12 : ℕ) • genericPoint (W := y2AddYEqX3 AlgClosedQ)).xCoord :=
   transcendental_xCoord_nsmul_of_isAlgClosed exampleTwo (by norm_num)
 
 open Classical in
 /-- **The group identification on a genuine curve at `n = 12`.** -/
-noncomputable example : TorsionNMul exampleCurveGaloisGroup 12 ≃*
-    (exampleCurveGaloisGroup.FunctionField ≃ₐ[↥(mulByNEndo (W := exampleCurveGaloisGroup) 12
-      exampleTranscendentalTwelve).fieldRange] exampleCurveGaloisGroup.FunctionField) :=
+noncomputable example : TorsionNMul (y2AddYEqX3 AlgClosedQ) 12 ≃*
+    ((y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 12
+      exampleTranscendentalTwelve).fieldRange] (y2AddYEqX3 AlgClosedQ).FunctionField) :=
   torsionNMulGaloisEquiv exampleTwo exampleThree (by norm_num) exampleSmoothTwelve
     exampleTranscendentalTwelve
 
 open Classical in
 /-- **`|Gal(F(W) / [12]∗F(W))| = 144` on a genuine curve.** -/
-example : Nat.card (exampleCurveGaloisGroup.FunctionField ≃ₐ[↥(mulByNEndo
-    (W := exampleCurveGaloisGroup) 12 exampleTranscendentalTwelve).fieldRange]
-    exampleCurveGaloisGroup.FunctionField) = 144 :=
+example : Nat.card ((y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
+    (W := y2AddYEqX3 AlgClosedQ) 12 exampleTranscendentalTwelve).fieldRange]
+    (y2AddYEqX3 AlgClosedQ).FunctionField) = 144 :=
   card_galoisGroup_mulByNEndoFieldRange exampleTwo exampleThree (by norm_num) exampleSmoothTwelve
     exampleTranscendentalTwelve
 
 open Classical in
 /-- **Every automorphism over `[12]∗F(W)` is a translation**, committed on the same curve. -/
-example (σ : exampleCurveGaloisGroup.FunctionField ≃ₐ[↥(mulByNEndo
-    (W := exampleCurveGaloisGroup) 12 exampleTranscendentalTwelve).fieldRange]
-    exampleCurveGaloisGroup.FunctionField) :
-    ∃ P ∈ exampleCurveGaloisGroup.torsion 12,
-      ∀ g : exampleCurveGaloisGroup.FunctionField, σ g = translateAut P g :=
+example (σ : (y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
+    (W := y2AddYEqX3 AlgClosedQ) 12 exampleTranscendentalTwelve).fieldRange]
+    (y2AddYEqX3 AlgClosedQ).FunctionField) :
+    ∃ P ∈ (y2AddYEqX3 AlgClosedQ).torsion 12,
+      ∀ g : (y2AddYEqX3 AlgClosedQ).FunctionField, σ g = translateAut P g :=
   exists_mem_torsion_translateAut_eq_of_smooth exampleTwo exampleThree (by norm_num)
     exampleSmoothTwelve exampleTranscendentalTwelve σ
 

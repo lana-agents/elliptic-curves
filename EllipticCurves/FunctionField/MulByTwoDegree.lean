@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.RatFuncExtension
 import EllipticCurves.FunctionField.MulByTwoExtensionFinite
 import EllipticCurves.DivisionPolynomial.Coprime
@@ -359,23 +360,20 @@ hypotheses of the section above are discharged: it is elliptic, and `(2 : ℚ) �
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 example :
-    letI : Algebra ↥(mulByTwoEndo (W := exampleCurve) (by norm_num)).range
-        exampleCurve.FunctionField :=
-      ((mulByTwoEndo (W := exampleCurve) (by norm_num)).range.subtype).toAlgebra
-    finrank ↥(mulByTwoEndo (W := exampleCurve) (by norm_num)).range
-      exampleCurve.FunctionField = 4 :=
+    letI : Algebra ↥(mulByTwoEndo (W := y2EqX3SubX ℚ) (by norm_num)).range
+        (y2EqX3SubX ℚ).FunctionField :=
+      ((mulByTwoEndo (W := y2EqX3SubX ℚ) (by norm_num)).range.subtype).toAlgebra
+    finrank ↥(mulByTwoEndo (W := y2EqX3SubX ℚ) (by norm_num)).range
+      (y2EqX3SubX ℚ).FunctionField = 4 :=
   finrank_mulByTwoRange_functionField _
 
-example : ¬ Function.Surjective (mulByTwoEndo (W := exampleCurve) (by norm_num)) :=
+example : ¬ Function.Surjective (mulByTwoEndo (W := y2EqX3SubX ℚ) (by norm_num)) :=
   not_surjective_mulByTwoEndo _
 
 end Nonvacuity

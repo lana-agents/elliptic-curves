@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.FunctionFieldBaseChange
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingAlternatingThree
@@ -366,22 +367,20 @@ private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 private lemma exampleThree : (3 : ℚ) ≠ 0 := by norm_num
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, whose single
+`[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-private lemma exampleNs : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNs : (y2EqX3SubX ℚ).Nonsingular 0 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 private lemma exampleTors :
-    Point.some (0 : ℚ) 0 exampleNs ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNs).mpr (by norm_num [exampleCurve])
+    Point.some (0 : ℚ) 0 exampleNs ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNs).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- **The `n = 2` headline applies on a curve over `ℚ`**, with `hprin` the only hypothesis left.
@@ -396,57 +395,49 @@ general `F` under `open Classical in` — is indexed by `Classical.propDecidable
 `AddSubgroup`s are propositionally but not syntactically equal; `convert` discharges the difference
 by `Subsingleton.elim`.  This does not arise in the merged non-vacuity blocks on this front because
 they all sit over `AlgebraicClosure ℚ`, which has no decidable equality. -/
-example (hprin : ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-      divisor exampleCurve f
+example (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3SubX ℚ) f
         = Finsupp.single (pointClosedPoint exampleNs.left) (2 : ℤ) →
-      ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-        2 • divisor exampleCurve g₀
-          = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurve f
+      ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+        2 • divisor (y2EqX3SubX ℚ) g₀
+          = divisor (y2EqX3SubX ℚ) (mulByTwoEndo exampleTwo f)) :
+    ∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3SubX ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleNs.left)) (2 : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurve) (2 : ℤ) ∧
-        ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurve.CoordinateRingˣ,
-            (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
+            - Finsupp.single (none : ProjPoint (y2EqX3SubX ℚ)) (2 : ℤ) ∧
+        ∃ g : (y2EqX3SubX ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+            (u : (y2EqX3SubX ℚ).CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
           translateEndo exampleNs.left g = g ∧ weilPairingElt exampleNs.left g = 1 :=
   exists_weilPairingElt_self_eq_one_of_hprin_two exampleTwo exampleNs
     (by convert exampleTors) hprin
 
-/-- The curve `y² + y = x³` over `ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleNsThree : exampleCurveThree.Nonsingular 0 0 :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsThree : (y2AddYEqX3 ℚ).Nonsingular 0 0 :=
+  (y2AddYEqX3 ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 private lemma exampleTorsThree :
-    Point.some (0 : ℚ) 0 exampleNsThree ∈ exampleCurveThree.torsion 3 :=
+    Point.some (0 : ℚ) 0 exampleNsThree ∈ (y2AddYEqX3 ℚ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
       WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- **The `n = 3` headline applies on a curve over `ℚ`**, with `hprin` the only hypothesis left. -/
-example (hprin : ∀ f : exampleCurveThree.FunctionField, f ≠ 0 →
-      divisor exampleCurveThree f
+example (hprin : ∀ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 →
+      divisor (y2AddYEqX3 ℚ) f
         = Finsupp.single (pointClosedPoint exampleNsThree.left) (3 : ℤ) →
-      ∃ g₀ : exampleCurveThree.FunctionField, g₀ ≠ 0 ∧
-        3 • divisor exampleCurveThree g₀
-          = divisor exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)) :
-    ∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurveThree f
+      ∃ g₀ : (y2AddYEqX3 ℚ).FunctionField, g₀ ≠ 0 ∧
+        3 • divisor (y2AddYEqX3 ℚ) g₀
+          = divisor (y2AddYEqX3 ℚ) (mulByThreeEndo exampleTwo exampleThree f)) :
+    ∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2AddYEqX3 ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleNsThree.left)) (3 : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurveThree) (3 : ℤ) ∧
-        ∃ g : exampleCurveThree.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurveThree.CoordinateRingˣ,
-            (u : exampleCurveThree.CoordinateRing) • g ^ 3
+            - Finsupp.single (none : ProjPoint (y2AddYEqX3 ℚ)) (3 : ℤ) ∧
+        ∃ g : (y2AddYEqX3 ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+            (u : (y2AddYEqX3 ℚ).CoordinateRing) • g ^ 3
               = mulByThreeEndo exampleTwo exampleThree f) ∧
           translateEndo exampleNsThree.left g = g ∧
             weilPairingElt exampleNsThree.left g = 1 :=

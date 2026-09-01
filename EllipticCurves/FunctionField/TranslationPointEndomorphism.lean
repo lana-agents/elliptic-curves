@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationAutomorphism
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
 
@@ -219,32 +220,29 @@ would be exercised.  Here `P = (2, 3)` on `y² = x³ + 1` has `[2]P = (0, 1)`, a
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-private lemma exampleNonsingularP : exampleCurve.Nonsingular 2 3 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularP : (y2EqX3AddOne ℚ).Nonsingular 2 3 :=
+  (y2EqX3AddOne ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleNonsingularT : exampleCurve.Nonsingular 0 1 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularT : (y2EqX3AddOne ℚ).Nonsingular 0 1 :=
+  (y2EqX3AddOne ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `[2](2, 3) = (0, 1)` on `y² = x³ + 1`: the tangent has slope `2`, so `x(2P) = 4 - 4 = 0`. -/
 private lemma exampleDouble :
     Point.some (2 : ℚ) 3 exampleNonsingularP + Point.some (2 : ℚ) 3 exampleNonsingularP
       = Point.some (0 : ℚ) 1 exampleNonsingularT := by
-  have hy : (3 : ℚ) ≠ exampleCurve.negY 2 3 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
   constructor <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 

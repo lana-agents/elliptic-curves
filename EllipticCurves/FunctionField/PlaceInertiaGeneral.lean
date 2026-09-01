@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoFibreAffine
 import EllipticCurves.FunctionField.PlaceDegreeComparison
 import EllipticCurves.FunctionField.PlaceRamificationInertia
@@ -332,19 +333,16 @@ attempted here; see the module docstring. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- The identity of this file, instantiated over `ℚ` — a base field that is not algebraically
 closed, so `sum_ramificationIdxTwo_eq_four` does not apply to it. -/
-private noncomputable example (q : ProjPoint exampleCurve) :
+private noncomputable example (q : ProjPoint (y2EqX3SubX ℚ)) :
     ∑ p ∈ (CoordinateRing.finite_comapProjPointTwo_preimage_singleton exampleTwo q).toFinset,
       (CoordinateRing.ramificationIdxTwo exampleTwo p).toNat
         * CoordinateRing.residueDegreeTwo exampleTwo p = 4 :=

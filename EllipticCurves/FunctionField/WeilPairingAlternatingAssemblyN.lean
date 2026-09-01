@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
@@ -446,49 +447,47 @@ certificate costs no `convert` — see the module docstring. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curves `y² = x³ + 1` and `y² = x³ + 4x` are the shared
+`EllipticCurves.Fixture.y2EqX3AddOne` and `EllipticCurves.Fixture.y2EqX3Add4X`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ + 1` over `AlgebraicClosure ℚ`, of discriminant `−432`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, 0, 1⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwoNeZero : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwoNeZero : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- `T = (0, 1)` is a nonsingular point of `y² = x³ + 1`. -/
-private lemma exampleNonsingularT : exampleCurve.Nonsingular 0 1 := by
+private lemma exampleNonsingularT : (y2EqX3AddOne AlgClosedQ).Nonsingular 0 1 := by
   rw [nonsingular_iff]
   refine ⟨?_, Or.inr ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
 
 open Classical in
 /-- `[2]T = −T`: the tangent at `(0, 1)` is horizontal, and doubling returns `(0, −1)`. -/
 private lemma exampleDouble :
-    Point.some (0 : exampleField) 1 exampleNonsingularT
-        + Point.some (0 : exampleField) 1 exampleNonsingularT
-      = -Point.some (0 : exampleField) 1 exampleNonsingularT := by
-  have hy : (1 : exampleField) ≠ exampleCurve.negY 0 1 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+    Point.some (0 : AlgClosedQ) 1 exampleNonsingularT
+        + Point.some (0 : AlgClosedQ) 1 exampleNonsingularT
+      = -Point.some (0 : AlgClosedQ) 1 exampleNonsingularT := by
+  have hy : (1 : AlgClosedQ) ≠ (y2EqX3AddOne AlgClosedQ).negY 0 1 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [Point.add_self_of_Y_ne hy, Point.neg_some, Point.some.injEq]
   constructor <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 
 open Classical in
 /-- `T` has order `3`. -/
 private lemma exampleThreeTorsion :
-    ((3 : ℕ) • Point.some (0 : exampleField) 1 exampleNonsingularT : exampleCurve.Point) = 0 := by
+    ((3 : ℕ) • Point.some (0 : AlgClosedQ) 1 exampleNonsingularT :
+        (y2EqX3AddOne AlgClosedQ).Point) = 0 := by
   rw [show (3 : ℕ) = 2 + 1 from rfl, succ_nsmul, two_nsmul, exampleDouble, neg_add_cancel]
 
 open Classical in
 /-- Hence `T` is `6`-torsion, without having order `6`. -/
 private lemma exampleSixTorsion :
-    Point.some (0 : exampleField) 1 exampleNonsingularT ∈ exampleCurve.torsion 6 := by
+    Point.some (0 : AlgClosedQ) 1 exampleNonsingularT ∈ (y2EqX3AddOne AlgClosedQ).torsion 6 := by
   rw [mem_torsion_iff, show (6 : ℕ) = 3 + 3 from rfl, add_nsmul, exampleThreeTorsion, add_zero]
 
 /-- `6` is `3`-smooth. -/
@@ -502,19 +501,20 @@ private lemma exampleSmooth : ∀ p ∈ (6 : ℕ).primeFactors, p = 2 ∨ p = 3 
 open Classical in
 /-- **Every hypothesis but `hprin` is simultaneously satisfiable at `n = 6`.** -/
 example
-    (hprin : ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-      divisor exampleCurve f
+    (hprin : ∀ f : (y2EqX3AddOne AlgClosedQ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3AddOne AlgClosedQ) f
           = Finsupp.single (pointClosedPoint exampleNonsingularT.left) ((6 : ℕ) : ℤ) →
-        ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-          (6 : ℕ) • divisor exampleCurve g₀ = divisor exampleCurve
+        ∃ g₀ : (y2EqX3AddOne AlgClosedQ).FunctionField, g₀ ≠ 0 ∧
+          (6 : ℕ) • divisor (y2EqX3AddOne AlgClosedQ) g₀ = divisor (y2EqX3AddOne AlgClosedQ)
             (mulByNEndo 6
               (transcendental_xCoord_nsmul_of_isAlgClosed exampleTwoNeZero (by norm_num)) f)) :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurve f
+    ∃ f : (y2EqX3AddOne AlgClosedQ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3AddOne AlgClosedQ) f
           = Finsupp.single (some (pointClosedPoint exampleNonsingularT.left)) ((6 : ℕ) : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurve) ((6 : ℕ) : ℤ) ∧
-        ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurve.CoordinateRingˣ, (u : exampleCurve.CoordinateRing) • g ^ (6 : ℕ)
+            - Finsupp.single (none : ProjPoint (y2EqX3AddOne AlgClosedQ)) ((6 : ℕ) : ℤ) ∧
+        ∃ g : (y2EqX3AddOne AlgClosedQ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3AddOne AlgClosedQ).CoordinateRingˣ, (u :
+              (y2EqX3AddOne AlgClosedQ).CoordinateRing) • g ^ (6 : ℕ)
             = mulByNEndo 6
                 (transcendental_xCoord_nsmul_of_isAlgClosed exampleTwoNeZero (by norm_num)) f) ∧
           translateEndo exampleNonsingularT.left g = g ∧
@@ -577,32 +577,26 @@ what would make both free. -/
 
 section NonvacuityRat
 
-/-- The curve `y² = x³ + 4x` over `ℚ`, of discriminant `−4096`. -/
-private noncomputable def exampleRatCurve : Affine ℚ := ⟨0, 0, 0, 4, 0⟩
-
-private instance : exampleRatCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleRatCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleRatTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 private lemma exampleRatThree : (3 : ℚ) ≠ 0 := by norm_num
 
 /-- `P = (2, 4)` is a nonsingular point of `y² = x³ + 4x`. -/
-private lemma exampleRatNsP : exampleRatCurve.Nonsingular 2 4 :=
-  exampleRatCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleRatCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleRatNsP : (y2EqX3Add4X ℚ).Nonsingular 2 4 :=
+  (y2EqX3Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add4X, WeierstrassCurve.Affine.equation_iff])
 
 /-- `T = (0, 0)` is a nonsingular point of `y² = x³ + 4x`; it is the `2`-torsion point cut out by
 `x = 0`. -/
-private lemma exampleRatNsT : exampleRatCurve.Nonsingular 0 0 :=
-  exampleRatCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleRatCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleRatNsT : (y2EqX3Add4X ℚ).Nonsingular 0 0 :=
+  (y2EqX3Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add4X, WeierstrassCurve.Affine.equation_iff])
 
 /-- `T = (0, 0)` is `2`-torsion: `ψ₂(T) = 2·0 + 0·0 + 0 = 0`. -/
-private lemma exampleRatTorTwoT : Point.some (0 : ℚ) 0 exampleRatNsT ∈ exampleRatCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleRatNsT).mpr (by norm_num [exampleRatCurve])
+private lemma exampleRatTorTwoT : Point.some (0 : ℚ) 0 exampleRatNsT ∈ (y2EqX3Add4X ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleRatNsT).mpr (by norm_num [y2EqX3Add4X])
 
 /-- **`T + T = O`**, the `W.Point` form of `exampleRatTorTwoT`. -/
 private lemma exampleRatDoubleT :
@@ -618,7 +612,7 @@ exercises at a `T` of order `3`.
 ⚠️ `mul_nsmul a m n : (m * n) • a = n • m • a` puts the factors out in the **opposite** order to the
 one written, so `6 = 2 * 3` is what produces `3 • (2 • T)` here. -/
 private lemma exampleRatTorSixT :
-    Point.some (0 : ℚ) 0 exampleRatNsT ∈ exampleRatCurve.torsion 6 := by
+    Point.some (0 : ℚ) 0 exampleRatNsT ∈ (y2EqX3Add4X ℚ).torsion 6 := by
   rw [mem_torsion_iff, show (6 : ℕ) = 2 * 3 from rfl, mul_nsmul, two_nsmul, exampleRatDoubleT,
     smul_zero]
 
@@ -636,10 +630,10 @@ those files, recompute the numbers.
 ⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 64 − 128 = 0` — rather
 than by unfolding `W.Φ 2`, whose definition is a recursion. -/
 private lemma eval_Φ_two_exampleRatCurve :
-    (exampleRatCurve.Φ 2).eval 2 = (0 : ℚ) * exampleRatCurve.Ψ₂Sq.eval 2 := by
+    ((y2EqX3Add4X ℚ).Φ 2).eval 2 = (0 : ℚ) * (y2EqX3Add4X ℚ).Ψ₂Sq.eval 2 := by
   rw [Φ_two_eval]
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
-    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleRatCurve]
+    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈, y2EqX3Add4X]
   norm_num
 
 /-- **The halving `[6]P = T`, discharged from a polynomial root**, together with the diagonal guard
@@ -664,7 +658,7 @@ up" the unused conjunct.
 ⚠️ `exampleRatNsP` survives this collapse in a different role: it is no longer the named summand of
 a doubling but the `W.Equation` witness above the root, supplied as `exampleRatNsP.left`. -/
 private lemma exampleRatExistsSixP :
-    ∃ P : exampleRatCurve.Point,
+    ∃ P : (y2EqX3Add4X ℚ).Point,
       (6 : ℕ) • P = Point.some (0 : ℚ) 0 exampleRatNsT ∧
         P ≠ Point.some (0 : ℚ) 0 exampleRatNsT :=
   exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleRatNsT exampleRatTorTwoT
@@ -678,20 +672,20 @@ whose halving relation `[6]P = T` is proved.
 assemblies over a general field.  It is `#418` and nothing on this board discharges it at any index
 over a field that is not algebraically closed. -/
 private theorem exampleRatAssemblySix
-    (hprin : ∀ f : exampleRatCurve.FunctionField, f ≠ 0 →
-      divisor exampleRatCurve f
+    (hprin : ∀ f : (y2EqX3Add4X ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3Add4X ℚ) f
           = Finsupp.single (pointClosedPoint exampleRatNsT.left) ((6 : ℕ) : ℤ) →
-        ∃ g₀ : exampleRatCurve.FunctionField, g₀ ≠ 0 ∧
-          (6 : ℕ) • divisor exampleRatCurve g₀ = divisor exampleRatCurve
+        ∃ g₀ : (y2EqX3Add4X ℚ).FunctionField, g₀ ≠ 0 ∧
+          (6 : ℕ) • divisor (y2EqX3Add4X ℚ) g₀ = divisor (y2EqX3Add4X ℚ)
             (mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleRatTwo exampleRatThree
               (by norm_num) exampleSmooth) f)) :
-    ∃ f : exampleRatCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleRatCurve f
+    ∃ f : (y2EqX3Add4X ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3Add4X ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleRatNsT.left)) ((6 : ℕ) : ℤ)
-            - Finsupp.single (none : ProjPoint exampleRatCurve) ((6 : ℕ) : ℤ) ∧
-        ∃ g : exampleRatCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleRatCurve.CoordinateRingˣ,
-            (u : exampleRatCurve.CoordinateRing) • g ^ (6 : ℕ)
+            - Finsupp.single (none : ProjPoint (y2EqX3Add4X ℚ)) ((6 : ℕ) : ℤ) ∧
+        ∃ g : (y2EqX3Add4X ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3Add4X ℚ).CoordinateRingˣ,
+            (u : (y2EqX3Add4X ℚ).CoordinateRing) • g ^ (6 : ℕ)
               = mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleRatTwo exampleRatThree
                   (by norm_num) exampleSmooth) f) ∧
           translateEndo exampleRatNsT.left g = g ∧ weilPairingElt exampleRatNsT.left g = 1 :=

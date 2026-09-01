@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.TranslationActionThree
 import Mathlib.FieldTheory.Galois.Basic
@@ -355,61 +356,58 @@ the file. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : exampleField) ≠ 0` is
+/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : AlgClosedQ) ≠ 0` is
 postponed and leaves the curve a metavariable at the use site. -/
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **The sandwich, on a curve that exists.** -/
-example : (mulByThreeEndoAlgHom (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    = fixedFieldThree exampleCurveThree :=
+example : (mulByThreeEndoAlgHom (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    = fixedFieldThree (y2AddYEqX3 AlgClosedQ) :=
   fixedFieldThree_eq_mulByThreeFieldRange exampleTwo exampleThree
 
 open Classical in
 /-- Artin's degree on the same curve: the fixed field has index `9`. -/
-example : finrank ↥(fixedFieldThree exampleCurveThree) exampleCurveThree.FunctionField = 9 :=
+example : finrank ↥(fixedFieldThree (y2AddYEqX3 AlgClosedQ))
+    (y2AddYEqX3 AlgClosedQ).FunctionField = 9 :=
   finrank_fixedFieldThree exampleTwo exampleThree
 
 open Classical in
 /-- **The headline, committed**: `F(W)` is separable over `[3]∗F(W)` on a genuine curve, in the
 presentation a place-theoretic consumer would state its hypotheses for. -/
 example : Algebra.IsSeparable
-    ↥(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    exampleCurveThree.FunctionField :=
+    ↥(mulByThreeEndo (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField :=
   isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed exampleTwo exampleThree
 
 open Classical in
 /-- And the whole Galois package. -/
 example : IsGalois
-    ↥(mulByThreeEndoAlgHom (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    exampleCurveThree.FunctionField :=
+    ↥(mulByThreeEndoAlgHom (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField :=
   isGalois_mulByThreeFieldRange_of_isAlgClosed exampleTwo exampleThree
 
 open Classical in
 /-- Normality in the `Subfield` presentation, on the same curve. -/
 example : Normal
-    ↥(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    exampleCurveThree.FunctionField :=
+    ↥(mulByThreeEndo (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField :=
   normal_mulByThreeEndoFieldRange_of_isAlgClosed exampleTwo exampleThree
 
 open Classical in
 /-- And the whole Galois package in that presentation too — the statement `#1244` was filed for. -/
 example : IsGalois
-    ↥(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    exampleCurveThree.FunctionField :=
+    ↥(mulByThreeEndo (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField :=
   isGalois_mulByThreeEndoFieldRange_of_isAlgClosed exampleTwo exampleThree
 
 end Nonvacuity

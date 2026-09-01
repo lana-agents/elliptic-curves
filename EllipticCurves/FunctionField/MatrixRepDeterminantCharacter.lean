@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingDeterminantCharacter
 import EllipticCurves.TateModule.MatrixRepMod
 
@@ -256,7 +257,7 @@ untouched, gives
 error: unsolved goals
 σ : Gal(AlgebraicClosure ℚ/ℚ)
 hσ : (galoisModularCyclotomicChar ℚ (AlgebraicClosure ℚ) ⋯) σ ≠ 1
-⊢ ∀ (c : Module.Basis (Fin 2) (ZMod 3) ↥((exampleCurveThree⁄exampleField).torsion 3)),
+⊢ ∀ (c : Module.Basis (Fin 2) (ZMod 3) ↥(((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3)),
     ¬(galoisRepModMatrix c).range ≤ SpecialLinearGroup.toGL.range
 ```
 
@@ -272,72 +273,68 @@ repeated here only because a reader of *this* file would otherwise ask for one. 
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- A `ZMod 3`-basis of `E[3]` on the certificate curve, fixed once so that the pointwise
 certificates below speak about the same representation.  ⚠️ The load-bearing certificate does
 **not** use it: it quantifies over all bases. -/
 private noncomputable def exampleBasisThree :
-    Module.Basis (Fin 2) (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3) :=
+    Module.Basis (Fin 2) (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) :=
   basisTorsionThree exampleTwo exampleThree
 
 open Classical in
 /-- The headline on a curve that exists, at a fixed basis and an arbitrary `σ`. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     Matrix.GeneralLinearGroup.det (galoisRepModMatrix exampleBasisThree σ)
-      = galoisModularCyclotomicChar ℚ exampleField
-          (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree) σ :=
+      = galoisModularCyclotomicChar ℚ AlgClosedQ
+          (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree) σ :=
   det_galoisRepModMatrix_three_eq_galoisModularCyclotomicChar
-    (W := exampleCurveThree) exampleBasisThree exampleTwo exampleThree σ
+    (W := y2AddYEqX3 ℚ) exampleBasisThree exampleTwo exampleThree σ
 
 open Classical in
 /-- The choice-free form on the same curve: a basis, a matrix representation computing the Galois
 action, and `det = χ_3`, all produced. -/
-example : ∃ (c : Module.Basis (Fin 2) (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3))
-      (ρ : (exampleField ≃ₐ[ℚ] exampleField) →* GL (Fin 2) (ZMod 3)),
-      (∀ (σ : exampleField ≃ₐ[ℚ] exampleField)
-        (P : (exampleCurveThree⁄exampleField).torsion 3),
+example : ∃ (c : Module.Basis (Fin 2) (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3))
+      (ρ : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* GL (Fin 2) (ZMod 3)),
+      (∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+        (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3),
         ⇑(c.repr (σ • P)) = (ρ σ : Matrix (Fin 2) (Fin 2) (ZMod 3)) *ᵥ ⇑(c.repr P)) ∧
-      ∀ σ : exampleField ≃ₐ[ℚ] exampleField, Matrix.GeneralLinearGroup.det (ρ σ)
-        = galoisModularCyclotomicChar ℚ exampleField
-            (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree) σ :=
+      ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ, Matrix.GeneralLinearGroup.det (ρ σ)
+        = galoisModularCyclotomicChar ℚ AlgClosedQ
+            (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree) σ :=
   exists_galoisRepModMatrix_three_det_eq_galoisModularCyclotomicChar exampleTwo exampleThree
 
 open Classical in
 /-- Some `σ ∈ Gal(ℚ̄/ℚ)` has `det (ρ_{E,3}(σ)) ≠ 1` — the existential form, weaker than the
 certificate below. -/
-example : ∃ σ : exampleField ≃ₐ[ℚ] exampleField,
+example : ∃ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
     Matrix.GeneralLinearGroup.det (galoisRepModMatrix exampleBasisThree σ) ≠ 1 := by
   obtain ⟨σ, hσ⟩ := exists_galoisModularCyclotomicChar_three_ne_one
-    (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)
+    (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)
   exact ⟨σ, det_galoisRepModMatrix_three_ne_one_of_galoisModularCyclotomicChar_ne_one
-    (W := exampleCurveThree) exampleBasisThree exampleTwo exampleThree hσ⟩
+    (W := y2AddYEqX3 ℚ) exampleBasisThree exampleTwo exampleThree hσ⟩
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on `y² + y = x³` over `ℚ`, the image of the mod-`3` matrix
 representation `Gal(ℚ̄/ℚ) →* GL₂(ℤ/3)` is **not** contained in `SL₂(ℤ/3)` — at every `ZMod 3`-basis
 of `E[3]`, unconditionally. -/
-example : ∀ c : Module.Basis (Fin 2) (ZMod 3) ((exampleCurveThree⁄exampleField).torsion 3),
+example : ∀ c : Module.Basis (Fin 2) (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3),
     ¬ (galoisRepModMatrix (S := ℚ) c).range
       ≤ (SpecialLinearGroup.toGL (n := Fin 2) (R := ZMod 3)).range := by
   obtain ⟨σ, hσ⟩ := exists_galoisModularCyclotomicChar_three_ne_one
-    (natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree)
+    (natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree)
   exact fun c => range_galoisRepModMatrix_three_not_le_range_toGL
-    (W := exampleCurveThree) c exampleTwo exampleThree hσ
+    (W := y2AddYEqX3 ℚ) c exampleTwo exampleThree hσ
 
 end Nonvacuity
 

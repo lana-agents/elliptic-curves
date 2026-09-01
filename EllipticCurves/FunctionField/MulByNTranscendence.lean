@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNPullback
 import EllipticCurves.FunctionField.TranslationDoublingCommGeneral
 import EllipticCurves.FunctionField.TranslationAction
@@ -246,28 +247,24 @@ such index, only one past `3`, and `5` is what the certificate below elaborates 
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard certificate curve. -/
-private noncomputable def exampleCurveN : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`. -/
-private abbrev exampleFieldN : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveN.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveN, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveN⁄exampleFieldN).IsElliptic :=
-  inferInstanceAs (exampleCurveN.map (algebraMap ℚ exampleFieldN)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwoN : (2 : exampleFieldN) ≠ 0 := by norm_num
+private lemma exampleTwoN : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 open Classical in
 /-- **⚠️ THE CERTIFICATE, part one.** On a curve that exists, the generic point is genuinely not
 `5`-torsion — `5` being an index beyond the merged `n = 2` and `n = 3`. -/
-example : (5 : ℕ) • genericPoint (W := exampleCurveN⁄exampleFieldN) ≠ 0 :=
+example : (5 : ℕ) • genericPoint (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) ≠ 0 :=
   ne_zero_of_transcendental_xCoord
     (transcendental_xCoord_nsmul_of_isAlgClosed exampleTwoN (by norm_num))
 
@@ -275,16 +272,16 @@ open Classical in
 /-- **⚠️ THE CERTIFICATE, part two.** On the same curve, `[5]∗` is a genuine injective endomorphism
 of the function field. -/
 example : Function.Injective
-    (mulByNEndoOfAlgClosed (W := exampleCurveN⁄exampleFieldN) exampleTwoN (n := 5)
+    (mulByNEndoOfAlgClosed (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwoN (n := 5)
       (by norm_num)) :=
   mulByNEndo_injective _ _
 
 open Classical in
 /-- **⚠️ THE CERTIFICATE, part three.** And it is the *right* endomorphism: it sends the generic
 `x`-coordinate to the `x`-coordinate of `5 • 𝒫`. -/
-example : mulByNEndoOfAlgClosed (W := exampleCurveN⁄exampleFieldN) exampleTwoN (n := 5)
-      (by norm_num) (genX (exampleCurveN⁄exampleFieldN))
-    = ((5 : ℕ) • genericPoint (W := exampleCurveN⁄exampleFieldN)).xCoord :=
+example : mulByNEndoOfAlgClosed (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwoN (n := 5)
+      (by norm_num) (genX ((y2AddYEqX3 ℚ)⁄AlgClosedQ))
+    = ((5 : ℕ) • genericPoint (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ)).xCoord :=
   mulByNEndo_genX _ _
 
 end Nonvacuity

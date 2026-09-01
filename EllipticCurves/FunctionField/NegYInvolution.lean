@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationPullback
 import Mathlib.Algebra.Field.ZMod
 
@@ -454,15 +455,12 @@ being the surviving term of `W.polynomialY`. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveQ : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveQ.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveQ, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : negYAlgEquiv exampleCurveQ ≠ 1 := negYAlgEquiv_ne_one _
+example : negYAlgEquiv (y2EqX3SubX ℚ) ≠ 1 := negYAlgEquiv_ne_one _
 
 /-- The supersingular curve `y² + y = x³` over `ZMod 2`, of discriminant `−27 = 1`. -/
 private def exampleCurveTwo : Affine (ZMod 2) := ⟨0, 0, 1, 0, 0⟩

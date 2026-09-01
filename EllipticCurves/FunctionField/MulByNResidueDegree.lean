@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByThreeResidueDegree
@@ -194,24 +195,12 @@ than assumed, on both curves: a statement whose hypothesis could not be met woul
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveRes : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private instance : exampleCurveRes.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveRes, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldResBar : Type := AlgebraicClosure ℚ
-
-/-- The same curve `y² = x³ - x`, now over `AlgebraicClosure ℚ`. -/
-private noncomputable def exampleCurveResBar : Affine exampleFieldResBar := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurveResBar.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveResBar, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion. -/
@@ -221,47 +210,47 @@ private lemma exampleSmoothTwelveRes : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ 
   have hle : p ≤ 12 := Nat.le_of_dvd (by norm_num) hp2
   interval_cases p <;> revert hp1 hp2 <;> decide
 
-example : IsDedekindDomain exampleCurveRes.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
 /-- **The headline, committed over `ℚ`.**  `f_∞ = 1` for `[12]` on a genuine curve over a field
 that is not algebraically closed. -/
-example : residueDegreeN (W := exampleCurveRes) 12
+example : residueDegreeN (W := y2EqX3SubX ℚ) 12
       (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
-        exampleSmoothTwelveRes) (none : ProjPoint exampleCurveRes) = 1 :=
+        exampleSmoothTwelveRes) (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
   residueDegreeN_none_eq_one _ _
 
 /-- The companion at the place below, on the same curve. -/
-example : residueDegreeProj exampleCurveRes (comapProjPointN (W := exampleCurveRes) 12
+example : residueDegreeProj (y2EqX3SubX ℚ) (comapProjPointN (W := y2EqX3SubX ℚ) 12
       (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
-        exampleSmoothTwelveRes) (none : ProjPoint exampleCurveRes)) = 1 :=
+        exampleSmoothTwelveRes) (none : ProjPoint (y2EqX3SubX ℚ))) = 1 :=
   residueDegreeProj_comapProjPointN_none_eq_one _ _
 
 /-- The tower formula, on a curve, at an index outside `{2, 3}`. -/
-example (p : ProjPoint exampleCurveRes) :
-    residueDegreeProj exampleCurveRes (comapProjPointN (W := exampleCurveRes) 12
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    residueDegreeProj (y2EqX3SubX ℚ) (comapProjPointN (W := y2EqX3SubX ℚ) 12
         (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
           exampleSmoothTwelveRes) p)
-        * residueDegreeN (W := exampleCurveRes) 12
+        * residueDegreeN (W := y2EqX3SubX ℚ) 12
           (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
             exampleSmoothTwelveRes) p
-      = residueDegreeProj exampleCurveRes p :=
+      = residueDegreeProj (y2EqX3SubX ℚ) p :=
   residueDegreeProj_mul_residueDegreeN _ _ p
 
 /-- The `n = 2` consistency lemma, on a curve. -/
-example (p : ProjPoint exampleCurveRes) :
-    residueDegreeN (W := exampleCurveRes) 2 (transcendental_xCoord_two_nsmul (by norm_num)) p
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    residueDegreeN (W := y2EqX3SubX ℚ) 2 (transcendental_xCoord_two_nsmul (by norm_num)) p
       = residueDegreeTwo (by norm_num) p :=
   residueDegreeN_two _ p
 
 /-- **The `[IsAlgClosed F]` statement, committed**: over `AlgebraicClosure ℚ`, `[12]∗` is residually
 trivial at *every* place of the curve, the point at infinity and the affine closed points alike. -/
-example (p : ProjPoint exampleCurveResBar) : residueDegreeN (W := exampleCurveResBar) 12
+example (p : ProjPoint (y2EqX3SubX AlgClosedQ)) : residueDegreeN (W := y2EqX3SubX AlgClosedQ) 12
     (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
       exampleSmoothTwelveRes) p = 1 :=
   residueDegreeN_eq_one _ _ p
 
 /-- There is at least one affine closed point on that curve to say it about. -/
-example : Nonempty (HeightOneSpectrum exampleCurveResBar.CoordinateRing) :=
+example : Nonempty (HeightOneSpectrum (y2EqX3SubX AlgClosedQ).CoordinateRing) :=
   nonempty_heightOneSpectrum
 
 end Nonvacuity

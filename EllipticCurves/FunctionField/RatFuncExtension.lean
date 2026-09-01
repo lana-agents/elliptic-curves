@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlaceAtInfinity
 import EllipticCurves.Torsion.CoordinateRingDedekind
 import Mathlib.FieldTheory.RatFunc.AsPolynomial
@@ -213,22 +214,20 @@ lemma algebraMap_ratFunc_eq_div (f : RatFunc F) :
 have content.  Nothing in this file needs `IsElliptic`, but a committed instantiation is what keeps
 the declarations from silently becoming vacuous under a later refactor. -/
 
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : Module.finrank (RatFunc ℚ) exampleCurve.FunctionField = 2 :=
+example : Module.finrank (RatFunc ℚ) (y2EqX3SubX ℚ).FunctionField = 2 :=
   finrank_ratFunc_functionField
 
-example : algebraMap (RatFunc ℚ) exampleCurve.FunctionField (RatFunc.X : RatFunc ℚ)
-    = genX exampleCurve :=
+example : algebraMap (RatFunc ℚ) (y2EqX3SubX ℚ).FunctionField (RatFunc.X : RatFunc ℚ)
+    = genX (y2EqX3SubX ℚ) :=
   algebraMap_ratFunc_X
 
-example : WeierstrassCurve.Affine.ordInfty exampleCurve
-    (algebraMap (RatFunc ℚ) exampleCurve.FunctionField (RatFunc.X : RatFunc ℚ)) = -2 :=
+example : WeierstrassCurve.Affine.ordInfty (y2EqX3SubX ℚ)
+    (algebraMap (RatFunc ℚ) (y2EqX3SubX ℚ).FunctionField (RatFunc.X : RatFunc ℚ)) = -2 :=
   ordInfty_algebraMap_ratFunc_X
 
 end WeierstrassCurve.Affine.CoordinateRing

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeRamification
 import EllipticCurves.FunctionField.MulByTwoFibreAffine
 import EllipticCurves.Torsion.TriplingCoords
@@ -725,58 +726,54 @@ needs an algebraically closed base field. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open scoped Classical in
 /-- **`[3]` on places is `[3]` on points, on a curve that exists.** -/
-example (P : exampleCurveThree.Point) :
-    comapProjPointThree exampleTwo exampleThree (projPointOfPoint exampleCurveThree P)
-      = projPointOfPoint exampleCurveThree ((3 : ℕ) • P) :=
+example (P : (y2AddYEqX3 AlgClosedQ).Point) :
+    comapProjPointThree exampleTwo exampleThree (projPointOfPoint (y2AddYEqX3 AlgClosedQ) P)
+      = projPointOfPoint (y2AddYEqX3 AlgClosedQ) ((3 : ℕ) • P) :=
   comapProjPointThree_projPointOfPoint exampleTwo exampleThree P
 
 open scoped Classical in
 /-- **Every fibre over a rational point has nine elements, on the same curve.** -/
-example (S : exampleCurveThree.Point) :
+example (S : (y2AddYEqX3 AlgClosedQ).Point) :
     (finite_comapProjPointThree_preimage_singleton exampleTwo exampleThree
-      (projPointOfPoint exampleCurveThree S)).toFinset.card = 9 :=
+      (projPointOfPoint (y2AddYEqX3 AlgClosedQ) S)).toFinset.card = 9 :=
   card_fibre_comapProjPointThree_projPointOfPoint exampleTwo exampleThree S
 
 open scoped Classical in
 /-- The fibre description, on the same curve. -/
-example (S : exampleCurveThree.Point) :
+example (S : (y2AddYEqX3 AlgClosedQ).Point) :
     pullbackDivisorThree exampleTwo exampleThree
-        (Finsupp.single (projPointOfPoint exampleCurveThree S) (1 : ℤ))
+        (Finsupp.single (projPointOfPoint (y2AddYEqX3 AlgClosedQ) S) (1 : ℤ))
       = ∑ p ∈ (finite_comapProjPointThree_preimage_singleton exampleTwo exampleThree
-          (projPointOfPoint exampleCurveThree S)).toFinset, Finsupp.single p (1 : ℤ) :=
+          (projPointOfPoint (y2AddYEqX3 AlgClosedQ) S)).toFinset, Finsupp.single p (1 : ℤ) :=
   pullbackDivisorThree_single_projPointOfPoint exampleTwo exampleThree S
 
 open scoped Classical in
 /-- **The formula `#418` consumes**, on the same curve: `[3]∗(S) = ∑_{R ∈ E[3]} (P ⊕ R)`. -/
-example [Fintype (exampleCurveThree.torsion 3)] (S P : exampleCurveThree.Point)
+example [Fintype ((y2AddYEqX3 AlgClosedQ).torsion 3)] (S P : (y2AddYEqX3 AlgClosedQ).Point)
     (hP : (3 : ℕ) • P = S) :
     pullbackDivisorThree exampleTwo exampleThree
-        (Finsupp.single (projPointOfPoint exampleCurveThree S) (1 : ℤ))
-      = ∑ R : exampleCurveThree.torsion 3,
-          Finsupp.single (projPointOfPoint exampleCurveThree (P + R)) (1 : ℤ) :=
+        (Finsupp.single (projPointOfPoint (y2AddYEqX3 AlgClosedQ) S) (1 : ℤ))
+      = ∑ R : (y2AddYEqX3 AlgClosedQ).torsion 3,
+          Finsupp.single (projPointOfPoint (y2AddYEqX3 AlgClosedQ) (P + R)) (1 : ℤ) :=
   pullbackDivisorThree_single_eq_sum_torsion exampleTwo exampleThree hP
 
 open scoped Classical in
 /-- The `Fintype` the statement above carries is available, not an assumption in disguise. -/
-example : Finite (exampleCurveThree.torsion 3) :=
-  exampleCurveThree.finite_torsion_three exampleThree
+example : Finite ((y2AddYEqX3 AlgClosedQ).torsion 3) :=
+  (y2AddYEqX3 AlgClosedQ).finite_torsion_three exampleThree
 
 end Nonvacuity
 

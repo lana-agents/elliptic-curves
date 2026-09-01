@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoGalois
 import EllipticCurves.FunctionField.PlacePrimesOverFibre
 import EllipticCurves.FunctionField.PlaceResidueDegree
@@ -621,34 +622,30 @@ base field, and weakening the statement to fit it would defeat the point. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ - x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- **The fundamental identity on a curve that exists.** -/
-example (q : ProjPoint exampleCurve) :
+example (q : ProjPoint (y2EqX3SubX AlgClosedQ)) :
     ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton exampleTwo q).toFinset,
       (ramificationIdxTwo exampleTwo p).toNat = 4 :=
   sum_ramificationIdxTwo_eq_four exampleTwo q
 
 /-- The residue-degree form, on the same curve. -/
-example (q : ProjPoint exampleCurve) :
+example (q : ProjPoint (y2EqX3SubX AlgClosedQ)) :
     ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton exampleTwo q).toFinset,
       (ramificationIdxTwo exampleTwo p).toNat * residueDegreeTwo exampleTwo p = 4 :=
   sum_ramificationIdxTwo_mul_residueDegreeTwo exampleTwo q
 
 /-- The fibre is nonempty and has at most four elements, on the same curve. -/
-example (q : ProjPoint exampleCurve) :
-    ((comapProjPointTwo (W := exampleCurve) exampleTwo) ⁻¹' {q}).Nonempty
+example (q : ProjPoint (y2EqX3SubX AlgClosedQ)) :
+    ((comapProjPointTwo (W := y2EqX3SubX AlgClosedQ) exampleTwo) ⁻¹' {q}).Nonempty
       ∧ (finite_comapProjPointTwo_preimage_singleton exampleTwo q).toFinset.card ≤ 4 :=
   ⟨nonempty_fibre_comapProjPointTwo_of_isAlgClosed exampleTwo q,
     card_fibre_comapProjPointTwo_le_four exampleTwo q⟩
@@ -657,7 +654,7 @@ open scoped Classical in
 /-- Three further places above infinity, on the same curve. -/
 example :
     ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton exampleTwo
-      (none : ProjPoint exampleCurve)).toFinset.erase none,
+      (none : ProjPoint (y2EqX3SubX AlgClosedQ))).toFinset.erase none,
       (ramificationIdxTwo exampleTwo p).toNat = 3 :=
   sum_ramificationIdxTwo_erase_none_eq_three exampleTwo
 

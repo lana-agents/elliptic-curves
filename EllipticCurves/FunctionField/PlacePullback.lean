@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoExtensionFinite
 import EllipticCurves.FunctionField.PlaceOrder
 import Mathlib.RingTheory.Valuation.Integral
@@ -614,24 +615,21 @@ discriminant `64`, and `IsElliptic` alone gives the Dedekind instance. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
-example {f : exampleCurve.FunctionField} (hf : f ≠ 0) (p : ProjPoint exampleCurve) :
-    divisorProj exampleCurve (mulByTwoEndo (W := exampleCurve) (by norm_num) f) p
-      = ramificationIdxTwo (W := exampleCurve) (by norm_num) p
-        * divisorProj exampleCurve f (comapProjPointTwo (by norm_num) p) :=
+example {f : (y2EqX3SubX ℚ).FunctionField} (hf : f ≠ 0) (p : ProjPoint (y2EqX3SubX ℚ)) :
+    divisorProj (y2EqX3SubX ℚ) (mulByTwoEndo (W := y2EqX3SubX ℚ) (by norm_num) f) p
+      = ramificationIdxTwo (W := y2EqX3SubX ℚ) (by norm_num) p
+        * divisorProj (y2EqX3SubX ℚ) f (comapProjPointTwo (by norm_num) p) :=
   divisorProj_mulByTwoEndo_apply _ hf p
 
-example (p : ProjPoint exampleCurve) :
-    0 < ramificationIdxTwo (W := exampleCurve) (by norm_num) p :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    0 < ramificationIdxTwo (W := y2EqX3SubX ℚ) (by norm_num) p :=
   ramificationIdxTwo_pos _ p
 
 end Nonvacuity

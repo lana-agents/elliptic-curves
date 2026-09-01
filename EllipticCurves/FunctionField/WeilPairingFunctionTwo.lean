@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear
 import EllipticCurves.FunctionField.WeilPairingNondegenerateTwo
 import EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent
@@ -647,38 +648,34 @@ weaker, and said here rather than left to be inferred (`#916`). -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- `S = (0, 0)` lies on `y² = x³ − x` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2EqX3SubX AlgClosedQ).Nonsingular 0 0 :=
+  (y2EqX3SubX AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `2`-torsion: `2y + a₁x + a₃ = 0` reads `0 = 0`. -/
 private lemma exampleTorsion :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [exampleCurve])
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2EqX3SubX AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- The named `2`-torsion point, as an element of `E[2]`. -/
-private noncomputable def exampleS : exampleCurve.torsion 2 :=
+private noncomputable def exampleS : (y2EqX3SubX AlgClosedQ).torsion 2 :=
   ⟨Point.some 0 0 exampleNonsingular, exampleTorsion⟩
 
 open Classical in
 /-- The pairing is bilinear on a curve that exists. -/
-example (S₁ S₂ T₁ T₂ : exampleCurve.torsion 2) :
+example (S₁ S₂ T₁ T₂ : (y2EqX3SubX AlgClosedQ).torsion 2) :
     weilPairingTwo exampleTwo (S₁ + S₂) (T₁ + T₂)
       = weilPairingTwo exampleTwo S₁ T₁ * weilPairingTwo exampleTwo S₂ T₁
         * (weilPairingTwo exampleTwo S₁ T₂ * weilPairingTwo exampleTwo S₂ T₂) := by
@@ -686,14 +683,14 @@ example (S₁ S₂ T₁ T₂ : exampleCurve.torsion 2) :
 
 open Classical in
 /-- It is alternating, and antisymmetric, on that curve. -/
-example (S T : exampleCurve.torsion 2) :
+example (S T : (y2EqX3SubX AlgClosedQ).torsion 2) :
     weilPairingTwo exampleTwo S S = 1 ∧
       weilPairingTwo exampleTwo T S = (weilPairingTwo exampleTwo S T)⁻¹ :=
   ⟨weilPairingTwo_self exampleTwo S, weilPairingTwo_swap exampleTwo S T⟩
 
 open Classical in
 /-- The bundled map exists there, and its kernel is trivial. -/
-example : MonoidHom.ker (weilPairingTwoHom (W := exampleCurve) exampleTwo) = ⊥ :=
+example : MonoidHom.ker (weilPairingTwoHom (W := y2EqX3SubX AlgClosedQ) exampleTwo) = ⊥ :=
   ker_weilPairingTwoHom exampleTwo
 
 open Classical in
@@ -701,9 +698,10 @@ open Classical in
 `y² = x³ − x`, some `T ∈ E[2]` pairs non-trivially.  ⚠️ Stated as an existence over `E[2]` with the
 *divisor* point fixed and named, which is what makes it a statement about this curve and not a
 schema. -/
-example : ∃ T : exampleCurve.torsion 2, weilPairingTwo exampleTwo exampleS T ≠ 1 := by
+example : ∃ T : (y2EqX3SubX AlgClosedQ).torsion 2, weilPairingTwo exampleTwo exampleS T ≠ 1 := by
   by_contra hcon
-  have hall : ∀ T : exampleCurve.torsion 2, weilPairingTwo exampleTwo exampleS T = 1 := fun T =>
+  have hall : ∀ T : (y2EqX3SubX AlgClosedQ).torsion 2, weilPairingTwo exampleTwo exampleS T = 1
+      := fun T =>
     not_not.mp fun hne => hcon ⟨T, hne⟩
   have h0 : exampleS = 0 := eq_zero_of_forall_weilPairingTwo_eq_one exampleTwo hall
   exact Point.some_ne_zero exampleNonsingular (congrArg Subtype.val h0)

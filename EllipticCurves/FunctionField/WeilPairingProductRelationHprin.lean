@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange
 import EllipticCurves.FunctionField.WeilPairingProductRelationMu
 
@@ -518,33 +519,30 @@ section Nonvacuity
 
 private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-private lemma exampleNsS : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsS : (y2EqX3SubX ℚ).Nonsingular 0 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleNsT : exampleCurve.Nonsingular 1 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsT : (y2EqX3SubX ℚ).Nonsingular 1 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleNsR : exampleCurve.Nonsingular (-1) 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsR : (y2EqX3SubX ℚ).Nonsingular (-1) 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
-private lemma exampleTorsS : Point.some (0 : ℚ) 0 exampleNsS ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [exampleCurve])
+private lemma exampleTorsS : Point.some (0 : ℚ) 0 exampleNsS ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
-private lemma exampleTorsT : Point.some (1 : ℚ) 0 exampleNsT ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
+private lemma exampleTorsT : Point.some (1 : ℚ) 0 exampleNsT ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [y2EqX3SubX])
 
 /-- `(0, 0) ⊕ (1, 0) = (−1, 0)` on `y² = x³ − x` over `ℚ`.  The `x`-coordinates differ, so this is
 Mathlib's secant case: the slope is `0`, `addX = −1` and `addY = 0`. -/
@@ -553,7 +551,7 @@ private lemma exampleAdd : Point.some (0 : ℚ) 0 exampleNsS + Point.some (1 : �
   rw [Point.add_of_X_ne (by norm_num)]
   norm_num [WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
     WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
-    WeierstrassCurve.Affine.slope, exampleCurve]
+    WeierstrassCurve.Affine.slope, y2EqX3SubX]
 
 open Classical in
 /-- **The `n = 2` antisymmetry headline applies on a curve over `ℚ`**, at two *distinct* rational
@@ -574,21 +572,21 @@ between torsion points as a hypothesis, so this one is new), and **inside `hprin
 is passed as `fun h hm f hf hd => hprin h (by convert hm) f hf hd` rather than directly.  None of it
 arises in the merged non-vacuity blocks on this front, because they all sit over
 `AlgebraicClosure ℚ`, which has no decidable equality. -/
-example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
-      Point.some x y h ∈ exampleCurve.torsion 2 →
-      ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
-        ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-          2 • divisor exampleCurve g₀ = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ gS gT : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
+example (hprin : ∀ {x y : ℚ} (h : (y2EqX3SubX ℚ).Nonsingular x y),
+      Point.some x y h ∈ (y2EqX3SubX ℚ).torsion 2 →
+      ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
+        ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+          2 • divisor (y2EqX3SubX ℚ) g₀ = divisor (y2EqX3SubX ℚ) (mulByTwoEndo exampleTwo f)) :
+    ∃ gS gT : (y2EqX3SubX ℚ).FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
       weilPairingElt exampleNsS.left gT * weilPairingElt exampleNsT.left gS = 1 :=
   exists_weilPairingElt_mul_swap_eq_one_of_hprin_two exampleTwo exampleNsS exampleNsT exampleNsR
     (by convert exampleTorsS) (by convert exampleTorsT) (by convert exampleAdd)

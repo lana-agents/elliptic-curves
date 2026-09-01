@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationPointEndomorphism
 import EllipticCurves.FunctionField.WeilPairingTelescopeThree
 import EllipticCurves.FunctionField.WeilPairingTelescopeTwo
@@ -353,41 +354,38 @@ certificate is an unconditional existence statement over `ℚ`. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `−432`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 1)` is a nonsingular point of `y² = x³ + 1`. -/
-private lemma exampleNonsingularT : exampleCurve.Nonsingular 0 1 := by
+private lemma exampleNonsingularT : (y2EqX3AddOne ℚ).Nonsingular 0 1 := by
   rw [nonsingular_iff]
   refine ⟨?_, Or.inr ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
 
 /-- **`[2]T = −T`**: the tangent at `(0, 1)` is horizontal, and doubling returns `(0, −1)`. -/
 private lemma exampleDouble :
     Point.some (0 : ℚ) 1 exampleNonsingularT + Point.some (0 : ℚ) 1 exampleNonsingularT
       = -Point.some (0 : ℚ) 1 exampleNonsingularT := by
-  have hy : (1 : ℚ) ≠ exampleCurve.negY 0 1 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (1 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 0 1 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [Point.add_self_of_Y_ne hy, Point.neg_some, Point.some.injEq]
   constructor <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 
 /-- **`T` has order `3`**, from `[2]T = −T`. -/
 private lemma exampleThreeTorsion :
-    ((3 : ℕ) • Point.some (0 : ℚ) 1 exampleNonsingularT : exampleCurve.Point) = 0 := by
+    ((3 : ℕ) • Point.some (0 : ℚ) 1 exampleNonsingularT : (y2EqX3AddOne ℚ).Point) = 0 := by
   rw [show (3 : ℕ) = 2 + 1 from rfl, succ_nsmul, two_nsmul, exampleDouble, neg_add_cancel]
 
 /-- Hence `T` is `6`-torsion, **without having order `6`** — which is the hypothesis the theorem
 takes and the configuration this block exists to exercise. -/
 private lemma exampleSixTorsion :
-    Point.some (0 : ℚ) 1 exampleNonsingularT ∈ exampleCurve.torsion 6 := by
+    Point.some (0 : ℚ) 1 exampleNonsingularT ∈ (y2EqX3AddOne ℚ).torsion 6 := by
   rw [mem_torsion_iff, show (6 : ℕ) = 3 + 3 from rfl, add_nsmul, exampleThreeTorsion, add_zero]
 
 /-- ⚠️ **The `i = 3` factor of the six-fold product translates by `O`.**  So the product genuinely
@@ -395,18 +393,18 @@ cannot be written with `translateEndo`, whose index is an affine equation datum,
 not six distinct points. -/
 private lemma exampleInteriorFactorIsIdentity :
     translatePointEndo ((3 : ℕ) • Point.some (0 : ℚ) 1 exampleNonsingularT)
-      = RingHom.id exampleCurve.FunctionField := by
+      = RingHom.id (y2EqX3AddOne ℚ).FunctionField := by
   rw [exampleThreeTorsion, translatePointEndo_zero]
 
 /-- **The telescoping at `n = 6` on `y² = x³ + 1` over `ℚ`**, at a `T` whose order is `3`. -/
-example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-    divisorProj exampleCurve f
+example : ∃ f : (y2EqX3AddOne ℚ).FunctionField, f ≠ 0 ∧
+    divisorProj (y2EqX3AddOne ℚ) f
         = Finsupp.single (some (pointClosedPoint exampleNonsingularT.left)) (6 : ℤ)
-          - Finsupp.single (none : ProjPoint exampleCurve) (6 : ℤ) ∧
+          - Finsupp.single (none : ProjPoint (y2EqX3AddOne ℚ)) (6 : ℤ) ∧
       ∃ c : ℚ, c ≠ 0 ∧
         ∏ i ∈ Finset.range 6,
             translatePointEndo (i • Point.some (0 : ℚ) 1 exampleNonsingularT) f
-          = algebraMap ℚ exampleCurve.FunctionField c :=
+          = algebraMap ℚ (y2EqX3AddOne ℚ).FunctionField c :=
   exists_prod_translatePointEndo_eq_algebraMap exampleNonsingularT exampleSixTorsion
 
 end Nonvacuity

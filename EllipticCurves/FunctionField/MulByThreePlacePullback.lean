@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.PullbackDivisor
@@ -391,32 +392,29 @@ needed, and `(2 : ℚ) ≠ 0` and `(3 : ℚ) ≠ 0` are both `norm_num`. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
-example : ordInfty exampleCurve
-    (mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num) (genX _)) = -2 :=
+example : ordInfty (y2EqX3SubX ℚ)
+    (mulByThreeEndo (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num) (genX _)) = -2 :=
   ordInfty_mulByThreeEndo_genX _ _
 
-example : comapProjPointThree (W := exampleCurve) (by norm_num) (by norm_num)
-    (none : ProjPoint exampleCurve) = none :=
+example : comapProjPointThree (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
+    (none : ProjPoint (y2EqX3SubX ℚ)) = none :=
   comapProjPointThree_none _ _
 
-example : ramificationIdxThree (W := exampleCurve) (by norm_num) (by norm_num)
-    (none : ProjPoint exampleCurve) = 1 :=
+example : ramificationIdxThree (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
+    (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
   ramificationIdxThree_none _ _
 
-example {f : exampleCurve.FunctionField} (hf : f ≠ 0) :
-    divisorProj exampleCurve (mulByThreeEndo (W := exampleCurve) (by norm_num) (by norm_num) f)
-      = pullbackDivisorThree (W := exampleCurve) (by norm_num) (by norm_num)
-          (divisorProj exampleCurve f) :=
+example {f : (y2EqX3SubX ℚ).FunctionField} (hf : f ≠ 0) :
+    divisorProj (y2EqX3SubX ℚ) (mulByThreeEndo (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num) f)
+      = pullbackDivisorThree (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
+          (divisorProj (y2EqX3SubX ℚ) f) :=
   divisorProj_mulByThreeEndo _ _ hf
 
 end Nonvacuity

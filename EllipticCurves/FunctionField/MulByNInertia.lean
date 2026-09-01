@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNPlaceComposition
 import EllipticCurves.FunctionField.MulByNResidueDegree
 import EllipticCurves.FunctionField.MulByNSeparable
@@ -481,14 +482,16 @@ algebraically closed base field. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64` — a base field that is **not**
-algebraically closed, which is the point of the characteristic-zero statements. -/
-private noncomputable def exampleCurveQ : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here.  ⚠️ `y2EqX3SubX ℚ` is deliberately over `ℚ`, a base field that is **not**
+algebraically closed — that is the point of the characteristic-zero statements; and
+`y2AddYEqX3 AlgClosedQ` is the curve `#1219` certifies separability on, hence the one on which the
+`_of_smooth` chain closes. -/
 
-private instance : exampleCurveQ.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveQ, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleQTwo : (2 : ℚ) ≠ 0 := by norm_num
 
@@ -506,9 +509,9 @@ private lemma smoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p = 3 := b
 /-- **The identity at `n = 12` over `ℚ`, committed** — `∑_{p ↦ ∞} e_p · f_p = 144` on a genuine
 curve over a base field that is not algebraically closed, where the collapsed form
 `sum_ramificationIdxN_of_smooth` does not apply. -/
-example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := exampleCurveQ) 12
+example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2EqX3SubX ℚ) 12
       (transcendental_xCoord_nsmul_of_smooth exampleQTwo exampleQThree (by norm_num) smoothTwelve)
-      (none : ProjPoint exampleCurveQ)).toFinset,
+      (none : ProjPoint (y2EqX3SubX ℚ))).toFinset,
       (ramificationIdxN 12 (transcendental_xCoord_nsmul_of_smooth exampleQTwo exampleQThree
           (by norm_num) smoothTwelve) p).toNat
         * residueDegreeN 12 (transcendental_xCoord_nsmul_of_smooth exampleQTwo exampleQThree
@@ -518,33 +521,21 @@ example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := exampleCurv
 
 /-- **`f_∞ = 1` over `ℚ`**, at an index at which nothing merged says anything — and with no
 `[IsAlgClosed F]`, which is what distinguishes this from *"every place is rational"*. -/
-example : residueDegreeN (W := exampleCurveQ) 12
+example : residueDegreeN (W := y2EqX3SubX ℚ) 12
     (transcendental_xCoord_nsmul_of_smooth exampleQTwo exampleQThree (by norm_num) smoothTwelve)
-    (none : ProjPoint exampleCurveQ) = 1 :=
+    (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
   residueDegreeN_none_eq_one _ _
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldBar : Type := AlgebraicClosure ℚ
+private lemma exampleBarTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27` — the curve `#1219`
-certifies its separability on, and hence the one on which the `_of_smooth` chain closes. -/
-private noncomputable def exampleCurveBar : Affine exampleFieldBar := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveBar.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveBar, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleBarTwo : (2 : exampleFieldBar) ≠ 0 := by norm_num
-
-private lemma exampleBarThree : (3 : exampleFieldBar) ≠ 0 := by norm_num
+private lemma exampleBarThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- **The collapsed identity at `n = 12` over `F̄`, committed** — `∑_{p ↦ ∞} e_p = 144`, the
 general-`n` shape of `sum_ramificationIdxTwo_eq_four` at an index at which neither merged
 instantiation says anything. -/
-example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := exampleCurveBar) 12
+example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 12
       (transcendental_xCoord_nsmul_of_smooth exampleBarTwo exampleBarThree (by norm_num)
-        smoothTwelve) (none : ProjPoint exampleCurveBar)).toFinset,
+        smoothTwelve) (none : ProjPoint (y2AddYEqX3 AlgClosedQ))).toFinset,
       (ramificationIdxN 12 (transcendental_xCoord_nsmul_of_smooth exampleBarTwo exampleBarThree
         (by norm_num) smoothTwelve) p).toNat = 144 :=
   sum_ramificationIdxN_of_smooth exampleBarTwo exampleBarThree (by norm_num) smoothTwelve _ _
@@ -558,16 +549,16 @@ the module docstring draws — the identity is wider than the value — and this
 makes it concrete rather than a claim.  The non-constancy of `[5]` comes from
 `transcendental_xCoord_nsmul_of_isAlgClosed`, which is the only route to it at a non-`3`-smooth
 index in this tree. -/
-example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := exampleCurveBar) 5
+example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 5
       (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))
-      (none : ProjPoint exampleCurveBar)).toFinset,
+      (none : ProjPoint (y2AddYEqX3 AlgClosedQ))).toFinset,
         (ramificationIdxN 5
           (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num)) p).toNat
           * residueDegreeN 5
             (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num)) p
-      = finrank ↥(mulByNEndo (W := exampleCurveBar) 5
+      = finrank ↥(mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 5
           (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))).fieldRange
-        exampleCurveBar.FunctionField :=
+        (y2AddYEqX3 AlgClosedQ).FunctionField :=
   sum_ramificationIdxN_mul_residueDegreeN_finrank_of_charZero _ _ _
 
 end Nonvacuity

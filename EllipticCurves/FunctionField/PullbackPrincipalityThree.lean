@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeFibre
 import EllipticCurves.FunctionField.PullbackPrincipalityTwo
 
@@ -310,56 +311,52 @@ never exhibited; it is not true of the torsion point `S` itself. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `S = (0, 0)` lies on `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurveThree.Nonsingular 0 0 :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 :=
+  (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`, and the side condition of
 `mem_torsion_three_some_iff` is automatic. -/
 private lemma exampleTorsionThree :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurveThree.torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- **The principality, on a curve that exists.** -/
-example (P : exampleCurveThree.Point)
-    (hP : (3 : ℕ) • P = Point.some (0 : exampleField) 0 exampleNonsingular) :
-    ∃ g : exampleCurveThree.FunctionField, g ≠ 0 ∧ exampleCurveThree.divisor g
-      = affinePart exampleCurveThree (pullbackDivisorThree exampleTwo exampleThree
-        (Finsupp.single (projPointOfPoint exampleCurveThree
-            (Point.some (0 : exampleField) 0 exampleNonsingular)) (1 : ℤ)
-          - Finsupp.single (none : ProjPoint exampleCurveThree) (1 : ℤ))) :=
+example (P : (y2AddYEqX3 AlgClosedQ).Point)
+    (hP : (3 : ℕ) • P = Point.some (0 : AlgClosedQ) 0 exampleNonsingular) :
+    ∃ g : (y2AddYEqX3 AlgClosedQ).FunctionField, g ≠ 0 ∧ (y2AddYEqX3 AlgClosedQ).divisor g
+      = affinePart (y2AddYEqX3 AlgClosedQ) (pullbackDivisorThree exampleTwo exampleThree
+        (Finsupp.single (projPointOfPoint (y2AddYEqX3 AlgClosedQ)
+            (Point.some (0 : AlgClosedQ) 0 exampleNonsingular)) (1 : ℤ)
+          - Finsupp.single (none : ProjPoint (y2AddYEqX3 AlgClosedQ)) (1 : ℤ))) :=
   exists_divisor_eq_affinePart_pullbackDivisorThree exampleTwo exampleThree hP
     (mem_torsion_iff.mp exampleTorsionThree)
 
 open Classical in
 /-- **The headline, committed**: rung 5 at `n = 3` with no `hprin`, on a genuine curve with a named
 `3`-torsion point. -/
-example : ∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-    exampleCurveThree.divisor f
+example : ∃ f : (y2AddYEqX3 AlgClosedQ).FunctionField, f ≠ 0 ∧
+    (y2AddYEqX3 AlgClosedQ).divisor f
       = Finsupp.single (pointClosedPoint exampleNonsingular.left) (3 : ℤ) ∧
-    ∃ gS : exampleCurveThree.FunctionField, gS ≠ 0 ∧
-      ∃ u : exampleCurveThree.CoordinateRingˣ,
-        (u : exampleCurveThree.CoordinateRing) • gS ^ 3
+    ∃ gS : (y2AddYEqX3 AlgClosedQ).FunctionField, gS ≠ 0 ∧
+      ∃ u : (y2AddYEqX3 AlgClosedQ).CoordinateRingˣ,
+        (u : (y2AddYEqX3 AlgClosedQ).CoordinateRing) • gS ^ 3
           = mulByThreeEndo exampleTwo exampleThree f :=
   exists_gS_three_of_isAlgClosed exampleTwo exampleThree exampleNonsingular exampleTorsionThree
 

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByThreeGalois
 import EllipticCurves.FunctionField.MulByThreePlacePullback
 import EllipticCurves.FunctionField.PlaceRamificationInertia
@@ -354,53 +355,49 @@ algebraically closed base field. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : exampleField) ≠ 0` is
+/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : AlgClosedQ) ≠ 0` is
 postponed and leaves the curve a metavariable at the use site. -/
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
-example : IsDedekindDomain exampleCurveThree.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2AddYEqX3 AlgClosedQ).CoordinateRing := inferInstance
 
 /-- **The divisor-level functoriality on a curve that exists.** -/
-example {f : exampleCurveThree.FunctionField} (hf : f ≠ 0) :
-    divisorProj exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)
-      = pullbackDivisorThree exampleTwo exampleThree (divisorProj exampleCurveThree f) :=
+example {f : (y2AddYEqX3 AlgClosedQ).FunctionField} (hf : f ≠ 0) :
+    divisorProj (y2AddYEqX3 AlgClosedQ) (mulByThreeEndo exampleTwo exampleThree f)
+      = pullbackDivisorThree exampleTwo exampleThree (divisorProj (y2AddYEqX3 AlgClosedQ) f) :=
   divisorProj_mulByThreeEndo _ _ hf
 
 /-- **`[F(W) : [3]∗F(W)] = 9` in the `Subfield` presentation**, on the same curve. -/
 example : finrank
-    ↑(mulByThreeEndo (W := exampleCurveThree) exampleTwo exampleThree).fieldRange
-    exampleCurveThree.FunctionField = 9 :=
+    ↑(mulByThreeEndo (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField = 9 :=
   finrank_mulByThreeEndoFieldRange exampleTwo exampleThree
 
 /-- **The rank of the integral closure of a place below is `9`**, on the same curve. -/
-example (q : ProjPoint exampleCurveThree) :
-    finrank ↑(placeBelowThree exampleCurveThree exampleTwo exampleThree q)
-      ↑(integralClosure ↑(placeBelowThree exampleCurveThree exampleTwo exampleThree q)
-        exampleCurveThree.FunctionField) = 9 :=
+example (q : ProjPoint (y2AddYEqX3 AlgClosedQ)) :
+    finrank ↑(placeBelowThree (y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree q)
+      ↑(integralClosure ↑(placeBelowThree (y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree q)
+        (y2AddYEqX3 AlgClosedQ).FunctionField) = 9 :=
   finrank_integralClosure_placeBelowThree_of_isAlgClosed exampleTwo exampleThree q
 
 /-- **The fundamental identity on a curve that exists.** -/
-example (q : ProjPoint exampleCurveThree) :
+example (q : ProjPoint (y2AddYEqX3 AlgClosedQ)) :
     ∑ p ∈ (finite_comapProjPointThree_preimage_singleton exampleTwo exampleThree q).toFinset,
       (ramificationIdxThree exampleTwo exampleThree p).toNat = 9 :=
   sum_ramificationIdxThree_eq_nine exampleTwo exampleThree q
 
 /-- The fibre is nonempty and has at most nine elements, on the same curve. -/
-example (q : ProjPoint exampleCurveThree) :
-    ((comapProjPointThree (W := exampleCurveThree) exampleTwo exampleThree) ⁻¹' {q}).Nonempty
+example (q : ProjPoint (y2AddYEqX3 AlgClosedQ)) :
+    ((comapProjPointThree (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree) ⁻¹' {q}).Nonempty
       ∧ (finite_comapProjPointThree_preimage_singleton exampleTwo exampleThree q).toFinset.card
           ≤ 9 :=
   ⟨nonempty_fibre_comapProjPointThree_of_isAlgClosed exampleTwo exampleThree q,

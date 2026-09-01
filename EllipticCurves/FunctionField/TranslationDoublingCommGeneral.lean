@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoFinite
 import EllipticCurves.FunctionField.TranslationDoublingComm
 import EllipticCurves.FunctionField.WeilPairingBilinearBaseField
@@ -265,35 +266,32 @@ would be vacuous.  So the certificate here is on `y² = x³ + 1`, where `P = (2,
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `-432`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `P = (2, 3)` lies on `y² = x³ + 1`. -/
-private lemma exampleEquationP : exampleCurve.Equation 2 3 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEquationP : (y2EqX3AddOne ℚ).Equation 2 3 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `T = (0, 1)` lies on `y² = x³ + 1`. -/
-private lemma exampleEquationT : exampleCurve.Equation 0 1 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEquationT : (y2EqX3AddOne ℚ).Equation 0 1 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 open Classical in
 /-- `[2](2, 3) = (0, 1)`: the tangent at `P` has slope `2`, so `x(2P) = 4 - 4 = 0`. -/
 private lemma exampleDouble :
     torsionPoint exampleEquationP + torsionPoint exampleEquationP
       = torsionPoint exampleEquationT := by
-  have hy : (3 : ℚ) ≠ exampleCurve.negY 2 3 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
-  have key : Point.some (2 : ℚ) 3 (exampleCurve.equation_iff_nonsingular.mp exampleEquationP)
-        + Point.some (2 : ℚ) 3 (exampleCurve.equation_iff_nonsingular.mp exampleEquationP)
-      = Point.some (0 : ℚ) 1 (exampleCurve.equation_iff_nonsingular.mp exampleEquationT) := by
+  have hy : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
+  have key : Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEquationP)
+        + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEquationP)
+      = Point.some (0 : ℚ) 1 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEquationT) := by
     rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   exact key
@@ -304,8 +302,8 @@ private lemma exampleDouble :
 -- `instDecidableEqRat`.  `convert ... using 4` closes the gap by `Subsingleton.elim` on the two
 -- `DecidableEq ℚ` instances.
 open Classical in
-example (f : exampleCurve.FunctionField) :
-    translateEndo exampleEquationP (mulByTwoEndo (W := exampleCurve) (by norm_num) f)
+example (f : (y2EqX3AddOne ℚ).FunctionField) :
+    translateEndo exampleEquationP (mulByTwoEndo (W := y2EqX3AddOne ℚ) (by norm_num) f)
       = mulByTwoEndo (by norm_num) (translateEndo exampleEquationT f) :=
   translateEndo_mulByTwoEndo_apply_of_baseField exampleEquationP exampleEquationT
     (by norm_num) (by convert exampleDouble using 4) f

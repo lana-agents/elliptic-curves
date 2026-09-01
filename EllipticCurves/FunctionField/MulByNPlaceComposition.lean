@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByThreePlacePullback
@@ -351,13 +352,10 @@ hypothesis could not be met would be vacuous. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurvePlace : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurvePlace.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurvePlace, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion. -/
@@ -367,24 +365,24 @@ private lemma exampleSmoothTwelvePlace : ∀ p ∈ Nat.primeFactors 12, p = 2 �
   have hle : p ≤ 12 := Nat.le_of_dvd (by norm_num) hp2
   interval_cases p <;> revert hp1 hp2 <;> decide
 
-example : IsDedekindDomain exampleCurvePlace.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
-example : comapProjPointN (W := exampleCurvePlace) 12
+example : comapProjPointN (W := y2EqX3SubX ℚ) 12
       (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
-        exampleSmoothTwelvePlace) (none : ProjPoint exampleCurvePlace) = none :=
-  comapProjPointN_none_of_smooth (W := exampleCurvePlace) (by norm_num) (by norm_num)
+        exampleSmoothTwelvePlace) (none : ProjPoint (y2EqX3SubX ℚ)) = none :=
+  comapProjPointN_none_of_smooth (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
     (by norm_num) exampleSmoothTwelvePlace _
 
-example : ramificationIdxN (W := exampleCurvePlace) 12
+example : ramificationIdxN (W := y2EqX3SubX ℚ) 12
       (transcendental_xCoord_nsmul_of_smooth (by norm_num) (by norm_num) (by norm_num)
-        exampleSmoothTwelvePlace) (none : ProjPoint exampleCurvePlace) = 1 :=
-  ramificationIdxN_none_of_smooth (W := exampleCurvePlace) (by norm_num) (by norm_num)
+        exampleSmoothTwelvePlace) (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
+  ramificationIdxN_none_of_smooth (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
     (by norm_num) exampleSmoothTwelvePlace _
 
-example : ordInfty exampleCurvePlace (mulByNEndo 12
-      (transcendental_xCoord_nsmul_of_smooth (W := exampleCurvePlace) (by norm_num) (by norm_num)
+example : ordInfty (y2EqX3SubX ℚ) (mulByNEndo 12
+      (transcendental_xCoord_nsmul_of_smooth (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
         (by norm_num) exampleSmoothTwelvePlace) (genX _)) = -2 :=
-  ordInfty_mulByNEndo_genX_of_smooth (W := exampleCurvePlace) (by norm_num) (by norm_num)
+  ordInfty_mulByNEndo_genX_of_smooth (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
     (by norm_num) exampleSmoothTwelvePlace _
 
 end Nonvacuity

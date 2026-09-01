@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoFibreInfinity
 import EllipticCurves.Torsion.DoublingCoords
 
@@ -571,52 +572,52 @@ witness a statement that needs an algebraically closed base field. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ - x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 open scoped Classical in
 /-- **`[2]` on places is `[2]` on points, on a curve that exists.** -/
-example (P : exampleCurve.Point) :
-    comapProjPointTwo exampleTwo (projPointOfPoint exampleCurve P)
-      = projPointOfPoint exampleCurve (2 • P) :=
+example (P : (y2EqX3SubX AlgClosedQ).Point) :
+    comapProjPointTwo exampleTwo (projPointOfPoint (y2EqX3SubX AlgClosedQ) P)
+      = projPointOfPoint (y2EqX3SubX AlgClosedQ) (2 • P) :=
   comapProjPointTwo_projPointOfPoint exampleTwo P
 
 open scoped Classical in
 /-- **Every fibre over a rational point has four elements, on the same curve.** -/
-example (S : exampleCurve.Point) :
+example (S : (y2EqX3SubX AlgClosedQ).Point) :
     (finite_comapProjPointTwo_preimage_singleton exampleTwo
-      (projPointOfPoint exampleCurve S)).toFinset.card = 4 :=
+      (projPointOfPoint (y2EqX3SubX AlgClosedQ) S)).toFinset.card = 4 :=
   card_fibre_comapProjPointTwo_projPointOfPoint exampleTwo S
 
 open scoped Classical in
 /-- The fibre description, on the same curve. -/
-example (S : exampleCurve.Point) :
-    pullbackDivisorTwo exampleTwo (Finsupp.single (projPointOfPoint exampleCurve S) (1 : ℤ))
+example (S : (y2EqX3SubX AlgClosedQ).Point) :
+    pullbackDivisorTwo exampleTwo (Finsupp.single (projPointOfPoint (y2EqX3SubX AlgClosedQ) S)
+        (1 : ℤ))
       = ∑ p ∈ (finite_comapProjPointTwo_preimage_singleton exampleTwo
-          (projPointOfPoint exampleCurve S)).toFinset, Finsupp.single p (1 : ℤ) :=
+          (projPointOfPoint (y2EqX3SubX AlgClosedQ) S)).toFinset, Finsupp.single p (1 : ℤ) :=
   pullbackDivisorTwo_single_projPointOfPoint exampleTwo S
 
 open scoped Classical in
 /-- **`#774`'s formula itself**, on the same curve: `[2]∗(S) = ∑_{R ∈ E[2]} (P ⊕ R)`. -/
-example [Fintype (exampleCurve.torsion 2)] (S P : exampleCurve.Point) (hP : 2 • P = S) :
-    pullbackDivisorTwo exampleTwo (Finsupp.single (projPointOfPoint exampleCurve S) (1 : ℤ))
-      = ∑ R : exampleCurve.torsion 2,
-          Finsupp.single (projPointOfPoint exampleCurve (P + R)) (1 : ℤ) :=
+example [Fintype ((y2EqX3SubX AlgClosedQ).torsion 2)] (S P : (y2EqX3SubX AlgClosedQ).Point) (hP
+    : 2 • P = S) :
+    pullbackDivisorTwo exampleTwo (Finsupp.single (projPointOfPoint (y2EqX3SubX AlgClosedQ) S)
+        (1 : ℤ))
+      = ∑ R : (y2EqX3SubX AlgClosedQ).torsion 2,
+          Finsupp.single (projPointOfPoint (y2EqX3SubX AlgClosedQ) (P + R)) (1 : ℤ) :=
   pullbackDivisorTwo_single_eq_sum_torsion exampleTwo hP
 
 open scoped Classical in
 /-- The `Fintype` the statement above carries is available, not an assumption in disguise. -/
-example : Finite (exampleCurve.torsion 2) := exampleCurve.finite_torsion_two exampleTwo
+example : Finite ((y2EqX3SubX AlgClosedQ).torsion 2) :=
+    (y2EqX3SubX AlgClosedQ).finite_torsion_two exampleTwo
 
 end Nonvacuity
 

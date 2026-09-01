@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoGalois
 import EllipticCurves.FunctionField.PlaceInertiaGeneral
 import EllipticCurves.FunctionField.PullbackPrincipalityTwo
@@ -648,31 +649,29 @@ that one instance and costs no `convert`. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 5x² + 4x = x(x+1)(x+4)` over `ℚ`, of discriminant `2304`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 5, 0, 4, 0⟩
+/-! The certificate curve `y² = x³ + 5x² + 4x` is the shared
+`EllipticCurves.Fixture.y2EqX3Add5X2Add4X`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- `T = (0, 0)`, the `2`-torsion point cut out by `x = 0`. -/
-private lemma exampleNsT : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsT : (y2EqX3Add5X2Add4X ℚ).Nonsingular 0 0 :=
+  (y2EqX3Add5X2Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add5X2Add4X, WeierstrassCurve.Affine.equation_iff])
 
 /-- `(2, 6)`, the point of `E(ℚ)` sitting above the root `x = 2` of `Φ₂ − x(T)·Ψ₂Sq`:
 `36 = 8 + 20 + 8`.  ⚠️ It is no longer named in any statement — it enters only as the `Equation`
 witness `exampleNsP.left`, the **third** argument of
 `exists_nsmul_eq_some_of_root_of_mem_torsion_two`, which is what takes it above the root. -/
-private lemma exampleNsP : exampleCurve.Nonsingular 2 6 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsP : (y2EqX3Add5X2Add4X ℚ).Nonsingular 2 6 :=
+  (y2EqX3Add5X2Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add5X2Add4X, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
+private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ (y2EqX3Add5X2Add4X ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [y2EqX3Add5X2Add4X])
 
 open Polynomial in
 /-- The `2`-torsion cubic of the example curve, factored: `4X³ + 20X² + 16X = 4·X·(X+1)·(X+4)`.
@@ -681,9 +680,9 @@ open Polynomial in
 `C (0 ^ 2 + 4 * 5)`, and `map_ofNat` cannot fire until its argument is a literal.  One combined
 `simp only` silently leaves `C 16`/`C 20` behind and `ring` then fails. -/
 private lemma Ψ₂Sq_exampleCurve :
-    exampleCurve.Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
+    (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, exampleCurve]
+    WeierstrassCurve.b₆, y2EqX3Add5X2Add4X]
   norm_num only
   simp only [map_ofNat, map_one, Polynomial.C_0]
   ring
@@ -694,7 +693,7 @@ open Polynomial in
 ⚠️ Closed by the explicit term rather than by `simp`, even though `Splits.C`, `Splits.X`,
 `Splits.mul` and `Splits.X_add_C` are all `@[simp]`.  `simp` normalises `X + C 1` to `X + 1` first
 and can then no longer match `Splits.X_add_C`, leaving the goal open. -/
-private lemma splits_Ψ₂Sq_exampleCurve : exampleCurve.Ψ₂Sq.Splits := by
+private lemma splits_Ψ₂Sq_exampleCurve : (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.Splits := by
   rw [Ψ₂Sq_exampleCurve]
   exact (((Splits.C 4).mul Splits.X).mul (Splits.X_add_C 1)).mul (Splits.X_add_C 4)
 
@@ -703,25 +702,25 @@ factorisation of one cubic: `card_torsion_two_of_splits` (`EllipticCurves.Torsio
 from `Ψ₂Sq.Splits` exactly the lower bound that an algebraic closure buys in `card_torsion_two`.
 
 ⚠️ `Splits` alone would not be enough: `4(X − r)³` splits too, and the three roots are **distinct**
-only because `Cubic.discr ≠ 0`, i.e. because of `[exampleCurve.IsElliptic]`, which
+only because `Cubic.discr ≠ 0`, i.e. because of `[(y2EqX3Add5X2Add4X ℚ).IsElliptic]`, which
 `card_roots_Ψ₂Sq_of_splits` binds and applies inside that lemma.
 
 ⚠️ The statement is unchanged from the enumeration route it replaces — `card_torsion_two_le` for
 `≤ 4` together with an explicit injection `Fin 4 → E[2]` for `≥ 4`, which cost three more
 `Nonsingular` obligations, three more `mem_torsion` obligations and a sixteen-way `fin_cases`.
 Only the proof moved. -/
-private lemma exampleCard : Nat.card (exampleCurve.torsion 2) = 4 :=
+private lemma exampleCard : Nat.card ((y2EqX3Add5X2Add4X ℚ).torsion 2) = 4 :=
   card_torsion_two_of_splits exampleTwo splits_Ψ₂Sq_exampleCurve
 
 /-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, since `Φ₂ = (X² − 4)²` here.
 
 ⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 144 − 288 = 0` — rather
-than by unfolding `exampleCurve.Φ 2`, whose definition is a recursion. -/
+than by unfolding `(y2EqX3Add5X2Add4X ℚ).Φ 2`, whose definition is a recursion. -/
 private lemma eval_Φ_two_exampleCurve :
-    (exampleCurve.Φ 2).eval 2 = (0 : ℚ) * exampleCurve.Ψ₂Sq.eval 2 := by
+    ((y2EqX3Add5X2Add4X ℚ).Φ 2).eval 2 = (0 : ℚ) * (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.eval 2 := by
   rw [Φ_two_eval]
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleCurve]
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈, y2EqX3Add5X2Add4X]
   norm_num
 
 /-- **`T = (0, 0)` is twice a rational point, and that point is not `T`** — the `hP` of
@@ -739,7 +738,7 @@ to `_`.  ⚠️ That second component must not be "cleaned up" as unused.
 restated in this file.  `[2]P = T` with `T ∈ E[2]` in fact gives `[n]P = T` at every `n ≡ 2 (mod 4)`
 there; `2 % 4 = 2` is what selects this index, and `by norm_num` is what discharges it. -/
 private lemma exampleExistsHalving :
-    ∃ P : exampleCurve.Point,
+    ∃ P : (y2EqX3Add5X2Add4X ℚ).Point,
       (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT :=
   exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleNsT exampleTorT exampleNsP.left
     eval_Φ_two_exampleCurve (by norm_num)
@@ -756,12 +755,12 @@ is the first `hprin` certificate on this board over a field that is not algebrai
 `2`-torsion is *not* rational.  What it certifies is that the hypotheses of `exists_gS_two_of_card`
 are simultaneously satisfiable away from `F̄`. -/
 private theorem exampleRungFive :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisor exampleCurve f
+    ∃ f : (y2EqX3Add5X2Add4X ℚ).FunctionField, f ≠ 0 ∧
+      divisor (y2EqX3Add5X2Add4X ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
-        ∃ gS : exampleCurve.FunctionField, gS ≠ 0 ∧
-          ∃ u : exampleCurve.CoordinateRingˣ,
-            (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f :=
+        ∃ gS : (y2EqX3Add5X2Add4X ℚ).FunctionField, gS ≠ 0 ∧
+          ∃ u : (y2EqX3Add5X2Add4X ℚ).CoordinateRingˣ,
+            (u : (y2EqX3Add5X2Add4X ℚ).CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f :=
   let ⟨P, hP, _⟩ := exampleExistsHalving
   exists_gS_two_of_card exampleTwo exampleCard exampleNsT exampleTorT (P := P) hP
 

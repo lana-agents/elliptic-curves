@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic
 import EllipticCurves.FunctionField.WeilPairingPerfect
 
@@ -255,38 +256,34 @@ applied to what follows; all four failures below are compiler output, quoted and
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, `#936`'s `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `S = (0, 0)` lies on the base-changed curve `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingularThree : (exampleCurveThree⁄exampleField).Nonsingular 0 0 :=
-  (exampleCurveThree⁄exampleField).equation_iff_nonsingular.mp (by
-    simp [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularThree : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Nonsingular 0 0 :=
+  ((y2AddYEqX3 ℚ)⁄AlgClosedQ).equation_iff_nonsingular.mp (by
+    simp [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`. -/
 private lemma exampleTorsionThree :
-    Point.some (0 : exampleField) 0 exampleNonsingularThree
-      ∈ (exampleCurveThree⁄exampleField).torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingularThree
+      ∈ ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    simp [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    simp [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- `S = (0, 0)` as an element of `E[3]`. -/
-private noncomputable def exampleSThree : (exampleCurveThree⁄exampleField).torsion 3 :=
+private noncomputable def exampleSThree : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3 :=
   ⟨Point.some 0 0 exampleNonsingularThree, exampleTorsionThree⟩
 
 open Classical in
@@ -294,7 +291,7 @@ open Classical in
 
 ⚠️ Kept even though no certificate below closes with it: it is the input the *refutation* uses, and
 the refutation is the load-bearing half.  See the second bullet of the Non-vacuity note. -/
-private lemma exampleSThree_fixed (σ : exampleField ≃ₐ[ℚ] exampleField) :
+private lemma exampleSThree_fixed (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     σ • exampleSThree = exampleSThree :=
   Subtype.ext ((Point.galois_smul_some_eq_some_iff σ exampleNonsingularThree
     exampleNonsingularThree).mpr ⟨(map_zero σ).symm, (map_zero σ).symm⟩)
@@ -302,21 +299,21 @@ private lemma exampleSThree_fixed (σ : exampleField ≃ₐ[ℚ] exampleField) :
 open Classical in
 /-- **The number an independent input had to supply**: `#E[3] = 9` on a curve that exists.  It is
 `false` at every other value and is what `nontrivial_torsion_three` consumes. -/
-example : Nat.card ((exampleCurveThree⁄exampleField).torsion 3) = 9 :=
+example : Nat.card (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) = 9 :=
   card_torsion_three exampleTwo exampleThree
 
 open Classical in
 /-- **`E[3]` on a curve that exists is nontrivial**, so the theorem below has a `P` to run on. -/
-example : Nontrivial ((exampleCurveThree⁄exampleField).torsion 3) :=
+example : Nontrivial (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3) :=
   nontrivial_torsion_three exampleTwo exampleThree
 
 open Classical in
 /-- **The theorem, on a curve that exists.**  A schema instance, universally quantified in `σ` and
 in the hypothesis. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField)
-    (hfix : ∀ P : (exampleCurveThree⁄exampleField).torsion 3, σ • P = P) :
-    ∀ t ∈ rootsOfUnity 3 exampleField, σ ((t : exampleFieldˣ) : exampleField)
-      = ((t : exampleFieldˣ) : exampleField) :=
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+    (hfix : ∀ P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3, σ • P = P) :
+    ∀ t ∈ rootsOfUnity 3 AlgClosedQ, σ ((t : AlgClosedQˣ) : AlgClosedQ)
+      = ((t : AlgClosedQˣ) : AlgClosedQ) :=
   forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed σ exampleTwo exampleThree hfix
 
 open Classical in
@@ -325,19 +322,19 @@ open Classical in
 
 ⚠️ Not overclaimed: this does **not** exhibit such a `σ`, and the file's Scope section says why that
 is a statement about `AlgebraicClosure ℚ` rather than about this curve. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField)
-    (hσ : galoisModularCyclotomicChar ℚ exampleField
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+    (hσ : galoisModularCyclotomicChar ℚ AlgClosedQ
       (natCard_rootsOfUnity_of_ne_zero exampleThree) σ ≠ 1) :
-    ∃ P : (exampleCurveThree⁄exampleField).torsion 3, σ • P ≠ P :=
+    ∃ P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3, σ • P ≠ P :=
   exists_torsion_three_smul_ne_self_of_galoisModularCyclotomicChar_ne_one σ exampleTwo
     exampleThree hσ
 
 /-- **The `n = 2` statement on the same field, with no hypothesis and no curve.**  Compare the
 `n = 3` certificate above, which needs a curve, a nonzero point and a hypothesis on all of
 `E[3]`. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
-    ∀ t ∈ rootsOfUnity 2 exampleField, σ ((t : exampleFieldˣ) : exampleField)
-      = ((t : exampleFieldˣ) : exampleField) :=
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
+    ∀ t ∈ rootsOfUnity 2 AlgClosedQ, σ ((t : AlgClosedQˣ) : AlgClosedQ)
+      = ((t : AlgClosedQˣ) : AlgClosedQ) :=
   forall_mem_rootsOfUnity_two_fixed σ
 
 /-- **The `#944` route to the same `n = 2` conclusion**, which compiles and therefore agrees.
@@ -347,9 +344,9 @@ example (σ : exampleField ≃ₐ[ℚ] exampleField) :
 `natCard_rootsOfUnity_of_ne_zero` has been fed
 `exampleTwo` and `[IsAlgClosed F]` — two inputs `forall_mem_rootsOfUnity_two_fixed` does without.
 Both terms are here so the comparison is checkable rather than asserted. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
-    ∀ t ∈ rootsOfUnity 2 exampleField, σ ((t : exampleFieldˣ) : exampleField)
-      = ((t : exampleFieldˣ) : exampleField) :=
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
+    ∀ t ∈ rootsOfUnity 2 AlgClosedQ, σ ((t : AlgClosedQˣ) : AlgClosedQ)
+      = ((t : AlgClosedQˣ) : AlgClosedQ) :=
   (galoisModularCyclotomicChar_eq_one_iff (natCard_rootsOfUnity_of_ne_zero exampleTwo) σ).mp
     (galoisModularCyclotomicChar_two_eq_one _ σ)
 
