@@ -47,15 +47,20 @@ antisymmetric under `p ↔ q`, so `(3, 2)` and `(2, 3)` differ by a sign.  ⚠�
 is in this file's import closure, so `HasXCoordFormula`, `hasXCoordFormula_two` and
 `hasXCoordFormula_three` are named here and used nowhere below.  `XDifferencePoint` imports this
 file, so it is a forward reference; `NsmulSurjective` neither imports this file nor is imported by
-it, so it is import-incomparable with it and the two meet only at the root `EllipticCurves`.
+it, so it is import-incomparable with it.  ⚠️ The two are not disjoint downstream, though:
+`XDifferencePoint` is the unique module in the tree whose closure contains both, since it imports
+this file directly and `NsmulSurjective` through `EllipticCurves.Torsion.TriplingSurjective`.
 
 ## Why this is a Ward corollary and could not be written before
 
 The derivation above is three lines of `ring` on top of the `r = 1` relation, and the `r = 1`
 relation for `normEDS` was, until `WeierstrassCurve.wardGapCore` was proved in
 `EllipticCurves.Torsion.WardHalving`, the open half of Mathlib's `IsEllipticDvdSequence` `TODO`.
-The two-term recurrences Mathlib does prove (`normEDS_even`, `normEDS_odd`) do **not** give it:
-they relate `ψ_{2m}` and `ψ_{2m+1}` to four consecutive `ψ`, and carry no `φ`.
+The two-term recurrences Mathlib does prove (`normEDS_even`, `normEDS_odd`) do **not** give it,
+and they are not the same size: `ψ_odd` relates `ψ_{2m+1}` to the **four** consecutive
+`ψ_{m−1}, …, ψ_{m+2}`, while `ψ_even` relates `ψ_{2m}·ψ₂` — with a `ψ₂` on the *left*, which
+`ψ_two_mul_mul_ψ_two` below also carries — to the **five** consecutive `ψ_{m−2}, …, ψ_{m+2}`.
+Neither carries a `φ`.
 
 ⚠️ Issue `#251`'s own split comment named this identity as the thing that, once available, makes
 the coordinate formula and Ward's addition formula *each other's content*.  It is now available.
@@ -70,7 +75,8 @@ input is still the geometric one, that `Φₙ/ΨSqₙ` is the `x`-coordinate of 
   over an arbitrary commutative ring, at arbitrary `p q : ℤ`.
 * `WeierstrassCurve.Affine.ψ_two_mul_add_one`, `WeierstrassCurve.Affine.ψ_two_mul_mul_ψ_two` : the
   index-doubling specialisations `(p, q) = (n+1, n)` and `(n+1, n−1)`, which express `ψ_{2n+1}` and
-  `ψ_{2n}·ψ₂` through `φ` rather than through Mathlib's four consecutive `ψ`.
+  `ψ_{2n}·ψ₂` through `φ` rather than through Mathlib's four (`ψ_odd`) and five (`ψ_even`)
+  consecutive `ψ`.
 * `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_evalEval` : the same at a point of `W`, where the
   right-hand side becomes **univariate** — `Φ_q(x)·ΨSq_p(x) − Φ_p(x)·ΨSq_q(x)`.
 * `WeierstrassCurve.Affine.Φ_div_ΨSq_sub_Φ_div_ΨSq` : the quotient form over a field.
