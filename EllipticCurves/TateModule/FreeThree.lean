@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.PrimaryFree
 import EllipticCurves.Torsion.ThreePrimaryBasis
 
@@ -256,25 +257,22 @@ the same purpose. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base, an algebraic closure of `ℚ` — of
+characteristic `0`, so that `2 ≠ 0` and `3 ≠ 0` — are the shared
+`EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also supply
+`(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the **base-changed**
+instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraic closure of `ℚ`: a field of characteristic `0`, so both `2 ≠ 0` and `3 ≠ 0`. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, `T₃E` really is free of rank two
@@ -290,16 +288,16 @@ F : Type u_1
 inst✝¹ : Field F
 inst✝ : DecidableEq F
 W : Affine F
-⊢ Nontrivial ↥((exampleCurveThree⁄exampleField).tateModule 3)
+⊢ Nontrivial ↥(((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3)
 ```
 
 ⚠️ The two surviving components are the freeness and the rank, so what the deletion removes is
 exactly the statement that the module is not the zero module; and the residual is a **goal**, which
 no type mismatch could show. (The ambient `F` and `W` appear because this `example` sits inside the
 file's section variable block; they are not used.) -/
-example : Module.Free ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3) ∧
-    Module.finrank ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3) = 2 ∧
-    Nontrivial ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Module.Free ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) ∧
+    Module.finrank ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) = 2 ∧
+    Nontrivial (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   ⟨free_tateModule_three exampleTwo exampleThree,
     finrank_tateModule_three exampleTwo exampleThree,
     nontrivial_tateModule_three exampleTwo exampleThree⟩
@@ -307,13 +305,13 @@ example : Module.Free ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3) 
 open Classical in
 /-- **The independent non-vacuity route on the same curve**: `T₃E` is infinite, proved through the
 level projections and `#E[3^k] = 9^k` without ever mentioning the equivalence. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   infinite_tateModule_three exampleTwo exampleThree
 
 open Classical in
 /-- **The unbundled form is certified too**, by application rather than by `rfl`: on the same curve
 there is an actual nonzero element of `T₃E`, not merely a `Nontrivial` instance. -/
-example : ∃ f : (exampleCurveThree⁄exampleField).tateModule 3, f ≠ 0 :=
+example : ∃ f : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3, f ≠ 0 :=
   exists_ne_zero_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity

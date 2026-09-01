@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.TateModule.GeneralLinearGroup
 import EllipticCurves.TateModule.PrimaryMatrixRepBasisChange
@@ -406,26 +407,23 @@ for a Galois *representation* says nothing. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`; this is the idiom
 `EllipticCurves.TateModule.Determinant` documents for exactly that reason. -/
-private instance : (exampleCurve⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurve.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `12 = 2² · 3` is `3`-smooth.  ⚠️ `decide` does not close this: `Nat.primeFactors` is the support
 of a factorisation defined by well-founded recursion. -/
@@ -440,28 +438,28 @@ open Classical in
 /-- A `ZMod 12`-basis of `E[12]` on the certificate curve, fixed once so that the three certificates
 below all speak about the same representation. -/
 private noncomputable def exampleBasis :
-    Module.Basis (Fin 2) (ZMod 12) ((exampleCurve⁄exampleField).torsion 12) :=
+    Module.Basis (Fin 2) (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12) :=
   basisTorsionOfSmooth exampleTwo exampleThree (by norm_num) smoothTwelve
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists and at a *composite* index, there
 really is a matrix representation `Gal(F/ℚ) →* GL₂(ℤ/12)` computing the Galois action, whose
 determinant is `galoisDetMod 12`. -/
-example : ∃ (c : Module.Basis (Fin 2) (ZMod 12) ((exampleCurve⁄exampleField).torsion 12))
-      (ρ : (exampleField ≃ₐ[ℚ] exampleField) →* GL (Fin 2) (ZMod 12)),
-      (∀ (σ : exampleField ≃ₐ[ℚ] exampleField) (P : (exampleCurve⁄exampleField).torsion 12),
+example : ∃ (c : Module.Basis (Fin 2) (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12))
+      (ρ : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* GL (Fin 2) (ZMod 12)),
+      (∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12),
         ⇑(c.repr (σ • P)) = (ρ σ : Matrix (Fin 2) (Fin 2) (ZMod 12)) *ᵥ ⇑(c.repr P)) ∧
-      ∀ σ : exampleField ≃ₐ[ℚ] exampleField,
+      ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
         Matrix.GeneralLinearGroup.det (ρ σ)
-          = galoisDetMod (W' := exampleCurve) (F := exampleField) 12 σ :=
+          = galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 12 σ :=
   exists_galoisRepModMatrix_of_smooth exampleTwo exampleThree (by norm_num) smoothTwelve
 
 open Classical in
 /-- The determinant bridge on the same curve at `n = 12`, written out at an arbitrary `σ` rather
 than obtained-and-projected. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     Matrix.GeneralLinearGroup.det (galoisRepModMatrix exampleBasis σ)
-      = galoisDetMod (W' := exampleCurve) (F := exampleField) 12 σ :=
+      = galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 12 σ :=
   det_galoisRepModMatrix exampleBasis σ
 
 open Classical in
@@ -477,7 +475,7 @@ example : tateModule.basisChangeGL exampleBasis (exampleBasis.reindex (Equiv.swa
 
 open Classical in
 /-- The conjugacy itself on the same curve, at the same pair of bases. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     galoisRepModMatrix (exampleBasis.reindex (Equiv.swap 0 1)) σ
       = tateModule.basisChangeGL exampleBasis (exampleBasis.reindex (Equiv.swap 0 1))
           * galoisRepModMatrix exampleBasis σ
@@ -486,24 +484,24 @@ example (σ : exampleField ≃ₐ[ℚ] exampleField) :
 
 open Classical in
 /-- The `n = 2` instance on the same curve, on `h2` alone. -/
-example : ∃ (c : Module.Basis (Fin 2) (ZMod 2) ((exampleCurve⁄exampleField).torsion 2))
-      (ρ : (exampleField ≃ₐ[ℚ] exampleField) →* GL (Fin 2) (ZMod 2)),
-      (∀ (σ : exampleField ≃ₐ[ℚ] exampleField) (P : (exampleCurve⁄exampleField).torsion 2),
+example : ∃ (c : Module.Basis (Fin 2) (ZMod 2) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 2))
+      (ρ : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* GL (Fin 2) (ZMod 2)),
+      (∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 2),
         ⇑(c.repr (σ • P)) = (ρ σ : Matrix (Fin 2) (Fin 2) (ZMod 2)) *ᵥ ⇑(c.repr P)) ∧
-      ∀ σ : exampleField ≃ₐ[ℚ] exampleField,
+      ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
         Matrix.GeneralLinearGroup.det (ρ σ)
-          = galoisDetMod (W' := exampleCurve) (F := exampleField) 2 σ :=
+          = galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 2 σ :=
   exists_galoisRepModMatrix_two exampleTwo
 
 open Classical in
 /-- The `n = 3` instance on the same curve. -/
-example : ∃ (c : Module.Basis (Fin 2) (ZMod 3) ((exampleCurve⁄exampleField).torsion 3))
-      (ρ : (exampleField ≃ₐ[ℚ] exampleField) →* GL (Fin 2) (ZMod 3)),
-      (∀ (σ : exampleField ≃ₐ[ℚ] exampleField) (P : (exampleCurve⁄exampleField).torsion 3),
+example : ∃ (c : Module.Basis (Fin 2) (ZMod 3) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3))
+      (ρ : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* GL (Fin 2) (ZMod 3)),
+      (∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3),
         ⇑(c.repr (σ • P)) = (ρ σ : Matrix (Fin 2) (Fin 2) (ZMod 3)) *ᵥ ⇑(c.repr P)) ∧
-      ∀ σ : exampleField ≃ₐ[ℚ] exampleField,
+      ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
         Matrix.GeneralLinearGroup.det (ρ σ)
-          = galoisDetMod (W' := exampleCurve) (F := exampleField) 3 σ :=
+          = galoisDetMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 3 σ :=
   exists_galoisRepModMatrix_three exampleTwo exampleThree
 
 end Nonvacuity

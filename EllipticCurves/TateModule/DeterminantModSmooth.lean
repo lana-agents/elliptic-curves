@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.DeterminantMod
 import EllipticCurves.Torsion.ThreePrimary
 
@@ -310,14 +311,14 @@ in the `<file>:<line>:<col>: error(<tag>):` form quoted below, and it does **not
   certificate below by `inferInstance` gives
   ```
   error(lean.synthInstanceFailed): failed to synthesize instance of type class
-    Module.Free (ZMod 12) ↥((exampleCurve⁄exampleField).torsion 12)
+    Module.Free (ZMod 12) ↥(((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12)
   ```
   ⚠️ This is the run that separates this file from the `n = 3` block, where the same request
   succeeds — and the corresponding success at `n = 2` is certified below rather than described.
 * **Finiteness is not automatic either**, at `12` as at `3`:
   ```
   error(lean.synthInstanceFailed): failed to synthesize instance of type class
-    Module.Finite (ZMod 12) ↥((exampleCurve⁄exampleField).torsion 12)
+    Module.Finite (ZMod 12) ↥(((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12)
   ```
 * **Deleting `1 < n` from `finrank_torsion_of_smooth` leaves the rank statement unprovable**, and it
   is worth reading *which* instance dies, because it names the mathematics:
@@ -331,26 +332,23 @@ in the `<file>:<line>:<col>: error(<tag>):` form quoted below, and it does **not
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base, an algebraic closure of `ℚ` — of
+characteristic `0`, so that `2 ≠ 0` and `3 ≠ 0` — are the shared
+`EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also supply
+`(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the **base-changed**
+instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`; this is the idiom
 `EllipticCurves.TateModule.Determinant` documents for exactly that reason. -/
-private instance : (exampleCurve⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurve.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `12 = 2² · 3` is `3`-smooth.  ⚠️ `decide` does not close this: `Nat.primeFactors` is the support
 of a factorisation defined by well-founded recursion. -/
@@ -364,33 +362,33 @@ private lemma smoothTwelve : ∀ p ∈ (12 : ℕ).primeFactors, p = 2 ∨ p = 3 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists and at a *composite* index, `E[12]`
 really has rank `2` over `ZMod 12`, so `LinearEquiv.det` is not returning its junk value there. -/
-example : Module.finrank (ZMod 12) ((exampleCurve⁄exampleField).torsion 12) = 2 :=
+example : Module.finrank (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12) = 2 :=
   finrank_torsion_of_smooth exampleTwo exampleThree (by norm_num) smoothTwelve
 
 open Classical in
 /-- Freeness at a composite index, where `inferInstance` fails; see the first measured run. -/
-example : Module.Free (ZMod 12) ((exampleCurve⁄exampleField).torsion 12) :=
+example : Module.Free (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12) :=
   free_torsion_zmod_of_smooth exampleTwo exampleThree smoothTwelve
 
 open Classical in
 /-- Finiteness at a composite index, where `inferInstance` also fails. -/
-example : Module.Finite (ZMod 12) ((exampleCurve⁄exampleField).torsion 12) :=
+example : Module.Finite (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12) :=
   finite_torsion_zmod_of_smooth exampleTwo exampleThree smoothTwelve
 
 open Classical in
 /-- A `ZMod 12`-basis on the same curve — the interface a coordinate computation would consume. -/
-example : Nonempty (Module.Basis (Fin 2) (ZMod 12) ((exampleCurve⁄exampleField).torsion 12)) :=
+example : Nonempty (Module.Basis (Fin 2) (ZMod 12) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 12)) :=
   ⟨basisTorsionOfSmooth exampleTwo exampleThree (by norm_num) smoothTwelve⟩
 
 open Classical in
 /-- **Freeness at `n = 2` IS automatic**, and this is the certificate that says so: no hypothesis,
 no lemma of this development, just `inferInstance`, because `Field (ZMod 2)` is an instance.  ⚠️ It
 is why this file states no `free_torsion_two_zmod`, following `DeterminantMod` at `n = 3`. -/
-example : Module.Free (ZMod 2) ((exampleCurve⁄exampleField).torsion 2) := inferInstance
+example : Module.Free (ZMod 2) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 2) := inferInstance
 
 open Classical in
 /-- The `n = 2` rank on the same curve, restated in full rather than obtained-and-projected. -/
-example : Module.finrank (ZMod 2) ((exampleCurve⁄exampleField).torsion 2) = 2 :=
+example : Module.finrank (ZMod 2) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 2) = 2 :=
   finrank_torsion_two exampleTwo
 
 open Classical in
@@ -398,7 +396,7 @@ open Classical in
 no prime factors — and the conclusion of `finrank_torsion_of_smooth` is **false**: `ZMod 1` is the
 trivial ring and `Module.finrank_subsingleton` puts the rank at `1`.  This is the certificate that
 the hypothesis excludes a counterexample rather than merely unblocking a tactic. -/
-example : Module.finrank (ZMod 1) ((exampleCurve⁄exampleField).torsion 1) ≠ 2 := by
+example : Module.finrank (ZMod 1) (((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 1) ≠ 2 := by
   rw [Module.finrank_subsingleton]
   norm_num
 

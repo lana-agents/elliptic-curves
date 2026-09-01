@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.FreeThree
 import EllipticCurves.TateModule.PrimaryMatrixRep
 
@@ -277,25 +278,22 @@ remains to certify is that its hypotheses are simultaneously satisfiable on a cu
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
@@ -305,10 +303,10 @@ computes the Galois action.
 ⚠️ The statement is restated in full rather than obtained-and-projected (`#916`), and the
 compatibility clause `⇑(b.repr (σ • f)) = ρ σ *ᵥ ⇑(b.repr f)` is kept — without it the certificate
 would be witnessed by the trivial homomorphism and would not mention the curve. -/
-example : ∃ (b : Module.Basis (Fin 2) ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3))
-    (ρ : (exampleField ≃ₐ[ℚ] exampleField) →* GL (Fin 2) ℤ_[3]),
-      ∀ (σ : exampleField ≃ₐ[ℚ] exampleField)
-        (f : (exampleCurveThree⁄exampleField).tateModule 3),
+example : ∃ (b : Module.Basis (Fin 2) ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3))
+    (ρ : (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) →* GL (Fin 2) ℤ_[3]),
+      ∀ (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+        (f : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3),
         ⇑(b.repr (σ • f)) = (ρ σ : Matrix (Fin 2) (Fin 2) ℤ_[3]) *ᵥ ⇑(b.repr f) :=
   exists_galoisRepMatrixThree exampleTwo exampleThree
 
@@ -319,7 +317,7 @@ never mentions the matrix representation: `T₃E` surjects onto `E[3^k]`, which 
 ⚠️ This is what rules out the degenerate reading of the certificate above. `GL (Fin 2) ℤ_[3]` and
 the `mulVec` clause are both perfectly satisfiable over a zero module — every coordinate vector
 would be `0` and the equation would hold for any `ρ` — so the certificate needs this. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   tateModule.infinite_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity

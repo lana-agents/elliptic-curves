@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.PrimaryMatrixRepBasisChange
@@ -229,25 +230,22 @@ the trivial group — this front's standard `n = 3` certificate curve.
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical tateModule in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
@@ -259,11 +257,11 @@ other.
 `basisChangeGL b b' ≠ 1` is what stops it from being witnessed by `b' = b`, in which case the
 conjugation law would say nothing. The witnesses are `b` and its reindexing along the transposition
 of the two indices, which is exactly what `basisChangeGL_reindex_swap_ne_one` discriminates. -/
-example : ∃ b b' : Module.Basis (Fin 2) ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3),
-    basisChangeGL b b' ≠ 1 ∧ ∀ σ : exampleField ≃ₐ[ℚ] exampleField,
+example : ∃ b b' : Module.Basis (Fin 2) ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3),
+    basisChangeGL b b' ≠ 1 ∧ ∀ σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ,
       galoisRepMatrixThree b' σ
         = basisChangeGL b b' * galoisRepMatrixThree b σ * (basisChangeGL b b')⁻¹ := by
-  obtain ⟨b⟩ := nonempty_basis_tateModule_three (W := exampleCurveThree⁄exampleField)
+  obtain ⟨b⟩ := nonempty_basis_tateModule_three (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ)
     exampleTwo exampleThree
   exact ⟨b, b.reindex (Equiv.swap 0 1), basisChangeGL_reindex_swap_ne_one b,
     galoisRepMatrixThree_conj b _⟩
@@ -275,7 +273,7 @@ never mentions the matrix representation: `T₃E` surjects onto `E[3^k]`, which 
 ⚠️ This is what rules out the degenerate reading of the certificate above. `GL (Fin 2) ℤ_[3]` and a
 conjugation identity are both perfectly satisfiable over a zero module, where every matrix is `1`
 and `basisChangeGL b b' ≠ 1` would be the only surviving content. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   tateModule.infinite_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity

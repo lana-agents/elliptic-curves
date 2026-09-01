@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.MatrixContinuityThree
 import EllipticCurves.TateModule.PrimaryImage
 
@@ -300,25 +301,24 @@ end Nondegenerate
 `DivisionRing.toRatAlgebra` outranks `AlgebraicClosure.instAlgebra ℚ` once `ℤ_[ℓ]` has pulled in
 the analysis imports, and the facts one wants are registered against the latter.
 
-* `Algebra.IsIntegral ℚ exampleField` — first hit by
+* `Algebra.IsIntegral ℚ AlgClosedQ` — first hit by
   `EllipticCurves.TateModule.MatrixContinuityThree`, and inherited here.
-* ⚠️ **`IsGalois ℚ exampleField` — new here, and no earlier certificate block on this front warns
+* ⚠️ **`IsGalois ℚ AlgClosedQ` — new here, and no earlier certificate block on this front warns
   about it**, because this is the first statement on the front to carry `[IsGalois S F]` at all.
-  The failure is `failed to synthesize instance of type class IsGalois ℚ exampleField`, reported at
-  the `example` several lines from the `private abbrev` that causes it.
+  The failure is `failed to synthesize instance of type class IsGalois ℚ AlgClosedQ`, reported at
+  the `example`, several lines from the `AlgClosedQ` fixture that causes it.
 
 Both are supplied as `private lemma`s introduced with `haveI` at the point of use rather than as
 `private instance`s, so that no importing file silently acquires a `ℚ`-specific instance this file
 needed for two `example`s. ⚠️ `private` in Lean 4 restricts *name resolution*, not instance search.
 
 ⚠️ **`open Classical in` is load-bearing on the last two certificates and is not optional.** The
-`TateModule` family carries `[DecidableEq F]` in its `variable` blocks, but `exampleField` is
+`TateModule` family carries `[DecidableEq F]` in its `variable` blocks, but `AlgClosedQ` is
 `AlgebraicClosure ℚ`, which has no decidable equality.
 
-⚠️ `EllipticCurves.TateModule.MatrixRepThree`, `EllipticCurves.TateModule.FreeThree`,
-`EllipticCurves.TateModule.DeterminantThree` and
-`EllipticCurves.TateModule.MatrixContinuityThree` all carry `private` copies of the same curve, so
-this one is a duplicate by necessity rather than by oversight.
+⚠️ Every `TateModule` certificate block now names the one shared fixture
+`EllipticCurves.Fixture.y2AddYEqX3`; the `private` per-file copies this note used to describe are
+gone.
 -/
 
 section Nonvacuity
@@ -333,25 +333,22 @@ example : ¬ IsClosed
     (Matrix.GeneralLinearGroup.unipotentIntSubgroup 3 : Set (GL (Fin 2) ℤ_[3])) :=
   Matrix.GeneralLinearGroup.not_isClosed_unipotentIntSubgroup 3
 
-/-- The curve `y² + y = x³` over `ℚ`, this front's standard `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` over `ℚ` and its base — algebraically closed so that
+`Gal(F/ℚ)` is not the trivial group, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — are the
+shared `EllipticCurves.Fixture.y2AddYEqX3` and `EllipticCurves.Fixture.AlgClosedQ`, which also
+supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Only the
+**base-changed** instance below is still local to this file; see its docstring for why. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveThree⁄exampleField).IsElliptic :=
-  inferInstanceAs (exampleCurveThree.map (algebraMap ℚ exampleField)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
 /-- The `ℚ`-algebra instance trap, as `EllipticCurves.TateModule.MatrixContinuityThree` documents
 it. Introduced with `haveI` at the point of use, not registered as an instance. -/
-private lemma exampleIsIntegral : Algebra.IsIntegral ℚ exampleField := by
+private lemma exampleIsIntegral : Algebra.IsIntegral ℚ AlgClosedQ := by
   have : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := by
     rw [show (DivisionRing.toRatAlgebra : Algebra ℚ (AlgebraicClosure ℚ))
         = AlgebraicClosure.instAlgebra ℚ from Subsingleton.elim _ _]
@@ -367,14 +364,14 @@ registered against `AlgebraicClosure.instAlgebra ℚ`, which `DivisionRing.toRat
 `EllipticCurves.TateModule.Image` is the first file on the front whose theorems carry
 `[IsGalois S F]` — so a reader copying `MatrixContinuityThree.lean`'s block verbatim gets a failure
 its docstring does not mention. -/
-private lemma exampleIsGalois : IsGalois ℚ exampleField := by
+private lemma exampleIsGalois : IsGalois ℚ AlgClosedQ := by
   rw [show (DivisionRing.toRatAlgebra : Algebra ℚ (AlgebraicClosure ℚ))
       = AlgebraicClosure.instAlgebra ℚ from Subsingleton.elim _ _]
   infer_instance
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **⚠️ THE LOAD-BEARING CERTIFICATE**: on a curve that exists, over a base field `S = ℚ` whose
@@ -384,7 +381,7 @@ absolute Galois group is not trivial, the image of `ρ_{E,3}` really is a closed
 ⚠️ The statement is restated in full rather than obtained-and-projected (`#916`), and it closes by
 **application** of `isClosed_range_galoisRepMatrixThree` rather than by `rfl`, `decide` or
 `norm_num`, so it consumes the theorem it certifies. -/
-example (b : Module.Basis (Fin 2) ℤ_[3] ((exampleCurveThree⁄exampleField).tateModule 3)) :
+example (b : Module.Basis (Fin 2) ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3)) :
     IsClosed ((galoisRepMatrixThree b).range : Set (GL (Fin 2) ℤ_[3])) := by
   haveI := exampleIsIntegral
   haveI := exampleIsGalois
@@ -394,7 +391,7 @@ open Classical in
 /-- **The module the representation acts on is not the zero module**, on the same curve, by a route
 that never mentions the image or the matrices: `T₃E` surjects onto `E[3^k]`, which has `9^k`
 elements. Without this, the image would be `{1}` and closed for free. -/
-example : Infinite ((exampleCurveThree⁄exampleField).tateModule 3) :=
+example : Infinite (((y2AddYEqX3 ℚ)⁄AlgClosedQ).tateModule 3) :=
   tateModule.infinite_tateModule_three exampleTwo exampleThree
 
 end Nonvacuity
