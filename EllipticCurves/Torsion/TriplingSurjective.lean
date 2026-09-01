@@ -123,11 +123,6 @@ variable {F : Type*} [Field F] {W : Affine F}
 
 /-! ## Division-polynomial identities -/
 
-/-- The `b`-relation `4b₈ = b₂b₆ − b₄²` pushed into `F[X]`, the form `linear_combination` needs
-when the goal is an identity of polynomials rather than of scalars. -/
-private lemma C_b_relation : (4 : F[X]) * C W.b₈ = C W.b₂ * C W.b₆ - C W.b₄ ^ 2 := by
-  simpa [map_ofNat] using congrArg C W.b_relation
-
 /-- **`preΨ₄ = Ψ₃·(6X² + b₂X + b₄) − Ψ₂Sq²`.**
 
 The `b`'s are not algebraically independent, and this identity is one of the places where that
@@ -140,7 +135,7 @@ lemma preΨ₄_eq :
     W.preΨ₄ = W.Ψ₃ * (6 * X ^ 2 + C W.b₂ * X + C W.b₄) - W.Ψ₂Sq ^ 2 := by
   rw [WeierstrassCurve.preΨ₄, WeierstrassCurve.Ψ₃, WeierstrassCurve.Ψ₂Sq]
   simp only [map_ofNat, C_sub, C_mul, C_pow]
-  linear_combination (norm := ring1) (X : F[X]) ^ 2 * C_b_relation (W := W)
+  linear_combination (norm := ring1) (X : F[X]) ^ 2 * W.C_b_relation
 
 /-- `preΨ₄_eq`, evaluated. -/
 lemma preΨ₄_eval (x : F) :
