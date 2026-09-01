@@ -54,19 +54,26 @@ cash-out: the polynomial identity at `n = 3`, over **every** commutative ring, i
   `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt_algClosed` : the same with the base
   additionally **algebraically closed**, by descending along `F → AlgebraicClosure F`.
 * `WeierstrassCurve.hasPreΩSq_of_forall_hasΨSqDoubling_algClosed` : **the form in which `#404`'s
-  crux should now be attacked** — the `preΩ`-free identity `HasΨSqDoubling` of
+  crux was attacked and closed** — the `preΩ`-free identity `HasΨSqDoubling` of
   `EllipticCurves.Torsion.OmegaOnCurve`, over every curve over every algebraically closed field of
-  characteristic `0`.
+  characteristic `0`.  `EllipticCurves.Torsion.OmegaCrux` discharges its hypothesis.
 * `WeierstrassCurve.hasPreΩSq_three` : `HasPreΩSq 3`, for every curve over every commutative ring.
 
 ## ⚠️ What this settles and what it does not
 
-**`#404` is not closed.**  Its crux is `HasPreΩSq` at *general* `n`.  This file closes `n = 3` and
-re-poses the general question in a strictly weaker form: it is now enough to prove the **evaluated**
-identity at every point of an **algebraically closed** characteristic-`0` field, where `2`, `3` and
-`4` are units, the 545-monomial route is legal, and `Ψ₂Sq` splits.
+**This file does not close `#404`; it re-poses it, and the re-posing is what closed it.**  The crux
+is `HasPreΩSq` at *general* `n`.  This file closes `n = 3` and re-poses the general question in a
+strictly weaker form: it is enough to prove the **evaluated** identity at every point of an
+**algebraically closed** characteristic-`0` field, where `2`, `3` and `4` are units, the
+545-monomial route is legal, and `Ψ₂Sq` splits.
 `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed` is the strongest such statement here and is the
-durable content; `hasPreΩSq_three` is one instance of it.
+durable content; `hasPreΩSq_three` is one instance of it, and
+`EllipticCurves.Torsion.OmegaCrux`'s `WeierstrassCurve.hasPreΩSq` is the general one.
+
+⚠️ **What the closing proof actually used of the algebraically closed base was only that every `x`
+is the abscissa of a point** (`WeierstrassCurve.Affine.exists_equation`) — *not* the splitting of
+`Ψ₂Sq` that the bullet below nominates.  The `2`-torsion factorisation is a route that was
+available and was not the one taken.
 
 ⚠️ **Every hypothesis these reductions drop is a hypothesis on the *base*, never on the
 *conclusion*.**  All five conclude `W.HasPreΩSq n` for an arbitrary `W` over an arbitrary
@@ -152,12 +159,11 @@ characteristic-`0` field — where `2`, `3` and `4` are units, `b₈ = (b₂b₆
 substitution, and `field_simp` is available.  See the module docstring for the measured size of the
 difference.  This is the route `hasPreΩSq_three` below takes.
 
-⚠️ **`#404`'s crux is not to be attacked here, although this docstring nominated it until
-`#1402`.**  The designation is `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed`'s: its base is
-additionally algebraically closed, so `Ψ₂Sq` splits, and its hypothesis is stated with no `preΩ` in
-it at all.  When the designation moved, the module docstring's bullet was edited and this line was
-not.  Do not restore it here — and do not restate it in the nominating words, which are reserved
-for the two places that mean them. -/
+⚠️ **`#404`'s crux was not attacked here, although this docstring nominated it until `#1402`.**
+The designation was `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed`'s: its base is additionally
+algebraically closed, so `Ψ₂Sq` splits, and its hypothesis is stated with no `preΩ` in it at all.
+That is the lemma `EllipticCurves.Torsion.OmegaCrux` discharged, so the designation was correct and
+is now spent. -/
 theorem hasPreΩSq_of_forall_hasPreΩSqAt_charZero {n : ℤ}
     (h : ∀ (F : Type) [Field F] [CharZero F] (V : WeierstrassCurve F) (x : F),
       V.HasPreΩSqAt n x)
@@ -177,7 +183,14 @@ Over an algebraically closed field `Ψ₂Sq = 4X³ + b₂X² + 2b₄X + b₆` sp
 `2`-torsion points are rational and the bracket of `HasΨSqDoubling` factors as
 `4·∏ᵢ (Φₙ − eᵢ·ΨSqₙ)`; the classical argument for the crux is that each of those three factors is a
 square.  None of that is available over a general characteristic-`0` field, and every earlier note
-on `#404` posed the crux over one. -/
+on `#404` posed the crux over one.
+
+⚠️ **The proof that closed the crux does not use the splitting.**  It uses algebraic closure only
+to produce **some** `y` with `W.Equation x y` above a given `x`
+(`WeierstrassCurve.Affine.exists_equation` of
+`EllipticCurves.Torsion.ThreeTorsionStructure`), which is a strictly weaker use.  The `2`-torsion
+factorisation above is a route that was available and was not taken; it is not what this hypothesis
+turned out to be for. -/
 theorem hasPreΩSq_of_forall_algClosed {n : ℤ}
     (h : ∀ (F : Type) [Field F] [CharZero F] [IsAlgClosed F] (V : WeierstrassCurve F),
       V.HasPreΩSq n) (W : WeierstrassCurve R) : W.HasPreΩSq n :=
@@ -205,7 +218,9 @@ theorem hasPreΩSq_of_forall_hasPreΩSqAt_algClosed {n : ℤ}
   hasPreΩSq_of_forall_algClosed
     (fun F _ _ _ V => hasPreΩSq_of_forall_hasPreΩSqAt (h F V)) W
 
-/-- **⚠️ THE FORM `#404`'s CRUX SHOULD NOW BE ATTACKED IN.**  To prove `HasPreΩSq n` for every
+/-- **⚠️ THE FORM `#404`'s CRUX WAS ATTACKED IN — and its hypothesis is now discharged**, by
+`WeierstrassCurve.hasΨSqDoubling_of_algClosed` of `EllipticCurves.Torsion.OmegaCrux`; the
+composition is `WeierstrassCurve.hasPreΩSq_of_one_le` there.  To prove `HasPreΩSq n` for every
 Weierstrass curve over every commutative ring — hence, through
 `WeierstrassCurve.Affine.equation_of_hasPreΩSq`, the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` — it
 is enough to prove

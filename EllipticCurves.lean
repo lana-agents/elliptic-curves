@@ -357,10 +357,12 @@ import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.EllipticNetSlices
 import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
+import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.OmegaCharZero
+import EllipticCurves.Torsion.OmegaCrux
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaNumerator
 import EllipticCurves.Torsion.OmegaOnCurve
