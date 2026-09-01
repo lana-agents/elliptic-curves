@@ -337,12 +337,34 @@ with `P = (2, 3)` and `T = [4]P = (0, −1)`.  ⚠️ The arithmetic duplicates 
 `EllipticCurves.FunctionField.TranslationMulByNCommGeneral`, whose lemmas are `private` and
 therefore unavailable; it is re-derived rather than imported.
 
-⚠️ There is **one** certificate rather than a parameterised one plus a satisfiability one, and the
-reason is mechanical rather than mathematical: a certificate that binds `htel` and `hpow` itself
-writes their types in `ℚ`'s own `DecidableEq` instance, while the theorem's copies carry
-`Classical.propDecidable`, so *every* hypothesis then needs its own `convert … using 9` and the
-elaboration does not terminate inside the heartbeat budget.  Instantiating at `f = g = c = c₀ = 1`
-lets the theorem generate those types, leaving one `convert` on `hPT`. -/
+There are **two** certificates: one instantiated at `f = g = c = c₀ = 1`, which certifies that the
+hypothesis list is jointly satisfiable, and one that binds `htel` and `hpow` and so reaches the
+conclusion the theorem is actually for.  Instantiating at `1` lets the theorem generate the types
+of `htel` and `hpow` itself, leaving one `convert` on `hPT`.
+
+⚠️ **This block used to carry only the first, and the reason it gave was half right** (`#1415`).
+It said that a certificate binding `htel` and `hpow` writes their types in `ℚ`'s own `DecidableEq`
+instance while the theorem's copies carry `Classical.propDecidable`, so *"every* hypothesis then
+needs its own `convert … using 9` and the elaboration does not terminate inside the heartbeat
+budget"*.
+
+The **mechanism** is right, and so is the timeout, which is now measured rather than inferred:
+passing `htel` and `hpow` with no `convert` at all still times out at `maxHeartbeats 4000000`,
+twenty times the default, after about 250 s.  What is wrong is the **depth**, and hence the
+conclusion.  `9` is the depth that works on `hPT`; on `htel` and `hpow` it leaves `unsolved goals`,
+as do `2`, `4`, `6`, `7`, `8`, `10` and `11`.  At **`using 12`** both close and this file
+elaborates in about 3.8 s, so the parameterised certificate was affordable all along.  ⚠️ The depth
+was found by scanning, not derived: the `HSMul → … → AddCommGroup` chain quoted below accounts for
+`9` at `hPT` and does not predict `12` here, so do not read one off the other.
+
+⚠️ Through the **affine** corollary in
+`EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN` the same certificate needs only a
+single `convert`, because `htel` is stated with `translateEndo hT` and the point-level `n • ·` then
+occurs once, on `hmul`.  That file's diagnosis of the difference is correct and the difference is
+real; it is one `convert` against one per hypothesis, not affordable against unaffordable.
+`#1328`'s route is cheaper still — stating the theorem with `[DecidableEq F]` as an instance binder
+rather than `open Classical in` removes the `convert`s entirely, and its `n = 6` certificate has
+none — but retrofitting this theorem to it is a separate call and is deliberately not made here. -/
 
 namespace Nonvacuity
 
@@ -450,6 +472,32 @@ example : translatePointEndo (torsionPoint exampleEqT) (1 : (y2EqX3AddOne ℚ).F
     exampleTranscendentalFour (by convert exampleQuadruple using 9) one_ne_zero one_ne_zero
     one_ne_zero (by rw [map_one]; exact Finset.prod_eq_one fun i _ => map_one _)
     (by rw [map_one, one_pow, one_mul, map_one])
+
+open Classical in
+/-- **The same instance at `n = 4` with `htel` and `hpow` left BOUND**, which is the shape the
+theorem is for: the conclusion `τ_T∗ g = g` is not trivially true here, because `g` is an arbitrary
+non-zero element rather than `1`.
+
+⚠️ **Still hypothetical**: `htel`, `hpow`, `hg`, `hc` and `hc₀` are assumed, exactly as at the
+merged `n = 2` and `n = 3`.  What is **discharged** is `hn0`, the transcendence hypothesis `hn` and
+the point relation `hmul`, the last from `exampleQuadruple` on a curve chosen so that `[4]P` is
+affine and distinct from `P`.  ⚠️ It does **not** exhibit a real telescope at `n = 4` — nothing on
+this tree produces one yet — so it says the hypothesis list is reachable at an index no merged
+workhorse covers, not that the theorem fires there.
+
+⚠️ `convert … using 12` is the depth this shape needs; `using 9`, which is right for `hPT` above,
+leaves `unsolved goals` on both.  See the block docstring. -/
+example (f g : (y2EqX3AddOne ℚ).FunctionField) (hg : g ≠ 0) (c c₀ : ℚ) (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    (htel : ∏ i ∈ Finset.range 4,
+        translatePointEndo (i • torsionPoint exampleEqT) f =
+          algebraMap ℚ (y2EqX3AddOne ℚ).FunctionField c)
+    (hpow : algebraMap ℚ (y2EqX3AddOne ℚ).FunctionField c₀ * g ^ 4 =
+      mulByNEndo 4 exampleTranscendentalFour f) :
+    translatePointEndo (torsionPoint exampleEqT) g = g :=
+  translatePointEndo_eq_self_of_prod_eq_of_pow_eq (n := 4) (P := torsionPoint exampleEqP)
+    (T := torsionPoint exampleEqT) (by norm_num) exampleTranscendentalFour
+    (by convert exampleQuadruple using 9) hg hc hc₀ (by convert htel using 12)
+    (by convert hpow using 12)
 
 end Nonvacuity
 
