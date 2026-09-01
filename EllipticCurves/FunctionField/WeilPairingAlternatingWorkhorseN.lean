@@ -344,7 +344,7 @@ of `htel` and `hpow` itself, leaving one `convert` on `hPT`.
 
 ⚠️ **This block used to carry only the first, and the reason it gave was half right** (`#1415`).
 It said that a certificate binding `htel` and `hpow` writes their types in `ℚ`'s own `DecidableEq`
-instance while the theorem's copies carry `Classical.propDecidable`, so *"every* hypothesis then
+instance while the theorem's copies carry `Classical.propDecidable`, so *"every hypothesis then
 needs its own `convert … using 9` and the elaboration does not terminate inside the heartbeat
 budget"*.
 
@@ -352,10 +352,18 @@ The **mechanism** is right, and so is the timeout, which is now measured rather 
 passing `htel` and `hpow` with no `convert` at all still times out at `maxHeartbeats 4000000`,
 twenty times the default, after about 250 s.  What is wrong is the **depth**, and hence the
 conclusion.  `9` is the depth that works on `hPT`; on `htel` and `hpow` it leaves `unsolved goals`,
-as do `2`, `4`, `6`, `7`, `8`, `10` and `11`.  At **`using 12`** both close and this file
-elaborates in about 3.8 s, so the parameterised certificate was affordable all along.  ⚠️ The depth
-was found by scanning, not derived: the `HSMul → … → AddCommGroup` chain quoted below accounts for
-`9` at `hPT` and does not predict `12` here, so do not read one off the other.
+and so does **every** depth from `1` to `11`.  At **`using 12`** both close, as do `13` and `14`,
+so `12` is the **minimum**, and the parameterised certificate was affordable all along.  ⚠️ The
+scan is exhaustive below `12` only because PR #539's non-author review filled in `1`, `3` and `5`,
+which the author's scan had skipped; the shipped list read *"`2`, `4`, `6`, `7`, `8`, `10` and
+`11`"* and did not rule out a smaller working depth.  ⚠️ The depth was found by scanning, not
+derived — and minimality is one more measurement, not an explanation of it: the
+`HSMul → … → AddCommGroup` chain quoted below accounts for `9` at `hPT` and does not predict `12`
+here, so do not read one off the other.
+
+At depth `12` this file elaborates in about 3.8 s **on the authoring box**; three warm runs of the
+same file on the reviewer's gave 4.4 / 6.7 / 7.1 s.  The figure is pinned to a machine and is kept
+only because the contrast it draws is with the 250 s timeout above, not with any other depth.
 
 ⚠️ Through the **affine** corollary in
 `EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN` the same certificate needs only a
