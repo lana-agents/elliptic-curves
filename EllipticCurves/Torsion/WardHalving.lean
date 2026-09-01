@@ -48,14 +48,22 @@ what the universal ring `UnivEDS = ℤ[X₀, X₁, X₂]` and `normEDS_univ_ne_z
 `EllipticCurves.Torsion.WardR1` supply; the transfer to an arbitrary `CommRing` is
 `WardR1Core`'s existing `aeval` step.
 
-## The base cases, and they are all already in the tree
+## The base cases: three come from the tree, two are re-derived inline
 
 The induction runs on `|p| + |q|`, after the sign and swap symmetries (`rel_one_neg_left`,
 `rel_one_neg_right`, `rel_one_swap`, all measure-preserving) reduce to `0 ≤ q ≤ p`. The four
-parity certificates are used only when `q ≥ 2` and `p ≥ q + 3`; everything else is
-`normEDS_rel_one_zero` (`q = 0`), `normEDS_rel_one_one` (`q = 1`),
-`normEDS_rel_one_univ_diag` (`p = q`), `normEDS_rel_odd` (`p = q + 1`) and
-`normEDS_rel_even` (`p = q + 2`).
+parity certificates are used only when `q ≥ 2` and `p ≥ q + 3`; everything else is a base case, and
+the five split in two:
+
+* `p = q`, `p = q + 1` and `p = q + 2` are **hypotheses** of `rel_one_of_rec` (`hdiag`, `hrec1`,
+  `hrec2`), discharged at `normEDS` by `normEDS_rel_one_univ_diag` of
+  `EllipticCurves.Torsion.WardR1Core` and by the two-term recurrences `normEDS_rel_odd` /
+  `normEDS_rel_even` of `EllipticCurves.Torsion.EllipticNetRel`.
+* `q = 0` and `q = 1` are **re-derived inline**, as `hq0` and `hq1`, from `hzero`, `h1` and `hodd`
+  alone. They have to be: `rel_one_of_rec` is stated for an arbitrary sequence over a domain and
+  mentions no curve and no `normEDS`, so it cannot invoke
+  `normEDS_rel_one_zero` / `normEDS_rel_one_one` of `EllipticCurves.Torsion.WardR1`. Those two do
+  exist in the tree — this file simply does not reference them.
 
 ## Main statements
 
