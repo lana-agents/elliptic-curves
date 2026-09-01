@@ -33,6 +33,12 @@ These are the base cases of the general four-term / elliptic-net recurrence
 `rel (normEDS b c d) p q r 0 = 0` for *all* `p, q, r` (Ward's theorem), which is a standing Mathlib
 `TODO` (`prove that normEDS satisfies IsEllipticDvdSequence`) and is developed separately.
 
+⚠️ That general statement is Mathlib's `IsEllipticSequence`, and it is **equivalent to its `r = 1`
+slice alone**: for any odd `W`, `IsEllipticNet.one_sq_mul_rel_zero`
+(`EllipticCurves.Torsion.WardR1`, downstream of this file) writes `W 1 ^ 2 * rel W p q r 0` as a
+`W(·)²`-combination of three `r = 1` relators, by `ring`. So the two relators recorded here are
+base cases of a statement with no content beyond `∀ p q, rel W p q 1 0 = 0`.
+
 ## Main statements
 
 * `normEDS_rel_even`, `normEDS_rel_odd` : the base relators of `normEDS b c d`.

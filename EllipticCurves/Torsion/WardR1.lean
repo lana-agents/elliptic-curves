@@ -28,6 +28,10 @@ that `normEDS` satisfies `IsEllipticDvdSequence`"). This file assembles the reus
 
 * the **symmetry reductions** of the relator (even in `p`, even in `q`, antisymmetric under the swap
   `p ↔ q`), which reduce the statement to `p ≥ q ≥ 0`;
+* the **collapse of the general `r`, `s = 0` relator onto the `r = 1` one**
+  (`IsEllipticNet.one_sq_mul_rel_zero`), whence `IsEllipticSequence W ↔ ∀ p q, rel W p q 1 0 = 0`
+  for odd normalised `W` — so the `r = 1` slice is not a *slice* of Mathlib's
+  `IsEllipticSequence` at all, it is the whole of it, and the step between them is `ring`;
 * the trivial `q ∈ {0, 1}` slices; the diagonal bands `p - q ∈ {1, 2}` are already the two-term
   recurrences `normEDS_rel_odd` / `normEDS_rel_even` of
   `EllipticCurves/Torsion/EllipticNetRel.lean`;
@@ -58,6 +62,9 @@ statements below are about.
 ## Main statements
 
 * `IsEllipticNet.rel_one_neg_left`, `rel_one_neg_right`, `rel_one_swap` : symmetries of the relator.
+* `IsEllipticNet.one_sq_mul_rel_zero` : `W 1 ^ 2 · rel W p q r 0` as a `W(·)²`-combination of three
+  `r = 1` relators, for any odd `W`; `IsEllipticNet.isEllipticSequence_of_rel_one` and
+  `isEllipticSequence_iff_rel_one` are its consequences.
 * `WeierstrassCurve.normEDS_rel_one_zero`, `normEDS_rel_one_one` : the `q ∈ {0, 1}` slices.
 * `WeierstrassCurve.normEDS_two_three_two` : `normEDS 2 3 2 n = n`.
 * `WeierstrassCurve.normEDS_univ_ne_zero` : nonvanishing of `normEDS` in `ℤ[X₀, X₁, X₂]`.
@@ -97,6 +104,46 @@ lemma rel_one_swap (odd : W.Odd) (p q : ℤ) : rel W q p 1 0 = -rel W p q 1 0 :=
   simp only [rel, add_zero]
   rw [show q + p = p + q by ring, show q - p = -(p - q) by ring, odd (p - q)]
   ring
+
+/-! ### The general `r`, `s = 0` relator is a combination of three `r = 1` relators
+
+⚠️ The `_zero` in the name below is the **fourth** argument `s`, not `r`; `r` is arbitrary. -/
+
+/-- **`W 1 ^ 2 · rel W p q r 0 = W r ^ 2 · rel W p q 1 0 + W p ^ 2 · rel W q r 1 0
++ W q ^ 2 · rel W r p 1 0`**, for every odd `W` over every `CommRing`.
+
+⚠️ This is a **formal identity**, not a fact about elliptic divisibility sequences: no recurrence,
+no `W 1 = 1`, no `normEDS` and no curve.  Writing `Aₓ = W (x + 1) · W (x - 1)` and `Bₓ = W x ^ 2`,
+the nine terms of the right-hand side that mention `W (x ± 1)` appear in the cyclic pattern
+`-Aₐ B_b B_c + A_b Bₐ B_c` and cancel; the three that survive are `W 1 ^ 2` times the left-hand
+side.  Oddness is used in exactly one place, to rewrite `W (r - p)` as `-W (p - r)`.
+
+Its content is that `Mathlib`'s `IsEllipticSequence W`, which is `∀ p q r, rel W p q r 0 = 0`,
+carries **no information beyond its `r = 1` slice** — see `isEllipticSequence_iff_rel_one`. -/
+lemma one_sq_mul_rel_zero (odd : W.Odd) (p q r : ℤ) :
+    W 1 ^ 2 * rel W p q r 0 =
+      W r ^ 2 * rel W p q 1 0 + W p ^ 2 * rel W q r 1 0 + W q ^ 2 * rel W r p 1 0 := by
+  simp only [rel, add_zero]
+  rw [show r + p = p + r by ring, show r - p = -(p - r) by ring, odd (p - r)]
+  ring
+
+/-- **The `r = 1` slice of the elliptic-net relation implies the whole `s = 0` layer**, for an odd
+normalised `W`.  Immediate from `one_sq_mul_rel_zero`, since `W 1 = 1` makes the multiplier `1`. -/
+lemma isEllipticSequence_of_rel_one (odd : W.Odd) (h1 : W 1 = 1)
+    (h : ∀ p q : ℤ, rel W p q 1 0 = 0) : IsEllipticSequence W := by
+  intro p q r
+  have hrel := one_sq_mul_rel_zero W odd p q r
+  rw [h p q, h q r, h r p, h1] at hrel
+  simpa using hrel
+
+/-- **`IsEllipticSequence W ↔ ∀ p q, rel W p q 1 0 = 0`**, for an odd normalised `W`.
+
+The forward direction is `r := 1`; the reverse is `isEllipticSequence_of_rel_one`.  ⚠️ So Ward's
+`r = 1` slice and the full `s = 0` elliptic-sequence property are **the same statement**, and the
+step between them is a `ring` call rather than an induction. -/
+lemma isEllipticSequence_iff_rel_one (odd : W.Odd) (h1 : W 1 = 1) :
+    IsEllipticSequence W ↔ ∀ p q : ℤ, rel W p q 1 0 = 0 :=
+  ⟨fun h p q => h p q 1, isEllipticSequence_of_rel_one W odd h1⟩
 
 end IsEllipticNet
 

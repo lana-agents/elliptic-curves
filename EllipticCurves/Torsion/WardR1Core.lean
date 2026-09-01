@@ -47,6 +47,27 @@ Consequently the whole `r = 1` slice is available **conditionally on the single 
 instant `WardGapCore` is discharged, the full public API for the torsion tree (rungs #251, #255)
 follows by feeding it in.
 
+## ⚠️ The `r = 1` slice is not a slice: it **is** `IsEllipticSequence`
+
+Mathlib defines `IsEllipticSequence W` as `∀ p q r, rel W p q r 0 = 0`, and it is natural to read
+the `r = 1` case as a first step towards it. It is not a step — it is the whole thing. For any odd
+`W` over any `CommRing`, `IsEllipticNet.one_sq_mul_rel_zero`
+(`EllipticCurves.Torsion.WardR1`) gives
+
+```
+W 1 ^ 2 * rel W p q r 0
+  = W r ^ 2 * rel W p q 1 0 + W p ^ 2 * rel W q r 1 0 + W q ^ 2 * rel W r p 1 0,
+```
+
+a formal identity closed by `ring` after one oddness rewrite, with no recurrence and no `W 1 = 1`.
+So `normEDS_isEllipticSequence_of_gapCore` below is conditional on **exactly** `WardGapCore` and on
+nothing else, and there is no further induction between the two.
+
+⚠️ **This proves nothing about `WardGapCore` and does not weaken it.** It says how much the `r = 1`
+slice already buys, not that the slice is any closer. ⚠️ And it is **one of the two conjuncts** of
+Mathlib's `IsEllipticDvdSequence`: the other, `IsDvdSequence (normEDS b c d)`, is proved neither in
+Mathlib nor here, so discharging `WardGapCore` would close half of that `TODO`.
+
 ## Why the core is isolated rather than proved
 
 `WardGapCore` cannot be closed by an elementary induction. Writing `h(p, q)` for the relator, the
@@ -70,6 +91,9 @@ TODO. `WardGapCore` names exactly that remaining content.
 * `WeierstrassCurve.Affine.ψ_rel_one_of_gapCore` : its specialisation to the division polynomials.
 * `WeierstrassCurve.normEDS_rel_one_diag` / `Affine.ψ_rel_one_diag` : the diagonal `p = q` slice,
   **unconditional**.
+* `WeierstrassCurve.normEDS_isEllipticSequence_of_gapCore`,
+  `WeierstrassCurve.Affine.ψ_isEllipticSequence_of_gapCore` and its `evalEval` companion :
+  `IsEllipticSequence` at *every* `r`, conditional on the same `WardGapCore`.
 
 ## References
 
@@ -218,6 +242,23 @@ theorem normEDS_rel_one_of_gapCore (hgap : WardGapCore) (p q : ℤ) :
   rw [normEDS_rel_one_univ_of_gapCore hgap, map_zero, hcomp] at h
   exact h.symm
 
+/-- **`IsEllipticSequence (normEDS b c d)`, conditional on `WardGapCore`** — the `s = 0` layer of
+the elliptic-net relation at *every* `r`, not only at `r = 1`.
+
+⚠️ **Nothing is proved about `WardGapCore` here, and this is not a weakening of it.** The step from
+the `r = 1` slice to the general `r` is the formal identity
+`IsEllipticNet.one_sq_mul_rel_zero`, which holds for any odd `W` over any `CommRing` and is closed
+by `ring`. What it shows is that the `r = 1` slice was already the whole of the elliptic-sequence
+property; see `IsEllipticNet.isEllipticSequence_iff_rel_one`.
+
+⚠️ This is **one of the two conjuncts** of Mathlib's `IsEllipticDvdSequence`, whose other conjunct
+`IsDvdSequence (normEDS b c d)` is not proved in Mathlib or here. Discharging `WardGapCore` would
+therefore close half of that `TODO`, not all of it. -/
+theorem normEDS_isEllipticSequence_of_gapCore (hgap : WardGapCore) :
+    IsEllipticSequence (normEDS b c d) :=
+  IsEllipticNet.isEllipticSequence_of_rel_one _ (normEDS_odd_fun b c d) (normEDS_one b c d)
+    (normEDS_rel_one_of_gapCore b c d hgap)
+
 end Transfer
 
 /-! ### Specialisation to the division polynomials -/
@@ -239,6 +280,11 @@ theorem ψ_rel_one_of_gapCore (hgap : WardGapCore) (p q : ℤ) :
     IsEllipticNet.rel W.ψ p q 1 0 = 0 :=
   normEDS_rel_one_of_gapCore W.ψ₂ (C W.Ψ₃) (C W.preΨ₄) hgap p q
 
+/-- `IsEllipticSequence W.ψ` — the division polynomials of `W` form an elliptic sequence in
+`R[X][Y]` — conditional on `WardGapCore`. -/
+theorem ψ_isEllipticSequence_of_gapCore (hgap : WardGapCore) : IsEllipticSequence W.ψ :=
+  normEDS_isEllipticSequence_of_gapCore W.ψ₂ (C W.Ψ₃) (C W.preΨ₄) hgap
+
 variable {x y : R}
 
 /-- The diagonal `p = q` slice of Ward's addition formula among the point-values of the division
@@ -256,6 +302,15 @@ theorem ψ_rel_one_evalEval_of_gapCore (hgap : WardGapCore) (p q : ℤ) :
     IsEllipticNet.rel (fun n ↦ (W.ψ n).evalEval x y) p q 1 0 = 0 := by
   have h := IsEllipticNet.map_rel W.ψ (evalEvalRingHom x y) p q 1 0
   rw [ψ_rel_one_of_gapCore W hgap, map_zero] at h
+  exact h.symm
+
+/-- `IsEllipticSequence` for the point-values `n ↦ ψₙ(x, y)` at an affine point of `W`,
+conditional on `WardGapCore`. -/
+theorem ψ_isEllipticSequence_evalEval_of_gapCore (hgap : WardGapCore) :
+    IsEllipticSequence (fun n ↦ (W.ψ n).evalEval x y) := by
+  intro p q r
+  have h := IsEllipticNet.map_rel W.ψ (evalEvalRingHom x y) p q r 0
+  rw [ψ_isEllipticSequence_of_gapCore W hgap p q r, map_zero] at h
   exact h.symm
 
 end Affine
