@@ -51,8 +51,12 @@ statement is not. `WeierstrassCurve.normEDS_rel_one` of `EllipticCurves.Torsion.
 of `normEDS`. A merely *graded* sequence need not satisfy Ward's relation, which is why
 `rel_one_homogeneous_of_scaling` still has content — `IsEllipticNet.exists_scaling_rel_one_ne_zero`
 exhibits `W n = n ^ 3` at `u = 2`, for which `rel W 3 2 1 0 = -12960`.
-⚠️ `WardHalving` **imports** this file, so `normEDS_rel_one` is a forward reference here and nothing
-below uses it.
+⚠️ This file does **not** import `EllipticCurves.Torsion.WardHalving`, and `WardHalving` does not
+import this file either — the two are import-**incomparable**, not one a forward reference to the
+other. This file's only import is `Mathlib.NumberTheory.EllipticDivisibilitySequence`, so its
+closure contains no module of this project but itself, and the only module whose closure contains
+both it and `WardHalving` is the root aggregator `EllipticCurves`. So `normEDS_rel_one` is named
+here and **cannot** be used below.
 
 ⚠️ **What this file does and does not claim.** It proves the homogeneity. It does **not** claim any
 particular certificate does not exist: that is a statement about a search, not a theorem, and it is
@@ -358,7 +362,8 @@ theorem rel_one_homogeneous_of_scaling {W W' : ℤ → R} (u : R)
 `rw [normEDS_rel_one, normEDS_rel_one, mul_zero, mul_zero]` reproves it.  It is kept as the record
 of the grading of `normEDS`, not as a usable fact about the relator — for that use
 `rel_one_homogeneous_of_scaling`, which does not know that `rel (normEDS …) p q 1 0 = 0`.
-⚠️ Forward reference: `WardHalving` imports this file, so nothing here uses it. -/
+⚠️ Not a forward reference: this file does not import `EllipticCurves.Torsion.WardHalving` and is
+not imported by it, so `normEDS_rel_one` is named here and cannot be used. -/
 theorem rel_normEDS_homogeneous (u b c d : R) (p q : ℤ) :
     u ^ 4 * rel (normEDS (u ^ 3 * b) (u ^ 8 * c) (u ^ 12 * d)) p q 1 0
       = u ^ (2 * p.natAbs ^ 2 + 2 * q.natAbs ^ 2 + 2) * rel (normEDS b c d) p q 1 0 :=
