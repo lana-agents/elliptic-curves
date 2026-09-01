@@ -512,7 +512,7 @@ theorem weilPairingEltTwo_swap (h2 : (2 : F) ≠ 0) (S T : W.torsion 2) :
 /-! #### Non-degeneracy -/
 
 open Classical in
-/-- **Silverman III.8.1(d), as a statement about points**: if `e_2(S, ·)` is trivial on all of
+/-- **Silverman III.8.1(c), as a statement about points**: if `e_2(S, ·)` is trivial on all of
 `E[2]` then `S = O`.  `eq_zero_of_forall_weilPairingElt_eq_one_two` (`#796`) applied to the chosen
 root — and it applies *directly*, with no divisor bookkeeping, because `IsWeilRootTwo` states its
 divisor condition in exactly the shape that theorem takes. -/

@@ -151,7 +151,9 @@ closure, and this file uses two of them below — `galoisRep` is
 asserted *here*.
 
 **The identification of `galoisDetTwo` with the cyclotomic character is not proved here.** It is
-the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1). Nothing below
+the reason the determinant is interesting (Silverman, *AEC*, III.7 and III.8.1(a), (b), (d) —
+⚠️ the identification is not itself a numbered result there; see the letter table in
+`EllipticCurves.FunctionField.WeilPairing`). Nothing below
 should be read as supplying it. Also out of scope: injectivity of `ρ_{E,2}`, and any description of
 its image.
 

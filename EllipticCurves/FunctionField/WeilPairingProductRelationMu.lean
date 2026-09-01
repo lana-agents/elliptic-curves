@@ -103,7 +103,7 @@ here.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d) and III.8 for the
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b) and III.8 for the
   value group `μ_n`.
 -/
 

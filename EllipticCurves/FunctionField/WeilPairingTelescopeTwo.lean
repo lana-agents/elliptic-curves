@@ -10,7 +10,7 @@ import EllipticCurves.Torsion.TwoTorsion
 /-!
 # The divisor telescoping at `n = 2`: `f_T · (τ_T∗ f_T)` is a nonzero constant
 
-The first of the two products in Silverman *AEC* III.8.1(d) — the proof that the Weil pairing is
+The first of the two products in Silverman *AEC* III.8.1(b) — the proof that the Weil pairing is
 alternating — is a telescoping of divisors over `⟨T⟩`.  At `n = 2` it has two terms, and this file
 proves it.
 
@@ -57,7 +57,7 @@ makes a two-term telescoping close.  For general `n` the same statement is a pro
 translate by the affine points `T` and `−T`.  A *uniform* statement indexed by `Finset.range n`
 would want `translatePointEndo` to name the `i = 0` factor, and genuinely needs it once `T` is
 allowed order strictly less than `n`; but the `[i]P = O` obstruction that
-`TranslationPointEndomorphism` is written for belongs to the *second* product of III.8.1(d), not to
+`TranslationPointEndomorphism` is written for belongs to the *second* product of III.8.1(b), not to
 this one.
 
 ## Why it is projective
@@ -75,7 +75,7 @@ was done on `ProjPoint W`.  Everything below is `divisorProj`.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d), first product.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b), first product.
 -/
 
 open Polynomial IsDedekindDomain
@@ -128,7 +128,7 @@ theorem divisorProj_translateEndo_eq_neg (h₂ : W.Equation x₂ y₂) (hneg : W
 /-- **The two-term telescoping.**  For a `2`-torsion point `T` there is a function `f_T` with
 `div f_T = 2(T) − 2(O)` whose product with its own translate by `T` is a nonzero constant.
 
-This is the first of the two products of Silverman III.8.1(d), at `n = 2`.  It carries no hypothesis
+This is the first of the two products of Silverman III.8.1(b), at `n = 2`.  It carries no hypothesis
 beyond `T` being an affine `2`-torsion point: no `#418`, no algebraically closed base field. -/
 theorem exists_mul_translateEndo_eq_algebraMap [DecidableEq F] (h : W.Nonsingular x₂ y₂)
     (hP : Point.some x₂ y₂ h ∈ W.torsion 2) :

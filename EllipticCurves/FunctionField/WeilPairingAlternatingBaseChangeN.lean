@@ -12,7 +12,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange
 /-!
 # The alternating property at general `n` over an arbitrary field: the halving point descends
 
-Silverman *AEC* III.8.1(d).  `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` proves
+Silverman *AEC* III.8.1(b).  `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` proves
 `e_n(T, T) = 1` at an arbitrary `n` over an arbitrary field, but carrying **two** hypotheses: the
 `#418` datum `hprin`, and a halving point `P` with `[n]P = T`.  This file removes the second at
 every `3`-smooth `n`, exactly as
@@ -83,7 +83,7 @@ So the two uses of `hfac` in that statement have different reasons, and only one
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b).
 -/
 
 open Polynomial IsDedekindDomain

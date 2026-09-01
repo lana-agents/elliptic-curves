@@ -248,7 +248,7 @@ theorem exists_gS_three_weilPairingElt_ne_one (h2 : (2 : F) ≠ 0) (h3 : (3 : F)
     exists_torsion_three_weilPairingElt_ne_one h2 h3 h hf hfdiv hgS hu⟩
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 3`: `e_3(S, ·) ≡ 1` forces `S = O`.**
+/-- **Silverman III.8.1(c) at `n = 3`: `e_3(S, ·) ≡ 1` forces `S = O`.**
 
 `S : W.Point` is arbitrary — no torsion hypothesis is needed, because the torsion of `S` is what
 produces `f_S` and `g_S` in the first place and those are hypotheses here.  The divisor condition is

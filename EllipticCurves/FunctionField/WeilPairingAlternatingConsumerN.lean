@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
 # Consumers of the general-`n` alternating workhorse, and a non-trivial certificate at `n = 4`
 
 `EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN` proves the second product of
-Silverman *AEC* III.8.1(d) at an arbitrary `n`:
+Silverman *AEC* III.8.1(b) at an arbitrary `n`:
 
 ```
 translatePointEndo_eq_self_of_prod_eq_of_pow_eq :
@@ -89,13 +89,13 @@ shapes is **one `convert` against one per hypothesis**, not affordable against u
 Ward (`#260`), no `#251`.
 
 Out of scope, and deliberately absent: the divisor telescope at general `n` (the *first* product of
-III.8.1(d)), the alternating assembly, and a second `Recovery` block — the merged file's recoveries
+III.8.1(b)), the alternating assembly, and a second `Recovery` block — the merged file's recoveries
 of the `n = 2` and `n = 3` workhorses are verified elaborated-type-identical to their twins, and
 recovering them again through these corollaries would certify nothing new.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d), second product.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b), second product.
 -/
 
 open Polynomial IsDedekindDomain
@@ -174,7 +174,7 @@ This is strictly stronger than the `f = g = c = c₀ = 1` certificate in
 `WeilPairingAlternatingWorkhorseN`, whose conclusion `τ_T∗ 1 = 1` is trivially true and therefore
 says nothing about the case the theorem is for.  It is **not** strong enough to claim a real
 telescope at `n = 4`: nothing on this tree produces one at a general index yet, and that is the
-divisor half of III.8.1(d). -/
+divisor half of III.8.1(b). -/
 
 namespace ConsumerNonvacuity
 

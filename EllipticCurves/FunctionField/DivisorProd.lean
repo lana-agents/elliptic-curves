@@ -21,7 +21,7 @@ each under the hypothesis that every factor is nonzero on `s`.
 These are the finite-product companions of the merged `ord_mul` / `divisor_mul` (`Divisors.lean`)
 and `divisor_pow` (`NthRootOfPullback.lean`, PR #150).  They are the exact tool consumed by the
 **product-over-`⟨T⟩` / divisor-telescoping** argument for the alternating property of the
-divisor-theoretic Weil pairing (`e_n(T, T) = 1`, Silverman AEC III.8.1(d), issue #465 deliverable
+divisor-theoretic Weil pairing (`e_n(T, T) = 1`, Silverman AEC III.8.1(b), issue #465 deliverable
 2): there one forms `h := ∏_{i} τ_{iT}∗ f_T` and computes `divisor W h` by pushing the divisor
 through the product — precisely `divisor_prod`.
 

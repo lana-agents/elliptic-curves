@@ -98,7 +98,7 @@ it and a consumer discharges nothing by hand.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.7, III.8.1(e) and III.8.3.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.7, III.8.1(d) and III.8.3.
 -/
 
 /-! ### The tautological action of `Gal(F/S)` on `F` -/
@@ -156,7 +156,7 @@ theorem galoisModularCyclotomicChar_unique {n : ℕ} [NeZero n]
 `EllipticCurves.FunctionField.WeilPairingGaloisMu` and
 `EllipticCurves.FunctionField.WeilPairingGaloisDivisor`; this identifies it with an explicit power.
 It is the step that turns "`e_n` is Galois-equivariant" into the classical
-`e_n(σS, σT) = e_n(S, T) ^ χ_n(σ)` (Silverman AEC III.8.1(e)), carried out in
+`e_n(σS, σT) = e_n(S, T) ^ χ_n(σ)` (Silverman AEC III.8.1(d)), carried out in
 `EllipticCurves.FunctionField.WeilPairingCyclotomic`. -/
 theorem restrictRootsOfUnity_eq_pow_galoisModularCyclotomicChar {n : ℕ} [NeZero n]
     (hn : Nat.card { x // x ∈ rootsOfUnity n F } = n) (σ : F ≃ₐ[S] F) (ζ : rootsOfUnity n F) :

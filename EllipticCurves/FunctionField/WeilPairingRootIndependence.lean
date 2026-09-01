@@ -96,7 +96,7 @@ consume, so they admit no certificate on a concrete curve — for exactly the re
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b).
 -/
 
 open Polynomial IsDedekindDomain

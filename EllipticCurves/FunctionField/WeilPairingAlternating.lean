@@ -9,7 +9,7 @@ import EllipticCurves.FunctionField.WeilPairing
 # The alternating property `e_n(T, T) = 1` — the reduction (Weil-pairing rung 6)
 
 For the divisor-theoretic Weil-pairing element `e_n(S, T) := τ_T∗(g_S) / g_S ∈ F(W)`
-(`weilPairingElt`, issue #419) the third named structural property (Silverman AEC III.8.1(d)) is
+(`weilPairingElt`, issue #419) the third named structural property (Silverman AEC III.8.1(b)) is
 that it is **alternating**:
 
 ```
@@ -52,7 +52,7 @@ that was taken.
 
 Being an `n`-th root of unity — `e_n(T, T) ^ n = 1`, already available from
 `weilPairingElt_pow_eq_one` (PR #156) — is *not* enough to force `e_n(T, T) = 1`.  Pinning the
-ratio to exactly `1` is the classical **product-over-`⟨T⟩`** argument (Silverman AEC III.8.1(d)),
+ratio to exactly `1` is the classical **product-over-`⟨T⟩`** argument (Silverman AEC III.8.1(b)),
 and it runs in **two** products, over two *different* translation points:
 
 1. **The divisor telescoping, on `f_T`.**  From `div f_T = n(T) − n(O)` one gets

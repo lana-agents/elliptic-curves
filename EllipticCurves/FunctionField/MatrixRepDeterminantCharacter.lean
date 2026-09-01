@@ -110,7 +110,8 @@ Every public declaration of this file is listed here, and all are in namespace
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(e).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(a), (b), (d), and
+  III.8.6.
 -/
 
 namespace WeierstrassCurve.Affine
@@ -133,8 +134,8 @@ instead; declaring one here would make `det_galoisRepModMatrix`'s statement and
 
 open Classical in
 /-- **`det (ρ_{E,3}(σ)) = χ_3(σ)`** in `(ZMod 3)ˣ`, for the matrix representation attached to any
-`ZMod 3`-basis `b` of `E[3]` — Silverman *AEC* III.8.1(e) in the form a consumer holding a matrix
-can use.
+`ZMod 3`-basis `b` of `E[3]` — Silverman *AEC* III.8.1(a), (b) and (d) in the form a consumer
+holding a matrix can use.
 
 Two merged halves, composed: `det_galoisRepModMatrix` (`EllipticCurves.TateModule.MatrixRepMod`)
 identifies the determinant of the matrix with the basis-free `galoisDetMod 3`, and

@@ -11,8 +11,11 @@ import EllipticCurves.TateModule.DeterminantMod
 /-!
 # `det ρ_{E,3} = χ_3` as an identity of monoid homomorphisms
 
-Silverman *AEC* III.8.1(e).  Two files each hold one half of this statement and neither holds the
-statement:
+The standard consequence of Silverman *AEC* III.8.1(a) (bilinear), (b) (alternating) and (d)
+(Galois invariant).  ⚠️ **It is not III.8.1(e)**, which is the compatibility relation, and it is not
+a numbered result in *AEC* at all; the five letters are tabulated verbatim in
+`EllipticCurves.FunctionField.WeilPairing`.  Two files each hold one half of this statement and
+neither holds the statement:
 
 * `EllipticCurves.TateModule.DeterminantMod` (`#956`) has the **object**, the determinant character
   `galoisDetMod 3 : (F ≃ₐ[S] F) →* (ZMod 3)ˣ`, defined basis-free through `LinearEquiv.det`;
@@ -123,7 +126,8 @@ EllipticCurves/TateModule/` is empty, and this file's own imports cross the othe
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(e).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(a), (b), (d), and
+  III.8.6.
 -/
 
 namespace WeierstrassCurve.Affine
@@ -319,7 +323,8 @@ theorem galoisDetMod_three_apply_eq_galoisModularCyclotomicChar (σ : F ≃ₐ[S
   Units.ext (coe_galoisDetMod_three_eq_galoisModularCyclotomicChar σ h2 h3)
 
 open Classical in
-/-- **`det ρ_{E,3} = χ_3`**, Silverman *AEC* III.8.1(e), as an identity of monoid homomorphisms
+/-- **`det ρ_{E,3} = χ_3`**, Silverman *AEC* III.8.1(a), (b) and (d), as an identity of monoid
+homomorphisms
 `(F ≃ₐ[S] F) →* (ZMod 3)ˣ`.
 
 ⚠️ **Nothing but `σ` is quantified away here — no pair, no matrix, no basis.**  That is what

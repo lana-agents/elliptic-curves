@@ -12,7 +12,7 @@ import EllipticCurves.FunctionField.WeilPairingRootIndependence
 /-!
 # The root-independent alternating property over an algebraically closed field, at both `n`
 
-Silverman *AEC* III.8.1(d): the Weil pairing is alternating, `e_n(T, T) = 1`.
+Silverman *AEC* III.8.1(b): the Weil pairing is alternating, `e_n(T, T) = 1`.
 
 `EllipticCurves.FunctionField.WeilPairingRootIndependence` upgrades the two merged alternating
 headlines from *some* `n`-th root of `[n]∗ f_T` to **every** `n`-th root, at `n = 2` and at `n = 3`,

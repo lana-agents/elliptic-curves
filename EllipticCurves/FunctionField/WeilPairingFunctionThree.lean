@@ -497,7 +497,7 @@ theorem weilPairingEltThree_swap (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (S T 
 /-! #### Non-degeneracy -/
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 3`, as a statement about points**: if `e_3(S, ·)` is trivial on
+/-- **Silverman III.8.1(c) at `n = 3`, as a statement about points**: if `e_3(S, ·)` is trivial on
 all of `E[3]` then `S = O`.  `eq_zero_of_forall_weilPairingElt_eq_one_three` (`#831`) applied to the
 chosen root — and it applies *directly*, with no divisor bookkeeping, because `IsWeilRootThree`
 states its divisor condition in exactly the shape that theorem takes. -/

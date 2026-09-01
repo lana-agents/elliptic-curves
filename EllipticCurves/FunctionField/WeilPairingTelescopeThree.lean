@@ -11,7 +11,7 @@ import EllipticCurves.Torsion.ThreeTorsion
 /-!
 # The divisor telescoping at `n = 3`: `f_T · (τ_T∗ f_T) · (τ_{−T}∗ f_T)` is a nonzero constant
 
-The first of the two products in Silverman *AEC* III.8.1(d) — the proof that the Weil pairing is
+The first of the two products in Silverman *AEC* III.8.1(b) — the proof that the Weil pairing is
 alternating — is a telescoping of divisors over the cyclic subgroup `⟨T⟩`.  At `n = 2` it has two
 terms and `EllipticCurves.FunctionField.WeilPairingTelescopeTwo` proves it.  This file is the
 `n = 3` case, where it has three.
@@ -34,7 +34,7 @@ so their sum vanishes and the product is a nonzero constant.
 `(x₃, negY x₃ y₃)`; so the third translation is by an *affine* point and `translateEndo` expresses
 it.  The `i = 0` factor is `f_T` itself, so `τ_O` never appears.
 
-⚠️ This is a fact about **this** product only.  The *second* product of III.8.1(d), the one the
+⚠️ This is a fact about **this** product only.  The *second* product of III.8.1(b), the one the
 assembly runs, is `∏_{i} τ_{[i]P}∗ g_T` for a point `P` with `[3]P = T`, and its `i = 0` factor is
 `τ_O`; that product needs either the `τ_O`-tolerant wrapper `translatePointEndo`
 (`TranslationPointEndomorphism`, `#689`) or the same `i = 0` special-casing used at `n = 2`.
@@ -128,7 +128,7 @@ was done on `ProjPoint W`.  Everything below is `divisorProj`.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d), first product.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b), first product.
 -/
 
 open Polynomial IsDedekindDomain
@@ -213,7 +213,7 @@ theorem divisorProj_translateEndo_neg_eq_neg_sub [DecidableEq F] (h₃ : W.Equat
 /-- **The three-term telescoping.**  For a `3`-torsion point `T` there is a function `f_T` with
 `div f_T = 3(T) − 3(O)` whose product with its translates by `T` and by `−T` is a nonzero constant.
 
-This is the first of the two products of Silverman III.8.1(d), at `n = 3`.  It carries no
+This is the first of the two products of Silverman III.8.1(b), at `n = 3`.  It carries no
 hypothesis beyond `T` being an affine `3`-torsion point: no `#418`, no algebraically closed base
 field, no characteristic hypothesis. -/
 theorem exists_mul_translateEndo_mul_translateEndo_eq_algebraMap [DecidableEq F]

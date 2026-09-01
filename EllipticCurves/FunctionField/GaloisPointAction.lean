@@ -69,7 +69,7 @@ anything about the image of `ρ` or of `χ`, and nothing here handles closed poi
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.7, III.8.1(e), III.8.3.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.7, III.8.1(d), III.8.3.
 -/
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum

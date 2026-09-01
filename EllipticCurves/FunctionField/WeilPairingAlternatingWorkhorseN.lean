@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingThree
 /-!
 # The alternating workhorse at general `n`: `τ_T∗ g = g` from the `⟨T⟩`-telescope
 
-Silverman *AEC* III.8.1(d) proves `e_n(T, T) = 1` from two products.  The **first** is a
+Silverman *AEC* III.8.1(b) proves `e_n(T, T) = 1` from two products.  The **first** is a
 telescoping of divisors over `⟨T⟩`, `∏_{i<n} τ_{[i]T}∗ f_T = c`; the **second** takes that constant,
 an `n`-th root `g` of `[n]∗ f_T`, and an `n`-division point `P` with `[n]P = T`, and concludes that
 `g` is fixed by `τ_T∗`.  This file is the **second** product, at an arbitrary `n`.
@@ -93,7 +93,7 @@ Out of scope: the divisor telescoping (`∏_{i<n} τ_{[i]T}∗ f_T = c`), the as
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d), second product.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b), second product.
 -/
 
 open Polynomial IsDedekindDomain

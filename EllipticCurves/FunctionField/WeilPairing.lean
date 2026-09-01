@@ -34,6 +34,35 @@ translation fixes `g_S ^ n`:
 * `weilPairingElt_ne_zero`       — it is nonzero (for `g_S ≠ 0`);
 * `weilPairingElt_pow_eq_one`    — `e_n(S, T) ^ n = 1` from `translateEndo h₂ (g_S ^ n) = g_S ^ n`.
 
+## ⚠️ Silverman *AEC* III.8.1(a)–(e), verbatim — the citation key for this development
+
+Read off Proposition III.8.1, page 94 of J. H. Silverman, *The Arithmetic of Elliptic Curves*,
+**second edition**, Graduate Texts in Mathematics 106, DOI `10.1007/978-0-387-09494-6` — which is
+the `silverman2009` bibliography key.  ⚠️ **Check a letter here before citing it.**  `#1001` found
+**78** sites in this development citing the wrong one, in four distinct ways, all four of them
+copy-propagated rather than independently wrong.
+
+| letter | Silverman's words | the statement |
+| --- | --- | --- |
+| (a) | *"It is bilinear"* | `e_m(S₁+S₂, T) = e_m(S₁,T) e_m(S₂,T)`, and likewise in `T` |
+| (b) | *"It is alternating"* | `e_m(T,T) = 1`; *"so in particular"* `e_m(S,T) = e_m(T,S)⁻¹` |
+| (c) | *"It is nondegenerate"* | if `e_m(S,T) = 1` for all `S ∈ E[m]` then `T = O` |
+| (d) | *"It is Galois invariant"* | `e_m(S,T)^σ = e_m(S^σ, T^σ)` for `σ ∈ G_{K̄/K}` |
+| (e) | *"It is compatible"* | `e_{mm'}(S,T) = e_{m'}([m]S, T)`, `S ∈ E[mm']`, `T ∈ E[m']` |
+
+Corollary **III.8.1.1** is the arithmetic one: some value of `e_m` is a primitive `m`-th root of
+unity, hence `E[m] ⊆ E(K) ⟹ μ_m ⊆ K*`.
+
+⚠️ **What the table settles, and what this development used to say instead.**  Antisymmetry
+`e_n(T,S) = e_n(S,T)⁻¹` is the second sentence of **(b)**, not a letter of its own; 43 sites called
+it and the alternating identity `(d)`.  Non-degeneracy is **(c)**; 16 sites called it `(d)`.
+Galois invariance is **(d)**; 6 sites called it `(e)`.  ⚠️ And `det ρ_{E,n} = χ_n` is **not
+III.8.1(e)** — it is not a numbered result in *AEC* at all, but the standard consequence of (a),
+(b) and (d), by the computation Silverman runs inside the proof of **III.8.6**
+(`det(φ_ℓ) = deg φ`) with `α = ρ_{E,n}(σ)` in place of an endomorphism of the Tate module; 13 sites
+cited it as `(e)`.  ⚠️ *AEC* defines no cyclotomic character: in the second edition the word
+"cyclotomic" occurs only as *"cyclotomic polynomial"* in the index.
+
 ## Why `τ_T∗` fixes `g_S ^ n`, and the scope delivered here
 
 The reason `τ_T∗` fixes `g_S ^ n` is the geometric identity `[n](P + T) = [n]P` (valid because
@@ -301,7 +330,8 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   ⚠️ that file also proves `χ_3` of `ℚ` is **not** trivial, so the hypothesis of this bullet and the
   one above can genuinely fail — and ⚠️ the kernel inclusion is *not* `det ρ_{E,3} = χ_3`, which is
   the strictly stronger statement in the next bullet).
-* **the determinant identity**, Silverman III.8.1(e) — `det ρ_{E,3} = χ_3` in coordinates, i.e.
+* **the determinant identity**, Silverman III.8.1(a), (b) and (d) — `det ρ_{E,3} = χ_3` in
+  coordinates, i.e.
   `exists_smul_eq_zsmul_add_zsmul_and_det_three_eq`
   (`EllipticCurves.FunctionField.WeilPairingDeterminant`, `#951`; ⚠️ it needs **no** basis
   machinery — the four matrix entries are integers in hypotheses, and the spanning lemma that makes
