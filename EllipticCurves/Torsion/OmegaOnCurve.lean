@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
+import Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree
 
 /-!
 # The on-curve identity for the division-polynomial coordinates, at general `n`
@@ -68,6 +69,8 @@ about `preΨ`, so both live in `EllipticCurves.Torsion.OmegaDivisionPolynomial`;
 * `WeierstrassCurve.HasPreΩSq`: the identity above, as a predicate on the index `n`.
 * `WeierstrassCurve.HasPreΩSqAt`: the same identity evaluated at a single `x`.  This is what the
   engine actually consumes, and it is the weaker of the two — see the note on `n = 3` below.
+* `WeierstrassCurve.HasΨSqDoubling`: **the same identity with `preΩ` eliminated**,
+  `ΨSq₂ₙ = ΨSqₙ·(4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² + b₆ΨSqₙ³)` — see the section below.
 
 ## Main statements
 
@@ -87,6 +90,32 @@ about `preΨ`, so both live in `EllipticCurves.Torsion.OmegaDivisionPolynomial`;
   Weierstrass equation, over any field of characteristic `≠ 2`, at any point of `W` with
   `ψₙ(x, y) ≠ 0`.
 * `WeierstrassCurve.Affine.equation_of_hasPreΩSq`: the same from the polynomial identity.
+* `WeierstrassCurve.hasPreΩSq_iff_hasΨSqDoubling`: over an integral domain at an index that is
+  nonzero in the base, the crux is **equivalent** to `HasΨSqDoubling`.  Its two halves,
+  `HasPreΩSq.hasΨSqDoubling` (unconditional) and `hasPreΩSq_of_hasΨSqDoubling`, are stated
+  separately.
+
+## The crux written in Mathlib's vocabulary alone
+
+`HasPreΩSq` is stated in terms of `preΩ`, which is this project's construction and appears nowhere
+in Mathlib.  `ΨSq_two_mul` of `EllipticCurves.Torsion.OmegaDivisionPolynomial` —
+`ΨSq₂ₙ = ΨSqₙ·(preΩₙ²·(if Even n then 1 else Ψ₂Sq))` — supplies the parity-corrected `preΩₙ²` as a
+ratio of Mathlib's own polynomials, and multiplying the crux through by `ΨSqₙ` therefore removes
+`preΩ` from it entirely:
+
+```
+ΨSq₂ₙ = ΨSqₙ · (4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² + b₆ΨSqₙ³).
+```
+
+The bracket is `Ψ₂Sq = 4X³ + b₂X² + 2b₄X + b₆` homogenised at `(Φₙ, ΨSqₙ)`, so this says that the
+duplication map's denominator, evaluated at the multiplication-by-`n` coordinates, is the
+multiplication-by-`2n` denominator — **the denominator half of "duplication composes with
+multiplication by `n`"**, which is a classical statement about a classical object.
+
+⚠️ **It is exactly as hard as `HasPreΩSq` and no easier.**  `hasPreΩSq_iff_hasΨSqDoubling` is an
+equivalence; nothing is discharged by it.  What it buys is that the open question is now stated in
+symbols Mathlib defines, so it can be searched for, asked upstream, and recognised — none of which
+is possible for a statement about `preΩ`.
 
 ## ⚠️ What this does and does not settle
 
@@ -96,6 +125,12 @@ merged `tripling_equation` used to run inline).  What the file settles is **how 
 new index, and that it is exactly one univariate identity** — no bivariate work, no hypothesis on
 `(n : F)`, no algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` is the
 crux left in issue `#404`.
+
+⚠️ **`HasΨSqDoubling` proves nothing either.**  It is an equivalent phrasing of the same crux at the
+same index, and the equivalence — not a one-way reduction — is the whole of what is claimed for it.
+The reduction that does weaken the hypothesis is
+`EllipticCurves.Torsion.OmegaCharZero`'s `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed`, and even
+that weakens the *hypothesis*, not the *statement*.
 
 ⚠️ **The `n = 3` instance here is the evaluated `hasPreΩSqAt_three`; the polynomial identity at
 `n = 3` is `WeierstrassCurve.hasPreΩSq_three` and lives in
@@ -224,6 +259,61 @@ where the duplication formula's heavy algebra already lives. -/
 lemma hasPreΩSq_two : W.HasPreΩSq 2 := by
   rw [HasPreΩSq, preΩ_two, if_pos even_two, ΨSq_two, mul_one]
   exact W.preΨ₄_sq
+
+/-! ### The crux with `preΩ` eliminated -/
+
+/-- **The crux restated with no `preΩ` in it**: the `2n`-division denominator is the `n`-division
+denominator times the duplication denominator at the `n`-division coordinates,
+
+```
+ΨSq₂ₙ = ΨSqₙ · (4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² + b₆ΨSqₙ³)   in R[X].
+```
+
+The bracket is the homogenisation of `Ψ₂Sq = 4X³ + b₂X² + 2b₄X + b₆` at `(Φₙ, ΨSqₙ)`, so the
+identity says exactly that `x ↦ Φ₂(x)/Ψ₂Sq(x)` composed with `x ↦ Φₙ(x)/ΨSqₙ(x)` has the same
+denominator as `x ↦ Φ₂ₙ(x)/ΨSq₂ₙ(x)` — **the denominator half of "duplication composes with
+multiplication by `n`"**.
+
+⚠️ **Every symbol here is Mathlib's.**  `Φ`, `ΨSq` and `Ψ₂Sq` are
+`Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean`'s; `preΩ`, `Ω` and `ω` do
+not appear.  That is the point of the reformulation: `WeierstrassCurve.HasPreΩSq` states the same
+mathematics in a vocabulary this project invented, and a statement in a private vocabulary cannot be
+searched for upstream, asked about, or recognised as classical.  This one can.
+
+⚠️ **It is a restatement, not a simplification.**  `hasPreΩSq_iff_hasΨSqDoubling` below is an
+equivalence, so this is exactly as hard as `HasPreΩSq` and no easier; nothing about `#404`'s crux is
+discharged by naming it.  What changes is what a prover is looking at. -/
+def HasΨSqDoubling (n : ℤ) : Prop :=
+  W.ΨSq (2 * n) =
+    W.ΨSq n * (4 * W.Φ n ^ 3 + C W.b₂ * W.Φ n ^ 2 * W.ΨSq n +
+      2 * C W.b₄ * W.Φ n * W.ΨSq n ^ 2 + C W.b₆ * W.ΨSq n ^ 3)
+
+/-- **`HasPreΩSq n` gives `HasΨSqDoubling n`, over an arbitrary `CommRing`.**  Multiply the crux by
+`ΨSqₙ` and read the left-hand side off `ΨSq_two_mul`; the parity factor of `HasPreΩSq` is the one
+`ΨSq_two_mul` supplies, which is why nothing is left over. -/
+theorem HasPreΩSq.hasΨSqDoubling {n : ℤ} (h : W.HasPreΩSq n) : W.HasΨSqDoubling n := by
+  rw [HasΨSqDoubling, ΨSq_two_mul, ← h]
+
+/-- **The converse, over an integral domain at an index that is not zero in the base.**  The
+`ΨSqₙ` that `HasPreΩSq.hasΨSqDoubling` multiplied in is cancelled again; Mathlib's
+`WeierstrassCurve.ΨSq_ne_zero` supplies `ΨSqₙ ≠ 0` from `(n : R) ≠ 0`.
+
+⚠️ `hn` is doing real work and is not a proof artefact that a better argument would remove.  At
+`n = 0` the statement `HasΨSqDoubling 0` reads `0 = 0 * _` and carries no information whatever,
+while `HasPreΩSq 0` reads `4 = 4` and is `hasPreΩSq_zero`; so the two are **not** equivalent at
+`n = 0`, and no proof of this direction can cover it.  What is lost is only that index: the
+conclusion there is already available unconditionally. -/
+theorem hasPreΩSq_of_hasΨSqDoubling [IsDomain R] {n : ℤ} (hn : (n : R) ≠ 0)
+    (h : W.HasΨSqDoubling n) : W.HasPreΩSq n := by
+  rw [HasΨSqDoubling, ΨSq_two_mul] at h
+  exact mul_left_cancel₀ (W.ΨSq_ne_zero hn) h
+
+/-- **The two forms of the crux are equivalent.**  This is the statement to cite when re-scoping
+`#404`: proving `HasΨSqDoubling n` for every curve over every commutative ring is the same job as
+proving `HasPreΩSq n`, and it is stated entirely in Mathlib's division-polynomial vocabulary. -/
+theorem hasPreΩSq_iff_hasΨSqDoubling [IsDomain R] {n : ℤ} (hn : (n : R) ≠ 0) :
+    W.HasPreΩSq n ↔ W.HasΨSqDoubling n :=
+  ⟨fun h => h.hasΨSqDoubling W, hasPreΩSq_of_hasΨSqDoubling W hn⟩
 
 namespace Affine
 

@@ -41,14 +41,20 @@ and establish:
   `Ψₙ₊₂·Ψₙ₋₁² − Ψₙ₋₂·Ψₙ₊₁² = (if Even n then ψ₂ else ψ₂²)·C(preΩₙ)`, exhibiting the bivariate
   numerator as a power of `ψ₂` times the univariate `preΩₙ` — the parity split that makes the
   `y`-coordinate of `[n]P` computable from univariate data.
+* `preΨ_two_mul` : the same index doubling **univariately and with no hypotheses**,
+  `preΨ₂ₙ = preΨₙ·preΩₙ`, which is Mathlib's `preΨ_even` with the common `preΨₙ` pulled out.
+* `ΨSq_two_mul` : its squared form `ΨSq₂ₙ = ΨSqₙ·(preΩₙ²·(if Even n then 1 else Ψ₂Sq))`, whose
+  parity factor is the one in `EllipticCurves.Torsion.OmegaOnCurve`'s `HasPreΩSq` — this is the
+  lemma that removes `preΩ` from that predicate.
 * `Affine.ψ_two_mul_evalEval` : the two preceding lemmas combined and the common factor of `ψ₂`
   cancelled, at a point `(x, y)` of `W` where `ψ₂` does not vanish:
   `ψ₂ₙ(x, y) = ψₙ(x, y)·(if Even n then 1 else ψ₂(x, y))·preΩₙ(x)`.  Equivalently
   `(if Even n then 1 else ψ₂)·preΩₙ = ψ₂ₙ/ψₙ`, which is the quantity Silverman's `ωₙ` is built
   from, and it is what identifies the parity factor of
   `EllipticCurves.Torsion.OmegaOnCurve`'s `HasPreΩSq` as this factorisation rather than a bare
-  degree count.  ⚠️ Pointwise only: `Ω_factor` is about `Ψ` and `Ω` is defined from `ψ`, and the
-  two agree only after evaluation at a point of `W`.
+  degree count.  ⚠️ Pointwise only, and the restriction is a property of the **bivariate** pair:
+  `Ω_factor` is about `Ψ` and `Ω` is defined from `ψ`, and the two agree only after evaluation at a
+  point of `W`.  Univariately there is no such restriction — that is `preΨ_two_mul` above.
 * `Affine.ψ_four_evalEval` : the `n = 2` specialisation, landing on Mathlib's `ψ_four`; a
   non-vacuity check on the general statement rather than new content.
 
@@ -66,6 +72,12 @@ index-dependent input: the uniform half `WeierstrassCurve.Affine.equation_of_has
 the Weierstrass equation at the division-polynomial coordinates from it alone, over any field of
 characteristic `≠ 2` at a point with `ψₙ(x, y) ≠ 0`. This file supplies the numerator infrastructure
 both consume.
+
+⚠️ `ΨSq_two_mul` above is what lets that crux be restated **without `preΩ`**, as
+`WeierstrassCurve.HasΨSqDoubling` in `EllipticCurves.Torsion.OmegaOnCurve`; the two are equivalent
+and neither is easier. So `preΩ` is the vocabulary the crux was *first written in*, not a
+constituent of it — which is worth knowing before extending this file with further `preΩ` lemmas
+aimed at the crux.
 
 ⚠️ Identifying `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` is a **separate** statement
 (`#251`), not an equivalent of the above and not a gate on it — `equation_of_hasPreΩSqAt` takes no
@@ -182,6 +194,45 @@ lemma Ω_factor (n : ℤ) :
     rw [if_neg hne, if_neg h2, if_neg h2', if_pos h1, if_pos h1']
     ring
 
+/-- **The index-doubling bridge, at the univariate level and with no hypotheses at all**:
+`preΨ₂ₙ = preΨₙ · preΩₙ`.
+
+This is Mathlib's `preΨ_even` with the common factor of `preΨₙ` pulled out, and the bracket that
+remains is `preΩₙ` on the nose.  ⚠️ It is the univariate counterpart of `ψ_mul_Ω`, but it is
+**strictly stronger in shape than that lemma is**: `ψ_mul_Ω` carries a spurious factor of `ψ₂` on
+each side, which `Affine.ψ_two_mul_evalEval` below can only cancel at a point where `ψ₂` does not
+vanish, and only after `ψ_evalEval` has reconciled `ψ` with `Ψ`.  Here there is nothing to cancel
+and nothing to reconcile: `preΨ` and `preΩ` are both univariate, the identity is an equation in
+`R[X]` over an arbitrary `CommRing`, and it holds at the `2`-torsion points too.
+
+⚠️ `Affine.ψ_two_mul_evalEval`'s docstring says that it is *"a pointwise statement and there is no
+polynomial-level version"*.  That remark is about the **bivariate** pair `Ψ`/`Ω` — `Ω_factor` is
+stated for `Ψ` while `Ω` is defined from `ψ`, and those agree only on the curve.  It is not a claim
+that index doubling has no polynomial-level form, and this lemma is that form. -/
+lemma preΨ_two_mul (n : ℤ) : W.preΨ (2 * n) = W.preΨ n * W.preΩ n := by
+  rw [preΨ_even, preΩ]
+  ring
+
+/-- **Index doubling for the squared division polynomial**:
+`ΨSq₂ₙ = ΨSqₙ · (preΩₙ² · (if Even n then 1 else Ψ₂Sq))`.
+
+The parity factor on the right is exactly the one in `EllipticCurves.Torsion.OmegaOnCurve`'s
+`WeierstrassCurve.HasPreΩSq`, and that is not a coincidence: this lemma is what turns that
+predicate into a statement with no `preΩ` in it — see
+`WeierstrassCurve.hasPreΩSq_iff_hasΨSqDoubling` there.
+
+⚠️ The two branches meet: `ΨSqₙ` carries `Ψ₂Sq` exactly when `n` is even and the parity factor
+carries it exactly when `n` is odd, so the product carries it in both cases, which is what makes
+the left-hand side — with `2n` always even — come out uniformly. -/
+lemma ΨSq_two_mul (n : ℤ) :
+    W.ΨSq (2 * n) = W.ΨSq n * (W.preΩ n ^ 2 * if Even n then 1 else W.Ψ₂Sq) := by
+  rw [ΨSq, ΨSq, preΨ_two_mul, if_pos (even_two_mul n)]
+  rcases Int.even_or_odd n with hn | hn
+  · simp only [if_pos hn]
+    ring
+  · simp only [if_neg (Int.not_even_iff_odd.mpr hn)]
+    ring
+
 namespace Affine
 
 variable {F : Type*} [Field F] {W : Affine F} {x y : F}
@@ -202,10 +253,16 @@ This is `ψ_mul_Ω` (`ψ₂ₙ·ψ₂ = ψₙ·Ωₙ`) combined with `Ω_factor`
 `ψ₂(x, y) = 2y + a₁x + a₃` vanishes exactly at the `2`-torsion points of `W`; there the identity
 carries no information, since `ψ_mul_Ω` reads `0 = ψₙ·Ωₙ` after evaluation.
 
-⚠️ This is a **pointwise** statement and there is no polynomial-level version: `Ω_factor` is stated
-for the honest bivariate `Ψ`, while `Ω` is defined from `ψ`, and `ψₙ` is only *congruent* to `Ψₙ`
-modulo `W.polynomial`.  They agree only after evaluation at a point of `W`, via `ψ_evalEval`, which
-is what `h` supplies. -/
+⚠️ This is a **pointwise** statement and there is no polynomial-level version *of it*: `Ω_factor`
+is stated for the honest bivariate `Ψ`, while `Ω` is defined from `ψ`, and `ψₙ` is only *congruent*
+to `Ψₙ` modulo `W.polynomial`.  They agree only after evaluation at a point of `W`, via
+`ψ_evalEval`, which is what `h` supplies.
+
+⚠️ **That restriction is a fact about the bivariate polynomials, not about index doubling.**  The
+univariate identity `preΨ_two_mul`, `preΨ₂ₙ = preΨₙ·preΩₙ`, holds in `R[X]` over an arbitrary
+`CommRing` with no point, no `Equation` and no `ψ₂ ≠ 0` — including at the `2`-torsion points where
+this lemma carries no information.  Read the sentence above as *"`ψ` and `Ψ` do not agree off the
+curve"*, not as *"index doubling is available only pointwise"*. -/
 lemma ψ_two_mul_evalEval (h : W.Equation x y) (hψ₂ : (W.ψ 2).evalEval x y ≠ 0) (n : ℤ) :
     (W.ψ (2 * n)).evalEval x y =
       (W.ψ n).evalEval x y * (if Even n then 1 else (W.ψ 2).evalEval x y) *
