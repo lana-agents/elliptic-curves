@@ -31,7 +31,7 @@ denominator separately, which is the shape a proof of the coordinate formula at 
 
 PR #533 recorded the numerator identity as spiked, closing by `ring1` at `n = 1` and `n = 2`, and
 declined to ship it with an explicit warning: *"I have no evidence its general case is easier than
-the denominator half … a fourth route that closes at `n = 1, 2` should be treated the same way
+the denominator half … a fourth that closes at `n = 1, 2` should be treated the same way
 until someone measures `n = 3`."*  It has now been measured, and at every index tested the two
 halves behave **identically**:
 
@@ -60,6 +60,12 @@ coordinate, and the `#533` warning was the right call.
 cofactors above turn each fixed index into a single `linear_combination … * W.C_b_relation` closed
 by `ring1` — over an arbitrary `CommRing`, with **no characteristic hypothesis, no field, and no
 universal reduction**.  `WeierstrassCurve.hasΦDoubling_two` below is that proof at `n = 2`.
+
+⚠️ **`C_b_relation` is not this file's.**  It lives in
+`EllipticCurves.Torsion.DivisionPolynomialEval` and this file imports it.  It was written here
+and, independently and `private`, in `EllipticCurves.Torsion.TriplingSurjective`; the duplicate was
+retired into the one module in both closures (`#1418`).  The name above resolves unchanged — what
+moved is which file supplies it.
 
 ⚠️ **This is an instrument for fixed indices only and discharges nothing at general `n`.**  The
 cofactor is index-specific and grows by a factor of about `11` per index; there is no uniform
@@ -94,7 +100,6 @@ it out.
 * `WeierstrassCurve.preΨ_six`, `WeierstrassCurve.preΨ_seven` : the closed forms of `preΨ₆` and
   `preΨ₇` in terms of `preΨ₅`, `Ψ₃`, `preΨ₄` and `Ψ₂Sq`, from the `preΨ'` recurrences.  General
   facts about Mathlib's division polynomials, independent of everything above.
-* `WeierstrassCurve.C_b_relation` : `4·C b₈ = C b₂ · C b₆ − (C b₄)²` in `R[X]`.
 * `WeierstrassCurve.HasΦDoubling` : the numerator identity, as a predicate on the index.
 * `WeierstrassCurve.hasΦDoubling_zero`, `_one`, `_two`, and `WeierstrassCurve.HasΦDoubling.neg`.
 
@@ -127,16 +132,6 @@ lemma preΨ_seven : W.preΨ 7 = W.preΨ 5 * W.Ψ₃ ^ 3 - W.preΨ₄ ^ 3 * W.Ψ�
   rw [show (7 : ℤ) = ((2 * (1 + 2) + 1 : ℕ) : ℤ) by norm_num, preΨ_ofNat, preΨ'_odd,
     show (5 : ℤ) = ((5 : ℕ) : ℤ) by norm_num, preΨ_ofNat]
   norm_num [preΨ'_two, preΨ'_three, preΨ'_four]
-
-/-! ### Mathlib's `b`-relation, in `R[X]` -/
-
-/-- **`4b₈ = b₂b₆ − b₄²`, pushed through `C` into `R[X]`.**  This is Mathlib's
-`WeierstrassCurve.b_relation` in the ring where the division-polynomial identities live, and it is
-the one input that `ring1` cannot supply for itself: with `b₂, b₄, b₆, b₈` as independent atoms the
-identities of this file are **false**, and they become true exactly modulo this relation. -/
-lemma C_b_relation : (4 : R[X]) * C W.b₈ = C W.b₂ * C W.b₆ - C W.b₄ ^ 2 := by
-  rw [show (4 : R[X]) = C (4 : R) by C_simp, ← C_mul, ← C_mul, ← C_pow, ← C_sub]
-  exact congrArg C W.b_relation
 
 /-! ### The numerator half -/
 

@@ -52,6 +52,19 @@ to the elliptic-divisibility-sequence recurrence and to the multiplication-by-`n
   identities described above.
 * `WeierstrassCurve.Affine.ψ_zero_evalEval`, `WeierstrassCurve.Affine.ψ_one_evalEval`,
   `WeierstrassCurve.Affine.ψ_two_evalEval`: the low-index base evaluations.
+* `WeierstrassCurve.C_b_relation`: Mathlib's `b`-relation `4b₈ = b₂b₆ − b₄²` pushed through `C`
+  into `R[X]`.
+
+## Why `C_b_relation` is here rather than beside a consumer
+
+It is not about evaluation at a point and has nothing to do with the rest of this file; it is here
+because this file is a **leaf** — it imports no `EllipticCurves` module, only the two Mathlib files
+that already supply everything the lemma needs — and it is in the import closure of most of the
+library.  The relation was written twice independently, once `private` over a field in
+`EllipticCurves.Torsion.TriplingSurjective` and once public over a `CommRing` in
+`EllipticCurves.Torsion.OmegaNumerator`, and those two modules have **only this one** in the
+intersection of their closures, so a single shared copy has to live here or the dependency between
+them inverts (`#1418`).
 
 ## ⚠️ Two `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
 
@@ -136,3 +149,31 @@ lemma ψ_two_evalEval : (W.ψ 2).evalEval x y = 2 * y + W.a₁ * x + W.a₃ := b
 end BaseCases
 
 end WeierstrassCurve.Affine
+
+namespace WeierstrassCurve
+
+/-! ### Mathlib's `b`-relation, in `R[X]` -/
+
+/-- **`4b₈ = b₂b₆ − b₄²`, pushed through `C` into `R[X]`.**  This is Mathlib's
+`WeierstrassCurve.b_relation` in the ring where the division-polynomial identities live, and the
+form `linear_combination` needs when the goal is an identity of *polynomials* rather than of
+scalars.
+
+It is the one input that `ring1` cannot supply for itself.  With `b₂, b₄, b₆, b₈` taken as
+independent atoms the identities that consume it are **false** —
+`WeierstrassCurve.Affine.preΨ₄_eq` (`EllipticCurves.Torsion.TriplingSurjective`), whose `X²`
+coefficient is `10b₈` on one side and `6b₈ + b₂b₆ − b₄²` on the other, and
+`WeierstrassCurve.hasΦDoubling_two` (`EllipticCurves.Torsion.OmegaNumerator`), whose two sides
+differ by an explicit `33`-term cofactor times `4b₈ − b₂b₆ + b₄²`.  They become true exactly
+modulo this relation, which is why both close by `linear_combination … * W.C_b_relation` and
+neither closes by `ring`.
+
+⚠️ Both consumers named above are **forward references**: they import this file and neither is in
+its import closure, so nothing here depends on them.  The lemma needs only
+`WeierstrassCurve.b_relation`, which lives in Mathlib's `Weierstrass.lean` — already in this file's
+closure — so it costs this leaf no import. -/
+lemma C_b_relation {R : Type*} [CommRing R] (W : WeierstrassCurve R) :
+    (4 : R[X]) * C W.b₈ = C W.b₂ * C W.b₆ - C W.b₄ ^ 2 := by
+  simpa [map_ofNat] using congrArg C W.b_relation
+
+end WeierstrassCurve
