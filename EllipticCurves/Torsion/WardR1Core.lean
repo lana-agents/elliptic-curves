@@ -68,6 +68,16 @@ slice already buys, not that the slice is any closer. ⚠️ And it is **one of 
 Mathlib's `IsEllipticDvdSequence`: the other, `IsDvdSequence (normEDS b c d)`, is proved neither in
 Mathlib nor here, so discharging `WardGapCore` would close half of that `TODO`.
 
+⚠️ **The `s ≠ 0` layer is not a further rung either.** It is natural to read
+`normEDS_isEllipticSequence_of_gapCore` as the `s = 0` case of the four-index `IsEllipticNet`, with
+the general `s` still to come. It is not: `EllipticCurves.Torsion.EllipticNetSlices` proves
+`IsEllipticNet W ↔ IsEllipticSequence W` for every `W` whose values at nonzero indices are regular,
+and specialises it to `WeierstrassCurve.normEDS_isEllipticNet_of_gapCore` — `IsEllipticNet
+(normEDS b c d)` over every `CommRing`, conditional on **exactly** the `WardGapCore` below. So both
+layers of Mathlib's elliptic-net relation are this one hypothesis. ⚠️ Every name in this paragraph
+is a **forward reference**: that module imports this one and is not in this file's import closure,
+so nothing below uses any of them. It changes no statement here.
+
 ## Why the core is isolated rather than proved
 
 `WardGapCore` cannot be closed by an elementary induction. Writing `h(p, q)` for the relator, the
