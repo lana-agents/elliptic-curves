@@ -65,6 +65,9 @@ statements below are about.
 * `IsEllipticNet.one_sq_mul_rel_zero` : `W 1 ^ 2 · rel W p q r 0` as a `W(·)²`-combination of three
   `r = 1` relators, for any odd `W`; `IsEllipticNet.isEllipticSequence_of_rel_one` and
   `isEllipticSequence_iff_rel_one` are its consequences.
+* `IsEllipticNet.signMultiplesOfThree` : an odd sequence that satisfies the `r = 1` slice
+  identically and is not an elliptic sequence — the witness that the normalisation `W 1 = 1`
+  cannot be dropped from the two lemmas above.
 * `WeierstrassCurve.normEDS_rel_one_zero`, `normEDS_rel_one_one` : the `q ∈ {0, 1}` slices.
 * `WeierstrassCurve.normEDS_two_three_two` : `normEDS 2 3 2 n = n`.
 * `WeierstrassCurve.normEDS_univ_ne_zero` : nonvanishing of `normEDS` in `ℤ[X₀, X₁, X₂]`.
@@ -114,9 +117,9 @@ lemma rel_one_swap (odd : W.Odd) (p q : ℤ) : rel W q p 1 0 = -rel W p q 1 0 :=
 
 ⚠️ This is a **formal identity**, not a fact about elliptic divisibility sequences: no recurrence,
 no `W 1 = 1`, no `normEDS` and no curve.  Writing `Aₓ = W (x + 1) · W (x - 1)` and `Bₓ = W x ^ 2`,
-the nine terms of the right-hand side that mention `W (x ± 1)` appear in the cyclic pattern
-`-Aₐ B_b B_c + A_b Bₐ B_c` and cancel; the three that survive are `W 1 ^ 2` times the left-hand
-side.  Oddness is used in exactly one place, to rewrite `W (r - p)` as `-W (p - r)`.
+**six** of the nine terms of the right-hand side mention `W (x ± 1)`; those six appear in the cyclic
+pattern `-Aₐ B_b B_c + A_b Bₐ B_c` and cancel; the three that survive are `W 1 ^ 2` times the
+left-hand side.  Oddness is used in exactly one place, to rewrite `W (r - p)` as `-W (p - r)`.
 
 Its content is that `Mathlib`'s `IsEllipticSequence W`, which is `∀ p q r, rel W p q r 0 = 0`,
 carries **no information beyond its `r = 1` slice** — see `isEllipticSequence_iff_rel_one`. -/
@@ -140,10 +143,82 @@ lemma isEllipticSequence_of_rel_one (odd : W.Odd) (h1 : W 1 = 1)
 
 The forward direction is `r := 1`; the reverse is `isEllipticSequence_of_rel_one`.  ⚠️ So Ward's
 `r = 1` slice and the full `s = 0` elliptic-sequence property are **the same statement**, and the
-step between them is a `ring` call rather than an induction. -/
+step between them is a `ring` call rather than an induction.
+
+⚠️ **`h1` cannot be dropped**: `signMultiplesOfThree` below is odd and satisfies the `r = 1` slice
+`∀ p q, rel W p q 1 0 = 0` *identically*, yet is not an elliptic sequence
+(`not_isEllipticSequence_signMultiplesOfThree`, witnessed at `rel W 3 6 9 0 = -1`).  It has
+`W 1 = 0`, so it does not rule out weakening `h1` to *`W 1` is not a zero divisor* — over a domain,
+to `W 1 ≠ 0`.  That weakening is available only because `one_sq_mul_rel_zero` is stated
+unconditionally in `W 1`, with the factor `W 1 ^ 2` on the left rather than an `h1` hypothesis. -/
 lemma isEllipticSequence_iff_rel_one (odd : W.Odd) (h1 : W 1 = 1) :
     IsEllipticSequence W ↔ ∀ p q : ℤ, rel W p q 1 0 = 0 :=
   ⟨fun h p q => h p q 1, isEllipticSequence_of_rel_one W odd h1⟩
+
+/-! ### The normalisation `W 1 = 1` is necessary in `isEllipticSequence_of_rel_one`
+
+Oddness alone does **not** let the `r = 1` slice be propagated to general `r`: the sequence below is
+odd, satisfies `rel W p q 1 0 = 0` for *every* pair `p, q` — identically, not on a range — and is
+not an elliptic sequence.  So the two lemmas above are stated at the right strength rather than
+over-hypothesised.  ⚠️ Nothing here bears on `normEDS`, which is normalised
+(`WeierstrassCurve.normEDS_one`), nor on Ward's theorem. -/
+
+section RelOneCounterexample
+
+/-- The sign function restricted to the multiples of `3`: `n ↦ Int.sign n` when `3 ∣ n`, and `0`
+otherwise.  This is the witness that `W 1 = 1` cannot be dropped from
+`isEllipticSequence_of_rel_one`; see `signMultiplesOfThree_rel_one` and
+`not_isEllipticSequence_signMultiplesOfThree`. -/
+def signMultiplesOfThree : ℤ → ℤ := fun n => if (3 : ℤ) ∣ n then n.sign else 0
+
+/-- `signMultiplesOfThree` is odd, so it meets the hypothesis `odd` of
+`isEllipticSequence_of_rel_one`. -/
+lemma signMultiplesOfThree_odd : Function.Odd signMultiplesOfThree := by
+  intro n
+  simp only [signMultiplesOfThree, Int.sign_neg, dvd_neg]
+  split <;> simp
+
+/-- `signMultiplesOfThree 1 = 0`: the witness fails the hypothesis `h1`, and this is the only
+hypothesis of `isEllipticSequence_of_rel_one` that it fails. -/
+lemma signMultiplesOfThree_one : signMultiplesOfThree 1 = 0 := by
+  norm_num [signMultiplesOfThree]
+
+/-- `3 ∣ n + 1` and `3 ∣ n - 1` would give `3 ∣ 2`, so at most one of the two neighbours of `n` is a
+multiple of `3` and the product of their values vanishes. -/
+lemma signMultiplesOfThree_add_one_mul_sub_one (n : ℤ) :
+    signMultiplesOfThree (n + 1) * signMultiplesOfThree (n - 1) = 0 := by
+  by_cases h : (3 : ℤ) ∣ n + 1
+  · have h' : ¬ (3 : ℤ) ∣ n - 1 := by
+      intro h2
+      have : (3 : ℤ) ∣ 2 := by simpa using dvd_sub h h2
+      omega
+    simp [signMultiplesOfThree, h']
+  · simp [signMultiplesOfThree, h]
+
+/-- **The whole `r = 1` slice holds for `signMultiplesOfThree`**, for every `p` and `q`:
+`signMultiplesOfThree 1 = 0` kills the term `W (p + q) · W (p - q) · W 1 ^ 2`, and
+`signMultiplesOfThree_add_one_mul_sub_one` kills the other two. -/
+lemma signMultiplesOfThree_rel_one (p q : ℤ) : rel signMultiplesOfThree p q 1 0 = 0 := by
+  have hp := signMultiplesOfThree_add_one_mul_sub_one p
+  have hq := signMultiplesOfThree_add_one_mul_sub_one q
+  simp only [rel, add_zero, signMultiplesOfThree_one]
+  linear_combination (norm := ring1)
+    (-(signMultiplesOfThree q * signMultiplesOfThree q)) * hp +
+      (signMultiplesOfThree p * signMultiplesOfThree p) * hq
+
+/-- **`signMultiplesOfThree` is not an elliptic sequence**, although it is odd and satisfies the
+whole `r = 1` slice: `rel signMultiplesOfThree 3 6 9 0 = -1 + 1 - 1 = -1`.  Together with
+`signMultiplesOfThree_odd` and `signMultiplesOfThree_rel_one`, this is exactly the statement that
+`h1` is not removable from `isEllipticSequence_of_rel_one`. -/
+lemma not_isEllipticSequence_signMultiplesOfThree :
+    ¬ IsEllipticSequence signMultiplesOfThree := by
+  intro h
+  have h369 := h 3 6 9
+  simp only [rel, signMultiplesOfThree] at h369
+  revert h369
+  decide
+
+end RelOneCounterexample
 
 end IsEllipticNet
 
