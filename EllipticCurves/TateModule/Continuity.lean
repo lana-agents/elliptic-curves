@@ -12,9 +12,29 @@ import Mathlib.RingTheory.Algebraic.Integral
 
 `EllipticCurves.TateModule.GaloisAction` builds
 `ρ_ℓ = galoisRep ℓ : G →* (T_ℓE ≃ₗ[ℤ_[ℓ]] T_ℓE)` for `G = F ≃ₐ[S] F` purely as a homomorphism of
-*abstract* groups, and says so: "Continuity of `ρ_ℓ` for the profinite topology on `G` and the
-`ℓ`-adic topology on `T_ℓ E` is not addressed here and is left to a follow-up." Every file built on
-top of it repeats the disclaimer. This file removes it.
+*abstract* groups, and says so. This file supplies the continuity that file does not.
+
+⚠️ **This paragraph used to quote that file as saying** *"Continuity of `ρ_ℓ` for the profinite
+topology on `G` and the `ℓ`-adic topology on `T_ℓ E` is not addressed here and is left to a
+follow-up"*, **and that is no longer its text**: it now names `continuous_galoisRep` as the
+discharge instead of promising a follow-up, and states the Krull/profinite gap that the retired
+wording elided. ⚠️ **A quotation of another file's docstring goes stale exactly as the docstring
+does**, and a sweep is the likeliest thing in the world to be editing both at once — re-check the
+quotation in both files after touching either.
+
+⚠️ It also used to add *"Every file built on top of it repeats the disclaimer"*, **and that was a
+tally nobody had measured**. It was false when it was written, and the measurement showing that is
+pinned to a fixed commit rather than to a moving branch: at `807ac29`, the commit that introduced
+the sentence, `EllipticCurves.TateModule.GaloisAction`'s reverse import cone was **eight** modules
+apart from the root aggregator and this one, and **four** of those carried a
+continuity-is-not-asserted clause. It is still false today, by a wider margin. The position the
+sentence was reaching for survives without any count: the disclaimer had already been restated in
+more than one register — from a scope statement about a file's own contents to a claim about the
+whole `ρ` front — and this file is what ends the need for either. ⚠️ **State the position, not the
+tally.** A tally taken against the current branch decays; the `807ac29` one cannot, because the
+commit it is measured at cannot change. ⚠️ And whichever is taken, **normalise whitespace before
+counting**: clauses in this development wrap across newlines, so a line-oriented scan undercounts
+them, and it reads a marked quotation of another file's clause as a clause of its own.
 
 ## The topologies, and why nothing has to be constructed
 

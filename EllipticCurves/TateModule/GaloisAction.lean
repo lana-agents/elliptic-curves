@@ -21,9 +21,32 @@ $$ \rho_\ell : G \longrightarrow \operatorname{Aut}_{\mathbb{Z}_\ell}(T_\ell E).
 
 This file records the pointwise action, the induced actions on `E[ℓ^k]` and on `T_ℓ E`, the
 `ℤ_ℓ`-linearity (`SMulCommClass`), the representation `ρ_ℓ`, the mod-`ℓ` representation on `E[ℓ]`,
-and the `G`-equivariance of the level projections. Continuity of `ρ_ℓ` for the profinite topology
-on `G` and the `ℓ`-adic topology on `T_ℓ E` is *not* addressed here and is left to a follow-up; the
-representation is constructed purely as an abstract group homomorphism.
+and the `G`-equivariance of the level projections. Continuity of `ρ_ℓ` is *not* addressed **in this
+file**: the representation is constructed below purely as a homomorphism of abstract groups, and no
+statement below mentions a topology.
+
+⚠️ **That sentence used to end** *"for the profinite topology on `G` and the `ℓ`-adic topology on
+`T_ℓ E` is not addressed here and is left to a follow-up"*, **and the follow-up landed**:
+`continuous_galoisRep`, together with `continuous_galoisRepMod` for the mod-`n` representation, in
+`EllipticCurves.TateModule.Continuity`. Both are **forward references** — that module imports this
+one, while this file's entire `EllipticCurves` import closure is `EllipticCurves.TateModule.Basic`
+and `EllipticCurves.Torsion.Defs` — so neither is nameable here and nothing below uses either.
+⚠️ Neither is free, either: both carry `[Algebra.IsIntegral S F]`, which is in neither this file's
+`variable` line nor `galoisRep`'s binders, so a consumer of `ρ_ℓ` does not acquire continuity
+merely by being downstream.
+
+⚠️ **And what is discharged is the Krull-topology statement, not the retired sentence.**
+`continuous_galoisRep` is stated for the **Krull** topology on `G` and for *pointwise convergence*
+on `T_ℓ E → T_ℓ E`; `galoisRep`'s own docstring below records which topologies that covers and
+which it does not, and that is not repeated here. `G`'s Krull topology is the profinite one when
+`F / S` is Galois, and `[IsGalois S F]` is assumed by neither this file nor
+`EllipticCurves.TateModule.Continuity` — it is under that hypothesis, downstream again, that
+`profiniteGrpGalois` (`EllipticCurves.TateModule.PrimaryImageProfinite`) names `G` as an object of
+`ProfiniteGrp`, on instances Mathlib supplies. ⚠️ That one is not free either, and in two ways
+its source is careful about. Its signature keeps `[Algebra.IsIntegral S F]`: the `omit` written
+ahead of it is inert, because `omit … in` is ignored ahead of an `abbrev`. And it is stated in a
+small-universe section, for `S F : Type`, which this file's `Type*` does not meet. So it names `G`
+as a profinite group at a restricted generality, not the `G` of this file's `variable` line.
 
 ## Main definitions
 

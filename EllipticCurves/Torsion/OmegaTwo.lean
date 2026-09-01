@@ -29,7 +29,13 @@ a₃Ψ₂Sq(x)))/2` is the value of the `2`-division `y`-coordinate polynomial.
 
 Note that this is a purely *algebraic* on-curve identity for the classical division-polynomial
 doubling coordinates; identifying `(Φ₂/Ψ₂Sq, ω₂/ψ₂³)` with the group-law double `2 • P` (which then
-makes the on-curve property automatic) is a separate, harder statement not proved here.
+makes the on-curve property automatic) is a separate, harder statement not proved here — but it
+**is** proved, in `EllipticCurves.Torsion.DoublingCoords`, as `addX_self_eq_div` and
+`addY_self_eq_div` (the second over a field of characteristic `≠ 2`; the first needs no such
+hypothesis). ⚠️ Both are **forward references**: that module imports this one directly and is not
+in this file's import closure, so neither is nameable here and nothing below uses either.
+⚠️ `EllipticCurves.Torsion.OmegaThree` carries the twin of this sentence at `n = 3` and already
+names its discharger, `EllipticCurves.Torsion.TriplingCoords`; this one had not caught up.
 
 ## Main statements
 
