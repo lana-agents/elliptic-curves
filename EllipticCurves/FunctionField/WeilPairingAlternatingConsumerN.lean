@@ -63,9 +63,10 @@ bricks live.  That is `#918`'s rule.
 
 `WeilPairingAlternatingWorkhorseN`'s `Nonvacuity` docstring says that a certificate binding `htel`
 and `hpow` — rather than instantiating at `f = g = c = c₀ = 1` — *"does not terminate inside the
-heartbeat budget"*, because every hypothesis would need its own `convert … using 9`.  **That is true
-of a certificate stated through the `W.Point`-indexed theorem and false of one stated through the
-affine corollary below**, and the reason is structural rather than a matter of heartbeats:
+heartbeat budget"*, because every hypothesis would need its own `convert … using 9`.  **The
+`convert`-per-hypothesis half is true of a certificate stated through the `W.Point`-indexed theorem
+and the affine corollary below removes it**, and the reason is structural rather than a matter of
+heartbeats:
 
 > Stated through the affine corollary, `htel` mentions `translateEndo exampleEqT` and never
 > `translatePointEndo (i • T)`.  `ℚ` has a genuine `DecidableEq` instance, and the corollary — under
@@ -75,8 +76,12 @@ affine corollary below**, and the reason is structural rather than a matter of h
 > Through `translateEndo hT` the point-level `n • ·` occurs **once**, in `hmul`, and one
 > `by convert exampleQuadruple` closes it.
 
-⚠️ The merged file is **not** edited here.  Correcting that one sentence in place is a separate
-trivial follow-up; mixing it in would make this a two-file diff for a docstring.
+⚠️ **The "does not terminate" half is not a difference between the two shapes**, and this file
+originally implied it was.  Measured in `#1415`: through the `W.Point`-indexed theorem the
+parameterised certificate does time out with no `convert` at all — at `maxHeartbeats 4000000`, not
+merely the default — but `convert … using 12` closes it in about 3.8 s, and
+`WeilPairingAlternatingWorkhorseN` now carries that certificate.  The difference between the two
+shapes is **one `convert` against one per hypothesis**, not affordable against unaffordable.
 
 ## Scope
 
