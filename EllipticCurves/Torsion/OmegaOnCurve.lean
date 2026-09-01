@@ -128,10 +128,10 @@ the crux left in issue `#404`; it is proved, at every index and over every commu
 `WeierstrassCurve.hasPreΩSq` of `EllipticCurves.Torsion.OmegaCrux`, whose only index-dependent
 inputs are this file's `n = 1` and `n = 2` and `EllipticCurves.Torsion.OmegaCharZero`'s `n = 3`.
 ⚠️ **`n = 1` and `n = 2` below are two of the three base cases of that proof** — the third is the
-*polynomial* `hasPreΩSq_three`, which lives one file later, not the evaluated `n = 3` instance here
-— **and `n = 0` is the `n = 0` branch of `hasPreΩSq` rather than a base case of the induction.  So
-"nothing is proved here that was not already available" is unchanged, and none of the four
-instances is decoration.**
+*polynomial* `hasPreΩSq_three` of `EllipticCurves.Torsion.OmegaCharZero`, not the evaluated `n = 3`
+instance here — **and `n = 0` is the `n = 0` branch of `hasPreΩSq` rather than a base case of the
+induction.  So "nothing is proved here that was not already available" is unchanged, and none of
+the four instances is decoration.**
 
 ⚠️ **`HasΨSqDoubling` proves nothing either.**  It is an equivalent phrasing of the same crux at the
 same index, and the equivalence — not a one-way reduction — is the whole of what is claimed for it.
