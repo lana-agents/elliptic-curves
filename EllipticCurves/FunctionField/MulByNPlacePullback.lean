@@ -373,9 +373,13 @@ statement. ⚠️ Three quarters of the count is the *downstream* class, so quot
 `(W⁄F).IsElliptic` that made the same fixture redundant in
 `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`: that module is **not** in this
 file's import closure. ⚠️ Nor on the strength of `EllipticCurves.FunctionField.MulByNTranscendence`,
-whose own `private` fixture **is** in the closure and is still not enough — `MulByNIntegral` pulls
-in `DivisionRing.toRatAlgebra`, which displaces the `AlgebraicClosure.instAlgebra` that fixture was
-elaborated against, so the two `((y2AddYEqX3 ℚ)⁄AlgClosedQ)` are different terms here. -/
+whose own `private` fixture **is** in the closure and is still not enough. `Algebra ℚ AlgClosedQ`
+resolves to `DivisionRing.toRatAlgebra` in this file and to `AlgebraicClosure.instAlgebra` in
+`MulByNTranscendence`, so the two `((y2AddYEqX3 ℚ)⁄AlgClosedQ)` are different terms and that
+fixture does not transfer. ⚠️ `MulByNIntegral`, also in this closure, resolves the same way as
+this file and is one sufficient carrier of the flip — but it is not the only one, and it is *not*
+what makes `WeilPairingDeterminantCharacter` read `DivisionRing.toRatAlgebra`, where it is absent
+from the closure entirely. The path is a property of the import set, not of a single module. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 

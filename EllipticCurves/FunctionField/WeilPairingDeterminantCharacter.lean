@@ -429,8 +429,19 @@ one that declares it, so the `#916` fixtures are not per-file in the way their `
 suggests. Both close this goal. The public one is nevertheless the supplier worth naming, because
 it quantifies over the `Algebra ℚ AlgClosedQ` instance, whereas a fixture is frozen at whichever
 one its own file elaborated against — and that instance is **not** the same term throughout this
-library (`AlgebraicClosure.instAlgebra` here and in `MulByNTranscendence`,
-`DivisionRing.toRatAlgebra` in `MulByNIntegral` and downstream of it).
+library. Measured by `Meta.synthInstance` on `Algebra ℚ AlgClosedQ`, reading the winner off
+`getAppFn.constName!` in a file importing the named module together with `EllipticCurves.Fixtures`
+(which is what makes `AlgClosedQ` nameable, and which `GaloisFunctionField` alone does not import):
+`AlgebraicClosure.instAlgebra` for `EllipticCurves.Fixtures` on its own, `MulByNTranscendence` and
+`GaloisFunctionField`; `DivisionRing.toRatAlgebra` **here**, in `MulByNIntegral` and in
+`MulByNPlacePullback`.
+
+⚠️ **Which of the two is selected is a property of the whole import set's instance ordering, not of
+any one module.** Each of this file's three non-`Fixtures` imports flips it to
+`DivisionRing.toRatAlgebra` on its own, and `MulByNIntegral` — the module that carries the flip
+downstream in `MulByNPlacePullback` — is not in this file's closure at all. So a fixture written
+against one path cannot be assumed to transfer to a file whose import set differs, in either
+direction.
 
 ⚠️ **There is no import-pruner hazard here, in contrast to `#1383`.** All three carriers of the
 instance are needed by *name* as well, so an identifier-driven pruner keeps them: dropping
