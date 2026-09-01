@@ -30,8 +30,12 @@ brick its two consumers — `EllipticCurves.FunctionField.MulByNGaloisGroup` for
 
 Measured at `320f413` with a header-only walker (block comments skipped nesting-aware, so the
 `import Mathlib` inside `Mathlib/Tactic/Rify.lean`'s docstring is not read as an edge), over this
-project plus all nine `.lake/packages` — 9837 modules, the package's own nested `.lake/` build tree
-excluded.  Module counted in its own closure.
+project plus all nine `.lake/packages` — 9837 `.lean` **files**, each package's own nested
+`.lake/` build tree excluded.  Files, not modules: mathlib's and proofwidgets' `lakefile.lean`
+collide, so the walker indexes 9836 distinct names.  ⚠️ **A name that resolves to no file in those
+trees is not an edge** — `Lean.*`, `Init.*` and `Std.*` live in the toolchain, not in the nine
+packages, and counting them puts this file's total at 1146 rather than 968.  That is an 18% error
+with nothing absurd about it, which is this section's whole subject.
 
 | module | `EllipticCurves` closure | total closure | total under `^import\s` alone |
 | --- | --- | --- | --- |
@@ -39,12 +43,23 @@ excluded.  Module counted in its own closure.
 | `FunctionField.NegYGaloisGroup` | 22 | 2668 | 47 |
 | `FunctionField.MulByNGaloisGroup` | 74 | 2802 | 115 |
 
+⚠️ **The two closure columns count the module itself differently**, and assuming one convention for
+both is how a re-run comes out one high on three cells.  The total counts it; the `EllipticCurves`
+column does not — that column is the sense in which this file's own `EllipticCurves`-import closure
+is empty, and in which `#1266` cut `NegYGaloisGroup` from 71 to 19.
+
+⚠️ **The totals are falsifiable, and this is the check.**  `lake build` on the three modules reports
+**983**, **2683** and **2817** jobs — the walker's total plus a constant **15** on every row, across
+closures spanning 968 to 2802.  Three numbers out of a hand-rolled walker are otherwise
+unfalsifiable; a constant offset against lake's own module graph is not.
+
 The relocation that created this file is what the first column is for: on **one tree**, across the
 single commit `008fea7`, `NegYGaloisGroup`'s project closure fell **71 → 19** — it is 22 today, the
 tree having grown from 359 modules to 387 — while `MulByNGaloisGroup` rose 70 → 71, the one new
 module being this one.  ⚠️ That saving is **52** modules as measured here; `#1259` and `#1267`
-record it as 53, and I have not reconciled the one-module difference — take the method above, not
-either number, as the thing to re-run.
+record it as 53, and the difference is the self-counting convention: consistent counting gives 52
+either way (`71 → 19` excluding the module, `72 → 20` including it), while `72 − 19` — one
+convention on each side — gives 53.
 
 ⚠️ **The third column is not a typo, and it is the reason to write this section down.**  Mathlib at
 this pin uses the Lean module system, so `Mathlib/Algebra/Algebra/Equiv.lean` — this file's own
@@ -55,24 +70,36 @@ first import — opens `module` / `public import Mathlib.Algebra.Algebra.Hom`, a
 re.compile(r'^(?:public |private |meta |protected )*import\s+(?:all\s+)?(\S+)')
 ```
 
+⚠️ **That pattern is necessary and not sufficient: where the header ends is a second, independent
+decision, and it moves the number.**  The third column is what a walker gets by reading the whole
+header and ignoring lines its pattern cannot parse — the experiment that changes only the capture
+pattern.  A walker that instead *stops* at the first unparsable line halts on the opening
+`public import` and reports `3 / 44 / 112`; the three edges it drops are ordinary non-`public`
+imports placed after the public block, as `Mathlib/RingTheory/Algebraic/Integral.lean` places
+`import Mathlib.RingTheory.Polynomial.Subring`.
+
 ⚠️ **Why the bug does not announce itself.**  Nothing in this development writes `public import`, so
 the *project* column is exact under either pattern and every project-side sanity check passes.  Only
-the total is wrong, and it is wrong by a factor of 24 to 320 — a number small enough to look like a
-plausible import count rather than an absurd one.  Census, `.lean` files / with a `^public import `
-line / with a plain `^import ` line:
+the total is wrong, and it is wrong by a factor of 24 (`2802 / 115`) to 323 (`968 / 3`) — a number
+small enough to look like a plausible import count rather than an absurd one.  Census, `.lean` files
+/ with a `^public import ` line / with a plain `^import ` line.  ⚠️ **The rows are not scoped
+alike**: mathlib's is `Mathlib/` only, every other package's is the whole package tree minus its
+nested `.lake/`.  Scoping the others the way mathlib's is scoped — to `batteries/Batteries`,
+`aesop/Aesop`, … — reads batteries as 187 files rather than 254, and shifts every row but mathlib's
+and the project's.
 
 | tree | files | `^public import ` | `^import ` |
 | --- | --- | --- | --- |
 | `EllipticCurves/` | 386 | **0** | **386** |
 | `.lake/packages/mathlib/Mathlib` | 8264 | **8246** | 381 |
-| batteries | 254 | 127 | 82 |
-| aesop | 250 | 125 | 161 |
-| proofwidgets | 46 | 25 | 5 |
-| importGraph | 37 | 18 | 22 |
-| Qq | 28 | 12 | 15 |
-| plausible | 28 | 6 | 17 |
-| Cli | 5 | 3 | 2 |
-| LeanSearchClient | 8 | 0 | 0 |
+| `.lake/packages/batteries` | 254 | 127 | 82 |
+| `.lake/packages/aesop` | 250 | 125 | 161 |
+| `.lake/packages/proofwidgets` | 46 | 25 | 5 |
+| `.lake/packages/importGraph` | 37 | 18 | 22 |
+| `.lake/packages/Qq` | 28 | 12 | 15 |
+| `.lake/packages/plausible` | 28 | 6 | 17 |
+| `.lake/packages/Cli` | 5 | 3 | 2 |
+| `.lake/packages/LeanSearchClient` | 8 | 0 | 0 |
 
 ⚠️ **The project row is the control**: if it does not come out `0` public and one plain
 `import` line per file, the census is reading the wrong tree.  (Its *file count* is not the
