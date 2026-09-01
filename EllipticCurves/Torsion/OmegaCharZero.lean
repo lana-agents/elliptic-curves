@@ -145,11 +145,19 @@ theorem hasPreΩSq_of_forall_charZero {n : ℤ}
     (hasPreΩSq_of_map (f := algebraMap UnivBase UnivFrac)
       (IsFractionRing.injective UnivBase UnivFrac) (h UnivFrac _)) W
 
-/-- **The form in which `#404`'s crux should now be attacked.**  To prove the polynomial identity
-`HasPreΩSq n` for every Weierstrass curve over every commutative ring it is enough to prove the
-**evaluated** identity `HasPreΩSqAt n x` at every point of every characteristic-`0` field — where
-`2`, `3` and `4` are units, `b₈ = (b₂b₆ − b₄²)/4` is a legal substitution, and `field_simp` is
-available.  See the module docstring for the measured size of the difference. -/
+/-- **`hasPreΩSq_of_forall_charZero` and `hasPreΩSq_of_forall_hasPreΩSqAt`, composed.**  To prove
+the polynomial identity `HasPreΩSq n` for every Weierstrass curve over every commutative ring it is
+enough to prove the **evaluated** identity `HasPreΩSqAt n x` at every point of every
+characteristic-`0` field — where `2`, `3` and `4` are units, `b₈ = (b₂b₆ − b₄²)/4` is a legal
+substitution, and `field_simp` is available.  See the module docstring for the measured size of the
+difference.  This is the route `hasPreΩSq_three` below takes.
+
+⚠️ **`#404`'s crux is not to be attacked here, although this docstring nominated it until
+`#1402`.**  The designation is `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed`'s: its base is
+additionally algebraically closed, so `Ψ₂Sq` splits, and its hypothesis is stated with no `preΩ` in
+it at all.  When the designation moved, the module docstring's bullet was edited and this line was
+not.  Do not restore it here — and do not restate it in the nominating words, which are reserved
+for the two places that mean them. -/
 theorem hasPreΩSq_of_forall_hasPreΩSqAt_charZero {n : ℤ}
     (h : ∀ (F : Type) [Field F] [CharZero F] (V : WeierstrassCurve F) (x : F),
       V.HasPreΩSqAt n x)
@@ -180,8 +188,16 @@ theorem hasPreΩSq_of_forall_algClosed {n : ℤ}
 
 /-- **The evaluated identity at every point of every algebraically closed characteristic-`0` field
 suffices.**  `hasPreΩSq_of_forall_hasPreΩSqAt_charZero` with the base additionally algebraically
-closed: strictly the weakest hypothesis of the four reductions in this file, and the one to
-discharge. -/
+closed, so its hypothesis is weaker than that one's.
+
+⚠️ **It is not weaker than `hasPreΩSq_of_forall_hasΨSqDoubling_algClosed`'s; the two tie, and this
+docstring asserted a superlative over a miscount until `#1402`.**  An algebraically closed field of
+characteristic `0` is an infinite domain, so at `n ≠ 0` the two hypotheses imply each other:
+`HasΨSqDoubling n` gives `HasPreΩSq n` by `hasPreΩSq_of_hasΨSqDoubling` and hence
+`∀ x, HasPreΩSqAt n x` by `HasPreΩSq.at`, and back by `hasPreΩSq_of_forall_hasPreΩSqAt` and
+`HasPreΩSq.hasΨSqDoubling`.  What separates them is vocabulary rather than strength — the other is
+written in Mathlib's `Φ`, `ΨSq` and `b₂/b₄/b₆` alone — and that is why it, not this, carries the
+designation. -/
 theorem hasPreΩSq_of_forall_hasPreΩSqAt_algClosed {n : ℤ}
     (h : ∀ (F : Type) [Field F] [CharZero F] [IsAlgClosed F] (V : WeierstrassCurve F) (x : F),
       V.HasPreΩSqAt n x)
