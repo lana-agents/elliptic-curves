@@ -357,6 +357,7 @@ import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
+import EllipticCurves.Torsion.OmegaCharZero
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaOnCurve
 import EllipticCurves.Torsion.OmegaThree
