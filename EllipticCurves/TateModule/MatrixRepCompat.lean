@@ -57,7 +57,13 @@ and not a twin. It is generalised in place, at
 
 ## Scope
 
-Nothing here strengthens what `MatrixRep` claims: continuity of `ρ_{E,2}` is still not asserted.
+Nothing here strengthens what `MatrixRep` claims: continuity of `ρ_{E,2}` is still not asserted
+*in this file*. ⚠️ **It is asserted elsewhere**, by `continuous_galoisRepMatrixTwo`
+(`EllipticCurves.TateModule.MatrixContinuity`) for an arbitrary basis, so the clause above is a
+scope statement about this file and must not be read as one about the development. That module is a
+**sibling** rather than a discharger: neither it nor this file is in the other's import closure, so
+the theorem is not nameable here — and this file has no downstream discharger to name either, its
+reverse import cone being empty apart from the root aggregator `EllipticCurves`.
 ⚠️ **This file is `ℓ = 2` only because its statements are the `ℓ = 2` *names*, and for no other
 reason.** The clause it used to carry here — *"and only `ℓ = 2` is in scope"* — read as a claim
 about the development and was retired when the arbitrary-prime form landed: the `ℓ = 3` names are

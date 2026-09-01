@@ -12,9 +12,26 @@ import Mathlib.RingTheory.Algebraic.Integral
 
 `EllipticCurves.TateModule.GaloisAction` builds
 `ρ_ℓ = galoisRep ℓ : G →* (T_ℓE ≃ₗ[ℤ_[ℓ]] T_ℓE)` for `G = F ≃ₐ[S] F` purely as a homomorphism of
-*abstract* groups, and says so: "Continuity of `ρ_ℓ` for the profinite topology on `G` and the
-`ℓ`-adic topology on `T_ℓ E` is not addressed here and is left to a follow-up." Every file built on
-top of it repeats the disclaimer. This file removes it.
+*abstract* groups, and says so. This file supplies the continuity that file does not.
+
+⚠️ **This paragraph used to quote that file as saying** *"Continuity of `ρ_ℓ` for the profinite
+topology on `G` and the `ℓ`-adic topology on `T_ℓ E` is not addressed here and is left to a
+follow-up"*, **and that is no longer its text**: it now names `continuous_galoisRep` as the
+discharge instead of promising a follow-up, and states the Krull/profinite gap that the retired
+wording elided. ⚠️ **A quotation of another file's docstring goes stale exactly as the docstring
+does**, and a sweep is the likeliest thing in the world to be editing both at once — re-check the
+quotation in both files after touching either.
+
+⚠️ It also used to add *"Every file built on top of it repeats the disclaimer"*, **and that was a
+tally nobody had measured**. Measured: `EllipticCurves.TateModule.GaloisAction` has **44** modules
+in its reverse import cone (excluding the root aggregator) and **10** of them carry a
+continuity-is-not-asserted clause, so *every* was false when it was written and is false now. The
+position the sentence was reaching for survives without a number: the disclaimer had already been
+restated in more than one register — from a scope statement about a file's own contents to a claim
+about the whole `ρ` front — and this file is what ends the need for either. ⚠️ **State the
+position, not the tally.** The tally is the part that decays, so no count belongs on either side of
+this sentence; the two above are pinned to this commit and are evidence for the retirement, not a
+census to maintain.
 
 ## The topologies, and why nothing has to be constructed
 
