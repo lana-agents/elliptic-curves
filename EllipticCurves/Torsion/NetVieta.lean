@@ -265,9 +265,9 @@ private lemma sq_sub_sq_of {G : Type*} [CommRing G] {p q d s : G} (hd : p - q = 
   rw [← hd, ← hs]; ring
 
 /-- **⚠️ THE STEP.**  The Vieta defect at the triple `(1, n, -1-n)` equals the one at
-`(1, n-1, -n)`: `𝒱` does not depend on the triple.  Everything comes from
-`IsEllipticNet.transfer_key`, one instance of Ward's `s ≠ 0` relation, through the two slope
-identities
+`(1, n-1, -n)`: `𝒱` does not depend on the triple.  Everything comes from `transfer_key` above
+(⚠️ `private`, so it is not citable from outside this file), one instance of Ward's `s ≠ 0`
+relation, through the two slope identities
 
 ```
 Λₙ - Λₙ₋₁ = -2a_{2n}/(a_n²a_{n+1}a_{n-1}),      Λₙ + Λₙ₋₁ = 2a₂a_n²/(a_{n+1}a_{n-1}),

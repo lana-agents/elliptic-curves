@@ -40,7 +40,7 @@ for `k` up to roughly the index, which fails at torsion points; so the evaluated
 available only away from the zero set of `∏ₖ ΨSqₖ`.  That is enough: over a characteristic-`0`
 field that product is a *nonzero* polynomial (`WeierstrassCurve.ΨSq_ne_zero`), and a polynomial
 vanishing wherever a fixed nonzero polynomial does not is zero
-(`WeierstrassCurve.eq_zero_of_eval_eq_zero_of_ne_zero`).  ⚠️ This is why
+(`WeierstrassCurve.eq_zero_of_eval_ne_zero`, below).  ⚠️ This is why
 `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt`, which quantifies over **every** point, is not
 the lemma used here.
 
@@ -50,6 +50,8 @@ The base is taken algebraically closed only to produce a `y` with `W.Equation x 
 ## Main statements
 
 * `WeierstrassCurve.Affine.netDefect_mul_ΨSq_pow` : the abstract defect times `ΨSqₙ⁴` is the crux.
+* `WeierstrassCurve.eq_zero_of_eval_ne_zero` : the descent step — over an infinite field, a
+  polynomial vanishing off the zero set of a fixed nonzero `g` is zero.
 * `WeierstrassCurve.hasΨSqDoubling` : the crux in `R[X]`, at every index, every commutative ring.
 * `WeierstrassCurve.hasPreΩSq` : `#404`'s crux, at every index, every commutative ring.
 * `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` : `#404`'s on-curve identity, with its one
