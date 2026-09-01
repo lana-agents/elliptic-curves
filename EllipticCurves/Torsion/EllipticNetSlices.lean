@@ -100,8 +100,15 @@ every `CommRing`.
 ⚠️ A **formal identity**, and in fact a term-by-term one: the three products of `rel` on the right
 are those of `rel` on the left, in the order `1, 2, 3`.  No recurrence, no `W 1 = 1`, no oddness.
 It is the `rel`-coordinate form of the transformation
-`(α, β, γ, δ) ↦ ((α+β+γ+δ)/2, (α+β-γ-δ)/2, (α-β+γ-δ)/2, (α-β-γ+δ)/2)` of the four half-arguments
-of Mathlib's `IsEllipticNet.atomRel`, which permutes the six `atom`s among themselves.
+`(α, β, γ, δ) ↦ ((α+β+γ+δ)/2, (α+β-γ-δ)/2, (α-β+γ-δ)/2, (α-β-γ+δ)/2)` of the four arguments of
+Mathlib's `IsEllipticNet.atomRel`, which permutes the **twelve** half-indices `(x ± y) / 2` that the
+six `atom`s are built from, and thereby preserves each of `atomRel`'s three `atom`-products — which
+is where the term-by-term matching above comes from.
+
+⚠️ It does **not** permute the six `atom`s themselves; it re-pairs them.  The atoms of
+`atomRel W 1 3 5 9` are `W 2 * W (-1)`, `W 7 * W (-2)`, `W 3 * W (-2)`, `W 6 * W (-3)`,
+`W 5 * W (-4)`, `W 4 * W (-1)`, and the transformation sends `(1, 3, 5, 9)` to `(9, -5, -3, 1)`,
+whose first atom `atom W 9 (-5) = W 2 * W 7` is none of the six.
 
 ⚠️ Its use is that it sends the fourth index to `p - q - r`, of the same parity as `p + q + r`, so
 it makes the fourth index **even** whenever `p + q + r` is — whatever the parity of `s`. -/
