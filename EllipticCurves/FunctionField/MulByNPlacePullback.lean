@@ -359,8 +359,23 @@ base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `
 
 open EllipticCurves.Fixture
 
-/-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
+/-- ⚠️ **Load-bearing, and measured rather than asserted** (`#1397`). `WeierstrassCurve.baseChange`
+is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by bare `inferInstance` from
+`[W.IsElliptic]`; `inferInstanceAs` on the unfolded `map` form is what works. Deleting this
+instance leaves `lake env lean` on this file at exit `1` with **12** synthesis failures — **3** of
+`WeierstrassCurve.IsElliptic (y2AddYEqX3 ℚ)⁄AlgClosedQ` and **9** of the class that depends on it,
+`IsDedekindDomain ((y2AddYEqX3 ℚ)⁄AlgClosedQ).CoordinateRing` — the first on `exampleFiveN`'s
+statement. ⚠️ Three quarters of the count is the *downstream* class, so quoting `12` as twelve
+`IsElliptic` failures overstates the direct dependence; both numbers are given for that reason.
+
+⚠️ **Do not delete it on the strength of
+`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange`**, the public general
+`(W⁄F).IsElliptic` that made the same fixture redundant in
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`: that module is **not** in this
+file's import closure. ⚠️ Nor on the strength of `EllipticCurves.FunctionField.MulByNTranscendence`,
+whose own `private` fixture **is** in the closure and is still not enough — `MulByNIntegral` pulls
+in `DivisionRing.toRatAlgebra`, which displaces the `AlgebraicClosure.instAlgebra` that fixture was
+elaborated against, so the two `((y2AddYEqX3 ℚ)⁄AlgClosedQ)` are different terms here. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 

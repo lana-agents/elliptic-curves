@@ -254,8 +254,20 @@ base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `
 
 open EllipticCurves.Fixture
 
-/-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
+/-- ⚠️ **Load-bearing, and measured rather than asserted** (`#1397`). `WeierstrassCurve.baseChange`
+is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by bare `inferInstance` from
+`[W.IsElliptic]`; `inferInstanceAs` on the unfolded `map` form is what works. Deleting this
+instance leaves `lake env lean` on this file at exit `1` with **4** occurrences of
+`failed to synthesize instance of type class WeierstrassCurve.IsElliptic (y2AddYEqX3 ℚ)⁄AlgClosedQ`
+— all four of that class, the first on the `example` certifying
+`(5 : ℕ) • genericPoint ≠ 0`. The generic warning above it is true but unfalsifiable; the count is
+checkable in one command.
+
+⚠️ **Do not delete it on the strength of
+`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange`**, the public general
+`(W⁄F).IsElliptic` that made the same fixture redundant in
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`: that module is **not** in this
+file's import closure. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 

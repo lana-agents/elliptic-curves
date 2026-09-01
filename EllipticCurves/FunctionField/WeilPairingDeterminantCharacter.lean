@@ -410,15 +410,38 @@ section Nonvacuity
 
 /-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
 base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
-`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
-`IsElliptic` here. -/
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance supplies
+`(y2AddYEqX3 ℚ).IsElliptic`.
+
+⚠️ **Unlike its sibling blocks this one carries no
+`private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic`, and the omission is deliberate: the
+local copy was dead** (`#1397`). `WeierstrassCurve.baseChange` is a plain `def`, so the
+base-changed instance is still **not** reached from `[W.IsElliptic]` by bare `inferInstance` — it
+simply does not have to be declared here, because
+`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange`, the library's only
+public general `(W⁄F).IsElliptic`, is in this file's import closure. Measured: with the local
+instance deleted, `lake env lean` on this file exits `0` with `0` errors.
+
+⚠️ **Instance search does not in fact select that public one — it selects
+`EllipticCurves.TateModule.DeterminantMod`'s `private` fixture — because `private` hides a *name*
+and does not scope an *instance*.** A `private instance` is live in every module downstream of the
+one that declares it, so the `#916` fixtures are not per-file in the way their `private` keyword
+suggests. Both close this goal. The public one is nevertheless the supplier worth naming, because
+it quantifies over the `Algebra ℚ AlgClosedQ` instance, whereas a fixture is frozen at whichever
+one its own file elaborated against — and that instance is **not** the same term throughout this
+library (`AlgebraicClosure.instAlgebra` here and in `MulByNTranscendence`,
+`DivisionRing.toRatAlgebra` in `MulByNIntegral` and downstream of it).
+
+⚠️ **There is no import-pruner hazard here, in contrast to `#1383`.** All three carriers of the
+instance are needed by *name* as well, so an identifier-driven pruner keeps them: dropping
+`WeilPairingDeterminant` alone gives `Unknown identifier exists_zsmul_add_zsmul_eq_three`, dropping
+`WeilPairingRationalTorsionGalois` alone gives
+`Unknown identifier exists_galoisModularCyclotomicChar_three_ne_one`, and dropping
+`TateModule.DeterminantMod` alone gives 41 errors headed by
+`failed to synthesize Module (ZMod 3) ↥(W.torsion 3)`. ⚠️ **None of the three produces a
+`failed to synthesize … IsElliptic`** — any remaining pair still supplies it. -/
 
 open EllipticCurves.Fixture
-
-/-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
-  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
 private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
