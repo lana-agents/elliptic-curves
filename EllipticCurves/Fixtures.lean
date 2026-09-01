@@ -101,6 +101,58 @@ proves `IsElliptic`, and touches no point at all. Every consuming block imports 
 anyway for its own statements, so **this buys no build time**; it is here because a leaf that
 ~119 files import should carry the import it uses and no more.
 
+## The base-changed `IsElliptic` instances: the 18 that are NOT here, and the 4 that are alive
+
+⚠️ **Measured on `db0c65b` (`#1405`) and pinned to it**, in the sense the paragraph on counts above
+sets out. PR #535 (`#1397`) deletes one of the eighteen, so this is an 18-row measurement at that
+commit rather than a description of the tree today, and it must not be "corrected" to the current
+tree.
+
+`WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by bare
+`inferInstance` from `[W.IsElliptic]`, and eighteen files carry their own two-line
+`private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic := inferInstanceAs …` to bridge it.
+`#1405` deleted each of the eighteen in turn and re-elaborated its own module with `lake env lean`.
+**Four are load-bearing; fourteen are dead.**
+
+| module whose fixture is load-bearing | `failed to synthesize` after deleting it |
+| --- | --- |
+| `Torsion.ThreePrimary` | **3**, all `IsElliptic (y2AddYEqX3 ℚ)⁄AlgClosedQ` |
+| `TateModule.FreeThree` | **5**, all `IsElliptic (y2AddYEqX3 ℚ)⁄AlgClosedQ` |
+| `FunctionField.MulByNPlacePullback` | **12** = **3** `IsElliptic` + **9** `IsDedekindDomain` |
+| `FunctionField.MulByNTranscendence` | **4**, all `IsElliptic` |
+
+The other fourteen re-elaborate at exit `0` with **zero** errors. ⚠️ **Group the failures by class
+before quoting a count**: `MulByNPlacePullback`'s headline `12` is three quarters the *dependent*
+class `IsDedekindDomain ((y2AddYEqX3 ℚ)⁄AlgClosedQ).CoordinateRing`, and
+`grep -A1 "failed to synthesize" | grep "^  " | sort | uniq -c` is the whole recipe.
+
+⚠️ **`private` hides a NAME, not an INSTANCE** (`#1397`). A `private instance` takes part in
+typeclass resolution in every module downstream of the one that declares it. So a dead fixture is
+dead because *another file's* `private` one is winning — measured, that is the supplier at all
+fourteen — and never because this module supplies it. This module supplies none of them.
+
+**The rule, and it is exact on all eighteen.** A fixture is dead **iff** some other fixture-bearing
+module in its `EllipticCurves`-import closure elaborates against the *same* `Algebra ℚ AlgClosedQ`
+instance that it does. That instance is not unique in this library: the two `Torsion/` sites and
+`FunctionField.MulByNTranscendence` read `AlgebraicClosure.instAlgebra`, while all thirteen
+`TateModule/` sites and the other two `FunctionField/` ones read `DivisionRing.toRatAlgebra`
+(measured site by site, one `synthInstance` probe per file). A fixture is
+`inferInstanceAs`-elaborated against its own file's path and stops matching where the path flips,
+so import distance alone does not decide this. ⚠️ **Two of the eighteen are exactly where those two
+answers differ**: `TateModule.FreeThree` has two fixture modules in closure and
+`FunctionField.MulByNPlacePullback` has one, and all three of those are on the other path, so
+closure predicts both are dead and both are in fact load-bearing. Import distance has been the
+stated argument for this family more than once; run the deletion instead.
+
+⚠️ **None of the fourteen is deleted, and the reason is not that they are useful.** Each is kept
+alive only by another file's `private` fixture, which no import names and nothing pins; deleting
+them would replace fourteen independent two-line bridges with one hidden cascade rooted at
+`TateModule.FreeThree` and `Torsion.ThreePrimary`. `#1408` is the version that is safe, and it is
+**spiked**: a two-line general `(W⁄F).IsElliptic` instance *in this module* lets all eighteen be
+deleted with a green root build at the same job count. It needs nothing beyond the two Mathlib
+imports above, so the leaf property survives it — and ⚠️ **the leaf property is what makes it work,
+not what prevents it**, which is the opposite of what two of the fixture docstrings used to say.
+
 ## Characteristic side-conditions
 
 At `5e5768c` the `#916` blocks also carried **85** copies of `(2 : F) ≠ 0` and **64** of

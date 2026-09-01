@@ -338,7 +338,17 @@ supply `(y2AddYEqX3 ℚ).IsElliptic` from a single `[CharZero F]` instance.  Onl
 open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
-bare `inferInstance` from `[W.IsElliptic]`. -/
+bare `inferInstance` from `[W.IsElliptic]`.
+
+⚠️ **Measured dead** (`#1405`, at `db0c65b`): deleting this instance leaves the file elaborating
+with exit `0` and zero errors. The winner is the `private` fixture in
+`EllipticCurves.TateModule.MatrixRepThree`, live here because `private` hides a *name*, not an
+*instance*, so it takes part in resolution in every module downstream of the one that declares it.
+
+⚠️ **That is not a licence to delete it.** The supplier is another file's `private` declaration,
+named by no import and pinned by nothing, and the whole `TateModule/` chain traces back to
+`EllipticCurves.TateModule.FreeThree`'s, which is load-bearing. `#1408` is the safe removal, and
+`EllipticCurves.Fixtures` carries the 18-site matrix and the rule that decides it. -/
 private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
   inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
