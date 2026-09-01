@@ -39,8 +39,15 @@ formula is issue `#251`, packaged as `WeierstrassCurve.Affine.HasXCoordFormula` 
 (`hasXCoordFormula_two`) and `n = 3` (`hasXCoordFormula_three`).  Everything below is a statement
 about the *polynomials* `Φ`, `ΨSq`, `ψ` and their values, never about `n • P` — with the single
 exception of `EllipticCurves.Torsion.XDifferencePoint`, which instantiates the point-level reading
-at `(p, q) = (2, 3)` where both instances exist.  ⚠️ Read `Φₙ/ΨSqₙ` below as "the
-division-polynomial `x`-coordinate at `n`", not as `x(n • P)`.
+at `(p, q) = (3, 2)` where both instances exist.  ⚠️ The order matters there: the identity is
+antisymmetric under `p ↔ q`, so `(3, 2)` and `(2, 3)` differ by a sign.  ⚠️ Read `Φₙ/ΨSqₙ` below as
+"the division-polynomial `x`-coordinate at `n`", not as `x(n • P)`.
+
+⚠️ Neither `EllipticCurves.Torsion.NsmulSurjective` nor `EllipticCurves.Torsion.XDifferencePoint`
+is in this file's import closure, so `HasXCoordFormula`, `hasXCoordFormula_two` and
+`hasXCoordFormula_three` are named here and used nowhere below.  `XDifferencePoint` imports this
+file, so it is a forward reference; `NsmulSurjective` neither imports this file nor is imported by
+it, so it is import-incomparable with it and the two meet only at the root `EllipticCurves`.
 
 ## Why this is a Ward corollary and could not be written before
 
@@ -144,8 +151,16 @@ theorem ψ_two_mul_add_one (n : ℤ) :
   exact h
 
 /-- `ψ_{2n}·ψ₂ = φ_{n−1}·ψ_{n+1}² − φ_{n+1}·ψ_{n−1}²`: the even index-doubling formula in terms of
-`φ`.  The `ψ₂` on the left is the same one that Mathlib's `ψ_mul_Ω` carries and cannot be removed
-over a general ring. -/
+`φ`.  The `ψ₂` on the left is the same spurious factor that `ψ_mul_Ω` (`ψ₂ₙ·ψ₂ = ψₙ·Ωₙ`) carries,
+and for the same reason: `ψ` at an even index is divisible by `ψ₂`, and Mathlib's `normEDS_even`
+pins `ψ₂ₙ` only up to that factor.
+
+⚠️ `ψ_mul_Ω` is **not** Mathlib's — it is `EllipticCurves.Torsion.OmegaDivisionPolynomial`'s, and
+that module neither imports this file nor is imported by it, so the name is cited here and used
+nowhere below.  ⚠️ Nor is the `ψ₂` irremovable in principle: that same module's `preΨ_two_mul`
+(`preΨ₂ₙ = preΨₙ·preΩₙ`) is the univariate form with nothing left to cancel, over an arbitrary
+`CommRing`.  What is true is narrower — in **this** bivariate statement about `ψ` there is no
+`ψ₂`-free form over a general ring, because cancelling it needs `ψ₂` to be a non-zero-divisor. -/
 theorem ψ_two_mul_mul_ψ_two (n : ℤ) :
     W.ψ (2 * n) * W.ψ 2 = W.φ (n - 1) * W.ψ (n + 1) ^ 2 - W.φ (n + 1) * W.ψ (n - 1) ^ 2 := by
   have h := W.ψ_add_mul_ψ_sub (n + 1) (n - 1)
@@ -162,9 +177,15 @@ the *univariate* polynomials `Φ` and `ΨSq`, evaluated at the `x`-coordinate:
 ψ_{p+q}(x, y)·ψ_{p−q}(x, y) = Φ_q(x)·ΨSq_p(x) − Φ_p(x)·ΨSq_q(x).
 ```
 
-The left-hand side is genuinely bivariate — `ψ_{p+q}·ψ_{p−q}` is an *odd* product exactly when
-`p + q` and `p − q` have opposite parities, which never happens, so it is in fact a polynomial in
-`x` alone; but the two factors need not be, and the statement is about their values. -/
+The two factors on the left are genuinely bivariate — `ψ_k` at an even `k` is divisible by
+`ψ₂ = 2Y + a₁X + a₃` — but their *product* is not, because `p + q` and `p − q` always have the
+**same** parity, so the product is invariant under the hyperelliptic involution and hence lies in
+`R[X]` **in the coordinate ring**.
+
+⚠️ That last step is modulo `W.Equation` and not before it.  In `R[X][Y]` itself the product need
+not be a polynomial in `x`: at `(p, q) = (2, 0)` on `y² = x³ + 1` it is `ψ₂² = 4Y²`, of `Y`-degree
+`2`.  This is exactly why the hypothesis `h : W.Equation x y` is needed below — it is what
+`ψ_sq_evalEval` consumes to rewrite `ψ_k²` as `ΨSq_k`. -/
 theorem ψ_add_mul_ψ_sub_evalEval (h : W.Equation x y) (p q : ℤ) :
     (W.ψ (p + q)).evalEval x y * (W.ψ (p - q)).evalEval x y
       = (W.Φ q).eval x * (W.ΨSq p).eval x - (W.Φ p).eval x * (W.ΨSq q).eval x := by
