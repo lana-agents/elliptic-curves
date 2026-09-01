@@ -6,9 +6,10 @@ Authors: The Elliptic Curves formalisation contributors
 import EllipticCurves.Torsion.OmegaUniversal
 import Mathlib.Algebra.CharP.Algebra
 import Mathlib.Algebra.CharZero.Infinite
+import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 
 /-!
-# `HasPreΩSq` reduces to its EVALUATED form over a characteristic-`0` field
+# `HasPreΩSq` reduces to its EVALUATED form over an ALGEBRAICALLY CLOSED characteristic-`0` field
 
 `EllipticCurves.Torsion.OmegaUniversal` reduces the univariate identity
 `WeierstrassCurve.HasPreΩSq n`, quantified over every commutative ring and every curve, to the
@@ -23,7 +24,8 @@ two polynomials agreeing at every point of such a ring are equal (`Polynomial.fu
 with the universal reduction, that gives
 
 **`HasPreΩSq n` for every curve over every commutative ring, from the EVALUATED identity at every
-point of every characteristic-`0` field.**
+point of every characteristic-`0` field** — and, one embedding further, from the evaluated identity
+over every **algebraically closed** such field.
 
 ## Why that is the useful direction
 
@@ -47,17 +49,32 @@ cash-out: the polynomial identity at `n = 3`, over **every** commutative ring, i
   evaluated identity at every point gives the polynomial identity.
 * `WeierstrassCurve.hasPreΩSq_of_forall_charZero` : if the polynomial identity holds for every
   curve over every characteristic-`0` field, it holds for every curve over every commutative ring.
-* `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt_charZero` : the two composed, and the form in
-  which `#404`'s crux should now be attacked.
+* `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt_charZero` : the two composed.
+* `WeierstrassCurve.hasPreΩSq_of_forall_algClosed` and
+  `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt_algClosed` : the same with the base
+  additionally **algebraically closed**, by descending along `F → AlgebraicClosure F`.
+* `WeierstrassCurve.hasPreΩSq_of_forall_hasΨSqDoubling_algClosed` : **the form in which `#404`'s
+  crux should now be attacked** — the `preΩ`-free identity `HasΨSqDoubling` of
+  `EllipticCurves.Torsion.OmegaOnCurve`, over every curve over every algebraically closed field of
+  characteristic `0`.
 * `WeierstrassCurve.hasPreΩSq_three` : `HasPreΩSq 3`, for every curve over every commutative ring.
 
 ## ⚠️ What this settles and what it does not
 
 **`#404` is not closed.**  Its crux is `HasPreΩSq` at *general* `n`.  This file closes `n = 3` and
 re-poses the general question in a strictly weaker form: it is now enough to prove the **evaluated**
-identity at every point of a characteristic-`0` field, where `2`, `3` and `4` are units and the
-545-monomial route is legal.  `hasPreΩSq_of_forall_hasPreΩSqAt_charZero` is that statement and is
-the durable content here; `hasPreΩSq_three` is one instance of it.
+identity at every point of an **algebraically closed** characteristic-`0` field, where `2`, `3` and
+`4` are units, the 545-monomial route is legal, and `Ψ₂Sq` splits.
+`hasPreΩSq_of_forall_hasΨSqDoubling_algClosed` is the strongest such statement here and is the
+durable content; `hasPreΩSq_three` is one instance of it.
+
+⚠️ **Every hypothesis these reductions drop is a hypothesis on the *base*, never on the
+*conclusion*.**  All five conclude `W.HasPreΩSq n` for an arbitrary `W` over an arbitrary
+`CommRing`, and they differ only in what a prover is allowed to assume while discharging the
+hypothesis.  A reduction is worth nothing if its hypothesis is unsatisfiable, which is what the
+certificates at the end of this file are for: `hasPreΩSq_three_algClosed` re-derives `n = 3`
+through the algebraically closed route and `hasPreΩSq_three_roundTrip` through `HasΨSqDoubling` and
+back.
 
 ⚠️ **This is not the circular route, and the distinction is easy to lose.**
 `EllipticCurves.Torsion.OmegaUniversal`'s docstring warns that a generic-point argument is where
@@ -140,6 +157,62 @@ theorem hasPreΩSq_of_forall_hasPreΩSqAt_charZero {n : ℤ}
   hasPreΩSq_of_forall_charZero
     (fun F _ _ V => hasPreΩSq_of_forall_hasPreΩSqAt (h F V)) W
 
+/-! ### The reduction to an ALGEBRAICALLY CLOSED characteristic-`0` field -/
+
+/-- **`HasPreΩSq n` over every algebraically closed characteristic-`0` field gives it over every
+commutative ring.**  One more step than `hasPreΩSq_of_forall_charZero`, and it costs one line: a
+field embeds in its algebraic closure, that closure is still of characteristic `0`, and
+`hasPreΩSq_of_map` descends the identity back along the embedding.
+
+⚠️ **This is not free strength for its own sake — it is the hypothesis the classical proof wants.**
+Over an algebraically closed field `Ψ₂Sq = 4X³ + b₂X² + 2b₄X + b₆` splits, so the three nontrivial
+`2`-torsion points are rational and the bracket of `HasΨSqDoubling` factors as
+`4·∏ᵢ (Φₙ − eᵢ·ΨSqₙ)`; the classical argument for the crux is that each of those three factors is a
+square.  None of that is available over a general characteristic-`0` field, and every earlier note
+on `#404` posed the crux over one. -/
+theorem hasPreΩSq_of_forall_algClosed {n : ℤ}
+    (h : ∀ (F : Type) [Field F] [CharZero F] [IsAlgClosed F] (V : WeierstrassCurve F),
+      V.HasPreΩSq n) (W : WeierstrassCurve R) : W.HasPreΩSq n :=
+  hasPreΩSq_of_forall_charZero (fun F _ _ V =>
+    hasPreΩSq_of_map (f := algebraMap F (AlgebraicClosure F))
+      (algebraMap F (AlgebraicClosure F)).injective
+      (h (AlgebraicClosure F) (V.map (algebraMap F (AlgebraicClosure F))))) W
+
+/-- **The evaluated identity at every point of every algebraically closed characteristic-`0` field
+suffices.**  `hasPreΩSq_of_forall_hasPreΩSqAt_charZero` with the base additionally algebraically
+closed: strictly the weakest hypothesis of the four reductions in this file, and the one to
+discharge. -/
+theorem hasPreΩSq_of_forall_hasPreΩSqAt_algClosed {n : ℤ}
+    (h : ∀ (F : Type) [Field F] [CharZero F] [IsAlgClosed F] (V : WeierstrassCurve F) (x : F),
+      V.HasPreΩSqAt n x)
+    (W : WeierstrassCurve R) : W.HasPreΩSq n :=
+  hasPreΩSq_of_forall_algClosed
+    (fun F _ _ _ V => hasPreΩSq_of_forall_hasPreΩSqAt (h F V)) W
+
+/-- **⚠️ THE FORM `#404`'s CRUX SHOULD NOW BE ATTACKED IN.**  To prove `HasPreΩSq n` for every
+Weierstrass curve over every commutative ring — hence, through
+`WeierstrassCurve.Affine.equation_of_hasPreΩSq`, the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` — it
+is enough to prove
+
+```
+ΨSq₂ₙ = ΨSqₙ · (4Φₙ³ + b₂Φₙ²ΨSqₙ + 2b₄ΦₙΨSqₙ² + b₆ΨSqₙ³)
+```
+
+for every curve over every **algebraically closed field of characteristic `0`**.
+
+Three things have been given up along the way and none of them was ever part of the statement:
+`preΩ` (this project's own construction — the target above is written in Mathlib's `Φ`, `ΨSq` and
+`b₂/b₄/b₆` alone), an arbitrary base ring (now a field where `2`, `3` and `4` are units), and an
+arbitrary field (now one where `Ψ₂Sq` splits).
+
+⚠️ `hn : n ≠ 0` is not a restriction: `hasPreΩSq_zero` is unconditional. -/
+theorem hasPreΩSq_of_forall_hasΨSqDoubling_algClosed {n : ℤ} (hn : n ≠ 0)
+    (h : ∀ (F : Type) [Field F] [CharZero F] [IsAlgClosed F] (V : WeierstrassCurve F),
+      V.HasΨSqDoubling n)
+    (W : WeierstrassCurve R) : W.HasPreΩSq n :=
+  hasPreΩSq_of_forall_algClosed
+    (fun F _ _ _ V => hasPreΩSq_of_hasΨSqDoubling V (Int.cast_ne_zero.mpr hn) (h F V)) W
+
 /-! ### The polynomial identity at `n = 3` -/
 
 /-- **`HasPreΩSq 3`, for every Weierstrass curve over every commutative ring.**  The input is
@@ -171,5 +244,22 @@ docstring states the identity is true but out of reach by `ring1`.  ⚠️ Do no
 `hasPreΩSq_three`. -/
 theorem hasPreΩSq_three_int (W : WeierstrassCurve ℤ) : W.HasPreΩSq 3 :=
   hasPreΩSq_three W
+
+/-- **The certificate that `HasΨSqDoubling` is a faithful restatement and not a weaker one**: the
+`n = 3` identity is pushed through `HasPreΩSq.hasΨSqDoubling` into the `x`-coordinate form and
+pulled back through `hasPreΩSq_of_hasΨSqDoubling`, over `ℚ`, arriving at the statement it started
+from.  A reformulation that had quietly lost content would not survive the round trip.  ⚠️ Do not
+cite this; use `hasPreΩSq_three`. -/
+theorem hasPreΩSq_three_roundTrip (W : WeierstrassCurve ℚ) : W.HasPreΩSq 3 :=
+  hasPreΩSq_of_hasΨSqDoubling W (by norm_num) ((hasPreΩSq_three W).hasΨSqDoubling W)
+
+/-- **The certificate that the algebraically closed reduction is usable**: `hasPreΩSq_three` is
+re-derived through `hasPreΩSq_of_forall_hasPreΩSqAt_algClosed` rather than through
+`hasPreΩSq_of_forall_hasPreΩSqAt_charZero`, so a reduction whose extra `[IsAlgClosed F]` had made
+its hypothesis unsatisfiable would break the build here.  ⚠️ Do not cite this; use
+`hasPreΩSq_three`. -/
+theorem hasPreΩSq_three_algClosed (W : WeierstrassCurve R) : W.HasPreΩSq 3 :=
+  hasPreΩSq_of_forall_hasPreΩSqAt_algClosed
+    (fun _ _ _ _ V x => Affine.hasPreΩSqAt_three (W := V.toAffine) two_ne_zero x) W
 
 end WeierstrassCurve
