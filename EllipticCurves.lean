@@ -344,6 +344,7 @@ import EllipticCurves.TateModule.PrimaryMatrixRepBasisChange
 import EllipticCurves.TateModule.PrimaryMatrixRepCompat
 import EllipticCurves.TateModule.Profinite
 import EllipticCurves.Torsion.AbelianStructure
+import EllipticCurves.Torsion.Collinearity
 import EllipticCurves.Torsion.CoordinateRingDedekind
 import EllipticCurves.Torsion.Coprime
 import EllipticCurves.Torsion.CoprimeStructure
