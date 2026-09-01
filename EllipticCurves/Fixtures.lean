@@ -135,9 +135,20 @@ class `IsDedekindDomain ((y2AddYEqX3 ℚ)⁄AlgClosedQ).CoordinateRing`, and
 
 ⚠️ **`private` hides a NAME, not an INSTANCE** (`#1397`). A `private instance` takes part in
 typeclass resolution in every module downstream of the one that declares it. So a dead fixture is
-dead because *another file's* `private` one is winning — measured, that was the supplier at all
-fourteen, and at `db0c65b` this module declared no base-change instance for any of them to
-reach.
+usually dead because *another file's* `private` one is winning — measured, that was the supplier at
+**thirteen** of the fourteen, and at `db0c65b` this module declared no base-change instance for any
+of them to reach.
+
+⚠️ **The fourteenth is `FunctionField.WeilPairingDeterminantCharacter`, and it is the exception in
+the direction that matters**: it is the one site of the eighteen with the library's other general
+instance, `WeierstrassCurve.Affine.CoordinateRing.instIsEllipticBaseChange`, in its
+`EllipticCurves`-import closure — measured over all eighteen, and by elaboration rather than only by
+an import walk, since that name closes the goal there and is an `Unknown constant` in
+`TateModule.Profinite`. So its supplier was public, general and named, not private; and it reads
+`DivisionRing.toRatAlgebra` where the module declaring that instance reads
+`AlgebraicClosure.instAlgebra`, so it is also the one measured demonstration that a **quantified**
+supplier matches across the `Algebra ℚ AlgClosedQ` paths the rule below turns on. That is why PR
+#535 (`#1397`) deleted that fixture and only that one.
 
 **The rule, and it is exact on all eighteen.** A fixture is dead **iff** some other fixture-bearing
 module in its `EllipticCurves`-import closure elaborates against the *same* `Algebra ℚ AlgClosedQ`
@@ -153,12 +164,15 @@ closure predicts both are dead and both are in fact load-bearing. Import distanc
 stated argument for this family more than once; run the deletion instead.
 
 ⚠️ **Deleting the fourteen dead ones on their own would have been the wrong move, and that is why
-`#1408` did something else.** Each was kept alive only by another file's `private` fixture, which
-no import names and nothing pins, and every `TateModule/` chain rooted at `TateModule.FreeThree`;
-removing them by themselves would have traded fourteen independent two-line bridges for one hidden
-cascade. `#1408` removed the cascade instead, by putting the quantified instance below in a module
-all eighteen already import — and a quantified instance is what the rule above says is needed,
-since it matches at either `Algebra ℚ AlgClosedQ` path where a fixture matches at only one.
+`#1408` did something else.** Thirteen of them were kept alive only by another file's `private`
+fixture, which no import names and nothing pins — and inside `TateModule/` those suppliers chain,
+rooted at `TateModule.FreeThree`. Removing those thirteen by themselves would have traded thirteen
+independent two-line bridges for one hidden cascade. The fourteenth is the case that had a public
+general supplier and could be removed on its own, and PR #535 removed it and stopped there.
+`#1408` removed the cascade instead, by putting the quantified
+instance below in a module all eighteen already import — and a quantified instance is what the rule
+above says is needed, since it matches at either `Algebra ℚ AlgClosedQ` path where a fixture
+matches at only one.
 
 ⚠️ **The leaf property is what makes that work, not what prevents it**, which is the opposite of
 what two of the fixture docstrings used to say. Their argument was that the tree's only general
