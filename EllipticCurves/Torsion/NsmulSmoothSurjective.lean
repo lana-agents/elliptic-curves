@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.ThreePrimary
 
 /-!
@@ -120,20 +121,20 @@ committed rather than quoted. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldBar : Type := AlgebraicClosure ℚ
+/-! The base and the curve are the shared `EllipticCurves.Fixture.AlgClosedQ` — an algebraic
+closure of `ℚ`, so `[IsAlgClosed F]` and `(2 : F) ≠ 0` are both available — and
+`EllipticCurves.Fixture.y2AddYEqX3` at that base: `y² + y = x³`, of discriminant `−27`.  ⚠️ The
+curve is stated over the closure rather than over `ℚ` because `nsmul_surjective_of_smooth` asks for
+`[IsAlgClosed F]`; that is the difference between this block and the `ℚ`-based ones in
+`Torsion.DoublingSurjective` and `Torsion.TriplingSurjective`, whose whole point is that no closure
+is needed.  `(y2AddYEqX3 AlgClosedQ).IsElliptic` comes from the single `[CharZero F]` instance in
+`Fixtures`; the `DecidableEq` instance below is not a fixture and stays here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveBar : Affine exampleFieldBar := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private noncomputable instance : DecidableEq exampleFieldBar := Classical.decEq _
+private noncomputable instance : DecidableEq AlgClosedQ := Classical.decEq _
 
-private lemma exampleBarTwo : (2 : exampleFieldBar) ≠ 0 := by norm_num
-
-private instance : exampleCurveBar.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveBar, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion.  Bounding `p` and
@@ -146,8 +147,8 @@ private lemma smoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p = 3 := b
 
 /-- **`[12]` is surjective on `y² + y = x³` over `AlgebraicClosure ℚ`, committed** — an index at
 which neither merged surjectivity theorem says anything. -/
-example : Function.Surjective fun P : exampleCurveBar.Point => (12 : ℕ) • P :=
-  nsmul_surjective_of_smooth (W := exampleCurveBar) exampleBarTwo (by norm_num) smoothTwelve
+example : Function.Surjective fun P : (y2AddYEqX3 AlgClosedQ).Point => (12 : ℕ) • P :=
+  nsmul_surjective_of_smooth (W := y2AddYEqX3 AlgClosedQ) exampleTwo (by norm_num) smoothTwelve
 
 end Nonvacuity
 
