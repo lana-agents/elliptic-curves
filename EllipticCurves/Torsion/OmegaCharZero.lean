@@ -18,8 +18,8 @@ reduction one step further, in the direction that matters for actually proving i
 
 `EllipticCurves.Torsion.OmegaOnCurve` carries **two** forms of the identity: the polynomial
 `HasPreΩSq n`, an equation in `R[X]`, and the evaluated `HasPreΩSqAt n x`, the same equation at one
-`x : R`.  The polynomial form implies the evaluated one at every point (`HasPreΩSq.at`), and that
-file records the converse as unavailable.  Over an **infinite integral domain** it is available:
+`x : R`.  The polynomial form implies the evaluated one at every point (`HasPreΩSq.at`); at a
+single `x` there is no way back.  Over an **infinite integral domain** there is:
 two polynomials agreeing at every point of such a ring are equal (`Polynomial.funext`).  Composed
 with the universal reduction, that gives
 

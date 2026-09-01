@@ -49,9 +49,15 @@ harder than it is; `hasPreΩSq_of_univQ` says the general case costs nothing ext
 characteristic-`0` case is done.
 
 ⚠️ **Nothing here proves the crux.**  This file changes what has to be proved, not whether it is
-proved.  `WeierstrassCurve.hasPreΩSq_two` remains the largest index for which `HasPreΩSq` is known,
-and `hasPreΩSq_of_univQ univQ.hasPreΩSq_two` reproving it everywhere is a non-vacuity check on the
-reduction, not progress on `#404`.
+proved, and `hasPreΩSq_of_univQ univQ.hasPreΩSq_two` reproving `n = 2` everywhere is a non-vacuity
+check on the reduction rather than progress on `#404`.
+
+What the reduction is *for* is cashed out one file later.
+`EllipticCurves.Torsion.OmegaCharZero` composes it with `Polynomial.funext` and obtains
+`WeierstrassCurve.hasPreΩSq_three`: the polynomial identity at `n = 3` over **every** commutative
+ring, including where `2 = 0`, out of an evaluated lemma that assumes `(2 : F) ≠ 0` — and with no
+new algebra at all.  ⚠️ That is a new *index*, not a new *proof*: `HasPreΩSq` at **general** `n` is
+untouched by either file and is still the crux left in `#404`.
 
 ⚠️ **The circularity to be aware of before attacking the crux.**  The classical proof of this
 identity identifies `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` and then observes that

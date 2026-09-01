@@ -76,7 +76,10 @@ about `preΨ`, so both live in `EllipticCurves.Torsion.OmegaDivisionPolynomial`;
   commutative ring and in every characteristic.
 * `WeierstrassCurve.HasPreΩSq.neg`: the identity is an even function of the index, so those three
   give `n ∈ {0, ±1, ±2}`.
-* `WeierstrassCurve.HasPreΩSq.at`: the polynomial identity implies the evaluated one.
+* `WeierstrassCurve.HasPreΩSq.at`: the polynomial identity implies the evaluated one.  ⚠️ At a
+  *single* `x` there is no way back, but from the evaluated identity at **every** point of an
+  infinite integral domain there is: `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt` in
+  `EllipticCurves.Torsion.OmegaCharZero`.
 * `WeierstrassCurve.Affine.hasPreΩSqAt_three`: the evaluated identity at `n = 3`, over a field of
   characteristic `≠ 2`.
 * `WeierstrassCurve.Affine.equation_of_hasPreΩSqAt`: **the uniform half, written once.**  Given the
@@ -94,8 +97,14 @@ new index, and that it is exactly one univariate identity** — no bivariate wor
 `(n : F)`, no algebraically closed base, and no group-law input.  `HasPreΩSq` at general `n` is the
 crux left in issue `#404`.
 
-⚠️ **Why `n = 3` is committed in the evaluated form only, and why that is a measurement rather than
-a preference.**  The polynomial identity at `n = 3` is true over `ℤ` — it needs no characteristic
+⚠️ **The `n = 3` instance here is the evaluated `hasPreΩSqAt_three`; the polynomial identity at
+`n = 3` is `WeierstrassCurve.hasPreΩSq_three` and lives in
+`EllipticCurves.Torsion.OmegaCharZero`.**  It is derived from the evaluated one and adds no algebra;
+the next section is why it had to be derived rather than proved here.
+
+⚠️ **What proving `n = 3` in the polynomial form directly would have cost, and why that is a
+measurement rather than a preference.**  The polynomial identity at `n = 3` is true over `ℤ` — it
+needs no characteristic
 hypothesis — but `4b₈ = b₂b₆ − b₄²` is not available as a substitution over an arbitrary ring, so
 `ring1` must be run with the `aᵢ` as atoms.  Expanded that way each side of the `n = 3` identity has
 **9903 monomials in six atoms**, and the two ways of putting that to `ring1` were both measured
@@ -114,6 +123,20 @@ exactly why it needs a field of characteristic `≠ 2`.  The remaining character
 division and has **275 monomials**: a hundred-line constant with no independent meaning.  None of
 the three was worth taking; the engine assumes characteristic `≠ 2` regardless, so the evaluated
 form loses nothing at the point of use.
+
+⚠️ **All three of those routes attack the identity directly over the general ring, and that is why
+the enumeration read as exhaustive when it was not.**  There is a fourth, and it is the one that
+won: do not attack it over the general ring at all.  Prove the **evaluated** identity over a
+characteristic-`0` field, where `4` is a unit and the 545-monomial form above is legal, and then
+descend — `Polynomial.funext` over an infinite domain turns "at every point" into the polynomial
+identity, and `EllipticCurves.Torsion.OmegaUniversal`'s base change carries that down to every
+commutative ring.  That is `WeierstrassCurve.hasPreΩSq_three`, and its entire proof is
+`hasPreΩSqAt_three` fed through `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt_charZero`:
+**zero new algebra, and the 9903-monomial expansion is never run.**  The measurements above stand
+unchanged — they are what routes 1–3 cost — and the conclusion that none of the three is worth
+taking stands too; what moved is that none of them has to be taken.  ⚠️ Expect the same blind spot
+at `n = 4`: the question to ask first is not "how do I make `ring1` survive over `R`" but "what does
+this identity cost where `2`, `3` and `4` are units".
 
 ⚠️ **This is an on-curve identity for the classical division-polynomial coordinates, not a statement
 about `n • P`.**  Identifying `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple is a genuinely
@@ -158,8 +181,10 @@ def HasPreΩSq (n : ℤ) : Prop :=
 
 /-- **The `y`-coordinate on-curve identity at index `n`, evaluated at a single `x`.**  This is what
 the engine consumes: the on-curve verification happens at one point, so the polynomial identity is
-more than it needs.  ⚠️ It is also strictly weaker, and the difference is not academic — at `n = 3`
-the evaluated form is what this tree can afford to prove; see the module docstring. -/
+more than it needs.  ⚠️ At a single `x` it is also strictly weaker, and the difference is not
+academic — at `n = 3` the evaluated form is the only one this file can afford to prove, for the
+reasons the module docstring measures.  Quantified over **every** point of an infinite integral
+domain it is not weaker at all: see `WeierstrassCurve.hasPreΩSq_of_forall_hasPreΩSqAt`. -/
 def HasPreΩSqAt (n : ℤ) (x : R) : Prop :=
   (W.preΩ n).eval x ^ 2 * (if Even n then 1 else W.Ψ₂Sq.eval x) =
     4 * (W.Φ n).eval x ^ 3 + W.b₂ * (W.Φ n).eval x ^ 2 * (W.ΨSq n).eval x +
