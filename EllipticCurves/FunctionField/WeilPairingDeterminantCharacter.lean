@@ -411,46 +411,55 @@ section Nonvacuity
 /-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
 base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
 `EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance supplies
-`(y2AddYEqX3 ℚ).IsElliptic`.
+`(y2AddYEqX3 ℚ).IsElliptic`. The **base-changed** `((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic` is
+general and public, and this block declares no fixture of its own.
 
-⚠️ **Unlike its sibling blocks this one carries no
-`private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic`, and the omission is deliberate: the
-local copy was dead** (`#1397`). `WeierstrassCurve.baseChange` is a plain `def`, so the
-base-changed instance is still **not** reached from `[W.IsElliptic]` by bare `inferInstance` — it
-simply does not have to be declared here, because
-`EllipticCurves.FunctionField.GaloisFunctionField.instIsEllipticBaseChange`, the library's only
-public general `(W⁄F).IsElliptic`, is in this file's import closure. Measured: with the local
-instance deleted, `lake env lean` on this file exits `0` with `0` errors.
+⚠️ **This block was the first of eighteen to lose its
+`private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic`, and it is no longer the only one.**
+`#1397` deleted this one on the measurement that it was dead — with it removed, `lake env lean` on
+this file exits `0` with `0` errors — and `#1408` then retired the other seventeen behind
+`EllipticCurves.Fixture.instIsEllipticBaseChange`. `WeierstrassCurve.baseChange` is a plain `def`,
+so the base-changed instance is still **not** reached from `[W.IsElliptic]` by bare
+`inferInstance`; it is simply declared once, in a leaf, instead of eighteen times.
 
-⚠️ **Instance search does not in fact select that public one — it selects
-`EllipticCurves.TateModule.DeterminantMod`'s `private` fixture — because `private` hides a *name*
-and does not scope an *instance*.** A `private instance` is live in every module downstream of the
-one that declares it, so the `#916` fixtures are not per-file in the way their `private` keyword
-suggests. Both close this goal. The public one is nevertheless the supplier worth naming, because
-it quantifies over the `Algebra ℚ AlgClosedQ` instance, whereas a fixture is frozen at whichever
-one its own file elaborated against — and that instance is **not** the same term throughout this
-library. Measured by `Meta.synthInstance` on `Algebra ℚ AlgClosedQ`, reading the winner off
+⚠️ **Instance search here selects
+`WeierstrassCurve.Affine.CoordinateRing.instIsEllipticBaseChange`** — declared in
+`EllipticCurves.FunctionField.GaloisFunctionField`, which is in this file's import closure and is
+not in `Fixtures`' — rather than the leaf copy. Both are general, both are public and they are
+definitionally the same term, so which one wins is not observable; the two exist separately because
+`Fixtures` is a leaf and `GaloisFunctionField` is not reachable from `TateModule/` or `Torsion/`.
+⚠️ Before `#1408` the winner here was neither: it was
+`EllipticCurves.TateModule.DeterminantMod`'s **`private`** fixture, because `private` hides a
+*name* and does not scope an *instance*, so such a fixture takes part in resolution in every module
+downstream of the one declaring it. That measurement cannot be repeated now that the fixtures are
+gone; `EllipticCurves.Fixtures` records it, with the eighteen-site matrix it came from.
+
+⚠️ **Why a quantified instance and not a per-file one, in this file specifically.** A fixture is
+`inferInstanceAs`-elaborated against whichever `Algebra ℚ AlgClosedQ` its own file sees, and that
+is **not** the same term throughout this library, so it stops matching where the path flips.
+Measured by `Meta.synthInstance` on `Algebra ℚ AlgClosedQ`, reading the winner off
 `getAppFn.constName!` in a file importing the named module together with `EllipticCurves.Fixtures`
 (which is what makes `AlgClosedQ` nameable, and which `GaloisFunctionField` alone does not import):
 `AlgebraicClosure.instAlgebra` for `EllipticCurves.Fixtures` on its own, `MulByNTranscendence` and
 `GaloisFunctionField`; `DivisionRing.toRatAlgebra` **here**, in `MulByNIntegral` and in
-`MulByNPlacePullback`.
+`MulByNPlacePullback`. Both general instances quantify over that argument and so match at either
+path.
 
-⚠️ **Which of the two is selected is a property of the whole import set's instance ordering, not of
-any one module.** Each of this file's three non-`Fixtures` imports flips it to
+⚠️ **Which of the two paths is selected is a property of the whole import set's instance ordering,
+not of any one module.** Each of this file's three non-`Fixtures` imports flips it to
 `DivisionRing.toRatAlgebra` on its own, and `MulByNIntegral` — the module that carries the flip
-downstream in `MulByNPlacePullback` — is not in this file's closure at all. So a fixture written
-against one path cannot be assumed to transfer to a file whose import set differs, in either
-direction.
+downstream in `MulByNPlacePullback` — is not in this file's closure at all.
 
-⚠️ **There is no import-pruner hazard here, in contrast to `#1383`.** All three carriers of the
-instance are needed by *name* as well, so an identifier-driven pruner keeps them: dropping
-`WeilPairingDeterminant` alone gives `Unknown identifier exists_zsmul_add_zsmul_eq_three`, dropping
+⚠️ **There is no import-pruner hazard here, in contrast to `#1383`.** Every import is needed by
+*name* as well, so an identifier-driven pruner keeps them all: dropping `WeilPairingDeterminant`
+alone gives `Unknown identifier exists_zsmul_add_zsmul_eq_three`, dropping
 `WeilPairingRationalTorsionGalois` alone gives
 `Unknown identifier exists_galoisModularCyclotomicChar_three_ne_one`, and dropping
 `TateModule.DeterminantMod` alone gives 41 errors headed by
 `failed to synthesize Module (ZMod 3) ↥(W.torsion 3)`. ⚠️ **None of the three produces a
-`failed to synthesize … IsElliptic`** — any remaining pair still supplies it. -/
+`failed to synthesize … IsElliptic`**, and dropping the explicit `EllipticCurves.Fixtures` import
+leaves the file at exit `0` — it is reachable transitively. All five readings are unchanged by
+`#1408`, which is the point: retiring the fixtures moved the supplier and moved no error. -/
 
 open EllipticCurves.Fixture
 
