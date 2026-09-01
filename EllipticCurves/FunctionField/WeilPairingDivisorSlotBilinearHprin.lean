@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear
 
 /-!
@@ -425,33 +426,31 @@ private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 private lemma exampleThree : (3 : ℚ) ≠ 0 := by norm_num
 
-/-- The curve `y² = x³ − x` over `ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, whose single
+`[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-private lemma exampleNsS : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsS : (y2EqX3SubX ℚ).Nonsingular 0 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleNsT : exampleCurve.Nonsingular 1 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsT : (y2EqX3SubX ℚ).Nonsingular 1 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleNsR : exampleCurve.Nonsingular (-1) 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsR : (y2EqX3SubX ℚ).Nonsingular (-1) 0 :=
+  (y2EqX3SubX ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
-private lemma exampleTorsS : Point.some (0 : ℚ) 0 exampleNsS ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [exampleCurve])
+private lemma exampleTorsS : Point.some (0 : ℚ) 0 exampleNsS ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsS).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
-private lemma exampleTorsT : Point.some (1 : ℚ) 0 exampleNsT ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
+private lemma exampleTorsT : Point.some (1 : ℚ) 0 exampleNsT ∈ (y2EqX3SubX ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [y2EqX3SubX])
 
 /-- `(0, 0) ⊕ (1, 0) = (−1, 0)` on `y² = x³ − x` over `ℚ`.  The `x`-coordinates differ, so this is
 Mathlib's secant case: the slope is `0`, `addX = −1` and `addY = 0`. -/
@@ -460,31 +459,31 @@ private lemma exampleAdd : Point.some (0 : ℚ) 0 exampleNsS + Point.some (1 : �
   rw [Point.add_of_X_ne (by norm_num)]
   norm_num [WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
     WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
-    WeierstrassCurve.Affine.slope, exampleCurve]
+    WeierstrassCurve.Affine.slope, y2EqX3SubX]
 
 open Classical in
 /-- **Divisor-slot bilinearity at `n = 2` applies on a curve over `ℚ`**, at three *distinct*
 rational `2`-torsion points, with `hprin` the only hypothesis left. -/
-example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
-      Point.some x y h ∈ exampleCurve.torsion 2 →
-      ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
-        ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-          2 • divisor exampleCurve g₀
-            = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ gS gT gR : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
+example (hprin : ∀ {x y : ℚ} (h : (y2EqX3SubX ℚ).Nonsingular x y),
+      Point.some x y h ∈ (y2EqX3SubX ℚ).torsion 2 →
+      ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
+        ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+          2 • divisor (y2EqX3SubX ℚ) g₀
+            = divisor (y2EqX3SubX ℚ) (mulByTwoEndo exampleTwo f)) :
+    ∃ gS gT gR : (y2EqX3SubX ℚ).FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
       weilPairingElt exampleNsS.left gR
         = weilPairingElt exampleNsS.left gS * weilPairingElt exampleNsS.left gT :=
   exists_weilPairingElt_divisorSlot_add_two_of_hprin exampleTwo exampleNsS exampleNsS exampleNsT
@@ -495,26 +494,26 @@ open Classical in
 /-- **Divisor-slot bilinearity at `n = 2` in `μ_2(ℚ)`, on a curve over `ℚ`.**  ⚠️ The three `hpow`
 data are produced inside the headline from its own rung-5 certificates, so they are not an extra
 burden on the caller; they are bound here because `weilPairingMu` is indexed by them. -/
-example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
-      Point.some x y h ∈ exampleCurve.torsion 2 →
-      ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
-        ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-          2 • divisor exampleCurve g₀
-            = divisor exampleCurve (mulByTwoEndo exampleTwo f)) :
-    ∃ gS gT gR : exampleCurve.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
-      (∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-        divisor exampleCurve f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
-        ∃ u : exampleCurve.CoordinateRingˣ,
-          (u : exampleCurve.CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
+example (hprin : ∀ {x y : ℚ} (h : (y2EqX3SubX ℚ).Nonsingular x y),
+      Point.some x y h ∈ (y2EqX3SubX ℚ).torsion 2 →
+      ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) →
+        ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+          2 • divisor (y2EqX3SubX ℚ) g₀
+            = divisor (y2EqX3SubX ℚ) (mulByTwoEndo exampleTwo f)) :
+    ∃ gS gT gR : (y2EqX3SubX ℚ).FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsS.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsT.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gT ^ 2 = mulByTwoEndo exampleTwo f) ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsR.left) (2 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ,
+          (u : (y2EqX3SubX ℚ).CoordinateRing) • gR ^ 2 = mulByTwoEndo exampleTwo f) ∧
       ∃ hpowS : weilPairingElt exampleNsS.left gS ^ 2 = 1,
         ∃ hpowT : weilPairingElt exampleNsS.left gT ^ 2 = 1,
           ∃ hpowR : weilPairingElt exampleNsS.left gR ^ 2 = 1,
@@ -524,27 +523,19 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurve.Nonsingular x y),
     exampleNsR (by convert exampleTorsS) (by convert exampleTorsS) (by convert exampleTorsT)
     (by convert exampleAdd) fun h hm f hf hd => hprin h (by convert hm) f hf hd
 
-/-- The curve `y² + y = x³` over `ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+private lemma exampleNsThreeS : (y2AddYEqX3 ℚ).Nonsingular 0 0 :=
+  (y2AddYEqX3 ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleNsThreeS : exampleCurveThree.Nonsingular 0 0 :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
-
-private lemma exampleNsThreeR : exampleCurveThree.Nonsingular 0 (-1) :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsThreeR : (y2AddYEqX3 ℚ).Nonsingular 0 (-1) :=
+  (y2AddYEqX3 ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 private lemma exampleTorsThreeS :
-    Point.some (0 : ℚ) 0 exampleNsThreeS ∈ exampleCurveThree.torsion 3 :=
+    Point.some (0 : ℚ) 0 exampleNsThreeS ∈ (y2AddYEqX3 ℚ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
       WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
@@ -553,40 +544,40 @@ gives its negative, which is the other one. -/
 private lemma exampleAddThree :
     Point.some (0 : ℚ) 0 exampleNsThreeS + Point.some (0 : ℚ) 0 exampleNsThreeS
       = Point.some (0 : ℚ) (-1) exampleNsThreeR := by
-  rw [Point.add_of_Y_ne (by norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY])]
+  rw [Point.add_of_Y_ne (by norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY])]
   simp only [Point.some.injEq]
-  norm_num [exampleCurveThree, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+  norm_num [y2AddYEqX3, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
     WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.slope, WeierstrassCurve.Affine.negY]
 
 open Classical in
 /-- **Divisor-slot bilinearity at `n = 3` applies on a curve over `ℚ`**, with `hprin` the only
 hypothesis left.  ⚠️ Here `P = S = T = (0, 0)` and `R = (0, −1)`; see the section docstring for why
 no other `3`-torsion point of `y² + y = x³` is nameable. -/
-example (hprin : ∀ {x y : ℚ} (h : exampleCurveThree.Nonsingular x y),
-      Point.some x y h ∈ exampleCurveThree.torsion 3 →
-      ∀ f : exampleCurveThree.FunctionField, f ≠ 0 →
-        divisor exampleCurveThree f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) →
-        ∃ g₀ : exampleCurveThree.FunctionField, g₀ ≠ 0 ∧
-          3 • divisor exampleCurveThree g₀
-            = divisor exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)) :
-    ∃ gS gT gR : exampleCurveThree.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+example (hprin : ∀ {x y : ℚ} (h : (y2AddYEqX3 ℚ).Nonsingular x y),
+      Point.some x y h ∈ (y2AddYEqX3 ℚ).torsion 3 →
+      ∀ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 →
+        divisor (y2AddYEqX3 ℚ) f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) →
+        ∃ g₀ : (y2AddYEqX3 ℚ).FunctionField, g₀ ≠ 0 ∧
+          3 • divisor (y2AddYEqX3 ℚ) g₀
+            = divisor (y2AddYEqX3 ℚ) (mulByThreeEndo exampleTwo exampleThree f)) :
+    ∃ gS gT gR : (y2AddYEqX3 ℚ).FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gS ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gS ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gT ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gT ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeR.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gR ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gR ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
       weilPairingElt exampleNsThreeS.left gR
         = weilPairingElt exampleNsThreeS.left gS * weilPairingElt exampleNsThreeS.left gT :=
@@ -598,31 +589,31 @@ example (hprin : ∀ {x y : ℚ} (h : exampleCurveThree.Nonsingular x y),
 open Classical in
 /-- **Divisor-slot bilinearity at `n = 3` in `μ_3(ℚ)`, on a curve over `ℚ`.**  ⚠️ Here
 `P = S = T = (0, 0)`; see the section docstring. -/
-example (hprin : ∀ {x y : ℚ} (h : exampleCurveThree.Nonsingular x y),
-      Point.some x y h ∈ exampleCurveThree.torsion 3 →
-      ∀ f : exampleCurveThree.FunctionField, f ≠ 0 →
-        divisor exampleCurveThree f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) →
-        ∃ g₀ : exampleCurveThree.FunctionField, g₀ ≠ 0 ∧
-          3 • divisor exampleCurveThree g₀
-            = divisor exampleCurveThree (mulByThreeEndo exampleTwo exampleThree f)) :
-    ∃ gS gT gR : exampleCurveThree.FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+example (hprin : ∀ {x y : ℚ} (h : (y2AddYEqX3 ℚ).Nonsingular x y),
+      Point.some x y h ∈ (y2AddYEqX3 ℚ).torsion 3 →
+      ∀ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 →
+        divisor (y2AddYEqX3 ℚ) f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) →
+        ∃ g₀ : (y2AddYEqX3 ℚ).FunctionField, g₀ ≠ 0 ∧
+          3 • divisor (y2AddYEqX3 ℚ) g₀
+            = divisor (y2AddYEqX3 ℚ) (mulByThreeEndo exampleTwo exampleThree f)) :
+    ∃ gS gT gR : (y2AddYEqX3 ℚ).FunctionField, gS ≠ 0 ∧ gT ≠ 0 ∧ gR ≠ 0 ∧
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gS ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gS ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeS.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gT ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gT ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
-      (∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-        divisor exampleCurveThree f
+      (∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2AddYEqX3 ℚ) f
           = Finsupp.single (pointClosedPoint exampleNsThreeR.left) (3 : ℤ) ∧
-        ∃ u : exampleCurveThree.CoordinateRingˣ,
-          (u : exampleCurveThree.CoordinateRing) • gR ^ 3
+        ∃ u : (y2AddYEqX3 ℚ).CoordinateRingˣ,
+          (u : (y2AddYEqX3 ℚ).CoordinateRing) • gR ^ 3
             = mulByThreeEndo exampleTwo exampleThree f) ∧
       ∃ hpowS : weilPairingElt exampleNsThreeS.left gS ^ 3 = 1,
         ∃ hpowT : weilPairingElt exampleNsThreeS.left gT ^ 3 = 1,

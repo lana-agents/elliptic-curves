@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingRationalTorsion
 
 /-!
@@ -574,29 +575,25 @@ green and consume nothing: here a *refutation* was green and refuted nothing. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, `#936`'s `n = 3` certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **A pairing-basis of `E[3]` exists on a curve that exists**: a pair `(P, T)` with
 `e_3(P, T) ≠ 1` which spans.  Both halves are stated, so nothing is projected away. -/
-example : ∃ P T : (exampleCurve⁄exampleField).torsion 3,
+example : ∃ P T : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3,
     weilPairingThree exampleTwo exampleThree P T ≠ 1 ∧
-      ∀ Q : (exampleCurve⁄exampleField).torsion 3, ∃ a b : ℤ, Q = a • P + b • T := by
+      ∀ Q : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3, ∃ a b : ℤ, Q = a • P + b • T := by
   obtain ⟨P, T, hPT⟩ := exists_weilPairingThree_ne_one
-    (W := exampleCurve⁄exampleField) exampleTwo exampleThree
+    (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo exampleThree
   exact ⟨P, T, hPT, fun Q => exists_zsmul_add_zsmul_eq_three exampleTwo exampleThree hPT Q⟩
 
 open Classical in
@@ -605,15 +602,15 @@ pairing-basis, `σ` has a matrix in it, and the determinant of that matrix is `�
 
 ⚠️ Nothing here exhibits a `σ` with `χ_3 σ ≠ 1`; that is a statement about `AlgebraicClosure ℚ` and
 not about this curve, and `#947` owns it. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
-    ∃ P T : (exampleCurve⁄exampleField).torsion 3,
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
+    ∃ P T : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3,
       weilPairingThree exampleTwo exampleThree P T ≠ 1 ∧
         ∃ a b c d : ℤ, σ • P = a • P + c • T ∧ σ • T = b • P + d • T ∧
           ((a * d - b * c : ℤ) : ZMod 3)
-            = (galoisModularCyclotomicChar ℚ exampleField
+            = (galoisModularCyclotomicChar ℚ AlgClosedQ
                 (natCard_rootsOfUnity_of_ne_zero exampleThree) σ : ZMod 3) := by
   obtain ⟨P, T, hPT⟩ := exists_weilPairingThree_ne_one
-    (W := exampleCurve⁄exampleField) exampleTwo exampleThree
+    (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo exampleThree
   exact ⟨P, T, hPT,
     exists_smul_eq_zsmul_add_zsmul_and_det_three_eq σ exampleTwo exampleThree hPT⟩
 
@@ -621,12 +618,12 @@ open Classical in
 /-- **`im ρ_{E,2} ⊆ SL₂(𝔽₂)` on the same curve.**  The `n = 2` statement, whose right-hand side is
 the fixed value `1` rather than a character of `σ` — and which, unlike `#948`'s `n = 2` corollary,
 still needs a curve, a pairing-basis and a matrix. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
-    ∃ P T : (exampleCurve⁄exampleField).torsion 2,
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
+    ∃ P T : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 2,
       weilPairingTwo exampleTwo P T ≠ 1 ∧
         ∃ a b c d : ℤ, σ • P = a • P + c • T ∧ σ • T = b • P + d • T ∧
           ((a * d - b * c : ℤ) : ZMod 2) = 1 := by
-  obtain ⟨P, T, hPT⟩ := exists_weilPairingTwo_ne_one (W := exampleCurve⁄exampleField) exampleTwo
+  obtain ⟨P, T, hPT⟩ := exists_weilPairingTwo_ne_one (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo
   exact ⟨P, T, hPT, exists_smul_eq_zsmul_add_zsmul_and_det_two_eq σ exampleTwo hPT⟩
 
 end Nonvacuity

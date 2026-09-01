@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNDegreeTower
 import EllipticCurves.FunctionField.TranslationMulByNCommGeneral
 import EllipticCurves.Torsion.ThreePrimary
@@ -393,13 +394,10 @@ instances diamond.  Nothing in this file mentions `RatFunc`. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveComposition : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveComposition.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveComposition, WeierstrassCurve.Δ, WeierstrassCurve.b₂,
-    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
@@ -418,10 +416,10 @@ private lemma exampleSmoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p =
 the merged non-constancy of `[2]` rather than assumed. -/
 example :
     finrank ↥(mulByNEndoAlgHom 4 (transcendental_xCoord_nsmul_of_mul_eq
-        (W := exampleCurveComposition) (show 2 * 2 = 4 by norm_num)
+        (W := y2EqX3SubX ℚ) (show 2 * 2 = 4 by norm_num)
         (transcendental_xCoord_two_nsmul exampleTwoNeZero)
         (transcendental_xCoord_two_nsmul exampleTwoNeZero))).fieldRange
-      exampleCurveComposition.FunctionField = 16 :=
+      (y2EqX3SubX ℚ).FunctionField = 16 :=
   finrank_mulByNFieldRange_four exampleTwoNeZero _
 
 /-- **`[F(W) : [12]∗F(W)] = 144` on a concrete curve** — an index at which neither the two merged
@@ -429,9 +427,9 @@ degrees nor `finrank_mulByNFieldRange_four` says anything, so the `3`-smooth sta
 being certified. -/
 example :
     finrank ↥(mulByNEndoAlgHom 12 (transcendental_xCoord_nsmul_of_smooth
-        (W := exampleCurveComposition) exampleTwoNeZero exampleThreeNeZero (by norm_num)
-        exampleSmoothTwelve)).fieldRange exampleCurveComposition.FunctionField = 144 := by
-  have h := finrank_mulByNFieldRange_of_smooth (W := exampleCurveComposition) (n := 12)
+        (W := y2EqX3SubX ℚ) exampleTwoNeZero exampleThreeNeZero (by norm_num)
+        exampleSmoothTwelve)).fieldRange (y2EqX3SubX ℚ).FunctionField = 144 := by
+  have h := finrank_mulByNFieldRange_of_smooth (W := y2EqX3SubX ℚ) (n := 12)
     exampleTwoNeZero exampleThreeNeZero (by norm_num) exampleSmoothTwelve
     (transcendental_xCoord_nsmul_of_smooth exampleTwoNeZero exampleThreeNeZero (by norm_num)
       exampleSmoothTwelve)

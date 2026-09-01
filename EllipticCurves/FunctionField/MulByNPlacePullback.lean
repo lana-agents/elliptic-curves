@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNIntegral
 import EllipticCurves.FunctionField.PullbackDivisor
 
@@ -351,47 +352,43 @@ algebraic closure of `ℚ`. -/
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard certificate curve. -/
-private noncomputable def exampleCurveN : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`. -/
-private abbrev exampleFieldN : Type := AlgebraicClosure ℚ
-
-private instance : exampleCurveN.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveN, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- ⚠️ `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found by
 bare `inferInstance` from `[W.IsElliptic]`. -/
-private instance : (exampleCurveN⁄exampleFieldN).IsElliptic :=
-  inferInstanceAs (exampleCurveN.map (algebraMap ℚ exampleFieldN)).IsElliptic
+private instance : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).IsElliptic :=
+  inferInstanceAs ((y2AddYEqX3 ℚ).map (algebraMap ℚ AlgClosedQ)).IsElliptic
 
-private lemma exampleTwoN : (2 : exampleFieldN) ≠ 0 := by norm_num
+private lemma exampleTwoN : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 open Classical in
 private lemma exampleFiveN :
-    Transcendental exampleFieldN
-      ((5 : ℕ) • genericPoint (W := exampleCurveN⁄exampleFieldN)).xCoord :=
+    Transcendental AlgClosedQ
+      ((5 : ℕ) • genericPoint (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ)).xCoord :=
   transcendental_xCoord_nsmul_of_isAlgClosed exampleTwoN (by norm_num)
 
-example : IsDedekindDomain (exampleCurveN⁄exampleFieldN).CoordinateRing := inferInstance
+example : IsDedekindDomain ((y2AddYEqX3 ℚ)⁄AlgClosedQ).CoordinateRing := inferInstance
 
 open Classical in
 /-- **⚠️ THE CERTIFICATE, part one.**  At `n = 5` on a curve that exists, the order transport is a
 genuine equation with a positive index. -/
-example {f : (exampleCurveN⁄exampleFieldN).FunctionField} (hf : f ≠ 0)
-    (p : ProjPoint (exampleCurveN⁄exampleFieldN)) :
-    divisorProj (exampleCurveN⁄exampleFieldN) (mulByNEndo 5 exampleFiveN f) p
+example {f : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).FunctionField} (hf : f ≠ 0)
+    (p : ProjPoint ((y2AddYEqX3 ℚ)⁄AlgClosedQ)) :
+    divisorProj ((y2AddYEqX3 ℚ)⁄AlgClosedQ) (mulByNEndo 5 exampleFiveN f) p
       = ramificationIdxN 5 exampleFiveN p
-        * divisorProj (exampleCurveN⁄exampleFieldN) f (comapProjPointN 5 exampleFiveN p) :=
+        * divisorProj ((y2AddYEqX3 ℚ)⁄AlgClosedQ) f (comapProjPointN 5 exampleFiveN p) :=
   divisorProj_mulByNEndo_apply 5 exampleFiveN hf p
 
 open Classical in
 /-- **⚠️ THE CERTIFICATE, part two.**  And the divisor-level form, at the same index. -/
-example {f : (exampleCurveN⁄exampleFieldN).FunctionField} (hf : f ≠ 0) :
-    divisorProj (exampleCurveN⁄exampleFieldN) (mulByNEndo 5 exampleFiveN f)
-      = pullbackDivisorN 5 exampleFiveN (divisorProj (exampleCurveN⁄exampleFieldN) f) :=
+example {f : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).FunctionField} (hf : f ≠ 0) :
+    divisorProj ((y2AddYEqX3 ℚ)⁄AlgClosedQ) (mulByNEndo 5 exampleFiveN f)
+      = pullbackDivisorN 5 exampleFiveN (divisorProj ((y2AddYEqX3 ℚ)⁄AlgClosedQ) f) :=
   divisorProj_mulByNEndo 5 exampleFiveN hf
 
 end Nonvacuity

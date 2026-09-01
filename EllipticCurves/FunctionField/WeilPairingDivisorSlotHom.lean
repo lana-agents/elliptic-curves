@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingAntisymmetricMu
 
 /-!
@@ -381,30 +382,26 @@ what lets every instance below be written in the `⟨g, hg⟩` form at all. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 0)` lies on `y² = x³ − x`. -/
-private lemma exampleEquation : exampleCurve.Equation 0 0 := by
+private lemma exampleEquation : (y2EqX3SubX AlgClosedQ).Equation 0 0 := by
   rw [equation_iff]
-  norm_num [exampleCurve]
+  norm_num [y2EqX3SubX]
 
 /-- The submonoid at `n = 2` on the curve above.  Every certificate below lives in it. -/
-private noncomputable abbrev exampleSubmonoid : Submonoid exampleCurve.FunctionField :=
+private noncomputable abbrev exampleSubmonoid : Submonoid (y2EqX3SubX AlgClosedQ).FunctionField :=
   weilPairingRootSubmonoid exampleEquation 2
 
 /-- A nonzero constant of the base field lies in the submonoid: `e_2(c, T) = 1` by
 `weilPairingElt_algebraMap`, so its square is `1`.  Nothing beyond `c ≠ 0` is assumed. -/
-private lemma exampleMemConst {c : exampleField} (hc : c ≠ 0) :
-    algebraMap exampleField exampleCurve.FunctionField c ∈ exampleSubmonoid := by
+private lemma exampleMemConst {c : AlgClosedQ} (hc : c ≠ 0) :
+    algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c ∈ exampleSubmonoid := by
   rw [mem_weilPairingRootSubmonoid_iff, weilPairingElt_algebraMap exampleEquation hc, one_pow]
 
 /-- On a curve that exists, the bundled map really does send the identity of the submonoid to the
@@ -414,91 +411,92 @@ example : weilPairingMuHom exampleEquation 2 1 = 1 :=
 
 /-- The value at a nonzero constant is the identity of `μ_2(F̄)`, not merely an element whose
 square is `1`.  Only `c ≠ 0` remains. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMuHom exampleEquation 2
-        ⟨algebraMap exampleField exampleCurve.FunctionField c, exampleMemConst hc⟩ = 1 :=
+        ⟨algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c, exampleMemConst hc⟩ = 1 :=
   (weilPairingMuHom_eq_one_iff exampleEquation _).mpr
     (weilPairingElt_algebraMap exampleEquation hc)
 
 /-- **`map_pow` at a concrete exponent, on a curve that exists** — the certificate that the
 bundling has content the pointwise development did not.  `e_2(c ^ 3, T) = e_2(c, T) ^ 3` in
 `μ_2(F̄)`, with only `c ≠ 0` assumed. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMuHom exampleEquation 2
-        (⟨algebraMap exampleField exampleCurve.FunctionField c, exampleMemConst hc⟩ ^ 3) =
+        (⟨algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c, exampleMemConst hc⟩ ^ 3) =
       weilPairingMuHom exampleEquation 2
-        ⟨algebraMap exampleField exampleCurve.FunctionField c, exampleMemConst hc⟩ ^ 3 :=
+        ⟨algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c, exampleMemConst hc⟩ ^ 3 :=
   weilPairingMuHom_pow exampleEquation _ 3
 
 /-- The `F(W)`-level `weilPairingElt_pow` on a curve that exists, at a concrete exponent and with
 both sides computed: `e_2(c ^ 3, T) = 1 ^ 3 = 1`.  No hypothesis but `c ≠ 0`. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingElt exampleEquation
-      ((algebraMap exampleField exampleCurve.FunctionField c) ^ 3) = 1 := by
+      ((algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c) ^ 3) = 1 := by
   rw [weilPairingElt_pow, weilPairingElt_algebraMap exampleEquation hc, one_pow]
 
 /-- The value at an inverse is the group inverse, on a curve that exists. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMuHom exampleEquation 2
-        ⟨(algebraMap exampleField exampleCurve.FunctionField c)⁻¹,
+        ⟨(algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c)⁻¹,
           inv_mem_weilPairingRootSubmonoid exampleEquation (exampleMemConst hc)⟩ =
       (weilPairingMuHom exampleEquation 2
-        ⟨algebraMap exampleField exampleCurve.FunctionField c, exampleMemConst hc⟩)⁻¹ :=
+        ⟨algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c, exampleMemConst hc⟩)⁻¹ :=
   weilPairingMuHom_inv exampleEquation (exampleMemConst hc)
 
 /-- Members of the submonoid are nonzero, on a curve that exists: the constant `1` is not `0` in
 `F̄(W)`.  Discharged outright through `ne_zero_of_mem_weilPairingRootSubmonoid`. -/
-example : (1 : exampleCurve.FunctionField) ≠ 0 :=
+example : (1 : (y2EqX3SubX AlgClosedQ).FunctionField) ≠ 0 :=
   ne_zero_of_mem_weilPairingRootSubmonoid exampleEquation (n := 2) (one_mem _)
 
 /-- A nonzero constant, as a unit of `F̄(W)`, lies in the subgroup. -/
-private lemma exampleMemConstUnits {c : exampleField} (hc : c ≠ 0) :
-    (Units.mk0 (algebraMap exampleField exampleCurve.FunctionField c)
-        ((map_ne_zero_iff _ (algebraMap exampleField exampleCurve.FunctionField).injective).mpr
+private lemma exampleMemConstUnits {c : AlgClosedQ} (hc : c ≠ 0) :
+    (Units.mk0 (algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c)
+        ((map_ne_zero_iff _ (algebraMap AlgClosedQ
+            (y2EqX3SubX AlgClosedQ).FunctionField).injective).mpr
           hc)) ∈ weilPairingRootSubgroup exampleEquation 2 := by
   rw [mem_weilPairingRootSubgroup_iff, Units.val_mk0,
     weilPairingElt_algebraMap exampleEquation hc, one_pow]
 
 /-- **The group form on a curve that exists**, with `map_inv` free: the value at the inverse unit
 is the group inverse in `μ_2(F̄)`.  Only `c ≠ 0` remains. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMuHomUnits exampleEquation 2
         ⟨_, exampleMemConstUnits hc⟩⁻¹ =
       (weilPairingMuHomUnits exampleEquation 2 ⟨_, exampleMemConstUnits hc⟩)⁻¹ :=
   weilPairingMuHomUnits_inv exampleEquation _
 
 /-- `map_zpow` free, at a concrete negative exponent, on a curve that exists. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMuHomUnits exampleEquation 2 (⟨_, exampleMemConstUnits hc⟩ ^ (-2 : ℤ)) =
       weilPairingMuHomUnits exampleEquation 2 ⟨_, exampleMemConstUnits hc⟩ ^ (-2 : ℤ) :=
   weilPairingMuHomUnits_zpow exampleEquation _ (-2)
 
 /-- The defining property on a curve that exists, with the right-hand side computed outright: the
 value at a nonzero constant pushes forward to `e_2(c, T) = 1` in `F̄(W)`. -/
-example {c : exampleField} (hc : c ≠ 0) :
-    algebraMap exampleField exampleCurve.FunctionField
-        (((weilPairingMuHom exampleEquation 2 ⟨_, exampleMemConst hc⟩ : exampleFieldˣ) :
-          exampleField)) = 1 := by
+example {c : AlgClosedQ} (hc : c ≠ 0) :
+    algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField
+        (((weilPairingMuHom exampleEquation 2 ⟨_, exampleMemConst hc⟩ : AlgClosedQˣ) :
+          AlgClosedQ)) = 1 := by
   rw [algebraMap_coe_weilPairingMuHom, weilPairingElt_algebraMap exampleEquation hc]
 
 /-- The same for the group form. -/
-example {c : exampleField} (hc : c ≠ 0) :
-    algebraMap exampleField exampleCurve.FunctionField
-        (((weilPairingMuHomUnits exampleEquation 2 ⟨_, exampleMemConstUnits hc⟩ : exampleFieldˣ) :
-          exampleField)) = 1 := by
+example {c : AlgClosedQ} (hc : c ≠ 0) :
+    algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField
+        (((weilPairingMuHomUnits exampleEquation 2 ⟨_, exampleMemConstUnits hc⟩ : AlgClosedQˣ) :
+          AlgClosedQ)) = 1 := by
   rw [algebraMap_coe_weilPairingMuHomUnits, Units.val_mk0,
     weilPairingElt_algebraMap exampleEquation hc]
 
 /-- **The kernel is inhabited on a curve that exists**: the nonzero constants pair trivially with
 `T`, so they lie in `MonoidHom.mker (weilPairingMuHom …)`.  Only `c ≠ 0` remains. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     (⟨_, exampleMemConst hc⟩ : exampleSubmonoid) ∈
       MonoidHom.mker (weilPairingMuHom exampleEquation 2) :=
   (mem_mker_weilPairingMuHom_iff exampleEquation _).mpr
     (weilPairingElt_algebraMap exampleEquation hc)
 
 /-- The same in the genuine subgroup kernel. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     (⟨_, exampleMemConstUnits hc⟩ : weilPairingRootSubgroup exampleEquation 2) ∈
       (weilPairingMuHomUnits exampleEquation 2).ker :=
   (mem_ker_weilPairingMuHomUnits_iff exampleEquation _).mpr (by

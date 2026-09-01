@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingAntisymmetric
 import EllipticCurves.FunctionField.WeilPairingBilinearMu
 import EllipticCurves.Torsion.ThreeTorsion
@@ -501,25 +502,22 @@ not the `g_R` and `w` that were quantified away inside it. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 0)` lies on `y² = x³ − x`. -/
-private lemma exampleEquation : exampleCurve.Equation 0 0 := by
+private lemma exampleEquation : (y2EqX3SubX AlgClosedQ).Equation 0 0 := by
   rw [equation_iff]
-  norm_num [exampleCurve]
+  norm_num [y2EqX3SubX]
 
 /-- The root-of-unity datum at the constant function `1`, on a curve that exists. -/
 private lemma examplePowOne :
-    weilPairingElt exampleEquation (1 : exampleCurve.FunctionField) ^ 2 = 1 := by
+    weilPairingElt exampleEquation (1 : (y2EqX3SubX AlgClosedQ).FunctionField) ^ 2 = 1 := by
   rw [weilPairingElt_one, one_pow]
 
 /-- On a curve that exists, the `μ_2`-packaged pairing value at the constant function `1` really is
@@ -529,19 +527,19 @@ example : weilPairingMu exampleEquation examplePowOne = 1 :=
     (weilPairingElt_one exampleEquation)
 
 /-- The root-of-unity datum at a nonzero constant of the base field. -/
-private lemma examplePowConst {c : exampleField} (hc : c ≠ 0) :
+private lemma examplePowConst {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingElt exampleEquation
-      (algebraMap exampleField exampleCurve.FunctionField c) ^ 2 = 1 := by
+      (algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField c) ^ 2 = 1 := by
   rw [weilPairingElt_algebraMap exampleEquation hc, one_pow]
 
 /-- The same for a nonzero constant of the base field, through `weilPairingMu_algebraMap`, and
 again with no hypothesis beyond `c ≠ 0`. -/
-example {c : exampleField} (hc : c ≠ 0) :
+example {c : AlgClosedQ} (hc : c ≠ 0) :
     weilPairingMu exampleEquation (examplePowConst hc) = 1 :=
   weilPairingMu_algebraMap exampleEquation hc _
 
 /-- Multiplicativity of the divisor slot, in the group, on a curve that exists. -/
-example {g₁ g₂ : exampleCurve.FunctionField}
+example {g₁ g₂ : (y2EqX3SubX AlgClosedQ).FunctionField}
     (hpow₁ : weilPairingElt exampleEquation g₁ ^ 2 = 1)
     (hpow₂ : weilPairingElt exampleEquation g₂ ^ 2 = 1) :
     weilPairingMu exampleEquation (weilPairingElt_mul_pow_eq_one exampleEquation hpow₁ hpow₂)
@@ -549,14 +547,15 @@ example {g₁ g₂ : exampleCurve.FunctionField}
   weilPairingMu_mul exampleEquation hpow₁ hpow₂ _
 
 /-- Group inverses, on a curve that exists. -/
-example {g : exampleCurve.FunctionField} (hpow : weilPairingElt exampleEquation g ^ 2 = 1) :
+example {g : (y2EqX3SubX AlgClosedQ).FunctionField} (hpow : weilPairingElt exampleEquation g ^
+    2 = 1) :
     weilPairingMu exampleEquation (weilPairingElt_inv_pow_eq_one exampleEquation hpow)
       = (weilPairingMu exampleEquation hpow)⁻¹ :=
   weilPairingMu_inv exampleEquation hpow _
 
 /-! #### The `[2]∗` pullback: `T = (0, 0)` on `y² = x³ − x` is `2`-torsion -/
 
-private lemma exampleTwoNeZero : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwoNeZero : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 open Classical in
 /-- `T = (0, 0)` is `2`-torsion on `y² = x³ − x`: the curve has `a₁ = a₃ = 0`, so
@@ -567,14 +566,14 @@ private lemma exampleTorsionTwo :
     torsionPoint exampleEquation + torsionPoint exampleEquation = 0 := by
   rw [add_eq_zero_iff_eq_neg]
   simp only [torsionPoint, Point.neg_some, Point.some.injEq]
-  norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  norm_num [y2EqX3SubX, WeierstrassCurve.Affine.negY]
 
 open Classical in
 /-- The root-of-unity datum at the `[2]∗`-pullback of the constant function `1`.  It is closed
 outright by `weilPairingElt_mulByTwoEndo_of_baseField`, so nothing is assumed here. -/
 private lemma examplePowMulByTwo :
     weilPairingElt exampleEquation
-        (mulByTwoEndo (W := exampleCurve) exampleTwoNeZero 1) ^ 2 = 1 := by
+        (mulByTwoEndo (W := y2EqX3SubX AlgClosedQ) exampleTwoNeZero 1) ^ 2 = 1 := by
   rw [weilPairingElt_mulByTwoEndo_of_baseField exampleEquation exampleTwoNeZero exampleTorsionTwo
     one_ne_zero, one_pow]
 
@@ -594,20 +593,12 @@ The `[3]∗` lemma cannot be certified on `y² = x³ − x` at `T = (0, 0)`: tha
 below is `WeilPairingAlternatingThree`'s certificate curve, on which `T = (0, 0)` has order exactly
 `3`. -/
 
-private lemma exampleThreeNeZero : (3 : exampleField) ≠ 0 := by norm_num
-
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleThreeNeZero : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `T = (0, 0)` lies on `y² + y = x³`. -/
-private lemma exampleEquationThree : exampleCurveThree.Equation 0 0 := by
+private lemma exampleEquationThree : (y2AddYEqX3 AlgClosedQ).Equation 0 0 := by
   rw [equation_iff]
-  norm_num [exampleCurveThree]
+  norm_num [y2AddYEqX3]
 
 open Classical in
 /-- `T = (0, 0)` has order `3` on `y² + y = x³`: it is not fixed by negation
@@ -619,9 +610,9 @@ private lemma exampleTorsionThree :
         + torsionPoint exampleEquationThree = 0 :=
   add_add_self_eq_zero_of_mem_torsion_three
     ((mem_torsion_three_some_iff
-      (h := exampleCurveThree.equation_iff_nonsingular.mp exampleEquationThree)
-      (by norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY])).mpr
-      (by norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
+      (h := (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp exampleEquationThree)
+      (by norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY])).mpr
+      (by norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂,
         WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]))
 
 open Classical in
@@ -630,7 +621,7 @@ open Classical in
 translation point. -/
 private lemma examplePowMulByThree :
     weilPairingElt exampleEquationThree
-        (mulByThreeEndo (W := exampleCurveThree) exampleTwoNeZero exampleThreeNeZero 1) ^ 3
+        (mulByThreeEndo (W := y2AddYEqX3 AlgClosedQ) exampleTwoNeZero exampleThreeNeZero 1) ^ 3
       = 1 := by
   rw [weilPairingElt_mulByThreeEndo_of_baseField exampleEquationThree exampleTwoNeZero
     exampleThreeNeZero exampleTorsionThree one_ne_zero, one_pow]

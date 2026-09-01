@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion
 import EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN
 import EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed
@@ -261,28 +262,26 @@ the module docstring states. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ + 5x² + 4x = x(x+1)(x+4)` over `ℚ`, of discriminant `2304`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 5, 0, 4, 0⟩
+/-! The certificate curve `y² = x³ + 5x² + 4x` is the shared
+`EllipticCurves.Fixture.y2EqX3Add5X2Add4X`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- `T = (0, 0)`, the `2`-torsion point cut out by `x = 0`; this is the point being paired. -/
-private lemma exampleNsT : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsT : (y2EqX3Add5X2Add4X ℚ).Nonsingular 0 0 :=
+  (y2EqX3Add5X2Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add5X2Add4X, WeierstrassCurve.Affine.equation_iff])
 
 /-- `P = (2, 6)`, the halving point: `36 = 8 + 20 + 8`. -/
-private lemma exampleNsP : exampleCurve.Nonsingular 2 6 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNsP : (y2EqX3Add5X2Add4X ℚ).Nonsingular 2 6 :=
+  (y2EqX3Add5X2Add4X ℚ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3Add5X2Add4X, WeierstrassCurve.Affine.equation_iff])
 
-private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [exampleCurve])
+private lemma exampleTorT : Point.some (0 : ℚ) 0 exampleNsT ∈ (y2EqX3Add5X2Add4X ℚ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNsT).mpr (by norm_num [y2EqX3Add5X2Add4X])
 
 /-! Both hypotheses of the theorems above are **derived** here rather than exhibited, and that is
 the point of this block: `hcard` from the cubic `Ψ₂Sq` splitting over `ℚ`
@@ -303,11 +302,11 @@ lemma. -/
 
 /-- The `2`-torsion cubic of the example curve, factored: `4X³ + 20X² + 16X = 4·X·(X+1)·(X+4)`. -/
 private lemma Ψ₂Sq_exampleCurve :
-    exampleCurve.Ψ₂Sq
+    (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq
       = Polynomial.C 4 * Polynomial.X * (Polynomial.X + Polynomial.C 1)
           * (Polynomial.X + Polynomial.C 4) := by
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, exampleCurve]
+    WeierstrassCurve.b₆, y2EqX3Add5X2Add4X]
   norm_num only
   simp only [map_ofNat, map_one, Polynomial.C_0]
   ring
@@ -317,7 +316,7 @@ private lemma Ψ₂Sq_exampleCurve :
 ⚠️ Closed by the explicit term rather than by `simp`, even though `Splits.C`, `Splits.X`,
 `Splits.mul` and `Splits.X_add_C` are all `@[simp]`.  `simp` normalises `X + C 1` to `X + 1` first
 and can then no longer match `Splits.X_add_C`, leaving the goal open. -/
-private lemma splits_Ψ₂Sq_exampleCurve : exampleCurve.Ψ₂Sq.Splits := by
+private lemma splits_Ψ₂Sq_exampleCurve : (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.Splits := by
   rw [Ψ₂Sq_exampleCurve]
   exact (((Polynomial.Splits.C 4).mul Polynomial.Splits.X).mul
     (Polynomial.Splits.X_add_C 1)).mul (Polynomial.Splits.X_add_C 4)
@@ -329,19 +328,20 @@ the algebraic closure buys in `card_torsion_two` is the *lower* bound, and
 `card_torsion_two_of_splits` buys it from `Ψ₂Sq.Splits` instead — over `ℚ`, with no hypothesis.
 
 ⚠️ `Splits` alone would not be enough: `4(X − r)³` splits too, and the three roots are
-**distinct** only because `Cubic.discr ≠ 0`, i.e. because of `[exampleCurve.IsElliptic]`. -/
-private lemma exampleCard : Nat.card (exampleCurve.torsion 2) = 4 :=
+**distinct** only because `Cubic.discr ≠ 0`, i.e. because of
+`[(y2EqX3Add5X2Add4X ℚ).IsElliptic]`. -/
+private lemma exampleCard : Nat.card ((y2EqX3Add5X2Add4X ℚ).torsion 2) = 4 :=
   card_torsion_two_of_splits exampleTwo splits_Ψ₂Sq_exampleCurve
 
 /-- **The root that does the work**: `Φ₂(2) = 0 = x(T) · Ψ₂Sq(2)`, since `Φ₂ = (X² − 4)²` here.
 
 ⚠️ Routed through `Φ_two_eval` — `Φ₂(x) = x · Ψ₂Sq(x) − Ψ₃(x)`, giving `2 · 144 − 288 = 0` — rather
-than by unfolding `exampleCurve.Φ 2`, whose definition is a recursion. -/
+than by unfolding `(y2EqX3Add5X2Add4X ℚ).Φ 2`, whose definition is a recursion. -/
 private lemma eval_Φ_two_exampleCurve :
-    (exampleCurve.Φ 2).eval 2 = (0 : ℚ) * exampleCurve.Ψ₂Sq.eval 2 := by
+    ((y2EqX3Add5X2Add4X ℚ).Φ 2).eval 2 = (0 : ℚ) * (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.eval 2 := by
   rw [Φ_two_eval]
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈, exampleCurve]
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈, y2EqX3Add5X2Add4X]
   norm_num
 
 /-- **`T = (0, 0)` is twice a rational point, and that point is not `T`** — the `hP` of
@@ -365,7 +365,7 @@ index, and `by norm_num` is what discharges it.
 "cleaned up" as unused: the `P` they bind is a witness of *both* conjuncts, so off-diagonality is
 carried by construction and the build would notice if it failed. -/
 private lemma exampleExistsHalving :
-    ∃ P : exampleCurve.Point,
+    ∃ P : (y2EqX3Add5X2Add4X ℚ).Point,
       (2 : ℕ) • P = Point.some (0 : ℚ) 0 exampleNsT ∧ P ≠ Point.some (0 : ℚ) 0 exampleNsT :=
   exists_nsmul_eq_some_of_root_of_mem_torsion_two exampleNsT exampleTorT exampleNsP.left
     eval_Φ_two_exampleCurve (by norm_num)
@@ -383,13 +383,13 @@ rather than from an enumeration of points.
 `2`-torsion is *not* rational.  What it certifies is that the hypotheses of
 `exists_weilPairingElt_self_eq_one_of_card_two` are simultaneously satisfiable away from `F̄`. -/
 private theorem exampleAlternatingTwo :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurve f
+    ∃ f : (y2EqX3Add5X2Add4X ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3Add5X2Add4X ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleNsT.left)) (2 : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurve) (2 : ℤ) ∧
-        ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurve.CoordinateRingˣ,
-            (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
+            - Finsupp.single (none : ProjPoint (y2EqX3Add5X2Add4X ℚ)) (2 : ℤ) ∧
+        ∃ g : (y2EqX3Add5X2Add4X ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3Add5X2Add4X ℚ).CoordinateRingˣ,
+            (u : (y2EqX3Add5X2Add4X ℚ).CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
           translateEndo exampleNsT.left g = g ∧ weilPairingElt exampleNsT.left g = 1 :=
   -- ⚠️ The three `convert`s are the entire price of the consumed theorem being elaborated
   -- `open Classical in`; see the section docstring.  They are `Subsingleton.elim` bookkeeping.
@@ -400,13 +400,13 @@ private theorem exampleAlternatingTwo :
 /-- **The `μ_n(ℚ)`-valued form over `ℚ`, also with no hypothesis.**  The same instantiation of
 `exists_weilPairingMu_self_eq_one_of_card_two`. -/
 private theorem exampleAlternatingMuTwo (n : ℕ) [NeZero n] :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurve f
+    ∃ f : (y2EqX3Add5X2Add4X ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3Add5X2Add4X ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleNsT.left)) (2 : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurve) (2 : ℤ) ∧
-        ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurve.CoordinateRingˣ,
-            (u : exampleCurve.CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
+            - Finsupp.single (none : ProjPoint (y2EqX3Add5X2Add4X ℚ)) (2 : ℤ) ∧
+        ∃ g : (y2EqX3Add5X2Add4X ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3Add5X2Add4X ℚ).CoordinateRingˣ,
+            (u : (y2EqX3Add5X2Add4X ℚ).CoordinateRing) • g ^ 2 = mulByTwoEndo exampleTwo f) ∧
           ∃ hpow : weilPairingElt exampleNsT.left g ^ n = 1,
             weilPairingMu exampleNsT.left hpow = 1 :=
   let ⟨P, hP, _⟩ := exampleExistsHalving

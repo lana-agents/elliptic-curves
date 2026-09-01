@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingDeterminantCharacter
 
 /-!
@@ -557,25 +558,22 @@ theorem not_forall_det_eq_intCast_of_zsmul_add_zsmul :
 statements would all be vacuously true if nothing inhabited those classes.  The block below rules
 that out on `#936`'s curve `y² + y = x³` base-changed to `AlgebraicClosure ℚ`, the same curve
 `EllipticCurves.FunctionField.WeilPairingDeterminant` and
-`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` use.  ⚠️ Those files' copies are
-`private`, so this one is a duplicate by necessity rather than by oversight.
+`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` use.  ⚠️ That used to be a
+duplicate by necessity — those files' copies were `private` and so invisible here.  Since `#1373`
+all three name the shared fixture instead, so the duplication is **gone**, not justified.
 -/
 
-/-- The curve `y² + y = x³` over `ℚ`, `#936`'s `n = 3` certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here.  ⚠️ Unlike `#951`'s and `#958`'s blocks, no base field `S` is named: nothing in
+this file mentions a Galois group, so `Gal(F/S)` never appears. -/
 
-/-- An algebraically closed extension of `ℚ`.  ⚠️ Unlike `#951`'s and `#958`'s copies, no base field
-`S` is named here: nothing in this file mentions a Galois group, so `Gal(F/S)` never appears. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- **The transformation law on a curve that exists** (`#916`), restated in full rather than
@@ -587,11 +585,11 @@ the other.
 
 ⚠️ It closes by **application** of the abstract certificate, not by `rfl`, `decide` or `norm_num`,
 so it consumes the theorem it certifies (`#944`).  Its only real content beyond that is that
-`exampleCurve⁄exampleField` satisfies `[IsAlgClosed F]` and `[W.IsElliptic]` at all. -/
+`(y2AddYEqX3 ℚ)⁄AlgClosedQ` satisfies `[IsAlgClosed F]` and `[W.IsElliptic]` at all. -/
 example :
-    ∃ (P T : (exampleCurve⁄exampleField).torsion 3)
-      (α : (exampleCurve⁄exampleField).torsion 3 ≃ₗ[ZMod 3]
-        (exampleCurve⁄exampleField).torsion 3),
+    ∃ (P T : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3)
+      (α : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3 ≃ₗ[ZMod 3]
+        ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3),
       weilPairingThree exampleTwo exampleThree P T ≠ 1 ∧
         ((LinearEquiv.det α : (ZMod 3)ˣ) : ZMod 3) ≠ 1 ∧
         weilPairingThree exampleTwo exampleThree (α P) (α T)

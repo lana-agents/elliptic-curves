@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.CoordinateRingUnits
 import EllipticCurves.FunctionField.NthRootOfPullback
 import EllipticCurves.FunctionField.TranslationTriplingCommGeneral
@@ -378,41 +379,37 @@ this file; taking one that happens to be simply makes the certificate cheap. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldThree : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `-27`. -/
-private noncomputable def exampleCurveAlgThree : Affine exampleFieldThree := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveAlgThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveAlgThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 0)` is a nonsingular point of `y² + y = x³`. -/
-private lemma exampleNonsingularAlgThree : exampleCurveAlgThree.Nonsingular 0 0 := by
+private lemma exampleNonsingularAlgThree : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 := by
   rw [nonsingular_iff]
   refine ⟨?_, Or.inr ?_⟩ <;>
-    norm_num [exampleCurveAlgThree, WeierstrassCurve.Affine.negY]
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY]
 
 open Classical in
 /-- `T = (0, 0)` has order `3`: it is not fixed by negation, and `Ψ₃ = 3X⁴ + 3b₆X` vanishes at
 `0`. -/
 private lemma exampleTorsionAlgThree :
-    Point.some (0 : exampleFieldThree) 0 exampleNonsingularAlgThree
-      ∈ exampleCurveAlgThree.torsion 3 := by
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingularAlgThree
+      ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 := by
   rw [mem_torsion_three_some_iff
-    (by norm_num [exampleCurveAlgThree, WeierstrassCurve.Affine.negY])]
-  norm_num [exampleCurveAlgThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    (by norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY])]
+  norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 open Classical in
 /-- The two translation points exist and are both affine. -/
-example : ∃ (xP yP xQ yQ : exampleFieldThree) (hP : exampleCurveAlgThree.Equation xP yP)
-    (hQ : exampleCurveAlgThree.Equation xQ yQ),
+example : ∃ (xP yP xQ yQ : AlgClosedQ) (hP : (y2AddYEqX3 AlgClosedQ).Equation xP yP)
+    (hQ : (y2AddYEqX3 AlgClosedQ).Equation xQ yQ),
     torsionPoint hP + torsionPoint hP = torsionPoint hQ ∧
       torsionPoint hP + torsionPoint hQ
-        = Point.some (0 : exampleFieldThree) 0 exampleNonsingularAlgThree :=
+        = Point.some (0 : AlgClosedQ) 0 exampleNonsingularAlgThree :=
   exists_equation_nsmul_three_eq (by norm_num) exampleNonsingularAlgThree exampleTorsionAlgThree
 
 end Nonvacuity

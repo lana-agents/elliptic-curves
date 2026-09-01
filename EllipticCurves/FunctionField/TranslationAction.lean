@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationAutomorphism
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.Torsion.TwoTorsion
@@ -347,65 +348,64 @@ certificates that do not need the closure hold over `ℚ` unchanged. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : exampleField) ≠ 0` is
+/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : AlgClosedQ) ≠ 0` is
 postponed and leaves the curve a metavariable at the use site. -/
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- `T = (0, 0)` lies on `y² = x³ − x` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2EqX3SubX AlgClosedQ).Nonsingular 0 0 :=
+  (y2EqX3SubX AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `T = (0, 0)` is `2`-torsion: `2y + a₁x + a₃ = 0` reads `0 = 0`. -/
 private lemma exampleTorsion :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [exampleCurve])
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2EqX3SubX AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- The action is by a group with more than one element, so the fixed field is not all of `F(W)`
 for a trivial reason. -/
-example : Nontrivial (TorsionTwoMul exampleCurve) :=
+example : Nontrivial (TorsionTwoMul (y2EqX3SubX AlgClosedQ)) :=
   ⟨⟨Multiplicative.ofAdd ⟨_, exampleTorsion⟩, 1, by
     simp only [ne_eq, ← Multiplicative.toAdd.injective.eq_iff, Subtype.ext_iff]
     exact Point.some_ne_zero exampleNonsingular⟩⟩
 
 open Classical in
 noncomputable example :
-    MulSemiringAction (TorsionTwoMul exampleCurve) exampleCurve.FunctionField := inferInstance
+    MulSemiringAction (TorsionTwoMul (y2EqX3SubX AlgClosedQ))
+        (y2EqX3SubX AlgClosedQ).FunctionField := inferInstance
 
 open Classical in
-example : FaithfulSMul (TorsionTwoMul exampleCurve) exampleCurve.FunctionField := inferInstance
+example : FaithfulSMul (TorsionTwoMul (y2EqX3SubX AlgClosedQ))
+    (y2EqX3SubX AlgClosedQ).FunctionField := inferInstance
 
 open Classical in
-example (P Q : exampleCurve.Point) :
+example (P Q : (y2EqX3SubX AlgClosedQ).Point) :
     translateAut (P + Q) = translateAut P * translateAut Q :=
   translateAut_add P Q
 
 open Classical in
-example : Function.Injective (translateAut (W := exampleCurve)) := translateAut_injective
+example : Function.Injective (translateAut (W := y2EqX3SubX AlgClosedQ)) := translateAut_injective
 
 open Classical in
-example : Nat.card (TorsionTwoMul exampleCurve) = 4 := card_torsionTwoMul exampleTwo
+example : Nat.card (TorsionTwoMul (y2EqX3SubX AlgClosedQ)) = 4 := card_torsionTwoMul exampleTwo
 
 open Classical in
-example : Finite (TorsionTwoMul exampleCurve) := finite_torsionTwoMul exampleTwo
+example : Finite (TorsionTwoMul (y2EqX3SubX AlgClosedQ)) := finite_torsionTwoMul exampleTwo
 
 open Classical in
-example (f : exampleCurve.FunctionField) :
+example (f : (y2EqX3SubX AlgClosedQ).FunctionField) :
     mulByTwoEndo exampleTwo f
-      ∈ FixedPoints.subfield (TorsionTwoMul exampleCurve) exampleCurve.FunctionField :=
+      ∈ FixedPoints.subfield (TorsionTwoMul (y2EqX3SubX AlgClosedQ))
+          (y2EqX3SubX AlgClosedQ).FunctionField :=
   mulByTwoEndo_mem_fixedPoints exampleTwo f
 
 end Nonvacuity

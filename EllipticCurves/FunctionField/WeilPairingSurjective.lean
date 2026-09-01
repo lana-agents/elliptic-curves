@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingFunctionTwo
 import EllipticCurves.FunctionField.WeilPairingFunctionThree
 
@@ -244,35 +245,32 @@ equation at a curve, so it certifies that the construction elaborates and nothin
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+open EllipticCurves.Fixture
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, this tree's `n = 2` certificate curve. -/
-private noncomputable def exampleCurveTwo : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurveTwo.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveTwo, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `S = (0, 0)` lies on `y² = x³ − x` and is nonsingular. -/
-private lemma exampleNonsingularTwo : exampleCurveTwo.Nonsingular 0 0 :=
-  exampleCurveTwo.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveTwo, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularTwo : (y2EqX3SubX AlgClosedQ).Nonsingular 0 0 :=
+  (y2EqX3SubX AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `2`-torsion. -/
 private lemma exampleTorsionTwo :
-    Point.some (0 : exampleField) 0 exampleNonsingularTwo ∈ exampleCurveTwo.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingularTwo).mpr (by norm_num [exampleCurveTwo])
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingularTwo ∈ (y2EqX3SubX AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingularTwo).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- The named `2`-torsion point, as an element of `E[2]`. -/
-private noncomputable def exampleSTwo : exampleCurveTwo.torsion 2 :=
+private noncomputable def exampleSTwo : (y2EqX3SubX AlgClosedQ).torsion 2 :=
   ⟨Point.some 0 0 exampleNonsingularTwo, exampleTorsionTwo⟩
 
 open Classical in
@@ -290,49 +288,39 @@ open Classical in
 truth turns on the point being the named non-trivial one and not on the construction elaborating.
 ⚠️ This is a refutation, not a failed proof attempt — it is checked by the build. -/
 private theorem not_surjective_weilPairingTwo_zero :
-    ¬ Function.Surjective (weilPairingTwo (W := exampleCurveTwo) exampleTwo 0) := by
+    ¬ Function.Surjective (weilPairingTwo (W := y2EqX3SubX AlgClosedQ) exampleTwo 0) := by
   intro hsurj
-  have hone : ∀ ζ : rootsOfUnity 2 exampleField, ζ = 1 := fun ζ => by
+  have hone : ∀ ζ : rootsOfUnity 2 AlgClosedQ, ζ = 1 := fun ζ => by
     obtain ⟨T, hT⟩ := hsurj ζ
     rw [← hT, weilPairingTwo_zero_left]
-  have hcard : Nat.card (rootsOfUnity 2 exampleField) = 2 :=
-    natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 2) exampleTwo
-  haveI : Subsingleton (rootsOfUnity 2 exampleField) := ⟨fun a b => (hone a).trans (hone b).symm⟩
+  have hcard : Nat.card (rootsOfUnity 2 AlgClosedQ) = 2 :=
+    natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 2) exampleTwo
+  haveI : Subsingleton (rootsOfUnity 2 AlgClosedQ) := ⟨fun a b => (hone a).trans (hone b).symm⟩
   rw [Nat.card_eq_one_iff_unique.mpr ⟨inferInstance, ⟨1⟩⟩] at hcard
   exact absurd hcard (by norm_num)
 
 open Classical in
 /-- The flipped bundled map exists on that curve and its kernel is trivial — an instance of a
 universally quantified equation, and the weightless certificate of the three. -/
-example : MonoidHom.ker (weilPairingTwoHom (W := exampleCurveTwo) exampleTwo).flip = ⊥ :=
+example : MonoidHom.ker (weilPairingTwoHom (W := y2EqX3SubX AlgClosedQ) exampleTwo).flip = ⊥ :=
   ker_weilPairingTwoHom_flip exampleTwo
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, this tree's `n = 3` certificate curve.
-⚠️ `y² = x³ − x` would not serve at `n = 3`: its `Ψ₃` has no rational root, so none of its nine
-`3`-torsion points can be named. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
 /-- `S = (0, 0)` lies on `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingularThree : exampleCurveThree.Nonsingular 0 0 :=
-  exampleCurveThree.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularThree : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 :=
+  (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`. -/
 private lemma exampleTorsionThree :
-    Point.some (0 : exampleField) 0 exampleNonsingularThree ∈ exampleCurveThree.torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingularThree ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- The named `3`-torsion point, as an element of `E[3]`. -/
-private noncomputable def exampleSThree : exampleCurveThree.torsion 3 :=
+private noncomputable def exampleSThree : (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   ⟨Point.some 0 0 exampleNonsingularThree, exampleTorsionThree⟩
 
 open Classical in
@@ -350,21 +338,22 @@ open Classical in
 `n = 2` and with `3` for `2`. -/
 private theorem not_surjective_weilPairingThree_zero :
     ¬ Function.Surjective
-      (weilPairingThree (W := exampleCurveThree) exampleTwo exampleThree 0) := by
+      (weilPairingThree (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree 0) := by
   intro hsurj
-  have hone : ∀ ζ : rootsOfUnity 3 exampleField, ζ = 1 := fun ζ => by
+  have hone : ∀ ζ : rootsOfUnity 3 AlgClosedQ, ζ = 1 := fun ζ => by
     obtain ⟨T, hT⟩ := hsurj ζ
     rw [← hT, weilPairingThree_zero_left]
-  have hcard : Nat.card (rootsOfUnity 3 exampleField) = 3 :=
-    natCard_rootsOfUnity_of_ne_zero (F := exampleField) (n := 3) exampleThree
-  haveI : Subsingleton (rootsOfUnity 3 exampleField) := ⟨fun a b => (hone a).trans (hone b).symm⟩
+  have hcard : Nat.card (rootsOfUnity 3 AlgClosedQ) = 3 :=
+    natCard_rootsOfUnity_of_ne_zero (F := AlgClosedQ) (n := 3) exampleThree
+  haveI : Subsingleton (rootsOfUnity 3 AlgClosedQ) := ⟨fun a b => (hone a).trans (hone b).symm⟩
   rw [Nat.card_eq_one_iff_unique.mpr ⟨inferInstance, ⟨1⟩⟩] at hcard
   exact absurd hcard (by norm_num)
 
 open Classical in
 /-- The flipped bundled map at `n = 3`, on that curve. -/
 example :
-    MonoidHom.ker (weilPairingThreeHom (W := exampleCurveThree) exampleTwo exampleThree).flip = ⊥ :=
+    MonoidHom.ker (weilPairingThreeHom (W := y2AddYEqX3 AlgClosedQ) exampleTwo
+        exampleThree).flip = ⊥ :=
   ker_weilPairingThreeHom_flip exampleTwo exampleThree
 
 end Nonvacuity

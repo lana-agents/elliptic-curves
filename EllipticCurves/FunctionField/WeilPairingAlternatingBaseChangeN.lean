@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.FunctionFieldBaseChangeN
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN
@@ -303,43 +304,40 @@ private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
 private lemma exampleThreeNeZero : (3 : ℚ) ≠ 0 := by norm_num
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `−432`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 1)` is a nonsingular point of `y² = x³ + 1`. -/
-private lemma exampleNonsingularT : exampleCurve.Nonsingular 0 1 := by
+private lemma exampleNonsingularT : (y2EqX3AddOne ℚ).Nonsingular 0 1 := by
   rw [nonsingular_iff]
   refine ⟨?_, Or.inr ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
 
 open Classical in
 /-- `[2]T = −T`: the tangent at `(0, 1)` is horizontal, and doubling returns `(0, −1)`. -/
 private lemma exampleDouble :
     Point.some (0 : ℚ) 1 exampleNonsingularT + Point.some (0 : ℚ) 1 exampleNonsingularT
       = -Point.some (0 : ℚ) 1 exampleNonsingularT := by
-  have hy : (1 : ℚ) ≠ exampleCurve.negY 0 1 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (1 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 0 1 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [Point.add_self_of_Y_ne hy, Point.neg_some, Point.some.injEq]
   constructor <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 
 open Classical in
 /-- `T` has order `3`. -/
 private lemma exampleThreeTorsion :
-    ((3 : ℕ) • Point.some (0 : ℚ) 1 exampleNonsingularT : exampleCurve.Point) = 0 := by
+    ((3 : ℕ) • Point.some (0 : ℚ) 1 exampleNonsingularT : (y2EqX3AddOne ℚ).Point) = 0 := by
   rw [show (3 : ℕ) = 2 + 1 from rfl, succ_nsmul, two_nsmul, exampleDouble, neg_add_cancel]
 
 open Classical in
 /-- Hence `T` is `6`-torsion, without having order `6`. -/
 private lemma exampleSixTorsion :
-    Point.some (0 : ℚ) 1 exampleNonsingularT ∈ exampleCurve.torsion 6 := by
+    Point.some (0 : ℚ) 1 exampleNonsingularT ∈ (y2EqX3AddOne ℚ).torsion 6 := by
   rw [mem_torsion_iff, show (6 : ℕ) = 3 + 3 from rfl, add_nsmul, exampleThreeTorsion, add_zero]
 
 /-- `6` is `3`-smooth. -/
@@ -359,19 +357,20 @@ in `F` and elaborated `open Classical in` — is indexed by `Classical.propDecid
 discharges the difference by `Subsingleton.elim`.  It does not arise in the merged blocks over
 `AlgebraicClosure ℚ`, which has no decidable equality. -/
 example
-    (hprin : ∀ f : exampleCurve.FunctionField, f ≠ 0 →
-      divisor exampleCurve f
+    (hprin : ∀ f : (y2EqX3AddOne ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3AddOne ℚ) f
           = Finsupp.single (pointClosedPoint exampleNonsingularT.left) ((6 : ℕ) : ℤ) →
-        ∃ g₀ : exampleCurve.FunctionField, g₀ ≠ 0 ∧
-          (6 : ℕ) • divisor exampleCurve g₀ = divisor exampleCurve
+        ∃ g₀ : (y2EqX3AddOne ℚ).FunctionField, g₀ ≠ 0 ∧
+          (6 : ℕ) • divisor (y2EqX3AddOne ℚ) g₀ = divisor (y2EqX3AddOne ℚ)
             (mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleTwoNeZero
               exampleThreeNeZero (by norm_num) exampleSmooth) f)) :
-    ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-      divisorProj exampleCurve f
+    ∃ f : (y2EqX3AddOne ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3AddOne ℚ) f
           = Finsupp.single (some (pointClosedPoint exampleNonsingularT.left)) ((6 : ℕ) : ℤ)
-            - Finsupp.single (none : ProjPoint exampleCurve) ((6 : ℕ) : ℤ) ∧
-        ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧
-          (∃ u : exampleCurve.CoordinateRingˣ, (u : exampleCurve.CoordinateRing) • g ^ (6 : ℕ)
+            - Finsupp.single (none : ProjPoint (y2EqX3AddOne ℚ)) ((6 : ℕ) : ℤ) ∧
+        ∃ g : (y2EqX3AddOne ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3AddOne ℚ).CoordinateRingˣ, (u : (y2EqX3AddOne ℚ).CoordinateRing) • g ^
+              (6 : ℕ)
             = mulByNEndo 6 (transcendental_xCoord_nsmul_of_smooth exampleTwoNeZero
                 exampleThreeNeZero (by norm_num) exampleSmooth) f) ∧
           translateEndo exampleNonsingularT.left g = g ∧

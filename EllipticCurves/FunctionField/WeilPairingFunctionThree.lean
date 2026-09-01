@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingFunctionTwo
 import EllipticCurves.FunctionField.WeilPairingNondegenerateThree
 import EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed
@@ -635,42 +636,38 @@ inferred (`#916`). -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `S = (0, 0)` lies on `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2AddYEqX3 AlgClosedQ).Nonsingular 0 0 :=
+  (y2AddYEqX3 AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`. -/
 private lemma exampleTorsion :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurve.torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    norm_num [exampleCurve, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- The named `3`-torsion point, as an element of `E[3]`. -/
-private noncomputable def exampleS : exampleCurve.torsion 3 :=
+private noncomputable def exampleS : (y2AddYEqX3 AlgClosedQ).torsion 3 :=
   ⟨Point.some 0 0 exampleNonsingular, exampleTorsion⟩
 
 open Classical in
 /-- The pairing is bilinear on a curve that exists. -/
-example (S₁ S₂ T₁ T₂ : exampleCurve.torsion 3) :
+example (S₁ S₂ T₁ T₂ : (y2AddYEqX3 AlgClosedQ).torsion 3) :
     weilPairingThree exampleTwo exampleThree (S₁ + S₂) (T₁ + T₂)
       = weilPairingThree exampleTwo exampleThree S₁ T₁
           * weilPairingThree exampleTwo exampleThree S₂ T₁
@@ -680,7 +677,7 @@ example (S₁ S₂ T₁ T₂ : exampleCurve.torsion 3) :
 
 open Classical in
 /-- It is alternating, and antisymmetric, on that curve. -/
-example (S T : exampleCurve.torsion 3) :
+example (S T : (y2AddYEqX3 AlgClosedQ).torsion 3) :
     weilPairingThree exampleTwo exampleThree S S = 1 ∧
       weilPairingThree exampleTwo exampleThree T S
         = (weilPairingThree exampleTwo exampleThree S T)⁻¹ :=
@@ -690,7 +687,7 @@ example (S T : exampleCurve.torsion 3) :
 open Classical in
 /-- The bundled map exists there, and its kernel is trivial. -/
 example :
-    MonoidHom.ker (weilPairingThreeHom (W := exampleCurve) exampleTwo exampleThree) = ⊥ :=
+    MonoidHom.ker (weilPairingThreeHom (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree) = ⊥ :=
   ker_weilPairingThreeHom exampleTwo exampleThree
 
 open Classical in
@@ -698,10 +695,10 @@ open Classical in
 `y² + y = x³`, some `T ∈ E[3]` pairs non-trivially.  ⚠️ Stated as an existence over `E[3]` with the
 *divisor* point fixed and named, which is what makes it a statement about this curve and not a
 schema. -/
-example : ∃ T : exampleCurve.torsion 3,
+example : ∃ T : (y2AddYEqX3 AlgClosedQ).torsion 3,
     weilPairingThree exampleTwo exampleThree exampleS T ≠ 1 := by
   by_contra hcon
-  have hall : ∀ T : exampleCurve.torsion 3,
+  have hall : ∀ T : (y2AddYEqX3 AlgClosedQ).torsion 3,
       weilPairingThree exampleTwo exampleThree exampleS T = 1 := fun T =>
     not_not.mp fun hne => hcon ⟨T, hne⟩
   have h0 : exampleS = 0 :=

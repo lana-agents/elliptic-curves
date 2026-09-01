@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlaceResidueField
 import Mathlib.RingTheory.Jacobson.Ring
 import Mathlib.FieldTheory.IsAlgClosed.Basic
@@ -346,89 +347,77 @@ The same equation over `AlgebraicClosure ℚ` — the base field `WeilPairingAlt
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 open CoordinateRing in
 /-- **`#742` deliverable 5, on a named function.**  `x` has a double pole at infinity, so `x⁻¹`
 has order `+2` there and therefore lies in the maximal ideal of the place at infinity — the
 maximal-ideal characterisation of `PlaceResidueField.lean` fired on a function one can name, rather
 than on a uniformizer produced by an existential. -/
-example : (⟨(genX exampleCurve)⁻¹, (mem_placeOf_iff_divisorProj_nonneg (W := exampleCurve) none
+example : (⟨(genX (y2EqX3SubX ℚ))⁻¹, (mem_placeOf_iff_divisorProj_nonneg (W := y2EqX3SubX ℚ) none
       (inv_ne_zero genX_ne_zero)).2 (by
         rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]; norm_num)⟩ :
-    placeOf exampleCurve none) ∈ IsLocalRing.maximalIdeal (placeOf exampleCurve none) := by
+    placeOf (y2EqX3SubX ℚ) none) ∈ IsLocalRing.maximalIdeal (placeOf (y2EqX3SubX ℚ) none) := by
   rw [mem_maximalIdeal_placeOf_iff
-    (by simpa using inv_ne_zero (genX_ne_zero (W := exampleCurve)))]
+    (by simpa using inv_ne_zero (genX_ne_zero (W := y2EqX3SubX ℚ)))]
   rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]
   norm_num
 
 open CoordinateRing in
 /-- The kernel form of the same certificate: `x⁻¹` has residue `0` at infinity. -/
-example : IsLocalRing.residue (placeOf exampleCurve none)
-    ⟨(genX exampleCurve)⁻¹, (mem_placeOf_iff_divisorProj_nonneg (W := exampleCurve) none
+example : IsLocalRing.residue (placeOf (y2EqX3SubX ℚ) none)
+    ⟨(genX (y2EqX3SubX ℚ))⁻¹, (mem_placeOf_iff_divisorProj_nonneg (W := y2EqX3SubX ℚ) none
       (inv_ne_zero genX_ne_zero)).2 (by
         rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]; norm_num)⟩ = 0 := by
   rw [residue_placeOf_eq_zero_iff
-    (by simpa using inv_ne_zero (genX_ne_zero (W := exampleCurve)))]
+    (by simpa using inv_ne_zero (genX_ne_zero (W := y2EqX3SubX ℚ)))]
   rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]
   norm_num
 
 /-- The residue field at every affine closed point of a curve over `ℚ` is a *finite* extension of
 `ℚ` — Zariski's lemma, with no hypothesis on the base field. -/
-example (v : HeightOneSpectrum exampleCurve.CoordinateRing) :
-    Module.Finite ℚ (residueFieldProj exampleCurve (some v)) :=
+example (v : HeightOneSpectrum (y2EqX3SubX ℚ).CoordinateRing) :
+    Module.Finite ℚ (residueFieldProj (y2EqX3SubX ℚ) (some v)) :=
   inferInstance
 
-example (v : HeightOneSpectrum exampleCurve.CoordinateRing) :
-    residueDegreeProj exampleCurve (some v) ≠ 0 :=
+example (v : HeightOneSpectrum (y2EqX3SubX ℚ).CoordinateRing) :
+    residueDegreeProj (y2EqX3SubX ℚ) (some v) ≠ 0 :=
   residueDegreeProj_some_ne_zero v
-
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldBar : Type := AlgebraicClosure ℚ
-
-/-- The same curve `y² = x³ - x`, now over `AlgebraicClosure ℚ`. -/
-private noncomputable def exampleCurveBar : Affine exampleFieldBar := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurveBar.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveBar, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
 /-- **The headline, committed.**  Every affine closed point of a genuine curve over a genuine
 algebraically closed field has residue degree `1`. -/
-example (v : HeightOneSpectrum exampleCurveBar.CoordinateRing) :
-    residueDegreeProj exampleCurveBar (some v) = 1 :=
+example (v : HeightOneSpectrum (y2EqX3SubX AlgClosedQ).CoordinateRing) :
+    residueDegreeProj (y2EqX3SubX AlgClosedQ) (some v) = 1 :=
   residueDegreeProj_some_eq_one v
 
 /-- There is at least one affine closed point to say that about. -/
-example : Nonempty (HeightOneSpectrum exampleCurveBar.CoordinateRing) :=
+example : Nonempty (HeightOneSpectrum (y2EqX3SubX AlgClosedQ).CoordinateRing) :=
   nonempty_heightOneSpectrum
 
 /-- **The point at infinity of a curve over `ℚ` has residue degree `1`.**  The rational base field
 is the point: `ℚ` is about as far from algebraically closed as a characteristic-zero field gets,
 and the statement still holds. -/
-example : residueDegreeProj exampleCurve (none : ProjPoint exampleCurve) = 1 :=
-  residueDegreeProj_none_eq_one exampleCurve
+example : residueDegreeProj (y2EqX3SubX ℚ) (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
+  residueDegreeProj_none_eq_one (y2EqX3SubX ℚ)
 
 /-- The bundled form on the same curve: `κ(∞) ≃ₐ[ℚ] ℚ`. -/
-noncomputable example : residueFieldProj exampleCurve (none : ProjPoint exampleCurve) ≃ₐ[ℚ] ℚ :=
-  residueFieldProjNoneEquiv exampleCurve
+noncomputable example : residueFieldProj (y2EqX3SubX ℚ) (none : ProjPoint (y2EqX3SubX ℚ)) ≃ₐ[ℚ] ℚ :=
+  residueFieldProjNoneEquiv (y2EqX3SubX ℚ)
 
 open Polynomial Polynomial.Bivariate in
 /-- The function `x³` on the `ℚ` curve, of pole order `2 · 3 = 6` at infinity. -/
-private noncomputable abbrev exampleXCubed : exampleCurve.CoordinateRing :=
-  CoordinateRing.mk exampleCurve (C (X ^ 3))
+private noncomputable abbrev exampleXCubed : (y2EqX3SubX ℚ).CoordinateRing :=
+  CoordinateRing.mk (y2EqX3SubX ℚ) (C (X ^ 3))
 
 open Polynomial.Bivariate in
 /-- The function `y²` on the same curve, of pole order `3 + 3 = 6`. -/
-private noncomputable abbrev exampleYSq : exampleCurve.CoordinateRing :=
-  CoordinateRing.mk exampleCurve Y * CoordinateRing.mk exampleCurve Y
+private noncomputable abbrev exampleYSq : (y2EqX3SubX ℚ).CoordinateRing :=
+  CoordinateRing.mk (y2EqX3SubX ℚ) Y * CoordinateRing.mk (y2EqX3SubX ℚ) Y
 
 open Polynomial CoordinateRing in
 /-- **The leading-coefficient lemma the `none` branch runs on, fired on a curve that exists.**
@@ -436,10 +425,10 @@ open Polynomial CoordinateRing in
 their difference has a strictly smaller pole — concretely `x³ - y² = x`, of pole order `2`.  Only
 the existence of the constant is asserted, which is the statement. -/
 example : ∃ c : ℚ,
-    exampleXCubed - algebraMap ℚ exampleCurve.CoordinateRing c * exampleYSq = 0 ∨
-      deg exampleCurve
-          (exampleXCubed - algebraMap ℚ exampleCurve.CoordinateRing c * exampleYSq)
-        < deg exampleCurve exampleYSq := by
+    exampleXCubed - algebraMap ℚ (y2EqX3SubX ℚ).CoordinateRing c * exampleYSq = 0 ∨
+      deg (y2EqX3SubX ℚ)
+          (exampleXCubed - algebraMap ℚ (y2EqX3SubX ℚ).CoordinateRing c * exampleYSq)
+        < deg (y2EqX3SubX ℚ) exampleYSq := by
   refine exists_deg_sub_lt (mk_C_ne_zero (pow_ne_zero _ Polynomial.X_ne_zero))
     (mul_ne_zero mk_Y_ne_zero mk_Y_ne_zero) ?_
   rw [exampleXCubed, exampleYSq, deg_mk_C, deg_mul mk_Y_ne_zero mk_Y_ne_zero, deg_mk_Y,
@@ -447,12 +436,12 @@ example : ∃ c : ℚ,
 
 /-- **The uniform statement, committed.**  Every place of a genuine curve over a genuine
 algebraically closed field — the point at infinity included — has residue degree `1`. -/
-example (p : ProjPoint exampleCurveBar) : residueDegreeProj exampleCurveBar p = 1 :=
+example (p : ProjPoint (y2EqX3SubX AlgClosedQ)) : residueDegreeProj (y2EqX3SubX AlgClosedQ) p = 1 :=
   residueDegreeProj_eq_one p
 
 /-- And the bijectivity form it is read off from. -/
-example (p : ProjPoint exampleCurveBar) :
-    Function.Bijective (algebraMap exampleFieldBar (residueFieldProj exampleCurveBar p)) :=
+example (p : ProjPoint (y2EqX3SubX AlgClosedQ)) :
+    Function.Bijective (algebraMap AlgClosedQ (residueFieldProj (y2EqX3SubX AlgClosedQ) p)) :=
   algebraMap_residueFieldProj_bijective p
 
 end Nonvacuity

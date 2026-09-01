@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoDegree
 import EllipticCurves.FunctionField.PlaceDiscreteValuationRing
 import EllipticCurves.FunctionField.PlaceResidueComap
@@ -474,71 +475,68 @@ the unconditional form of the headline applicable here. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- **The degree of `[2]` on a curve that exists**, in the `Subfield` presentation this file runs
 on. -/
-example : finrank ↥(mulByTwoEndo (W := exampleCurve) exampleTwoNeZero).fieldRange
-    exampleCurve.FunctionField = 4 :=
+example : finrank ↥(mulByTwoEndo (W := y2EqX3SubX ℚ) exampleTwoNeZero).fieldRange
+    (y2EqX3SubX ℚ).FunctionField = 4 :=
   finrank_mulByTwoEndoFieldRange exampleTwoNeZero
 
 /-- **A place of `[2]∗ℚ(W)` is a discrete valuation ring**, by instance search: `#753`'s instance
 transported along `placeBelowEquiv`, with the `ValuationSubring` of a subfield in between. -/
-example (q : ProjPoint exampleCurve) :
-    IsDiscreteValuationRing ↥(placeBelowTwo exampleCurve exampleTwoNeZero q) := inferInstance
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    IsDiscreteValuationRing ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q) := inferInstance
 
 /-- And the four instances the fundamental identity will read off it, all by search. -/
-example (q : ProjPoint exampleCurve) :
-    IsNoetherianRing ↥(placeBelowTwo exampleCurve exampleTwoNeZero q) := inferInstance
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    IsNoetherianRing ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q) := inferInstance
 
-example (q : ProjPoint exampleCurve) :
-    IsIntegrallyClosed ↥(placeBelowTwo exampleCurve exampleTwoNeZero q) := inferInstance
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    IsIntegrallyClosed ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q) := inferInstance
 
-example (q : ProjPoint exampleCurve) :
-    IsFractionRing ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-      ↥(mulByTwoEndo (W := exampleCurve) exampleTwoNeZero).fieldRange := inferInstance
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    IsFractionRing ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+      ↥(mulByTwoEndo (W := y2EqX3SubX ℚ) exampleTwoNeZero).fieldRange := inferInstance
 
-example (q : ProjPoint exampleCurve) :
-    IsDomain ↥(placeBelowTwo exampleCurve exampleTwoNeZero q) := inferInstance
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    IsDomain ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q) := inferInstance
 
 /-- **The headline on a curve that exists, with nothing discharged by hand.**  `ℚ` has
 characteristic zero, so the separability hypothesis is supplied by the tree rather than assumed —
 which is the point of certifying it here rather than on an algebraically closed base field. -/
-example (q : ProjPoint exampleCurve) :
-    Module.Finite ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-      ↥(integralClosure ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-        exampleCurve.FunctionField) :=
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    Module.Finite ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+      ↥(integralClosure ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+        (y2EqX3SubX ℚ).FunctionField) :=
   module_finite_integralClosure_placeBelowTwo_of_charZero exampleTwoNeZero q
 
 /-- **The right-hand side of the fundamental identity, on a curve that exists**: the integral
 closure of a place of `[2]∗ℚ(W)` has rank `4` over it. -/
-example (q : ProjPoint exampleCurve) :
-    finrank ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-      ↥(integralClosure ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-        exampleCurve.FunctionField) = 4 :=
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    finrank ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+      ↥(integralClosure ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+        (y2EqX3SubX ℚ).FunctionField) = 4 :=
   finrank_integralClosure_placeBelowTwo_of_charZero exampleTwoNeZero q
 
 /-- Flatness on the same curve, which needs neither the characteristic nor ellipticity. -/
-example (q : ProjPoint exampleCurve) :
-    Module.Flat ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-      ↥(integralClosure ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-        exampleCurve.FunctionField) :=
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    Module.Flat ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+      ↥(integralClosure ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+        (y2EqX3SubX ℚ).FunctionField) :=
   module_flat_integralClosure_placeBelowTwo exampleTwoNeZero q
 
 /-- **The encoding is the classical one, on a curve that exists**: the place of `[2]∗ℚ(W)` below `p`
 is the intersection of `[2]∗ℚ(W)` with the place at `p`. -/
-example (p : ProjPoint exampleCurve) :
-    placeBelowTwo exampleCurve exampleTwoNeZero (comapProjPointTwo exampleTwoNeZero p)
-      = (placeOf exampleCurve p).comap
-        ((mulByTwoEndo (W := exampleCurve) exampleTwoNeZero).fieldRange.subtype) :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero (comapProjPointTwo exampleTwoNeZero p)
+      = (placeOf (y2EqX3SubX ℚ) p).comap
+        ((mulByTwoEndo (W := y2EqX3SubX ℚ) exampleTwoNeZero).fieldRange.subtype) :=
   placeBelowTwo_comapProjPointTwo exampleTwoNeZero p
 
 end Nonvacuity

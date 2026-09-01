@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNPullback
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.NegYGalois
@@ -296,25 +297,22 @@ one — at `n = 5`, beyond the `2` and `3` at which the coordinate formulæ exis
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, this development's standard certificate curve. -/
-private noncomputable def exampleCurveXCoord : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveXCoord.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveXCoord, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 open Classical in
 /-- **THE CERTIFICATE, part one.**  `x(5 • 𝒫)` is a rational function of `x` on a curve that
 exists, over a field that is not algebraically closed. -/
-example : (5 • genericPoint (W := exampleCurveXCoord)).xCoord ∈ ratFuncRange exampleCurveXCoord :=
+example : (5 • genericPoint (W := y2AddYEqX3 ℚ)).xCoord ∈ ratFuncRange (y2AddYEqX3 ℚ) :=
   xCoord_nsmul_genericPoint_mem_ratFuncRange 5
 
 open Classical in
 /-- **THE CERTIFICATE, part two.**  And it has a name in `RatFunc ℚ`. -/
-example : algebraMap (RatFunc ℚ) exampleCurveXCoord.FunctionField
-      (nMulRatFunc exampleCurveXCoord 5)
-    = (5 • genericPoint (W := exampleCurveXCoord)).xCoord :=
+example : algebraMap (RatFunc ℚ) (y2AddYEqX3 ℚ).FunctionField
+      (nMulRatFunc (y2AddYEqX3 ℚ) 5)
+    = (5 • genericPoint (W := y2AddYEqX3 ℚ)).xCoord :=
   algebraMap_nMulRatFunc 5
 
 end Nonvacuity

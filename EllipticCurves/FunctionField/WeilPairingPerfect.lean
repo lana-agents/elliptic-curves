@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import Mathlib.GroupTheory.FiniteAbelian.Duality
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingSurjective
 import EllipticCurves.Torsion.ThreeTorsionStructure
 
@@ -276,31 +277,28 @@ duality count, and `:= rfl` does not prove them (checked: it reports
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+open EllipticCurves.Fixture
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, this tree's `n = 2` certificate curve. -/
-private noncomputable def exampleCurveTwo : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurveTwo.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveTwo, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 open Classical in
 /-- The pairing on `y² = x³ − x` identifies `E[2]` with its dual — the weightless certificate, and
 this block says so rather than presenting it as more. -/
-example : Function.Bijective (weilPairingTwoHom (W := exampleCurveTwo) exampleTwo) :=
+example : Function.Bijective (weilPairingTwoHom (W := y2EqX3SubX AlgClosedQ) exampleTwo) :=
   bijective_weilPairingTwoHom exampleTwo
 
 open Classical in
 /-- Every character of `E[2]` on that curve is `e_2(S, ·)` for exactly one `S`. -/
-example (φ : Multiplicative (exampleCurveTwo.torsion 2) →* rootsOfUnity 2 exampleField) :
-    ∃! S : Multiplicative (exampleCurveTwo.torsion 2),
+example (φ : Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2) →* rootsOfUnity 2 AlgClosedQ) :
+    ∃! S : Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2),
       weilPairingTwoHom exampleTwo S = φ :=
   existsUnique_weilPairingTwoHom_eq exampleTwo φ
 
@@ -309,7 +307,8 @@ open Classical in
 four elements.  Named number, supplied by `card_torsion_two` on top of the duality count, and not
 provable by `rfl`. -/
 example :
-    Nat.card (Multiplicative (exampleCurveTwo.torsion 2) →* rootsOfUnity 2 exampleField) = 4 :=
+    Nat.card (Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2) →* rootsOfUnity 2 AlgClosedQ)
+        = 4 :=
   natCard_monoidHom_torsionTwo exampleTwo
 
 open Classical in
@@ -319,35 +318,27 @@ map is not injective.  This is a refutation checked by the build, not a failed p
 consumes `card_torsion_two` exactly as the numeric certificate does. -/
 private theorem not_bijective_one_two :
     ¬ Function.Bijective
-      (1 : Multiplicative (exampleCurveTwo.torsion 2) →*
-        Multiplicative (exampleCurveTwo.torsion 2) →* rootsOfUnity 2 exampleField) := by
+      (1 : Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2) →*
+        Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2) →* rootsOfUnity 2 AlgClosedQ) := by
   intro hbij
-  haveI := exampleCurveTwo.finite_torsion_two exampleTwo
-  have hcard : Nat.card (Multiplicative (exampleCurveTwo.torsion 2)) = 4 := by
+  haveI := (y2EqX3SubX AlgClosedQ).finite_torsion_two exampleTwo
+  have hcard : Nat.card (Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2)) = 4 := by
     rw [Nat.card_congr Multiplicative.toAdd, card_torsion_two exampleTwo]
-  haveI hsub : Subsingleton (Multiplicative (exampleCurveTwo.torsion 2)) :=
+  haveI hsub : Subsingleton (Multiplicative ((y2EqX3SubX AlgClosedQ).torsion 2)) :=
     ⟨fun a b => hbij.injective (by simp)⟩
   rw [Nat.card_eq_one_iff_unique.mpr ⟨hsub, ⟨1⟩⟩] at hcard
   exact absurd hcard (by norm_num)
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, this tree's `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
 open Classical in
 /-- The pairing on `y² + y = x³` identifies `E[3]` with its dual. -/
 example :
-    Function.Bijective (weilPairingThreeHom (W := exampleCurveThree) exampleTwo exampleThree) :=
+    Function.Bijective (weilPairingThreeHom (W := y2AddYEqX3 AlgClosedQ) exampleTwo exampleThree) :=
   bijective_weilPairingThreeHom exampleTwo exampleThree
 
 open Classical in
 /-- Every character of `E[3]` on that curve is `e_3(S, ·)` for exactly one `S`. -/
-example (φ : Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField) :
-    ∃! S : Multiplicative (exampleCurveThree.torsion 3),
+example (φ : Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3) →* rootsOfUnity 3 AlgClosedQ) :
+    ∃! S : Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3),
       weilPairingThreeHom exampleTwo exampleThree S = φ :=
   existsUnique_weilPairingThreeHom_eq exampleTwo exampleThree φ
 
@@ -355,7 +346,8 @@ open Classical in
 /-- **⚠️ The load-bearing certificate at `n = 3`**: the dual of `E[3]` on `y² + y = x³` has exactly
 nine elements. -/
 example :
-    Nat.card (Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField) = 9 :=
+    Nat.card (Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3) →* rootsOfUnity 3 AlgClosedQ)
+        = 9 :=
   natCard_monoidHom_torsionThree exampleTwo exampleThree
 
 open Classical in
@@ -363,13 +355,13 @@ open Classical in
 map on the same curve is not bijective, `E[3]` having nine elements. -/
 private theorem not_bijective_one_three :
     ¬ Function.Bijective
-      (1 : Multiplicative (exampleCurveThree.torsion 3) →*
-        Multiplicative (exampleCurveThree.torsion 3) →* rootsOfUnity 3 exampleField) := by
+      (1 : Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3) →*
+        Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3) →* rootsOfUnity 3 AlgClosedQ) := by
   intro hbij
-  haveI := exampleCurveThree.finite_torsion_three exampleThree
-  have hcard : Nat.card (Multiplicative (exampleCurveThree.torsion 3)) = 9 := by
+  haveI := (y2AddYEqX3 AlgClosedQ).finite_torsion_three exampleThree
+  have hcard : Nat.card (Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3)) = 9 := by
     rw [Nat.card_congr Multiplicative.toAdd, card_torsion_three exampleTwo exampleThree]
-  haveI hsub : Subsingleton (Multiplicative (exampleCurveThree.torsion 3)) :=
+  haveI hsub : Subsingleton (Multiplicative ((y2AddYEqX3 AlgClosedQ).torsion 3)) :=
     ⟨fun a b => hbij.injective (by simp)⟩
   rw [Nat.card_eq_one_iff_unique.mpr ⟨hsub, ⟨1⟩⟩] at hcard
   exact absurd hcard (by norm_num)

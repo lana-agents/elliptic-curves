@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationMulByNCommGeneral
 import EllipticCurves.FunctionField.TranslationPointEndomorphism
 import EllipticCurves.FunctionField.WeilPairingAlternatingThree
@@ -345,29 +346,26 @@ lets the theorem generate those types, leaving one `convert` on `hPT`. -/
 
 namespace Nonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `−432`. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `P = (2, 3)` lies on `y² = x³ + 1`. -/
-private lemma exampleEqP : exampleCurve.Equation 2 3 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqP : (y2EqX3AddOne ℚ).Equation 2 3 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `[2]P = (0, 1)`. -/
-private lemma exampleEqTwoP : exampleCurve.Equation 0 1 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqTwoP : (y2EqX3AddOne ℚ).Equation 0 1 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `[3]P = (-1, 0)`. -/
-private lemma exampleEqThreeP : exampleCurve.Equation (-1) 0 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqThreeP : (y2EqX3AddOne ℚ).Equation (-1) 0 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `T = [4]P = (0, -1)` lies on `y² = x³ + 1`. -/
-private lemma exampleEqT : exampleCurve.Equation 0 (-1) := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqT : (y2EqX3AddOne ℚ).Equation 0 (-1) := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 open Classical in
 /-- `[4](2, 3) = (0, −1)`: the tangent at `P` has slope `2`, giving `[2]P = (0, 1)`; the secant
@@ -375,35 +373,35 @@ through `(0, 1)` and `(2, 3)` has slope `1`, giving `[3]P = (−1, 0)`; the seca
 and `(2, 3)` has slope `1`, giving `[4]P = (0, −1)`. -/
 private lemma exampleQuadruple :
     (4 : ℕ) • torsionPoint exampleEqP = torsionPoint exampleEqT := by
-  have hy : (3 : ℚ) ≠ exampleCurve.negY 2 3 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   have hdouble : Point.some (2 : ℚ) 3
-        (exampleCurve.equation_iff_nonsingular.mp exampleEqP)
-      + Point.some (2 : ℚ) 3 (exampleCurve.equation_iff_nonsingular.mp exampleEqP)
-      = Point.some (0 : ℚ) 1 (exampleCurve.equation_iff_nonsingular.mp exampleEqTwoP) := by
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
+      + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
+      = Point.some (0 : ℚ) 1 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqTwoP) := by
     rw [Point.add_self_of_Y_ne hy, Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   have hx : (0 : ℚ) ≠ 2 := by norm_num
   have hsecant : Point.some (0 : ℚ) 1
-        (exampleCurve.equation_iff_nonsingular.mp exampleEqTwoP)
-      + Point.some (2 : ℚ) 3 (exampleCurve.equation_iff_nonsingular.mp exampleEqP)
-      = Point.some (-1 : ℚ) 0 (exampleCurve.equation_iff_nonsingular.mp exampleEqThreeP) := by
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqTwoP)
+      + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
+      = Point.some (-1 : ℚ) 0 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqThreeP) := by
     rw [Point.add_of_X_ne hx, Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   have hx' : (-1 : ℚ) ≠ 2 := by norm_num
   have hsecant' : Point.some (-1 : ℚ) 0
-        (exampleCurve.equation_iff_nonsingular.mp exampleEqThreeP)
-      + Point.some (2 : ℚ) 3 (exampleCurve.equation_iff_nonsingular.mp exampleEqP)
-      = Point.some (0 : ℚ) (-1) (exampleCurve.equation_iff_nonsingular.mp exampleEqT) := by
+        ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqThreeP)
+      + Point.some (2 : ℚ) 3 ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqP)
+      = Point.some (0 : ℚ) (-1) ((y2EqX3AddOne ℚ).equation_iff_nonsingular.mp exampleEqT) := by
     rw [Point.add_of_X_ne hx', Point.some.injEq]
     constructor <;>
-      norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+      norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
         WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
         WeierstrassCurve.Affine.slope]
   change (4 : ℕ) • Point.some (2 : ℚ) 3 _ = Point.some (0 : ℚ) (-1) _
@@ -425,14 +423,14 @@ private lemma exampleNotFourTorsion : (4 : ℕ) • torsionPoint exampleEqP ≠ 
 open Classical in
 /-- The transcendence hypothesis at `n = 4` over `ℚ`, discharged by `P` itself. -/
 private lemma exampleTranscendentalFour :
-    Transcendental ℚ ((4 : ℕ) • genericPoint (W := exampleCurve)).xCoord :=
+    Transcendental ℚ ((4 : ℕ) • genericPoint (W := y2EqX3AddOne ℚ)).xCoord :=
   transcendental_xCoord_nsmul_genericPoint 4 (T := torsionPoint exampleEqP)
     (by convert exampleNotFourTorsion using 9)
 
 open Classical in
 /-- `T = [4]P = (0, −1)` is not the point at infinity, so the certificate below is not the
 degenerate `T = O` instance in which `τ_T∗` is the identity by definition. -/
-private lemma exampleTNeZero : torsionPoint exampleEqT ≠ (0 : exampleCurve.Point) := by
+private lemma exampleTNeZero : torsionPoint exampleEqT ≠ (0 : (y2EqX3AddOne ℚ).Point) := by
   rw [torsionPoint]
   exact fun h => by simp at h
 
@@ -446,7 +444,7 @@ certifies that the hypothesis set is **jointly satisfiable**, not merely non-con
 for what it is: with `g = 1` the conclusion `τ_T∗ 1 = 1` is trivially true, so this says nothing
 about the case the theorem is *for*.  What it does say is that nothing in the hypothesis list rules
 the others out at `n = 4`, which is the failure mode a general-`n` statement actually has. -/
-example : translatePointEndo (torsionPoint exampleEqT) (1 : exampleCurve.FunctionField) = 1 :=
+example : translatePointEndo (torsionPoint exampleEqT) (1 : (y2EqX3AddOne ℚ).FunctionField) = 1 :=
   translatePointEndo_eq_self_of_prod_eq_of_pow_eq (n := 4) (P := torsionPoint exampleEqP)
     (T := torsionPoint exampleEqT) (f := 1) (g := 1) (c := 1) (c₀ := 1) (by norm_num)
     exampleTranscendentalFour (by convert exampleQuadruple using 9) one_ne_zero one_ne_zero

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
 
@@ -172,14 +173,10 @@ divisor half of III.8.1(d). -/
 
 namespace ConsumerNonvacuity
 
-/-- The curve `y² = x³ + 1` over `ℚ`, of discriminant `−432`.  ⚠️ Deliberately not `y² = x³ − x`;
-see the section docstring. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, 0, 1⟩
+/-! The certificate curve `y² = x³ + 1` is the shared `EllipticCurves.Fixture.y2EqX3AddOne`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwo : (2 : ℚ) ≠ 0 := by norm_num
 
@@ -194,26 +191,26 @@ private lemma primeFactorsFour : ∀ p ∈ (4 : ℕ).primeFactors, p = 2 ∨ p =
   exact Or.inl ((Nat.prime_dvd_prime_iff_eq hpp Nat.prime_two).mp (hpp.dvd_of_dvd_pow hdvd))
 
 /-- `P = (2, 3)`, a point of order `6`. -/
-private lemma exampleEqP : exampleCurve.Equation 2 3 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqP : (y2EqX3AddOne ℚ).Equation 2 3 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `[2]P = (0, 1)`. -/
-private lemma exampleEqQ : exampleCurve.Equation 0 1 := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqQ : (y2EqX3AddOne ℚ).Equation 0 1 := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 /-- `T = [4]P = (0, −1)`, affine and distinct from `P`. -/
-private lemma exampleEqT : exampleCurve.Equation 0 (-1) := by
-  norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff]
+private lemma exampleEqT : (y2EqX3AddOne ℚ).Equation 0 (-1) := by
+  norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff]
 
 open Classical in
 /-- `[2](2, 3) = (0, 1)`: the tangent at `(2, 3)` has slope `2`, so `x([2]P) = 4 − 4 = 0`. -/
 private lemma exampleDoubleP :
     torsionPoint exampleEqP + torsionPoint exampleEqP = torsionPoint exampleEqQ := by
-  have hy : (3 : ℚ) ≠ exampleCurve.negY 2 3 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (3 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 2 3 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [torsionPoint, torsionPoint, Point.add_self_of_Y_ne hy, Point.some.injEq]
   refine ⟨?_, ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 
@@ -222,11 +219,11 @@ open Classical in
 `y`-coordinate is negated. -/
 private lemma exampleDoubleQ :
     torsionPoint exampleEqQ + torsionPoint exampleEqQ = torsionPoint exampleEqT := by
-  have hy : (1 : ℚ) ≠ exampleCurve.negY 0 1 := by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.negY]
+  have hy : (1 : ℚ) ≠ (y2EqX3AddOne ℚ).negY 0 1 := by
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY]
   rw [torsionPoint, torsionPoint, Point.add_self_of_Y_ne hy, Point.some.injEq]
   refine ⟨?_, ?_⟩ <;>
-    norm_num [exampleCurve, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.addX, WeierstrassCurve.Affine.addY,
       WeierstrassCurve.Affine.negAddY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.slope]
 
@@ -259,10 +256,10 @@ syntactically equal, and `convert` closes the gap by `Subsingleton.elim`.  Depth
 `HSMul → SMul → NSMul → AddMonoid → SubNegMonoid → AddGroup → AddCommGroup`; this is the idiom of
 `TranslationMulByNCommGeneral`'s own `Nonvacuity` block. -/
 example
-    {f g : exampleCurve.FunctionField} (hg : g ≠ 0) {c c₀ : ℚ} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    {f g : (y2EqX3AddOne ℚ).FunctionField} (hg : g ≠ 0) {c c₀ : ℚ} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
     (htel : ∏ i ∈ Finset.range 4, (translateEndo exampleEqT)^[i] f
-      = algebraMap ℚ exampleCurve.FunctionField c)
-    (hpow : algebraMap ℚ exampleCurve.FunctionField c₀ * g ^ 4
+      = algebraMap ℚ (y2EqX3AddOne ℚ).FunctionField c)
+    (hpow : algebraMap ℚ (y2EqX3AddOne ℚ).FunctionField c₀ * g ^ 4
       = mulByNEndo 4 (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree
           (by norm_num) primeFactorsFour) f) :
     translateEndo exampleEqT g = g :=

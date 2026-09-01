@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PullbackDivisor
 
 /-!
@@ -201,19 +202,16 @@ Dedekind instance. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
-example (n : ℤ) (D : ProjPoint exampleCurve →₀ ℤ) :
-    pullbackDivisorTwo (W := exampleCurve) (by norm_num) (n • D)
-      = n • pullbackDivisorTwo (W := exampleCurve) (by norm_num) D :=
+example (n : ℤ) (D : ProjPoint (y2EqX3SubX ℚ) →₀ ℤ) :
+    pullbackDivisorTwo (W := y2EqX3SubX ℚ) (by norm_num) (n • D)
+      = n • pullbackDivisorTwo (W := y2EqX3SubX ℚ) (by norm_num) D :=
   pullbackDivisorTwo_zsmul _ n D
 
 end Nonvacuity

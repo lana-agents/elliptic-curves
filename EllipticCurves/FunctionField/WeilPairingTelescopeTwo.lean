@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationPlaceAtInfinity
 import EllipticCurves.Torsion.TwoTorsion
 
@@ -160,30 +161,27 @@ merged four days earlier), not a condition on the curve.  The certificate is wor
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `(0, 0)` is a nonsingular point of `y² = x³ - x`. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 0 0 := by
+private lemma exampleNonsingular : (y2EqX3SubX ℚ).Nonsingular 0 0 := by
   rw [nonsingular_iff]
-  refine ⟨?_, Or.inl ?_⟩ <;> norm_num [exampleCurve]
+  refine ⟨?_, Or.inl ?_⟩ <;> norm_num [y2EqX3SubX]
 
 private lemma exampleTorsion :
-    Point.some (0 : ℚ) 0 exampleNonsingular ∈ exampleCurve.torsion 2 := by
+    Point.some (0 : ℚ) 0 exampleNonsingular ∈ (y2EqX3SubX ℚ).torsion 2 := by
   rw [mem_torsion_two_some_iff]
-  norm_num [exampleCurve]
+  norm_num [y2EqX3SubX]
 
-example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-    divisorProj exampleCurve f
+example : ∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+    divisorProj (y2EqX3SubX ℚ) f
       = Finsupp.single (some (pointClosedPoint exampleNonsingular.left)) (2 : ℤ)
-        - Finsupp.single (none : ProjPoint exampleCurve) (2 : ℤ) ∧
+        - Finsupp.single (none : ProjPoint (y2EqX3SubX ℚ)) (2 : ℤ) ∧
     ∃ c : ℚ, c ≠ 0 ∧ f * translateEndo exampleNonsingular.left f
-      = algebraMap ℚ exampleCurve.FunctionField c :=
+      = algebraMap ℚ (y2EqX3SubX ℚ).FunctionField c :=
   exists_mul_translateEndo_eq_algebraMap exampleNonsingular exampleTorsion
 
 end Nonvacuity

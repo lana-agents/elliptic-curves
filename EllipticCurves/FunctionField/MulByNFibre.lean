@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNInertia
 import EllipticCurves.FunctionField.MulByThreeFibre
 import EllipticCurves.Torsion.NsmulSmoothSurjective
@@ -360,22 +361,18 @@ whole chain elaborates, at an index outside `{2, 3}`, is committed rather than q
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleFieldFibre : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-private noncomputable instance : DecidableEq exampleFieldFibre := Classical.decEq _
+open EllipticCurves.Fixture
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveFibre : Affine exampleFieldFibre := ⟨0, 0, 1, 0, 0⟩
+private noncomputable instance : DecidableEq AlgClosedQ := Classical.decEq _
 
-private instance : exampleCurveFibre.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveFibre, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleFibreTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleFibreTwo : (2 : exampleFieldFibre) ≠ 0 := by norm_num
-
-private lemma exampleFibreThree : (3 : exampleFieldFibre) ≠ 0 := by norm_num
+private lemma exampleFibreThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion. -/
@@ -385,27 +382,28 @@ private lemma smoothTwelveFibre : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p = 3
   have hle : p ≤ 12 := Nat.le_of_dvd (by norm_num) hp2
   interval_cases p <;> revert hp1 hp2 <;> decide
 
-example : IsDedekindDomain exampleCurveFibre.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2AddYEqX3 AlgClosedQ).CoordinateRing := inferInstance
 
 /-- **The contraction at `n = 12`, committed** — an index at which neither merged computation says
 anything. -/
-example (P : exampleCurveFibre.Point) :
-    comapProjPointN 12 (transcendental_xCoord_nsmul_of_smooth (W := exampleCurveFibre)
+example (P : (y2AddYEqX3 AlgClosedQ).Point) :
+    comapProjPointN 12 (transcendental_xCoord_nsmul_of_smooth (W := y2AddYEqX3 AlgClosedQ)
         exampleFibreTwo exampleFibreThree (by norm_num) smoothTwelveFibre)
-      (projPointOfPoint exampleCurveFibre P)
-      = projPointOfPoint exampleCurveFibre ((12 : ℕ) • P) :=
+      (projPointOfPoint (y2AddYEqX3 AlgClosedQ) P)
+      = projPointOfPoint (y2AddYEqX3 AlgClosedQ) ((12 : ℕ) • P) :=
   comapProjPointN_projPointOfPoint_of_smooth exampleFibreTwo exampleFibreThree (by norm_num)
     smoothTwelveFibre _ P
 
 /-- **`#{p ↦ S} = 144` at `n = 12`, committed** — the fibre count, on a genuine curve. -/
-example (S : exampleCurveFibre.Point) :
+example (S : (y2AddYEqX3 AlgClosedQ).Point) :
     (finite_comapProjPointN_preimage_singleton 12
-      (transcendental_xCoord_nsmul_of_smooth (W := exampleCurveFibre) exampleFibreTwo
+      (transcendental_xCoord_nsmul_of_smooth (W := y2AddYEqX3 AlgClosedQ) exampleFibreTwo
         exampleFibreThree (by norm_num) smoothTwelveFibre)
-      (projPointOfPoint exampleCurveFibre S)).toFinset.card = 144 := by
-  have h144 := card_fibre_comapProjPointN_projPointOfPoint (W := exampleCurveFibre) exampleFibreTwo
+      (projPointOfPoint (y2AddYEqX3 AlgClosedQ) S)).toFinset.card = 144 := by
+  have h144 := card_fibre_comapProjPointN_projPointOfPoint (W := y2AddYEqX3 AlgClosedQ)
+      exampleFibreTwo
     exampleFibreThree (n := 12) (by norm_num) smoothTwelveFibre
-    (transcendental_xCoord_nsmul_of_smooth (W := exampleCurveFibre) exampleFibreTwo
+    (transcendental_xCoord_nsmul_of_smooth (W := y2AddYEqX3 AlgClosedQ) exampleFibreTwo
       exampleFibreThree (by norm_num) smoothTwelveFibre) S
   norm_num at h144
   exact h144

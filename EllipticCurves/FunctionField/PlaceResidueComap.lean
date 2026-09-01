@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceResidueField
 
@@ -391,39 +392,36 @@ discriminant `64`, so `IsElliptic` alone gives the Dedekind instance; it is the 
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- The tower formula for `[2]∗` on a curve that exists. -/
-example (p : ProjPoint exampleCurve) :
-    residueDegreeProj exampleCurve (CoordinateRing.comapProjPointTwo (W := exampleCurve)
-        exampleTwoNeZero p) * CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwoNeZero p
-      = residueDegreeProj exampleCurve p :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    residueDegreeProj (y2EqX3SubX ℚ) (CoordinateRing.comapProjPointTwo (W := y2EqX3SubX ℚ)
+        exampleTwoNeZero p) * CoordinateRing.residueDegreeTwo (W := y2EqX3SubX ℚ) exampleTwoNeZero p
+      = residueDegreeProj (y2EqX3SubX ℚ) p :=
   CoordinateRing.residueDegreeProj_mul_residueDegreeTwo exampleTwoNeZero p
 
 /-- On a curve that exists, `[2]∗` is residually trivial at infinity as soon as the residue field
 there is finite-dimensional over `ℚ`. -/
-example (hd : residueDegreeProj exampleCurve (none : ProjPoint exampleCurve) ≠ 0) :
-    CoordinateRing.residueDegreeTwo (W := exampleCurve) exampleTwoNeZero none = 1 :=
+example (hd : residueDegreeProj (y2EqX3SubX ℚ) (none : ProjPoint (y2EqX3SubX ℚ)) ≠ 0) :
+    CoordinateRing.residueDegreeTwo (W := y2EqX3SubX ℚ) exampleTwoNeZero none = 1 :=
   CoordinateRing.residueDegreeTwo_none_eq_one_of_ne_zero exampleTwoNeZero hd
 
-private lemma exampleGenXNeZero : CoordinateRing.genX exampleCurve ≠ 0 :=
-  fun h => CoordinateRing.genX_ne (W := exampleCurve) 0 (by rw [h, map_zero])
+private lemma exampleGenXNeZero : CoordinateRing.genX (y2EqX3SubX ℚ) ≠ 0 :=
+  fun h => CoordinateRing.genX_ne (W := y2EqX3SubX ℚ) 0 (by rw [h, map_zero])
 
 /-- The unit criterion fires on a function one can name: `x⁻¹` has order `+2` at infinity, so it
 lies in the place there and is *not* a unit of it.  The order function at a place is computable on a
 named function, which is what the fundamental identity of `#763` needs. -/
-example : ¬ IsUnit (⟨(CoordinateRing.genX exampleCurve)⁻¹, (mem_placeOf_iff_divisorProj_nonneg
-    (W := exampleCurve) none (inv_ne_zero exampleGenXNeZero)).2 (by
+example : ¬ IsUnit (⟨(CoordinateRing.genX (y2EqX3SubX ℚ))⁻¹, (mem_placeOf_iff_divisorProj_nonneg
+    (W := y2EqX3SubX ℚ) none (inv_ne_zero exampleGenXNeZero)).2 (by
       rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none]; norm_num)⟩ :
-    placeOf exampleCurve none) := by
+    placeOf (y2EqX3SubX ℚ) none) := by
   rw [isUnit_placeOf_iff]
   rintro ⟨-, h⟩
   rw [divisorProj_inv, Finsupp.neg_apply, divisorProj_genX_apply_none] at h
@@ -431,10 +429,10 @@ example : ¬ IsUnit (⟨(CoordinateRing.genX exampleCurve)⁻¹, (mem_placeOf_if
 
 /-- Contraction along the identity automorphism is residually trivial — the `e = f = 1` consistency
 check, on a curve that exists. -/
-example (p : ProjPoint exampleCurve) :
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
     residueDegreeComap (φ := ((AlgEquiv.refl :
-        exampleCurve.FunctionField ≃ₐ[ℚ] exampleCurve.FunctionField) :
-          exampleCurve.FunctionField →+* exampleCurve.FunctionField))
+        (y2EqX3SubX ℚ).FunctionField ≃ₐ[ℚ] (y2EqX3SubX ℚ).FunctionField) :
+          (y2EqX3SubX ℚ).FunctionField →+* (y2EqX3SubX ℚ).FunctionField))
       AlgEquiv.refl.commutes (isIntegralElem_algEquiv AlgEquiv.refl) p = 1 :=
   residueDegreeComap_algEquiv AlgEquiv.refl p
 

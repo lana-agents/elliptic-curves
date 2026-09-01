@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlaceOrder
 
 /-!
@@ -298,31 +299,28 @@ alone — no algebraically closed base field is needed.  This is the certificate
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
-example : IsDedekindDomain exampleCurve.CoordinateRing := inferInstance
+example : IsDedekindDomain (y2EqX3SubX ℚ).CoordinateRing := inferInstance
 
 /-- The residue field at the point at infinity of a curve that exists is a field, and a `ℚ`-algebra
 whose structure map is injective — so it is not the zero ring, and `residueDegreeProj` is a degree
 of a genuine extension. -/
-example : Function.Injective (algebraMap ℚ (residueFieldProj exampleCurve none)) :=
+example : Function.Injective (algebraMap ℚ (residueFieldProj (y2EqX3SubX ℚ) none)) :=
   algebraMap_residueFieldProj_injective none
 
 /-- The maximal ideal at every place of a curve that exists is principal. -/
-example (p : ProjPoint exampleCurve) :
-    (IsLocalRing.maximalIdeal (placeOf exampleCurve p)).IsPrincipal :=
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    (IsLocalRing.maximalIdeal (placeOf (y2EqX3SubX ℚ) p)).IsPrincipal :=
   isPrincipal_maximalIdeal_placeOf p
 
 /-- On a curve that exists, a uniformizer really does generate the maximal ideal — the hypothesis of
 `maximalIdeal_placeOf_eq_span` is satisfiable at every place, not merely stated. -/
-example (p : ProjPoint exampleCurve) :
-    ∃ π : placeOf exampleCurve p, IsLocalRing.maximalIdeal (placeOf exampleCurve p)
+example (p : ProjPoint (y2EqX3SubX ℚ)) :
+    ∃ π : placeOf (y2EqX3SubX ℚ) p, IsLocalRing.maximalIdeal (placeOf (y2EqX3SubX ℚ) p)
       = Ideal.span {π} := by
   obtain ⟨π, hπ0, hπ⟩ := exists_divisorProj_eq_one p
   exact ⟨⟨π, (mem_placeOf_iff_divisorProj_nonneg p hπ0).2 (by rw [hπ]; norm_num)⟩,

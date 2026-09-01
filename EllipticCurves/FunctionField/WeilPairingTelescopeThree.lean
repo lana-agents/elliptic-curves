@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationProjAction
 import EllipticCurves.FunctionField.TranslationTorsionMap
 import EllipticCurves.Torsion.ThreeTorsion
@@ -254,34 +255,31 @@ at `0`, since `b₂ = b₄ = b₈ = 0`, so `Ψ₃ = 3X⁴ + 3b₆X` has no const
 
 section Nonvacuity
 
-/-- The curve `y² + y = x³` over `ℚ`, of discriminant `-27`. -/
-private def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `(0, 0)` is a nonsingular point of `y² + y = x³`. -/
-private lemma exampleNonsingularThree : exampleCurveThree.Nonsingular 0 0 := by
+private lemma exampleNonsingularThree : (y2AddYEqX3 ℚ).Nonsingular 0 0 := by
   rw [nonsingular_iff]
-  refine ⟨?_, Or.inr ?_⟩ <;> norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY]
+  refine ⟨?_, Or.inr ?_⟩ <;> norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY]
 
 private lemma exampleTorsionThree :
-    Point.some (0 : ℚ) 0 exampleNonsingularThree ∈ exampleCurveThree.torsion 3 := by
-  rw [mem_torsion_three_some_iff (by norm_num [exampleCurveThree, WeierstrassCurve.Affine.negY])]
-  norm_num [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    Point.some (0 : ℚ) 0 exampleNonsingularThree ∈ (y2AddYEqX3 ℚ).torsion 3 := by
+  rw [mem_torsion_three_some_iff (by norm_num [y2AddYEqX3, WeierstrassCurve.Affine.negY])]
+  norm_num [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
     WeierstrassCurve.b₆, WeierstrassCurve.b₈]
 
-example : ∃ f : exampleCurveThree.FunctionField, f ≠ 0 ∧
-    divisorProj exampleCurveThree f
+example : ∃ f : (y2AddYEqX3 ℚ).FunctionField, f ≠ 0 ∧
+    divisorProj (y2AddYEqX3 ℚ) f
       = Finsupp.single (some (pointClosedPoint exampleNonsingularThree.left)) (3 : ℤ)
-        - Finsupp.single (none : ProjPoint exampleCurveThree) (3 : ℤ) ∧
+        - Finsupp.single (none : ProjPoint (y2AddYEqX3 ℚ)) (3 : ℤ) ∧
     ∃ c : ℚ, c ≠ 0 ∧
       f * translateEndo exampleNonsingularThree.left f
-          * translateEndo ((exampleCurveThree.equation_neg 0 0).mpr
+          * translateEndo (((y2AddYEqX3 ℚ).equation_neg 0 0).mpr
               exampleNonsingularThree.left) f
-        = algebraMap ℚ exampleCurveThree.FunctionField c :=
+        = algebraMap ℚ (y2AddYEqX3 ℚ).FunctionField c :=
   exists_mul_translateEndo_mul_translateEndo_eq_algebraMap exampleNonsingularThree
     exampleTorsionThree
 

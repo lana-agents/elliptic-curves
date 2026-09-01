@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.DivisorPrincipality
 import EllipticCurves.FunctionField.MulByTwoFibreAffine
 import EllipticCurves.FunctionField.NthRootOfPullback
@@ -386,50 +387,47 @@ and the witness unnameable — here the `2`-torsion point can be *named*: it is 
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- `S = (0, 0)` lies on `y² = x³ − x` and is nonsingular. -/
-private lemma exampleNonsingular : exampleCurve.Nonsingular 0 0 :=
-  exampleCurve.equation_iff_nonsingular.mp (by
-    norm_num [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : (y2EqX3SubX AlgClosedQ).Nonsingular 0 0 :=
+  (y2EqX3SubX AlgClosedQ).equation_iff_nonsingular.mp (by
+    norm_num [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `2`-torsion: `2y + a₁x + a₃ = 0` reads `0 = 0`. -/
 private lemma exampleTorsion :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ exampleCurve.torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [exampleCurve])
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ (y2EqX3SubX AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingular).mpr (by norm_num [y2EqX3SubX])
 
 open Classical in
 /-- **The principality, on a curve that exists.** -/
-example (P : exampleCurve.Point) (hP : 2 • P = Point.some (0 : exampleField) 0 exampleNonsingular) :
-    ∃ g : exampleCurve.FunctionField, g ≠ 0 ∧ exampleCurve.divisor g
-      = affinePart exampleCurve (pullbackDivisorTwo exampleTwo
-        (Finsupp.single (projPointOfPoint exampleCurve
-            (Point.some (0 : exampleField) 0 exampleNonsingular)) (1 : ℤ)
-          - Finsupp.single (none : ProjPoint exampleCurve) (1 : ℤ))) :=
+example (P : (y2EqX3SubX AlgClosedQ).Point) (hP : 2 • P = Point.some (0 : AlgClosedQ) 0
+    exampleNonsingular) :
+    ∃ g : (y2EqX3SubX AlgClosedQ).FunctionField, g ≠ 0 ∧ (y2EqX3SubX AlgClosedQ).divisor g
+      = affinePart (y2EqX3SubX AlgClosedQ) (pullbackDivisorTwo exampleTwo
+        (Finsupp.single (projPointOfPoint (y2EqX3SubX AlgClosedQ)
+            (Point.some (0 : AlgClosedQ) 0 exampleNonsingular)) (1 : ℤ)
+          - Finsupp.single (none : ProjPoint (y2EqX3SubX AlgClosedQ)) (1 : ℤ))) :=
   exists_divisor_eq_affinePart_pullbackDivisorTwo exampleTwo hP
     (mem_torsion_iff.mp exampleTorsion)
 
 open Classical in
 /-- **The headline, committed**: rung 5 at `n = 2` with no `hprin`, on a genuine curve with a named
 `2`-torsion point. -/
-example : ∃ f : exampleCurve.FunctionField, f ≠ 0 ∧
-    exampleCurve.divisor f
+example : ∃ f : (y2EqX3SubX AlgClosedQ).FunctionField, f ≠ 0 ∧
+    (y2EqX3SubX AlgClosedQ).divisor f
       = Finsupp.single (pointClosedPoint exampleNonsingular.left) (2 : ℤ) ∧
-    ∃ gS : exampleCurve.FunctionField, gS ≠ 0 ∧
-      ∃ u : exampleCurve.CoordinateRingˣ,
-        (u : exampleCurve.CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f :=
+    ∃ gS : (y2EqX3SubX AlgClosedQ).FunctionField, gS ≠ 0 ∧
+      ∃ u : (y2EqX3SubX AlgClosedQ).CoordinateRingˣ,
+        (u : (y2EqX3SubX AlgClosedQ).CoordinateRing) • gS ^ 2 = mulByTwoEndo exampleTwo f :=
   exists_gS_two_of_isAlgClosed exampleTwo exampleNonsingular exampleTorsion
 
 end Nonvacuity

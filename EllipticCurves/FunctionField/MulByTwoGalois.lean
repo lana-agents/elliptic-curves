@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoDegree
 import EllipticCurves.FunctionField.TranslationAction
 import Mathlib.FieldTheory.Galois.Basic
@@ -321,47 +322,44 @@ weakening the statement would defeat the point of the file. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
 /-- **The sandwich, on a curve that exists.** -/
-example : (mulByTwoEndoAlgHom (W := exampleCurve) exampleTwo).fieldRange
-    = fixedFieldTwo exampleCurve :=
+example : (mulByTwoEndoAlgHom (W := y2EqX3SubX AlgClosedQ) exampleTwo).fieldRange
+    = fixedFieldTwo (y2EqX3SubX AlgClosedQ) :=
   fixedFieldTwo_eq_mulByTwoFieldRange exampleTwo
 
 /-- Artin's degree on the same curve: the fixed field has index `4`. -/
-example : finrank ↥(fixedFieldTwo exampleCurve) exampleCurve.FunctionField = 4 :=
+example : finrank ↥(fixedFieldTwo (y2EqX3SubX AlgClosedQ))
+    (y2EqX3SubX AlgClosedQ).FunctionField = 4 :=
   finrank_fixedFieldTwo exampleTwo
 
 /-- **The headline, committed**: `F(W)` is separable over `[2]∗F(W)` on a genuine curve, in the
 presentation `#754` consumes. -/
-example : Algebra.IsSeparable ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).fieldRange
-    exampleCurve.FunctionField :=
+example : Algebra.IsSeparable ↥(mulByTwoEndo (W := y2EqX3SubX AlgClosedQ) exampleTwo).fieldRange
+    (y2EqX3SubX AlgClosedQ).FunctionField :=
   isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed exampleTwo
 
 /-- And the whole Galois package. -/
-example : IsGalois ↥(mulByTwoEndoAlgHom (W := exampleCurve) exampleTwo).fieldRange
-    exampleCurve.FunctionField :=
+example : IsGalois ↥(mulByTwoEndoAlgHom (W := y2EqX3SubX AlgClosedQ) exampleTwo).fieldRange
+    (y2EqX3SubX AlgClosedQ).FunctionField :=
   isGalois_mulByTwoFieldRange_of_isAlgClosed exampleTwo
 
 /-- Normality in the `Subfield` presentation, on the same curve. -/
-example : Normal ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).fieldRange
-    exampleCurve.FunctionField :=
+example : Normal ↥(mulByTwoEndo (W := y2EqX3SubX AlgClosedQ) exampleTwo).fieldRange
+    (y2EqX3SubX AlgClosedQ).FunctionField :=
   normal_mulByTwoEndoFieldRange_of_isAlgClosed exampleTwo
 
 /-- And the whole Galois package in that presentation too — the statement `#1244` was filed for. -/
-example : IsGalois ↥(mulByTwoEndo (W := exampleCurve) exampleTwo).fieldRange
-    exampleCurve.FunctionField :=
+example : IsGalois ↥(mulByTwoEndo (W := y2EqX3SubX AlgClosedQ) exampleTwo).fieldRange
+    (y2EqX3SubX AlgClosedQ).FunctionField :=
   isGalois_mulByTwoEndoFieldRange_of_isAlgClosed exampleTwo
 
 end Nonvacuity

@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.WeilPairingFunctionGalois
 import EllipticCurves.FunctionField.WeilPairingSurjective
 import EllipticCurves.Galois.CyclotomicCharacter
@@ -273,61 +274,58 @@ is not evidence that a certificate consumed anything. -/
 
 section Nonvacuity
 
-/-- The curve `y² = x³ − x` over `ℚ`, `#936`'s `n = 2` certificate curve. -/
-private noncomputable def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curves `y² = x³ − x` and `y² + y = x³` are the shared
+`EllipticCurves.Fixture.y2EqX3SubX` and `EllipticCurves.Fixture.y2AddYEqX3`, and the base —
+algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- An algebraically closed extension of `ℚ`, so that `Gal(F/ℚ)` is not the trivial group. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+open EllipticCurves.Fixture
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
-
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- `S = (0, 0)` lies on the base-changed curve and is nonsingular. -/
-private lemma exampleNonsingular : (exampleCurve⁄exampleField).Nonsingular 0 0 :=
-  (exampleCurve⁄exampleField).equation_iff_nonsingular.mp (by
-    simp [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingular : ((y2EqX3SubX ℚ)⁄AlgClosedQ).Nonsingular 0 0 :=
+  ((y2EqX3SubX ℚ)⁄AlgClosedQ).equation_iff_nonsingular.mp (by
+    simp [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 /-- `T = (1, 0)` lies on the base-changed curve and is nonsingular. -/
-private lemma exampleNonsingularTranslate : (exampleCurve⁄exampleField).Nonsingular 1 0 :=
-  (exampleCurve⁄exampleField).equation_iff_nonsingular.mp (by
-    simp [exampleCurve, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularTranslate : ((y2EqX3SubX ℚ)⁄AlgClosedQ).Nonsingular 1 0 :=
+  ((y2EqX3SubX ℚ)⁄AlgClosedQ).equation_iff_nonsingular.mp (by
+    simp [y2EqX3SubX, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `2`-torsion: `2y + a₁x + a₃ = 0` reads `0 = 0`. -/
 private lemma exampleTorsion :
-    Point.some (0 : exampleField) 0 exampleNonsingular ∈ (exampleCurve⁄exampleField).torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingular).mpr (by simp [exampleCurve])
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingular ∈ ((y2EqX3SubX ℚ)⁄AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingular).mpr (by simp [y2EqX3SubX])
 
 open Classical in
 /-- `T = (1, 0)` is `2`-torsion, as at `(0, 0)`. -/
 private lemma exampleTorsionTranslate :
-    Point.some (1 : exampleField) 0 exampleNonsingularTranslate
-      ∈ (exampleCurve⁄exampleField).torsion 2 :=
-  (mem_torsion_two_some_iff exampleNonsingularTranslate).mpr (by simp [exampleCurve])
+    Point.some (1 : AlgClosedQ) 0 exampleNonsingularTranslate
+      ∈ ((y2EqX3SubX ℚ)⁄AlgClosedQ).torsion 2 :=
+  (mem_torsion_two_some_iff exampleNonsingularTranslate).mpr (by simp [y2EqX3SubX])
 
 open Classical in
 /-- `S = (0, 0)` as an element of `E[2]`. -/
-private noncomputable def exampleS : (exampleCurve⁄exampleField).torsion 2 :=
+private noncomputable def exampleS : ((y2EqX3SubX ℚ)⁄AlgClosedQ).torsion 2 :=
   ⟨Point.some 0 0 exampleNonsingular, exampleTorsion⟩
 
 open Classical in
 /-- `T = (1, 0)` as an element of `E[2]`, distinct from `exampleS`. -/
-private noncomputable def exampleT : (exampleCurve⁄exampleField).torsion 2 :=
+private noncomputable def exampleT : ((y2EqX3SubX ℚ)⁄AlgClosedQ).torsion 2 :=
   ⟨Point.some 1 0 exampleNonsingularTranslate, exampleTorsionTranslate⟩
 
 open Classical in
 /-- **The exponent form at `n = 2`, on a curve that exists**, at two distinct named `2`-torsion
 points.  A schema instance, universally quantified in `σ`. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     weilPairingTwo exampleTwo (σ • exampleS) (σ • exampleT)
       = weilPairingTwo exampleTwo exampleS exampleT
-        ^ ((galoisModularCyclotomicChar ℚ exampleField
+        ^ ((galoisModularCyclotomicChar ℚ AlgClosedQ
             (natCard_rootsOfUnity_of_ne_zero exampleTwo) σ : ZMod 2)).val :=
   weilPairingTwo_galois_eq_pow σ exampleTwo exampleS exampleT
 
@@ -352,42 +350,34 @@ has no `n = 3` twin to be, and the `n = 3` certificate above names the rationali
 one.  What the script below shows is that *this file's* route reaches `#936`'s conclusion without
 `#936`'s two inputs — which is the claim being made, and the reason the `n = 3` certificate is the
 one that carries the exponent. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     restrictRootsOfUnity (σ.toRingEquiv.toRingHom) 2 (weilPairingTwo exampleTwo exampleS exampleT)
       = weilPairingTwo exampleTwo exampleS exampleT := by
   rw [weilPairingTwo_galois σ exampleTwo exampleS exampleT,
     weilPairingTwo_galois_eq_self σ exampleTwo exampleS exampleT]
 
-/-- The curve `y² + y = x³` over `ℚ`, `#936`'s `n = 3` certificate curve. -/
-private noncomputable def exampleCurveThree : Affine ℚ := ⟨0, 0, 1, 0, 0⟩
-
-private instance : exampleCurveThree.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveThree, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
 /-- `S = (0, 0)` lies on the base-changed curve `y² + y = x³` and is nonsingular. -/
-private lemma exampleNonsingularThree : (exampleCurveThree⁄exampleField).Nonsingular 0 0 :=
-  (exampleCurveThree⁄exampleField).equation_iff_nonsingular.mp (by
-    simp [exampleCurveThree, WeierstrassCurve.Affine.equation_iff])
+private lemma exampleNonsingularThree : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).Nonsingular 0 0 :=
+  ((y2AddYEqX3 ℚ)⁄AlgClosedQ).equation_iff_nonsingular.mp (by
+    simp [y2AddYEqX3, WeierstrassCurve.Affine.equation_iff])
 
 open Classical in
 /-- `S = (0, 0)` is `3`-torsion: `Ψ₃ = 3X⁴ + 3b₆X` vanishes at `0`. -/
 private lemma exampleTorsionThree :
-    Point.some (0 : exampleField) 0 exampleNonsingularThree
-      ∈ (exampleCurveThree⁄exampleField).torsion 3 :=
+    Point.some (0 : AlgClosedQ) 0 exampleNonsingularThree
+      ∈ ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3 :=
   mem_torsion_three_some_iff'.mpr (by
-    simp [exampleCurveThree, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    simp [y2AddYEqX3, WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
       WeierstrassCurve.b₆, WeierstrassCurve.b₈])
 
 open Classical in
 /-- `S = (0, 0)` as an element of `E[3]`. -/
-private noncomputable def exampleSThree : (exampleCurveThree⁄exampleField).torsion 3 :=
+private noncomputable def exampleSThree : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion 3 :=
   ⟨Point.some 0 0 exampleNonsingularThree, exampleTorsionThree⟩
 
 open Classical in
 /-- `(0, 0)` is `ℚ`-rational on `y² + y = x³`, so every `σ` fixes it. -/
-private lemma exampleSThree_fixed (σ : exampleField ≃ₐ[ℚ] exampleField) :
+private lemma exampleSThree_fixed (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     σ • exampleSThree = exampleSThree :=
   Subtype.ext ((Point.galois_smul_some_eq_some_iff σ exampleNonsingularThree
     exampleNonsingularThree).mpr ⟨(map_zero σ).symm, (map_zero σ).symm⟩)
@@ -399,10 +389,10 @@ open Classical in
 nameable `3`-torsion points on `y² + y = x³` are `(0, 0)` and its negative, since the `X = −1`
 fibre of `Ψ₃ = 3X(X³ + 1)` is `y² + y + 1 = 0`.  The same limitation is recorded by `#936` and by
 `WeilPairingGaloisRoot` about the same curve. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     weilPairingThree exampleTwo exampleThree (σ • exampleSThree) (σ • exampleSThree)
       = weilPairingThree exampleTwo exampleThree exampleSThree exampleSThree
-        ^ ((galoisModularCyclotomicChar ℚ exampleField
+        ^ ((galoisModularCyclotomicChar ℚ AlgClosedQ
             (natCard_rootsOfUnity_of_ne_zero exampleThree) σ : ZMod 3)).val :=
   weilPairingThree_galois_eq_pow σ exampleTwo exampleThree exampleSThree exampleSThree
 
@@ -418,10 +408,10 @@ This consumes `weilPairingThree_galois_eq_pow` **and** `exampleSThree_fixed`, an
 dropped: without the rationality the two sides are pairings at different points, and without the
 exponent theorem there is nothing that produces the power at all.  ⚠️ It is not `rfl` and it is
 not closed by rewriting the arguments — which is the trap the next certificate note describes. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ) :
     weilPairingThree exampleTwo exampleThree exampleSThree exampleSThree
       = weilPairingThree exampleTwo exampleThree exampleSThree exampleSThree
-        ^ ((galoisModularCyclotomicChar ℚ exampleField
+        ^ ((galoisModularCyclotomicChar ℚ AlgClosedQ
             (natCard_rootsOfUnity_of_ne_zero exampleThree) σ : ZMod 3)).val := by
   rw [← weilPairingThree_galois_eq_pow σ exampleTwo exampleThree exampleSThree exampleSThree,
     exampleSThree_fixed]
@@ -430,9 +420,9 @@ open Classical in
 /-- **The conditional `n = 3` invariance, on the same curve**, so that the hypothesis-carrying
 statement is certified and not only the exponent form.  A schema instance in `σ` and in the
 hypothesis. -/
-example (σ : exampleField ≃ₐ[ℚ] exampleField)
-    (hσ : ∀ t ∈ rootsOfUnity 3 exampleField, σ ((t : exampleFieldˣ) : exampleField)
-      = ((t : exampleFieldˣ) : exampleField)) :
+example (σ : AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)
+    (hσ : ∀ t ∈ rootsOfUnity 3 AlgClosedQ, σ ((t : AlgClosedQˣ) : AlgClosedQ)
+      = ((t : AlgClosedQˣ) : AlgClosedQ)) :
     weilPairingThree exampleTwo exampleThree (σ • exampleSThree) (σ • exampleSThree)
       = weilPairingThree exampleTwo exampleThree exampleSThree exampleSThree :=
   weilPairingThree_galois_eq_self_of_forall_fixed σ exampleTwo exampleThree hσ exampleSThree

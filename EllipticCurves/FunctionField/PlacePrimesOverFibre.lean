@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlaceBelowIntegralClosure
 import EllipticCurves.FunctionField.PullbackDivisor
 
@@ -543,43 +544,41 @@ and `ℚ` has characteristic zero, which is what makes the unconditional forms a
 
 section Nonvacuity
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurve : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 private lemma exampleTwoNeZero : (2 : ℚ) ≠ 0 := by norm_num
 
 /-- **The dictionary on a curve that exists**, with the separability hypothesis supplied by the
 tree rather than assumed. -/
-noncomputable example (q : ProjPoint exampleCurve) :
-    ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)).primesOver
-        ↥(integralClosure ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-          exampleCurve.FunctionField))
+noncomputable example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)).primesOver
+        ↥(integralClosure ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+          (y2EqX3SubX ℚ).FunctionField))
       ≃ ↥(comapProjPointTwo exampleTwoNeZero ⁻¹' {q}) :=
   primesOverEquivFibreTwo_of_charZero exampleTwoNeZero q
 
 /-- **The fibre is nonempty on a curve that exists.**  This is the certificate that makes the
 dictionary non-vacuous: an equivalence of two empty types would prove nothing. -/
-example (q : ProjPoint exampleCurve) :
-    ((comapProjPointTwo (W := exampleCurve) exampleTwoNeZero) ⁻¹' {q}).Nonempty :=
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    ((comapProjPointTwo (W := y2EqX3SubX ℚ) exampleTwoNeZero) ⁻¹' {q}).Nonempty :=
   nonempty_fibre_comapProjPointTwo_of_charZero exampleTwoNeZero q
 
 /-- Finiteness of the index set, on the same curve. -/
-example (q : ProjPoint exampleCurve) :
-    Finite ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)).primesOver
-      ↥(integralClosure ↥(placeBelowTwo exampleCurve exampleTwoNeZero q)
-        exampleCurve.FunctionField)) :=
+example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    Finite ↥((IsLocalRing.maximalIdeal ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero
+        q)).primesOver
+      ↥(integralClosure ↥(placeBelowTwo (y2EqX3SubX ℚ) exampleTwoNeZero q)
+        (y2EqX3SubX ℚ).FunctionField)) :=
   finite_primesOver_maximalIdeal_placeBelowTwo exampleTwoNeZero
     (isSeparable_mulByTwoEndoFieldRange exampleTwoNeZero) q
 
 /-- The point at infinity is in the fibre over its own contraction, so that fibre is nonempty for a
 reason that can be checked by hand — `#670` gives `comapProjPointTwo h2 none = none`. -/
-example : (none : ProjPoint exampleCurve)
-    ∈ (comapProjPointTwo (W := exampleCurve) exampleTwoNeZero) ⁻¹' {none} :=
+example : (none : ProjPoint (y2EqX3SubX ℚ))
+    ∈ (comapProjPointTwo (W := y2EqX3SubX ℚ) exampleTwoNeZero) ⁻¹' {none} :=
   comapProjPointTwo_none exampleTwoNeZero
 
 end Nonvacuity

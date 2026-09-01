@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 
 /-!
@@ -291,22 +292,19 @@ example (n : ℕ)
       = finrank ↥(ZMod 5)⟮nMulRatFunc exampleCurveFive n⟯ (RatFunc (ZMod 5)) :=
   finrank_mulByNFieldRange_eq_finrank_adjoin n hn
 
-/-- The curve `y² = x³ - x` over `ℚ`, of discriminant `64`. -/
-private def exampleCurveDegreeTower : Affine ℚ := ⟨0, 0, 0, -1, 0⟩
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, whose
+single `[CharZero F]` instance also supplies `IsElliptic` here. -/
 
-private instance : exampleCurveDegreeTower.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveDegreeTower, WeierstrassCurve.Δ, WeierstrassCurve.b₂,
-    WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- The gated form, with all three hypotheses discharged, at `n = 2` over `ℚ`. -/
 example :
     finrank ↥(mulByNEndoAlgHom 2 (transcendental_xCoord_two_nsmul
-        (W := exampleCurveDegreeTower) (by norm_num))).fieldRange
-      exampleCurveDegreeTower.FunctionField = 2 ^ 2 :=
+        (W := y2EqX3SubX ℚ) (by norm_num))).fieldRange
+      (y2EqX3SubX ℚ).FunctionField = 2 ^ 2 :=
   finrank_mulByNFieldRange_of_nMulRatFunc_eq 2 _ (by norm_num)
     (by rw [show ((2 : ℕ) : ℤ) = 2 from rfl, WeierstrassCurve.ΨSq_two]
-        exact exampleCurveDegreeTower.isCoprime_Φ_two_Ψ₂Sq)
+        exact (y2EqX3SubX ℚ).isCoprime_Φ_two_Ψ₂Sq)
     (by rw [nMulRatFunc_two (by norm_num), doublingRatFunc_eq_ΦDivΨSq,
         show ((2 : ℕ) : ℤ) = 2 from rfl])
 

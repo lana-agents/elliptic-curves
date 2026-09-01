@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.TranslationComposition
 import EllipticCurves.FunctionField.WeilPairingAlternatingThree
@@ -273,32 +274,29 @@ discharged. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² = x³ − x` is the shared `EllipticCurves.Fixture.y2EqX3SubX`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² = x³ − x` over `AlgebraicClosure ℚ`, of discriminant `64`. -/
-private noncomputable def exampleCurve : Affine exampleField := ⟨0, 0, 0, -1, 0⟩
-
-private instance : exampleCurve.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurve, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+open EllipticCurves.Fixture
 
 /-- `T = (0, 0)` lies on `y² = x³ − x`. -/
-private lemma exampleEquation : exampleCurve.Equation 0 0 := by
+private lemma exampleEquation : (y2EqX3SubX AlgClosedQ).Equation 0 0 := by
   rw [equation_iff]
-  norm_num [exampleCurve]
+  norm_num [y2EqX3SubX]
 
 /-- Rescaling by a nonzero constant really does leave the pairing element alone, on a curve that
 exists. -/
-example (c : exampleField) (hc : c ≠ 0) (g : exampleCurve.FunctionField) :
-    weilPairingElt exampleEquation (algebraMap exampleField exampleCurve.FunctionField c * g)
+example (c : AlgClosedQ) (hc : c ≠ 0) (g : (y2EqX3SubX AlgClosedQ).FunctionField) :
+    weilPairingElt exampleEquation (algebraMap AlgClosedQ (y2EqX3SubX AlgClosedQ).FunctionField
+        c * g)
       = weilPairingElt exampleEquation g :=
   weilPairingElt_algebraMap_mul exampleEquation hc g
 
 /-- The same for a unit of the coordinate ring. -/
-example (u : exampleCurve.CoordinateRingˣ) (g : exampleCurve.FunctionField) :
-    weilPairingElt exampleEquation ((u : exampleCurve.CoordinateRing) • g)
+example (u : (y2EqX3SubX AlgClosedQ).CoordinateRingˣ) (g : (y2EqX3SubX AlgClosedQ).FunctionField) :
+    weilPairingElt exampleEquation ((u : (y2EqX3SubX AlgClosedQ).CoordinateRing) • g)
       = weilPairingElt exampleEquation g :=
   weilPairingElt_units_smul exampleEquation u g
 

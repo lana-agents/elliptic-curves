@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByThreeGalois
 import EllipticCurves.FunctionField.MulByTwoGalois
@@ -367,22 +368,18 @@ an index at which neither merged input says anything. -/
 
 section Nonvacuity
 
-/-- An algebraically closed field of characteristic zero. -/
-private abbrev exampleField : Type := AlgebraicClosure ℚ
+/-! The certificate curve `y² + y = x³` is the shared `EllipticCurves.Fixture.y2AddYEqX3`, and the
+base — algebraically closed, and of characteristic `0` so that `2 ≠ 0` and `3 ≠ 0` — is
+`EllipticCurves.Fixture.AlgClosedQ`, whose single `[CharZero F]` instance also supplies
+`IsElliptic` here. -/
 
-/-- The curve `y² + y = x³` over `AlgebraicClosure ℚ`, of discriminant `−27`. -/
-private noncomputable def exampleCurveSeparable : Affine exampleField := ⟨0, 0, 1, 0, 0⟩
+open EllipticCurves.Fixture
 
-private instance : exampleCurveSeparable.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
-  norm_num [exampleCurveSeparable, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
-    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
-
-/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : exampleField) ≠ 0` is
+/-- Hoisted rather than written inline: an inline `by norm_num` for `(2 : AlgClosedQ) ≠ 0` is
 postponed and leaves the curve a metavariable at the use site. -/
-private lemma exampleTwo : (2 : exampleField) ≠ 0 := by norm_num
+private lemma exampleTwo : (2 : AlgClosedQ) ≠ 0 := two_ne_zero
 
-private lemma exampleThree : (3 : exampleField) ≠ 0 := by norm_num
+private lemma exampleThree : (3 : AlgClosedQ) ≠ 0 := three_ne_zero_of_charZero _
 
 /-- ⚠️ `decide` does **not** close this: `Nat.primeFactors` goes through `Nat.primeFactorsList`,
 whose `Decidable` instance gets stuck on `Nat.minFac`'s well-founded recursion.  Bounding `p` by
@@ -396,24 +393,24 @@ private lemma exampleSmoothTwelve : ∀ p ∈ Nat.primeFactors 12, p = 2 ∨ p =
 /-- **The headline, committed**: `F(W)` is separable over `[12]∗F(W)` on a genuine curve — an index
 at which neither `#759` nor its `n = 3` twin says anything. -/
 example : Algebra.IsSeparable
-    ↥(mulByNEndoAlgHom (W := exampleCurveSeparable) 12
+    ↥(mulByNEndoAlgHom (W := y2AddYEqX3 AlgClosedQ) 12
       (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree (by norm_num)
-        exampleSmoothTwelve)).fieldRange exampleCurveSeparable.FunctionField :=
+        exampleSmoothTwelve)).fieldRange (y2AddYEqX3 AlgClosedQ).FunctionField :=
   isSeparable_mulByNFieldRange_of_smooth exampleTwo exampleThree (by norm_num)
     exampleSmoothTwelve _
 
 /-- The same in the `Subfield` presentation, which is the one a place-theoretic consumer states its
 hypotheses in. -/
 example : Algebra.IsSeparable
-    ↥(mulByNEndo (W := exampleCurveSeparable) 12
+    ↥(mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 12
       (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree (by norm_num)
-        exampleSmoothTwelve)).fieldRange exampleCurveSeparable.FunctionField :=
+        exampleSmoothTwelve)).fieldRange (y2AddYEqX3 AlgClosedQ).FunctionField :=
   isSeparable_mulByNEndoFieldRange_of_smooth exampleTwo exampleThree (by norm_num)
     exampleSmoothTwelve _
 
 /-- **Non-surjectivity at `12`**, whose hypotheses do not include `[IsAlgClosed F]` — certified here
 on the same curve only because that is where the non-constancy hypothesis is already built. -/
-example : ¬ Function.Surjective (mulByNEndo (W := exampleCurveSeparable) 12
+example : ¬ Function.Surjective (mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 12
     (transcendental_xCoord_nsmul_of_smooth exampleTwo exampleThree (by norm_num)
       exampleSmoothTwelve)) :=
   not_surjective_mulByNEndo_of_smooth exampleTwo exampleThree (by norm_num) (by norm_num)
