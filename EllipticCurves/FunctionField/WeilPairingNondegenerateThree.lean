@@ -96,7 +96,8 @@ Subsingleton.elim _ _`.
 ⚠️ **This is not bilinearity, not the alternating property (`#465`, assembled at `n = 3` in
 `WeilPairingAlternatingThreeAlgClosed`), not Galois-equivariance (`#456`, assembled at `n = 3` in
 `WeilPairingGaloisRoot`), and not general `n`.**  It says nothing about `#E[n] = n²` at general `n`
-(`#242`, `#251`; ⚠️ **not** `#404` and **not** Ward, both closed): it is Ward-free for the same
+(`#242`, `#1490`; ⚠️ **not** `#404` and **not** Ward, both closed, and no longer `#251`, closed
+too): it is Ward-free for the same
 reason the `n = 2` file is.
 
 ⚠️ **There now IS a `W.Point`-level pairing in this tree at `n = 3`, and this file's headline is

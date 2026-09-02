@@ -284,7 +284,9 @@ heading is not `## Main results`.  All but the first are in namespace `Weierstra
   list is no longer true**: `eval_Φ_sq_of_eval_ΨSq_eq_zero` and the three statements built on it are
   statements about roots.  What has not changed, and is what the bullet was protecting, is that no
   root here is ever the `x`-coordinate of a point — the pointwise statements quantify over `x : R`
-  and know nothing of `W.Point`, so the torsion characterisation is still absent and still `#251`.
+  and know nothing of `W.Point`, so the torsion characterisation is still absent **here**.  ⚠️ It
+  is `#251`'s, and `#251` is closed: `nsmul_eq_zero_iff_ψ_evalEval_eq_zero_of_isElliptic`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`), which is not in this file's import closure.
 * Anything about `RatFunc`, function fields, or the degree of `[n]`. The consumers are the middle
   steps of the towers computing `[F(W) : [2]∗F(W)] = 4` and `[F(W) : [3]∗F(W)] = 9`, in
   `EllipticCurves.FunctionField.MulByTwoDegree` and

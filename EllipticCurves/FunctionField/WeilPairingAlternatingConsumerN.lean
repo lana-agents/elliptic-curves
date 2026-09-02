@@ -86,7 +86,9 @@ shapes is **one `convert` against one per hypothesis**, not affordable against u
 ## Scope
 
 `[Field F] {W : Affine F} [W.IsElliptic]`.  No `[IsAlgClosed F]`, no `hprin`, no `ωₙ` (`#404`,
-since closed), no Ward (`#260`, since closed), no `#251` (still open).
+since closed), no Ward (`#260`, since closed), no `#251` (⚠️ since closed as well —
+`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`, with its `y`-half
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`).
 
 Out of scope, and deliberately absent: the divisor telescope at general `n` (the *first* product of
 III.8.1(b)), the alternating assembly, and a second `Recovery` block — the merged file's recoveries

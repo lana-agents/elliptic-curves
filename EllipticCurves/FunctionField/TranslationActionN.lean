@@ -137,8 +137,11 @@ Every public declaration of this file is listed, and all are in namespace
   `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR
   #557, every index, every commutative ring) and Ward is
   `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`),
-  unconditional.  `#251` is the one of the four still open, and it is the one this file would
-  need if it ever wanted coordinates.
+  unconditional.  ⚠️ **And `#251`, which this bullet named as the one of the four still open, is
+  closed as well** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) with
+  its `y`-half `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`,
+  `#1500`, PR #579), at every index.  So all four are closed, this is an independence claim
+  throughout, and none of the four is a gate on anything here.
 * **No re-examination of `TranslationTriplingComm`.**  Whether its coordinate work is now redundant
   is a `#699`-style de-duplication question and belongs in its own issue, as that file records.
 * `TranslationAction`'s own Scope sentence, that nothing in *that* file is `[2]`- or

@@ -111,17 +111,24 @@ why a namespace mismatch here is invisible to the build: a consumer sitting in
 fully-qualified name is the only thing that checks it.
 
 Out of scope: discharging `hprin` over a general field, which is now the **only** gate; the
-divisor-level half of `#692`; general `n` (`#251`); anything about
-`WeilPairingAlternating{Two,Three}`, which are untouched.
+divisor-level half of `#692`; general `n` (⚠️ no longer `#251`, which is closed — see below);
+anything about `WeilPairingAlternating{Two,Three}`, which are untouched.
 
-⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
-proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
-of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
-`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
-`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
-two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of
+those are now closed.**  PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index
+over every commutative ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`.  The *other* statement this tree also called `ωₙ` — the
+identification of those coordinates with the **group-law** multiple `n • P` — is `#251` on its
+`x`-half and `#1500` on its `y`-half, and **both are closed**: `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at every index over a field with
+`(2 : F) ≠ 0`.  ⚠️ That was the step `hprin` reaches through
+`MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is `addY_self_eq_div`
+(`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input now exists at
+every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**, here or
+anywhere in this tree: the bullet is retired because the reason it gave is false, not because a
+replacement reason was found.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
 

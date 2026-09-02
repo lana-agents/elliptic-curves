@@ -133,15 +133,21 @@ from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_
 producer do **not**, and are stated without it.
 
 ⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at both `n`.
-So is general `n` (`#251`; ⚠️ **not** `#404`, see below), and rung 4 itself
+So is general `n` (⚠️ no longer `#251`, which is closed — see below), and rung 4 itself
 (`#414`/`#421`/`#422`) — which this file does not use and does not advance.
 
-⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
-those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
+⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
+ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
+The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
+retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
+stand between this file and a general index was **not** re-measured when the entry was retired — do
+not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
+is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **The `n = 2` and `n = 3` statements are pinned to `Classical.propDecidable`**, because they
 mention `W.torsion n` and the base-field group law.  The generic layer above is not, and carries

@@ -82,8 +82,8 @@ as enforced by `#918` and `#927`.
 
 ## Explicitly out of scope
 
-* **General `n`** — `#251`, as everywhere on this front.  ⚠️ **Not** `#404`, and **not**
-  Ward-blocked: see below.
+* **General `n`** — out of scope here.  ⚠️ This bullet used to blame `#251`, and before that
+  `#404`; both are closed, and it is **not** Ward-blocked either: see below.
   ⚠️ **But the second obstruction `#938` carries does not apply here, and a reader will assume it
   does.**  `#938`'s surjectivity argument runs through a group of *prime* order and has no analogue
   at composite `n`; Mathlib's duality is stated for an arbitrary finite abelian group, so the
@@ -102,12 +102,18 @@ as enforced by `#918` and `#927`.
 * **Galois-equivariance of the equiv.**  `#936` left bundled-hom equivariance unfiled for want of a
   consumer and that reasoning is unchanged here.
 
-⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
-those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
+⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
+ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
+The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
+retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
+stand between this file and a general index was **not** re-measured when the entry was retired — do
+not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
+is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References
 

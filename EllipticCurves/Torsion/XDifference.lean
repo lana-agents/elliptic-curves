@@ -67,8 +67,11 @@ Neither carries a `φ`.
 
 ⚠️ Issue `#251`'s own split comment named this identity as the thing that, once available, makes
 the coordinate formula and Ward's addition formula *each other's content*.  It is now available.
-That does not discharge `#251` — the identity is an equation between polynomials, and the missing
-input is still the geometric one, that `Φₙ/ΨSqₙ` is the `x`-coordinate of a point.
+That did not by itself discharge `#251` — the identity is an equation between polynomials, and the
+input it does not supply is the geometric one, that `Φₙ/ΨSqₙ` is the `x`-coordinate of a point.
+⚠️ **That input is proved too, at every index** — `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`, which imports this file) — so `#251` is closed and nothing
+here names an open gate.
 
 ## Main statements
 
@@ -140,8 +143,9 @@ Over an arbitrary commutative ring, at arbitrary integer indices, with no hypoth
 the `X·ψ_p²·ψ_q²` terms of the two `φ`s cancel.
 
 ⚠️ Divided through by `ψ_p²·ψ_q²` this is the classical `x(qP) − x(pP) = ψ_{p+q}ψ_{p−q}/(ψ_p²ψ_q²)`,
-but only *given* the coordinate formula `x(nP) = φₙ/ψₙ²`, which is issue `#251` and is **not**
-proved anywhere in this tree at general `n`.  Nothing here is a statement about `n • P`. -/
+but only *given* the coordinate formula `x(nP) = φₙ/ψₙ²`, which is issue `#251`.  ⚠️ It **is**
+proved at general `n` — `hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder` —
+which imports this file, so it is not reachable here.  Nothing below is about `n • P`. -/
 theorem ψ_add_mul_ψ_sub (p q : ℤ) :
     W.ψ (p + q) * W.ψ (p - q) = W.φ q * W.ψ p ^ 2 - W.φ p * W.ψ q ^ 2 := by
   rw [IsEllipticNet.mul_sub_eq_of_rel_one (W := W.ψ) (by simp) (W.ψ_rel_one p q),

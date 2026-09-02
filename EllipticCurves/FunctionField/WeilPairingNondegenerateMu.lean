@@ -89,19 +89,26 @@ by giving its coordinates.
 ## Scope
 
 Out of scope, and untouched: `hprin` over a **general** field, which is what confines all of this
-to `F̄` at both `n`; general `n` (`#251`); bundling into `weilPairingMuHom`, which needs a
-`hpow` datum uniform in the slot variable and is a separate design question
-(`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level theorems or
-their proofs.
+to `F̄` at both `n`; general `n` (⚠️ no longer `#251`, which is closed — see below); bundling into
+`weilPairingMuHom`, which needs a `hpow` datum uniform in the slot variable and is a separate design
+question (`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level
+theorems or their proofs.
 
-⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
-proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
-of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
-`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
-`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
-two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of
+those are now closed.**  PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index
+over every commutative ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`.  The *other* statement this tree also called `ωₙ` — the
+identification of those coordinates with the **group-law** multiple `n • P` — is `#251` on its
+`x`-half and `#1500` on its `y`-half, and **both are closed**: `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at every index over a field with
+`(2 : F) ≠ 0`.  ⚠️ That was the step `hprin` reaches through
+`MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is `addY_self_eq_div`
+(`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input now exists at
+every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**, here or
+anywhere in this tree: the bullet is retired because the reason it gave is false, not because a
+replacement reason was found.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **This is not a perfect-pairing statement, but one exists.**  Non-degeneracy in one slot is
 what Silverman III.8.1(c) asserts and what is proved here.  Perfectness is

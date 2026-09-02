@@ -131,8 +131,13 @@ pullback is `pullbackDivisorN` (`EllipticCurves.FunctionField.MulByNPlacePullbac
 principality of `[n]∗((S) − (O))` is a different statement from either of those and is not
 approached here, and `#404`'s general `ωₙ` is untouched — ⚠️ and no longer open, being
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557).
-What principality at a general index still wants is `#251`, the identification of
-`(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with `n • P`, through the fibre description.
+⚠️ **The identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P`, which this paragraph used to name
+as what principality at a general index still wants, is closed too** — `#251` on its `x`-half,
+`#1500` on its `y`-half, at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`; `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
+`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).  ⚠️ Principality at a general index reaches it
+**through the fibre description**, which is merged only at `n = 2, 3`; whether the coordinate
+formula now supplies that description is **not measured**, here or anywhere.
 
 ## References
 

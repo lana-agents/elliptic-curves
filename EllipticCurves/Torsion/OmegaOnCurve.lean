@@ -183,8 +183,13 @@ this identity cost where `2`, `3` and `4` are units".
 ⚠️ **This is an on-curve identity for the classical division-polynomial coordinates, not a statement
 about `n • P`.**  Identifying `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple is a genuinely
 separate step — it is what `EllipticCurves.Torsion.DoublingCoords` and
-`EllipticCurves.Torsion.TriplingCoords` do at `n = 2` and `n = 3`, and it is issue `#251` in
-general.  The two `OmegaTwo`/`OmegaThree` docstrings make the same disclaimer and it is unchanged.
+`EllipticCurves.Torsion.TriplingCoords` do at `n = 2` and `n = 3`.  ⚠️ In general it is issue
+`#251` on the `x`-half and `#1500` on the `y`-half, and **both are now closed** —
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0`.  Both are downstream of this file; the separateness
+claimed above is unaffected, only its openness.  The two `OmegaTwo`/`OmegaThree` docstrings make
+the same disclaimer and it is unchanged.
 
 ## References
 

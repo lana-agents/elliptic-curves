@@ -24,8 +24,9 @@ This is the purely geometric counting infrastructure behind the finiteness of `E
 rung 3 of the `#E[n] ≤ n²` program, parent #246). It is deliberately **independent of the
 division-polynomial / elliptic-net recurrence**: it takes the finite `x`-support as a *hypothesis*.
 The remaining input — that every nonzero `n`-torsion point has an `x`-coordinate among the roots of
-a suitable division polynomial — is supplied by the multiplication-by-`n` characterisation (#251)
-in general, and unconditionally for `n = 3` by `EllipticCurves.Torsion.ThreeTorsion`.
+a suitable division polynomial — is supplied by the multiplication-by-`n` characterisation (#251),
+which is **closed**: `mem_torsionXSupport_of_mem_torsion` (`EllipticCurves.Torsion.XSupport`) in
+general, and unconditionally for `n = 3` by `EllipticCurves.Torsion.ThreeTorsion`.
 
 ## Main definitions
 
@@ -45,7 +46,8 @@ in general, and unconditionally for `n = 3` by `EllipticCurves.Torsion.ThreeTors
 * `WeierstrassCurve.Affine.torsion_finite_of_xCoords`,
   `WeierstrassCurve.Affine.finite_torsion_of_xCoords`,
   `WeierstrassCurve.Affine.card_torsion_le_of_xCoords`: the specialisations to `E[n]`, the exact
-  interface the `#E[n] ≤ n²` counting (#252) consumes once #251 supplies the finite `x`-support.
+  interface the `#E[n] ≤ n²` counting (#252) consumes; #251 supplies the finite `x`-support and is
+  closed (`EllipticCurves.Torsion.XSupport`), so `card_torsion_le_sq` is merged there.
 
 ## References
 
@@ -245,8 +247,8 @@ variable [DecidableEq F]
 
 /-- Specialisation of `finite_of_xCoords` to the `n`-torsion subgroup `E[n]`: if every nonzero
 `n`-torsion point has `x`-coordinate in a finite set `S`, then `E[n]` is finite (as a set of
-points). This is the exact interface the `#E[n] ≤ n²` counting (#252) consumes once #251 provides
-the finite root set of `W.ΨSq n` as `S`. -/
+points). This is the exact interface the `#E[n] ≤ n²` counting (#252) consumes; #251 provides the
+finite root set of `W.ΨSq n` as `S` and is closed (`EllipticCurves.Torsion.XSupport`). -/
 theorem torsion_finite_of_xCoords {n : ℕ} {S : Set F} (hS : S.Finite)
     (hx : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄,
       (.some x y h : W.Point) ∈ W.torsion n → x ∈ S) :

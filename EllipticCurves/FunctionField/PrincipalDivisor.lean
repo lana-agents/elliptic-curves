@@ -45,9 +45,9 @@ sites; this one was missed because it names neither `WeilPairing` nor `#242`. At
 enters non-degeneracy only inside `fixedFieldTwo_eq_mulByTwoFieldRange` (`MulByTwoGalois`, `#759`),
 through `card_torsion_two` — the roots of the `2`-division cubic, which does not go through Ward —
 and at `n = 3` likewise through `card_torsion_three`. Ward gates `#E[n] = n²` at **general** `n`
-only (`#242`/`#251`). See `EllipticCurves.FunctionField.WeilPairing`'s scope section for the
-canonical account of what non-degeneracy consumes; the independence claimed above is unaffected
-either way.
+only (`#242`/`#1490`; ⚠️ this used to cite `#251`, which is closed). See
+`EllipticCurves.FunctionField.WeilPairing`'s scope section for the canonical account of what
+non-degeneracy consumes; the independence claimed above is unaffected either way.
 
 ## Main statements
 

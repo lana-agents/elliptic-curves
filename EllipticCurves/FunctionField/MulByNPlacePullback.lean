@@ -125,13 +125,14 @@ has since been discharged over a field** — `WeierstrassCurve.Affine.isCoprime_
 (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `(n : F) ≠ 0` and nothing else beyond
 the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
 arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.
-⚠️ And the `y`-half — `ωₙ/ψₙ³` as `y(n • P)` — is still available at `n = 2` and `n = 3` only,
-which is what the `#251` bullets on the Weil-pairing front mean.  ⚠️ None of
-`EllipticCurves.Torsion.NsmulOrder`, `EllipticCurves.FunctionField.MulByNXCoordFormula`,
-`EllipticCurves.Torsion.CoprimeAdjacent` or
-`EllipticCurves.FunctionField.MulByNDegreeGeneral` is in this file's import closure and none is
-added: all four names are cited, not consumed.  The two-reading account is
-`EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ And the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the
+same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0` the `x`-half asks.  ⚠️ So the whole *pair* is available at
+every index, and the `#251` bullets on the Weil-pairing front no longer name an open gate.  ⚠️ None
+of `EllipticCurves.Torsion.NsmulOrder`, `EllipticCurves.FunctionField.MulByNXCoordFormula`,
+`EllipticCurves.Torsion.CoprimeAdjacent` or `EllipticCurves.FunctionField.MulByNDegreeGeneral` is in
+this file's import closure and none is added: all four names are cited, not consumed.  The
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
 result, not a gap** — at *general* `n`; at every `3`-smooth `n` it is

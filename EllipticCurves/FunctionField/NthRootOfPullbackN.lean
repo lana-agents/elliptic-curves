@@ -92,11 +92,13 @@ with the group-law multiple `n • P` is `#251`, and it is **closed**:
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
 function-field form `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
-is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
-`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
-Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
-`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
-added: both names are cited, not consumed.  The two-reading account is
+is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/(2ψₙ³)` as
+`y(n • P)` — **is closed too, at every index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0`
+the `x`-half asks.  ⚠️ So the whole *pair* is available at every index, and the `#251` bullets on
+the Weil-pairing front no longer name an open gate.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder`
+nor `EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither
+is added: both names are cited, not consumed.  The two-reading account is
 `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity

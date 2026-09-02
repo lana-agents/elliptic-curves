@@ -88,17 +88,24 @@ disagree.  There is no hypothesis here to weaken, so there is no `_of_hprin` twi
 the fibre point `P` with `[3]P = T` (`WeilPairingRootIndependenceAlgClosed` records this).
 
 ⚠️ This is not Galois-equivariance (`#456`; the `F(W)`-level and `μ_n`-level forms are merged in
-`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (which needs `#251`; ⚠️
-**not** `#404`, see below), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the
-function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is
-where `σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
+`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n`
+(⚠️ no longer `#251`, which is closed — see below), and not `#E[3] = 9`.  ⚠️ Those Galois forms are
+re-read *through* the function of this file by
+`EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is where
+`σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
 
-⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
-those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
+⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
+ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
+The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
+retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
+stand between this file and a general index was **not** re-measured when the entry was retired — do
+not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
+is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## ⚠️ Five issue numbers in this file were wrong while the names beside them were right
 
