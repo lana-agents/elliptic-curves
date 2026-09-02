@@ -40,7 +40,11 @@ tower step plus the induction `MulByNComposition` already ran for the degree.
 
 The second sentence is **false at every `3`-smooth `n`**.  The `3`-smooth case waits on none of
 `#E[n] = n²`, `#403`, `#404`, `#405`; it waits on the composition law, which is merged.  What those
-four gate is the *general* `n`, and the first index at which they are needed is `n = 5`.
+four gate is the *general* `n`, and the first index at which they are needed is `n = 5`.  ⚠️ *"They
+are needed"* is about the **division-polynomial** route to `n = 5`, which is what that quotation is
+about; it is not a claim that nothing reaches `n = 5`.  Separability, normality and `IsGalois` at
+`n = 5` are theorems in `EllipticCurves.FunctionField.MulByNGalois` (`#1523`), by the translation
+action and `#293`'s count, and they consume none of `#403`/`#405`.
 
 ⚠️ **`#404` has since been paid and is no longer one of them** (`#1460`).  Its on-curve identity is
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557),
@@ -109,8 +113,16 @@ tower has to be built by hand out of `IntermediateField.inclusion` and
   isogeny has as many points in its kernel as its degree"* is nowhere in this tree.  That stays
   exactly as true as it was: this file supplies one **hypothesis** of that step at more indices, not
   the step.
-* **Nothing at `n = 5`.**  The composition law manufactures no new prime, so `…_of_smooth` is as
-  wide as the set of indices whose prime factors are `2` and `3` and no wider.
+* ⚠️ **Nothing at `n = 5` *by this file's method*, and that is now a statement about the method
+  rather than about the tree.**  The composition law manufactures no new prime, so `…_of_smooth` is
+  as wide as the set of indices whose prime factors are `2` and `3` and no wider — that clause is
+  unchanged and unchangeable.  What changed is the conclusion that used to be drawn from it:
+  `isSeparable_mulByNFieldRange_of_ne_zero` (`EllipticCurves.FunctionField.MulByNGalois`, `#1523`)
+  proves separability at **every** `n` with `(n : F) ≠ 0`, `n = 5` included, by reading it off the
+  fixed field of the translation action instead of by multiplying up.  ⚠️ **This file's route is
+  kept and is not superseded in scope**: it is the only separability proof here that does not need
+  `#E[n] = n²`, hence the only one that survives if the count is ever weakened.  What it is no
+  longer is *load-bearing*.
 * **No fundamental identity at `3`-smooth `n`** — and this is the one worth being precise about,
   because it is *closer* than the rest of this list.
   `EllipticCurves.FunctionField.PlaceInertiaGeneral` proves
@@ -286,14 +298,20 @@ The hypotheses `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` are tho
 `finrank_mulByNFieldRange_of_smooth`, which is the degree at the same slice of indices, and of
 `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), which is `#E[n] = n²` at it.
 
-⚠️ The first index this does **not** cover is `n = 5`; the argument manufactures no new prime.  ⚠️
-This is separability only, and `Normal` does *not* follow **from it**, because normality is not
+⚠️ The first index **this argument** does not cover is `n = 5`; it manufactures no new prime.  ⚠️
+That is not a statement about the tree: `isSeparable_mulByNFieldRange_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNGalois`, `#1523`) covers every `n` with `(n : F) ≠ 0`, off the
+fixed field of the translation action.  This theorem stays because it is the only separability proof
+here that does not consume `#E[n] = n²`.
+
+⚠️ This is separability only, and `Normal` does *not* follow **from it**, because normality is not
 transitive.  ⚠️ That sentence used to end *"— `Normal`, and so `IsGalois`, does not follow"* without
 the emphasis, which read as a claim about the tree; `Normal` and `IsGalois` are now proved at
 exactly these hypotheses by a different route, in
-`EllipticCurves.FunctionField.MulByNGalois` (`#1233`).  That file consumes this theorem as the
-separable half of `isGalois_mulByNFieldRange_of_smooth` and mints no separability of its own.  See
-the module docstring. -/
+`EllipticCurves.FunctionField.MulByNGalois` (`#1233`).  ⚠️ That file used to consume this theorem as
+the separable half of `isGalois_mulByNFieldRange_of_smooth` and mint no separability of its own; it
+still does at `3`-smooth `n`, but its general-`n` half mints its own (`#1523`).  See the module
+docstring. -/
 theorem isSeparable_mulByNFieldRange_of_smooth [IsAlgClosed F]
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)

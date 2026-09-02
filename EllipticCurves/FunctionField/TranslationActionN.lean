@@ -6,6 +6,7 @@ Authors: The Elliptic Curves formalisation contributors
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.TranslationAction
 import EllipticCurves.FunctionField.TranslationMulByNCommGeneral
+import EllipticCurves.Torsion.StructureGeneral
 import EllipticCurves.Torsion.ThreePrimary
 
 /-!
@@ -13,8 +14,8 @@ import EllipticCurves.Torsion.ThreePrimary
 
 For `G := Multiplicative ↥(W.torsion n)` — the group `E[n]` written multiplicatively — this file
 builds a faithful `MulSemiringAction G F(W)` by translation, computes `Nat.card G = n²` over an
-algebraically closed base field of characteristic `≠ 2, 3` at every `3`-smooth `n`, and proves the
-inclusion
+algebraically closed base field — at every `3`-smooth `n` in characteristic `≠ 2, 3`, and at
+**every** `n` with `(n : F) ≠ 0` in characteristic `≠ 2` — and proves the inclusion
 
 ```
 [n]∗F(W) ⊆ Fixed(G).
@@ -32,12 +33,25 @@ range, so the split is made explicit here:
 
 * **the action, its faithfulness and the inclusion** hold at **every** `n` at which `[n]` is
   non-constant — no `3`-smoothness, no hypothesis on the characteristic, no `[IsAlgClosed F]`;
-* **only the count** `Nat.card (TorsionNMul W n) = n ^ 2` is `3`-smooth and needs `F̄`, because
-  `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) is.
+* **only the count** `Nat.card (TorsionNMul W n) = n ^ 2` needs `F̄` and a hypothesis on the
+  index, because the torsion count does.
 
-Read the smoothness hypotheses as belonging to `card_torsionNMul` and `finite_torsionNMul` alone.
-Everything else in this file is `n`-agnostic and would serve `n = 5` unchanged the day a count
-exists there.
+Read those hypotheses as belonging to the count lemmas alone.  Everything else in this file is
+`n`-agnostic.
+
+⚠️ **The count itself now comes in two ranges, and the wider one is not `3`-smooth**:
+
+* `card_torsionNMul` / `finite_torsionNMul` — `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0`, `3`-smooth,
+  through `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`);
+* `card_torsionNMul_of_ne_zero` / `finite_torsionNMul_of_ne_zero` — `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+  and nothing else, through `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`,
+  `#293`).  ⚠️ `(n : F) ≠ 0` is **sharp**: at `p = char F` the count is *false*, `E[p]` being `0` or
+  `ℤ/pℤ` there.
+
+The `3`-smooth pair is **kept** — it is what the merged consumers cite, and rewriting the front onto
+the general pair is `#1523` items 3–4.  This bullet used to end *"would serve `n = 5` unchanged the
+day a count exists there"*; that day is `#293`, and `EllipticCurves.FunctionField.MulByNGalois`
+serves `n = 5` off the general pair.
 
 ## What this file does *not* rebuild, and why it is short
 
@@ -65,11 +79,13 @@ the two instances, the count, and the inclusion.
   the `~250` lines of coordinate work `TranslationTriplingComm` spends on `n = 3` and is proved by
   a group calculation on `(W ⁄ F(W)).Point` instead.
 
-## Why: Artin's theorem at general `3`-smooth `n`
+## Why: Artin's theorem at general `n`
 
-`F(W)` is a degree-`n²` extension of `[n]∗F(W)` (`finrank_mulByNFieldRange_of_smooth`, `#1213`) and
-`E[n]` has exactly `n²` elements over an algebraically closed field of characteristic `≠ 2, 3`
-(`card_torsion_eq_sq_of_smooth`, `#1209`).  Translation by an `n`-torsion point fixes `[n]∗f`
+`F(W)` is a degree-`n²` extension of `[n]∗F(W)` (`finrank_mulByNFieldRange_of_smooth`, `#1213`; and
+`finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` with no smoothness) and `E[n]` has exactly `n²`
+elements over an algebraically closed field (`card_torsion_eq_sq_of_smooth`, `#1209`, in
+characteristic `≠ 2, 3` at `3`-smooth `n`; `card_torsion_eq_sq`, `#293`, at every `n` with
+`(n : F) ≠ 0`).  Translation by an `n`-torsion point fixes `[n]∗f`
 pointwise, so `[n]∗F(W) ⊆ Fixed(E[n])`, and `FixedPoints.finrank_eq_card` gives
 `[F(W) : Fixed(E[n])] = n²`.  Both outer degrees being `n²`, the sandwich closes and
 `Fixed(E[n]) = [n]∗F(W)` exactly — whence separability, **normality** and `IsGalois`.
@@ -108,6 +124,8 @@ Every public declaration of this file is listed, and all are in namespace
   unfolding lemmas `translateAutNHom_apply` and `torsionNMul_smul_def`;
 * `card_torsionNMul` — `Nat.card (TorsionNMul W n) = n ^ 2` at every `3`-smooth `n ≠ 0` over `F̄`;
 * `finite_torsionNMul` — finiteness at the same indices;
+* `card_torsionNMul_of_ne_zero` and `finite_torsionNMul_of_ne_zero` — the same two at **every** `n`
+  with `(n : F) ≠ 0`, with no `(3 : F) ≠ 0` and no smoothness (`#1523`);
 * `translateAut_mulByNEndo` — translation by an `n`-torsion **point of `W`** fixes `[n]∗f`, the
   `O` case included;
 * `mulByNEndo_mem_fixedPoints` and `mulByNRange_le_fixedPoints` — `[n]∗F(W) ⊆ Fixed(E[n])`.
@@ -122,11 +140,15 @@ Every public declaration of this file is listed, and all are in namespace
   this one and consumes `card_torsionNMul` and `mulByNRange_le_fixedPoints`.  The scope statement is
   unchanged: nothing below proves it.  ⚠️ Note that the inclusion proved here carries **no**
   `[IsAlgClosed F]` while the equality must, since one of its two degrees does.
-* **Nothing at `n = 5` in the count.**  `card_torsion_eq_sq_of_smooth` is `3`-smooth and this file
-  manufactures no new prime.  The action, the faithfulness and the inclusion are unaffected — they
-  never mention `n²`.
+* ⚠️ **`n = 5` in the count — RETIRED, it landed.**  This bullet used to read
+  *"`card_torsion_eq_sq_of_smooth` is `3`-smooth and this file manufactures no new prime."*  The
+  second clause is still true and is still why: what changed is the **input**, not this file's
+  method.  `card_torsion_eq_sq` (`#293`) is the count at every `n` with `(n : F) ≠ 0`, and
+  `card_torsionNMul_of_ne_zero` is it in the multiplicative packaging.  The action, the faithfulness
+  and the inclusion remain unaffected either way — they never mention `n²`.
 * **Not `#E[n] = n²`.**  That count is an *input* here, merged separately in
-  `EllipticCurves.Torsion.ThreePrimary` by the torsion route.  This file supplies no kernel count
+  `EllipticCurves.Torsion.ThreePrimary` (`3`-smooth) and `EllipticCurves.Torsion.StructureGeneral`
+  (every `n` with `(n : F) ≠ 0`) by the torsion route.  This file supplies no kernel count
   for `[n]` as an isogeny, and the step *"a separable isogeny has `#ker = deg`"* remains nowhere in
   this tree.
 * **No coordinate work.**  `ωₙ` (`#404`), the general-`n` on-curve identity, `#251` and Ward
@@ -216,9 +238,10 @@ instance (n : ℕ) : FaithfulSMul (TorsionNMul W n) W.FunctionField where
 
 /-! ### The order of `E[n]`
 
-⚠️ This is the **only** part of the file that is `3`-smooth, and the only part that needs a
-hypothesis on `F`.  Everything above and everything below is stated at an arbitrary `n` over an
-arbitrary field. -/
+⚠️ This is the **only** part of the file that constrains `n` or needs a hypothesis on `F`.
+Everything above and everything below is stated at an arbitrary `n` over an arbitrary field.  The
+`3`-smooth pair comes first and the general pair after it; neither is deprecated, and `#1523`
+records why both are kept. -/
 
 open Classical in
 /-- **`|E[n]| = n²` at every `3`-smooth `n ≠ 0`**, in the multiplicative packaging.  This is
@@ -249,10 +272,42 @@ theorem finite_torsionNMul [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
   Nat.finite_of_card_ne_zero (by
     rw [card_torsionNMul h2 h3 hn hfac]; exact pow_ne_zero 2 hn)
 
+open Classical in
+/-- **`|E[n]| = n²` at every `n` with `(n : F) ≠ 0`**, in the multiplicative packaging — the
+`3`-smoothness of `card_torsionNMul` removed, and the parity restriction with it.
+
+This is `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) read through the
+type synonym, exactly as `card_torsionNMul` is `card_torsion_eq_sq_of_smooth` read through it.
+⚠️ `(n : F) ≠ 0` is the sharp hypothesis and it is *not* a weakening of `3`-smoothness: at
+`p = char F` the conclusion is **false**, `E[p]` being `0` or `ℤ/pℤ` there, never `(ℤ/pℤ)²`.
+
+⚠️ `card_torsionNMul` is **kept**, and not as a deprecation: it is the form whose hypotheses match
+the `TwoPrimary` / `ThreePrimary` consumers, and rewriting the `3`-smooth front onto this name is a
+separate, mechanical job (`#1523` items 3–4).  Neither statement subsumes the other's *use sites*;
+this one does subsume the other's *content* wherever `(n : F) ≠ 0`, which at `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0` is automatic. -/
+theorem card_torsionNMul_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
+    Nat.card (TorsionNMul W n) = n ^ 2 :=
+  (Nat.card_congr Multiplicative.toAdd).trans (card_torsion_eq_sq h2 hn)
+
+open Classical in
+/-- `E[n]` is finite over an algebraically closed field at every `n` with `(n : F) ≠ 0`, since it
+has exactly `n²` elements.  The general-`n` form of `finite_torsionNMul`, and the same discipline
+applies: fire it as `haveI := finite_torsionNMul_of_ne_zero (W := W) h2 hn` and let
+`Fintype.ofFinite` manufacture the `Fintype` inside the proof, never in a statement.
+
+⚠️ `n ≠ 0` is not a separate hypothesis — it follows from `(n : F) ≠ 0`, since `((0 : ℕ) : F) = 0`.
+That is the only place the cast is used. -/
+theorem finite_torsionNMul_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) : Finite (TorsionNMul W n) :=
+  have hn0 : n ≠ 0 := by rintro rfl; simp at hn
+  Nat.finite_of_card_ne_zero (by
+    rw [card_torsionNMul_of_ne_zero h2 hn]; exact pow_ne_zero 2 hn0)
+
 /-! ### `[n]∗F(W)` is fixed by the action
 
-⚠️ Back to an arbitrary `n` over an arbitrary field: nothing below mentions `n²`, `3`-smoothness or
-`[IsAlgClosed F]`. -/
+⚠️ Back to an arbitrary `n` over an arbitrary field: nothing below mentions `n²`, `3`-smoothness,
+`(n : F) ≠ 0` or `[IsAlgClosed F]`. -/
 
 open Classical in
 /-- **Translation by an `n`-torsion point fixes `[n]∗f`.**  The affine case is
