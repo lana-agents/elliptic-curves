@@ -52,8 +52,14 @@ statement `IsEllipticNet.isEllipticNet_iff_isEllipticSequence` does spend a regu
 on the values at nonzero indices — but `normEDS_isEllipticNet_of_gapCore`
 (`EllipticCurves.Torsion.EllipticNetSlices`) discharges it once and for all in `UnivEDS` through
 `normEDS_univ_ne_zero` and transports the conclusion to every `CommRing`, so `ψ_isEllipticNet` is
-a corollary of `wardGapCore` too.  ⚠️ So neither axis is a hierarchy **for `ψ`**; both are for a
-general sequence over a general ring, which is what those two files are for.
+a corollary of `wardGapCore` too.
+
+⚠️ So neither axis is a hierarchy **for `ψ`**.  For a *general* sequence over a general ring the
+`r` axis genuinely is one — `IsEllipticNet.not_isEllipticSequence_signMultiplesOfThree`
+(`EllipticCurves.Torsion.WardR1`) is odd and satisfies the whole `r = 1` slice yet is not an
+elliptic sequence, because `W 1 = 0`.  On the `s` axis nothing of the kind is known:
+`EllipticCurves.Torsion.EllipticNetSlices` records that its regularity hypothesis is *not* known to
+be necessary and claims no counterexample.  Those two files are where that difference is stated.
 
 The gap this file closes is therefore not paid for with a stronger Ward input than the ladder
 already carries, and the reason is the strong one: both rest on exactly `wardGapCore`.  Everything
