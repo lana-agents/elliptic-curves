@@ -88,10 +88,17 @@ disagree.  There is no hypothesis here to weaken, so there is no `_of_hprin` twi
 the fibre point `P` with `[3]P = T` (`WeilPairingRootIndependenceAlgClosed` records this).
 
 ⚠️ This is not Galois-equivariance (`#456`; the `F(W)`-level and `μ_n`-level forms are merged in
-`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (which needs `#404`'s
-`ωₙ` crux), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the function of this
-file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is where
-`σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
+`WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`), not general `n` (which needs `#251`; ⚠️
+**not** `#404`, see below), and not `#E[3] = 9`.  ⚠️ Those Galois forms are re-read *through* the
+function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which is
+where `σ(e_3(S, T)) = e_3(σ • S, σ • T)` exists as an equation rather than an existential.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## ⚠️ Five issue numbers in this file were wrong while the names beside them were right
 

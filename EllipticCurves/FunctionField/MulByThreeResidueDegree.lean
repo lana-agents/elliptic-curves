@@ -127,7 +127,10 @@ identity is a different theorem rather than a descent of this one.
   endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
   `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ No general-`n` residue degree is
-  defined here, and `#404`'s general `ωₙ` is untouched — it is not what `[n]∗` needed.  The
+  defined here, and `#404`'s general `ωₙ` is untouched here — it is not what `[n]∗` needed, and it
+  is no longer open (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+  `EllipticCurves.Torsion.OmegaCrux`, PR #557); `#251` is what a general-`n` coordinate
+  description still wants.  The
   general-`n` residue degree is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which
   imports this file and is this file with `mulByThreeEndo_*` replaced by `mulByNEndo_*` — plus the
   observation that `residueDegreeThree_none_eq_one`'s route below is uniform in the endomorphism,

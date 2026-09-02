@@ -73,9 +73,18 @@ setting; the transfer lemma carries neither `[IsAlgClosed F]` nor any torsion hy
 torsion is **derived** from `hadd` inside `#845`, never assumed here.
 
 Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
-`F̄`; general `n` (`#404`'s `ωₙ`); divisor-slot bilinearity, whose envelope needs `g_R` and the
+`F̄`; general `n` (`#251`); divisor-slot bilinearity, whose envelope needs `g_R` and the
 correction factor as data (`#861`); non-degeneracy; any change to `#724`'s, `#723`'s, `#845`'s or
 `#855`'s proofs.
+
+⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
+proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
+of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
+`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
+`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **This file does not introduce a `W.Point`-level pairing**, and `WeilPairingProductRelation`'s
 Scope section is right that inventing one here would be drift.  ⚠️ **But moving the roots into the

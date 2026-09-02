@@ -42,6 +42,13 @@ The second sentence is **false at every `3`-smooth `n`**.  The `3`-smooth case w
 `#E[n] = n²`, `#403`, `#404`, `#405`; it waits on the composition law, which is merged.  What those
 four gate is the *general* `n`, and the first index at which they are needed is `n = 5`.
 
+⚠️ **`#404` has since been paid and is no longer one of them** (`#1460`).  Its on-curve identity is
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557),
+at every index over every commutative ring.  ⚠️ The quotation above is left verbatim because it is a
+quotation.  At `n = 5` the division-polynomial route still waits on `#E[n] = n²`, on `#403`/`#405`
+— whose missing input `#404` was — and on `#251`, the identification of the division-polynomial
+coordinates with the group-law multiple `n • P`, which `#404` never claimed to supply.
+
 This is `#1213`'s finding a second time, and by the same detector: **take a merged sentence of the
 form "X is gated on A, B, C" and ask whether A, B, C gate the statement or gate one route to it.**
 `#1213` applied it to the degree `[F(W) : [n]∗F(W)] = n²`; here it applies to separability.  The

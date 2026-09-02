@@ -83,9 +83,10 @@ is the placement rule of `#1317`, applied in both directions inside one file.
 
 ## Scope
 
-`[Field F] {W : Affine F} [W.IsElliptic]`.  No `[IsAlgClosed F]`, no `hprin`, no `ωₙ` (`#404`), no
-Ward, no rung 4.  The transcendence hypothesis `hn` is the standard general-`n` gate of
-`mulByNEndo` and is discharged by `transcendental_xCoord_nsmul_of_smooth` or, at a numeral, by
+`[Field F] {W : Affine F} [W.IsElliptic]`.  No `[IsAlgClosed F]`, no `hprin`, no `ωₙ` (`#404`, since
+closed), no Ward (`#260`, since closed), no rung 4.  The transcendence hypothesis `hn` is the
+standard general-`n` gate of `mulByNEndo` and is discharged by
+`transcendental_xCoord_nsmul_of_smooth` or, at a numeral, by
 `transcendental_xCoord_{two,three}_nsmul`.
 
 Out of scope: the divisor telescoping (`∏_{i<n} τ_{[i]T}∗ f_T = c`), the assembly, and any edit to

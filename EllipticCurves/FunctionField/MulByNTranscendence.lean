@@ -57,6 +57,7 @@ over an algebraically closed field of characteristic `≠ 2`,
 
 with **no** use of the `y`-coordinate division polynomial `ωₙ`, of the general `n` on-curve identity
 (`#404`), or of the elliptic-net recurrence (Ward, `#260`).  This is `mulByNEndoOfAlgClosed`.
+⚠️ Both of those are now **closed**, so this is a statement of independence and not of a gate.
 
 ## Main statements
 

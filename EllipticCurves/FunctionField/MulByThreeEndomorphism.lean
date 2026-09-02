@@ -29,7 +29,8 @@ delivers both halves:
 
 Because the merged `EllipticCurves/Torsion/OmegaThree.lean` supplies the on-curve identity for the
 tripling point (`WeierstrassCurve.Affine.tripling_equation`), this construction sidesteps the
-general-`n` on-curve identity crux (#404) entirely: it is a clean clone of the `[2]∗` construction
+general-`n` on-curve identity crux (#404, since closed) entirely: it is a clean clone of the `[2]∗`
+construction
 with `2 ↦ 3`.
 
 ## The construction

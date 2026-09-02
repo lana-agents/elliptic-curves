@@ -30,9 +30,18 @@ and reads off the consequence the index-specific files could not reach:
 
 `EllipticCurves.FunctionField.MulByNPlacePullback` records `[F(W) : [n]∗F(W)] = n²` as a rung that
 *does not survive* at general `n`, and lists three gates for it: the coordinates of `[n]` as a
-written-down fraction `Φₙ/ΨSqₙ` (`#404`/`#251`), the coprimality `IsCoprime (Φₙ) (ΨSqₙ)` (`#1184`),
+written-down fraction `Φₙ/ΨSqₙ` (`#251`), the coprimality `IsCoprime (Φₙ) (ΨSqₙ)` (`#1184`),
 and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  **All three are gates on the `Φₙ/ΨSqₙ` route, not on the
 degree.**  Degrees multiply in towers, so the two merged values
+
+⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
+the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
+those coordinates lie on the curve; it does **not** identify them with the group-law multiple
+`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
+(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
+`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ```
 [F(W) : [2]∗F(W)] = 4       (`finrank_mulByTwoFieldRange`,   #682)
@@ -118,7 +127,8 @@ rather than fixing a canonical one.
   consumes this file's `mulByNEndo_mul` and gets `none ↦ none` — and `e_∞ = 1`, and
   `ordInfty ([n]∗ genX) = -2` — at every `3`-smooth `n`.  This bullet is about the contents of this
   file and not about the tree.
-* **No `ωₙ`, no coprimality, no elliptic net.**  `#404`, `#1184` and Ward (`#260`) are untouched and
+* **No `ωₙ`, no coprimality, no elliptic net.**  `#404` (closed), `#1184` (open) and Ward
+  (`#260`, closed) are untouched and
   unused; the whole file runs on the group law and four Mathlib `relfinrank` lemmas.
 
 ## References
@@ -351,7 +361,7 @@ which is the same slice of indices on the other side of the pairing: `#E[n] = n�
 
 ⚠️ The first index this does **not** cover is `n = 5`, exactly as for the torsion structure theorem,
 and for the same reason: the argument manufactures no new prime.  What stands between this and
-general `n` is `#404`/`#251`, `#1184` and `(n : F) ≠ 0` — see the module docstring. -/
+general `n` is `#251`, `#1184` and `(n : F) ≠ 0` — see the module docstring. -/
 theorem finrank_mulByNFieldRange_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :

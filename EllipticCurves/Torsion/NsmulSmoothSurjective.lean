@@ -55,7 +55,9 @@ need `hasXCoordFormula` at `5`, which is `#251` at general `n` and is Ward-gated
 ## What is *not* here
 
 * **No new index.**  The two merged surjectivity theorems are the only inputs; nothing is proved at
-  a prime other than `2` and `3`.  In particular this is not progress on `#251` or on `#404`.
+  a prime other than `2` and `3`.  In particular this is not progress on `#251`, which is the live
+  gate.  ⚠️ This bullet used to name `#404` beside it; `#404`'s on-curve identity is closed
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and was never what `HasXCoordFormula` needed.
 * **No injectivity, no degree, and no statement about `E[n]`.**  `#E[n] = n²` at `3`-smooth `n` is
   `card_torsion_eq_sq_of_smooth`, already merged, and it is an *input* to the consumers of this
   file rather than an output of it.

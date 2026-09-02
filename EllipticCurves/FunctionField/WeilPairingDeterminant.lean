@@ -111,10 +111,18 @@ This development has the pairing at `n = 2` and `n = 3` and nowhere else, so the
 cannot be taken.  The only sentence there this file falsifies is the parenthetical claim that the
 Weil pairing and its Galois equivariance are unavailable.
 
-Also out of scope: general `n` (the `ωₙ` crux, `#404`); ⚠️ the ceiling inherited here is `#938`'s
+Also out of scope: general `n` (`#251`; ⚠️ **not** `#404`, see below); ⚠️ the ceiling inherited
+here is `#938`'s
 and **not** `#940`'s, since `exists_weilPairing{Two,Three}_ne_one` routes through surjectivity,
 which is blocked at composite `n` twice.  The **trace** of `ρ_{E,n}` has no pairing-theoretic
 description at all and `galoisTraceTwo` is untouched by any of this.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ⚠️ `ker ρ_{E,3} ≤ ker χ_3` is the special case of the headline in which `σ` has matrix
 `(1, 0, 0, 1)`.  It is already merged as

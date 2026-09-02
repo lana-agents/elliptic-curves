@@ -126,7 +126,12 @@ Same shape as `finite_torsionThreeMul` in `TranslationActionThree`, and for the 
   separability with `MulByTwoGalois`'s along `[m · n]∗ = [m]∗ ∘ [n]∗` (`#1213`), and separability is
   transitive in towers, so `Algebra.IsSeparable ([n]∗F(W)) F(W)` holds at every `n` whose prime
   factors are `2` and `3` — waiting on none of those four.  What they gate is the *general* `n`, and
-  the first index at which they are needed is `n = 5`.  ⚠️ **This bullet used to end *"`Normal` and
+  the first index at which they are needed is `n = 5`.  ⚠️ **One of the four has since been paid**:
+  `#404`'s on-curve identity is `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557), so at `n = 5` the division-polynomial route waits
+  on `#E[n] = n²`, on `#403`/`#405` — whose one missing input `#404` was — and on `#251`, the
+  identification of `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with `n • P`, which `#404` never supplied.
+  ⚠️ **This bullet used to end *"`Normal` and
   `IsGalois` do not come along, because normality is not transitive; see that file"*, and the reason
   is still correct while the conclusion is not.**  Normality does not travel up `#1219`'s tower; but
   `EllipticCurves.FunctionField.MulByNGalois` (`#1233`) gets it at every `3`-smooth `n` anyway, by

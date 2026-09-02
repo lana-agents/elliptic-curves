@@ -41,9 +41,18 @@ numerator and no denominator to read off — `EllipticCurves.FunctionField.MulBy
 *"being an element of `F(x)` is not being a written-down rational function"*.  The three gates named
 there and in `EllipticCurves.FunctionField.MulByNPlacePullback` are unchanged:
 
-1. `nMulRatFunc W n = Φₙ/ΨSqₙ` as a written-down fraction (`#404` / `#251`);
+1. `nMulRatFunc W n = Φₙ/ΨSqₙ` as a written-down fraction (`#251`);
 2. `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`);
 3. `natDegree_ΨSq`'s `(n : F) ≠ 0`.
+
+⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
+the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
+those coordinates lie on the curve; it does **not** identify them with the group-law multiple
+`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
+(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
+`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 `finrank_fieldRange_eq_of_eq_ΦDivΨSq` below is the conditional statement those three gates
 discharge, so a future `n` at which they are available needs nothing further from this side.
@@ -148,7 +157,7 @@ variable (W) in
 This is the common generalisation of the merged `doublingRatFunc` and `triplingRatFunc`, which are
 this definition at `n = 2` and `n = 3` (`doublingRatFunc_eq_ΦDivΨSq`, `triplingRatFunc_eq_ΦDivΨSq`).
 ⚠️ Writing the fraction down is not the same as knowing it presents `x ∘ [n]`: that identification
-is `#404` / `#251` and is *not* available at general `n`. -/
+is `#251` and is *not* available at general `n`. -/
 noncomputable def ΦDivΨSq (n : ℤ) : RatFunc F :=
   algebraMap F[X] (RatFunc F) (W.Φ n) / algebraMap F[X] (RatFunc F) (W.ΨSq n)
 
@@ -200,8 +209,8 @@ theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) �
     finrank ↥σ.fieldRange W.FunctionField = n.natAbs ^ 2 := by
   rw [finrank_fieldRange_eq_finrank_adjoin σ _ hσ, finrank_adjoin_ΦDivΨSq hn hcop]
 
-/-- **`[F(W) : [n]∗F(W)] = n²`, conditional on the three gates.**  `hfrac` is gate 1 (`#404` /
-`#251`), `hcop` is gate 2 (`#1184`) and `hchar` is gate 3.
+/-- **`[F(W) : [n]∗F(W)] = n²`, conditional on the three gates.**  `hfrac` is gate 1 (`#251`),
+`hcop` is gate 2 (`#1184`) and `hchar` is gate 3.
 
 ⚠️ This theorem is **not** a proof that the degree is `n²`: it is the statement that the three
 gates are jointly sufficient, and no `n` outside `{2, 3}` currently satisfies `hfrac`. -/

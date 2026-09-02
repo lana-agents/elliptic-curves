@@ -87,7 +87,8 @@ inconsistency introduced here — the *function*-level statements have been in `
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, transitively Ward-blocked, as everywhere on this front.
+* **General `n`** — `#251`, as everywhere on this front.  ⚠️ **Not** `#404`, and **not**
+  Ward-blocked: see below.
   ⚠️ Like `#940` and unlike `#938`, the argument here carries **no second obstruction**: it is one
   rewrite of `#936`'s equation by a statement about `μ_n(F)` that is already general in `n`, so it
   transcribes to any `n` at which `weilPairingN` and its equivariance exist.
@@ -111,6 +112,13 @@ inconsistency introduced here — the *function*-level statements have been in `
   constructed: if every `σ` fixed every cube root of unity each would lie in `ℚ`, and the only
   rational cube root of `1` is `1`, contradicting `Nat.card μ_3(Q̄) = 3`.  The Non-vacuity section
   below still makes the weaker, in-file point that the unconditional script *fails* at `n = 3`.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## ⚠️ `WeilPairingCyclotomic` was cited as `#867`; it is `#638`
 

@@ -129,7 +129,10 @@ endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
 `EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, and its divisor
 pullback is `pullbackDivisorN` (`EllipticCurves.FunctionField.MulByNPlacePullback`).  ⚠️ The
 principality of `[n]∗((S) − (O))` is a different statement from either of those and is not
-approached here, and `#404`'s general `ωₙ` is untouched.
+approached here, and `#404`'s general `ωₙ` is untouched — ⚠️ and no longer open, being
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557).
+What principality at a general index still wants is `#251`, the identification of
+`(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with `n • P`, through the fibre description.
 
 ## References
 

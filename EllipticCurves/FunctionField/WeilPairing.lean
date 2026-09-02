@@ -152,7 +152,9 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
   `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`); over a general field at
   either `n`, it is not.
-* **General `n`** — needs the general `[n]∗` (#404 crux); only `n = 2, 3` are concretely available.
+* **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
+  (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
+  named as the gate, is closed.  The gate is `#251`; only `n = 2, 3` are concretely available.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers it, and Dedekindness with
@@ -161,6 +163,13 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   supply one.  ⚠️ Said relative to the file rather than by line number, which rots: the number
   first written into this bullet was already stale when it was pushed, and the bullet's own added
   lines then moved the block again.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## What non-degeneracy actually consumes (`#769`) — the canonical statement
 

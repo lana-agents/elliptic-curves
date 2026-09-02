@@ -106,7 +106,8 @@ on everything mentioning `torsion`.
   `exists_galoisModularCyclotomicChar_three_ne_one` is **false**.  `χ_2` is the trivial character of
   every extension (`galoisModularCyclotomicChar_two_eq_one`, `#944`), and `#948`'s
   `forall_mem_rootsOfUnity_two_fixed` says so without a curve.  There is nothing here to mirror.
-* **General `n`** — `#404`'s `ωₙ` crux.  ⚠️ The ceiling inherited here is `#938`'s and **not**
+* **General `n`** — `#251` (⚠️ **not** `#404`, see below).  ⚠️ The ceiling inherited here is
+  `#938`'s and **not**
   `#940`'s: everything routes through `#948`, which routes through surjectivity, which is blocked at
   composite `n` twice — by the crux and independently by the prime-order step.  `#940`'s "blocked
   only once" must not be quoted against this file.
@@ -121,6 +122,13 @@ on everything mentioning `torsion`.
 * **The `IntermediateField` spelling** `μ_3(F) ⊆ (⊥ : IntermediateField S F)`.  It is
   `IntermediateField.mem_bot` away from what is stated and shipping both would be noise; Mathlib's
   own lemma is phrased with `Set.range (algebraMap S F)`, so that is what is used.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## References
 

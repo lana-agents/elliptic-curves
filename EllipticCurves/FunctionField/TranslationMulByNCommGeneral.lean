@@ -60,8 +60,18 @@ What was missing at general `n` was not the technique but its input: `[n]∗` it
 correspondence `n • 𝒫 = (mulByNEndo n hn (genX W), mulByNEndo n hn (genY W))`.  Both are the merged
 `mulByNEndo` and `nsmul_genericPoint_eq` of `MulByNPullback`, built from the **group law** on
 `(W ⁄ F(W)).Point`.  In particular nothing here uses the `y`-coordinate division polynomial `ωₙ`,
-the general `n` on-curve identity (`#404`) or the elliptic-net recurrence (Ward, `#260`); the
+the general `n` on-curve identity (`#404`, since closed) or the elliptic-net recurrence
+(Ward, `#260`, since closed); the
 coordinates of `[n]` as rational functions remain unavailable and are not needed.
+
+⚠️ **Both of the things that sentence names are now closed, and it is an independence claim
+rather than a gate.**  `#404`'s on-curve identity is
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557, at
+every index over every commutative ring) and Ward's theorem (`#260`) is
+`WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`), unconditional.
+The claim below is unchanged in force: this file uses neither.  ⚠️ What is still open in this
+neighbourhood is `#251`, the identification of `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with `n • P`; see
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 Only two things are `n`-specific, mirroring the `n = 3` file's two:
 

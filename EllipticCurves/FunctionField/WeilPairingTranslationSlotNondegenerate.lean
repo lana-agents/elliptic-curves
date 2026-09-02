@@ -79,9 +79,18 @@ as for every other `[IsAlgClosed F]` on this front.  No hypothesis is added to a
 the conclusions move.
 
 Out of scope: combining the two slots into a pairing on `W.Point × W.Point` (`#873`/`#890` both
-record that as a separate design question and it stays one); general `n` (`#404`'s `ωₙ`); `hprin`
+record that as a separate design question and it stays one); general `n` (`#251`); `hprin`
 over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
 purely additive.
+
+⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
+proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
+of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
+`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
+`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **That list used to open** *"**injectivity** of the map, which is a different statement and is
 Ward/`#242`-gated through `#E[n] = n²`"*.  It was right that injectivity is a different statement
