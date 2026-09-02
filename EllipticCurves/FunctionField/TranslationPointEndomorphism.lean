@@ -26,7 +26,7 @@ stops being harmless in the product
 h := ∏_{i=0}^{n-1} g_T ∘ τ_{[i]P}
 ```
 
-of Silverman *AEC* III.8.1(d) (`#465` deliverable 2): the `i = 0` factor is `τ_O`, and for large
+of Silverman *AEC* III.8.1(b) (`#465` deliverable 2): the `i = 0` factor is `τ_O`, and for large
 enough `n` the point `[i]P` can be `O` for `0 < i < n` as well — take `n = 6` and `ord P = 4`, where
 `[4]P = O` occurs inside the product although `T = [6]P = [2]P ≠ O` is a legitimate `6`-torsion
 point.  So it is not a degenerate case that the hypotheses rule out.

@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingThree
 /-!
 # The alternating property at `n = 3` over an algebraically closed field, unconditionally
 
-Silverman *AEC* III.8.1(d): the Weil pairing is alternating, `e_n(T, T) = 1`.
+Silverman *AEC* III.8.1(b): the Weil pairing is alternating, `e_n(T, T) = 1`.
 
 `EllipticCurves.FunctionField.WeilPairingAlternatingThree` proves this at `n = 3` over an
 algebraically closed field with exactly one gated hypothesis: `hprin`, the principality of

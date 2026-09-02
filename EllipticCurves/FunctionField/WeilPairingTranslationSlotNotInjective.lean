@@ -124,7 +124,7 @@ sweep drains: the tree was still generating it on the day it was first swept.
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1 — non-degeneracy is
-  III.8.1(d), the alternating identity `e_n(S, S) = 1` is III.8.1(b).
+  III.8.1(c), the alternating identity `e_n(S, S) = 1` is III.8.1(b).
 -/
 
 namespace WeierstrassCurve.Affine

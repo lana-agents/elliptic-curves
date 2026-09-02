@@ -9,8 +9,7 @@ import EllipticCurves.FunctionField.WeilPairingDeterminantCharacter
 /-!
 # `e_3(α x, α y) = e_3(x, y) ^ det α` for an arbitrary `ZMod 3`-linear `α`
 
-Silverman *AEC* III.8.1(e) is usually read as a statement about the Galois representation: the
-determinant of `ρ_{E,n}` is the cyclotomic character.  That reading is a **corollary** of a fact
+`det ρ_{E,n} = χ_n`, the statement about the Galois representation, is a **corollary** of a fact
 about the pairing alone, in which no Galois group appears:
 
 > an alternating bilinear form on a free module of rank `2` transforms under an endomorphism `α` by
@@ -102,7 +101,7 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
 * `det_eq_intCast_of_zsmul_add_zsmul` — that matrix's determinant **is** `LinearMap.det α`.
 * `weilPairingThree_linearMap` — the headline, with nothing assumed about `α`.
 * `weilPairingThree_linearEquiv` — the headline for `α : E[3] ≃ₗ[ZMod 3] E[3]`, which is the form
-  `#957` asked for and the form Silverman III.8.1(e) is a corollary of.
+  `#957` asked for and the form `det ρ_{E,3} = χ_3` is a corollary of.
 * `exists_weilPairingThree_linearEquiv_det_ne_one` — the non-vacuity certificate against a
   constantly-`1` pairing.  ⚠️ The `#### On a curve that exists` block additionally rules out an
   empty hypothesis class, which is a different risk; see the `Non-vacuity` section below.
@@ -240,7 +239,8 @@ transposition.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(e).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.1(a) and (b), and the
+  computation inside the proof of III.8.6.
 * `EllipticCurves.FunctionField.WeilPairingDeterminant` (`#951`) — the bilinear expansion
   `weilPairingThree_zsmul_add_zsmul`, the spanning lemma `exists_zsmul_add_zsmul_eq_three`, and
   `exists_weilPairingThree_ne_one`.
@@ -370,7 +370,8 @@ theorem det_eq_intCast_of_zsmul_add_zsmul (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠
 open Classical in
 /-- **The headline: `e_3(α x, α y) = e_3(x, y) ^ det α`, with nothing assumed about `α`.**
 
-Silverman *AEC* III.8.1(e) with the Galois group removed.  A pairing-nonvanishing pair is produced
+`det ρ_{E,3} = χ_3` with the Galois group removed — it is the computation Silverman runs inside the
+proof of *AEC* III.8.6, off III.8.1(a) and (b) alone.  A pairing-nonvanishing pair is produced
 inside the proof by `exists_weilPairingThree_ne_one` (`#951`), so no basis, no pair and no matrix
 appears in the statement.
 
@@ -408,7 +409,10 @@ because it contains emphasis of its own:
 
 is **false** in the direction it asserts, for the reason given in the
 module docstring: instantiating this at `α = ρ_{E,3}(σ)` produces an equation between two pairing
-values, not `galoisDetMod 3 σ = χ_3 σ`.  This is the **Galois-free half** of
+values, not `galoisDetMod 3 σ = χ_3 σ`.  ⚠️ Its `III.8.1(e)` is left as written because it is a
+quotation and not a citation: III.8.1(e) is the compatibility relation `e_{mm'}(S, T) =
+e_{m'}([m]S, T)`, and the determinant identity is the consequence of (a), (b) and (d) (`#1001`).
+This is the **Galois-free half** of
 `galoisDetMod_three_eq_galoisModularCyclotomicChar`; the other half is
 `galoisModularCyclotomicChar_three_eq_det`, which this file does not touch.
 

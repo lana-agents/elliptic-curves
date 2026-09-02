@@ -10,7 +10,7 @@ import EllipticCurves.FunctionField.WeilPairingProductRelationMu
 /-!
 # Antisymmetry of the Weil pairing over an ARBITRARY field, with `hprin` the only gate (rung 6)
 
-Silverman *AEC* III.8.1(d): the Weil pairing is antisymmetric,
+Silverman *AEC* III.8.1(b): the Weil pairing is antisymmetric,
 
 ```
 e_n(S, T) · e_n(T, S) = 1,      e_n(S, T) = (e_n(T, S))⁻¹.

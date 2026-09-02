@@ -12,7 +12,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingTwo
 /-!
 # The alternating property over an arbitrary field: the halving point descends
 
-Silverman *AEC* III.8.1(d): the Weil pairing is alternating, `e_n(T, T) = 1`.
+Silverman *AEC* III.8.1(b): the Weil pairing is alternating, `e_n(T, T) = 1`.
 
 `EllipticCurves.FunctionField.WeilPairingAlternating{Two,Three}` prove this over an **algebraically
 closed** field, carrying `hprin` (`#418`) as their one gated hypothesis.  This file removes the
@@ -126,7 +126,7 @@ over a field where `exists_equation_nsmul_two_eq` is **unavailable**.  `y² + y 
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b).
 -/
 
 namespace WeierstrassCurve.Affine

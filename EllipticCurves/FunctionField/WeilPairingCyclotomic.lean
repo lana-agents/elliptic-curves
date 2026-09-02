@@ -17,7 +17,7 @@ restrictRootsOfUnity σ n (e_n(S, T)) = e_n(σS, σT)
 
 (`weilPairingMu_galois_of_transport`, `weilPairingMu_galois_of_divisor_eq`), i.e. `σ · e_n(S, T) =
 e_n(σS, σT)` as an equation in `μ_n(F)`. That is not yet the classical statement of Silverman
-AEC III.8.1(e), which computes the action of `σ` explicitly:
+AEC III.8.1(d), which computes the action of `σ` explicitly:
 
 ```
 e_n(σS, σT) = e_n(S, T) ^ χ_n(σ),
@@ -71,7 +71,7 @@ alternating property (`#465` deliverable 2).
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(e).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
 -/
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
@@ -84,7 +84,7 @@ variable {S F : Type*} [Field S] [Field F] [Algebra S F] {W : Affine S} [W.IsEll
 /-! ### The mod-`n` statement -/
 
 open Classical in
-/-- **`e_n(σS, σT) = e_n(S, T) ^ χ_n(σ)`, from transport data** (Silverman AEC III.8.1(e)).
+/-- **`e_n(σS, σT) = e_n(S, T) ^ χ_n(σ)`, from transport data** (Silverman AEC III.8.1(d)).
 
 The merged equivariance `weilPairingMu_galois_of_transport` with its conclusion's Galois action
 evaluated: by `restrictRootsOfUnity_eq_pow_galoisModularCyclotomicChar` that action is raising to

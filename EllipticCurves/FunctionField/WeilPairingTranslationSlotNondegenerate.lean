@@ -24,7 +24,7 @@ whole `μ_n(F)` layer is *for*:
 > trivial […] the form that will compose with a bundled pairing **when one exists**.
 
 One exists.  This file says it is not trivial: `weilPairingTorsionMuHom_{two,three} ≠ 1`, its
-kernel is a proper subgroup, and the Silverman III.8.1(d) converse `e_n(S, ·) ≡ 1 → S = O` becomes
+kernel is a proper subgroup, and the Silverman III.8.1(c) converse `e_n(S, ·) ≡ 1 → S = O` becomes
 a statement about a single equation of homomorphisms.  **Nothing new is proved here about curves**
 — every input is a merged headline of `WeilPairingNondegenerateMu`, exactly as that file was a
 restatement of `#791`/`#831` one level down.
@@ -52,7 +52,7 @@ defined.
 over torsion membership, **and over `hpow`** — four binders, the last of which
 `WeilPairingNondegenerateMu` has to spend a docstring section explaining ("the extra binder is type
 theory, not mathematics").  In `eq_zero_of_weilPairingTorsionMuHom_two_eq_one` that entire
-hypothesis is the single equation `φ = 1`.  That is III.8.1(d) in the shape a reader expects, and
+hypothesis is the single equation `φ = 1`.  That is III.8.1(c) in the shape a reader expects, and
 the apology for the binder is no longer needed.
 
 The `≠ 1` headlines are the mirror move on the other side: "some affine `T ∈ E[n]` has
@@ -65,7 +65,7 @@ away.
   ungated, and the only thing in this file that is not a two-line corollary;
 * `weilPairingTorsionMuHom_{two,three}_ne_one` — **the map is not trivial**;
 * `ker_weilPairingTorsionMuHom_{two,three}_ne_top` — its kernel is a proper subgroup;
-* `eq_zero_of_weilPairingTorsionMuHom_{two,three}_eq_one` — Silverman III.8.1(d): if the map is
+* `eq_zero_of_weilPairingTorsionMuHom_{two,three}_eq_one` — Silverman III.8.1(c): if the map is
   trivial then `S = O`;
 * `exists_weilPairingTorsionMuHom_{two,three}_ne_one` — over `F̄`, with no hypothesis beyond the
   setting: `e_n(S, ·) : E[n] → μ_n(F)` **is a non-trivial group homomorphism** at `n = 2, 3`.
@@ -152,7 +152,7 @@ Both `exists_` headlines are instantiated below on the curves `#845`/`#861`/`#87
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a), III.8.1(d).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a), III.8.1(c).
 -/
 
 namespace WeierstrassCurve.Affine
@@ -255,7 +255,7 @@ theorem ker_weilPairingTorsionMuHom_two_ne_top (h2 : (2 : F) ≠ 0) (h : W.Nonsi
   exact hval
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 2`, as a statement about the map**: if `e_2(S, ·)` is the
+/-- **Silverman III.8.1(c) at `n = 2`, as a statement about the map**: if `e_2(S, ·)` is the
 trivial homomorphism then `S = O`.
 
 ⚠️ Compare `eq_zero_of_forall_weilPairingMu_eq_one_two`, whose trivial-pairing hypothesis is a `∀`
@@ -310,7 +310,7 @@ theorem ker_weilPairingTorsionMuHom_three_ne_top (h2 : (2 : F) ≠ 0) (h3 : (3 :
   exact hval
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 3`, as a statement about the map.**  The mirror of
+/-- **Silverman III.8.1(c) at `n = 3`, as a statement about the map.**  The mirror of
 `eq_zero_of_weilPairingTorsionMuHom_two_eq_one`; `S : W.Point` is arbitrary and the divisor
 condition is written with `pointDivisorAff`, which is `n`-free and sends `O` to `0`, so no case
 split appears in the statement. -/

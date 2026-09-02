@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingTwo
 /-!
 # The alternating property at `n = 2` over an algebraically closed field, unconditionally
 
-Silverman *AEC* III.8.1(d): the Weil pairing is alternating, `e_n(T, T) = 1`.
+Silverman *AEC* III.8.1(b): the Weil pairing is alternating, `e_n(T, T) = 1`.
 
 `EllipticCurves.FunctionField.WeilPairingAlternatingTwo` proves this at `n = 2` over an
 algebraically closed field, and says in its own docstring that it does so with exactly one gated

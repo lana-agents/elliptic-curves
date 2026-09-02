@@ -15,7 +15,7 @@ import EllipticCurves.FunctionField.WeilPairingAntisymmetric
 /-!
 # The product relation `g_{S ⊕ T} = g_S · g_T · w`, and antisymmetry over `F̄`
 
-Silverman *AEC* III.8.1(d): the Weil pairing is antisymmetric, `e_n(T, S) = e_n(S, T)⁻¹`.
+Silverman *AEC* III.8.1(b): the Weil pairing is antisymmetric, `e_n(T, S) = e_n(S, T)⁻¹`.
 
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (`#723`) proved that from the product
 relation

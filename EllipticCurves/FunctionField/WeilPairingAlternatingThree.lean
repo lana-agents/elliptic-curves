@@ -15,7 +15,7 @@ import EllipticCurves.Torsion.TriplingSurjective
 /-!
 # The alternating property of the Weil pairing at `n = 3` over an algebraically closed field
 
-Silverman *AEC* III.8.1(d) proves `e_n(T, T) = 1` by running two products.  At `n = 3` the first is
+Silverman *AEC* III.8.1(b) proves `e_n(T, T) = 1` by running two products.  At `n = 3` the first is
 the three-term divisor telescoping of `WeilPairingTelescopeThree`, and the second is the
 three-factor product `h := g_T · (τ_P∗ g_T) · (τ_Q∗ g_T)` for a point `P` with `[3]P = T` and
 `Q := [2]P`.  This file assembles them, and is the `n = 3` mirror of `WeilPairingAlternatingTwo`.
@@ -154,7 +154,7 @@ closes by proof irrelevance.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b).
 -/
 
 open Polynomial IsDedekindDomain
@@ -211,7 +211,7 @@ theorem exists_equation_nsmul_three_eq [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
 /-! ### The core computation -/
 
 open Classical in
-/-- **The second product of Silverman III.8.1(d), at `n = 3`.**
+/-- **The second product of Silverman III.8.1(b), at `n = 3`.**
 
 Given the telescoping constant `f · (τ_T∗ f) · (τ_{−T}∗ f) = c`, a cube root `c₀ · g ^ 3 = [3]∗ f`,
 and affine points `P`, `Q` with `[2]P = Q` and `P ⊕ Q = T` (so `[3]P = T`), the translate `τ_T∗`

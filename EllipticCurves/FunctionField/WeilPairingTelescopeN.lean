@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingTelescopeTwo
 /-!
 # The divisor telescoping at general `n`: `∏_{i<n} τ_{[i]T}∗ f_T` is a nonzero constant
 
-The **first** of the two products in Silverman *AEC* III.8.1(d) — the proof that the Weil pairing is
+The **first** of the two products in Silverman *AEC* III.8.1(b) — the proof that the Weil pairing is
 alternating — is a telescoping of divisors over the cyclic group `⟨T⟩`.  This file proves it at an
 arbitrary `n`.  `EllipticCurves.FunctionField.WeilPairingTelescopeTwo` and
 `EllipticCurves.FunctionField.WeilPairingTelescopeThree` are the merged numeral cases, and both are
@@ -126,7 +126,7 @@ itself.  The halving point and the algebraically closed base field belong to the
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d), first product.
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b), first product.
 -/
 
 open Polynomial IsDedekindDomain
@@ -233,13 +233,13 @@ multiples of `T` is a nonzero constant:
 ∏_{i<n} τ_{[i]T}∗ f_T = c ∈ F∖{0}.
 ```
 
-This is the first of the two products of Silverman III.8.1(d).  It carries no hypothesis beyond `T`
+This is the first of the two products of Silverman III.8.1(b).  It carries no hypothesis beyond `T`
 being an affine `n`-torsion point — no `[n]∗`, no `hprin`, no algebraically closed base field — and
 **no hypothesis that `T` has order exactly `n`**: the `n = 6` certificate below runs at a `T` of
 order `3`, where `[i]T = O` at an interior index and the `n` factors are not distinct.
 
 ⚠️ The shape of the product is the one gate B (`#1327`) takes as its `htel` hypothesis; the two are
-the two halves of III.8.1(d) and are otherwise independent. -/
+the two halves of III.8.1(b) and are otherwise independent. -/
 theorem exists_prod_translatePointEndo_eq_algebraMap [DecidableEq F] {n : ℕ}
     (h : W.Nonsingular x y) (htors : Point.some x y h ∈ W.torsion n) :
     ∃ f : W.FunctionField, f ≠ 0 ∧

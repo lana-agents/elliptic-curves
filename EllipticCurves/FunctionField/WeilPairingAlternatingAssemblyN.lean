@@ -13,7 +13,7 @@ import EllipticCurves.Torsion.NsmulSmoothSurjective
 /-!
 # The alternating property at general `n`: `e_n(T, T) = 1`, assembled
 
-Silverman *AEC* III.8.1(d).  `EllipticCurves.FunctionField.WeilPairingAlternating{Two,Three}` are
+Silverman *AEC* III.8.1(b).  `EllipticCurves.FunctionField.WeilPairingAlternating{Two,Three}` are
 the merged numeral cases; this file is the assembly at an arbitrary `n`, and both of them are
 recovered from it, verbatim.
 
@@ -144,7 +144,7 @@ it.
 
 ## References
 
-* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(d).
+* [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(b).
 -/
 
 open Polynomial IsDedekindDomain

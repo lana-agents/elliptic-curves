@@ -79,7 +79,7 @@ At each of `n = 2` and `n = 3`, mirroring the three headlines of the correspondi
   non-degeneracy together, with no hypothesis beyond the setting and a nonsingular affine
   `n`-torsion point.
 * `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one_two` and
-  `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one_three` — Silverman III.8.1(d) in
+  `WeierstrassCurve.Affine.eq_zero_of_forall_weilPairingMu_eq_one_three` — Silverman III.8.1(c) in
   `μ_n(F)`: `e_n(S, ·) ≡ 1` on `E[n]` forces `S = O`.
 
 ⚠️ **The witness `T` is necessarily affine**, for the reason both `F(W)` files record: at `T = O`
@@ -95,7 +95,7 @@ to `F̄` at both `n`; general `n` (`#404`'s `ωₙ`); bundling into `weilPairing
 their proofs.
 
 ⚠️ **This is not a perfect-pairing statement, but one exists.**  Non-degeneracy in one slot is
-what Silverman III.8.1(d) asserts and what is proved here.  Perfectness is
+what Silverman III.8.1(c) asserts and what is proved here.  Perfectness is
 `bijective_weilPairing{Two,Three}Hom`, bundled as `weilPairing{Two,Three}Equiv`
 (`EllipticCurves.FunctionField.WeilPairingPerfect`, `#940`): the bundled map
 `Multiplicative E[n] →* (Multiplicative E[n] →* μ_n(F̄))` is **bijective**, so `E[n]` is its own
@@ -204,7 +204,7 @@ theorem exists_gS_two_weilPairingMu_ne_one (h2 : (2 : F) ≠ 0) (h : W.Nonsingul
     exists_torsion_two_weilPairingMu_ne_one h2 h hf hfdiv hgS hu⟩
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 2`, in `μ_2(F)`: `e_2(S, ·) ≡ 1` forces `S = O`.**
+/-- **Silverman III.8.1(c) at `n = 2`, in `μ_2(F)`: `e_2(S, ·) ≡ 1` forces `S = O`.**
 
 The `μ_2(F)` mirror of `eq_zero_of_forall_weilPairingElt_eq_one_two`, with the same
 `pointDivisorAff`-uniform divisor hypothesis and the same freedom in `S`, which ranges over all of
@@ -269,7 +269,7 @@ theorem exists_gS_three_weilPairingMu_ne_one (h2 : (2 : F) ≠ 0) (h3 : (3 : F) 
     exists_torsion_three_weilPairingMu_ne_one h2 h3 h hf hfdiv hgS hu⟩
 
 open Classical in
-/-- **Silverman III.8.1(d) at `n = 3`, in `μ_3(F)`: `e_3(S, ·) ≡ 1` forces `S = O`.**
+/-- **Silverman III.8.1(c) at `n = 3`, in `μ_3(F)`: `e_3(S, ·) ≡ 1` forces `S = O`.**
 
 The `μ_3(F)` mirror of `eq_zero_of_forall_weilPairingElt_eq_one_three`.  As there, `S : W.Point` is
 arbitrary — its torsion is what produces `f_S` and `g_S`, and those are hypotheses — and the divisor

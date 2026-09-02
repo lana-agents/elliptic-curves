@@ -19,8 +19,13 @@ pairing:
 σ • P = a • P + c • T ,   σ • T = b • P + d • T   ⟹   a * d − b * c ≡ χ_n(σ)   (mod n).
 ```
 
-Silverman *AEC* III.8.1(e) states it for the `ℓ`-adic representation; the mod-`n` statement is what
-the pairing proves directly, and the `ℓ`-adic one is its inverse limit.
+⚠️ **This identity is not a numbered result in Silverman *AEC*, and in particular it is not
+III.8.1(e)**, which is the compatibility relation `e_{mm'}(S, T) = e_{m'}([m]S, T)`.  It is the
+standard consequence of III.8.1(a) (bilinear), (b) (alternating) and (d) (Galois invariant), by the
+computation Silverman runs inside the proof of III.8.6 with `α = ρ_{E,n}(σ)` in place of an
+endomorphism of the Tate module.  The five letters are tabulated verbatim in
+`EllipticCurves.FunctionField.WeilPairing`.  The mod-`n` statement is what the pairing proves
+directly; the `ℓ`-adic one is its inverse limit.
 
 ## The two halves, and which inputs do what
 
@@ -121,7 +126,8 @@ one existed and are retired by it; the repair is in this PR.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.7 and III.8.1(e).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.7,
+  III.8.1(a), (b), (d), and III.8.6.
 -/
 
 /-- **A `p`-th root of unity other than `1` has order exactly `p`**, for `p` prime.
@@ -441,8 +447,9 @@ theorem exists_smul_eq_zsmul_add_zsmul_and_det_two_eq (σ : F ≃ₐ[S] F) (h2 :
   exact ⟨a, b, c, d, hac, hbd, intCast_det_two_eq_one σ h2 hPT hac hbd⟩
 
 open Classical in
-/-- **The determinant identity at `n = 3`**, Silverman *AEC* III.8.1(e) in coordinates: if `σ` acts
-on a pairing-basis `(P, T)` of `E[3]` by the matrix `(a, b; c, d)` then
+/-- **The determinant identity at `n = 3`**, in coordinates — Silverman *AEC* III.8.1(a), (b) and
+(d), ⚠️ **not** III.8.1(e): if `σ` acts on a pairing-basis `(P, T)` of `E[3]` by the matrix
+`(a, b; c, d)` then
 
 ```
 a * d − b * c ≡ χ_3(σ)   (mod 3).

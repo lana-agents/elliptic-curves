@@ -18,10 +18,16 @@ For the divisor-theoretic Weil-pairing element (`WeilPairing.lean`, `#419`)
 e_n(S, T) := weilPairingElt h_T g_S = τ_T∗(g_S) / g_S,   τ_T∗ = translateEndo h_T,
 ```
 
-three of the four named structural properties of Silverman *AEC* III.8.1 are merged: bilinearity in
-the **translation** slot `T` (`WeilPairingBilinear`, `WeilPairingBilinearBaseField`), constancy
+three of the four structural properties this front tracks are merged: bilinearity in the
+**translation** slot `T` (`WeilPairingBilinear`, `WeilPairingBilinearBaseField`), constancy
 (`WeilPairingConstant`), and — at `n = 2` and `n = 3` over an algebraically closed field — the
 alternating property `e_n(T, T) = 1` (`WeilPairingAlternatingTwo`, `WeilPairingAlternatingThree`).
+
+⚠️ **Those four are not Silverman *AEC* III.8.1's letters**, and this sentence used to say they
+were.  III.8.1 names **five** properties — (a) bilinear, (b) alternating, (c) nondegenerate,
+(d) Galois invariant, (e) compatible — of which constancy is none, and antisymmetry is the second
+sentence of (b) rather than a letter of its own.  The table is in
+`EllipticCurves.FunctionField.WeilPairing`.
 
 This file supplies the fourth, **antisymmetry** `e_n(T, S) = e_n(S, T)⁻¹`, together with the
 bilinearity in the **divisor** slot `S` that it runs on.
@@ -140,7 +146,7 @@ alternating property at any point, so it needs `hprin` and nothing else.
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a) (bilinearity) and
-  III.8.1(d) (alternating, hence antisymmetric).
+  III.8.1(b) (alternating, hence antisymmetric).
 -/
 
 namespace WeierstrassCurve.Affine

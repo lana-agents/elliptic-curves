@@ -153,7 +153,7 @@ next corollary, which wants `WeilPairingNondegenerateMu`'s six headlines as inpu
 issue."*  The issue is `#893`, and it is
 `EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate`:
 `weilPairingTorsionMuHom_{two,three}_ne_one`, the proper-kernel form
-`ker_weilPairingTorsionMuHom_{two,three}_ne_top`, and the Silverman III.8.1(d) converse
+`ker_weilPairingTorsionMuHom_{two,three}_ne_top`, and the Silverman III.8.1(c) converse
 `eq_zero_of_weilPairingTorsionMuHom_{two,three}_eq_one`.  ⚠️ The prediction was right about the
 input — that file consumes exactly `WeilPairingNondegenerateMu`'s headlines — and right that it
 belonged in its own module, which is why nothing here changed when it landed.

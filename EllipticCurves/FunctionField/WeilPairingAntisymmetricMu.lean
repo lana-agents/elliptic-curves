@@ -146,7 +146,7 @@ for which the hypothesis `e_n(w, T) = 1` is *proved* rather than assumed, so
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a) (bilinearity) and
-  III.8.1(d) (alternating, hence antisymmetric); III.8 for the value group `μ_n`.
+  III.8.1(b) (alternating, hence antisymmetric); III.8 for the value group `μ_n`.
 -/
 
 namespace WeierstrassCurve.Affine
