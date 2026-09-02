@@ -107,8 +107,11 @@ namespace IsEllipticNet
 
 ⚠️ There is no cancellation here and no hypothesis on `W`: each of the three products of
 `rel W p q r 0` repeats one of `W p`, `W q`, `W r`, so each vanishes on its own.  ⚠️ The same is
-emphatically *not* true of `rel W p q r s` for `s ≠ 0`, whose products repeat nothing — which is
-what `sqZeroSeq` exploits. -/
+emphatically *not* true of `rel W p q r s` for `s ≠ 0`, whose products need **not** repeat
+anything: `rel W 1 1 1 1 = W 3 * W 0 * W 2 * W 1` reads four distinct indices, and that is what
+`sqZeroSeq` exploits.  ⚠️ It is *one* surviving relator that a witness needs, not a whole surviving
+layer — plenty of `s ≠ 0` relators do repeat a factor and so vanish here too, for instance at
+`s = -2 * q`, where the first product is again a square `W (p - q) ^ 2 * W (r + s) * W r`. -/
 theorem isEllipticSequence_of_mul_self_eq_zero {R : Type*} [CommRing R] {W : ℤ → R}
     (h : ∀ n : ℤ, W n * W n = 0) : IsEllipticSequence W := by
   intro p q r
