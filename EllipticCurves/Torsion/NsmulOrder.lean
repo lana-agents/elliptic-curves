@@ -34,8 +34,12 @@ Everything runs on two instances of Ward's relation `IsEllipticNet.rel ψ p q r 
   (`sub_Φ_div_ΨSq`), this says exactly that **`Φₙ/ΨSqₙ` is `d`-periodic in `n`**, and — read at a
   multiple of `d` instead — that `ψ` vanishes at every multiple of `d`.
 
-Neither instance lies in the `r = 1` slice `ψ_rel_one`, so both need `ψ_isEllipticSequence`; both
-have `s = 0`, so neither needs the `s`-general `ψ_isEllipticNet`.
+Both instances have `r = 1`, so both are supplied by the `r = 1` slice `ψ_rel_one_evalEval`, and
+neither needs the `r`-general `ψ_isEllipticSequence`; both have `s = 0`, so neither needs the
+`s`-general `ψ_isEllipticNet`.  ⚠️ That is *less* of Ward than `EllipticCurves.Torsion.NsmulLadder`
+consumes: its `ψ_net_instance` is at `(n + 1, 2, n, 0)`, whose `r = n` is outside the slice.  The
+gap this file closes is therefore not paid for with a stronger Ward input than the ladder already
+carries — everything new here is the two `ψ_d = 0` specialisations and what they are pointed at.
 
 Two things have to be supplied before those two identities do any work.
 
@@ -67,10 +71,20 @@ sequence.
 
 ⚠️ `ψₙ(P) = 0 → n • P = 0` is proved at every `P` that is **not** `2`-torsion, and the reverse
 implication is proved at every `P`.  At a `2`-torsion point the forward implication is missing for
-odd `n`, and it reduces to a single fact this tree does not have: `Ψ₃(x) ≠ 0` at a root `x` of
-`Ψ₂Sq`, i.e. `E[2] ∩ E[3] = 0` read off the polynomials.  Given it, the same two relator instances
-with `d = 2` close the case.  ⚠️ Nothing below depends on it — `hasXCoordFormula_of_two_ne_zero`
-covers `2`-torsion points already, by the parity argument above.
+odd `n`, and it reduces to a single fact: `Ψ₃(x) ≠ 0` at a root `x` of `Ψ₂Sq`, i.e.
+`E[2] ∩ E[3] = 0` read off the polynomials.  Given it, the same two relator instances with `d = 2`
+close the case (`c = ψ₃ψ₁ = ψ₃`, and the induction is unchanged).
+
+⚠️ **That fact is available, but only under `[W.IsElliptic]`** — it follows from the merged
+`WeierstrassCurve.isCoprime_Ψ₃_Ψ₂Sq` (`EllipticCurves.DivisionPolynomial.Coprime`), a Bézout
+combination landing on `C (Δ²)`, which is a unit exactly when the curve is elliptic and which
+genuinely fails on a singular curve.  Every statement in this file is hypothesis-free in that
+respect, so the `2`-torsion case should arrive as a **separate statement carrying that instance**
+rather than as a weakening of `nsmul_eq_zero_iff_ψ_evalEval_eq_zero`'s signature.  ⚠️ *"This route
+needs `IsElliptic`"* is not *"the case is false without it"*; nothing here measures that.
+
+⚠️ Nothing below depends on any of this — `hasXCoordFormula_of_two_ne_zero` covers `2`-torsion
+points already, by the parity argument above.
 
 ## Main statements
 
@@ -107,7 +121,7 @@ theorem ψ_mul_ψ_sub_of_ψ_eq_zero {d : ℤ} (hd : (W.ψ d).evalEval x y = 0) (
     (W.ψ (n + d)).evalEval x y * (W.ψ (n - d)).evalEval x y =
       -((W.ψ (d + 1)).evalEval x y * (W.ψ (d - 1)).evalEval x y *
         (W.ψ n).evalEval x y ^ 2) := by
-  have H := W.ψ_isEllipticSequence_evalEval (x := x) (y := y) n d 1
+  have H := W.ψ_rel_one_evalEval (x := x) (y := y) n d
   simp only [IsEllipticNet.rel, add_zero, ψ_one_evalEval] at H
   rw [hd] at H
   linear_combination H
@@ -118,7 +132,7 @@ theorem ψ_shift_step_of_ψ_eq_zero {d : ℤ} (hd : (W.ψ d).evalEval x y = 0) (
         (W.ψ n).evalEval x y ^ 2 =
       (W.ψ (n + 1)).evalEval x y * (W.ψ (n - 1)).evalEval x y *
         (W.ψ (n + d)).evalEval x y ^ 2 := by
-  have H := W.ψ_isEllipticSequence_evalEval (x := x) (y := y) (n + d) n 1
+  have H := W.ψ_rel_one_evalEval (x := x) (y := y) (n + d) n
   simp only [IsEllipticNet.rel, add_zero, ψ_one_evalEval] at H
   rw [show n + d - n = d by ring, hd] at H
   linear_combination -H
