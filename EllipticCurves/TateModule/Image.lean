@@ -96,7 +96,10 @@ this file; it simply has not been written**, and that is a follow-up"*: ⚠️ *
 written**, and it is `EllipticCurves.TateModule.ImageThree`. The prediction was correct and has
 been paid.
 
-⚠️ At `ℓ ≥ 5` there is still a genuine gate and it is `T_ℓE ≅ ℤ_ℓ²` itself, which needs `#E[ℓ^k]`.
+⚠️ At `ℓ ≥ 5` there is still a genuine gap and it is `T_ℓE ≅ ℤ_ℓ²` itself, which needs `#E[ℓ^k]` —
+⚠️ a count that is no longer owed: `card_torsion_pow_mul_self_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, so what
+is left is building the equivalence on top of it (`#268`), not proving a count.
 ⚠️ This sentence used to add *"and `[ℓ]`-surjectivity, i.e. the general coordinate formula
 `x(nP) = Φₙ/ΨSqₙ`"*, and both clauses are stale: surjectivity holds at every nonzero index
 (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is

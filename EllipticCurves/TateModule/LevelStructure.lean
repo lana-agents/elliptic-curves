@@ -49,9 +49,10 @@ of `T_ℓE`.  ⚠️ **This paragraph used to end *"for `ℓ ≥ 5` the original
 the general coordinate formula is still the gate"*, and it does not.**  The general formula is
 proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), and
 `[ℓ]`-surjectivity with it (`nsmul_surjective_of_two_ne_zero`,
-`EllipticCurves.Torsion.TwoTorsionOrder`).  What is still unavailable at `ℓ ≥ 5` is the count
-`#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries its gate list, and nothing here
-re-measures it.
+`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ The count `#E[ℓ^k]` used to be what was still
+unavailable at `ℓ ≥ 5`, and it is available: `card_torsion_pow_mul_self_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`.
+Nothing here re-measures or instantiates it.
 
 ⚠️ **The quotient statement is no longer part of this layer.**
 `WeierstrassCurve.Affine.tateModule.quotientProjEquiv` is stated at an arbitrary `ℓ`, above the

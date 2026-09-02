@@ -87,11 +87,13 @@ generalised. It then needs no `ℓ = 3` twin either: the statement below, applie
   formula `x(nP) = Φₙ/ΨSqₙ`"*, and both halves are stale: surjectivity holds at every nonzero index
   (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the coordinate
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`).  `#E[ℓ^k]` alone is what is left; its gate list is
-  `EllipticCurves.Torsion.PrimaryTower`'s.
+  `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ `#E[ℓ^k]` alone was what was left, and it is left
+  no longer: `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies
+  it at every odd `ℓ` with `(ℓ : F) ≠ 0`.
   Instantiations exist at `ℓ = 2` (`EllipticCurves.TateModule.MatrixRepCompat`) and at `ℓ = 3`
-  (`EllipticCurves.TateModule.MatrixRepCompatThree`); at `ℓ ≥ 5` there is nothing to instantiate
-  with, and the statements here are true but vacuous.
+  (`EllipticCurves.TateModule.MatrixRepCompatThree`); at `ℓ ≥ 5` there is still nothing to
+  instantiate *with* — the basis has to be built first (`#268`) — and the statements here remain
+  true but so far unused.
 * **Nothing here strengthens what `PrimaryMatrixRep` claims.** Continuity of `ρ_{E,ℓ}` is not
   asserted — it is supplied separately, at an arbitrary prime, by
   `EllipticCurves.TateModule.PrimaryMatrixContinuity`.

@@ -100,11 +100,12 @@ satisfiable, are certified in the `Nonvacuity` section at the end of this file.
   (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
   `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s
-  on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  What
-  `EllipticCurves.TateModule.PrimaryFree` still lacks at `ℓ ≥ 5` is the count `#E[ℓ^k]`, whose
-  gate list is `EllipticCurves.Torsion.PrimaryTower`'s.  That file is already stated at an
-  arbitrary prime, so when the count is paid the `ℓ ≥ 5` file will again be a list of
-  instantiations and no argument will have to be written a third time.
+  on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  ⚠️ What
+  `EllipticCurves.TateModule.PrimaryFree` used to lack at `ℓ ≥ 5` was the count `#E[ℓ^k]`, and
+  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at
+  every odd `ℓ` with `(ℓ : F) ≠ 0`.  That file is already stated at an arbitrary prime, so the
+  `ℓ ≥ 5` file is now a list of instantiations and no argument has to be written a third time —
+  which is `#268`, and is not done here.
 * **The Galois action on `T₃E` and `ρ_{E,3} : G → GL₂(ℤ_3)` are NOT in scope.**
   `EllipticCurves.TateModule.Free` names them as its own follow-up at `ℓ = 2` and the same split
   applies at `ℓ = 3`.

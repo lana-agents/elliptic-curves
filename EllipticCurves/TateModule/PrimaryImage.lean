@@ -125,8 +125,12 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
   (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
   `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux`
   (PR #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two
-  apart.  `#E[ℓ^k]` is genuinely open at `ℓ ≥ 5`; its gate list is
-  `EllipticCurves.Torsion.PrimaryTower`'s. What being generic buys is that when it is paid, the
+  apart.  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.**
+  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
+  odd `ℓ` with `(ℓ : F) ≠ 0`, over `F̄` with `(2 : F) ≠ 0`, and discharges
+  `EllipticCurves.Torsion.PrimaryTower`'s gate list — which this bullet used to cite as open — with
+  it.  Instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done
+  here.  What being generic buys is that when the count is fed in, the
   `ℓ = 5` file is a list of instantiations and no argument has to be written a third time.
 
 ## Using this file

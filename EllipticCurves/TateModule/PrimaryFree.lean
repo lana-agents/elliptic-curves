@@ -124,9 +124,13 @@ other prime.  ⚠️ This sentence used to give the reason as *"`[ℓ]`-surjecti
 needs the general multiplication-by-`n` coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`"*, and both halves
 are false: surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
 `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is proved at every index
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  What is not discharged
-at `ℓ ≥ 5` is the **second** hypothesis, `#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries
-its gate list, and this file re-measures nothing.  ⚠️ Ward's theorem and the elliptic-net recurrence
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
+⚠️ **The second hypothesis, `#E[ℓ^k]`, is no longer undischarged at `ℓ ≥ 5` either**:
+`card_torsion_pow_mul_self_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
+`F̄` with `(2 : F) ≠ 0`, and that is exactly the shape `padicPairHom_injective` takes it in.  This
+file re-measures nothing and instantiates nothing; feeding the count in — i.e. `T_ℓE ≅ ℤ_ℓ²` at
+`ℓ ≥ 5`, which is `#268` — is separate work.  ⚠️ Ward's theorem and the elliptic-net recurrence
 are not used at any `ℓ`; the coordinate formula is used, but only at `ℓ = 3`.
 
 The Galois action on `T_ℓE` (`EllipticCurves.TateModule.GaloisAction`) and the representation

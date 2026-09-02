@@ -14,6 +14,12 @@ the matching equality `#E[p] = p²` as a hypothesis, and its gate list records t
 follow from surjectivity of `[p]`.  This file settles what it *does* follow from, at an odd index
 over an algebraically closed field: **exactly the statement that `preΨₙ` has no repeated root**.
 
+⚠️ That is the route by which the equality was eventually proved: the separability side is
+discharged in `EllipticCurves.Torsion.WronskianSeparable` from the Wronskian identity, which
+`EllipticCurves.Torsion.OmegaChordSum` proves outright, giving `card_torsion_eq_sq_of_odd`.  The
+`iff` below is still the load-bearing step and is still stated as an `iff` — it is what says there
+is no cheaper road.
+
 ## The correspondence
 
 At an odd `n` the `x`-coordinate is a `2`-to-`1` map from the nonzero `n`-torsion onto the roots of

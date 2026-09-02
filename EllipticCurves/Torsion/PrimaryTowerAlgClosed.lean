@@ -28,7 +28,14 @@ in the next section, **`hcard` is the whole of what is owed** at a prime `p ≥ 
 ⚠️ **`hcard` is not a consequence of (1).**  `PrimaryTower`'s docstring says so and is right:
 surjectivity of `[p]` is a statement about the image of `[p]`, `#E[p]` one about its kernel, and
 nothing in this tree connects them.  Discharging (1) at every `p` therefore does **not** make the
-`p`-primary tower unconditional at any `p ∉ {2, 3}`; it isolates the one gate that is left.
+`p`-primary tower unconditional; it isolates the one gate that is left.
+
+⚠️ **That gate is now closed at every odd `p`, and not here.**  This paragraph used to end *"at any
+`p ∉ {2, 3}`"*, which said the tower was conditional at every `p ≥ 5`; `card_torsion_eq_sq_of_odd`
+(`EllipticCurves.Torsion.OmegaChordSum`) supplies `hcard` at every odd `p` with `(p : F) ≠ 0`, and
+`EllipticCurves.Torsion.PrimaryTowerOdd` substitutes it into all four statements below.  Everything
+in **this** file stays as it is and stays useful: it is the file that isolates `hcard`, and it is
+still the only hypothesis these statements carry.
 
 ## What the substitution costs
 
@@ -57,12 +64,16 @@ mismatch.
 
 ## Main statements
 
+⚠️ Each of these is the *conditional* form.  For the same four statements with `hcard` discharged at
+every odd `p`, see `EllipticCurves.Torsion.PrimaryTowerOdd`.
+
 * `WeierstrassCurve.Affine.card_torsion_pow_of_card` : `#E[pᵏ] = (pᵏ)²`.
 * `WeierstrassCurve.Affine.finite_torsion_pow_of_card` : `E[pᵏ]` is finite.
 * `WeierstrassCurve.Affine.card_torsion_pow_mul_self_of_card` : the same count as `pᵏ · pᵏ`, the
   shape the `PrimaryBasis` and `TateModule` consumers take it in.
 * **`WeierstrassCurve.Affine.nonempty_torsionPow_addEquiv_of_card`** : `E[pᵏ] ≃+ (ℤ/pᵏℤ)²` at a
-  prime `p`, with `hcard` as the only remaining gate.
+  prime `p`, with `hcard` as the only remaining hypothesis — discharged at every odd `p` by
+  `nonempty_torsionPow_addEquiv_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`).
 
 ## References
 
@@ -102,7 +113,11 @@ theorem card_torsion_pow_mul_self_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p
 
 ⚠️ This is the signature the gate list of `EllipticCurves.Torsion.PrimaryTower` reduces to: over an
 algebraically closed field of characteristic `≠ 2`, at a prime `p`, the `p`-primary half of
-`E[n] ≅ (ℤ/nℤ)²` is owed `hcard` and nothing further.  `p.Prime` enters twice, and only one of the
+`E[n] ≅ (ℤ/nℤ)²` is owed `hcard` and nothing further.  At an **odd** `p` with `(p : F) ≠ 0` even
+that is owed no longer: `nonempty_torsionPow_addEquiv_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) is this statement with `hcard` supplied.
+
+`p.Prime` enters twice, and only one of the
 two uses needs it: the rank check inside `nonempty_torsionPow_addEquiv`, as recorded there, and —
 through `hp.pos.ne'` — the `p ≠ 0` that `nsmul_surjective_of_two_ne_zero` asks at any index, which
 is why the three counting statements above are stated at `p ≠ 0`. -/

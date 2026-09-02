@@ -140,8 +140,10 @@ used to name that formula, and it is proved at every index (`hasXCoordFormula_of
 `EllipticCurves.Torsion.NsmulOrder`), as is `[ℓ]`-surjectivity with it
 (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  What nothing
 supplies at `ℓ ≥ 5` is still the generic file's hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)`, and what
-that now rests on is the count `#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries its gate
-list.
+that rests on is the count `#E[ℓ^k]`.  ⚠️ That count is no longer owed:
+`card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
+odd `ℓ` with `(ℓ : F) ≠ 0`, so what is left at `ℓ ≥ 5` is to build the linear equivalence on top of
+it — `#268`, and not this file.
 
 Everything is stated for a base change `W'⁄F` of a curve `W' : Affine S` rather than for a bare
 `W : Affine F`, matching the representation section of `EllipticCurves.TateModule.MatrixRep`. This

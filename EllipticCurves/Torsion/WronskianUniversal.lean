@@ -12,7 +12,7 @@ import Mathlib.RingTheory.Polynomial.Wronskian
 
 `EllipticCurves.Torsion.WronskianSeparable` reduces `#E[n] = n²` at odd `n` — `#1490` item 3, the
 last gate on the `p`-primary tower — to two inputs, and `EllipticCurves.Torsion.OmegaPairCoprime`
-discharges the second, so exactly one is still open (`#1506` scope item 1):
+discharges the second, leaving exactly one (`#1506` scope item 1):
 
 ```
 derivative (W.Φ n) * W.ΨSq n - W.Φ n * derivative (W.ΨSq n) = n * W.preΨ n * W.preΩ n   in R[X].
@@ -81,6 +81,13 @@ in `n`, and every such argument known to this tree wants a base with more struct
   mathematical hypothesis at all: `EllipticCurves.Torsion.OmegaPairCoprime` discharged the companion
   `hpair`, so what is left between this tree and `#1490` item 3 is **one polynomial identity about
   one curve over one ring**.
+
+⚠️ **The identity is no longer open.**  `WeierstrassCurve.hasWronskianId`
+(`EllipticCurves.Torsion.OmegaChordSum`) proves it over every commutative ring at every index with
+no hypotheses, so every statement in this file that carries it as a hypothesis `h` is now
+dischargeable, and `#1490` item 3 is closed at odd `n`.  What this file still settles, and what its
+conditional statements are for, is *how little* was needed: one polynomial identity about one curve
+over one ring.  ⚠️ Nothing here is claimed at **even** `n`.
 
 ⚠️ `hasWronskianId_two_of_univQ` proves the long way round something `hasWronskianId_two` already
 gives directly.  It exists so that a reduction which failed to recover a known instance would break
@@ -247,12 +254,18 @@ theorem separable_preΨ_of_univQ {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0)
 
 /-- **`#E[n] = n²` at odd `n`, from the identity at `univQ` and nothing else.**
 
-⚠️ This is not a proof of its conclusion: `h` is `#1506` scope item 1, and it is open.  What the
-statement says is that the whole of what is owed is **one polynomial identity about one curve over
-one ring** — no quantifier over rings, no quantifier over curves, and, since
+What the statement says is that the whole of what was owed is **one polynomial identity about one
+curve over one ring** — no quantifier over rings, no quantifier over curves, and, since
 `EllipticCurves.Torsion.OmegaPairCoprime` discharged the companion `hpair`, no second hypothesis.
-⚠️ `EllipticCurves.Torsion.PrimaryTower`'s gate list and `#293` are unchanged, and must stay so
-until `h` is proved. -/
+
+⚠️ This sentence used to open *"this is not a proof of its conclusion: `h` is `#1506` scope item 1,
+and it is open"*, and to close by requiring `EllipticCurves.Torsion.PrimaryTower`'s gate list and
+`#293` to stay unchanged *"until `h` is proved"*.  `h` **is** proved:
+`WeierstrassCurve.hasWronskianId` (`EllipticCurves.Torsion.OmegaChordSum`) supplies it at every
+index over every commutative ring, and
+`card_torsion_eq_sq_of_odd` is this theorem with `h` discharged.  The gate list is discharged in
+`EllipticCurves.Torsion.PrimaryTowerOdd`.  This statement is kept because the reduction it records —
+what implies what — is what the file is about. -/
 theorem card_torsion_eq_sq_of_univQ [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0)
     (h : univQ.HasWronskianId (n : ℤ)) :
