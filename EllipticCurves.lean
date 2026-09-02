@@ -317,6 +317,7 @@ import EllipticCurves.TateModule.DeterminantMod
 import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.Free
+import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.FreeThree
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.GeneralLinearGroup
