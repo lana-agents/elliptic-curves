@@ -35,7 +35,7 @@ Everything runs on two instances of Ward's relation `IsEllipticNet.rel ψ p q r 
   multiple of `d` instead — that `ψ` vanishes at every multiple of `d`.
 
 Both instances have `r = 1`, so both are supplied by the `r = 1` slice `ψ_rel_one_evalEval`; both
-have `s = 0`, so neither needs the `s`-general `ψ_isEllipticNet`.
+have `s = 0`, so neither reaches for the `s`-general `ψ_isEllipticNet`.
 
 ⚠️ **No saving should be read off that first clause: on the `r` axis there is no hierarchy to
 climb.**  `IsEllipticNet.isEllipticSequence_iff_rel_one` (`EllipticCurves.Torsion.WardR1`) makes
@@ -47,8 +47,13 @@ Both `ψ_rel_one` and `ψ_isEllipticSequence` are corollaries of `wardGapCore` a
 So calling `ψ_rel_one_evalEval` here rather than `ψ_isEllipticSequence_evalEval` buys no Ward, and
 the `r = n` instance `ψ_net_instance` of `EllipticCurves.Torsion.NsmulLadder` costs none.
 
-⚠️ The `s` axis is **not** like this — `isEllipticNet_iff_isEllipticSequence` spends a regularity
-hypothesis on the values at nonzero indices, which is not free.
+⚠️ **The `s` axis is the same story, and it is the half easiest to get wrong.**  The general
+statement `IsEllipticNet.isEllipticNet_iff_isEllipticSequence` does spend a regularity hypothesis
+on the values at nonzero indices — but `normEDS_isEllipticNet_of_gapCore`
+(`EllipticCurves.Torsion.EllipticNetSlices`) discharges it once and for all in `UnivEDS` through
+`normEDS_univ_ne_zero` and transports the conclusion to every `CommRing`, so `ψ_isEllipticNet` is
+a corollary of `wardGapCore` too.  ⚠️ So neither axis is a hierarchy **for `ψ`**; both are for a
+general sequence over a general ring, which is what those two files are for.
 
 The gap this file closes is therefore not paid for with a stronger Ward input than the ladder
 already carries, and the reason is the strong one: both rest on exactly `wardGapCore`.  Everything
