@@ -82,7 +82,11 @@ theorem card_torsion_pow_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p ≠ 0)
     Nat.card (W.torsion (p ^ k)) = (p ^ k) ^ 2 :=
   card_torsion_pow (nsmul_surjective_of_two_ne_zero h2 hp) hcard k
 
-/-- **`E[pᵏ]` is finite**, read off the count rather than from a smoothness hypothesis. -/
+/-- **`E[pᵏ]` is finite**, read off the count rather than from a separate finiteness argument.
+
+⚠️ *Not* hypothesis-free on the curve: `[W.IsElliptic]` is in scope here, as *"What the
+substitution costs"* above records — it is what the surjectivity input spends.  What the count
+replaces is a finiteness argument, not the smoothness hypothesis. -/
 theorem finite_torsion_pow_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p ≠ 0)
     (hcard : Nat.card (W.torsion p) = p ^ 2) (k : ℕ) : Finite (W.torsion (p ^ k)) :=
   finite_torsion_pow hp (nsmul_surjective_of_two_ne_zero h2 hp) hcard k
@@ -98,8 +102,10 @@ theorem card_torsion_pow_mul_self_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p
 
 ⚠️ This is the signature the gate list of `EllipticCurves.Torsion.PrimaryTower` reduces to: over an
 algebraically closed field of characteristic `≠ 2`, at a prime `p`, the `p`-primary half of
-`E[n] ≅ (ℤ/nℤ)²` is owed `hcard` and nothing further.  `p.Prime` is used only by the rank check
-inside `nonempty_torsionPow_addEquiv`, as recorded there. -/
+`E[n] ≅ (ℤ/nℤ)²` is owed `hcard` and nothing further.  `p.Prime` enters twice, and only one of the
+two uses needs it: the rank check inside `nonempty_torsionPow_addEquiv`, as recorded there, and —
+through `hp.pos.ne'` — the `p ≠ 0` that `nsmul_surjective_of_two_ne_zero` asks at any index, which
+is why the three counting statements above are stated at `p ≠ 0`. -/
 theorem nonempty_torsionPow_addEquiv_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p.Prime)
     (hcard : Nat.card (W.torsion p) = p ^ 2) (k : ℕ) :
     Nonempty (W.torsion (p ^ k) ≃+ ZMod (p ^ k) × ZMod (p ^ k)) :=
