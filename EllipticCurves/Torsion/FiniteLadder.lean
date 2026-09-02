@@ -31,13 +31,20 @@ a finite union of finite sets.  ⚠️ The union starts at `k = 2` because `ψ�
 `#252` asks for **two** things, finiteness of `E[n]` and the sharp `#E[n] ≤ n²`.  This file
 delivers the first at every index and **not** the second, and the reason is structural rather than
 a missing lemma.  The sharp bound needs `x(P)` in the root set of `ΨSqₙ` *alone*, of degree
-`n² − 1`, giving `2(n² − 1) + 1 = n²` through `card_torsion_le_of_xCoords`.  What the ladder gives
-is the union of the root sets of `ΨSq₂, …, ΨSqₙ` — equivalently the root set of their product,
-whose degree grows like `n³/3`.  Closing that
-distance is the implication `n • P = 0 → ψₙ(P) = 0` — `#251`'s scope item 2 — which needs the
-converse `ψ_d(P) = 0 → d • P = 0` together with the elliptic **divisibility** half of Mathlib's
-standing `TODO` (`IsDvdSequence (normEDS b c d)`) to propagate a vanishing rung `d` along `d ∣ n`.
-Neither is proved here or in Mathlib.
+`n² − 1`.  ⚠️ Even that root set does not reach `n²` along this file's route: the
+two-points-per-fibre count of `card_torsion_le_of_xCoords` gives `2(n² − 1) + 1 = 2n² − 1`, and the
+remaining factor of two needs a finer count than the bare root set supplies — see `#252` and the
+structure theorem `#242`.  What the ladder gives is weaker still: the union of the root sets of
+`ΨSq₂, …, ΨSqₙ` — equivalently the root set of their product, whose degree grows like `n³/3`.
+
+Closing that distance is the implication `n • P = 0 → ψₙ(P) = 0` — `#251`'s scope item 2 — which is
+proved neither here nor in Mathlib.  ⚠️ The route this file would have taken to it runs through the
+converse `ψ_d(P) = 0 → d • P = 0` at the least vanishing index `d`, plus a way to propagate that
+vanishing along `d ∣ n`; the elliptic **divisibility** half of Mathlib's standing `TODO`
+(`IsDvdSequence (normEDS b c d)`) would supply the second step and is unproved there.  ⚠️ Nothing
+below measures whether either step is *necessary*, and this file does not claim that it is: a
+pointwise substitute for the `d ∣ n` propagation, built from Ward's relator rather than from
+`IsDvdSequence`, is one of the routes `#251` records.
 
 ⚠️ So do not read `finite_torsion_of_forall_intCast_ne_zero` as closing `#252`.  It closes the
 finiteness half at a general index, which the tree previously had only for `3`-smooth `n`
@@ -153,7 +160,8 @@ theorem finite_torsion_of_forall_intCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} 
 count of `EllipticCurves.Torsion.Finite`.
 
 ⚠️ The right-hand side is **not** `n²`.  `ladderXSupport n` is a union of `n − 1` root sets of
-degrees `4, 8, …, n² − 1`, so it grows like `2n³/3` rather than `n²` — ⚠️ a degree count, stated as
+degrees `3, 8, 15, …, n² − 1` (the degree of `ΨSq_k` is `k² − 1`), so it grows like `2n³/3`
+rather than `n²` — ⚠️ a degree count, stated as
 prose and **not** formalised anywhere below; the sharp count needs the top rung alone.  It is
 recorded because a crude effective bound is still a bound, and because stating it makes the size of
 the remaining gap visible rather than implicit. -/
