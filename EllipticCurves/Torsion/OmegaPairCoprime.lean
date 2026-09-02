@@ -93,17 +93,17 @@ follows by induction on `j`, and `hpair` at `n = 3j + 3` is that identity times 
 ## ⚠️ What this does NOT do
 
 * **It does not prove `#E[n] = n²`.**  `#1506` scope item 1, the Wronskian identity
-  `Φₙ′·ΨSqₙ − Φₙ·ΨSqₙ′ = n·preΨₙ·preΩₙ`, is untouched *here* and is still the whole gate.  ⚠️ This
-  bullet used to say it was untouched full stop, and that is no longer true of the **tree**:
-  `WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`) and
-  `WeierstrassCurve.wronskian_recurrence` (`EllipticCurves.Torsion.WronskianRecurrence`) between
-  them reduce it, over a characteristic-`0` domain, to two derivative-free identities.
-  `WeierstrassCurve.hasWronskianId_of_recurrence` carries three hypotheses; the first,
-  `WronskianRec.ChordSum`, is `hasChordSum` in a different namespace, and the other two —
-  `WeierstrassCurve.WronskianRec.OmegaSum` and `.OmegaDiff` — are open, so the gate is open.
-  ⚠️ Nothing in `EllipticCurves.Torsion.PrimaryTower` or `#293` changes, and nothing here should be
-  read as saying it does: `card_torsion_eq_sq_of_wronskian_identity` carries `hid` in its
-  signature.
+  `Φₙ′·ΨSqₙ − Φₙ·ΨSqₙ′ = n·preΨₙ·preΩₙ`, is untouched *here* and remains the whole gate *for this
+  file*'s statements.  ⚠️ This bullet used to say the gate was open; that is no longer true of the
+  **tree**.  `WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`),
+  `WeierstrassCurve.wronskian_recurrence` (`EllipticCurves.Torsion.WronskianRecurrence`) and
+  `WeierstrassCurve.omegaSum` / `.omegaDiff` (`EllipticCurves.Torsion.OmegaChordSum`) between them
+  make `WeierstrassCurve.hasWronskianId` an unconditional theorem, and
+  `WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` proves `#E[n] = n²` at odd `n` outright.
+  ⚠️ What this file supplies to that chain is `hpair`; `card_torsion_eq_sq_of_wronskian_identity`
+  below still carries `hid` in its signature, so a consumer wanting the conclusion should call
+  `card_torsion_eq_sq_of_odd` and not this.  ⚠️ Nothing in `EllipticCurves.Torsion.PrimaryTower` or
+  `#293` is changed here; taking that consequence is `#1522`.
 * **Nothing at even `n`.**  The cleared identity holds at every `n`, but dividing by `ψ_{n+4}`
   needs `d` odd, which is what `n` odd supplies; at `d = 4` the divisor genuinely vanishes.  The
   consumer, `card_torsion_eq_sq_iff_separable_preΨ`, is odd-`n` only in any case.
