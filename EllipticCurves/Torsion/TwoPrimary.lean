@@ -65,9 +65,16 @@ tangent-line shortcut is special to doubling. That formula was proved the day af
 `EllipticCurves.Torsion.TriplingSurjective`, and `EllipticCurves.Torsion.ThreePrimary` now builds
 the `3`-primary tower on it and glues the two towers, giving `E[n] ≅ (ℤ/nℤ)²` for **every**
 `3`-smooth `n`. The first bullet is untouched.  ⚠️ This sentence used to end *"and the first open
-index is still `n = 5`"*, which is false: `nonempty_torsion_addEquiv_of_odd`
-(`EllipticCurves.Torsion.PrimaryTowerOdd`) settles every odd `n` with `(n : F) ≠ 0`, so the first
-index no statement in this development reaches is an **even** one outside the `3`-smooth range.
+index is still `n = 5`"*, and then *"so the first index no statement in this development reaches is
+an **even** one outside the `3`-smooth range"*.  Both are false, and the second was **never** true
+on `main` — it was written while `EllipticCurves.Torsion.StructureGeneral` was still in review and
+was already refuted by the time it landed: `nonempty_torsion_addEquiv_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) settles every odd `n` with `(n : F) ≠ 0`, and
+`nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`) settles **every** such `n`,
+even ones included — `#E[2^a] = 4^a` is this file's own `card_torsion_two_pow`, and the two factors
+of `n = 2^a · m` are coprime.  **There is no unreached index.**  ⚠️ What is out of range is not an
+index but a characteristic: at `p ∣ n` with `p = char F` the conclusion `#E[n] = n²` is *false*, so
+that régime is excluded rather than owed.
 
 ## Main statements
 

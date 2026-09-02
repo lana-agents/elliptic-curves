@@ -112,8 +112,14 @@ all three.
   are dischargeable, but that is a separate sweep and none of their statements is changed here.
   ⚠️ That sweep has since happened: `EllipticCurves.Torsion.PrimaryTowerOdd` discharges the gate
   list and `#1490` item 3 at every odd `p`, and settles `E[n] ≃+ (ℤ/nℤ)²` at every odd `n`.  `#293`
-  is **not** closed by it — the even indices are untouched.
+  is closed too, but by a second file rather than by that one:
+  `EllipticCurves.Torsion.StructureGeneral`'s `WeierstrassCurve.Affine.card_torsion_eq_sq` and
+  `…nonempty_torsion_addEquiv` remove the parity restriction, at every `n` with `(n : F) ≠ 0`.
 * It says nothing at even `n`: `card_torsion_eq_sq_of_wronskian_identity`'s route is the odd one.
+  ⚠️ That is a statement about **this file's** route, not about the result.  The even case is not
+  open: `StructureGeneral` reaches it by splitting `n = 2^a · m` and multiplying the odd count here
+  by the long-merged `card_torsion_two_pow`.  What is genuinely out of range is `p = char F`, where
+  `#E[p] = p²` is *false* rather than unproved.
 * `#1184`, `#962` and `#639` are untouched.
 
 ## References

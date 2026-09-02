@@ -45,6 +45,35 @@ conclusion is **false** rather than unproved — `E[p]` is `0` or `ℤ/pℤ` the
 docstring recording "the even case" as open is describing a gap that does not exist, while one
 recording the characteristic case as open is correct.
 
+## ⚠️ The second, independent route at odd `n`
+
+`EllipticCurves.Torsion.PrimaryTowerOdd` landed in the same window as this file and reaches the
+same conclusion at every **odd** `n` with `(n : F) ≠ 0`.  Comparing the two routes to
+`E[n] ≃+ (ℤ/nℤ)²` at a general index:
+
+* **`nonempty_torsion_addEquiv` (here)** runs `PrimaryTower` at each prime power of `n` and glues
+  along `Nat.recOnPosPrimePosCoprime`.  The rank bound `#E[n][q] ≤ q²` is spent only *inside*
+  `PrimaryTower`, at a prime power; this file never states one.  Range: every `n` with
+  `(n : F) ≠ 0`.
+* **`nonempty_torsion_addEquiv_of_odd` (`PrimaryTowerOdd`)** proves the rank bound at `n` itself
+  (`card_nsmul_eq_zero_torsion_le_of_odd`) and hands it with the count straight to
+  `AddCommGroup.equiv_zmod_sq_of_card_sq` — no prime-power ascent and no gluing.  Range: odd `n`
+  with `(n : F) ≠ 0`.
+
+Neither file imports the other's headline, so at odd `n` the two are a genuine cross-check on the
+**assembly**.  ⚠️ They are not independent about the *input*: both ultimately spend
+`card_torsion_eq_sq_of_odd`, and a defect there would be invisible to the comparison.
+
+⚠️ `nonempty_torsion_addEquiv_of_odd` and `card_nsmul_eq_zero_torsion_le_of_odd` are **not**
+subsumed by anything here and must not be deleted, nor are the `_of_odd` tower statements
+(`card_torsion_pow_of_odd`, `finite_torsion_pow_of_odd`, `card_torsion_pow_mul_self_of_odd`,
+`nonempty_torsionPow_addEquiv_of_odd`): they are what `PrimaryTower`'s gate list is *about*, and
+`card_torsion_pow_mul_self_of_odd` is stated in the `Nat.card (W.torsion n) = n * n` shape that
+`EllipticCurves.Torsion.PrimaryBasis`'s `torsionPairHom_bijective_of_card` and
+`EllipticCurves.TateModule.PrimaryFree`'s `padicPairHom_injective` take their `hcard` in — 18
+`TateModule/` module docstrings name it as their discharger.  ⚠️ None of them *calls* it yet; the
+citations are prose, and feeding the count in is separate work.
+
 ## What each input contributes, so that nothing here is mistaken for new mathematics
 
 * `WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` (`Torsion.OmegaChordSum`) — the odd count.
@@ -86,7 +115,11 @@ recording the characteristic case as open is correct.
 * It does not touch `EllipticCurves.Torsion.PrimaryTower`'s gate list, which is `#1522`.  ⚠️ That
   gate is `#E[p] = p²` and `card_torsion_eq_sq` discharges it at every `p` with `(p : F) ≠ 0`, but
   `PrimaryTower` is *upstream* of `EllipticCurves.Torsion.OmegaChordSum` and so cannot import this
-  file; the discharge has to happen in a leaf, which is what this one is.
+  file; the discharge has to happen in a leaf.  It happens in
+  `EllipticCurves.Torsion.PrimaryTowerOdd`, a sibling leaf landed in the same window as this one —
+  see the section above.  ⚠️ That file is **not** superseded by this one and must not be deleted:
+  its `_of_odd` statements are the shape `PrimaryTower`'s gate list is written in and the shape the
+  `PrimaryBasis` and `TateModule` consumers take.
 * `#268` (`T_ℓ E ≅ ℤ_ℓ²`) is not assembled here, though `nonempty_torsion_addEquiv` is the input it
   was waiting for at `ℓ ≥ 5`.
 
