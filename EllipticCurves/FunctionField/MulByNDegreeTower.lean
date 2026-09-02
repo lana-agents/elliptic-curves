@@ -169,7 +169,10 @@ variable (W) in
 This is the common generalisation of the merged `doublingRatFunc` and `triplingRatFunc`, which are
 this definition at `n = 2` and `n = 3` (`doublingRatFunc_eq_ΦDivΨSq`, `triplingRatFunc_eq_ΦDivΨSq`).
 ⚠️ Writing the fraction down is not the same as knowing it presents `x ∘ [n]`: that identification
-is `#251` and is *not* available at general `n`. -/
+is `#251`, and it **is** available at general `n` — `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) at every `n` with
+`(n : F) ≠ 0` over a field of characteristic `≠ 2`.  ⚠️ It is not available *here*, and this
+definition still asserts nothing about `x ∘ [n]`. -/
 noncomputable def ΦDivΨSq (n : ℤ) : RatFunc F :=
   algebraMap F[X] (RatFunc F) (W.Φ n) / algebraMap F[X] (RatFunc F) (W.ΨSq n)
 

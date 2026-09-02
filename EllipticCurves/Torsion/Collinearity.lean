@@ -43,9 +43,13 @@ a corollary of Ward's theorem alone, with no curve equation among the hypotheses
 form.
 
 ⚠️ **`Xₙ` and `Sₙ` are the division-polynomial coordinates, not `x(n • P)` and `y(n • P)`.**  The
-identification is `WeierstrassCurve.Affine.HasXCoordFormula` — issue `#251` — and holds in this
-tree only at `n = 2` and `n = 3`.  As in `EllipticCurves.Torsion.XDifference`, everything below is
-a statement about polynomials and their values, never about `n • P`.
+`x`-identification is `WeierstrassCurve.Affine.HasXCoordFormula` — issue `#251` — and it holds at
+every index over a field of characteristic `≠ 2` (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`), ⚠️ which is **import-incomparable** with this file, so nothing
+below can use it without a new import.  ⚠️ The `y`-identification is *not* available at general `n`
+and is what the `#251` bullets on the Weil-pairing front mean.  As in
+`EllipticCurves.Torsion.XDifference`, everything below is a statement about polynomials and their
+values, never about `n • P`.
 
 ⚠️ This file's only import is `EllipticCurves.Torsion.XDifference`, and its closure is the 7
 modules that one drags in.  `EllipticCurves.Torsion.NsmulSurjective` (where `HasXCoordFormula`

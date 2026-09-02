@@ -35,8 +35,11 @@ which is the classical **`x`-difference identity** `x(qP) − x(pP) = ψ_{p+q}ψ
 
 ⚠️ **This file does not prove that, and does not claim it.**  The multiplication-by-`n` coordinate
 formula is issue `#251`, packaged as `WeierstrassCurve.Affine.HasXCoordFormula` in
-`EllipticCurves.Torsion.NsmulSurjective`, and available in this tree only at `n = 2`
-(`hasXCoordFormula_two`) and `n = 3` (`hasXCoordFormula_three`).  Everything below is a statement
+`EllipticCurves.Torsion.NsmulSurjective`.  ⚠️ **It holds at every index** over a field of
+characteristic `≠ 2` — `hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`, which
+imports this file — so nothing here can use it, and neither `hasXCoordFormula_two` nor
+`hasXCoordFormula_three` is reachable from here either: `…DoublingSurjective` is not in this file's
+`6`-module closure.  Everything below is a statement
 about the *polynomials* `Φ`, `ΨSq`, `ψ` and their values, never about `n • P` — with the single
 exception of `EllipticCurves.Torsion.XDifferencePoint`, which instantiates the point-level reading
 at `(p, q) = (3, 2)` where both instances exist.  ⚠️ The order matters there: the identity is
@@ -211,8 +214,10 @@ neither `ΨSq_p` nor `ΨSq_q` vanishes:
 ```
 
 ⚠️ `Φₙ/ΨSqₙ` is the *division-polynomial* `x`-coordinate at `n`.  Identifying it with `x(n • P)` is
-`WeierstrassCurve.Affine.HasXCoordFormula` — issue `#251` — and holds in this tree only at `n = 2`
-and `n = 3`; see `EllipticCurves.Torsion.XDifferencePoint` for the point-level reading there. -/
+`WeierstrassCurve.Affine.HasXCoordFormula` — issue `#251` — which holds at every index over a field
+of characteristic `≠ 2` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`,
+downstream of this file); see `EllipticCurves.Torsion.XDifferencePoint` for the point-level reading
+at `(p, q) = (3, 2)`. -/
 theorem Φ_div_ΨSq_sub_Φ_div_ΨSq (h : W.Equation x y) {p q : ℤ}
     (hp : (W.ΨSq p).eval x ≠ 0) (hq : (W.ΨSq q).eval x ≠ 0) :
     (W.Φ q).eval x / (W.ΨSq q).eval x - (W.Φ p).eval x / (W.ΨSq p).eval x
