@@ -87,8 +87,9 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
   common factor of `ψ₂` and carries no information where it vanishes.  For `2 ≤ n` the ladder
   hypothesis supplies it; at `n = 1` the statement is `one_smul` and needs nothing.
 * **Nothing about the function field.**  The ~40 `#251` bullets under `FunctionField/WeilPairing*`
-  that mean the `y`-half are untouched; relettering them is the separate subtractive sweep `#1500`
-  describes, and this file is not it.
+  that mean the `y`-half are untouched by *this* file.  ⚠️ They are swept in `#1504`, and — since
+  `EllipticCurves.Torsion.NsmulYPeriodic` closed the `y`-half at every index — that sweep
+  **retires** them rather than relettering them; do not go looking for a reletter.
 
 ## Import position, measured rather than guessed
 

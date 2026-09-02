@@ -85,6 +85,11 @@ group-law input. `EllipticCurves.Torsion.DoublingCoords` and `EllipticCurves.Tor
 supply it at `n = 2` and `n = 3`. The `OmegaTwo`/`OmegaThree` docstrings make the same disclaimer,
 `OmegaTwo` calling the `2 • P` identification "a separate, harder statement not proved here" and
 `OmegaThree` calling the `3 • P` one "a separate statement" that `TriplingCoords` does prove.
+⚠️ That separate statement is now available at **every** index and not only at `2` and `3`:
+`WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`), whose `x`-half is
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, `#251`).  Both are
+downstream of this file and neither is consumed here.
 
 ## References
 

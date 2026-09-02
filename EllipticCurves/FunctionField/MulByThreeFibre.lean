@@ -164,8 +164,13 @@ met head-on.
   `[3]`-specific below.  `#404`'s general `ωₙ` is untouched here — and it is not what `[n]∗`
   needed, nor is it open any more: it is
   `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
-  (`EllipticCurves.Torsion.OmegaCrux`, PR #557).  What a general-`n` fibre description would need
-  is `#251`, the identification with `n • P`.
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557).  ⚠️ **Nor is the identification with `n • P`,
+  which this bullet used to name as what a general-`n` fibre description would need**: it is
+  `#251`/`#1500` and both halves are closed at every index
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`;
+  `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).
+  ⚠️ **Whether a general-`n` fibre description now follows is NOT measured** — nothing here is a
+  claim that the only thing it was waiting on has been removed.
 
 ## References
 

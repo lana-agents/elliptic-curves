@@ -47,15 +47,20 @@ need to transport it; it only changes which direction it travels.
 `hfac` is consumed in exactly one place: `exists_nsmul_eq_of_smooth`
 (`EllipticCurves.Torsion.NsmulSmoothSurjective`), the halving point over `F̄`.  The transcendence
 over `F̄` is `transcendental_xCoord_nsmul_of_isAlgClosed`, general in `n ≠ 0`.  So the first index
-these statements do not reach is `n = 5` **for the halving point**, and `#251`'s coordinate formula
-through `nsmul_surjective_of_hasXCoordFormula` would lift them all to every `n` with nothing else
-changing.  This is the observation `WeilPairingAlternatingAssemblyN`'s docstring makes about its
-`[IsAlgClosed F]` corollary, and it survives the descent unchanged.
+these statements do not reach is `n = 5` **for the halving point**, and a general-`n`
+`[n]`-surjectivity on `E(F̄)` would lift them all to every `n` with nothing else changing.
+⚠️ **That surjectivity is not missing** — `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`), at every `n ≠ 0` — and the `#251` this sentence used to
+blame is closed.  ⚠️ **Whether swapping it in lifts these statements is NOT measured** and nothing
+below changed; `exists_nsmul_eq_of_smooth` is still what produces the halving point.  This is the
+observation `WeilPairingAlternatingAssemblyN`'s docstring makes about its `[IsAlgClosed F]`
+corollary, and it survives the descent unchanged.
 
 ⚠️ In `…_of_smooth` below the transcendence over `F` is discharged too, by
 `transcendental_xCoord_nsmul_of_smooth`, and *that* one genuinely needs `3`-smoothness and `h3`.
-So the two uses of `hfac` in that statement have different reasons, and only one of them is what
-`#251` would remove.
+So the two uses of `hfac` in that statement have different reasons, and only one of them is the
+halving point.  ⚠️ This sentence used to say *"only one of them is what `#251` would remove"*;
+`#251` is closed and removes neither, since the substitution above is unmeasured.
 
 ## Main statements
 
@@ -77,7 +82,8 @@ So the two uses of `hfac` in that statement have different reasons, and only one
 * The `μ`-valued twins.  ⚠️ Deliberately: they are `#1334`'s re-scoped deliverable, together with
   the `μ` forms of the merged general-`n` assembly, and splitting them across two PRs would put two
   authors in the same three-line neighbourhood again.
-* `n = 5` and beyond — see above; the obstruction is the halving point, i.e. `#251`.
+* `n = 5` and beyond — see above; the obstruction is the halving point.  ⚠️ It used to be recorded
+  as `#251`, which is closed; what stands there now is **not measured**.
 * The divisor half of base change (`#692`).  Nothing here wants it: no statement below mentions
   `divisor` on the `F̄` side, and `hprin` is never transported.
 

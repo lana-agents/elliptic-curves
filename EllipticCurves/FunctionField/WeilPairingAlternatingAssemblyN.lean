@@ -55,9 +55,14 @@ Every other `_of_smooth` corollary on this front stops at `n = 5` because the *t
 here.**  Over `F̄` the transcendence is `transcendental_xCoord_nsmul_of_isAlgClosed`, which is
 general in `n ≠ 0` and needs no `3`-smoothness and no `(3 : F) ≠ 0`.  The `3`-smoothness enters in
 exactly one place, `exists_nsmul_eq_of_smooth` (`EllipticCurves.Torsion.NsmulSmoothSurjective`),
-which is what produces the halving point.  A general-`n` surjectivity of `[n]` on `E(F̄)` — i.e.
-`#251`'s coordinate formula through `nsmul_surjective_of_hasXCoordFormula` — would lift this
-corollary to every `n` with nothing else changing.
+which is what produces the halving point.  A general-`n` surjectivity of `[n]` on `E(F̄)` would
+lift this corollary to every `n` with nothing else changing.  ⚠️ **This sentence used to name that
+surjectivity as missing, via `#251`'s coordinate formula, and it is not missing**:
+`nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is `[n]`-surjectivity
+on `E(F̄)` at every `n ≠ 0` over a field with `(2 : F) ≠ 0`, off the now-closed `#251`
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **Whether swapping it
+in actually lifts the corollary is NOT measured and nothing below was changed** — the halving point
+is produced by `exists_nsmul_eq_of_smooth`, and that is the statement a follow-up must replace.
 
 ## ⚠️ The other `n = 5` gate is somewhere else, and the two are easy to swap
 
@@ -143,8 +148,11 @@ it.
   (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and
   `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`) — so naming
   them here is a statement that this file does not use them, not that they gate anything
-  (`#1460`).  `#251` is open.  ⚠️ The `μ`-valued statements below are the *value-group form of
-  this one theorem* and nothing more; `μ_n`-valuedness of `e_n` in the sense of
+  (`#1460`).  ⚠️ **`#251` used to be marked open here and is closed too**
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`; `y`-half
+  `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`), so all
+  of the list is an independence claim.  ⚠️ The `μ`-valued statements below are the *value-group
+  form of this one theorem* and nothing more; `μ_n`-valuedness of `e_n` in the sense of
   `EllipticCurves.FunctionField.WeilPairingRootsOfUnity` is not re-proved here.
 
 ## References

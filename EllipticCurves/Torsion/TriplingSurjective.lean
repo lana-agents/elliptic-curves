@@ -436,9 +436,13 @@ carrying a point of `W` above it — over an **arbitrary field**, with no algebr
 This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root`
 (`EllipticCurves.Torsion.NsmulSurjective`) at `n = 3`, and the `n = 3` companion of
 `exists_nsmul_two_eq_some_of_root` (`EllipticCurves.Torsion.DoublingSurjective`).  Those two are
-the engine's finite-level layer's only instances anywhere in this tree, because `n = 2` and `n = 3`
-are the only indices at which both of its index-dependent inputs exist; `#251` is what stands
-between here and a general `n`.
+the engine's finite-level layer's only instances anywhere in this tree.  ⚠️ **The reason recorded
+here used to be `#251`, and that reason is gone**: `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) supplies the coordinate formula at every index, and the
+general-`n` surjectivity it feeds is `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ Both are **downstream** of this file, so the two
+instances below are still the only ones reachable *here*; what is no longer true is that anything
+stands between this tree and a general `n`.
 
 ⚠️ **`h2` survives here and does not at `n = 2`, and the asymmetry is not an accident of the
 proof.**  Both existence steps of the merged `exists_nsmul_three_eq` — the root extraction and the

@@ -59,7 +59,11 @@ proof and ask which of its inputs actually mention the generic point.
   attribute that formula to `#404`, and that was wrong in a way later files quoted.**  What
   `addY_self_eq_div` states is `y(2 • P) = ω₂/(2 ψ₂³)` for the **group-law** double, and the
   general-`n` form of *that* is `WeierstrassCurve.Affine.HasXCoordFormula`'s `y`-half — issue
-  `#251`, still open.  `#404`'s own deliverable was the weaker on-curve identity, that
+  `#1500`, and it is **closed**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+  (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579) proves `n • (x, y) = (Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` at
+  every index under `ΨSqₙ(x) ≠ 0`, which is `hasXCoordFormula_of_two_ne_zero`'s own hypothesis.
+  ⚠️ That module is **import-incomparable** with this one, so it is cited and not consumed, and
+  nothing below changes.  `#404`'s own deliverable was the weaker on-curve identity, that
   `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and it is **closed**:
   `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` of `EllipticCurves.Torsion.OmegaCrux`, at
   every index over every commutative ring, PR #557.  ⚠️ That module and this one are **import-

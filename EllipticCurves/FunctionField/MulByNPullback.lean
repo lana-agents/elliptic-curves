@@ -43,9 +43,11 @@ files still naming it as open, and they do not all mean the same statement.
 * ✅ **The on-curve identity** — `#404`'s stated deliverable, and **closed** by PR #557.  It says
   the point `(Φₙ(x)/ΨSqₙ(x), ωₙ(x,y)/ψₙ(x,y)³)` satisfies `W.Equation`; equivalently that
   `W.polynomial.eval₂ _ _ = 0`, which is the `AdjoinRoot.lift` obligation `#403`/`#405` need.
-* ❌ **The `ωₙ` duplication formula** — `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ(x,y)/(2 ψₙ(x,y)³))`, the
-  **group-law** multiple and not merely *some* point of the curve.  This is **`#251`**, it is
-  **open**, and `#404` never claimed it.
+* ✅ **The `ωₙ` duplication formula** — `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ(x,y)/(2 ψₙ(x,y)³))`, the
+  **group-law** multiple and not merely *some* point of the curve.  `#404` never claimed it; it is
+  `#251` on the `x`-half and `#1500` on the `y`-half, and ⚠️ **both are now closed** — see below.
+  ⚠️ This bullet was ❌ until PR #579 and is quoted as ❌ by other modules; they are stale, not
+  wrong about which statement is meant.
 
 The closed half is `WeierstrassCurve.hasPreΩSq` (every index, every `CommRing`) and
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (the identity itself, over a field of
@@ -57,7 +59,7 @@ cited, not consumed.
 ⚠️ **The open half was never `#404`'s.**  `equation_div_of_ψ_ne_zero` says the coordinates lie on
 the curve; it says nothing about `n • P`, and its own docstring records that.  Identifying the two
 is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), issue
-`#251` — and ⚠️ **its two halves now have different answers**:
+`#251` — and ⚠️ **both of its halves are now closed, at every index**:
 
 * ✅ **the `x`-half** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
   proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`.  It supersedes
@@ -66,16 +68,24 @@ is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurj
   (`EllipticCurves.Torsion.DoublingSurjective`), which carries **no hypothesis on `(2 : F)`** and is
   therefore the stronger statement at `n = 2`; that file's own docstring records it as
   hypothesis-free, and in characteristic `2` it is the only one of the two that says anything;
-* ❌ **the `y`-half** — `addY_self_eq_div` / `addY_add_self_eq_div`
-  (`EllipticCurves.Torsion.DoublingCoords`, `EllipticCurves.Torsion.TriplingCoords`) are still the
-  `n = 2` and `n = 3` instances, and the `ωₙ` duplication bullet above is about the **pair**.
+* ✅ **the `y`-half** — `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+  (`EllipticCurves.Torsion.NsmulYPeriodic`, issue `#1500`, PR #579) proves
+  `n • (x, y) = (Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` at **every** index under `ΨSqₙ(x) ≠ 0` — ⚠️ *exactly* the
+  hypothesis the `x`-half asks, so the pair costs nothing beyond it.  `addY_self_eq_div` /
+  `addY_add_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`,
+  `EllipticCurves.Torsion.TriplingCoords`) are now its `n = 2` and `n = 3` instances.  ⚠️ The
+  ladder-only `nsmul_eq_some_omegaY` (`EllipticCurves.Torsion.NsmulYCoord`) is a **weaker**
+  predecessor and must not be cited as the sharp statement.
 
 ⚠️ `NsmulOrder` is **not** in this file's import closure (the two are incomparable) and none is
 added; the name is cited, not consumed.
 
-⚠️ **So a bullet that needs the group-law multiple in division-polynomial form is still gated — on
-the `y`-half of `#251`, and the gate must be relettered rather than removed.**  A bullet that needs
-only the on-curve identity, or only the `x`-coordinate, is discharged.  ⚠️ `#1184`
+⚠️ **So a bullet that needs the group-law multiple in division-polynomial form — either half, or
+the pair — is discharged, and the gate is to be RETIRED rather than relettered again.**  ⚠️ That
+reverses what this section said between PR #557 and PR #579, and the sites relettered to `#251` in
+between are the ones now to be retired.  ⚠️ **Retiring a bullet does not supply a replacement
+ceiling**: what stands between any particular consumer and a general index has to be measured at
+that consumer, and this section asserts nothing about it.  ⚠️ `#1184`
 (`IsCoprime (Φₙ) (ΨSqₙ)` at general `n`) and `#962`
 (`hprin` over a general field) are untouched by PR #557 and stay open; where they are listed
 alongside `#404`, only `#404`'s name comes off.

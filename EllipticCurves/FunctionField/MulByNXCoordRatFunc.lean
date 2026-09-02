@@ -127,10 +127,12 @@ claim about `n • P` — and the route above goes nowhere near it.  The two-rea
   between `3`-smooth and general `n`; they are not what stands between `{2, 3}` and everything else.
 * **Nothing about rung 4.**  `ordInfty ([n]∗ genX) = -2` is *false* at general `n`
   (`MulByNPlacePullback`), and nothing here changes that.
-* **It does not close `#251`.**  ⚠️ This bullet used to name `#404`, which PR #557 closed and
-  which was never the statement meant here.  The coordinates of `[n]` as an explicit fraction remain
-  unavailable; `nMulRatFunc W n` is a rational function whose existence is proved, not one that is
-  written down.
+* **It does not write `nMulRatFunc W n` down.**  ⚠️ This bullet used to read *"It does not close
+  `#251`"*, and before that it named `#404`; both are now closed and neither is the statement meant
+  here.  What is true of **this file** is unchanged: `nMulRatFunc W n` is a rational function whose
+  existence is proved, not one that is written down.  ⚠️ It **is** written down elsewhere —
+  `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`), which imports this
+  file — so the gap is one of import position, not of availability.
 * **No `[IsAlgClosed F]`, no `(2 : F) ≠ 0`, no hypothesis on `n`.**  At an `n` with `n • 𝒫 = 0`
   both sides are the junk value `0` and the statement is still true, so no non-degeneracy
   hypothesis is needed and none is added.  The non-vacuity certificate is over `ℚ` for the same

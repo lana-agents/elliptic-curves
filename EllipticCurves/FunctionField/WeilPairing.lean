@@ -173,7 +173,9 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   either `n`, it is not.
 * **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
   (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
-  named as the gate, is closed.  The gate is `#251`; only `n = 2, 3` are concretely available.
+  named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`,
+  its `y`-half); only `n = 2, 3` are concretely available, and what confines them was **not**
+  re-measured when the coordinate-formula reason was withdrawn.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers it, and Dedekindness with
@@ -183,12 +185,18 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   first written into this bullet was already stale when it was pushed, and the bullet's own added
   lines then moved the block again.
 
-⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
-those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
+⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
+ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
+The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
+retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
+stand between this file and a general index was **not** re-measured when the entry was retired — do
+not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
+is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## What non-degeneracy actually consumes (`#769`) — the canonical statement
 
@@ -222,7 +230,8 @@ Silverman *AEC* III.8, Prop. 8.1(c): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
 **`#E[2] = 4` enters at step 4 and nowhere else**, as the right-hand side of Artin's theorem inside
 `finrank_fixedFieldTwo`, whose input is `card_torsionTwoMul` and hence `card_torsion_two` — the
 roots of the `2`-division cubic, which does not go through Ward.  Ward (`#254`/`#258`/`#260`/`#261`)
-gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#251`.  So at `n = 2` the dependency the
+gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#1490` (⚠️ this used to cite `#251`, which
+is closed).  So at `n = 2` the dependency the
 old prose named is *discharged*, and what took its place was `hprin`, i.e. rung 5 (`#418`) — for
 which see `NthRootOfPullback`.  ⚠️ Its own gate used to be the fibre description of `[2]∗`, `#639`
 **rung 9** (`#774`, *not* `#701`, rung 8, which merely counts the fibre).  **Rung 9 is merged**

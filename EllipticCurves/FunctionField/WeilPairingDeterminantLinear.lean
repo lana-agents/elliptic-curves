@@ -128,18 +128,26 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
   be `0` there.
 * **General `n` is out of scope** and is not merely unproved here: this development has the Weil
-  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ The ceiling is `#251` for the
-  pairing itself, and `#938`'s double obstruction at composite `n`.
+  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ This bullet used to name `#251` as the
+  ceiling for the pairing itself; `#251` is closed, so what is left of the sentence is `#938`'s
+  double obstruction at composite `n`.  ⚠️ Whether that is now the *only* ceiling is **not
+  measured**.
 * ⚠️ **This does not touch `EllipticCurves.TateModule.Determinant`.**  `galoisDetTwo` there is
   `LinearEquiv.det` on the `2`-adic Tate module, and identifying it with the cyclotomic character
   needs the pairing at every level `E[2 ^ k]`.  Nothing below is a step towards that.
 
-⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
-gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
-those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
+⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
+ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
+The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
+retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
+stand between this file and a general index was **not** re-measured when the entry was retired — do
+not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
+is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity (`#916`)
 

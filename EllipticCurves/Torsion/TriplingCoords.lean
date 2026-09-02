@@ -101,8 +101,11 @@ here.
 paragraph used to name that general statement `#404`, and the mirror bullet in `DoublingCoords` did
 the same.**  `#404`'s deliverable — the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` — is **closed**
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`, PR #557,
-import-incomparable with this file).  What is general-`n` open, and is what `addY_add_self_eq_div`
-below states at `n = 3`, is the identification with the **group-law** multiple: `#251`.
+import-incomparable with this file).  What `addY_add_self_eq_div` below states at `n = 3` is the
+identification with the **group-law** multiple, and ⚠️ **that is no longer general-`n` open
+either**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`,
+PR #579) proves it at every index, with `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`, `#251`) as its `x`-half.  Both are downstream of this file.
 
 ⚠️ **`GenericTripling`'s two theorems are instances of the ones below** (take the base-changed curve
 over `F(W)` and the point `(genX, genY)`), and collapsing the duplication would be a worthwhile

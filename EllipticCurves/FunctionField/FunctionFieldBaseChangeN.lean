@@ -22,7 +22,12 @@ property over an **arbitrary** field.  This file closes it.
 The merged numeral intertwiners are coordinate computations: `mulByTwoEndo` sends `genX` to
 `Φ₂/Ψ₂²` and `genY` to an explicit rational expression, and the proofs push `functionFieldMap`
 through those formulas term by term (`functionFieldMap_Φ_eval`, `functionFieldMap_ΨSq_eval`, …).
-At general `n` no such formula is available — that is `#251`, and it is open.
+At general `n` no such formula is available *here*.  ⚠️ This sentence used to blame `#251`, which
+is **closed** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and its
+`y`-half `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`)
+give both coordinates of `n • P` at every index, on the **curve**.  ⚠️ What is missing is the
+*function-field* intertwiner `functionFieldMap_mulByNEndo`, and whether the affine formula supplies
+it is **not measured**: `mulByNEndo` is not defined by a formula (see below).
 
 `mulByNEndo n hn` is not defined by a formula.  It is `pointEndo` at the point `n • 𝒫`, so it is
 pinned by

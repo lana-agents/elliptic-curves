@@ -115,7 +115,8 @@ statement, and three facts about the fixture point `(0, 1)`).
   and the odd parity factor of `ωₙ` **is** `ψ₂(x, y) = 0`, so `ωₙ/(2ψₙ³) = −(a₁x + a₃)/2 = y`.
   ⚠️ `divY_eq_omegaY` is unusable there (it spends `ψ₂ ≠ 0`) and is not used.
 * **It says nothing about the function field.**  The `#251` bullets under `FunctionField/` that
-  mean the `y`-half are untouched; relettering them is a separate subtractive sweep.
+  mean the `y`-half are untouched by *this* file; `#1504` is the separate subtractive sweep, and
+  because of the headline above it **retires** those bullets rather than relettering them.
 
 ## Import position, measured rather than guessed
 

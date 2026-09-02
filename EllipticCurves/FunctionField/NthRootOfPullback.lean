@@ -49,7 +49,8 @@ merged, and neither goes through Ward — `#E[2]` counts the roots of the `2`-di
 * `card_torsion_three` (`Torsion/ThreeTorsionStructure.lean`), with
   `nonempty_torsionThree_addEquiv`.
 
-Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#251`), which is not what `exists_gS_two` and
+Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#1490`; ⚠️ this used to cite `#251`, which is
+closed), which is not what `exists_gS_two` and
 `exists_gS_three` need.  The class-group layer that would turn a vanishing class back into a
 generator is merged too: `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one`
 (`EllipticCurves.FunctionField.DivisorPrincipality`, `#726`).

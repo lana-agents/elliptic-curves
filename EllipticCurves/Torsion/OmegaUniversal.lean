@@ -63,13 +63,17 @@ untouched by either file.
 
 ⚠️ **The circularity, and how it was avoided.**  The classical proof of this identity identifies
 `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple `n • P` and then observes that a point of the curve
-satisfies the curve's equation.  That identification is the *other* open statement (`#251`), and
-`#251`'s own analysis records that it runs through `ωₙ`, i.e. through this identity; the two look
+satisfies the curve's equation.  That identification was the *other* open statement (`#251` on its
+`x`-half, `#1500` on its `y`-half), and its own analysis records that it runs through `ωₙ`, i.e.
+through this identity; the two look
 like faces of one induction.  **They are not.**  `EllipticCurves.Torsion.OmegaCrux` proves the
 identity at every `n` with **no group law, no `n • P` and no `#251` input**: the induction is on
 the *Vieta defect* of three division-polynomial points, which Ward's elliptic-net relation controls
-directly.  ⚠️ `#251` is untouched by that and remains open — what is refuted is the claim that it
-has to come first.
+directly.  ⚠️ Neither `#251` nor `#1500` is touched by that; what was refuted is the claim that
+either has to come first.  ⚠️ **Both have since been closed elsewhere** —
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579) — so the
+paragraph above is a record of how the circularity was avoided, not of a live gate.
 
 ## References
 
