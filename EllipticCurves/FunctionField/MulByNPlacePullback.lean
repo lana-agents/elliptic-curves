@@ -79,10 +79,13 @@ has been discharged by that file, and it proves no degree at any `n` outside `{2
 **Mathlib**'s at general `n` (`Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree`,
 the first over any nontrivial ring, the second under `(n : F) ≠ 0`), and `MulByThreePlacePullback`
 and `MulByThreeDegree` already close their degree computations with both of them at general index.
-Three other things are missing.  **First**, the identification of `nMulRatFunc W n` *as* the
+Three other things were missing.  **First**, the identification of `nMulRatFunc W n` *as* the
 fraction `Φₙ/ΨSqₙ`, which is `#251`: `nMulRatFunc` is produced by an inverse isomorphism,
 so `RatFunc.finrank_eq_max_natDegree` has no numerator and no denominator to read off it — being an
-element of `F(x)` is not being a *written-down* rational function.  **Second**,
+element of `F(x)` is not being a *written-down* rational function.  ⚠️ **This one is discharged**:
+`nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves it at every `n`
+with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` applied to the generic point.  **Second**,
 `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n`, which is `#1184`:
 `EllipticCurves.DivisionPolynomial.Coprime` has it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
 merged) by a Bézout certificate against `Δ²`, and at `n = 3` by the congruence
@@ -96,14 +99,21 @@ statement that induction is owed on is
 unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`,
 the same side condition the rung-4 paragraph below shows `mulByNEndo` does not carry.
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
+`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
+with the group-law multiple `n • P` is `#251`, and it is **closed**:
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
+function-field form `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
+is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
+`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
+Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
+`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
+added: both names are cited, not consumed.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
 result, not a gap** — at *general* `n`; at every `3`-smooth `n` it is

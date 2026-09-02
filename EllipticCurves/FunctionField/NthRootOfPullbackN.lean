@@ -75,18 +75,29 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
   description exists, so a hypothesis-free corollary would be one nothing can feed.  That is the
   vacuity trap, not a gap to fill.
 * **`n = 5` is not reached.**  The ceiling is `transcendental_xCoord_nsmul_of_smooth`'s, and behind
-  it stand `#251` and `#1184`.  This file moves nothing there.
+  it stands `#1184`.  ⚠️ `#251` used to be named here beside it and is closed
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`; in function-field form
+  `nMulRatFunc_eq_ΦDivΨSq`, `EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ Which of this
+  file's inputs is now the binding one was **not** re-measured — do not read this bullet as saying
+  `#1184` is the only one.  This file moves nothing there either way.
 * **The pairing itself stays at `n = 2, 3`.**  Rung 5 is the `n`-th root; `weilPairingElt` and the
   rung-6 board are limited by their *other* inputs, not by this one.
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
+`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
+with the group-law multiple `n • P` is `#251`, and it is **closed**:
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
+function-field form `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
+is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
+`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
+Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
+`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
+added: both names are cited, not consumed.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
 

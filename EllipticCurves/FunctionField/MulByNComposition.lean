@@ -34,14 +34,21 @@ written-down fraction `Φₙ/ΨSqₙ` (`#251`), the coprimality `IsCoprime (Φ�
 and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  **All three are gates on the `Φₙ/ΨSqₙ` route, not on the
 degree.**  Degrees multiply in towers, so the two merged values
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
+`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
+with the group-law multiple `n • P` is `#251`, and it is **closed**:
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
+function-field form `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
+is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
+`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
+Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
+`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
+added: both names are cited, not consumed.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ```
 [F(W) : [2]∗F(W)] = 4       (`finrank_mulByTwoFieldRange`,   #682)
@@ -361,7 +368,9 @@ which is the same slice of indices on the other side of the pairing: `#E[n] = n�
 
 ⚠️ The first index this does **not** cover is `n = 5`, exactly as for the torsion structure theorem,
 and for the same reason: the argument manufactures no new prime.  What stands between this and
-general `n` is `#251`, `#1184` and `(n : F) ≠ 0` — see the module docstring. -/
+general `n` is `#1184` and `(n : F) ≠ 0` — ⚠️ `#251` used to be listed here too and is closed
+(`nMulRatFunc_eq_ΦDivΨSq`, `EllipticCurves.FunctionField.MulByNXCoordFormula`); see the module
+docstring. -/
 theorem finrank_mulByNFieldRange_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
