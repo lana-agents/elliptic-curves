@@ -367,6 +367,7 @@ import EllipticCurves.Torsion.NsmulLadder
 import EllipticCurves.Torsion.NsmulOrder
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
+import EllipticCurves.Torsion.NsmulYCoord
 import EllipticCurves.Torsion.OddTorsionCount
 import EllipticCurves.Torsion.OmegaCharZero
 import EllipticCurves.Torsion.OmegaCrux
