@@ -57,9 +57,13 @@ a corollary of `wardGapCore` too.
 ⚠️ So neither axis is a hierarchy **for `ψ`**.  For a *general* sequence over a general ring the
 `r` axis genuinely is one — `IsEllipticNet.not_isEllipticSequence_signMultiplesOfThree`
 (`EllipticCurves.Torsion.WardR1`) is odd and satisfies the whole `r = 1` slice yet is not an
-elliptic sequence, because `W 1 = 0`.  On the `s` axis nothing of the kind is known:
-`EllipticCurves.Torsion.EllipticNetSlices` records that its regularity hypothesis is *not* known to
-be necessary and claims no counterexample.  Those two files are where that difference is stated.
+elliptic sequence, because `W 1 = 0`.  ⚠️ **The `s` axis is one too, and this is no longer the
+asymmetric case it used to be**: `IsEllipticNet.not_isEllipticNet_sqZeroSeq`
+(`EllipticCurves.Torsion.EllipticNetRegularity`) is odd and is an elliptic sequence yet is not an
+elliptic net, so `isEllipticNet_of_isEllipticSequence`'s regularity hypothesis cannot be deleted
+either.  ⚠️ The two witnesses fail *different* hypotheses — `signMultiplesOfThree` fails `W 1 = 1`,
+`sqZeroSeq` fails regularity — so the axes are alike in having a gap, not in what closes it.  Those
+three files are where this is stated.
 
 The gap this file closes is therefore not paid for with a stronger Ward input than the ladder
 already carries, and the reason is the strong one: both rest on exactly `wardGapCore`.  Everything
