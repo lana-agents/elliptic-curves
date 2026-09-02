@@ -34,12 +34,25 @@ Everything runs on two instances of Ward's relation `IsEllipticNet.rel ψ p q r 
   (`sub_Φ_div_ΨSq`), this says exactly that **`Φₙ/ΨSqₙ` is `d`-periodic in `n`**, and — read at a
   multiple of `d` instead — that `ψ` vanishes at every multiple of `d`.
 
-Both instances have `r = 1`, so both are supplied by the `r = 1` slice `ψ_rel_one_evalEval`, and
-neither needs the `r`-general `ψ_isEllipticSequence`; both have `s = 0`, so neither needs the
-`s`-general `ψ_isEllipticNet`.  ⚠️ That is *less* of Ward than `EllipticCurves.Torsion.NsmulLadder`
-consumes: its `ψ_net_instance` is at `(n + 1, 2, n, 0)`, whose `r = n` is outside the slice.  The
-gap this file closes is therefore not paid for with a stronger Ward input than the ladder already
-carries — everything new here is the two `ψ_d = 0` specialisations and what they are pointed at.
+Both instances have `r = 1`, so both are supplied by the `r = 1` slice `ψ_rel_one_evalEval`; both
+have `s = 0`, so neither needs the `s`-general `ψ_isEllipticNet`.
+
+⚠️ **No saving should be read off that first clause: on the `r` axis there is no hierarchy to
+climb.**  `IsEllipticNet.isEllipticSequence_iff_rel_one` (`EllipticCurves.Torsion.WardR1`) makes
+the `r = 1` slice and the `r`-general `IsEllipticSequence` the *same* statement for any odd
+normalised sequence, and `ψ` is both, by `ψ_neg` and `ψ_one`.  It is not merely available: it is
+how this tree builds the `r`-general form, since `normEDS_isEllipticSequence_of_gapCore` is
+`isEllipticSequence_of_rel_one` applied to the slice, and the step between them is a `ring` call.
+Both `ψ_rel_one` and `ψ_isEllipticSequence` are corollaries of `wardGapCore` and of nothing else.
+So calling `ψ_rel_one_evalEval` here rather than `ψ_isEllipticSequence_evalEval` buys no Ward, and
+the `r = n` instance `ψ_net_instance` of `EllipticCurves.Torsion.NsmulLadder` costs none.
+
+⚠️ The `s` axis is **not** like this — `isEllipticNet_iff_isEllipticSequence` spends a regularity
+hypothesis on the values at nonzero indices, which is not free.
+
+The gap this file closes is therefore not paid for with a stronger Ward input than the ladder
+already carries, and the reason is the strong one: both rest on exactly `wardGapCore`.  Everything
+new here is the two `ψ_d = 0` specialisations and what they are pointed at.
 
 Two things have to be supplied before those two identities do any work.
 
