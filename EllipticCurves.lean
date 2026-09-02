@@ -375,6 +375,7 @@ import EllipticCurves.Torsion.OmegaCrux
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaNumerator
 import EllipticCurves.Torsion.OmegaOnCurve
+import EllipticCurves.Torsion.OmegaPairCoprime
 import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.OmegaUniversal

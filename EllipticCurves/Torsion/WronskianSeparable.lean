@@ -76,6 +76,11 @@ A route that did not consume the hypothesis there would be proving something unt
 
 ⚠️ So the gate is **two identities**, not a research programme: the Wronskian one, and `hpair`.
 
+⚠️ **`hpair` is now proved** — `EllipticCurves.Torsion.OmegaPairCoprime`, `#1506` scope item 2 —
+so what is left of the gate is the Wronskian identity alone.  The unconditional forms of
+`isCoprime_preΨ_preΩ` and `card_torsion_eq_sq_of_wronskian_of_pair` live there; the hypothesised
+forms below are kept because they are what states, in one signature, what each half costs.
+
 ⚠️ The hypothesis gap between the two is real and is worth reading off the signatures: separability
 of `preΨₙ` is a statement about one polynomial over any field, while turning it into a point count
 needs the curve to be elliptic and the field to be closed.  The Wronskian identity is asked for
@@ -83,7 +88,8 @@ only at the single index `n`, not at every index.
 
 ## What is *not* here
 
-* **No proof of either input.**  `#1506` scope items 1 and 2.
+* **No proof of either input.**  `#1506` scope item 1; item 2 is discharged downstream in
+  `EllipticCurves.Torsion.OmegaPairCoprime`, which imports this file.
 * **Nothing at even `n`.**  `card_torsion_eq_sq_iff_separable_preΨ` is odd-`n` only, and the
   division by `preΨₙ` above uses `ΨSqₙ = preΨₙ²`, which is the odd branch.
 * **Nothing about `#1184`'s arbitrary-ring coprimality**, `#403`/`#405`, or the function field.
@@ -191,11 +197,13 @@ PR #574); together with `ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` at `q = 1` and `q
 `ψ_{n−1}(x, y) ≠ 0` and `ψ_{n+2}(x, y) ≠ 0`.  `hpair` then collapses `Ωₙ` to `2·ψ_{n+2}·ψ_{n−1}²`,
 and `WeierstrassCurve.Ω_factor` divides out the `ψ₂²`.
 
-⚠️ `hpair` is **not** proved and is the whole content.  It says the two summands of `Ωₙ` are
+⚠️ `hpair` is the whole content of this statement.  It says the two summands of `Ωₙ` are
 negatives of one another at a point where `ψₙ` vanishes; equivalently, since their product is
 `−Φₙ³·Ψ₂Sq` by the two instances above, that `(ψ_{n+2}·ψ_{n−1}²)² = Φₙ³·Ψ₂Sq`.  ⚠️ It is **not** a
 consequence of `ψ_add_mul_ψ_sub` alone: that relation determines `ψ_{n+k}·ψ_{n−k}` for each `k` and
-says nothing relating different `k`, which is exactly what `hpair` needs. -/
+says nothing relating different `k`, which is exactly what `hpair` needs.  It **is** a consequence
+of the `k`-general `ψ_shift_symm_of_ψ_eq_zero`, and is proved from it in
+`EllipticCurves.Torsion.OmegaPairCoprime` (`ψ_pair_of_equation`). -/
 theorem eval_preΩ_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hodd : Odd n) (hn : n ≠ 0)
     (hpair : ∀ x y : F, W.Equation x y → (W.ψ (n : ℤ)).evalEval x y = 0 →
