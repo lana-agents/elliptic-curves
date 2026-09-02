@@ -13,7 +13,7 @@ import EllipticCurves.FunctionField.WeilPairingAlternating
 /-!
 # Non-degeneracy of the Weil pairing at `n = 3` over an algebraically closed field
 
-Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` then `S = O`.
+Silverman *AEC* III.8, Prop. 8.1(c): if `e_n(S, T) = 1` for every `T ∈ E[n]` then `S = O`.
 
 This is the `n = 3` mirror of `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo`, whose
 scope note has tracked the gap through five merges.  Every one of the seven steps that file
@@ -121,7 +121,7 @@ verbatim.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).
 -/
 
 namespace WeierstrassCurve.Affine

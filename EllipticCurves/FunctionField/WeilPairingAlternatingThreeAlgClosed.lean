@@ -98,7 +98,7 @@ this bilinearity, Galois-equivariance at `n = 3` (`#830`), general `n`, or non-d
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(b).
 -/
 
 namespace WeierstrassCurve.Affine

@@ -103,7 +103,7 @@ upstream in Mathlib rather than here.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).
 -/
 
 /-- **`μ_n(F)` has exactly `n` elements** when `F` is algebraically closed and `n` is invertible in

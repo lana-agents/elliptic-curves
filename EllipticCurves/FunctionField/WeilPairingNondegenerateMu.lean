@@ -154,7 +154,7 @@ reason "check the file once and move on" is not a sound strategy either way roun
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).
 -/
 
 namespace WeierstrassCurve.Affine
