@@ -106,7 +106,8 @@ function-field form `nMulRatFunc_eq_ΦDivΨSq`
 has since been discharged over a field** — `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
 (`EllipticCurves.Torsion.CoprimeAdjacent`) at every `n : ℤ` for an elliptic curve of characteristic
 `≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
-(`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `(n : F) ≠ 0` and nothing else.  ⚠️ The
+(`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `(n : F) ≠ 0` and nothing else beyond
+the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
 arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.
 ⚠️ And the `y`-half — `ωₙ/ψₙ³` as `y(n • P)` — is still available at `n = 2` and `n = 3` only,
 which is what the `#251` bullets on the Weil-pairing front mean.  ⚠️ None of
