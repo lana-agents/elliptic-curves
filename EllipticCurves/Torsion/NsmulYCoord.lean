@@ -53,36 +53,36 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
 * `WeierstrassCurve.Affine.nsmul_eq_some_omegaY` : **the headline** — under the ladder hypothesis,
   `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))` as a point of `W.Point`.
 
-## ⚠️ What this does *not* prove
+## ⚠️ What this does *not* prove — ⚠️ **the first item is DISCHARGED downstream, read it**
 
-* **Not `HasYCoordFormula` at every index.**  The hypothesis here is the *ladder* one —
-  `ψ_k(x, y) ≠ 0` for every `1 ≤ k ≤ n` — exactly as in `nsmul_eq_some_Φ_div_ΨSq`, and it is
-  strictly stronger than `ψₙ(x, y) ≠ 0`.  The `x`-half was lifted off the ladder to every index by
+* **Not the coordinate formula at every index — but that is no longer open.**  The hypothesis here
+  is the *ladder* one — `ψ_k(x, y) ≠ 0` for every `1 ≤ k ≤ n` — exactly as in
+  `nsmul_eq_some_Φ_div_ΨSq`, and it is strictly stronger than `ψₙ(x, y) ≠ 0`.  The `x`-half was
+  lifted off the ladder to every index by
   `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
   through a **third** branch that reduces `n` to `j = n mod d` at the least vanishing index `d` and
-  transports along `divX_add_mul_of_not_dvd` — the `d`-periodicity of the `x`-prediction.  **There
-  is no `divY_add_mul_of_not_dvd`.**
+  transports along `divX_add_mul_of_not_dvd` — the `d`-periodicity of the `x`-prediction.
 
-  ⚠️ **What that third branch would need is measured, and it is not what the `x`-half runs on.**
+  ⚠️ **`WeierstrassCurve.Affine.divY_add_mul_of_not_dvd` and
+  `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero` now exist**
+  (`EllipticCurves.Torsion.NsmulYPeriodic`, downstream of this file, issue `#1500`), the latter
+  under `ΨSqₙ(x) ≠ 0` alone.  **Nothing in this bullet is open.**  Neither module is imported here
+  and neither name is consumed; this file remains the ladder statement.
+
+  ⚠️ **The measurement below is still correct and is why that file does not imitate the `x`-half.**
   Write `r_n = ψ_{n+d}/ψₙ` at a point of order `d`, and `c = ψ_{d+1}·ψ_{d−1}`.  The engine the
   `x`-half consumes — `ψ_mul_ψ_sub_of_ψ_eq_zero`, `ψ_{n+d}·ψ_{n−d} = −c·ψₙ²` — says exactly
   `r_n = −c·r_{n−d}`, a recursion **along the progression `n + dℤ` only**.  Periodicity of the
   `y`-prediction is `T_{n+d} = Tₙ` with `Tₙ = ψ₂ₙ/ψₙ⁴`, which unwinds to
   `r_{2n+d}·r_{2n} = r_n⁴`, i.e. to `−c·r_{2n}² = r_n⁴` — a relation between `r` at `n` and at
-  `2n` that the shift engine does not supply.  ⚠️ So this is **not** a case of transporting the
-  merged argument; a follow-up that starts by imitating `divX_add_mul_of_not_dvd` will stall here.
+  `2n` that the shift engine does not supply.  ⚠️ What *does* supply it is a **different** Ward
+  instance, `(p, q, r) = (m + d, k, m)`, whose third term is killed by `ψ_{−d} = 0` and which gives
+  `r_{m+k}·r_{m−k} = rₘ²` at every `k`; see `EllipticCurves.Torsion.NsmulYPeriodic`.  ⚠️ The
+  addition-law route sketched here previously was **not** the one taken, and at `d = 3` the
+  statement is not a consequence of Ward at all.
 
-  ⚠️ **The statement itself is true**, so a follow-up is looking for a proof and not for a
-  counterexample.  Two independent reasons, one of them a proof sketch:
-  * `y(n • P)` is pinned by `x(n • P)`, `x((n+1) • P)` and `(x, y)` through the addition law
-    (the slope `(y(n • P) − y)/(x(n • P) − x)` is recovered from `x((n+1) • P)`), and **all three
-    of those are `d`-periodic** by the merged `divX_add_mul_of_not_dvd`.  Inverting the addition
-    law is the work, and it needs `x(n • P) ≠ x`.
-  * Checked outside Lean over `𝔽₁₀₁₉` on six curves with points of order `d ∈ {4, 7, 9, 14, 18,
-    21}`: `T_{n+d} = Tₙ` at every `n` with `d ∤ n`, and — a stronger check that also validates
-    `omegaY` itself at indices the ladder cannot reach — `Tₙ = 2·y(n • P)` computed by the group
-    law, at every such `n`.  With negative controls that fire: shifting by `d − 1` instead of `d`
-    breaks periodicity at every index, and `ψ_{2n+1}/ψₙ⁴` is never `2·y(n • P)`.
+  The numerical check recorded here — over `𝔽₁₀₁₉`, `T_{n+d} = Tₙ` and `Tₙ = 2·y(n • P)` at every
+  `n` with `d ∤ n`, with negative controls that fire — is now redundant but was not wrong.
 * **Nothing about `2`-torsion.**  `ψ₂(x, y) ≠ 0` is not decoration: `ψ_two_mul_evalEval` cancels a
   common factor of `ψ₂` and carries no information where it vanishes.  For `2 ≤ n` the ladder
   hypothesis supplies it; at `n = 1` the statement is `one_smul` and needs nothing.
@@ -169,10 +169,14 @@ every index whose ladder `ψ₁, …, ψₙ` has no zero.
 This is `WeierstrassCurve.Affine.nsmul_eq_some_Φ_div_ΨSq` with its anonymous `y'` identified: that
 theorem produces `divY x y n`, and `divY_eq_omegaY` says it is the `ω`-quotient.
 
-⚠️ The hypothesis is the **ladder** one and is strictly stronger than `ψₙ(x, y) ≠ 0`; see the
-module docstring for what that leaves open on `#1500`.  ⚠️ `2 ≤ n` is not a restriction of the
-mathematics but of the bookkeeping: it is how `ψ₂(x, y) ≠ 0` is obtained from `hψ`, and at `n = 1`
-the statement is `one_smul` with `divY_one`. -/
+⚠️ The hypothesis is the **ladder** one and is strictly stronger than `ψₙ(x, y) ≠ 0`.  ⚠️ It is
+**not** the sharp statement: `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`) proves the same conclusion at every index under
+`ΨSqₙ(x) ≠ 0` alone, and consumes this theorem as its ladder branch.
+
+⚠️ `2 ≤ n` is not a restriction of the mathematics but of the bookkeeping: it is how
+`ψ₂(x, y) ≠ 0` is obtained from `hψ`, and at `n = 1` the statement is `one_smul` with
+`divY_one`. -/
 theorem nsmul_eq_some_omegaY (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y) {n : ℕ} (hn : 2 ≤ n)
     (hψ : ∀ k : ℤ, 1 ≤ k → k ≤ (n : ℤ) → (W.ψ k).evalEval x y ≠ 0) :
     ∃ h' : W.Nonsingular ((W.Φ (n : ℤ)).eval x / (W.ΨSq (n : ℤ)).eval x) (W.omegaY x y (n : ℤ)),
