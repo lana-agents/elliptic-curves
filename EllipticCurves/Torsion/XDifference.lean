@@ -67,8 +67,11 @@ Neither carries a `φ`.
 
 ⚠️ Issue `#251`'s own split comment named this identity as the thing that, once available, makes
 the coordinate formula and Ward's addition formula *each other's content*.  It is now available.
-That does not discharge `#251` — the identity is an equation between polynomials, and the missing
-input is still the geometric one, that `Φₙ/ΨSqₙ` is the `x`-coordinate of a point.
+That did not by itself discharge `#251` — the identity is an equation between polynomials, and the
+input it does not supply is the geometric one, that `Φₙ/ΨSqₙ` is the `x`-coordinate of a point.
+⚠️ **That input is proved too, at every index** — `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`, which imports this file) — so `#251` is closed and nothing
+here names an open gate.
 
 ## Main statements
 
