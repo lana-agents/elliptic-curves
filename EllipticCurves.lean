@@ -385,6 +385,7 @@ import EllipticCurves.Torsion.OmegaUniversal
 import EllipticCurves.Torsion.PrimaryBasis
 import EllipticCurves.Torsion.PrimaryTower
 import EllipticCurves.Torsion.PrimaryTowerAlgClosed
+import EllipticCurves.Torsion.StructureGeneral
 import EllipticCurves.Torsion.ThreePrimary
 import EllipticCurves.Torsion.ThreePrimaryBasis
 import EllipticCurves.Torsion.ThreeTorsion
