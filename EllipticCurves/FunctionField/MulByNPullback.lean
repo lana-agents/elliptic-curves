@@ -60,8 +60,12 @@ is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurj
 `#251` — and ⚠️ **its two halves now have different answers**:
 
 * ✅ **the `x`-half** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
-  proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`, superseding
-  `hasXCoordFormula_two` / `hasXCoordFormula_three`;
+  proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`.  It supersedes
+  `hasXCoordFormula_three` (`EllipticCurves.Torsion.TriplingSurjective`), which carries the same
+  `(2 : F) ≠ 0` at one index.  ⚠️ It does **not** supersede `hasXCoordFormula_two`
+  (`EllipticCurves.Torsion.DoublingSurjective`), which carries **no hypothesis on `(2 : F)`** and is
+  therefore the stronger statement at `n = 2`; that file's own docstring records it as
+  hypothesis-free, and in characteristic `2` it is the only one of the two that says anything;
 * ❌ **the `y`-half** — `addY_self_eq_div` / `addY_add_self_eq_div`
   (`EllipticCurves.Torsion.DoublingCoords`, `EllipticCurves.Torsion.TriplingCoords`) are still the
   `n = 2` and `n = 3` instances, and the `ωₙ` duplication bullet above is about the **pair**.
