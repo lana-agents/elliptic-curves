@@ -55,11 +55,23 @@ Every input is merged, and the last of them landed on 2026-09-01–02.
    which is literally `IsEllipticNet.rel W.ψ (n+1) 2 n 0 = 0`.  That is `ψ_net_instance`.
 
    ⚠️ Note **which** form of Ward's theorem this needs.  It has `s = 0`, so it lies inside
-   `WeierstrassCurve.Affine.ψ_isEllipticSequence` (`EllipticCurves.Torsion.WardHalving`) — but it
-   has `r = n`, so it does **not** lie in the `r = 1` slice `ψ_rel_one` that
-   `EllipticCurves.Torsion.XDifference` consumes, and it is not obtainable from the `x`-difference
-   identity alone.  That is the precise sense in which the `y`-half needs strictly more of Ward
-   than the `x`-half does.
+   `WeierstrassCurve.Affine.ψ_isEllipticSequence` (`EllipticCurves.Torsion.WardHalving`), and it
+   has `r = n`, so it is **not** literally an instance of the `r = 1` slice `ψ_rel_one` that
+   `EllipticCurves.Torsion.XDifference` consumes.  It is not obtainable from the `x`-difference
+   identity alone, which is why the `y`-half is a separate argument rather than a corollary of the
+   `x`-half.
+
+   ⚠️ **That is a statement about shapes, not about cost, and it must not be read as one.**  For
+   `ψ` the three named forms are not a hierarchy: `ψ_rel_one`, `ψ_isEllipticSequence` and
+   `ψ_isEllipticNet` are each `… _of_gapCore W wardGapCore`, and there is nothing behind any of
+   them that is not behind all three.  On the `r` axis the collapse is
+   `IsEllipticNet.isEllipticSequence_iff_rel_one` (`EllipticCurves.Torsion.WardR1`), applicable to
+   `ψ` through `ψ_neg` and `ψ_one`, with a `ring` call between the two.  On the `s` axis it is
+   `normEDS_isEllipticNet_of_gapCore` (`EllipticCurves.Torsion.EllipticNetSlices`), which pays the
+   regularity hypothesis once and for all in `UnivEDS`.  ⚠️ Neither collapse is a fact about
+   `IsEllipticNet.rel` in general — a general sequence over a general ring gets neither, which is
+   exactly why those two files exist.  What being outside the slice costs *this* file is the
+   `ψ_mul_Ω` route to the instance, recorded next; it is not Ward.
 
 ⚠️ **The ladder identity is not itself a relator instance**, and it is worth recording why so nobody
 looks for one: its three terms force `p + q + r = (6n+5)/2`, which is not an integer.  Only the
@@ -114,12 +126,15 @@ variable {R : Type*} [CommRing R] (W : Affine R)
 ψ_{n+3}·ψ_{n−1}·ψₙ² − ψ_{n−2}·ψ_{n+2}·ψ_{n+1}² = ψ₂²·ψ_{2n+1}.
 ```
 
-⚠️ It has `s = 0` but `r = n`, so it is *not* in the `r = 1` slice
-`WeierstrassCurve.Affine.ψ_rel_one` that `EllipticCurves.Torsion.XDifference` consumes; it needs
-the `r`-general form `ψ_isEllipticSequence`.  ⚠️ It is *not* the first consumer of Ward's `ψ`-level
-corollaries in this tree — `EllipticCurves.Torsion.OmegaCrux` and
-`EllipticCurves.Torsion.Collinearity` already consume `ψ_isEllipticNet`.  What is new is the *use*
-it is put to. -/
+⚠️ It has `s = 0` but `r = n`, so it is *not* literally an instance of the `r = 1` slice
+`WeierstrassCurve.Affine.ψ_rel_one` that `EllipticCurves.Torsion.XDifference` consumes, and it is
+stated here from `ψ_isEllipticSequence`.  ⚠️ **That is not a stronger Ward input.**  For `ψ` the
+two are the same statement (`IsEllipticNet.isEllipticSequence_iff_rel_one`, applicable through
+`ψ_neg` and `ψ_one`, with a `ring` call between them), and both are corollaries of `wardGapCore`.
+⚠️ It is *not* the first consumer of Ward's `ψ`-level corollaries in this tree —
+`EllipticCurves.Torsion.OmegaCrux` and `EllipticCurves.Torsion.Collinearity` already consume
+`ψ_isEllipticNet`, which is not a stronger input either: `normEDS_isEllipticNet_of_gapCore` is
+`wardGapCore` as well.  What is new is the *use* it is put to. -/
 theorem ψ_net_instance (n : ℤ) :
     W.ψ (n + 3) * W.ψ (n - 1) * W.ψ n ^ 2 - W.ψ (n - 2) * W.ψ (n + 2) * W.ψ (n + 1) ^ 2
       = W.ψ 2 ^ 2 * W.ψ (2 * n + 1) := by
