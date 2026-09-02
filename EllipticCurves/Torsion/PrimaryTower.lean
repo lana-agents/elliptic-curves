@@ -26,24 +26,38 @@ file**, supply them at `p = 2` and `p = 3` and obtain their towers as one-line i
 ## What this does and does not settle
 
 ⚠️ **Nothing is proved here at any `p`.**  This file contains no instance of either hypothesis;
-taken alone its statements are conditional, with no witness.  The witnesses are downstream, at
-`p = 2` and `p = 3` only.
+taken alone its statements are conditional, with no witness.  ⚠️ The witnesses of **(2)** are
+downstream, at `p = 2` and `p = 3` only.  **(1) is witnessed at every nonzero index**, and not in
+this file either: see the gate list below.
 
 What the file *does* settle is **how much is needed, and that it is exactly two things**.  Composed
 with `nsmul_surjective_of_hasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), which
 supplies (1) from the coordinate formula `HasXCoordFormula W p` and the pointwise statement that
 `Φₚ` and `ΨSqₚ` have no common root, the full list of what is owed at a prime `p ≥ 5` is:
 
-* `HasXCoordFormula W p` — issue `#251`.  ⚠️ This used to read *"issue `#251`, through `#404`"*, and
-  `#404` is neither a route to it nor a gate on it any more: `#404`'s on-curve identity is closed
-  (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and says nothing about `p • P`, which is the whole
-  content of `HasXCoordFormula`.  `#251` is the gate, alone;
-* `∀ x, (W.ΨSq p).eval x = 0 → (W.Φ p).eval x ≠ 0` — a weakening of `#1184`;
-* `#E[p] = p²` — a **third and separate** gate.  ⚠️ It does *not* follow from surjectivity of `[p]`,
-  which is why it is a hypothesis below and not a conclusion: the `≤` half is the
-  division-polynomial bound (`#252`, `#246`) and the `≥` half is in this tree at no `p ∉ {2, 3}`.
+* `HasXCoordFormula W p` — ✅ **closed**: `hasXCoordFormula_of_two_ne_zero`
+  (`EllipticCurves.Torsion.NsmulOrder`), at every index over any field with `(2 : F) ≠ 0`.
+  ⚠️ This bullet used to read *"issue `#251`, through `#404`"*, and `#404` was neither a route to it
+  nor a gate on it: `#404`'s on-curve identity is closed (`EllipticCurves.Torsion.OmegaCrux`,
+  PR #557) and says nothing about `p • P`, which is the whole content of `HasXCoordFormula`;
+* `∀ x, (W.ΨSq p).eval x = 0 → (W.Φ p).eval x ≠ 0` — ✅ **closed** on an elliptic curve over an
+  algebraically closed field with `(2 : F) ≠ 0`: `eval_Φ_ne_zero_of_eval_ΨSq_eq_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ It is **not** `#1184`, of which this bullet used
+  to be called a weakening: `#1184` is an `IsCoprime` statement over an arbitrary base, and what is
+  proved is its pointwise shadow, obtained from the order dictionary rather than from a Bézout
+  certificate, which does not descend;
+* `#E[p] = p²` — ❌ **the one gate left**, and a **third and separate** one.  ⚠️ It does *not* follow
+  from surjectivity of `[p]`, which is why it is a hypothesis below and not a conclusion: the `≤`
+  half is the division-polynomial bound (`#252`, `#246`) and the `≥` half is in this tree at no
+  `p ∉ {2, 3}`.
 
-Given those three, every statement below holds at `p`, and with it the `p`-primary half of
+⚠️ The two closed bullets are exactly the two inputs of `nsmul_surjective_of_hasXCoordFormula`, so
+their composite **is** hypothesis (1), packaged as `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`) — whose conclusion is verbatim the `hsurj` of every
+statement below.  `EllipticCurves.Torsion.PrimaryTowerAlgClosed` substitutes it, leaving `hcard`
+as the only hypothesis that is not about the field or the index.
+
+Given the remaining gate, every statement below holds at `p`, and with it the `p`-primary half of
 `E[n] ≅ (ℤ/nℤ)²`.
 
 ## Two economies of the `p = 2` and `p = 3` arguments are preserved deliberately
