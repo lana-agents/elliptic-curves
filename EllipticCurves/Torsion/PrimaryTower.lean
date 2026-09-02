@@ -26,9 +26,11 @@ file**, supply them at `p = 2` and `p = 3` and obtain their towers as one-line i
 ## What this does and does not settle
 
 ⚠️ **Nothing is proved here at any `p`.**  This file contains no instance of either hypothesis;
-taken alone its statements are conditional, with no witness.  ⚠️ The witnesses of **(2)** are
-downstream, at `p = 2` and `p = 3` only.  **(1) is witnessed at every nonzero index**, and not in
-this file either: see the gate list below.
+taken alone its statements are conditional, with no witness.  **Both are now witnessed downstream at
+every `p` this file's consumers need**, and neither in this file: (1) at every nonzero index by
+`nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`), and (2) at every odd
+`p` with `(p : F) ≠ 0` by `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`),
+which ⚠️ used to be witnessed at `p = 2` and `p = 3` only.  See the gate list below.
 
 What the file *does* settle is **how much is needed, and that it is exactly two things**.  Composed
 with `nsmul_surjective_of_hasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), which
@@ -48,19 +50,30 @@ supplies (1) from the coordinate formula `HasXCoordFormula W p` and the pointwis
   certificate.  ⚠️ This clause used to end *"which does not descend"*, and that was wrong: over a
   **field** the shadow does descend, and `EllipticCurves.Torsion.CoprimeAdjacent` descends it.
   What stays out of reach is the arbitrary-**ring** statement, which is what `#1184` asks for;
-* `#E[p] = p²` — ❌ **the one gate left**, and a **third and separate** one.  ⚠️ It does *not* follow
-  from surjectivity of `[p]`, which is why it is a hypothesis below and not a conclusion: the `≤`
-  half is the division-polynomial bound (`#252`, `#246`) and the `≥` half is in this tree at no
-  `p ∉ {2, 3}`.
+* `#E[p] = p²` — ✅ **closed at every odd `p`** with `(p : F) ≠ 0`, on an elliptic curve over an
+  algebraically closed field with `(2 : F) ≠ 0`: `card_torsion_eq_sq_of_odd`
+  (`EllipticCurves.Torsion.OmegaChordSum`).  Every prime `p ≥ 5` is odd, so **the gate list is
+  empty** at exactly the primes it was written for, and
+  `EllipticCurves.Torsion.PrimaryTowerOdd` supplies every statement below with `hcard` discharged.
+  ⚠️ This bullet used to read *"❌ **the one gate left** … the `≥` half is in this tree at no
+  `p ∉ {2, 3}`"*, and both clauses are now false.  ⚠️ What is **still** true, and is why this
+  remains a *third and separate* item rather than a consequence of the two above, is that
+  `#E[p] = p²` does *not* follow from surjectivity of `[p]`: that is why it is a hypothesis below
+  and not a conclusion, and it is why the discharge lives in a separate file.  ⚠️ Nothing here is
+  claimed at **even** `p`: `card_torsion_eq_sq_of_odd` is odd-index only, and at `p = 2` the
+  witness is still `card_torsion_two` (`EllipticCurves.Torsion.TwoTorsion`).
 
 ⚠️ The two closed bullets are exactly the two inputs of `nsmul_surjective_of_hasXCoordFormula`, so
 their composite **is** hypothesis (1), packaged as `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`) — whose conclusion is verbatim the `hsurj` of every
 statement below.  `EllipticCurves.Torsion.PrimaryTowerAlgClosed` substitutes it, leaving `hcard`
-as the only hypothesis that is not about the field or the index.
+as the only hypothesis that is not about the field or the index, and
+`EllipticCurves.Torsion.PrimaryTowerOdd` substitutes that in turn at every odd `p`.
 
-Given the remaining gate, every statement below holds at `p`, and with it the `p`-primary half of
-`E[n] ≅ (ℤ/nℤ)²`.
+Every statement below therefore holds at every odd `p` with `(p : F) ≠ 0` with no hypothesis left,
+and with it the `p`-primary half of `E[n] ≅ (ℤ/nℤ)²`.  ⚠️ The statements in *this* file stay
+conditional on purpose: they are the uniform half, and their hypotheses are what makes it visible
+that the tower needs exactly two things.
 
 ## Two economies of the `p = 2` and `p = 3` arguments are preserved deliberately
 

@@ -110,6 +110,9 @@ all three.
 * It does not touch `EllipticCurves.Torsion.PrimaryTower`'s gate list, `#1490` item 3 or `#293`.
   Those record `#E[n] = n²` as owed; `card_torsion_eq_sq_of_odd` now supplies it at odd `n`, so they
   are dischargeable, but that is a separate sweep and none of their statements is changed here.
+  ⚠️ That sweep has since happened: `EllipticCurves.Torsion.PrimaryTowerOdd` discharges the gate
+  list and `#1490` item 3 at every odd `p`, and settles `E[n] ≃+ (ℤ/nℤ)²` at every odd `n`.  `#293`
+  is **not** closed by it — the even indices are untouched.
 * It says nothing at even `n`: `card_torsion_eq_sq_of_wronskian_identity`'s route is the odd one.
 * `#1184`, `#962` and `#639` are untouched.
 

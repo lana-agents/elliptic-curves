@@ -80,10 +80,14 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   (`EllipticCurves.Torsion.TwoTorsionOrder`), and the transcendence input is
   `transcendental_xCoord_nsmul_of_isAlgClosed` (`EllipticCurves.FunctionField.MulByNTranscendence`)
   at every `n ≠ 0` over `F̄`.  ⚠️ **The bullet's conclusion is unchanged**: the statements *below*
-  are still `3`-smooth, because they consume `card_torsion_eq_sq_of_smooth` (`#E[n] = n²`, still
-  `3`-smooth) and `sum_ramificationIdxN_of_smooth`, which routes through
-  `finrank_mulByNEndoFieldRange_of_smooth` — so behind it stands the general-`n` degree, i.e.
-  `#1184` and `(n : F) ≠ 0`.  Lifting any one input alone still lifts nothing here.
+  are still `3`-smooth, because they consume `card_torsion_eq_sq_of_smooth` and
+  `sum_ramificationIdxN_of_smooth`, both of which are `3`-smooth statements — ⚠️ the parenthesis
+  here used to give the reason as *"`#E[n] = n²`, still `3`-smooth"*, and it is **not**:
+  `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves it at every odd `n`.
+  What is `3`-smooth is the particular lemma consumed below, not the mathematics — and
+  `sum_ramificationIdxN_of_smooth` routes through `finrank_mulByNEndoFieldRange_of_smooth`, so
+  behind it stands the general-`n` degree, i.e. `#1184` and `(n : F) ≠ 0`.  Lifting any one input
+  alone still lifts nothing here.
 * **No statement at a place that is not the place of a rational point.**  As `#774` records of its
   own `n = 2` case, this is *not* "`[n]` is unramified": a place lying over a closed point which is
   not the closed point of an `F`-rational point is untouched, and this tree has no proof that there

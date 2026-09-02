@@ -55,7 +55,10 @@ closure **23**).  What is genuinely this file's is unchanged: the *conclusion* c
 
 ⚠️ **The two statements this paragraph used to call "the same ceiling" no longer agree with each
 other.**  `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) is still
-`3`-smooth, because `#E[n] = n²` is.  `transcendental_xCoord_nsmul_of_smooth`
+`3`-smooth.  ⚠️ The reason this sentence used to give — *"because `#E[n] = n²` is"* — is false:
+`card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves `#E[n] = n²` at every
+odd `n`, so what is `3`-smooth is that one lemma's range, not the count.
+`transcendental_xCoord_nsmul_of_smooth`
 (`EllipticCurves.FunctionField.MulByNComposition`) is not a ceiling any more: at a `3`-smooth `n`
 its own `(2 : F) ≠ 0` and `(3 : F) ≠ 0` give `(n : F) ≠ 0`, which is all
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`

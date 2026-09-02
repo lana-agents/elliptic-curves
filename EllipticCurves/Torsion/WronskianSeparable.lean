@@ -17,7 +17,10 @@ field of characteristic `≠ 2`, at an odd `n` with `char F ∤ n`,
 
 so the last gate on the `p`-primary tower (`EllipticCurves.Torsion.PrimaryTower`, `#1490` item 3)
 is the separability of one univariate polynomial.  **This file discharges that gate from two
-inputs, neither of which mentions torsion, points, or the group law.**
+inputs, neither of which mentions torsion, points, or the group law.**  ⚠️ Both inputs are proved
+downstream (`EllipticCurves.Torsion.OmegaPairCoprime` and `EllipticCurves.Torsion.OmegaChordSum`),
+so at odd `n` the chain that starts here is unconditional; see
+`EllipticCurves.Torsion.PrimaryTowerOdd`.
 
 ## The two inputs
 
@@ -89,15 +92,21 @@ only at the single index `n`, not at every index.
 ## What is *not* here
 
 * **No proof of either input.**  `#1506` scope item 1; item 2 is discharged downstream in
-  `EllipticCurves.Torsion.OmegaPairCoprime`, which imports this file.
+  `EllipticCurves.Torsion.OmegaPairCoprime`, which imports this file.  ⚠️ Both inputs are now proved
+  downstream — item 1 by `WeierstrassCurve.hasWronskianId` (`EllipticCurves.Torsion.OmegaChordSum`)
+  — so the hypotheses below are dischargeable, and none of them is proved *here*, which is what this
+  bullet is about.
 * **Nothing at even `n`.**  `card_torsion_eq_sq_iff_separable_preΨ` is odd-`n` only, and the
   division by `preΨₙ` above uses `ΨSqₙ = preΨₙ²`, which is the odd branch.
 * **Nothing about `#1184`'s arbitrary-ring coprimality**, `#403`/`#405`, or the function field.
   ⚠️ In particular this is **not** the fibre route: `card_fibre_comapProjPointN_projPointOfPoint`
   (`EllipticCurves.FunctionField.MulByNFibre`) computes its `n²` *from* `card_torsion_eq_sq_of_
   smooth`, so it cannot supply this count without circularity.
-* **No change to `PrimaryTower`'s gate list or to `#293`.**  Those record `#E[p] = p²` as open, and
-  it is open: this file only renames what is owed.
+* **No change to `PrimaryTower`'s gate list or to `#293`.**  This file only renames what is owed.
+  ⚠️ This bullet used to continue *"Those record `#E[p] = p²` as open, and it is open"*, which is
+  false at odd `p`: `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves it,
+  `EllipticCurves.Torsion.PrimaryTowerOdd` discharges the gate list with it, and `#293`'s odd half
+  goes with it.  The bullet's own claim — that nothing changes *in this file* — still holds.
 
 ## References
 

@@ -45,14 +45,16 @@ formula is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
 
 ## The state of `E[n] ≅ (ℤ/nℤ)²` after this file
 
-Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}`. Still open:
+Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}` **from this file**. Still open after it:
 
 * `#E[p] = p²` for a prime `p ≥ 5`.  ⚠️ This bullet used to read *"`#E[p] ≤ p²` …, which needs the
   general coordinate formula"* and both halves of that were wrong: the `≤` half is
   `card_torsion_le_sq` (`EllipticCurves.Torsion.XSupport`) at every index, and the coordinate
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`).  What is open is the `≥` half, whose one remaining gate is
-  listed in `EllipticCurves.Torsion.PrimaryTower` and is not the coordinate formula;
+  `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ The `≥` half is no longer open either:
+  `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves the equality at every
+  odd index, and `EllipticCurves.Torsion.PrimaryTowerOdd` runs the tower on it.  What this bullet
+  still records correctly is that none of that happens here;
 * the `3`-primary tower `#E[3 ^ k] = 9 ^ k`, which needs surjectivity of `[3]`. The tangent-line
   shortcut that makes `[2]` elementary is special to doubling; `[3]` genuinely needs
   `x(3P) = Φ₃/Ψ₃²`.
@@ -62,7 +64,10 @@ its other clauses are true and stay true: `[3]` does genuinely need `x(3P) = Φ�
 tangent-line shortcut is special to doubling. That formula was proved the day after this file, in
 `EllipticCurves.Torsion.TriplingSurjective`, and `EllipticCurves.Torsion.ThreePrimary` now builds
 the `3`-primary tower on it and glues the two towers, giving `E[n] ≅ (ℤ/nℤ)²` for **every**
-`3`-smooth `n`. The first bullet is untouched and the first open index is still `n = 5`.
+`3`-smooth `n`. The first bullet is untouched.  ⚠️ This sentence used to end *"and the first open
+index is still `n = 5`"*, which is false: `nonempty_torsion_addEquiv_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) settles every odd `n` with `(n : F) ≠ 0`, so the first
+index no statement in this development reaches is an **even** one outside the `3`-smooth range.
 
 ## Main statements
 

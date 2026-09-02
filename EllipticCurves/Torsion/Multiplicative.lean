@@ -59,8 +59,13 @@ Nat.card (ker f) * Nat.card (range f) = Nat.card A[m * n]
 
 ## What this does not do
 
-It reduces `#E[n] ≤ n²` to the case of a prime `n`; for a prime `p ≥ 5` that case still needs the
-multiplication-by-`n` characterisation of torsion by division polynomials, which is not available.
+It reduces `#E[n] ≤ n²` to the case of a prime `n`; for a prime `p ≥ 5` that case needs the
+multiplication-by-`n` characterisation of torsion by division polynomials.  ⚠️ That clause used to
+end *"which is not available"*, and it is: `card_torsion_le_sq`
+(`EllipticCurves.Torsion.XSupport`) proves `#E[n] ≤ n²` at every index over a field with
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`, and the sharp equality at odd `n` is `card_torsion_eq_sq_of_odd`
+(`EllipticCurves.Torsion.OmegaChordSum`).  Neither is proved here, which is what this section is
+about.
 Nor does it give *sharp* counts: `#E[4] = 16` would need surjectivity of `[2]` on `E(F̄)`.
 
 ## Main definitions

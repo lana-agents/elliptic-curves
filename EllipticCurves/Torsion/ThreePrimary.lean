@@ -80,8 +80,12 @@ to fill, and it is why the two towers in this development are the only two indic
 ## The state of `E[n] ≅ (ℤ/nℤ)²` after this file
 
 Known exactly for **every `3`-smooth `n`** — see `card_torsion_eq_sq_of_smooth` and
-`nonempty_torsion_addEquiv_zmod_sq_of_smooth`. The frontier has not moved otherwise, and the
-first open index is `n = 5`.
+`nonempty_torsion_addEquiv_zmod_sq_of_smooth`. The frontier has not moved otherwise *by anything in
+this file*.  ⚠️ This paragraph used to end *"and the first open index is `n = 5`"*, which is false
+downstream: `nonempty_torsion_addEquiv_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) settles
+`E[n] ≃+ (ℤ/nℤ)²` at **every** odd `n` with `(n : F) ≠ 0`, `n = 5` included.  What the two smooth
+statements here still add is the even part: every `2 ^ k` and every `2 ^ a · 3 ^ b`, which no
+odd-index theorem reaches.
 
 ⚠️ **Both reasons this paragraph used to give for that were the coordinate formula, and both
 are now false.**  It read *"`#E[p] ≤ p²` … needs the general coordinate formula, which is not
@@ -95,11 +99,12 @@ available"* and *"`[p]`-surjectivity … needs it too"*.  On `main` today:
   (`EllipticCurves.Torsion.NsmulOrder`) on the `x`-half, `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`) on the `y`-half.
 
-⚠️ **What is actually open at `p ≥ 5` is the `≥` half of `#E[p] = p²`, and nothing here gates it.**
-`EllipticCurves.Torsion.PrimaryTower` carries the authoritative gate list, and after PR #582 the
-single entry on it is one polynomial identity about one curve over one ring (`#1506` scope item 1,
-`#1490` item 3).  ⚠️ No replacement ceiling is asserted for the tower at `p ≥ 5`: the reason above
-is withdrawn, and what remains was not re-measured here.
+⚠️ **The `≥` half of `#E[p] = p²` at `p ≥ 5` used to be what was open, and it no longer is.**
+`EllipticCurves.Torsion.PrimaryTower` carries the authoritative gate list; the single entry it had
+after PR #582 was one polynomial identity about one curve over one ring (`#1506` scope item 1,
+`#1490` item 3), and that identity is `WeierstrassCurve.hasWronskianId`
+(`EllipticCurves.Torsion.OmegaChordSum`).  `card_torsion_eq_sq_of_odd` is the count at every odd
+`p`, and nothing in *this* file gates or supplies it.
 
 ⚠️ This paragraph used to open *"`T₃E ≅ ℤ₃²` is **not** delivered"*, and that clause is now false:
 `EllipticCurves.TateModule.FreeThree` delivers it. The rest of the paragraph is still exactly

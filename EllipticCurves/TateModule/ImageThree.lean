@@ -127,9 +127,12 @@ offered instead is `Infinite (T₃E)`, by a route that never mentions images or 
   (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
   `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
-  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  `#E[5^k]` is genuinely open;
-  its gate list is `EllipticCurves.Torsion.PrimaryTower`'s. `ℓ ≥ 5` gains the generic file and
-  nothing else.
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).
+  ⚠️ **`#E[5^k]` is no longer open at `ℓ ≥ 5`.**  `card_torsion_pow_mul_self_of_odd`
+  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
+  `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
+  this bullet used to cite as open — with it.  Instantiating this file at `ℓ ≥ 5` on top of that
+  count is separate work and is not done here.  `ℓ ≥ 5` gains the generic file and nothing else.
 
 ## Using this file
 

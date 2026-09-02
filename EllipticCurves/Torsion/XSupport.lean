@@ -44,7 +44,11 @@ At odd `n` the first point alone gives `2·(n² − 1)/2 + 1 = n²`.  At even `n
 
 `#E[n] ≤ n²` is an **upper** bound.  The matching `≥` is not here and does not follow from
 anything below: it is the `#E[n] = n²` gate that `EllipticCurves.Torsion.PrimaryTower` takes as a
-hypothesis, and `#1490` records that it does not follow from surjectivity of `[n]` either.
+hypothesis, and `#1490` records that it does not follow from surjectivity of `[n]` either.  ⚠️ That
+gate is discharged elsewhere at odd `n` — `card_torsion_eq_sq_of_odd`
+(`EllipticCurves.Torsion.OmegaChordSum`), through the separability route of
+`EllipticCurves.Torsion.OddTorsionCount`, which consumes the bound proved here.  Nothing in this
+file changes, and the `≥` half is still not among its conclusions.
 
 ## ⚠️ The characteristic hypotheses, and where each is spent
 
