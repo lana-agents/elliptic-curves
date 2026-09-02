@@ -94,8 +94,10 @@ and that is machine-checked rather than assumed.
   with the gate substituted.
 * `WeierstrassCurve.Affine.separable_preΨ_three` and its `Ψ₃` form
   `WeierstrassCurve.Affine.separable_Ψ₃` : the gate read *backwards* at `n = 3` against the merged
-  sharp count — a new statement about the `3`-division polynomial, and this file's non-vacuity
-  certificate.
+  sharp count — this file's non-vacuity certificate.  ⚠️ A **round trip, not a new statement**:
+  `WeierstrassCurve.Affine.nodup_roots_Ψ₃` (`EllipticCurves.Torsion.ThreeTorsionStructure`) is
+  merged, and over `F̄` it *is* separability of `Ψ₃`, one `Polynomial.nodup_roots_iff_of_splits`
+  away.  See the theorem's own docstring.
 
 ## References
 
@@ -395,9 +397,17 @@ omit [DecidableEq F] in
 /-- **`preΨ 3` is separable**, over an algebraically closed field of characteristic `∉ {2, 3}`.
 
 ⚠️ This is the gate of `card_torsion_eq_sq_iff_separable_preΨ` read **backwards** at `n = 3`,
-against the merged sharp count `WeierstrassCurve.Affine.card_torsion_three`.  It is the evidence
-that the equivalence is oriented correctly, and it is a statement about the `3`-division polynomial
-that nothing in this file proves directly. -/
+against the merged sharp count `WeierstrassCurve.Affine.card_torsion_three`.  Nothing in this file
+proves it directly, and it is the evidence that the equivalence is oriented correctly.
+
+⚠️ **It is a round trip, not a new statement, and must not be read as one.**
+`WeierstrassCurve.Affine.nodup_roots_Ψ₃` (`EllipticCurves.Torsion.ThreeTorsionStructure`) is merged
+and in this file's import closure; over an algebraically closed field it *is* separability of `Ψ₃`,
+one `Polynomial.nodup_roots_iff_of_splits` away — the same lemma
+`card_torsion_eq_sq_iff_separable_preΨ` runs on.  And `card_torsion_three` is proved *from*
+`nodup_roots_Ψ₃`, through `card_roots_Ψ₃`.  So what this certifies is that the equivalence returns
+its own input, which is the whole of what a check at a settled index can certify — and it is *not*
+evidence that the general `Separable (W.preΨ n)` is any closer. -/
 theorem separable_preΨ_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     (W.preΨ (3 : ℤ)).Separable := by
   classical
