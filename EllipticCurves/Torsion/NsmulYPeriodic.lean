@@ -21,14 +21,20 @@ the engine the `x`-half runs on does not supply one.  This file supplies a diffe
 
 ## The obstruction PR #577 recorded, and why it is real
 
-Write `rₙ = ψ_{n+d}/ψₙ` at a point of order `d`, and `c = ψ_{d+1}·ψ_{d−1}`.  The `x`-half consumes
-`ψ_mul_ψ_sub_of_ψ_eq_zero`, `ψ_{n+d}·ψ_{n−d} = −c·ψₙ²`, which says exactly `rₙ = −c·r_{n−d}` — a
-recursion **along the progression `n + dℤ` and nothing else**.  Periodicity of the `y`-prediction
-`Tₙ = ψ₂ₙ/ψₙ⁴` unwinds to `−c·r₂ₙ² = rₙ⁴`, a relation between `r` at `n` and at `2n`, which that
-recursion cannot reach.  ⚠️ That measurement stands: the route below does **not** imitate
-`divX_add_mul_of_not_dvd`, and an attempt that does will stall exactly there.
+Write `rₙ = ψ_{n+d}/ψₙ` at a point of order `d`, and `c = ψ_{d+1}·ψ_{d−1}`.  The *order
+dictionary* runs on `ψ_mul_ψ_sub_of_ψ_eq_zero`, `ψ_{n+d}·ψ_{n−d} = −c·ψₙ²`, which says exactly
+`rₙ = −c·r_{n−d}` — a recursion **along the progression `n + dℤ` and nothing else**.  Periodicity
+of the `y`-prediction `Tₙ = ψ₂ₙ/ψₙ⁴` unwinds to `−c·r₂ₙ² = rₙ⁴`, a relation between `r` at `n` and
+at `2n`, which that recursion cannot reach.  ⚠️ That measurement stands **for that lemma**, and it
+is why the `y`-half is not a transport of the order dictionary's engine.
 
-## The route: one Ward instance nobody had used
+⚠️ **It is not a statement about `divX_add_mul_of_not_dvd`, which runs on a different lemma** —
+`ψ_shift_step_of_ψ_eq_zero`, Ward at `(p, q, r, s) = (n + d, n, 1, 0)` — and that lemma is
+**exactly `ψ_shift_symm_of_ψ_eq_zero` below at `k = 1`**, up to `ring`-rewriting of indices.  So
+the route below is *not* an instance the `x`-half never touched: it is the `k`-general form of the
+one the `x`-half uses at `k = 1`, and the whole new content is the freedom in `k`.
+
+## The route: the `k`-general form of the instance the `x`-half uses only at `k = 1`
 
 The relator `IsEllipticNet.rel ψ p q r 0 = 0` at `(p, q, r) = (m + d, k, m)` has its **third** term
 `ψ_{2m+d}·ψ_{−d}·ψ_k²`, and `ψ_{−d} = −ψ_d = 0`.  What is left is
@@ -37,9 +43,9 @@ The relator `IsEllipticNet.rel ψ p q r 0 = 0` at `(p, q, r) = (m + d, k, m)` ha
 ψ_{(m+k)+d} · ψ_{(m−k)+d} · ψₘ²  =  ψ_{m+k} · ψ_{m−k} · ψ_{m+d}²
 ```
 
-— `ψ_shift_symm_of_ψ_eq_zero`, i.e. `r_{m+k}·r_{m−k} = rₘ²` for **every** `k`, not only for `k`
-along one residue class.  ⚠️ This is the relation the shift engine does not give, and it is the
-whole difference.  A second instance,
+— `ψ_shift_symm_of_ψ_eq_zero`, i.e. `r_{m+k}·r_{m−k} = rₘ²` for **every** `k`, not only for
+`k = 1`.  ⚠️ At `k = 1` this is the merged `ψ_shift_step_of_ψ_eq_zero` verbatim; the extra freedom
+in `k` is the whole difference.  A second instance,
 at `(p, q, r) = (d, n, 1)`, gives `ψ_{d+n}·ψ_{d−n} = c·ψₙ²`, i.e. `rₙ·r_{−n} = −c`
 (`ψ_add_mul_ψ_sub_of_ψ_eq_zero`).  With those two, for any `p`,
 
@@ -132,10 +138,11 @@ variable {F : Type*} [Field F] {W : Affine F} {x y : F}
 /-- **Ward's relation at `(p, q, r, s) = (m + d, k, m, 0)` with `ψ_d(x, y) = 0`.**  The third term
 of the relator is `ψ_{2m+d}·ψ_{−d}·ψ_k²`, and `ψ_{−d} = −ψ_d = 0` kills it.
 
-⚠️ Read as `r_{m+k}·r_{m−k} = rₘ²` for `rₙ = ψ_{n+d}/ψₙ`, this is the relation that
-`WeierstrassCurve.Affine.ψ_mul_ψ_sub_of_ψ_eq_zero` — the engine the `x`-half of the coordinate
-formula runs on — does **not** supply: that one only recurses along `n + dℤ`.  The whole of this
-file's route is the extra freedom in `k`. -/
+⚠️ **At `k = 1` this is `WeierstrassCurve.Affine.ψ_shift_step_of_ψ_eq_zero` verbatim** — the
+lemma `divX_add_of_not_dvd` runs on — so this is a *generalisation* of the `x`-half's engine and
+not a fresh instance.  What is new is only the freedom in `k`, and that freedom is the whole of
+this file's route: `WeierstrassCurve.Affine.ψ_mul_ψ_sub_of_ψ_eq_zero`, which the *order
+dictionary* runs on, recurses along `n + dℤ` only and does not reach it. -/
 theorem ψ_shift_symm_of_ψ_eq_zero {d : ℤ} (hd : (W.ψ d).evalEval x y = 0) (m k : ℤ) :
     (W.ψ (m + k + d)).evalEval x y * (W.ψ (m - k + d)).evalEval x y *
         (W.ψ m).evalEval x y ^ 2
