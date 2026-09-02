@@ -382,6 +382,7 @@ import EllipticCurves.Torsion.TriplingCoords
 import EllipticCurves.Torsion.TriplingSurjective
 import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoPrimaryBasis
+import EllipticCurves.Torsion.TwoThreeDisjoint
 import EllipticCurves.Torsion.TwoTorsion
 import EllipticCurves.Torsion.WardHalving
 import EllipticCurves.Torsion.WardR1
