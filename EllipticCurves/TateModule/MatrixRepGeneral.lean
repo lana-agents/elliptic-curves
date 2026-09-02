@@ -59,31 +59,36 @@ compensating reason, and this file declares **two theorems and nothing else**.
 
 ## What is *not* here
 
-* **Not the other five `*Three` files.** `EllipticCurves.TateModule.DeterminantThree`,
-  `…ImageProfiniteThree`, `…ImageThree`, `…MatrixContinuityThree` and
-  `…MatrixRepBasisChangeThree` are the `ℓ = 3` instantiations of `PrimaryDeterminant`,
-  `PrimaryImageProfinite`, `PrimaryImage`, `PrimaryMatrixContinuity` and
-  `PrimaryMatrixRepBasisChange`, and each is now instantiable at every prime with `(ℓ : F) ≠ 0` by
-  exactly the substitution made here. ⚠️ **None of them is touched by this file**, and each is a
-  separate PR — `#1533` scope item 2 asks for one file done properly before six.
-* **The six gate paragraphs are NOT rewritten here.** Each of those six files carries a *"General
-  odd `ℓ ≥ 5` stays out … `#E[5^k]` is genuinely open; its gate list is
-  `EllipticCurves.Torsion.PrimaryTower`'s"* bullet, and both of those clauses are false as of
-  `#293` / `#268`. ⚠️ They are left alone **deliberately**: PR #590 (`#1522`) rewrites those same
-  six paragraphs and is approved and enqueued, so editing them here would be racing an in-flight PR
-  through six shared files for no mathematical gain. `#1533` item 4 asks for them, and they are
-  what this file still owes.
+* **Not the other five `*Three` files, and they are no longer owed.**
+  `EllipticCurves.TateModule.DeterminantThree`, `…ImageProfiniteThree`, `…ImageThree`,
+  `…MatrixContinuityThree` and `…MatrixRepBasisChangeThree` are the `ℓ = 3` instantiations of
+  `PrimaryDeterminant`, `PrimaryImageProfinite`, `PrimaryImage`, `PrimaryMatrixContinuity` and
+  `PrimaryMatrixRepBasisChange`. ⚠️ **None of them is touched by this file**, which is what
+  `#1533` scope item 2 asked for — one file done properly before six. The follow-up landed them:
+  `EllipticCurves.TateModule.DeterminantGeneral`, `…ImageGeneral`, `…ImageProfiniteGeneral`,
+  `…MatrixContinuityGeneral` and `…OpenKernelGeneral`.
 
-  ⚠️ **Two things about that text will still be owed after PR #590 lands, and they are different
-  from what is owed before it.** #590 replaces the bullet with *"`#E[5^k]` is no longer open at
-  `ℓ ≥ 5` … `card_torsion_pow_mul_self_of_odd` supplies it at every **odd** `ℓ` … Instantiating
-  this file at `ℓ ≥ 5` on top of that count is separate work and is not done here."* After this
-  file, (i) the odd-`ℓ` attribution is true but no longer sharpest — `card_torsion_eq_sq`
-  (`EllipticCurves.Torsion.StructureGeneral`, `#293`) is the count at every `n` with
-  `(n : F) ≠ 0`, `ℓ = 2` included — and (ii) *"is separate work and is not done here"* should point
-  at this module rather than reading as undone. ⚠️ The honest replacement is *"at every prime `ℓ`
-  with `(ℓ : F) ≠ 0`"* — **not** *"at every odd `ℓ`"* (`ℓ = 2` is covered) and **not** *"at every
-  `ℓ`"* (`ℓ = char F` is not, and there the conclusion is false rather than open).
+  ⚠️ **Four of those five are the same one-line substitution; the fifth is not, and the difference
+  is worth knowing before copying this file again.** `MatrixRepBasisChangeThree`'s five conjugation
+  statements already take a basis and are general; its only hypothesis-bearing theorem,
+  `isClosed_ker_galoisRepMatrixThree`, routes through `isClosed_ker_galoisRepThree`
+  (`EllipticCurves.TateModule.OpenKernel`), whose inputs are the level filtration and
+  `Finite (E[ℓ^k])` — **not** the rank-two structure. So `…OpenKernelGeneral` does not consume
+  `#268` at all, and its proof is four lines rather than one.
+* **The six gate paragraphs were rewritten in the follow-up, not here.** Each of the six carried a
+  *"`#E[5^k]` is no longer open at `ℓ ≥ 5` … `card_torsion_pow_mul_self_of_odd` supplies it at
+  every **odd** `ℓ` … Instantiating this file at `ℓ ≥ 5` on top of that count is separate work and
+  is not done here"* bullet, in the form PR #590 (`#1522`) left it. ⚠️ They were left alone here
+  **deliberately** — #590 was in flight through those same six files at the time — and were taken
+  in the PR that made them false, which is what `#1533` item 4 asks for.
+
+  ⚠️ Two things about that text were owed and are now discharged: (i) the odd-`ℓ` attribution was
+  true but not sharpest, since `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`,
+  `#293`) is the count at every `n` with `(n : F) ≠ 0`, `ℓ = 2` included; and (ii) *"is separate
+  work and is not done here"* now points at the general module in each case. ⚠️ The replacement
+  says *"at every prime `ℓ` with `(ℓ : F) ≠ 0`"* — **not** *"at every odd `ℓ`"* (`ℓ = 2` is
+  covered) and **not** *"at every `ℓ`"* (`ℓ = char F` is not, and there the conclusion is false
+  rather than open).
 * ⚠️ **Nothing about the `*Three` or `*Two` files being redundant, and nothing is deleted.**
   `EllipticCurves.TateModule.MatrixRepThree` reaches `ℓ = 3` through `x(3P) = Φ₃/Ψ₃²`
   (`EllipticCurves.Torsion.TriplingSurjective`); this file reaches every prime through

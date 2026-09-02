@@ -313,6 +313,7 @@ import EllipticCurves.Reduction.TwoTorsionReduction
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Determinant
+import EllipticCurves.TateModule.DeterminantGeneral
 import EllipticCurves.TateModule.DeterminantMod
 import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.TateModule.DeterminantThree
@@ -322,12 +323,15 @@ import EllipticCurves.TateModule.FreeThree
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.GeneralLinearGroup
 import EllipticCurves.TateModule.Image
+import EllipticCurves.TateModule.ImageGeneral
 import EllipticCurves.TateModule.ImageProfinite
+import EllipticCurves.TateModule.ImageProfiniteGeneral
 import EllipticCurves.TateModule.ImageProfiniteThree
 import EllipticCurves.TateModule.ImageThree
 import EllipticCurves.TateModule.Kernel
 import EllipticCurves.TateModule.LevelStructure
 import EllipticCurves.TateModule.MatrixContinuity
+import EllipticCurves.TateModule.MatrixContinuityGeneral
 import EllipticCurves.TateModule.MatrixContinuityThree
 import EllipticCurves.TateModule.MatrixRep
 import EllipticCurves.TateModule.MatrixRepBasisChange
@@ -338,6 +342,7 @@ import EllipticCurves.TateModule.MatrixRepGeneral
 import EllipticCurves.TateModule.MatrixRepMod
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.OpenKernel
+import EllipticCurves.TateModule.OpenKernelGeneral
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.TateModule.PrimaryDeterminant
 import EllipticCurves.TateModule.PrimaryFree
