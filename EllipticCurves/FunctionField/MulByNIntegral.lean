@@ -85,7 +85,8 @@ that element *written down* as the reduced fraction `Φₙ/ΨSqₙ` (`#251` — 
 `EllipticCurves.FunctionField.MulByNPlacePullback` argues each of them.  What generalises without
 any of them is that the degree is *finite*.
 
-⚠️ **The first two have since been discharged**, downstream and not here: the fraction by
+⚠️ **The first two have since been discharged**, in modules **import-incomparable** with this one
+and not here: the fraction by
 `nMulRatFunc_eq_ΦDivΨSq` as noted, and the coprimality at every `n : ℤ` for an elliptic curve over
 a field of characteristic `≠ 2` by `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq`
 (`EllipticCurves.Torsion.CoprimeAdjacent`).
