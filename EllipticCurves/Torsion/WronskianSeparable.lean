@@ -62,9 +62,12 @@ A route that did not consume the hypothesis there would be proving something unt
 * `WeierstrassCurve.Affine.card_torsion_eq_sq_of_wronskian` : `#E[n] = n²`, the same two inputs
   plus what `card_torsion_eq_sq_iff_separable_preΨ` itself asks — `[IsAlgClosed F]`,
   `[W.IsElliptic]` and `(2 : F) ≠ 0`.
-* `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_of_ψ_eq_zero` : `ψ_{n+q}·ψ_{n−q} = −Φₙ(x)·ΨSq_q(x)` at a
-  point where `ψₙ` vanishes, at every `q`.  ⚠️ Merged content, repackaged: it is
-  `ψ_add_mul_ψ_sub_evalEval` with one term killed.
+* `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` : `ψ_{n+q}·ψ_{n−q} = −Φₙ(x)·ΨSq_q(x)`
+  at a point where `ψₙ` vanishes, at every `q`.  ⚠️ Merged content, repackaged: it is
+  `ψ_add_mul_ψ_sub_evalEval` with one term killed.  ⚠️ **Named for its conclusion, not for its
+  hypothesis**: `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_of_ψ_eq_zero`
+  (`EllipticCurves.Torsion.NsmulYPeriodic`) is a *different* statement — Ward at `(d, n, 1, 0)`,
+  `ψ_{d+n}·ψ_{d−n} = ψ_{d+1}·ψ_{d−1}·ψₙ²` — and renaming this one back would break the root import.
 * `WeierstrassCurve.Affine.eval_preΩ_ne_zero_of_eval_preΨ_eq_zero` and
   `WeierstrassCurve.Affine.isCoprime_preΨ_preΩ` : the **second** input reduced to a single pointwise
   identity `hpair`, spending three merged facts on the way.
@@ -171,7 +174,7 @@ variable {x y : F}
 `ψₙ(x, y)²`.  ⚠️ The right-hand side does not involve `y`, so the product `ψ_{n+q}·ψ_{n−q}` is
 constant on the `y`-fibre — that is what makes `q = 1` and `q = 2` below into non-vanishing
 statements about `x` alone. -/
-theorem ψ_add_mul_ψ_sub_of_ψ_eq_zero (h : W.Equation x y) {n : ℤ}
+theorem ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq (h : W.Equation x y) {n : ℤ}
     (hz : (W.ψ n).evalEval x y = 0) (q : ℤ) :
     (W.ψ (n + q)).evalEval x y * (W.ψ (n - q)).evalEval x y =
       -((W.Φ n).eval x * (W.ΨSq q).eval x) := by
@@ -184,13 +187,13 @@ theorem ψ_add_mul_ψ_sub_of_ψ_eq_zero (h : W.Equation x y) {n : ℤ}
 Everything except `hpair` is merged.  ⚠️ Read the proof as a budget: `Φₙ(x) ≠ 0` is
 `eval_Φ_ne_zero_of_eval_ΨSq_eq_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`, PR #569) and
 `Ψ₂Sq(x) ≠ 0` is `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero` (`EllipticCurves.Torsion.OddTorsionCount`,
-PR #574); together with `ψ_add_mul_ψ_sub_of_ψ_eq_zero` at `q = 1` and `q = 2` they give
+PR #574); together with `ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` at `q = 1` and `q = 2` they give
 `ψ_{n−1}(x, y) ≠ 0` and `ψ_{n+2}(x, y) ≠ 0`.  `hpair` then collapses `Ωₙ` to `2·ψ_{n+2}·ψ_{n−1}²`,
 and `WeierstrassCurve.Ω_factor` divides out the `ψ₂²`.
 
 ⚠️ `hpair` is **not** proved and is the whole content.  It says the two summands of `Ωₙ` are
 negatives of one another at a point where `ψₙ` vanishes; equivalently, since their product is
-`Φₙ³·Ψ₂Sq` by the two instances above, that `(ψ_{n+2}·ψ_{n−1}²)² = Φₙ³·Ψ₂Sq`.  ⚠️ It is **not** a
+`−Φₙ³·Ψ₂Sq` by the two instances above, that `(ψ_{n+2}·ψ_{n−1}²)² = Φₙ³·Ψ₂Sq`.  ⚠️ It is **not** a
 consequence of `ψ_add_mul_ψ_sub` alone: that relation determines `ψ_{n+k}·ψ_{n−k}` for each `k` and
 says nothing relating different `k`, which is exactly what `hpair` needs. -/
 theorem eval_preΩ_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
@@ -208,11 +211,11 @@ theorem eval_preΩ_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic] 
   have hΦ : (W.Φ (n : ℤ)).eval x ≠ 0 := eval_Φ_ne_zero_of_eval_ΨSq_eq_zero h2 hn x hΨSq
   have hΨ₂ : W.Ψ₂Sq.eval x ≠ 0 := eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero h2 hodd hx
   -- `ψ_{n−1}(x, y) ≠ 0` and `ψ_{n+2}(x, y) ≠ 0`
-  have h1 := ψ_add_mul_ψ_sub_of_ψ_eq_zero hxy hψn 1
+  have h1 := ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq hxy hψn 1
   rw [WeierstrassCurve.ΨSq_one, eval_one, mul_one] at h1
   have hm1 : (W.ψ ((n : ℤ) - 1)).evalEval x y ≠ 0 := fun hc => hΦ (by
     rw [hc, mul_zero] at h1; simpa using h1.symm)
-  have h2' := ψ_add_mul_ψ_sub_of_ψ_eq_zero hxy hψn 2
+  have h2' := ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq hxy hψn 2
   rw [WeierstrassCurve.ΨSq_two] at h2'
   have hp2 : (W.ψ ((n : ℤ) + 2)).evalEval x y ≠ 0 := fun hc => (mul_ne_zero hΦ hΨ₂) (by
     rw [hc, zero_mul] at h2'; simpa using h2'.symm)
