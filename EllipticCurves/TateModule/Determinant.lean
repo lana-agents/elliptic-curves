@@ -120,9 +120,13 @@ stated at every prime in `EllipticCurves.TateModule.PrimaryImage`, with an `ℓ 
 `EllipticCurves.TateModule.ImageThree` — `isClosed_range_galoisDetThree` is there. ⚠️ **That last
 one is not progress towards the cyclotomic-character identification**, which is what this file's
 reader will hope: knowing the image of a character is closed says nothing about which character it
-is. At `ℓ ≥ 5` surjectivity is
-genuinely unavailable, because it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, so the
-first clause still stands verbatim there.
+is. ⚠️ This paragraph used to continue *"at `ℓ ≥ 5` surjectivity is genuinely unavailable, because
+it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`"*, and that reason is false:
+`[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is proved at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **No replacement
+reason is asserted**: what a determinant statement at `ℓ ≥ 5` costs was not re-measured here, and
+this file supplies nothing towards it either way.
 
 **Continuity is not asserted in this file**: `galoisRep` is built purely as a group homomorphism,
 and passing to determinants changes nothing about that.

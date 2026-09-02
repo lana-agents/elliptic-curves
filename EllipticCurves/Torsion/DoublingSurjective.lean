@@ -21,8 +21,10 @@ Silverman deduces this from the general fact that a nonconstant morphism of smoo
 is surjective (*AEC*, II.2.3 and III.4.10). The proof here is elementary and entirely
 one-dimensional: it solves the doubling equation for the `x`-coordinate directly. In particular
 it is **independent of Ward's theorem, of the elliptic-net recurrence, and of the general
-multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**, which is what gates the
-analogous statement for `n ≠ 2`.
+multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**.  ⚠️ The independence is the
+point of this sentence and still holds; its trailing *"which is what gates the analogous statement
+for `n ≠ 2`"* was dropped, because that statement is no longer gated — `[n]`-surjectivity at every
+nonzero index is `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`).
 
 ## The mechanism
 
@@ -192,8 +194,10 @@ variable [DecidableEq F]
 of `W` not fixed by negation, the `x`-coordinate of `2 • (x, y)` is `Φ₂(x) / Ψ₂Sq(x)`.
 
 This is the `n = 2` instance of the multiplication-by-`n` coordinate formula
-`x(nP) = Φₙ(x) / ΨSqₙ(x)`; the general case is not available, but doubling is computed in closed
-form by the tangent line. -/
+`x(nP) = Φₙ(x) / ΨSqₙ(x)`.  ⚠️ This docstring used to add *"the general case is not available"*,
+which is false: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) proves it at
+every index.  What is true, and is why the proof below exists, is that doubling is computed in
+closed form by the tangent line, so this file needs none of that machinery. -/
 lemma addX_self_mul_Ψ₂Sq_eval {x y : F} (h : W.Equation x y) (hy : y ≠ W.negY x y) :
     W.addX x x (W.slope x x y y) * W.Ψ₂Sq.eval x = (W.Φ 2).eval x := by
   have hd : 2 * y + W.a₁ * x + W.a₃ ≠ 0 := two_mul_add_ne_zero_of_Y_ne hy

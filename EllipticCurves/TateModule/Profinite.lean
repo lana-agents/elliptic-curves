@@ -79,9 +79,14 @@ that file's job, and it is this file's: `T_2 E` and `T_3 E` are compact, uncondi
 ⚠️ **The clause this paragraph used to carry — *"For **odd** `ℓ` the paragraph still stands:
 `Finite (E[ℓ^k])` needs `#E[ℓ] ≤ ℓ²`, which needs the coordinate formula"* — is false at `ℓ = 3`.**
 The coordinate formula *is* available at `n = 3` (`EllipticCurves.Torsion.TriplingSurjective`), so
-naming it as the obstruction proved the wrong thing: it is a cost at `ℓ = 3`, not a gate. The clause
-is true for every prime `ℓ ≥ 5`, where the formula is the general `x(nP) = Φₙ/ΨSqₙ` and is genuinely
-unavailable, and it is restated in that form under `## Scope`. Either way `compactSpace` carries
+naming it as the obstruction proved the wrong thing: it is a cost at `ℓ = 3`, not a gate.  ⚠️ **And
+the salvage this paragraph used to offer — *"the clause is true for every prime `ℓ ≥ 5`, where the
+formula is the general `x(nP) = Φₙ/ΨSqₙ` and is genuinely unavailable"* — is false as well.**  The
+general formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`), and `Finite (E[ℓ^k])` does not wait on it at any prime:
+`finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) gives it at every index
+with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, and `card_torsion_le_sq` there gives `#E[n] ≤ n²` with it.
+The corrected form is under `## Scope`. Either way `compactSpace` carries
 finiteness as a hypothesis rather than assuming it away, so it applies verbatim at each `ℓ` where
 the hypothesis is discharged — which is the whole reason the `ℓ = 3` layer below is four one-line
 theorems and not a new argument.
@@ -122,11 +127,18 @@ section at the end of the file closes that half on a curve that exists, for **bo
 
 ## Scope
 
-⚠️ **`ℓ ≥ 5` is where the gate actually is, and it has not moved.** `Finite (E[ℓ^k])` at a prime
-`ℓ ≥ 5` needs `#E[ℓ] ≤ ℓ²` and hence the general multiplication-by-`n` coordinate formula
-`x(nP) = Φₙ/ΨSqₙ`, which this development does not have. `compactSpace` and `isCompact_coe` will
-apply verbatim the day it lands — they take finiteness as a hypothesis and never assume it — so what
-is missing at `ℓ ≥ 5` is the input and not anything in this file.
+⚠️ **This paragraph used to say `ℓ ≥ 5` was gated, and it is not.**  It read *"`Finite (E[ℓ^k])`
+at a prime `ℓ ≥ 5` needs `#E[ℓ] ≤ ℓ²` and hence the general multiplication-by-`n` coordinate formula
+`x(nP) = Φₙ/ΨSqₙ`, which this development does not have"*.  Every clause of that is now wrong:
+`finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) proves `Finite (E[n])` at
+**every** index with `(2 : F) ≠ 0` and `(n : F) ≠ 0`; `card_torsion_le_sq` there proves
+`#E[n] ≤ n²` under the same hypotheses; and the coordinate formula is proved at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **This file still
+instantiates only `ℓ = 2` and `ℓ = 3`, and that is unchanged** — `compactSpace` and `isCompact_coe`
+take finiteness as a hypothesis and never assume it, so they apply verbatim at any prime whose
+finiteness witness is supplied, and supplying it at `ℓ ≥ 5` is a follow-up nobody has written.
+⚠️ No new gate is asserted in place of the old one: what an `ℓ ≥ 5` layer costs was not
+re-measured here.
 
 ⚠️ **There is no `3`-smooth analogue of the two layers below, and a reader arriving from
 `EllipticCurves.TateModule.OpenKernel` will expect one.** That file's

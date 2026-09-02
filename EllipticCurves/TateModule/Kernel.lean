@@ -424,7 +424,10 @@ omit [IsAlgClosed F] [(W'⁄F).IsElliptic] in
 
 ⚠️ **This is not progress towards `det ρ_{E,3} = χ_3`.** Every character is trivial on the kernel
 of the representation it is built from; the `3`-adic identification needs the Weil pairing on
-`E[3^k]` for *every* `k`, i.e. the `ωₙ` crux. The **mod-`3`** identity is a different statement
+`E[3^k]` for *every* `k`.  ⚠️ This sentence used to add *"i.e. the `ωₙ` crux"*, and that equation
+is false twice over: the `ωₙ` crux is `#404`'s on-curve identity, closed in
+`EllipticCurves.Torsion.OmegaCrux` (PR #557), and it is neither the pairing at every level nor the
+coordinate formula. The **mod-`3`** identity is a different statement
 about a different object and is
 `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`. -/
 theorem galoisDetThree_eq_one_of_mem_ker {σ : F ≃ₐ[S] F}

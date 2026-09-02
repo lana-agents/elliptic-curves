@@ -72,8 +72,14 @@ Odd `ℓ` is not covered **by this file**, which is about `ℓ = 2` only. ⚠️
 `[ℓ]`-surjectivity for odd `ℓ` still needs `x(ℓP) = Φ_ℓ/ΨSq_ℓ`". Naming the clause: *"the tower
 rests on surjectivity of `[2]`"* is now false of the development:
 `EllipticCurves.TateModule.PrimaryFree` rests on surjectivity of `[ℓ]`, and
-`EllipticCurves.Torsion.TriplingSurjective` pays that at `ℓ = 3`. The rest of the old sentence
-survives verbatim **for `ℓ ≥ 5`**, where `x(ℓP) = Φ_ℓ/ΨSq_ℓ` is still the gate.
+`EllipticCurves.Torsion.TriplingSurjective` pays that at `ℓ = 3`.  ⚠️ **And the rest of the old
+sentence no longer survives at `ℓ ≥ 5` either**: it ended *"where `x(ℓP) = Φ_ℓ/ΨSq_ℓ` is still the
+gate"*, and that formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`), with `[ℓ]`-surjectivity following at every nonzero index
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  What
+`EllipticCurves.TateModule.PrimaryFree` still wants at `ℓ ≥ 5` is the count `#E[ℓ^k]`, whose gate
+list is `EllipticCurves.Torsion.PrimaryTower`'s.  This file remains `ℓ = 2` only for its own
+reasons, and that is unchanged.
 
 The Galois action on `T₂E` (`EllipticCurves.TateModule.GaloisAction`) and the representation
 `ρ_{E,2} : G_F → GL₂(ℤ_2)` are a separate follow-up, which the rank statement here makes meaningful

@@ -112,9 +112,12 @@ The omission has stopped being one. The extraction is
 
 ⚠️ **The tail of that clause still stands verbatim and is the part a reader should keep**: do not
 read *"`ℓ = 2` only"* here as a claim that odd `ℓ` is gated. At `ℓ ≥ 5` the Tate module itself is
-out of reach — `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated on `[ℓ]`-surjectivity and `#E[ℓ^k]`, i.e. on the
-general coordinate formula `x(nP) = Φₙ/ΨSqₙ` — and **that** is the real gate, but it is not this
-file's and it is not the conjugation law's.
+out of reach — `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated on `#E[ℓ^k]` — and **that** is the real gate,
+but it is not this file's and it is not the conjugation law's.  ⚠️ This sentence used to name
+`[ℓ]`-surjectivity as a second gate and to equate the pair with *"the general coordinate formula
+`x(nP) = Φₙ/ΨSqₙ`"*; both are stale — surjectivity holds at every nonzero index
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
+proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
 
 Nothing here bears on **whether the conjugacy class is nontrivial**, i.e. on the image of
 `ρ_{E,2}`: that is a statement about `F / S`, and `G` may be trivial for all this file knows. What

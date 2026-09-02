@@ -81,11 +81,25 @@ to fill, and it is why the two towers in this development are the only two indic
 
 Known exactly for **every `3`-smooth `n`** — see `card_torsion_eq_sq_of_smooth` and
 `nonempty_torsion_addEquiv_zmod_sq_of_smooth`. The frontier has not moved otherwise, and the
-first open index is `n = 5`:
+first open index is `n = 5`.
 
-* `#E[p] ≤ p²` for a prime `p ≥ 5` needs the general coordinate formula, which is not available;
-* `[p]`-surjectivity for a prime `p ≥ 5` needs it too, so neither the bound nor the tower is within
-  reach at `p = 5` by the route used here.
+⚠️ **Both reasons this paragraph used to give for that were the coordinate formula, and both
+are now false.**  It read *"`#E[p] ≤ p²` … needs the general coordinate formula, which is not
+available"* and *"`[p]`-surjectivity … needs it too"*.  On `main` today:
+
+* `#E[p] ≤ p²` at every `p` is `card_torsion_le_sq` (`EllipticCurves.Torsion.XSupport`), over a
+  field with `(2 : F) ≠ 0` and `(p : F) ≠ 0`;
+* `[p]`-surjectivity at every nonzero index is `nsmul_surjective_of_two_ne_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`), over `F̄` with `(2 : F) ≠ 0`;
+* the coordinate formula itself is proved at every index — `hasXCoordFormula_of_two_ne_zero`
+  (`EllipticCurves.Torsion.NsmulOrder`) on the `x`-half, `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+  (`EllipticCurves.Torsion.NsmulYPeriodic`) on the `y`-half.
+
+⚠️ **What is actually open at `p ≥ 5` is the `≥` half of `#E[p] = p²`, and nothing here gates it.**
+`EllipticCurves.Torsion.PrimaryTower` carries the authoritative gate list, and after PR #582 the
+single entry on it is one polynomial identity about one curve over one ring (`#1506` scope item 1,
+`#1490` item 3).  ⚠️ No replacement ceiling is asserted for the tower at `p ≥ 5`: the reason above
+is withdrawn, and what remains was not re-measured here.
 
 ⚠️ This paragraph used to open *"`T₃E ≅ ℤ₃²` is **not** delivered"*, and that clause is now false:
 `EllipticCurves.TateModule.FreeThree` delivers it. The rest of the paragraph is still exactly

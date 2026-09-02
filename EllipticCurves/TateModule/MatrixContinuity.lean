@@ -135,9 +135,13 @@ at `ℓ = 2` **and** `ℓ = 3`, five declarations each. ⚠️ The cross-referen
 discrete"* above is a **different** sentence and is correct: it cites a true statement of that file
 as a fact, not as a gate.
 
-⚠️ At `ℓ ≥ 5` the gate is real and it is the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`, not
-finiteness alone; the generic file's hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is what nothing
-supplies there.
+⚠️ At `ℓ ≥ 5` the gate is real, but it is **not** the general coordinate formula.  This paragraph
+used to name that formula, and it is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`), as is `[ℓ]`-surjectivity with it
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  What nothing
+supplies at `ℓ ≥ 5` is still the generic file's hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)`, and what
+that now rests on is the count `#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries its gate
+list.
 
 Everything is stated for a base change `W'⁄F` of a curve `W' : Affine S` rather than for a bare
 `W : Affine F`, matching the representation section of `EllipticCurves.TateModule.MatrixRep`. This

@@ -121,8 +121,15 @@ offered instead is `Infinite (T₃E)`, by a route that never mentions images or 
   `EllipticCurves.TateModule.ImageProfiniteThree`. The packaging is still not in *this* file.
 * **General odd `ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryImage` is already stated at
   an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but its input
-  `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `[5]`-surjectivity and `#E[5^k]`, both of which need the
-  general coordinate formula, i.e. the `ωₙ` crux. `ℓ ≥ 5` gains the generic file and nothing else.
+  `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `#E[5^k]`.  ⚠️ This bullet used to say it was gated *"on
+  `[5]`-surjectivity and `#E[5^k]`, both of which need the general coordinate formula, i.e. the
+  `ωₙ` crux"*, and all three clauses are wrong: `[5]`-surjectivity holds at every nonzero index
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
+  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  `#E[5^k]` is genuinely open;
+  its gate list is `EllipticCurves.Torsion.PrimaryTower`'s. `ℓ ≥ 5` gains the generic file and
+  nothing else.
 
 ## Using this file
 

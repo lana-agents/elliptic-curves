@@ -120,9 +120,14 @@ This file proves **no** `[ℓ]`-surjectivity and **no** cardinality of `E[ℓ^k]
 At the time of writing the development discharges them at `ℓ = 2`
 (`EllipticCurves.Torsion.DoublingSurjective`, `EllipticCurves.Torsion.TwoPrimary`) and at `ℓ = 3`
 (`EllipticCurves.Torsion.TriplingSurjective`, `EllipticCurves.Torsion.ThreePrimary`), and at no
-other prime: `[ℓ]`-surjectivity for `ℓ ≥ 5` still needs the general multiplication-by-`n` coordinate
-formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`. ⚠️ Ward's theorem and the elliptic-net recurrence are not used at any
-`ℓ`; the coordinate formula is used, but only at `ℓ = 3`, where it is proved.
+other prime.  ⚠️ This sentence used to give the reason as *"`[ℓ]`-surjectivity for `ℓ ≥ 5` still
+needs the general multiplication-by-`n` coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`"*, and both halves
+are false: surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is proved at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  What is not discharged
+at `ℓ ≥ 5` is the **second** hypothesis, `#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries
+its gate list, and this file re-measures nothing.  ⚠️ Ward's theorem and the elliptic-net recurrence
+are not used at any `ℓ`; the coordinate formula is used, but only at `ℓ = 3`.
 
 The Galois action on `T_ℓE` (`EllipticCurves.TateModule.GaloisAction`) and the representation
 `ρ_{E,ℓ} : G_F → GL₂(ℤ_ℓ)` are a separate follow-up, which the rank statement here makes meaningful
