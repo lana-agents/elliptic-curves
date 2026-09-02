@@ -96,14 +96,27 @@ statement that induction is owed on is
 unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`,
 the same side condition the rung-4 paragraph below shows `mulByNEndo` does not carry.
 
+⚠️ **The first and second are no longer missing**, both downstream of this file and neither in its
+import closure.  The fraction is `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`); the coprimality is
+`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`), at
+every `n : ℤ` for an elliptic curve over a field of characteristic `≠ 2` — the root route this
+paragraph's second item had no proof of.  `EllipticCurves.FunctionField.MulByNDegreeGeneral`
+composes them, so `[F(W) : [n]∗F(W)] = n²` at general `n` is owed the **third** item alone,
+`(n : F) ≠ 0`, and nothing else.  ⚠️ The three-item list above is kept as the record of what this
+file's own rung 3 does not do; it is no longer a list of open problems.
+
 ⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
 the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
 those coordinates lie on the curve; it does **not** identify them with the group-law multiple
 `n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
 (`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+`n = 2, 3` only).  ⚠️ The gate was relettered, not lifted, and that PR left `#1184` untouched; the
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ Read as a claim about the
+present state both halves are now stale: `HasXCoordFormula` holds at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`) and `#1184` holds over a
+field of characteristic `≠ 2` (`EllipticCurves.Torsion.CoprimeAdjacent`).
 
 ⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
 result, not a gap** — at *general* `n`; at every `3`-smooth `n` it is

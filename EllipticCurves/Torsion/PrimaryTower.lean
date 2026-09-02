@@ -45,7 +45,9 @@ supplies (1) from the coordinate formula `HasXCoordFormula W p` and the pointwis
   (`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ It is **not** `#1184`, of which this bullet used
   to be called a weakening: `#1184` is an `IsCoprime` statement over an arbitrary base, and what is
   proved is its pointwise shadow, obtained from the order dictionary rather than from a Bézout
-  certificate, which does not descend;
+  certificate.  ⚠️ This clause used to end *"which does not descend"*, and that was wrong: over a
+  **field** the shadow does descend, and `EllipticCurves.Torsion.CoprimeAdjacent` descends it.
+  What stays out of reach is the arbitrary-**ring** statement, which is what `#1184` asks for;
 * `#E[p] = p²` — ❌ **the one gate left**, and a **third and separate** one.  ⚠️ It does *not* follow
   from surjectivity of `[p]`, which is why it is a hypothesis below and not a conclusion: the `≤`
   half is the division-polynomial bound (`#252`, `#246`) and the `≥` half is in this tree at no

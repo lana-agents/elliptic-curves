@@ -80,10 +80,18 @@ the degrees, though — `natDegree_Φ` and `natDegree_ΨSq` are **Mathlib**'s at
 `x ∘ [n] ∈ F(x)`, which is `EllipticCurves.FunctionField.MulByNXCoordRatFunc`.  What is missing is
 that element *written down* as the reduced fraction `Φₙ/ΨSqₙ` (`#251` — ⚠️ **discharged**, by
 `nMulRatFunc_eq_ΦDivΨSq` in `EllipticCurves.FunctionField.MulByNXCoordFormula`), the coprimality
-`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`, **open**), and the `(n : F) ≠ 0` that
+`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`), and the `(n : F) ≠ 0` that
 `natDegree_ΨSq` carries and `mulByNEndo` does not;
 `EllipticCurves.FunctionField.MulByNPlacePullback` argues each of them.  What generalises without
 any of them is that the degree is *finite*.
+
+⚠️ **The first two have since been discharged**, downstream and not here: the fraction by
+`nMulRatFunc_eq_ΦDivΨSq` as noted, and the coprimality at every `n : ℤ` for an elliptic curve over
+a field of characteristic `≠ 2` by `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq`
+(`EllipticCurves.Torsion.CoprimeAdjacent`).
+`EllipticCurves.FunctionField.MulByNDegreeGeneral` composes them into
+`[F(W) : [n]∗F(W)] = n²` at every `n` with `(n : F) ≠ 0`.  ⚠️ Nothing in *this* file changes: its
+subject is finiteness, which needed none of the three.
 
 ⚠️ **No separability.**  `Algebra.IsSeparable ([n]∗F(W)) F(W)` is what `#754` carries as a
 hypothesis; in characteristic zero it follows from finiteness
@@ -300,7 +308,8 @@ theorem module_finite_mulByNEndoFieldRange (n : ℕ)
 `mulByNEndoOfAlgClosed` corollary, with no hypothesis left except `n ≠ 0` and `(2 : F) ≠ 0`.
 
 ⚠️ Still no degree *here*.  At a **general** `n`, `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n]` written
-down as `Φₙ/ΨSqₙ` (`#251`, now discharged), `#1184` (open) and `(n : F) ≠ 0`, as *"What this is
+down as `Φₙ/ΨSqₙ` (`#251`, now discharged), `#1184` (now discharged over a field of characteristic
+`≠ 2`, in `EllipticCurves.Torsion.CoprimeAdjacent`) and `(n : F) ≠ 0`, as *"What this is
 not"* above records — over
 `F̄` as everywhere else.  ⚠️ At a `3`-smooth `n` it needs none of them:
 `EllipticCurves.FunctionField.MulByNComposition` gets it from `[m · n]∗ = [m]∗ ∘ [n]∗` and the two

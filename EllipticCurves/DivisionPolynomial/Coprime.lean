@@ -236,24 +236,42 @@ heading is not `## Main results`.  All but the first are in namespace `Weierstra
   `n = 3` certificate is a congruence, not a resultant"* above sets out — `n = 3` is **not** a
   certificate of its own: it runs through `preΨ₄_sq_eq_Ψ₂Sq_pow_add_Ψ₃_mul` and back to the `n = 2`
   certificate, so `bezout_Φ_two_Ψ₂Sq` and `bezout_Ψ₃_Ψ₂Sq` remain the only `Δ²`-identities here.
-  The general case is `#1184`, and `EllipticCurves.FunctionField.MulByNPlacePullback`'s rung-3
-  paragraph names it as one of the inputs that `[F(W) : [n]∗F(W)] = n²` at general `n` still needs.
+  The general case *over an arbitrary commutative ring* is `#1184`.  ⚠️ Over a **field** of
+  characteristic `≠ 2` on an elliptic curve it is closed —
+  `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`) — and with
+  it `[F(W) : [n]∗F(W)] = n²` at general `n`
+  (`EllipticCurves.FunctionField.MulByNDegreeGeneral`), so the rung-3 paragraph of
+  `EllipticCurves.FunctionField.MulByNPlacePullback` no longer names this as an outstanding input.
   ⚠️ **The clause this bullet used to carry has been corrected** — it read *"each by its own ad-hoc
   certificate"*, which the section named above contradicts.
   ⚠️ **A second clause has been narrowed**: it read *"the general case is a much larger
   induction"*, with no route written down.  Half of it is now discharged unconditionally — see
   *"At general `n`, `Φ` is not the difficulty"* above — and what an induction is still owed is
   `IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)`, in which `Φ` does not appear.
-* **`IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` at general `n`** — the obligation the
-  reduction leaves, and the only thing between this file and the general case.  ⚠️ Its pointwise
-  weakening, *"`ΨSqₙ₊₁ · ΨSqₙ₋₁` and `ΨSqₙ` have no common root in `R`"*, is **equally** missing and
-  is the obligation the pointwise reduction leaves; see *"The pointwise weakening is not a cheaper
-  target"* above, and read both floors below as applying to it too.  Neither route to it
-  is available in this development, and it is worth saying where each stops:
+* **`IsCoprime (W.ΨSq (n + 1) * W.ΨSq (n - 1)) (W.ΨSq n)` at general `n`, over an arbitrary
+  commutative ring** — the obligation the reduction leaves, and the only thing between this file
+  and the general case *in this file's generality*.  ⚠️ Its pointwise weakening,
+  *"`ΨSqₙ₊₁ · ΨSqₙ₋₁` and `ΨSqₙ` have no common root in `R`"*, is **equally** missing over an
+  arbitrary ring and is the obligation the pointwise reduction leaves; see *"The pointwise
+  weakening is not a cheaper target"* above.  Of the two routes:
   * the **root argument** — a common root would be an `x`-coordinate that is both `n`- and
-    `(n ± 1)`-torsion, hence `O`, which is not affine — needs the torsion characterisation
-    `n • P = O ↔ Ψₙ(x P) = 0` (`#251`) and a base change to `F̄`.  Neither is imported here.
-  * the **recurrence argument** runs through the divisibility structure of `preΨ`, which is
+    `(n ± 1)`-torsion, hence `O`, which is not affine — has been **run**, and it lands the
+    statement at every `n : ℤ` for an elliptic curve **over a field of characteristic `≠ 2`**:
+    `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
+    (`EllipticCurves.Torsion.CoprimeAdjacent`), with
+    `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` the `Φ` form obtained through the reduction below.
+    ⚠️ **That does not discharge this bullet**, and the difference is not a technicality: this file
+    asks nothing of the base ring, nothing of the characteristic and nothing of the curve, and the
+    route above needs all three — it lifts a root to a *point*, which needs a smooth curve over a
+    field in which `2` is invertible, and it descends through
+    `Polynomial.isCoprime_iff_aeval_ne_zero_of_isAlgClosed`, which is a statement about fields.
+    ⚠️ This bullet used to say the root argument *"needs `#251` and a base change to `F̄`; neither
+    is imported here"*.  Both halves have since been supplied — `#251`'s dictionary by
+    `EllipticCurves.Torsion.TwoTorsionOrder` and the base change by the Mathlib lemma named above —
+    and neither is imported here **still**, which is why the statement below this file's own
+    hypotheses remains open.
+  * the **recurrence argument**, which is the only known route to the arbitrary-ring form, runs
+    through the divisibility structure of `preΨ`, which is
     Mathlib's `preNormEDS (W.Ψ₂Sq ^ 2) W.Ψ₃ W.preΨ₄`.  ⚠️ That `normEDS` satisfies
     `IsEllipticDvdSequence` is an explicit **Mathlib TODO**
     (`Mathlib.NumberTheory.EllipticDivisibilitySequence`).  `IsEllipticDvdSequence` is

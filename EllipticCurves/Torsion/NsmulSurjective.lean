@@ -84,11 +84,15 @@ was written.
   same economy survives at general `n`.
 * **No Bézout certificate — in this file.**  Input (2) is taken in the weak pointwise form
   `∀ x, (ΨSqₙ).eval x = 0 → (Φₙ).eval x ≠ 0`, and nothing here asks for more.
-  The full coprimality `IsCoprime (W.Φ n) (W.ΨSq n)` — issue `#1184`, proved in this tree only at
-  `n = 2` and `n = 3` — is **strictly stronger** than what is used, and
-  `eval_Φ_ne_zero_of_isCoprime` below is the one-line bridge that lets it be plugged in if it ever
-  lands at general `n`.  ⚠️ It is a bridge and not a dependency: `#1184` is not in this file's
-  import closure.
+  The full coprimality `IsCoprime (W.Φ n) (W.ΨSq n)` — issue `#1184` — is **strictly stronger**
+  than what is used, and `eval_Φ_ne_zero_of_isCoprime` below is the one-line bridge that lets it be
+  plugged in.  ⚠️ It is a bridge and not a dependency: `#1184` is not in this file's import
+  closure.  ⚠️ This bullet used to add *"proved in this tree only at `n = 2` and `n = 3`"* and
+  *"if it ever lands at general `n`"*; it has landed, at every `n : ℤ` for an elliptic curve over a
+  field of characteristic `≠ 2` (`WeierstrassCurve.Affine.isCoprime_Φ_ΨSq`,
+  `EllipticCurves.Torsion.CoprimeAdjacent`, **downstream** of this file).  The `n = 2` and `n = 3`
+  instances in `EllipticCurves.DivisionPolynomial.Coprime` are not superseded: they hold over an
+  arbitrary commutative ring.
 
   ⚠️ **This bullet used to continue *"…which is what the two available instances establish
   directly — at `n = 2` through `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` and at `n = 3` through
@@ -190,9 +194,12 @@ lemma exists_eval_Φ_eq [IsAlgClosed F] {n : ℕ} (hn : n ≠ 0) (x₀ : F) :
   exists_eval_Φ_eq_of_splits hn x₀ (IsAlgClosed.splits _)
 
 /-- The bridge from the Bézout form of coprimality to the pointwise no-common-root hypothesis used
-below.  `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` is issue `#1184` and is available in this tree
-only at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`) and `n = 3` (`isCoprime_Φ_three_ΨSq_three`); the
-surjectivity engine below needs only the conclusion.
+below.  `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` is issue `#1184`; the surjectivity engine
+below needs only the conclusion.  ⚠️ This sentence used to end *"and is available in this tree only
+at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`) and `n = 3` (`isCoprime_Φ_three_ΨSq_three`)"*.  Those two are
+still the only instances over an **arbitrary commutative ring**; over a field of characteristic
+`≠ 2` on an elliptic curve it holds at every `n : ℤ`
+(`EllipticCurves.Torsion.CoprimeAdjacent`, downstream of this file).
 
 ⚠️ This docstring used to end *"…which both available instances obtain without any Bézout
 certificate"*.  That was true of the instances as they were merged and is no longer true of them:

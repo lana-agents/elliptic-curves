@@ -78,10 +78,18 @@ consequence of the dictionary at every point**, over an algebraically closed fie
   (`EllipticCurves.DivisionPolynomial.Coprime`), which is exactly the statement that removes `Φ`
   from the problem.
 
-⚠️ **This does not prove `#1184`.**  `#1184` is `IsCoprime (ΨSq_{n+1}·ΨSq_{n−1}) (ΨSq n)`, a
-statement about polynomials over an arbitrary base; what is proved here is its *pointwise* shadow
-over an algebraically closed field, obtained from the group law rather than from a Bézout
-certificate, and it does not specialise back.
+⚠️ **This does not prove `#1184` over an arbitrary base**, which is the generality
+`EllipticCurves.DivisionPolynomial.Coprime` works in: what is proved here is the *pointwise* shadow
+of `IsCoprime (ΨSq_{n+1}·ΨSq_{n−1}) (ΨSq n)` over an algebraically closed field, obtained from the
+group law rather than from a Bézout certificate.
+
+⚠️ **It does, however, specialise back over a field** — an earlier version of this paragraph said
+it did not, and that was wrong.  `Polynomial.isCoprime_iff_aeval_ne_zero_of_isAlgClosed` makes
+coprimality over a field *equivalent* to the absence of a common root in an algebraically closed
+extension, so `eval_ΨSq_adjacent_ne_zero_of_eval_ΨSq_eq_zero` below descends to `IsCoprime` over
+any field of characteristic `≠ 2`.  That is
+`EllipticCurves.Torsion.CoprimeAdjacent.isCoprime_ΨSq_adjacent`, one file up.  What stays out of
+reach is the arbitrary-**ring** form, which no route here touches.
 
 ⚠️ The `2`-torsion half of the dictionary is **load-bearing** for this, and that is why it was
 worth closing: the point `P` produced above `x` is arbitrary, so a dictionary with a `ψ₂(P) ≠ 0`
@@ -95,6 +103,9 @@ side condition would leave `hroot` open at exactly the `x` where `Ψ₂Sq` vanis
   a `2`-torsion point, in its sharpest form — both `n • P = 0` and `ψₙ(P) = 0` are `2 ∣ n`.
 * `WeierstrassCurve.Affine.nsmul_eq_zero_iff_ψ_evalEval_eq_zero_of_isElliptic` : **`#251`'s scope
   item 2 at every point**, the `ψ₂(P) ≠ 0` hypothesis traded for `[W.IsElliptic]`.
+* `WeierstrassCurve.Affine.eval_ΨSq_adjacent_ne_zero_of_eval_ΨSq_eq_zero` : at a root of `ΨSqₙ`
+  neither neighbour `ΨSq_{n±1}` vanishes — the pointwise heart of the argument, and what
+  `EllipticCurves.Torsion.CoprimeAdjacent` descends.
 * `WeierstrassCurve.Affine.eval_Φ_ne_zero_of_eval_ΨSq_eq_zero` : `hroot`, discharged.
 * `WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero` : **`[n]` is surjective on `E(F̄)` at
   every `n ≠ 0`**, over an algebraically closed field of characteristic `≠ 2`, with no hypothesis
@@ -253,21 +264,21 @@ end Point
 
 /-! ## The payoff: `hroot` is a theorem -/
 
-/-- **`Φₙ` and `ΨSqₙ` have no common root over an algebraically closed field of characteristic
-`≠ 2`.**  This is the remaining input `hroot` of
-`WeierstrassCurve.Affine.nsmul_surjective_of_root`, recorded there as the pointwise weakening of
-`#1184`.
+/-- **At a root of `ΨSqₙ`, neither neighbour `ΨSq_{n±1}` vanishes**, over an algebraically closed
+field of characteristic `≠ 2` on an elliptic curve.
 
 The route is the dictionary, not a Bézout certificate: a root `x` of `ΨSqₙ` carries a point
-`(x, y)` of `W`, which is then killed by `n`, and the two neighbours `ψ_{n±1}` cannot vanish there.
-The step from the neighbours to `Φₙ` is the merged
-`WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero`.
+`(x, y)` of `W`, which is then killed by `n`, and `ψ_{n±1}(x, y) ≠ 0` because `(n ± 1) • P = 0`
+alongside `n • P = 0` would force `P = 0` while `P` is affine.
 
-⚠️ This is **not** `#1184`, which is an `IsCoprime` statement over an arbitrary base; the argument
-here runs through points of `W` over an algebraically closed field and does not descend. -/
-theorem eval_Φ_ne_zero_of_eval_ΨSq_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
-    {n : ℕ} (hn : n ≠ 0) (x : F) (hΨ : (W.ΨSq (n : ℤ)).eval x = 0) :
-    (W.Φ (n : ℤ)).eval x ≠ 0 := by
+⚠️ This is the *pointwise* form of `IsCoprime (ΨSq_{n+1} · ΨSq_{n−1}) (ΨSq n)`, not that statement
+— which is `#1184` and is proved over an arbitrary commutative ring nowhere in this development.
+⚠️ Over a **field** it does descend to the `IsCoprime` form, in
+`EllipticCurves.Torsion.CoprimeAdjacent`; the module docstring above says which half of `#1184`
+that closes and which it does not. -/
+theorem eval_ΨSq_adjacent_ne_zero_of_eval_ΨSq_eq_zero [IsAlgClosed F] [W.IsElliptic]
+    (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0) {x : F} (hΨ : (W.ΨSq (n : ℤ)).eval x = 0) :
+    (W.ΨSq ((n : ℤ) + 1)).eval x * (W.ΨSq ((n : ℤ) - 1)).eval x ≠ 0 := by
   classical
   obtain ⟨y, hxy⟩ := exists_equation (W := W) h2 x
   have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hxy
@@ -275,11 +286,27 @@ theorem eval_Φ_ne_zero_of_eval_ΨSq_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 
     pow_eq_zero_iff (n := 2) (by norm_num) |>.mp (by rw [ψ_sq_evalEval hxy, hΨ])
   have hz : ((n : ℕ) • Point.some x y hns : W.Point) = 0 :=
     (nsmul_eq_zero_iff_ψ_evalEval_eq_zero_of_isElliptic h2 hns n).mpr hψn
-  refine WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero hΨ (mul_ne_zero ?_ ?_)
+  refine mul_ne_zero ?_ ?_
   · rw [← ψ_sq_evalEval hxy]
     exact pow_ne_zero 2 (ψ_add_one_evalEval_ne_zero_of_nsmul_eq_zero h2 hns hz)
   · rw [← ψ_sq_evalEval hxy]
     exact pow_ne_zero 2 (ψ_sub_one_evalEval_ne_zero_of_nsmul_eq_zero h2 hns hn hz)
+
+/-- **`Φₙ` and `ΨSqₙ` have no common root over an algebraically closed field of characteristic
+`≠ 2`.**  This is the remaining input `hroot` of
+`WeierstrassCurve.Affine.nsmul_surjective_of_root`, recorded there as the pointwise weakening of
+`#1184`.
+
+⚠️ The whole of the work is `eval_ΨSq_adjacent_ne_zero_of_eval_ΨSq_eq_zero` above; the step from
+the two neighbours to `Φₙ` is the merged, hypothesis-free
+`WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero`
+(`EllipticCurves.DivisionPolynomial.Coprime`), which is exactly the statement that removes `Φ` from
+the problem. -/
+theorem eval_Φ_ne_zero_of_eval_ΨSq_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : n ≠ 0) (x : F) (hΨ : (W.ΨSq (n : ℤ)).eval x = 0) :
+    (W.Φ (n : ℤ)).eval x ≠ 0 :=
+  WeierstrassCurve.eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero hΨ
+    (eval_ΨSq_adjacent_ne_zero_of_eval_ΨSq_eq_zero h2 hn hΨ)
 
 section Surjective
 

@@ -97,8 +97,9 @@ prime.
   is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), and ⚠️ it holds at **every** `n`
   and does not consume this file: it needs no fibre statement, no `3`-smoothness and no hypothesis
   on `F`.  What is true of *this* file is only that it proves nothing about residue degrees.
-* **No `ωₙ`, no coprimality, no elliptic net.**  `#404` (closed), `#1184` (open) and Ward
-  (`#260`, closed) are unused.
+* **No `ωₙ`, no coprimality, no elliptic net.**  `#404` (closed), `#1184` (⚠️ closed over a field
+  of characteristic `≠ 2` by `EllipticCurves.Torsion.CoprimeAdjacent`; open over an arbitrary ring)
+  and Ward (`#260`, closed) are unused.
 
 ⚠️ **Both of the things that sentence names are now closed, and it is an independence claim
 rather than a gate.**  `#404`'s on-curve identity is

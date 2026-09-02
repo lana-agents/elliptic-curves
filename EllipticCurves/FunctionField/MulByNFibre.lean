@@ -91,8 +91,11 @@ the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over e
 those coordinates lie on the curve; it does **not** identify them with the group-law multiple
 `n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
 (`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+`n = 2, 3` only).  ⚠️ The gate was relettered, not lifted, and that PR left `#1184` untouched; the
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ Read as a claim about the
+present state both halves are now stale: `HasXCoordFormula` holds at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`) and `#1184` holds over a
+field of characteristic `≠ 2` (`EllipticCurves.Torsion.CoprimeAdjacent`).
 
 ## References
 
