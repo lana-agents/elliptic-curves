@@ -70,9 +70,18 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
 * **Nothing at `n = 5`.**  Every statement is `3`-smooth, and the ceiling is the one the whole front
   carries: `transcendental_xCoord_nsmul_of_smooth`, `card_torsion_eq_sq_of_smooth` and
   `sum_ramificationIdxN_of_smooth` are each `3`-smooth, and `nsmul_surjective_of_smooth`
-  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is too.  ⚠️ Three of those four are `3`-smooth
-  for the *same* reason — the general-`n` coordinate formula `#251` — so lifting any one of
-  them alone lifts nothing here.
+  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is too.  ⚠️ **This bullet used to add that three
+  of those four are `3`-smooth for the *same* reason — the general-`n` coordinate formula `#251` —
+  and that reason has been removed**: `#251`'s coordinate formula holds at every index
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), `[n]`-surjectivity on
+  `E(F̄)` at every `n ≠ 0` is `nsmul_surjective_of_two_ne_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`), and the transcendence input is
+  `transcendental_xCoord_nsmul_of_isAlgClosed` (`EllipticCurves.FunctionField.MulByNTranscendence`)
+  at every `n ≠ 0` over `F̄`.  ⚠️ **The bullet's conclusion is unchanged**: the statements *below*
+  are still `3`-smooth, because they consume `card_torsion_eq_sq_of_smooth` (`#E[n] = n²`, still
+  `3`-smooth) and `sum_ramificationIdxN_of_smooth`, which routes through
+  `finrank_mulByNEndoFieldRange_of_smooth` — so behind it stands the general-`n` degree, i.e.
+  `#1184` and `(n : F) ≠ 0`.  Lifting any one input alone still lifts nothing here.
 * **No statement at a place that is not the place of a rational point.**  As `#774` records of its
   own `n = 2` case, this is *not* "`[n]` is unramified": a place lying over a closed point which is
   not the closed point of an `F`-rational point is untouched, and this tree has no proof that there
@@ -85,14 +94,21 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), consumed here and not
   reproved.
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
+`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
+with the group-law multiple `n • P` is `#251`, and it is **closed**:
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
+function-field form `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
+is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
+`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
+Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
+`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
+added: both names are cited, not consumed.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References
 

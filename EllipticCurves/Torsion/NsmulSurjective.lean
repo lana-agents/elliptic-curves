@@ -41,16 +41,32 @@ and `nsmul_three_surjective` as one-line instances of `nsmul_surjective_of_hasXC
 
 ⚠️ **Nothing is proved here at any index.**  This file contains no instance of either input; taken
 alone its two headline theorems are conditional statements with no known witness.  The witnesses are
-downstream, at `n = 2` and `n = 3` only.
+downstream.  ⚠️ **They are no longer the two low indices**: input (1) is witnessed at *every* index
+by `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, which imports this file)
+over any field with `(2 : F) ≠ 0`, and input (2) at every **nonzero** index by
+`eval_Φ_ne_zero_of_eval_ΨSq_eq_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) on an elliptic curve
+over an algebraically closed field with `(2 : F) ≠ 0`.  `hasXCoordFormula_two` /
+`hasXCoordFormula_three` (`…DoublingSurjective`, `…TriplingSurjective`) remain the instances a
+consumer *below* `NsmulOrder` can reach.
 
 What the file *does* settle is **how much is needed, and that it is exactly two things**.
 `EllipticCurves.Torsion.CoprimeStructure` reduces the structure theorem `E[n] ≅ (ℤ/nℤ)²` to prime
 powers and records that every prime `p ≥ 5` is blocked on `[p]`-surjectivity, "which still needs the
-general coordinate formula".  That sentence remains true, and its subject now has names: what is
-missing at a prime `p ≥ 5` is a term of `HasXCoordFormula W p` (issue `#251`) **and** a term of
+general coordinate formula".  Its subject has names: what that sentence called missing at a prime
+`p ≥ 5` is a term of `HasXCoordFormula W p` (issue `#251`) **and** a term of
 `∀ x, (W.ΨSq p).eval x = 0 → (W.Φ p).eval x ≠ 0` (implied by issue `#1184`, and strictly weaker than
 it).  Beyond those two, nothing — no degree hypothesis, no Bézout certificate, and no hypothesis on
 `(n : F)`.
+
+⚠️ **Both are now supplied, and the sentence quoted above no longer describes the tree.**  Composing
+the two witnesses named in the previous section gives `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`): `[n]`-surjectivity on `E(F̄)` at **every** `n ≠ 0` on an
+elliptic curve over an algebraically closed field with `(2 : F) ≠ 0`, with no `3`-smoothness and no
+condition on `p`.  `EllipticCurves.Torsion.PrimaryTower`'s gate list records the same two closures.
+⚠️ **This does not close `#1184`**, of which input (2) is only the pointwise shadow over `F̄`: that
+shadow is obtained from the order dictionary rather than from a Bézout certificate and does not
+descend to the `IsCoprime` statement over an arbitrary base.  Neither module named here is in this
+file's import closure and none is added.
 
 ⚠️ So `#1184` is **not** only a gate under rung 3's degree count, which is where it is filed: a
 weakening of it is also a gate under the structure theorem at every prime `p ≥ 5`.

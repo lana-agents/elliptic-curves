@@ -57,13 +57,22 @@ cited, not consumed.
 ⚠️ **The open half was never `#404`'s.**  `equation_div_of_ψ_ne_zero` says the coordinates lie on
 the curve; it says nothing about `n • P`, and its own docstring records that.  Identifying the two
 is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), issue
-`#251`, available at `n = 2` and `n = 3` only (`hasXCoordFormula_two`, `hasXCoordFormula_three`),
-with the `y`-half `addY_self_eq_div` / `addY_add_self_eq_div`
-(`EllipticCurves.Torsion.DoublingCoords`, `EllipticCurves.Torsion.TriplingCoords`) likewise.
+`#251` — and ⚠️ **its two halves now have different answers**:
+
+* ✅ **the `x`-half** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
+  proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`, superseding
+  `hasXCoordFormula_two` / `hasXCoordFormula_three`;
+* ❌ **the `y`-half** — `addY_self_eq_div` / `addY_add_self_eq_div`
+  (`EllipticCurves.Torsion.DoublingCoords`, `EllipticCurves.Torsion.TriplingCoords`) are still the
+  `n = 2` and `n = 3` instances, and the `ωₙ` duplication bullet above is about the **pair**.
+
+⚠️ `NsmulOrder` is **not** in this file's import closure (the two are incomparable) and none is
+added; the name is cited, not consumed.
 
 ⚠️ **So a bullet that needs the group-law multiple in division-polynomial form is still gated — on
-`#251`, and the gate must be relettered rather than removed.**  A bullet that needs only the
-on-curve identity is discharged.  ⚠️ `#1184` (`IsCoprime (Φₙ) (ΨSqₙ)` at general `n`) and `#962`
+the `y`-half of `#251`, and the gate must be relettered rather than removed.**  A bullet that needs
+only the on-curve identity, or only the `x`-coordinate, is discharged.  ⚠️ `#1184`
+(`IsCoprime (Φₙ) (ΨSqₙ)` at general `n`) and `#962`
 (`hprin` over a general field) are untouched by PR #557 and stay open; where they are listed
 alongside `#404`, only `#404`'s name comes off.
 

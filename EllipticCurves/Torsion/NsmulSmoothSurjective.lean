@@ -34,11 +34,35 @@ adds a new index to that list.**  What it adds is the observation that the *conc
 even though the *route to it* does not, so the general-`n` coordinate formula is not on the critical
 path for surjectivity at a `3`-smooth index.
 
-⚠️ **`n = 5` is unmoved**, and for the reason this tree records everywhere else: a fifth index would
-need `hasXCoordFormula` at `5`, which is `#251` at general `n` and is Ward-gated (`#260`).  The
-`3`-smoothness here is exactly the `3`-smoothness of `card_torsion_eq_sq_of_smooth`
-(`EllipticCurves.Torsion.ThreePrimary`) and of `transcendental_xCoord_nsmul_of_smooth`
-(`EllipticCurves.FunctionField.MulByNComposition`), and it is the same ceiling, not a new one.
+⚠️ **This paragraph used to end *"`n = 5` is unmoved … a fifth index would need `hasXCoordFormula`
+at `5`, which is `#251` at general `n` and is Ward-gated (`#260`)"*, and that ceiling is gone.**
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) holds at **every** index
+over any field with `(2 : F) ≠ 0`, and `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`) is this file's headline **with the `3`-smoothness
+dropped**: same `[IsAlgClosed F]`, same `[W.IsElliptic]`, same `(2 : F) ≠ 0`, every `n ≠ 0`.  So
+`nsmul_surjective_of_smooth` is a strict specialisation of a merged theorem, and `n = 5` *is*
+moved — elsewhere.
+
+⚠️ **That is not a reason to delete this file, and the reason is import position, not novelty.**
+`Torsion.NsmulSmoothSurjective` and `Torsion.TwoTorsionOrder` are **import-incomparable** — closures
+of **19** and **24** `EllipticCurves` modules, neither containing the other — so routing this file's
+consumers (`FunctionField.MulByNFibre`, `FunctionField.WeilPairingAlternatingAssemblyN`) through the
+general theorem would move them onto a different stack, not remove one.  The same pattern is
+already in the tree: `card_torsion_le_sq_of_smooth` (`EllipticCurves.Torsion.Multiplicative`,
+closure **7**) sits beside the general `card_torsion_le_sq` (`EllipticCurves.Torsion.XSupport`,
+closure **23**).  What is genuinely this file's is unchanged: the *conclusion* composes along
+`mul_smul` even where the route to it does not.
+
+⚠️ **The two statements this paragraph used to call "the same ceiling" no longer agree with each
+other.**  `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) is still
+`3`-smooth, because `#E[n] = n²` is.  `transcendental_xCoord_nsmul_of_smooth`
+(`EllipticCurves.FunctionField.MulByNComposition`) is not a ceiling any more: at a `3`-smooth `n`
+its own `(2 : F) ≠ 0` and `(3 : F) ≠ 0` give `(n : F) ≠ 0`, which is all
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) asks.  ⚠️ That substitution is *not* made
+anywhere and the import direction for it was not measured; what is claimed here is only that the
+`3`-smoothness of this file is no longer a coordinate-formula ceiling, so a reader hunting the
+surviving obstruction should not stop here.
 
 ## Main statements
 
@@ -55,8 +79,11 @@ need `hasXCoordFormula` at `5`, which is `#251` at general `n` and is Ward-gated
 ## What is *not* here
 
 * **No new index.**  The two merged surjectivity theorems are the only inputs; nothing is proved at
-  a prime other than `2` and `3`.  In particular this is not progress on `#251`, which is the live
-  gate.  ⚠️ This bullet used to name `#404` beside it; `#404`'s on-curve identity is closed
+  a prime other than `2` and `3`.  In particular this is not progress on `#251` — ⚠️ **whose
+  coordinate formula has since been closed at every index** (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`), so the sentence that used to end *"which is the live gate"*
+  is retired: nothing here stands between the tree and a fifth index.  ⚠️ This bullet used to name
+  `#404` beside it; `#404`'s on-curve identity is closed
   (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and was never what `HasXCoordFormula` needed.
 * **No injectivity, no degree, and no statement about `E[n]`.**  `#E[n] = n²` at `3`-smooth `n` is
   `card_torsion_eq_sq_of_smooth`, already merged, and it is an *input* to the consumers of this

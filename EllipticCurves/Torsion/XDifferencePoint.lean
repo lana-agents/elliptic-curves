@@ -92,7 +92,10 @@ at a point of `W` at which neither `ΨSq₂` nor `ΨSq₃` vanishes.
 This is `xCoord_sub_xCoord_of_hasXCoordFormula` at `(p, q) = (3, 2)`, where `ψ_{p−q} = ψ₁ = 1`.  It
 is the only unconditional point-level instance of the `x`-difference identity this tree admits, and
 it exists to witness that the identity of `EllipticCurves.Torsion.XDifference` has point-level
-content.  ⚠️ It does **not** generalise: `HasXCoordFormula W n` is issue `#251` at every `n ≥ 4`. -/
+content.  ⚠️ It does not generalise *here*: `HasXCoordFormula W n` holds at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), but that module and this
+one are import-incomparable, and the hypotheses substituted below are the two instances reachable
+from here. -/
 theorem xCoord_two_sub_xCoord_three (h2 : (2 : F) ≠ 0) (h : W.Nonsingular x y)
     (h3 : (W.ΨSq 3).eval x ≠ 0) (h2' : (W.ΨSq 2).eval x ≠ 0) :
     ∃ (x₃ y₃ x₂ y₂ : F) (h₃ : W.Nonsingular x₃ y₃) (h₂ : W.Nonsingular x₂ y₂),
