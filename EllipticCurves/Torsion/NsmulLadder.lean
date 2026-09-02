@@ -68,10 +68,17 @@ Every input is merged, and the last of them landed on 2026-09-01–02.
    `IsEllipticNet.isEllipticSequence_iff_rel_one` (`EllipticCurves.Torsion.WardR1`), applicable to
    `ψ` through `ψ_neg` and `ψ_one`, with a `ring` call between the two.  On the `s` axis it is
    `normEDS_isEllipticNet_of_gapCore` (`EllipticCurves.Torsion.EllipticNetSlices`), which pays the
-   regularity hypothesis once and for all in `UnivEDS`.  ⚠️ Neither collapse is a fact about
-   `IsEllipticNet.rel` in general — a general sequence over a general ring gets neither, which is
-   exactly why those two files exist.  What being outside the slice costs *this* file is the
-   `ψ_mul_Ω` route to the instance, recorded next; it is not Ward.
+   regularity hypothesis once and for all in `UnivEDS`.  ⚠️ Neither collapse is automatic for
+   `IsEllipticNet.rel` in general, and the two axes differ in how well that is understood.  On the
+   `r` axis the gap is real and this tree exhibits it: `signMultiplesOfThree` is odd
+   (`signMultiplesOfThree_odd`) and satisfies the whole `r = 1` slice
+   (`signMultiplesOfThree_rel_one`) yet is not an elliptic sequence
+   (`not_isEllipticSequence_signMultiplesOfThree`), because `signMultiplesOfThree 1 = 0`.  On the
+   `s` axis nothing of the kind is known: `EllipticCurves.Torsion.EllipticNetSlices` records
+   that its regularity hypothesis is *not* known to be necessary and claims no counterexample.
+   ⚠️ `EllipticCurves.Torsion.NsmulOrder` states the same split; keep the two in step.  What
+   being outside the slice costs *this* file is the `ψ_mul_Ω` route to the instance, recorded
+   next; it is not Ward.
 
 ⚠️ **The ladder identity is not itself a relator instance**, and it is worth recording why so nobody
 looks for one: its three terms force `p + q + r = (6n+5)/2`, which is not an integer.  Only the
