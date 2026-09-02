@@ -88,15 +88,24 @@ looks for one: its three terms force `p + q + r = (6n+5)/2`, which is not an int
 
 ## What this does not prove
 
-⚠️ **`HasXCoordFormula W n` at general `n` is still open, and this file does not close it.**  That
-predicate assumes only `ΨSqₙ(x) ≠ 0`; the ladder assumes `ψ_k(x, y) ≠ 0` for **every** `k ≤ n`.  The
-two differ at a torsion point: if `(x, y)` has order `d` with `d < n` and `d ∤ n`, then `ψ_d(x, y)`
-may vanish while `ψₙ(x, y)` does not, and the ladder breaks at `k = d` while `HasXCoordFormula`'s
-hypothesis still holds.  ⚠️ Closing that gap is **not** a matter of bookkeeping: the natural route
-runs the argument at the generic point, where no `ψ_k` vanishes — which is
-`EllipticCurves.FunctionField.MulByNPullback`'s setting — and specialises, and that needs the
-function-field descent layer.  The alternative is to prove `ψ_d(x, y) = 0 ↔ d • (x, y) = 0` first,
-which is the other half of `#251` and is not proved here either.
+⚠️ **This file does not prove `HasXCoordFormula W n` at general `n`.**  That predicate assumes only
+`ΨSqₙ(x) ≠ 0`; the ladder assumes `ψ_k(x, y) ≠ 0` for **every** `k ≤ n`.  The two differ at a
+torsion point: if `(x, y)` has order `d` with `d < n` and `d ∤ n`, then `ψ_d(x, y)` may vanish while
+`ψₙ(x, y)` does not, and the ladder breaks at `k = d` while `HasXCoordFormula`'s hypothesis still
+holds.
+
+⚠️ **The gap is closed, one file up.**  `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) proves the predicate at every `n` over a field of
+characteristic `≠ 2`, in three cases.  At a `2`-torsion point `n` is forced odd and
+`n • (x, y) = (x, y)`, with `Φₙ(x)/ΨSqₙ(x) = x`.  Otherwise, if the ladder `ψ₁, …, ψₙ` has no zero
+it applies `nsmul_eq_some_Φ_div_ΨSq` directly; and if it has one it takes `d` to be the **least**
+index at which `ψ` vanishes, replaces `n` by its residue `j = n mod d`, runs
+`nsmul_eq_some_Φ_div_ΨSq` at `j` — where by minimality no rung vanishes — and transports the
+prediction back along `divX_add_mul_of_not_dvd`, which says the prediction `divX x` is `d`-periodic
+at such a point.  So in two of the three cases the ladder of this file is what that argument
+consumes, and it is not superseded.  ⚠️ The other route this paragraph names —
+running the argument at the generic point and specialising — is **not** the one taken, and the
+descent layer it would need is still absent.
 
 ⚠️ Nor does this file supply the elliptic **divisibility** half of Mathlib's standing `TODO`
 (`IsDvdSequence (normEDS b c d)`), which is what would let `ψ_d = 0` propagate to `ψₙ = 0` along

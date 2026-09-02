@@ -83,19 +83,24 @@ heading is not `## Main results`.
   `F(x)` is not being a written-down rational function**, and it is the second that a degree count
   consumes.
 
-  ⚠️ What remains is therefore `nMulRatFunc W n = Φₙ/ΨSqₙ` (`#251`), the coprimality
+  ⚠️ What remained was therefore `nMulRatFunc W n = Φₙ/ΨSqₙ` (`#251`), the coprimality
   `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`; `#681` is the merged `n = 2` instance and
   is *not* the general gate), and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  ⚠️ The degrees themselves are
   **not** gated — `natDegree_Φ` and `natDegree_ΨSq` are Mathlib's at general `n`.
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **Gate 1 is discharged, and two remain.**  `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n`
+with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
+applied to the generic point.  ⚠️ **`#1184` is untouched**, and is what now stands alone beside
+`(n : F) ≠ 0`.
+
+⚠️ That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  That
+identity is **not** what discharged gate 1 — it says those coordinates lie on the curve and makes no
+claim about `n • P` — and the route above goes nowhere near it.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
   ⚠️ **A reader who takes this file for "rung 3 generalises at general `n`" has misread it.**  What
   it does is remove one of rung 3's gates.
@@ -103,9 +108,10 @@ account is `EllipticCurves.FunctionField.MulByNPullback`.
   ⚠️ **What `nMulRatFunc` *is* enough for is the whole tower.**
   `EllipticCurves.FunctionField.MulByNDegreeTower` — which imports this file — proves
   `[F(W) : [n]∗F(W)] = [F(x) : F(nMulRatFunc W n)]` for every `n`, out of `algebraMap_nMulRatFunc`
-  and nothing else about `n`.  So the element this file names is the tower's entire input; what is
-  still missing is the **degree** of that element, which is the three gates listed just above.  That
-  file proves no degree at any `n` outside `{2, 3}` either.
+  and nothing else about `n`.  So the element this file names is the tower's entire input; what
+  that file lacked was the **degree** of that element, which was the three gates listed just above.
+  ⚠️ `EllipticCurves.FunctionField.MulByNXCoordFormula` now supplies gate 1 and the degree follows
+  at every `n` with `(n : F) ≠ 0` **given `#1184`**, which is open.
 
   ⚠️ **The tree does know degrees outside `{2, 3}`, by a different route.**
   `EllipticCurves.FunctionField.MulByNComposition` proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group
@@ -251,8 +257,10 @@ open Classical in
 /-- **`x(n • 𝒫)` as a rational function of `x`.**  The general-`n` analogue of the merged
 `doublingRatFunc`, reached from the group law instead of from `Φ₂/Ψ₂Sq`.
 
-⚠️ **Its reduced numerator and denominator are not identified**, and that — not its existence — is
-what a degree computation needs.  See the module docstring. -/
+⚠️ **Its reduced numerator and denominator are not identified here**, and that — not its
+existence — is what a degree computation needs.  They are identified one file up, as `Φₙ` and
+`ΨSqₙ`: `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`), at every `n`
+with `(n : F) ≠ 0`.  See the module docstring. -/
 noncomputable def nMulRatFunc (W : Affine F) [W.IsElliptic] (n : ℕ) : RatFunc F :=
   ratFuncPreimage W (xCoord_nsmul_genericPoint_mem_ratFuncRange n)
 
@@ -286,11 +294,13 @@ The same argument as `nMulRatFunc_two` against the merged `algebraMap_triplingRa
 `xCoord_three_nsmul_genericPoint` (`EllipticCurves.FunctionField.MulByThreeDegree` and
 `…MulByNPullback`), and the reason this file imports `MulByThreeDegree` at all.
 
-⚠️ `n = 2` and `n = 3` are the **only** indices at which the group-law construction can be checked
-against a written-down fraction, because they are the only indices at which the tree writes one
-down: `#682` and `#775` are the merged degree computations and there is no `Φₙ/ΨSqₙ` presentation
-of `nMulRatFunc W n` at any other `n`.  That presentation at general `n` is `#251`'s and
-is what a degree count needs; see the module docstring. -/
+⚠️ `n = 2` and `n = 3` were the only indices at which the group-law construction could be checked
+against a written-down fraction; `#682` and `#775` are the merged degree computations behind them.
+That is no longer so: `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) gives
+`nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n` with `(n : F) ≠ 0` over a field of characteristic `≠ 2`.
+These two remain the instances reachable **here**, and remain the validation that the general
+statement specialises to the merged low-index fractions. -/
 theorem nMulRatFunc_three [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     nMulRatFunc W 3 = triplingRatFunc W := by
   refine (algebraMap (RatFunc F) W.FunctionField).injective ?_
