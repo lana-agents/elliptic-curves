@@ -94,9 +94,16 @@ satisfiable, are certified in the `Nonvacuity` section at the end of this file.
   `n = 3`, through `EllipticCurves.Torsion.TriplingSurjective`. `EllipticCurves.TateModule.Free`
   says of itself that nothing in it uses that formula; **that sentence must not be read as applying
   here.** Ward's theorem and the elliptic-net recurrence remain unused at every `ℓ`.
-* **General odd `ℓ` stays out.** `[ℓ]`-surjectivity for `ℓ ≥ 5` needs the *general* coordinate
-  formula, still gated behind the `ωₙ` crux; `EllipticCurves.TateModule.PrimaryFree` is already
-  stated at an arbitrary prime, so when that gate is paid the `ℓ ≥ 5` file will again be a list of
+* **General odd `ℓ` stays out.** ⚠️ This bullet used to give the reason as *"`[ℓ]`-surjectivity
+  for `ℓ ≥ 5` needs the *general* coordinate formula, still gated behind the `ωₙ` crux"*, and all
+  three clauses are wrong: `[ℓ]`-surjectivity holds at every nonzero index
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
+  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s
+  on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  What
+  `EllipticCurves.TateModule.PrimaryFree` still lacks at `ℓ ≥ 5` is the count `#E[ℓ^k]`, whose
+  gate list is `EllipticCurves.Torsion.PrimaryTower`'s.  That file is already stated at an
+  arbitrary prime, so when the count is paid the `ℓ ≥ 5` file will again be a list of
   instantiations and no argument will have to be written a third time.
 * **The Galois action on `T₃E` and `ρ_{E,3} : G → GL₂(ℤ_3)` are NOT in scope.**
   `EllipticCurves.TateModule.Free` names them as its own follow-up at `ℓ = 2` and the same split

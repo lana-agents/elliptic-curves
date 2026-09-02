@@ -75,14 +75,20 @@ about by name.
   (`EllipticCurves.TateModule.MatrixContinuityThree`).
 * ⚠️ **This does not unblock `det ρ_{E,3} = χ_3` `3`-adically**, and an entry formula for
   `ρ_{E,3}(σ)⁻¹` may look like progress towards it. The `3`-adic identity needs the Weil pairing on
-  `E[3^k]` for **every** `k`, i.e. the `ωₙ` crux. The **mod-`3`** identity is a different statement
+  `E[3^k]` for **every** `k`.  ⚠️ This sentence used to add *"i.e. the `ωₙ` crux"*, and that
+  equation is false twice over: the `ωₙ` crux is `#404`'s on-curve identity, closed in
+  `EllipticCurves.Torsion.OmegaCrux` (PR #557), and it is neither the pairing at every level nor
+  the coordinate formula. The **mod-`3`** identity is a different statement
   about a different object and is
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 * ⚠️ **Injectivity, surjectivity and openness of `ρ_{E,3}` all stay out.** An entry-by-entry
   agreement of two constructions of the same homomorphism says nothing about any of them.
 * `ℓ ≥ 5` gains nothing from this file. The generic statements it instantiates already hold at
-  every prime — what is missing there is a basis of `T_ℓE`, which needs `#E[ℓ^k]` and surjectivity
-  of `[ℓ]` on `E(F̄)`, i.e. the multiplication-by-`n` coordinate formula `x(nP) = Φₙ/ΨSqₙ`.
+  every prime — what is missing there is a basis of `T_ℓE`, which needs `#E[ℓ^k]`.  ⚠️ This bullet
+  used to add *"and surjectivity of `[ℓ]` on `E(F̄)`, i.e. the multiplication-by-`n` coordinate
+  formula `x(nP) = Φₙ/ΨSqₙ`"*, and both halves are stale: surjectivity holds at every nonzero index
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
+  proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
 
 ## References
 

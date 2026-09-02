@@ -199,9 +199,13 @@ and two of the three are in this file:
   separately as `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 * ⚠️ **This file is usable at `ℓ ≥ 5` only as far as its inputs are.** Everything that takes a
   basis is available at every prime today; the two `_of_nonempty` rows need
-  `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`, which at `ℓ ≥ 5` is gated on `[ℓ]`-surjectivity and
-  `#E[ℓ^k]`, i.e. on the general multiplication-by-`n` coordinate formula. What is missing at
-  `ℓ ≥ 5` is a *basis to feed this file*, not a theorem in it.
+  `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`, which at `ℓ ≥ 5` is gated on `#E[ℓ^k]`.  ⚠️ This
+  bullet used to add *"and `[ℓ]`-surjectivity … i.e. on the general multiplication-by-`n`
+  coordinate formula"*, and both clauses are stale: surjectivity holds at every nonzero index
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the coordinate
+  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`).  What is missing at `ℓ ≥ 5` is still a *basis to feed this
+  file*, not a theorem in it.
 
 ## Main statements
 

@@ -45,8 +45,13 @@ surjectivity of `[ℓ]`"* — is false at `ℓ = 3`, and so is the reading of it
 instances of everything in this file exist. They are stated in
 `EllipticCurves.TateModule.FreeThree` rather than here, so as not to drag
 `EllipticCurves.Torsion.ThreePrimary` into a file whose subject is the levelwise-generic structure
-of `T_ℓE`. For `ℓ ≥ 5` the original sentence stands verbatim: the general coordinate formula is
-still the gate.
+of `T_ℓE`.  ⚠️ **This paragraph used to end *"for `ℓ ≥ 5` the original sentence stands verbatim:
+the general coordinate formula is still the gate"*, and it does not.**  The general formula is
+proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), and
+`[ℓ]`-surjectivity with it (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`).  What is still unavailable at `ℓ ≥ 5` is the count
+`#E[ℓ^k]`; `EllipticCurves.Torsion.PrimaryTower` carries its gate list, and nothing here
+re-measures it.
 
 ⚠️ **The quotient statement is no longer part of this layer.**
 `WeierstrassCurve.Affine.tateModule.quotientProjEquiv` is stated at an arbitrary `ℓ`, above the

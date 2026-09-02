@@ -289,8 +289,11 @@ x(3P) · ΨSq₃(x) = Φ₃(x).
 ```
 
 This is the `n = 3` instance of the multiplication-by-`n` coordinate formula
-`x(nP) = Φₙ(x)/ΨSqₙ(x)`, in a form that needs no division; the general case is not available in this
-tree.  The mirror statement at the generic point of `F(W)` is
+`x(nP) = Φₙ(x)/ΨSqₙ(x)`, in a form that needs no division.  ⚠️ This docstring used to add *"the
+general case is not available in this tree"*, and that is false:
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) proves it at every index.
+The division-free shape below is still worth having on its own terms, and is what this file's
+consumers take.  The mirror statement at the generic point of `F(W)` is
 `EllipticCurves.FunctionField.GenericTripling.addX_gen_eq_mulByThree`; it cannot be specialised to
 an `F`-point, so the computation is redone here.
 

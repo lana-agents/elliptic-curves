@@ -95,8 +95,14 @@ surviving obstruction should not stop here.
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.4.10 — `[n]` is
-  surjective on `E(K̄)` for every `n ≠ 0`.  ⚠️ That statement is *wider* than this file: it is the
-  general-`n` form, and reaching it here needs the coordinate formula this file does not have.
+  surjective on `E(K̄)` for every `n ≠ 0`.  ⚠️ That statement is *wider* than this file, which is
+  `3`-smooth `n` only.  ⚠️ This bullet used to add *"reaching it here needs the coordinate formula
+  this file does not have"*, and that reads as a claim the formula is unavailable, which it is not:
+  the general-`n` form is on `main` as `nsmul_surjective_of_two_ne_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`), off `hasXCoordFormula_of_two_ne_zero`
+  (`EllipticCurves.Torsion.NsmulOrder`).  What stays true is the **import** claim: neither module is
+  in this file's closure, so the elementary `3`-smooth argument below is genuinely independent
+  of them.
 -/
 
 namespace WeierstrassCurve.Affine

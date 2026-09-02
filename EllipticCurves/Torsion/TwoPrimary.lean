@@ -36,15 +36,23 @@ case of `EllipticCurves.Torsion.ThreeTorsionStructure` extends this to every ind
 `2 ^ k * 3`, for instance `E[12] ≃+ ℤ/12ℤ × ℤ/12ℤ`.
 
 Everything here is **independent of Ward's theorem, of the elliptic-net recurrence and of the
-multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**, which gate the general case: the
-`n = 2` instance of that formula is elementary (it is the tangent-line doubling identity) and is all
-that `DoublingSurjective` needs.
+multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**: the `n = 2` instance of that
+formula is elementary (it is the tangent-line doubling identity) and is all that
+`DoublingSurjective` needs.  ⚠️ The independence claim is the point of this sentence and is
+unchanged; only its trailing *"which gate the general case"* was dropped, because the coordinate
+formula is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`) and gates nothing.
 
 ## The state of `E[n] ≅ (ℤ/nℤ)²` after this file
 
 Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}`. Still open:
 
-* `#E[p] ≤ p²` for a prime `p ≥ 5`, which needs the general coordinate formula;
+* `#E[p] = p²` for a prime `p ≥ 5`.  ⚠️ This bullet used to read *"`#E[p] ≤ p²` …, which needs the
+  general coordinate formula"* and both halves of that were wrong: the `≤` half is
+  `card_torsion_le_sq` (`EllipticCurves.Torsion.XSupport`) at every index, and the coordinate
+  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`).  What is open is the `≥` half, whose one remaining gate is
+  listed in `EllipticCurves.Torsion.PrimaryTower` and is not the coordinate formula;
 * the `3`-primary tower `#E[3 ^ k] = 9 ^ k`, which needs surjectivity of `[3]`. The tangent-line
   shortcut that makes `[2]` elementary is special to doubling; `[3]` genuinely needs
   `x(3P) = Φ₃/Ψ₃²`.

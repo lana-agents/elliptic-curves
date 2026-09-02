@@ -41,8 +41,15 @@ structure theorem for a general `n` is now reduced to **prime powers**. Those ge
 surjectivity of `[p]` on `E(F̄)`. ⚠️ Two clauses this paragraph used to carry about that are false
 and are replaced. The first, *"which is not available"*, is false at `p = 2`
 (`nsmul_two_surjective`, `EllipticCurves.Torsion.DoublingSurjective`) and at `p = 3`
-(`nsmul_three_surjective`, `EllipticCurves.Torsion.TriplingSurjective`); it stands verbatim for
-every prime `p ≥ 5`, which still needs the general coordinate formula `x(nP) = Φₙ/ΨSqₙ`. The
+(`nsmul_three_surjective`, `EllipticCurves.Torsion.TriplingSurjective`).  ⚠️ **Its continuation —
+*"it stands verbatim for every prime `p ≥ 5`, which still needs the general coordinate formula
+`x(nP) = Φₙ/ΨSqₙ`"* — is false now too**: `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`) gives `[p]`-surjectivity at **every** nonzero index over
+`F̄` with `(2 : F) ≠ 0`, and the coordinate formula it named is itself proved at every index
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ What still stops the
+prime-power reduction from closing at `p ≥ 5` is the count `#E[p] = p²`, not surjectivity; the
+gate list for it is `EllipticCurves.Torsion.PrimaryTower`'s, and this file does not re-measure it.
+The
 second, *"only the exponent-one cases `p = 2` and `p = 3` are known"*, is false at every exponent:
 `nonempty_torsionTwoPow_addEquiv` (`EllipticCurves.Torsion.TwoPrimary`) and
 `nonempty_torsionThreePow_addEquiv` (`EllipticCurves.Torsion.ThreePrimary`) give every `2 ^ k` and

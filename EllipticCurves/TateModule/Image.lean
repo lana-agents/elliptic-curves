@@ -96,8 +96,12 @@ this file; it simply has not been written**, and that is a follow-up"*: ⚠️ *
 written**, and it is `EllipticCurves.TateModule.ImageThree`. The prediction was correct and has
 been paid.
 
-⚠️ At `ℓ ≥ 5` there is still a genuine gate and it is `T_ℓE ≅ ℤ_ℓ²` itself, which needs
-`[ℓ]`-surjectivity and `#E[ℓ^k]`, i.e. the general coordinate formula `x(nP) = Φₙ/ΨSqₙ`. Everything
+⚠️ At `ℓ ≥ 5` there is still a genuine gate and it is `T_ℓE ≅ ℤ_ℓ²` itself, which needs `#E[ℓ^k]`.
+⚠️ This sentence used to add *"and `[ℓ]`-surjectivity, i.e. the general coordinate formula
+`x(nP) = Φₙ/ΨSqₙ`"*, and both clauses are stale: surjectivity holds at every nonzero index
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
+proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
+`EllipticCurves.Torsion.PrimaryTower` carries the gate list for the count. Everything
 is stated for a base change `W'⁄F`, matching `EllipticCurves.TateModule.MatrixRep` and
 `EllipticCurves.TateModule.MatrixContinuity`.
 

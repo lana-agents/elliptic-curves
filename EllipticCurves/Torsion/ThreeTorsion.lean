@@ -20,9 +20,11 @@ Nat.card (W.torsion 3) ≤ 9.
 
 This is the `n = 3` instance of the bound `#E[n] ≤ n²` (Silverman, *AEC*, III.6, Corollary 6.4).
 Like the `n = 2` computation, it is **independent of the elliptic-net recurrence and of the
-multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`** which gate the general case: for
-`n = 3` the whole content is the tangent-line doubling formula, available in closed form in
-Mathlib.
+multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**: for `n = 3` the whole content
+is the tangent-line doubling formula, available in closed form in Mathlib.  ⚠️ The independence
+claim is unchanged; only its trailing *"which gate the general case"* was dropped, because the
+coordinate formula is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`).
 
 ## The mechanism
 

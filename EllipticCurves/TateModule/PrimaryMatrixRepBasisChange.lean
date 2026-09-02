@@ -82,9 +82,17 @@ instances, and this one does too.
   instantiating files.
 * ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic**, in the sense that matters: its
   statements are about a basis of `T_ℓE`, and at `ℓ ≥ 5` there is none, because
-  `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
-  general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux. What being generic buys is that
-  when that gate is paid, the `ℓ = 5` file is again a list of instantiations.
+  `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone.  ⚠️ This bullet used to say
+  it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate
+  formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**:
+  `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
+  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux`
+  (PR #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two
+  apart.  `#E[ℓ^k]` is genuinely open at `ℓ ≥ 5`; its gate list is
+  `EllipticCurves.Torsion.PrimaryTower`'s. What being generic buys is that when it is paid, the
+  `ℓ = 5` file is again a list of instantiations.
 
 ## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
 
