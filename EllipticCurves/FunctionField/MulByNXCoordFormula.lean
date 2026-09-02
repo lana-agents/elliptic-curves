@@ -23,9 +23,11 @@ itself.**
 `n : ℤ` for an elliptic curve over a field of characteristic `≠ 2`
 (`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`, `EllipticCurves.Torsion.CoprimeAdjacent`), and
 `EllipticCurves.FunctionField.MulByNDegreeGeneral` composes it with the last theorem below to give
-`[F(W) : [n]∗F(W)] = n²` with no unsupplied hypothesis.  ⚠️ Those two modules are **downstream**
-of this one and not in its import closure; nothing below changed, and the hypothesis-carrying forms
-are still the right shape here.
+`[F(W) : [n]∗F(W)] = n²` with no unsupplied hypothesis.  ⚠️ Neither module is in this one's import
+closure, and they sit differently: `MulByNDegreeGeneral` is **downstream** (it imports this file),
+while `EllipticCurves.Torsion.CoprimeAdjacent` is **import-incomparable** with it — its only import
+is `EllipticCurves.Torsion.TwoTorsionOrder`, and it reaches no `FunctionField` module at all.
+Nothing below changed, and the hypothesis-carrying forms are still the right shape here.
 
 ## Where it comes from: one merged theorem, applied over the wrong field on purpose
 
@@ -68,7 +70,8 @@ the other and the merged statement is untouched.
   changes is that `#1184` and `(n : F) ≠ 0` are the **only** two hypotheses between this tree
   and the general-`n` degree; before, `#251` stood beside them.  ⚠️ The first of the two was
   discharged afterwards, in `EllipticCurves.Torsion.CoprimeAdjacent`, and the composition is
-  `EllipticCurves.FunctionField.MulByNDegreeGeneral` — both downstream of this file.
+  `EllipticCurves.FunctionField.MulByNDegreeGeneral` — the latter downstream of this file, the
+  former **import-incomparable** with it.
 * **It says nothing about `#E[n] = n²`.**  The counting step — a separable isogeny has as many
   points in its kernel as its degree — is in this tree at no index, as
   `EllipticCurves.FunctionField.MulByTwoDegree`'s scope section records.  A field degree is not a
@@ -265,8 +268,8 @@ theorem finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent (h2 : (2 : F) 
 The statements above have an unsupplied hypothesis and could in principle be vacuous.  They are
 not: at `n = 2` and `n = 3` the merged coprimality certificates discharge it and the conclusion is
 a number.  ⚠️ Since this file was written the hypothesis has also been discharged at **every**
-index, downstream, in `EllipticCurves.Torsion.CoprimeAdjacent`; the checks below are kept because
-they are the ones available in this file's own import closure.
+index, in the **import-incomparable** `EllipticCurves.Torsion.CoprimeAdjacent`; the checks below
+are kept because they are the ones available in this file's own import closure.
 -/
 
 section Nonvacuity

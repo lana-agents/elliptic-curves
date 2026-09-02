@@ -99,8 +99,9 @@ statement that induction is owed on is
 unconditionally, over an arbitrary commutative ring.  **Third**, `natDegree_ΨSq`'s `(n : F) ≠ 0`,
 the same side condition the rung-4 paragraph below shows `mulByNEndo` does not carry.
 
-⚠️ **The first and second are no longer missing**, both downstream of this file and neither in its
-import closure.  The fraction is `nMulRatFunc_eq_ΦDivΨSq`
+⚠️ **The first and second are no longer missing**, though not here: all three modules named below
+are **import-incomparable** with this file — none is in its import closure and none has it in
+theirs — so nothing here can consume them.  The fraction is `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`); the coprimality is
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`), at
 every `n : ℤ` for an elliptic curve over a field of characteristic `≠ 2` — the root route this

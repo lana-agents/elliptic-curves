@@ -55,8 +55,9 @@ over the field `F(W)`, so a theorem about points of a curve over a field applies
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) proves
 gate 2 at every `n : ℤ` for an elliptic curve of characteristic `≠ 2`, and
 `EllipticCurves.FunctionField.MulByNDegreeGeneral` composes all three, leaving `(n : F) ≠ 0` as the
-only hypothesis.  ⚠️ Both modules are **downstream** of this one and are not in its import closure,
-so the conditional forms below are unchanged and stay conditional.  And a field degree is
+only hypothesis.  ⚠️ Neither module is in this one's import closure: `MulByNDegreeGeneral` is
+**downstream**, `EllipticCurves.Torsion.CoprimeAdjacent` **import-incomparable** — so the
+conditional forms below are unchanged and stay conditional.  And a field degree is
 still not a point count, so nothing here bears on `#E[n] = n²`.
 
 That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the on-curve
@@ -231,8 +232,8 @@ theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) �
 gates are jointly sufficient.  ⚠️ Both `hfrac` and `hcop` are now available at every `n` with
 `(n : F) ≠ 0` over a field of characteristic `≠ 2` — `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) and
-`WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`), both
-downstream of this file — and the composition is
+`WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`), the first
+downstream of this file and the second **import-incomparable** with it — and the composition is
 `EllipticCurves.FunctionField.MulByNDegreeGeneral`.  This theorem stays conditional because this
 file must not import either. -/
 theorem finrank_mulByNFieldRange_of_nMulRatFunc_eq [W.IsElliptic] (n : ℕ)

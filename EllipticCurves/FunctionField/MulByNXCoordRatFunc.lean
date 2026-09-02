@@ -96,8 +96,9 @@ applied to the generic point.  ⚠️ **`#1184` was untouched by that file, and 
 more**: `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
 (`EllipticCurves.Torsion.CoprimeAdjacent`) proves it at every `n : ℤ` for an elliptic curve over a
 field of characteristic `≠ 2`, so what stands beside `(n : F) ≠ 0` is nothing, and the degree at
-general `n` is `EllipticCurves.FunctionField.MulByNDegreeGeneral`.  ⚠️ Both modules are
-**downstream** of this one.
+general `n` is `EllipticCurves.FunctionField.MulByNDegreeGeneral`.  ⚠️ `MulByNDegreeGeneral` is
+**downstream** of this one; `EllipticCurves.Torsion.CoprimeAdjacent` is **import-incomparable**
+with it.
 
 ⚠️ That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the
 on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
