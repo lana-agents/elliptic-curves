@@ -104,6 +104,7 @@ import EllipticCurves.FunctionField.MulByNPullback
 import EllipticCurves.FunctionField.MulByNResidueDegree
 import EllipticCurves.FunctionField.MulByNSeparable
 import EllipticCurves.FunctionField.MulByNTranscendence
+import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.MulByThreeEndomorphism

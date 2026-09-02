@@ -39,20 +39,27 @@ as doing so.**  `finrank F⟮nMulRatFunc W n⟯ (RatFunc F)` is a number this de
 evaluate at general `n`, because `nMulRatFunc` is produced by an inverse isomorphism and so has no
 numerator and no denominator to read off — `EllipticCurves.FunctionField.MulByNXCoordRatFunc`'s
 *"being an element of `F(x)` is not being a written-down rational function"*.  The three gates named
-there and in `EllipticCurves.FunctionField.MulByNPlacePullback` are unchanged:
+there and in `EllipticCurves.FunctionField.MulByNPlacePullback` were:
 
 1. `nMulRatFunc W n = Φₙ/ΨSqₙ` as a written-down fraction (`#251`);
 2. `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`);
 3. `natDegree_ΨSq`'s `(n : F) ≠ 0`.
 
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+⚠️ **Gate 1 is discharged, and two remain.**  `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) proves it at every `n`
+with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) applied to the generic point — which is a point of `W ⁄ F(W)`
+over the field `F(W)`, so a theorem about points of a curve over a field applies to it directly.
+⚠️ **`#1184` is untouched** and is what now stands alone beside `(n : F) ≠ 0`; and a field degree is
+still not a point count, so nothing here bears on `#E[n] = n²`.
+
+That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the on-curve
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  ⚠️ That
+identity is **not** what discharged gate 1: it says those coordinates lie on the curve and makes no
+claim about `n • P`, and the route above goes nowhere near it.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 `finrank_fieldRange_eq_of_eq_ΦDivΨSq` below is the conditional statement those three gates
 discharge, so a future `n` at which they are available needs nothing further from this side.
@@ -213,7 +220,10 @@ theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) �
 `hcop` is gate 2 (`#1184`) and `hchar` is gate 3.
 
 ⚠️ This theorem is **not** a proof that the degree is `n²`: it is the statement that the three
-gates are jointly sufficient, and no `n` outside `{2, 3}` currently satisfies `hfrac`. -/
+gates are jointly sufficient.  ⚠️ `hfrac` is now available at every `n` with `(n : F) ≠ 0` over a
+field of characteristic `≠ 2` (`nMulRatFunc_eq_ΦDivΨSq`,
+`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file), so what this theorem
+still waits on is `hcop`, i.e. `#1184`. -/
 theorem finrank_mulByNFieldRange_of_nMulRatFunc_eq [W.IsElliptic] (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (hchar : ((n : ℤ) : F) ≠ 0)
     (hcop : IsCoprime (W.Φ (n : ℤ)) (W.ΨSq (n : ℤ)))

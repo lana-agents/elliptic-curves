@@ -17,10 +17,15 @@ import EllipticCurves.Torsion.XDifference
 
 for every pair of integer indices, as a statement about the *polynomials* `Φ` and `ΨSq`.  Reading
 `Φₙ/ΨSqₙ` as `x(n • P)` needs the multiplication-by-`n` coordinate formula
-`WeierstrassCurve.Affine.HasXCoordFormula`, which is issue `#251` and is available in this tree at
-`n = 2` (`hasXCoordFormula_two`) and `n = 3` (`hasXCoordFormula_three`) only.
+`WeierstrassCurve.Affine.HasXCoordFormula`, which is issue `#251`.
 
-This file does that reading at the one pair of indices where both are available, `(p, q) = (3, 2)`.
+⚠️ **It holds at every `n`** over a field of characteristic `≠ 2` —
+`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`.  That module and this one
+are **import-incomparable**: neither imports the other, so the general form is not reachable here
+without adding an import, and the two instances that are reachable are `hasXCoordFormula_two`
+(`…DoublingSurjective`) and `hasXCoordFormula_three` (`…TriplingSurjective`).
+
+This file does the reading at the one pair of those two, `(p, q) = (3, 2)`.
 Because `ψ_{3−2} = ψ₁ = 1`, the identity collapses to
 
 ```
@@ -33,10 +38,11 @@ x(2 • P) − x(3 • P) = ψ₅(x, y)/(ΨSq₃(x)·ΨSq₂(x)),
 
 It is the **witness that the identity in `XDifference` is about points**, not a step towards `#251`.
 A polynomial identity between `Φ` and `ΨSq` is compatible with `Φₙ/ΨSqₙ` never being anybody's
-`x`-coordinate; exhibiting one pair of indices at which it *is* rules that out, and it is the only
-thing in this tree that can, since `HasXCoordFormula` holds at no other index.  Nothing here is
-used by `XDifference`, and nothing here generalises: the two hypotheses
-`hasXCoordFormula_two`/`_three` are exactly what a general-`n` statement lacks.
+`x`-coordinate; exhibiting one pair of indices at which it *is* rules that out.  ⚠️ It is no longer
+the only thing in this tree that can — `hasXCoordFormula_of_two_ne_zero` rules it out at every
+index — but it is the only one **at this point in the import order**.  Nothing here is used by
+`XDifference`.  Generalising the statement below is now a matter of importing that module and
+substituting for the two hypotheses; it is not done here, and no consumer has asked for it.
 
 ## Main statements
 

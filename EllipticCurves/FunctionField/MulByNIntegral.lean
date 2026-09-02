@@ -27,17 +27,14 @@ At `n = 2` the same two facts are `module_finite_mulByTwoRange` and `mulByTwoEnd
 (`EllipticCurves.FunctionField.MulByTwoExtensionFinite`,
 `EllipticCurves.FunctionField.PlacePullback`), and they are reached through
 `mulByTwoEndo_isIntegralElem_genX` — an **explicit monic quartic** in `genX` read off the
-duplication formula `x(2P) = Φ₂/Ψ₂Sq`.  There is no such polynomial at general `n` without `ωₙ`
-and the general `n` coordinate formula (`#251`), so that route does not generalise.
-
-⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
-the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
-those coordinates lie on the curve; it does **not** identify them with the group-law multiple
-`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
-(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
-`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
-account is `EllipticCurves.FunctionField.MulByNPullback`.
+duplication formula `x(2P) = Φ₂/Ψ₂Sq`.  ⚠️ The general-`n` `x`-coordinate formula is now available
+(`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`, and
+its function-field form `nMulRatFunc_eq_ΦDivΨSq` in
+`EllipticCurves.FunctionField.MulByNXCoordFormula`), so the *first* obstruction to that route is
+gone.  ⚠️ **The route still does not generalise as written**: the merged quartic is monic in `genX`
+and reading a monic polynomial off `Φₙ/ΨSqₙ` at general `n` is a separate degree argument that
+nobody has run, and the `ωₙ` half — the `y`-coordinate — is untouched by any of it.  Nothing below
+depends on the difference; the transcendence-degree route is what this file uses.
 
 The route here is a transcendence-degree count and uses no coordinate formula at all.  Write
 `u = φ (genX W)` for an `F`-fixing endomorphism `φ` of `F(W)`.
@@ -81,10 +78,12 @@ new prime, which is why `n = 5` is untouched and the rest of this paragraph stan
 gated on
 the degrees, though — `natDegree_Φ` and `natDegree_ΨSq` are **Mathlib**'s at general `n` — nor on
 `x ∘ [n] ∈ F(x)`, which is `EllipticCurves.FunctionField.MulByNXCoordRatFunc`.  What is missing is
-that element *written down* as the reduced fraction `Φₙ/ΨSqₙ` (`#251`), the coprimality
-`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`), and the `(n : F) ≠ 0` that `natDegree_ΨSq`
-carries and `mulByNEndo` does not; `EllipticCurves.FunctionField.MulByNPlacePullback` argues each of
-them.  What generalises is that the degree is *finite*.
+that element *written down* as the reduced fraction `Φₙ/ΨSqₙ` (`#251` — ⚠️ **discharged**, by
+`nMulRatFunc_eq_ΦDivΨSq` in `EllipticCurves.FunctionField.MulByNXCoordFormula`), the coprimality
+`IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`, **open**), and the `(n : F) ≠ 0` that
+`natDegree_ΨSq` carries and `mulByNEndo` does not;
+`EllipticCurves.FunctionField.MulByNPlacePullback` argues each of them.  What generalises without
+any of them is that the degree is *finite*.
 
 ⚠️ **No separability.**  `Algebra.IsSeparable ([n]∗F(W)) F(W)` is what `#754` carries as a
 hypothesis; in characteristic zero it follows from finiteness
@@ -300,8 +299,9 @@ theorem module_finite_mulByNEndoFieldRange (n : ℕ)
 /-- **`F(W)` is a finite module over `[n]∗F(W)` over `F̄`**, for every `n ≠ 0` — the
 `mulByNEndoOfAlgClosed` corollary, with no hypothesis left except `n ≠ 0` and `(2 : F) ≠ 0`.
 
-⚠️ Still no degree.  At a **general** `n`, `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n]` written down as
-`Φₙ/ΨSqₙ` (`#251`), `#1184` and `(n : F) ≠ 0`, as *"What this is not"* above records — over
+⚠️ Still no degree *here*.  At a **general** `n`, `[F(W) : [n]∗F(W)] = n²` needs `x ∘ [n]` written
+down as `Φₙ/ΨSqₙ` (`#251`, now discharged), `#1184` (open) and `(n : F) ≠ 0`, as *"What this is
+not"* above records — over
 `F̄` as everywhere else.  ⚠️ At a `3`-smooth `n` it needs none of them:
 `EllipticCurves.FunctionField.MulByNComposition` gets it from `[m · n]∗ = [m]∗ ∘ [n]∗` and the two
 merged degrees. -/

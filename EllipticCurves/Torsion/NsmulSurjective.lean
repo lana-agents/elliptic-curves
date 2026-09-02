@@ -232,10 +232,12 @@ variable [DecidableEq F]
 point `(x, y)` of `W` at which `ΨSqₙ` does not vanish, the multiple `n • (x, y)` is affine with
 `x`-coordinate `Φₙ(x)/ΨSqₙ(x)`.
 
-This is the one index-dependent input of the surjectivity engine below.  Establishing it at general
-`n` is issue `#251`; `hasXCoordFormula_two` (`EllipticCurves.Torsion.DoublingSurjective`) and
-`hasXCoordFormula_three` (`EllipticCurves.Torsion.TriplingSurjective`) are the two cases available
-in this tree. -/
+This is the one index-dependent input of the surjectivity engine below.  It holds at **every** `n`
+over a field of characteristic `≠ 2`: `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`, issue `#251`).  ⚠️ That file imports this one, so the general
+form is not available *here*; `hasXCoordFormula_two` (`EllipticCurves.Torsion.DoublingSurjective`)
+and `hasXCoordFormula_three` (`EllipticCurves.Torsion.TriplingSurjective`) remain the instances a
+consumer below `NsmulOrder` can reach. -/
 def HasXCoordFormula (W : Affine F) (n : ℕ) : Prop :=
   ∀ ⦃x y : F⦄ (h : W.Nonsingular x y), (W.ΨSq n).eval x ≠ 0 →
     ∃ (y' : F) (h' : W.Nonsingular ((W.Φ n).eval x / (W.ΨSq n).eval x) y'),
