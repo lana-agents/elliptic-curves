@@ -42,8 +42,9 @@ argument, and both branches transfer verbatim to `A = E[n]` at an arbitrary odd 
 
 So the rank bound at odd `n` is a **consequence** of `card_torsion_eq_sq_of_odd`, not a separate
 gate.  ⚠️ `#293`'s body records the rank bound as a second input still owed alongside `#E[n] = n²`;
-at odd `n` that reading is superseded by `nonempty_torsion_addEquiv_of_odd` below.  **At even `n`
-it stands**, and so does `#293` as a whole — see the last section.
+at odd `n` that reading is superseded by `nonempty_torsion_addEquiv_of_odd` below.  **It does not
+stand at even `n` either**, and `#293` is closed: `EllipticCurves.Torsion.StructureGeneral` reaches
+every `n` with `(n : F) ≠ 0` by a different route — see the last section.
 
 ⚠️ Note also that `nonempty_torsion_addEquiv_of_odd` asks **no primality** of `n` and subsumes
 `nonempty_torsionPow_addEquiv_of_odd` at every odd prime power, `pᵏ` being odd whenever `p` is.  The
@@ -55,12 +56,22 @@ through the tower.
 
 * **Nothing at even `n`.**  `card_torsion_eq_sq_of_odd` inherits the odd-`n` range of
   `card_torsion_eq_sq_of_wronskian_identity` exactly, so `p = 2`, the `2`-primary tower and every
-  even index are untouched here and remain what `EllipticCurves.Torsion.TwoPrimary` makes them.
+  even index are untouched *here*.  ⚠️ That is a statement about this file and not about the tree:
+  they are **not** left at what `EllipticCurves.Torsion.TwoPrimary` makes them.
+  `EllipticCurves.Torsion.StructureGeneral` covers every even `n` with `(n : F) ≠ 0` by splitting
+  `n = 2^a · m` and multiplying `TwoPrimary`'s count by the odd one.
 * **It does not remove `(2 : F) ≠ 0` or `[IsAlgClosed F]`.**  Both are spent by the inputs — the
   first by `nsmul_surjective_of_two_ne_zero` *and* by `card_torsion_eq_sq_of_odd`, the second by
   both as well.
-* **It does not close `#293`.**  `#293` is the structure theorem at a general `n`; what is settled
-  here is its odd half.
+* **It does not close `#293`, but `#293` is closed.**  `#293` is the structure theorem at a general
+  `n`; what is settled here is its odd half, and
+  `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` settles the whole of it at
+  every `n` with `(n : F) ≠ 0`.  ⚠️ Neither file imports the other's headline, and at odd `n` the
+  two **assemblies** are independent: this one feeds the count and
+  `card_nsmul_eq_zero_torsion_le_of_odd` straight into `AddCommGroup.equiv_zmod_sq_of_card_sq`,
+  that one runs `PrimaryTower` at each prime power and glues along `Nat.recOnPosPrimePosCoprime`.
+  The two agreeing is a genuine cross-check on the assembly — though not on the input, since both
+  spend the same `card_torsion_eq_sq_of_odd`.
 
 ## Main statements
 
