@@ -98,7 +98,12 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   `EllipticCurves.FunctionField.NthRootOfPullbackN` and nothing in this file discharges it.
 * **No new `E[n]` structure.**  `#E[n] = n²` at `3`-smooth `n` is the merged
   `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), consumed here and not
-  reproved.
+  reproved.  ⚠️ **And the bullet above is stale where it calls that count *"still `3`-smooth"***:
+  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) is `#E[n] = n²` at every
+  `n` with `(n : F) ≠ 0`, and the Galois package downstream of it reaches `n = 5`
+  (`EllipticCurves.FunctionField.MulByNGalois`, `#1523`).  What is `3`-smooth is the **name** the
+  statements below cite, not the mathematics; rewriting them onto the general count is `#1523`
+  item 4 and is unstarted.  The general count is merged and is also not reproved here.
 
 ⚠️ **That pair is paid on both halves, and `(n : F) ≠ 0` is what is left.**  PR #557 proved the
 on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring

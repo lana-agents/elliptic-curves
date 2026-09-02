@@ -128,8 +128,17 @@ transport of `Aut K` along an equality of base subfields"*.  Those three declara
 
 ## What is *not* here
 
-* **Nothing at `n = 5`.**  Both sides of Artin's theorem are `3`-smooth and a group isomorphism
-  manufactures no new prime.
+* **Nothing at `n = 5` *in this file*.**  ⚠️ The second half of the reason stands and the first no
+  longer does.  This bullet used to read *"Both sides of Artin's theorem are `3`-smooth and a group
+  isomorphism manufactures no new prime"*; **neither side of Artin's theorem is `3`-smooth any
+  more** — the count is `card_torsionNMul_of_ne_zero` (`#293`, via
+  `EllipticCurves.FunctionField.TranslationActionN`) and the degree is
+  `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`, and the sandwich they close is
+  `fixedFieldN_eq_mulByNFieldRange_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNGalois`, `#1523`), at every `n` with `(n : F) ≠ 0`.  What
+  remains true is that a group isomorphism manufactures no new prime: the declarations **below**
+  still carry `hfac` because they were written against the `3`-smooth sandwich, and rewriting them
+  onto the general one is mechanical and unstarted (`#1523` item 4).
 * **Not `Gal(F(W) / F(x)) ≃* ⟨ι⟩`.**  It is a different fixed-point setup in a different file and
   is untouched here — but it is no longer absent from the tree: ⚠️ **this bullet used to end**
   *"`Subfield.autMulEquivOfEq` is what it would consume"*, and

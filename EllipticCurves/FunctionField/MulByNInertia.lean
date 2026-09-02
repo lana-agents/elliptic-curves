@@ -132,9 +132,15 @@ file consumes them rather than restating them.
   Widening the fundamental identity does not add it.  What is counted below is **places of `F(W)`
   in a fibre**, weighted by ramification and residue degree; the passage to points is a different
   theorem.
-* **Nothing at `n = 5` with the value `n²`**, because `#1213`'s degree stops there.  The identity
-  itself does reach `n = 5` in characteristic zero — with `[F(W) : [5]∗F(W)]` on the right, which
-  this tree cannot yet evaluate.
+* **Nothing at `n = 5` with the value `n²` *below*.**  ⚠️ The reason this bullet gave —
+  *"because `#1213`'s degree stops there"* — is **false**, and was already false when this file was
+  written: `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is `[F(W) : [n]∗F(W)] = n²` at every `n` with
+  `(n : F) ≠ 0`, carries no smoothness, and even exhibits `n = 5`.  What is true is that the
+  statements below were written against `#1213`'s `3`-smooth form and nobody has rewritten them;
+  that is `#1523` item 4, and it is unstarted.  The identity itself does reach `n = 5` in
+  characteristic zero — with `[F(W) : [5]∗F(W)]` on the right, which this file does not evaluate
+  even though `MulByNDegreeGeneral` now can.
 * **Not `hprin`** (`#962`).  `PlaceInertiaGeneral`'s `## Scope` records that it removes one of three
   `[IsAlgClosed F]` inputs to `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and not the other two;
   that accounting is unchanged at general `n`, and nothing below touches `card_torsion_two` or
