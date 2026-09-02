@@ -201,14 +201,20 @@ one index-dependent hypothesis discharged by `WeierstrassCurve.hasPreΩSq`.
 `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` with the group-law multiple is `WeierstrassCurve.Affine.HasXCoordFormula`,
 issue `#251`, and is untouched by this file.
 
-⚠️ **Both halves of that identification have since been supplied, downstream and not here.**  The
+⚠️ **Both halves of that identification have since been supplied, elsewhere and not here.**  The
 `x`-half holds at every index over any field with `(2 : F) ≠ 0`
 (`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
 The `y`-half — that the second coordinate above **is** `y(n • P)` — is
 `WeierstrassCurve.Affine.nsmul_eq_some_omegaY` (`EllipticCurves.Torsion.NsmulYCoord`, issue
 `#1500`), and ⚠️ it is proved only under the *ladder* hypothesis `ψ_k(x, y) ≠ 0` for every
-`1 ≤ k ≤ n`, which is strictly stronger than the `ψₙ(x, y) ≠ 0` this theorem asks for.  Both modules
-are **downstream** of this one (each imports it); neither is imported here and neither name is
+`1 ≤ k ≤ n`, which is strictly stronger than the `ψₙ(x, y) ≠ 0` this theorem asks for.
+
+⚠️ **The two sit differently against this file, and the difference is measured.**
+`EllipticCurves.Torsion.NsmulYCoord` is genuinely **downstream**: it imports this module, and the
+`ω`-form it names is this theorem's second coordinate verbatim.  `EllipticCurves.Torsion.NsmulOrder`
+is **import-incomparable** with this file — it reaches this module in neither direction, so the
+`x`-half was supplied on a different stack rather than below this one, and citing it here is a
+cross-reference and not a dependency.  Neither module is imported here and neither name is
 consumed. -/
 theorem Affine.equation_div_of_ψ_ne_zero {F : Type*} [Field F] {W : Affine F} {x y : F}
     (h : W.Equation x y) (h2 : (2 : F) ≠ 0) {n : ℤ} (hψ : (W.ψ n).evalEval x y ≠ 0) :
