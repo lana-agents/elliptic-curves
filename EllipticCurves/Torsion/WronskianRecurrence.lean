@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Torsion.ChordSum
 import EllipticCurves.Torsion.WronskianUniversal
 
 /-!
@@ -17,10 +18,12 @@ identity about a single curve over a single ring — `univQ.HasWronskianId n`, `
 
 The route recorded for it decomposes into four steps `S0`–`S3`, of which `S0` is on `main` and `S1`
 — the additive recurrence `Φₘ₊₁ΨSqₘ₋₁ + Φₘ₋₁ΨSqₘ₊₁ = 2XΦₘ² + (2X²+b₂X+b₄)ΦₘΨSqₘ + (b₄X+b₆)ΨSqₘ²`,
-issue `#1516` — was separately in flight while this file was written and has since landed as
-`WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`), over every commutative ring at
-every index.  ⚠️ **This paragraph used to say `S1` was in flight**, and the hypothesis shape
-`WronskianRec.ChordSum` below still reflects that; see the entry for it under *Main results*.
+issue `#1516` — is `WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`), a theorem
+over every commutative ring at every index.  ⚠️ **`S1` is therefore not a hypothesis anywhere in
+this file.**  It used to be, under the name `WronskianRec.ChordSum` — a second copy of
+`WeierstrassCurve.HasChordSum` introduced only because `#1516` was in flight with no head to check
+a name against when this file was written.  That copy is gone (`#1520` item 2) and every statement
+below takes `hasChordSum` directly.
 
 `S3` was priced as *the* remaining cost, on the grounds that it is a chain rule
 `x_{m+1}′ = ∂_uΣ·xₘ′ + ∂_XΣ − x_{m−1}′` for the rational functions `xₘ = Φₘ/ΨSqₘ`, and so wants a
@@ -58,22 +61,30 @@ C2:   preΨ₂ₘ₊₂·ΨSqₘ₋₁² − preΨ₂ₘ₋₂·ΨSqₘ₊₁² 
 
 Since `preΨ₂ₖ = preΨₖ · preΩₖ` (`preΨ_two_mul`) and `ψₖ · Ωₖ = ψ₂ₖ · ψ₂`, these are the **sum** and
 the **difference** of the `y`-coordinates of `(m±1) • P`, exactly as `S1` is the sum of their
-`x`-coordinates: they are `S1`'s `y`-half.  ⚠️ Both are **open**, and this file proves neither; it
-proves that they and `S1` are *all* that is owed.  ⚠️ With `S1` now on `main` (`#1516`), `C1` and
-`C2` are the whole of what `#1506` item 1 still owes; they are `#1519`, filed for exactly what
-`#1518` left open.
+`x`-coordinates: they are `S1`'s `y`-half.  This file proves neither; it proves that they and `S1`
+are *all* that is owed.
+
+⚠️ **They are no longer owed.**  `WeierstrassCurve.omegaSum` and `WeierstrassCurve.omegaDiff`
+(`EllipticCurves.Torsion.OmegaChordSum`, `#1519`) prove `C1` and `C2` over every commutative ring at
+every index, and `WeierstrassCurve.hasWronskianId` in that same file is `#1506` item 1 with **no**
+hypotheses.  They remain hypotheses *here* only because that file imports this one; a consumer
+should reach for `hasWronskianId` and `WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` rather
+than for the conditional statements below.
 
 ## What this file therefore does and does not settle
 
-`WeierstrassCurve.hasWronskianId_of_recurrence` takes the three families as hypotheses and returns
+`WeierstrassCurve.hasWronskianId_of_recurrence` takes the two families as hypotheses and returns
 `HasWronskianId` at **every** index, over any characteristic-`0` domain.  Composed with
 `WeierstrassCurve.hasWronskianId_of_univQ` that is `#1506` item 1 for every curve over every
 commutative ring, and composed further with
 `WeierstrassCurve.Affine.card_torsion_eq_sq_of_univQ` it is `#E[n] = n²` at odd `n`.
 
-⚠️ **Nothing here is a proof of `#E[n] = n²`.**  `S1`, `C1` and `C2` are hypotheses in every
-statement below that mentions them, and `EllipticCurves.Torsion.PrimaryTower`'s gate list, `#1490`
-and `#293` are untouched and must stay so until they are discharged.
+⚠️ **Nothing *here* is a proof of `#E[n] = n²`**: `C1` and `C2` are hypotheses in every statement
+below that mentions them.  ⚠️ But the tree does prove it at odd `n` — see
+`WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` — so a docstring citing this file as evidence
+that `#E[n] = n²` is open would be wrong.  Taking that consequence into
+`EllipticCurves.Torsion.PrimaryTower`'s gate list, `#1490` and `#293` is `#1522` and is not done
+here.
 
 ⚠️ **The base cases are why `WronskianUniversal` names three of them.**  The induction runs on pairs
 of adjacent indices and its step at `m` cancels `ΨSqₘ₋₁`, so the step from `(0, 1)` does **not**
@@ -86,28 +97,25 @@ run: `ΨSq₀ = 0`.  It is `hasWronskianId_two` that gets the induction started,
 
 * `WeierstrassCurve.WronskianRec.G`, `.L`, `.Rem` : the three explicit polynomials the recurrence is
   written in.  ⚠️ They are packaging, not content.
-* `WeierstrassCurve.WronskianRec.ChordSum` : `S1`, the hypothesis shape.  ⚠️ It is deliberately in
-  its own namespace: `#1516` was in flight with its own name for the same identity when this file
-  was written, and the two had to be incapable of colliding.  ⚠️ **`#1516` has since landed**, so
-  `WronskianRec.ChordSum W m` and `W.HasChordSum m` (`EllipticCurves.Torsion.ChordSum`) are now the
-  same `Prop` under two names — character for character, and a consumer holding either form can
-  supply the other by `rfl`-level rewriting.  Collapsing the duplication — and thereby discharging
-  the `hS1` hypothesis of `hasWronskianId_add_one`, `hasWronskianId_of_recurrence`,
-  `hasWronskianId_of_univQ_recurrence` and `card_torsion_eq_sq_of_recurrence` outright — is `#1520`
-  item 2 and is **not** done here.
-* `WeierstrassCurve.WronskianRec.OmegaSum`, `.OmegaDiff` : `C1` and `C2`, the two open inputs.
-* `WeierstrassCurve.WronskianRec.chordSum_zero`, `.chordSum_one`, `.omegaSum_zero`,
-  `.omegaDiff_zero` : the four instances of the three shapes that are affordable to prove outright.
-  ⚠️ They are a non-vacuity check, not evidence for the general shapes; `omegaDiff_zero` is the one
-  that has force, because it fixes the sign and the factor `G₀`.
-* `WeierstrassCurve.wronskian_recurrence` : the step that was thought to need a fraction field.  It
-  needs `S1` at the one index `m` and nothing else, over an arbitrary commutative ring.
+* `WeierstrassCurve.WronskianRec.OmegaSum`, `.OmegaDiff` : `C1` and `C2`, the two remaining
+  hypothesis shapes.  ⚠️ There is deliberately no `WronskianRec.ChordSum` beside them: `S1`'s shape
+  is `WeierstrassCurve.HasChordSum` and this file uses that one.
+* `WeierstrassCurve.WronskianRec.omegaSum_zero`, `.omegaDiff_zero` : the two instances of those
+  shapes that are affordable to prove outright.  ⚠️ They are a non-vacuity check, not evidence for
+  the general shapes; `omegaDiff_zero` is the one that has force, because it fixes the sign and the
+  factor `G₀`.  ⚠️ **Keep them.**  They are cheap, and they are what would catch a transcription
+  error in `OmegaSum` / `OmegaDiff` reintroduced by a later edit.
+* `WeierstrassCurve.wronskian_recurrence` : the step that was thought to need a fraction field.
+  Unconditional over an arbitrary commutative ring at an arbitrary index; its only inputs are
+  `hasChordSum` and `S0`.
 * `WeierstrassCurve.hasWronskianId_add_one` : the induction step, cancelling `ΨSqₘ₋₁`.
 * `WeierstrassCurve.hasWronskianId_of_recurrence` : the identity at every index over a
-  characteristic-`0` domain, from the three families.
+  characteristic-`0` domain, from `C1` and `C2`.
 * `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` : the same for every curve over every
-  commutative ring, from the three families **at `univQ` only**.
-* `WeierstrassCurve.Affine.card_torsion_eq_sq_of_recurrence` : the payoff, `#E[n] = n²` at odd `n`.
+  commutative ring, from `C1` and `C2` **at `univQ` only**.
+* `WeierstrassCurve.Affine.card_torsion_eq_sq_of_recurrence` : the payoff, `#E[n] = n²` at odd `n`,
+  from `C1` and `C2`.  ⚠️ Both are theorems, so prefer the unconditional
+  `WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd`.
 
 ## References
 
@@ -142,23 +150,12 @@ noncomputable def Rem (m : ℤ) : R[X] :=
     (C W.b₂ * X + 3 * C W.b₄) * W.Φ m * W.ΨSq m ^ 2 +
     (C W.b₄ * X + 2 * C W.b₆) * W.ΨSq m ^ 3
 
-/-! ### The three hypothesis shapes -/
+/-! ### The two hypothesis shapes
 
-/-- **`S1`, the additive recurrence for the division-polynomial `x`-coordinate** (`#1516`):
-
-```
-Φₘ₊₁ · ΨSqₘ₋₁  +  Φₘ₋₁ · ΨSqₘ₊₁  =  2X·Φₘ²  +  (2X² + b₂X + b₄)·Φₘ·ΨSqₘ  +  (b₄X + b₆)·ΨSqₘ² .
-```
-
-It is `x((m+1)P) + x((m−1)P)` — the sum of the two chord intersections — cleared of denominators.
-⚠️ This file proves it at no index; it is a hypothesis everywhere below.  ⚠️ **The tree does prove
-it**, at every index over every commutative ring: this is `WeierstrassCurve.HasChordSum` under a
-second name, and `WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`, `#1516`) is the
-proof.  The two names are `#1520` item 2; see the module docstring for why they are both here. -/
-def ChordSum (m : ℤ) : Prop :=
-  W.Φ (m + 1) * W.ΨSq (m - 1) + W.Φ (m - 1) * W.ΨSq (m + 1) =
-    2 * X * W.Φ m ^ 2 + (2 * X ^ 2 + C W.b₂ * X + C W.b₄) * W.Φ m * W.ΨSq m +
-      (C W.b₄ * X + C W.b₆) * W.ΨSq m ^ 2
+⚠️ There were three.  `S1`'s shape used to be duplicated here as `WronskianRec.ChordSum`, because
+`#1516` was in flight with no head to check a name against; it is now
+`WeierstrassCurve.HasChordSum` (`EllipticCurves.Torsion.ChordSum`) and nothing else, and `S1` is
+discharged rather than assumed everywhere below. -/
 
 /-- **`C1`, the sum half of `S1`'s `y`-analogue**:
 
@@ -184,27 +181,13 @@ def OmegaDiff (m : ℤ) : Prop :=
     -(WronskianRec.G W m * WronskianRec.Rem W m)
 
 
-/-! ### Non-vacuity: the three shapes, checked at the indices where they are affordable
+/-! ### Non-vacuity: the two shapes, checked at the index where they are affordable
 
-⚠️ These do **not** certify the general shapes — that is done numerically and reported in `#1518`.
-What they rule out is the failure mode a hypothesis-shaped file invites: a `Prop` that nothing
-satisfies, or one whose two sides were transcribed with a wrong sign or a dropped factor. -/
-
-/-- `S1` at `m = 0`: `Φ₁·ΨSq₋₁ + Φ₋₁·ΨSq₁ = X + X = 2X`, and the right-hand side is `2X·Φ₀² = 2X`
-because `ΨSq₀ = 0` and `Φ₀ = 1`. -/
-theorem chordSum_zero : ChordSum W 0 := by
-  rw [ChordSum, show (0 : ℤ) + 1 = 1 by norm_num, show (0 : ℤ) - 1 = -1 by norm_num, Φ_one,
-    ΨSq_one, ΨSq_neg, Φ_neg, Φ_zero, ΨSq_zero, ΨSq_one, Φ_one]
-  ring
-
-/-- `S1` at `m = 1`, the first index at which neither side is degenerate: both are `Ψ₂Sq`.
-On the left `Φ₂·ΨSq₀ + Φ₀·ΨSq₂ = Ψ₂Sq`, and on the right `Φ₁ = X`, `ΨSq₁ = 1` give
-`2X³ + (2X² + b₂X + b₄)X + (b₄X + b₆) = 4X³ + b₂X² + 2b₄X + b₆`. -/
-theorem chordSum_one : ChordSum W 1 := by
-  rw [ChordSum, show (1 : ℤ) + 1 = 2 by norm_num, show (1 : ℤ) - 1 = 0 by norm_num, Φ_two,
-    ΨSq_two, Φ_zero, ΨSq_zero, Φ_one, ΨSq_one, Ψ₂Sq]
-  simp only [C_mul, map_ofNat]
-  ring
+⚠️ These do **not** certify the general shapes — `EllipticCurves.Torsion.OmegaChordSum` does that,
+with a proof.  What they rule out is the failure mode a hypothesis-shaped statement invites: a
+`Prop` that nothing satisfies, or one whose two sides were transcribed with a wrong sign or a
+dropped factor.  ⚠️ The two `S1` instances that used to sit beside them are gone with
+`WronskianRec.ChordSum`; `WeierstrassCurve.hasChordSum` subsumes them. -/
 
 /-- `C1` at `m = 0`: `preΨ₂·ΨSq₋₁² + preΨ₋₂·ΨSq₁² = 1 - 1 = 0`, and the right-hand side carries the
 factor `preΨ₀ = 0`. -/
@@ -238,9 +221,13 @@ where `Wrₖ = Φₖ′·ΨSqₖ − Φₖ·ΨSqₖ′` is the left-hand side of
 
 ⚠️ **This is the step `S3` of `#1506` item 1's route, and it needs no derivation on a fraction
 field.**  See the module docstring for the four-line derivation; in Lean it is `derivative` applied
-to `ChordSum` and to `S0`, then one `linear_combination`.  There is no hypothesis on `R` and none on
-`m`. -/
-theorem wronskian_recurrence (m : ℤ) (hS1 : WronskianRec.ChordSum W m) :
+to `S1` and to `S0`, then one `linear_combination`.  There is no hypothesis on `R` and none on `m`.
+
+⚠️ `S1` used to be a hypothesis here.  It is now supplied internally by
+`WeierstrassCurve.hasChordSum` (`EllipticCurves.Torsion.ChordSum`, `#1516`), which holds over every
+commutative ring at every index — so the *only* thing this statement asserts about `S3` is that it
+follows from `S1` and `S0`, and that is what the proof does. -/
+theorem wronskian_recurrence (m : ℤ) :
     (derivative (W.Φ (m + 1)) * W.ΨSq (m + 1) - W.Φ (m + 1) * derivative (W.ΨSq (m + 1))) *
         W.ΨSq (m - 1) ^ 2 +
       (derivative (W.Φ (m - 1)) * W.ΨSq (m - 1) - W.Φ (m - 1) * derivative (W.ΨSq (m - 1))) *
@@ -248,7 +235,8 @@ theorem wronskian_recurrence (m : ℤ) (hS1 : WronskianRec.ChordSum W m) :
     WronskianRec.G W m *
       (WronskianRec.L W m * (derivative (W.Φ m) * W.ΨSq m - W.Φ m * derivative (W.ΨSq m)) -
         WronskianRec.Rem W m) := by
-  rw [WronskianRec.ChordSum] at hS1
+  have hS1 := W.hasChordSum m
+  rw [HasChordSum] at hS1
   have hS0 : W.ΨSq (m + 1) * W.ΨSq (m - 1) = (X * W.ΨSq m - W.Φ m) ^ 2 := by
     rw [ΨSq_succ_mul_ΨSq_pred, Φ_eq_neg_adjacent_add]
     ring
@@ -285,11 +273,11 @@ Dₘ₊₁ · ΨSqₘ₋₁²  +  Dₘ₋₁ · ΨSqₘ₊₁²  =  Gₘ · Lₘ
 and `Dₘ₋₁ = Dₘ = 0` leaves `Dₘ₊₁ · ΨSqₘ₋₁² = 0`.  ⚠️ The `preΨ₂ₖ` of `OmegaSum` / `OmegaDiff` and
 the `preΨₖ · preΩₖ` of `HasWronskianId` are matched by `preΨ_two_mul`, which is where the three
 `e`-hypotheses of the proof come from. -/
-theorem hasWronskianId_add_one [NoZeroDivisors R] {m : ℤ} (hS1 : WronskianRec.ChordSum W m)
+theorem hasWronskianId_add_one [NoZeroDivisors R] {m : ℤ}
     (hC1 : WronskianRec.OmegaSum W m) (hC2 : WronskianRec.OmegaDiff W m)
     (hprev : W.HasWronskianId (m - 1)) (hcur : W.HasWronskianId m) (hne : W.ΨSq (m - 1) ≠ 0) :
     W.HasWronskianId (m + 1) := by
-  have key := W.wronskian_recurrence m hS1
+  have key := W.wronskian_recurrence m
   rw [WronskianRec.OmegaSum] at hC1
   rw [WronskianRec.OmegaDiff] at hC2
   rw [HasWronskianId] at hprev hcur ⊢
@@ -306,7 +294,7 @@ theorem hasWronskianId_add_one [NoZeroDivisors R] {m : ℤ} (hS1 : WronskianRec.
       ((m : R[X]) + 1) * W.ΨSq (m - 1) ^ 2 * e1
   exact sub_eq_zero.mp ((mul_eq_zero.mp hcancel).resolve_right (pow_ne_zero _ hne))
 
-/-- **The identity at every index, from the three families.**  Over a characteristic-`0` domain —
+/-- **The identity at every index, from `C1` and `C2`.**  Over a characteristic-`0` domain —
 `ΨSqₖ ≠ 0` at every `k ≠ 0` is `Mathlib`'s `ΨSq_ne_zero`, whose hypothesis `(k : R) ≠ 0` is free
 there — the recurrence propagates from the pair `(1, 2)` to every positive index, and
 `hasWronskianId_neg` covers the rest.
@@ -314,7 +302,7 @@ there — the recurrence propagates from the pair `(1, 2)` to every positive ind
 ⚠️ The pair `(0, 1)` cannot start it: the step at `m = 1` cancels `ΨSq₀`, which is `0`.  That is
 why `hasWronskianId_two` exists. -/
 theorem hasWronskianId_of_recurrence [IsDomain R] [CharZero R]
-    (hS1 : ∀ m : ℤ, WronskianRec.ChordSum W m) (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum W m)
+    (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum W m)
     (hC2 : ∀ m : ℤ, WronskianRec.OmegaDiff W m) (n : ℤ) :
     W.HasWronskianId n := by
   have step : ∀ k : ℕ, W.HasWronskianId ((k : ℤ) + 1) ∧ W.HasWronskianId ((k : ℤ) + 2) := by
@@ -332,7 +320,7 @@ theorem hasWronskianId_of_recurrence [IsDomain R] [CharZero R]
       have hne : W.ΨSq (((k : ℤ) + 2) - 1) ≠ 0 := by
         rw [e]
         exact W.ΨSq_ne_zero (Int.cast_ne_zero.mpr (by omega))
-      have hstep := W.hasWronskianId_add_one (m := (k : ℤ) + 2) (hS1 _) (hC1 _) (hC2 _)
+      have hstep := W.hasWronskianId_add_one (m := (k : ℤ) + 2) (hC1 _) (hC2 _)
         (by rw [e]; exact h1) h2 hne
       refine ⟨?_, ?_⟩
       · rw [show ((k + 1 : ℕ) : ℤ) + 1 = (k : ℤ) + 2 by push_cast; ring]
@@ -352,15 +340,14 @@ theorem hasWronskianId_of_recurrence [IsDomain R] [CharZero R]
   | nat k => exact pos k
   | neg ih k => exact hasWronskianId_neg.mpr (ih k)
 
-/-- **`#1506` item 1 for every curve over every commutative ring, from the three families at `univQ`
+/-- **`#1506` item 1 for every curve over every commutative ring, from `C1` and `C2` at `univQ`
 alone.**  The induction of `hasWronskianId_of_recurrence` is run once, over
 `MvPolynomial (Fin 5) ℚ` — a characteristic-`0` domain, which is exactly what the cancellation in
 `hasWronskianId_add_one` asks for — and `hasWronskianId_of_univQ` transports the conclusion. -/
-theorem hasWronskianId_of_univQ_recurrence (hS1 : ∀ m : ℤ, WronskianRec.ChordSum univQ m)
-    (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum univQ m)
+theorem hasWronskianId_of_univQ_recurrence (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum univQ m)
     (hC2 : ∀ m : ℤ, WronskianRec.OmegaDiff univQ m) (n : ℤ) :
     W.HasWronskianId n :=
-  hasWronskianId_of_univQ (univQ.hasWronskianId_of_recurrence hS1 hC1 hC2 n) W
+  hasWronskianId_of_univQ (univQ.hasWronskianId_of_recurrence hC1 hC2 n) W
 
 end WeierstrassCurve
 
@@ -370,25 +357,27 @@ namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] {W : Affine F}
 
-/-- **`#E[n] = n²` at odd `n`, from `S1`, `C1` and `C2` at `univQ` and nothing else.**
+/-- **`#E[n] = n²` at odd `n`, from `C1` and `C2` at `univQ` and nothing else.**
 
-⚠️ This is **not** a proof of its conclusion.  What the statement says is that between this tree
-and `#1490` item 3 there are exactly three polynomial identities, none of which mentions a
-derivative except through the merged `Polynomial.derivative` on `R[X]`.  ⚠️ **This paragraph used
-to say all three hypotheses were open, and that is now false for `hS1`**: `S1` is `#1516` and is on
-`main` as `WeierstrassCurve.hasChordSum`, so `hS1` is dischargeable and only `C1` / `C2` — `#1519`,
-filed for what `#1518` left open — are still owed.  Supplying `hS1` here is `#1520` item 2 and is
-not done.
-⚠️ `EllipticCurves.Torsion.PrimaryTower`'s gate list and `#293` are unchanged and must stay so
-until `C1` and `C2` are discharged. -/
+What the statement says is that between this tree and `#1490` item 3 there are exactly two
+polynomial identities, neither of which mentions a derivative except through the merged
+`Polynomial.derivative` on `R[X]`.  ⚠️ It used to carry a third hypothesis, `S1`; that is now
+`WeierstrassCurve.hasChordSum` and is supplied internally.
+
+⚠️ **This is no longer the sharpest statement of its conclusion, and a reader should not take it
+for one.**  `C1` and `C2` are theorems — `WeierstrassCurve.omegaSum` and
+`WeierstrassCurve.omegaDiff` (`EllipticCurves.Torsion.OmegaChordSum`, `#1519`) — so
+`WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` in that file proves the same conclusion with no
+hypothesis at all.  This one is kept because it records *which* two identities the conclusion rests
+on, which is not visible from the unconditional form. -/
 theorem card_torsion_eq_sq_of_recurrence [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0)
-    (hS1 : ∀ m : ℤ, WronskianRec.ChordSum univQ m) (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum univQ m)
+    (hC1 : ∀ m : ℤ, WronskianRec.OmegaSum univQ m)
     (hC2 : ∀ m : ℤ, WronskianRec.OmegaDiff univQ m) :
     Nat.card (W.torsion n) = n ^ 2 :=
   card_torsion_eq_sq_of_wronskian_identity h2 hodd hn
     (by
-      have H := W.hasWronskianId_of_univQ_recurrence hS1 hC1 hC2 (n : ℤ)
+      have H := W.hasWronskianId_of_univQ_recurrence hC1 hC2 (n : ℤ)
       rw [HasWronskianId] at H
       rw [H]; push_cast; ring)
 

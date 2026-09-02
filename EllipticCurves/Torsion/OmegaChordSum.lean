@@ -11,8 +11,8 @@ import EllipticCurves.Torsion.WronskianRecurrence
 
 `EllipticCurves.Torsion.WronskianRecurrence` reduced `#1506` scope item 1 — the Wronskian identity
 `Φₙ′·ΨSqₙ − Φₙ·ΨSqₙ′ = n·preΨₙ·preΩₙ`, the last gate on `#E[n] = n²` at odd `n` — to **three**
-derivative-free polynomial identities: `S1` (`WronskianRec.ChordSum`, discharged by
-`EllipticCurves.Torsion.ChordSum`'s `WeierstrassCurve.hasChordSum`) and the pair `C1`, `C2`
+derivative-free polynomial identities: `S1`, which is `EllipticCurves.Torsion.ChordSum`'s
+`WeierstrassCurve.hasChordSum` and is discharged in that file, and the pair `C1`, `C2`
 (`WronskianRec.OmegaSum`, `WronskianRec.OmegaDiff`), which were open.
 
 **This file proves `C1` and `C2`, and therefore the Wronskian identity and `#E[n] = n²` at odd
@@ -98,8 +98,8 @@ all three.
   `…hasOmegaPair_of_univ`, `…hasOmegaPair_of_univQ`, `…hasOmegaPair` : the pair `C1 ∧ C2` and its
   descent, which is where the factor `2` is spent.
 * `WeierstrassCurve.omegaSum`, `WeierstrassCurve.omegaDiff` : **`C1` and `C2`**, over every
-  commutative ring at every index — the two open hypotheses of
-  `WeierstrassCurve.hasWronskianId_of_univQ_recurrence`.
+  commutative ring at every index — the two hypotheses
+  `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` still carries, and the only two it carries.
 * `WeierstrassCurve.hasWronskianId` : **`#1506` scope item 1**, `Φₙ′ΨSqₙ − ΦₙΨSqₙ′ = n·preΨₙ·preΩₙ`,
   over every commutative ring at every index, with no hypotheses.
 * `WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd` : **`#E[n] = n²` at odd `n`**, over an
@@ -577,7 +577,7 @@ theorem hasOmegaPair (W : WeierstrassCurve R) (m : ℤ) : W.HasOmegaPair m :=
 
 /-- **`C1`**, `WronskianRec.OmegaSum`, unconditionally:
 `preΨ_{2(m+1)}·ΨSq_{m−1}² + preΨ_{2(m−1)}·ΨSq_{m+1}² = Gₘ·Lₘ·preΨ_{2m}`.  This is one of the two
-hypotheses `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` was left carrying. -/
+hypotheses `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` is left carrying. -/
 theorem omegaSum (W : WeierstrassCurve R) (m : ℤ) : WronskianRec.OmegaSum W m :=
   (W.hasOmegaPair m).1
 
@@ -595,17 +595,14 @@ theorem omegaDiff (W : WeierstrassCurve R) (m : ℤ) : WronskianRec.OmegaDiff W 
 ```
 
 for every Weierstrass curve over every commutative ring at every `n : ℤ`.  This is `#1506` scope
-item 1, and it is `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` with all three of its
-hypotheses discharged — `WronskianRec.ChordSum` by the merged `WeierstrassCurve.hasChordSum`, and
-`WronskianRec.OmegaSum` / `WronskianRec.OmegaDiff` by `omegaSum` / `omegaDiff` above.
+item 1, and it is `WeierstrassCurve.hasWronskianId_of_univQ_recurrence` with both of its
+hypotheses discharged, by `omegaSum` and `omegaDiff` above.
 
-⚠️ The two `Prop`s `WeierstrassCurve.HasChordSum` and `WronskianRec.ChordSum` have the same body;
-they exist separately because `EllipticCurves.Torsion.ChordSum` and
-`EllipticCurves.Torsion.WronskianRecurrence` were written in parallel.  They are interchangeable by
-definitional unfolding, which is why `univQ.hasChordSum` typechecks in the first argument. -/
+⚠️ That statement used to carry a third hypothesis, `S1`; it is discharged inside
+`EllipticCurves.Torsion.WronskianRecurrence` itself by `WeierstrassCurve.hasChordSum` (`#1520`
+item 2), so nothing about `S1` is supplied here. -/
 theorem hasWronskianId (W : WeierstrassCurve R) (n : ℤ) : W.HasWronskianId n :=
-  W.hasWronskianId_of_univQ_recurrence (fun m => univQ.hasChordSum m) (fun m => univQ.omegaSum m)
-    (fun m => univQ.omegaDiff m) n
+  W.hasWronskianId_of_univQ_recurrence (fun m => univQ.omegaSum m) (fun m => univQ.omegaDiff m) n
 
 end WeierstrassCurve
 
@@ -618,7 +615,7 @@ variable {F : Type*} [Field F] {W : Affine F}
 /-- **`#E[n] = n²` at odd `n`**, for an elliptic curve over an algebraically closed field, with no
 hypothesis beyond `2 ≠ 0` and `(n : F) ≠ 0`.
 
-This is `WeierstrassCurve.Affine.card_torsion_eq_sq_of_recurrence` with its three hypotheses
+This is `WeierstrassCurve.Affine.card_torsion_eq_sq_of_recurrence` with both of its hypotheses
 supplied: the whole chain is `hasChordSum` (`#1516`), `wronskian_recurrence` (`#1518`), `omegaSum`
 and `omegaDiff` (this file), the merged `hpair` of `EllipticCurves.Torsion.OmegaPairCoprime`, and
 `EllipticCurves.Torsion.OddTorsionCount`'s reduction of the count to `Separable (preΨₙ)`.
@@ -630,7 +627,7 @@ anything at even `n`.  ⚠️ `EllipticCurves.Torsion.PrimaryTower`'s gate list,
 theorem card_torsion_eq_sq_of_odd [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0) :
     Nat.card (W.torsion n) = n ^ 2 :=
-  card_torsion_eq_sq_of_recurrence h2 hodd hn (fun m => univQ.hasChordSum m)
-    (fun m => univQ.omegaSum m) (fun m => univQ.omegaDiff m)
+  card_torsion_eq_sq_of_recurrence h2 hodd hn (fun m => univQ.omegaSum m)
+    (fun m => univQ.omegaDiff m)
 
 end WeierstrassCurve.Affine

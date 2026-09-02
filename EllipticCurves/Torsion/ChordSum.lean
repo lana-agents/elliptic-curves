@@ -131,13 +131,18 @@ a consumer's attention: `hasChordSum` subsumes all three.
   for the Wronskian.  ⚠️ **This bullet used to price S3 as *"the chain rule for `Σ ∘ xₙ`, which
   wants a derivation on a fraction field"*, and that clause is now false.**
   `WeierstrassCurve.wronskian_recurrence` (`EllipticCurves.Torsion.WronskianRecurrence`) **is** S3:
-  it takes the identity proved here at the single index `m` — as `WronskianRec.ChordSum`, the same
-  statement in a different namespace — and derives the recurrence over an **arbitrary** commutative
-  ring at an **arbitrary** index, by `Polynomial.derivative` and one `linear_combination`, with no
-  quotient anywhere in that file.  What `#1506` item 1 still owes after it is the pair of
-  derivative-free identities `WeierstrassCurve.WronskianRec.OmegaSum` and `.OmegaDiff` — the
-  `y`-half of the identity proved here — and nothing else.  **Those two are untouched.**
-* **It says nothing about `#E[n] = n²`.**  `PrimaryTower`, `#1490` and `#293` are unmoved.
+  it consumes `hasChordSum` below at the single index `m` and derives the recurrence over an
+  **arbitrary** commutative ring at an **arbitrary** index, by `Polynomial.derivative` and one
+  `linear_combination`, with no quotient anywhere in that file.  What `#1506` item 1 owed after it
+  was the pair of derivative-free identities `WeierstrassCurve.WronskianRec.OmegaSum` and
+  `.OmegaDiff` — the `y`-half of the identity proved here.  ⚠️ **That pair is no longer owed
+  either**: `WeierstrassCurve.omegaSum` and `WeierstrassCurve.omegaDiff`
+  (`EllipticCurves.Torsion.OmegaChordSum`, `#1519`) prove both, so
+  `WeierstrassCurve.hasWronskianId` is `#1506` item 1 unconditionally.  What stays true is that
+  **this file** proves none of that; it proves S1 and stops.
+* **It says nothing about `#E[n] = n²`.**  ⚠️ The tree proves it at odd `n`
+  (`WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd`), and taking that consequence into
+  `PrimaryTower`, `#1490` and `#293` is `#1522`; none of the three is moved by this file.
 * `#1184`'s arbitrary-ring coprimality, `#962` and `#639` are untouched, and nothing here is
   imported by any pre-existing module.
 
