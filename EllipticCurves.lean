@@ -356,6 +356,7 @@ import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.EllipticNetSlices
 import EllipticCurves.Torsion.Finite
+import EllipticCurves.Torsion.FiniteLadder
 import EllipticCurves.Torsion.Multiplicative
 import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
