@@ -82,7 +82,8 @@ as enforced by `#918` and `#927`.
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, transitively Ward-blocked, as everywhere on this front.
+* **General `n`** — `#251`, as everywhere on this front.  ⚠️ **Not** `#404`, and **not**
+  Ward-blocked: see below.
   ⚠️ **But the second obstruction `#938` carries does not apply here, and a reader will assume it
   does.**  `#938`'s surjectivity argument runs through a group of *prime* order and has no analogue
   at composite `n`; Mathlib's duality is stated for an arbitrary finite abelian group, so the
@@ -100,6 +101,13 @@ as enforced by `#918` and `#927`.
   `E[n]` and the map is not onto.  There is nothing to lift.
 * **Galois-equivariance of the equiv.**  `#936` left bundled-hom equivariance unfiled for want of a
   consumer and that reasoning is unchanged here.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## References
 

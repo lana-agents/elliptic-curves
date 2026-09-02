@@ -133,8 +133,15 @@ from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_
 producer do **not**, and are stated without it.
 
 ⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at both `n`.
-So is general `n` (`#404`'s `ωₙ` crux), and rung 4 itself (`#414`/`#421`/`#422`) — which this file
-does not use and does not advance.
+So is general `n` (`#251`; ⚠️ **not** `#404`, see below), and rung 4 itself
+(`#414`/`#421`/`#422`) — which this file does not use and does not advance.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ⚠️ **The `n = 2` and `n = 3` statements are pinned to `Classical.propDecidable`**, because they
 mention `W.torsion n` and the base-field group law.  The generic layer above is not, and carries

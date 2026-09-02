@@ -111,8 +111,17 @@ why a namespace mismatch here is invisible to the build: a consumer sitting in
 fully-qualified name is the only thing that checks it.
 
 Out of scope: discharging `hprin` over a general field, which is now the **only** gate; the
-divisor-level half of `#692`; general `n` (`#404`'s `ωₙ`); anything about
+divisor-level half of `#692`; general `n` (`#251`); anything about
 `WeilPairingAlternating{Two,Three}`, which are untouched.
+
+⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
+proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
+of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
+`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
+`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
 

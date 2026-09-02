@@ -115,9 +115,17 @@ rung-5 root exists only at torsion points, and the translation slot's `μ_n`-mem
 `torsion_le_weilPairingPointSubgroup_two`, which is a statement about `W.torsion 2`.
 
 ⚠️ This is not Galois-equivariance (`#456`), not `#E[2] = 4` (merged, and not used here), and not
-general `n` (which needs `#404`'s `ωₙ` crux).  ⚠️ `#456`'s two forms are re-read *through* the
-function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois` (`#936`), which
-is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an existential.
+general `n` (which needs `#251`; ⚠️ **not** `#404`, see below).  ⚠️ `#456`'s two forms are re-read
+*through* the function of this file by `EllipticCurves.FunctionField.WeilPairingFunctionGalois`
+(`#936`), which is where `σ(e_2(S, T)) = e_2(σ • S, σ • T)` exists as an equation rather than an
+existential.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## ⚠️ Nine issue numbers in this file were wrong while the names beside them were right
 

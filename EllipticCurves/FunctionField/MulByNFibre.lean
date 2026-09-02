@@ -32,7 +32,8 @@ at every `3`-smooth `n`.**
 coordinate formula is evaluated at any new index.**  `addY_self_eq_div`
 (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror
 (`EllipticCurves.Torsion.TriplingCoords`) enter exactly where they already did, at `n = 2` and
-`n = 3`, and the general-`n` `ωₙ` duplication formula — `#404` — is not approached.
+`n = 3`, and the general-`n` `ωₙ` duplication formula — ⚠️ `#251`, **not** `#404` — is not
+approached.
 
 ## ⚠️ The induction here is *not* the one `#1214` ran, and the difference is the whole difficulty
 
@@ -70,7 +71,7 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   carries: `transcendental_xCoord_nsmul_of_smooth`, `card_torsion_eq_sq_of_smooth` and
   `sum_ramificationIdxN_of_smooth` are each `3`-smooth, and `nsmul_surjective_of_smooth`
   (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is too.  ⚠️ Three of those four are `3`-smooth
-  for the *same* reason — the general-`n` coordinate formula `#251`/`#404` — so lifting any one of
+  for the *same* reason — the general-`n` coordinate formula `#251` — so lifting any one of
   them alone lifts nothing here.
 * **No statement at a place that is not the place of a rational point.**  As `#774` records of its
   own `n = 2` case, this is *not* "`[n]` is unramified": a place lying over a closed point which is
@@ -83,6 +84,15 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
 * **No new `E[n]` structure.**  `#E[n] = n²` at `3`-smooth `n` is the merged
   `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), consumed here and not
   reproved.
+
+⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
+the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
+those coordinates lie on the curve; it does **not** identify them with the group-law multiple
+`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
+(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
+`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References
 

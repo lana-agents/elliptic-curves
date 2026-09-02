@@ -129,11 +129,18 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
   be `0` there.
 * **General `n` is out of scope** and is not merely unproved here: this development has the Weil
-  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ The ceiling is `#404`'s `ωₙ` crux for the
+  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ The ceiling is `#251` for the
   pairing itself, and `#938`'s double obstruction at composite `n`.
 * ⚠️ **This does not touch `EllipticCurves.TateModule.Determinant`.**  `galoisDetTwo` there is
   `LinearEquiv.det` on the `2`-adic Tate module, and identifying it with the cyclotomic character
   needs the pairing at every level `E[2 ^ k]`.  Nothing below is a step towards that.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## Non-vacuity (`#916`)
 

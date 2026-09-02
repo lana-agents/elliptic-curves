@@ -79,7 +79,8 @@ about a curve over `F` itself, everything else about a curve over `S` base-chang
 
 ## Explicitly out of scope
 
-* **General `n`** — `#404`'s `ωₙ` crux, as everywhere on this front.  ⚠️ The ceiling here is
+* **General `n`** — `#251`, as everywhere on this front (⚠️ **not** `#404`, see below).
+  ⚠️ The ceiling here is
   `#938`'s and not `#940`'s, and the difference matters: surjectivity is blocked at composite `n`
   **twice**, by the crux and independently by the prime-order step in
   `MonoidHom.surjective_of_ne_one_of_natCard_prime`.  This theorem inherits both, so `#940`'s
@@ -104,6 +105,13 @@ about a curve over `F` itself, everything else about a curve over `S` base-chang
 * **An `n = 2` form with a torsion hypothesis.**  There is no such theorem to write, because the
   conclusion holds without one.  Recording that is the deliverable; a hypothesis-carrying
   restatement would be strictly weaker than what is proved.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## References
 

@@ -18,8 +18,10 @@ point of `W ⁄ F(W)` into an `F`-algebra endomorphism of `F(W)`, and specialise
 
 `#403`/`#405` build `[n]∗` as `AdjoinRoot.lift` of the *division-polynomial* coordinates
 `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)`, whose well-definedness obligation `W.polynomial.eval₂ _ _ = 0` is the general
-`n` on-curve identity — `#404`'s crux, which `#404` records as transitively gated on Ward's theorem
-(`#260`) and dead on the current Mathlib pin.
+`n` on-curve identity — `#404`'s crux.  ⚠️ That crux is **closed** (see the next section), and both
+of the gates the sentence here used to name behind it are closed too: Ward's theorem (`#260`) is
+`WeierstrassCurve.Affine.ψ_isEllipticNet` of `EllipticCurves.Torsion.WardHalving`, unconditional
+and on the current pin.
 
 **Taking the coordinates from `n • 𝒫` discharges that obligation for free**: `n • 𝒫` is a
 `Point`, and a `Point` carries its own `Nonsingular` field, whose first component *is* the
@@ -32,6 +34,38 @@ here, discharged in `EllipticCurves.FunctionField.MulByNTranscendence`.
 `mulByNEndo_three` identify this construction at `n = 2, 3` with `mulByTwoEndo` and
 `mulByThreeEndo`, which were built from `doubling_equation`/`tripling_equation`.  That agreement is
 the validation of the route.
+
+## ⚠️ `#404` is CLOSED, and this tree used its number for two different propositions
+
+⚠️ **Check this section before citing `#404` as a gate.**  `#1460` found **75** sites across **55**
+files still naming it as open, and they do not all mean the same statement.
+
+* ✅ **The on-curve identity** — `#404`'s stated deliverable, and **closed** by PR #557.  It says
+  the point `(Φₙ(x)/ΨSqₙ(x), ωₙ(x,y)/ψₙ(x,y)³)` satisfies `W.Equation`; equivalently that
+  `W.polynomial.eval₂ _ _ = 0`, which is the `AdjoinRoot.lift` obligation `#403`/`#405` need.
+* ❌ **The `ωₙ` duplication formula** — `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ(x,y)/(2 ψₙ(x,y)³))`, the
+  **group-law** multiple and not merely *some* point of the curve.  This is **`#251`**, it is
+  **open**, and `#404` never claimed it.
+
+The closed half is `WeierstrassCurve.hasPreΩSq` (every index, every `CommRing`) and
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (the identity itself, over a field of
+characteristic `≠ 2`, with `ψₙ(x, y) ≠ 0`), both in `EllipticCurves.Torsion.OmegaCrux`; the
+`Φ`/`ΨSq` phrasing is `WeierstrassCurve.hasΨSqDoubling`.  ⚠️ `OmegaCrux` is **not** in this file's
+import closure, so those three names are not resolvable here and nothing below uses them; they are
+cited, not consumed.
+
+⚠️ **The open half was never `#404`'s.**  `equation_div_of_ψ_ne_zero` says the coordinates lie on
+the curve; it says nothing about `n • P`, and its own docstring records that.  Identifying the two
+is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), issue
+`#251`, available at `n = 2` and `n = 3` only (`hasXCoordFormula_two`, `hasXCoordFormula_three`),
+with the `y`-half `addY_self_eq_div` / `addY_add_self_eq_div`
+(`EllipticCurves.Torsion.DoublingCoords`, `EllipticCurves.Torsion.TriplingCoords`) likewise.
+
+⚠️ **So a bullet that needs the group-law multiple in division-polynomial form is still gated — on
+`#251`, and the gate must be relettered rather than removed.**  A bullet that needs only the
+on-curve identity is discharged.  ⚠️ `#1184` (`IsCoprime (Φₙ) (ΨSqₙ)` at general `n`) and `#962`
+(`hprin` over a general field) are untouched by PR #557 and stay open; where they are listed
+alongside `#404`, only `#404`'s name comes off.
 
 ## Main definitions
 
@@ -135,8 +169,9 @@ the base-changed curve determines the ring homomorphism `F[W] →+* F(W)` sendin
 It is `AdjoinRoot.lift` of `x` and `y`, whose single well-definedness obligation
 `W.polynomial.eval₂ _ _ = 0` is *exactly* the hypothesis `h`: that `(x, y)` lies on the curve.  ⚠️
 When `(x, y)` comes from a `Point`, `h` is a projection of the point's own `Nonsingular` field, so
-no equation has to be proved — this is what makes the general `n` construction below free of the
-`ωₙ` crux (`#404`). -/
+no equation has to be proved — this is what makes the general `n` construction below independent of
+the `ωₙ` crux (`#404`, since closed by PR #557 and now
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`; independence, not a gate). -/
 noncomputable def pointCoordHom {x y : W.FunctionField}
     (h : (W.map (algebraMap F W.FunctionField)).Equation x y) :
     W.CoordinateRing →+* W.FunctionField :=

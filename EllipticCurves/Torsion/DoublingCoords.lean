@@ -55,8 +55,17 @@ proof and ask which of its inputs actually mention the generic point.
 
 ## What is *not* here
 
-* Any general `ωₙ` duplication formula — that is `#404`, and nothing here approaches it.  ⚠️ The
-  `n = 3` case is **not** `#404`'s and is no longer missing: it is
+* Any general `ωₙ` duplication formula, and nothing here approaches it.  ⚠️ **This bullet used to
+  attribute that formula to `#404`, and that was wrong in a way later files quoted.**  What
+  `addY_self_eq_div` states is `y(2 • P) = ω₂/(2 ψ₂³)` for the **group-law** double, and the
+  general-`n` form of *that* is `WeierstrassCurve.Affine.HasXCoordFormula`'s `y`-half — issue
+  `#251`, still open.  `#404`'s own deliverable was the weaker on-curve identity, that
+  `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and it is **closed**:
+  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` of `EllipticCurves.Torsion.OmegaCrux`, at
+  every index over every commutative ring, PR #557.  ⚠️ That module and this one are **import-
+  incomparable** — neither is in the other's closure — so the name is not resolvable here and
+  nothing below uses it.  The two-reading account is in
+  `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ The `n = 3` case is
   `EllipticCurves.Torsion.TriplingCoords`, the mirror of this file, likewise not here.
 * Any statement about places, divisors or the function field; this file is pure point arithmetic and
   is imported by the function-field layer, not the other way round.

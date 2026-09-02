@@ -32,7 +32,14 @@ endomorphism `Φ` *and* index `n` are both parameters), `divisor_eq_equivMapDoma
 **division-polynomial coordinates** of `[2]` and `[3]` (`galoisFunctionField_Φ_eval`, `_Ψ₂Sq_eval`,
 `_ΨSq_eval`, `_preΨ₄_eval`, `_preΨ_eval`, `_ψ_evalEval`).  `mulByNEndo` has **no coordinate
 formula** — it comes from the group law on the generic point (`#1165`), not from `Φₙ/ΨSqₙ` — so that
-route is closed at general `n` and stays closed until `#404`.
+route is closed at general `n` and stays closed until `#251` (⚠️ **not** `#404`, see below).
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## The second route, which needs no `ωₙ`
 
@@ -89,7 +96,7 @@ do.
 
 Out of scope: any edit to `WeilPairingGaloisRoot` or `GaloisFunctionField`; the alternating and
 antisymmetry families, which `#1317` showed are gated on `#899` rather than on a numeral; `ωₙ`
-(`#404`), Ward (`#260`), rung 4, `#251`.
+(`#404`, closed) and Ward (`#260`, closed), rung 4, `#251`.
 
 ## Recovery, and Non-vacuity
 

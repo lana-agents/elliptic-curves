@@ -83,10 +83,19 @@ heading is not `## Main results`.
   `F(x)` is not being a written-down rational function**, and it is the second that a degree count
   consumes.
 
-  ⚠️ What remains is therefore `nMulRatFunc W n = Φₙ/ΨSqₙ` (`#404` / `#251`), the coprimality
+  ⚠️ What remains is therefore `nMulRatFunc W n = Φₙ/ΨSqₙ` (`#251`), the coprimality
   `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`; `#681` is the merged `n = 2` instance and
   is *not* the general gate), and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  ⚠️ The degrees themselves are
   **not** gated — `natDegree_Φ` and `natDegree_ΨSq` are Mathlib's at general `n`.
+
+⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
+the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
+those coordinates lie on the curve; it does **not** identify them with the group-law multiple
+`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
+(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
+`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`.
 
   ⚠️ **A reader who takes this file for "rung 3 generalises at general `n`" has misread it.**  What
   it does is remove one of rung 3's gates.
@@ -105,7 +114,8 @@ heading is not `## Main results`.
   between `3`-smooth and general `n`; they are not what stands between `{2, 3}` and everything else.
 * **Nothing about rung 4.**  `ordInfty ([n]∗ genX) = -2` is *false* at general `n`
   (`MulByNPlacePullback`), and nothing here changes that.
-* **It does not close `#404`.**  The coordinates of `[n]` as an explicit fraction remain
+* **It does not close `#251`.**  ⚠️ This bullet used to name `#404`, which PR #557 closed and
+  which was never the statement meant here.  The coordinates of `[n]` as an explicit fraction remain
   unavailable; `nMulRatFunc W n` is a rational function whose existence is proved, not one that is
   written down.
 * **No `[IsAlgClosed F]`, no `(2 : F) ≠ 0`, no hypothesis on `n`.**  At an `n` with `n • 𝒫 = 0`
@@ -279,7 +289,7 @@ The same argument as `nMulRatFunc_two` against the merged `algebraMap_triplingRa
 ⚠️ `n = 2` and `n = 3` are the **only** indices at which the group-law construction can be checked
 against a written-down fraction, because they are the only indices at which the tree writes one
 down: `#682` and `#775` are the merged degree computations and there is no `Φₙ/ΨSqₙ` presentation
-of `nMulRatFunc W n` at any other `n`.  That presentation at general `n` is `#404` / `#251`'s and
+of `nMulRatFunc W n` at any other `n`.  That presentation at general `n` is `#251`'s and
 is what a degree count needs; see the module docstring. -/
 theorem nMulRatFunc_three [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     nMulRatFunc W 3 = triplingRatFunc W := by

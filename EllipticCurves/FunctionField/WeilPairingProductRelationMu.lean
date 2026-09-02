@@ -76,9 +76,16 @@ setting of `#845`; the descent they consume carries neither `[IsAlgClosed F]` no
 hypothesis.  **No `#418`, no rung 4, no Ward, no normality beyond what `#845` already merged.**
 
 Out of scope: `hprin` over a **general** field, which is open at both `n` and is what confines
-these statements to `F̄`; general `n`, which wants `#404`'s `ωₙ`; bundling `e_n` as a `MonoidHom`
+these statements to `F̄`; general `n`, which wants `#251`; bundling `e_n` as a `MonoidHom`
 into `μ_n(F)` in the divisor slot, which needs a `hpow` datum uniform in the slot variable and is
 a different statement (`WeilPairingDivisorSlotHom`); any change to `#845`'s or `#723`'s proofs.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ⚠️ Also out of scope here, and **done elsewhere**: the headlines below inherit `#845`'s existential
 envelope, so a caller who already holds a root cannot apply them.  The `∀ g` forms at both levels

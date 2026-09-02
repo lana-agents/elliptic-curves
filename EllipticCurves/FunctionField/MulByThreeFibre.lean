@@ -161,7 +161,11 @@ met head-on.
   `EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, with its place
   layer in `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ Nothing general-`n` is
   attempted *here*: the identification of the contraction with tripling, and the count, are
-  `[3]`-specific below.  `#404`'s general `ωₙ` is untouched — and it is not what `[n]∗` needed.
+  `[3]`-specific below.  `#404`'s general `ωₙ` is untouched here — and it is not what `[n]∗`
+  needed, nor is it open any more: it is
+  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557).  What a general-`n` fibre description would need
+  is `#251`, the identification with `n • P`.
 
 ## References
 

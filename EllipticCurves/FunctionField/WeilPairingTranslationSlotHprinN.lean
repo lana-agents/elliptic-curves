@@ -103,7 +103,7 @@ this.
   description exists, so the corollary would be one nothing can feed.  That is the `#944` vacuity
   trap, and `#1304` refused the same corollary for the same reason.
 * **`n = 5` is not reached.**  The ceiling is `transcendental_xCoord_nsmul_of_smooth`'s, and behind
-  it stand `#404`/`#251` and `#1184`.
+  it stand `#251` and `#1184` (⚠️ **not** `#404`; see the section below).
 * **Non-degeneracy is untouched**, and stays over `F̄`: there `[IsAlgClosed F]` is load-bearing and
   enters twice (`WeilPairingNondegenerateTwo`, module docstring, "the closure enters twice").
 * **No pairing on `W.Point × W.Point`**, and no effect on the two-slot `weilPairingTwoHom` /
@@ -135,8 +135,21 @@ because this is the file a reader carries the wrong generalisation out of.
 
 So *"general `n` (`#404`'s `ωₙ`)"* is a true description of **this tree's route** to a general index
 wherever `hprin` is discharged, which is what a scope bullet claims.  ⚠️ It is not a claim that no
-other route exists and must not be strengthened into one.  ⚠️ **The bullets that say it elsewhere
-are therefore correct, and correcting them would install a falsehood.**  Matching the phrase
+other route exists and must not be strengthened into one.
+
+⚠️ **THE ISSUE NUMBER IN THAT PHRASE IS WRONG, AND THIS PARAGRAPH GOT IT WRONG TOO (`#1460`).**  The
+paragraph above concluded *"the bullets that say it elsewhere are therefore correct, and correcting
+them would install a falsehood"*, and it is right that a gate remains and wrong about which issue
+that gate is.  The step it correctly isolates — `addY_self_eq_div`'s general-`n` form, the
+`y`-coordinate of the **group-law** multiple `n • P` in division-polynomial form — is `#251`, not
+`#404`.  ⚠️ `#404`'s own deliverable was the strictly weaker on-curve identity, that
+`(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and PR #557 **closed** it
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`, every
+index, every commutative ring).  ⚠️ The mis-attribution entered through the `DoublingCoords`
+sentence quoted above, which this paragraph quoted in good faith; `DoublingCoords` now says so
+itself, and `EllipticCurves.FunctionField.MulByNPullback` carries the two-reading account.  So the
+21 bullets are **relettered to `#251`, not lifted** — the gate they describe is real.  Matching the
+phrase
 *general `n`* or *uniform `n`* within 170 characters of `ωₙ`, on whitespace-normalised source,
 returns **39 sites in 30 modules**: 18 across the nine modules that say `ωₙ` is *not* used, and
 **21 — exactly one in each of 21 modules — citing it as the general-`n` gate, every one of those

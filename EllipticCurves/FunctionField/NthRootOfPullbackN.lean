@@ -75,9 +75,18 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
   description exists, so a hypothesis-free corollary would be one nothing can feed.  That is the
   vacuity trap, not a gap to fill.
 * **`n = 5` is not reached.**  The ceiling is `transcendental_xCoord_nsmul_of_smooth`'s, and behind
-  it stand `#404`/`#251` and `#1184`.  This file moves nothing there.
+  it stand `#251` and `#1184`.  This file moves nothing there.
 * **The pairing itself stays at `n = 2, 3`.**  Rung 5 is the `n`-th root; `weilPairingElt` and the
   rung-6 board are limited by their *other* inputs, not by this one.
+
+⚠️ **The `#404` half of that pair has been paid, and only the `#251` half remains.**  PR #557 proved
+the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  It says
+those coordinates lie on the curve; it does **not** identify them with the group-law multiple
+`n • P`, which is what a written-down `Φₙ/ΨSqₙ` for `[n]` needs and is `#251`
+(`WeierstrassCurve.Affine.HasXCoordFormula`, `EllipticCurves.Torsion.NsmulSurjective`, available at
+`n = 2, 3` only).  ⚠️ The gate is relettered, not lifted, and `#1184` is untouched; the two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
 

@@ -70,7 +70,8 @@ completion.
 
 ## Scope
 
-Fully ungated: no Ward, no `#404`, no rung 4, no `hprin`, no normality — only the standing
+Fully ungated: no Ward (`#260`, since closed anyway), no `#404` (likewise), no rung 4, no `hprin`,
+no normality — only the standing
 `[IsDedekindDomain W.CoordinateRing]` (`#396`) that the whole divisor calculus carries, and, for the
 Dedekind-level results, nothing at all beyond `[IsDedekindDomain R]`.
 

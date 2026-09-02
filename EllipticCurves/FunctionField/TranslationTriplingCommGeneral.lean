@@ -71,7 +71,7 @@ group-theoretic half: the same three lines prove `τ_P∗ ∘ [n]∗ = [n]∗ �
 for general `n` is the input the route consumes: `mulByNEndo` and the correspondence
 `𝒫 + ⋯ + 𝒫 = (mulByNEndo genX, mulByNEndo genY)` are built separately at `n = 2`
 (`GenericDoubling`) and `n = 3` (`GenericTripling`) out of the explicit addition formulæ, and a
-uniform `n` needs the `ωₙ` crux (`#404`).  So general `n` is gated on `#403`/`#404`, not on this
+uniform `n` needs the coordinate formula `#251`.  So general `n` is gated on `#251`, not on this
 file's technique."*  Both named inputs are `EllipticCurves.FunctionField.MulByNPullback`'s at
 every `n` — `mulByNEndo` and `nsmul_genericPoint_eq` — built from the **group law**, so the `ωₙ`
 gating was never real.  The theorem those inputs were wanted for is
@@ -79,6 +79,13 @@ gating was never real.  The theorem those inputs were wanted for is
 `EllipticCurves.FunctionField.TranslationMulByNCommGeneral`, proved along exactly this route.
 ⚠️ *It is not attempted here* — that clause is file-scoped and stays true; this file remains the
 `n = 3` slice.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## What is *not* here
 

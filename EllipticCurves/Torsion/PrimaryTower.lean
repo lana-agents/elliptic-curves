@@ -34,7 +34,10 @@ with `nsmul_surjective_of_hasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjec
 supplies (1) from the coordinate formula `HasXCoordFormula W p` and the pointwise statement that
 `Φₚ` and `ΨSqₚ` have no common root, the full list of what is owed at a prime `p ≥ 5` is:
 
-* `HasXCoordFormula W p` — issue `#251`, through `#404`;
+* `HasXCoordFormula W p` — issue `#251`.  ⚠️ This used to read *"issue `#251`, through `#404`"*, and
+  `#404` is neither a route to it nor a gate on it any more: `#404`'s on-curve identity is closed
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and says nothing about `p • P`, which is the whole
+  content of `HasXCoordFormula`.  `#251` is the gate, alone;
 * `∀ x, (W.ΨSq p).eval x = 0 → (W.Φ p).eval x ≠ 0` — a weakening of `#1184`;
 * `#E[p] = p²` — a **third and separate** gate.  ⚠️ It does *not* follow from surjectivity of `[p]`,
   which is why it is a hypothesis below and not a conclusion: the `≤` half is the

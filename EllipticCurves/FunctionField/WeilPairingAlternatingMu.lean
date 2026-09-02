@@ -88,9 +88,18 @@ the same bundling in the *translation* slot …, and non-degeneracy"*:
   (`EllipticCurves.FunctionField.WeilPairingNondegenerateMu`, `#878`), over `F̄`.
 
 ⚠️ **State the position, never a tally**: what is left over `F̄` is not a shorter list but `hprin`
-over a **general** field (`#962`) and general `n` (`#404`'s `ωₙ`).  Non-degeneracy is still **not**
+over a **general** field (`#962`) and general `n` (`#251`).  Non-degeneracy is still **not**
 Ward-gated; `WeilPairing`'s scope section is the canonical account of what it consumes (#769), and
 over a non-closed field it is not merely unproved — see that account.
+
+⚠️ **That bullet used to read *"general `n` (`#404`'s `ωₙ`)"*, and `#404` is closed.**  PR #557
+proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index here is the *other* statement this tree also called `ωₙ`: the identification
+of those coordinates with the **group-law** multiple `n • P`, which is `#251`.  That is the step
+`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
+`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror.  ⚠️ The
+two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References
 

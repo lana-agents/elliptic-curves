@@ -43,7 +43,14 @@ prime order is `⊥` or `⊤`, so it is onto.
 general `n` existed.**  At composite `n` the image can be a proper nontrivial subgroup and
 surjectivity needs a genuinely different argument — the finite-abelian duality route sketched under
 *Explicitly out of scope* below.  So general `n` is blocked here **twice over**, and only one of the
-two obstructions is `#404`'s `ωₙ` crux.
+two obstructions is the coordinate formula `#251` (⚠️ **not** `#404`, see below).
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 ## `[IsAlgClosed F]` is used for a SECOND, independent reason here
 

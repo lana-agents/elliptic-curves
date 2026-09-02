@@ -86,7 +86,7 @@ one would not.
 ## Scope
 
 ⚠️ **This unblocks nothing.**  It removes a false claim about what is reachable; the frontier of
-`#244` is exactly where it was — `#404`'s `ωₙ` for general `n`, `hprin` over a general field
+`#244` is exactly where it was — `#251` for general `n`, `hprin` over a general field
 (`#962`), the projective divisor theory (`#639`).  ⚠️ **The clause this paragraph used to end
 with has been paid** — it read *"A general-`n` statement would need `mulByNEndo`, which does not
 exist"*.  `mulByNEndo` is `EllipticCurves.FunctionField.MulByNPullback`'s, at every `n`, and it
@@ -94,6 +94,13 @@ was never what a general-`n` version of *this* statement needed: the subject her
 `weilPairingTorsionMuHom_two` / `weilPairingTorsionMuHom_three`, and the counting inputs the
 argument runs on are `card_torsion_two` / `card_torsion_three`.  Both are `n`-indexed for reasons
 that have nothing to do with `[n]∗`.
+
+⚠️ **`#404` is closed, and the general-`n` entry above named it as the gate.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  What still
+gates a general index is the *other* statement this tree also called `ωₙ`: the identification of
+those coordinates with the **group-law** multiple `n • P`, which is `#251`.  ⚠️ The two-reading
+account is `EllipticCurves.FunctionField.MulByNPullback`; the gate is relettered here, not lifted.
 
 Everything below carries `[IsAlgClosed F]`, and it is load-bearing twice over: both cardinalities
 are theorems about an algebraically closed field.  Over a general field `#E[n]` can be smaller than

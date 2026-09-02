@@ -88,7 +88,8 @@ matter of restating anything here.  In particular `WeilPairing.lean` carries `[W
 
 ⚠️ **This is not bilinearity, not the alternating property (`#465`), not Galois-equivariance
 (`#456`), and not general `n`.**  It says nothing about `#E[n] = n²` at general `n` (`#242`,
-`#404`, Ward): the only count it uses is `card_torsion_two`, inside `#759`, which counts the roots
+`#251`; ⚠️ **not** `#404` and **not** Ward, both closed): the only count it uses is
+`card_torsion_two`, inside `#759`, which counts the roots
 of the `2`-division cubic and does not go through Ward.
 
 ⚠️ **There now IS a `W.Point`-level pairing in this tree, and this file's headline is what its

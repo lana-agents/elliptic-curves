@@ -132,7 +132,13 @@ Every public declaration of this file is listed, and all are in namespace
 * **No coordinate work.**  `ωₙ` (`#404`), the general-`n` on-curve identity, `#251` and Ward
   (`#260`) are all unused: `mulByNEndo` is built from the **group law** on `(W ⁄ F(W)).Point`, and
   as `TranslationMulByNCommGeneral` says of itself, *"the coordinates of `[n]` as rational
-  functions remain unavailable and are not needed"*.
+  functions remain unavailable and are not needed"*.  ⚠️ **Two of those four are now closed and
+  this is an independence claim, not a gate** (`#1460`): `#404`'s on-curve identity is
+  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR
+  #557, every index, every commutative ring) and Ward is
+  `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`),
+  unconditional.  `#251` is the one of the four still open, and it is the one this file would
+  need if it ever wanted coordinates.
 * **No re-examination of `TranslationTriplingComm`.**  Whether its coordinate work is now redundant
   is a `#699`-style de-duplication question and belongs in its own issue, as that file records.
 * `TranslationAction`'s own Scope sentence, that nothing in *that* file is `[2]`- or

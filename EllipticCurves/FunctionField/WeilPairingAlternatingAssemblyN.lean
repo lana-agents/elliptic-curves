@@ -138,9 +138,14 @@ it.
   missing intertwiner is the whole of the remaining work and it is a separate piece.
 * `n = 5` on either corollary — see above; the obstruction is the halving point on one and the
   transcendence on the other.
-* `ωₙ`, `#404`, `#251`, Ward, bilinearity, non-degeneracy.  ⚠️ The `μ`-valued statements below are
-  the *value-group form of this one theorem* and nothing more; `μ_n`-valuedness of `e_n` in the
-  sense of `EllipticCurves.FunctionField.WeilPairingRootsOfUnity` is not re-proved here.
+* `ωₙ`, `#404`, `#251`, Ward, bilinearity, non-degeneracy.  ⚠️ Of those, `#404` and Ward are
+  **closed** — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
+  (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and
+  `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`) — so naming
+  them here is a statement that this file does not use them, not that they gate anything
+  (`#1460`).  `#251` is open.  ⚠️ The `μ`-valued statements below are the *value-group form of
+  this one theorem* and nothing more; `μ_n`-valuedness of `e_n` in the sense of
+  `EllipticCurves.FunctionField.WeilPairingRootsOfUnity` is not re-proved here.
 
 ## References
 
