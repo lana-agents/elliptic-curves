@@ -69,13 +69,15 @@ Every input is merged, and the last of them landed on 2026-09-01–02.
    `ψ` through `ψ_neg` and `ψ_one`, with a `ring` call between the two.  On the `s` axis it is
    `normEDS_isEllipticNet_of_gapCore` (`EllipticCurves.Torsion.EllipticNetSlices`), which pays the
    regularity hypothesis once and for all in `UnivEDS`.  ⚠️ Neither collapse is automatic for
-   `IsEllipticNet.rel` in general, and the two axes differ in how well that is understood.  On the
-   `r` axis the gap is real and this tree exhibits it: `signMultiplesOfThree` is odd
-   (`signMultiplesOfThree_odd`) and satisfies the whole `r = 1` slice
-   (`signMultiplesOfThree_rel_one`) yet is not an elliptic sequence
+   `IsEllipticNet.rel` in general, and on **both** axes this tree now exhibits the gap.  On the
+   `r` axis: `signMultiplesOfThree` is odd (`signMultiplesOfThree_odd`) and satisfies the whole
+   `r = 1` slice (`signMultiplesOfThree_rel_one`) yet is not an elliptic sequence
    (`not_isEllipticSequence_signMultiplesOfThree`), because `signMultiplesOfThree 1 = 0`.  On the
-   `s` axis nothing of the kind is known: `EllipticCurves.Torsion.EllipticNetSlices` records
-   that its regularity hypothesis is *not* known to be necessary and claims no counterexample.
+   `s` axis: `sqZeroSeq` (`EllipticCurves.Torsion.EllipticNetRegularity`) is odd
+   (`sqZeroSeq_odd`) and is an elliptic sequence (`isEllipticSequence_sqZeroSeq`) yet is not an
+   elliptic net (`not_isEllipticNet_sqZeroSeq`), because its values all square to zero.
+   ⚠️ The two witnesses fail *different* hypotheses — `W 1 = 1` on the `r` axis, regularity on the
+   `s` axis — so the axes match in having a gap, not in what closes it.
    ⚠️ `EllipticCurves.Torsion.NsmulOrder` states the same split; keep the two in step.  What
    being outside the slice costs *this* file is the `ψ_mul_Ω` route to the instance, recorded
    next; it is not Ward.

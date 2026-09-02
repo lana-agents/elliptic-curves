@@ -65,8 +65,16 @@ needed, which is why `Mathlib`'s `atomRel_avg_sub` alone does not settle this.
 multiplier and nothing else; it is used only at `s = 2 * k`, `k ≠ 0`.  It holds for
 `normEDS X₀ X₁ X₂` over the integral domain `UnivEDS` by
 `WeierstrassCurve.normEDS_univ_ne_zero`, which is why the `normEDS` corollaries below need no
-hypothesis of their own.  ⚠️ It is **not** known to be necessary: no counterexample was found, and
-none is claimed.
+hypothesis of their own.  ⚠️ It **is** necessary and cannot simply be deleted:
+`IsEllipticNet.exists_odd_isEllipticSequence_not_isEllipticNet`
+(`EllipticCurves.Torsion.EllipticNetRegularity`) exhibits an odd `W` over an explicit `CommRing`
+that is an elliptic sequence and is not an elliptic net.
+
+⚠️ That is necessity of this hypothesis, **not** sharpness of it.  The witness there has
+`W n * W n = 0` at *every* index, so regularity fails as badly as it can and nothing is measured
+about intermediate weakenings.  ⚠️ Nor does it reach `isEllipticNet_iff_rel_one` below, which also
+assumes `W 1 = 1`: the witness cannot be normalised, and whether `hreg` is removable for a
+normalised `W` is unmeasured.
 
 ## Main statements
 
