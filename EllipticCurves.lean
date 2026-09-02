@@ -384,6 +384,7 @@ import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoPrimaryBasis
 import EllipticCurves.Torsion.TwoThreeDisjoint
 import EllipticCurves.Torsion.TwoTorsion
+import EllipticCurves.Torsion.TwoTorsionOrder
 import EllipticCurves.Torsion.WardHalving
 import EllipticCurves.Torsion.WardR1
 import EllipticCurves.Torsion.WardR1Core
