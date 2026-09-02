@@ -94,8 +94,8 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`), consumed here and not
   reproved.
 
-⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
-identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+⚠️ **That pair is paid on both halves, and `(n : F) ≠ 0` is what is left.**  PR #557 proved the
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
 `#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
 with the group-law multiple `n • P` is `#251`, and it is **closed**:
@@ -103,11 +103,18 @@ with the group-law multiple `n • P` is `#251`, and it is **closed**:
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
 function-field form `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
-is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/ψₙ³` as
-`y(n • P)` — is still available at `n = 2` and `n = 3` only, which is what the `#251` bullets on the
-Weil-pairing front mean.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder` nor
-`EllipticCurves.FunctionField.MulByNXCoordFormula` is in this file's import closure and neither is
-added: both names are cited, not consumed.  The two-reading account is
+has since been discharged over a field** — `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
+(`EllipticCurves.Torsion.CoprimeAdjacent`) at every `n : ℤ` for an elliptic curve of characteristic
+`≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
+(`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `(n : F) ≠ 0` and nothing else beyond
+the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
+arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.
+⚠️ And the `y`-half — `ωₙ/ψₙ³` as `y(n • P)` — is still available at `n = 2` and `n = 3` only,
+which is what the `#251` bullets on the Weil-pairing front mean.  ⚠️ None of
+`EllipticCurves.Torsion.NsmulOrder`, `EllipticCurves.FunctionField.MulByNXCoordFormula`,
+`EllipticCurves.Torsion.CoprimeAdjacent` or
+`EllipticCurves.FunctionField.MulByNDegreeGeneral` is in this file's import closure and none is
+added: all four names are cited, not consumed.  The two-reading account is
 `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References

@@ -92,8 +92,13 @@ heading is not `## Main results`.
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n`
 with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
-applied to the generic point.  ⚠️ **`#1184` is untouched**, and is what now stands alone beside
-`(n : F) ≠ 0`.
+applied to the generic point.  ⚠️ **`#1184` was untouched by that file, and is not open any
+more**: `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
+(`EllipticCurves.Torsion.CoprimeAdjacent`) proves it at every `n : ℤ` for an elliptic curve over a
+field of characteristic `≠ 2`, so what stands beside `(n : F) ≠ 0` is nothing, and the degree at
+general `n` is `EllipticCurves.FunctionField.MulByNDegreeGeneral`.  ⚠️ `MulByNDegreeGeneral` is
+**downstream** of this one; `EllipticCurves.Torsion.CoprimeAdjacent` is **import-incomparable**
+with it.
 
 ⚠️ That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the
 on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
@@ -110,8 +115,10 @@ claim about `n • P` — and the route above goes nowhere near it.  The two-rea
   `[F(W) : [n]∗F(W)] = [F(x) : F(nMulRatFunc W n)]` for every `n`, out of `algebraMap_nMulRatFunc`
   and nothing else about `n`.  So the element this file names is the tower's entire input; what
   that file lacked was the **degree** of that element, which was the three gates listed just above.
-  ⚠️ `EllipticCurves.FunctionField.MulByNXCoordFormula` now supplies gate 1 and the degree follows
-  at every `n` with `(n : F) ≠ 0` **given `#1184`**, which is open.
+  ⚠️ `EllipticCurves.FunctionField.MulByNXCoordFormula` supplies gate 1 and
+  `EllipticCurves.Torsion.CoprimeAdjacent` supplies `#1184` over a field of characteristic `≠ 2`,
+  so the degree follows at every `n` with `(n : F) ≠ 0` and with nothing else assumed —
+  `EllipticCurves.FunctionField.MulByNDegreeGeneral`.
 
   ⚠️ **The tree does know degrees outside `{2, 3}`, by a different route.**
   `EllipticCurves.FunctionField.MulByNComposition` proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group

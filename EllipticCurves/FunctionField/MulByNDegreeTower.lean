@@ -51,7 +51,13 @@ with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) applied to the generic point — which is a point of `W ⁄ F(W)`
 over the field `F(W)`, so a theorem about points of a curve over a field applies to it directly.
-⚠️ **`#1184` is untouched** and is what now stands alone beside `(n : F) ≠ 0`; and a field degree is
+⚠️ **`#1184` was untouched by that file, and has since been discharged over a field**:
+`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) proves
+gate 2 at every `n : ℤ` for an elliptic curve of characteristic `≠ 2`, and
+`EllipticCurves.FunctionField.MulByNDegreeGeneral` composes all three, leaving `(n : F) ≠ 0` as the
+only hypothesis.  ⚠️ Neither module is in this one's import closure: `MulByNDegreeGeneral` is
+**downstream**, `EllipticCurves.Torsion.CoprimeAdjacent` **import-incomparable** — so the
+conditional forms below are unchanged and stay conditional.  And a field degree is
 still not a point count, so nothing here bears on `#E[n] = n²`.
 
 That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the on-curve
@@ -223,10 +229,13 @@ theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) �
 `hcop` is gate 2 (`#1184`) and `hchar` is gate 3.
 
 ⚠️ This theorem is **not** a proof that the degree is `n²`: it is the statement that the three
-gates are jointly sufficient.  ⚠️ `hfrac` is now available at every `n` with `(n : F) ≠ 0` over a
-field of characteristic `≠ 2` (`nMulRatFunc_eq_ΦDivΨSq`,
-`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file), so what this theorem
-still waits on is `hcop`, i.e. `#1184`. -/
+gates are jointly sufficient.  ⚠️ Both `hfrac` and `hcop` are now available at every `n` with
+`(n : F) ≠ 0` over a field of characteristic `≠ 2` — `nMulRatFunc_eq_ΦDivΨSq`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) and
+`WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`), the first
+downstream of this file and the second **import-incomparable** with it — and the composition is
+`EllipticCurves.FunctionField.MulByNDegreeGeneral`.  This theorem stays conditional because this
+file must not import either. -/
 theorem finrank_mulByNFieldRange_of_nMulRatFunc_eq [W.IsElliptic] (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (hchar : ((n : ℤ) : F) ≠ 0)
     (hcop : IsCoprime (W.Φ (n : ℤ)) (W.ΨSq (n : ℤ)))

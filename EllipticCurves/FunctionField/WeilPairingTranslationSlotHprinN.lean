@@ -103,7 +103,10 @@ this.
   description exists, so the corollary would be one nothing can feed.  That is the `#944` vacuity
   trap, and `#1304` refused the same corollary for the same reason.
 * **`n = 5` is not reached.**  The ceiling is `transcendental_xCoord_nsmul_of_smooth`'s, and behind
-  it stand `#251` and `#1184` (⚠️ **not** `#404`; see the section below).
+  it stand `#251` and `#1184` (⚠️ **not** `#404`; see the section below).  ⚠️ On the `#1184` half
+  alone: it is no longer open over a field of characteristic `≠ 2`
+  (`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`, `EllipticCurves.Torsion.CoprimeAdjacent`).
+  Whether that moves this ceiling is **not measured here** and nothing in this file changed.
 * **Non-degeneracy is untouched**, and stays over `F̄`: there `[IsAlgClosed F]` is load-bearing and
   enters twice (`WeilPairingNondegenerateTwo`, module docstring, "the closure enters twice").
 * **No pairing on `W.Point × W.Point`**, and no effect on the two-slot `weilPairingTwoHom` /
