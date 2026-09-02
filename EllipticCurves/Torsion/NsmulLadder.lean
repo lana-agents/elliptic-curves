@@ -117,7 +117,11 @@ descent layer it would need is still absent.
   instance the `y`-half runs on, over an arbitrary `CommRing`.
 * `WeierstrassCurve.Affine.ψ_ladder_mul_ψ_two` : the ladder identity, over an arbitrary `CommRing`,
   carrying the spurious `ψ₂` that only a non-zero-divisor hypothesis removes.
-* `WeierstrassCurve.Affine.divX`, `divT`, `divY` : the coordinates the division polynomials predict.
+* `WeierstrassCurve.Affine.divX`, `divT`, `divY` : the coordinates the division polynomials
+  predict.  ⚠️ `divY` is stated through `divT = ψ₂ₙ/ψₙ⁴` because that is what closes the induction;
+  its `ω`-form `ωₙ/(2ψₙ³)`, which is what `EllipticCurves.Torsion.OmegaCrux`'s on-curve identity is
+  written with, is `WeierstrassCurve.Affine.divY_eq_omegaY`
+  (`EllipticCurves.Torsion.NsmulYCoord`, issue `#1500`, **downstream** of this file).
 * `WeierstrassCurve.Affine.divX_add_one`, `divT_add_one` : the two halves of the ladder step, as
   identities between those predictions.
 * `WeierstrassCurve.Affine.nsmul_step` : the step at the level of points.
