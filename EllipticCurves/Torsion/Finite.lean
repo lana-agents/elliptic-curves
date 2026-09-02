@@ -193,6 +193,54 @@ theorem ncard_le_of_xCoords {A : Set W.Point} {S : Set F} (hS : S.Finite)
         rw [Set.ncard_image_of_injective _ (Option.some_injective _), Set.ncard_prod]
         simp [mul_comm]
 
+/-- **The refined counting engine.**  Same as `WeierstrassCurve.Affine.ncard_le_of_xCoords`, except
+that the `x`-support is split into a part `S` counted with two points per fibre and a part `S₀` over
+which every point of `A` is *its own negative* — and so is alone in its fibre.  The bound drops from
+`2 * (S ∪ S₀).ncard + 1` to `2 * S.ncard + S₀.ncard + 1`.
+
+⚠️ The hypothesis `hone` is stated geometrically, as `y = W.negY x y`, rather than in terms of the
+bookkeeping value `W.someY x`: that is the form a consumer has, and the translation between the two
+is the `Y_eq_of_X_eq` step inside the proof.
+
+This is what turns the `2n² − 1` of `ncard_le_of_xCoords` into the sharp `#E[n] ≤ n²` at an **even**
+index, where `S₀` is the three-element root set of `Ψ₂Sq` — see
+`EllipticCurves.Torsion.XSupport`. -/
+theorem ncard_le_of_xCoords_of_selfNeg {A : Set W.Point} {S S₀ : Set F} (hS : S.Finite)
+    (hS₀ : S₀.Finite)
+    (hx : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄, (.some x y h : W.Point) ∈ A → x ∈ S ∪ S₀)
+    (hone : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄, (.some x y h : W.Point) ∈ A → x ∈ S₀ →
+      y = W.negY x y) :
+    A.ncard ≤ 2 * S.ncard + S₀.ncard + 1 := by
+  classical
+  set U : Set (F × Bool) := S ×ˢ Set.univ ∪ S₀ ×ˢ {true} with hU
+  have hUfin : U.Finite := (hS.prod Set.finite_univ).union (hS₀.prod (Set.finite_singleton _))
+  have hsub : W.fibreTag '' A ⊆ insert none (some '' U) := by
+    rintro _ ⟨(_ | ⟨x, y, h⟩), hP, rfl⟩
+    · exact Set.mem_insert _ _
+    · refine Set.mem_insert_of_mem _ ⟨(x, decide (y = W.someY x)), ?_, rfl⟩
+      rcases hx hP with hxS | hxS₀
+      · exact Or.inl ⟨hxS, Set.mem_univ _⟩
+      -- Over `S₀` the fibre is a singleton, so the `Bool` tag is forced to `true`.
+      · refine Or.inr ⟨hxS₀, ?_⟩
+        have hy : y = W.someY x := by
+          rcases Y_eq_of_X_eq (W.equation_someY h.left) h.left rfl with h' | h'
+          · exact h'.symm
+          · rw [h', ← hone hP hxS₀]
+        simp [hy]
+  calc A.ncard
+      = (W.fibreTag '' A).ncard := (Set.ncard_image_of_injective A W.fibreTag_injective).symm
+    _ ≤ (insert none (some '' U)).ncard :=
+        Set.ncard_le_ncard hsub ((hUfin.image some).insert none)
+    _ ≤ (some '' U).ncard + 1 := Set.ncard_insert_le _ _
+    _ = U.ncard + 1 := by rw [Set.ncard_image_of_injective _ (Option.some_injective _)]
+    _ ≤ 2 * S.ncard + S₀.ncard + 1 := by
+        have h := Set.ncard_union_le (S ×ˢ (Set.univ : Set Bool)) (S₀ ×ˢ ({true} : Set Bool))
+        rw [Set.ncard_prod, Set.ncard_prod] at h
+        simp only [Set.ncard_univ, Nat.card_eq_fintype_card, Fintype.card_bool,
+          Set.ncard_singleton, mul_one] at h
+        rw [hU]
+        omega
+
 variable [DecidableEq F]
 
 /-- Specialisation of `finite_of_xCoords` to the `n`-torsion subgroup `E[n]`: if every nonzero
@@ -221,5 +269,19 @@ theorem card_torsion_le_of_xCoords {n : ℕ} {S : Set F} (hS : S.Finite)
     Nat.card (W.torsion n) ≤ 2 * S.ncard + 1 := by
   rw [← SetLike.coe_sort_coe, Nat.card_coe_set_eq]
   exact W.ncard_le_of_xCoords hS hx
+
+/-- Specialisation of `ncard_le_of_xCoords_of_selfNeg` to `E[n]`: the `x`-support is split into a
+part `S` counted with two points per fibre and a part `S₀` of `x`-coordinates of `2`-torsion points,
+each of which carries a single point.  This is the shape in which the **sharp** `#E[n] ≤ n²` is
+proved at an even index (`EllipticCurves.Torsion.XSupport`). -/
+theorem card_torsion_le_of_xCoords_of_selfNeg {n : ℕ} {S S₀ : Set F} (hS : S.Finite)
+    (hS₀ : S₀.Finite)
+    (hx : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄,
+      (.some x y h : W.Point) ∈ W.torsion n → x ∈ S ∪ S₀)
+    (hone : ∀ ⦃x y : F⦄ ⦃h : W.Nonsingular x y⦄,
+      (.some x y h : W.Point) ∈ W.torsion n → x ∈ S₀ → y = W.negY x y) :
+    Nat.card (W.torsion n) ≤ 2 * S.ncard + S₀.ncard + 1 := by
+  rw [← SetLike.coe_sort_coe, Nat.card_coe_set_eq]
+  exact W.ncard_le_of_xCoords_of_selfNeg hS hS₀ hx hone
 
 end WeierstrassCurve.Affine
