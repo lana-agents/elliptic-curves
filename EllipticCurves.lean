@@ -395,6 +395,7 @@ import EllipticCurves.Torsion.TwoTorsionOrder
 import EllipticCurves.Torsion.WardHalving
 import EllipticCurves.Torsion.WardR1
 import EllipticCurves.Torsion.WardR1Core
+import EllipticCurves.Torsion.WronskianSeparable
 import EllipticCurves.Torsion.XDifference
 import EllipticCurves.Torsion.XDifferencePoint
 import EllipticCurves.Torsion.XSupport
