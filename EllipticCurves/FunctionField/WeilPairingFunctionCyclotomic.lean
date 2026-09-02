@@ -122,7 +122,13 @@ on this tree, with nothing to do with the character.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(e).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d) —
+  *"It is Galois invariant"*, `e_m(S,T)^σ = e_m(S^σ, T^σ)`.  ⚠️ **The exponent form below is
+  not that equation verbatim**: it is that equation composed with the action of `σ` on `μ_n`,
+  which is raising to `χ_n(σ)` by the definition of the cyclotomic character.  *AEC* defines no
+  cyclotomic character (see the citation key in `EllipticCurves.FunctionField.WeilPairing`), so
+  there is no letter for the exponent form itself and `(d)` is the closest true citation.  It is
+  **not** `(e)`, which is compatibility, `e_{mm'}(S,T) = e_{m'}([m]S, T)`.
 -/
 
 /-- **The mod-`2` cyclotomic character is trivial**, for every extension `F / S`.

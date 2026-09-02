@@ -103,7 +103,7 @@ as enforced by `#918` and `#927`.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).
 -/
 
 /-- **Homomorphisms into `μ_n(F)` are homomorphisms into `Fˣ`**, when the source is killed by `n`.

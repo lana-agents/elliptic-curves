@@ -92,7 +92,7 @@ in `WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
 -/
 
 namespace WeierstrassCurve.Affine

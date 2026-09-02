@@ -151,7 +151,7 @@ one.
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.3.5 (the divisor-class
-  group law) and III.8, Prop. 8.1(a),(d).
+  group law) and III.8, Prop. 8.1(a),(b).
 -/
 
 namespace WeierstrassCurve.Affine

@@ -83,7 +83,7 @@ on the `ℚ` lemmas would be a no-op that hid the reason.
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(b).
 * `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` — the general-`n` core.
 * `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` — the `hprin` discharge.
 * `EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed` — the `F̄` statements recovered

@@ -63,6 +63,25 @@ III.8.1(e)** — it is not a numbered result in *AEC* at all, but the standard c
 cited it as `(e)`.  ⚠️ *AEC* defines no cyclotomic character: in the second edition the word
 "cyclotomic" occurs only as *"cyclotomic polynomial"* in the index.
 
+⚠️ **This tree spells the citation two ways, and a sweep that greps only one will miss sites.**
+`#1001` measured its exposure with `grep -rn "III\.8\.1"` and PR #559 repaired everything that
+regex saw; **15 lettered sites in 13 files survived it**, because their `## References` lines read
+
+```
+* [J. H. Silverman, …][silverman2009], III.8, Prop. 8.1(x).
+```
+
+— chapter and section as `III.8`, then the proposition number *without* the chapter prefix, which
+`III\.8\.1` does not match.  `#1474` repaired those.  **Grep both spellings:**
+
+```sh
+grep -rnE "(III\.)?8\.1[.(]" EllipticCurves --include=*.lean
+```
+
+⚠️ Two sites (`WeilPairingFunctionTwo`, `WeilPairingFunctionThree`) deliberately carry **no**
+letter: they cite the proposition as a whole because those files prove (a), (b) and (c) through one
+function.  A letter-less `Prop. 8.1.` there is correct, not a dropped letter.
+
 ## Why `τ_T∗` fixes `g_S ^ n`, and the scope delivered here
 
 The reason `τ_T∗` fixes `g_S ^ n` is the geometric identity `[n](P + T) = [n]P` (valid because
@@ -170,7 +189,7 @@ at the two `n` this tree can state the pairing at.  The other sites now point he
 restate the gate; keep it that way, so that the next fact to land has one sentence to refresh and
 not eighteen.
 
-Silverman *AEC* III.8, Prop. 8.1(d): if `e_n(S, T) = 1` for every `T ∈ E[n]` then `S = O`.  Read at
+Silverman *AEC* III.8, Prop. 8.1(c): if `e_n(S, T) = 1` for every `T ∈ E[n]` then `S = O`.  Read at
 `n = 2`, for `S = (x, y)` a nonzero affine `2`-torsion point, the argument is
 
 1. take `g_S ≠ 0` with `u · g_S ^ 2 = [2]∗ f_S` — `exists_gS_two` (`NthRootOfPullback`), whose

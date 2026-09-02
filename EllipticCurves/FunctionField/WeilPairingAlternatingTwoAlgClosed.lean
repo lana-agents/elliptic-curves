@@ -85,7 +85,7 @@ non-degeneracy (`#796`, merged at `n = 2` over `F̄`).  It says nothing about `#
 
 ## References
 
-* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(d).
+* [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(b).
 -/
 
 namespace WeierstrassCurve.Affine
