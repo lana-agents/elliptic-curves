@@ -359,6 +359,7 @@ import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.Multiplicative
 import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
+import EllipticCurves.Torsion.NsmulLadder
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.OmegaCharZero
