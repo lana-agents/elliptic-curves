@@ -127,9 +127,16 @@ a consumer's attention: `hasChordSum` subsumes all three.
 
 * **It says nothing about `[n]∗ω = nω`,** which is `#1506` scope item 1 and has a derivative in it.
   This is one of that route's four inputs (its "S1"); the other three are `ψ_add_mul_ψ_sub`
-  (merged), `HasΨSqDoubling` (merged) and the chain rule for `Σ ∘ xₙ`, which wants a derivation on
-  a fraction field and is where PR #582's review puts the remaining cost.  **That one is
-  untouched.**
+  (merged), `HasΨSqDoubling` (merged) and the step "S3" that turns S1 into a two-step recurrence
+  for the Wronskian.  ⚠️ **This bullet used to price S3 as *"the chain rule for `Σ ∘ xₙ`, which
+  wants a derivation on a fraction field"*, and that clause is now false.**
+  `WeierstrassCurve.wronskian_recurrence` (`EllipticCurves.Torsion.WronskianRecurrence`) **is** S3:
+  it takes the identity proved here at the single index `m` — as `WronskianRec.ChordSum`, the same
+  statement in a different namespace — and derives the recurrence over an **arbitrary** commutative
+  ring at an **arbitrary** index, by `Polynomial.derivative` and one `linear_combination`, with no
+  quotient anywhere in that file.  What `#1506` item 1 still owes after it is the pair of
+  derivative-free identities `WeierstrassCurve.WronskianRec.OmegaSum` and `.OmegaDiff` — the
+  `y`-half of the identity proved here — and nothing else.  **Those two are untouched.**
 * **It says nothing about `#E[n] = n²`.**  `PrimaryTower`, `#1490` and `#293` are unmoved.
 * `#1184`'s arbitrary-ring coprimality, `#962` and `#639` are untouched, and nothing here is
   imported by any pre-existing module.
