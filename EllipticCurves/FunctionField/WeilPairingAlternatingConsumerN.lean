@@ -145,7 +145,9 @@ theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq
 
 open Classical in
 /-- **The affine workhorse at every `3`-smooth `n ≠ 0`**, with the transcendence hypothesis
-discharged by `transcendental_xCoord_nsmul_of_smooth`.
+discharged by `transcendental_xCoord_nsmul_of_smooth`, and with the telescoping product `htel`, the
+`n`-th-root relation `hpow` and their non-vanishing side conditions `hg`, `hc`, `hc₀` the only
+hypotheses beyond the setting.
 
 ⚠️ **This statement** does not cover `n = 5` — the argument that supplies its transcendence
 manufactures no new prime — but **the file does**: `…_of_ne_zero` below is the same conclusion at
@@ -167,7 +169,9 @@ theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth
 open Classical in
 /-- **The affine workhorse at every `n` with `(n : F) ≠ 0`**, with the transcendence hypothesis
 discharged by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth ladder.
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth ladder, and with
+the telescoping product `htel`, the `n`-th-root relation `hpow` and their non-vanishing side
+conditions `hg`, `hc`, `hc₀` the only hypotheses beyond the setting.
 
 ⚠️ **`n = 5` and `n = 10` are here and are not in `…_of_smooth`**, and the containment runs one way:
 the `example` below derives the `3`-smooth statement from this one verbatim, so the relation between

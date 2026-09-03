@@ -292,13 +292,14 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
 
 /-! ### The assembly over an arbitrary field at `3`-smooth `n`
 
-One hypothesis of the core is discharged here and one is not: the transcendence comes from
-`transcendental_xCoord_nsmul_of_smooth`, and the halving point stays.  ⚠️ Read the placement of the
-`n = 5` gate carefully — it sits somewhere different here than it does one section below. -/
+One hypothesis of the core is discharged here and two are not: the transcendence comes from
+`transcendental_xCoord_nsmul_of_smooth`, and the halving point `hPT` and `hprin` stay.  ⚠️ Read the
+placement of the `n = 5` gate carefully — it sits somewhere different here than it does one section
+below. -/
 
 open Classical in
 /-- **`e_n(T, T) = 1` at every `3`-smooth `n ≠ 0`, over an arbitrary field**, with the halving point
-still a hypothesis.
+`hPT` and `hprin` the only hypotheses beyond the setting.
 
 The core with `hn` supplied by `transcendental_xCoord_nsmul_of_smooth`
 (`EllipticCurves.FunctionField.MulByNComposition`) and nothing else changed.

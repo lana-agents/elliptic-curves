@@ -531,8 +531,9 @@ example (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
     (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) h₂ h hS hprin
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ_n`
-mirror of `exists_weilPairingElt_galois_of_smooth_of_hprin`.
+/-- **Galois-equivariance of the Weil pairing in `μ_n(F)` at every `3`-smooth `n ≠ 0`**, with
+`hprin` the only hypothesis beyond the setting.  The `μ_n` mirror of
+`exists_weilPairingElt_galois_of_smooth_of_hprin`.
 
 ⚠️ `[NeZero n]` here where the `F(W⁄F)`-level sibling takes `hnz : n ≠ 0`; the reason is the
 general-`n` headline's, and it is forced rather than chosen. -/
