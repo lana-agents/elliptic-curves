@@ -133,17 +133,18 @@ theorem exists_two_pow_mul_three_pow_nsmul_eq (h2 : (2 : F) ≠ 0) (a b : ℕ) (
     obtain ⟨P, hP⟩ := ih P₁
     exact ⟨P, by rw [show 2 ^ (a + 1) * 3 ^ b = 2 * (2 ^ a * 3 ^ b) by ring, mul_smul, hP, hP₁]⟩
 
-/-- **`[n]` is surjective on `E(F̄)` at every `3`-smooth `n ≠ 0`**: every point is `n` times another
-one.
+/-- **`[n]` is surjective on `E(F̄)` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0`**: every point
+is `n` times another one.
 
-The hypotheses are exactly those of `card_torsion_eq_sq_of_smooth`
-(`EllipticCurves.Torsion.ThreePrimary`), and `n = 5` is the first index not covered. -/
+⚠️ The hypotheses are those of `card_torsion_eq_sq_of_smooth`
+(`EllipticCurves.Torsion.ThreePrimary`) **minus `(3 : F) ≠ 0`**, which this statement does not take:
+on that axis it is strictly the more general of the two.  `n = 5` is the first index not covered. -/
 theorem exists_nsmul_eq_of_smooth (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) (Q : W.Point) : ∃ P : W.Point, n • P = Q := by
   obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
   exact exists_two_pow_mul_three_pow_nsmul_eq h2 a b Q
 
-/-- **`[n]` is surjective on `E(F̄)` at every `3`-smooth `n ≠ 0`**, stated as
+/-- **`[n]` is surjective on `E(F̄)` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0`**, stated as
 `Function.Surjective` — the `3`-smooth analogue of `nsmul_two_surjective` and
 `nsmul_three_surjective`. -/
 theorem nsmul_surjective_of_smooth (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)

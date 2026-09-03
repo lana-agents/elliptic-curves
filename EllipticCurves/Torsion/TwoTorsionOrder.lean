@@ -217,8 +217,8 @@ theorem nsmul_eq_zero_iff_two_dvd_of_ψ_two_evalEval_eq_zero (hns : W.Nonsingula
     exact Point.some_ne_zero hns hz
   · rw [hm, mul_comm, ← smul_smul, two_nsmul_eq_zero_of_ψ_two_evalEval_eq_zero hns ht, smul_zero]
 
-/-- **`n • (x, y) = 0 ↔ ψₙ(x, y) = 0` at every point** — `#251`'s scope item 2, with no side
-condition on the point.
+/-- **`n • (x, y) = 0 ↔ ψₙ(x, y) = 0` with `(2 : F) ≠ 0`, at every point** — `#251`'s scope item 2,
+with no side condition on the point.
 
 ⚠️ The trade against `nsmul_eq_zero_iff_ψ_evalEval_eq_zero` is exactly one hypothesis for one
 instance: `ψ₂(x, y) ≠ 0` for `[W.IsElliptic]`.  That instance is spent only in the `2`-torsion

@@ -136,8 +136,8 @@ theorem nonempty_torsionPow_addEquiv_of_odd (h2 : (2 : F) ≠ 0) {p : ℕ} (hp :
 
 /-! ## The rank bound, and the structure theorem at every odd `n` -/
 
-/-- **The rank bound `#E[n][q] ≤ q²` at every prime `q`, for odd `n` with `(n : F) ≠ 0`** — the
-second hypothesis of `AddCommGroup.equiv_zmod_sq_of_card_sq`.
+/-- **The rank bound `#E[n][q] ≤ q²` at every prime `q`, for odd `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`** — the second hypothesis of `AddCommGroup.equiv_zmod_sq_of_card_sq`.
 
 Both branches are `nonempty_torsionPow_addEquiv`'s, at a general `n` in place of `pᵏ`.  If `q ∣ n`
 then an element of `E[n]` killed by `q` is a point of `E[q]`, and `#E[q] = q²` by

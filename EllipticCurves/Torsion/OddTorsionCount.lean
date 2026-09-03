@@ -170,7 +170,8 @@ section Count
 variable [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
 
 omit [IsAlgClosed F] in
-/-- **`n • (x, y) = 0 ↔ preΨₙ(x) = 0`** at an odd index and at every point of `W`.
+/-- **`n • (x, y) = 0 ↔ preΨₙ(x) = 0`** with `(2 : F) ≠ 0`, at an odd index and at every point
+of `W`.
 
 The dictionary `nsmul_eq_zero_iff_ψ_evalEval_eq_zero_of_isElliptic` gives `n • P = 0 ↔ ψₙ(P) = 0`;
 squaring moves that onto the `x`-axis, and at an odd index `ΨSqₙ` is the square of `preΨₙ`. -/

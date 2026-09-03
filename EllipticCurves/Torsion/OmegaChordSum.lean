@@ -329,7 +329,8 @@ section DecidableEqField
 
 variable [DecidableEq F]
 
-/-- **The coordinates of `n • P` at every `n : ℤ`, with `ψ₂` in division-polynomial form.**
+/-- **The coordinates of `n • P` with `(2 : F) ≠ 0`, at every `n : ℤ` with `ΨSqₙ(x) ≠ 0`, and with
+`ψ₂` in division-polynomial form.**
 
 The merged `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero` is stated at `n : ℕ`; this
 extends it to `ℤ` and bundles `WeierstrassCurve.Affine.psi2_omegaY` with it, which is the exact
