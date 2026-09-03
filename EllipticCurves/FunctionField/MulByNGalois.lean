@@ -119,6 +119,24 @@ are shipped here.  ⚠️ This is a genuine addition, not a mirror: at `n = 2` a
 corresponding `Subfield` statements are still absent from the tree, and closing that gap is a
 separate (small) `#699`-style question, not this file's business.
 
+## ⚠️ The transcendence parameter, and why no reach clause below names it
+
+Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
+explicit argument, and no reach clause names it.  That is the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
+*does* name adds no reach — and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the `_of_ne_zero` clauses' own hypotheses, the two cast forms being
+  interderivable by `Int.cast_natCast`;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
+
+⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
+file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
+the exemption but the defect class `#1137` is named after.
+
 ## Main results
 
 Every public declaration of this file is listed, and all are in namespace
@@ -256,7 +274,8 @@ theorem finrank_fixedFieldN [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
 /-! ### The sandwich -/
 
 open Classical in
-/-- **`Fixed(E[n]) = [n]∗F(W)` at every `3`-smooth `n ≠ 0`.**
+/-- **`Fixed(E[n]) = [n]∗F(W)` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 Both outer degrees are `n²` — `finrank_fixedFieldN` by Artin, `finrank_mulByNFieldRange_of_smooth`
 by `#1213` — and `[n]∗F(W) ⊆ Fixed(E[n])` by `TranslationActionN`, so the middle inclusion has index
@@ -323,9 +342,9 @@ theorem normal_mulByNFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (
   rw [fixedFieldN_eq_mulByNFieldRange h2 h3 hn hfac]
   infer_instance
 
-/-- **`F(W) / [n]∗F(W)` is Galois** at every `3`-smooth `n ≠ 0`.  `IsGalois` is separable plus
-normal: the separable half is `#1219`'s `isSeparable_mulByNFieldRange_of_smooth`, at the same
-hypotheses, and the normal half is above. -/
+/-- **`F(W) / [n]∗F(W)` is Galois** at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.  `IsGalois` is separable plus normal: the separable half is `#1219`'s
+`isSeparable_mulByNFieldRange_of_smooth`, at the same hypotheses, and the normal half is above. -/
 theorem isGalois_mulByNFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :

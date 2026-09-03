@@ -81,6 +81,24 @@ half is exactly right and is why the `_of_smooth` layer stops where it does — 
 `((n : ℤ) : F) ≠ 0` by a different argument: the pole order, which manufactures no primes because
 it counts degrees rather than composing maps.
 
+## ⚠️ The transcendence parameter, and why no reach clause below names it
+
+Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
+explicit argument, and no reach clause names it.  That is the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
+*does* name adds no reach — and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the `_of_ne_zero` clauses' own hypotheses, the two cast forms being
+  interderivable by `Int.cast_natCast`;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
+
+⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
+file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
+the exemption but the defect class `#1137` is named after.
+
 ## Main statements
 
 ⚠️ Every public declaration of this file is listed.
@@ -304,8 +322,8 @@ theorem comapProjPointN_two_pow_mul_three_pow_none (h2 : (2 : F) ≠ 0) (h3 : (3
       (transcendental_xCoord_two_nsmul h2) ha h, comapProjPointN_two h2,
       comapProjPointTwo_none h2, ih ha]
 
-/-- **`[n]` fixes the point at infinity at every `3`-smooth `n ≠ 0`**: `comapProjPointN n h
-none = none`.
+/-- **`[n]` fixes the point at infinity at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`**: `comapProjPointN n h none = none`.
 
 Classically, that `[n]` extends to a morphism of the projective curve carrying `O` to `O`.  The
 hypotheses are those of `finrank_mulByNFieldRange_of_smooth`
@@ -340,7 +358,8 @@ theorem ramificationIdxN_two_pow_mul_three_pow_none (h2 : (2 : F) ≠ 0) (h3 : (
       (transcendental_xCoord_two_nsmul h2) ha h, ramificationIdxN_two h2,
       ramificationIdxTwo_none h2, comapProjPointN_two h2, comapProjPointTwo_none h2, ih ha, mul_one]
 
-/-- **`[n]` is unramified at the point at infinity at every `3`-smooth `n ≠ 0`.**
+/-- **`[n]` is unramified at the point at infinity at every `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.**
 
 ⚠️ Both hypotheses on `F` are load-bearing here in a way they are not for the fibre statement above:
 they and the `3`-smoothness of `n` are together what forces `char F ∤ n`, hence `[n]` separable.  At
@@ -371,8 +390,9 @@ theorem ordInfty_mulByNEndo_of_comapProjPointN_none {n : ℕ}
   rw [hnone, divisorProj_apply_none, divisorProj_apply_none] at hkey
   exact hkey
 
-/-- **`ordInfty ([n]∗ f) = ordInfty f` at every `3`-smooth `n ≠ 0`** — the order at infinity is
-preserved outright, both factors of the transport being trivial. -/
+/-- **`ordInfty ([n]∗ f) = ordInfty f` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`** — the order at infinity is preserved outright, both factors of the transport
+being trivial. -/
 theorem ordInfty_mulByNEndo_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) {f : W.FunctionField} (hf : f ≠ 0) :

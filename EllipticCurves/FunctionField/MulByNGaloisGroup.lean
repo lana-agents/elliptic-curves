@@ -102,6 +102,24 @@ could not have been retired by the general-`n` statement alone.  The two low-ind
 below are therefore built from the merged `n = 2` and `n = 3` sandwiches, at the merged (weaker)
 hypotheses, and each is **sharper** than the general-`n` one at its index.
 
+## ⚠️ The transcendence parameter, and why no reach clause below names it
+
+Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
+explicit argument, and no reach clause names it.  That is the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
+*does* name adds no reach — and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the `_of_ne_zero` clauses' own hypotheses, the two cast forms being
+  interderivable by `Int.cast_natCast`;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
+
+⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
+file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
+the exemption but the defect class `#1137` is named after.
+
 ## Main definitions
 
 Every public declaration of this file is listed, here and under `## Main statements`.  Everything is
@@ -111,7 +129,8 @@ is in namespace …"*, **and the list below used to open with** *"`Subfield.autM
 transport of `Aut K` along an equality of base subfields"*.  Those three declarations moved to
 `EllipticCurves.Galois.SubfieldAut`; they are consumed here and no longer defined here.
 
-* `torsionNMulGaloisEquiv` — `E[n] ≃* Gal(F(W) / [n]∗F(W))` at every `3`-smooth `n ≠ 0`;
+* `torsionNMulGaloisEquiv` — `E[n] ≃* Gal(F(W) / [n]∗F(W))` at every `3`-smooth `n ≠ 0` with
+  `(2 : F) ≠ 0` and `(3 : F) ≠ 0`;
 * `torsionTwoMulGaloisEquiv`, `torsionThreeMulGaloisEquiv` — the same at `n = 2` and `n = 3`, at the
   merged hypotheses.
 

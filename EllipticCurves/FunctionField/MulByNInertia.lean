@@ -94,6 +94,24 @@ At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `�
 (`PlaceInertiaGeneral`) already say everything below at that index; the content there is the bridge
 `sum_ramificationIdxN_mul_residueDegreeN_two`, nothing more.
 
+## ⚠️ The transcendence parameter, and why no reach clause below names it
+
+Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
+explicit argument, and no reach clause names it.  That is the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
+*does* name adds no reach — and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the `_of_ne_zero` clauses' own hypotheses, the two cast forms being
+  interderivable by `Int.cast_natCast`;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
+
+⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
+file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
+the exemption but the defect class `#1137` is named after.
+
 ## Main results
 
 ⚠️ Every public declaration of this file is listed, and all are in namespace
@@ -116,7 +134,8 @@ file consumes them rather than restating them.
   **`…_finrank_of_charZero`** — **the identity**, `∑_{p ↦ q} e_p · f_p = [F(W) : [n]∗F(W)]`, at
   every `n` at which `[n]∗F(W)` is separably closed below and at every `n` in characteristic zero;
 * **`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`**, **`…_of_smooth`** and
-  **`…_of_charZero`** — the same with the right-hand side evaluated, `= n ^ 2`, at `3`-smooth `n`;
+  **`…_of_charZero`** — the same with the right-hand side evaluated, `= n ^ 2`, at every
+  `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`;
 * ⚠️ `finrank_mulByNEndoFieldRange_of_ne_zero`, `finrank_integralClosure_placeBelowN_of_ne_zero`,
   `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero`,
   `sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero`,
@@ -155,8 +174,8 @@ file consumes them rather than restating them.
   `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero`, `…_of_ne_zero`,
   `…_of_charZero_of_ne_zero` and `sum_ramificationIdxN_of_ne_zero` are the same six statements at
   every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, and `sum_ramificationIdxN_five` evaluates the
-  right-hand side at
-  `5`.  ⚠️ The `_of_smooth` forms are **kept** and are not deprecated: they are the only route here
+  right-hand side at `5`.  ⚠️ The `_of_smooth` forms are **kept** and are not deprecated: they are
+  the only route here
   that does not consume `#E[n] = n²`.
 * **Still nothing at `n = char F`, and the gate there is separability, not the degree.**
   `(n : F) ≠ 0` is sharp for the statements below, and the reason is the one
@@ -254,7 +273,8 @@ theorem placeBelowN_comapProjPointN (n : ℕ)
 /-! ### The two hypotheses of the identity, at `[n]∗` -/
 
 omit [IsDedekindDomain W.CoordinateRing] in
-/-- **`[F(W) : [n]∗F(W)] = n²` at every `3`-smooth `n ≠ 0`, for the subfield.**
+/-- **`[F(W) : [n]∗F(W)] = n²` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`,
+for the subfield.**
 `finrank_mulByNFieldRange_of_smooth` (`#1213`) in the `Subfield` presentation the place machinery
 needs, crossed along `#1219`'s `mulByNFieldRangeEquivSubfield`.
 
@@ -312,7 +332,8 @@ theorem module_finite_integralClosure_placeBelowN_of_isSeparable (n : ℕ)
   exact module_finite_integralClosure_placeBelow q
 
 /-- **The integral closure of a place of `[n]∗F(W)` has rank `n²` over it** at every `3`-smooth
-`n ≠ 0`, given separability — the right-hand side of the fundamental identity at the ring level, so
+`n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, given separability — the right-hand side of the
+fundamental identity at the ring level, so
 that the identity below never descends from the field degree by hand.
 
 The general-`n` form of `finrank_integralClosure_placeBelowTwo` and
@@ -373,8 +394,8 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_finrank_of_charZero [CharZero F]
 
 /-! ### The right-hand side evaluated: `= n²` at every `3`-smooth `n` -/
 
-/-- **`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `3`-smooth `n ≠ 0`, over an arbitrary field**,
-with separability carried as a hypothesis.
+/-- **`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, over an arbitrary field**, with separability carried as a hypothesis.
 
 The general-`n` form of `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable`
 (`EllipticCurves.FunctionField.PlaceInertiaGeneral`).  ⚠️ It does **not** say `#E[n] = n²`: what is
@@ -390,8 +411,9 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable (h2 : (2 : F) ≠
   (sum_ramificationIdxN_mul_residueDegreeN_finrank n h hsep q).trans
     (finrank_mulByNEndoFieldRange_of_smooth h2 h3 hn hfac h)
 
-/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `3`-smooth `n ≠ 0`, over `F̄`** — separability discharged
-by `#1219`.  This is what `#1221` was filed for. -/
+/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, over `F̄`** — separability discharged by `#1219`.  This is what `#1221` was filed
+for. -/
 theorem sum_ramificationIdxN_mul_residueDegreeN_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) (q : ProjPoint W) :
@@ -400,8 +422,9 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_of_smooth [IsAlgClosed F] (h2 : 
   sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable h2 h3 hn hfac h
     (isSeparable_mulByNEndoFieldRange_of_smooth h2 h3 hn hfac h) q
 
-/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `3`-smooth `n ≠ 0`, in characteristic zero** — the form
-available over `ℚ`, where `sum_ramificationIdxN_of_smooth` is not. -/
+/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, in characteristic zero** — the form available over `ℚ`, where
+`sum_ramificationIdxN_of_smooth` is not. -/
 theorem sum_ramificationIdxN_mul_residueDegreeN_of_charZero [CharZero F] (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) (q : ProjPoint W) :
@@ -410,7 +433,8 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_of_charZero [CharZero F] (h2 : (
   sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable h2 h3 hn hfac h
     (isSeparable_mulByNEndoFieldRange_of_charZero n h) q
 
-/-- **The collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`**, at every `3`-smooth `n ≠ 0`.
+/-- **The collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`**, at every `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.
 
 Over an algebraically closed base field every place is rational, so every `f_p` is `1`.  The
 general-`n` shape of `sum_ramificationIdxTwo_eq_four`
@@ -464,9 +488,8 @@ proof* says nothing at `p ∣ n`, and that is the accurate claim to repeat. -/
 
 omit [IsDedekindDomain W.CoordinateRing] in
 /-- **`[F(W) : [n]∗F(W)] = n²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, for the
-subfield.**  The general-`n`
-form of `finrank_mulByNEndoFieldRange_of_smooth`, crossed along `#1219`'s
-`mulByNFieldRangeEquivSubfield` in exactly the same way.
+subfield.**  The general-`n` form of `finrank_mulByNEndoFieldRange_of_smooth`, crossed along
+`#1219`'s `mulByNFieldRangeEquivSubfield` in exactly the same way.
 
 ⚠️ **No `[IsAlgClosed F]`, no separability and no smoothness.**  This is the degree, and `#1213`'s
 general form needs none of the three. -/
@@ -507,9 +530,9 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero (h2 : 
     (finrank_mulByNEndoFieldRange_of_ne_zero h2 hn h)
 
 /-- **`∑_{p ↦ q} e_p · f_p = n²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, over `F̄`** —
-separability
-discharged by `isSeparable_mulByNEndoFieldRange_of_ne_zero` rather than by `#1219`'s `3`-smooth
-form.  The general-`n` form of `sum_ramificationIdxN_mul_residueDegreeN_of_smooth`. -/
+separability discharged by `isSeparable_mulByNEndoFieldRange_of_ne_zero` rather than by `#1219`'s
+`3`-smooth form.  The general-`n` form of
+`sum_ramificationIdxN_mul_residueDegreeN_of_smooth`. -/
 theorem sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
     (q : ProjPoint W) :
@@ -534,8 +557,7 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_of_charZero_of_ne_zero [CharZero
     (isSeparable_mulByNEndoFieldRange_of_charZero n h) q
 
 /-- **The collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`**, at every `n` with `(2 : F) ≠ 0` and
-`(n : F) ≠ 0`.  The
-general-`n` form of `sum_ramificationIdxN_of_smooth`, and the statement
+`(n : F) ≠ 0`.  The general-`n` form of `sum_ramificationIdxN_of_smooth`, and the statement
 `card_fibre_comapProjPointN_le_sq_of_ne_zero` (`EllipticCurves.FunctionField.MulByNFibre`)
 consumes.
 
