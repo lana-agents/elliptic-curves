@@ -355,14 +355,16 @@ theorem finrank_mulByNFieldRange_two_pow_mul_three_pow (h2 : (2 : F) ≠ 0) (h3 
       mulByNEndoAlgHom_two h2, finrank_mulByTwoFieldRange h2, ih ha]
     ring
 
-/-- **`[n]` is non-constant at every `3`-smooth `n ≠ 0`.** -/
+/-- **`[n]` is non-constant at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.** -/
 theorem transcendental_xCoord_nsmul_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
     Transcendental F (n • genericPoint (W := W)).xCoord := by
   obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
   exact transcendental_xCoord_two_pow_mul_three_pow_nsmul h2 h3 a b
 
-/-- **`[F(W) : [n]∗F(W)] = n²` for every `3`-smooth `n ≠ 0`.**
+/-- **`[F(W) : [n]∗F(W)] = n²` for every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 The hypotheses are those of `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`),
 which is the same slice of indices on the other side of the pairing: `#E[n] = n²` there,

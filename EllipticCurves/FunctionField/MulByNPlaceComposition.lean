@@ -408,7 +408,8 @@ theorem ordInfty_mulByNEndo_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) 
     (comapProjPointN_none_of_smooth h2 h3 hn hfac h) hf,
     ramificationIdxN_none_of_smooth h2 h3 hn hfac h, one_mul]
 
-/-- **`ordInfty ([n]∗ genX) = -2` at every `3`-smooth `n ≠ 0`** — `#670`'s statement, whose merged
+/-- **`ordInfty ([n]∗ genX) = -2` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`** — `#670`'s statement, whose merged
 `n = 2` proof (`ordInfty_mulByTwoEndo_genX`) counts the degrees of `Φ₂` and `Ψ₂Sq` and has no
 general-`n` analogue.  Here it is a corollary of the transport and needs no division polynomial.
 

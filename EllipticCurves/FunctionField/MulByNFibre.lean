@@ -190,6 +190,16 @@ input of the `n = 14` certificates.  ⚠️ The **one** module this file gained 
 `EllipticCurves.FunctionField.MulByNYCoordFormula`, for the `ωₙ` half (`155 → 156`).  The
 two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
+## The non-constancy hypothesis is not named in the headlines below
+
+Every statement here takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
+argument and no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
+`n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is `transcendental_xCoord_nsmul_of_smooth`
+(`EllipticCurves.FunctionField.MulByNComposition`), and at a general `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0` it is `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`).  Each derives `h` from exactly what the
+clause above it names.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.4.10 and III.6.4 —
@@ -239,8 +249,8 @@ theorem comapProjPointN_two_pow_mul_three_pow_projPointOfPoint (h2 : (2 : F) ≠
       comapProjPointTwo_projPointOfPoint h2, ih ha, smul_smul]
     ring_nf
 
-/-- **The place contraction of `[n]∗` on the rational locus is the group-theoretic `n •`**, at every
-`3`-smooth `n ≠ 0`:
+/-- **The place contraction of `[n]∗` on the rational locus is the group-theoretic `n •`**, at
+every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`:
 
 ```
 comapProjPointN n h (projPointOfPoint P) = projPointOfPoint (n • P).
@@ -661,8 +671,9 @@ section IsAlgClosed
 variable [IsAlgClosed F]
 
 omit [DecidableEq F] in
-/-- **At most `n²` places lie over any place**, at every `3`-smooth `n ≠ 0` over `F̄`: `n²` positive
-indices summing to `n²` (`sum_ramificationIdxN_of_smooth` against `ramificationIdxN_pos`).  The
+/-- **At most `n²` places lie over any place**, at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0` over `F̄`: `n²` positive indices summing to `n²`
+(`sum_ramificationIdxN_of_smooth` against `ramificationIdxN_pos`).  The
 general-`n` form of `card_fibre_comapProjPointTwo_le_four`. -/
 theorem card_fibre_comapProjPointN_le_sq (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
@@ -673,7 +684,8 @@ theorem card_fibre_comapProjPointN_le_sq (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 
   exact Finset.sum_le_sum fun p _ => by have := ramificationIdxN_pos n h p; omega
 
 omit [DecidableEq F] in
-/-- **At most `n²` places lie over any place, at every `n` with `(n : F) ≠ 0` over `F̄`** — the
+/-- **At most `n²` places lie over any place, at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+over `F̄`** — the
 general-`n` form of `card_fibre_comapProjPointN_le_sq`, and `n²` positive indices summing to `n²`
 by `sum_ramificationIdxN_of_ne_zero` (`EllipticCurves.FunctionField.MulByNInertia`) against
 `ramificationIdxN_pos`, exactly as at a `3`-smooth index.
@@ -783,7 +795,7 @@ section"*, and it does not**: for the contraction and `comapProjPointN_add_torsi
 
 omit [DecidableEq F] in
 /-- **The fibre of `[n]` over any rational point has exactly `n²` elements**, at every `3`-smooth
-`n ≠ 0` over `F̄`.
+`n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` over `F̄`.
 
 `≥ n²` is the coset `{ P ⊕ R : R ∈ E[n] }` for a `P` with `n • P = S` (`exists_nsmul_eq_of_smooth`),
 which has `n²` distinct elements by `card_torsion_eq_sq_of_smooth` and
@@ -839,8 +851,8 @@ theorem fibre_comapProjPointN_eq_range (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   omega
 
 omit [DecidableEq F] in
-/-- **`[n]` is unramified over every rational point**, at every `3`-smooth `n ≠ 0` over `F̄`: `n²`
-positive indices summing to `n²` are all `1`.
+/-- **`[n]` is unramified over every rational point**, at every `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0` over `F̄`: `n²` positive indices summing to `n²` are all `1`.
 
 ⚠️ This is *not* "`[n]` is unramified": a place lying over a closed point that is **not** the closed
 point of an `F`-rational point is untouched.  See the module docstring.  ⚠️ Nor is it removable to a
