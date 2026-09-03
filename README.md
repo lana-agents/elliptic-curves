@@ -118,6 +118,24 @@ looks like a clause that lists them all. Concretely:
 `card_torsion_eq_sq` is `#E[n] = n²` at a general index
 ```
 
+**Two phrases look like reach clauses and are not.** Both have been flagged, triaged and cleared
+more than once, so the discriminators are written down here rather than re-derived each round:
+
+* **A phrase that quantifies the conclusion's own bound variable is not a reach clause**; a phrase
+  that enumerates the conditions under which the statement holds is. *"Away from the multiples of
+  the least vanishing index, `ψ` does not vanish"* (`ψ_evalEval_ne_zero_of_not_dvd`) is the
+  `∀ m, ¬(d ∣ m)` **inside** the conclusion, not a restriction on when the theorem applies. Same
+  for `ψ_evalEval_eq_zero_of_dvd`, `divT_add_mul_of_not_dvd` and `divY_add_mul_of_not_dvd`.
+* **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
+  that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
+  `10` is not quantified and there is nothing for a condition to range over. Same for
+  `nonempty_torsionThirtySix_addEquiv`, `card_torsion_four`, `nonempty_torsionFour_addEquiv` and
+  `nonempty_torsionTwelve_addEquiv`.
+
+⚠️ The second discriminator is what separates *"at an index that is neither odd nor `3`-smooth"*
+from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable
+and so is a reach clause bound by the rule.
+
 The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
 — so a reach clause need not list them. But a clause that *does* make an instance claim
@@ -156,7 +174,7 @@ column, is one place. A fix that repairs one row and leaves its neighbour partia
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
 
-Three consequences worth stating, because each has cost a review cycle:
+Four consequences worth stating, because each has cost a review cycle:
 
 * **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
   is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
@@ -168,6 +186,11 @@ Three consequences worth stating, because each has cost a review cycle:
 * **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to
   module prose. A `## Hypotheses` section elsewhere in the same module does not repair a
   partial headline.
+* **Sort the class before repairing it.** A headline that lists too few hypotheses takes an
+  **insertion**; a headline that asserts there are no others takes a **deletion or a re-scoping**.
+  Adding `(2 : F) ≠ 0` beside *"as the only hypothesis"* yields a sentence that contradicts itself.
+  `card_torsion_pow_of_separable` and `finite_torsion_pow_of_separable` were repaired by
+  **deleting** the word *"alone"*, not by extending a list that did not exist.
 
 ### Retired claims
 
