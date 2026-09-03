@@ -361,9 +361,8 @@ section Existence
 variable [IsAlgClosed F] [(W'⁄F).IsElliptic] {n : ℕ} [NeZero n]
 
 open Classical in
-/-- **The mod-`n` matrix representation exists with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at every
-`3`-smooth `n > 1`**, as a representation that really does compute the Galois action and whose
-determinant is the basis-free character.
+/-- **The mod-`n` matrix representation exists at every `3`-smooth `n > 1`**, as a representation
+that really does compute the Galois action and whose determinant is the basis-free character.
 
 ⚠️ `1 < n` is not bookkeeping: it is what `finrank_torsion_of_smooth` needs, and
 `EllipticCurves.TateModule.DeterminantModSmooth` certifies that the rank is `1` and not `2` at

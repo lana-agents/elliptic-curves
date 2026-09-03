@@ -425,8 +425,8 @@ theorem isOpen_ker_galoisRepMod_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
   isOpen_ker_galoisRepMod _ (finite_torsion_of_smooth h2 h3 hn hfac)
 
-/-- **Each mod-`n` representation is locally constant at every `3`-smooth `n ≠ 0`**, over a field
-in which `2` and `3` are invertible — and with **no algebraic closure**.
+/-- **Each mod-`n` representation is locally constant at every `3`-smooth `n ≠ 0`**, with no
+algebraic closure.
 
 This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
 declines to make; its docstring says, copy-paste, that local constancy of the representation itself
