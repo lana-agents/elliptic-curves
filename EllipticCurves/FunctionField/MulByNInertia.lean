@@ -177,10 +177,12 @@ file consumes them rather than restating them.
   `[IsAlgClosed F]` inputs to `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and not the other two;
   that accounting is unchanged at general `n`, and nothing below touches `card_torsion_two` or
   `exists_nsmul_two_eq`.
-* **No value for any individual `e_p` or `f_p`.**  `ramificationIdxN_none_of_smooth`
-  (`MulByNPlaceComposition`) gives `e_∞ = 1` and `residueDegreeN_none_eq_one`
-  (`MulByNResidueDegree`) gives `f_∞ = 1`; at every other place both are left as they are, exactly
-  as at `n = 2`.
+* **No value for any individual `e_p` or `f_p`.**  `ramificationIdxN_none_of_ne_zero`
+  (`MulByNPlaceComposition`, PR #599) gives `e_∞ = 1` at every `n` with `((n : ℤ) : F) ≠ 0` — and
+  `ramificationIdxN_none_of_smooth` beside it by the independent `3`-smooth route — while
+  `residueDegreeN_none_eq_one` (`MulByNResidueDegree`) gives `f_∞ = 1`; at every other place both
+  are left as they are, exactly as at `n = 2`.  ⚠️ This bullet used to name only the `_of_smooth`
+  form, which was sharp when written and stopped being so at PR #599.
 * **No place with `f_p > 1` exhibited.**  As `PlaceInertiaGeneral` says of itself: the
   characteristic-zero statements are strictly stronger than their `[IsAlgClosed F]` siblings
   because they *apply* over a field that is not algebraically closed, which is what the certificate
