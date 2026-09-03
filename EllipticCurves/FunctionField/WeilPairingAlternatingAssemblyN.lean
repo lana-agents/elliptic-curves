@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
+import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.WeilPairingAlternatingMu
 import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
 import EllipticCurves.FunctionField.WeilPairingTelescopeN
@@ -64,14 +65,22 @@ on `E(F̄)` at every `n ≠ 0` over a field with `(2 : F) ≠ 0`, off the now-cl
 in actually lifts the corollary is NOT measured and nothing below was changed** — the halving point
 is produced by `exists_nsmul_eq_of_smooth`, and that is the statement a follow-up must replace.
 
-## ⚠️ The other `n = 5` gate is somewhere else, and the two are easy to swap
+## ⚠️ The other `n = 5` gate is somewhere else, and one of the two is now GONE
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth` is the arbitrary-field companion of the
 corollary above, with the transcendence discharged and the halving point still a hypothesis.  For
-*that* statement the first unreachable index `n = 5` **is** the transcendence — as it is for every
-other `_of_smooth` statement on this front.  So the two corollaries below consume `hfac` in
-*opposite* places, and a reader who carries the paragraph above across to the `_of_smooth` form
-will get it exactly backwards.  Each statement says which is which.
+*that* statement the unreachable `n = 5` **was** the transcendence — as it was for every other
+`_of_smooth` statement on this front.  So the two corollaries below consume `hfac` in *opposite*
+places, and a reader who carries the paragraph above across to the `_of_smooth` form will get it
+exactly backwards.  Each statement says which is which.
+
+⚠️ **And that half is paid** (`#1549`): `exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero`
+below is the arbitrary-field statement at every `n` with `(n : F) ≠ 0`, off
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`), and the `_of_smooth` form is a corollary of it
+— compiled in the `example` beside it, not asserted.  ⚠️ **The `_of_algClosed` pair is untouched**:
+its `hfac` is the *halving point*, `exists_nsmul_eq_of_smooth`, and nothing here replaces that.  The
+paragraph above still names the replacement a follow-up must swap in.
 
 ## Main results
 
@@ -79,8 +88,14 @@ will get it exactly backwards.  Each statement says which is which.
   field, with `hprin` and the halving point as hypotheses;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth`** — the same
   over an arbitrary field at `3`-smooth `n ≠ 0`, with the transcendence discharged;
+* **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero`** — the same
+  over an arbitrary field at every `n` with `(n : F) ≠ 0` (`#1549`), the transcendence coming from
+  `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`); ⚠️ the `_of_smooth` form above is a
+  corollary of it, compiled in the `example` beside them;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`** — over
-  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis left;
+  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis left; ⚠️ **untouched by
+  `#1549`**, its `hfac` being the halving point rather than the transcendence;
 * **`WeierstrassCurve.Affine.exists_weilPairingMu_self_eq_one_of_hprin_n`** and
   **`…_of_hprin_n_of_algClosed`** — the `μ_m(F)`-valued twins of the first and third, in the shape
   `exists_weilPairingMu_self_eq_one_of_hprin_two`
@@ -141,8 +156,10 @@ it.
   `functionFieldMap_mulByNEndo`, and `EllipticCurves.FunctionField.FunctionFieldBaseChange` has only
   the two numeral forms `functionFieldMap_mulByTwoEndo` and `functionFieldMap_mulByThreeEndo`.  That
   missing intertwiner is the whole of the remaining work and it is a separate piece.
-* `n = 5` on either corollary — see above; the obstruction is the halving point on one and the
-  transcendence on the other.
+* `n = 5` on the **`_of_algClosed`** corollaries — see above; the obstruction there is the halving
+  point, `exists_nsmul_eq_of_smooth`, and nothing here replaces it.  ⚠️ On the arbitrary-field
+  corollary `n = 5` **is** reached, by `…_of_hprin_n_of_ne_zero` (`#1549`); that obstruction was the
+  transcendence and it is discharged.
 * `ωₙ`, `#404`, `#251`, Ward, bilinearity, non-degeneracy.  ⚠️ Of those, `#404` and Ward are
   **closed** — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
   (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and
@@ -267,13 +284,17 @@ still a hypothesis.
 The core with `hn` supplied by `transcendental_xCoord_nsmul_of_smooth`
 (`EllipticCurves.FunctionField.MulByNComposition`) and nothing else changed.
 
-⚠️ **For this corollary the first unreachable index `n = 5` is the transcendence**, as for every
-other `_of_smooth` statement on this front: the degree tower that supplies
-`Transcendental F (n • 𝒫).xCoord` manufactures no new prime.  Its neighbour
-`exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` stops at `5` for the *other* reason —
-there the transcendence is general in `n ≠ 0` and it is the halving point that needs `3`-smoothness.
-The two statements look alike and their `hfac` is consumed in opposite places; the module docstring
-records why. -/
+⚠️ **For this corollary the unreachable `n = 5` is the transcendence**, as for every other
+`_of_smooth` statement on this front: the degree tower that supplies
+`Transcendental F (n • 𝒫).xCoord` manufactures no new prime.  ⚠️ **That obstruction is discharged
+one theorem below** — `…_of_hprin_n_of_ne_zero` is this statement at every `n` with `(n : F) ≠ 0`,
+and this one is a corollary of it.  It is kept as an independent route: its transcendence consumes
+no division polynomial.
+
+⚠️ Its neighbour `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` stops at `5` for the
+*other* reason — there the transcendence is general in `n ≠ 0` and it is the **halving point** that
+needs `3`-smoothness, so nothing here moves it.  The two statements look alike and their `hfac` is
+consumed in opposite places; the module docstring records why. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
@@ -292,6 +313,74 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth (h2 : (2 : F) ≠
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hPT hprin
 
+open Classical in
+/-- **`e_n(T, T) = 1` at every `n` with `(n : F) ≠ 0`, over an arbitrary field**, with the halving
+point still a hypothesis.
+
+The core with `hn` supplied by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than by the `3`-smooth degree tower,
+and nothing else changed.
+
+⚠️ **`n = 5` and `n = 10` are here**, and the `example` below derives
+`exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth` from this one verbatim, so the containment
+between the two layers is compiled rather than asserted.  The `_of_smooth` form is kept as an
+independent route: it consumes no division polynomial.
+
+⚠️ **The halving point is untouched.**  `hPT : n • P = T` is a hypothesis here exactly as it is in
+`…_of_smooth`, and it is what the neighbouring `_of_algClosed` statements discharge — those stop at
+`3`-smooth `n` for that reason and not for this one, and this theorem moves them not at all. -/
+theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    {P : W.Point} (hPT : n • P = Point.some xT yT h)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n
+            (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_hprin_n (by rintro rfl; simp at hn) _ h htors hPT hprin
+
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are**, over a fresh
+field `K` so that no section variable is drawn in.  ⚠️ A copy rather than a citation: the twin in
+`EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there. -/
+private lemma intCastAssembly_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
+    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    ((n : ℤ) : K) ≠ 0 := by
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+open Classical in
+/-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
+general layer.  ⚠️ The two `mulByNEndo` terms carry different transcendence proofs and match only by
+proof irrelevance, `Transcendental` being a `Prop`. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    {P : W.Point} (hPT : n • P = Point.some xT yT h)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero h2
+    (intCastAssembly_ne_zero_of_smooth h2 h3 hnz hfac) h htors hPT hprin
+
 /-! ### The assembly over an algebraically closed field -/
 
 section AlgClosed
@@ -309,7 +398,9 @@ Both hypotheses the core takes on top of `hprin` are discharged here:
 
 ⚠️ **`hfac` is consumed in the second of those and nowhere else**, so the first index this does not
 reach is `n = 5` *for the halving point*, not for the transcendence — unlike every other
-`_of_smooth` corollary on this front.  See the module docstring. -/
+`_of_smooth` corollary on this front.  ⚠️ **`#1549` did not move this one**: it replaced the
+transcendence, which is already general here, and `exists_nsmul_eq_of_smooth` is untouched.  The
+module docstring names the replacement a follow-up must swap in. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)

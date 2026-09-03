@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
+import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.WeilPairingAlternatingWorkhorseN
 
 /-!
@@ -53,7 +54,13 @@ affine point instead of `n` of them.
 
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq` — the affine-indexed form of the workhorse;
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth` — the same at every `3`-smooth `n ≠ 0`,
-  with the transcendence hypothesis discharged.
+  with the transcendence hypothesis discharged;
+* `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero` — **the same at every `n` with
+  `(n : F) ≠ 0`** (`#1549`), the transcendence coming from
+  `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than from the `3`-smooth degree tower.
+  ⚠️ `n = 5` and `n = 10` are here, and the `_of_smooth` form is a corollary of it — the `example`
+  beside them compiles that containment rather than asserting it.
 
 Both are stated in `WeierstrassCurve.Affine`, beside the merged workhorse and the two merged
 numeral workhorses they generalise, rather than in the `CoordinateRing` sub-namespace where the
@@ -140,9 +147,11 @@ open Classical in
 /-- **The affine workhorse at every `3`-smooth `n ≠ 0`**, with the transcendence hypothesis
 discharged by `transcendental_xCoord_nsmul_of_smooth`.
 
-⚠️ The first index this does **not** cover is `n = 5`, for `exists_gS_of_smooth`'s reason and for
-the reason every other `_of_smooth` corollary on this front stops there: the argument that supplies
-the transcendence manufactures no new prime. -/
+⚠️ **This statement** does not cover `n = 5` — the argument that supplies its transcendence
+manufactures no new prime — but **the file does**: `…_of_ne_zero` below is the same conclusion at
+every `n` with `(n : F) ≠ 0`, and this one is a corollary of it (`#1549`).  ⚠️ It is kept because
+its transcendence comes by composing `[2]` and `[3]` and consumes no division polynomial: an
+independent route, not dead weight. -/
 theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
@@ -154,6 +163,64 @@ theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth
       = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) :
     translateEndo hT g = g :=
   translateEndo_eq_self_of_mul_algebraMap_pow_eq hnz _ hP hT hmul hg hc hc₀ htel hpow
+
+open Classical in
+/-- **The affine workhorse at every `n` with `(n : F) ≠ 0`**, with the transcendence hypothesis
+discharged by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth ladder.
+
+⚠️ **`n = 5` and `n = 10` are here and are not in `…_of_smooth`**, and the containment runs one way:
+the `example` below derives the `3`-smooth statement from this one verbatim, so the relation between
+the two layers is compiled rather than claimed.  The `_of_smooth` form is kept — its proof composes
+`[2]∗` and `[3]∗` and consumes no division polynomial, so it is an independent route.
+
+⚠️ **`hn` is a condition of this route, not a limit on the conclusion.**  At `n = char F` the map
+`[n]` is inseparable but still non-constant, so `Transcendental F (n • 𝒫).xCoord` is **true** there;
+what needs `(n : F) ≠ 0` is `natDegree_ΨSq`.  Over an algebraically closed field
+`transcendental_xCoord_nsmul_of_isAlgClosed` discharges the same side condition at every `n ≠ 0`,
+characteristic included.  `translateEndo_eq_self_of_mul_algebraMap_pow_eq` remains the statement to
+cite when the transcendence proof is already in hand. -/
+theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero
+    (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    {xP yP xT yT : F} (hP : W.Equation xP yP) (hT : W.Equation xT yT)
+    (hmul : n • torsionPoint hP = torsionPoint hT)
+    {f g : W.FunctionField} (hg : g ≠ 0) {c c₀ : F} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    (htel : ∏ i ∈ Finset.range n, (translateEndo hT)^[i] f = algebraMap F W.FunctionField c)
+    (hpow : algebraMap F W.FunctionField c₀ * g ^ n
+      = mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) :
+    translateEndo hT g = g :=
+  translateEndo_eq_self_of_mul_algebraMap_pow_eq (by rintro rfl; simp at hn) _ hP hT hmul hg hc hc₀
+    htel hpow
+
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are.**  Stated over
+a fresh field `K` so that no section variable is drawn in.
+
+⚠️ A copy rather than a citation: the twin in
+`EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there and that file is not in
+this one's import closure. -/
+private lemma intCastConsumer_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
+    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    ((n : ℤ) : K) ≠ 0 := by
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+open Classical in
+/-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
+general layer.  ⚠️ The two `mulByNEndo` terms carry *different* transcendence proofs and match only
+because `Transcendental` is a `Prop`; `EllipticCurves.FunctionField.MulByNDegreeGeneral` records
+that trap at its own `:72-76`. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    {xP yP xT yT : F} (hP : W.Equation xP yP) (hT : W.Equation xT yT)
+    (hmul : n • torsionPoint hP = torsionPoint hT)
+    {f g : W.FunctionField} (hg : g ≠ 0) {c c₀ : F} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    (htel : ∏ i ∈ Finset.range n, (translateEndo hT)^[i] f = algebraMap F W.FunctionField c)
+    (hpow : algebraMap F W.FunctionField c₀ * g ^ n
+      = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) :
+    translateEndo hT g = g :=
+  translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero h2
+    (intCastConsumer_ne_zero_of_smooth h2 h3 hnz hfac) hP hT hmul hg hc hc₀ htel hpow
 
 /-! ### Non-vacuity at `n = 4`, with `htel` and `hpow` bound rather than instantiated
 
