@@ -32,7 +32,8 @@ nothing in this tree connects them.  Discharging (1) at every `p` therefore does
 
 ⚠️ **That gate is now closed at every odd `p`, and not here.**  This paragraph used to end *"at any
 `p ∉ {2, 3}`"*, which said the tower was conditional at every `p ≥ 5`; `card_torsion_eq_sq_of_odd`
-(`EllipticCurves.Torsion.OmegaChordSum`) supplies `hcard` at every odd `p` with `(p : F) ≠ 0`, and
+(`EllipticCurves.Torsion.OmegaChordSum`) supplies `hcard` at every odd `p` with `(2 : F) ≠ 0` and
+`(p : F) ≠ 0` — ⚠️ **both**, and this clause used to name only the second (`#1137`) — and
 `EllipticCurves.Torsion.PrimaryTowerOdd` substitutes it into all four statements below.  Everything
 in **this** file stays as it is and stays useful: it is the file that isolates `hcard`, and it is
 still the only hypothesis these statements carry.

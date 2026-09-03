@@ -25,7 +25,8 @@ is `2^a · (odd)`, so this covers every index, not a wider slice of them:
 ```
 
 The structure theorem follows by the same shape one level up.  `#E[p] = p²` is now available at
-**every** prime `p` with `(p : F) ≠ 0`, and `nsmul_surjective_of_two_ne_zero`
+**every** prime `p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0` — the same pair as the display above, three
+lines up — and `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`) has supplied surjectivity of `[p]` at every nonzero index
 since PR #569 — so `EllipticCurves.Torsion.PrimaryTower`'s `nonempty_torsionPow_addEquiv` applies at
 every prime power, and `EllipticCurves.Torsion.CoprimeStructure`'s
@@ -133,7 +134,8 @@ citations are prose, and feeding the count in is separate work.
   conclusion is unavailable rather than false.
 * It proves **no** new identity about division polynomials and touches no file that does.
 * It does not touch `EllipticCurves.Torsion.PrimaryTower`'s gate list, which is `#1522`.  ⚠️ That
-  gate is `#E[p] = p²` and `card_torsion_eq_sq` discharges it at every `p` with `(p : F) ≠ 0`, but
+  gate is `#E[p] = p²` and `card_torsion_eq_sq` discharges it at every `p` with `(2 : F) ≠ 0` and
+  `(p : F) ≠ 0`, but
   `PrimaryTower` is *upstream* of `EllipticCurves.Torsion.OmegaChordSum` and so cannot import this
   file; the discharge has to happen in a leaf.  It happens in
   `EllipticCurves.Torsion.PrimaryTowerOdd`, a sibling leaf landed in the same window as this one —
@@ -188,7 +190,8 @@ theorem card_torsion_eq_sq (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
 `nonempty_torsionPow_addEquiv` (`EllipticCurves.Torsion.PrimaryTower`) takes exactly two inputs
 beyond primality: surjectivity of `[p]`, which `nsmul_surjective_of_two_ne_zero` supplies at every
 nonzero index, and `#E[p] = p²`, which `card_torsion_eq_sq` now supplies at every `p` with
-`(p : F) ≠ 0`.  ⚠️ The general-`p` form of `nonempty_torsionTwoPow_addEquiv` and of
+`(2 : F) ≠ 0` and `(p : F) ≠ 0` — the two hypotheses this theorem takes, and the section above says
+where the first enters.  ⚠️ The general-`p` form of `nonempty_torsionTwoPow_addEquiv` and of
 `nonempty_torsionThreePow_addEquiv`, and it subsumes both. -/
 theorem nonempty_torsionPrimePow_addEquiv (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p.Prime)
     (hpF : (p : F) ≠ 0) (k : ℕ) :

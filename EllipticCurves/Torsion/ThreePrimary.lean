@@ -83,9 +83,10 @@ Known exactly for **every `3`-smooth `n`** — see `card_torsion_eq_sq_of_smooth
 `nonempty_torsion_addEquiv_zmod_sq_of_smooth`. The frontier has not moved otherwise *by anything in
 this file*.  ⚠️ This paragraph used to end *"and the first open index is `n = 5`"*, which is false
 downstream: `nonempty_torsion_addEquiv_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) settles
-`E[n] ≃+ (ℤ/nℤ)²` at **every** odd `n` with `(n : F) ≠ 0`, `n = 5` included.  What the two smooth
-statements here still add is the even part: every `2 ^ k` and every `2 ^ a · 3 ^ b`, which no
-odd-index theorem reaches.
+`E[n] ≃+ (ℤ/nℤ)²` at **every** odd `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, `n = 5` included —
+⚠️ **both hypotheses, and this clause used to name only the index one** (`#1137`).  What the two
+smooth statements here still add is the even part: every `2 ^ k` and every `2 ^ a · 3 ^ b`, which
+no odd-index theorem reaches.
 
 ⚠️ **Both reasons this paragraph used to give for that were the coordinate formula, and both
 are now false.**  It read *"`#E[p] ≤ p²` … needs the general coordinate formula, which is not

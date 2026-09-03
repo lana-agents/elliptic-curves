@@ -446,9 +446,9 @@ algebraic closure.
 This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
 declines to make; its docstring says, copy-paste, that local constancy of the representation itself
 *"would need `E[n]` to be finite"*. At a `3`-smooth `n` it now is — and, more widely, at every `n`
-with `(n : F) ≠ 0` (`isLocallyConstant_galoisRepMod_of_natCast_ne_zero`) — and that sentence
-remains correct about what is needed. ⚠️ The quotation is unchanged and is re-checked against
-`EllipticCurves.TateModule.Continuity` as committed; only the qualifier moved.
+with `(2 : F) ≠ 0` and `(n : F) ≠ 0` (`isLocallyConstant_galoisRepMod_of_natCast_ne_zero`) — and
+that sentence remains correct about what is needed. ⚠️ The quotation is unchanged and is
+re-checked against `EllipticCurves.TateModule.Continuity` as committed; only the qualifier moved.
 
 ⚠️ The same deletion test run on this statement gives the **identical** residual goal
 `⊢ Finite ↥((W'⁄F).torsion n)` under the identical hypothesis list, measured — the two `_smooth`
