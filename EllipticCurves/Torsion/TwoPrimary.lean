@@ -53,8 +53,10 @@ Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}` **from this file**. Still open a
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
   `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ The `≥` half is no longer open either:
   `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves the equality at every
-  odd index, and `EllipticCurves.Torsion.PrimaryTowerOdd` runs the tower on it.  What this bullet
-  still records correctly is that none of that happens here;
+  odd `n` with `(n : F) ≠ 0`, over a field with `(2 : F) ≠ 0`, and
+  `EllipticCurves.Torsion.PrimaryTowerOdd` runs the tower on it.  ⚠️ **Both hypotheses, and this
+  clause used to name neither** (`#1137`).  What this bullet still records correctly is that none
+  of that happens here;
 * the `3`-primary tower `#E[3 ^ k] = 9 ^ k`, which needs surjectivity of `[3]`. The tangent-line
   shortcut that makes `[2]` elementary is special to doubling; `[3]` genuinely needs
   `x(3P) = Φ₃/Ψ₃²`.
@@ -69,12 +71,39 @@ index is still `n = 5`"*, and then *"so the first index no statement in this dev
 an **even** one outside the `3`-smooth range"*.  Both are false, and the second was **never** true
 on `main` — it was written while `EllipticCurves.Torsion.StructureGeneral` was still in review and
 was already refuted by the time it landed: `nonempty_torsion_addEquiv_of_odd`
-(`EllipticCurves.Torsion.PrimaryTowerOdd`) settles every odd `n` with `(n : F) ≠ 0`, and
-`nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`) settles **every** such `n`,
-even ones included — `#E[2^a] = 4^a` is this file's own `card_torsion_two_pow`, and the two factors
-of `n = 2^a · m` are coprime.  **There is no unreached index.**  ⚠️ What is out of range is not an
-index but a characteristic: at `p ∣ n` with `p = char F` the conclusion `#E[n] = n²` is *false*, so
-that régime is excluded rather than owed.
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) settles every odd `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`, and `nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`) settles
+**every** such `n`, even ones included — `#E[2^a] = 4^a` is this file's own `card_torsion_two_pow`,
+and the two factors of `n = 2^a · m` are coprime.
+
+⚠️ **Both of those reaches take `(2 : F) ≠ 0` as well as the index condition, and this paragraph
+used to name only the index one** (`#1137`).  That is not bookkeeping here: it is what makes the
+next two régimes different régimes.  ⚠️ Where it enters is **this file**:
+`card_torsion_eq_sq`'s assembly splits `n = 2 ^ a * m` and spends `card_torsion_two_pow` — the
+theorem below — on the first factor, and `card_torsion_eq_sq_of_odd`, which carries it too, on the
+second.  `EllipticCurves.Torsion.StructureGeneral`'s *"There are two hypotheses"* section is the
+account of it from the other end.
+
+⚠️ **This paragraph used to end** *"There is no unreached index"*, and then *"what is out of range
+is not an index but a characteristic: at `p ∣ n` with `p = char F` the conclusion `#E[n] = n²` is
+false, so that régime is excluded rather than owed"*.  ⚠️ **The first is false and the second names
+one régime of two.**  In characteristic `2` every odd `n` is an unreached index: `(n : F) ≠ 0`
+holds, `(2 : F) ≠ 0` does not, and neither statement above applies.  An algebraic closure of
+`ZMod 2` at `n = 3` is the falsifier, and it is not an exotic base — it is an algebraically closed
+field carrying elliptic curves, which is exactly the setting both statements are about.
+
+⚠️ **Two things are out of range, and they are out of range for opposite reasons.**
+
+* **At `p ∣ n` with `p = char F` the conclusion `#E[n] = n²` is genuinely *false*** — `E[p]` has at
+  most `p` elements there — so that régime is **excluded**, and no hypothesis could be relaxed to
+  reach it.
+* **In characteristic `2`, at an `n` prime to the characteristic, nothing here claims the conclusion
+  fails.**  The index is still prime to `char F` and the classical statement (Silverman, *AEC*,
+  III.6, Corollary 6.4) is untouched; it is simply not proved in this tree.  That régime is
+  **owed**, and `(2 : F) ≠ 0` is what records it.
+
+⚠️ **Conflating the two is the trap this paragraph fell into**, and it is why the hypothesis has to
+be written down rather than left to the index condition.
 
 ## Main statements
 
