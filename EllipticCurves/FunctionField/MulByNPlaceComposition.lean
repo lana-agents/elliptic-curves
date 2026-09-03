@@ -542,8 +542,12 @@ polynomial at all; the `_of_ne_zero` proofs go through `Φₙ`/`ΨSqₙ`.  Two i
 conclusion are the cheapest cross-check available on this front — the containment is of
 *statements*, not of *proofs*.
 
-⚠️ The same subsumption is committed the same way on the sibling front, by
-`EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth` and the `example` beside it. -/
+⚠️ The same subsumption is committed the same way on the sibling front, by the `example` in
+`EllipticCurves.TateModule.OpenKernel`'s `§ Every level prime to the characteristic`.  ⚠️ Both
+`example`s now spend the **shared** cast lemmas `Nat.intCast_ne_zero_of_smooth` and
+`Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`); this sentence used to cite
+a `private` lemma of that name *inside* `OpenKernel`, which was the last of eight copies of the same
+four-line argument and is gone (`#1552`). -/
 
 /-- **`comapProjPointN_none_of_smooth` is a corollary of `comapProjPointN_none_of_ne_zero`** — its
 statement verbatim, proved from the general layer. -/

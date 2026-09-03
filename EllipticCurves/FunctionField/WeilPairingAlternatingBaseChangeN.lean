@@ -380,9 +380,17 @@ open Classical in
 /-- **`…_of_smooth_of_baseChange` is a corollary of `…_of_ne_zero_of_baseChange`** — its statement
 verbatim, `h3` and `hfac` binders included, proved from the general form.
 
-`intCastBaseChange_ne_zero_of_smooth` supplies `((n : ℤ) : F) ≠ 0` from `3`-smoothness, and the two
-`mulByNEndo` terms carry different transcendence proofs: they match by proof irrelevance, which is
-why the two `simp only`-free `exact`s below elaborate at all. -/
+`Nat.intCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) supplies
+`((n : ℤ) : F) ≠ 0` from `3`-smoothness, and the two `mulByNEndo` terms carry different
+transcendence proofs: they match by proof irrelevance, which is why the term-mode proof below
+elaborates with no `simp only` bridging the two.
+
+⚠️ This paragraph used to cite a lemma named *intCastBaseChange_ne_zero_of_smooth* — a `private`
+copy this file never actually grew, because the shared form landed first, so the citation resolved
+to nothing (`#1552`).  It also said *"the two `exact`s below"*, and there is one term.
+⚠️ The retired name is deliberately **not** in backticks: backticks are how this development marks
+a live citation, and every name-resolution check keys on them, so quoting a dead name in them
+re-arms the very check that found this. -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)

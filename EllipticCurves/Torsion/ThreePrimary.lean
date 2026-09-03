@@ -224,15 +224,37 @@ belongs here and not in a new leaf.
 it is generic arithmetic about a cast, exactly as `Nat.exists_eq_two_pow_mul_three_pow` above is
 generic arithmetic about a factorisation.
 
-⚠️ **This is the `((n : ℤ) : K)` form only.**  `EllipticCurves.TateModule.OpenKernel`'s
-`natCast_ne_zero_of_smooth` is the `(n : K)` form, is `private` there, and is **deliberately not**
-retired here: PR #601 is open against that declaration's proof body, and moving it would be a
-guaranteed conflict for a name that is not on this front.  Retire it when #601 has landed. -/
+⚠️ **This is the `((n : ℤ) : K)` form.**  The `(n : K)` form is `Nat.natCast_ne_zero_of_smooth`
+immediately below, which is this one with the composite cast collapsed, and its consumer is
+`EllipticCurves.TateModule.OpenKernel`.  ⚠️ This paragraph used to say that form was *"deliberately
+not retired here"* because PR #601 was open against `OpenKernel`'s private copy; #601 has landed
+and the copy is gone. -/
 theorem Nat.intCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
     {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : ((n : ℤ) : K) ≠ 0 := by
   obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
   push_cast
   exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+/-- **The `(n : K)` form of `Nat.intCast_ne_zero_of_smooth`**, with the same hypotheses and the
+composite cast `((n : ℤ) : K)` collapsed to `(n : K)`.
+
+Both forms are consumed in this development and neither is a restatement of the other at the
+elaborator's level, which is why both are stated rather than one being left to the caller:
+`EllipticCurves.TateModule.OpenKernel` takes `(n : K)` — its `finite_torsion_of_intCast_ne_zero`
+route states the condition that way — and the `EllipticCurves/FunctionField/` layer takes
+`((n : ℤ) : K)`.
+
+⚠️ This retires the last of the **eight** `private` copies this pair of lemmas had grown
+(`#1552`).  Seven went with `Nat.intCast_ne_zero_of_smooth` above; the eighth was
+`EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth`, held back only because
+PR #601 was open against its proof body at the time.
+
+⚠️ The binder shape here is the one the seven retired consumers use — `{n} (hn) (hfac)` — and
+**not** `OpenKernel`'s `∀ n : ℕ, n ≠ 0 → …`.  `#1552` asked for the call site to be adapted rather
+than the shared lemma bent, and it was. -/
+theorem Nat.natCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
+    {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : (n : K) ≠ 0 := by
+  simpa using Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac
 
 /-- **`10` is not `3`-smooth**, where *`3`-smooth* is this development's
 `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3`.
