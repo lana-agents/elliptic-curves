@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
+import EllipticCurves.FunctionField.MulByNDegreeGeneral
+import EllipticCurves.FunctionField.MulByNGalois
 import EllipticCurves.FunctionField.MulByNPlaceComposition
 import EllipticCurves.FunctionField.MulByNResidueDegree
 import EllipticCurves.FunctionField.MulByNSeparable
@@ -115,6 +117,16 @@ file consumes them rather than restating them.
   every `n` at which `[n]∗F(W)` is separably closed below and at every `n` in characteristic zero;
 * **`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`**, **`…_of_smooth`** and
   **`…_of_charZero`** — the same with the right-hand side evaluated, `= n ^ 2`, at `3`-smooth `n`;
+* ⚠️ `finrank_mulByNEndoFieldRange_of_ne_zero`, `finrank_integralClosure_placeBelowN_of_ne_zero`,
+  `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero`,
+  `sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero`,
+  `sum_ramificationIdxN_mul_residueDegreeN_of_charZero_of_ne_zero` and
+  `sum_ramificationIdxN_of_ne_zero` — **the same six statements as their `_of_smooth` siblings, at
+  every `n` with `(n : F) ≠ 0`** (`#1523` item 4).  The two substituted inputs are `#1213`'s general
+  degree and `#1523`'s general separability; no new argument.
+* `finrank_mulByNEndoFieldRange_five`, `sum_ramificationIdxN_mul_residueDegreeN_five` and
+  `sum_ramificationIdxN_five` — the first index outside `{2, 3}`, named rather than left as
+  `example`s.
 * `sum_ramificationIdxN_of_smooth` — the collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`, the
   general-`n` shape of `sum_ramificationIdxTwo_eq_four` and `sum_ramificationIdxThree_eq_nine`;
 * `sum_ramificationIdxN_mul_residueDegreeN_two` and `…_three` — the sum-level consistency with the
@@ -132,15 +144,23 @@ file consumes them rather than restating them.
   Widening the fundamental identity does not add it.  What is counted below is **places of `F(W)`
   in a fibre**, weighted by ramification and residue degree; the passage to points is a different
   theorem.
-* **Nothing at `n = 5` with the value `n²` *below*.**  ⚠️ The reason this bullet gave —
-  *"because `#1213`'s degree stops there"* — is **false**, and was already false when this file was
-  written: `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
-  (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is `[F(W) : [n]∗F(W)] = n²` at every `n` with
-  `(n : F) ≠ 0`, carries no smoothness, and even exhibits `n = 5`.  What is true is that the
-  statements below were written against `#1213`'s `3`-smooth form and nobody has rewritten them;
-  that is `#1523` item 4, and it is unstarted.  The identity itself does reach `n = 5` in
-  characteristic zero — with `[F(W) : [5]∗F(W)]` on the right, which this file does not evaluate
-  even though `MulByNDegreeGeneral` now can.
+* ⚠️ **`n = 5` IS here now, and this bullet is what changed.**  It used to say *"nothing at
+  `n = 5` with the value `n²`, because `#1213`'s degree stops there"* — a reason that was already
+  false when the file was written, since `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) has been `[F(W) : [n]∗F(W)] = n²` at every
+  `n` with `(n : F) ≠ 0` since PR #576.  `#1523` item 4 is what rewrote the statements onto it:
+  `finrank_mulByNEndoFieldRange_of_ne_zero`, `finrank_integralClosure_placeBelowN_of_ne_zero`,
+  `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero`, `…_of_ne_zero`,
+  `…_of_charZero_of_ne_zero` and `sum_ramificationIdxN_of_ne_zero` are the same six statements at
+  every `n` with `(n : F) ≠ 0`, and `sum_ramificationIdxN_five` evaluates the right-hand side at
+  `5`.  ⚠️ The `_of_smooth` forms are **kept** and are not deprecated: they are the only route here
+  that does not consume `#E[n] = n²`.
+* **Still nothing at `n = char F`, and there the value is false rather than open.**  `(n : F) ≠ 0`
+  is sharp: at `n = char F` the map `[n]` is inseparable and `[F(W) : [n]∗F(W)] = n²` fails.  ⚠️
+  What survives there is the *identity* — `sum_ramificationIdxN_mul_residueDegreeN_finrank` carries
+  no hypothesis on `n` at all — which is the same *"the identity is wider than the value"*
+  distinction this docstring draws above, now with `n = char F` rather than `n = 5` as its
+  witness.
 * **Not `hprin`** (`#962`).  `PlaceInertiaGeneral`'s `## Scope` records that it removes one of three
   `[IsAlgClosed F]` inputs to `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and not the other two;
   that accounting is unchanged at general `n`, and nothing below touches `card_torsion_two` or
@@ -393,6 +413,160 @@ theorem sum_ramificationIdxN_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 
   refine Finset.sum_congr rfl fun p _ => ?_
   rw [residueDegreeN_eq_one_of_residueDegreeProj_eq_one n h (residueDegreeProj_eq_one p), mul_one]
 
+/-! ### The same chain at every `n` with `(n : F) ≠ 0`
+
+⚠️ **The `3`-smoothness above was never in the mathematics of this file; it was in the two names the
+chain cites.**  Both have general replacements on `main`:
+
+* the degree — `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNDegreeGeneral`, `#1213`), `[F(W) : [n]∗F(W)] = n²` at every
+  `n` with `(n : F) ≠ 0`, no smoothness and no algebraic closure;
+* separability — `isSeparable_mulByNEndoFieldRange_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNGalois`, `#1523` items 1-3), off the fixed field of `E[n]`
+  rather than off a composition ladder.
+
+So the six statements below are the six above with those two inputs substituted and **no new
+argument**.  ⚠️ The `_of_smooth` forms are **kept**, not replaced: they are what `TwoPrimary` and
+`ThreePrimary` consumers cite, and they remain the only route here that does not consume
+`#E[n] = n²`.
+
+⚠️ **The transcendence proof is a parameter of these statements and is fixed inside
+`finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`.**  `Transcendental` is a `Prop` and proof
+irrelevance is definitional in Lean 4, so the two subfields are the same and no `Subsingleton.elim`
+is needed; `MulByNDegreeGeneral` records the same trap.
+
+⚠️ `(n : F) ≠ 0` is **sharp** and is not a relaxed smoothness: at `n = char F` the degree
+`[F(W) : [n]∗F(W)] = n²` is false, `[n]` being inseparable there. -/
+
+omit [IsDedekindDomain W.CoordinateRing] in
+/-- **`[F(W) : [n]∗F(W)] = n²` at every `n` with `(n : F) ≠ 0`, for the subfield.**  The general-`n`
+form of `finrank_mulByNEndoFieldRange_of_smooth`, crossed along `#1219`'s
+`mulByNFieldRangeEquivSubfield` in exactly the same way.
+
+⚠️ **No `[IsAlgClosed F]`, no separability and no smoothness.**  This is the degree, and `#1213`'s
+general form needs none of the three. -/
+theorem finrank_mulByNEndoFieldRange_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    finrank ↥(mulByNEndo n h).fieldRange W.FunctionField = n ^ 2 := by
+  rw [← Algebra.finrank_eq_of_equiv_equiv (mulByNFieldRangeEquivSubfield n h)
+    (RingEquiv.refl W.FunctionField) (by ext a; rfl)]
+  exact finrank_mulByNFieldRange_eq_sq_of_two_ne_zero h2 (by exact_mod_cast hn)
+
+/-- **The integral closure of a place of `[n]∗F(W)` has rank `n²` over it** at every `n` with
+`(n : F) ≠ 0`, given separability — the right-hand side of the fundamental identity at the ring
+level.  The general-`n` form of `finrank_integralClosure_placeBelowN_of_smooth`. -/
+theorem finrank_integralClosure_placeBelowN_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (hsep : Algebra.IsSeparable ↥(mulByNEndo n h).fieldRange W.FunctionField) (q : ProjPoint W) :
+    finrank ↥(placeBelowN W n h q)
+      ↥(integralClosure ↥(placeBelowN W n h q) W.FunctionField) = n ^ 2 := by
+  haveI := module_finite_mulByNEndoFieldRange n h
+  haveI := hsep
+  exact (finrank_integralClosure_placeBelow (φ := mulByNEndo n h) q).trans
+    (finrank_mulByNEndoFieldRange_of_ne_zero h2 hn h)
+
+/-- **`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `n` with `(n : F) ≠ 0`, over an arbitrary
+field**, with separability carried as a hypothesis.  The general-`n` form of
+`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`.
+
+⚠️ It does **not** say `#E[n] = n²`: what is counted is places of `F(W)` in a fibre, and the passage
+to points needs the separable-isogeny count this tree does not have.  Lifting the index range
+changes nothing about that; see the module docstring. -/
+theorem sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (hsep : Algebra.IsSeparable ↥(mulByNEndo n h).fieldRange W.FunctionField) (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton n h q).toFinset,
+      (ramificationIdxN n h p).toNat * residueDegreeN n h p = n ^ 2 :=
+  (sum_ramificationIdxN_mul_residueDegreeN_finrank n h hsep q).trans
+    (finrank_mulByNEndoFieldRange_of_ne_zero h2 hn h)
+
+/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `n` with `(n : F) ≠ 0`, over `F̄`** — separability
+discharged by `isSeparable_mulByNEndoFieldRange_of_ne_zero` rather than by `#1219`'s `3`-smooth
+form.  The general-`n` form of `sum_ramificationIdxN_mul_residueDegreeN_of_smooth`. -/
+theorem sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton n h q).toFinset,
+      (ramificationIdxN n h p).toNat * residueDegreeN n h p = n ^ 2 :=
+  sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero h2 hn h
+    (isSeparable_mulByNEndoFieldRange_of_ne_zero h2 hn h) q
+
+/-- **`∑_{p ↦ q} e_p · f_p = n²` at every `n` with `(n : F) ≠ 0`, in characteristic zero** — the
+form available over `ℚ`, where the `[IsAlgClosed F]` statement above is not.
+
+⚠️ In characteristic zero `(n : F) ≠ 0` is automatic for `n ≠ 0`, so this is the identity at every
+non-constant index over `ℚ`; the hypothesis is kept in this shape only so that the statement reads
+the same as its siblings. -/
+theorem sum_ramificationIdxN_mul_residueDegreeN_of_charZero_of_ne_zero [CharZero F]
+    (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton n h q).toFinset,
+      (ramificationIdxN n h p).toNat * residueDegreeN n h p = n ^ 2 :=
+  sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero h2 hn h
+    (isSeparable_mulByNEndoFieldRange_of_charZero n h) q
+
+/-- **The collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`**, at every `n` with `(n : F) ≠ 0`.  The
+general-`n` form of `sum_ramificationIdxN_of_smooth`, and the statement
+`card_fibre_comapProjPointN_le_sq_of_ne_zero` (`EllipticCurves.FunctionField.MulByNFibre`)
+consumes.
+
+⚠️ `[IsAlgClosed F]` is **not** removable here and is not a gate that lifting the index range
+touches: `residueDegreeProj_eq_one` is equivalent to the base field being algebraically closed, and
+over `ℚ` the statement is false as soon as some place in the fibre has residue degree `2`.  The
+weighted form above is what generalises. -/
+theorem sum_ramificationIdxN_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton n h q).toFinset,
+      (ramificationIdxN n h p).toNat = n ^ 2 := by
+  rw [← sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero h2 hn h q]
+  refine Finset.sum_congr rfl fun p _ => ?_
+  rw [residueDegreeN_eq_one_of_residueDegreeProj_eq_one n h (residueDegreeProj_eq_one p), mul_one]
+
+/-! ### `n = 5`, as named theorems
+
+⚠️ This file's `n = 5` bullet used to give its reason as *"because `#1213`'s degree stops there"*,
+which `#1523` items 1-3 corrected: the degree has not stopped there since PR #576.  The statements
+below are the machine-checked consequence — named rather than left as `example`s so that a reader
+can grep for them and a consumer can cite them.
+
+`5` is the smallest index that is neither `3`-smooth nor covered by the merged `n = 2` / `n = 3`
+packages, so a proof that reaches it cannot be any composition of those two.  ⚠️ Stated over an
+arbitrary algebraically closed `F` with `(5 : F) ≠ 0`; the concrete instantiation on a committed
+curve is in the non-vacuity section below. -/
+
+omit [IsDedekindDomain W.CoordinateRing] in
+/-- **`[F(W) : [5]∗F(W)] = 25`, in the `Subfield` presentation** — the degree at the first index
+outside `{2, 3}`, in the shape the place machinery below consumes. -/
+theorem finrank_mulByNEndoFieldRange_five (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0) :
+    finrank ↥(mulByNEndo (W := W) 5
+      (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+        (by simpa using h5))).fieldRange W.FunctionField = 5 ^ 2 :=
+  finrank_mulByNEndoFieldRange_of_ne_zero h2 (by exact_mod_cast h5) _
+
+/-- **`∑_{p ↦ q} e_p · f_p = 25` for `[5]∗` over `F̄`** — the fundamental identity at an index no
+`3`-smooth statement in this file reaches. -/
+theorem sum_ramificationIdxN_mul_residueDegreeN_five [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+    (h5 : (5 : F) ≠ 0) (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton 5
+        (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+          (by simpa using h5)) q).toFinset,
+      (ramificationIdxN 5 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+        (by simpa using h5)) p).toNat
+        * residueDegreeN 5 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+          (by simpa using h5)) p = 5 ^ 2 :=
+  sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero h2 (by exact_mod_cast h5) _ q
+
+/-- **The collapsed form `∑_{p ↦ q} e_p = 25` for `[5]∗` over `F̄`.** -/
+theorem sum_ramificationIdxN_five [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0)
+    (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointN_preimage_singleton 5
+        (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+          (by simpa using h5)) q).toFinset,
+      (ramificationIdxN 5 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+        (by simpa using h5)) p).toNat = 5 ^ 2 :=
+  sum_ramificationIdxN_of_ne_zero h2 (by exact_mod_cast h5) _ q
+
 /-! ### The identity is the merged one at `n = 2` and at `n = 3`
 
 Stated as a check that nothing drifted between the `[n]`-indexing and the two merged
@@ -549,10 +723,13 @@ example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 
 /-- **The identity at `n = 5`, committed** — the index this tree reaches in no other statement about
 `[n]∗`.
 
-⚠️ The right-hand side is `[F(W) : [5]∗F(W)]` and **stays** a `finrank`: `#1213`'s degree `n²` is
-`3`-smooth and `5` is not, so nothing here evaluates it to `25`.  That is exactly the distinction
-the module docstring draws — the identity is wider than the value — and this certificate is what
-makes it concrete rather than a claim.  The non-constancy of `[5]` comes from
+⚠️ The right-hand side is `[F(W) : [5]∗F(W)]` and is left as a `finrank` **here**, which is what
+this certificate was originally for: when it was written, `#1213`'s degree was `3`-smooth and `5` is
+not, so nothing evaluated it to `25`.  ⚠️ **That reason is now gone** — `sum_ramificationIdxN_five`
+evaluates it, and the certificate immediately below commits the evaluated form on this same curve.
+This one is kept because the distinction the module docstring draws — the identity is wider than the
+value — is still true at `n = char F`, where the identity holds and the value does not.  The
+non-constancy of `[5]` comes from
 `transcendental_xCoord_nsmul_of_isAlgClosed`, which is the only route to it at a non-`3`-smooth
 index in this tree. -/
 example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 5
@@ -566,6 +743,54 @@ example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 
           (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))).fieldRange
         (y2AddYEqX3 AlgClosedQ).FunctionField :=
   sum_ramificationIdxN_mul_residueDegreeN_finrank_of_charZero _ _ _
+
+private lemma exampleBarFive : ((5 : ℕ) : AlgClosedQ) ≠ 0 := by
+  have : ((5 : ℕ) : AlgClosedQ) = 5 := by push_cast; ring
+  rw [this]; norm_num
+
+private lemma exampleBarFourteen : ((14 : ℕ) : AlgClosedQ) ≠ 0 := by
+  have : ((14 : ℕ) : AlgClosedQ) = 14 := by push_cast; ring
+  rw [this]; norm_num
+
+/-- **The identity at `n = 5` with the right-hand side EVALUATED, committed** — `∑_{p ↦ ∞} e_p = 25`
+on the same curve as the `finrank` certificate above.
+
+⚠️ This is the one certificate that the `3`-smooth chain provably could not produce, and the reason
+is arithmetic rather than effort: `5 ∤ 2^a · 3^b` for any `a, b`, so
+`Nat.exists_eq_two_pow_mul_three_pow` — the first step of every `_of_smooth` proof in this file —
+cannot even be applied. -/
+example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 5
+      (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))
+      (none : ProjPoint (y2AddYEqX3 AlgClosedQ))).toFinset,
+      (ramificationIdxN 5
+        (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num)) p).toNat
+      = 5 ^ 2 :=
+  sum_ramificationIdxN_of_ne_zero exampleBarTwo exampleBarFive _ _
+
+/-- **⚠️ THE LOAD-BEARING CERTIFICATE: `n = 14`.**  `∑_{p ↦ ∞} e_p · f_p = 196`, at an index that is
+**even and not `3`-smooth**.
+
+`n = 5` alone cannot show the statements above are general rather than `{2, 3, 5}`-parametrised, and
+it cannot show they are not an odd-`n` package in disguise.  `14 = 2 · 7` is reachable by **no**
+`3`-smooth statement (`7 ∤ {2, 3}`) and by **no** odd-`n` statement, so this certificate can come
+only from `sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero` by name.  ⚠️ The same index is what
+`#1523`'s review of PR #593 used on the Galois half, for the same reason. -/
+example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 14
+      (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))
+      (none : ProjPoint (y2AddYEqX3 AlgClosedQ))).toFinset,
+      (ramificationIdxN 14
+        (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num)) p).toNat
+        * residueDegreeN 14
+          (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num)) p
+      = 14 ^ 2 :=
+  sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero exampleBarTwo exampleBarFourteen _ _
+
+/-- **The degree at `n = 14`, committed** — `[F(W) : [14]∗F(W)] = 196`, the input the certificate
+above consumes, exhibited separately so that a reader can see the value is not assumed. -/
+example : finrank ↥(mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 14
+      (transcendental_xCoord_nsmul_of_isAlgClosed exampleBarTwo (by norm_num))).fieldRange
+    (y2AddYEqX3 AlgClosedQ).FunctionField = 14 ^ 2 :=
+  finrank_mulByNEndoFieldRange_of_ne_zero exampleBarTwo exampleBarFourteen _
 
 end Nonvacuity
 

@@ -125,20 +125,29 @@ transport of `Aut K` along an equality of base subfields"*.  Those three declara
 * `card_galoisGroup_mulByNEndoFieldRange` — `|Gal(F(W) / [n]∗F(W))| = n²`, with
   `card_galoisGroup_mulByTwoEndoFieldRange` and `card_galoisGroup_mulByThreeEndoFieldRange` giving
   the values `4` and `9` at `n = 2` and `n = 3`.
+* ⚠️ `torsionNMulGaloisEquiv_of_ne_zero`, `torsionNMulGaloisEquiv_of_ne_zero_apply`,
+  `exists_mem_torsion_translateAut_eq_of_ne_zero` and
+  `card_galoisGroup_mulByNEndoFieldRange_of_ne_zero` — **the same four at every `n` with
+  `(n : F) ≠ 0`** (`#1523` item 6), off the general sandwich and the general count.
+* `torsionFiveMulGaloisEquiv`, `torsionFiveMulGaloisEquiv_apply` and
+  `card_galoisGroup_mulByNEndoFieldRange_five` — `n = 5`, named rather than left as `example`s.
 
 ## What is *not* here
 
-* **Nothing at `n = 5` *in this file*.**  ⚠️ The second half of the reason stands and the first no
-  longer does.  This bullet used to read *"Both sides of Artin's theorem are `3`-smooth and a group
-  isomorphism manufactures no new prime"*; **neither side of Artin's theorem is `3`-smooth any
-  more** — the count is `card_torsionNMul_of_ne_zero` (`#293`, via
-  `EllipticCurves.FunctionField.TranslationActionN`) and the degree is
-  `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`, and the sandwich they close is
-  `fixedFieldN_eq_mulByNFieldRange_of_ne_zero`
-  (`EllipticCurves.FunctionField.MulByNGalois`, `#1523`), at every `n` with `(n : F) ≠ 0`.  What
-  remains true is that a group isomorphism manufactures no new prime: the declarations **below**
-  still carry `hfac` because they were written against the `3`-smooth sandwich, and rewriting them
-  onto the general one is mechanical and unstarted (`#1523` item 4).
+* ⚠️ **`n = 5` IS here now, and this bullet is what changed.**  Two revisions ago it read *"Both
+  sides of Artin's theorem are `3`-smooth and a group isomorphism manufactures no new prime"*; one
+  revision ago the first half was corrected but the declarations were not rewritten.  They are now:
+  `torsionNMulGaloisEquiv_of_ne_zero`, `torsionNMulGaloisEquiv_of_ne_zero_apply`,
+  `exists_mem_torsion_translateAut_eq_of_ne_zero` and
+  `card_galoisGroup_mulByNEndoFieldRange_of_ne_zero` are the four `3`-smooth declarations at every
+  `n` with `(n : F) ≠ 0`, with `torsionFiveMulGaloisEquiv` and
+  `card_galoisGroup_mulByNEndoFieldRange_five` at the first index outside `{2, 3}`.
+  ⚠️ **The second half of the old reason is still exactly right, and it is why this is a transport
+  rather than a theorem**: a group isomorphism manufactures no new prime.  Every prime here comes
+  from `card_torsionNMul_of_ne_zero` (`#293`) and from the sandwich
+  `fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNGalois`, `#1523` items 1-3); this file adds none.
+  The `3`-smooth forms are **kept**, as the `TwoPrimary` / `ThreePrimary` consumers cite them.
 * **Not `Gal(F(W) / F(x)) ≃* ⟨ι⟩`.**  It is a different fixed-point setup in a different file and
   is untouched here — but it is no longer absent from the tree: ⚠️ **this bullet used to end**
   *"`Subfield.autMulEquivOfEq` is what it would consume"*, and
@@ -256,6 +265,120 @@ being definitionally equal.  That is why no declaration above has an `Intermedia
 example {n : ℕ} [IsAlgClosed F] (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     (W.FunctionField ≃ₐ[↥(mulByNEndoAlgHom (W := W) n h).fieldRange] W.FunctionField)
       = (W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) n h).fieldRange] W.FunctionField) := rfl
+
+/-! ### The same package at every `n` with `(n : F) ≠ 0`
+
+⚠️ **Both sides of Artin's theorem are general now, and neither was made general here.**  `#1523`
+items 1-3 replaced the two inputs this section's `3`-smooth twins consume:
+
+* `fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNGalois`) — the sandwich, at every `n` with `(n : F) ≠ 0`;
+* `card_torsionNMul_of_ne_zero` and `finite_torsionNMul_of_ne_zero`
+  (`EllipticCurves.FunctionField.TranslationActionN`) — the count and the finiteness, off
+  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) rather than off
+  `card_torsion_eq_sq_of_smooth`.
+
+So the four declarations below are the four above with those substituted and **no new argument**.
+The `3`-smooth forms are **kept**: they are what the `TwoPrimary` / `ThreePrimary` consumers cite,
+and `card_torsionNMul` remains the only count here that does not consume `#293`.
+
+⚠️ `card_galoisGroup_mulByNEndoFieldRange_of_ne_zero` is still a **transport** of the torsion count
+and not a second proof of it — nothing below reads `n²` off the degree `[F(W) : [n]∗F(W)]`, and the
+step *"a separable isogeny has as many points in its kernel as its degree"* is still absent from
+this tree.  Widening the index range does not supply it. -/
+
+open Classical in
+/-- **`Gal(F(W) / [n]∗F(W)) ≃* E[n]` at every `n` with `(n : F) ≠ 0`** — Artin's theorem for `[n]∗`,
+the general-`n` form of `torsionNMulGaloisEquiv`.
+
+⚠️ Built exactly as its `3`-smooth twin is, with `finite_torsionNMul_of_ne_zero` fired as a `haveI`
+so that the `Finite` instance never appears in the statement, and with the general sandwich in place
+of the smooth one.  ⚠️ See `torsionNMulGaloisEquiv_of_ne_zero_apply`: the map is translation, and
+that is the content.
+
+⚠️ `nolint defsWithUnderscore` (`#1277`): `_of_ne_zero` names the hypothesis `(n : F) ≠ 0`, exactly
+as the nine theorems in `EllipticCurves.FunctionField.MulByNGalois` that this is built from do.
+Renaming it would break the one-suffix-per-régime convention this cluster settled on in `#1523`. -/
+@[nolint defsWithUnderscore]
+noncomputable def torsionNMulGaloisEquiv_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    TorsionNMul W n ≃*
+      (W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) n h).fieldRange] W.FunctionField) :=
+  haveI := finite_torsionNMul_of_ne_zero (W := W) h2 hn
+  (FixedPoints.toAlgAutMulEquiv (TorsionNMul W n) W.FunctionField).trans
+    (Subfield.autMulEquivOfEq (fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero h2 hn h))
+
+open Classical in
+/-- **The isomorphism is translation**, at every `n` with `(n : F) ≠ 0`.  True by `rfl`, for the
+reason `torsionNMulGaloisEquiv_apply` gives: nothing in the chain changes an underlying function.
+
+⚠️ This is the statement that distinguishes the classical theorem from *"two finite groups of the
+same order"*, and it is why the definition above is not certified by its cardinality alone. -/
+@[simp] lemma torsionNMulGaloisEquiv_of_ne_zero_apply [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (T : TorsionNMul W n) (g : W.FunctionField) :
+    torsionNMulGaloisEquiv_of_ne_zero h2 hn h T g = translateAut (T.toAdd : W.Point) g := rfl
+
+open Classical in
+/-- **Every `[n]∗F(W)`-automorphism of `F(W)` is translation by an `n`-torsion point**, at every `n`
+with `(n : F) ≠ 0` — the surjectivity half, in the form a consumer that holds a `σ` and wants a
+point reaches for.  The general-`n` form of `exists_mem_torsion_translateAut_eq_of_smooth`.
+
+Uniqueness is `translateAut_injective` and is not restated: it is `n`-agnostic and already
+merged. -/
+theorem exists_mem_torsion_translateAut_eq_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (σ : W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) n h).fieldRange] W.FunctionField) :
+    ∃ P ∈ W.torsion n, ∀ g : W.FunctionField, σ g = translateAut P g := by
+  classical
+  obtain ⟨T, hT⟩ := (torsionNMulGaloisEquiv_of_ne_zero h2 hn h).surjective σ
+  exact ⟨(T.toAdd : W.Point), T.toAdd.2, fun g => by rw [← hT]; rfl⟩
+
+open Classical in
+/-- **`|Gal(F(W) / [n]∗F(W))| = n²` at every `n` with `(n : F) ≠ 0`.**  `Nat.card` off the
+equivalence and `card_torsionNMul_of_ne_zero`. -/
+theorem card_galoisGroup_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    Nat.card (W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) n h).fieldRange] W.FunctionField) = n ^ 2 :=
+  (Nat.card_congr (torsionNMulGaloisEquiv_of_ne_zero h2 hn h).toEquiv).symm.trans
+    (card_torsionNMul_of_ne_zero h2 hn)
+
+/-! ### `n = 5`, as named theorems
+
+⚠️ This file's scope section used to say *"Nothing at `n = 5`: both sides of Artin's theorem are
+`3`-smooth"*.  `#1523` items 1-3 made that false and corrected the sentence without rewriting any
+declaration; the four above are the declarations, and the three below are the certificate at the
+index that decides it.  `5` is neither `3`-smooth nor covered by the merged `n = 2` / `n = 3`
+packages, so nothing reaching it can be a composition of those two.
+
+⚠️ Named rather than left as `example`s, following `EllipticCurves.FunctionField.MulByNGalois`, so
+that a consumer can cite them. -/
+
+open Classical in
+/-- **`Gal(F(W) / [5]∗F(W)) ≃* E[5]`** — Artin's theorem at the first index outside `{2, 3}`. -/
+noncomputable def torsionFiveMulGaloisEquiv [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0) :
+    TorsionNMul W 5 ≃*
+      (W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) 5
+        (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+          (by simpa using h5))).fieldRange] W.FunctionField) :=
+  torsionNMulGaloisEquiv_of_ne_zero h2 (by exact_mod_cast h5) _
+
+open Classical in
+/-- **The `n = 5` isomorphism is translation too.**  ⚠️ Restated rather than left implicit: an
+equivalence of groups of the same order says nothing on its own, and this is what makes
+`torsionFiveMulGaloisEquiv` the classical theorem at `n = 5`. -/
+@[simp] lemma torsionFiveMulGaloisEquiv_apply [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0)
+    (T : TorsionNMul W 5) (g : W.FunctionField) :
+    torsionFiveMulGaloisEquiv h2 h5 T g = translateAut (T.toAdd : W.Point) g := rfl
+
+open Classical in
+/-- **`|Gal(F(W) / [5]∗F(W))| = 25`.** -/
+theorem card_galoisGroup_mulByNEndoFieldRange_five [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+    (h5 : (5 : F) ≠ 0) :
+    Nat.card (W.FunctionField ≃ₐ[↥(mulByNEndo (W := W) 5
+      (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2
+        (by simpa using h5))).fieldRange] W.FunctionField) = 5 ^ 2 :=
+  card_galoisGroup_mulByNEndoFieldRange_of_ne_zero h2 (by exact_mod_cast h5) _
 
 /-! ### `n = 2` and `n = 3` at the merged hypotheses
 
@@ -389,6 +512,70 @@ example (σ : (y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
       ∀ g : (y2AddYEqX3 AlgClosedQ).FunctionField, σ g = translateAut P g :=
   exists_mem_torsion_translateAut_eq_of_smooth exampleTwo exampleThree (by norm_num)
     exampleSmoothTwelve exampleTranscendentalTwelve σ
+
+private lemma exampleGroupFive : ((5 : ℕ) : AlgClosedQ) ≠ 0 := by
+  have : ((5 : ℕ) : AlgClosedQ) = 5 := by push_cast; ring
+  rw [this]; norm_num
+
+private lemma exampleGroupFourteen : ((14 : ℕ) : AlgClosedQ) ≠ 0 := by
+  have : ((14 : ℕ) : AlgClosedQ) = 14 := by push_cast; ring
+  rw [this]; norm_num
+
+private lemma exampleGroupTranscendentalFive :
+    Transcendental AlgClosedQ
+      ((5 : ℕ) • genericPoint (W := y2AddYEqX3 AlgClosedQ)).xCoord :=
+  transcendental_xCoord_nsmul_of_isAlgClosed exampleTwo (by norm_num)
+
+private lemma exampleGroupTranscendentalFourteen :
+    Transcendental AlgClosedQ
+      ((14 : ℕ) • genericPoint (W := y2AddYEqX3 AlgClosedQ)).xCoord :=
+  transcendental_xCoord_nsmul_of_isAlgClosed exampleTwo (by norm_num)
+
+open Classical in
+/-- **`|Gal(F(W) / [5]∗F(W))| = 25` on a genuine curve** — the index at which this file previously
+said, in terms, that it had nothing.
+
+⚠️ The `3`-smooth chain provably could not produce this: every `_of_smooth` proof here starts from
+`Nat.exists_eq_two_pow_mul_three_pow`, and `5 ∤ 2^a · 3^b`. -/
+example : Nat.card ((y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
+    (W := y2AddYEqX3 AlgClosedQ) 5 exampleGroupTranscendentalFive).fieldRange]
+    (y2AddYEqX3 AlgClosedQ).FunctionField) = 5 ^ 2 :=
+  card_galoisGroup_mulByNEndoFieldRange_of_ne_zero exampleTwo exampleGroupFive
+    exampleGroupTranscendentalFive
+
+open Classical in
+/-- **⚠️ THE LOAD-BEARING CERTIFICATE: `n = 14`** — `|Gal(F(W) / [14]∗F(W))| = 196`, at an index
+that is **even and not `3`-smooth**.
+
+`n = 5` alone shows only that `{2, 3}` was left; it is consistent with a `{2, 3, 5}`-parametrised
+package and with an odd-`n` one.  `14 = 2 · 7` is reachable by neither, so this certificate can come
+only from `card_galoisGroup_mulByNEndoFieldRange_of_ne_zero` by name. -/
+example : Nat.card ((y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
+    (W := y2AddYEqX3 AlgClosedQ) 14 exampleGroupTranscendentalFourteen).fieldRange]
+    (y2AddYEqX3 AlgClosedQ).FunctionField) = 14 ^ 2 :=
+  card_galoisGroup_mulByNEndoFieldRange_of_ne_zero exampleTwo exampleGroupFourteen
+    exampleGroupTranscendentalFourteen
+
+open Classical in
+/-- **The group identification itself at `n = 14`, committed.**  ⚠️ Not implied by the cardinality
+above: two groups of order `196` need not be isomorphic, and it is
+`torsionNMulGaloisEquiv_of_ne_zero` — not its `Nat.card` shadow — that is Artin's theorem. -/
+noncomputable example : TorsionNMul (y2AddYEqX3 AlgClosedQ) 14 ≃*
+    ((y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo (W := y2AddYEqX3 AlgClosedQ) 14
+      exampleGroupTranscendentalFourteen).fieldRange] (y2AddYEqX3 AlgClosedQ).FunctionField) :=
+  torsionNMulGaloisEquiv_of_ne_zero exampleTwo exampleGroupFourteen
+    exampleGroupTranscendentalFourteen
+
+open Classical in
+/-- **Every automorphism over `[14]∗F(W)` is a translation**, committed on the same curve — the
+surjectivity half at an index no `3`-smooth or odd-`n` statement reaches. -/
+example (σ : (y2AddYEqX3 AlgClosedQ).FunctionField ≃ₐ[↥(mulByNEndo
+    (W := y2AddYEqX3 AlgClosedQ) 14 exampleGroupTranscendentalFourteen).fieldRange]
+    (y2AddYEqX3 AlgClosedQ).FunctionField) :
+    ∃ P ∈ (y2AddYEqX3 AlgClosedQ).torsion 14,
+      ∀ g : (y2AddYEqX3 AlgClosedQ).FunctionField, σ g = translateAut P g :=
+  exists_mem_torsion_translateAut_eq_of_ne_zero exampleTwo exampleGroupFourteen
+    exampleGroupTranscendentalFourteen σ
 
 end Nonvacuity
 
