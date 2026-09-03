@@ -118,6 +118,24 @@ looks like a clause that lists them all. Concretely:
 `card_torsion_eq_sq` is `#E[n] = n²` at a general index
 ```
 
+**Two phrases look like reach clauses and are not.** Both have been flagged, triaged and cleared
+more than once, so the discriminators are written down here rather than re-derived each round:
+
+* **A phrase that quantifies the conclusion's own bound variable is not a reach clause**; a phrase
+  that enumerates the conditions under which the statement holds is. *"Away from the multiples of
+  the least vanishing index, `ψ` does not vanish"* (`ψ_evalEval_ne_zero_of_not_dvd`) is the
+  `∀ m, ¬(d ∣ m)` **inside** the conclusion, not a restriction on when the theorem applies. Same
+  for `ψ_evalEval_eq_zero_of_dvd`, `divT_add_mul_of_not_dvd` and `divY_add_mul_of_not_dvd`.
+* **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
+  that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
+  `10` is not quantified and there is nothing for a condition to range over. Same for
+  `nonempty_torsionThirtySix_addEquiv`, `card_torsion_four`, `nonempty_torsionFour_addEquiv` and
+  `nonempty_torsionTwelve_addEquiv`.
+
+⚠️ The second discriminator is what separates *"at an index that is neither odd nor `3`-smooth"*
+from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable
+and so is a reach clause bound by the rule.
+
 The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
 — so a reach clause need not list them. But a clause that *does* make an instance claim
@@ -156,7 +174,37 @@ column, is one place. A fix that repairs one row and leaves its neighbour partia
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
 
-Three consequences worth stating, because each has cost a review cycle:
+**A gate-discharge claim is relative to the gate list it names**, and the rule binds it only where
+that list is not named. *"With no hypothesis left"*, *"with `#E[p] = p²` as the only hypothesis"*
+and *"from the count at `p` alone"* do not enumerate the conditions under which a statement holds;
+they say which entry of a gate list published elsewhere a statement has discharged. There is no
+enumeration for the binders to be a proper subset of, so the rule above has nothing to bind —
+**provided the gate list is named where the claim is made**.
+
+`nonempty_torsionPow_addEquiv_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) is the worked
+case. Its headline reads *"The structure theorem for `E[pᵏ]` at an odd prime `p`, with no
+hypothesis left"* while the theorem binds four hypotheses, and the next sentence of the same
+docstring names the list and spells it out — *"the signature `EllipticCurves.Torsion.PrimaryTower`'s
+gate list reduces to … over an algebraically closed field with `(2 : F) ≠ 0`, at an odd prime `p`
+with `(p : F) ≠ 0`"*. Compliant — and not an exception to the *"declaration headlines are reach
+clauses too"* consequence below. That one is about a `## Hypotheses` section **elsewhere in the
+module**, which doc-gen does not render beside the headline; this sentence is in the same docstring.
+
+⚠️ **A gate-relative register is a per-file object, and an instrument that reads one declaration at
+a time cannot see it.** `EllipticCurves.Torsion.PrimaryTowerAlgClosed` factors its field conditions
+into a `## What the substitution costs` section and then writes its headlines relative to what is
+left, its H1 included (*"`#E[p] = p²` is the only hypothesis left"*). Repairing one row of such a
+file and leaving the rest is the per-block harm above, one level up: where a module factors its
+hypotheses out on purpose, the headline **is** the register, and changing it is a decision about the
+whole file rather than a sweep item.
+
+⚠️ **This is not an exemption for every headline that mentions a gate.**
+`card_torsion_pow_of_odd` (same file as the worked case) said *"at an odd `p`, unconditionally"* and
+was a defect: *"at an odd `p`"* names `hodd` and omits `hp : (p : F) ≠ 0`, and both are conditions
+the statement puts on its **index**, not entries of a gate list. A clause naming one of two index
+conditions is a proper non-empty subset however the gate word is read.
+
+Four consequences worth stating, because each has cost a review cycle:
 
 * **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
   is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
@@ -168,6 +216,12 @@ Three consequences worth stating, because each has cost a review cycle:
 * **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to
   module prose. A `## Hypotheses` section elsewhere in the same module does not repair a
   partial headline.
+* **Sort the class before repairing it.** A headline that lists too few hypotheses takes an
+  **insertion**; a headline that asserts there are no others takes a **deletion or a re-scoping**.
+  Adding `(2 : F) ≠ 0` beside *"as the only hypothesis"* yields a sentence that contradicts itself.
+  `card_torsion_pow_of_separable` and `finite_torsion_pow_of_separable` lost the word *"alone"*;
+  `card_torsion_pow_of_odd` had *"unconditionally"* re-scoped to *"and with no `hcard`"*, which is
+  what the word was actually true of — so that claim came out sharper than it went in.
 
 ### Retired claims
 
