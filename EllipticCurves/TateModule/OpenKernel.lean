@@ -3,11 +3,13 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Kernel
 import EllipticCurves.Torsion.Multiplicative
 import EllipticCurves.Torsion.ThreePrimary
 import EllipticCurves.Torsion.TwoPrimary
+import EllipticCurves.Torsion.XSupport
 import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
@@ -50,15 +52,23 @@ shortcut and needs neither the elliptic-net recurrence nor the coordinate formul
 `x(nP) = Φₙ/ΨSqₙ`. ⚠️ The clause this paragraph used to carry — *"For odd `ℓ` the finiteness of
 `E[ℓ^k]` is still open"* — is false at `ℓ = 3` and was already false when it was written:
 `finite_torsion_three_pow` (`EllipticCurves.Torsion.ThreePrimary`) proves it from `#E[3^k] = 9^k`,
-at the price of the coordinate formula at `n = 3` and of `(3 : F) ≠ 0`. It remains open for every
-prime `ℓ ≥ 5`. Either way `isOpen_ker_galoisRepMod` carries finiteness as a hypothesis rather than
-assuming it away, so the general statement applies verbatim at each `ℓ` where it is discharged.
+at the price of the coordinate formula at `n = 3` and of `(3 : F) ≠ 0`. ⚠️ **And the sentence that
+followed — *"it remains open for every prime `ℓ ≥ 5`"* — is false too, and was false long before it
+was written here.** `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) gives
+`Finite (E[n])` at **every** `n` with `(n : F) ≠ 0`, from `(2 : F) ≠ 0` alone; nothing in this file
+consumed it until the `§ Every level prime to the characteristic` section below did. Either way
+`isOpen_ker_galoisRepMod` carries finiteness as a hypothesis rather than assuming it away, so the
+general statement applies verbatim at each `n` where it is discharged.
 
-⚠️ **That last sentence is now cashed rather than promised.** The `§ Every 3-smooth level` section
-below discharges the hypothesis at `3 ^ k` (`finite_torsion_three_pow`) and, more generally, at
-every `3`-smooth `n ≠ 0` (`finite_torsion_of_smooth`, `EllipticCurves.Torsion.Multiplicative`).
-Nothing new is proved there: each of the four statements is one application of a theorem in this
-file to a theorem in `EllipticCurves.Torsion`.
+⚠️ **That last sentence is cashed rather than promised, at four different widths.** The sections
+below discharge the hypothesis at `2 ^ k` (`finite_torsion_two_pow`), at `3 ^ k`
+(`finite_torsion_three_pow`), at every `3`-smooth `n ≠ 0` (`finite_torsion_of_smooth`,
+`EllipticCurves.Torsion.Multiplicative`), and — widest, and needing neither `[IsAlgClosed F]` nor
+`[(W'⁄F).IsElliptic]` — at every `n` with `(n : F) ≠ 0`
+(`finite_torsion_of_intCast_ne_zero`). ⚠️ **Nothing new is proved in any of them**: each statement
+is one application of a theorem in this file to a theorem in `EllipticCurves.Torsion`. The four
+routes to finiteness are genuinely different, which is why the narrower three are kept rather than
+deleted — see the `§ Every level prime to the characteristic` header.
 
 ## What this file does not do
 
@@ -66,10 +76,14 @@ It says nothing about the *Tate module* as a topological space: compactness and 
 `T_ℓ E` are a separate matter, and this file neither needs them nor supplies them. It also does not
 claim `ker ρ_{E,2}` is open — it is not, in general — nor anything about the image of `ρ_ℓ`, whose
 openness would be a statement about `F / S` that nothing here bears on. ⚠️ **That disclaimer covers
-the `3`-smooth statements below verbatim.** Openness of every *level* kernel is exactly what
+the `3`-smooth statements below verbatim, and the general ones with them.** Openness of every
+*level* kernel is exactly what
 `ker ρ_ℓ = ⨅ k, ker (galoisRepMod (ℓ ^ k))` fails to inherit — an infinite intersection of open
-subgroups is closed and no more — so widening the set of levels at which the level kernels are known
-open moves `ker ρ_ℓ` not at all. Continuity of
+subgroups is closed and no more — so widening the set of levels at which the level kernels are
+known open moves `ker ρ_ℓ` not at all. ⚠️ That is why
+`isOpen_ker_galoisRepMod_of_natCast_ne_zero`, which reaches every level prime to the
+characteristic, still yields only `IsClosed (ker ρ_{E,ℓ})`
+(`EllipticCurves.TateModule.OpenKernelGeneral`) and not `IsOpen`. Continuity of
 `galoisRepMatrixTwo b` into `GL₂(ℤ_[2])` with its `2`-adic topology is not proved here either, but
 it *is* available — `continuous_galoisRepMatrixTwo` in
 `EllipticCurves.TateModule.MatrixContinuity`, for an arbitrary basis. An earlier version of this
@@ -84,6 +98,14 @@ and the evidence is internal. The same argument that yields `IsOpen` at a finite
 `IsClosed` in the limit, and both are stated. If finiteness were idle, `isClosed_ker_galoisRepTwo`
 could have been strengthened to `IsOpen` by the identical proof; it cannot.
 
+⚠️ **The general layer adds concrete certificates on top of that internal argument, and they answer
+two different risks.** `§ Non-vacuity for the general layer` compiles the hypotheses of
+`isOpen_ker_galoisRepMod_of_natCast_ne_zero` at `n = 10` and `n = 91` over `F = ℚ` — indices no
+other statement in this file reaches, over a field that is not algebraically closed — and then
+again at `n = 10` over `AlgClosedQ`, where the Galois group is **not** trivial. The first pair is
+labelled *hypothesis-inhabitation* rather than non-vacuity, precisely because `ℚ ≃ₐ[ℚ] ℚ` is
+trivial and openness is free there; neither certificate answers the other's risk.
+
 The concrete input is `card_torsion_two_pow : Nat.card (E[2^k]) = 4^k`, so the index set of the
 intersection in `ker_galoisRepMod_eq_iInter_stabilizer` really does grow with `k` — the level
 conditions are a genuine descending tower of open subgroups (`ker_galoisRepMod_pow_antitone`), not a
@@ -97,6 +119,11 @@ constant sequence.
   `WeierstrassCurve.Affine.openSubgroupKerGaloisRepMod` : it is open when `E[n]` is finite.
 * `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod` : the mod-`n` representation is locally
   constant.
+* `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_of_natCast_ne_zero`,
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_of_natCast_ne_zero` : the same at
+  **every** `n` with `(n : F) ≠ 0`, with **no `[IsAlgClosed F]`** and **no
+  `[(W'⁄F).IsElliptic]`** — the widest form, and the one that subsumes the three below at the
+  level of indices.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_two_pow`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional at `ℓ = 2`.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepTwo` : `ker ρ_{E,2}` is closed.
@@ -176,6 +203,135 @@ theorem isLocallyConstant_galoisRepMod (n : ℕ) (hfin : Finite ((W'⁄F).torsio
   rw [h]
   exact (Homeomorph.mulLeft σ₀).isOpenMap _ (isOpen_ker_galoisRepMod n hfin)
 
+/-! ### Every level prime to the characteristic
+
+⚠️ **This is the widest layer in the file, and it needs the least.**
+`finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) proves `Finite (E[n])`
+from `(2 : F) ≠ 0` and `(n : F) ≠ 0` **alone** — no algebraic closure, no
+`[(W'⁄F).IsElliptic]`, no smoothness of `n`, and no exact count. Feeding it to
+`isOpen_ker_galoisRepMod` widens the level-kernel statements in **two**
+directions at once: from `3`-smooth indices to every index prime to the characteristic, and from
+the instance list of the sections below to none of it.
+
+The two statements here therefore sit outside `section Two`, `section Smooth` and `section Three`,
+in the same region as `isOpen_ker_galoisRepMod` itself: the only ambient hypotheses are the
+`Field`/`Algebra` basics and `[Algebra.IsIntegral S F]`, which `Point.isOpen_stabilizer` needs.
+
+⚠️ **The three earlier layers are kept, and none of them is dead.** They reach their indices by
+genuinely different routes — `finite_torsion_two_pow` through the tangent-line doubling count,
+`finite_torsion_three_pow` through `x(3P) = Φ₃/Ψ₃²`, `finite_torsion_of_smooth` through
+multiplicativity off `#E[2] ≤ 4` and `#E[3] ≤ 9` — where the statements here route through the
+`x`-support root count of `ΨSqₙ`. Independent routes to one conclusion are the cheapest available
+cross-check on both, and `isClosed_ker_galoisRepTwo` / `isClosed_ker_galoisRepThree` consume
+`finite_torsion_two_pow` / `finite_torsion_three_pow` by name.
+-/
+
+/-- **The level kernels are open at every `n` with `(n : F) ≠ 0`**, over a field in which `2` is
+invertible — with **no algebraic closure** and **no `[(W'⁄F).IsElliptic]`**.
+
+⚠️ `(n : F) ≠ 0` is the same condition as `char F ∤ n`, stated in the form
+`finite_torsion_of_intCast_ne_zero` takes it, and it is sharp in the sense that at `char F ∣ n` the
+finiteness input is not available from this route at all.
+
+This subsumes `isOpen_ker_galoisRepMod_two_pow` and `isOpen_ker_galoisRepMod_three_pow` at the
+level of indices, and subsumes `isOpen_ker_galoisRepMod_smooth` modulo the factorisation argument
+`natCast_ne_zero_of_smooth` below — which is proved rather than asserted, and the subsumption is
+then machine-checked by the `example` that follows it. ⚠️ None of the three is deleted; see the
+section header.
+
+⚠️ **Deletion test**, measured on this file as committed. Replacing the finiteness argument by a
+hole — `by refine isOpen_ker_galoisRepMod (W' := W') (F := F) _ ?_` — leaves
+
+```
+error: unsolved goals
+S : Type u_1
+F : Type u_2
+inst✝⁴ : Field S
+inst✝³ : Field F
+inst✝² : DecidableEq F
+inst✝¹ : Algebra S F
+W' : Affine S
+inst✝ : Algebra.IsIntegral S F
+h2 : 2 ≠ 0
+n : ℕ
+hn : ↑n ≠ 0
+⊢ Finite ↥((W'⁄F).torsion n)
+```
+
+⚠️ `h2` and `hn` both **survive** and the residual is a **goal**, not a type mismatch, so what the
+deletion removes is a construction rather than a hypothesis. ⚠️ Compare the same residual in
+`isOpen_ker_galoisRepMod_smooth`'s docstring: there the context carries
+`inst✝ : WeierstrassCurve.IsElliptic W'⁄F` and here it does not. That absence is the second half of
+the widening and it is visible in the goal state. -/
+theorem isOpen_ker_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
+    IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
+  isOpen_ker_galoisRepMod _ (finite_torsion_of_intCast_ne_zero h2 hn)
+
+/-- **Each mod-`n` representation is locally constant at every `n` with `(n : F) ≠ 0`**, with no
+algebraic closure and no `[(W'⁄F).IsElliptic]`.
+
+This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
+declines to make; its docstring says, copy-paste, that local constancy of the representation itself
+*"would need `E[n]` to be finite"*. At every `n` prime to the characteristic it now is, and that
+sentence remains correct about what is needed.
+
+⚠️ The deletion test gives the **identical** residual goal `⊢ Finite ↥((W'⁄F).torsion n)` under the
+identical hypothesis list as `isOpen_ker_galoisRepMod_of_natCast_ne_zero`, measured — the two
+statements consume the same input through the same argument slot. -/
+theorem isLocallyConstant_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : (n : F) ≠ 0) : IsLocallyConstant (galoisRepMod (W' := W') (F := F) n) :=
+  isLocallyConstant_galoisRepMod _ (finite_torsion_of_intCast_ne_zero h2 hn)
+
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are.** In a field
+`(2 : K) ≠ 0` and `(3 : K) ≠ 0` force `(2^a · 3^b : K) ≠ 0`, so the hypothesis pair of the
+`_smooth` statements below implies the hypothesis of the two statements above.
+
+⚠️ **Proved rather than asserted.** The containment reads like a restatement and is not one: it is
+a short induction on `n`, splitting off `n.minFac` exactly as
+`EllipticCurves.Torsion.Multiplicative`'s `finite_and_card_torsion_le_sq_of_smooth` does, and the
+`(n : K) ≠ 0` form has to be built from the factorisation rather than read off it.
+
+⚠️ Stated over a fresh field `K` rather than over the section's `F`, so that no section variable is
+drawn in: the statement is about a field and mentions neither the curve nor the extension. -/
+private theorem natCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
+    (h3 : (3 : K) ≠ 0) :
+    ∀ n : ℕ, n ≠ 0 → (∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) → (n : K) ≠ 0 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro hn hfac
+    by_cases h1 : n = 1
+    · subst h1
+      simp
+    · have hprime : n.minFac.Prime := Nat.minFac_prime h1
+      have hdvd : n.minFac ∣ n := Nat.minFac_dvd n
+      have hmem : n.minFac ∈ n.primeFactors := Nat.mem_primeFactors.mpr ⟨hprime, hdvd, hn⟩
+      have hsplit : n.minFac * (n / n.minFac) = n := Nat.mul_div_cancel' hdvd
+      have hklt : n / n.minFac < n := Nat.div_lt_self (Nat.pos_of_ne_zero hn) hprime.one_lt
+      have hk0 : n / n.minFac ≠ 0 := fun h => hn (by rw [← hsplit, h, mul_zero])
+      have hkfac : ∀ q ∈ (n / n.minFac).primeFactors, q = 2 ∨ q = 3 := fun q hq =>
+        hfac q (Nat.primeFactors_mono (Nat.div_dvd_of_dvd hdvd) hn hq)
+      have hk : ((n / n.minFac : ℕ) : K) ≠ 0 := ih _ hklt hk0 hkfac
+      have hp : ((n.minFac : ℕ) : K) ≠ 0 := by
+        rcases hfac _ hmem with h | h <;> rw [h] <;> push_cast <;> assumption
+      rw [← hsplit]
+      push_cast
+      exact mul_ne_zero hp hk
+
+/-- **The subsumption of `isOpen_ker_galoisRepMod_smooth`, machine-checked** — and with
+`[(W'⁄F).IsElliptic]` dropped, which is why this `example` lives here rather than in
+`section Smooth`. The statement below is `isOpen_ker_galoisRepMod_smooth`'s verbatim, minus that
+instance; it is proved from `isOpen_ker_galoisRepMod_of_natCast_ne_zero` and the factorisation
+lemma above.
+
+⚠️ This is what turns *"subsumes the `3`-smooth layer"* from a docstring claim into a compiled
+one. `isOpen_ker_galoisRepMod_smooth` is nevertheless kept, for the independent-route reason in the
+section header. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
+  isOpen_ker_galoisRepMod_of_natCast_ne_zero h2 (natCast_ne_zero_of_smooth h2 h3 n hn hfac)
+
 /-! ### The unconditional `ℓ = 2` layer -/
 
 section Two
@@ -210,6 +366,13 @@ theorem isClosed_ker_galoisRepTwo (h2 : (2 : F) ≠ 0) :
 end Two
 
 /-! ### Every `3`-smooth level, and no algebraic closure
+
+⚠️ **This is no longer the widest layer in the file** — `§ Every level prime to the characteristic`
+above reaches every `n` with `(n : F) ≠ 0`, and needs neither `[IsAlgClosed F]` nor
+`[(W'⁄F).IsElliptic]`. The two statements here are kept because their finiteness input is a
+genuinely different theorem (multiplicativity off `#E[2] ≤ 4` and `#E[3] ≤ 9`, versus the
+`x`-support root count of `ΨSqₙ`), and the containment of indices is proved rather than asserted:
+see `natCast_ne_zero_of_smooth` and the `example` beside it.
 
 ⚠️ The two `_smooth` statements below sit **outside** any `[IsAlgClosed F]` block, and that is a
 measurement rather than a preference: their finiteness input `finite_torsion_of_smooth`
@@ -280,8 +443,10 @@ algebraic closure.
 
 This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
 declines to make; its docstring says, copy-paste, that local constancy of the representation itself
-*"would need `E[n]` to be finite"*. At a `3`-smooth `n` it now is, and that sentence remains correct
-about what is needed.
+*"would need `E[n]` to be finite"*. At a `3`-smooth `n` it now is — and, more widely, at every `n`
+with `(n : F) ≠ 0` (`isLocallyConstant_galoisRepMod_of_natCast_ne_zero`) — and that sentence
+remains correct about what is needed. ⚠️ The quotation is unchanged and is re-checked against
+`EllipticCurves.TateModule.Continuity` as committed; only the qualifier moved.
 
 ⚠️ The same deletion test run on this statement gives the **identical** residual goal
 `⊢ Finite ↥((W'⁄F).torsion n)` under the identical hypothesis list, measured — the two `_smooth`
@@ -358,5 +523,68 @@ theorem isClosed_ker_galoisRepThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     (finite_torsion_three_pow h2 h3 k))
 
 end Three
+
+/-! ### Non-vacuity for the general layer
+
+⚠️ **Two different risks, two different certificates, and neither answers the other's.**
+
+* The `ℚ`-only pair below is a **hypothesis-inhabitation** certificate: it shows that the shortened
+  hypothesis list of `isOpen_ker_galoisRepMod_of_natCast_ne_zero` is satisfiable at indices no
+  earlier statement in this file reaches — `n = 10` is even but not `3`-smooth, `n = 91 = 7 · 13`
+  is neither — over a field that is **not algebraically closed** and with no `[IsAlgClosed F]`
+  anywhere. ⚠️ It says nothing about the Galois group: `ℚ ≃ₐ[ℚ] ℚ` is trivial, so *"that subgroup
+  is open"* is free there. That is exactly why it is not the only one.
+* The `AlgClosedQ` certificate answers the other risk: `Gal(ℚ̄/ℚ)` is not trivial, and the level
+  kernel is open there too, again at `n = 10`.
+
+⚠️ The `Algebra ℚ AlgClosedQ` instance trap applies as everywhere on this front: the integrality
+instance is supplied as a `private lemma` and introduced with `haveI` at the point of use rather
+than registered. See `EllipticCurves.Fixtures`.
+-/
+
+section Nonvacuity
+
+open EllipticCurves.Fixture
+
+private lemma exampleIsIntegralLevel : Algebra.IsIntegral ℚ AlgClosedQ := by
+  have : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := by
+    rw [show (DivisionRing.toRatAlgebra : Algebra ℚ (AlgebraicClosure ℚ))
+        = AlgebraicClosure.instAlgebra ℚ from Subsingleton.elim _ _]
+    infer_instance
+  infer_instance
+
+private lemma exampleTenAlgClosed : ((10 : ℕ) : AlgClosedQ) ≠ 0 := by
+  have : ((10 : ℕ) : AlgClosedQ) = 10 := by push_cast; ring
+  rw [this]; norm_num
+
+open Classical in
+/-- **⚠️ HYPOTHESIS-INHABITATION, NOT NON-VACUITY**, and the label is the point: `ℚ ≃ₐ[ℚ] ℚ` is
+trivial, so openness of a subgroup of it is free. What this certifies is the *index* and the
+*hypothesis list* — `n = 10` is even and not `3`-smooth, `n = 91 = 7 · 13` is neither, and the
+ambient field is `ℚ`, which is not algebraically closed. No statement above this section reaches
+either index over any field, and none of them can be stated over `ℚ` at all. -/
+example : IsOpen ((galoisRepMod (W' := y2AddYEqX3 ℚ) (F := ℚ) 10).ker : Set (ℚ ≃ₐ[ℚ] ℚ)) ∧
+    IsOpen ((galoisRepMod (W' := y2AddYEqX3 ℚ) (F := ℚ) 91).ker : Set (ℚ ≃ₐ[ℚ] ℚ)) :=
+  ⟨isOpen_ker_galoisRepMod_of_natCast_ne_zero two_ne_zero (by norm_num),
+    isOpen_ker_galoisRepMod_of_natCast_ne_zero two_ne_zero (by norm_num)⟩
+
+open Classical in
+/-- **The certificate over a non-trivial Galois group.** `Gal(ℚ̄/ℚ)` is not trivial, so this one is
+not free the way the `ℚ`-only pair above is, and it is still at `n = 10` — an index neither
+`isOpen_ker_galoisRepMod_two_pow` nor `isOpen_ker_galoisRepMod_three_pow` nor
+`isOpen_ker_galoisRepMod_smooth` reaches. -/
+example : IsOpen ((galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 10).ker :
+    Set (AlgClosedQ ≃ₐ[ℚ] AlgClosedQ)) := by
+  haveI := exampleIsIntegralLevel
+  exact isOpen_ker_galoisRepMod_of_natCast_ne_zero two_ne_zero exampleTenAlgClosed
+
+open Classical in
+/-- Local constancy at the same index over the same non-trivial Galois group, so that the second
+new statement is certified and not only the first. -/
+example : IsLocallyConstant (galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 10) := by
+  haveI := exampleIsIntegralLevel
+  exact isLocallyConstant_galoisRepMod_of_natCast_ne_zero two_ne_zero exampleTenAlgClosed
+
+end Nonvacuity
 
 end WeierstrassCurve.Affine

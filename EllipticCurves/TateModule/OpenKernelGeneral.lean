@@ -29,13 +29,24 @@ and their proofs are one line. There is **no** `isClosed_ker_galoisRep_of_nonemp
   `nsmul_surjective_of_two_ne_zero` at every nonzero index; and
 * openness of each level kernel, which asks for `Finite (E[ℓ^k])`, supplied by
   `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) at every `n` with
-  `(n : F) ≠ 0`.
+  `(n : F) ≠ 0`. ⚠️ That level statement now has a name of its own —
+  `isOpen_ker_galoisRepMod_of_natCast_ne_zero` and its locally-constant companion
+  (`EllipticCurves.TateModule.OpenKernel`) — which is what this file is built on, at every level
+  prime to the characteristic and with neither `[IsAlgClosed F]` nor `[(W'⁄F).IsElliptic]`. The
+  proof below still passes the finiteness to `openSubgroupKerGaloisRepMod` directly, because it
+  needs the `OpenSubgroup` packaging rather than the bare `IsOpen`.
 
 So the general proof is four lines rather than one, and both of its inputs were already on `main`
-before `#268`. ⚠️ **In particular this file does not consume `#268` at all** — it needs finiteness
-of `E[ℓ^k]`, not the rank-two structure — and it is the one place on this front where *"the generic
-layer needs no change"* was not quite true. It is recorded here rather than left as a sixth file
-nobody files.
+before `#268`. ⚠️ **In particular these two theorems do not consume `#268` at all** — they need
+finiteness of `E[ℓ^k]`, not the rank-two structure — and this is the one place on this front where
+*"the generic layer needs no change"* was not quite true. ⚠️ **Read that as a claim about the two
+theorems and not about the file**: the file does `import EllipticCurves.TateModule.FreeGeneral`,
+for the `§ Non-vacuity` block below only (`nonempty_tateModuleEquivProd_of_natCast_ne_zero` at
+`ℓ = 7`, `card_torsion_pow_mul_self_of_natCast_ne_zero` for the `Infinite` witness). A reader who
+checks the import list rather than the proofs would otherwise conclude the opposite. The
+theorem-level claim is established by reconstruction, not by reading: both statements have been
+re-proved verbatim in a scratch module whose import closure omits `FreeGeneral` entirely. All of
+this is recorded here rather than left as a sixth file nobody files.
 
 ## What this file does NOT do
 
@@ -113,7 +124,8 @@ k : ℕ
 that it is `↑(ℓ ^ k) ≠ 0` and not `↑ℓ ≠ 0`: what `hl` buys here is invertibility of every *power*
 of `ℓ`, which is what makes each `E[ℓ^k]` finite and hence each level kernel open. ⚠️ Unlike the
 other five general leaves on this front, the residual is **not** `#268`'s rank-two input — this
-file does not consume `#268`. -/
+theorem does not consume `#268`. ⚠️ The *file* imports `FreeGeneral` for its `§ Non-vacuity` block;
+the claim is about the proof, and the module docstring says so. -/
 theorem isClosed_ker_galoisRep_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (ℓ : F) ≠ 0) :
     IsClosed ((galoisRep (W' := W') (F := F) ℓ).ker : Set (F ≃ₐ[S] F)) := by
   rw [ker_galoisRep_eq_iInf ℓ
