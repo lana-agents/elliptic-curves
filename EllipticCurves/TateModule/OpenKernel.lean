@@ -99,14 +99,15 @@ and the evidence is internal. The same argument that yields `IsOpen` at a finite
 could have been strengthened to `IsOpen` by the identical proof; it cannot.
 
 ⚠️ **The general layer adds concrete certificates on top of that internal argument, and they answer
-two different risks.** `§ Non-vacuity for the general layer` compiles the hypotheses of
+three different risks.** `§ Non-vacuity for the general layer` compiles the hypotheses of
 `isOpen_ker_galoisRepMod_of_natCast_ne_zero` at `n = 10` and `n = 91` over `F = ℚ` — indices no
 statement in this file carrying `[IsAlgClosed F]` or `[(W'⁄F).IsElliptic]` reaches, and which
-nothing here reaches without a `Finite` hypothesis supplied by hand, over a field that is not
-algebraically closed — and then again at `n = 10` over `AlgClosedQ`, where the Galois group is
-**not** trivial, and at `n = 91` on a curve whose `IsElliptic` instance is provably unavailable.
-The `ℚ` pair is labelled *hypothesis-inhabitation* rather than non-vacuity, precisely because
-`ℚ ≃ₐ[ℚ] ℚ` is trivial and openness is free there; no certificate answers another's risk.
+nothing in this file other than the two `_of_natCast_ne_zero` theorems reaches without a `Finite`
+hypothesis supplied by hand, over a field that is not algebraically closed — and then again at
+`n = 10` over `AlgClosedQ`, where the Galois group is **not** trivial, and at `n = 91` on a curve
+whose `IsElliptic` instance is provably unavailable. The `ℚ` pair is labelled
+*hypothesis-inhabitation* rather than non-vacuity, precisely because `ℚ ≃ₐ[ℚ] ℚ` is trivial and
+openness is free there; no certificate answers another's risk.
 
 The concrete input is `card_torsion_two_pow : Nat.card (E[2^k]) = 4^k`, so the index set of the
 intersection in `ker_galoisRepMod_eq_iInter_stabilizer` really does grow with `k` — the level
@@ -519,7 +520,7 @@ end Three
 
 /-! ### Non-vacuity for the general layer
 
-⚠️ **Two different risks, two different certificates, and neither answers the other's.**
+⚠️ **Three different risks, three different certificates, and none of them answers another's.**
 
 * The `ℚ`-only pair below is a **hypothesis-inhabitation** certificate: it shows that the shortened
   hypothesis list of `isOpen_ker_galoisRepMod_of_natCast_ne_zero` is satisfiable at indices no
@@ -531,7 +532,7 @@ end Three
   is the `Finite` hypothesis, not the index. ⚠️ It says nothing about the Galois group either:
   `ℚ ≃ₐ[ℚ] ℚ` is trivial, so *"that subgroup is open"* is free there. That is exactly why it is not
   the only one.
-* The `AlgClosedQ` certificate answers the other risk: `Gal(ℚ̄/ℚ)` is not trivial, and the level
+* The `AlgClosedQ` certificate answers the second risk: `Gal(ℚ̄/ℚ)` is not trivial, and the level
   kernel is open there too, again at `n = 10`.
 * ⚠️ **The `cuspQ` certificate answers a third risk, and it is the one this front keeps getting
   wrong: an *absent* instance and an *unavailable* one are different things.** The two theorems
