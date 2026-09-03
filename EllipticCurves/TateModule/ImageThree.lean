@@ -133,8 +133,13 @@ offered instead is `Infinite (T₃E)`, by a route that never mentions images or 
   with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ`
   attribution this bullet used to carry. ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this bullet
   used to name only the index one** (`#1137`); it is a hypothesis of the count and of all 22
-  `_of_natCast_ne_zero` statements in the `TateModule/` directory built on it, so none of them
-  reaches characteristic `2`. `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+  `_of_natCast_ne_zero` statements in the `TateModule/` directory, so none of them reaches
+  characteristic `2`.  ⚠️ **Two entry points, not one, and this sentence used to say `built on it`
+  of all 22**: eighteen take `h2` through the count, and the four in
+  `EllipticCurves.TateModule.OpenKernel` and `EllipticCurves.TateModule.OpenKernelGeneral` take it
+  through `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) instead —
+  `EllipticCurves.Torsion.StructureGeneral` is not in `OpenKernel`'s import closure at all.
+  `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
   (`EllipticCurves.TateModule.FreeGeneral`, `#268`) turns that count into the rank-two input the
   generic layer takes as an argument, and **`EllipticCurves.TateModule.ImageGeneral` supplies it at
   every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`** — so *"separate work and is not done here"*
