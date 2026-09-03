@@ -21,9 +21,10 @@ galoisRepModLinear n : G →* (E[n] ≃ₗ[ZMod n] E[n]) ,
 with no hypothesis beyond `[NeZero n]`, and builds the basis-free determinant character
 `galoisDetMod n : G →* (ZMod n)ˣ` on top of it.  `EllipticCurves.TateModule.DeterminantModSmooth`
 (`#1240`) then supplies what makes those objects mean anything — `E[n]` is a finite free
-`ZMod n`-module of rank `2` at every `3`-smooth `n > 1`, with a basis `basisTorsionOfSmooth`
-indexed by `Fin 2`, and `EllipticCurves.TateModule.DeterminantModGeneral` supplies the same at
-every `n` with `(n : F) ≠ 0`.  This file reads the representation through such a basis:
+`ZMod n`-module of rank `2` at every `3`-smooth `n > 1` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with
+a basis `basisTorsionOfSmooth` indexed by `Fin 2`, and
+`EllipticCurves.TateModule.DeterminantModGeneral` supplies the same at every `n > 1` with
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`.  This file reads the representation through such a basis:
 
 ```
 galoisRepModMatrix b : G →* GL (Fin 2) (ZMod n) .

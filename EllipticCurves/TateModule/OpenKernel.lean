@@ -126,15 +126,18 @@ constant sequence.
   constant.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_of_natCast_ne_zero`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_of_natCast_ne_zero` : the same at
-  **every** `n` with `(n : F) ≠ 0`, with **no `[IsAlgClosed F]`** and **no
+  **every** `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, with **no `[IsAlgClosed F]`** and **no
   `[(W'⁄F).IsElliptic]`** — the widest form, and the one that subsumes the three below at the
   level of indices.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_two_pow`,
-  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional at `ℓ = 2`.
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional **in the
+  exponent** at `ℓ = 2` — every `2 ^ k`, with no side condition on `k` — over an algebraically
+  closed field with `(2 : F) ≠ 0` and `[(W'⁄F).IsElliptic]`.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepTwo` : `ker ρ_{E,2}` is closed.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_smooth`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_smooth` : the same at every `3`-smooth
-  `n ≠ 0`, over a field in which `2` and `3` are invertible and with **no `[IsAlgClosed F]`**.
+  `n ≠ 0`, over a field in which `2` and `3` are invertible, under `[(W'⁄F).IsElliptic]` and with
+  **no `[IsAlgClosed F]`**.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_three_pow`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_three_pow` : the `ℓ = 3` layer.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepThree` : `ker ρ_{E,3}` is closed.

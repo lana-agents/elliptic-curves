@@ -32,8 +32,13 @@ always were:
 | `exists_generator_divisor_eq_of_torsion` (`PrincipalDivisorOfPoint`) | `{n : ℕ}`, arbitrary |
 | `exists_unit_of_nsmul_divisor_eq`, uniqueness up to a unit | `{m : ℕ}`, arbitrary |
 | `[n]∗` itself — `mulByNEndo`, `mulByNEndo_injective` (`MulByNPullback`) | arbitrary `n` |
-| the non-constancy side condition, `transcendental_xCoord_nsmul_of_smooth` | every `3`-smooth `n` |
-| the same, `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` | every `(n : F) ≠ 0` |
+
+The fifth input is the non-constancy side condition, and it is the only one that carries a
+hypothesis beyond the index — which is why it is stated here rather than squeezed into the table
+above.  `transcendental_xCoord_nsmul_of_smooth` proves it at every `3`-smooth `n ≠ 0` over a field
+with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`; `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+proves it at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  The four rows above take no
+side condition at all.
 
 The only gated input to rung 5 is `hprin`, and `hprin` is a **hypothesis** of the statement at every
 `n` — it does not get harder as `n` grows, it stays open.  So nothing about the mathematics was
@@ -113,9 +118,10 @@ with the group-law multiple `n • P` is `#251`, and it is **closed**:
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
 function-field form `nMulRatFunc_eq_ΦDivΨSq`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
-is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/(2ψₙ³)` as
-`y(n • P)` — **is closed too, at every index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`.  ⚠️ **`#1184` is untouched** and now stands alone beside that pair; ⚠️ and
+the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
 (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0`
 the `x`-half asks.  ⚠️ So the whole *pair* is available at every index, and the `#251` bullets on
 the Weil-pairing front no longer name an open gate.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is

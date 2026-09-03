@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.DeterminantModGeneral
 import EllipticCurves.TateModule.MatrixRepMod
 
 /-!
-# `ρ_{E,n} : G → GL₂(ℤ/nℤ)` at EVERY `n > 1` with `(n : F) ≠ 0`
+# `ρ_{E,n} : G → GL₂(ℤ/nℤ)` at EVERY `n > 1` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
 
 `EllipticCurves.TateModule.MatrixRepMod` builds the mod-`n` matrix representation
 
@@ -16,8 +16,9 @@ import EllipticCurves.TateModule.MatrixRepMod
 ∃ c ρ, (∀ σ P, c.repr (σ • P) = ρ σ *ᵥ c.repr P) ∧ ∀ σ, det (ρ σ) = galoisDetMod n σ
 ```
 
-at every **`3`-smooth** `n > 1`.  This file removes the smoothness.  It contains **one theorem and
-no argument**: `exists_galoisRepModMatrix_of_smooth`'s proof with `basisTorsionOfSmooth` replaced by
+at every **`3`-smooth** `n > 1` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  This file removes the
+smoothness.  It contains **one theorem and no argument**:
+`exists_galoisRepModMatrix_of_smooth`'s proof with `basisTorsionOfSmooth` replaced by
 `basisTorsionOfNatCastNeZero` (`EllipticCurves.TateModule.DeterminantModGeneral`).
 
 ⚠️ **The smoothness never touched the representation.**  `galoisRepModMatrix` needs `[NeZero n]` and

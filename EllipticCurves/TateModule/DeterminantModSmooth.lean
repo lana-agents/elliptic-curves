@@ -117,13 +117,13 @@ Nothing is deleted here; the de-duplication question is a separate one.
 * **Anything at `n = 5`** — ⚠️ **out of scope of *this file*, and no longer out of reach.**  This
   bullet used to end *"i.e. the general multiplication-by-`n` coordinate formula"*, naming the two
   things behind `nonempty_torsion_addEquiv_zmod_sq_of_smooth` as missing: `[5]`-surjectivity and
-  `#E[5]`.  Both landed.  `nsmul_surjective_of_two_ne_zero` is `[n]`-surjectivity at every `n ≠ 0`,
-  `card_torsion_eq_sq` is `#E[n] = n²` at every `n` with `(n : F) ≠ 0`, and
-  `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` is the structure theorem
-  itself there.  ⚠️ So `hfac` **is** removable, and it is removed — in
-  `EllipticCurves.TateModule.DeterminantModGeneral`, which restates all four statements below with
-  `hfac` replaced by `(n : F) ≠ 0` and compiles the subsumption.  What keeps it out of *this* file
-  is a measured import cost and not a gate: `Torsion.StructureGeneral` is **+34 modules** here
+  `#E[5]`.  Both landed.  `nsmul_surjective_of_two_ne_zero` is `[n]`-surjectivity at every `n ≠ 0`
+  with `(2 : F) ≠ 0`; `card_torsion_eq_sq` is `#E[n] = n²` at every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0`; and `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` is the
+  structure theorem itself under that same pair.  ⚠️ So `hfac` **is** removable, and it is removed —
+  in `EllipticCurves.TateModule.DeterminantModGeneral`, which restates all four statements below
+  with `hfac` replaced by `(n : F) ≠ 0` and compiles the subsumption.  What keeps it out of *this*
+  file is a measured import cost and not a gate: `Torsion.StructureGeneral` is **+34 modules** here
   (37 → 71) and **+34** again in `EllipticCurves.TateModule.MatrixRepMod`, so the general layer is a
   leaf and the statements below are kept as the route that pays neither.
 * **A mod-`n` matrix representation** `G →* GL (Fin 2) (ZMod n)` through `basisTorsionOfSmooth`.

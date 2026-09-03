@@ -147,14 +147,15 @@ the pairing.  Putting the character here would invert the layering.
   `card_torsion_three` available.  ⚠️ `n = 2` has `exists_closure_pair_eq_torsion_two` and could be
   done the same way; it is not done here because nothing consumes it."*  Both clauses are spent:
   `EllipticCurves.Torsion.ThreePrimary`'s `nonempty_torsion_addEquiv_zmod_sq_of_smooth` supplies the
-  structure theorem at every `3`-smooth `n`, and `EllipticCurves.TateModule.DeterminantModSmooth`
-  (`#1240`) turns it into `Module.Free`, `Module.Finite`, `finrank = 2` and a `Fin 2`-basis there —
-  including the `n = 2` instances, which it takes from `card_torsion_two` rather than from
-  `exists_closure_pair_eq_torsion_two`.  ⚠️ And `3`-smooth is not the ceiling either:
-  `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` is the structure theorem
-  at every `n` with `(n : F) ≠ 0`, and `EllipticCurves.TateModule.DeterminantModGeneral` turns it
-  into the same four statements there.  ⚠️ **The third clause was not stale and is the reason that
-  file exists**: *"at composite `n`, `ZMod n` is not a field, so even freeness stops being
+  structure theorem at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, and
+  `EllipticCurves.TateModule.DeterminantModSmooth` (`#1240`) turns it into `Module.Free`,
+  `Module.Finite`, `finrank = 2` and a `Fin 2`-basis there — including the `n = 2` instances, which
+  it takes from `card_torsion_two` rather than from `exists_closure_pair_eq_torsion_two`.  ⚠️ And
+  `3`-smooth is not the ceiling either: `EllipticCurves.Torsion.StructureGeneral`'s
+  `nonempty_torsion_addEquiv` is the structure theorem at every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0`, and `EllipticCurves.TateModule.DeterminantModGeneral` turns it into the same four
+  statements there.  ⚠️ **The third clause was not stale and is the reason that file exists**:
+  *"at composite `n`, `ZMod n` is not a field, so even freeness stops being
   automatic"* is true, `Module.Free (ZMod 12) (E[12])` is genuinely not found by instance search,
   and freeness there is a theorem transported along a chosen isomorphism rather than the
   `inferInstance` it is at `n = 2` and `n = 3`.  ⚠️ Nothing below changed when that file landed:
