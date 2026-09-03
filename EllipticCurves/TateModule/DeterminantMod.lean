@@ -150,7 +150,10 @@ the pairing.  Putting the character here would invert the layering.
   structure theorem at every `3`-smooth `n`, and `EllipticCurves.TateModule.DeterminantModSmooth`
   (`#1240`) turns it into `Module.Free`, `Module.Finite`, `finrank = 2` and a `Fin 2`-basis there —
   including the `n = 2` instances, which it takes from `card_torsion_two` rather than from
-  `exists_closure_pair_eq_torsion_two`.  ⚠️ **The third clause was not stale and is the reason that
+  `exists_closure_pair_eq_torsion_two`.  ⚠️ And `3`-smooth is not the ceiling either:
+  `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` is the structure theorem
+  at every `n` with `(n : F) ≠ 0`, and `EllipticCurves.TateModule.DeterminantModGeneral` turns it
+  into the same four statements there.  ⚠️ **The third clause was not stale and is the reason that
   file exists**: *"at composite `n`, `ZMod n` is not a field, so even freeness stops being
   automatic"* is true, `Module.Free (ZMod 12) (E[12])` is genuinely not found by instance search,
   and freeness there is a theorem transported along a chosen isomorphism rather than the
@@ -259,8 +262,10 @@ determinant is, and Mathlib defines it without one.
 
 ⚠️ Definable with no hypotheses at all, and *worthless* without freeness: `LinearMap.det` is `1` on
 a module that is not free and finite.  See `finrank_torsion_three` for the statement that rules that
-out at `n = 3`, and `EllipticCurves.TateModule.DeterminantModSmooth`'s `finrank_torsion_of_smooth`
-for the one that rules it out at every `3`-smooth `n > 1`. -/
+out at `n = 3`, `EllipticCurves.TateModule.DeterminantModSmooth`'s `finrank_torsion_of_smooth` for
+the one that rules it out at every `3`-smooth `n > 1`, and
+`EllipticCurves.TateModule.DeterminantModGeneral`'s `finrank_torsion_of_natCast_ne_zero` for the one
+that rules it out at every `n > 1` with `(n : F) ≠ 0`. -/
 noncomputable def galoisDetMod : (F ≃ₐ[S] F) →* (ZMod n)ˣ :=
   (LinearEquiv.det : ((W'⁄F).torsion n ≃ₗ[ZMod n] (W'⁄F).torsion n) →* (ZMod n)ˣ).comp
     (galoisRepModLinear n)

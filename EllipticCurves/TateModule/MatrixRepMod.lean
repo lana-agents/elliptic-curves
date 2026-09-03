@@ -22,7 +22,8 @@ with no hypothesis beyond `[NeZero n]`, and builds the basis-free determinant ch
 `galoisDetMod n : G →* (ZMod n)ˣ` on top of it.  `EllipticCurves.TateModule.DeterminantModSmooth`
 (`#1240`) then supplies what makes those objects mean anything — `E[n]` is a finite free
 `ZMod n`-module of rank `2` at every `3`-smooth `n > 1`, with a basis `basisTorsionOfSmooth`
-indexed by `Fin 2`.  This file reads the representation through such a basis:
+indexed by `Fin 2`, and `EllipticCurves.TateModule.DeterminantModGeneral` supplies the same at
+every `n` with `(n : F) ≠ 0`.  This file reads the representation through such a basis:
 
 ```
 galoisRepModMatrix b : G →* GL (Fin 2) (ZMod n) .
@@ -112,8 +113,16 @@ distinguished pair; it has a functor `b ↦ ρ_b` and a conjugacy.  The relation
 an **equation**; this file has an **object**"* — and it holds verbatim one level up.  Nor does
 `#951` subsume this: a pairing basis exists only at `n = 2` and `n = 3`, where the pairing does.
 
-**Nothing at `n = 5`**: `basisTorsionOfSmooth` is `3`-smooth, and behind that stand
-`[5]`-surjectivity and `#E[5]`.  **No trace and no characteristic polynomial**:
+**Nothing at `n = 5` in *this file*, and it is no longer out of reach**: this clause used to end
+*"`basisTorsionOfSmooth` is `3`-smooth, and behind that stand `[5]`-surjectivity and `#E[5]`"*, and
+both of those landed — `nsmul_surjective_of_two_ne_zero` and `card_torsion_eq_sq`.  The general
+basis is `basisTorsionOfNatCastNeZero` and the representation it carries is
+`exists_galoisRepModMatrix_of_natCast_ne_zero`, both in
+`EllipticCurves.TateModule.MatrixRepModGeneral`, at every `n > 1` with `(n : F) ≠ 0`.  ⚠️ What keeps
+them out of this file is a **measured import cost and not a gate**: the general basis lives over
+`EllipticCurves.Torsion.StructureGeneral`, which is **+34 modules** here (40 → 74).
+
+**No trace and no characteristic polynomial**:
 `EllipticCurves.TateModule.DeterminantMod` records that `galoisTraceTwo`'s finite-level analogue has
 no consumer, `#1240` retired the freeness half of that sentence and explicitly not the consumer
 half, and this file does not retire it either.  **No `Gal(F/S)`-stable basis**: it does not exist in
@@ -338,7 +347,13 @@ end Representation
 ⚠️ These are where `3`-smoothness enters, and it enters through the *basis* and not through the
 representation: `galoisRepModMatrix` needs only `[NeZero n]`, but a basis of `E[n]` indexed by
 `Fin 2` needs `finrank_torsion_of_smooth`.  The determinant clause is carried along because without
-it the statement would be about a homomorphism into `GL₂(ℤ/n)` that never mentions the curve. -/
+it the statement would be about a homomorphism into `GL₂(ℤ/n)` that never mentions the curve.
+
+⚠️ **That the smoothness enters only through the basis is what makes it removable**, and
+`EllipticCurves.TateModule.MatrixRepModGeneral` removes it: the same anonymous constructor on
+`basisTorsionOfNatCastNeZero` gives the representation at every `n > 1` with `(n : F) ≠ 0`.  Nothing
+below is deprecated by it — the two statements are independent routes, and this one reaches a
+consumer holding `hfac` without `EllipticCurves.Torsion.StructureGeneral` in its closure. -/
 
 section Existence
 
