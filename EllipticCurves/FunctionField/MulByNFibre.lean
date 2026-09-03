@@ -199,7 +199,14 @@ comapProjPointN n h (projPointOfPoint P) = projPointOfPoint (n • P).
 
 The general-`n` form of `#774`'s `comapProjPointTwo_projPointOfPoint` and of
 `comapProjPointThree_projPointOfPoint`, and the affine companion of `#1214`'s
-`comapProjPointN_none_of_smooth`.  No case hypothesis on `P` and no torsion side condition. -/
+`comapProjPointN_none_of_smooth`.  No case hypothesis on `P` and no torsion side condition.
+
+⚠️ **The companion at infinity has since outgrown this one, and the asymmetry is the whole of
+`#1540`.**  `comapProjPointN_none_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNPlaceComposition`, PR #599) states the `P = O` case at every
+`n` with `((n : ℤ) : F) ≠ 0`, off the pole order.  There is no such route here: at an affine
+rational point `genX` has no pole and hence no sign to exploit, so this statement is still the
+composition ladder and still `3`-smooth. -/
 theorem comapProjPointN_projPointOfPoint_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) (P : W.Point) :
@@ -418,8 +425,13 @@ positive indices summing to `n²` are all `1`.
 
 ⚠️ This is *not* "`[n]` is unramified": a place lying over a closed point that is **not** the closed
 point of an `F`-rational point is untouched.  See the module docstring.  ⚠️ Nor is it removable to a
-general `n`: `ramificationIdxN_none_of_smooth` records that `[p]` is ramified at infinity in
-characteristic `p`, and the `3`-smoothness here is doing the same work. -/
+general `n` **with no hypothesis on `n` at all**: `ramificationIdxN_none_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNPlaceComposition`) is the sharp form at infinity, and its
+`((n : ℤ) : F) ≠ 0` is load-bearing precisely because at `n = char F` the index there is `n` or
+`n²` rather than `1`.  ⚠️ **The `3`-smoothness here is doing two jobs, not one**: that index
+condition, which is genuinely needed, *and* the composition ladder, which is `#1540` item 2 and is
+open.  This docstring used to cite `ramificationIdxN_none_of_smooth` for the characteristic-`p`
+fact; that statement excludes `char F ∣ n` by its own hypotheses and so records nothing about it. -/
 theorem ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) {p : ProjPoint W} {S : W.Point}
@@ -448,8 +460,11 @@ omit [DecidableEq F] in
 coefficient `1`.
 
 At `S = O` this is `comapProjPointN_none_of_smooth` and `ramificationIdxN_none_of_smooth`
-(`EllipticCurves.FunctionField.MulByNPlaceComposition`) read as a divisor; at an affine `S` it is
-new at every index outside `{2, 3}`.  The two together give
+(`EllipticCurves.FunctionField.MulByNPlaceComposition`) read as a divisor — or, more sharply,
+their `_of_ne_zero` forms, which reach every `n` with `((n : ℤ) : F) ≠ 0` (PR #599); at an affine
+`S` it is new at every index outside `{2, 3}`.  ⚠️ The `_of_smooth` citation is what this
+statement's own hypotheses can consume, and it is why the two halves of the displayed identity
+below do **not** have the same reach.  The two together give
 
 ```
 [n]∗((S) − (O)) = ∑_{p ↦ S} (p) − ∑_{p ↦ O} (p).

@@ -15,8 +15,10 @@ import EllipticCurves.FunctionField.NthRootOfPullback
 `EllipticCurves.FunctionField.NthRootOfPullback` builds the rung-5 datum of the divisor-theoretic
 Weil pairing — a nonzero `g_S ∈ F(W)` with `u · g_S ^ n = [n]∗ f_S` for a unit `u` of `F[W]` — at
 two indices, `exists_gS_two` and `exists_gS_three`.  This file states it at **every** `n`, and
-discharges the one side condition at every `3`-smooth `n` **and at every `n` with
-`(n : F) ≠ 0`** — two independent routes, the second strictly wider.
+discharges the one side condition at every `3`-smooth `n` **and at every `n` with `(2 : F) ≠ 0`
+and `((n : ℤ) : F) ≠ 0`** — two independent routes, the second strictly wider.  ⚠️ Both routes
+carry `(2 : F) ≠ 0`; naming only the index condition is `#1137`'s class and this sentence used to
+do it.
 
 ## ⚠️ The restriction to `n = 2, 3` was chronological, not mathematical
 
@@ -88,8 +90,9 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
   measured, and the answer is that **nothing stood behind that ceiling**: the side condition is
   `Transcendental F (n • 𝒫).xCoord` and nothing else, and
   `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
-  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) has proved it at every `n` with
-  `(n : F) ≠ 0` since `#1213`.  ⚠️ **`#1184` was never a gate on this file** — it gates
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) has proved it since `#1213` at every `n`
+  with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` — **both**, the first as easy to drop from a summary
+  as it is load-bearing in the proof.  ⚠️ **`#1184` was never a gate on this file** — it gates
   `isCoprime_ΨSq_adjacent` over an arbitrary commutative ring, and the field case it was cited for
   landed in PR #576.  The cost of the correction was **one `import`**, which is the same shape as
   PR #593's finding that half a `3`-smooth ceiling was a missing import, and PR #599's that the
@@ -97,8 +100,13 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
 * **The pairing itself stays at `n = 2, 3`.**  Rung 5 is the `n`-th root; `weilPairingElt` and the
   rung-6 board are limited by their *other* inputs, not by this one.
 
-⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
-identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+⚠️ **On the `#404` / `#251` coordinate-identification front, that pair is paid on both halves and
+`#1184` is what is left.**  ⚠️ Scope that to *this* front and no wider: the bullet above records
+that `#1184` was never a gate on **this file**, and an unscoped *"`#1184` is what is left"* two
+paragraphs later reads as a retraction of it.  Both are true; they are about different things.
+
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every
+commutative ring
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
 `#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
 with the group-law multiple `n • P` is `#251`, and it is **closed**:
@@ -132,9 +140,11 @@ Two blocks, answering different questions.
   does at `n = 2, 3` over a general field; the certificate says the *other* hypotheses are
   inhabited at a new index, and claims nothing more.
   ⚠️ It then instantiates `exists_gS_of_ne_zero` at **`n = 10`**, on the same curve and at the same
-  point.  `10 = 2 · 5` is **even and not `3`-smooth**, so that one is reachable by
-  `exists_gS_of_smooth` at no hypotheses at all and by no odd-`n` statement anywhere: it can come
-  only from the general theorem, which is what makes it the certificate that can falsify the claim.
+  point.  `10 = 2 · 5` is **even and not `3`-smooth**, so that one is **not** reachable by
+  `exists_gS_of_smooth` under any hypotheses, nor by any odd-`n` statement anywhere: among the
+  *discharged* forms it can come only from the general theorem, which is what makes it the
+  certificate that can falsify the claim.  (`exists_gS_n` reaches it too, with the transcendence
+  supplied by hand — that is the same proof term, not a second route.)
 
 ## References
 
@@ -197,7 +207,8 @@ theorem exists_gS_of_smooth [DecidableEq F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
           = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hn hfac) f :=
   exists_gS_n _ h hS hprin
 
-/-- **Rung 5 at every `n` with `(n : F) ≠ 0`** — `exists_gS_n` with its non-constancy hypothesis
+/-- **Rung 5 at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`** — `exists_gS_n` with its
+non-constancy hypothesis
 discharged by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth ladder, leaving
 `hprin` as the only hypothesis beyond the setting.
@@ -391,10 +402,12 @@ open Classical in
 /-- **Rung 5 applies at `n = 10`**, on the same curve and at the same point as the `n = 4`
 certificate above.
 
-⚠️ `10 = 2 · 5` is **even and not `3`-smooth**, so this certificate is reachable by
-`exists_gS_of_smooth` at no hypotheses whatsoever, and by nothing odd-`n` anywhere: it can come
-only from `exists_gS_of_ne_zero` by name.  That is what makes it the load-bearing one — `n = 5`
-alone would be consistent with a `{2, 3, 5}`-parametrised statement.
+⚠️ `10 = 2 · 5` is **even and not `3`-smooth**, so this certificate is **not** reachable by
+`exists_gS_of_smooth` under any hypotheses whatsoever, nor by anything odd-`n` anywhere: among the
+*discharged* forms it can come only from `exists_gS_of_ne_zero`.  That is what makes it the
+load-bearing one — `n = 5` alone would be consistent with a `{2, 3, 5}`-parametrised statement.
+⚠️ Both sentences used to read *"is reachable by `exists_gS_of_smooth` at no hypotheses at all"*,
+whose first parse is the opposite of what is meant.
 
 ⚠️ `hprin` is still a hypothesis, exactly as at `n = 2`, `n = 3` and `n = 4`.  What is certified is
 that every *other* hypothesis of `exists_gS_of_ne_zero` is inhabited at an index outside the
