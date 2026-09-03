@@ -288,7 +288,8 @@ private lemma minimal_of_ψ_three_eq_zero (ht : (W.ψ 2).evalEval x y ≠ 0) :
 private lemma ψ_three_eq_zero_cast (h3 : (W.ψ 3).evalEval x y = 0) :
     (W.ψ (((0 : ℕ) : ℤ) + 3)).evalEval x y = 0 := by simpa using h3
 
-/-- **Quasi-periodicity of `ψ` at a point of order `3`**: `ψ_{n+3} = −ψ₂^{2n+3}·ψₙ`.
+/-- **Quasi-periodicity of `ψ` with `(2 : F) ≠ 0`, at a point of order `3`**:
+`ψ_{n+3} = −ψ₂^{2n+3}·ψₙ`.
 
 ⚠️ The induction is in steps of **three**, not one: the two-step relation
 `ψ_shift_symm_of_ψ_eq_zero` at `k = 1` needs `ψₙ ≠ 0`, which fails at every multiple of `3`, so

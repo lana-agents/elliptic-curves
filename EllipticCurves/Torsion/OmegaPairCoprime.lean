@@ -210,8 +210,8 @@ private lemma ψ_pair_of_ψ_three_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingu
 
 /-! ## `hpair` -/
 
-/-- **`hpair`: the two summands of `Ωₙ` are negatives of one another at a point where `ψₙ`
-vanishes**, at odd `n`.
+/-- **`hpair`: with `(2 : F) ≠ 0`, the two summands of `Ωₙ` are negatives of one another at a
+point which is not `2`-torsion and where `ψₙ` vanishes**, at odd `n`.
 
 ⚠️ The odd-`n` hypothesis is spent only on the order `d` of the point: `d ∣ n` makes `d` odd, hence
 `d ∤ 4`, hence `ψ_{n+4} ≠ 0`.  The two branches are `d = 3` — where the divisor `ψ₃` of

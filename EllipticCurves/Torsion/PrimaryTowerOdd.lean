@@ -101,23 +101,24 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} [IsAlgClosed F] [W
 
 /-! ## The `p`-primary tower at an odd `p`: `PrimaryTowerAlgClosed` with `hcard` supplied -/
 
-/-- **`#E[pᵏ] = (pᵏ)²` at an odd `p`, unconditionally.**  `card_torsion_pow_of_card`
-(`EllipticCurves.Torsion.PrimaryTowerAlgClosed`) with its `hcard` discharged by
-`card_torsion_eq_sq_of_odd`.  ⚠️ No primality: like the counting half of
+/-- **`#E[pᵏ] = (pᵏ)²` with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0`, and with no
+`hcard`.**  `card_torsion_pow_of_card` (`EllipticCurves.Torsion.PrimaryTowerAlgClosed`) with its
+`hcard` discharged by `card_torsion_eq_sq_of_odd`.  ⚠️ No primality: like the counting half of
 `EllipticCurves.Torsion.PrimaryTower`, this asks of `p` only that it be odd and nonzero in `F`. -/
 theorem card_torsion_pow_of_odd (h2 : (2 : F) ≠ 0) {p : ℕ} (hodd : Odd p) (hp : (p : F) ≠ 0)
     (k : ℕ) : Nat.card (W.torsion (p ^ k)) = (p ^ k) ^ 2 :=
   card_torsion_pow_of_card h2 (fun h => hp (by rw [h, Nat.cast_zero]))
     (card_torsion_eq_sq_of_odd h2 hodd hp) k
 
-/-- **`E[pᵏ]` is finite** at an odd `p`, read off the count. -/
+/-- **`E[pᵏ]` is finite** with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0`, read off the
+count. -/
 theorem finite_torsion_pow_of_odd (h2 : (2 : F) ≠ 0) {p : ℕ} (hodd : Odd p) (hp : (p : F) ≠ 0)
     (k : ℕ) : Finite (W.torsion (p ^ k)) :=
   finite_torsion_pow_of_card h2 (fun h => hp (by rw [h, Nat.cast_zero]))
     (card_torsion_eq_sq_of_odd h2 hodd hp) k
 
-/-- **`#E[pᵏ] = pᵏ · pᵏ`** at an odd `p`, the same count in the shape the `PrimaryBasis` and
-`TateModule` consumers take their cardinality hypothesis in. -/
+/-- **`#E[pᵏ] = pᵏ · pᵏ`** with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0` — the same count
+in the shape the `PrimaryBasis` and `TateModule` consumers take their cardinality hypothesis in. -/
 theorem card_torsion_pow_mul_self_of_odd (h2 : (2 : F) ≠ 0) {p : ℕ} (hodd : Odd p)
     (hp : (p : F) ≠ 0) (k : ℕ) : Nat.card (W.torsion (p ^ k)) = p ^ k * p ^ k :=
   card_torsion_pow_mul_self_of_card h2 (fun h => hp (by rw [h, Nat.cast_zero]))

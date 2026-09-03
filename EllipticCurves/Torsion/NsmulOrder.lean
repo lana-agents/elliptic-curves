@@ -518,10 +518,10 @@ theorem hasXCoordFormula_of_two_ne_zero (h2 : (2 : F) ≠ 0) (n : ℕ) :
 
 /-! ## The order dictionary: `ψₙ(P) = 0 ⟺ n • P = 0` -/
 
-/-- **At a point which is not `2`-torsion and has finite order, both the vanishing set of `ψ` and
-the annihilator of the point are exactly the multiples of the order.**  ⚠️ The order is produced in
-the `e + 3` shape: a point that is not `2`-torsion and has an index at which `ψ` vanishes has order
-at least `3`. -/
+/-- **With `(2 : F) ≠ 0`, at a point which is not `2`-torsion and has finite order, both the
+vanishing set of `ψ` and the annihilator of the point are exactly the multiples of the order.**
+⚠️ The order is produced in the `e + 3` shape: a point that is not `2`-torsion and has an index at
+which `ψ` vanishes has order at least `3`. -/
 theorem exists_order_of_exists_ψ_evalEval_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y)
     (ht : (W.ψ 2).evalEval x y ≠ 0)
     (hfin : ∃ m : ℕ, 1 ≤ m ∧ (W.ψ (m : ℤ)).evalEval x y = 0) :
@@ -598,8 +598,8 @@ theorem ψ_evalEval_eq_zero_of_nsmul_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsi
 
 /-! ## The payoff: `[n]`-surjectivity now needs only the root condition -/
 
-/-- **Multiplication by `n` is surjective on `E(F̄)` as soon as `Φₙ` and `ΨSqₙ` have no common
-root.**  The coordinate formula, the *other* input of
+/-- **Multiplication by `n` is surjective on `E(F̄)` with `(2 : F) ≠ 0`, at every `n ≠ 0`, as soon
+as `Φₙ` and `ΨSqₙ` have no common root.**  The coordinate formula, the *other* input of
 `WeierstrassCurve.Affine.nsmul_surjective_of_hasXCoordFormula`, is no longer a hypothesis: it holds
 at every index.  ⚠️ What is left, `hroot`, is the weakening of `#1184` recorded there; this theorem
 does **not** discharge it. -/
