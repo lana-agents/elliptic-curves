@@ -249,9 +249,9 @@ theorem card_torsion_le_sq_of_charZero [CharZero F] {n : ℕ} (hn : 1 ≤ n) :
     Nat.card (W.torsion n) ≤ n ^ 2 :=
   card_torsion_le_sq two_ne_zero (Nat.cast_ne_zero.mpr (by omega))
 
-/-- **`E[n]` is finite whenever the characteristic does not divide `n`.**  ⚠️ `(2 : F) ≠ 0` is a
-separate hypothesis and is not implied by `¬ p ∣ n`: it is `p ≠ 2`, which is about the field and
-not about `n`. -/
+/-- **`E[n]` is finite with `(2 : F) ≠ 0`, whenever the characteristic does not divide `n`.**
+⚠️ `(2 : F) ≠ 0` is a separate hypothesis and is not implied by `¬ p ∣ n`: it is `p ≠ 2`, which is
+about the field and not about `n`. -/
 theorem finite_torsion_of_not_dvd_charP (h2 : (2 : F) ≠ 0) {p : ℕ} [CharP F p] {n : ℕ}
     (hn : ¬ p ∣ n) : Finite (W.torsion n) :=
   finite_torsion_of_intCast_ne_zero h2 fun h => hn ((CharP.cast_eq_zero_iff F p n).mp h)

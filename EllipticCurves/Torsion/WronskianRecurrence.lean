@@ -357,7 +357,8 @@ namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] {W : Affine F}
 
-/-- **`#E[n] = n²` at odd `n`, from `C1` and `C2` at `univQ` and nothing else.**
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`, with `C1` and `C2` at
+`univQ` the only gates left.**
 
 What the statement says is that between this tree and `#1490` item 3 there are exactly two
 polynomial identities, neither of which mentions a derivative except through the merged

@@ -454,9 +454,10 @@ theorem nsmulEqDiv_step (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y) {n : ℤ}
   obtain ⟨h0', IH0⟩ := G0
   exact nsmul_step h2 hns hm h0 hp ht hm' h0' IHm IH0
 
-/-- The two-step induction: the ladder holds at `m+1` and `m+2` together, provided it does not pass
-through a zero up to `m+2`.  ⚠️ Both components are needed in the statement — the step consumes two
-consecutive rungs, so a single-rung induction hypothesis does not carry. -/
+/-- The two-step induction: with `(2 : F) ≠ 0`, at a point of `W`, the ladder holds at `m+1` and
+`m+2` together, provided it does not pass through a zero up to `m+2`.  ⚠️ Both components are
+needed in the statement — the step consumes two consecutive rungs, so a single-rung induction
+hypothesis does not carry. -/
 private theorem nsmulEqDiv_pair (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y) :
     ∀ m : ℕ, (∀ k : ℤ, 1 ≤ k → k ≤ (m : ℤ) + 2 → (W.ψ k).evalEval x y ≠ 0) →
       NsmulEqDiv hns ((m : ℤ) + 1) ∧ NsmulEqDiv hns ((m : ℤ) + 2) := by
