@@ -220,7 +220,7 @@ block: the decision on offer is about the file, not the row.
 
 ⚠️ **And a per-front one: *"the setting"*.** The whole `WeilPairing*` front writes a gate-discharge
 claim in the words *"with no hypothesis beyond the setting"*, and `grep` finds no definition of the
-term anywhere in the tree. Read as a hypothesis list the sharpest of them —
+term *as such* anywhere in the tree. Read as a hypothesis list the sharpest of them —
 `exists_weilPairingElt_mul_swap_eq_one_two`, which binds `(2 : F) ≠ 0` and six point hypotheses —
 is a bolded false universal. It is not one. ***"The setting"* is this development's word for a
 gate list**, and `EllipticCurves.FunctionField.WeilPairingGaloisRoot` says so in the one sentence
@@ -235,6 +235,25 @@ them. What the clause claims is that no **gate** is carried: no `hprin`, no prod
 `hprod`, no caller-supplied root, no rung-4/5 certificate. That is checkable, and the test is one
 question of the signature — *does it bind a gate the clause says is gone?*
 
+⚠️ **This is the one exception to *"in the same docstring is the whole of the exemption"* above,
+and it is narrow.** *"The setting"* is a term **this document defines**, not prose sitting
+elsewhere in the module: a reader who meets a defined term looks it up once and is then equipped
+for the whole register, where a reader who meets a partial hypothesis list has no signal that a
+completing sentence exists anywhere. That asymmetry is the whole of what earns the exception, so a
+phrase a file coins for itself earns nothing here — until a term is defined in this section, it is
+module prose and the boundary above applies to it unchanged.
+
+⚠️ **And the completeness obligation does not move to a second sentence here — it moves to the
+signature test.** Under *"the naming sentence … must name every explicit hypothesis"* above,
+`exists_weilPairingElt_mul_swap_eq_one_two` would still be a defect: its docstring is the headline
+plus one ⚠️ about why `R = S ⊕ T` need not be assumed `2`-torsion, and no sentence in it names the
+statement's seven explicit hypotheses (the ⚠️ names three binders in passing, inside a remark about
+the proof, and never `h2`). What discharges it instead is that the clause is a claim about
+**gates** and the signature carries none. The hypothesis count is the signature's job, which is
+what the ⚠️ below already says — so for this register the signature test *is* the obligation, and
+demanding a naming sentence as well would convict the whole register for not restating what
+doc-gen prints beside them.
+
 ```
 -- right: `exists_weilPairingElt_divisorSlot_add_two` binds `h2` and eight point hypotheses, and
 -- no gate — it produces its three roots — so the clause is true of what it is a claim about
@@ -246,6 +265,8 @@ setting.
 
 -- wrong: the same clause over a signature that still carries `hprin`, `hprod` or a root the
 -- caller supplies.  Naming the carried thing is what the compliant form above does.
+-- No live instance, and that is the point: the register is self-policing across the whole front,
+-- with the word "no" never standing over a signature that carries a gate (measured on `#1571`).
 ```
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
