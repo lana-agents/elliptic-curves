@@ -99,6 +99,31 @@ Because `Transcendental F _` is a `Prop`, the value of `mulByNEndoAlgHom n h` do
 which proof `h` is supplied, so every statement below takes the hypothesis as an ordinary argument
 rather than fixing a canonical one.
 
+⚠️ **And no clause below names it**, under `README.md`'s derivability exemption: at each of the
+four indices reached here, `h` follows from the hypotheses the clause already names, so naming it
+would add no reach information.  The derivations, written once so a reader can check them instead
+of taking them:
+
+* `finrank_mulByNFieldRange_two_pow_mul_three_pow` (`h2 h3 a b h`) — its `h` is
+  `transcendental_xCoord_two_pow_mul_three_pow_nsmul h2 h3 a b`, proved immediately above it, from
+  exactly the two hypotheses its ⚠️ calls the only ones;
+* `finrank_mulByNFieldRange_of_smooth` (`h2 h3 hn hfac h`) — its `h` is
+  `transcendental_xCoord_nsmul_of_smooth h2 h3 hn hfac`, proved immediately above it, from exactly
+  the four its headline names;
+* `finrank_mulByNFieldRange_four` (`h2 h`) — `transcendental_xCoord_nsmul_of_mul_eq` at `2 * 2 = 4`
+  on two copies of `transcendental_xCoord_two_nsmul h2`
+  (`EllipticCurves.FunctionField.MulByNPullback`), so from `(2 : F) ≠ 0` alone — which is what that
+  headline's *"it needs only `(2 : F) ≠ 0`"* claims;
+* `finrank_mulByNFieldRange_six` (`h2 h3 h`) — the same at `2 * 3 = 6`, against
+  `transcendental_xCoord_three_nsmul h2 h3`.  Its headline names no hypothesis at all, so it is
+  compliant on the *"or it names none"* branch and needs nothing here.
+
+⚠️ **`(2 : F) ≠ 0` and `(3 : F) ≠ 0` fail the same test** — neither is derivable from
+`3`-smoothness, from `n ≠ 0`, or from anything else a clause here names — so they stay named, and
+every headline above that makes a hypothesis-list claim carries them.
+`finrank_mulByNFieldRange_one` binds `h` and nothing else and names no hypothesis, so nothing is
+owed there either.
+
 ## Main statements
 
 ⚠️ Every public declaration of this file is listed.
@@ -355,14 +380,16 @@ theorem finrank_mulByNFieldRange_two_pow_mul_three_pow (h2 : (2 : F) ≠ 0) (h3 
       mulByNEndoAlgHom_two h2, finrank_mulByTwoFieldRange h2, ih ha]
     ring
 
-/-- **`[n]` is non-constant at every `3`-smooth `n ≠ 0`.** -/
+/-- **`[n]` is non-constant at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.** -/
 theorem transcendental_xCoord_nsmul_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
     Transcendental F (n • genericPoint (W := W)).xCoord := by
   obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
   exact transcendental_xCoord_two_pow_mul_three_pow_nsmul h2 h3 a b
 
-/-- **`[F(W) : [n]∗F(W)] = n²` for every `3`-smooth `n ≠ 0`.**
+/-- **`[F(W) : [n]∗F(W)] = n²` for every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 The hypotheses are those of `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`),
 which is the same slice of indices on the other side of the pairing: `#E[n] = n²` there,

@@ -245,7 +245,8 @@ Everything above and everything below is stated at an arbitrary `n` over an arbi
 records why both are kept. -/
 
 open Classical in
-/-- **`|E[n]| = n²` at every `3`-smooth `n ≠ 0`**, in the multiplicative packaging.  This is
+/-- **`|E[n]| = n²` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, in the
+multiplicative packaging.  This is
 `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`, `#1209`) read through the
 type synonym; it is the right-hand side of Artin's theorem for the translation action, and the
 general-`n` form of `card_torsionThreeMul`.
@@ -274,7 +275,8 @@ theorem finite_torsionNMul [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
     rw [card_torsionNMul h2 h3 hn hfac]; exact pow_ne_zero 2 hn)
 
 open Classical in
-/-- **`|E[n]| = n²` at every `n` with `(n : F) ≠ 0`**, in the multiplicative packaging — the
+/-- **`|E[n]| = n²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, in the multiplicative
+packaging — the
 `3`-smoothness of `card_torsionNMul` removed, and the parity restriction with it.
 
 This is `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) read through the

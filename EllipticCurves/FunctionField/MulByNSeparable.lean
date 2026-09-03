@@ -31,6 +31,17 @@ Algebra.IsSeparable ([n]∗F(W)) F(W)        for every 3-smooth n.
 Nothing here is new about torsion, about Artin's theorem, or about `[n]` — the whole file is the
 tower step plus the induction `MulByNComposition` already ran for the degree.
 
+Where a statement below takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
+argument, no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
+`n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is produced by
+`transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), which
+is exactly what those clauses name — and `2 ^ a * 3 ^ b` is such an `n`, so the same lemma covers
+`isSeparable_mulByNFieldRange_two_pow_mul_three_pow`.  ⚠️ `isSeparable_fieldRange_comp` takes no
+such argument — it is about two arbitrary `F`-algebra endomorphisms and sits above the
+`variable [W.IsElliptic]` line — and `isSeparable_mulByNFieldRange_mul`, `…_of_mul_eq` and
+`…_one` take transcendence hypotheses as the *data* they are statements about and name no
+hypothesis at all.
+
 ## ⚠️ What this refutes
 
 `EllipticCurves.FunctionField.MulByThreeGalois` listed, under *"What is not here"*:
@@ -292,7 +303,8 @@ theorem isSeparable_mulByNFieldRange_two_pow_mul_three_pow [IsAlgClosed F]
     rw [mulByNEndoAlgHom_two h2]
     exact isSeparable_mulByTwoFieldRange_of_isAlgClosed h2
 
-/-- **`F(W)` is separable over `[n]∗F(W)` at every `3`-smooth `n ≠ 0`.**
+/-- **`F(W)` is separable over `[n]∗F(W)` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 The hypotheses `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` are those of
 `finrank_mulByNFieldRange_of_smooth`, which is the degree at the same slice of indices, and of
@@ -338,7 +350,8 @@ def mulByNFieldRangeEquivSubfield (n : ℕ)
   map_mul' _ _ := rfl
   map_add' _ _ := rfl
 
-/-- **Separability at every `3`-smooth `n`, in the `Subfield` presentation** — the form a consumer
+/-- **Separability at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, in the
+`Subfield` presentation** — the form a consumer
 that has to write `ValuationSubring ↥L` wants, since `ValuationSubring` needs `L` to be a `Field`
 type and the `Subfield` coercion is one.
 
@@ -355,7 +368,8 @@ theorem isSeparable_mulByNEndoFieldRange_of_smooth [IsAlgClosed F]
 
 /-! ### Non-surjectivity, on strictly weaker hypotheses -/
 
-/-- **`[n]∗` is not surjective at every `3`-smooth `n ∉ {0, 1}`.**  A surjective endomorphism would
+/-- **`[n]∗` is not surjective at every `3`-smooth `n ∉ {0, 1}` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**  A surjective endomorphism would
 have `fieldRange = ⊤`, hence index one, contradicting index `n²`.
 
 The general form of `not_surjective_mulByTwoEndo` (`EllipticCurves.FunctionField.MulByTwoDegree`)
