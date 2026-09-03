@@ -21,6 +21,14 @@ The statement that rules the junk value out was available at `n = 3` and nowhere
 supplies it at **every `3`-smooth `n`**: `E[n]` is a finite free `ZMod n`-module of rank `2`, so
 `galoisDetMod n` is an honest determinant at `n = 2, 3, 4, 6, 8, 9, 12, …`.
 
+⚠️ **`3`-smooth is no longer the ceiling of the development, only of this file.**
+`EllipticCurves.TateModule.DeterminantModGeneral` proves the same four statements at every `n` with
+`(n : F) ≠ 0` — so also at `n = 10, 14, 35, 91, …` — from
+`EllipticCurves.Torsion.StructureGeneral`.  It is a **leaf** and not an edit of this file because
+that import costs **+34 modules** here and +34 again in
+`EllipticCurves.TateModule.MatrixRepMod`; the statements below are the route that pays neither, and
+nothing here is deprecated by it.  See the `n = 5` bullet under *Explicitly out of scope*.
+
 ## Where this comes from, and why it was not done before
 
 `EllipticCurves.TateModule.DeterminantMod`'s `## Explicitly out of scope` section priced it:
@@ -106,9 +114,18 @@ Nothing is deleted here; the de-duplication question is a separate one.
   at `n = 2` and `n = 3` only, and it is
   `galoisDetMod_three_eq_galoisModularCyclotomicChar` in
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
-* **Anything at `n = 5`.**  `nonempty_torsion_addEquiv_zmod_sq_of_smooth` is `3`-smooth, and behind
-  it stand `[5]`-surjectivity and `#E[5]`, i.e. the general multiplication-by-`n` coordinate
-  formula.  `hfac` is not removable by anything in this file.
+* **Anything at `n = 5`** — ⚠️ **out of scope of *this file*, and no longer out of reach.**  This
+  bullet used to end *"i.e. the general multiplication-by-`n` coordinate formula"*, naming the two
+  things behind `nonempty_torsion_addEquiv_zmod_sq_of_smooth` as missing: `[5]`-surjectivity and
+  `#E[5]`.  Both landed.  `nsmul_surjective_of_two_ne_zero` is `[n]`-surjectivity at every `n ≠ 0`,
+  `card_torsion_eq_sq` is `#E[n] = n²` at every `n` with `(n : F) ≠ 0`, and
+  `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` is the structure theorem
+  itself there.  ⚠️ So `hfac` **is** removable, and it is removed — in
+  `EllipticCurves.TateModule.DeterminantModGeneral`, which restates all four statements below with
+  `hfac` replaced by `(n : F) ≠ 0` and compiles the subsumption.  What keeps it out of *this* file
+  is a measured import cost and not a gate: `Torsion.StructureGeneral` is **+34 modules** here
+  (37 → 71) and **+34** again in `EllipticCurves.TateModule.MatrixRepMod`, so the general layer is a
+  leaf and the statements below are kept as the route that pays neither.
 * **A mod-`n` matrix representation** `G →* GL (Fin 2) (ZMod n)` through `basisTorsionOfSmooth`.
   ⚠️ **Spent, and it is the only bullet in this list that was.**  It used to continue *"it is the
   finite-level analogue of `EllipticCurves.TateModule.MatrixRep`, it is basis-dependent, and it

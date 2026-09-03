@@ -315,6 +315,7 @@ import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Determinant
 import EllipticCurves.TateModule.DeterminantGeneral
 import EllipticCurves.TateModule.DeterminantMod
+import EllipticCurves.TateModule.DeterminantModGeneral
 import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.Free
@@ -340,6 +341,7 @@ import EllipticCurves.TateModule.MatrixRepCompat
 import EllipticCurves.TateModule.MatrixRepCompatThree
 import EllipticCurves.TateModule.MatrixRepGeneral
 import EllipticCurves.TateModule.MatrixRepMod
+import EllipticCurves.TateModule.MatrixRepModGeneral
 import EllipticCurves.TateModule.MatrixRepThree
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.OpenKernelGeneral
