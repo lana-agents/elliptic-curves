@@ -480,13 +480,16 @@ The general-`n` form of `comapProjPointTwo_none` (`#670`) with its proof transpo
 would make the right-hand side a nonnegative multiple of a nonnegative order, but the left-hand side
 is `-2`.
 
-⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 14` is here and not
-there, `n = 12` in characteristic `0` is in both, and the converse containment fails because the
-`3`-smooth hypotheses imply `hn` — see `Nat.intCast_ne_zero_of_smooth`
+⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 12` in characteristic `0`
+is in both, the containment holds because the `3`-smooth hypotheses imply `hn`, and the converse
+fails because `n = 14` does not satisfy them — see `Nat.intCast_ne_zero_of_smooth`
 (`EllipticCurves.Torsion.ThreePrimary`) and the `example` at the end of this file, which derive that
-statement from this one rather than claiming they are unrelated.  ⚠️ The
-`_of_smooth` form is nevertheless kept: its proof composes `[2]∗` and `[3]∗` and touches no
-division polynomial, so it is an independent route and not dead weight. -/
+statement from this one rather than claiming they are unrelated.  ⚠️ **The two halves used to be
+welded to the wrong connective here** — *"the converse containment fails because the `3`-smooth
+hypotheses imply `hn`"* — which is the reason the containment **holds**, not the reason its converse
+fails (`#1540`, review of PR #599).  ⚠️ The `_of_smooth` form is nevertheless kept: its proof
+composes `[2]∗` and `[3]∗` and touches no division polynomial, so it is an independent route and not
+dead weight. -/
 theorem comapProjPointN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     comapProjPointN n h (none : ProjPoint W) = none := by
