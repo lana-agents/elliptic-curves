@@ -433,8 +433,9 @@ theorem nsmul_three_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 
 
 /-! ## Tripling a named point over an arbitrary field -/
 
-/-- **A named affine point is three times another point** as soon as `Φ₃ − x₀·Ψ₃²` has a root
-carrying a point of `W` above it — over an **arbitrary field**, with no algebraic closure.
+/-- **A named affine point is three times another point** with `(2 : F) ≠ 0`, as soon as
+`Φ₃ − x₀·Ψ₃²` has a root carrying a point of `W` above it — over an **arbitrary field**, with no
+algebraic closure.
 
 This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root`
 (`EllipticCurves.Torsion.NsmulSurjective`) at `n = 3`, and the `n = 3` companion of

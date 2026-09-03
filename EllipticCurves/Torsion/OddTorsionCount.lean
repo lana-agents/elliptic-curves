@@ -126,7 +126,7 @@ theorem ΨSq_natCast_eq_sq_of_odd {n : ℕ} (hn : Odd n) : W.ΨSq (n : ℤ) = W.
 
 /-! ### A root of `preΨₙ` is not a root of `Ψ₂Sq`, at odd `n` -/
 
-/-- **At an odd index, a root of `preΨₙ` is not a root of `Ψ₂Sq`.**
+/-- **With `(2 : F) ≠ 0`, at an odd index, a root of `preΨₙ` is not a root of `Ψ₂Sq`.**
 
 A common root carries a point `(x, y)` of `W` (`exists_equation`) with `ψ₂(x, y) = 0` — a
 `2`-torsion point — and with `ψₙ(x, y)² = ΨSqₙ(x) = preΨₙ(x)² = 0`.  But `ψ` does not vanish at an
@@ -286,7 +286,8 @@ noncomputable def torsionOddEquiv (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : Odd n) :
 
 /-! ### The count -/
 
-/-- **`#E[n] = 2 · #{roots of preΨₙ} + 1`** at an odd index.
+/-- **`#E[n] = 2 · #{roots of preΨₙ} + 1`** with `(2 : F) ≠ 0`, at an odd index `n` with
+`(n : F) ≠ 0`.
 
 ⚠️ An **equality**, unlike the `≤` of `EllipticCurves.Torsion.XSupport`: no `y`-fibre over the
 support degenerates, by `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`. -/
@@ -357,21 +358,24 @@ section Tower
 
 variable [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
 
-/-- **`#E[pᵏ] = (pᵏ)²` at an odd `p`, from separability of `preΨ p` alone.** -/
+/-- **`#E[pᵏ] = (pᵏ)²` with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0`, from separability of
+`preΨ p`.** -/
 theorem card_torsion_pow_of_separable (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : Odd p)
     (hchar : (p : F) ≠ 0) (hsep : (W.preΨ (p : ℤ)).Separable) (k : ℕ) :
     Nat.card (W.torsion (p ^ k)) = (p ^ k) ^ 2 :=
   card_torsion_pow_of_card h2 (by rintro rfl; simp at hp)
     ((card_torsion_eq_sq_iff_separable_preΨ h2 hp hchar).mpr hsep) k
 
-/-- **`E[pᵏ]` is finite**, at an odd `p`, from separability of `preΨ p` alone. -/
+/-- **`E[pᵏ]` is finite** with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0`, from separability
+of `preΨ p`. -/
 theorem finite_torsion_pow_of_separable (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : Odd p)
     (hchar : (p : F) ≠ 0) (hsep : (W.preΨ (p : ℤ)).Separable) (k : ℕ) :
     Finite (W.torsion (p ^ k)) :=
   finite_torsion_pow_of_card h2 (by rintro rfl; simp at hp)
     ((card_torsion_eq_sq_iff_separable_preΨ h2 hp hchar).mpr hsep) k
 
-/-- **The structure theorem for `E[pᵏ]` at an odd prime `p`, owed one separability statement.**
+/-- **The structure theorem for `E[pᵏ]` with `(2 : F) ≠ 0`, at an odd prime `p` with
+`(p : F) ≠ 0`, owed one separability statement.**
 
 ⚠️ This is the signature the whole file exists to produce.  Compare
 `WeierstrassCurve.Affine.nonempty_torsionPow_addEquiv_of_card`, whose remaining hypothesis is
