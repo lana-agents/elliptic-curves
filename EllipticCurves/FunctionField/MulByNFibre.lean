@@ -84,12 +84,14 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
 
 ### The general layer — `#1540` item 2 and its six consumers
 
-⚠️ Every one of these reaches every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, and **no
-`_of_smooth` statement is deleted**: each is restated verbatim as an `example` and proved from its
-general companion, so the containment is compiled rather than claimed.
+⚠️ **No `_of_smooth` statement is deleted**: each is restated verbatim as an `example` and proved
+from its general companion, so the containment is compiled rather than claimed.
 
 * `…mulByNEndo_algebraMap`, `…mulByNCoordHom_injective`, `…mulByNCoordHom_XClass`,
-  `…mulByNCoordHom_YClass` — the general-`n` forms of the `mulByTwoCoordHom` basics;
+  `…mulByNCoordHom_YClass` — the general-`n` forms of the `mulByTwoCoordHom` basics.  ⚠️ These four
+  take **neither** `(2 : F) ≠ 0` **nor** `((n : ℤ) : F) ≠ 0`: they hold at every `n`, on the
+  transcendence hypothesis alone.  ⚠️ **Every one of the thirteen below does take both**, and the
+  bullets give the conclusions and not the hypotheses;
 * `…ord_mulByNCoordHom_XClass_pos` and `…ord_mulByNCoordHom_YClass_pos` — `x ∘ [n] − x(n • P)` and
   `y ∘ [n] − y(n • P)` vanish at an affine `P` that is not `n`-torsion.  ⚠️ The second is the step
   neither `#774` nor `#1540` priced, and it is the one that needs `ωₙ`;
@@ -112,16 +114,22 @@ general companion, so the containment is compiled rather than claimed.
 * ⚠️ **`n = char F`, and nothing else on the index axis.**  ⚠️ **This bullet used to say `n = 5`
   was reached *"for the BOUND only"*, and to state a gate that no longer exists**: *"the real gate
   is `comapProjPointN_two_pow_mul_three_pow_projPointOfPoint` (`:157`), a composition ladder …
-  a general-`n` proof needs the three-way case split of `comapProjPointTwo_projPointOfPoint` run
-  against `Φₙ/ΨSqₙ` at the level of places.  That is new mathematics, it is `#1540` item 2."*  That
-  diagnosis was exact and the work is done: every statement in this file now has an `_of_ne_zero`
-  companion, `n = 5` included, and the section below records what the measurement got right and the
-  two inputs it did not name.
-  ⚠️ **What remains excluded is an `n` divisible by the characteristic**, and it is excluded
-  because the statements are **false** there, not because the proofs are weak: at `n = char F > 2`
-  the ramification index at infinity alone is `n` or `n²` rather than `1`
-  (`ramificationIdxN_none_of_ne_zero`, `EllipticCurves.FunctionField.MulByNPlaceComposition`).  No
-  better proof removes `((n : ℤ) : F) ≠ 0`.
+  a general-`n` proof needs the three-way case split of `comapProjPointTwo_projPointOfPoint` …
+  run against `Φₙ/ΨSqₙ` at the level of places.  That is new mathematics, it is `#1540` item 2."*
+  That diagnosis was exact and the work is done: every statement in this file now has an
+  `_of_ne_zero` companion, `n = 5` included, and the section below records what the measurement got
+  right and the two inputs it did not name.
+  ⚠️ **What remains excluded is an `n` divisible by the characteristic**, and the reason differs
+  by declaration — ⚠️ **it is one reason for five of the seven and a different one for the other
+  two, and saying it once for all seven overstates what is known.**
+  For the ramification and fibre statements it is excluded because they are **false** there: at
+  `n = char F > 2` the ramification index at infinity alone is `n` or `n²` rather than `1`
+  (`ramificationIdxN_none_of_ne_zero`, `EllipticCurves.FunctionField.MulByNPlaceComposition`), and
+  `O` is a rational point, so `ramificationIdxN_eq_one_…_of_ne_zero` fails; `#E[p] ≤ p < p²` kills
+  the fibre count with it.  No better proof removes `((n : ℤ) : F) ≠ 0` from those.
+  ⚠️ **For the contraction and `comapProjPointN_add_torsion_of_ne_zero` that argument does not
+  apply**, and nothing in this tree says either is false at `n = char F`: see the sharpness
+  paragraph on `comapProjPointN_projPointOfPoint_of_ne_zero` below.
   ⚠️ For the record, since four revisions of this bullet blamed them: **none** of the coordinate
   formula (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`),
   `[n]`-surjectivity on `E(F̄)` (`nsmul_surjective_of_two_ne_zero`,
@@ -565,10 +573,21 @@ file was written around.  The three cases are `comapProjPointN_none_of_ne_zero`
 `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero` (`P` affine `n`-torsion) and
 `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero` (`P` affine, not `n`-torsion).
 
-⚠️ `((n : ℤ) : F) ≠ 0` is **not** removable and is not an artefact of the route: at `n = char F`
-the pole order at infinity is `-2n` or `-2n²` rather than `-2` and `e_∞ = 1` is false, which
+⚠️ `((n : ℤ) : F) ≠ 0` is what **this route** needs, and removing it is **open, not closed**.
+Every branch's proof consumes it — `natDegree_ΨSq` needs the leading coefficient `n` invertible
+(`ord_mulByNEndo_genX_nonneg`, `ord_mulByNEndo_genX_neg`), `mulByNEndo_genX_eq_ΦDivΨSq` and
+`mulByNEndo_genY_eq_omegaY` take it, and the `P = O` branch inherits it from the pole count — and
+the *statement* asserts nothing about any order.
+⚠️ **This paragraph used to read *"`((n : ℤ) : F) ≠ 0` is **not** removable and is not an artefact
+of the route: at `n = char F` the pole order at infinity is `-2n` or `-2n²` rather than `-2` and
+`e_∞ = 1` is false"*.  Both facts are true and **neither is about this statement.**  What
 `EllipticCurves.FunctionField.MulByNPlaceComposition` records against
-`ramificationIdxN_none_of_ne_zero`.
+`ramificationIdxN_none_of_ne_zero` is that `e_∞ = 1` fails; `comapProjPointN_none_of_ne_zero` — the
+branch consumed here — carries no falsity claim at `n = char F` and never has.  ⚠️ Indeed
+`placeOf_comapProjPointN` (`EllipticCurves.FunctionField.MulByNPlacePullback`) makes the contracted
+place the one *lying under*, `{f : ord_P ([n]∗ f) > 0}`, and `([n]∗ f)` vanishes at `P` exactly when
+`f` vanishes at `[n] P` — **separability plays no role in that**.  So the sharpness argument that
+does bound `ramificationIdxN_eq_one_…_of_ne_zero` below points the other way here.
 
 ⚠️ `comapProjPointN_projPointOfPoint_of_smooth` above is **not** deleted.  It is an independent
 route — the composition ladder, which evaluates no division polynomial — and the `example` below
@@ -707,7 +726,9 @@ done** — `comapProjPointN_projPointOfPoint_of_ne_zero` above, with the case an
 
 * **Right, and load-bearing**: the ladder itself is not liftable at any hypotheses, so the general
   proof had to be a *different proof* rather than a weakening of this one.  It is:
-  `comapProjPointN_two_pow_mul_three_pow_projPointOfPoint` is consumed by nothing above.
+  `comapProjPointN_two_pow_mul_three_pow_projPointOfPoint` is consumed by nothing in the general
+  layer above — its only consumer anywhere is `comapProjPointN_projPointOfPoint_of_smooth`, whose
+  one-line body is exactly that call.
 * **Right**: none of `#293`'s count, `#1213`'s degree, `#268` or `hprin` (`#962`) is a gate.  The
   general proof consumes the count only in the *fibre* statements, exactly where the `3`-smooth
   ones consume `card_torsion_eq_sq_of_smooth`, and the contraction itself consumes none of the four.
@@ -751,9 +772,13 @@ different arguments, and only the second needed `ωₙ`.
 `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is what forces `char F ∤ n` — so the general form of that one
 wants a hypothesis on `n` in the **statement** and not merely a better proof.
 `ramificationIdxN_none_of_ne_zero` does carry `((n : ℤ) : F) ≠ 0`, and it is sharp: at
-`n = char F > 2` the index is `n` or `n²`, not `1`.  ⚠️ **The same sharpness bounds everything in
-this section**: `((n : ℤ) : F) ≠ 0` is not an artefact of the route taken here and cannot be
-dropped by a better proof.
+`n = char F > 2` the index is `n` or `n²`, not `1`.  ⚠️ **That sharpness bounds the ramification
+and fibre statements of this file and no more**: `ramificationIdxN_eq_one_…_of_ne_zero` is false at
+`n = char F` because `O` is a rational point, and the fibre count goes with it because
+`#E[p] ≤ p < p²`.  ⚠️ **This sentence used to say *"The same sharpness bounds everything in this
+section"*, and it does not**: for the contraction and `comapProjPointN_add_torsion_of_ne_zero`
+`((n : ℤ) : F) ≠ 0` is the route's, and dropping it is open — see the sharpness paragraph on
+`comapProjPointN_projPointOfPoint_of_ne_zero`.
 -/
 
 omit [DecidableEq F] in
