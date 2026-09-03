@@ -119,6 +119,38 @@ are shipped here.  ⚠️ This is a genuine addition, not a mirror: at `n = 2` a
 corresponding `Subfield` statements are still absent from the tree, and closing that gap is a
 separate (small) `#699`-style question, not this file's business.
 
+## ⚠️ The transcendence parameter, and why no reach clause below names it
+
+Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
+`comapProjPointN n h`, or anything built on them — takes
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
+it.  That is the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
+*does* name adds no reach — and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the `_of_ne_zero` clauses' own hypotheses, the two cast forms being
+  interderivable by `Int.cast_natCast`;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
+
+⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
+file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
+the exemption but the defect class `#1137` is named after.
+
+⚠️ **The general-`n` half of that sentence is a restriction, not filler.**  Several fixed-index
+statements below are about that same layer and take no `h` at all: they **discharge** it inline
+from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
+exhibited in this file rather than only asserted about it.
+
+⚠️ **And the `[n]∗` qualification bites here in a way it does not in the three sibling files
+carrying this same section.**  `fixedFieldN`, `mem_fixedFieldN_iff`, `finrank_fixedFieldN` and
+`finrank_fixedFieldN_of_ne_zero` are general-`n` declarations about the *translation* action of
+`E[n]` on `F(W)` rather than about `[n]∗`, and they take **no** `h` at any index.  Their reach
+clauses are complete hypothesis lists with nothing elided from them, and the exemption is not in
+play there.  Those four are the only general-`n` declarations in these four files that take no `h`.
+
 ## Main results
 
 Every public declaration of this file is listed, and all are in namespace
@@ -135,7 +167,7 @@ Every public declaration of this file is listed, and all are in namespace
   in the `Subfield` presentation;
 * `finrank_fixedFieldN_of_ne_zero`, `fixedFieldN_eq_mulByNFieldRange_of_ne_zero` and
   `fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero` — **Artin and the sandwich at every `n`
-  with `(n : F) ≠ 0`**, with no `(3 : F) ≠ 0` and no smoothness;
+  with `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, with no `(3 : F) ≠ 0` and no smoothness;
 * `normal_mulByNFieldRange_of_ne_zero`, `isSeparable_mulByNFieldRange_of_ne_zero` and
   `isGalois_mulByNFieldRange_of_ne_zero` — **the general Galois package**, and
   `normal_mulByNEndoFieldRange_of_ne_zero`, `isSeparable_mulByNEndoFieldRange_of_ne_zero`,
@@ -256,7 +288,8 @@ theorem finrank_fixedFieldN [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
 /-! ### The sandwich -/
 
 open Classical in
-/-- **`Fixed(E[n]) = [n]∗F(W)` at every `3`-smooth `n ≠ 0`.**
+/-- **`Fixed(E[n]) = [n]∗F(W)` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 Both outer degrees are `n²` — `finrank_fixedFieldN` by Artin, `finrank_mulByNFieldRange_of_smooth`
 by `#1213` — and `[n]∗F(W) ⊆ Fixed(E[n])` by `TranslationActionN`, so the middle inclusion has index
@@ -323,9 +356,9 @@ theorem normal_mulByNFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (
   rw [fixedFieldN_eq_mulByNFieldRange h2 h3 hn hfac]
   infer_instance
 
-/-- **`F(W) / [n]∗F(W)` is Galois** at every `3`-smooth `n ≠ 0`.  `IsGalois` is separable plus
-normal: the separable half is `#1219`'s `isSeparable_mulByNFieldRange_of_smooth`, at the same
-hypotheses, and the normal half is above. -/
+/-- **`F(W) / [n]∗F(W)` is Galois** at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.  `IsGalois` is separable plus normal: the separable half is `#1219`'s
+`isSeparable_mulByNFieldRange_of_smooth`, at the same hypotheses, and the normal half is above. -/
 theorem isGalois_mulByNFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
@@ -385,8 +418,8 @@ repaired here — see `isGalois_mulByNFieldRange_two_of_ne_zero`.
 characteristic. -/
 
 open Classical in
-/-- **Artin's theorem for the translation action at every `n` with `(n : F) ≠ 0`**:
-`[F(W) : Fixed(E[n])] = |E[n]| = n²`.
+/-- **Artin's theorem for the translation action at every `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`**: `[F(W) : Fixed(E[n])] = |E[n]| = n²`.
 
 `finrank_fixedFieldN` with `finite_torsionNMul_of_ne_zero` and `card_torsionNMul_of_ne_zero`
 (`EllipticCurves.FunctionField.TranslationActionN`) in place of their `3`-smooth forms.  The
@@ -403,8 +436,8 @@ theorem finrank_fixedFieldN_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n :
   exact h
 
 open Classical in
-/-- **`Fixed(E[n]) = [n]∗F(W)` at every `n` with `(n : F) ≠ 0`** — the sandwich, with no
-`3`-smoothness on either side.
+/-- **`Fixed(E[n]) = [n]∗F(W)` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`** — the sandwich,
+with no `3`-smoothness on either side.
 
 ⚠️ The transcendence proof `h` is a *parameter of the statement*, because the subfield whose degree
 is measured depends on it, while `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` **fixes** its own
@@ -426,8 +459,8 @@ theorem fixedFieldN_eq_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F)
   exact mulByNEndo_mem_fixedPoints n h f
 
 open Classical in
-/-- The `Subfield`-level sandwich at every `n` with `(n : F) ≠ 0`; `SetLike.ext` off the headline,
-exactly as in the `3`-smooth case. -/
+/-- The `Subfield`-level sandwich at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`; `SetLike.ext`
+off the headline, exactly as in the `3`-smooth case. -/
 theorem fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hn : (n : F) ≠ 0)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
@@ -440,8 +473,8 @@ theorem fixedPoints_subfield_eq_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] 
   exact hg
 
 open Classical in
-/-- **`F(W)` is normal over `[n]∗F(W)` at every `n` with `(n : F) ≠ 0`** — over an algebraically
-closed base field, with **no** hypothesis on `(3 : F)` and no `CharZero`.
+/-- **`F(W)` is normal over `[n]∗F(W)` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`** — over
+an algebraically closed base field, with **no** hypothesis on `(3 : F)` and no `CharZero`.
 
 `FixedPoints.normal` against the general sandwich. -/
 theorem normal_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
@@ -454,7 +487,7 @@ theorem normal_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) 
   infer_instance
 
 open Classical in
-/-- **`F(W)` is separable over `[n]∗F(W)` at every `n` with `(n : F) ≠ 0`.**
+/-- **`F(W)` is separable over `[n]∗F(W)` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 ⚠️ This is the one place where the general package is not merely the `3`-smooth proof with a
 substituted input, and it is worth saying why.  `EllipticCurves.FunctionField.MulByNSeparable`
@@ -479,8 +512,8 @@ theorem isSeparable_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) �
   rw [fixedFieldN_eq_mulByNFieldRange_of_ne_zero h2 hn]
   infer_instance
 
-/-- **`F(W) / [n]∗F(W)` is Galois at every `n` with `(n : F) ≠ 0`.**  Both halves now come from the
-same fixed field. -/
+/-- **`F(W) / [n]∗F(W)` is Galois at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**  Both halves
+now come from the same fixed field. -/
 theorem isGalois_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     IsGalois ↥(mulByNEndoAlgHom (W := W) n h).fieldRange W.FunctionField :=
@@ -488,8 +521,8 @@ theorem isGalois_mulByNFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0
   haveI := normal_mulByNFieldRange_of_ne_zero (W := W) h2 hn h
   ⟨⟩
 
-/-- **Normality in the `Subfield` presentation** at every `n` with `(n : F) ≠ 0`, carried across
-`mulByNFieldRangeEquivSubfield`. -/
+/-- **Normality in the `Subfield` presentation** at every `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`, carried across `mulByNFieldRangeEquivSubfield`. -/
 theorem normal_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     Normal ↥(mulByNEndo (W := W) n h).fieldRange W.FunctionField := by
@@ -497,8 +530,8 @@ theorem normal_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠
   exact Normal.of_equiv_equiv (f := mulByNFieldRangeEquivSubfield n h)
     (g := RingEquiv.refl W.FunctionField) (by ext a; rfl)
 
-/-- **Separability in the `Subfield` presentation** at every `n` with `(n : F) ≠ 0` — the form a
-consumer that has to write `ValuationSubring ↥L` wants, and the entry
+/-- **Separability in the `Subfield` presentation** at every `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0` — the form a consumer that has to write `ValuationSubring ↥L` wants, and the entry
 `IsIntegralClosure.finite` asks for by name. -/
 theorem isSeparable_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
@@ -508,7 +541,7 @@ theorem isSeparable_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F
     (RingEquiv.refl W.FunctionField) (by ext a; rfl)
 
 /-- **`F(W) / [n]∗F(W)` is Galois, in the `Subfield` presentation**, at every `n` with
-`(n : F) ≠ 0`. -/
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`. -/
 theorem isGalois_mulByNEndoFieldRange_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : (n : F) ≠ 0) (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     IsGalois ↥(mulByNEndo (W := W) n h).fieldRange W.FunctionField :=

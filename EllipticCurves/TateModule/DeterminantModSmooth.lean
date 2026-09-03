@@ -18,12 +18,13 @@ hypothesis, and says of it, correctly, that it is
 > on a module that is not free and finite.
 
 The statement that rules the junk value out was available at `n = 3` and nowhere else.  This file
-supplies it at **every `3`-smooth `n`**: `E[n]` is a finite free `ZMod n`-module of rank `2`, so
-`galoisDetMod n` is an honest determinant at `n = 2, 3, 4, 6, 8, 9, 12, …`.
+supplies it at **every `3`-smooth `n > 1` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**: `E[n]` is a finite
+free `ZMod n`-module of rank `2`, so `galoisDetMod n` is an honest determinant at
+`n = 2, 3, 4, 6, 8, 9, 12, …`.
 
 ⚠️ **`3`-smooth is no longer the ceiling of the development, only of this file.**
-`EllipticCurves.TateModule.DeterminantModGeneral` proves the same four statements at every `n` with
-`(n : F) ≠ 0` — so also at `n = 10, 14, 35, 91, …` — from
+`EllipticCurves.TateModule.DeterminantModGeneral` proves the same four statements at every `n > 1`
+with `(2 : F) ≠ 0` and `(n : F) ≠ 0` — so also at `n = 10, 14, 35, 91, …` — from
 `EllipticCurves.Torsion.StructureGeneral`.  It is a **leaf** and not an edit of this file because
 that import costs **+34 modules** here and +34 again in
 `EllipticCurves.TateModule.MatrixRepMod`; the statements below are the route that pays neither, and
@@ -158,7 +159,8 @@ section Smooth
 variable {n : ℕ} [NeZero n]
 
 open Classical in
-/-- **`E[n] ≅ (ℤ/nℤ)²` as `ZMod n`-modules, for every `3`-smooth `n`.**
+/-- **`E[n] ≅ (ℤ/nℤ)²` as `ZMod n`-modules, for every `3`-smooth `n` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 The merged structure theorem `nonempty_torsion_addEquiv_zmod_sq_of_smooth` produces an `≃+`, and
 `AddEquiv.toZModLinearEquiv` (`EllipticCurves.TateModule.DeterminantMod`) upgrades it for free: the
@@ -176,7 +178,8 @@ theorem nonempty_torsionLinearEquiv_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F)
 
 omit [IsAlgClosed F] in
 open Classical in
-/-- **`E[n]` is a finite `ZMod n`-module, for every `3`-smooth `n`.**
+/-- **`E[n]` is a finite `ZMod n`-module, for every `3`-smooth `n` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 ⚠️ The half of `LinearEquiv.det`'s hypothesis that needs no algebraic closure, and it is taken from
 `finite_torsion_of_smooth` for exactly that reason rather than from
@@ -194,7 +197,8 @@ theorem finite_torsion_zmod_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   Module.Finite.of_finite
 
 open Classical in
-/-- **`E[n]` is a free `ZMod n`-module, for every `3`-smooth `n`.**
+/-- **`E[n]` is a free `ZMod n`-module, for every `3`-smooth `n` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 ⚠️ **This is a theorem and not a certificate, and the difference from `n = 3` is the point.**
 `ZMod 2` and `ZMod 3` are fields, so at those two indices every module is free and
@@ -210,7 +214,8 @@ theorem free_torsion_zmod_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   exact Module.Free.of_equiv e.symm
 
 open Classical in
-/-- **`E[n]` has rank `2` over `ZMod n`, for every `3`-smooth `n > 1`.**
+/-- **`E[n]` has rank `2` over `ZMod n`, for every `3`-smooth `n > 1` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`.**
 
 The discriminating statement of the file: `Module.finrank` is `1` over a trivial ring and `0` on a
 module that is not free and finite, so this is simultaneously the rank computation *and* the
@@ -234,7 +239,8 @@ theorem finrank_torsion_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (hn 
   rw [e.finrank_eq, Module.finrank_prod, Module.finrank_self]
 
 open Classical in
-/-- **A `ZMod n`-basis of `E[n]` indexed by `Fin 2`, for every `3`-smooth `n > 1`.**
+/-- **A `ZMod n`-basis of `E[n]` indexed by `Fin 2`, for every `3`-smooth `n > 1` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.**
 
 `Module.finBasisOfFinrankEq` against `finrank_torsion_of_smooth`, the general-`n` mirror of
 `basisTorsionThree`.  ⚠️ Not canonical — it is the interface a coordinate computation needs, and any
