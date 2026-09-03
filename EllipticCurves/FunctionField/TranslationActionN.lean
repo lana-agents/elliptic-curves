@@ -294,10 +294,11 @@ theorem card_torsionNMul_of_ne_zero [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : �
   (Nat.card_congr Multiplicative.toAdd).trans (card_torsion_eq_sq h2 hn)
 
 open Classical in
-/-- `E[n]` is finite over an algebraically closed field at every `n` with `(n : F) ≠ 0`, since it
-has exactly `n²` elements.  The general-`n` form of `finite_torsionNMul`, and the same discipline
-applies: fire it as `haveI := finite_torsionNMul_of_ne_zero (W := W) h2 hn` and let
-`Fintype.ofFinite` manufacture the `Fintype` inside the proof, never in a statement.
+/-- `E[n]` is finite over an algebraically closed field at every `n` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`, since it has exactly `n²` elements.  The general-`n` form of `finite_torsionNMul`,
+and the same discipline applies: fire it as
+`haveI := finite_torsionNMul_of_ne_zero (W := W) h2 hn` and let `Fintype.ofFinite` manufacture the
+`Fintype` inside the proof, never in a statement.
 
 ⚠️ `n ≠ 0` is not a separate hypothesis — it follows from `(n : F) ≠ 0`, since `((0 : ℕ) : F) = 0`.
 That is the only place the cast is used. -/

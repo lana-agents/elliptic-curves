@@ -57,10 +57,20 @@ dominance argument of `isAlgebraic_genX_of_two`
 `Φₙ` has degree `n²` with leading coefficient `1` while `natDegree ΨSqₙ ≤ n² − 1`, so
 `Φₙ − t·ΨSqₙ` is a nonzero polynomial annihilating `genX` over the relative algebraic closure.
 
-⚠️ The two readings are **incomparable, not nested**: this one asks `(n : F) ≠ 0` and no closure,
-the merged one asks a closure and only `n ≠ 0`.  Over an algebraically closed field of
-characteristic `p` with `p ∣ n`, the merged one applies and this one does not.  Neither supersedes
-the other and the merged statement is untouched.
+⚠️ The two readings are **incomparable, not nested**: both ask `(2 : F) ≠ 0`, and beyond that this
+one asks `(n : F) ≠ 0` and no closure where the merged one asks a closure and only `n ≠ 0`.  Over an
+algebraically closed field of characteristic `p` with `p ∣ n`, the merged one applies and this one
+does not.  Neither supersedes the other and the merged statement is untouched.
+
+⚠️ **And one clause below does not name that transcendence**, under `README.md`'s derivability
+exemption: `finrank_mulByNFieldRange_eq_sq` takes
+`hT : Transcendental F (n • 𝒫).xCoord` as an ordinary argument, because the subfield whose degree is
+measured depends on it, and `hT` follows from the two conditions its clause already names, by
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` above.  That is the exemption's own
+worked example, and `finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent` below carries the
+derivation out.  ⚠️ `(2 : F) ≠ 0` fails the same test — it is derivable from nothing any clause here
+names, not from `(n : F) ≠ 0` and not from the coprimality — so it stays named, and every headline
+below that makes a hypothesis-list claim carries it.
 
 ## ⚠️ What this file does *not* do
 
@@ -157,8 +167,8 @@ theorem xCoord_nsmul_genericPoint (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ
 /-- The relative algebraic closure of `F` in the function field `F(W)`. -/
 local notation "K" => algebraicClosure F W.FunctionField
 
-/-- **`x(n • 𝒫)` is transcendental over `F`**, at every index with `(n : F) ≠ 0` — with **no**
-algebraic closure of `F`.
+/-- **`x(n • 𝒫)` is transcendental over `F`**, at every index with `(n : F) ≠ 0`, over a field of
+characteristic `≠ 2` — with **no** algebraic closure of `F`.
 
 The dominance argument of `isAlgebraic_genX_of_two`
 (`EllipticCurves.FunctionField.MulByTwoEndomorphism`) at general `n`: if `u := x(n • 𝒫)` were
@@ -171,9 +181,10 @@ contradicts `transcendental_genX`.
 `0` and the argument has nothing to say.
 
 ⚠️ **This does not supersede `transcendental_xCoord_nsmul_of_isAlgClosed`**
-(`EllipticCurves.FunctionField.MulByNTranscendence`), and is not superseded by it: that one asks
-`[IsAlgClosed F]` and `n ≠ 0`, this one asks `(n : F) ≠ 0` and no closure.  Over an algebraically
-closed field of characteristic `p` with `p ∣ n` only the merged one applies. -/
+(`EllipticCurves.FunctionField.MulByNTranscendence`), and is not superseded by it: both ask
+`(2 : F) ≠ 0`, and beyond that one asks `[IsAlgClosed F]` and `n ≠ 0` where this one asks
+`(n : F) ≠ 0` and no closure.  Over an algebraically closed field of characteristic `p` with
+`p ∣ n` only the merged one applies. -/
 theorem transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) : Transcendental F (n • genericPoint (W := W)).xCoord := by
   intro hu
@@ -215,7 +226,8 @@ theorem transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (h2 : (2 : F
 
 open Classical in
 /-- **Gate 1, discharged**: the rational function `nMulRatFunc W n` produced by the group law *is*
-the written-down fraction `Φₙ/ΨSqₙ`, at every index with `(n : F) ≠ 0`.
+the written-down fraction `Φₙ/ΨSqₙ`, at every index with `(n : F) ≠ 0`, over a field of
+characteristic `≠ 2`.
 
 `EllipticCurves.FunctionField.MulByNXCoordRatFunc` states the two merged instances of this,
 `nMulRatFunc_two` and `nMulRatFunc_three`, and records that no other index was available.  The
@@ -228,8 +240,8 @@ theorem nMulRatFunc_eq_ΦDivΨSq (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ)
     algebraMap_ratFunc_algebraMap, algebraMap_ratFunc_algebraMap, aeval_genX_eq_algebraMap,
     aeval_genX_eq_algebraMap]
 
-/-- **`[F(W) : [n]∗F(W)] = n²`**, at every index with `(n : F) ≠ 0`, given the coprimality of `Φₙ`
-and `ΨSqₙ`.
+/-- **`[F(W) : [n]∗F(W)] = n²`**, at every index with `(n : F) ≠ 0`, over a field of characteristic
+`≠ 2`, given the coprimality of `Φₙ` and `ΨSqₙ`.
 
 ⚠️ The transcendence argument of `mulByNEndoAlgHom` is a *parameter of the statement*, because the
 subfield whose degree is measured depends on it.  Any proof of it gives the same subfield; the

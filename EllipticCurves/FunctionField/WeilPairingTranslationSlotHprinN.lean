@@ -536,8 +536,8 @@ theorem exists_weilPairingMu_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F)
 
 open Classical in
 /-- **Additivity of the `μ_n`-valued pairing in the translation slot at every `n` with
-`((n : ℤ) : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same
-substitution. -/
+`((n : ℤ) : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** — the `weilPairingMu`
+companion of the theorem above, by the same substitution. -/
 theorem exists_weilPairingMu_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
     {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
@@ -586,8 +586,9 @@ theorem exists_weilPairingTorsionMuHom_of_smooth_of_hprin (h2 : (2 : F) ≠ 0) (
   exists_weilPairingTorsionMuHom_n_of_hprin _ hS hmS hprin
 
 open Classical in
-/-- **The `μ_n`-valued homomorphism out of `E[n]` at every `n` with `((n : ℤ) : F) ≠ 0`** — the
-bundled form of the two theorems above, by the same substitution and nothing else. -/
+/-- **The `μ_n`-valued homomorphism out of `E[n]` at every `n` with `((n : ℤ) : F) ≠ 0`, with
+`hprin` the only hypothesis beyond the setting** — the bundled form of the two theorems above, by
+the same substitution and nothing else. -/
 theorem exists_weilPairingTorsionMuHom_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) {xS yS : F}
     (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion n)
