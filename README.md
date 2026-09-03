@@ -124,6 +124,15 @@ module's `variable` block, and are visible in the signature doc-gen renders besi
 (*"with no `[IsAlgClosed F]`"*) is making a complete-list claim about instances, and then the
 same rule applies to those: name all of them or none.
 
+It also binds **explicit hypotheses that constrain the statement**, and not every explicit
+argument. The discriminator is whether the hypothesis appears in the conclusion: a proof argument
+that occurs inside the statement's own terms — `h : Transcendental F (n • 𝒫).xCoord` in
+`comapProjPointN n h p = …`, say — is *data the statement is about*, in the same way an instance
+is, and a reach clause need not list it. A hypothesis that appears **only** to the left of the
+colon is a side condition, and the rule binds it. Without this boundary, (a) would demand the
+transcendence proof in every `[n]∗` headline in `FunctionField/`, where it is a parameter of the
+object rather than a restriction on which `n` are reached.
+
 It applies **per block, not per phrase** — a `## Main statements` list, or a `generality` table
 column, is one place. A fix that repairs one row and leaves its neighbour partial makes the
 block worse rather than better, because the reader now has two rows in different registers and

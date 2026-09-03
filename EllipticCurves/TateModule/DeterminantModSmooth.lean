@@ -22,8 +22,8 @@ supplies it at **every `3`-smooth `n`**: `E[n]` is a finite free `ZMod n`-module
 `galoisDetMod n` is an honest determinant at `n = 2, 3, 4, 6, 8, 9, 12, …`.
 
 ⚠️ **`3`-smooth is no longer the ceiling of the development, only of this file.**
-`EllipticCurves.TateModule.DeterminantModGeneral` proves the same four statements at every `n` with
-`(n : F) ≠ 0` — so also at `n = 10, 14, 35, 91, …` — from
+`EllipticCurves.TateModule.DeterminantModGeneral` proves the same four statements at every `n > 1`
+with `(2 : F) ≠ 0` and `(n : F) ≠ 0` — so also at `n = 10, 14, 35, 91, …` — from
 `EllipticCurves.Torsion.StructureGeneral`.  It is a **leaf** and not an edit of this file because
 that import costs **+34 modules** here and +34 again in
 `EllipticCurves.TateModule.MatrixRepMod`; the statements below are the route that pays neither, and
