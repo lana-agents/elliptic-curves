@@ -101,12 +101,15 @@ and the evidence is internal. The same argument that yields `IsOpen` at a finite
 could have been strengthened to `IsOpen` by the identical proof; it cannot.
 
 ⚠️ **The general layer adds concrete certificates on top of that internal argument, and they answer
-two different risks.** `§ Non-vacuity for the general layer` compiles the hypotheses of
+three different risks.** `§ Non-vacuity for the general layer` compiles the hypotheses of
 `isOpen_ker_galoisRepMod_of_natCast_ne_zero` at `n = 10` and `n = 91` over `F = ℚ` — indices no
-other statement in this file reaches, over a field that is not algebraically closed — and then
-again at `n = 10` over `AlgClosedQ`, where the Galois group is **not** trivial. The first pair is
-labelled *hypothesis-inhabitation* rather than non-vacuity, precisely because `ℚ ≃ₐ[ℚ] ℚ` is
-trivial and openness is free there; neither certificate answers the other's risk.
+statement in this file carrying `[IsAlgClosed F]` or `[(W'⁄F).IsElliptic]` reaches, and which
+nothing in this file other than the two `_of_natCast_ne_zero` theorems reaches without a `Finite`
+hypothesis supplied by hand, over a field that is not algebraically closed — and then again at
+`n = 10` over `AlgClosedQ`, where the Galois group is **not** trivial, and at `n = 91` on a curve
+whose `IsElliptic` instance is provably unavailable. The `ℚ` pair is labelled
+*hypothesis-inhabitation* rather than non-vacuity, precisely because `ℚ ≃ₐ[ℚ] ℚ` is trivial and
+openness is free there; no certificate answers another's risk.
 
 The concrete input is `card_torsion_two_pow : Nat.card (E[2^k]) = 4^k`, so the index set of the
 intersection in `ker_galoisRepMod_eq_iInter_stabilizer` really does grow with `k` — the level
@@ -263,8 +266,13 @@ hn : ↑n ≠ 0
 ⚠️ `h2` and `hn` both **survive** and the residual is a **goal**, not a type mismatch, so what the
 deletion removes is a construction rather than a hypothesis. ⚠️ Compare the same residual in
 `isOpen_ker_galoisRepMod_smooth`'s docstring: there the context carries
-`inst✝ : WeierstrassCurve.IsElliptic W'⁄F` and here it does not. That absence is the second half of
-the widening and it is visible in the goal state. -/
+`inst✝ : WeierstrassCurve.IsElliptic W'⁄F` and here it does not.
+
+⚠️ **That absence is evidence and not proof, and the difference has bitten this front before.** A
+goal state shows the instance is not in the context; it does not show that none exists. The
+`cuspQ` certificate in `§ Non-vacuity for the general layer` is the stronger form — it applies both
+theorems to a curve on which `IsElliptic` is *provably false* — and it is where a reader should
+look for the second half of the widening. -/
 theorem isOpen_ker_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
     IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
   isOpen_ker_galoisRepMod _ (finite_torsion_of_intCast_ne_zero h2 hn)
@@ -288,37 +296,23 @@ theorem isLocallyConstant_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {
 `(2 : K) ≠ 0` and `(3 : K) ≠ 0` force `(2^a · 3^b : K) ≠ 0`, so the hypothesis pair of the
 `_smooth` statements below implies the hypothesis of the two statements above.
 
-⚠️ **Proved rather than asserted.** The containment reads like a restatement and is not one: it is
-a short induction on `n`, splitting off `n.minFac` exactly as
-`EllipticCurves.Torsion.Multiplicative`'s `finite_and_card_torsion_le_sq_of_smooth` does, and the
-`(n : K) ≠ 0` form has to be built from the factorisation rather than read off it.
+⚠️ **Proved rather than asserted.** The containment reads like a restatement and is not one, but
+the proof is short: `Nat.exists_eq_two_pow_mul_three_pow`
+(`EllipticCurves.Torsion.ThreePrimary`, which this file imports directly) turns the hypothesis into
+`n = 2 ^ a * 3 ^ b`, and one `push_cast` then reads `(n : K) ≠ 0` off it. ⚠️ **This docstring used
+to say the form *"has to be built from the factorisation rather than read off it"*, over a 20-line
+`Nat.strong_induction_on` re-running that lemma.** It is read off it; the induction was duplication,
+not necessity.
 
 ⚠️ Stated over a fresh field `K` rather than over the section's `F`, so that no section variable is
 drawn in: the statement is about a field and mentions neither the curve nor the extension. -/
 private theorem natCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
     (h3 : (3 : K) ≠ 0) :
     ∀ n : ℕ, n ≠ 0 → (∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) → (n : K) ≠ 0 := by
-  intro n
-  induction n using Nat.strong_induction_on with
-  | _ n ih =>
-    intro hn hfac
-    by_cases h1 : n = 1
-    · subst h1
-      simp
-    · have hprime : n.minFac.Prime := Nat.minFac_prime h1
-      have hdvd : n.minFac ∣ n := Nat.minFac_dvd n
-      have hmem : n.minFac ∈ n.primeFactors := Nat.mem_primeFactors.mpr ⟨hprime, hdvd, hn⟩
-      have hsplit : n.minFac * (n / n.minFac) = n := Nat.mul_div_cancel' hdvd
-      have hklt : n / n.minFac < n := Nat.div_lt_self (Nat.pos_of_ne_zero hn) hprime.one_lt
-      have hk0 : n / n.minFac ≠ 0 := fun h => hn (by rw [← hsplit, h, mul_zero])
-      have hkfac : ∀ q ∈ (n / n.minFac).primeFactors, q = 2 ∨ q = 3 := fun q hq =>
-        hfac q (Nat.primeFactors_mono (Nat.div_dvd_of_dvd hdvd) hn hq)
-      have hk : ((n / n.minFac : ℕ) : K) ≠ 0 := ih _ hklt hk0 hkfac
-      have hp : ((n.minFac : ℕ) : K) ≠ 0 := by
-        rcases hfac _ hmem with h | h <;> rw [h] <;> push_cast <;> assumption
-      rw [← hsplit]
-      push_cast
-      exact mul_ne_zero hp hk
+  intro n hn hfac
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
 
 /-- **The subsumption of `isOpen_ker_galoisRepMod_smooth`, machine-checked** — and with
 `[(W'⁄F).IsElliptic]` dropped, which is why this `example` lives here rather than in
@@ -528,16 +522,27 @@ end Three
 
 /-! ### Non-vacuity for the general layer
 
-⚠️ **Two different risks, two different certificates, and neither answers the other's.**
+⚠️ **Three different risks, three different certificates, and none of them answers another's.**
 
 * The `ℚ`-only pair below is a **hypothesis-inhabitation** certificate: it shows that the shortened
   hypothesis list of `isOpen_ker_galoisRepMod_of_natCast_ne_zero` is satisfiable at indices no
-  earlier statement in this file reaches — `n = 10` is even but not `3`-smooth, `n = 91 = 7 · 13`
-  is neither — over a field that is **not algebraically closed** and with no `[IsAlgClosed F]`
-  anywhere. ⚠️ It says nothing about the Galois group: `ℚ ≃ₐ[ℚ] ℚ` is trivial, so *"that subgroup
-  is open"* is free there. That is exactly why it is not the only one.
-* The `AlgClosedQ` certificate answers the other risk: `Gal(ℚ̄/ℚ)` is not trivial, and the level
+  statement in this file carrying `[IsAlgClosed F]` or `[(W'⁄F).IsElliptic]` reaches — `n = 10` is
+  even but not `3`-smooth, `n = 91 = 7 · 13` is neither — over a field that is **not algebraically
+  closed** and with no `[IsAlgClosed F]` anywhere. ⚠️ **Scope the claim that way and no wider.**
+  `isOpen_ker_galoisRepMod`, the hypothesis form at the top of this file, reaches both indices over
+  `ℚ` already, and it is what the new theorem is one line away from; what the new theorem removes
+  is the `Finite` hypothesis, not the index. ⚠️ It says nothing about the Galois group either:
+  `ℚ ≃ₐ[ℚ] ℚ` is trivial, so *"that subgroup is open"* is free there. That is exactly why it is not
+  the only one.
+* The `AlgClosedQ` certificate answers the second risk: `Gal(ℚ̄/ℚ)` is not trivial, and the level
   kernel is open there too, again at `n = 10`.
+* ⚠️ **The `cuspQ` certificate answers a third risk, and it is the one this front keeps getting
+  wrong: an *absent* instance and an *unavailable* one are different things.** The two theorems
+  above are advertised as needing neither `[IsAlgClosed F]` nor `[(W'⁄F).IsElliptic]`, and the
+  deletion-test transcript in `isOpen_ker_galoisRepMod_of_natCast_ne_zero`'s docstring shows only
+  that the `IsElliptic` instance is not *in the context*. `cuspQ` is `y² = x³`, whose `Δ` is `0`,
+  so `(cuspQ⁄ℚ).IsElliptic` is **provably false** and no such instance can be silently supplying
+  anything. That is a certificate rather than a goal state, and it is shorter.
 
 ⚠️ The `Algebra ℚ AlgClosedQ` instance trap applies as everywhere on this front: the integrality
 instance is supplied as a `private lemma` and introduced with `haveI` at the point of use rather
@@ -563,8 +568,19 @@ open Classical in
 /-- **⚠️ HYPOTHESIS-INHABITATION, NOT NON-VACUITY**, and the label is the point: `ℚ ≃ₐ[ℚ] ℚ` is
 trivial, so openness of a subgroup of it is free. What this certifies is the *index* and the
 *hypothesis list* — `n = 10` is even and not `3`-smooth, `n = 91 = 7 · 13` is neither, and the
-ambient field is `ℚ`, which is not algebraically closed. No statement above this section reaches
-either index over any field, and none of them can be stated over `ℚ` at all. -/
+ambient field is `ℚ`, which is not algebraically closed. **No statement in this file carrying
+`[IsAlgClosed F]` or `[(W'⁄F).IsElliptic]` reaches either index over any field**, which is the
+claim the `AlgClosedQ` certificate below already states correctly by naming
+`isOpen_ker_galoisRepMod_two_pow`, `_three_pow` and `_smooth`.
+
+⚠️ **Do not widen that to *"no statement above this section reaches these indices"* or to *"none of
+them can be stated over `ℚ`"*; both are false and both were asserted here once.**
+`isOpen_ker_galoisRepMod`, the hypothesis form at the top of this file, reaches `n = 10` over `ℚ`
+— it is the very theorem this `example`'s own proof term passes through, one
+`finite_torsion_of_intCast_ne_zero` away — and
+`isOpen_ker_galoisRepMod_smooth` lives in `section Smooth`, which carries `[(W'⁄F).IsElliptic]` and
+**not** `[IsAlgClosed F]`, so it is perfectly statable over `ℚ` (at `n = 4`, say). Compiled
+falsifiers for both were exhibited when this sentence was corrected. -/
 example : IsOpen ((galoisRepMod (W' := y2AddYEqX3 ℚ) (F := ℚ) 10).ker : Set (ℚ ≃ₐ[ℚ] ℚ)) ∧
     IsOpen ((galoisRepMod (W' := y2AddYEqX3 ℚ) (F := ℚ) 91).ker : Set (ℚ ≃ₐ[ℚ] ℚ)) :=
   ⟨isOpen_ker_galoisRepMod_of_natCast_ne_zero two_ne_zero (by norm_num),
@@ -586,6 +602,43 @@ new statement is certified and not only the first. -/
 example : IsLocallyConstant (galoisRepMod (W' := y2AddYEqX3 ℚ) (F := AlgClosedQ) 10) := by
   haveI := exampleIsIntegralLevel
   exact isLocallyConstant_galoisRepMod_of_natCast_ne_zero two_ne_zero exampleTenAlgClosed
+
+/-- `y² = x³`, the cuspidal cubic, of discriminant `0`.
+
+⚠️ **Deliberately not in `EllipticCurves.Fixtures`.** Every curve there is elliptic and is shared;
+this one exists to be *non*-elliptic and has exactly one consumer, the certificate below. Move it
+to `Fixtures` if and when a second file wants it. -/
+private def cuspQ : Affine ℚ := ⟨0, 0, 0, 0, 0⟩
+
+/-- **`(cuspQ⁄ℚ).IsElliptic` is false, not merely absent.** This is the hypothesis of the
+certificate below, and proving it is the whole point: without it, that certificate would show only
+that the instance is not supplied, which the deletion-test transcript above already shows. -/
+private lemma not_isElliptic_cuspQ : ¬ (cuspQ⁄ℚ).IsElliptic := by
+  intro h
+  have := h.isUnit
+  simp [cuspQ, WeierstrassCurve.baseChange, WeierstrassCurve.map, WeierstrassCurve.Δ,
+    WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆, WeierstrassCurve.b₈] at this
+
+open Classical in
+/-- **⚠️ THE STRONG FORM OF THE SECOND WIDENING: both theorems on a singular curve, over a field
+that is not algebraically closed, at `n = 91 = 7 · 13`.**
+
+`not_isElliptic_cuspQ` above proves `(cuspQ⁄ℚ).IsElliptic` false, so **neither dropped instance can
+be silently supplying anything here, because neither exists**. `n = 91` is odd and not `3`-smooth,
+so no `_two_pow`, `_three_pow` or `_smooth` statement reaches it either.
+
+⚠️ This is what the deletion-test transcript in
+`isOpen_ker_galoisRepMod_of_natCast_ne_zero`'s docstring cannot do: an absent instance and an
+unavailable one look identical in a goal state.
+
+⚠️ **It answers only the instance question.** Like the `ℚ` pair above it says nothing about the
+Galois group — `ℚ ≃ₐ[ℚ] ℚ` is trivial, so openness is free here too — and it makes no claim that
+the level kernels are interesting on a cuspidal cubic. The `AlgClosedQ` certificate remains the
+one that answers the Galois-group risk. -/
+example : IsOpen ((galoisRepMod (W' := cuspQ) (F := ℚ) 91).ker : Set (ℚ ≃ₐ[ℚ] ℚ)) ∧
+    IsLocallyConstant (galoisRepMod (W' := cuspQ) (F := ℚ) 91) :=
+  ⟨isOpen_ker_galoisRepMod_of_natCast_ne_zero two_ne_zero (by norm_num),
+    isLocallyConstant_galoisRepMod_of_natCast_ne_zero two_ne_zero (by norm_num)⟩
 
 end Nonvacuity
 
