@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.CoordinateRingNormalGeneral
+import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.NthRootOfPullbackN
 import EllipticCurves.FunctionField.TranslationMulByNCommGeneral
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin
@@ -70,7 +71,13 @@ instead by the `Recovery` block, which derives all six merged statements *throug
   `e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism, at every `n`;
 * the three `…_of_smooth_of_hprin` corollaries, with the non-constancy hypothesis **discharged** at
   every `3`-smooth `n ≠ 0`.  These are the first rung-6 statements on this board that reach an index
-  other than `2` and `3`.
+  other than `2` and `3`;
+* the three `…_of_ne_zero_of_hprin` corollaries — **the same at every `n` with `(n : F) ≠ 0`**
+  (`#1549`), the transcendence coming from
+  `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ `n = 5` and `n = 10` are here, so these
+  are the first rung-6 statements that reach an index outside the `3`-smooth class; the
+  `_of_smooth` trio is a corollary, compiled in the `example` beside them.
 
 ## Naming
 
@@ -102,14 +109,16 @@ this.
   at those two indices (`MulByTwoFibreAffine`, `MulByThreeFibre`).  At `3`-smooth `n > 3` no such
   description exists, so the corollary would be one nothing can feed.  That is the `#944` vacuity
   trap, and `#1304` refused the same corollary for the same reason.
-* **`n = 5` is not reached.**  The ceiling is `transcendental_xCoord_nsmul_of_smooth`'s, and this
-  bullet used to record `#251` and `#1184` behind it (⚠️ **not** `#404`; see the section below).
-  ⚠️ **Both have since been closed** — `#1184` over a field of characteristic `≠ 2`
-  (`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`, `EllipticCurves.Torsion.CoprimeAdjacent`), and
-  `#251` at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`)
-  together with its `y`-half `#1500` (`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
-  `EllipticCurves.Torsion.NsmulYPeriodic`).  Whether either moves this ceiling is **not measured
-  here** and nothing in this file changed.
+* ⚠️ **`n = 5` IS reached, and this bullet used to say it was not.**  It read *"the ceiling is
+  `transcendental_xCoord_nsmul_of_smooth`'s"*, recorded `#251` and `#1184` behind it, noted that
+  both had since been closed, and declined to say whether that moved the ceiling — *"not measured
+  here"*.  It has now been measured (`#1549`): **the ceiling was the transcendence and nothing
+  else**, and `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#1213`) has proved it at every `n` with
+  `(n : F) ≠ 0` all along.  The three `…_of_ne_zero_of_hprin` statements below are the consequence,
+  and the cost of the correction was **one `import`** — that file was cited here and not consumed.
+  ⚠️ `#1184` is **not** behind this ceiling and never was; it gates `isCoprime_ΨSq_adjacent` over an
+  arbitrary commutative ring.
 * **Non-degeneracy is untouched**, and stays over `F̄`: there `[IsAlgClosed F]` is load-bearing and
   enters twice (`WeilPairingNondegenerateTwo`, module docstring, "the closure enters twice").
 * **No pairing on `W.Point × W.Point`**, and no effect on the two-slot `weilPairingTwoHom` /
@@ -404,8 +413,10 @@ open Classical in
 beyond the setting.**  `exists_weilPairingElt_translatePoint_add_n_of_hprin` with `hn` discharged by
 `transcendental_xCoord_nsmul_of_smooth`.
 
-⚠️ The first index this does **not** cover is `n = 5`, exactly as for `exists_gS_of_smooth` and for
-`[F(W) : [n]∗F(W)] = n²`, and for the same reason: the argument manufactures no new prime. -/
+⚠️ **This statement** does not cover `n = 5`: the argument that supplies its transcendence
+manufactures no new prime.  ⚠️ **The file does** — `…_of_ne_zero_of_hprin` below is the same
+conclusion at every `n` with `(n : F) ≠ 0`, and this one is a corollary of it, compiled in the
+`example` beside it.  It is kept as an independent route. -/
 theorem exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
@@ -424,6 +435,74 @@ theorem exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F
           = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) ∧
       weilPairingElt hR.left g = weilPairingElt hP.left g * weilPairingElt hQ.left g :=
   exists_weilPairingElt_translatePoint_add_n_of_hprin _ hnz hP hQ hR hS hmQ hmS hadd hprin
+
+
+open Classical in
+/-- **Additivity of the Weil-pairing element in the translation slot at every `n` with
+`(n : F) ≠ 0`** — `exists_weilPairingElt_translatePoint_add_n_of_hprin` with `hn` discharged by
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth degree tower.
+
+⚠️ **`n = 5` and `n = 10` are here.**  The `example` at the end of this section derives the
+`3`-smooth statement from this one verbatim; the `_of_smooth` form is kept as an independent route,
+its transcendence coming by composition and consuming no division polynomial. -/
+theorem exists_weilPairingElt_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
+    (hR : W.Nonsingular xR yR) (hS : W.Nonsingular xS yS)
+    (hmQ : Point.some xQ yQ hQ ∈ W.torsion n) (hmS : Point.some xS yS hS ∈ W.torsion n)
+    (hadd : Point.some xP yP hP + Point.some xQ yQ hQ = Point.some xR yR hR)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ =
+          divisor W (mulByNEndo n
+            (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f)) :
+    ∃ g : W.FunctionField, g ≠ 0 ∧
+      (∃ f : W.FunctionField, f ≠ 0 ∧
+        divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) ∧
+        ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+          = mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) ∧
+      weilPairingElt hR.left g = weilPairingElt hP.left g * weilPairingElt hQ.left g :=
+  exists_weilPairingElt_translatePoint_add_n_of_hprin _ (by rintro rfl; simp at hn) hP hQ hR hS
+    hmQ hmS hadd hprin
+
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are**, over a
+fresh field `K` so that no section variable is drawn in.  ⚠️ A copy rather than a citation: the twin
+in `EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there and that file is not in
+this one's import closure. -/
+private lemma intCastTranslationSlot_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
+    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
+    ((n : ℤ) : K) ≠ 0 := by
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+open Classical in
+/-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
+general layer, so the containment between the two layers is compiled rather than asserted.  ⚠️ The
+two `mulByNEndo` terms carry *different* transcendence proofs and match only because
+`Transcendental` is a `Prop`; `EllipticCurves.FunctionField.MulByNDegreeGeneral` records that trap
+at its own `:72-76`. -/
+example (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
+    (hR : W.Nonsingular xR yR) (hS : W.Nonsingular xS yS)
+    (hmQ : Point.some xQ yQ hQ ∈ W.torsion n) (hmS : Point.some xS yS hS ∈ W.torsion n)
+    (hadd : Point.some xP yP hP + Point.some xQ yQ hQ = Point.some xR yR hR)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ =
+          divisor W (mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f)) :
+    ∃ g : W.FunctionField, g ≠ 0 ∧
+      (∃ f : W.FunctionField, f ≠ 0 ∧
+        divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) ∧
+        ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+          = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) ∧
+      weilPairingElt hR.left g = weilPairingElt hP.left g * weilPairingElt hQ.left g :=
+  exists_weilPairingElt_translatePoint_add_of_ne_zero_of_hprin h2
+    (intCastTranslationSlot_ne_zero_of_smooth h2 h3 hnz hfac) hP hQ hR hS hmQ hmS hadd hprin
 
 open Classical in
 /-- **Translation-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ` mirror of
@@ -458,6 +537,33 @@ theorem exists_weilPairingMu_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F)
   exists_weilPairingMu_translatePoint_add_n_of_hprin _ hP hQ hR hS hmP hmQ hmS hadd hprin
 
 open Classical in
+/-- **Additivity of the `μ_n`-valued pairing in the translation slot at every `n` with
+`(n : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same substitution. -/
+theorem exists_weilPairingMu_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
+    {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+    {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
+    (hR : W.Nonsingular xR yR) (hS : W.Nonsingular xS yS)
+    (hmP : Point.some xP yP hP ∈ W.torsion n) (hmQ : Point.some xQ yQ hQ ∈ W.torsion n)
+    (hmS : Point.some xS yS hS ∈ W.torsion n)
+    (hadd : Point.some xP yP hP + Point.some xQ yQ hQ = Point.some xR yR hR)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ = divisor W
+          (mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f)) :
+    ∃ g : W.FunctionField, g ≠ 0 ∧
+      (∃ f : W.FunctionField, f ≠ 0 ∧
+        divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) ∧
+        ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+          = mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) ∧
+      ∃ hpowP : weilPairingElt hP.left g ^ n = 1,
+        ∃ hpowQ : weilPairingElt hQ.left g ^ n = 1,
+          ∃ hpowR : weilPairingElt hR.left g ^ n = 1,
+            weilPairingMu hR.left hpowR
+              = weilPairingMu hP.left hpowP * weilPairingMu hQ.left hpowQ :=
+  exists_weilPairingMu_translatePoint_add_n_of_hprin _ hP hQ hR hS hmP hmQ hmS hadd hprin
+
+open Classical in
 /-- **`e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism at every `3`-smooth `n ≠ 0`.**  The
 bundled-hom mirror of the two above, and the sharpest of the three: its conclusion names the whole
 of `E[n]` as a group. -/
@@ -478,6 +584,29 @@ theorem exists_weilPairingTorsionMuHom_of_smooth_of_hprin (h2 : (2 : F) ≠ 0) (
         algebraMap F W.FunctionField ((φ (Multiplicative.ofAdd P) : Fˣ) : F)
           = weilPairingPointElt g (P : W.Point) :=
   have : NeZero n := ⟨hnz⟩
+  exists_weilPairingTorsionMuHom_n_of_hprin _ hS hmS hprin
+
+open Classical in
+/-- **The `μ_n`-valued homomorphism out of `E[n]` at every `n` with `(n : F) ≠ 0`** — the bundled
+form of the two theorems above, by the same substitution and nothing else. -/
+theorem exists_weilPairingTorsionMuHom_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : ((n : ℤ) : F) ≠ 0) {xS yS : F}
+    (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion n)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ =
+          divisor W (mulByNEndo n
+            (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f)) :
+    ∃ g : W.FunctionField, g ≠ 0 ∧
+      (∃ f : W.FunctionField, f ≠ 0 ∧
+        divisor W f = Finsupp.single (pointClosedPoint hS.left) (n : ℤ) ∧
+        ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+          = mulByNEndo n (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) ∧
+      ∃ φ : Multiplicative (W.torsion n) →* rootsOfUnity n F, ∀ P : W.torsion n,
+        algebraMap F W.FunctionField ((φ (Multiplicative.ofAdd P) : Fˣ) : F)
+          = weilPairingPointElt g (P : W.Point) :=
+  have : NeZero n := ⟨(by rintro rfl; simp at hn)⟩
   exists_weilPairingTorsionMuHom_n_of_hprin _ hS hmS hprin
 
 /-! ### Recovery of the six merged headlines
