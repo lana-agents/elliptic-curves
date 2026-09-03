@@ -99,8 +99,13 @@ four.
 
 * **No rank input.** See above: this file states the invariants and their computation rules, and
   takes rank two as a hypothesis exactly where it is needed.
-* **Continuity is not asserted**, here or anywhere on this front: `galoisRep` is built purely as a
-  group homomorphism and passing to determinants changes nothing about that. It is supplied
+* **Continuity is not asserted in this file**: `galoisRep` is built purely as a group homomorphism
+  and passing to determinants changes nothing about that. ⚠️ **This bullet used to open**
+  *"Continuity is not asserted, here or anywhere on this front"*, **and the four words after the
+  comma are falsified by the rest of this very bullet**, which names two files that do assert it.
+  ⚠️ `EllipticCurves.TateModule.Determinant`, which carries the same paragraph at `ℓ = 2`, retired
+  the phrase and this file was not gone back to — the copy→copy direction of the docstring rule,
+  running the other way. Continuity of these definitions is supplied
   downstream at `ℓ = 2` by `continuous_galoisDetTwo` in
   `EllipticCurves.TateModule.MatrixContinuity`. ⚠️ **That file is no longer `ℓ = 2` only**, and
   this bullet used to say it was: `continuous_galoisDet_of_basis` and
@@ -113,22 +118,36 @@ four.
   ⚠️ the short version is that it needs the Weil pairing at **every** level `E[ℓ^k]`, and the
   mod-`n` identity is a different statement.
 * Also out of scope: injectivity of `ρ_{E,ℓ}`, and any description of its image.
-* ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic.** Its hypothesis
-  `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone.  ⚠️ This bullet used to say
-  it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate
-  formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**:
-  `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+* ⚠️ **`ℓ ≥ 5` is reached, and this file being generic is what reaches it.** ⚠️ **This bullet used
+  to open** *"`ℓ ≥ 5` gains nothing from this file being generic"*, on the ground that its
+  hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` *"is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone"*, and **neither
+  half survives**.  The hypothesis is discharged at **every** prime `ℓ` with `(ℓ : F) ≠ 0` by
+  `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
+  `#268`), under `[IsAlgClosed F]` and `[W.IsElliptic]`; and the instantiation this bullet ends by
+  calling undone has been written.  ⚠️ That module is a **sibling** of this one — neither is in the
+  other's import closure — so the name is a forward reference and is not usable here.  ⚠️ This
+  bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
+  general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are
+  wrong**: `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
   `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
   (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
-  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux`
-  (PR #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two
-  apart.  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.**
-  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
-  odd `ℓ` with `(ℓ : F) ≠ 0`, over `F̄` with `(2 : F) ≠ 0`, and discharges
-  `EllipticCurves.Torsion.PrimaryTower`'s gate list — which this bullet used to cite as open — with
-  it.  Instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done
-  here.  What being generic buys is that when the count is fed in, the
-  `ℓ = 5` file is a list of instantiations and no argument has to be written a third time.
+  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR
+  #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.
+  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
+  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
+  `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
+  this bullet used to cite as open — with it.  ⚠️ **And the clause that used to close this bullet —
+  *"instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done here"*
+  — has been paid.** `EllipticCurves.TateModule.DeterminantGeneral` states
+  `galoisTrace_one_of_natCast_ne_zero` and `charpoly_galoisRepMatrix_one_of_natCast_ne_zero` — this
+  file's two `_of_nonempty` invariants with the rank-two hypothesis discharged — at every prime `ℓ`
+  with `(ℓ : F) ≠ 0`, adding `[IsAlgClosed F]` and `[(W'⁄F).IsElliptic]` and nothing else, and
+  commits `tr ρ_{E,ℓ}(1) = 2` as certificates at `ℓ = 5` and at `ℓ = 7`. ⚠️
+  `EllipticCurves.TateModule.DeterminantGeneral`, and every theorem named in it, is a **forward
+  reference** here: that module is downstream of this one — it imports this file and this file does
+  not import it — so none of those names is usable here.  What being generic bought is what this
+  bullet predicted it would: the general file is a list of one-line instantiations and no argument
+  was written a third time.
 
 ## Using this file
 

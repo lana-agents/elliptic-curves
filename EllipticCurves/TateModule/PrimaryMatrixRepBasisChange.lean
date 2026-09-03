@@ -80,23 +80,34 @@ instances, and this one does too.
   certificate is stated over an arbitrary `Nontrivial` commutative ring and an arbitrary
   `Fin 2`-indexed basis, so it covers every prime at once and is **not** restated in the
   instantiating files.
-* ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic**, in the sense that matters: its
-  statements are about a basis of `T_ℓE`, and at `ℓ ≥ 5` there is none, because
-  `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone.  ⚠️ This bullet used to say
-  it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate
-  formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**:
-  `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+* ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic — but the reason this bullet gave is
+  false, and only the conclusion survives.** ⚠️ **It used to read** *"its statements are about a
+  basis of `T_ℓE`, and at `ℓ ≥ 5` there is none, because `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ
+  ≥ 5` on `#E[ℓ^k]` alone"*.  **There is a basis at every prime `ℓ` with `(ℓ : F) ≠ 0`**:
+  `nonempty_basis_tateModule_of_natCast_ne_zero` (`EllipticCurves.TateModule.MatrixRepGeneral`)
+  produces one from `#268`, under `[IsAlgClosed F]` and `[W.IsElliptic]`.  ⚠️ That module is a
+  **sibling** rather than a discharger — neither it nor this file is in the other's import closure —
+  so the name is a forward reference and is not usable here.  ⚠️ This bullet used to say it was
+  gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate formula
+  `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**: `[ℓ]`-surjectivity
+  holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
   `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
   (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
-  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux`
-  (PR #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two
-  apart.  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.**
-  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
-  odd `ℓ` with `(ℓ : F) ≠ 0`, over `F̄` with `(2 : F) ≠ 0`, and discharges
-  `EllipticCurves.Torsion.PrimaryTower`'s gate list — which this bullet used to cite as open — with
-  it.  Instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done
-  here.  What being generic buys is that when the count is fed in, the
-  `ℓ = 5` file is again a list of instantiations.
+  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR
+  #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.
+  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
+  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
+  `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
+  this bullet used to cite as open — with it.  ⚠️ **Exactly one clause of this bullet survives, and
+  it survives for a different reason than the one it was written for.** Instantiating this file at
+  `ℓ ≥ 5` is separate work and is not done here — and, unlike the four sibling `Primary*` files
+  whose bullets carried this same sentence, it is **not done anywhere**: this file's reverse import
+  cone is `EllipticCurves.TateModule.MatrixRepBasisChange` (`ℓ = 2`),
+  `EllipticCurves.TateModule.MatrixRepBasisChangeThree` (`ℓ = 3`),
+  `EllipticCurves.TateModule.MatrixRepMod` (mod `n`) and
+  `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`, and none of them states the
+  conjugation law at a general prime.  What being generic buys is that when someone writes that
+  file, it is again a list of instantiations.
 
 ## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)
 
