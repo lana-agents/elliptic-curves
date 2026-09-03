@@ -122,11 +122,16 @@ statement about a zero module is satisfiable by anything.
   coordinate formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
   `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
   identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).
-  ⚠️ **`#E[5^k]` is no longer open at `ℓ ≥ 5`.**  `card_torsion_pow_mul_self_of_odd`
-  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
-  `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it.  Instantiating this file at `ℓ ≥ 5` on top of that
-  count is separate work and is not done here.
+  ⚠️ **`#E[ℓ^k]` is not open at any prime `ℓ` with `(ℓ : F) ≠ 0`, and this file's generic sibling
+  is now instantiated there.** The sharp count is `card_torsion_eq_sq`
+  (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with `(n : F) ≠ 0`, `ℓ = 2`
+  included, so it is sharper than the odd-`ℓ` attribution this bullet used to carry.
+  `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
+  `#268`) turns that count into the rank-two input the generic layer takes as an argument, and
+  **`EllipticCurves.TateModule.DeterminantGeneral` supplies it at every prime `ℓ` with
+  `(ℓ : F) ≠ 0`** — so *"separate work and is not done here"* is discharged rather than owed. ⚠️
+  `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the conclusion is **false**, not open — `E[ℓ]` is `0` or
+  `ℤ/ℓℤ`, so `T_ℓE` has rank `0` or `1`.
 
 ## Main definitions
 
