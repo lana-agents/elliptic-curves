@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.DeterminantMod
 import EllipticCurves.Torsion.ThreePrimary
 
 /-!
-# `E[n]` is free of rank `2` over `ZMod n` at every `3`-smooth `n`
+# `E[n]` is free of rank `2` over `ZMod n` at every `3`-smooth `n > 1`, with `2` and `3` invertible
 
 `EllipticCurves.TateModule.DeterminantMod` defines the mod-`n` determinant character
 `galoisDetMod n : (F ≃ₐ[S] F) →* (ZMod n)ˣ` at **every** `n` with `[NeZero n]` and no other

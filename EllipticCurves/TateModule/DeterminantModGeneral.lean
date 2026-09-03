@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.Torsion.StructureGeneral
 
 /-!
-# `E[n]` is free of rank `2` over `ZMod n` at EVERY `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+# `E[n]` is free of rank `2` over `ZMod n` at EVERY `n > 1` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
 
 `EllipticCurves.TateModule.DeterminantModSmooth` proves that `E[n]` is a finite free `ZMod n`-module
 of rank `2` — so that `galoisDetMod n` is an honest determinant and not `LinearEquiv.det`'s junk
