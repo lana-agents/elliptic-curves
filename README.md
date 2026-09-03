@@ -218,6 +218,42 @@ Repairing one headline of such a file in isolation is a worse outcome than repai
 repairing a headline whose omitted hypothesis is named in a section like that, read the module
 block: the decision on offer is about the file, not the row.
 
+⚠️ **And a per-front one: *"the setting"*.** The whole `WeilPairing*` front writes a gate-discharge
+claim in the words *"with no hypothesis beyond the setting"*, and `grep` finds no definition of the
+term anywhere in the tree. Read as a hypothesis list the sharpest of them —
+`exists_weilPairingElt_mul_swap_eq_one_two`, which binds `(2 : F) ≠ 0` and six point hypotheses —
+is a bolded false universal. It is not one. ***"The setting"* is this development's word for a
+gate list**, and `EllipticCurves.FunctionField.WeilPairingGaloisRoot` says so in the one sentence
+in the tree that comes near a definition:
+
+> *"It is the pairing's own setting — `e_n` is a pairing on `E[n] × E[n]` — and not a gate carried
+> in from elsewhere; in exchange the caller supplies no rung-5 data and no `hpow` proof."*
+
+So the setting is the ambient `variable` block, the front's standing characteristic hypotheses,
+and **the data the statement is about** — the points, their torsion, and the group relation among
+them. What the clause claims is that no **gate** is carried: no `hprin`, no product relation
+`hprod`, no caller-supplied root, no rung-4/5 certificate. That is checkable, and the test is one
+question of the signature — *does it bind a gate the clause says is gone?*
+
+```
+-- right: `exists_weilPairingElt_divisorSlot_add_two` binds `h2` and eight point hypotheses, and
+-- no gate — it produces its three roots — so the clause is true of what it is a claim about
+Divisor-slot bilinearity at `n = 2`, over `F̄` with no hypothesis beyond the setting.
+
+-- right: `exists_weilPairingElt_divisorSlot_add_of_smooth_of_hprin` does bind `hprin`, and says so
+Divisor-slot bilinearity at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis beyond the
+setting.
+
+-- wrong: the same clause over a signature that still carries `hprin`, `hprod` or a root the
+-- caller supplies.  Naming the carried thing is what the compliant form above does.
+```
+
+⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
+how many hypotheses a statement has and everything about which gates it does not carry; a reader
+who wants the count reads the signature doc-gen prints beside the docstring. A headline that omits
+`(2 : F) ≠ 0` while making a plain hypothesis-list claim is not rescued by this paragraph. The
+boundary is the `card_torsion_pow_of_odd` one above: the word has to have a subject.
+
 The per-block clause below does not fire *between* the two registers. A gate-discharge claim and a
 hypothesis list are different kinds of claim, not two dialects of one, so a block may hold both
 provided each row is compliant on its own terms; what it must not hold is two rows making the
