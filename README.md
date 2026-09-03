@@ -124,14 +124,32 @@ module's `variable` block, and are visible in the signature doc-gen renders besi
 (*"with no `[IsAlgClosed F]`"*) is making a complete-list claim about instances, and then the
 same rule applies to those: name all of them or none.
 
-It also binds **explicit hypotheses that constrain the statement**, and not every explicit
-argument. The discriminator is whether the hypothesis appears in the conclusion: a proof argument
-that occurs inside the statement's own terms — `h : Transcendental F (n • 𝒫).xCoord` in
-`comapProjPointN n h p = …`, say — is *data the statement is about*, in the same way an instance
-is, and a reach clause need not list it. A hypothesis that appears **only** to the left of the
-colon is a side condition, and the rule binds it. Without this boundary, (a) would demand the
-transcendence proof in every `[n]∗` headline in `FunctionField/`, where it is a parameter of the
-object rather than a restriction on which `n` are reached.
+The rule binds every **explicit** hypothesis, with one narrow exemption: a clause may omit a
+hypothesis that is **derivable from the hypotheses the clause does name**, since such a hypothesis
+adds no reach information the clause has not already given. Where the exemption is used, the
+derivation is cited once in the module block, so a reader can check it instead of taking it.
+
+The case this development has is the transcendence parameter of the `[n]∗` layer,
+`h : Transcendental F (n • genericPoint).xCoord`, which every statement about `mulByNEndo n h` or
+`comapProjPointN n h` carries as an explicit argument:
+
+```
+-- right: `h` follows from the two conditions the clause already names, by
+-- `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` (either cast form)
+`fixedFieldN_eq_mulByNFieldRange_of_ne_zero` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+
+-- wrong: `ramificationIdxN_pos` names no other hypothesis, so `h` is the only thing restricting
+-- which `n` are reached, and omitting it reads as unconditional.  It is not: `xCoord_zero` makes
+-- `h` false at `n = 0`.
+`ramificationIdxN_pos` is `0 < e_p` at every `n`
+```
+
+⚠️ **The exemption is about derivability, not about where the hypothesis appears.** A rule keyed
+on *"the hypothesis occurs in the conclusion"* would reach `(2 : F) ≠ 0`, which is an explicit
+argument of `mulByTwoEndo`, `mulByThreeEndo`, `comapProjPointTwo` and `weilPairingTwo`, and so
+occurs inside the conclusion of every statement about them. `(2 : F) ≠ 0` is derivable from nothing
+any reach clause on this development names — not from `3`-smoothness, not from `(n : F) ≠ 0` — so it
+is reach, and the rule binds it. Omitting it is the defect class `#1137` exists to pay off.
 
 It applies **per block, not per phrase** — a `## Main statements` list, or a `generality` table
 column, is one place. A fix that repairs one row and leaves its neighbour partial makes the
