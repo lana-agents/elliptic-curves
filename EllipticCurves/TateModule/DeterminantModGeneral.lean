@@ -228,9 +228,14 @@ example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   nonempty_torsionLinearEquiv_of_natCast_ne_zero h2
     (by exact_mod_cast Nat.intCast_ne_zero_of_smooth h2 h3 (NeZero.ne n) hfac)
 
-omit [W.IsElliptic] [IsAlgClosed F] in
+omit [IsAlgClosed F] in
 open Classical in
-/-- `finite_torsion_zmod_of_smooth`, restated verbatim and proved from the general layer. -/
+/-- `finite_torsion_zmod_of_smooth`, restated verbatim and proved from the general layer.
+
+⚠️ This `omit`s `[IsAlgClosed F]` **only**, matching the theorem it restates binder for binder;
+`finite_torsion_zmod_of_natCast_ne_zero` also omits `[W.IsElliptic]`, so what discharges this is
+strictly stronger than what it states.  Restating the original is the point of the block, so the
+extra instance is carried and left unused. -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : Module.Finite (ZMod n) (W.torsion n) :=
   finite_torsion_zmod_of_natCast_ne_zero h2
