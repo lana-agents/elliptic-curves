@@ -1089,12 +1089,18 @@ theorem pullbackDivisorN_single_eq_sum_torsion_of_ne_zero (h2 : (2 : F) ≠ 0) {
 
 /-! ### The containment of the `3`-smooth layer over `F̄`, compiled
 
-The four `example`s below restate the four `3`-smooth statements of this section verbatim and prove
+The five `example`s below restate the five `3`-smooth statements of this section verbatim and prove
 each from its general companion, through `Nat.intCast_ne_zero_of_smooth`
-(`EllipticCurves.Torsion.ThreePrimary`).  ⚠️ `card_fibre_comapProjPointN_le_sq` gets none: it was
+(`EllipticCurves.Torsion.ThreePrimary`).  ⚠️ **Each carries its original's `omit` line, not the
+ambient variable block's default** — three of the five originals `omit [DecidableEq F]`, and an
+`example` that quietly keeps that instance restates something *weaker* than the theorem it claims
+to subsume.  The signature strings match either way, so it is not visible to a textual check.
+
+⚠️ `card_fibre_comapProjPointN_le_sq` gets none: it was
 already subsumed by `card_fibre_comapProjPointN_le_sq_of_ne_zero` when that landed, and its
 `(n : F) ≠ 0` is the nat-cast form. -/
 
+omit [DecidableEq F] in
 /-- **`card_fibre_comapProjPointN_projPointOfPoint` is a corollary of the general form.** -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
@@ -1112,6 +1118,7 @@ example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
       = Set.range fun R : W.torsion n => projPointOfPoint W (P + R) :=
   fibre_comapProjPointN_eq_range_of_ne_zero h2 (Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac) h hP
 
+omit [DecidableEq F] in
 /-- **`ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint` is a corollary of the
 general form.** -/
 example (h2 : (2 : F) ≠ 0)
@@ -1122,6 +1129,7 @@ example (h2 : (2 : F) ≠ 0)
   ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint_of_ne_zero h2
     (Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac) h hp
 
+omit [DecidableEq F] in
 /-- **`pullbackDivisorN_single_projPointOfPoint` is a corollary of the general form.** -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
