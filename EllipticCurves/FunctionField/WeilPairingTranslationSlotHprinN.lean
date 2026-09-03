@@ -445,7 +445,8 @@ theorem exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F
 
 open Classical in
 /-- **Additivity of the Weil-pairing element in the translation slot at every `n` with
-`(n : F) ≠ 0`** — `exists_weilPairingElt_translatePoint_add_n_of_hprin` with `hn` discharged by
+`(n : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** —
+`exists_weilPairingElt_translatePoint_add_n_of_hprin` with `hn` discharged by
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth degree tower.
 
@@ -500,7 +501,8 @@ example (h2 : (2 : F) ≠ 0)
     (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) hP hQ hR hS hmQ hmS hadd hprin
 
 open Classical in
-/-- **Translation-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ` mirror of
+/-- **Translation-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`, with `hprin` the only
+hypothesis beyond the setting.**  The `μ` mirror of
 `exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin`.
 
 ⚠️ This one takes `[NeZero n]` where its `F(W)`-level sibling takes `hnz : n ≠ 0`, and the asymmetry
@@ -559,9 +561,9 @@ theorem exists_weilPairingMu_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : F
   exists_weilPairingMu_translatePoint_add_n_of_hprin _ hP hQ hR hS hmP hmQ hmS hadd hprin
 
 open Classical in
-/-- **`e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism at every `3`-smooth `n ≠ 0`.**  The
-bundled-hom mirror of the two above, and the sharpest of the three: its conclusion names the whole
-of `E[n]` as a group. -/
+/-- **`e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism at every `3`-smooth `n ≠ 0`, with `hprin`
+the only hypothesis beyond the setting.**  The bundled-hom mirror of the two above, and the
+sharpest of the three: its conclusion names the whole of `E[n]` as a group. -/
 theorem exists_weilPairingTorsionMuHom_of_smooth_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) {xS yS : F}
     (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion n)

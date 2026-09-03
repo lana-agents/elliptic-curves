@@ -327,8 +327,9 @@ theorem exists_weilPairingElt_divisorSlot_add_of_smooth_of_hprin (h2 : (2 : F) �
 
 
 open Classical in
-/-- **Additivity of the Weil-pairing element in the divisor slot at every `n` with `(n : F) ≠ 0`**
-— `exists_weilPairingElt_divisorSlot_add_n_of_hprin` with `hn` discharged by
+/-- **Additivity of the Weil-pairing element in the divisor slot at every `n` with `(n : F) ≠ 0`,
+with `hprin` the only hypothesis beyond the setting** —
+`exists_weilPairingElt_divisorSlot_add_n_of_hprin` with `hn` discharged by
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth degree tower.
 
@@ -403,7 +404,8 @@ example (h2 : (2 : F) ≠ 0)
     (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) hP hS hT hR hmP hmS hmT hadd hprin
 
 open Classical in
-/-- **Divisor-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ` mirror of
+/-- **Divisor-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`, with `hprin` the only
+hypothesis beyond the setting.**  The `μ` mirror of
 `exists_weilPairingElt_divisorSlot_add_of_smooth_of_hprin`.
 
 ⚠️ `[NeZero n]` here where the `F(W)`-level sibling takes `hnz : n ≠ 0`; the reason is the
