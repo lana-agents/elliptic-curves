@@ -64,8 +64,10 @@ general statement applies verbatim at each `n` where it is discharged.
 below discharge the hypothesis at `2 ^ k` (`finite_torsion_two_pow`), at `3 ^ k`
 (`finite_torsion_three_pow`), at every `3`-smooth `n ≠ 0` (`finite_torsion_of_smooth`,
 `EllipticCurves.Torsion.Multiplicative`), and — widest, and needing neither `[IsAlgClosed F]` nor
-`[(W'⁄F).IsElliptic]` — at every `n` with `(n : F) ≠ 0`
-(`finite_torsion_of_intCast_ne_zero`). ⚠️ **Nothing new is proved in any of them**: each statement
+`[(W'⁄F).IsElliptic]` — at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+(`finite_torsion_of_intCast_ne_zero`). ⚠️ **`(2 : F) ≠ 0` is a hypothesis of the widest one too,
+and this sentence used to name only the index condition**; it is not a fourth width, it is the
+second hypothesis of the fourth. ⚠️ **Nothing new is proved in any of them**: each statement
 is one application of a theorem in this file to a theorem in `EllipticCurves.Torsion`. The four
 routes to finiteness are genuinely different, which is why the narrower three are kept rather than
 deleted — see the `§ Every level prime to the characteristic` header.

@@ -30,7 +30,9 @@ Every ingredient was already on `main`; what was missing until now was a structu
 inputs, and none of them is new here:
 
 * `WeierstrassCurve.Affine.nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`) —
-  `E[n] ≃+ (ℤ/nℤ)²` at every `n` with `(n : F) ≠ 0`. ⚠️ This is *the* new input.
+  `E[n] ≃+ (ℤ/nℤ)²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`. ⚠️ **Both** hypotheses,
+  which is why every `_of_natCast_ne_zero` statement below carries `h2` as well as `hℓ`; the name
+  records only the second. ⚠️ This is *the* new input.
   `exists_closure_pair_eq_torsion_of_addEquiv` calls itself *"the only place where a structure
   theorem for `E[ℓ]` is used"*, and `EllipticCurves.Torsion.ThreePrimaryBasis` records that at
   `ℓ = 3` the residual goal was exactly `Nonempty (E[3] ≃+ ZMod 3 × ZMod 3)`, supplied by hand.

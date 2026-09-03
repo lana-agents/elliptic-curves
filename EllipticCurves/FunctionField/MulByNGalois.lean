@@ -37,9 +37,10 @@ The file is in two halves, and the second one is strictly wider:
 
 ⚠️ The general half is not a new argument.  It is the `3`-smooth proof with **one** input replaced:
 Artin's theorem needs `|E[n]|`, and `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`,
-`#293`) supplies it at every `n` with `(n : F) ≠ 0` where `card_torsion_eq_sq_of_smooth` supplied it
-only at `3`-smooth `n`.  The other outer degree,
-`finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
+`#293`) supplies it at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0` where
+`card_torsion_eq_sq_of_smooth` supplied it only at `3`-smooth `n`.  ⚠️ **`(2 : F) ≠ 0` is the
+count's second hypothesis and this sentence used to name only the index one** (`#1137`).  The
+other outer degree, `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
 (`EllipticCurves.FunctionField.MulByNDegreeGeneral`), never carried smoothness at all and was
 sitting unconsumed.
 
@@ -184,7 +185,7 @@ with `hn : (n : F) ≠ 0`.
 * ⚠️ **`n = 5` — RETIRED, it landed.**  This bullet used to read *"Both outer degrees are
   `3`-smooth — `card_torsion_eq_sq_of_smooth` and `#1213`'s degree — so the sandwich has no side
   there."*  Neither clause is true any more: the count is `card_torsion_eq_sq` at every `n` with
-  `(n : F) ≠ 0` (`#293`), and `#1213`'s degree had a smoothness-free form
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0` (`#293`), and `#1213`'s degree had a smoothness-free form
   (`finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`) all along.  `isGalois_mulByNFieldRange_five` and
   its three companions are named theorems below.  ⚠️ What is still true is the *shape* of the old
   bullet's reason: nothing here manufactures a prime, and the general statements reach `n = 5`
@@ -368,7 +369,8 @@ hypotheses are what the merged `TwoPrimary` / `ThreePrimary` consumers carry, an
 
 What changed is the **input**, not the argument.  Artin's theorem needs `|E[n]|`, and
 `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) supplies it at every `n`
-with `(n : F) ≠ 0`; the other outer degree is `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
+with `(2 : F) ≠ 0` and `(n : F) ≠ 0`; the other outer degree is
+`finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`
 (`EllipticCurves.FunctionField.MulByNDegreeGeneral`, `#1213`'s general-`n` form), which never
 carried `3`-smoothness at all.  The proofs below are the ones above with those two substitutions
 and nothing else.

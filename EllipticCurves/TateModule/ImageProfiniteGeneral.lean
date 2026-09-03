@@ -13,9 +13,12 @@ import EllipticCurves.TateModule.PrimaryImageProfinite
 `EllipticCurves.TateModule.PrimaryImageProfinite` bundles `range (det ρ_{E,ℓ})` as a
 `ClosedSubgroup ℤ_[ℓ]ˣ` and as a `ProfiniteGrp` at an arbitrary prime, and states the three
 basis-free forms in terms of one input: `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`. **This file
-supplies that input at every prime `ℓ` with `(ℓ : F) ≠ 0` and contains no argument**; all three
-proofs are one line, and the input is `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
-(`EllipticCurves.TateModule.FreeGeneral`, `#268`).
+supplies that input at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, and contains no
+argument**; all three proofs are one line, and the input is
+`nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
+`#268`). ⚠️ **`(2 : F) ≠ 0` is the second hypothesis, and this paragraph used to name only the
+first** — see `EllipticCurves.Torsion.StructureGeneral`, where it enters, for why it is there and
+why it is not the same kind of restriction as `(ℓ : F) ≠ 0`.
 
 This is `EllipticCurves.TateModule.ImageProfiniteThree`'s primed trio
 (`closedSubgroupRangeGaloisDetThree'`, `profiniteGrpRangeGaloisDetThree'`,

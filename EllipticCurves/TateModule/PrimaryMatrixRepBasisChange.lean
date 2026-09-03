@@ -83,11 +83,15 @@ instances, and this one does too.
 * ⚠️ **`ℓ ≥ 5` gains nothing from this file being generic — but the reason this bullet gave is
   false, and only the conclusion survives.** ⚠️ **It used to read** *"its statements are about a
   basis of `T_ℓE`, and at `ℓ ≥ 5` there is none, because `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` is gated at `ℓ
-  ≥ 5` on `#E[ℓ^k]` alone"*.  **There is a basis at every prime `ℓ` with `(ℓ : F) ≠ 0`**:
-  `nonempty_basis_tateModule_of_natCast_ne_zero` (`EllipticCurves.TateModule.MatrixRepGeneral`)
-  produces one from `#268`, under `[IsAlgClosed F]` and `[W.IsElliptic]`.  ⚠️ That module is a
-  **sibling** rather than a discharger — neither it nor this file is in the other's import closure —
-  so the name is a forward reference and is not usable here.  ⚠️ This bullet used to say it was
+  ≥ 5` on `#E[ℓ^k]` alone"*.  **There is a basis at every prime `ℓ` with `(2 : F) ≠ 0` and
+  `(ℓ : F) ≠ 0`**: `nonempty_basis_tateModule_of_natCast_ne_zero`
+  (`EllipticCurves.TateModule.MatrixRepGeneral`) produces one from `#268`, under `[IsAlgClosed F]`
+  and `[W.IsElliptic]`.  ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this sentence used to name
+  only the first** (`#1137`); it enters at `card_torsion_eq_sq`
+  (`EllipticCurves.Torsion.StructureGeneral`), whose docstring says what it costs.  ⚠️ That module
+  is a **sibling** rather than a discharger — neither it nor this file is in the other's import
+  closure — so the name is not usable here either, though for a different reason than a forward
+  reference.  ⚠️ This bullet used to say it was
   gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate formula
   `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**: `[ℓ]`-surjectivity
   holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,

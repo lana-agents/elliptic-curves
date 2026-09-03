@@ -25,7 +25,10 @@ condition.
 
 The transport is in `EllipticCurves.TateModule.PrimaryMatrixRep`, stated for an arbitrary prime `ℓ`
 in terms of one input: `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`. **This file supplies that input
-at every prime `ℓ` with `(ℓ : F) ≠ 0` and contains no argument.** The input is
+at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, and contains no argument.** ⚠️
+**`(2 : F) ≠ 0` is the second hypothesis, and this paragraph used to name only the first** — see
+`EllipticCurves.Torsion.StructureGeneral`, where it enters, for why it is there and why it is not
+the same kind of restriction as `(ℓ : F) ≠ 0`. The input is
 `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
 `#268`), and both proofs below are one line.
 
@@ -84,11 +87,15 @@ compensating reason, and this file declares **two theorems and nothing else**.
 
   ⚠️ Two things about that text were owed and are now discharged: (i) the odd-`ℓ` attribution was
   true but not sharpest, since `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`,
-  `#293`) is the count at every `n` with `(n : F) ≠ 0`, `ℓ = 2` included; and (ii) *"is separate
-  work and is not done here"* now points at the general module in each case. ⚠️ The replacement
-  says *"at every prime `ℓ` with `(ℓ : F) ≠ 0`"* — **not** *"at every odd `ℓ`"* (`ℓ = 2` is
-  covered) and **not** *"at every `ℓ`"* (`ℓ = char F` is not, and there the conclusion is false
-  rather than open).
+  `#293`) is the count at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, `ℓ = 2` included; and
+  (ii) *"is separate work and is not done here"* now points at the general module in each case.
+  ⚠️ The replacement says *"at every prime `ℓ` with `(ℓ : F) ≠ 0`"* — **not** *"at every odd `ℓ`"*
+  (`ℓ = 2` is covered) and **not** *"at every `ℓ`"* (`ℓ = char F` is not, and there the conclusion
+  is false rather than open).  ⚠️ **That replacement wording is itself one hypothesis short**, and
+  `#1137` swept the thirty-four sites carrying it across twenty-five files: `card_torsion_eq_sq` and
+  **all 22** `_of_natCast_ne_zero` statements in the `TateModule/` directory also take
+  `(2 : F) ≠ 0` — not one is an exception — so *"every prime `ℓ` with `(ℓ : F) ≠ 0`"* is the index
+  condition rather than the hypothesis list.
 * ⚠️ **Nothing about the `*Three` or `*Two` files being redundant, and nothing is deleted.**
   `EllipticCurves.TateModule.MatrixRepThree` reaches `ℓ = 3` through `x(3P) = Φ₃/Ψ₃²`
   (`EllipticCurves.Torsion.TriplingSurjective`); this file reaches every prime through
@@ -120,10 +127,10 @@ that is what keeps the diff additive and out of PR #590's way, not because a cyc
 ## Main statements
 
 * `WeierstrassCurve.Affine.tateModule.nonempty_basis_tateModule_of_natCast_ne_zero` :
-  `Nonempty (Basis (Fin 2) ℤ_[ℓ] (T_ℓE))` at every prime `ℓ` with `(ℓ : F) ≠ 0`.
+  `Nonempty (Basis (Fin 2) ℤ_[ℓ] (T_ℓE))` at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.
 * `WeierstrassCurve.Affine.exists_galoisRepMatrix_of_natCast_ne_zero` : a basis of `T_ℓE` and a
   representation `ρ : G →* GL (Fin 2) ℤ_[ℓ]` computing the Galois action exist, at every prime `ℓ`
-  with `(ℓ : F) ≠ 0`.
+  with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.
 
 ## References
 

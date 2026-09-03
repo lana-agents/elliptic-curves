@@ -14,8 +14,11 @@ import EllipticCurves.TateModule.PrimaryDeterminant
 arbitrary prime, but its two *rank-sensitive* statements — the ones that would be false if `T_ℓE`
 had rank `0` or `1` — take the rank-two input
 `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])` as an argument. **This file supplies that input at every
-prime `ℓ` with `(ℓ : F) ≠ 0` and contains no argument**; both proofs are one line, and the input is
-`nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`, `#268`).
+prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, and contains no argument**; both proofs are one
+line, and the input is `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+(`EllipticCurves.TateModule.FreeGeneral`, `#268`). ⚠️ **`(2 : F) ≠ 0` is the second hypothesis, and
+this paragraph used to name only the first** — see `EllipticCurves.Torsion.StructureGeneral`, where
+it enters, for why it is there and why it is not the same kind of restriction as `(ℓ : F) ≠ 0`.
 
 This is the `EllipticCurves.TateModule.DeterminantThree` pair
 (`galoisTraceThree_one`, `charpoly_galoisRepMatrixThree_one`) with `3` replaced by an arbitrary

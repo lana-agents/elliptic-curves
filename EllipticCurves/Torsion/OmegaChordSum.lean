@@ -114,7 +114,8 @@ all three.
   list and `#1490` item 3 at every odd `p`, and settles `E[n] ≃+ (ℤ/nℤ)²` at every odd `n`.  `#293`
   is closed too, but by a second file rather than by that one:
   `EllipticCurves.Torsion.StructureGeneral`'s `WeierstrassCurve.Affine.card_torsion_eq_sq` and
-  `…nonempty_torsion_addEquiv` remove the parity restriction, at every `n` with `(n : F) ≠ 0`.
+  `…nonempty_torsion_addEquiv` remove the parity restriction, at every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0`.
 * It says nothing at even `n`: `card_torsion_eq_sq_of_wronskian_identity`'s route is the odd one.
   ⚠️ That is a statement about **this file's** route, not about the result.  The even case is not
   open: `StructureGeneral` reaches it by splitting `n = 2^a · m` and multiplying the odd count here

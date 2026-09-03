@@ -90,26 +90,27 @@ statement here with a real input, and its two inputs enter through different doo
   **mod-`3`** identity is a different statement and landed separately as
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 * **`ℓ ≥ 5` stays out.** `EllipticCurves.TateModule.PrimaryMatrixRepBasisChange` is already stated
-  at an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but it needs
-  a basis of `T₅E`, which is gated on `#E[5^k]`.  ⚠️ This bullet used to say it was gated *"on
-  `[5]`-surjectivity and `#E[5^k]`, both of which need the general coordinate formula, i.e. the
-  `ωₙ` crux"*, and all three clauses are wrong: `[5]`-surjectivity holds at every nonzero index
+  at an arbitrary prime, so the `ℓ = 5` file will again be a list of instantiations — but it needs a
+  basis of `T₅E`, which is gated on `#E[5^k]`. ⚠️ This bullet used to say it was gated *"on
+  `[5]`-surjectivity and `#E[5^k]`, both of which need the general coordinate formula, i.e. the `ωₙ`
+  crux"*, and all three clauses are wrong: `[5]`-surjectivity holds at every nonzero index
   (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
   formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s
-  on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).
-  ⚠️ **`#E[ℓ^k]` is not open at any prime `ℓ` with `(ℓ : F) ≠ 0`.** The sharp count is
-  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with
-  `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ` attribution this bullet used
-  to carry. ⚠️ **This file is the one place on the front where that count is not what was
-  missing.** Its five conjugation statements take a basis and are already general; the one
-  statement that carries hypotheses, `isClosed_ker_galoisRepMatrixThree`, routes through
-  `isClosed_ker_galoisRepThree` (`EllipticCurves.TateModule.OpenKernel`), whose inputs are the
-  level filtration and `Finite (E[ℓ^k])` — not the rank-two structure.
-  `EllipticCurves.TateModule.OpenKernelGeneral` states it at every prime `ℓ` with `(ℓ : F) ≠ 0`,
-  and records there why that is a four-line proof rather than a one-line instantiation. ⚠️
-  `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the conclusion is **false**, not open — `E[ℓ]` is `0` or
-  `ℤ/ℓℤ`, so `T_ℓE` has rank `0` or `1`.
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557). ⚠️ **`#E[ℓ^k]` is not open at
+  any prime `ℓ` with `(ℓ : F) ≠ 0`.** The sharp count is `card_torsion_eq_sq`
+  (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ` attribution this bullet used to
+  carry. ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this bullet used to name only the index
+  one** (`#1137`). ⚠️ **This file is the one place on the front where that count is not what was
+  missing.** Its five conjugation statements take a basis and are already general; the one statement
+  that carries hypotheses, `isClosed_ker_galoisRepMatrixThree`, routes through
+  `isClosed_ker_galoisRepThree` (`EllipticCurves.TateModule.OpenKernel`), whose inputs are the level
+  filtration and `Finite (E[ℓ^k])` — not the rank-two structure.
+  `EllipticCurves.TateModule.OpenKernelGeneral` states it at every prime `ℓ` with `(2 : F) ≠ 0` and
+  `(ℓ : F) ≠ 0`, and records there why that is a four-line proof rather than a one-line
+  instantiation. ⚠️ `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the conclusion is **false**, not open —
+  `E[ℓ]` is `0` or `ℤ/ℓℤ`, so `T_ℓE` has rank `0` or `1`.
 
 ## Main statements
 

@@ -44,7 +44,7 @@ So the rank bound at odd `n` is a **consequence** of `card_torsion_eq_sq_of_odd`
 gate.  ⚠️ `#293`'s body records the rank bound as a second input still owed alongside `#E[n] = n²`;
 at odd `n` that reading is superseded by `nonempty_torsion_addEquiv_of_odd` below.  **It does not
 stand at even `n` either**, and `#293` is closed: `EllipticCurves.Torsion.StructureGeneral` reaches
-every `n` with `(n : F) ≠ 0` by a different route — see the last section.
+every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0` by a different route — see the last section.
 
 ⚠️ Note also that `nonempty_torsion_addEquiv_of_odd` asks **no primality** of `n` and subsumes
 `nonempty_torsionPow_addEquiv_of_odd` at every odd prime power, `pᵏ` being odd whenever `p` is.  The
@@ -66,7 +66,8 @@ through the tower.
 * **It does not close `#293`, but `#293` is closed.**  `#293` is the structure theorem at a general
   `n`; what is settled here is its odd half, and
   `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` settles the whole of it at
-  every `n` with `(n : F) ≠ 0`.  ⚠️ Neither file imports the other's headline, and at odd `n` the
+  every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.  ⚠️ Neither file imports the other's headline, and
+  at odd `n` the
   two **assemblies** are independent: this one feeds the count and
   `card_nsmul_eq_zero_torsion_le_of_odd` straight into `AddCommGroup.equiv_zmod_sq_of_card_sq`,
   that one runs `PrimaryTower` at each prime power and glues along `Nat.recOnPosPrimePosCoprime`.

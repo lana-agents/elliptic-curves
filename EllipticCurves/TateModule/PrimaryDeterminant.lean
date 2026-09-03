@@ -121,12 +121,15 @@ four.
 * ⚠️ **`ℓ ≥ 5` is reached, and this file being generic is what reaches it.** ⚠️ **This bullet used
   to open** *"`ℓ ≥ 5` gains nothing from this file being generic"*, on the ground that its
   hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` *"is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone"*, and **neither
-  half survives**.  The hypothesis is discharged at **every** prime `ℓ` with `(ℓ : F) ≠ 0` by
-  `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
-  `#268`), under `[IsAlgClosed F]` and `[W.IsElliptic]`; and the instantiation this bullet ends by
-  calling undone has been written.  ⚠️ That module is a **sibling** of this one — neither is in the
-  other's import closure — so the name is a forward reference and is not usable here.  ⚠️ This
-  bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
+  half survives**. The hypothesis is discharged at **every** prime `ℓ` with `(2 : F) ≠ 0` and
+  `(ℓ : F) ≠ 0` by `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+  (`EllipticCurves.TateModule.FreeGeneral`, `#268`), under `[IsAlgClosed F]` and `[W.IsElliptic]`;
+  and the instantiation this bullet ends by calling undone has been written. ⚠️ **`(2 : F) ≠ 0` is
+  the second hypothesis and this sentence used to name only the first** (`#1137`); it enters at
+  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`), whose docstring says what it
+  costs. ⚠️ That module is a **sibling** of this one — neither is in the other's import closure — so
+  the name is not usable here either, though for a different reason than a forward reference. ⚠️
+  This bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
   general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are
   wrong**: `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
   `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
@@ -136,18 +139,21 @@ four.
   ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
   (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
   `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it.  ⚠️ **And the clause that used to close this bullet —
+  this bullet used to cite as open — with it. ⚠️ **And the clause that used to close this bullet —
   *"instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done here"*
   — has been paid.** `EllipticCurves.TateModule.DeterminantGeneral` states
   `galoisTrace_one_of_natCast_ne_zero` and `charpoly_galoisRepMatrix_one_of_natCast_ne_zero` — this
   file's two `_of_nonempty` invariants with the rank-two hypothesis discharged — at every prime `ℓ`
-  with `(ℓ : F) ≠ 0`, adding `[IsAlgClosed F]` and `[(W'⁄F).IsElliptic]` and nothing else, and
-  commits `tr ρ_{E,ℓ}(1) = 2` as certificates at `ℓ = 5` and at `ℓ = 7`. ⚠️
-  `EllipticCurves.TateModule.DeterminantGeneral`, and every theorem named in it, is a **forward
-  reference** here: that module is downstream of this one — it imports this file and this file does
-  not import it — so none of those names is usable here.  What being generic bought is what this
-  bullet predicted it would: the general file is a list of one-line instantiations and no argument
-  was written a third time.
+  with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, adding the instances `[IsAlgClosed F]` and
+  `[(W'⁄F).IsElliptic]` and no further instance, and commits `tr ρ_{E,ℓ}(1) = 2` as certificates at
+  `ℓ = 5` and at `ℓ = 7`. ⚠️ **This sentence used to end *"at every prime `ℓ` with `(ℓ : F) ≠ 0` …
+  and nothing else"*, and the last three words were false**: the general form also takes
+  `(2 : F) ≠ 0`, which `galoisTrace_one_of_nonempty` does not, so `#check @` on the theorem
+  falsifies the claim (`#1137`). ⚠️ `EllipticCurves.TateModule.DeterminantGeneral`, and every
+  theorem named in it, is a **forward reference** here: that module is downstream of this one — it
+  imports this file and this file does not import it — so none of those names is usable here. What
+  being generic bought is what this bullet predicted it would: the general file is a list of
+  one-line instantiations and no argument was written a third time.
 
 ## Using this file
 

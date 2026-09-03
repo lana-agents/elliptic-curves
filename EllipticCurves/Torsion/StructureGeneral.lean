@@ -21,7 +21,7 @@ theorem.  `EllipticCurves.Torsion.Coprime`'s `card_torsion_mul` multiplies them.
 is `2^a · (odd)`, so this covers every index, not a wider slice of them:
 
 ```
-#E[n] = n²                       for every n with (n : F) ≠ 0.
+#E[n] = n²                       for every n with (2 : F) ≠ 0 and (n : F) ≠ 0.
 ```
 
 The structure theorem follows by the same shape one level up.  `#E[p] = p²` is now available at
@@ -33,10 +33,27 @@ every prime power, and `EllipticCurves.Torsion.CoprimeStructure`'s
 `Nat.recOnPosPrimePosCoprime`:
 
 ```
-E[n] ≃+ ℤ/nℤ × ℤ/nℤ              for every n with (n : F) ≠ 0.
+E[n] ≃+ ℤ/nℤ × ℤ/nℤ              for every n with (2 : F) ≠ 0 and (n : F) ≠ 0.
 ```
 
 That is `#242`, the structure theorem for the `n`-torsion, and `#293`'s conclusion.
+
+## ⚠️ There are **two** hypotheses, and only one of them is in the names
+
+Every one of the seven public statements below takes `(2 : F) ≠ 0` **as well as** its index
+hypothesis, and until `#1137` swept this front the module prose, the index and thirty-three
+citations in twenty-four other files all named only the index one. ⚠️ The omission is not cosmetic:
+the assembly writes `n = 2^a · m` and spends `card_torsion_two_pow` on the first factor, and the odd
+factor is reached through the `x`-support, so **no statement in this file reaches characteristic `2`
+at any index** — not even at odd `n`, where the conclusion is stated for `n` and not for `m`.
+
+⚠️ **`(2 : F) ≠ 0` is a hypothesis, not a known obstruction, and the two must not be conflated.**
+What is recorded here is that *this route* does not reach characteristic `2`; nothing here claims
+`#E[n] = n²` fails there, and at odd `n` in characteristic `2` the index is still prime to the
+characteristic, so the classical statement (Silverman AEC III.6.4) is untouched by the restriction
+— it is simply not proved in this tree.  Contrast the index hypothesis, where `p = char F` really
+does make the conclusion false: that is the next section, and the difference is the whole reason
+both hypotheses have to be written down.
 
 ## Why the hypothesis is `(n : F) ≠ 0` and not `Odd n`
 
@@ -54,11 +71,11 @@ same conclusion at every **odd** `n` with `(n : F) ≠ 0`.  Comparing the two ro
 * **`nonempty_torsion_addEquiv` (here)** runs `PrimaryTower` at each prime power of `n` and glues
   along `Nat.recOnPosPrimePosCoprime`.  The rank bound `#E[n][q] ≤ q²` is spent only *inside*
   `PrimaryTower`, at a prime power; this file never states one.  Range: every `n` with
-  `(n : F) ≠ 0`.
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0`.
 * **`nonempty_torsion_addEquiv_of_odd` (`PrimaryTowerOdd`)** proves the rank bound at `n` itself
   (`card_nsmul_eq_zero_torsion_le_of_odd`) and hands it with the count straight to
   `AddCommGroup.equiv_zmod_sq_of_card_sq` — no prime-power ascent and no gluing.  Range: odd `n`
-  with `(n : F) ≠ 0`.
+  with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.
 
 Neither file imports the other's headline, so at odd `n` the two are a genuine cross-check on the
 **assembly**.  ⚠️ They are not independent about the *input*: both ultimately spend
@@ -97,11 +114,12 @@ citations are prose, and feeding the count in is separate work.
 
 ⚠️ Every public declaration of this file is listed: **7 public, 0 private.**
 
-* `WeierstrassCurve.Affine.card_torsion_eq_sq` : **`#E[n] = n²` at every `n` with `(n : F) ≠ 0`.**
+* `WeierstrassCurve.Affine.card_torsion_eq_sq` : **`#E[n] = n²` at every `n` with `(2 : F) ≠ 0`
+  and `(n : F) ≠ 0`.**
 * `WeierstrassCurve.Affine.nonempty_torsionPrimePow_addEquiv` : `E[p^k] ≃+ (ℤ/p^kℤ)²` at every
-  prime `p` with `(p : F) ≠ 0`.
+  prime `p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0`.
 * `WeierstrassCurve.Affine.nonempty_torsion_addEquiv` : **`E[n] ≃+ ℤ/nℤ × ℤ/nℤ` at every `n` with
-  `(n : F) ≠ 0`** — `#242`.
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0`** — `#242`.
 * `WeierstrassCurve.Affine.card_torsion_five`, `…nonempty_torsionFive_addEquiv` : the first index
   outside `{2, 3}`-smooth, which is where every previous statement of both results stopped.
 * `WeierstrassCurve.Affine.card_torsion_ten`, `…nonempty_torsionTen_addEquiv` : the first **even**
@@ -110,7 +128,9 @@ citations are prose, and feeding the count in is separate work.
 ## ⚠️ What this does NOT do
 
 * **Nothing at `n = 0` in `F`.**  `(n : F) ≠ 0` is a hypothesis of every statement, and in
-  characteristic `p` the conclusion is false at `p ∣ n`, not merely unavailable.
+  characteristic `p` the conclusion is false at `p ∣ n`, not merely unavailable.  ⚠️ `(2 : F) ≠ 0`
+  is a hypothesis of every statement too — see the two-hypotheses section above — but there the
+  conclusion is unavailable rather than false.
 * It proves **no** new identity about division polynomials and touches no file that does.
 * It does not touch `EllipticCurves.Torsion.PrimaryTower`'s gate list, which is `#1522`.  ⚠️ That
   gate is `#E[p] = p²` and `card_torsion_eq_sq` discharges it at every `p` with `(p : F) ≠ 0`, but
