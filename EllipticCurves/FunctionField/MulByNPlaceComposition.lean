@@ -480,13 +480,16 @@ The general-`n` form of `comapProjPointTwo_none` (`#670`) with its proof transpo
 would make the right-hand side a nonnegative multiple of a nonnegative order, but the left-hand side
 is `-2`.
 
-⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 14` is here and not
-there, `n = 12` in characteristic `0` is in both, and the converse containment fails because the
-`3`-smooth hypotheses imply `hn` — see `Nat.intCast_ne_zero_of_smooth`
+⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 12` in characteristic `0`
+is in both, the containment holds because the `3`-smooth hypotheses imply `hn`, and the converse
+fails because `n = 14` does not satisfy them — see `Nat.intCast_ne_zero_of_smooth`
 (`EllipticCurves.Torsion.ThreePrimary`) and the `example` at the end of this file, which derive that
-statement from this one rather than claiming they are unrelated.  ⚠️ The
-`_of_smooth` form is nevertheless kept: its proof composes `[2]∗` and `[3]∗` and touches no
-division polynomial, so it is an independent route and not dead weight. -/
+statement from this one rather than claiming they are unrelated.  ⚠️ **The two halves used to be
+welded to the wrong connective here** — *"the converse containment fails because the `3`-smooth
+hypotheses imply `hn`"* — which is the reason the containment **holds**, not the reason its converse
+fails (`#1540`, review of PR #599).  ⚠️ The `_of_smooth` form is nevertheless kept: its proof
+composes `[2]∗` and `[3]∗` and touches no division polynomial, so it is an independent route and not
+dead weight. -/
 theorem comapProjPointN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     comapProjPointN n h (none : ProjPoint W) = none := by
@@ -542,8 +545,12 @@ polynomial at all; the `_of_ne_zero` proofs go through `Φₙ`/`ΨSqₙ`.  Two i
 conclusion are the cheapest cross-check available on this front — the containment is of
 *statements*, not of *proofs*.
 
-⚠️ The same subsumption is committed the same way on the sibling front, by
-`EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth` and the `example` beside it. -/
+⚠️ The same subsumption is committed the same way on the sibling front, by the `example` in
+`EllipticCurves.TateModule.OpenKernel`'s `§ Every level prime to the characteristic`.  ⚠️ Both
+`example`s now spend the **shared** cast lemmas `Nat.intCast_ne_zero_of_smooth` and
+`Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`); this sentence used to cite
+a `private` lemma of that name *inside* `OpenKernel`, which was the last of eight copies of the same
+four-line argument and is gone (`#1552`). -/
 
 /-- **`comapProjPointN_none_of_smooth` is a corollary of `comapProjPointN_none_of_ne_zero`** — its
 statement verbatim, proved from the general layer. -/

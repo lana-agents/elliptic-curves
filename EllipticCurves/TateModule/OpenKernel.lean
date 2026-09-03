@@ -240,9 +240,9 @@ finiteness input is not available from this route at all.
 
 This subsumes `isOpen_ker_galoisRepMod_two_pow` and `isOpen_ker_galoisRepMod_three_pow` at the
 level of indices, and subsumes `isOpen_ker_galoisRepMod_smooth` modulo the factorisation argument
-`natCast_ne_zero_of_smooth` below — which is proved rather than asserted, and the subsumption is
-then machine-checked by the `example` that follows it. ⚠️ None of the three is deleted; see the
-section header.
+`Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) — which is proved rather
+than asserted, and the subsumption is then machine-checked by the `example` below. ⚠️ None of the
+three is deleted; see the section header.
 
 ⚠️ **Deletion test**, measured on this file as committed. Replacing the finiteness argument by a
 hole — `by refine isOpen_ker_galoisRepMod (W' := W') (F := F) _ ?_` — leaves
@@ -292,33 +292,17 @@ theorem isLocallyConstant_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {
     (hn : (n : F) ≠ 0) : IsLocallyConstant (galoisRepMod (W' := W') (F := F) n) :=
   isLocallyConstant_galoisRepMod _ (finite_torsion_of_intCast_ne_zero h2 hn)
 
-/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are.** In a field
-`(2 : K) ≠ 0` and `(3 : K) ≠ 0` force `(2^a · 3^b : K) ≠ 0`, so the hypothesis pair of the
-`_smooth` statements below implies the hypothesis of the two statements above.
-
-⚠️ **Proved rather than asserted.** The containment reads like a restatement and is not one, but
-the proof is short: `Nat.exists_eq_two_pow_mul_three_pow`
-(`EllipticCurves.Torsion.ThreePrimary`, which this file imports directly) turns the hypothesis into
-`n = 2 ^ a * 3 ^ b`, and one `push_cast` then reads `(n : K) ≠ 0` off it. ⚠️ **This docstring used
-to say the form *"has to be built from the factorisation rather than read off it"*, over a 20-line
-`Nat.strong_induction_on` re-running that lemma.** It is read off it; the induction was duplication,
-not necessity.
-
-⚠️ Stated over a fresh field `K` rather than over the section's `F`, so that no section variable is
-drawn in: the statement is about a field and mentions neither the curve nor the extension. -/
-private theorem natCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
-    (h3 : (3 : K) ≠ 0) :
-    ∀ n : ℕ, n ≠ 0 → (∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) → (n : K) ≠ 0 := by
-  intro n hn hfac
-  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
-  push_cast
-  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
-
 /-- **The subsumption of `isOpen_ker_galoisRepMod_smooth`, machine-checked** — and with
 `[(W'⁄F).IsElliptic]` dropped, which is why this `example` lives here rather than in
 `section Smooth`. The statement below is `isOpen_ker_galoisRepMod_smooth`'s verbatim, minus that
 instance; it is proved from `isOpen_ker_galoisRepMod_of_natCast_ne_zero` and the factorisation
-lemma above.
+lemma `Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`, which this file
+imports directly).
+
+⚠️ **That lemma used to be a `private theorem` in this file** (`#1552`): the `(n : K) ≠ 0` and
+`((n : ℤ) : K) ≠ 0` forms of one four-line argument had grown **eight** `private` copies across
+`TateModule/` and `FunctionField/`, and this was the last of them. It is proved rather than
+asserted either way; only its address changed.
 
 ⚠️ This is what turns *"subsumes the `3`-smooth layer"* from a docstring claim into a compiled
 one. `isOpen_ker_galoisRepMod_smooth` is nevertheless kept, for the independent-route reason in the
@@ -326,7 +310,7 @@ section header. -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
     IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
-  isOpen_ker_galoisRepMod_of_natCast_ne_zero h2 (natCast_ne_zero_of_smooth h2 h3 n hn hfac)
+  isOpen_ker_galoisRepMod_of_natCast_ne_zero h2 (Nat.natCast_ne_zero_of_smooth h2 h3 hn hfac)
 
 /-! ### The unconditional `ℓ = 2` layer -/
 
@@ -368,7 +352,8 @@ above reaches every `n` with `(n : F) ≠ 0`, and needs neither `[IsAlgClosed F]
 `[(W'⁄F).IsElliptic]`. The two statements here are kept because their finiteness input is a
 genuinely different theorem (multiplicativity off `#E[2] ≤ 4` and `#E[3] ≤ 9`, versus the
 `x`-support root count of `ΨSqₙ`), and the containment of indices is proved rather than asserted:
-see `natCast_ne_zero_of_smooth` and the `example` beside it.
+see `Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) and the `example` that
+consumes it in `§ Every level prime to the characteristic`.
 
 ⚠️ The two `_smooth` statements below sit **outside** any `[IsAlgClosed F]` block, and that is a
 measurement rather than a preference: their finiteness input `finite_torsion_of_smooth`
