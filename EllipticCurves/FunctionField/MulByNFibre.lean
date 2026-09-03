@@ -94,9 +94,11 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   fixed field of `E[n]`, this one has no replacement in the tree: a general-`n` proof needs the
   three-way case split of `comapProjPointTwo_projPointOfPoint`
   (`EllipticCurves.FunctionField.MulByTwoFibreAffine`) run against `Φₙ/ΨSqₙ` at the level of
-  places.  That is new mathematics, it is unfiled, and it is gated on **nothing merged**.  The
-  section *"Why the other seven statements in this file do NOT lift"* below states it against the
-  declarations.
+  places.  That is new mathematics, it is `#1540` item 2, and it is gated on **nothing merged**.
+  The section *"Why the other seven statements in this file do NOT lift"* below states it against
+  the declarations.  ⚠️ The four sites that section used to add from
+  `EllipticCurves.FunctionField.MulByNPlaceComposition` are no longer on this gate — `#1540` item 1
+  took them off it by the pole order, which reaches nothing here.
 * **No statement at a place that is not the place of a rational point.**  As `#774` records of its
   own `n = 2` case, this is *not* "`[n]` is unramified": a place lying over a closed point which is
   not the closed point of an `F`-rational point is untouched, and this tree has no proof that there
@@ -302,24 +304,42 @@ the explicit doubling formulas.  A general-`n` proof needs the same case analysi
 `Φₙ/ΨSqₙ`, i.e. against `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`), at the level of places rather than of points.
 
-⚠️ **That is new mathematics and it is unfiled.**  It is *not* gated on `#293`'s count, on `#1213`'s
-degree, on `#268`, or on `hprin` (`#962`) — all four are available — which is precisely why it does
-not appear on any existing gate list.  Nothing below should be read as waiting for one of them.
+⚠️ **That is new mathematics, and it is `#1540` item 2.**  It is *not* gated on `#293`'s count, on
+`#1213`'s degree, on `#268`, or on `hprin` (`#962`) — all four are available — which is precisely
+why it does not appear on any existing gate list.  Nothing below should be read as waiting for one
+of them.
 
-⚠️ **The same ladder shape occurs four more times, in
-`EllipticCurves.FunctionField.MulByNPlaceComposition`, so the count of `3`-smooth sites on this gate
-is eleven and not seven.**  `comapProjPointN_none_of_smooth` and `ramificationIdxN_none_of_smooth`
-each open with the identical `Nat.exists_eq_two_pow_mul_three_pow` step and land the double
-inductions `comapProjPointN_two_pow_mul_three_pow_none` and
-`ramificationIdxN_two_pow_mul_three_pow_none`; `ordInfty_mulByNEndo_of_smooth` and
-`ordInfty_mulByNEndo_genX_of_smooth` cite those two and add no hypothesis of their own.  ⚠️ **They
-are in the same class, not of the same difficulty, and this file does not claim otherwise.**  They
-are the contraction *at infinity*, where `P = O` is one branch of the three-way split above rather
-than all three, so they may well be strictly easier; and `ramificationIdxN_none_of_smooth`'s own
-docstring records that its `3`-smoothness is doing separability work there — with `(2 : F) ≠ 0` and
-`(3 : F) ≠ 0` it is what forces `char F ∤ n` — so the general form of *that* one wants `(n : F) ≠ 0`
-in the statement and not merely a better proof.  None of the four has been measured; they are
-recorded here so the *"which sites are ladder-gated"* answer is not re-derived at seven.
+#### ⚠️ The four `MulByNPlaceComposition` sites are OFF this gate
+
+⚠️ **This section used to end by counting the gate at eleven rather than seven**, adding
+`comapProjPointN_none_of_smooth`, `ramificationIdxN_none_of_smooth`, `ordInfty_mulByNEndo_of_smooth`
+and `ordInfty_mulByNEndo_genX_of_smooth` (`EllipticCurves.FunctionField.MulByNPlaceComposition`) on
+the ground that each opens with the identical `Nat.exists_eq_two_pow_mul_three_pow` step and lands
+the double inductions `comapProjPointN_two_pow_mul_three_pow_none` /
+`ramificationIdxN_two_pow_mul_three_pow_none`.  **That measurement was correct when it was made and
+those four are now off the gate** (`#1540` item 1): `comapProjPointN_none_of_ne_zero`,
+`ramificationIdxN_none_of_ne_zero`, `ordInfty_mulByNEndo_of_ne_zero` and
+`ordInfty_mulByNEndo_genX_of_ne_zero` prove all four conclusions at every `n` with
+`((n : ℤ) : F) ≠ 0`, and the `_of_smooth` forms are kept only as independent routes — that file
+machine-checks the containment.  **The gate is seven, and the seven are the ones named above.**
+
+⚠️ **The reason this section predicted was the wrong one, and the difference matters for the seven
+that remain.**  It guessed the four would be *"strictly easier"* because at infinity `P = O` is one
+branch of the three-way split rather than all three.  The general proof is not the split at all: it
+is the **pole order**.  `x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` (`xCoord_nsmul_genericPoint'`) has a pole
+of order `2n²` over one of order `2(n² - 1)`, so `ordInfty ([n]∗ genX) = -2`, and running
+`divisorProj_mulByNEndo_apply` backwards against that **negative** order forces the contracted place
+to be `none`.  ⚠️ **So it transfers to nothing here.**  At an affine rational point there is no pole
+and hence no sign to exploit, and the three-way case split against `Φₙ/ΨSqₙ` at the level of places
+is still exactly what is required.  **`#1540` item 2 is as open as it was**, and the four falling
+easily is not evidence about the seven.
+
+⚠️ One prediction in that paragraph was right and is worth keeping:
+`ramificationIdxN_none_of_smooth`
+carries its `3`-smoothness as *separability* work — with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is what
+forces `char F ∤ n` — so the general form of that one wants a hypothesis on `n` in the **statement**
+and not merely a better proof.  `ramificationIdxN_none_of_ne_zero` does carry `((n : ℤ) : F) ≠ 0`,
+and it is sharp: at `n = char F > 2` the index is `n` or `n²`, not `1`.
 
 ⚠️ Two consequences worth keeping straight.  First, `card_fibre_comapProjPointN_projPointOfPoint`
 (the fibre `= n²`) is gated by the `≥` half only: `card_fibre_comapProjPointN_le_sq_of_ne_zero`
@@ -554,8 +574,9 @@ private lemma exampleFibreFourteen : ((14 : ℕ) : AlgClosedQ) ≠ 0 := by
 `3`-smooth**, hence reachable by no `3`-smooth and no odd-`n` statement.
 
 ⚠️ This is the whole of what this file gains from `#1523`, and the certificate is deliberately an
-*inequality*: the matching equality needs the place contraction at general `n`, which is unfiled and
-is not gated on anything merged.  See the *"Why the other seven statements do not lift"* section. -/
+*inequality*: the matching equality needs the place contraction at general `n`, which is `#1540`
+item 2 and is not gated on anything merged.  See the *"Why the other seven statements do not
+lift"* section. -/
 example (q : ProjPoint (y2AddYEqX3 AlgClosedQ)) :
     (finite_comapProjPointN_preimage_singleton 14
       (transcendental_xCoord_nsmul_of_isAlgClosed (W := y2AddYEqX3 AlgClosedQ) exampleFibreTwo

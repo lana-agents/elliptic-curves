@@ -449,8 +449,10 @@ is needed; `MulByNDegreeGeneral` records the same trap.
 
 ⚠️ `(n : F) ≠ 0` is **sharp** and is not a relaxed smoothness — and the sharpness is
 `EllipticCurves.FunctionField.MulByNGalois`'s, i.e. it is about the **count and separability**, not
-about the degree.  At `p = char F` the map `[n]` is inseparable, so `hsep` fails and `#E[p] = p²`
-fails with it, which is what stops the chain.  ⚠️ **The degree itself survives there**:
+about the degree.  At `p = char F` the map `[p]` is inseparable, so `hsep` fails and `#E[p] = p²`
+fails with it, which is what stops the chain.  ⚠️ It is `[p]`, not `[n]`: at an `n` prime to `p` the
+map `[n]` is separable in characteristic `p` too, and this sentence carried `[n]` until `#1523`
+paid it off.  ⚠️ **The degree itself survives there**:
 `deg[n] = n²` in every characteristic and `deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`, so
 `[F(W) : [p]∗F(W)] = p²` is true at `p = char F` — `MulByNDegreeGeneral` claims only that *its
 proof* says nothing at `p ∣ n`, and that is the accurate claim to repeat. -/
