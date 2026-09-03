@@ -186,7 +186,7 @@ theorem card_torsion_eq_sq (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
 
 /-! ### The structure theorem -/
 
-/-- **`E[p^k] ≃+ ℤ/p^kℤ × ℤ/p^kℤ` at every prime `p` with `(p : F) ≠ 0`.**
+/-- **`E[p^k] ≃+ ℤ/p^kℤ × ℤ/p^kℤ` at every prime `p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0`.**
 
 `nonempty_torsionPow_addEquiv` (`EllipticCurves.Torsion.PrimaryTower`) takes exactly two inputs
 beyond primality: surjectivity of `[p]`, which `nsmul_surjective_of_two_ne_zero` supplies at every
