@@ -14,8 +14,9 @@ import EllipticCurves.TateModule.OpenKernel
 `EllipticCurves.TateModule.OpenKernel` proves `IsClosed (ker ρ_{E,ℓ})` at `ℓ = 2`
 (`isClosed_ker_galoisRepTwo`) and at `ℓ = 3` (`isClosed_ker_galoisRepThree`), by writing the kernel
 as `⨅ k, ker (galoisRepMod (ℓ^k))` — a countable intersection of open, hence closed, subgroups.
-**This file states it at every prime `ℓ` with `(ℓ : F) ≠ 0`**, and adds the matrix-layer corollary
-that `EllipticCurves.TateModule.MatrixRepBasisChangeThree` states at `ℓ = 3`.
+**This file states it at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`**, and adds the
+matrix-layer corollary that `EllipticCurves.TateModule.MatrixRepBasisChangeThree` states at
+`ℓ = 3`.
 
 ⚠️ **This is the one file in `#1533`'s package that is NOT a pure instantiation, and saying so is
 the point.** The other five general leaves — `MatrixRepGeneral`, `DeterminantGeneral`,
