@@ -121,11 +121,30 @@ looks like a clause that lists them all. Concretely:
 **Two phrases look like reach clauses and are not.** Both have been flagged, triaged and cleared
 more than once, so the discriminators are written down here rather than re-derived each round:
 
-* **A phrase that quantifies the conclusion's own bound variable is not a reach clause**; a phrase
-  that enumerates the conditions under which the statement holds is. *"Away from the multiples of
-  the least vanishing index, `ψ` does not vanish"* (`ψ_evalEval_ne_zero_of_not_dvd`) is the
-  `∀ m, ¬(d ∣ m)` **inside** the conclusion, not a restriction on when the theorem applies. Same
-  for `ψ_evalEval_eq_zero_of_dvd`, `divT_add_mul_of_not_dvd` and `divY_add_mul_of_not_dvd`.
+* **A phrase that says which indices the statement is a claim *about* is part of naming the
+  theorem, not a hypothesis list**; a phrase that enumerates the conditions under which the
+  statement holds is. *"Away from the multiples of the least vanishing index, `ψ` does not
+  vanish"* (`ψ_evalEval_ne_zero_of_not_dvd`) is the `∀ m, ¬(d ∣ m)` **inside** the conclusion, not
+  a restriction on when the theorem applies. Same for `ψ_evalEval_eq_zero_of_dvd`.
+
+  ⚠️ **`divT_add_mul_of_not_dvd` and `divY_add_mul_of_not_dvd` are the same register with that
+  quantifier telescoped, and this is why the discriminator is not syntactic.** They bind
+  `(j : ℕ) (hj : ¬ ((e + 3) ∣ j))` **explicitly** and conclude `∀ q : ℕ, …`; the conclusion's own
+  quantifier is the `∀ q` the headline calls *"at every multiple of the period"*, while the phrase
+  cleared here — *"off the multiples of `d`"* — is a binder. A rule keyed on which side of the `:`
+  the condition sits would clear two of these four sites and convict the other two.
+
+  ⚠️ **And no sharper syntactic rule is available**, so do not write one. `card_torsion_pow_of_odd`
+  telescopes identically — `{p : ℕ} (hodd : Odd p) (hp : (p : F) ≠ 0)` *is* `∀ p, Odd p → …` — and
+  *"at an odd `p`"* **was** a defect (PR #619). The test that does separate them is to **delete the
+  phrase and read what is left.** If the remainder is a statement of the same kind, the phrase was a
+  restriction on when it applies and is a reach clause: *"`#E[pᵏ] = (pᵏ)²`"* stands perfectly well
+  without *"at an odd `p`"*, and `card_torsion_eq_sq` is that statement. If the remainder is no
+  longer the theorem, the phrase was part of the predicate: *"`ψ` does not vanish"* without *"away
+  from the multiples of the least vanishing index"* is contradicted by the declaration immediately
+  below it, `ψ_evalEval_eq_zero_of_dvd`, and *"the predicted `ψ₂`-value is periodic with period
+  `d`"* without *"off the multiples of `d`"* is not what `divT_add_mul_of_not_dvd` proves —
+  `divT_add_of_not_dvd`, the single step it iterates, asks `¬ (d ∣ j)` at every rung.
 * **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
   that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
   `10` is not quantified and there is nothing for a condition to range over. Same for
@@ -133,8 +152,10 @@ more than once, so the discriminators are written down here rather than re-deriv
   `nonempty_torsionTwelve_addEquiv`.
 
 ⚠️ The second discriminator is what separates *"at an index that is neither odd nor `3`-smooth"*
-from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable
-and so is a reach clause bound by the rule.
+from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable.
+⚠️ Restricting a variable is **not** on its own what makes a clause a reach clause — *"off the
+multiples of `d`"* restricts one too. *"at an odd `p`"* is one because it also fails the deletion
+test above: `#E[pᵏ] = (pᵏ)²` survives its removal, and `divT`'s periodicity does not.
 
 The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
@@ -242,11 +263,28 @@ Four consequences worth stating, because each has cost a review cycle:
 * **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to
   module prose. A `## Hypotheses` section elsewhere in the same module does not repair a
   partial headline.
-* **Sort the class before repairing it.** A headline that lists too few hypotheses takes an
-  **insertion**; a headline that asserts there are no others takes a **deletion or a re-scoping**.
-  Adding `(2 : F) ≠ 0` beside *"as the only hypothesis"* yields a sentence that contradicts itself.
-  `card_torsion_pow_of_separable` and `finite_torsion_pow_of_separable` were repaired by
-  **deleting** the word *"alone"*, not by extending a list that did not exist.
+* **Sort the class before repairing it, and expect to do two things at once.** A headline that
+  lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
+  that insertion **and** a deletion or a re-scoping of the assertion — because *"with `(2 : F) ≠ 0`
+  … as the only hypothesis"* names a hypothesis and then denies there is one. Both forms are on the
+  board, and neither is insertion-free:
+  * **Delete the assertion.** `card_torsion_pow_of_separable` and `finite_torsion_pow_of_separable`
+    (`EllipticCurves.Torsion.OddTorsionCount`, PR #619) read *"at an odd `p`, from separability of
+    `preΨ p` **alone**"*. The repair dropped *"alone"* **and** added the two conditions the list was
+    short of, giving *"with `(2 : F) ≠ 0`, at an odd `p` with `(p : F) ≠ 0`, from separability of
+    `preΨ p`"*. ⚠️ Deleting *"alone"* and stopping there would have left `h2` and `(p : F) ≠ 0`
+    unnamed under a headline that still named `Odd p` — a proper non-empty subset, the defect again.
+  * **Re-scope it**, which is the form to prefer wherever the word is true of a gate. Three of the
+    `card_torsion_eq_sq_*` headlines (PR #622) said *"and nothing else"*;
+    `card_torsion_eq_sq_of_wronskian_identity` went from *"at odd `n`, from the Wronskian identity
+    **and nothing else**"* to *"with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`, with the
+    Wronskian identity **the only gate left**"*: the noun moves from *hypothesis* to *gate*, and the
+    insertion then goes in beside it without contradiction. See `### Gate-discharge claims` above,
+    which is what the re-scoped word is then read under.
+    ⚠️ **The body prose has to follow the headline.** The same PR changed *"it is now the only
+    **hypothesis**"* to *"the only **gate**"* and *"no second **hypothesis**"* to *"no second
+    **gate**"*, a few lines below two of those headlines. A repair that stops at the headline leaves
+    the docstring contradicting itself.
 
 ### Retired claims
 
