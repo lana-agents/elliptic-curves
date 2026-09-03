@@ -208,6 +208,54 @@ theorem Nat.exists_eq_two_pow_mul_three_pow :
     · exact ⟨a + 1, b, by rw [hm, hab]; ring⟩
     · exact ⟨a, b + 1, by rw [hm, hab]; ring⟩
 
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are.**
+
+The shared home for what was, until this landed, seven byte-identical `private` copies across
+`EllipticCurves/FunctionField/` — one each in `MulByNPlaceComposition`, `NthRootOfPullbackN`,
+`WeilPairingAlternatingAssemblyN`, `WeilPairingAlternatingConsumerN`,
+`WeilPairingDivisorSlotBilinearHprinN`, `WeilPairingGaloisRootN` and
+`WeilPairingTranslationSlotHprinN`, each documented as *"a copy rather than a citation: the twin in
+`MulByNPlaceComposition` is `private` there"*.  ⚠️ This file is already in the transitive import
+closure of **all seven**, so the consolidation costs no import edge in any of them; that is why it
+belongs here and not in a new leaf.
+
+⚠️ Stated over a fresh field `K` rather than over a section variable, and placed above this file's
+`namespace WeierstrassCurve.Affine`, so that it mentions neither a curve nor its coordinate ring:
+it is generic arithmetic about a cast, exactly as `Nat.exists_eq_two_pow_mul_three_pow` above is
+generic arithmetic about a factorisation.
+
+⚠️ **This is the `((n : ℤ) : K)` form only.**  `EllipticCurves.TateModule.OpenKernel`'s
+`natCast_ne_zero_of_smooth` is the `(n : K)` form, is `private` there, and is **deliberately not**
+retired here: PR #601 is open against that declaration's proof body, and moving it would be a
+guaranteed conflict for a name that is not on this front.  Retire it when #601 has landed. -/
+theorem Nat.intCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
+    {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : ((n : ℤ) : K) ≠ 0 := by
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+/-- **`10` is not `3`-smooth**, where *`3`-smooth* is this development's
+`∀ p ∈ n.primeFactors, p = 2 ∨ p = 3`.
+
+⚠️ This is a *falsifier*, and it is what makes an `n = 10` non-vacuity certificate say more than an
+`n = 4` or `n = 6` one: `4` and `6` are `3`-smooth, so a certificate at either is equally a
+certificate for the `_of_smooth` headline it sits under, and a *"general"* statement reaching only
+`{2, 3}`-indices would pass it unchanged.  `10 = 2 · 5` is even and not `3`-smooth, so no
+`_of_smooth` statement can be instantiated there at any hypotheses.
+
+⚠️ **Proved, not `decide`d.**  The `Decidable` instance for a bounded quantifier over
+`Nat.primeFactors` gets stuck (`#1213`), which is the same trap `primeFactors_four` and
+`smoothTwelve` document elsewhere on this board.
+
+Shared rather than copied for the reason `Nat.intCast_ne_zero_of_smooth` above is: three
+`FunctionField/` files certify at `n = 10` and this file is already in the import closure of all
+three. -/
+theorem Nat.ten_not_smooth : ¬ (∀ p ∈ (10 : ℕ).primeFactors, p = 2 ∨ p = 3) := by
+  intro hfac
+  have h5 : (5 : ℕ) ∈ (10 : ℕ).primeFactors :=
+    Nat.mem_primeFactors.mpr ⟨Nat.prime_five, ⟨2, by norm_num⟩, by norm_num⟩
+  rcases hfac 5 h5 with h | h <;> omega
+
 namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F}

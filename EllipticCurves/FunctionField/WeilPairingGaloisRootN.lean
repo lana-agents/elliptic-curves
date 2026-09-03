@@ -498,17 +498,6 @@ theorem exists_weilPairingElt_galois_of_ne_zero_of_hprin (σ : F ≃ₐ[S] F) (h
         = weilPairingElt (equation_algEquiv σ h₂) g' :=
   exists_weilPairingElt_galois_n_of_hprin σ _ (by rintro rfl; simp at hn) h₂ h hS hprin
 
-/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are**, over a
-fresh field `K` so that no section variable is drawn in.  ⚠️ A copy rather than a citation: the twin
-in `EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there and that file is not in
-this one's import closure. -/
-private lemma intCastGaloisRoot_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
-    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
-    ((n : ℤ) : K) ≠ 0 := by
-  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
-  push_cast
-  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
-
 open Classical in
 /-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
 general layer, so the containment between the two layers is compiled rather than asserted.  ⚠️ The
@@ -539,7 +528,7 @@ example (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
       galoisFunctionField σ (weilPairingElt h₂ g)
         = weilPairingElt (equation_algEquiv σ h₂) g' :=
   exists_weilPairingElt_galois_of_ne_zero_of_hprin σ h2
-    (intCastGaloisRoot_ne_zero_of_smooth h2 h3 hnz hfac) h₂ h hS hprin
+    (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) h₂ h hS hprin
 
 open Classical in
 /-- **Galois-equivariance of the Weil pairing in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ_n`
