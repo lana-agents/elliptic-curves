@@ -156,8 +156,8 @@ theorem separable_preΨ_of_wronskian {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 
     rw [← C_eq_natCast, ← C_mul, inv_mul_cancel₀ hn, C_1]
   linear_combination huv + v * C ((n : F)⁻¹) * hdiv + v * W.preΩ (n : ℤ) * hC
 
-/-- **`#E[n] = n²` at odd `n`** — `#1490`'s remaining gate, reduced to the Wronskian identity and
-the `preΨₙ`/`preΩₙ` coprimality.
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`** — `#1490`'s remaining gate,
+reduced to the Wronskian identity and the `preΨₙ`/`preΩₙ` coprimality.
 
 ⚠️ This is not a proof that `#E[n] = n²`; it is the statement that those two polynomial facts are
 all that stands between `main` and it.  The `↔` of
@@ -262,7 +262,8 @@ theorem isCoprime_preΨ_preΩ [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0
   · exact Or.inr (eval_preΩ_ne_zero_of_eval_preΨ_eq_zero h2 hodd hn hpair hp)
   · exact Or.inl hp
 
-/-- **`#E[n] = n²` at odd `n` from two equations** — the two reductions of this file composed.
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n ≠ 0` with `(n : F) ≠ 0`, from two equations** —
+the two reductions of this file composed.
 
 ⚠️ This is a statement about what is owed, not a proof of its conclusion.  Read the two hypotheses:
 `hid` is `[n]∗ω = nω` in `F[X]`, and `hpair` says the two summands of `Ωₙ` are negatives at a point

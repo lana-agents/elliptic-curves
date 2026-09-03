@@ -252,11 +252,12 @@ theorem separable_preΨ_of_univQ {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0)
   push_cast
   ring
 
-/-- **`#E[n] = n²` at odd `n`, from the identity at `univQ` and nothing else.**
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`, with the identity at `univQ`
+the only gate left.**
 
 What the statement says is that the whole of what was owed is **one polynomial identity about one
 curve over one ring** — no quantifier over rings, no quantifier over curves, and, since
-`EllipticCurves.Torsion.OmegaPairCoprime` discharged the companion `hpair`, no second hypothesis.
+`EllipticCurves.Torsion.OmegaPairCoprime` discharged the companion `hpair`, no second gate.
 
 ⚠️ This sentence used to open *"this is not a proof of its conclusion: `h` is `#1506` scope item 1,
 and it is open"*, and to close by requiring `EllipticCurves.Torsion.PrimaryTower`'s gate list and

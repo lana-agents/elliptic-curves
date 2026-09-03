@@ -170,7 +170,8 @@ theorem ψ_pair_mul_of_ψ_eq_zero {n : ℤ} (hz : (W.ψ n).evalEval x y = 0) :
 
 /-! ## The exceptional order, `d = 3` -/
 
-/-- At a point of order `3`, `ψ_{3j+2}³ = ψ₂^{6j+3}·ψ_{3j+1}³`.
+/-- With `(2 : F) ≠ 0`, at a point which is not `2`-torsion and has order `3`,
+`ψ_{3j+2}³ = ψ₂^{6j+3}·ψ_{3j+1}³`.
 
 The induction step is two applications of the quasi-periodicity
 `WeierstrassCurve.Affine.ψ_add_three_evalEval_of_ψ_three_eq_zero`, which turn both sides into
@@ -191,8 +192,8 @@ private lemma ψ_cube_of_ψ_three_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingu
       show ((3 * (j + 1) + 1 : ℕ) : ℤ) = ((3 * j + 1 : ℕ) : ℤ) + 3 by push_cast; ring, ha, hb]
     linear_combination (-((W.ψ 2).evalEval x y ^ (18 * j + 21))) * ih
 
-/-- `hpair` at a point of order `3`, where every index of the shape `n + 3ℤ` is available and the
-Ward route is not. -/
+/-- `hpair` with `(2 : F) ≠ 0`, at a point which is not `2`-torsion and has order `3`, where every
+index of the shape `n + 3ℤ` is available and the Ward route is not. -/
 private lemma ψ_pair_of_ψ_three_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y)
     (ht : (W.ψ 2).evalEval x y ≠ 0) (h3 : (W.ψ 3).evalEval x y = 0) (j : ℕ) :
     (W.ψ (((3 * j + 3 : ℕ) : ℤ) + 2)).evalEval x y *
@@ -300,10 +301,11 @@ theorem separable_preΨ_of_wronskian_of_isAlgClosed [IsAlgClosed F] [W.IsEllipti
     (W.preΨ (n : ℤ)).Separable :=
   separable_preΨ_of_wronskian hodd hn hid (isCoprime_preΨ_preΩ_of_odd h2 hodd)
 
-/-- **`#E[n] = n²` at odd `n`, from the Wronskian identity and nothing else.**
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`, with the Wronskian identity
+the only gate left.**
 
 ⚠️ This is still not a proof of its conclusion: `hid` is `#1506` scope item 1 and is open.  What
-has changed is that it is now the *only* hypothesis — the companion `hpair` of
+has changed is that it is now the *only* gate — the companion `hpair` of
 `WeierstrassCurve.Affine.card_torsion_eq_sq_of_wronskian_of_pair` is discharged above.  ⚠️
 `EllipticCurves.Torsion.PrimaryTower`'s gate list and `#293` are therefore unchanged. -/
 theorem card_torsion_eq_sq_of_wronskian_identity [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
