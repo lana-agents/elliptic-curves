@@ -499,8 +499,9 @@ theorem nsmulEqDiv_of_forall_ψ_ne_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingula
       fun k hk hk2 => hψ k hk (by push_cast at hk2 ⊢; omega)).2
     rwa [show ((m : ℕ) : ℤ) + 2 = ((m + 2 : ℕ) : ℤ) by push_cast; ring] at H
 
-/-- **The `x`-coordinate formula** `x(n • P) = Φₙ(x)/ΨSqₙ(x)`, at every index `n ≥ 1` whose ladder
-`ψ₁(x, y), …, ψₙ(x, y)` has no zero.  This is `#251`'s scope item 1 at a point.
+/-- **The `x`-coordinate formula** `x(n • P) = Φₙ(x)/ΨSqₙ(x)`, with `(2 : F) ≠ 0`, at every index
+`n ≥ 1` whose ladder `ψ₁(x, y), …, ψₙ(x, y)` has no zero.  This is `#251`'s scope item 1 at a
+point.
 
 ⚠️ It is **not** `WeierstrassCurve.Affine.HasXCoordFormula W n`, whose hypothesis is the weaker
 `ΨSqₙ(x) ≠ 0` and which quantifies over all points of `W`.  See the module docstring for why the

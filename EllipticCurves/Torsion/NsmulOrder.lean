@@ -558,8 +558,8 @@ theorem exists_order_of_exists_ψ_evalEval_eq_zero (h2 : (2 : F) ≠ 0) (hns : W
     rw [show (e + 3) * r = r * (e + 3) by ring]
     exact hqz r
 
-/-- **`n • (x, y) = 0 ↔ ψₙ(x, y) = 0`**, at every point which is not `2`-torsion and at every
-index.  This is `#251`'s scope item 2 away from the `2`-torsion. -/
+/-- **`n • (x, y) = 0 ↔ ψₙ(x, y) = 0`**, with `(2 : F) ≠ 0`, at every point which is not
+`2`-torsion and at every index.  This is `#251`'s scope item 2 away from the `2`-torsion. -/
 theorem nsmul_eq_zero_iff_ψ_evalEval_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y)
     (ht : (W.ψ 2).evalEval x y ≠ 0) (n : ℕ) :
     ((n • Point.some x y hns : W.Point) = 0) ↔ (W.ψ (n : ℤ)).evalEval x y = 0 := by
@@ -576,9 +576,9 @@ theorem nsmul_eq_zero_iff_ψ_evalEval_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nons
           rwa [Int.toNat_of_nonneg (by omega)]) (hfin k.toNat (by omega))
       · exact fun hz => absurd hz (hfin n hn)
 
-/-- **`n • (x, y) = 0 → ψₙ(x, y) = 0`**, at every point and every index.  This sharpens
-`WeierstrassCurve.Affine.exists_ψ_evalEval_eq_zero_of_nsmul_eq_zero`, which only produced *some*
-vanishing rung `k ≤ n`, to the statement that the rung can be taken to be `n` itself. -/
+/-- **`n • (x, y) = 0 → ψₙ(x, y) = 0`**, with `(2 : F) ≠ 0`, at every point and every index.  This
+sharpens `WeierstrassCurve.Affine.exists_ψ_evalEval_eq_zero_of_nsmul_eq_zero`, which only produced
+*some* vanishing rung `k ≤ n`, to the statement that the rung can be taken to be `n` itself. -/
 theorem ψ_evalEval_eq_zero_of_nsmul_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y)
     {n : ℕ} (hz : (n • Point.some x y hns : W.Point) = 0) :
     (W.ψ (n : ℤ)).evalEval x y = 0 := by

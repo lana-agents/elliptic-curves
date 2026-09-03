@@ -392,17 +392,17 @@ theorem nonempty_torsionTwoPowMulThreePow_addEquiv (h2 : (2 : F) ≠ 0) (h3 : (3
 
 /-! ## Every `3`-smooth `n` -/
 
-/-- **`#E[n] = n²` for every `3`-smooth `n ≠ 0`.** The hypotheses are exactly those of
-`EllipticCurves.Torsion.Multiplicative`'s `card_torsion_le_sq_of_smooth`, with `≤` upgraded to `=`:
-the `3`-smooth bound is sharp. -/
+/-- **`#E[n] = n²` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, for every `3`-smooth `n ≠ 0`.** The
+hypotheses are exactly those of `EllipticCurves.Torsion.Multiplicative`'s
+`card_torsion_le_sq_of_smooth`, with `≤` upgraded to `=`: the `3`-smooth bound is sharp. -/
 theorem card_torsion_eq_sq_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : Nat.card (W.torsion n) = n ^ 2 := by
   obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
   exact card_torsion_two_pow_mul_three_pow h2 h3 a b
 
-/-- **`E[n] ≃+ ℤ/nℤ × ℤ/nℤ` for every `3`-smooth `n ≠ 0`**: the widest slice of the
-structure theorem `E[n] ≅ (ℤ/nℤ)²` available in this development, and the first index it does
-not cover is `n = 5`. -/
+/-- **`E[n] ≃+ ℤ/nℤ × ℤ/nℤ` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, for every `3`-smooth `n ≠ 0`**:
+the widest slice of the structure theorem `E[n] ≅ (ℤ/nℤ)²` available in this development, and the
+first index it does not cover is `n = 5`. -/
 theorem nonempty_torsion_addEquiv_zmod_sq_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
     Nonempty (W.torsion n ≃+ ZMod n × ZMod n) := by

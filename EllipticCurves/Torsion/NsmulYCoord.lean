@@ -164,8 +164,8 @@ private lemma some_eq_some_of_eq_snd {y₁ y₂ : F} (h₁ : W.Nonsingular x y�
     (Point.some x y₁ h₁ : W.Point) = .some x y₂ h₂ := by
   subst h; rfl
 
-/-- **`n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))`** — the `y`-half of the coordinate formula, at
-every index whose ladder `ψ₁, …, ψₙ` has no zero.
+/-- **`n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))`** — the `y`-half of the coordinate formula, with
+`(2 : F) ≠ 0`, at every index `n ≥ 2` whose ladder `ψ₁, …, ψₙ` has no zero.
 
 This is `WeierstrassCurve.Affine.nsmul_eq_some_Φ_div_ΨSq` with its anonymous `y'` identified: that
 theorem produces `divY x y n`, and `divY_eq_omegaY` says it is the `ω`-quotient.
