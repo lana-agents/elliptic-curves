@@ -119,12 +119,15 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
 * ⚠️ **`ℓ ≥ 5` is reached, and this file being generic is what reaches it.** ⚠️ **This bullet used
   to open** *"`ℓ ≥ 5` gains nothing from this file being generic"*, on the ground that its
   hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)` *"is gated at `ℓ ≥ 5` on `#E[ℓ^k]` alone"*, and **neither
-  half survives**.  The hypothesis is discharged at **every** prime `ℓ` with `(ℓ : F) ≠ 0` by
-  `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
-  `#268`), under `[IsAlgClosed F]` and `[W.IsElliptic]`; and the instantiation this bullet ends by
-  calling undone has been written.  ⚠️ That module is a **sibling** of this one — neither is in the
-  other's import closure — so the name is a forward reference and is not usable here.  ⚠️ This
-  bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
+  half survives**. The hypothesis is discharged at **every** prime `ℓ` with `(2 : F) ≠ 0` and
+  `(ℓ : F) ≠ 0` by `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+  (`EllipticCurves.TateModule.FreeGeneral`, `#268`), under `[IsAlgClosed F]` and `[W.IsElliptic]`;
+  and the instantiation this bullet ends by calling undone has been written. ⚠️ **`(2 : F) ≠ 0` is
+  the second hypothesis and this sentence used to name only the first** (`#1137`); it enters at
+  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`), whose docstring says what it
+  costs. ⚠️ That module is a **sibling** of this one — neither is in the other's import closure — so
+  the name is not usable here either, though for a different reason than a forward reference. ⚠️
+  This bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
   general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are
   wrong**: `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
   `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
@@ -134,7 +137,7 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
   ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
   (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
   `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it.  ⚠️ **And the clause that used to close this bullet —
+  this bullet used to cite as open — with it. ⚠️ **And the clause that used to close this bullet —
   *"instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done here"*
   — has been paid.** `EllipticCurves.TateModule.ImageGeneral` states
   `isCompact_range_galoisDet_of_natCast_ne_zero` and `isClosed_range_galoisDet_of_natCast_ne_zero`,
@@ -144,7 +147,7 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
   certificates committed at `ℓ = 5` and at `ℓ = 7`. ⚠️ `EllipticCurves.TateModule.ImageGeneral` and
   `EllipticCurves.TateModule.ImageProfiniteGeneral`, and every theorem named in them, are **forward
   references** here: both are downstream of this one — they import this file and this file imports
-  neither — so none of those names is usable here.  What being generic bought is what this bullet
+  neither — so none of those names is usable here. What being generic bought is what this bullet
   predicted it would: the general file is a list of one-line instantiations and no argument was
   written a third time.
 

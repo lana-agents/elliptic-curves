@@ -14,8 +14,11 @@ import EllipticCurves.TateModule.PrimaryImage
 *given* basis at an arbitrary prime, and states the two basis-free consequences —
 `isCompact_range_galoisDet_of_nonempty` and `isClosed_range_galoisDet_of_nonempty` — in terms of
 one input: `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`. **This file supplies that input at every
-prime `ℓ` with `(ℓ : F) ≠ 0` and contains no argument**; both proofs are one line, and the input is
-`nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`, `#268`).
+prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, and contains no argument**; both proofs are one
+line, and the input is `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+(`EllipticCurves.TateModule.FreeGeneral`, `#268`). ⚠️ **`(2 : F) ≠ 0` is the second hypothesis, and
+this paragraph used to name only the first** — see `EllipticCurves.Torsion.StructureGeneral`, where
+it enters, for why it is there and why it is not the same kind of restriction as `(ℓ : F) ≠ 0`.
 
 This is `EllipticCurves.TateModule.ImageThree`'s `isCompact_range_galoisDetThree` /
 `isClosed_range_galoisDetThree` pair with `3` replaced by an arbitrary prime away from the

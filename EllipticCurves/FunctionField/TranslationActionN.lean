@@ -85,7 +85,7 @@ the two instances, the count, and the inclusion.
 `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` with no smoothness) and `E[n]` has exactly `n²`
 elements over an algebraically closed field (`card_torsion_eq_sq_of_smooth`, `#1209`, in
 characteristic `≠ 2, 3` at `3`-smooth `n`; `card_torsion_eq_sq`, `#293`, at every `n` with
-`(n : F) ≠ 0`).  Translation by an `n`-torsion point fixes `[n]∗f`
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`).  Translation by an `n`-torsion point fixes `[n]∗f`
 pointwise, so `[n]∗F(W) ⊆ Fixed(E[n])`, and `FixedPoints.finrank_eq_card` gives
 `[F(W) : Fixed(E[n])] = n²`.  Both outer degrees being `n²`, the sandwich closes and
 `Fixed(E[n]) = [n]∗F(W)` exactly — whence separability, **normality** and `IsGalois`.
@@ -143,14 +143,15 @@ Every public declaration of this file is listed, and all are in namespace
 * ⚠️ **`n = 5` in the count — RETIRED, it landed.**  This bullet used to read
   *"`card_torsion_eq_sq_of_smooth` is `3`-smooth and this file manufactures no new prime."*  The
   second clause is still true and is still why: what changed is the **input**, not this file's
-  method.  `card_torsion_eq_sq` (`#293`) is the count at every `n` with `(n : F) ≠ 0`, and
+  method.  `card_torsion_eq_sq` (`#293`) is the count at every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0` — ⚠️ **both**, and this sentence used to name only the second (`#1137`) — and
   `card_torsionNMul_of_ne_zero` is it in the multiplicative packaging.  The action, the faithfulness
   and the inclusion remain unaffected either way — they never mention `n²`.
-* **Not `#E[n] = n²`.**  That count is an *input* here, merged separately in
+* **Not `#E[n] = n²`.** That count is an *input* here, merged separately in
   `EllipticCurves.Torsion.ThreePrimary` (`3`-smooth) and `EllipticCurves.Torsion.StructureGeneral`
-  (every `n` with `(n : F) ≠ 0`) by the torsion route.  This file supplies no kernel count
-  for `[n]` as an isogeny, and the step *"a separable isogeny has `#ker = deg`"* remains nowhere in
-  this tree.
+  (every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`) by the torsion route. This file supplies no
+  kernel count for `[n]` as an isogeny, and the step *"a separable isogeny has `#ker = deg`"*
+  remains nowhere in this tree.
 * **No coordinate work.**  `ωₙ` (`#404`), the general-`n` on-curve identity, `#251` and Ward
   (`#260`) are all unused: `mulByNEndo` is built from the **group law** on `(W ⁄ F(W)).Point`, and
   as `TranslationMulByNCommGeneral` says of itself, *"the coordinates of `[n]` as rational

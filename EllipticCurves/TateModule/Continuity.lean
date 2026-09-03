@@ -32,9 +32,17 @@ sentence was reaching for survives without any count: the disclaimer had already
 more than one register — from a scope statement about a file's own contents to a claim about the
 whole `ρ` front — and this file is what ends the need for either. ⚠️ **State the position, not the
 tally.** A tally taken against the current branch decays; the `807ac29` one cannot, because the
-commit it is measured at cannot change. ⚠️ And whichever is taken, **normalise whitespace before
-counting**: clauses in this development wrap across newlines, so a line-oriented scan undercounts
-them, and it reads a marked quotation of another file's clause as a clause of its own.
+commit it is measured at cannot change. ⚠️ And whichever is taken, **two independent things go
+wrong with a naive scan, and one remedy does not fix both.** (i) Clauses in this development wrap
+across newlines, so a line-oriented scan undercounts them — **normalise whitespace before
+counting**. (ii) A repaired site keeps the old clause as a marked quotation (`#972`), so any scan,
+normalised or not, reads another file's retired clause as a clause of its own — the remedy there is
+quotation detection, and normalising does **nothing** for it. ⚠️ This paragraph used to bundle both
+under *"normalise whitespace before counting"*; two reviewers reproduced exactly the miscount that
+bundling causes (`#1137`), because a reader who follows the instruction literally believes both are
+solved. ⚠️ A third failure mode, found while sweeping `#1137`: a hypothesis guard written as
+`two_ne_zero` matches inside `nsmul_surjective_of_two_ne_zero` and silences eleven true positives.
+**Anchor identifier patterns, and validate the guard on a known positive before trusting a zero.**
 
 ## The topologies, and why nothing has to be constructed
 

@@ -15,8 +15,11 @@ import EllipticCurves.TateModule.PrimaryMatrixContinuity
 basis-free consequences — `continuous_galoisDet_of_nonempty`, `continuous_galoisTrace_of_nonempty`
 and `exists_continuous_galoisRepMatrix_of_nonempty` — in terms of one input:
 `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`. **This file supplies that input at every prime `ℓ` with
-`(ℓ : F) ≠ 0` and contains no argument**; all three proofs are one line, and the input is
-`nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`, `#268`).
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, and contains no argument**; all three proofs are one line, and the
+input is `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
+(`EllipticCurves.TateModule.FreeGeneral`, `#268`). ⚠️ **`(2 : F) ≠ 0` is the second hypothesis, and
+this paragraph used to name only the first** — see `EllipticCurves.Torsion.StructureGeneral`, where
+it enters, for why it is there and why it is not the same kind of restriction as `(ℓ : F) ≠ 0`.
 
 This is `EllipticCurves.TateModule.MatrixContinuityThree`'s `continuous_galoisDetThree`,
 `continuous_galoisTraceThree` and `exists_continuous_galoisRepMatrixThree` with `3` replaced by an

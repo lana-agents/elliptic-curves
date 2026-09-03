@@ -137,12 +137,16 @@ profiniteness or matrices.
   identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).
   ⚠️ **`#E[ℓ^k]` is not open at any prime `ℓ` with `(ℓ : F) ≠ 0`, and this file's generic sibling
   is now instantiated there.** The sharp count is `card_torsion_eq_sq`
-  (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with `(n : F) ≠ 0`, `ℓ = 2`
-  included, so it is sharper than the odd-`ℓ` attribution this bullet used to carry.
+  (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with `(2 : F) ≠ 0` and
+  `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ` attribution this bullet used to
+  carry.  ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this bullet used to name only the index
+  one** (`#1137`); it is a hypothesis of the count and of all 22 `_of_natCast_ne_zero` statements
+  in the `TateModule/` directory built on it, so none of them reaches characteristic `2`.
   `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
   `#268`) turns that count into the rank-two input the generic layer takes as an argument, and
   **`EllipticCurves.TateModule.ImageProfiniteGeneral` supplies it at every prime `ℓ` with
-  `(ℓ : F) ≠ 0`** — so *"separate work and is not done here"* is discharged rather than owed. ⚠️
+  `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`** — so *"separate work and is not done here"* is discharged rather
+  than owed. ⚠️
   The clause that followed — *"what is missing there is a basis to feed it, not a theorem"* — was
   the right diagnosis, and the basis is `tateModule.nonempty_basis_tateModule_of_natCast_ne_zero`
   (`EllipticCurves.TateModule.MatrixRepGeneral`). ⚠️ `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the

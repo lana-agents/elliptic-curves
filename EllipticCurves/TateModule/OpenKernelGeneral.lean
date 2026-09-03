@@ -29,7 +29,8 @@ and their proofs are one line. There is **no** `isClosed_ker_galoisRep_of_nonemp
   `nsmul_surjective_of_two_ne_zero` at every nonzero index; and
 * openness of each level kernel, which asks for `Finite (E[ℓ^k])`, supplied by
   `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) at every `n` with
-  `(n : F) ≠ 0`. ⚠️ That level statement now has a name of its own —
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0`. ⚠️ **Both**, and this bullet used to name only the second.
+  ⚠️ That level statement now has a name of its own —
   `isOpen_ker_galoisRepMod_of_natCast_ne_zero` and its locally-constant companion
   (`EllipticCurves.TateModule.OpenKernel`) — which is what this file is built on, at every level
   prime to the characteristic and with neither `[IsAlgClosed F]` nor `[(W'⁄F).IsElliptic]`. The
