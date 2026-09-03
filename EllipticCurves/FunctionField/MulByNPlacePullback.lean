@@ -134,32 +134,58 @@ of `EllipticCurves.Torsion.NsmulOrder`, `EllipticCurves.FunctionField.MulByNXCoo
 this file's import closure and none is added: all four names are cited, not consumed.  The
 two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
-⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and this one is a **negative
-result, not a gap** — at *general* `n`; at every `3`-smooth `n` it is
+⚠️ **`ordInfty ([n]∗ genX) = -2` is not here** (`#670` at `n = 2`), and it is available in two
+places outside this file: at every `3`-smooth `n` as
 `EllipticCurves.FunctionField.MulByNPlaceComposition.ordInfty_mulByNEndo_genX_of_smooth`, reached by
-composition rather than by the degree count this paragraph is about.  `ordInfty_mulByTwoEndo_genX`
+composition; and — ⚠️ **this is what corrects the paragraph below** — at every `n` with
+`(n : F) ≠ 0` as that file's `ordInfty_mulByNEndo_genX_of_ne_zero`, reached by **exactly the degree
+count this paragraph is about**.
+
+⚠️ **This paragraph used to call that a "negative result, not a gap" at general `n`, and to give the
+reason as follows.**  `ordInfty_mulByTwoEndo_genX`
 (`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity`) and `ord_mulByTwoEndo_genX_neg`
 (`EllipticCurves.FunctionField.MulByTwoFibreInfinity`) both open with `rw [mulByTwoEndo_genX h2, …]`
 and then count degrees of `Φ₂` and `Ψ₂Sq`; `mulByNEndo_genX` rewrites instead to `x(n • 𝒫)`, about
-which the group law says only that it satisfies the Weierstrass equation.  ⚠️ **That alone pins
-nothing at infinity** — `x(𝒫 + T)` for a fixed `T ≠ O` satisfies the same equation and has *no* pole
-there.  What pins `ordInfty (x(n • 𝒫)) = -2k` and `ordInfty (y(n • 𝒫)) = -3k` for **some** `k ≥ 1`
-is that `[n]` fixes the point at infinity — which is the `comapProjPointN … none = none` discussed
-below.  Even granted it, `k` is unpinned, and that is as far as *this* route gets.
+which *the group law* says only that it satisfies the Weierstrass equation, and ⚠️ **that alone does
+pin nothing at infinity** — `x(𝒫 + T)` for a fixed `T ≠ O` satisfies the same equation and has *no*
+pole there.  ⚠️ **Every sentence of that is true and the conclusion drawn from it was not**: the
+group law is not the only input available.  `xCoord_nsmul_genericPoint'`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#251`) is
+`x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` at every `n` with `(n : F) ≠ 0`, and against Mathlib's
+`natDegree_Φ = n²` and `natDegree_ΨSq = n² - 1` it makes the `n = 2` proof transpose
+**verbatim**.
+⚠️ Note where that name appears in this very file: four paragraphs above, in the list of names that
+are *"cited, not consumed"*.  It is now consumed, one file over.
+
+⚠️ **What survives, and it is the part with the mathematics in it**: `k` really is unpinned by the
+equation alone, and at an `n` divisible by the characteristic it is genuinely not `1` — the next
+paragraph, which this one used to introduce, is unchanged and is what makes `(n : F) ≠ 0`
+necessary rather than merely convenient.
 
 ⚠️ **`k = 1` is false at general `n`.**  `mulByNEndo n hn` carries no hypothesis on `(n : F)`, and
-none is available: over `F̄` of characteristic `p > 2` the transcendence hypothesis at `n = p` is
-discharged by `exists_nsmul_ne_zero_of_isAlgClosed`, which asks only for `(2 : F) ≠ 0`.  There `[p]`
-is inseparable, hence ramified over the point at infinity — `e = p` in the ordinary case and `p²` in
-the supersingular one, the fibre having `p` points and `1` point respectively against
-`∑ e_P = deg [p] = p²` — so `ordInfty ([p]∗ genX)` is `-2p` or `-2p²`.  A general-`n` rung 4 needs
-`(n : F) ≠ 0` **on top of** the missing degree count.  ⚠️ That argument is Silverman *AEC* II.2.12,
-III.4.10 and V.3.1 read together; it is stated here as the reason nothing is landed and it is **not
+none is available *to it*: over `F̄` of characteristic `p > 2` the transcendence hypothesis at
+`n = p` is discharged by `exists_nsmul_ne_zero_of_isAlgClosed`, which asks only for `(2 : F) ≠ 0`.
+There `[p]` is inseparable, hence ramified over the point at infinity — `e = p` in the ordinary
+case and `p²` in the supersingular one, the fibre having `p` points and `1` point respectively
+against `∑ e_P = deg [p] = p²` — so `ordInfty ([p]∗ genX)` is `-2p` or `-2p²`.
+
+⚠️ **A general-`n` rung 4 needs `(n : F) ≠ 0`, and this sentence used to add "on top of the missing
+degree count" — the degree count was never missing.**  `natDegree_Φ` and `natDegree_ΨSq` are
+Mathlib's at every index (the latter under the same `(n : F) ≠ 0`), and
+`EllipticCurves.FunctionField.MulByNDegreeTower` has consumed both since `#1213`.  `(n : F) ≠ 0` is
+the *whole* of what was needed, and with it the count is done — see
+`EllipticCurves.FunctionField.MulByNPlaceComposition.ordInfty_mulByNEndo_genX_of_ne_zero`.  ⚠️ The
+argument for `k ≠ 1` in characteristic `p` is Silverman *AEC* II.2.12, III.4.10 and V.3.1 read
+together; it is stated here as the reason nothing is landed **at `p ∣ n`** and it is **not
 formalised** in this tree.
 
 Consequently `comapProjPointN … none = none` (*"`[n]` fixes the point at infinity"*) is **also**
 absent *from this file*: `comapProjPointTwo_none` is proved from the pole order, and so are the
-fibre-sum identities `#701` and `#1046`.
+fibre-sum identities `#701` and `#1046`.  ⚠️ **Absent from this file, and present in the tree at
+every `n` with `(n : F) ≠ 0`** — `comapProjPointN_none_of_ne_zero` and
+`ramificationIdxN_none_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNPlaceComposition`), by the pole order and with the `n = 2`
+proof transposed unchanged.
 
 ⚠️ **This paragraph used to conclude that the statement is absent from the tree, and that is now
 false at every `3`-smooth `n`.**  `EllipticCurves.FunctionField.MulByNPlaceComposition` (`#1214`)
@@ -229,11 +255,13 @@ noncomputable def comapProjPointN (n : ℕ)
 
 ⚠️ It is *defined* as the value of the transported order at a uniformizer, exactly as at `n = 2`.
 Nothing below computes it at any particular place, and in particular nothing here says it is `1` at
-the place at infinity — that is `#670`'s statement, and at general `n` it is **false** (see the
-module docstring).  ⚠️ At every `3`-smooth `n` it is `1`:
+the place at infinity — that is `#670`'s statement, and at an `n` divisible by the characteristic it
+is **false** (see the module docstring).  ⚠️ At every `3`-smooth `n` it is `1`:
 `EllipticCurves.FunctionField.MulByNPlaceComposition.ramificationIdxN_none_of_smooth`, by
 multiplicativity of this index along `[m · n]∗ = [m]∗ ∘ [n]∗` rather than by any computation
-here. -/
+here; ⚠️ and at every `n` with `(n : F) ≠ 0`, `…ramificationIdxN_none_of_ne_zero`, by the pole
+count.  ⚠️ *"At general `n`"* in the sentence above meant *"with no hypothesis on `(n : F)`"*, which
+is the only range in which it is false. -/
 noncomputable def ramificationIdxN (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (p : ProjPoint W) : ℤ :=
   ramificationIdx (mulByNEndo_algebraMap_base n hn) (mulByNEndo_isIntegralElem n hn) p

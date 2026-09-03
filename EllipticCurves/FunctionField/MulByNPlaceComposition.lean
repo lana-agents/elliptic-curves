@@ -6,10 +6,12 @@ Authors: The Elliptic Curves formalisation contributors
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNPlacePullback
+import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.MulByThreePlacePullback
 
 /-!
-# `[n]` fixes the point at infinity, at every `3`-smooth `n`
+# `[n]` fixes the point at infinity — at every `3`-smooth `n` by composition, and at every `n`
+with `(n : F) ≠ 0` by the pole order
 
 `EllipticCurves.FunctionField.MulByNPlacePullback` contracts a place of the projective curve along
 `[n]∗` (`comapProjPointN`) for every `n` at which `[n]` is non-constant, and closes its *"rungs that
@@ -19,10 +21,19 @@ do not survive"* section with
 > absent: `comapProjPointTwo_none` is proved from the pole order.
 
 That is right about the *merged route*, which runs `divisorProj_mulByTwoEndo_apply` backwards
-against `ordInfty ([2]∗ genX) = -2` — and `ordInfty ([n]∗ genX) < 0` is genuinely unavailable at
-general `n`, because `mulByNEndo_genX` rewrites to `x(n • 𝒫)`, about which the group law says only
-that it satisfies the Weierstrass equation, and `x(𝒫 + T)` for a constant `T ≠ O` satisfies the same
-equation with no pole at infinity.
+against `ordInfty ([2]∗ genX) = -2`.  ⚠️ **This paragraph used to add that
+`ordInfty ([n]∗ genX) < 0` is therefore "genuinely unavailable at general `n`, because
+`mulByNEndo_genX` rewrites to
+`x(n • 𝒫)`, about which the group law says only that it satisfies the Weierstrass equation" — and
+that reason is incomplete.**  The group law says only that; the **coordinate formula** says
+`x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` (`xCoord_nsmul_genericPoint'`,
+`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#251`), which pins the pole order outright at
+every `n` with `(n : F) ≠ 0` against Mathlib's `natDegree_Φ` and `natDegree_ΨSq`.  That is the
+`§ The same four statements at every n with (n : F) ≠ 0` section below, and it is why this file now
+imports `MulByNXCoordFormula`.  ⚠️ **The conclusion survives where it was aimed**: at an `n`
+divisible by the characteristic the pole order really is not `-2`, and there the observation about
+`x(𝒫 + T)` — which satisfies the same equation with no pole at infinity — is still the right way to
+see that the equation alone pins nothing.
 
 **It is available at every `3`-smooth `n`, and by composition rather than by a pole order.**
 `EllipticCurves.FunctionField.MulByNComposition` proves `[m · n]∗ = [m]∗ ∘ [n]∗` from the group law;
@@ -54,13 +65,19 @@ The ramification index is multiplicative along the composition — same uniformi
 `ordInfty ([n]∗ f) = ordInfty f`, in particular `ordInfty ([n]∗ genX) = -2`.  That is `#670`'s
 statement at every `3`-smooth `n`.
 
-⚠️ **It does not extend, and `MulByNPlacePullback`'s argument that it is false at general `n` is
-untouched.**  Over `F̄` of characteristic `p > 2` the transcendence hypothesis holds at `n = p`,
-`[p]` is inseparable, and `ordInfty ([p]∗ genX)` is `-2p` or `-2p²`.  Everything below carries
-`(2 : F) ≠ 0` **and** `(3 : F) ≠ 0` together with `3`-smoothness of `n`, which is exactly the
-hypothesis that keeps `p ∤ n`.  Nothing here says `e_∞ = 1` at any `n` with a prime factor other
-than `2` or `3`, and the argument gives no route to one: the composition law manufactures no new
-prime.
+⚠️ **`MulByNPlacePullback`'s argument that it is false at an `n` divisible by the characteristic
+is untouched.**  Over `F̄` of characteristic `p > 2` the transcendence hypothesis holds at `n = p`,
+`[p]` is inseparable, and `ordInfty ([p]∗ genX)` is `-2p` or `-2p²`.  So `(n : F) ≠ 0` in some form
+is not optional.
+
+⚠️ **What does not extend is the *route*, not the statement, and this paragraph used to conflate
+them.**  It said *"nothing here says `e_∞ = 1` at any `n` with a prime factor other than `2` or `3`,
+and the argument gives no route to one: the composition law manufactures no new prime"*.  The second
+half is exactly right and is why the `_of_smooth` layer stops where it does — a ladder built from
+`{2, 3}` reaches the `{2,3}`-generated indices at any hypotheses whatsoever.  The first half is
+**false as of the section below**, which says `e_∞ = 1` at every `n` with `(n : F) ≠ 0` by a
+different argument: the pole order, which manufactures no primes because it counts degrees rather
+than composing maps.
 
 ## Main statements
 
@@ -81,6 +98,13 @@ prime.
   `none ↦ none` alone and with no smoothness hypothesis;
 * `…ordInfty_mulByNEndo_of_smooth` and `…ordInfty_mulByNEndo_genX_of_smooth` — the same with
   `e_∞ = 1` supplied, and `ordInfty ([n]∗ genX) = -2` at every `3`-smooth `n`.
+* ⚠️ **`…ordInfty_mulByNEndo_genX_of_ne_zero`, `…comapProjPointN_none_of_ne_zero`,
+  `…ramificationIdxN_none_of_ne_zero` and `…ordInfty_mulByNEndo_of_ne_zero`** — **the same four
+  conclusions at every `n` with `(n : F) ≠ 0`**, by the pole order rather than by composition.
+  ⚠️ Neither layer subsumes the other: `n = 14` is in the second and not the first, and the first
+  consumes no division polynomial while the second does.
+* `…ordInfty_mulByNEndo_genX_five`, `…comapProjPointN_none_five` and `…ramificationIdxN_none_five` —
+  the first index outside `{2, 3}`, named rather than left as `example`s.
 
 ## What is *not* here
 
@@ -88,7 +112,14 @@ prime.
   (`EllipticCurves.FunctionField.PlacePullback`) applied to `mulByNEndo`, exactly as
   `MulByNPlacePullback` says of itself; the content is the composition law and the two merged prime
   inputs.
-* **Nothing at `n = 5`, and nothing in characteristic `2` or `3`.**  See the second warning above.
+* ⚠️ **`n = 5` IS here now, and characteristic `3` is too — this bullet is what changed.**  It read
+  *"Nothing at `n = 5`, and nothing in characteristic `2` or `3`"*.  The `_of_ne_zero` layer needs
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0` and nothing else, so it reaches `n = 5` (named), `n = 14`
+  (committed, and the index that shows the layer is not `{2,3,5}`-parametrised) and every index
+  prime to the characteristic **in characteristic `3`**.  ⚠️ Characteristic `2` is still empty, and
+  that half of the bullet stands: `(2 : F) ≠ 0` is a hypothesis of every statement in the file.
+* **Still nothing at an `n` divisible by the characteristic**, where `e_∞ = 1` is false rather than
+  open.  See the second warning above.
 * **No residue degree — *here*.**  ⚠️ This bullet used to say that `#701` and `#1046`, *"the
   residue-degree companions at the point at infinity"*, **are absent**.  Both clauses were loose.
   `#701` and `#1046` are the *fibre sums* `∑_{p ↦ q} e_p · f_p = deg`, not the value of `f` at one
@@ -355,6 +386,159 @@ theorem ordInfty_mulByNEndo_genX_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) �
     ordInfty W (mulByNEndo n h (genX W)) = -2 := by
   rw [ordInfty_mulByNEndo_of_smooth h2 h3 hn hfac h genX_ne_zero, ordInfty_genX]
 
+/-! ### The same four statements at every `n` with `(n : F) ≠ 0`, by the pole order
+
+⚠️ **The route this file's opening paragraph declares unavailable is available, and it was a
+citation that had never been consumed.**  That paragraph says `ordInfty ([n]∗ genX) < 0` cannot be
+had at general `n` *"because `mulByNEndo_genX` rewrites to `x(n • 𝒫)`, about which the group law
+says only that it satisfies the Weierstrass equation"*.  The group law says only that — but the
+**coordinate formula** says much more, and it is merged:
+
+* `xCoord_nsmul_genericPoint'` (`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#251`) is
+  `x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` at every `n` with `(n : F) ≠ 0`;
+* `natDegree_Φ` and `natDegree_ΨSq` are **Mathlib's**, at `n²` and `n² - 1`, the latter under the
+  same `(n : F) ≠ 0`;
+* `ordInfty_eval_map_genX` (`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity`) turns a degree
+  into a pole order and mentions no doubling.
+
+So `ordInfty_mulByTwoEndo_genX`'s proof — *"rewrite, then count the degrees of `Φ` and `ΨSq`"* —
+transposes verbatim from `n = 2` to every `n` with `(n : F) ≠ 0`, and the three place statements
+fall out of it exactly as at `n = 2`.  ⚠️ `MulByNPlacePullback`'s account of why the pole-order
+route stops is corrected there in the same PR.
+
+## ⚠️ This inverts the dependency order of the `3`-smooth layer, and that is the point
+
+Above, `ordInfty_mulByNEndo_genX_of_smooth` is a **corollary** of the contraction, reached by
+composition and needing no division polynomial.  Here it is the **input**: the pole order is proved
+first, from the degrees, and the contraction is read off it.  The two layers are therefore
+independent proofs of the same conclusion on their common range, which is why the `_of_smooth`
+forms are kept rather than deprecated — and the `3`-smooth route remains the only one here that
+consumes no division polynomial at all.
+
+## ⚠️ `(n : F) ≠ 0` is sharp, and this file's warning about it stands unchanged
+
+At `n = char F > 2` the transcendence hypothesis is still met, `[n]` is inseparable, and
+`ordInfty ([n]∗ genX)` is `-2n` or `-2n²` rather than `-2` — so `e_∞ = 1` is **false** there, not
+merely unproved.  What changed is the *shape* of the sufficient condition: it is `(n : F) ≠ 0`, not
+`3`-smoothness together with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  ⚠️ Those two conditions are not the
+same and neither contains the other in hypothesis form, though the second implies the first.
+-/
+
+omit [IsDedekindDomain W.CoordinateRing] in
+/-- **`ordInfty ([n]∗ genX) = -2` at every `n` with `(n : F) ≠ 0`**, over a field of characteristic
+`≠ 2` — `#670`'s statement, by the degree count rather than by composition.
+
+`x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` has a pole of order `2 · n²` over one of order `2 · (n² - 1)`, so
+the quotient has a double pole: the same order as `genX` itself.  ⚠️ The exact degree of `ΨSqₙ`
+needs its leading coefficient `n` to be nonzero, which is the whole of what `hn` does here — the
+same place `h2` starts doing work in `ordInfty_mulByTwoEndo_genX`.
+
+⚠️ **No `[IsDedekindDomain W.CoordinateRing]`**: this is a statement about the order at infinity of
+an element of `F(W)` and nothing about places is needed for it.  The three statements below do need
+it.  ⚠️ Measured rather than preferred — `unusedSectionVars` is what says the instance is idle
+here, and it fires on this declaration without the `omit`. -/
+theorem ordInfty_mulByNEndo_genX_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    ordInfty W (mulByNEndo n h (genX W)) = -2 := by
+  have hn0 : n ≠ 0 := by rintro rfl; simp at hn
+  have hΦ : ((W.map (algebraMap F W.FunctionField)).Φ (n : ℤ))
+      = (W.Φ (n : ℤ)).map (algebraMap F W.FunctionField) := WeierstrassCurve.map_Φ ..
+  have hΨ : ((W.map (algebraMap F W.FunctionField)).ΨSq (n : ℤ))
+      = (W.ΨSq (n : ℤ)).map (algebraMap F W.FunctionField) := WeierstrassCurve.map_ΨSq ..
+  rw [mulByNEndo_genX, xCoord_nsmul_genericPoint' h2 hn, hΦ, hΨ,
+    ordInfty_div (eval_map_genX_ne_zero (W.Φ_ne_zero (n : ℤ)))
+      (eval_map_genX_ne_zero (W.ΨSq_ne_zero hn)),
+    ordInfty_eval_map_genX (W.Φ_ne_zero (n : ℤ)), ordInfty_eval_map_genX (W.ΨSq_ne_zero hn),
+    W.natDegree_Φ (n : ℤ), W.natDegree_ΨSq hn]
+  have h1 : 1 ≤ ((n : ℤ)).natAbs ^ 2 := Nat.one_le_pow _ _ (by simpa using Nat.pos_of_ne_zero hn0)
+  push_cast [h1]
+  ring
+
+/-- **`[n]` fixes the point at infinity at every `n` with `(n : F) ≠ 0`**: `comapProjPointN n h
+none = none`.
+
+The general-`n` form of `comapProjPointTwo_none` (`#670`) with its proof transposed verbatim:
+`divisorProj_mulByNEndo_apply` run backwards at the generic `x`-coordinate.  An affine contraction
+would make the right-hand side a nonnegative multiple of a nonnegative order, but the left-hand side
+is `-2`.
+
+⚠️ Not an instance of `comapProjPointN_none_of_smooth` and not an implication of it in either
+direction: `n = 14` is here and not there, `n = 12` in characteristic `0` is in both, and neither
+statement's hypotheses imply the other's as written. -/
+theorem comapProjPointN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    comapProjPointN n h (none : ProjPoint W) = none := by
+  have hkey : (-2 : ℤ) = ramificationIdxN n h (none : ProjPoint W)
+      * divisorProj W (genX W) (comapProjPointN n h (none : ProjPoint W)) := by
+    rw [← divisorProj_mulByNEndo_apply n h genX_ne_zero none, divisorProj_apply_none,
+      ordInfty_mulByNEndo_genX_of_ne_zero h2 hn]
+  cases hq : comapProjPointN n h (none : ProjPoint W) with
+  | none => rfl
+  | some v =>
+    exfalso
+    rw [hq, divisorProj_apply_some] at hkey
+    have hge : (0 : ℤ) ≤ ord v (genX W) := by
+      rw [genX, genPsi]
+      exact ord_algebraMap_nonneg v _
+    have hnn : (0 : ℤ) ≤ ramificationIdxN n h (none : ProjPoint W) * ord v (genX W) :=
+      mul_nonneg (ramificationIdxN_pos n h none).le hge
+    linarith
+
+/-- **`[n]` is unramified at the point at infinity at every `n` with `(n : F) ≠ 0`.**
+
+⚠️ `hn` is load-bearing and not inherited: at `n = char F` this is **false**, `e_∞` being `n` or
+`n²` there.  It is the general-`n` form of `ramificationIdxTwo_none` and of
+`ramificationIdxN_none_of_smooth`, proved from the pole order rather than by composition. -/
+theorem ramificationIdxN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    ramificationIdxN n h (none : ProjPoint W) = 1 := by
+  have hkey := divisorProj_mulByNEndo_apply n h (f := genX W) genX_ne_zero none
+  rw [comapProjPointN_none_of_ne_zero h2 hn h, divisorProj_apply_none, divisorProj_apply_none,
+    ordInfty_mulByNEndo_genX_of_ne_zero h2 hn, ordInfty_genX] at hkey
+  omega
+
+/-- **`ordInfty ([n]∗ f) = ordInfty f` at every `n` with `(n : F) ≠ 0`** — the order at infinity is
+an `[n]∗`-invariant, both factors of the transport being trivial.  The general-`n` form of
+`ordInfty_mulByTwoEndo` (`EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity`). -/
+theorem ordInfty_mulByNEndo_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) {f : W.FunctionField} (hf : f ≠ 0) :
+    ordInfty W (mulByNEndo n h f) = ordInfty W f := by
+  rw [ordInfty_mulByNEndo_of_comapProjPointN_none h (comapProjPointN_none_of_ne_zero h2 hn h) hf,
+    ramificationIdxN_none_of_ne_zero h2 hn h, one_mul]
+
+/-! ### `n = 5`, as named theorems
+
+⚠️ This file's *"Nothing at `n = 5`"* bullet is what the section above makes false.  The three
+statements here are the machine-checked consequence, named rather than left as `example`s so that a
+reader can grep for them and a consumer can cite them, following
+`EllipticCurves.FunctionField.MulByNGalois`.
+
+`5` is the smallest index reachable by no composition of the merged `n = 2` and `n = 3` layers.
+⚠️ It is *not* the index that shows the statements above are general rather than
+`{2, 3, 5}`-parametrised; that is `n = 14`, and it is in the non-vacuity section below. -/
+
+omit [IsDedekindDomain W.CoordinateRing] in
+/-- **`ordInfty ([5]∗ genX) = -2`** — the pole order at the first index outside `{2, 3}`. -/
+theorem ordInfty_mulByNEndo_genX_five (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0) :
+    ordInfty W (mulByNEndo 5
+      (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 (by simpa using h5))
+      (genX W)) = -2 :=
+  ordInfty_mulByNEndo_genX_of_ne_zero h2 (by simpa using h5) _
+
+/-- **`[5]` fixes the point at infinity.** -/
+theorem comapProjPointN_none_five (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0) :
+    comapProjPointN 5
+      (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (W := W) h2 (by simpa using h5))
+      (none : ProjPoint W) = none :=
+  comapProjPointN_none_of_ne_zero h2 (by simpa using h5) _
+
+/-- **`[5]` is unramified at the point at infinity.** -/
+theorem ramificationIdxN_none_five (h2 : (2 : F) ≠ 0) (h5 : (5 : F) ≠ 0) :
+    ramificationIdxN 5
+      (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (W := W) h2 (by simpa using h5))
+      (none : ProjPoint W) = 1 :=
+  ramificationIdxN_none_of_ne_zero h2 (by simpa using h5) _
+
 /-! ### Non-vacuity: the statements have content on a real curve
 
 Every theorem above carries `[IsDedekindDomain W.CoordinateRing]` and `comapProjPointN` is built
@@ -398,6 +582,52 @@ example : ordInfty (y2EqX3SubX ℚ) (mulByNEndo 12
         (by norm_num) exampleSmoothTwelvePlace) (genX _)) = -2 :=
   ordInfty_mulByNEndo_genX_of_smooth (W := y2EqX3SubX ℚ) (by norm_num) (by norm_num)
     (by norm_num) exampleSmoothTwelvePlace _
+
+/-! ⚠️ **The certificates for the general layer, and the load-bearing one is `n = 14`.**
+
+`n = 5` shows only that `{2, 3}` was left; it is consistent with a `{2, 3, 5}`-parametrised package
+and with an odd-`n` one.  `14 = 2 · 7` is **even and not `3`-smooth**, so it is reachable by no
+`_of_smooth` statement in this file and by no odd-`n` statement anywhere, and these certificates can
+come only from the `_of_ne_zero` layer by name.  ⚠️ Over `ℚ`, which is **not** algebraically closed
+and where the whole `3`-smooth layer above is also stated — so the two layers are being compared on
+the same base, not on bases chosen to flatter each one. -/
+
+private lemma exampleFourteenPlace : (((14 : ℕ) : ℤ) : ℚ) ≠ 0 := by norm_num
+
+private lemma exampleTranscendentalFourteenPlace :
+    Transcendental ℚ ((14 : ℕ) • genericPoint (W := y2EqX3SubX ℚ)).xCoord :=
+  transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (by norm_num) exampleFourteenPlace
+
+/-- **`ordInfty ([14]∗ genX) = -2` on a genuine curve over `ℚ`**, at an index that is even and not
+`3`-smooth. -/
+example : ordInfty (y2EqX3SubX ℚ)
+    (mulByNEndo 14 exampleTranscendentalFourteenPlace (genX _)) = -2 :=
+  ordInfty_mulByNEndo_genX_of_ne_zero (by norm_num) exampleFourteenPlace _
+
+/-- **`[14]` fixes the point at infinity, committed.**  ⚠️ The statement the module docstring's
+opening paragraph declares unreachable by the pole order at general `n`; the paragraph is corrected
+above and here is the index that falsifies its scope. -/
+example : comapProjPointN (W := y2EqX3SubX ℚ) 14 exampleTranscendentalFourteenPlace
+    (none : ProjPoint (y2EqX3SubX ℚ)) = none :=
+  comapProjPointN_none_of_ne_zero (by norm_num) exampleFourteenPlace _
+
+/-- **`[14]` is unramified at the point at infinity, committed.** -/
+example : ramificationIdxN (W := y2EqX3SubX ℚ) 14 exampleTranscendentalFourteenPlace
+    (none : ProjPoint (y2EqX3SubX ℚ)) = 1 :=
+  ramificationIdxN_none_of_ne_zero (by norm_num) exampleFourteenPlace _
+
+/-- **The order at infinity is a `[14]∗`-invariant, committed** — at `genY`, so that the statement
+is exercised at an element other than the one its proof goes through. -/
+example : ordInfty (y2EqX3SubX ℚ)
+      (mulByNEndo 14 exampleTranscendentalFourteenPlace (genY _))
+    = ordInfty (y2EqX3SubX ℚ) (genY (y2EqX3SubX ℚ)) :=
+  ordInfty_mulByNEndo_of_ne_zero (by norm_num) exampleFourteenPlace _ genY_ne_zero
+
+/-- **`n = 5` on the same curve**, through the named theorem rather than the general one. -/
+example : comapProjPointN (W := y2EqX3SubX ℚ) 5
+    (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (by norm_num) (by norm_num))
+    (none : ProjPoint (y2EqX3SubX ℚ)) = none :=
+  comapProjPointN_none_five (by norm_num) (by norm_num)
 
 end Nonvacuity
 
