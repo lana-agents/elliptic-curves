@@ -423,9 +423,9 @@ all.
 
 ⚠️ **Independent proofs, not independent statements, and the difference is committed below.**  At
 the level of what is *proved*, this layer contains the one above outright:
-`intCast_ne_zero_of_smooth` turns `(2 : F) ≠ 0`, `(3 : F) ≠ 0` and `3`-smoothness into
-`((n : ℤ) : F) ≠ 0` in four lines, and
-the three `example`s beside it derive each `_of_smooth` statement verbatim from its `_of_ne_zero`
+`Nat.intCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) turns `(2 : F) ≠ 0`,
+`(3 : F) ≠ 0` and `3`-smoothness into `((n : ℤ) : F) ≠ 0` in four lines, and the three `example`s at
+the end of this file derive each `_of_smooth` statement verbatim from its `_of_ne_zero`
 counterpart.  ⚠️ **Proved rather than asserted, deliberately** — this file's sibling
 `EllipticCurves.TateModule.OpenKernel` commits the same subsumption the same way, and a docstring
 sentence claiming an implication does or does not hold is exactly the kind of claim that this front
@@ -438,8 +438,8 @@ At `n = char F > 2` the transcendence hypothesis is still met, `[n]` is insepara
 merely unproved.  What changed is the *shape* of the sufficient condition: it is `(n : F) ≠ 0`, not
 `3`-smoothness together with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  ⚠️ Those two conditions are not the
 same, and the implication runs one way only: the second implies the first
-(`intCast_ne_zero_of_smooth` below), and the first does not imply the second — `n = 14` satisfies
-it and is not `3`-smooth.
+(`Nat.intCast_ne_zero_of_smooth`, `EllipticCurves.Torsion.ThreePrimary`), and the first does not
+imply the second — `n = 14` satisfies it and is not `3`-smooth.
 -/
 
 omit [IsDedekindDomain W.CoordinateRing] in
@@ -482,8 +482,9 @@ is `-2`.
 
 ⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 14` is here and not
 there, `n = 12` in characteristic `0` is in both, and the converse containment fails because the
-`3`-smooth hypotheses imply `hn` — see `intCast_ne_zero_of_smooth` and the `example` beside it,
-which derive that statement from this one rather than claiming they are unrelated.  ⚠️ The
+`3`-smooth hypotheses imply `hn` — see `Nat.intCast_ne_zero_of_smooth`
+(`EllipticCurves.Torsion.ThreePrimary`) and the `example` at the end of this file, which derive that
+statement from this one rather than claiming they are unrelated.  ⚠️ The
 `_of_smooth` form is nevertheless kept: its proof composes `[2]∗` and `[3]∗` and touches no
 division polynomial, so it is an independent route and not dead weight. -/
 theorem comapProjPointN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
@@ -544,36 +545,20 @@ conclusion are the cheapest cross-check available on this front — the containm
 ⚠️ The same subsumption is committed the same way on the sibling front, by
 `EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth` and the `example` beside it. -/
 
-/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are** — the
-`((n : ℤ) : K)` form of `EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth`, which
-is what the `_of_ne_zero` statements above take.
-
-`Nat.exists_eq_two_pow_mul_three_pow` is already in this file's import closure (it is
-`EllipticCurves.Torsion.ThreePrimary`'s, reached through `MulByNComposition`), so this is a
-factorisation and two `ne_zero` lemmas rather than an induction.
-
-⚠️ Stated over a fresh field `K` rather than over the section's `F`, so that no section variable is
-drawn in: it mentions neither the curve nor its coordinate ring. -/
-private lemma intCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
-    {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : ((n : ℤ) : K) ≠ 0 := by
-  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
-  push_cast
-  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
-
 /-- **`comapProjPointN_none_of_smooth` is a corollary of `comapProjPointN_none_of_ne_zero`** — its
 statement verbatim, proved from the general layer. -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     comapProjPointN n h (none : ProjPoint W) = none :=
-  comapProjPointN_none_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
+  comapProjPointN_none_of_ne_zero h2 (Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac) h
 
 /-- **`ramificationIdxN_none_of_smooth` is a corollary of `ramificationIdxN_none_of_ne_zero`.** -/
 example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     ramificationIdxN n h (none : ProjPoint W) = 1 :=
-  ramificationIdxN_none_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
+  ramificationIdxN_none_of_ne_zero h2 (Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac) h
 
 /-- **`ordInfty_mulByNEndo_genX_of_smooth` is a corollary of
 `ordInfty_mulByNEndo_genX_of_ne_zero`** — so the pole order `-2` at every `3`-smooth `n`, which
@@ -582,7 +567,7 @@ example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     ordInfty W (mulByNEndo n h (genX W)) = -2 :=
-  ordInfty_mulByNEndo_genX_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
+  ordInfty_mulByNEndo_genX_of_ne_zero h2 (Nat.intCast_ne_zero_of_smooth h2 h3 hn hfac) h
 
 /-! ### `n = 5`, as named theorems
 

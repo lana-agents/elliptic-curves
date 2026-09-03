@@ -183,7 +183,7 @@ carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRo
 
 ## Non-vacuity
 
-Two blocks, answering different questions.
+Three blocks, answering different questions.
 
 * `Recovery` derives all six merged headlines from the general ones, through the bridges
   `mulByNEndo_two` / `mulByNEndo_three`.  ⚠️ This is what separates a faithful generalisation from a
@@ -196,6 +196,12 @@ Two blocks, answering different questions.
   because `4 • X = 2 • (2 • X)`, and satisfy `(0, 0) ⊕ (1, 0) = (−1, 0)`.  ⚠️ `hprin` remains a
   hypothesis there, exactly as it does at `n = 2, 3`; the certificate says the *other*
   hypotheses are inhabited at a new index, and claims nothing more.
+* `TenNonvacuity` instantiates the **general** corollaries — all three of them — at **`n = 10`**.
+  ⚠️ This is the block that can falsify: `4` is `3`-smooth, so the `n = 4` certificates are equally
+  certificates for the `_of_smooth` headlines and a *"general"* wrapper reaching only
+  `{2, 3}`-indices would pass them.  `10 = 2 · 5` is **even and not `3`-smooth**
+  (`Nat.ten_not_smooth`, proved), so no `_of_smooth` statement in this file can state any of the
+  three at any hypotheses.  Same curve, same three points — `2`-torsion is `10`-torsion.
 
 ## References
 
@@ -467,17 +473,6 @@ theorem exists_weilPairingElt_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : 
   exists_weilPairingElt_translatePoint_add_n_of_hprin _ (by rintro rfl; simp at hn) hP hQ hR hS
     hmQ hmS hadd hprin
 
-/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are**, over a
-fresh field `K` so that no section variable is drawn in.  ⚠️ A copy rather than a citation: the twin
-in `EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there and that file is not in
-this one's import closure. -/
-private lemma intCastTranslationSlot_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
-    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
-    ((n : ℤ) : K) ≠ 0 := by
-  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
-  push_cast
-  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
-
 open Classical in
 /-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
 general layer, so the containment between the two layers is compiled rather than asserted.  ⚠️ The
@@ -502,7 +497,7 @@ example (h2 : (2 : F) ≠ 0)
           = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) ∧
       weilPairingElt hR.left g = weilPairingElt hP.left g * weilPairingElt hQ.left g :=
   exists_weilPairingElt_translatePoint_add_of_ne_zero_of_hprin h2
-    (intCastTranslationSlot_ne_zero_of_smooth h2 h3 hnz hfac) hP hQ hR hS hmQ hmS hadd hprin
+    (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) hP hQ hR hS hmQ hmS hadd hprin
 
 open Classical in
 /-- **Translation-slot bilinearity in `μ_n(F)` at every `3`-smooth `n ≠ 0`.**  The `μ` mirror of
@@ -948,6 +943,132 @@ example (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
   simpa only [Nat.cast_ofNat] using hprin
 
 end HomNonvacuity
+
+
+/-! ### Non-vacuity at `n = 10`, which no `_of_smooth` statement in this file can state
+
+⚠️ **The `n = 4` blocks above cannot falsify the general layer.**  `4 = 2²` is `3`-smooth, so
+each of them is equally a certificate for the `_of_smooth` headline it sits under, and a
+*"general"* wrapper instantiable only at `{2, 3}`-indices would pass them unchanged.  `#1549`'s
+verification bar asks for an index that is **even and not `3`-smooth**, and `10 = 2 · 5` is the
+smallest.
+
+This section is the payment of that bar, recorded by PR #606's reviewer as compiled-in-the-thread
+but not committed, together with the observation that the `μ` twins carried no compiled evidence of
+any kind.  All three `_of_ne_zero_of_hprin` statements of this file are instantiated below.
+
+The witnesses are the same three rational `2`-torsion points of `y² = x³ − x` the `n = 4` blocks
+use — `2`-torsion is `10`-torsion because `10 = 2 · 5`.  ⚠️ Write the factorisation as `2 * 5` and
+not `5 * 2`: `mul_nsmul` reads `(m * n) • a = n • m • a`, so it is the *left* factor that is
+applied first, and `5 • (2 • X) = 5 • 0` is the step that closes.  ⚠️ Every `by convert` is
+load-bearing for the reason the `n = 4` block's docstring gives. -/
+
+section TenNonvacuity
+
+open Classical in
+/-- `(0, 0)` is `10`-torsion because it is `2`-torsion. -/
+private lemma exampleTorTenP : Point.some (0 : ℚ) 0 exampleNsP ∈ (y2EqX3SubX ℚ).torsion 10 := by
+  rw [mem_torsion_iff, show (10 : ℕ) = 2 * 5 from rfl, mul_nsmul,
+    mem_torsion_iff.mp exampleTorTwoP, smul_zero]
+
+open Classical in
+/-- `(1, 0)` is `10`-torsion because it is `2`-torsion. -/
+private lemma exampleTorTenQ : Point.some (1 : ℚ) 0 exampleNsQ ∈ (y2EqX3SubX ℚ).torsion 10 := by
+  rw [mem_torsion_iff, show (10 : ℕ) = 2 * 5 from rfl, mul_nsmul,
+    mem_torsion_iff.mp exampleTorTwoQ, smul_zero]
+
+open Classical in
+/-- `(−1, 0)` is `10`-torsion because it is `2`-torsion. -/
+private lemma exampleTorTenR : Point.some (-1 : ℚ) 0 exampleNsR ∈ (y2EqX3SubX ℚ).torsion 10 := by
+  rw [mem_torsion_iff, show (10 : ℕ) = 2 * 5 from rfl, mul_nsmul,
+    mem_torsion_iff.mp exampleTorTwoR, smul_zero]
+
+open Classical in
+/-- **Translation-slot bilinearity applies at `n = 10` on a curve over `ℚ`**, at three distinct
+rational `10`-torsion translation points, with `hprin` the only hypothesis left.
+
+⚠️ `10` is even and not `3`-smooth (`Nat.ten_not_smooth`), so
+`exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin` **cannot state this at any
+hypotheses**.  This is the certificate that the general layer of this file is not a
+`{2, 3}`-parametrised statement wearing a general name. -/
+example (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) →
+      ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+        10 • divisor (y2EqX3SubX ℚ) g₀ = divisor (y2EqX3SubX ℚ) (mulByNEndo 10
+          (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+            (by norm_num)) f)) :
+    ∃ g : (y2EqX3SubX ℚ).FunctionField, g ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ, (u : (y2EqX3SubX ℚ).CoordinateRing) • g ^ 10
+          = mulByNEndo 10 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+              (by norm_num)) f) ∧
+      weilPairingElt exampleNsR.left g
+        = weilPairingElt exampleNsP.left g * weilPairingElt exampleNsQ.left g := by
+  refine exists_weilPairingElt_translatePoint_add_of_ne_zero_of_hprin exampleTwo
+    (n := 10) (by norm_num) exampleNsP exampleNsQ exampleNsR exampleNsP
+    (by convert exampleTorTenQ) (by convert exampleTorTenP) (by convert exampleAdd) ?_
+  simpa only [Nat.cast_ofNat] using hprin
+
+open Classical in
+/-- **The `μ_10(ℚ)`-valued form applies at `n = 10` too.**
+
+⚠️ This is the first compiled instantiation of any `weilPairingMu` statement of this file outside
+`{2, 3}`-smooth indices: PR #606's review recorded that the three `Mu` twins and the bundled hom had
+**no** compiled evidence of any kind.  `hmP` is needed here and not above, for the reason the
+`n = 4` block gives — `weilPairingMu` is indexed by `hpow`. -/
+example (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) →
+      ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+        10 • divisor (y2EqX3SubX ℚ) g₀ = divisor (y2EqX3SubX ℚ) (mulByNEndo 10
+          (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+            (by norm_num)) f)) :
+    ∃ g : (y2EqX3SubX ℚ).FunctionField, g ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ, (u : (y2EqX3SubX ℚ).CoordinateRing) • g ^ 10
+          = mulByNEndo 10 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+              (by norm_num)) f) ∧
+      ∃ hpowP : weilPairingElt exampleNsP.left g ^ 10 = 1,
+        ∃ hpowQ : weilPairingElt exampleNsQ.left g ^ 10 = 1,
+          ∃ hpowR : weilPairingElt exampleNsR.left g ^ 10 = 1,
+            weilPairingMu exampleNsR.left hpowR
+              = weilPairingMu exampleNsP.left hpowP * weilPairingMu exampleNsQ.left hpowQ := by
+  refine exists_weilPairingMu_translatePoint_add_of_ne_zero_of_hprin exampleTwo
+    (n := 10) (by norm_num) exampleNsP exampleNsQ exampleNsR exampleNsP
+    (by convert exampleTorTenP) (by convert exampleTorTenQ) (by convert exampleTorTenP)
+    (by convert exampleAdd) ?_
+  simpa only [Nat.cast_ofNat] using hprin
+
+section TenHomNonvacuity
+
+attribute [local instance 10000] Classical.propDecidable
+
+/-- **The bundled hom `E[10] → μ_10(ℚ)` exists over `ℚ`**, at an index the `_of_smooth` form cannot
+state.  The sharpest of the three: its conclusion names the whole of `E[10]` as a group. -/
+example (hprin : ∀ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) →
+      ∃ g₀ : (y2EqX3SubX ℚ).FunctionField, g₀ ≠ 0 ∧
+        10 • divisor (y2EqX3SubX ℚ) g₀ = divisor (y2EqX3SubX ℚ) (mulByNEndo 10
+          (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+            (by norm_num)) f)) :
+    ∃ g : (y2EqX3SubX ℚ).FunctionField, g ≠ 0 ∧
+      (∃ f : (y2EqX3SubX ℚ).FunctionField, f ≠ 0 ∧
+        divisor (y2EqX3SubX ℚ) f = Finsupp.single (pointClosedPoint exampleNsP.left) (10 : ℤ) ∧
+        ∃ u : (y2EqX3SubX ℚ).CoordinateRingˣ, (u : (y2EqX3SubX ℚ).CoordinateRing) • g ^ 10
+          = mulByNEndo 10 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero exampleTwo
+              (by norm_num)) f) ∧
+      ∃ φ : Multiplicative ((y2EqX3SubX ℚ).torsion 10) →* rootsOfUnity 10 ℚ,
+        ∀ P : (y2EqX3SubX ℚ).torsion 10,
+          algebraMap ℚ (y2EqX3SubX ℚ).FunctionField ((φ (Multiplicative.ofAdd P) : ℚˣ) : ℚ)
+            = weilPairingPointElt g (P : (y2EqX3SubX ℚ).Point) := by
+  refine exists_weilPairingTorsionMuHom_of_ne_zero_of_hprin exampleTwo (n := 10) (by norm_num)
+    exampleNsP (by convert exampleTorTenP) ?_
+  simpa only [Nat.cast_ofNat] using hprin
+
+end TenHomNonvacuity
+
+end TenNonvacuity
 
 end Nonvacuity
 

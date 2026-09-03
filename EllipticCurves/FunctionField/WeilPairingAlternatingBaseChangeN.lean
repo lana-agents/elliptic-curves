@@ -15,8 +15,10 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange
 Silverman *AEC* III.8.1(b).  `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` proves
 `e_n(T, T) = 1` at an arbitrary `n` over an arbitrary field, but carrying **two** hypotheses: the
 `#418` datum `hprin`, and a halving point `P` with `[n]P = T`.  This file removes the second at
-every `3`-smooth `n`, exactly as
+**every `n ≠ 0`**, exactly as
 `EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange` removes it at `n = 2` and `n = 3`.
+⚠️ It used to do so only at `3`-smooth `n`; the `_of_ne_zero` statements below are that restriction
+lifted (`#1549` group 2), and the `3`-smooth forms are kept as independent routes.
 
 `hprin` stays.  ⚠️ It is `#418`, it is an *existence* statement, and existence does not descend —
 `WeilPairingAlternatingBaseChange`'s test, which this file does not weaken: **base change carries
@@ -42,25 +44,29 @@ produces `htel` upstairs.  It does — and that is precisely why `htel` has to b
 which needs the `W.Point`-indexed intertwiner.  Producing a datum upstairs does not remove the
 need to transport it; it only changes which direction it travels.
 
-## ⚠️ Where the `3`-smoothness enters, and where it does not
+## ⚠️ Where the `3`-smoothness entered, and what each half of it cost to remove
 
-`hfac` is consumed in exactly one place: `exists_nsmul_eq_of_smooth`
+`hfac` was consumed in exactly one place: `exists_nsmul_eq_of_smooth`
 (`EllipticCurves.Torsion.NsmulSmoothSurjective`), the halving point over `F̄`.  The transcendence
 over `F̄` is `transcendental_xCoord_nsmul_of_isAlgClosed`, general in `n ≠ 0`.  So the first index
-these statements do not reach is `n = 5` **for the halving point**, and a general-`n`
-`[n]`-surjectivity on `E(F̄)` would lift them all to every `n` with nothing else changing.
-⚠️ **That surjectivity is not missing** — `nsmul_surjective_of_two_ne_zero`
-(`EllipticCurves.Torsion.TwoTorsionOrder`), at every `n ≠ 0` — and the `#251` this sentence used to
-blame is closed.  ⚠️ **Whether swapping it in lifts these statements is NOT measured** and nothing
-below changed; `exists_nsmul_eq_of_smooth` is still what produces the halving point.  This is the
-observation `WeilPairingAlternatingAssemblyN`'s docstring makes about its `[IsAlgClosed F]`
-corollary, and it survives the descent unchanged.
+these statements did not reach was `n = 5` **for the halving point** — and a general-`n`
+`[n]`-surjectivity on `E(F̄)` lifts them all to every `n` with nothing else changing.
+
+⚠️ **That surjectivity was never missing, and swapping it in is measured now (`#1549` group 2): it
+costs nothing.**  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is
+`[n]`-surjectivity on `E(F̄)` at every `n ≠ 0`, under the same instances
+`exists_nsmul_eq_of_smooth` was already being called with at this file's one call site — so
+`…_of_baseChange_of_ne_zero` and `…_of_hprin_n_of_baseChange_of_ne_zero` below are the two
+statements above with `hfac` deleted and **no index condition, no `h3` and no instance** put in its
+place.  ⚠️ This paragraph used to say the substitution was *unmeasured*; that is what changed, and
+the `#251` an older version of it blamed had already been closed.
 
 ⚠️ In `…_of_smooth` below the transcendence over `F` is discharged too, by
 `transcendental_xCoord_nsmul_of_smooth`, and *that* one genuinely needs `3`-smoothness and `h3`.
-So the two uses of `hfac` in that statement have different reasons, and only one of them is the
-halving point.  ⚠️ This sentence used to say *"only one of them is what `#251` would remove"*;
-`#251` is closed and removes neither, since the substitution above is unmeasured.
+So the two uses of `hfac` in that statement have different reasons, and they come off at **different
+prices**: the halving point for free, the transcendence for `((n : ℤ) : F) ≠ 0` — which is exactly
+what `exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange` pays, and why that statement has
+an index hypothesis while the two above it have none.
 
 ## Main statements
 
@@ -72,6 +78,15 @@ halving point.  ⚠️ This sentence used to say *"only one of them is what `#25
 * `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange` — the same
   with the transcendence discharged as well, so that `h2`, `h3`, `3`-smoothness and `hprin` are the
   whole hypothesis list.
+* `WeierstrassCurve.Affine.translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange_of_ne_zero`
+  and `…exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange_of_ne_zero` — the first two at
+  **every** `n ≠ 0` (`#1549` group 2).  ⚠️ Despite the `_of_ne_zero` suffix,
+  which marks the general layer on this front, neither takes `((n : ℤ) : F) ≠ 0`: they are the
+  `3`-smooth forms with `hfac` deleted and nothing put in its place.
+* `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange` — the third
+  at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ This one **does** take an index
+  hypothesis, because it also discharges the transcendence over `F`; `h3` and `hfac` are both gone.
+  The `_of_smooth` form is a corollary of it, compiled in the `example` beside it.
 
 `Recovery` derives the merged `exists_weilPairingElt_self_eq_one_of_hprin_two` and
 `…_of_hprin_three` (`WeilPairingAlternatingBaseChange`) from the general form, verbatim.
@@ -82,8 +97,9 @@ halving point.  ⚠️ This sentence used to say *"only one of them is what `#25
 * The `μ`-valued twins.  ⚠️ Deliberately: they are `#1334`'s re-scoped deliverable, together with
   the `μ` forms of the merged general-`n` assembly, and splitting them across two PRs would put two
   authors in the same three-line neighbourhood again.
-* `n = 5` and beyond — see above; the obstruction is the halving point.  ⚠️ It used to be recorded
-  as `#251`, which is closed; what stands there now is **not measured**.
+* Nothing on the index axis.  ⚠️ This bullet used to read *"`n = 5` and beyond — the obstruction is
+  the halving point"*; the halving point is `nsmul_surjective_of_two_ne_zero` now and `n = 5` is
+  reached, by all three `_of_ne_zero` statements below.
 * The divisor half of base change (`#692`).  Nothing here wants it: no statement below mentions
   `divisor` on the `F̄` side, and `hprin` is never transported.
 
@@ -212,6 +228,179 @@ theorem exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange (h2 : (2 : F) 
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
   exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange h2 hn0 hfac _ h htors hprin
 
+
+/-! ### The same at every `n ≠ 0`
+
+`hfac` is consumed in exactly one place in this file — `exists_nsmul_eq_of_smooth`, the halving
+point over `F̄` — and `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`) is the same conclusion under the same instances at
+**every** `n ≠ 0`.  The module docstring above recorded that substitution as *"not measured"*.
+It is measured now, and the answer is that it costs nothing: the two statements below are the two
+above with `hfac` deleted and **no index condition put in its place**.
+
+⚠️ The `[(W.map (algebraMap F K)).IsElliptic]` instance the surjectivity needs is the same one
+`exists_nsmul_eq_of_smooth` was already using at this call site, so no instance is added either.
+
+⚠️ Both `_of_smooth` routes are **kept**: `exists_nsmul_eq_of_smooth` halves by iterated `2`- and
+`3`-descent and consumes no division polynomial, while `nsmul_surjective_of_two_ne_zero` runs
+through the `ΨSq`-root dictionary.  The `example` below compiles the containment. -/
+
+open Classical in
+/-- **Translation by `T` fixes the `n`-th root, over an arbitrary field, at every `n ≠ 0`.**
+
+`translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange` with `hfac` removed and nothing put
+in its place.  The proof is that one with the halving point produced by
+`nsmul_surjective_of_two_ne_zero` instead of `exists_nsmul_eq_of_smooth`; every other step is
+unchanged, and in particular `hn` is still a hypothesis rather than a discharge — this statement is
+about the descent, not about the transcendence. -/
+theorem translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange_of_ne_zero
+    (h2 : (2 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) {T : W.Point}
+    {f g : W.FunctionField} (hg : g ≠ 0) {c c₀ : F} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    (htel : ∏ i ∈ Finset.range n, translatePointEndo (i • T) f = algebraMap F W.FunctionField c)
+    (hpow : algebraMap F W.FunctionField c₀ * g ^ n = mulByNEndo n hn f) :
+    translatePointEndo T g = g := by
+  have h2' : (2 : K) ≠ 0 := algebraMap_ofNat_ne_zero h2
+  have hn' : Transcendental K
+      (n • genericPoint (W := W.map (algebraMap F K))).xCoord :=
+    transcendental_xCoord_nsmul_of_isAlgClosed h2' hn0
+  have hgne : functionFieldMap W K g ≠ 0 :=
+    (map_ne_zero_iff _ (functionFieldMap_injective W K)).mpr hg
+  obtain ⟨P, hP⟩ := nsmul_surjective_of_two_ne_zero h2' hn0 (basePointMap W K T)
+  have htel' : ∏ i ∈ Finset.range n,
+      translatePointEndo (i • basePointMap W K T) (functionFieldMap W K f)
+        = algebraMap K (W.map (algebraMap F K)).FunctionField (algebraMap F K c) := by
+    rw [← functionFieldMap_algebraMap_base, ← htel, map_prod]
+    exact Finset.prod_congr rfl fun i _ => by
+      rw [functionFieldMap_translatePointEndo, map_nsmul]
+  have hpow' : algebraMap K (W.map (algebraMap F K)).FunctionField (algebraMap F K c₀)
+      * functionFieldMap W K g ^ n = mulByNEndo n hn' (functionFieldMap W K f) := by
+    rw [← functionFieldMap_algebraMap_base, ← map_pow, ← map_mul, hpow,
+      functionFieldMap_mulByNEndo hn hn']
+  have key : translatePointEndo (basePointMap W K T) (functionFieldMap W K g)
+      = functionFieldMap W K g :=
+    translatePointEndo_eq_self_of_prod_eq_of_pow_eq hn0 hn' hP hgne
+      ((map_ne_zero_iff _ (algebraMap F K).injective).mpr hc)
+      ((map_ne_zero_iff _ (algebraMap F K).injective).mpr hc₀) htel' hpow'
+  refine functionFieldMap_injective W K ?_
+  rw [functionFieldMap_translatePointEndo]
+  exact key
+
+open Classical in
+/-- **`…_of_baseChange` is a corollary of `…_of_baseChange_of_ne_zero`** — its statement verbatim,
+`hfac` binder and binder *name* included, proved from the general form.  ⚠️ `have _hfac := hfac` is
+what lets the binder keep its name: `--wfail` rejects an explicit hypothesis that is never
+referenced, and renaming it would break the verbatim restatement this `example` exists to make. -/
+example (h2 : (2 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) {T : W.Point}
+    {f g : W.FunctionField} (hg : g ≠ 0) {c c₀ : F} (hc : c ≠ 0) (hc₀ : c₀ ≠ 0)
+    (htel : ∏ i ∈ Finset.range n, translatePointEndo (i • T) f = algebraMap F W.FunctionField c)
+    (hpow : algebraMap F W.FunctionField c₀ * g ^ n = mulByNEndo n hn f) :
+    translatePointEndo T g = g :=
+  have _hfac := hfac
+  translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange_of_ne_zero h2 hn0 hn hg hc hc₀
+    htel hpow
+
+open Classical in
+/-- **`e_n(T, T) = 1` at every `n ≠ 0` over an arbitrary field**, with `hprin` (`#418`) the only
+gate.
+
+`exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` with `hfac` removed and nothing put in
+its place.  ⚠️ `hn` stays a hypothesis: over an *arbitrary* `F` the transcendence is not free, and
+discharging it is what `exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange` below does, at
+the cost of `((n : ℤ) : F) ≠ 0`.  The halving point costs nothing, and that is the whole content of
+this statement. -/
+theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange_of_ne_zero (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn0 : n ≠ 0)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀ = divisor W (mulByNEndo n hn f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n = mulByNEndo n hn f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 := by
+  obtain ⟨f, hf, hdivproj, c, hc, htel⟩ := exists_prod_translatePointEndo_eq_algebraMap h htors
+  obtain ⟨g, hg, hgdiv⟩ :=
+    hprin f hf (divisor_eq_single_of_divisorProj_eq_single_sub_single hdivproj)
+  have hfne : mulByNEndo n hn f ≠ 0 := fun hz =>
+    hf ((mulByNEndo n hn).injective (by rw [hz, map_zero]))
+  obtain ⟨u, hu⟩ := exists_smul_pow_eq_of_nsmul_divisor hfne hg hgdiv
+  obtain ⟨c₀, hc₀, hueq⟩ := isUnit_iff_exists_eq_algebraMap.mp u.isUnit
+  have hpow : algebraMap F W.FunctionField c₀ * g ^ n = mulByNEndo n hn f := by
+    rw [← hu, Algebra.smul_def, hueq, ← IsScalarTower.algebraMap_apply]
+  have htinv : translateEndo h.left g = g := by
+    have key := translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange_of_ne_zero h2 hn0 hn
+      hg hc hc₀ htel hpow
+    rwa [show Point.some xT yT h = torsionPoint h.left from rfl,
+      translatePointEndo_torsionPoint] at key
+  exact ⟨f, hf, hdivproj, g, hg, ⟨u, hu⟩, htinv,
+    weilPairingElt_self_of_translateEndo_fixed h.left hg htinv⟩
+
+open Classical in
+/-- **`e_n(T, T) = 1` over an arbitrary field at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`**, with `hprin` the only hypothesis that is not about the characteristic.
+
+Both `3`-smooth inputs of `exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange` are gone at
+once, and they are gone for two different reasons — which is the distinction the module docstring
+draws:
+
+* the **transcendence over `F`**, by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ This is what `hn` buys, and it is the
+  only hypothesis this statement has that `…_of_hprin_n_of_baseChange_of_ne_zero` does not;
+* the **halving point over `F̄`**, by `nsmul_surjective_of_two_ne_zero`, for free.
+
+So `h3` is gone as well: it entered only through `transcendental_xCoord_nsmul_of_smooth`. -/
+theorem exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange (h2 : (2 : F) ≠ 0)
+    {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n
+              (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n
+                (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero h2 hn) f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange_of_ne_zero h2
+    (by rintro rfl; simp at hn) _ h htors hprin
+
+open Classical in
+/-- **`…_of_smooth_of_baseChange` is a corollary of `…_of_ne_zero_of_baseChange`** — its statement
+verbatim, `h3` and `hfac` binders included, proved from the general form.
+
+`intCastBaseChange_ne_zero_of_smooth` supplies `((n : ℤ) : F) ≠ 0` from `3`-smoothness, and the two
+`mulByNEndo` terms carry different transcendence proofs: they match by proof irrelevance, which is
+why the two `simp only`-free `exact`s below elaborate at all. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
+    (hprin : ∀ f : W.FunctionField, f ≠ 0 →
+      divisor W f = Finsupp.single (pointClosedPoint h.left) (n : ℤ) →
+      ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
+        n • divisor W g₀
+          = divisor W (mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hn0 hfac) f)) :
+    ∃ f : W.FunctionField, f ≠ 0 ∧
+      divisorProj W f = Finsupp.single (some (pointClosedPoint h.left)) (n : ℤ)
+          - Finsupp.single (none : ProjPoint W) (n : ℤ) ∧
+        ∃ g : W.FunctionField, g ≠ 0 ∧
+          (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
+            = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hn0 hfac) f) ∧
+          translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange h2
+    (Nat.intCast_ne_zero_of_smooth h2 h3 hn0 hfac) h htors hprin
+
 /-! ### Recovery of the merged `n = 2` and `n = 3` arbitrary-field assemblies
 
 `#907`'s rule.  Both merged headlines of `WeilPairingAlternatingBaseChange` come back out of the
@@ -275,7 +464,7 @@ private theorem exists_weilPairingElt_self_eq_one_of_hprin_three_of_general (h2 
 
 end Recovery
 
-/-! ### Non-vacuity at `n = 6`, over a field that is not algebraically closed
+/-! ### Non-vacuity at `n = 6`, over a field that is not algebraically closed — and at `n = 10`
 
 ⚠️ `hprin` is `#418` and cannot be discharged at any index, so it stays bound below.  What is
 certified is that **every other hypothesis of the `3`-smooth headline is simultaneously satisfiable
@@ -383,6 +572,70 @@ example
             weilPairingElt exampleNonsingularT.left g = 1 :=
   exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange exampleTwoNeZero exampleThreeNeZero
     (by norm_num) exampleSmooth exampleNonsingularT (by convert exampleSixTorsion) hprin
+
+
+/-! #### And at `n = 10`, which no `_of_smooth` statement in this file can state
+
+⚠️ **`n = 6` cannot falsify the general layer.**  `6 = 2 · 3` is `3`-smooth, so every certificate
+above is equally a certificate for the `_of_smooth` headlines, and a *"general"* wrapper that
+happened to be instantiable only at `{2, 3}`-indices would pass it.  `#1549`'s verification bar asks
+for an index that is **even and not `3`-smooth**; `10 = 2 · 5` is the smallest.
+
+The witness is the other rational point of small order on the same curve: `(−1, 0)` is `2`-torsion
+on `y² = x³ + 1` (`y = negY y` forces `2y = 0`, and `x³ = −1` over `ℚ` forces `x = −1`), hence
+`10`-torsion.  ⚠️ Write the factorisation as `10 = 2 * 5` and not `5 * 2`: `mul_nsmul` reads
+`(m * n) • a = n • m • a`, so it is the *left* factor that gets applied first. -/
+
+/-- `(−1, 0)` is a nonsingular point of `y² = x³ + 1`. -/
+private lemma exampleNonsingularNegOne : (y2EqX3AddOne ℚ).Nonsingular (-1) 0 := by
+  rw [nonsingular_iff]
+  refine ⟨?_, Or.inl ?_⟩ <;>
+    norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.equation_iff, WeierstrassCurve.Affine.negY]
+
+open Classical in
+/-- `(−1, 0)` is `2`-torsion: it is its own negative. -/
+private lemma exampleTwoTorsionNegOne :
+    Point.some (-1 : ℚ) 0 exampleNonsingularNegOne ∈ (y2EqX3AddOne ℚ).torsion 2 := by
+  rw [mem_torsion_iff, two_nsmul, Point.add_self_of_Y_eq
+    (by norm_num [y2EqX3AddOne, WeierstrassCurve.Affine.negY])]
+
+open Classical in
+/-- Hence `(−1, 0)` is `10`-torsion, and `10 = 2 · 5` is even and not `3`-smooth. -/
+private lemma exampleTenTorsionNegOne :
+    Point.some (-1 : ℚ) 0 exampleNonsingularNegOne ∈ (y2EqX3AddOne ℚ).torsion 10 := by
+  rw [mem_torsion_iff, show (10 : ℕ) = 2 * 5 from rfl, mul_nsmul,
+    mem_torsion_iff.mp exampleTwoTorsionNegOne, smul_zero]
+
+open Classical in
+/-- **Every hypothesis but `hprin` is simultaneously satisfiable at `n = 10` over `ℚ`.**
+
+The strongest non-vacuity statement in this file: `10` is even and not `3`-smooth
+(`Nat.ten_not_smooth`), so **no `_of_smooth` statement in this file can state this at any
+hypotheses**, and the general layer is therefore not a `{2, 3}`-parametrised statement in disguise.
+
+⚠️ The base field is `ℚ`, which is not algebraically closed (`rat_not_isAlgClosed'`) — so this is
+also evidence that the descent is doing work, not that `[IsAlgClosed F]` is silently in scope. -/
+example
+    (hprin : ∀ f : (y2EqX3AddOne ℚ).FunctionField, f ≠ 0 →
+      divisor (y2EqX3AddOne ℚ) f
+          = Finsupp.single (pointClosedPoint exampleNonsingularNegOne.left) ((10 : ℕ) : ℤ) →
+        ∃ g₀ : (y2EqX3AddOne ℚ).FunctionField, g₀ ≠ 0 ∧
+          (10 : ℕ) • divisor (y2EqX3AddOne ℚ) g₀ = divisor (y2EqX3AddOne ℚ)
+            (mulByNEndo 10 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero
+              exampleTwoNeZero (by norm_num)) f)) :
+    ∃ f : (y2EqX3AddOne ℚ).FunctionField, f ≠ 0 ∧
+      divisorProj (y2EqX3AddOne ℚ) f
+          = Finsupp.single (some (pointClosedPoint exampleNonsingularNegOne.left)) ((10 : ℕ) : ℤ)
+            - Finsupp.single (none : ProjPoint (y2EqX3AddOne ℚ)) ((10 : ℕ) : ℤ) ∧
+        ∃ g : (y2EqX3AddOne ℚ).FunctionField, g ≠ 0 ∧
+          (∃ u : (y2EqX3AddOne ℚ).CoordinateRingˣ, (u : (y2EqX3AddOne ℚ).CoordinateRing) • g ^
+              (10 : ℕ)
+            = mulByNEndo 10 (transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero
+                exampleTwoNeZero (by norm_num)) f) ∧
+          translateEndo exampleNonsingularNegOne.left g = g ∧
+            weilPairingElt exampleNonsingularNegOne.left g = 1 :=
+  exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange exampleTwoNeZero (by norm_num)
+    exampleNonsingularNegOne (by convert exampleTenTorsionNegOne) hprin
 
 end Nonvacuity
 

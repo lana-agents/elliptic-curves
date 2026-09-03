@@ -192,19 +192,6 @@ theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero
   translateEndo_eq_self_of_mul_algebraMap_pow_eq (by rintro rfl; simp at hn) _ hP hT hmul hg hc hc₀
     htel hpow
 
-/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are.**  Stated over
-a fresh field `K` so that no section variable is drawn in.
-
-⚠️ A copy rather than a citation: the twin in
-`EllipticCurves.FunctionField.MulByNPlaceComposition` is `private` there and that file is not in
-this one's import closure. -/
-private lemma intCastConsumer_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0)
-    (h3 : (3 : K) ≠ 0) {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) :
-    ((n : ℤ) : K) ≠ 0 := by
-  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
-  push_cast
-  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
-
 open Classical in
 /-- **`…_of_smooth` is a corollary of `…_of_ne_zero`** — its statement verbatim, proved from the
 general layer.  ⚠️ The two `mulByNEndo` terms carry *different* transcendence proofs and match only
@@ -220,7 +207,7 @@ example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
       = mulByNEndo n (transcendental_xCoord_nsmul_of_smooth h2 h3 hnz hfac) f) :
     translateEndo hT g = g :=
   translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero h2
-    (intCastConsumer_ne_zero_of_smooth h2 h3 hnz hfac) hP hT hmul hg hc hc₀ htel hpow
+    (Nat.intCast_ne_zero_of_smooth h2 h3 hnz hfac) hP hT hmul hg hc hc₀ htel hpow
 
 /-! ### Non-vacuity at `n = 4`, with `htel` and `hpow` bound rather than instantiated
 
