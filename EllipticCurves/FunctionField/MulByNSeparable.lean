@@ -31,11 +31,16 @@ Algebra.IsSeparable ([n]∗F(W)) F(W)        for every 3-smooth n.
 Nothing here is new about torsion, about Artin's theorem, or about `[n]` — the whole file is the
 tower step plus the induction `MulByNComposition` already ran for the degree.
 
-Every statement below takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
-argument and no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
+Where a statement below takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
+argument, no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
 `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is produced by
 `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), which
-is exactly what those clauses name.
+is exactly what those clauses name — and `2 ^ a * 3 ^ b` is such an `n`, so the same lemma covers
+`isSeparable_mulByNFieldRange_two_pow_mul_three_pow`.  ⚠️ `isSeparable_fieldRange_comp` takes no
+such argument — it is about two arbitrary `F`-algebra endomorphisms and sits above the
+`variable [W.IsElliptic]` line — and `isSeparable_mulByNFieldRange_mul`, `…_of_mul_eq` and
+`…_one` take transcendence hypotheses as the *data* they are statements about and name no
+hypothesis at all.
 
 ## ⚠️ What this refutes
 

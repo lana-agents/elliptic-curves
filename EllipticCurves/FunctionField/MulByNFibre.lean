@@ -192,13 +192,19 @@ two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## The non-constancy hypothesis is not named in the headlines below
 
-Every statement here takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
-argument and no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
+Where a statement here takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
+argument, no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
 `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is `transcendental_xCoord_nsmul_of_smooth`
 (`EllipticCurves.FunctionField.MulByNComposition`), and at a general `n` with `(2 : F) ≠ 0` and
 `((n : ℤ) : F) ≠ 0` it is `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  Each derives `h` from exactly what the
 clause above it names.
+
+⚠️ **Two statements below take no such argument, and this paragraph is not about them.**
+`projPointOfPoint_add_injective` holds at every `n` with no hypothesis on `F` at all, as its own
+docstring says; `card_fibre_comapProjPointN_le_sq_five` *produces* the transcendence at `n = 5`
+from `(2 : F) ≠ 0` and `(5 : F) ≠ 0` rather than taking it, so those two are what its headline has
+to name and it names them.
 
 ## References
 
