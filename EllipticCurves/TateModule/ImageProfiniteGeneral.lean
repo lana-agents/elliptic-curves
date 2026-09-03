@@ -79,7 +79,7 @@ variable {ℓ : ℕ} [Fact ℓ.Prime]
 variable [Algebra.IsIntegral S F] [IsGalois S F] [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
 /-- **The image of `det ρ_{E,ℓ}` as a closed subgroup of `ℤ_[ℓ]ˣ`**, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`, with no basis supplied.
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, with no basis supplied.
 
 ⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
 `(tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)` by a hole — `by refine
@@ -118,8 +118,8 @@ noncomputable def closedSubgroupRangeGaloisDet_of_natCast_ne_zero (h2 : (2 : F) 
   closedSubgroupRangeGaloisDet_of_nonempty (W' := W')
     (tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)
 
-/-- **The image of `det ρ_{E,ℓ}` is a profinite group**, at every prime `ℓ` with `(ℓ : F) ≠ 0`,
-basis-free form.
+/-- **The image of `det ρ_{E,ℓ}` is a profinite group**, at every prime `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0`, basis-free form.
 
 ⚠️ `nolint defsWithUnderscore` (`#1277`) — see `closedSubgroupRangeGaloisDet_of_natCast_ne_zero`. -/
 @[nolint defsWithUnderscore]

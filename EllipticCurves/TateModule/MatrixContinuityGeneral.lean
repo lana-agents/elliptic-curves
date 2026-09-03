@@ -68,7 +68,8 @@ variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : A
 variable {ℓ : ℕ} [Fact ℓ.Prime]
 variable [Algebra.IsIntegral S F] [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
-/-- **`det ρ_{E,ℓ}` is continuous**, at every prime `ℓ` with `(ℓ : F) ≠ 0`, with no basis supplied.
+/-- **`det ρ_{E,ℓ}` is continuous**, at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, with
+no basis supplied.
 
 ⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
 `(tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)` by a hole — `by refine
@@ -100,15 +101,15 @@ theorem continuous_galoisDet_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (ℓ 
   continuous_galoisDet_of_nonempty
     (tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)
 
-/-- **`tr ρ_{E,ℓ}` is continuous**, at every prime `ℓ` with `(ℓ : F) ≠ 0`, with no basis
-supplied. -/
+/-- **`tr ρ_{E,ℓ}` is continuous**, at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, with
+no basis supplied. -/
 theorem continuous_galoisTrace_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (ℓ : F) ≠ 0) :
     Continuous (galoisTrace (W' := W') (F := F) (ℓ := ℓ)) :=
   continuous_galoisTrace_of_nonempty
     (tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)
 
 /-- **`ρ_{E,ℓ}` is a continuous `ℓ`-adic matrix representation, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`**: there are a basis of `T_ℓE` and a *continuous* homomorphism
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`**: there are a basis of `T_ℓE` and a *continuous* homomorphism
 `ρ : G →* GL₂(ℤ_[ℓ])` whose matrices act on coordinate vectors the way `G` acts on `T_ℓE`.
 
 ⚠️ The compatibility clause is what stops this from being vacuous: `Continuous ρ` on its own is

@@ -156,7 +156,8 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} [IsAlgClosed F] [W
 
 /-! ### The count -/
 
-/-- **`#E[n] = n²` at every `n` with `(n : F) ≠ 0`**, with no parity hypothesis.
+/-- **`#E[n] = n²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, with no parity
+hypothesis.
 
 Split `n = 2^a · m` at the `2`-adic valuation: `Nat.ordProj_mul_ordCompl_eq_self` gives the
 factorisation and `Nat.not_dvd_ordCompl` gives that `m` is odd, hence coprime to `2^a`.  Then
@@ -199,8 +200,8 @@ theorem nonempty_torsionPrimePow_addEquiv (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p
   nonempty_torsionPow_addEquiv hp (nsmul_surjective_of_two_ne_zero h2 hp.pos.ne')
     (card_torsion_eq_sq h2 hpF) k
 
-/-- **`E[n] ≃+ ℤ/nℤ × ℤ/nℤ` at every `n` with `(n : F) ≠ 0`** — the structure theorem for the
-`n`-torsion of an elliptic curve over an algebraically closed field, `#242`.
+/-- **`E[n] ≃+ ℤ/nℤ × ℤ/nℤ` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`** — the structure
+theorem for the `n`-torsion of an elliptic curve over an algebraically closed field, `#242`.
 
 `Nat.recOnPosPrimePosCoprime` reduces to prime powers and coprime products.  The prime-power case is
 `nonempty_torsionPrimePow_addEquiv`; the coprime case is

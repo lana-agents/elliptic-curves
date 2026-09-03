@@ -85,9 +85,10 @@ variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : A
 variable {ℓ : ℕ} [Fact ℓ.Prime]
 variable [Algebra.IsIntegral S F] [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
-/-- **`ker ρ_{E,ℓ}` is closed, at every prime `ℓ` with `(ℓ : F) ≠ 0`.** By `ker_galoisRep_eq_iInf`
-(`EllipticCurves.TateModule.Kernel`) it is `⨅ k, ker (galoisRepMod (ℓ^k))`, a countable
-intersection of open — hence also closed — subgroups.
+/-- **`ker ρ_{E,ℓ}` is closed, at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.** By
+`ker_galoisRep_eq_iInf` (`EllipticCurves.TateModule.Kernel`) it is
+`⨅ k, ker (galoisRepMod (ℓ^k))`, a countable intersection of open — hence also closed —
+subgroups.
 
 ⚠️ **`h2` and `hl` enter through different doors**, exactly as at `ℓ = 3`. `h2` gives the level
 filtration, because `nsmul_surjective_of_two_ne_zero` needs nothing more than `ℓ ≠ 0` beyond it;
@@ -135,8 +136,8 @@ theorem isClosed_ker_galoisRep_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (�
   exact finite_torsion_of_intCast_ne_zero h2 (by push_cast; exact pow_ne_zero _ hl)
 
 /-- **`ker ρ_{E,ℓ}` is closed in matrix form too**, in any basis of `T_ℓE`, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`. This is the general form of `isClosed_ker_galoisRepMatrixThree`
-(`EllipticCurves.TateModule.MatrixRepBasisChangeThree`).
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`. This is the general form of
+`isClosed_ker_galoisRepMatrixThree` (`EllipticCurves.TateModule.MatrixRepBasisChangeThree`).
 
 ⚠️ The basis does not matter and the proof says so: `ker_galoisRepMatrix`
 (`EllipticCurves.TateModule.Kernel`) identifies `ker (ρ_b)` with `ker ρ_{E,ℓ}` for *every* `b`,
