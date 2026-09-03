@@ -69,7 +69,7 @@ variable {ℓ : ℕ} [Fact ℓ.Prime]
 variable [Algebra.IsIntegral S F] [IsGalois S F] [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
 /-- **The image of the determinant character `det ρ_{E,ℓ}` is compact**, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`, with no basis supplied.
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, with no basis supplied.
 
 ⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
 `(tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)` by a hole — `by refine
@@ -104,7 +104,8 @@ theorem isCompact_range_galoisDet_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : 
     (tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)
 
 /-- **The image of `det ρ_{E,ℓ}` is a closed subgroup of `ℤ_[ℓ]ˣ`**, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`. This is the layer `EllipticCurves.TateModule.PrimaryImageProfinite` bundles. -/
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`. This is the layer
+`EllipticCurves.TateModule.PrimaryImageProfinite` bundles. -/
 theorem isClosed_range_galoisDet_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (ℓ : F) ≠ 0) :
     IsClosed (Set.range (galoisDet (W' := W') (F := F) (ℓ := ℓ))) :=
   isClosed_range_galoisDet_of_nonempty

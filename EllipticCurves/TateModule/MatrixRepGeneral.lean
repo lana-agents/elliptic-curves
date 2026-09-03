@@ -147,9 +147,9 @@ namespace tateModule
 
 variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} {ℓ : ℕ} [Fact ℓ.Prime]
 
-/-- **`T_ℓE` has a basis indexed by `Fin 2`, at every prime `ℓ` with `(ℓ : F) ≠ 0`.** The basis
-itself depends on a choice of coherent system of generating pairs of the `E[ℓ^k]`; its existence
-does not.
+/-- **`T_ℓE` has a basis indexed by `Fin 2`, at every prime `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0`.** The basis itself depends on a choice of coherent system of generating pairs of the
+`E[ℓ^k]`; its existence does not.
 
 This is `nonempty_basis_tateModule_three` (`EllipticCurves.TateModule.MatrixRepThree`) with the
 `ℓ = 3` input replaced by `nonempty_tateModuleEquivProd_of_natCast_ne_zero`
@@ -192,10 +192,10 @@ end tateModule
 variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : Affine S}
 variable {ℓ : ℕ} [Fact ℓ.Prime]
 
-/-- **The `ℓ`-adic Galois representation exists at every prime `ℓ` with `(ℓ : F) ≠ 0`**, as a matrix
-representation that really does compute the Galois action: there are a basis of `T_ℓE` and a
-homomorphism `ρ : G →* GL₂(ℤ_[ℓ])` whose matrices act on coordinate vectors the way `G` acts on
-`T_ℓE`.
+/-- **The `ℓ`-adic Galois representation exists at every prime `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0`**, as a matrix representation that really does compute the Galois action: there are a
+basis of `T_ℓE` and a homomorphism `ρ : G →* GL₂(ℤ_[ℓ])` whose matrices act on coordinate vectors
+the way `G` acts on `T_ℓE`.
 
 The compatibility clause is the point. `Nonempty ((F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[ℓ])` on its own
 would be vacuous — the trivial homomorphism witnesses it, and the statement would not mention the

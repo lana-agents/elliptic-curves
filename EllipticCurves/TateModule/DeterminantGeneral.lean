@@ -63,7 +63,7 @@ namespace WeierstrassCurve.Affine
 variable {S F : Type*} [Field S] [Field F] [DecidableEq F] [Algebra S F] {W' : Affine S}
 variable {ℓ : ℕ} [Fact ℓ.Prime] [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
-/-- **`tr ρ_{E,ℓ}(1) = 2` at every prime `ℓ` with `(ℓ : F) ≠ 0`.**
+/-- **`tr ρ_{E,ℓ}(1) = 2` at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.**
 
 ⚠️ The `2` is the **rank** of `T_ℓE`, not the prime, and that is the whole content: over the zero
 module the trace of the identity is `0`, and over a rank-one module it is `1`. This is the shape in
@@ -99,7 +99,7 @@ theorem galoisTrace_one_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hl : (ℓ : F) 
   galoisTrace_one_of_nonempty (tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero h2 hl)
 
 /-- **The characteristic polynomial of `ρ_{E,ℓ}(1)` is `(X - 1)²`**, written out as `X² - 2X + 1`,
-at every prime `ℓ` with `(ℓ : F) ≠ 0`.
+at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.
 
 This is `galoisTrace_one_of_natCast_ne_zero` and `galoisDet_one` combined; like the trace statement
 it fails over the zero module, where the characteristic polynomial of the identity is `1`. -/

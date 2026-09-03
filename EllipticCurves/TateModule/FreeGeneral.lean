@@ -32,7 +32,10 @@ inputs, and none of them is new here:
 * `WeierstrassCurve.Affine.nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`) —
   `E[n] ≃+ (ℤ/nℤ)²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`. ⚠️ **Both** hypotheses,
   which is why every `_of_natCast_ne_zero` statement below carries `h2` as well as `hℓ`; the name
-  records only the second. ⚠️ This is *the* new input.
+  records only the second. ⚠️ **And so does every declaration headline below**, which is a separate
+  place from this paragraph: `README.md` (`## Docstring conventions` → `### Reach clauses`) rules
+  that a headline is a reach clause in its own right and that module prose does not repair a partial
+  one. ⚠️ This is *the* new input.
   `exists_closure_pair_eq_torsion_of_addEquiv` calls itself *"the only place where a structure
   theorem for `E[ℓ]` is used"*, and `EllipticCurves.Torsion.ThreePrimaryBasis` records that at
   `ℓ = 3` the residual goal was exactly `Nonempty (E[3] ≃+ ZMod 3 × ZMod 3)`, supplied by hand.
@@ -94,13 +97,15 @@ declaration, which is out of scope here.
 `exampleTwoGen`, `exampleFiveGen`, the certificates the non-vacuity `example`s use).
 
 * `WeierstrassCurve.Affine.exists_closure_pair_eq_torsion` : a generating pair of `E[n]` at every
-  `n` with `(n : F) ≠ 0` — the base of the tower, and the one place the structure theorem enters.
+  `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0` — the base of the tower, and the one place the structure
+  theorem enters.
 * `WeierstrassCurve.Affine.exists_compatible_basis_of_natCast_ne_zero` : the coherent system of
   generating pairs of the `E[ℓ^k]`.
 * `WeierstrassCurve.Affine.card_torsion_pow_mul_self_of_natCast_ne_zero` : `#E[ℓ^k] = ℓ^k · ℓ^k`,
   the shape `EllipticCurves.TateModule.PrimaryFree` takes its count in.
 * `WeierstrassCurve.Affine.tateModule.proj_surjective_of_two_ne_zero` : the level projections
-  `T_ℓE →+ E[ℓ^k]` are surjective. ⚠️ No `(ℓ : F) ≠ 0`.
+  `T_ℓE →+ E[ℓ^k]` are surjective, at every prime `ℓ` with `(2 : F) ≠ 0`. ⚠️ And no
+  `(ℓ : F) ≠ 0`.
 * **`WeierstrassCurve.Affine.tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero`** :
   `T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ]`.
 * **`WeierstrassCurve.Affine.tateModule.free_tateModule_of_natCast_ne_zero`**,
@@ -121,7 +126,7 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} [IsAlgClosed F] [W
 
 /-! ### The base of the tower: a generating pair of `E[n]` at a general `n` -/
 
-/-- **A generating pair of `E[n]`, at every `n` with `(n : F) ≠ 0`.**
+/-- **A generating pair of `E[n]`, at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 `exists_closure_pair_eq_torsion_of_addEquiv` (`EllipticCurves.Torsion.PrimaryBasis`) transports the
 two standard vectors of `(ℤ/nℤ)²` along any isomorphism `E[n] ≃+ (ℤ/nℤ)²`, and
@@ -138,7 +143,8 @@ theorem exists_closure_pair_eq_torsion (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
 
 /-! ### The coherent system and the count -/
 
-/-- **Compatible bases for the `ℓ`-primary tower, at every `ℓ` with `(ℓ : F) ≠ 0`**:
+/-- **Compatible bases for the `ℓ`-primary tower, at every `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0`**:
 
 ```
 ∀ k, AddSubgroup.closure {P k, Q k} = W.torsion (ℓ ^ k)
@@ -161,7 +167,7 @@ theorem exists_compatible_basis_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {ℓ : �
   exists_compatible_basis_of_surjective (nsmul_surjective_of_two_ne_zero h2 (NeZero.ne ℓ))
     (exists_closure_pair_eq_torsion h2 hℓ)
 
-/-- **`#E[ℓ^k] = ℓ^k · ℓ^k` at every `ℓ` with `(ℓ : F) ≠ 0`**, the shape
+/-- **`#E[ℓ^k] = ℓ^k · ℓ^k` at every `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`**, the shape
 `EllipticCurves.TateModule.PrimaryFree` and `EllipticCurves.Torsion.PrimaryBasis` take their
 cardinality hypothesis in.
 
@@ -180,7 +186,8 @@ variable {ℓ : ℕ} [Fact ℓ.Prime]
 
 /-! ### `T_ℓE ≅ ℤ_ℓ²` -/
 
-/-- **The level projections `T_ℓE →+ E[ℓ^k]` are surjective**, at every prime `ℓ`.
+/-- **The level projections `T_ℓE →+ E[ℓ^k]` are surjective**, at every prime `ℓ` with
+`(2 : F) ≠ 0`.
 
 ⚠️ **No `(ℓ : F) ≠ 0`**: this is a statement about lifting along the tower, and
 `nsmul_surjective_of_two_ne_zero` asks only that `ℓ ≠ 0` and `(2 : F) ≠ 0`. It is the general twin
@@ -191,7 +198,7 @@ theorem proj_surjective_of_two_ne_zero (h2 : (2 : F) ≠ 0) (k : ℕ) :
   proj_surjective (nsmul_surjective_of_two_ne_zero h2 (Fact.out : ℓ.Prime).pos.ne') k
 
 /-- **`T_ℓE` is `ℤ_[ℓ]`-linearly isomorphic to `ℤ_[ℓ] × ℤ_[ℓ]`, at every prime `ℓ` with
-`(ℓ : F) ≠ 0`.**
+`(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`.**
 
 The isomorphism depends on a choice of coherent system of generating pairs, so it is stated as a
 `Nonempty`; the choice-free consequences are `free_tateModule_of_natCast_ne_zero` and
@@ -202,15 +209,16 @@ theorem nonempty_tateModuleEquivProd_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (h�
   nonempty_tateModuleEquivProd_of_card (card_torsion_pow_mul_self_of_natCast_ne_zero h2 hℓ)
     (exists_compatible_basis_of_natCast_ne_zero h2 hℓ)
 
-/-- **`T_ℓE` is a free `ℤ_[ℓ]`-module**, at every prime `ℓ` with `(ℓ : F) ≠ 0` (Silverman, *AEC*,
-III.7.1). -/
+/-- **`T_ℓE` is a free `ℤ_[ℓ]`-module**, at every prime `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0` (Silverman, *AEC*, III.7.1). -/
 theorem free_tateModule_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hℓ : (ℓ : F) ≠ 0) :
     Module.Free ℤ_[ℓ] (W.tateModule ℓ) :=
   haveI : NeZero ℓ := ⟨(Fact.out : ℓ.Prime).pos.ne'⟩
   free_tateModule_of_card (card_torsion_pow_mul_self_of_natCast_ne_zero h2 hℓ)
     (exists_compatible_basis_of_natCast_ne_zero h2 hℓ)
 
-/-- **`T_ℓE` has rank two over `ℤ_[ℓ]`**, at every prime `ℓ` with `(ℓ : F) ≠ 0`.
+/-- **`T_ℓE` has rank two over `ℤ_[ℓ]`**, at every prime `ℓ` with `(2 : F) ≠ 0` and
+`(ℓ : F) ≠ 0`.
 
 Together with `free_tateModule_of_natCast_ne_zero` this is `#268`: `T_ℓE ≅ ℤ_ℓ²` for every
 `ℓ ≠ char F`. -/
@@ -228,8 +236,8 @@ theorem finite_tateModule_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hℓ : (ℓ :
   finite_tateModule_of_card (card_torsion_pow_mul_self_of_natCast_ne_zero h2 hℓ)
     (exists_compatible_basis_of_natCast_ne_zero h2 hℓ)
 
-/-- **`T_ℓE` is infinite**, at every prime `ℓ` with `(ℓ : F) ≠ 0`: it surjects onto `E[ℓ^k]`, which
-has `ℓ^{2k}` elements, for every `k`.
+/-- **`T_ℓE` is infinite**, at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`: it surjects
+onto `E[ℓ^k]`, which has `ℓ^{2k}` elements, for every `k`.
 
 ⚠️ Recorded as an `example` and not as a theorem: it is `infinite_tateModule_of_card`
 (`EllipticCurves.TateModule.LevelStructure`) applied to the two statements above, and a named twin

@@ -87,9 +87,9 @@ section Existence
 variable [IsAlgClosed F] [(W'⁄F).IsElliptic] {n : ℕ} [NeZero n]
 
 open Classical in
-/-- **The mod-`n` matrix representation exists at every `n > 1` with `(n : F) ≠ 0`**, as a
-representation that really does compute the Galois action and whose determinant is the basis-free
-character `galoisDetMod n`.
+/-- **The mod-`n` matrix representation exists at every `n > 1` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`**, as a representation that really does compute the Galois action and whose
+determinant is the basis-free character `galoisDetMod n`.
 
 The general-`n` mirror of `exists_galoisRepModMatrix_of_smooth`, and the same four-component
 anonymous constructor: only the basis changed, from `basisTorsionOfSmooth` to
