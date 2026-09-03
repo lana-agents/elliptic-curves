@@ -155,12 +155,24 @@ file consumes them rather than restating them.
   every `n` with `(n : F) ≠ 0`, and `sum_ramificationIdxN_five` evaluates the right-hand side at
   `5`.  ⚠️ The `_of_smooth` forms are **kept** and are not deprecated: they are the only route here
   that does not consume `#E[n] = n²`.
-* **Still nothing at `n = char F`, and there the value is false rather than open.**  `(n : F) ≠ 0`
-  is sharp: at `n = char F` the map `[n]` is inseparable and `[F(W) : [n]∗F(W)] = n²` fails.  ⚠️
-  What survives there is the *identity* — `sum_ramificationIdxN_mul_residueDegreeN_finrank` carries
-  no hypothesis on `n` at all — which is the same *"the identity is wider than the value"*
-  distinction this docstring draws above, now with `n = char F` rather than `n = 5` as its
-  witness.
+* **Still nothing at `n = char F`, and the gate there is separability, not the degree.**
+  `(n : F) ≠ 0` is sharp for the statements below, and the reason is the one
+  `EllipticCurves.FunctionField.MulByNGalois` already gives: at `p = char F` the *count*
+  `#E[p] = p²` is false (`E[p]` is `0` or `ℤ/pℤ`, never `(ℤ/pℤ)²`), and `[p]` is inseparable, so
+  every `hsep` hypothesis below fails.  ⚠️ **Do not read that as "the degree fails there".**
+  `deg[n] = n²` holds over a field of any characteristic and `deg φ = [F(W) : φ∗F(W)]` for any
+  non-constant `φ`, so `[F(W) : [p]∗F(W)] = p²` is *true* at `p = char F`; what
+  `EllipticCurves.FunctionField.MulByNDegreeGeneral` says of itself is the accurate thing — in
+  characteristic `p` at `p ∣ n` **that file's proof** says nothing, its `(n : F) ≠ 0` coming from
+  `natDegree_ΨSq` and the transcendence input rather than from the truth of the statement.
+  Inseparability is a split of `p²` into `deg_s · deg_i`, not a drop in it.
+* ⚠️ **`n = char F` is the wrong witness for *"the identity is wider than the value"*, and this
+  bullet used to name it as one.**  `sum_ramificationIdxN_mul_residueDegreeN_finrank` carries no
+  hypothesis on `n` — but it carries `hsep`, which is precisely what fails at `n = char F`, so it
+  is *vacuous* there rather than wider.  The distinction is real, and its witness is the `n = 5`
+  certificate below, which commits `sum_ramificationIdxN_mul_residueDegreeN_finrank_of_charZero`:
+  no hypothesis on `n` there either, and in characteristic zero no separability hypothesis to
+  fail, with the right-hand side left as a `finrank` rather than evaluated.
 * **Not `hprin`** (`#962`).  `PlaceInertiaGeneral`'s `## Scope` records that it removes one of three
   `[IsAlgClosed F]` inputs to `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and not the other two;
   that accounting is unchanged at general `n`, and nothing below touches `card_torsion_two` or
@@ -435,8 +447,13 @@ argument**.  ⚠️ The `_of_smooth` forms are **kept**, not replaced: they are 
 irrelevance is definitional in Lean 4, so the two subfields are the same and no `Subsingleton.elim`
 is needed; `MulByNDegreeGeneral` records the same trap.
 
-⚠️ `(n : F) ≠ 0` is **sharp** and is not a relaxed smoothness: at `n = char F` the degree
-`[F(W) : [n]∗F(W)] = n²` is false, `[n]` being inseparable there. -/
+⚠️ `(n : F) ≠ 0` is **sharp** and is not a relaxed smoothness — and the sharpness is
+`EllipticCurves.FunctionField.MulByNGalois`'s, i.e. it is about the **count and separability**, not
+about the degree.  At `p = char F` the map `[n]` is inseparable, so `hsep` fails and `#E[p] = p²`
+fails with it, which is what stops the chain.  ⚠️ **The degree itself survives there**:
+`deg[n] = n²` in every characteristic and `deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`, so
+`[F(W) : [p]∗F(W)] = p²` is true at `p = char F` — `MulByNDegreeGeneral` claims only that *its
+proof* says nothing at `p ∣ n`, and that is the accurate claim to repeat. -/
 
 omit [IsDedekindDomain W.CoordinateRing] in
 /-- **`[F(W) : [n]∗F(W)] = n²` at every `n` with `(n : F) ≠ 0`, for the subfield.**  The general-`n`
@@ -727,9 +744,13 @@ example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 
 this certificate was originally for: when it was written, `#1213`'s degree was `3`-smooth and `5` is
 not, so nothing evaluated it to `25`.  ⚠️ **That reason is now gone** — `sum_ramificationIdxN_five`
 evaluates it, and the certificate immediately below commits the evaluated form on this same curve.
-This one is kept because the distinction the module docstring draws — the identity is wider than the
-value — is still true at `n = char F`, where the identity holds and the value does not.  The
-non-constancy of `[5]` comes from
+This one is kept because it commits the *identity* form
+(`sum_ramificationIdxN_mul_residueDegreeN_finrank_of_charZero`, which carries no hypothesis on `n`
+at all) rather than the value, so the two are certified through genuinely different lemmas and a
+regression in either is visible on its own.  ⚠️ **This is the right witness for the module
+docstring's *"the identity is wider than the value"* distinction, and `n = char F` is not** — the
+identity lemma needs `hsep`, and `hsep` is exactly what fails at `n = char F`, so it is vacuous
+there rather than wider.  The non-constancy of `[5]` comes from
 `transcendental_xCoord_nsmul_of_isAlgClosed`, which is the only route to it at a non-`3`-smooth
 index in this tree. -/
 example : ∑ p ∈ (finite_comapProjPointN_preimage_singleton (W := y2AddYEqX3 AlgClosedQ) 5

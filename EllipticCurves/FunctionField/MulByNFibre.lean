@@ -306,6 +306,21 @@ the explicit doubling formulas.  A general-`n` proof needs the same case analysi
 degree, on `#268`, or on `hprin` (`#962`) — all four are available — which is precisely why it does
 not appear on any existing gate list.  Nothing below should be read as waiting for one of them.
 
+⚠️ **The same ladder shape occurs four more times, in
+`EllipticCurves.FunctionField.MulByNPlaceComposition`, so the count of `3`-smooth sites on this gate
+is eleven and not seven.**  `comapProjPointN_none_of_smooth` and `ramificationIdxN_none_of_smooth`
+each open with the identical `Nat.exists_eq_two_pow_mul_three_pow` step and land the double
+inductions `comapProjPointN_two_pow_mul_three_pow_none` and
+`ramificationIdxN_two_pow_mul_three_pow_none`; `ordInfty_mulByNEndo_of_smooth` and
+`ordInfty_mulByNEndo_genX_of_smooth` cite those two and add no hypothesis of their own.  ⚠️ **They
+are in the same class, not of the same difficulty, and this file does not claim otherwise.**  They
+are the contraction *at infinity*, where `P = O` is one branch of the three-way split above rather
+than all three, so they may well be strictly easier; and `ramificationIdxN_none_of_smooth`'s own
+docstring records that its `3`-smoothness is doing separability work there — with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0` it is what forces `char F ∤ n` — so the general form of *that* one wants `(n : F) ≠ 0`
+in the statement and not merely a better proof.  None of the four has been measured; they are
+recorded here so the *"which sites are ladder-gated"* answer is not re-derived at seven.
+
 ⚠️ Two consequences worth keeping straight.  First, `card_fibre_comapProjPointN_projPointOfPoint`
 (the fibre `= n²`) is gated by the `≥` half only: `card_fibre_comapProjPointN_le_sq_of_ne_zero`
 above already gives `≤ n²` at every `n` with `(n : F) ≠ 0`, and what is missing is the coset
