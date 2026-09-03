@@ -10,8 +10,10 @@ import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.MulByThreePlacePullback
 
 /-!
-# `[n]` fixes the point at infinity — at every `3`-smooth `n` by composition, and at every `n`
-with `(n : F) ≠ 0` by the pole order
+# `[n]` fixes the point at infinity: by composition, and by the pole order
+
+Two routes to the same conclusion — one at every `3`-smooth `n`, one at every `n` with
+`(n : F) ≠ 0`.
 
 `EllipticCurves.FunctionField.MulByNPlacePullback` contracts a place of the projective curve along
 `[n]∗` (`comapProjPointN`) for every `n` at which `[n]` is non-constant, and closes its *"rungs that
@@ -101,8 +103,12 @@ than composing maps.
 * ⚠️ **`…ordInfty_mulByNEndo_genX_of_ne_zero`, `…comapProjPointN_none_of_ne_zero`,
   `…ramificationIdxN_none_of_ne_zero` and `…ordInfty_mulByNEndo_of_ne_zero`** — **the same four
   conclusions at every `n` with `(n : F) ≠ 0`**, by the pole order rather than by composition.
-  ⚠️ Neither layer subsumes the other: `n = 14` is in the second and not the first, and the first
-  consumes no division polynomial while the second does.
+  ⚠️ **The second layer subsumes the first as a statement, and the `example`s beside it prove
+  that rather than assert it**: `(2 : F) ≠ 0` and `(3 : F) ≠ 0` force `((2^a · 3^b : ℕ) : F) ≠ 0`,
+  so every `_of_smooth` conclusion above is a corollary of its `_of_ne_zero` counterpart.  What
+  does **not** transfer is the *route*: the `3`-smooth proofs consume no division polynomial and
+  the general ones consume `Φₙ`/`ΨSqₙ`, which is why nothing above is deleted.  `n = 14` is in the
+  second statement and not in the first; that is a fact about ranges, not about content.
 * `…ordInfty_mulByNEndo_genX_five`, `…comapProjPointN_none_five` and `…ramificationIdxN_none_five` —
   the first index outside `{2, 3}`, named rather than left as `example`s.
 
@@ -411,9 +417,19 @@ route stops is corrected there in the same PR.
 Above, `ordInfty_mulByNEndo_genX_of_smooth` is a **corollary** of the contraction, reached by
 composition and needing no division polynomial.  Here it is the **input**: the pole order is proved
 first, from the degrees, and the contraction is read off it.  The two layers are therefore
-independent proofs of the same conclusion on their common range, which is why the `_of_smooth`
-forms are kept rather than deprecated — and the `3`-smooth route remains the only one here that
-consumes no division polynomial at all.
+independent proofs of the same conclusion, which is why the `_of_smooth` forms are kept rather than
+deprecated — the `3`-smooth route remains the only one here that consumes no division polynomial at
+all.
+
+⚠️ **Independent proofs, not independent statements, and the difference is committed below.**  At
+the level of what is *proved*, this layer contains the one above outright:
+`intCast_ne_zero_of_smooth` turns `(2 : F) ≠ 0`, `(3 : F) ≠ 0` and `3`-smoothness into
+`((n : ℤ) : F) ≠ 0` in four lines, and
+the three `example`s beside it derive each `_of_smooth` statement verbatim from its `_of_ne_zero`
+counterpart.  ⚠️ **Proved rather than asserted, deliberately** — this file's sibling
+`EllipticCurves.TateModule.OpenKernel` commits the same subsumption the same way, and a docstring
+sentence claiming an implication does or does not hold is exactly the kind of claim that this front
+has repeatedly had to correct.
 
 ## ⚠️ `(n : F) ≠ 0` is sharp, and this file's warning about it stands unchanged
 
@@ -421,7 +437,9 @@ At `n = char F > 2` the transcendence hypothesis is still met, `[n]` is insepara
 `ordInfty ([n]∗ genX)` is `-2n` or `-2n²` rather than `-2` — so `e_∞ = 1` is **false** there, not
 merely unproved.  What changed is the *shape* of the sufficient condition: it is `(n : F) ≠ 0`, not
 `3`-smoothness together with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  ⚠️ Those two conditions are not the
-same and neither contains the other in hypothesis form, though the second implies the first.
+same, and the implication runs one way only: the second implies the first
+(`intCast_ne_zero_of_smooth` below), and the first does not imply the second — `n = 14` satisfies
+it and is not `3`-smooth.
 -/
 
 omit [IsDedekindDomain W.CoordinateRing] in
@@ -462,9 +480,12 @@ The general-`n` form of `comapProjPointTwo_none` (`#670`) with its proof transpo
 would make the right-hand side a nonnegative multiple of a nonnegative order, but the left-hand side
 is `-2`.
 
-⚠️ Not an instance of `comapProjPointN_none_of_smooth` and not an implication of it in either
-direction: `n = 14` is here and not there, `n = 12` in characteristic `0` is in both, and neither
-statement's hypotheses imply the other's as written. -/
+⚠️ **Wider than `comapProjPointN_none_of_smooth`, and strictly so**: `n = 14` is here and not
+there, `n = 12` in characteristic `0` is in both, and the converse containment fails because the
+`3`-smooth hypotheses imply `hn` — see `intCast_ne_zero_of_smooth` and the `example` beside it,
+which derive that statement from this one rather than claiming they are unrelated.  ⚠️ The
+`_of_smooth` form is nevertheless kept: its proof composes `[2]∗` and `[3]∗` and touches no
+division polynomial, so it is an independent route and not dead weight. -/
 theorem comapProjPointN_none_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
     comapProjPointN n h (none : ProjPoint W) = none := by
@@ -505,6 +526,63 @@ theorem ordInfty_mulByNEndo_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n 
     ordInfty W (mulByNEndo n h f) = ordInfty W f := by
   rw [ordInfty_mulByNEndo_of_comapProjPointN_none h (comapProjPointN_none_of_ne_zero h2 hn h) hf,
     ramificationIdxN_none_of_ne_zero h2 hn h, one_mul]
+
+/-! ### The subsumption of the `3`-smooth layer, machine-checked
+
+⚠️ **The containment between the two layers is committed here rather than asserted in a
+docstring.**  The `_of_smooth` statements carry `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and
+`3`-smoothness of `n`; in a field those force `((n : ℤ) : F) ≠ 0`, so each of them is a corollary
+of its `_of_ne_zero` counterpart above.  The three `example`s below are the `_of_smooth`
+statements *verbatim*, proved that way.
+
+⚠️ **Nothing above is deleted, and the reason is not compatibility.**  The `_of_smooth` proofs run
+`[m · n]∗ = [m]∗ ∘ [n]∗` against the merged `n = 2` and `n = 3` layers and consume no division
+polynomial at all; the `_of_ne_zero` proofs go through `Φₙ`/`ΨSqₙ`.  Two independent routes to one
+conclusion are the cheapest cross-check available on this front — the containment is of
+*statements*, not of *proofs*.
+
+⚠️ The same subsumption is committed the same way on the sibling front, by
+`EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth` and the `example` beside it. -/
+
+/-- **A `3`-smooth `n ≠ 0` is prime to the characteristic as soon as `2` and `3` are** — the
+`((n : ℤ) : K)` form of `EllipticCurves.TateModule.OpenKernel`'s `natCast_ne_zero_of_smooth`, which
+is what the `_of_ne_zero` statements above take.
+
+`Nat.exists_eq_two_pow_mul_three_pow` is already in this file's import closure (it is
+`EllipticCurves.Torsion.ThreePrimary`'s, reached through `MulByNComposition`), so this is a
+factorisation and two `ne_zero` lemmas rather than an induction.
+
+⚠️ Stated over a fresh field `K` rather than over the section's `F`, so that no section variable is
+drawn in: it mentions neither the curve nor its coordinate ring. -/
+private lemma intCast_ne_zero_of_smooth {K : Type*} [Field K] (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
+    {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3) : ((n : ℤ) : K) ≠ 0 := by
+  obtain ⟨a, b, rfl⟩ := Nat.exists_eq_two_pow_mul_three_pow n hn hfac
+  push_cast
+  exact mul_ne_zero (pow_ne_zero _ h2) (pow_ne_zero _ h3)
+
+/-- **`comapProjPointN_none_of_smooth` is a corollary of `comapProjPointN_none_of_ne_zero`** — its
+statement verbatim, proved from the general layer. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    comapProjPointN n h (none : ProjPoint W) = none :=
+  comapProjPointN_none_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
+
+/-- **`ramificationIdxN_none_of_smooth` is a corollary of `ramificationIdxN_none_of_ne_zero`.** -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    ramificationIdxN n h (none : ProjPoint W) = 1 :=
+  ramificationIdxN_none_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
+
+/-- **`ordInfty_mulByNEndo_genX_of_smooth` is a corollary of
+`ordInfty_mulByNEndo_genX_of_ne_zero`** — so the pole order `-2` at every `3`-smooth `n`, which
+above is read off the composition, is also read off the degrees of `Φₙ` and `ΨSqₙ`. -/
+example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
+    (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    ordInfty W (mulByNEndo n h (genX W)) = -2 :=
+  ordInfty_mulByNEndo_genX_of_ne_zero h2 (intCast_ne_zero_of_smooth h2 h3 hn hfac) h
 
 /-! ### `n = 5`, as named theorems
 
