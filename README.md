@@ -145,6 +145,30 @@ more than once, so the discriminators are written down here rather than re-deriv
   below it, `ψ_evalEval_eq_zero_of_dvd`, and *"the predicted `ψ₂`-value is periodic with period
   `d`"* without *"off the multiples of `d`"* is not what `divT_add_mul_of_not_dvd` proves —
   `divT_add_of_not_dvd`, the single step it iterates, asks `¬ (d ∣ j)` at every rung.
+
+  ⚠️ **The test asks whether the remainder is a claim of the same kind, not whether it is still
+  true.** **Every** reach clause leaves something false when it is deleted — that is what *"the
+  conditions under which the statement holds"* means — so *"the remainder is not true"* holds of
+  the entire class and is never on its own a reason to call a phrase part of the predicate. Read
+  the second half that way and it clears `card_torsion_pow_of_odd`, the declaration the paragraph
+  above opens by convicting: `#E[pᵏ] = (pᵏ)²` with nothing attached is false in characteristic `p`
+  too, and is nonetheless what *"stands perfectly well"* means. Both halves are already carrying
+  that distinction in their citations — `card_torsion_eq_sq` **is** `#E[pᵏ] = (pᵏ)²` under a
+  different condition, while `ψ_evalEval_eq_zero_of_dvd` proves the **opposite** on exactly the set
+  *"away from the multiples of the least vanishing index"* removes — so read what the tree proves
+  beside a row before deleting anything in its headline.
+
+  ⚠️ **On a row this bullet does not already decide by name, the truth-reading inverts, and it
+  reaches a confirmed proper-subset defect.** *"as soon as `e_2(P, T) ≠ 1`"*
+  (`intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_two`,
+  `EllipticCurves.FunctionField.WeilPairingDeterminant`) also leaves something false when deleted,
+  so a truth-reading calls it predicate; the headline is then left with no reach clause at all and
+  the row lands **cleared** on the *"or it names none"* branch. It is not the case of the four
+  sites above: nothing in that file proves anything on the set the phrase removes, and *"`P` and
+  `T` are `ℤ/2`-independent"* is the same claim about the same `P` and `T` with the phrase saying
+  when it holds. So it is a reach clause; the statement also binds `(2 : F) ≠ 0`, and the headline
+  names it nowhere. `…_three` is the identical shape. Neither is repaired by this clause — it only
+  stops the test from clearing them.
 * **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
   that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
   `10` is not quantified and there is nothing for a condition to range over. Same for
