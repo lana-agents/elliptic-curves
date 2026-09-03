@@ -86,9 +86,10 @@ namespace WeierstrassCurve.Affine
 variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} [IsAlgClosed F] [W.IsElliptic]
 
 /-- **`#E[pᵏ] = (pᵏ)²` from the count at `p` alone.**  `card_torsion_pow` with its surjectivity
-hypothesis discharged by `nsmul_surjective_of_two_ne_zero`.  ⚠️ No primality — like the counting
-half of `EllipticCurves.Torsion.PrimaryTower`, which asks nothing of `p` at all.  `p ≠ 0` is asked
-here only by `nsmul_surjective_of_two_ne_zero`. -/
+hypothesis discharged by `nsmul_surjective_of_two_ne_zero`, which is what `(2 : F) ≠ 0` buys: at
+`p ≠ 0` and with `(2 : F) ≠ 0`, `hcard` is the whole of what this statement is owed.  ⚠️ No
+primality — like the counting half of `EllipticCurves.Torsion.PrimaryTower`, which asks nothing of
+`p` at all.  `p ≠ 0` is asked here only by `nsmul_surjective_of_two_ne_zero`. -/
 theorem card_torsion_pow_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p ≠ 0)
     (hcard : Nat.card (W.torsion p) = p ^ 2) (k : ℕ) :
     Nat.card (W.torsion (p ^ k)) = (p ^ k) ^ 2 :=
