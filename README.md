@@ -151,7 +151,63 @@ occurs inside the conclusion of every statement about them. `(2 : F) ≠ 0` is d
 any reach clause on this development names — not from `3`-smoothness, not from `(n : F) ≠ 0` — so it
 is reach, and the rule binds it. Omitting it is the defect class `#1137` exists to pay off.
 
-It applies **per block, not per phrase** — a `## Main statements` list, or a `generality` table
+### Gate-discharge claims
+
+A second exemption is narrower still, and it has a different shape: it is not about which
+hypotheses a clause omits but about **what kind of claim the clause is making**.
+
+A **gate-discharge claim** says that a statement is owed *nothing further* — *"with `#E[p] = p²`
+as the only hypothesis"*, *"with no hypothesis left"*, *"unconditionally"*. It is not a hypothesis
+list. It is a claim **relative to a gate list**: the hypotheses that some *other* declaration or
+module records as owed, and which this statement has discharged. Read as a reach clause it is a
+false universal, and a bolded one; read as what it says it is usually exactly true, and sharper
+than the list it would be replaced by.
+
+**A gate-discharge claim is bound by the reach-clause rule only where the gate list it is relative
+to is not named.** Where the docstring does name it, the claim is compliant and the completeness
+obligation *moves*: the naming sentence is then held to the rule the headline was let off, and
+must name every explicit hypothesis of the statement.
+
+```
+-- right: `nonempty_torsionPow_addEquiv_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) binds
+-- `h2`, `hp : p.Prime`, `hodd`, `hpF`, and its headline names two of the four
+**The structure theorem for `E[pᵏ]` at an odd prime `p`, with no hypothesis left.**
+This is the signature `EllipticCurves.Torsion.PrimaryTower`'s gate list reduces to once
+`card_torsion_eq_sq_of_odd` supplies `hcard`: over an algebraically closed field with
+`(2 : F) ≠ 0`, at an odd prime `p` with `(p : F) ≠ 0`, ... is owed nothing further.
+
+-- wrong: `card_torsion_pow_of_odd` read *"at an odd `p`, unconditionally"* over the same field
+-- and index hypotheses, and named no gate list.  Its next sentence made a hypothesis-*list*
+-- claim instead — *"asks of `p` only that it be odd and nonzero in `F`"*, which is itself short
+-- of `h2` — so nothing in the docstring gave the word a subject.
+```
+
+The repair there was to **re-scope the word rather than delete it**: *"with `(2 : F) ≠ 0`, at an
+odd `p` with `(p : F) ≠ 0`, and with no `hcard`"*. That is the cheapest form of a gate-discharge
+claim and the one to prefer — it names the discharged gate **inside** the clause, so it is
+compliant on either reading and needs no second sentence to prop it up.
+
+⚠️ **In the same docstring is the whole of the exemption.** *Declaration headlines are reach
+clauses too* below is unchanged by it: a `## Hypotheses` section elsewhere in the module does not
+repair a partial headline, because doc-gen renders the rest of *this* docstring beside the
+headline and the module block nowhere near it.
+
+⚠️ **A gate-discharge register is a per-file object, and a sweep sees per declaration.**
+`EllipticCurves.Torsion.PrimaryTowerAlgClosed` runs one from its H1 (*"`#E[p] = p²` is the only
+hypothesis left"*) through its module block and down into the declaration headlines, and factors
+the field conditions out into a `## What the substitution costs` section of its own, on purpose.
+Repairing one headline of such a file in isolation is a worse outcome than repairing none. Before
+repairing a headline whose omitted hypothesis is named in a section like that, read the module
+block: the decision on offer is about the file, not the row.
+
+The per-block clause below does not fire *between* the two registers. A gate-discharge claim and a
+hypothesis list are different kinds of claim, not two dialects of one, so a block may hold both
+provided each row is compliant on its own terms; what it must not hold is two rows making the
+**same** kind of claim in different registers.
+
+### Scope of the rules above
+
+They apply **per block, not per phrase** — a `## Main statements` list, or a `generality` table
 column, is one place. A fix that repairs one row and leaves its neighbour partial makes the
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
