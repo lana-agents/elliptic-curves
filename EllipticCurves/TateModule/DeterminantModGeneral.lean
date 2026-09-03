@@ -8,13 +8,13 @@ import EllipticCurves.TateModule.DeterminantModSmooth
 import EllipticCurves.Torsion.StructureGeneral
 
 /-!
-# `E[n]` is free of rank `2` over `ZMod n` at EVERY `n` with `(n : F) ≠ 0`
+# `E[n]` is free of rank `2` over `ZMod n` at EVERY `n > 1` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
 
 `EllipticCurves.TateModule.DeterminantModSmooth` proves that `E[n]` is a finite free `ZMod n`-module
 of rank `2` — so that `galoisDetMod n` is an honest determinant and not `LinearEquiv.det`'s junk
-value — at every **`3`-smooth** `n > 1`.  This file removes the smoothness, and nothing else: the
-five statements below are that file's five with `_of_smooth` replaced by `_of_natCast_ne_zero` and
-`hfac` replaced by `(n : F) ≠ 0`.
+value — at every **`3`-smooth** `n > 1` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  This file removes the
+smoothness, and nothing else: the five statements below are that file's five with `_of_smooth`
+replaced by `_of_natCast_ne_zero` and `hfac` replaced by `(n : F) ≠ 0`.
 
 The mathematics is entirely in `EllipticCurves.Torsion.StructureGeneral`, whose
 `nonempty_torsion_addEquiv` is `E[n] ≃+ ℤ/nℤ × ℤ/nℤ` at every `n` with `(2 : F) ≠ 0` and
@@ -57,13 +57,16 @@ use for exactly this situation, and the `_of_natCast_ne_zero` suffix is theirs.
 
 ## Main statements
 
+⚠️ Every statement and definition below takes `(2 : F) ≠ 0` **and** `(n : F) ≠ 0`, and the rank
+and the basis take `1 < n` as well; the bullets give the conclusions and not the hypotheses.
+
 * `WeierstrassCurve.Affine.nonempty_torsionLinearEquiv_of_natCast_ne_zero` —
   `E[n] ≃ₗ[ZMod n] ZMod n × ZMod n`.  The reusable brick; everything else is a projection of it,
   except the finiteness.
 * `WeierstrassCurve.Affine.finite_torsion_zmod_of_natCast_ne_zero` — `E[n]` is a finite
   `ZMod n`-module.  ⚠️ **Wider than its `_of_smooth` twin in a second direction**, see below.
 * `WeierstrassCurve.Affine.free_torsion_zmod_of_natCast_ne_zero` — and a free one.
-* `WeierstrassCurve.Affine.finrank_torsion_of_natCast_ne_zero` — of rank `2`, for `1 < n`.
+* `WeierstrassCurve.Affine.finrank_torsion_of_natCast_ne_zero` — of rank `2`.
 
 ## Main definitions
 
@@ -110,7 +113,7 @@ section General
 variable {n : ℕ} [NeZero n]
 
 open Classical in
-/-- **`E[n] ≅ (ℤ/nℤ)²` as `ZMod n`-modules, at every `n` with `(n : F) ≠ 0`.**
+/-- **`E[n] ≅ (ℤ/nℤ)²` as `ZMod n`-modules, at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 `nonempty_torsion_addEquiv` (`EllipticCurves.Torsion.StructureGeneral`, `#242`) produces an `≃+`,
 and `AddEquiv.toZModLinearEquiv` (`EllipticCurves.TateModule.DeterminantMod`) upgrades it for free:
@@ -130,7 +133,7 @@ theorem nonempty_torsionLinearEquiv_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hn 
 
 omit [W.IsElliptic] [IsAlgClosed F] in
 open Classical in
-/-- **`E[n]` is a finite `ZMod n`-module, at every `n` with `(n : F) ≠ 0`.**
+/-- **`E[n]` is a finite `ZMod n`-module, at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 ⚠️ **The one statement in this file that is wider than a re-indexing of its `_of_smooth` twin.**
 `finite_torsion_zmod_of_smooth` omits `[IsAlgClosed F]` and keeps `[W.IsElliptic]`, because
@@ -150,7 +153,7 @@ theorem finite_torsion_zmod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hn : (n : F
   Module.Finite.of_finite
 
 open Classical in
-/-- **`E[n]` is a free `ZMod n`-module, at every `n` with `(n : F) ≠ 0`.**
+/-- **`E[n]` is a free `ZMod n`-module, at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 ⚠️ A theorem and not a certificate, for the reason `free_torsion_zmod_of_smooth` gives: `ZMod n` is
 a field only at prime `n`, `Module.Free (ZMod 10) E[10]` is not found by instance search, and the
@@ -163,7 +166,7 @@ theorem free_torsion_zmod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hn : (n : F) 
   exact Module.Free.of_equiv e.symm
 
 open Classical in
-/-- **`E[n]` has rank `2` over `ZMod n`, at every `n > 1` with `(n : F) ≠ 0`.**
+/-- **`E[n]` has rank `2` over `ZMod n`, at every `n > 1` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`.**
 
 The discriminating statement of the file, exactly as `finrank_torsion_of_smooth` is of its own:
 `Module.finrank` is `1` over a trivial ring and `0` on a module that is not free and finite, so this
@@ -186,7 +189,8 @@ theorem finrank_torsion_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) (hn1 : 1 < n) (h
   rw [e.finrank_eq, Module.finrank_prod, Module.finrank_self]
 
 open Classical in
-/-- **A `ZMod n`-basis of `E[n]` indexed by `Fin 2`, at every `n > 1` with `(n : F) ≠ 0`.**
+/-- **A `ZMod n`-basis of `E[n]` indexed by `Fin 2`, at every `n > 1` with `(2 : F) ≠ 0` and
+`(n : F) ≠ 0`.**
 
 `Module.finBasisOfFinrankEq` against `finrank_torsion_of_natCast_ne_zero`, the general-`n` mirror of
 `basisTorsionOfSmooth`.  ⚠️ Not canonical — it is the interface a coordinate computation needs, and

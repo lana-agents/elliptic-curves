@@ -126,15 +126,18 @@ constant sequence.
   constant.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_of_natCast_ne_zero`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_of_natCast_ne_zero` : the same at
-  **every** `n` with `(n : F) ≠ 0`, with **no `[IsAlgClosed F]`** and **no
+  **every** `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, with **no `[IsAlgClosed F]`** and **no
   `[(W'⁄F).IsElliptic]`** — the widest form, and the one that subsumes the three below at the
   level of indices.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_two_pow`,
-  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional at `ℓ = 2`.
+  `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_two_pow` : unconditional **in the
+  exponent** at `ℓ = 2` — every `2 ^ k`, with no side condition on `k` — over an algebraically
+  closed field with `(2 : F) ≠ 0` and `[(W'⁄F).IsElliptic]`.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepTwo` : `ker ρ_{E,2}` is closed.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_smooth`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_smooth` : the same at every `3`-smooth
-  `n ≠ 0`, over a field in which `2` and `3` are invertible and with **no `[IsAlgClosed F]`**.
+  `n ≠ 0`, over a field in which `2` and `3` are invertible, under `[(W'⁄F).IsElliptic]` and with
+  **no `[IsAlgClosed F]`**.
 * `WeierstrassCurve.Affine.isOpen_ker_galoisRepMod_three_pow`,
   `WeierstrassCurve.Affine.isLocallyConstant_galoisRepMod_three_pow` : the `ℓ = 3` layer.
 * `WeierstrassCurve.Affine.isClosed_ker_galoisRepThree` : `ker ρ_{E,3}` is closed.
@@ -277,8 +280,8 @@ theorem isOpen_ker_galoisRepMod_of_natCast_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ
     IsOpen ((galoisRepMod (W' := W') (F := F) n).ker : Set (F ≃ₐ[S] F)) :=
   isOpen_ker_galoisRepMod _ (finite_torsion_of_intCast_ne_zero h2 hn)
 
-/-- **Each mod-`n` representation is locally constant at every `n` with `(n : F) ≠ 0`**, with no
-algebraic closure and no `[(W'⁄F).IsElliptic]`.
+/-- **Each mod-`n` representation is locally constant at every `n` with `(n : F) ≠ 0`**, over a
+field in which `2` is invertible — with no algebraic closure and no `[(W'⁄F).IsElliptic]`.
 
 This is the statement `EllipticCurves.TateModule.Continuity.continuous_galoisRepMod` explicitly
 declines to make; its docstring says, copy-paste, that local constancy of the representation itself
@@ -318,14 +321,17 @@ section Two
 
 variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
-/-- **The level kernels of `ρ_{E,2}` are open**, unconditionally over an algebraically closed field
-of characteristic `≠ 2`: `finite_torsion_two_pow` discharges the finiteness hypothesis, and it does
-so without the division polynomials. -/
+/-- **The level kernels of `ρ_{E,2}` are open at every exponent `k`** — unconditional in `k`, and
+otherwise over an algebraically closed field with `(2 : F) ≠ 0` and `[(W'⁄F).IsElliptic]`:
+`finite_torsion_two_pow` discharges the finiteness hypothesis, and it does so without the division
+polynomials. -/
 theorem isOpen_ker_galoisRepMod_two_pow (h2 : (2 : F) ≠ 0) (k : ℕ) :
     IsOpen ((galoisRepMod (W' := W') (F := F) (2 ^ k)).ker : Set (F ≃ₐ[S] F)) :=
   isOpen_ker_galoisRepMod _ (finite_torsion_two_pow h2 k)
 
-/-- Each mod-`2^k` representation is locally constant, unconditionally. -/
+/-- **Each mod-`2^k` representation is locally constant at every exponent `k`** — unconditional in
+`k`, and otherwise over an algebraically closed field with `(2 : F) ≠ 0` and
+`[(W'⁄F).IsElliptic]`. -/
 theorem isLocallyConstant_galoisRepMod_two_pow (h2 : (2 : F) ≠ 0) (k : ℕ) :
     IsLocallyConstant (galoisRepMod (W' := W') (F := F) (2 ^ k)) :=
   isLocallyConstant_galoisRepMod _ (finite_torsion_two_pow h2 k)
@@ -348,8 +354,8 @@ end Two
 /-! ### Every `3`-smooth level, and no algebraic closure
 
 ⚠️ **This is no longer the widest layer in the file** — `§ Every level prime to the characteristic`
-above reaches every `n` with `(n : F) ≠ 0`, and needs neither `[IsAlgClosed F]` nor
-`[(W'⁄F).IsElliptic]`. The two statements here are kept because their finiteness input is a
+above reaches every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, and needs neither `[IsAlgClosed F]`
+nor `[(W'⁄F).IsElliptic]`. The two statements here are kept because their finiteness input is a
 genuinely different theorem (multiplicativity off `#E[2] ≤ 4` and `#E[3] ≤ 9`, versus the
 `x`-support root count of `ΨSqₙ`), and the containment of indices is proved rather than asserted:
 see `Nat.natCast_ne_zero_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) and the `example` that

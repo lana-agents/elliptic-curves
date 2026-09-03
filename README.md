@@ -92,6 +92,65 @@ file-name prefixes `MulByTwo`/`MulByThree`/`MulByN`, `Translation`, `Place`, `Di
 New files should be added under `EllipticCurves/` and imported from the root
 `EllipticCurves.lean` module (kept in sync with `lake exe mk_all`).
 
+## Docstring conventions
+
+### Reach clauses
+
+A **reach clause** is a docstring phrase that says how far a named declaration or a named
+layer goes — *"at every `3`-smooth `n`"*, *"at every `n` with `(n : F) ≠ 0`"*, *"the same at
+every index"*. They are what a reader consults instead of the signature, and on this
+development they are the one kind of prose that has repeatedly gone stale in a way no build
+can see.
+
+**A reach clause names every hypothesis of the statement it describes, or it names none.**
+The defect is the *proper non-empty subset*: naming the index condition and silently dropping
+`(2 : F) ≠ 0` reads as a complete hypothesis list, because a clause that lists one condition
+looks like a clause that lists them all. Concretely:
+
+```
+-- wrong: `card_torsion_eq_sq` also takes `(2 : F) ≠ 0`
+`card_torsion_eq_sq` is `#E[n] = n²` at every `n` with `(n : F) ≠ 0`
+
+-- right
+`card_torsion_eq_sq` is `#E[n] = n²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
+
+-- also right: no `with` clause at all, deferring to the signature
+`card_torsion_eq_sq` is `#E[n] = n²` at a general index
+```
+
+The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
+module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
+— so a reach clause need not list them. But a clause that *does* make an instance claim
+(*"with no `[IsAlgClosed F]`"*) is making a complete-list claim about instances, and then the
+same rule applies to those: name all of them or none.
+
+It applies **per block, not per phrase** — a `## Main statements` list, or a `generality` table
+column, is one place. A fix that repairs one row and leaves its neighbour partial makes the
+block worse rather than better, because the reader now has two rows in different registers and
+no way to tell which is which.
+
+Three consequences worth stating, because each has cost a review cycle:
+
+* **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
+  is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
+  phrase about a statement of this development that also takes `h2` is a defect. Resolve the
+  sentence's subject to a declaration and read its binders; a `grep`-keyed sweep of this class
+  produces false positives as well as false negatives.
+* **`(n : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` are different clauses.** The `_of_natCast_ne_zero`
+  and `_of_intCast_ne_zero` suffixes say which, and a reach clause should match the suffix.
+* **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to
+  module prose. A `## Hypotheses` section elsewhere in the same module does not repair a
+  partial headline.
+
+### Retired claims
+
+A clause that a later PR falsifies is kept as a **marked quotation** — the old text in
+italics, attributed, followed by what replaced it — rather than deleted, so that a reader who
+remembers the old claim learns why it went. ⚠️ **Retired declaration names are written in
+italics, not backticks.** Backticks are how this development marks a live citation, and every
+name-resolution check keys on them; a retired name in backticks is indistinguishable from a
+dangling one.
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the
