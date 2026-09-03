@@ -83,8 +83,18 @@ odd `ℓ` with `(ℓ : F) ≠ 0`.  This file remains `ℓ = 2` only for its own
 reasons, and that is unchanged.
 
 The Galois action on `T₂E` (`EllipticCurves.TateModule.GaloisAction`) and the representation
-`ρ_{E,2} : G_F → GL₂(ℤ_2)` are a separate follow-up, which the rank statement here makes meaningful
-for the first time.
+`ρ_{E,2} : G_F → GL₂(ℤ_2)` are not built here, and the rank statement below is what makes the
+second of them *producible*: `galoisRepMatrixTwo` is read off a basis of `T₂E`, so with the
+rank-two input gone there is no basis, hence no matrix, and the `GL₂` shape cannot be produced at
+all — the point `EllipticCurves.TateModule.PrimaryMatrixRep` makes of its own hypothesis.
+
+⚠️ **That sentence used to call them** *"a separate follow-up"*, **and both had landed:**
+`galoisRep` in `EllipticCurves.TateModule.GaloisAction` — the file the sentence itself names —
+since 2026-07-26, **twenty-four days** before this file existed; and `galoisRepMatrixTwo`
+(`EllipticCurves.TateModule.MatrixRep`, `#586`) **twenty-eight minutes after** it. ⚠️ Only the
+gloss changes: `MatrixRep` is **downstream** of this file — it imports it — and this file does not
+reach `EllipticCurves.TateModule.GaloisAction` at all, so `galoisRep` is not even nameable below
+and the rank statements do not use it.
 
 ## Main statements
 
