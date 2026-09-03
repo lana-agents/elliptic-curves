@@ -30,11 +30,20 @@ statement with no work, and this file is the compiled form of that sentence.
 
 ⚠️ Measured, not argued.  The general basis lives in
 `EllipticCurves.TateModule.DeterminantModGeneral`, which is a leaf over
-`EllipticCurves.Torsion.StructureGeneral`; putting this theorem in `MatrixRepMod` instead would cost
-that file **+34 modules** (40 → 74) and `EllipticCurves.TateModule.DeterminantModSmooth` the same
-**+34** (37 → 71).  As a leaf it costs **0** to both.  See `DeterminantModGeneral`'s module
-docstring for the full measurement and for the `OpenKernelGeneral` / `FreeGeneral` /
-`MatrixRepGeneral` precedent this follows.
+`EllipticCurves.Torsion.StructureGeneral`; putting this theorem in `MatrixRepMod` instead would
+cost that file **+34 modules** (40 → 74), and would charge the same edge again to everything
+*downstream* of it — today that is `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`,
+at **+28** (176 → 204) — under `+34` only because it already carries 25 of the 53 modules in
+`StructureGeneral`'s closure, against `MatrixRepMod`'s 19.  As a leaf the edge costs **0** to
+every existing file.
+
+⚠️ **`EllipticCurves.TateModule.DeterminantModSmooth` is *upstream* of `MatrixRepMod`** — it is
+`MatrixRepMod.lean:7` — **so this file's placement cannot charge it anything.**  Import cost
+propagates downstream only, and an earlier draft of this paragraph billed that file for a decision
+it is not downstream of.  Its own **+34** (37 → 71) is real but belongs to the *other* half of the
+placement question, where the four rank statements live; that half is measured in
+`DeterminantModGeneral`'s module docstring, which also carries the `OpenKernelGeneral` /
+`FreeGeneral` / `MatrixRepGeneral` precedent this file follows.
 
 ## Main statements
 
