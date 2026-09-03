@@ -96,8 +96,10 @@ At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `�
 
 ## ⚠️ The transcendence parameter, and why no reach clause below names it
 
-Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
-explicit argument, and no reach clause names it.  That is the `README.md` exemption
+Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
+`comapProjPointN n h`, or anything built on them — takes
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
+it.  That is the `README.md` exemption
 (`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
 *does* name adds no reach — and this is the citation it asks for:
 
@@ -111,6 +113,11 @@ explicit argument, and no reach clause names it.  That is the `README.md` exempt
 ⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
 file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
 the exemption but the defect class `#1137` is named after.
+
+⚠️ **The general-`n` half of that sentence is a restriction, not filler.**  Several fixed-index
+statements below are about that same layer and take no `h` at all: they **discharge** it inline
+from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
+exhibited in this file rather than only asserted about it.
 
 ## Main results
 

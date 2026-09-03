@@ -121,8 +121,10 @@ separate (small) `#699`-style question, not this file's business.
 
 ## ⚠️ The transcendence parameter, and why no reach clause below names it
 
-Every general-`n` declaration below takes `h : Transcendental F (n • genericPoint).xCoord` as an
-explicit argument, and no reach clause names it.  That is the `README.md` exemption
+Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
+`comapProjPointN n h`, or anything built on them — takes
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
+it.  That is the `README.md` exemption
 (`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
 *does* name adds no reach — and this is the citation it asks for:
 
@@ -136,6 +138,18 @@ explicit argument, and no reach clause names it.  That is the `README.md` exempt
 ⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
 file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
 the exemption but the defect class `#1137` is named after.
+
+⚠️ **The general-`n` half of that sentence is a restriction, not filler.**  Several fixed-index
+statements below are about that same layer and take no `h` at all: they **discharge** it inline
+from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
+exhibited in this file rather than only asserted about it.
+
+⚠️ **And the `[n]∗` qualification bites here in a way it does not in the three sibling files
+carrying this same section.**  `fixedFieldN`, `mem_fixedFieldN_iff`, `finrank_fixedFieldN` and
+`finrank_fixedFieldN_of_ne_zero` are general-`n` declarations about the *translation* action of
+`E[n]` on `F(W)` rather than about `[n]∗`, and they take **no** `h` at any index.  Their reach
+clauses are complete hypothesis lists with nothing elided from them, and the exemption is not in
+play there.  Those four are the only general-`n` declarations in these four files that take no `h`.
 
 ## Main results
 
