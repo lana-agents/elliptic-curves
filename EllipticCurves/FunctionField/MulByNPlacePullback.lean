@@ -333,22 +333,24 @@ section IsAlgClosed
 variable [IsAlgClosed F] (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
 
 open Classical in
-/-- **The contraction of a place along `[n]∗` over `F̄`**, for every `n ≠ 0`. -/
+/-- **The contraction of a place along `[n]∗` over `F̄`**, for every `n ≠ 0` with
+`(2 : F) ≠ 0`. -/
 noncomputable def comapProjPointNOfAlgClosed : ProjPoint W → ProjPoint W :=
   comapProjPointN n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hn)
 
 open Classical in
-/-- **The ramification index of `[n]∗` over `F̄`**, for every `n ≠ 0`. -/
+/-- **The ramification index of `[n]∗` over `F̄`**, for every `n ≠ 0` with `(2 : F) ≠ 0`. -/
 noncomputable def ramificationIdxNOfAlgClosed (p : ProjPoint W) : ℤ :=
   ramificationIdxN n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hn) p
 
 open Classical in
-/-- **The pullback of divisors along `[n]∗` over `F̄`**, for every `n ≠ 0`. -/
+/-- **The pullback of divisors along `[n]∗` over `F̄`**, for every `n ≠ 0` with `(2 : F) ≠ 0`. -/
 noncomputable def pullbackDivisorNOfAlgClosed : (ProjPoint W →₀ ℤ) →+ (ProjPoint W →₀ ℤ) :=
   pullbackDivisorN n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hn)
 
 open Classical in
-/-- **`ord_p (f ∘ [n]) = e_p · ord_{[n]⁻¹ p} (f)` over `F̄`**, for every `n ≠ 0`. -/
+/-- **`ord_p (f ∘ [n]) = e_p · ord_{[n]⁻¹ p} (f)` over `F̄`**, for every `n ≠ 0` with
+`(2 : F) ≠ 0`. -/
 theorem divisorProj_mulByNEndoOfAlgClosed_apply {f : W.FunctionField} (hf : f ≠ 0)
     (p : ProjPoint W) :
     divisorProj W (mulByNEndoOfAlgClosed h2 hn f) p
@@ -357,15 +359,16 @@ theorem divisorProj_mulByNEndoOfAlgClosed_apply {f : W.FunctionField} (hf : f �
   divisorProj_mulByNEndo_apply n _ hf p
 
 open Classical in
-/-- **`div (f ∘ [n]) = [n]∗ (div f)` over `F̄`**, for every `n ≠ 0`.  This is the general-`n`
-form of `#414` / `#422` deliverable 1, with no hypothesis left but `n ≠ 0` and `(2 : F) ≠ 0`. -/
+/-- **`div (f ∘ [n]) = [n]∗ (div f)` over `F̄`**, for every `n ≠ 0` with `(2 : F) ≠ 0`.  This is
+the general-`n` form of `#414` / `#422` deliverable 1, with no hypothesis left beyond those two. -/
 theorem divisorProj_mulByNEndoOfAlgClosed {f : W.FunctionField} (hf : f ≠ 0) :
     divisorProj W (mulByNEndoOfAlgClosed h2 hn f)
       = pullbackDivisorNOfAlgClosed h2 hn (divisorProj W f) :=
   divisorProj_mulByNEndo n _ hf
 
 open Classical in
-/-- **Finitely many places lie above a place, for `[n]∗` over `F̄`**, for every `n ≠ 0`. -/
+/-- **Finitely many places lie above a place, for `[n]∗` over `F̄`**, for every `n ≠ 0` with
+`(2 : F) ≠ 0`. -/
 theorem finite_comapProjPointNOfAlgClosed_preimage_singleton (q : ProjPoint W) :
     ((comapProjPointNOfAlgClosed (W := W) h2 hn) ⁻¹' {q}).Finite :=
   finite_comapProjPointN_preimage_singleton n _ q
