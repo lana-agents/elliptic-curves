@@ -101,8 +101,22 @@ evaluated at, and every one but the four `_of_algClosed` forms takes the halving
 as well** — those four get it from surjectivity on `E(F̄)` instead.  ⚠️ **`(2 : F) ≠ 0` is a
 hypothesis of every statement below except the two whose names stop at `…_of_hprin_n`**, which take
 the non-constancy of `x([n]𝒫)` explicitly and no condition on the characteristic at all;
-`(3 : F) ≠ 0` is a hypothesis of `…_of_hprin_n_of_smooth` alone.  The bullets give the conclusions
-and not the hypotheses.
+`(3 : F) ≠ 0` is a hypothesis of `…_of_hprin_n_of_smooth` alone.
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+without counting is neither, and sits under this register unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.
+
+⚠️ **That is the form, and it replaces a universal that was false of this list on the day it
+landed.**  This register formerly closed *"The bullets give the conclusions and not the
+hypotheses"* (`#1626`, PR #654) — false already of the first bullet, which has named `hprin` and the
+halving point since PR #503 (`#1332`), and falsified again by the in-row count repair the paragraph
+below records.  A universal over the bullets cannot survive this development's own repairs:
+`README.md` `### Module-block bullets` puts a count beyond every register, so a count is repaired
+**in the row**, and every such repair costs the universal another instance.  Sibling `## Main *`
+lists still close with it and `#1650` records which of them it is already false of; replace it as
+each is touched rather than re-arguing the form (`#1647`).
 
 ⚠️ **The fourth bullet's hypothesis clause is a count, so no register reaches it** — *"A register
 says what a list omits.  It cannot make a count true"* (`README.md` `### Module-block bullets`).  It
