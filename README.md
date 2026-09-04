@@ -636,25 +636,39 @@ rather than argued:
 
 And the gate-discharge half, where the subject legitimately sits two `##` sections above the list:
 `residueDegreeN_none_eq_one` (`EllipticCurves.FunctionField.MulByNResidueDegree`) is bulleted
-*"`f_∞ = 1`, at every `n`, unconditionally"* under a list whose head declares no register at all.
-The word's subject is written out in full under that module's
+*"`f_∞ = 1`, at every `n` at which `[n]` is non-constant, unconditionally"* under a list whose head
+declares no register at all. The word's subject is written out in full under that module's
 `## ⚠️ The residue degree at infinity is *not* in the composition class` — the declaration *"holds
 at every `n` at which `[n]` is non-constant, with no `3`-smoothness, no `(2 : F) ≠ 0`, no
 `(3 : F) ≠ 0`, no `[IsAlgClosed F]`"* — and that is a gate list, the hypotheses `#1214`'s
 composition route carries and this one does not. A subject, not a hypothesis list, and compliant
 where it stands.
 
-⚠️ **Read the two clauses of that bullet separately, because the halves decide independently.**
-*"At every `n`"* is a reach clause and gets nothing from two sections up, and ⚠️ **it is not
-compliant.** This document used to clear it on the ground that the declaration's one propositional
-binder is a **data argument of the object the bullet is about** — `residueDegreeN n hn p` does not
-typecheck without it, so there is *"no reach for the clause to misreport"*. `### Reach clauses`
-withdraws that ground (`#1631`): `hn` is a condition on the index, which is one of the two things a
-reach clause reports, and that section convicts the identical omission by name in
-`ramificationIdxN_pos`, whose signature is this one. ⚠️ And *"unconditionally"* is the strongest
-form of the clause, not a mitigation of it. The repair is `#1616`'s and is not made here. A bullet
-that mixes the registers is answerable to both, and a row that clears is not evidence that it
-cleared on the ground you had in mind.
+⚠️ **Read the two clauses of that bullet separately, because the halves decide independently — and
+this row is the worked example of their deciding differently.** The gate-discharge half was
+compliant throughout. The reach half was **not**, and it is the half that had to be repaired.
+
+**The old reading, retired** (`### Retired claims` below): until `#1636` (PR #653) the row read
+*"`f_∞ = 1`, at every `n`, unconditionally"*, naming no index condition at all. This document
+used to clear that on the ground that the declaration's one propositional binder is a **data
+argument of the object the bullet is about** — `residueDegreeN n hn p` does not typecheck without
+it, so there was *"no reach for the clause to misreport"*. `### Reach clauses` withdraws that ground
+(`#1631`): `hn` is a condition on the index, which is one of the two things a reach clause reports,
+and that section convicts the identical omission by name in `ramificationIdxN_pos`, whose signature
+is this one. ⚠️ And *"unconditionally"* is the strongest form of a clause, not a mitigation of it —
+which is why the repair **kept the word, in place**, and moved only the reach half. A bullet that
+mixes the registers is answerable to both, and a row that clears is not evidence that it cleared on
+the ground you had in mind.
+
+⚠️ **That list's head still declares no register, and the reason is worth a clause of its own.** The
+`DeterminantModGeneral` opener above is *"the cheap repair for a list whose bullets are each short
+of the same hypotheses"*, and `…residueDegreeN_two` and `…residueDegreeN_three` bind **no**
+transcendence — they take `(2 : F) ≠ 0`, the second `(3 : F) ≠ 0` as well, and derive it. A register
+saying every statement below takes the non-constancy would be **false** of them: the opener's
+*"each"* is doing the work, and a row that **derives** a hypothesis fails that test exactly as a row
+that never needed it would. So the repair named the condition in the rows that make a claim
+about which `n` are reached — this one and `…residueDegreeN_eq_one` — and the module block
+records why there is no register, so the next census does not re-measure the list to find out.
 
 ⚠️ **A register says what a list omits. It cannot make a count true.** So a register's reach stops
 exactly where `### Gate-discharge claims` stops, and for the same reason: *"the whole hypothesis
