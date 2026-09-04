@@ -106,9 +106,17 @@ satisfiable, are certified in the `Nonvacuity` section at the end of this file.
   every odd `ℓ` with `(ℓ : F) ≠ 0`.  That file is already stated at an arbitrary prime, so the
   `ℓ ≥ 5` file is now a list of instantiations and no argument has to be written a third time —
   which is `#268`, and is not done here.
-* **The Galois action on `T₃E` and `ρ_{E,3} : G → GL₂(ℤ_3)` are NOT in scope.**
-  `EllipticCurves.TateModule.Free` names them as its own follow-up at `ℓ = 2` and the same split
-  applies at `ℓ = 3`.
+* **The Galois action on `T₃E` and `ρ_{E,3} : G → GL₂(ℤ_3)` are NOT in scope**, and the same
+  split applies at `ℓ = 2` in `EllipticCurves.TateModule.Free`. ⚠️ **This bullet used to add that
+  the `ℓ = 2` file** *"names them as its own follow-up"*, **which is no longer what it says**: both
+  are built, and by different declarations on different days. The Galois action is `galoisRep`
+  (`EllipticCurves.TateModule.GaloisAction`), at arbitrary `ℓ`, since 2026-07-26 —
+  **twenty-eight days** before this file existed. `ρ_{E,3}` is `galoisRepMatrixThree`
+  (`EllipticCurves.TateModule.MatrixRepThree`, `#989`), **2 h 13 min** after this file, over the
+  `ℓ`-generic `EllipticCurves.TateModule.PrimaryMatrixRep`.
+  ⚠️ The **NOT in scope** half is unaffected and stays: `MatrixRepThree` imports this file, and
+  this file does not reach `EllipticCurves.TateModule.GaloisAction`, so `galoisRep` is not nameable
+  here and nothing below uses it.
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is NOT unblocked by this.** The **mod-`3`** identity landed
   as `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`; the `3`-adic one needs the Weil
   pairing on `E[3^k]` for **every** `k`, which needs the pairing at composite `n`. This rung
