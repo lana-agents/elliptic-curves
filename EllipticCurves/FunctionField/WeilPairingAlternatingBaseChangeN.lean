@@ -99,11 +99,16 @@ an index hypothesis while the two above it have none.
   ⚠️ **That ground is deliberately independent of whether `h` is a data argument** of
   `pointClosedPoint h.left` (`#1631`, since ruled: it is): the clearance is a licence to omit a
   binder, not a bar on naming one, so a count naming all seven explicit propositional binders is
-  true under either answer.  ⚠️ `EllipticCurves.Torsion.WronskianSeparable` was repaired on the
-  same **shape** of argument and a different ground (`#1620`, PR #647) — its bullet 3 makes no
-  gate-discharge claim at all, so the register is not in play there either.  That is a *reach* row
-  and these are *counting* rows, so the two grounds are not interchangeable: read what kind of
-  claim the row makes first, and which register can reach it follows.
+  true under either answer.  ⚠️ `EllipticCurves.Torsion.WronskianSeparable` stands on the **same**
+  ground, and gives it first: its block reads *"Every bullet above names the whole explicit
+  hypothesis list of the declaration it is about"*, then *"And that includes `h : W.Equation x y`"*
+  — so it is a count that names the binder there too (`#1620`, PR #647).  ⚠️ **What differs is the
+  second ground each block adds, not the kind of row.**  That file adds *"bullet 3 makes no
+  gate-discharge claim at all"*, and that one is **not** available here: the row above for
+  `exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` ends *"`hprin` is the only gate"*,
+  so it makes exactly such a claim.  A ground therefore does not transfer between two blocks
+  merely because their rows agree in kind — read every claim the row itself makes, and which
+  register can reach each of them follows.
   ⚠️ The **declaration headlines** of both statements were already compliant — each names
   `3`-smooth `n ≠ 0` — and are untouched.  It was only this block that was short of them, which is
   the layer `#1614` was filed on.
