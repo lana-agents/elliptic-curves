@@ -77,10 +77,10 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   `…pullbackDivisorN_single_projPointOfPoint` (`[n]∗(S) = ∑_{p ↦ S} (p)`) and
   `…pullbackDivisorN_single_eq_sum_torsion` (`[n]∗(S) = ∑_{R ∈ E[n]} (P ⊕ R)`).
 * ⚠️ `card_fibre_comapProjPointN_le_sq_of_ne_zero` and `card_fibre_comapProjPointN_le_sq_five` —
-  the fibre bound `≤ n²` at every `n` with `(n : F) ≠ 0` (`#1523` item 4).  ⚠️ **This bullet used
-  to call it *"the only statement in this file that lifts"*.**  It was, and it is not: it is the
-  only one that lifted *off the fundamental identity alone*, and the seven below lift off the
-  coordinate formulas.
+  the fibre bound `≤ n²` over `F̄` at every `n` with `(n : F) ≠ 0` (`#1523` item 4).  ⚠️ **This
+  bullet used to call it *"the only statement in this file that lifts"*.**  It was, and it is not:
+  it is the only one that lifted *off the fundamental identity alone*, and the seven below lift
+  off the coordinate formulas.
 
 ### The general layer — `#1540` item 2 and its six consumers
 
@@ -1004,7 +1004,7 @@ theorem card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero (h2 : (2 : F) ≠
     (Set.injOn_of_injective (projPointOfPoint_add_injective n P))
 
 /-- **The fibre of `[n]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[n] }`**, at every `n`
-with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  The general-`n` form of
+with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`.  The general-`n` form of
 `fibre_comapProjPointN_eq_range`; the inclusion `⊇` is `comapProjPointN_add_torsion_of_ne_zero` and
 the reverse is pure counting. -/
 theorem fibre_comapProjPointN_eq_range_of_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ}
@@ -1066,7 +1066,7 @@ theorem ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint_of_ne_zer
 
 omit [DecidableEq F] in
 /-- **The fibre description of `[n]∗` over a rational point**, at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`: `[n]∗(S) = ∑_{p ↦ S} (p)`, every coefficient `1`.
+`((n : ℤ) : F) ≠ 0` over `F̄`: `[n]∗(S) = ∑_{p ↦ S} (p)`, every coefficient `1`.
 
 ⚠️ **Both halves of the displayed identity now have the same reach**, which was not true before:
 
@@ -1099,7 +1099,7 @@ theorem pullbackDivisorN_single_projPointOfPoint_of_ne_zero (h2 : (2 : F) ≠ 0)
   · rw [Finsupp.single_apply, if_neg fun hc => hq hc.symm, mul_zero, if_neg hq]
 
 /-- **The fibre description in the shape a rung-4 consumer wants**, at every `n` with
-`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`: for any `P` with `n • P = S`,
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`: for any `P` with `n • P = S`,
 
 ```
 [n]∗(S) = ∑_{R ∈ E[n]} (P ⊕ R).
