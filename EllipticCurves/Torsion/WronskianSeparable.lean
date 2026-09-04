@@ -66,9 +66,9 @@ A route that did not consume the hypothesis there would be proving something unt
   at the same odd `n` with `char F ∤ n`, plus what `card_torsion_eq_sq_iff_separable_preΨ` itself
   asks — `[IsAlgClosed F]`, `[W.IsElliptic]` and `(2 : F) ≠ 0`.
 * `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` : `ψ_{n+q}·ψ_{n−q} = −Φₙ(x)·ΨSq_q(x)`
-  at a point where `ψₙ` vanishes, at every `q`.  ⚠️ Merged content, repackaged: it is
-  `ψ_add_mul_ψ_sub_evalEval` with one term killed.  ⚠️ **Named for its conclusion, not for its
-  hypothesis**: `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_of_ψ_eq_zero`
+  at a point `(x, y)` **on the curve** where `ψₙ` vanishes, at every `q`.  ⚠️ Merged content,
+  repackaged: it is `ψ_add_mul_ψ_sub_evalEval` with one term killed.  ⚠️ **Named for its
+  conclusion, not for its hypothesis**: `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub_of_ψ_eq_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`) is a *different* statement — Ward at `(d, n, 1, 0)`,
   `ψ_{d+n}·ψ_{d−n} = ψ_{d+1}·ψ_{d−1}·ψₙ²` — and renaming this one back would break the root import.
 * `WeierstrassCurve.Affine.eval_preΩ_ne_zero_of_eval_preΨ_eq_zero` and
@@ -85,10 +85,13 @@ once — one row naming its own hypotheses, one naming a different set, two nami
 reduce, and `…_of_wronskian_of_pair` asserting there were none — which is what `README.md`
 `### Scope of the rules above` forbids.
 
-⚠️ **One row names less than its list and is not an exception to it.**
-`ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` does not name `h : W.Equation x y`, because that is the point
-the statement is *about* rather than a condition on when it holds — `README.md`
-`### Gate-discharge claims`, *"the setting"*.  `hz` and `q`, which are conditions, it does name.
+⚠️ **That includes the data binders, and it is why bullet 3 says *"on the curve"*.**
+`ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` binds `h : W.Equation x y`, and the conclusion typechecks
+without it, so `h` is a hypothesis and not a data argument of the object the bullet is about.  It
+is **not** left to `### Gate-discharge claims`' *"the setting"*: that register carries claims about
+**gates**, and says in terms that it *"is not a licence to say the signature is short"*, so a
+totality claim about the hypothesis list has to carry the data too.  The same reading repaired
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`'s two rows (`#1619`, PR #643).
 
 ⚠️ **A register at the head would have to say *"except"* twice**, which is why there is none.
 `ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` is at every `n : ℤ` and takes neither `Odd n` nor an index
@@ -97,10 +100,11 @@ condition; and the index condition of the other five is not one clause but two �
 `(n : F) ≠ 0`, which is where the proof divides by `preΨₙ`, while
 `eval_preΩ_ne_zero_of_eval_preΨ_eq_zero` and `isCoprime_preΨ_preΩ` bind only `n ≠ 0`.
 ⚠️ `…_of_wronskian_of_pair` binds **both**, which is why its bullet names both — and `n ≠ 0` is
-named beside `Odd n` throughout for the same reason, that the signatures carry it separately even
-though `¬ Odd 0` derives it.  Instance arguments are not listed here at all, per `README.md`
-`### Reach clauses`; the mentions that do appear (*"over `F̄`"*, *"`[W.IsElliptic]`"*, and bullet
-1's three absences) were each checked against the declaration's own instance list.
+named beside `Odd n` in bullets 4 and 5, the rows whose signatures carry it separately, even though
+`¬ Odd 0` derives it; bullets 1 and 2 do not name it because those two signatures do not bind it.
+Instance arguments need **not** be listed (`README.md` `### Reach clauses`), and `[DecidableEq F]`
+is named nowhere above; the mentions that do appear (*"over `F̄`"*, *"`[W.IsElliptic]`"*, and
+bullet 1's three absences) were each checked against the declaration's own instance list.
 
 ⚠️ So the gate is **two identities**, not a research programme: the Wronskian one, and `hpair`.
 
