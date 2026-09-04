@@ -521,6 +521,12 @@ end IsAlgClosed
 omit [W.IsElliptic] in
 /-- **`[2]∗` is residually trivial at the point at infinity**, unconditionally.
 
+⚠️ No hypothesis on `F` beyond `(2 : F) ≠ 0`, and in particular no algebraic closedness: this
+declaration sits between the file's two `[IsAlgClosed F]` scopes, and `[W.IsElliptic]` is `omit`ted
+above it.  It is the `n = 2` mirror of `residueDegreeThree_none_eq_one`
+(`EllipticCurves.FunctionField.MulByThreeResidueDegree`), whose own ⚠️ records the same for
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.
+
 ⚠️ This is now the `φ = [2]∗` instance of `residueDegreeComap_none_eq_one` above, and nothing
 `[2]`-specific is used.  It used to run through the hypothesis-taking
 `residueDegreeTwo_none_eq_one_of_ne_zero` (`#744`, `EllipticCurves.FunctionField.PlaceResidueComap`)
