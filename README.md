@@ -254,10 +254,11 @@ they stand with a rule to be re-derived at every row, and the census found **no 
 closure the declaration does not have** — so on the mention side the class this ruling calls a
 defect is, today, empty, and neither alternative would have paid off a single wrong claim.
 
-The rule binds every **explicit** hypothesis, with one narrow exemption: a clause may omit a
-hypothesis that is **derivable from the hypotheses the clause does name**, since such a hypothesis
-adds no reach information the clause has not already given. Where the exemption is used, the
-derivation is cited once in the module block, so a reader can check it instead of taking it.
+The rule binds every **explicit** hypothesis, with two narrow exemptions. **The first is
+derivability**: a clause may omit a hypothesis that is **derivable from the hypotheses the clause
+does name**, since such a hypothesis adds no reach information the clause has not already given.
+Where the exemption is used, the derivation is cited once in the module block, so a reader can
+check it instead of taking it.
 
 The case this development has is the transcendence parameter of the `[n]∗` layer,
 `h : Transcendental F (n • genericPoint).xCoord`, which every statement about `mulByNEndo n h` or
@@ -274,16 +275,69 @@ The case this development has is the transcendence parameter of the `[n]∗` lay
 `ramificationIdxN_pos` is `0 < e_p` at every `n`
 ```
 
-⚠️ **The exemption is about derivability, not about where the hypothesis appears.** A rule keyed
+⚠️ **That exemption is about derivability, not about where the hypothesis appears.** A rule keyed
 on *"the hypothesis occurs in the conclusion"* would reach `(2 : F) ≠ 0`, which is an explicit
 argument of `mulByTwoEndo`, `mulByThreeEndo`, `comapProjPointTwo` and `weilPairingTwo`, and so
 occurs inside the conclusion of every statement about them. `(2 : F) ≠ 0` is derivable from nothing
 any reach clause on this development names — not from `3`-smoothness, not from `(n : F) ≠ 0` — so it
 is reach, and the rule binds it. Omitting it is the defect class `#1137` exists to pay off.
 
+**The second exemption is the non-vanishing of the function a statement is an equation about**, and
+it is not the first one in other clothes — `hf : f ≠ 0` is derivable from nothing. A reach clause
+answers *where* a statement holds, over which fields and at which indices, because that is the
+question a reader settles once and then builds a layer on. A non-vanishing side condition on the
+subject function answers *which argument*, and the caller supplying the argument already holds the
+answer. `divisorProj_mulByNEndo` (`EllipticCurves.FunctionField.MulByNPlacePullback`) binds
+`hf : f ≠ 0`, and its headline names the index condition and not it; that is not the
+`card_torsion_eq_sq` defect, because `f` is neither a field nor an index and no layer is built on
+the set of `f` at which the identity holds.
+
+⚠️ **The discriminator is what the condition is *about*, and it is NOT *"the binder occurs in the
+conclusion"* — the paragraph immediately above rules that test out by name and this one does not
+reinstate it.** The two are easy to confuse, because a non-vanishing does typically occur in the
+conclusion: `torsion_le_weilPairingPointSubgroup_two`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`) concludes
+`W.torsion 2 ≤ weilPairingPointSubgroup hg 2`. But so does `(2 : F) ≠ 0`, in every statement about
+`mulByTwoEndo h2` or `mulByNEndoOfAlgClosed h2 hn` — `divisorProj_mulByNEndoOfAlgClosed`
+(`…MulByNPlacePullback`) concludes an equation whose **both sides** take `h2`, and it is a row
+PR #637 (`#1605`) repaired on exactly this axis. An occurrence test would clear it and reverse that
+repair. What separates them is subject matter: `(2 : F) ≠ 0` restricts the field the statement is
+over, `f ≠ 0` restricts the argument its caller passes in.
+
+**One mechanical backstop is available, and it is worth running before arguing a row.** Where
+deleting the binder leaves the statement provable, it constrains nothing and there is no reach for
+a clause to misreport. This is the deletion test above run on the binder side, with the **compiler**
+deciding instead of a reader: restate the declaration without the binder and build. `ord` and
+`ordInfty` carry documented junk values at `0` (`ordInfty_zero`, *"matching the convention
+`ord v 0 = 0`"*), so `div (f ∘ [n]) = [n]∗ (div f)` reads `0 = 0` at `f = 0` and
+`divisorProj_mulByNEndo`'s `hf` is a convenience of the proof rather than a condition of the
+theorem. ⚠️ The backstop is one-directional and never reaches `(2 : F) ≠ 0`, for two reasons at two
+kinds of row: where `h2` is a free-standing hypothesis the deleted form elaborates and is **false**
+in characteristic `2`, and where it is an argument of `mulByTwoEndo` or `mulByNEndoOfAlgClosed` the
+deleted form does not elaborate at all. Either way the restatement does not build, which is what
+makes this a backstop rather than a second discriminator.
+
+⚠️ **This exemption stops at a claim that counts hypotheses.** Where the non-vanishing is
+load-bearing *and* the docstring makes a gate-discharge or totality claim about the hypothesis
+list, `### Gate-discharge claims` below binds and the word still has to have a subject.
+`exists_eq_algebraMap_of_divisorProj_nonneg` (`EllipticCurves.FunctionField.ProjectiveDivisor`)
+says *"from the single hypothesis that `f` has no pole"* over a signature binding `f ≠ 0` as well,
+and its conclusion `∃ c ≠ 0, f = algebraMap c` is **false** at `f = 0`, where the no-pole
+hypothesis holds — so that row is **load-bearing**, this exemption does not reach it, and
+`### Gate-discharge claims` governs its headline.
+
+Measured at `27d4f29`, from the elaborated telescope: **239** documented declarations bind a
+`FunctionField`-valued `≠ 0` hypothesis, every one of them in `FunctionField/`, and **225** of their
+headlines do not name it. Of the **18** whose headline named some other condition and not it, **10**
+are vestigial by the backstop above, **3** are constituents of the object the statement is about
+(the supplied root in `weilPairingPointSubgroup hg 2`, and the data argument of a `def`), and **5**
+are load-bearing — of which exactly one makes a counting claim and is therefore governed by
+`### Gate-discharge claims` below. Naming it in the other seventeen would put a uniform directory
+into two registers, which is what `### Scope of the rules above` is for.
+
 ### Gate-discharge claims
 
-A second exemption is narrower still, and it has a different shape: it is not about which
+A third exemption is narrower still, and it has a different shape: it is not about which
 hypotheses a clause omits but about **what kind of claim the clause is making**.
 
 A **gate-discharge claim** says that a statement is owed *nothing further* — *"with `#E[p] = p²`
