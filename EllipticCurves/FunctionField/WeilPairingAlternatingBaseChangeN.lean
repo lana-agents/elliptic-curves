@@ -91,9 +91,14 @@ an index hypothesis while the two above it have none.
   `transcendental_xCoord_nsmul_of_smooth h2 h3 hn0 hfac`.  Naming the hypothesis in both is
   cheaper than citing a derivation in one, and it leaves the two rows making the same kind of claim
   in the same register.  ⚠️ `T` is named rather than left to *"the setting"* (`README.md`
-  `### Gate-discharge claims`) because that register carries claims about **gates** and says in
-  terms that it *"is not a licence to say the signature is short"*; a totality claim about the
-  hypothesis list is the other kind of claim, so it has to carry the data too.
+  `### Gate-discharge claims`): the clause it would have to be left to is *"the whole hypothesis
+  list"*, which is a claim about the hypothesis list and not about gates, and that register *"is
+  not a licence to say the signature is short"*.  Naming answers that clause outright, so neither
+  row turns on whether `h` or `htors` would clear on some other ground — including the
+  data-argument clearance `### Module-block bullets` gives `residueDegreeN n hn p`, which this
+  paragraph neither invokes nor limits.  `EllipticCurves.Torsion.WronskianSeparable` refuses the
+  same register on the adjacent ground: its bullet 3 makes no gate-discharge claim at all
+  (`#1620`, PR #647).
   ⚠️ The **declaration headlines** of both statements were already compliant — each names
   `3`-smooth `n ≠ 0` — and are untouched.  It was only this block that was short of them, which is
   the layer `#1614` was filed on.
