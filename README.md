@@ -496,10 +496,10 @@ is `ψ_pair_mul_of_ψ_eq_zero` (`EllipticCurves.Torsion.OmegaPairCoprime`), bull
 `n : ℤ` and with no hypothesis but `ψₙ(x, y) = 0`"* over a signature whose one propositional binder
 is that equation.
 
-⚠️ **This is not a third exemption, and it must not be counted as one.** `### Reach clauses`
-has *"one narrow exemption"* and `### Gate-discharge claims` is *"a second"*; this section adds
-neither. It is a **scoping** rule — it says which text a bullet is read against — and both
-exemptions above then apply to a bullet exactly as they do to a headline.
+⚠️ **This is not a further exemption, and it must not be counted as one.** `### Reach clauses`
+above states its exemptions and `### Gate-discharge claims` adds the next; this section adds none.
+It is a **scoping** rule — it says which text a bullet is read against — and every exemption above
+then applies to a bullet exactly as it does to a headline.
 
 ⚠️ **And it does not reopen *"a phrase a file coins for itself earns nothing here"*** in
 `### Gate-discharge claims`. That clause governs a **declaration headline**, whose unit is its own
@@ -515,9 +515,15 @@ section clears as a bullet is still held to the rules above as a headline, and t
 repaired separately.
 
 Measured at `0ab8d8d`: **1696** bullets in **425** `## Main *` sections, **1690** of which resolve
-to a declaration of this development. **59** make a counting or totality claim, and those 59 are
-triaged row by row on `#1614`. The remaining 1637 have not been measured on this axis, and this
-section is not a claim about them.
+to a declaration of this development. **58** are admitted by the counting/totality phrase list
+published on `#1614` — `the whole hypothesis list`, `the only hypothesis`, `the single hypothesis`,
+`the only gate`, `unconditional`, `with no hypothesis`, `no hypothesis beyond`, `the entire
+hypothesis`, `the only input`, matched after whole-file whitespace normalisation — and **one**
+further row was added by hand, `nonempty_torsionPow_addEquiv_of_card`
+(`EllipticCurves.Torsion.PrimaryTowerAlgClosed`), which reads *"with `hcard` as the only
+**remaining** hypothesis"* and is admitted by none of the nine. Those **59** are triaged row by row
+on `#1614`. The remaining 1637 have not been measured on this axis, and this section is not a claim
+about them.
 
 ### Scope of the rules above
 
