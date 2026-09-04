@@ -327,12 +327,17 @@ theorem divisorProj_eq_zero_of_nonneg {f : W.FunctionField} (hf : f ≠ 0)
     (hD : ∀ p, 0 ≤ divisorProj W f p) : divisorProj W f = 0 :=
   eq_zero_of_degProj_eq_zero hD (degProj_divisorProj hf)
 
-/-- **The global sections of the structure sheaf are the constants**, from the single hypothesis
-that `f` has no pole at any point of the projective curve.
+/-- **The global sections of the structure sheaf are the constants**, for `f ≠ 0` and from the
+single *non-negativity* hypothesis that `f` has no pole at any point of the projective curve.
 
 `exists_eq_algebraMap_of_nonneg` (`#642`) asks for the affine and the infinite hypotheses
 separately; here they are one condition on one object, which is the point of the projective
-divisor. -/
+divisor.
+
+⚠️ `f ≠ 0` is a hypothesis and not a convenience: the conclusion asks for a **nonzero** constant,
+so the statement is false at `f = 0` — where `hD` holds, `divisorProj W 0` being `0`. That is what
+separates this row from `divisorProj_mulByNEndo` and the rest of the class the `README.md`
+`### Reach clauses` binder-side backstops clear (`#1608`). -/
 theorem exists_eq_algebraMap_of_divisorProj_nonneg {f : W.FunctionField} (hf : f ≠ 0)
     (hD : ∀ p, 0 ≤ divisorProj W f p) :
     ∃ c : F, c ≠ 0 ∧ f = algebraMap F W.FunctionField c :=
