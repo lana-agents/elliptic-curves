@@ -159,16 +159,22 @@ more than once, so the discriminators are written down here rather than re-deriv
   beside a row before deleting anything in its headline.
 
   ⚠️ **On a row this bullet does not already decide by name, the truth-reading inverts, and it
-  reaches a confirmed proper-subset defect.** *"as soon as `e_2(P, T) ≠ 1`"*
+  reached a confirmed proper-subset defect.** *"as soon as `e_2(P, T) ≠ 1`"*
   (`intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_two`,
   `EllipticCurves.FunctionField.WeilPairingDeterminant`) also leaves something false when deleted,
-  so a truth-reading calls it predicate; the headline is then left with no reach clause at all and
-  the row lands **cleared** on the *"or it names none"* branch. It is not the case of the four
+  so a truth-reading calls it predicate; the headline was then left with no reach clause at all and
+  the row landed **cleared** on the *"or it names none"* branch. It is not the case of the four
   sites above: nothing in that file proves anything on the set the phrase removes, and *"`P` and
   `T` are `ℤ/2`-independent"* is the same claim about the same `P` and `T` with the phrase saying
   when it holds. So it is a reach clause; the statement also binds `(2 : F) ≠ 0`, and the headline
-  names it nowhere. `…_three` is the identical shape. Neither is repaired by this clause — it only
-  stops the test from clearing them.
+  **named it nowhere**. `…_three` is the identical shape. Neither was repaired by this clause — it
+  only stopped the test from clearing them, and PR #631 (`#1576`) then repaired both: the headlines
+  now read *"over a field with `(2 : F) ≠ 0`, as soon as `e_2(P, T) ≠ 1`"* and *"over a field with
+  `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, as soon as `e_3(P, T) ≠ 1`"*, so the *"or it names none"*
+  escape went with them. ⚠️ **The classification is what this paragraph is for and the repair
+  does not touch it**: the phrase is a reach clause because of what the file proves beside it, not
+  because the row was defective, and a row repaired on that reading is evidence the reading was
+  right.
 * **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
   that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
   `10` is not quantified and there is nothing for a condition to range over. Same for
@@ -179,7 +185,11 @@ more than once, so the discriminators are written down here rather than re-deriv
 from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable.
 ⚠️ Restricting a variable is **not** on its own what makes a clause a reach clause — *"off the
 multiples of `d`"* restricts one too. *"at an odd `p`"* is one because it also fails the deletion
-test above: `#E[pᵏ] = (pᵏ)²` survives its removal, and `divT`'s periodicity does not.
+test above: `#E[pᵏ] = (pᵏ)²` is still a claim of the same kind once that phrase is removed, and
+`divT`'s periodicity without *"off the multiples of `d`"* is not. ⚠️ *Of the same kind*, not
+*still true* — `#E[pᵏ] = (pᵏ)²` bare is false in characteristic `p`, and the ⚠️ opening *"The test
+asks whether the remainder is a claim of the same kind"* rules that reading out for every row, this
+one included.
 
 The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
