@@ -195,6 +195,42 @@ The rule is about **explicit** hypotheses. Instance arguments are ambient, are c
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
 — so a reach clause need not list them.
 
+⚠️ **And it ranges over the hypotheses a statement *has*, which is not the same as the binders it
+takes.** A reach clause answers *where* a statement holds — over which fields, at which indices —
+because that is the question a reader settles once and then builds a layer on. A **non-vanishing
+side condition on the function the statement is an equation about** answers a different question,
+*which argument*, and the caller supplying the argument already holds the answer. It is not part of
+the list, and two backstops decide it mechanically, with no reading:
+
+* **A binder that occurs in the conclusion is part of the predicate**, because the conclusion does
+  not elaborate without it. `torsion_le_weilPairingPointSubgroup_two`
+  (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`) concludes
+  `W.torsion 2 ≤ weilPairingPointSubgroup hg 2`, and `not_injective_weilPairingTorsionMuHom_two`
+  (`…WeilPairingTranslationSlotNotInjective`) names its `hgS` inside the map it is about.
+* **A binder whose deletion leaves the statement provable constrains nothing**, so there is no
+  reach for a clause to misreport. This is the deletion test above run on the binder side, where
+  the **compiler** decides it instead of a reader: restate the declaration without the binder and
+  build. `divisorProj_mulByNEndo` (`EllipticCurves.FunctionField.MulByNPlacePullback`) is the type
+  — `ord` and `ordInfty` carry documented junk values at `0` (`ordInfty_zero`, *"matching the
+  convention `ord v 0 = 0`"*), so `div (f ∘ [n]) = [n]∗ (div f)` reads `0 = 0` at `f = 0` and its
+  `hf` is a convenience of the proof rather than a condition of the theorem.
+
+⚠️ **The exemption stops at a claim that counts hypotheses.** Where the non-vanishing is
+load-bearing *and* the docstring makes a gate-discharge or totality claim about the hypothesis
+list, `### Gate-discharge claims` below binds and the word still has to have a subject.
+`exists_eq_algebraMap_of_divisorProj_nonneg` (`EllipticCurves.FunctionField.ProjectiveDivisor`)
+read *"from the single hypothesis that `f` has no pole"* over a signature binding `f ≠ 0` as well,
+and its conclusion `∃ c ≠ 0, f = algebraMap c` is **false** at `f = 0` — so that row was repaired
+and not cleared.
+
+Measured at `27d4f29`, from the elaborated telescope: **239** documented declarations bind a
+`FunctionField`-valued `≠ 0` hypothesis, every one of them in `FunctionField/`, and **225** of their
+headlines do not name it. Of the **18** whose headline named some other condition and not it, **10**
+are vestigial by the test above, **3** carry it in the conclusion or as an argument of the
+definition, and **5** are load-bearing — of which exactly one made a counting claim and was
+repaired. Naming it in the other seventeen would put a uniform directory into two registers, which
+is what `### Scope of the rules above` is for.
+
 **A phrase that names one instance is a claim about that one instance and commits the clause to
 nothing else.** *"over `F̄`"* says `[IsAlgClosed F]` is in the declaration's instance list; *"with
 no `[IsAlgClosed F]`"* says it is not. Each is compliant exactly when it is true of the instance it
