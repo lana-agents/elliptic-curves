@@ -45,14 +45,21 @@ there and in `EllipticCurves.FunctionField.MulByNPlacePullback` were:
 2. `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`);
 3. `natDegree_ΨSq`'s `(n : F) ≠ 0`.
 
-⚠️ **Gate 3 is stated at `{n : ℤ}`, and the theorems that consume it are not, so the two are spelled
-differently on purpose.**  Mathlib's `natDegree_ΨSq` and `ΨSq_ne_zero` take `{n : ℤ}` and ask
-`(n : R) ≠ 0`, and at `{n : ℤ}` that term *is* `((n : ℤ) : F) ≠ 0` — the inner cast is a no-op, so
-the two spellings name the same thing and the gate keeps the short one.  A statement of this
-development indexed `{n : ℕ}` binds `((n : ℤ) : F) ≠ 0`, which at `{n : ℕ}` is a **different** term
-from `(n : F) ≠ 0`, so its reach clause carries the long one.  ⚠️ Neither spelling is house style:
-`README.md` `### Scope of the rules above` asks that a clause match the **subject's** binder, and on
-this front the subject decides the spelling.
+⚠️ **Gate 3 is stated at `n : ℤ`, the statements that consume it are indexed both ways, and that is
+why the two spellings both occur below and both are right.**  Mathlib's `natDegree_ΨSq` and
+`ΨSq_ne_zero` take `{n : ℤ}` and ask `(n : R) ≠ 0`, and at `n : ℤ` that term *is*
+`((n : ℤ) : F) ≠ 0` — the inner cast is a no-op, so the two spellings name the same thing and the
+gate keeps the short one.  A statement of this development indexed `n : ℕ` binds
+`((n : ℤ) : F) ≠ 0`, which there is a **different** term from `(n : F) ≠ 0`, so its reach clause
+carries the long one.
+
+⚠️ **Both index kinds consume gate 3 in this file, so neither spelling can be swept for the other.**
+`finrank_adjoin_ΦDivΨSq` and `finrank_fieldRange_eq_of_eq_ΦDivΨSq` are `n : ℤ` — the first calls
+`ΨSq_ne_zero hn` and `natDegree_ΨSq hn` — and the clauses about them below read `(n : F) ≠ 0`, while
+`finrank_mulByNFieldRange_of_nMulRatFunc_eq` is `n : ℕ` and reads `((n : ℤ) : F) ≠ 0`.  The
+`## Main definitions and statements` list says the same where the last two are named together.
+⚠️ Neither spelling is house style: `README.md` `### Scope of the rules above` asks that a clause
+match the **subject's** binder, and on this front the subject decides the spelling.
 
 ⚠️ **Gate 1 is discharged, and two remain.**  `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) proves it at every `n`

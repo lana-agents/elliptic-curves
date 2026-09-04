@@ -18,8 +18,10 @@ three gates, of which the first is
 This file discharges that gate at every index `n` with `((n : ℤ) : F) ≠ 0`, over any field of
 characteristic `≠ 2`.  **The two remaining gates are `#1184`'s coprimality and `(n : F) ≠ 0`
 itself.**  ⚠️ The two spellings in the sentence above are **both right and not interchangeable**:
-gate 3 is `natDegree_ΨSq`'s hypothesis at `{n : ℤ}`, where `((n : ℤ) : F)` is a no-op cast, while
-every theorem below is `{n : ℕ}` and binds `((n : ℤ) : F) ≠ 0`, which there is a different term.
+gate 3 is `natDegree_ΨSq`'s hypothesis at `n : ℤ`, where `((n : ℤ) : F)` is a no-op cast, while a
+theorem below indexed `n : ℕ` binds `((n : ℤ) : F) ≠ 0`, which there is a different term.
+⚠️ **Not every theorem below is indexed `n : ℕ`**: `eval_ΨSq_genX_ne_zero` is `n : ℤ`, so its
+`(n : F) ≠ 0` is right for the gate's own reason — and its subject is `ΨSq_ne_zero` besides.
 `EllipticCurves.FunctionField.MulByNDegreeTower`'s gate list says so where the gates are named.
 
 ⚠️ **Both have since been settled, and neither here.**  `#1184`'s coprimality holds at every
