@@ -446,6 +446,66 @@ hypothesis list are different kinds of claim, not two dialects of one, so a bloc
 provided each row is compliant on its own terms; what it must not hold is two rows making the
 **same** kind of claim in different registers.
 
+### Module-block bullets
+
+A `## Main statements` / `## Main results` bullet makes the same kind of claim, about the same
+declaration, as that declaration's headline does. The two registers above therefore reach it — but
+the reader is in a different position, and one clause of the boundary above **inverts**.
+
+**A bullet is read inside its own list.** *"Declaration headlines are reach clauses too"* under
+`### Scope of the rules above` is justified by rendering distance: doc-gen prints the rest of *this*
+docstring beside a headline and the module block nowhere near it, so a completing sentence in the
+module block is one the reader of a headline never sees. At the module-block layer that distance is
+zero — a bullet's context *is* the block, contiguously above it. So a register the block declares
+binds every bullet under it, and such a bullet is compliant relative to that register. The tree
+already writes registers of this kind, in `EllipticCurves.FunctionField.MulByNFibre` — *"**Every one
+of the thirteen below does take both**, and the bullets give the conclusions and not the
+hypotheses"* — and in `EllipticCurves.TateModule.DeterminantModGeneral`, whose `## Main statements`
+opens *"**Every statement and definition below takes `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, and the rank
+and the basis take `1 < n` as well; the bullets give the conclusions and not the hypotheses"*.
+
+⚠️ **That second one is the form to copy**, and it is the cheap repair for a list whose bullets are
+each short of the same hypotheses: name them **once**, at the head of the list, and say that the
+bullets do not repeat them. The alternative — inserting the same two conditions into a dozen bullets
+— is what `### Scope of the rules above` calls making the block worse, and it is not what a reader
+of a list wants.
+
+⚠️ **A register binds the list it heads, not the file.** `MulByNFibre`'s is the first bullet of its
+`### The general layer` sub-list, and reaches the thirteen declarations named below it; the outer
+`## Main statements` list higher up the same docstring is a different block and is not covered.
+
+Two rows show the reading is not a formality, because under a per-bullet reading both are defects
+and under the block reading both are the register working as intended:
+
+* `residueDegreeN_none_eq_one` (`EllipticCurves.FunctionField.MulByNResidueDegree`) is bulleted
+  *"`f_∞ = 1`, at every `n`, unconditionally"* over a signature binding the transcendence of
+  `(n • 𝒫).xCoord`. Higher in the same module docstring the word's subject is written out in full —
+  that declaration *"holds at every `n` at which `[n]` is non-constant, with no `3`-smoothness, no
+  `(2 : F) ≠ 0`, no `(3 : F) ≠ 0`, no `[IsAlgClosed F]`"* — on the same page as the bullet.
+* `card_torsion_eq_sq_of_wronskian_of_pair` (`EllipticCurves.Torsion.WronskianSeparable`) is
+  bulleted *"`#E[n] = n²` from two equations and nothing else"* over six explicit hypotheses. The
+  module's opening paragraph states the setting the file works in — *"over an algebraically closed
+  field of characteristic `≠ 2`, at an odd `n` with `char F ∤ n`"* — and *"two equations"* is the
+  delta against it, `hid` and `hpair`.
+
+⚠️ **A register says what a list omits. It cannot make a count true.** So the exemption stops
+exactly where `### Gate-discharge claims` stops, and for the same reason: *"the whole hypothesis
+list"*, *"the single hypothesis"*, *"from nothing but"* are claims about the hypothesis list itself,
+and no sentence elsewhere in the block supplies a member such a claim excludes. The compliant form
+is `ψ_pair_mul_of_ψ_eq_zero` (`EllipticCurves.Torsion.OmegaPairCoprime`), bulleted *"at every
+`n : ℤ` and with no hypothesis but `ψₙ(x, y) = 0`"* over a signature whose one propositional binder
+is that equation.
+
+⚠️ **The traffic runs one way.** A block repairs a bullet; a bullet repairs nothing. Under
+`### Scope of the rules above` a module list and the file's headlines are two blocks, so a row this
+section clears as a bullet is still held to the rules above as a headline, and the two layers are
+repaired separately.
+
+Measured at `0ab8d8d`: **1696** bullets in **425** `## Main *` sections, **1690** of which resolve
+to a declaration of this development. **59** make a counting or totality claim, and those 59 are
+triaged row by row on `#1614`. The remaining 1637 have not been measured on this axis, and this
+section is not a claim about them.
+
 ### Scope of the rules above
 
 They apply **per block, not per phrase** — a `## Main statements` list, or a `generality` table
