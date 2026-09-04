@@ -80,6 +80,14 @@ two `_of_smooth` ones `(3 : F) ≠ 0`.**  The three statements above them take t
 the non-constancy of `x([n]𝒫)` and the function they are about, and the third the product
 decomposition its bullet names.  The bullets give the conclusions and not the hypotheses.
 
+⚠️ **The two `…_divisorSlot_add_n_of_hprin` headlines take the non-constancy of `x([n]𝒫)` as
+well**, and their *"at an arbitrary `n`"* clause is read against it — the contrast with *"the three
+statements above them"* is a claim about that trio and not an exclusive one.
+`exists_weilPairingElt_divisorSlot_add_n_of_hprin` takes `n ≠ 0` explicitly; its `…Mu…` twin carries
+that as the instance `[NeZero n]`, which `README.md` `### Reach clauses` leaves ambient.  The four
+`_of_smooth` / `_of_ne_zero` corollaries **discharge** the non-constancy rather than binding it,
+which is what their bullets say (`#1641`, `#1642`).
+
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_mulByNEndo` and
   `…_of_baseField` — a `[n]∗`-pullback contributes `1`, at every `n`.
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_divisorSlot_add_n` — divisor-slot

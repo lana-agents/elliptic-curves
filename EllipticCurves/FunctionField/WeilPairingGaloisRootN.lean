@@ -84,6 +84,23 @@ about, and its three `exists_weilPairingMu_…` forms the `n`-torsion of `(x₂,
 the non-constancy of `x([n]𝒫)` explicitly, and the `…_of_gS_n` pair takes rung-5 data at `S` and at
 `σS` in place of `hprin`.  The bullets give the conclusions and not the hypotheses.
 
+⚠️ **`n ≠ 0` is an explicit hypothesis of the two `…_of_gS_n` forms, of
+`exists_weilPairingElt_galois_n_of_hprin` and of
+`exists_weilPairingElt_galois_of_smooth_of_hprin`**, and every index clause below is read against
+it.  The three `exists_weilPairingMu_…` forms carry it as the instance `[NeZero n]` rather than as
+an explicit binder, which `README.md` `### Reach clauses` leaves ambient;
+`exists_weilPairingElt_galois_of_ne_zero_of_hprin` gets it from `((n : ℤ) : F) ≠ 0`; and the brick
+takes no condition on the index beyond the non-constancy (`#1641`, `#1642`).
+
+⚠️ **The phrase *"the general-`n` forms of"* is a reach clause, and the register above carries
+`n ≠ 0` for it.**  The fourth bullet says *"the general-`n` forms of … `_two` / `_three`
+headlines"* rather than *"at every `n`"*, which reads as a contrast with two numerals; it is
+nonetheless an answer to the
+question a reach clause answers — *which indices are reached* — and this development already glosses
+the phrase that way, in `EllipticCurves.FunctionField.MulByNFibre`, whose *"the general-`n` forms of
+the `mulByTwoCoordHom` basics"* continues *"they hold at every `n`"* in the same bullet.  Ruled here
+so a census meets the answer rather than the question (`#1641`).
+
 * `WeierstrassCurve.Affine.CoordinateRing.galoisPointHom` — the action of `σ⋆` on
   `(W ⁄ F(W⁄F)).Point`, as an `AddMonoidHom`; `…_genericPoint` says it fixes `𝒫`.
 * `WeierstrassCurve.Affine.CoordinateRing.galoisFunctionField_mulByNEndo` — **the new brick**:
