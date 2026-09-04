@@ -104,11 +104,12 @@ the non-constancy of `x([n]𝒫)` explicitly and no condition on the characteris
 `(3 : F) ≠ 0` is a hypothesis of `…_of_hprin_n_of_smooth` alone.  The bullets give the conclusions
 and not the hypotheses.
 
-⚠️ **This register does not reach the fourth bullet's *"with `hprin` the only hypothesis left"***,
-which is a **count** — *"A register says what a list omits.  It cannot make a count true"*
-(`README.md` `### Module-block bullets`).  That row is short of `(2 : F) ≠ 0` and of the torsion
-this register names, its repair is in-row, and it is filed as `#1637` together with the question of
-whether the fifth bullet's *"the same"* carries the count forward.
+⚠️ **The fourth bullet's hypothesis clause is a count, so no register reaches it** — *"A register
+says what a list omits.  It cannot make a count true"* (`README.md` `### Module-block bullets`).  It
+formerly read *"with `hprin` the only hypothesis left"*, which was short of `(2 : F) ≠ 0` and of the
+torsion this register names; `#1637` repaired it in the row, which is why that bullet and the one
+below it restate hypotheses this register already carries.  Under the same rule the repair could not
+have been made here.
 
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n`** — over an arbitrary
   field, with `hprin` and the halving point as hypotheses;
@@ -120,11 +121,16 @@ whether the fifth bullet's *"the same"* carries the count forward.
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`); ⚠️ the `_of_smooth` form above is a
   corollary of it, compiled in the `example` beside them;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`** — over
-  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis left; its `hfac` is the halving
-  point rather than the transcendence;
+  `F̄` at every `3`-smooth `n ≠ 0`, with `hprin`, `(2 : F) ≠ 0` and the nonsingular `n`-torsion `T`
+  the hypotheses left — neither the transcendence nor the halving point is among them, which is what
+  `F̄` buys here; its `hfac` is the halving point rather than the transcendence;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed_of_ne_zero`**
   — the same over `F̄` at **every** `n ≠ 0` (`#1549` group 2), the halving point coming from
-  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ Despite the
+  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ *"The same"*
+  back-references the **conclusion**, as it does in the second and third bullets, and not the
+  fourth's hypothesis clause — though here the two readings agree: this statement is the fourth with
+  `hfac` deleted and nothing put in its place, so `hprin`, `(2 : F) ≠ 0` and the nonsingular
+  `n`-torsion `T` are its hypotheses too.  ⚠️ Despite the
   `_of_ne_zero` suffix this one takes **no** `((n : ℤ) : F) ≠ 0`: the suffix marks the general layer
   on this front, and here `n ≠ 0` is the whole of it.  The `_of_algClosed` form above is a corollary
   of it, compiled in the `example` beside them;
