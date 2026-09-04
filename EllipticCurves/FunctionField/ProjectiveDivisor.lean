@@ -56,9 +56,9 @@ are maps of `ProjPoint W`.  Building that type, and the divisor and degree on it
   value of `w` makes `degDiv (div f) + w · ordInfty f = 0` hold for every `f`.  So `degProjPt` is
   not a convention chosen to make the theorem above come out, and that theorem has content;
 * `divisorProj_eq_zero_iff` — trivial projective divisor characterises the nonzero constants;
-* `exists_eq_algebraMap_of_divisorProj_nonneg` — `H⁰(E, 𝒪) = F` from the single hypothesis
-  `0 ≤ divisorProj f`, where `exists_eq_algebraMap_of_nonneg` needed the affine and infinite parts
-  separately;
+* `exists_eq_algebraMap_of_divisorProj_nonneg` — `H⁰(E, 𝒪) = F` for `f ≠ 0` and from the single
+  *non-negativity* hypothesis `0 ≤ divisorProj f`, where `exists_eq_algebraMap_of_nonneg` needed
+  the affine and infinite parts separately;
 * **`exists_neg_of_ne_algebraMap`** — a nonconstant function has a pole.  The affine analogue is
   *false* (`genX W` is nonconstant with no affine pole), so this is information the projective
   divisor genuinely adds;
@@ -337,7 +337,8 @@ divisor.
 ⚠️ `f ≠ 0` is a hypothesis and not a convenience: the conclusion asks for a **nonzero** constant,
 so the statement is false at `f = 0` — where `hD` holds, `divisorProj W 0` being `0`. That is what
 separates this row from `divisorProj_mulByNEndo` and the rest of the class the `README.md`
-`### Reach clauses` binder-side backstops clear (`#1608`). -/
+`### Reach clauses` non-vanishing exemption clears (`#1608`): there the deleted form still builds,
+here it is refutable. -/
 theorem exists_eq_algebraMap_of_divisorProj_nonneg {f : W.FunctionField} (hf : f ≠ 0)
     (hD : ∀ p, 0 ≤ divisorProj W f p) :
     ∃ c : F, c ≠ 0 ∧ f = algebraMap F W.FunctionField c :=
