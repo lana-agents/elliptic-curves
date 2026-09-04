@@ -98,8 +98,8 @@ it.  That is the `README.md` exemption
   it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness — the `_of_smooth` clauses' own.
 
 ⚠️ **`(2 : F) ≠ 0` fails that same test, and so stays bound.**  Nothing any reach clause in this
-file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
-the exemption but the defect class `#1137` is named after.
+file names derives it — not `3`-smoothness, not `((n : ℤ) : F) ≠ 0` — so omitting it is not an
+instance of the exemption but the defect class `#1137` is named after.
 
 ⚠️ **The general-`n` half of that sentence is a restriction, not filler.**  Several fixed-index
 statements below are about that same layer and take no `h` at all: they **discharge** it inline

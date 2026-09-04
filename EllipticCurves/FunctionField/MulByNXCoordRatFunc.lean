@@ -90,7 +90,7 @@ heading is not `## Main results`.
 
 ⚠️ **Gate 1 is discharged, and two remain.**  `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n`
-with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+with `((n : ℤ) : F) ≠ 0` over a field of characteristic `≠ 2`, from
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
 applied to the generic point.  ⚠️ **`#1184` was untouched by that file, and is not open any
 more**: `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
@@ -117,7 +117,7 @@ claim about `n • P` — and the route above goes nowhere near it.  The two-rea
   that file lacked was the **degree** of that element, which was the three gates listed just above.
   ⚠️ `EllipticCurves.FunctionField.MulByNXCoordFormula` supplies gate 1 and
   `EllipticCurves.Torsion.CoprimeAdjacent` supplies `#1184` over a field of characteristic `≠ 2`,
-  so the degree follows at every `n` with `(n : F) ≠ 0` and with nothing else assumed —
+  so the degree follows at every `n` with `((n : ℤ) : F) ≠ 0` and with nothing else assumed —
   `EllipticCurves.FunctionField.MulByNDegreeGeneral`.
 
   ⚠️ **The tree does know degrees outside `{2, 3}`, by a different route.**
@@ -269,7 +269,7 @@ open Classical in
 ⚠️ **Its reduced numerator and denominator are not identified here**, and that — not its
 existence — is what a degree computation needs.  They are identified one file up, as `Φₙ` and
 `ΨSqₙ`: `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`), at every `n`
-with `(n : F) ≠ 0`.  See the module docstring. -/
+with `((n : ℤ) : F) ≠ 0`.  See the module docstring. -/
 noncomputable def nMulRatFunc (W : Affine F) [W.IsElliptic] (n : ℕ) : RatFunc F :=
   ratFuncPreimage W (xCoord_nsmul_genericPoint_mem_ratFuncRange n)
 
@@ -307,9 +307,9 @@ The same argument as `nMulRatFunc_two` against the merged `algebraMap_triplingRa
 against a written-down fraction; `#682` and `#775` are the merged degree computations behind them.
 That is no longer so: `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) gives
-`nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n` with `(n : F) ≠ 0` over a field of characteristic `≠ 2`.
-These two remain the instances reachable **here**, and remain the validation that the general
-statement specialises to the merged low-index fractions. -/
+`nMulRatFunc W n = Φₙ/ΨSqₙ` at every `n` with `((n : ℤ) : F) ≠ 0` over a field of characteristic
+`≠ 2`.  These two remain the instances reachable **here**, and remain the validation that the
+general statement specialises to the merged low-index fractions. -/
 theorem nMulRatFunc_three [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     nMulRatFunc W 3 = triplingRatFunc W := by
   refine (algebraMap (RatFunc F) W.FunctionField).injective ?_

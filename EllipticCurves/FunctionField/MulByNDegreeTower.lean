@@ -45,17 +45,33 @@ there and in `EllipticCurves.FunctionField.MulByNPlacePullback` were:
 2. `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n` (`#1184`);
 3. `natDegree_ΨSq`'s `(n : F) ≠ 0`.
 
+⚠️ **Gate 3 is stated at `n : ℤ`, the statements that consume it are indexed both ways, and that is
+why the two spellings both occur below and both are right.**  Mathlib's `natDegree_ΨSq` and
+`ΨSq_ne_zero` take `{n : ℤ}` and ask `(n : R) ≠ 0`, and at `n : ℤ` that term *is*
+`((n : ℤ) : F) ≠ 0` — the inner cast is a no-op, so the two spellings name the same thing and the
+gate keeps the short one.  A statement of this development indexed `n : ℕ` binds
+`((n : ℤ) : F) ≠ 0`, which there is a **different** term from `(n : F) ≠ 0`, so its reach clause
+carries the long one.
+
+⚠️ **Both index kinds consume gate 3 in this file, so neither spelling can be swept for the other.**
+`finrank_adjoin_ΦDivΨSq` and `finrank_fieldRange_eq_of_eq_ΦDivΨSq` are `n : ℤ` — the first calls
+`ΨSq_ne_zero hn` and `natDegree_ΨSq hn` — and the clauses about them below read `(n : F) ≠ 0`, while
+`finrank_mulByNFieldRange_of_nMulRatFunc_eq` is `n : ℕ` and reads `((n : ℤ) : F) ≠ 0`.  The
+`## Main definitions and statements` list says the same where the last two are named together.
+⚠️ Neither spelling is house style: `README.md` `### Scope of the rules above` asks that a clause
+match the **subject's** binder, and on this front the subject decides the spelling.
+
 ⚠️ **Gate 1 is discharged, and two remain.**  `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) proves it at every `n`
-with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+with `((n : ℤ) : F) ≠ 0` over a field of characteristic `≠ 2`, from
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) applied to the generic point — which is a point of `W ⁄ F(W)`
 over the field `F(W)`, so a theorem about points of a curve over a field applies to it directly.
 ⚠️ **`#1184` was untouched by that file, and has since been discharged over a field**:
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) proves
 gate 2 at every `n : ℤ` for an elliptic curve of characteristic `≠ 2`, and
-`EllipticCurves.FunctionField.MulByNDegreeGeneral` composes all three, leaving `(n : F) ≠ 0` as the
-only hypothesis.  ⚠️ Neither module is in this one's import closure: `MulByNDegreeGeneral` is
+`EllipticCurves.FunctionField.MulByNDegreeGeneral` composes all three, leaving `((n : ℤ) : F) ≠ 0`
+as the only hypothesis.  ⚠️ Neither module is in this one's import closure: `MulByNDegreeGeneral` is
 **downstream**, `EllipticCurves.Torsion.CoprimeAdjacent` **import-incomparable** — so the
 conditional forms below are unchanged and stay conditional.  And a field degree is
 still not a point count, so nothing here bears on `#E[n] = n²`.
@@ -114,8 +130,10 @@ heading is not `## Main results`.
   under `(n : F) ≠ 0` and coprimality;
 * **`WeierstrassCurve.Affine.CoordinateRing.finrank_fieldRange_eq_of_eq_ΦDivΨSq`** and
   **`WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_of_nMulRatFunc_eq`** — the two
-  combined forms: `[F(W) : σF(W)] = n²` once the fraction, the coprimality and `(n : F) ≠ 0` are
-  supplied.  These are the statements the three gates discharge.
+  combined forms: `[F(W) : σF(W)] = n²` once the fraction, the coprimality and the index condition
+  are supplied.  ⚠️ **The two are indexed differently and so spell that condition differently**: the
+  first is `{n : ℤ}` and asks `(n : F) ≠ 0`, the second is `{n : ℕ}` and asks `((n : ℤ) : F) ≠ 0`.
+  These are the statements the three gates discharge.
 
 ## What is *not* here
 
@@ -172,7 +190,7 @@ this definition at `n = 2` and `n = 3` (`doublingRatFunc_eq_ΦDivΨSq`, `triplin
 ⚠️ Writing the fraction down is not the same as knowing it presents `x ∘ [n]`: that identification
 is `#251`, and it **is** available at general `n` — `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`, which imports this file) at every `n` with
-`(n : F) ≠ 0` over a field of characteristic `≠ 2`.  ⚠️ It is not available *here*, and this
+`((n : ℤ) : F) ≠ 0` over a field of characteristic `≠ 2`.  ⚠️ It is not available *here*, and this
 definition still asserts nothing about `x ∘ [n]`. -/
 noncomputable def ΦDivΨSq (n : ℤ) : RatFunc F :=
   algebraMap F[X] (RatFunc F) (W.Φ n) / algebraMap F[X] (RatFunc F) (W.ΨSq n)
@@ -230,7 +248,7 @@ theorem finrank_fieldRange_eq_of_eq_ΦDivΨSq {n : ℤ} (hn : ((n : ℤ) : F) �
 
 ⚠️ This theorem is **not** a proof that the degree is `n²`: it is the statement that the three
 gates are jointly sufficient.  ⚠️ Both `hfrac` and `hcop` are now available at every `n` with
-`(n : F) ≠ 0` over a field of characteristic `≠ 2` — `nMulRatFunc_eq_ΦDivΨSq`
+`((n : ℤ) : F) ≠ 0` over a field of characteristic `≠ 2` — `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) and
 `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`), the first
 downstream of this file and the second **import-incomparable** with it — and the composition is

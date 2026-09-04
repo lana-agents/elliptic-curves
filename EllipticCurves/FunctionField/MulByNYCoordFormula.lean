@@ -119,8 +119,8 @@ theorem ψ_gen_ne_zero {n : ℤ} (hn : ((n : ℤ) : F) ≠ 0) :
 variable [W.IsElliptic]
 
 open Classical in
-/-- **`y(n • 𝒫) = ωₙ(genX, genY)/(2·ψₙ(genX, genY)³)`**, at every index with `(n : F) ≠ 0`, over a
-field of characteristic `≠ 2`.
+/-- **`y(n • 𝒫) = ωₙ(genX, genY)/(2·ψₙ(genX, genY)³)`**, at every index with `((n : ℤ) : F) ≠ 0`,
+over a field of characteristic `≠ 2`.
 
 This is `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
 (`EllipticCurves.Torsion.NsmulYPeriodic`) applied to the curve `W ⁄ F(W)` at the point `𝒫`, exactly
@@ -185,8 +185,8 @@ Any ring endomorphism of `F(W)` which fixes `F` and sends the two generators to 
 division-polynomial expressions is `mulByNEndo n`.  ⚠️ So a second `[n]∗` built by
 `AdjoinRoot.lift` from `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` — `#405`'s deliverable 2
 — would be a duplicate definition of this one and not a second object, **at every index with
-`(n : F) ≠ 0`**.  ⚠️ Outside that range the two constructions genuinely differ in what they can
-even be stated for, which is the hypothesis mismatch `#405` records. -/
+`((n : ℤ) : F) ≠ 0`**.  ⚠️ Outside that range the two constructions genuinely differ in what they
+can even be stated for, which is the hypothesis mismatch `#405` records. -/
 theorem mulByNEndo_eq_of_genX_genY (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (hT : Transcendental F (n • genericPoint (W := W)).xCoord)
     {f : W.FunctionField →+* W.FunctionField}

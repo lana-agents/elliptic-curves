@@ -24,8 +24,8 @@ finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent h2 hn (isCoprime_ΨSq_
 
 ## ⚠️ What is and is not settled
 
-* The degree `[F(W) : [n]∗F(W)] = n²` now holds at **every** index with `(n : F) ≠ 0`, over any
-  field of characteristic `≠ 2`, for an elliptic curve — with no unsupplied hypothesis.  The two
+* The degree `[F(W) : [n]∗F(W)] = n²` now holds at **every** index with `((n : ℤ) : F) ≠ 0`, over
+  any field of characteristic `≠ 2`, for an elliptic curve — with no unsupplied hypothesis.  The two
   merged instances `finrank_mulByTwoFieldRange` and `finrank_mulByThreeFieldRange` are the `n = 2`
   and `n = 3` cases; the `example` below is `n = 5`, the smallest index at which no coprimality
   certificate exists in this development and which therefore certifies that this is not those two
@@ -46,7 +46,7 @@ finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent h2 hn (isCoprime_ΨSq_
 ## Main statements
 
 * `WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` :
-  **`[F(W) : [n]∗F(W)] = n²`** at every index with `(n : F) ≠ 0`.
+  **`[F(W) : [n]∗F(W)] = n²`** at every index with `((n : ℤ) : F) ≠ 0`.
 
 ## References
 
@@ -61,8 +61,8 @@ namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
-/-- **`[F(W) : [n]∗F(W)] = n²`**, at every index with `(n : F) ≠ 0`, over a field of characteristic
-`≠ 2` — with no remaining hypothesis.
+/-- **`[F(W) : [n]∗F(W)] = n²`**, at every index with `((n : ℤ) : F) ≠ 0`, over a field of
+characteristic `≠ 2` — with no remaining hypothesis.
 
 `finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) carries the coprimality as its last
@@ -71,7 +71,7 @@ every `n : ℤ` and with no hypothesis on `n` at all.
 
 ⚠️ The transcendence proof in the subfield is a *parameter of the statement*, because the subfield
 whose degree is measured depends on it; the one fixed here is
-`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`, which asks `(n : F) ≠ 0` and no
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`, which asks `((n : ℤ) : F) ≠ 0` and no
 algebraic closure.  Any proof of the same `Transcendental` gives the same subfield, by proof
 irrelevance. -/
 theorem finrank_mulByNFieldRange_eq_sq_of_two_ne_zero (h2 : (2 : F) ≠ 0) {n : ℕ}

@@ -84,7 +84,7 @@ fraction `Φₙ/ΨSqₙ`, which is `#251`: `nMulRatFunc` is produced by an inver
 so `RatFunc.finrank_eq_max_natDegree` has no numerator and no denominator to read off it — being an
 element of `F(x)` is not being a *written-down* rational function.  ⚠️ **This one is discharged**:
 `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves it at every `n`
-with `(n : F) ≠ 0` over a field of characteristic `≠ 2`, from
+with `((n : ℤ) : F) ≠ 0` over a field of characteristic `≠ 2`, from
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` applied to the generic point.  **Second**,
 `IsCoprime (W.Φ n) (W.ΨSq n)` at general `n`, which is `#1184`:
 `EllipticCurves.DivisionPolynomial.Coprime` has it at `n = 2` (`isCoprime_Φ_two_Ψ₂Sq`, `#681`,
@@ -118,12 +118,12 @@ with the group-law multiple `n • P` is `#251`, and it is **closed**:
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
 function-field form `nMulRatFunc_eq_ΦDivΨSq`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
-has since been discharged over a field** — `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent`
-(`EllipticCurves.Torsion.CoprimeAdjacent`) at every `n : ℤ` for an elliptic curve of characteristic
-`≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
-(`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `(n : F) ≠ 0` and nothing else beyond
-the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️
+**`#1184` has since been discharged over a field** —
+`WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) at every
+`n : ℤ` for an elliptic curve of characteristic `≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
+(`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `((n : ℤ) : F) ≠ 0` and nothing else
+beyond the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
 arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.
 ⚠️ And the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the
@@ -138,8 +138,8 @@ two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 places outside this file: at every `3`-smooth `n` as
 `EllipticCurves.FunctionField.MulByNPlaceComposition.ordInfty_mulByNEndo_genX_of_smooth`, reached by
 composition; and — ⚠️ **this is what corrects the paragraph below** — at every `n` with
-`(n : F) ≠ 0` as that file's `ordInfty_mulByNEndo_genX_of_ne_zero`, reached by **exactly the degree
-count this paragraph is about**.
+`((n : ℤ) : F) ≠ 0` as that file's `ordInfty_mulByNEndo_genX_of_ne_zero`, reached by **exactly the
+degree count this paragraph is about**.
 
 ⚠️ **This paragraph used to call that a "negative result, not a gap" at general `n`, and to give the
 reason as follows.**  `ordInfty_mulByTwoEndo_genX`
@@ -151,7 +151,7 @@ pin nothing at infinity** — `x(𝒫 + T)` for a fixed `T ≠ O` satisfies the 
 pole there.  ⚠️ **Every sentence of that is true and the conclusion drawn from it was not**: the
 group law is not the only input available.  `xCoord_nsmul_genericPoint'`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#251`) is
-`x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` at every `n` with `(n : F) ≠ 0`, and against Mathlib's
+`x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)` at every `n` with `((n : ℤ) : F) ≠ 0`, and against Mathlib's
 `natDegree_Φ = n²` and `natDegree_ΨSq = n² - 1` it makes the `n = 2` proof transpose
 **verbatim**.
 ⚠️ Note where that name appears in this very file: four paragraphs above, in the list of names that
@@ -182,7 +182,7 @@ formalised** in this tree.
 Consequently `comapProjPointN … none = none` (*"`[n]` fixes the point at infinity"*) is **also**
 absent *from this file*: `comapProjPointTwo_none` is proved from the pole order, and so are the
 fibre-sum identities `#701` and `#1046`.  ⚠️ **Absent from this file, and present in the tree at
-every `n` with `(n : F) ≠ 0`** — `comapProjPointN_none_of_ne_zero` and
+every `n` with `((n : ℤ) : F) ≠ 0`** — `comapProjPointN_none_of_ne_zero` and
 `ramificationIdxN_none_of_ne_zero`
 (`EllipticCurves.FunctionField.MulByNPlaceComposition`), by the pole order and with the `n = 2`
 proof transposed unchanged.
@@ -259,7 +259,7 @@ the place at infinity — that is `#670`'s statement, and at an `n` divisible by
 is **false** (see the module docstring).  ⚠️ At every `3`-smooth `n` it is `1`:
 `EllipticCurves.FunctionField.MulByNPlaceComposition.ramificationIdxN_none_of_smooth`, by
 multiplicativity of this index along `[m · n]∗ = [m]∗ ∘ [n]∗` rather than by any computation
-here; ⚠️ and at every `n` with `(n : F) ≠ 0`, `…ramificationIdxN_none_of_ne_zero`, by the pole
+here; ⚠️ and at every `n` with `((n : ℤ) : F) ≠ 0`, `…ramificationIdxN_none_of_ne_zero`, by the pole
 count.  ⚠️ *"At general `n`"* in the sentence above meant *"with no hypothesis on `(n : F)`"*, which
 is the only range in which it is false. -/
 noncomputable def ramificationIdxN (n : ℕ)

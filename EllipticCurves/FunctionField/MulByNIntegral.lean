@@ -91,8 +91,8 @@ and not here: the fraction by
 a field of characteristic `≠ 2` by `WeierstrassCurve.Affine.isCoprime_Φ_ΨSq`
 (`EllipticCurves.Torsion.CoprimeAdjacent`).
 `EllipticCurves.FunctionField.MulByNDegreeGeneral` composes them into
-`[F(W) : [n]∗F(W)] = n²` at every `n` with `(n : F) ≠ 0`.  ⚠️ Nothing in *this* file changes: its
-subject is finiteness, which needed none of the three.
+`[F(W) : [n]∗F(W)] = n²` at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️ Nothing in *this* file changes:
+its subject is finiteness, which needed none of the three.
 
 ⚠️ **No separability.**  `Algebra.IsSeparable ([n]∗F(W)) F(W)` is what `#754` carries as a
 hypothesis; in characteristic zero it follows from finiteness
