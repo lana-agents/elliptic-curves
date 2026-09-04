@@ -115,8 +115,10 @@ halving point since PR #503 (`#1332`), and falsified again by the in-row count r
 below records.  A universal over the bullets cannot survive this development's own repairs:
 `README.md` `### Module-block bullets` puts a count beyond every register, so a count is repaired
 **in the row**, and every such repair costs the universal another instance.  Sibling `## Main *`
-lists still close with it and `#1650` records which of them it is already false of; replace it as
-each is touched rather than re-arguing the form (`#1647`).
+lists still close with it, and `#1650` is the record of where it had already failed —
+`…AlternatingBaseChangeN`, two of whose bullets are counts, and `…TranslationSlotHprinN`, whose
+register contradicted it one sentence earlier.  **Both of those now carry this form**; replace it in
+the rest as each is touched rather than re-arguing it (`#1647`, `#1650`).
 
 ⚠️ **The fourth bullet's hypothesis clause is a count, so no register reaches it** — *"A register
 says what a list omits.  It cannot make a count true"* (`README.md` `### Module-block bullets`).  It
