@@ -87,8 +87,11 @@ what `README.md` `### Scope of the rules above` forbids.
 
 ⚠️ **And that includes `h : W.Equation x y`, which is why bullet 3 says *"on the curve"*.**  The
 conclusion of `ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq` typechecks without `h`, so `h` is a hypothesis
-and **not** a data argument of the object the bullet is about — it does not get the clearance
-`README.md` `### Module-block bullets` gives `residueDegreeN n hn p`.  Nor is it left to
+and **not** a data argument of the object the bullet is about — being an explicit argument of that
+object is the **necessary** half of the data-argument clearance (`README.md` `### Reach clauses`,
+`#1631`), and this conclusion takes no such argument.  ⚠️ This used to cite the clearance
+`### Module-block bullets` gave `residueDegreeN n hn p`; that reading is withdrawn, the verdict on
+this row is not, and it never rested on it.  Nor is it left to
 `### Gate-discharge claims`' *"the setting"*: bullet 3 makes no gate-discharge claim at all, and
 that register carries claims about **gates**, saying in terms that it *"is not a licence to say
 the signature is short"*.  The same reading repaired

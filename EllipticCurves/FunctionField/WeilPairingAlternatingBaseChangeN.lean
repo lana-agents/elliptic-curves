@@ -97,7 +97,7 @@ an index hypothesis while the two above it have none.
   of any register at all — *"A register says what a list omits.  It cannot make a count true."*
   So *"the setting"* was never available to these two, whatever it turns out to cover.
   ⚠️ **That ground is deliberately independent of whether `h` is a data argument** of
-  `pointClosedPoint h.left` (`#1631`, open): the data-argument clearance is a licence to omit a
+  `pointClosedPoint h.left` (`#1631`, since ruled: it is): the clearance is a licence to omit a
   binder, not a bar on naming one, so a count naming all seven explicit propositional binders is
   true under either answer.  ⚠️ `EllipticCurves.Torsion.WronskianSeparable` was repaired on the
   same **shape** of argument and a different ground (`#1620`, PR #647) — its bullet 3 makes no

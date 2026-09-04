@@ -304,6 +304,49 @@ PR #637 (`#1605`) repaired on exactly this axis. An occurrence test would clear 
 repair. What separates them is subject matter: `(2 : F) ≠ 0` restricts the field the statement is
 over, `f ≠ 0` restricts the argument its caller passes in.
 
+⚠️ **That discriminator is the whole of the *data-argument* clearance too, and `#1631` is what it
+cost to find that out.** `### Module-block bullets` below clears a binder that is *"a data argument
+of the object the bullet is about"*, and gives the test as *"does not typecheck without it"*. That
+is an occurrence test — the one the paragraph above rules out by name and this one says it does not
+reinstate — and read as written it clears `(2 : F) ≠ 0` in every statement about `mulByTwoEndo h2`
+or `mulByNEndoOfAlgClosed h2 hn`, which is the occurrence reading the paragraph above says *"would
+clear it and reverse that repair"* of PR #637 (`#1605`). **The clearance is real; that wording of it
+is not.** What clears a binder is the same thing that clears `f ≠ 0`: the condition is about the
+argument the caller passes in — a supplied root, a certificate, a point on the curve. Being an
+explicit argument of the object the statement is about is **necessary and nowhere near sufficient**,
+because the field and the index reach the conclusion that way too.
+
+⚠️ **So a binder that reaches the object only through a projection is a data argument, and the
+projection was never the deciding feature.** `#1631` asked whether `h : W.Nonsingular xT yT`, which
+`pointClosedPoint h.left` receives as `h.left` rather than as `h`, clears where a signature binding
+`W.Equation x y` outright would. It does, and for a reason that never looks at the application node:
+`W.Nonsingular xT yT` is a condition on the point the caller passes in, and it is that whether the
+conclusion takes `h`, `h.left`, or a term derived from `h` any other way.
+`WeilPairingGaloisRootN`'s `exists_weilPairingElt_galois_of_smooth_of_hprin` and
+`exists_weilPairingMu_galois_of_smooth_of_hprin` — one file, one slot, one binding the `Equation`
+and the other the `Nonsingular` — are **one case**, and a test that splits them is reporting the
+shape of a signature rather than the reach of a clause.
+
+⚠️ **And no narrowing of the occurrence reading rescues it, because this pair is identical on every
+feature such a test can see:**
+
+```
+theorem residueDegreeN_none_eq_one (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) :
+    residueDegreeN n hn (none : ProjPoint W) = 1
+
+theorem ramificationIdxN_pos (n : ℕ)
+    (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (p : ProjPoint W) :
+    0 < ramificationIdxN n hn p
+```
+
+Same binder, same explicit-argument position in the conclusion, the same *"at every `n`"* clause
+naming nothing else. This section convicts the second by name above; `### Module-block bullets`
+clears the first by name below. Under the discriminator both are **reach** — `hn` is a condition on
+the index, and `xCoord_zero` makes it false at `n = 0` — so the second stays convicted and the first
+is convicted with it. ⚠️ **Neither is a sweep and neither is repaired here**: the two readings below
+are corrected where they stand, and the `residueDegreeN` row itself belongs to `#1616`.
+
 **One mechanical backstop is available, and it is worth running before arguing a row.** Where
 deleting the binder leaves the statement provable, it constrains nothing and there is no reach for
 a clause to misreport. This is the deletion test above run on the binder side, with the **compiler**
@@ -480,11 +523,13 @@ opener `### Module-block bullets` names — one **reach register** at the head o
 lists — not thirteen rewritten bullets. The thirteenth,
 `EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective`'s *"for **every** `S`, every
 rung-5 root and every certificate"*, clears outright and **not on this ruling**:
-`not_injective_weilPairingTorsionMuHom_two` binds `h2`, `hgS` and `hu` and nothing else, all three
-are direct arguments of `weilPairingTorsionMuHom_two h2 hgS hu`, a `MonoidHom` and not a `Prop`, and
-the residue is empty. `…_three` is the same with `h3`. ⚠️ `#1626`'s own table reports that row as
-short of `hu` and an anonymous binder; the signature binds no anonymous explicit propositional
-binder, and two further rows of that table are joined to
+`not_injective_weilPairingTorsionMuHom_two` binds `h2`, `hgS` and `hu` and nothing else, the clause
+names `(2 : F) ≠ 0` itself, and `hgS` and `hu` are conditions on the root and the certificate it
+also names, so the residue is empty. ⚠️ **Not** because all three are arguments of
+`weilPairingTorsionMuHom_two h2 hgS hu`: `h2` is an argument of it and is reach all the same
+(`### Reach clauses`, `#1631`). `…_three` is the same with `h3`. ⚠️ `#1626`'s own table reports that
+row as short of `hu` and an anonymous binder; the signature binds no anonymous explicit
+propositional binder, and two further rows of that table are joined to
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`, which those two bullets **cite** and
 are not about. **Re-derive a row before repairing it** — the join is where these tables go wrong,
 and a triage set inherited is a triage set unread.
@@ -501,17 +546,20 @@ claim repaired the two ways this document already prescribes is not.
 ⚠️ **What this does not decide.** *"The data the statement is about"* is a phrase in this section's
 description of a **gate list**. It is not a second route to clearing a data hypothesis from a reach
 clause: that job belongs to the data-argument clearance in `### Reach clauses` above, which has its
-own test, whether the object the bullet is about typechecks without the binder, and which
-`### Module-block bullets` applies to a bullet exactly as to a headline. Read as such a route it
+own discriminator — what the condition is about — and which `### Module-block bullets` applies to a
+bullet exactly as to a headline. Read as such a route it
 would clear `htors`, `hPT`, `hS` and `hm₂`, which no object in any of these conclusions takes, and
 it would swallow `(2 : F) ≠ 0`, which `### Reach clauses` names as reach in terms. ⚠️ Nor does it
 settle whether a binder reaching the conclusion only through a **projection**
-(`pointClosedPoint h.left` over `h : W.Nonsingular xT yT`) is a data argument: it is one on this
-document's plain words and is not one under the direct-argument mechanisation, and the two split
+(`pointClosedPoint h.left` over `h : W.Nonsingular xT yT`) is a data argument: it was one on this
+document's plain words and not one under the direct-argument mechanisation, and the two split
 `exists_weilPairingElt_galois_of_smooth_of_hprin` from its `Mu` twin in the same file — the first
 binds the `Equation` and the second the `Nonsingular`. ⚠️ **Neither reading changes the verdict on
 any of the twelve** — each keeps `hprin`, a torsion hypothesis or
-`(2 : F) ≠ 0` in its residue on both. It is filed as `#1631`, not answered here.
+`(2 : F) ≠ 0` in its residue on both. It was filed as `#1631` and is answered in
+`### Reach clauses` above rather than here — a condition on the point the caller passes in is a data
+argument however the conclusion reaches it — so what those registers must name is settled, and it is
+not settled by this section.
 
 ### Module-block bullets
 
@@ -573,10 +621,13 @@ rather than argued:
   Those are the two the register names, so the bullet is compliant relative to it, and repairing the
   row in place would mean repairing all thirteen. ⚠️ **The register is not the whole account of that
   row, and a reach verdict is owed one for every binder.** That signature binds a third hypothesis,
-  the transcendence `h`, which the register does not name; it clears for the reason the
-  `residueDegreeN` reading below gives — the statement is about
-  `finite_comapProjPointN_preimage_singleton n h …` and does not typecheck without it, so `h` is a
-  data argument of the object the bullet is about rather than a hypothesis the clause is short of.
+  the transcendence `h`, which the register does not name; it clears on the **derivability**
+  exemption, whose price that file has already paid — `MulByNFibre`'s `## The non-constancy
+  hypothesis is not named in the headlines below` cites both derivations, and the general one runs
+  from `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` — exactly the two the register names.
+  ⚠️ **It does not clear as a data argument**, which is what this bullet used to say: `h` is a
+  condition on the index, and `### Reach clauses` convicts exactly that omission by name in
+  `ramificationIdxN_pos`. Same verdict, and not the same ground (`#1631`).
 * **Not reached.** The **outer** `## Main statements` list higher up the same docstring is a
   different block. Its own head is *"⚠️ Every public declaration of this file is listed"* and
   declares no register, so its bullets are read against that and get nothing from the sub-list below
@@ -594,11 +645,16 @@ composition route carries and this one does not. A subject, not a hypothesis lis
 where it stands.
 
 ⚠️ **Read the two clauses of that bullet separately, because the halves decide independently.**
-*"At every `n`"* is a reach clause and gets nothing from two sections up; it is compliant for the
-other reason, that the declaration's one propositional binder is a **data argument of the object
-the bullet is about** — `residueDegreeN n hn p` does not typecheck without it, so there is no reach
-for the clause to misreport. A bullet that mixes the registers is answerable to both, and a row
-that clears is not evidence that it cleared on the ground you had in mind.
+*"At every `n`"* is a reach clause and gets nothing from two sections up, and ⚠️ **it is not
+compliant.** This document used to clear it on the ground that the declaration's one propositional
+binder is a **data argument of the object the bullet is about** — `residueDegreeN n hn p` does not
+typecheck without it, so there is *"no reach for the clause to misreport"*. `### Reach clauses`
+withdraws that ground (`#1631`): `hn` is a condition on the index, which is one of the two things a
+reach clause reports, and that section convicts the identical omission by name in
+`ramificationIdxN_pos`, whose signature is this one. ⚠️ And *"unconditionally"* is the strongest
+form of the clause, not a mitigation of it. The repair is `#1616`'s and is not made here. A bullet
+that mixes the registers is answerable to both, and a row that clears is not evidence that it
+cleared on the ground you had in mind.
 
 ⚠️ **A register says what a list omits. It cannot make a count true.** So a register's reach stops
 exactly where `### Gate-discharge claims` stops, and for the same reason: *"the whole hypothesis
