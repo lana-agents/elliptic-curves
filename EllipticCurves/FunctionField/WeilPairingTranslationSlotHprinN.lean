@@ -71,6 +71,16 @@ which this register carries for it.  The bullet opens *"the one new input"*, so 
 hypotheses — but it gives some of them without counting them, and this sentence used to close
 *"which is what its bullet says"*, which read it as giving all three (`#1650`).
 
+⚠️ **The three general-`n` `…_n_of_hprin` statements take the non-constancy of `x([n]𝒫)` too**, and
+their index clauses are read against it — *"the first statement takes none of these"* names a
+subgroup and is not an exclusive claim about the non-constancy.
+`exists_weilPairingElt_translatePoint_add_n_of_hprin` takes `n ≠ 0` explicitly;
+`…exists_weilPairingMu_translatePoint_add_n_of_hprin` and
+`…exists_weilPairingTorsionMuHom_n_of_hprin` carry that as the instance `[NeZero n]`, which
+`README.md` `### Reach clauses` leaves ambient.  The
+six `_of_smooth` / `_of_ne_zero` corollaries **discharge** the non-constancy rather than binding it,
+which is what their bullets say (`#1641`, `#1642`).
+
 ⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
 counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
 without counting is neither, and sits under this register unchanged — which is the branch the first
