@@ -358,7 +358,8 @@ variable [IsAlgClosed F]
 /-! ### Over `F̄`, with no hypothesis beyond the setting -/
 
 open Classical in
-/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is a *non-trivial* group homomorphism, unconditionally.**
+/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is a *non-trivial* group homomorphism, with no hypothesis
+beyond the setting.**
 
 The shape `exists_weilPairingTorsionMuHom_two` (`#890`) returns, with the `φ ≠ 1` conjunct added,
 so the two compose rather than diverge: the rung-5 certificate is produced by
@@ -379,8 +380,8 @@ theorem exists_weilPairingTorsionMuHom_two_ne_one (h2 : (2 : F) ≠ 0) {xS yS : 
     fun P => algebraMap_coe_weilPairingTorsionMuHom_two h2 hg hu P⟩
 
 open Classical in
-/-- **`e_3(S, ·) : E[3] → μ_3(F̄)` is a *non-trivial* group homomorphism, unconditionally.**  The
-`n = 3` mirror, off `exists_gS_three_of_isAlgClosed` (`#825`). -/
+/-- **`e_3(S, ·) : E[3] → μ_3(F̄)` is a *non-trivial* group homomorphism, with no hypothesis
+beyond the setting.**  The `n = 3` mirror, off `exists_gS_three_of_isAlgClosed` (`#825`). -/
 theorem exists_weilPairingTorsionMuHom_three_ne_one (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS : F} (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion 3) :
     ∃ g : W.FunctionField, g ≠ 0 ∧

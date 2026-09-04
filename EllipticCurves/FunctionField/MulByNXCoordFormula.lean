@@ -263,8 +263,9 @@ theorem finrank_mulByNFieldRange_eq_sq (h2 : (2 : F) ≠ 0) (n : ℕ)
 `isCoprime_Φ_ΨSq_of_isCoprime_ΨSq_adjacent` (`EllipticCurves.DivisionPolynomial.Coprime`) turns it
 into the `Φ`/`ΨSq` coprimality the degree count consumes, and this file supplies everything else.
 
-⚠️ Read this as *"two gates, not three"*: `((n : ℤ) : F) ≠ 0` and `#1184`.  It is **not** a proof
-that the degree is `n²`.  ⚠️ `hadj` is discharged at every `n : ℤ` by
+⚠️ Read this as *"two gates, not three"*: `((n : ℤ) : F) ≠ 0` and `#1184`, over a field of
+characteristic `≠ 2` — which is `h2`, a binder of this statement rather than a fourth gate.  It is
+**not** a proof that the degree is `n²`.  ⚠️ `hadj` is discharged at every `n : ℤ` by
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`, not in
 this file's import closure), and
 `EllipticCurves.FunctionField.MulByNDegreeGeneral.finrank_mulByNFieldRange_eq_sq_of_two_ne_zero`

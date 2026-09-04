@@ -594,9 +594,9 @@ section IsAlgClosed
 variable [IsAlgClosed F]
 
 open Classical in
-/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is a group homomorphism, unconditionally.**  The root at `S` and
-its rung-5 certificate are produced by `exists_gS_two_of_isAlgClosed` (`#791`), which is the only
-place `[IsAlgClosed F]` enters. -/
+/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is a group homomorphism, with no hypothesis beyond the
+setting.**  The root at `S` and its rung-5 certificate are produced by
+`exists_gS_two_of_isAlgClosed` (`#791`), which is the only place `[IsAlgClosed F]` enters. -/
 theorem exists_weilPairingTorsionMuHom_two (h2 : (2 : F) ≠ 0) {xS yS : F}
     (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion 2) :
     ∃ g : W.FunctionField, g ≠ 0 ∧
@@ -611,8 +611,8 @@ theorem exists_weilPairingTorsionMuHom_two (h2 : (2 : F) ≠ 0) {xS yS : F}
     fun P => algebraMap_coe_weilPairingTorsionMuHom_two h2 hg hu P⟩
 
 open Classical in
-/-- **`e_3(S, ·) : E[3] → μ_3(F̄)` is a group homomorphism, unconditionally.**  The `n = 3` mirror,
-off `exists_gS_three_of_isAlgClosed` (`#825`). -/
+/-- **`e_3(S, ·) : E[3] → μ_3(F̄)` is a group homomorphism, with no hypothesis beyond the
+setting.**  The `n = 3` mirror, off `exists_gS_three_of_isAlgClosed` (`#825`). -/
 theorem exists_weilPairingTorsionMuHom_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {xS yS : F}
     (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion 3) :
     ∃ g : W.FunctionField, g ≠ 0 ∧
