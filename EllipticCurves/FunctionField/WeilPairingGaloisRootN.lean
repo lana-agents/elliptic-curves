@@ -565,8 +565,9 @@ theorem exists_weilPairingMu_galois_of_smooth_of_hprin (σ : F ≃ₐ[S] F) (h2 
   exists_weilPairingMu_galois_n_of_hprin σ _ h₂ hm₂ h hS hprin
 
 open Classical in
-/-- **Galois-equivariance of the `μ_n`-valued pairing at every `n` with `((n : ℤ) : F) ≠ 0`** — the
-`weilPairingMu` companion of the theorem above, by the same substitution and nothing else. -/
+/-- **Galois-equivariance of the `μ_n`-valued pairing at every `n` with `((n : ℤ) : F) ≠ 0`**, with
+`hprin` the only hypothesis beyond the setting — the `weilPairingMu` companion of the theorem
+above, by the same substitution and nothing else. -/
 theorem exists_weilPairingMu_galois_of_ne_zero_of_hprin (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
     (h₂ : (W⁄F).Nonsingular x₂ y₂) (hm₂ : Point.some x₂ y₂ h₂ ∈ (W⁄F).torsion n)

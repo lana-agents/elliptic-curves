@@ -446,8 +446,8 @@ theorem exists_weilPairingMu_divisorSlot_add_of_smooth_of_hprin (h2 : (2 : F) �
 
 open Classical in
 /-- **Additivity of the `μ_n`-valued pairing in the divisor slot at every `n` with
-`((n : ℤ) : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same
-substitution. -/
+`((n : ℤ) : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** — the `weilPairingMu`
+companion of the theorem above, by the same substitution. -/
 theorem exists_weilPairingMu_divisorSlot_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
     {xP yP xS yS xT yT xR yR : F} (hP : W.Nonsingular xP yP) (hS : W.Nonsingular xS yS)
