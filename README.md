@@ -321,10 +321,14 @@ makes this a backstop rather than a second discriminator.
 load-bearing *and* the docstring makes a gate-discharge or totality claim about the hypothesis
 list, `### Gate-discharge claims` below binds and the word still has to have a subject.
 `exists_eq_algebraMap_of_divisorProj_nonneg` (`EllipticCurves.FunctionField.ProjectiveDivisor`)
-says *"from the single hypothesis that `f` has no pole"* over a signature binding `f ≠ 0` as well,
-and its conclusion `∃ c ≠ 0, f = algebraMap c` is **false** at `f = 0`, where the no-pole
-hypothesis holds — so that row is **load-bearing**, this exemption does not reach it, and
-`### Gate-discharge claims` governs its headline.
+is the row: its conclusion `∃ c ≠ 0, f = algebraMap c` is **false** at `f = 0`, where the no-pole
+hypothesis holds, so its `f ≠ 0` is **load-bearing**, this exemption does not reach it, and
+`### Gate-discharge claims` governs its headline. The headline **said** *"from the single
+hypothesis that `f` has no pole"* over a signature binding `f ≠ 0` as well, and PR #640 (`#1608`)
+repaired it together with the module bullet describing the same row; both now read *"for `f ≠ 0`
+and from the single **non-negativity** hypothesis"*. ⚠️ **The classification is what this paragraph
+is for and the repair does not touch it**: only the quotation is a claim about the row's text, and
+it is past tense for that reason.
 
 Measured at `27d4f29`, from the elaborated telescope: **239** documented declarations bind a
 `FunctionField`-valued `≠ 0` hypothesis, every one of them in `FunctionField/`, and **225** of their
