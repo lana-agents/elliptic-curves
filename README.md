@@ -342,10 +342,29 @@ theorem ramificationIdxN_pos (n : ℕ)
 
 Same binder, same explicit-argument position in the conclusion, the same *"at every `n`"* clause
 naming nothing else. This section convicts the second by name above; `### Module-block bullets`
-clears the first by name below. Under the discriminator both are **reach** — `hn` is a condition on
-the index, and `xCoord_zero` makes it false at `n = 0` — so the second stays convicted and the first
-is convicted with it. ⚠️ **Neither is a sweep and neither is repaired here**: the two readings below
-are corrected where they stand, and the `residueDegreeN` row itself belongs to `#1616`.
+**used to clear** the first by name below, on the data-argument ground this section withdraws — at
+`5c3fce2^` that section read *"it is compliant for the other reason, that the declaration's one
+propositional binder is a data argument of the object the bullet is about"*. ⚠️ **The opposition is
+this argument's premise, and it belongs in the past tense**: PR #651 withdrew the ground, rewrote
+that section and wrote this sentence in **one** diff, so *"clears the first by name below"* was
+false at the commit that wrote it (`#1643`). What the pair is evidence of does not move — the
+document *had* decided two rows no such test can tell apart in opposite directions. Under the
+discriminator both are **reach** — `hn` is a condition on the index, and `xCoord_zero` makes it
+false at `n = 0` — so the second stays convicted and the first is convicted with it. ⚠️ **Neither
+is a sweep and neither is repaired here**: the two readings below are corrected where they stand,
+and the `residueDegreeN` row itself belongs to `#1616`.
+
+⚠️ **And the first has since been repaired there**, which is where the sentence above put it:
+`#1636` (PR #653) named the condition in the row — it now reads *"at every `n` at which `[n]` is
+non-constant"* — and `### Module-block bullets` below carries it as a **repaired** row, the
+conviction standing and the reading that drew it marked there as retired. ⚠️ **Nor are the two
+*"at every `n`"* clauses this pair is argued from alike, and neither of them is a live bullet
+today.** `residueDegreeN_none_eq_one`'s was one until PR #653 and is now a retired reading;
+`ramificationIdxN_pos`'s never was — the fenced *wrong* row above is written **for** this document,
+and that declaration's own bullet (`EllipticCurves.FunctionField.MulByNPlacePullback`) reads
+*"`…ramificationIdxN_pos` giving `0 < e_p`"* and carries no reach clause at all. So the pair argues
+a **clause form**, which is what the *right*/*wrong* rows above are for; the live row it touched is
+repaired, and `ramificationIdxN_pos` had nothing to repair.
 
 **One mechanical backstop is available, and it is worth running before arguing a row.** Where
 deleting the binder leaves the statement provable, it constrains nothing and there is no reach for
