@@ -74,11 +74,29 @@ an index hypothesis while the two above it have none.
   (`WeilPairingAlternatingWorkhorseN`) with its halving-point hypothesis **removed, not relocated**,
   over an arbitrary field at `3`-smooth `n`.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` —
-  `e_n(T, T) = 1` over an arbitrary field, so that `h2`, `3`-smoothness, the transcendence and
-  `hprin` are the whole hypothesis list; `hprin` is the only gate.
+  `e_n(T, T) = 1` over an arbitrary field, so that `h2`, `n ≠ 0`, `3`-smoothness, the
+  transcendence, the nonsingular `n`-torsion `T` and `hprin` are the whole hypothesis list;
+  `hprin` is the only gate.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange` — the same
-  with the transcendence discharged as well, so that `h2`, `h3`, `3`-smoothness and `hprin` are the
-  whole hypothesis list.
+  with the transcendence discharged as well, so that `h2`, `h3`, `n ≠ 0`, `3`-smoothness, the
+  nonsingular `n`-torsion `T` and `hprin` are the whole hypothesis list.
+  ⚠️ **Both of those two lists used to stop at `hprin`, naming neither `n ≠ 0` nor `T`, and the
+  `n ≠ 0` was not the same omission twice.**  In the first it *is* derivable from what the bullet
+  names — the transcendence is unsatisfiable at `n = 0`, where `(0 • 𝒫).xCoord` is `0` and hence
+  algebraic — so that row sat under `README.md`'s derivability exemption, whose price is that
+  *"the derivation is cited once in the module block"*, and no citation had been written.
+  ⚠️ In the second there is no exemption to use and the claim was **false**: `hfac` is *vacuously*
+  true at `n = 0` (`Nat.primeFactors 0 = ∅`) and neither `h2` nor `h3` says anything about the
+  index, so `n ≠ 0` followed from nothing the bullet named — while the statement consumes it, in
+  `transcendental_xCoord_nsmul_of_smooth h2 h3 hn0 hfac`.  Naming the hypothesis in both is
+  cheaper than citing a derivation in one, and it leaves the two rows making the same kind of claim
+  in the same register.  ⚠️ `T` is named rather than left to *"the setting"* (`README.md`
+  `### Gate-discharge claims`) because that register carries claims about **gates** and says in
+  terms that it *"is not a licence to say the signature is short"*; a totality claim about the
+  hypothesis list is the other kind of claim, so it has to carry the data too.
+  ⚠️ The **declaration headlines** of both statements were already compliant — each names
+  `3`-smooth `n ≠ 0` — and are untouched.  It was only this block that was short of them, which is
+  the layer `#1614` was filed on.
 * `WeierstrassCurve.Affine.translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange_of_ne_zero`
   and `…exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange_of_ne_zero` — the first two at
   **every** `n ≠ 0` (`#1549` group 2).  ⚠️ Despite the `_of_ne_zero` suffix,
