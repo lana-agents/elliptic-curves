@@ -337,7 +337,7 @@ into two registers, which is what `### Scope of the rules above` is for.
 
 ### Gate-discharge claims
 
-A second exemption is narrower still, and it has a different shape: it is not about which
+A third exemption is narrower still, and it has a different shape: it is not about which
 hypotheses a clause omits but about **what kind of claim the clause is making**.
 
 A **gate-discharge claim** says that a statement is owed *nothing further* — *"with `#E[p] = p²`
