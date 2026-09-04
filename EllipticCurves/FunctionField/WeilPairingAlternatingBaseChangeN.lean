@@ -92,8 +92,18 @@ an index hypothesis while the two above it have none.
   cheaper than citing a derivation in one, and it leaves the two rows making the same kind of claim
   in the same register.  ⚠️ `T` is named rather than left to *"the setting"* (`README.md`
   `### Gate-discharge claims`) because that register carries claims about **gates** and says in
-  terms that it *"is not a licence to say the signature is short"*; a totality claim about the
-  hypothesis list is the other kind of claim, so it has to carry the data too.
+  terms that it *"is not a licence to say the signature is short"*; and, more simply, because both
+  rows make a **count** claim, which `README.md` `### Module-block bullets` puts beyond the reach
+  of any register at all — *"A register says what a list omits.  It cannot make a count true."*
+  So *"the setting"* was never available to these two, whatever it turns out to cover.
+  ⚠️ **That ground is deliberately independent of whether `h` is a data argument** of
+  `pointClosedPoint h.left` (`#1631`, open): the data-argument clearance is a licence to omit a
+  binder, not a bar on naming one, so a count naming all seven explicit propositional binders is
+  true under either answer.  ⚠️ `EllipticCurves.Torsion.WronskianSeparable` was repaired on the
+  same **shape** of argument and a different ground (`#1620`, PR #647) — its bullet 3 makes no
+  gate-discharge claim at all, so the register is not in play there either.  That is a *reach* row
+  and these are *counting* rows, so the two grounds are not interchangeable: read what kind of
+  claim the row makes first, and which register can reach it follows.
   ⚠️ The **declaration headlines** of both statements were already compliant — each names
   `3`-smooth `n ≠ 0` — and are untouched.  It was only this block that was short of them, which is
   the layer `#1614` was filed on.
