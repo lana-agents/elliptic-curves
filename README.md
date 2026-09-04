@@ -193,9 +193,66 @@ one included.
 
 The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
 module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
-— so a reach clause need not list them. But a clause that *does* make an instance claim
-(*"with no `[IsAlgClosed F]`"*) is making a complete-list claim about instances, and then the
-same rule applies to those: name all of them or none.
+— so a reach clause need not list them.
+
+**A phrase that names one instance is a claim about that one instance and commits the clause to
+nothing else.** *"over `F̄`"* says `[IsAlgClosed F]` is in the declaration's instance list; *"with
+no `[IsAlgClosed F]`"* says it is not. Each is compliant exactly when it is true of the instance it
+names, and neither is a partial list, because the list is rendered beside the docstring — the
+reader is not consulting the phrase *instead of* the signature, which is what makes a partial
+**hypothesis** list a defect. So an instance mention is a defect only when it is **wrong about the
+instance it names**, and whether a block mentions one at all is a per-block uniformity question
+under `### Scope of the rules above`, not a defect question.
+
+**Name all of them or none binds a phrase that quantifies over the list, not one that names a member
+of it.** *"over an arbitrary field"* is a claim about every instance constraining `F` and is held to
+all of them: `translateEndo_eq_self_of_mul_algebraMap_cube_eq`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingThree`) carries `[Field F]`, `[W.IsElliptic]`
+and `[IsDedekindDomain W.CoordinateRing]`; the last two are conditions on the curve and not on `F`,
+so the claim holds. ⚠️ A totality phrase stated **relative to a named gate list** —
+*"unconditionally"*, *"with no hypothesis left"* — is a gate-discharge claim and is governed by
+`### Gate-discharge claims` below, not by this paragraph.
+
+⚠️ **The two directions are not equally safe, and that asymmetry is why any of this is written
+down.** doc-gen renders what a declaration *has*, so a presence mention is contradicted on its own
+page as soon as it goes stale, while an absence claim is contradicted by nothing a reader can see:
+adding one instance to a `variable` line silently falsifies every *"needs no `[…]`"* below it.
+`not_forall_det_eq_intCast_of_zsmul_add_zsmul`
+(`EllipticCurves.FunctionField.WeilPairingDeterminantLinear`) is the form to copy — it says *"needs
+neither `[IsAlgClosed F]` nor `[W.IsElliptic]`"* and records that the `omit` above it is measured
+rather than guessed, `unusedSectionVars` having reported both.
+
+⚠️ **The instance list is per declaration, not per `variable` block**, so check it there. `omit
+[DecidableEq F] in` removes an instance from the declaration below it, and a declaration may bind
+instances the block never had. In `EllipticCurves.FunctionField.MulByNFibre`,
+`card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero` and
+`fibre_comapProjPointN_eq_range_of_ne_zero` are 24 lines apart with different instance lists, and
+`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` binds `[Fintype (W.torsion n)]` in the
+statement. An instrument that reads the `variable` lines and stops gets all three wrong.
+
+⚠️ **This paragraph is not a third discriminator for the bullet list above.** It does not say that
+an instance mention looks like a reach clause and is not; it says the reach-clause rule never
+reached instances, so there is nothing for the *"or it names none"* branch to decide.
+
+⚠️ **Retired.** PR #613 (`#1137`), which first wrote this paragraph, ended it *"But a clause that
+does make an instance claim (with no [IsAlgClosed F]) is making a complete-list claim about
+instances, and then the same rule applies to those: name all of them or none."* Read literally that
+convicts every headline that names one instance and not the rest —
+`card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNFibre`) says *"over `F̄`"* and carries `[W.IsElliptic]` and
+`[IsDedekindDomain W.CoordinateRing]` unnamed beside it. The paragraphs above replace it: a
+**mention** is a single-membership claim, and only a phrase quantifying over the list inherits
+*name all of them or none*.
+
+Two alternatives were weighed and rejected on a measurement of the tree at `681c146`, where **621**
+documented declarations carry `[IsAlgClosed …]` in their effective instance list, **163** name the
+closure in the headline, and **45** of the **116** files holding such a declaration are split.
+Requiring the mention, and then every instance beside it, moves **458** headlines and needs a policy
+for `omit`ted and per-declaration instances; forbidding the mention moves **163** and deletes
+*"over `F̄`"* from statements that are false without it. Both replace phrases that are true where
+they stand with a rule to be re-derived at every row, and the census found **no headline naming a
+closure the declaration does not have** — so on the mention side the class this ruling calls a
+defect is, today, empty, and neither alternative would have paid off a single wrong claim.
 
 The rule binds every **explicit** hypothesis, with one narrow exemption: a clause may omit a
 hypothesis that is **derivable from the hypotheses the clause does name**, since such a hypothesis
