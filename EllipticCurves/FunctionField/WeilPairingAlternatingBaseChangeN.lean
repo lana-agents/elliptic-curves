@@ -246,7 +246,8 @@ above with `hfac` deleted and **no index condition put in its place**.
 through the `ΨSq`-root dictionary.  The `example` below compiles the containment. -/
 
 open Classical in
-/-- **Translation by `T` fixes the `n`-th root, over an arbitrary field, at every `n ≠ 0`.**
+/-- **Translation by `T` fixes the `n`-th root, over an arbitrary field with `(2 : F) ≠ 0`, at
+every `n ≠ 0` with a non-constant `[n]∗`.**
 
 `translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange` with `hfac` removed and nothing put
 in its place.  The proof is that one with the halving point produced by

@@ -267,9 +267,9 @@ section IsAlgClosed
 variable [IsAlgClosed F]
 
 open Classical in
-/-- **The commutation over `F̄`, for every `n ≠ 0`.**  The transcendence hypothesis is discharged by
-the merged `transcendental_xCoord_nsmul_of_isAlgClosed`, so the only remaining input is the
-relation `[n]P = T`. -/
+/-- **The commutation over `F̄` with `(2 : F) ≠ 0`, for every `n ≠ 0`.**  The transcendence
+hypothesis is discharged by the merged `transcendental_xCoord_nsmul_of_isAlgClosed`, so the
+relation `[n]P = T` is the only gate left. -/
 theorem translateEndo_mulByNEndoOfAlgClosed_apply (hP : W.Equation xP yP) (hT : W.Equation xT yT)
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)
     (hmul : n • translatePoint hP = translatePoint hT) (f : W.FunctionField) :
