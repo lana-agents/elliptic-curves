@@ -504,11 +504,16 @@ One file shows the reach half in both directions, and both readings are decided 
 rather than argued:
 
 * **Reached.** `MulByNFibre`'s register is the first bullet of its `### The general layer` sub-list.
-  The bullet three rows below it reads *"…`comapProjPointN_add_torsion_of_ne_zero`, and **over
+  The bullet five rows below it reads *"…`comapProjPointN_add_torsion_of_ne_zero`, and **over
   `F̄`** `…card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero`, …"* — a reach clause naming the
   instance and nothing else, over a signature binding `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` as well.
   Those are the two the register names, so the bullet is compliant relative to it, and repairing the
-  row in place would mean repairing all thirteen.
+  row in place would mean repairing all thirteen. ⚠️ **The register is not the whole account of that
+  row, and a reach verdict is owed one for every binder.** That signature binds a third hypothesis,
+  the transcendence `h`, which the register does not name; it clears for the reason the
+  `residueDegreeN` reading below gives — the statement is about
+  `finite_comapProjPointN_preimage_singleton n h …` and does not typecheck without it, so `h` is a
+  data argument of the object the bullet is about rather than a hypothesis the clause is short of.
 * **Not reached.** The **outer** `## Main statements` list higher up the same docstring is a
   different block. Its own head is *"⚠️ Every public declaration of this file is listed"* and
   declares no register, so its bullets are read against that and get nothing from the sub-list below
