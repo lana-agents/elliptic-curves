@@ -450,6 +450,69 @@ hypothesis list are different kinds of claim, not two dialects of one, so a bloc
 provided each row is compliant on its own terms; what it must not hold is two rows making the
 **same** kind of claim in different registers.
 
+⚠️ **And *"the setting"* does not reach a clause that makes no gate-discharge claim.** The question
+was filed as `#1626` against thirteen `WeilPairing*` module bullets whose reach clauses — *"at every
+`3`-smooth `n ≠ 0`"*, *"at every `n` with `((n : ℤ) : F) ≠ 0`"*, *"over an arbitrary field"* — stand
+over signatures binding points, their torsion, a halving point and `hprin` besides. The answer is
+**no**, on two independent grounds, and it adds no exemption and withdraws none.
+
+* **This exemption is keyed on the kind of claim, not on which hypotheses a clause omits** — the
+  paragraph opening this section says exactly that. *"The setting"* supplies the **subject** of a
+  gate-discharge word; a clause carrying no such word has no subject to supply, and there is nothing
+  for the term to do. That is the asymmetry `### Module-block bullets` below turns on: a
+  gate-discharge word *"is visibly relative to something"*, and a bare reach clause carries no
+  signal at all. It is *"not a licence to say the signature is short"* read at its own layer, since
+  the licence those thirteen rows need is the one that sentence refuses.
+* **And on this front there is no such register to read them against.** A nesting-aware comment
+  scanner — one that tracks `/-` nesting and tells `/-!` from `/--`, since these files carry later
+  `/-! … -/` section blocks, so a line below the module block need not be in a declaration
+  docstring — puts every occurrence of *"the setting"* in these seven files inside a declaration
+  docstring, with one module block excepted: `WeilPairingAlternatingBaseChangeN`'s, where the phrase
+  occurs only in sentences **declining** the register, not declaring one. ⚠️ **No count is written
+  here on purpose**: one docstring moves any number, and what carries the argument is that no module
+  block on this front **declares** such a register. Under `### Scope of the rules above` a module
+  list and the file's headlines are two blocks, and by `### Module-block bullets`' *"the traffic
+  runs one way"* a headline repairs no bullet. So a **yes** would have cleared none of the thirteen
+  either; the two answers differ only in what they license next.
+
+**Twelve of the thirteen are therefore defects**, and the repair is the `DeterminantModGeneral`
+opener `### Module-block bullets` names — one **reach register** at the head of each of the six
+lists — not thirteen rewritten bullets. The thirteenth,
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective`'s *"for **every** `S`, every
+rung-5 root and every certificate"*, clears outright and **not on this ruling**:
+`not_injective_weilPairingTorsionMuHom_two` binds `h2`, `hgS` and `hu` and nothing else, all three
+are direct arguments of `weilPairingTorsionMuHom_two h2 hgS hu`, a `MonoidHom` and not a `Prop`, and
+the residue is empty. `…_three` is the same with `h3`. ⚠️ `#1626`'s own table reports that row as
+short of `hu` and an anonymous binder; the signature binds no anonymous explicit propositional
+binder, and two further rows of that table are joined to
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`, which those two bullets **cite** and
+are not about. **Re-derive a row before repairing it** — the join is where these tables go wrong,
+and a triage set inherited is a triage set unread.
+
+⚠️ **This is the answer PR #643 (`#1619`) already gave one layer up, and the two repairs differ for
+a reason stated above.** #643 named `h` and `htors` in two bullets of
+`WeilPairingAlternatingBaseChangeN` rather than leaving them to the setting. Those rows say the
+conditions they list *"are the whole hypothesis list"* — a **count** — and *"a register says what a
+list omits. It cannot make a count true."* So a head-of-list register was unavailable there and
+naming in-row was forced. The twelve make **reach** claims, which a register does reach. Two blocks
+in different registers on one question is what `### Scope of the rules above` forbids; two kinds of
+claim repaired the two ways this document already prescribes is not.
+
+⚠️ **What this does not decide.** *"The data the statement is about"* is a phrase in this section's
+description of a **gate list**. It is not a second route to clearing a data hypothesis from a reach
+clause: that job belongs to the data-argument clearance in `### Reach clauses` above, which has its
+own test, whether the object the bullet is about typechecks without the binder, and which
+`### Module-block bullets` applies to a bullet exactly as to a headline. Read as such a route it
+would clear `htors`, `hPT`, `hS` and `hm₂`, which no object in any of these conclusions takes, and
+it would swallow `(2 : F) ≠ 0`, which `### Reach clauses` names as reach in terms. ⚠️ Nor does it
+settle whether a binder reaching the conclusion only through a **projection**
+(`pointClosedPoint h.left` over `h : W.Nonsingular xT yT`) is a data argument: it is one on this
+document's plain words and is not one under the direct-argument mechanisation, and the two split
+`exists_weilPairingElt_galois_of_smooth_of_hprin` from its `Mu` twin in the same file — the first
+binds the `Equation` and the second the `Nonsingular`. ⚠️ **Neither reading changes the verdict on
+any of the twelve** — each keeps `hprin`, a torsion hypothesis or
+`(2 : F) ≠ 0` in its residue on both. It is filed as `#1631`, not answered here.
+
 ### Module-block bullets
 
 A `## Main statements` / `## Main results` bullet makes the same kind of claim, about the same
