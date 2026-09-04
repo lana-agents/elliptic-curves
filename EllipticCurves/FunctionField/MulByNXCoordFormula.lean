@@ -100,7 +100,8 @@ headline below that makes a hypothesis-list claim carries it.
 
 * `WeierstrassCurve.Affine.CoordinateRing.eval_ΨSq_genX_ne_zero` : `ΨSqₙ(genX) ≠ 0`.
 * `WeierstrassCurve.Affine.CoordinateRing.xCoord_nsmul_genericPoint` : **the coordinate formula at
-  the generic point**, `x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)`, at every index with `((n : ℤ) : F) ≠ 0`.
+  the generic point**, `x(n • 𝒫) = Φₙ(genX)/ΨSqₙ(genX)`, with `(2 : F) ≠ 0`, at every index with
+  `((n : ℤ) : F) ≠ 0`.
 * `…CoordinateRing.transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` : the transcendence
   hypothesis, with no algebraic closure.
 * `WeierstrassCurve.Affine.CoordinateRing.nMulRatFunc_eq_ΦDivΨSq` : **gate 1**, discharged.

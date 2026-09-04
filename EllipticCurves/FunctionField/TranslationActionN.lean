@@ -122,10 +122,12 @@ Every public declaration of this file is listed, and all are in namespace
   `E[n]`, and its injectivity;
 * the `MulSemiringAction (TorsionNMul W n) F(W)` and `FaithfulSMul` instances, with the `@[simp]`
   unfolding lemmas `translateAutNHom_apply` and `torsionNMul_smul_def`;
-* `card_torsionNMul` — `Nat.card (TorsionNMul W n) = n ^ 2` at every `3`-smooth `n ≠ 0` over `F̄`;
+* `card_torsionNMul` — `Nat.card (TorsionNMul W n) = n ^ 2` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`,
+  at every `3`-smooth `n ≠ 0` over `F̄`;
 * `finite_torsionNMul` — finiteness at the same indices;
-* `card_torsionNMul_of_ne_zero` and `finite_torsionNMul_of_ne_zero` — the same two at **every** `n`
-  with `(n : F) ≠ 0`, with no `(3 : F) ≠ 0` and no smoothness (`#1523`);
+* `card_torsionNMul_of_ne_zero` and `finite_torsionNMul_of_ne_zero` — the same two with
+  `(2 : F) ≠ 0`, at **every** `n` with `(n : F) ≠ 0`, with no `(3 : F) ≠ 0` and no smoothness
+  (`#1523`);
 * `translateAut_mulByNEndo` — translation by an `n`-torsion **point of `W`** fixes `[n]∗f`, the
   `O` case included;
 * `mulByNEndo_mem_fixedPoints` and `mulByNRange_le_fixedPoints` — `[n]∗F(W) ⊆ Fixed(E[n])`.

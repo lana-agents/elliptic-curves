@@ -66,7 +66,8 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
 * `…comapProjPointN_two_pow_mul_three_pow_projPointOfPoint` — the double induction, at an index
   presented as `2 ^ a * 3 ^ b`;
 * **`…comapProjPointN_projPointOfPoint_of_smooth`** — the headline, `comapProjPointN n h
-  (projPointOfPoint P) = projPointOfPoint (n • P)` at every `3`-smooth `n ≠ 0`;
+  (projPointOfPoint P) = projPointOfPoint (n • P)` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at every
+  `3`-smooth `n ≠ 0`;
 * `…projPointOfPoint_add_injective` — `R ↦ P ⊕ R` is injective into the places, at **every** `n`
   and with no hypothesis on `F`.  ⚠️ The merged `…_two` and `…_three` forms of this carry an index
   that their proof never uses;
@@ -77,7 +78,9 @@ about is closed under the map.  ⚠️ A reader who reads this file as *"`#1214`
   `…pullbackDivisorN_single_projPointOfPoint` (`[n]∗(S) = ∑_{p ↦ S} (p)`) and
   `…pullbackDivisorN_single_eq_sum_torsion` (`[n]∗(S) = ∑_{R ∈ E[n]} (P ⊕ R)`).
 * ⚠️ `card_fibre_comapProjPointN_le_sq_of_ne_zero` and `card_fibre_comapProjPointN_le_sq_five` —
-  the fibre bound `≤ n²` over `F̄` at every `n` with `(n : F) ≠ 0` (`#1523` item 4).  ⚠️ **This
+  the fibre bound `≤ n²` over `F̄`, with `(2 : F) ≠ 0`, at every `n` with `(n : F) ≠ 0` (`#1523`
+  item 4).  ⚠️ The second is the first at `n = 5`, so the index condition it binds is
+  `(5 : F) ≠ 0`; it is that clause at that index and not a further hypothesis.  ⚠️ **This
   bullet used to call it *"the only statement in this file that lifts"*.**  It was, and it is not:
   it is the only one that lifted *off the fundamental identity alone*, and the seven below lift
   off the coordinate formulas.

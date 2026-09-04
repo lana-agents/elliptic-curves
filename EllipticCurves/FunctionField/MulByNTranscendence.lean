@@ -64,7 +64,8 @@ with **no** use of the `y`-coordinate division polynomial `ωₙ`, of the genera
 * `…nsmul_genericPoint_ne_torsionPointMap` — `n • 𝒫` is not a constant point, given one base-field
   point that is not `n`-torsion.
 * `…transcendental_xCoord_nsmul_genericPoint` — the criterion, in the form `mulByNEndo` consumes.
-* `…exists_nsmul_ne_zero_of_isAlgClosed` — over `F̄` with `2 ≠ 0`, a point that is not `n`-torsion.
+* `…exists_nsmul_ne_zero_of_isAlgClosed` — over `F̄` with `2 ≠ 0`, at every `n ≠ 0`, a point that
+  is not `n`-torsion.
 * `…mulByNEndoOfAlgClosed` — `[n]∗` over `F̄`, unconditionally in `n ≠ 0`.
 
 ## References

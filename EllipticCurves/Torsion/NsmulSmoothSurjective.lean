@@ -73,8 +73,8 @@ surviving obstruction should not stop here.
 
 * `WeierstrassCurve.Affine.exists_two_pow_mul_three_pow_nsmul_eq` — the double induction, at an
   index presented as `2 ^ a * 3 ^ b`;
-* **`WeierstrassCurve.Affine.exists_nsmul_eq_of_smooth`** — the headline, `∃ P, n • P = Q` at every
-  `3`-smooth `n ≠ 0`;
+* **`WeierstrassCurve.Affine.exists_nsmul_eq_of_smooth`** — the headline, `∃ P, n • P = Q` with
+  `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0`;
 * `WeierstrassCurve.Affine.nsmul_surjective_of_smooth` — the same as a `Function.Surjective`, the
   form `EllipticCurves.Torsion.Divisible`'s `torsionSmulHom_surjective` and
   `EllipticCurves.Torsion.PrimaryTower`'s `card_torsion_pow_of_surjective` consume.

@@ -79,6 +79,11 @@ through the tower.
 Every public declaration of this file is listed: **6 public, 2 private** (`exampleTwoOdd`,
 `exampleFive`, the two field certificates the non-vacuity `example`s at the bottom use).
 
+⚠️ **Every statement below takes `(2 : F) ≠ 0`, and every one takes the non-vanishing of its own
+index in `F`** — `(p : F) ≠ 0` on the four `pᵏ` rows, `(n : F) ≠ 0` on the last two.  The bullets
+give the conclusions and the parity of the index, and are read against this sentence for those
+two.
+
 * `WeierstrassCurve.Affine.card_torsion_pow_of_odd` : `#E[pᵏ] = (pᵏ)²` at odd `p`, no `hcard`.
 * `WeierstrassCurve.Affine.finite_torsion_pow_of_odd` : `E[pᵏ]` is finite, at odd `p`.
 * `WeierstrassCurve.Affine.card_torsion_pow_mul_self_of_odd` : the same count as `pᵏ · pᵏ`, the
