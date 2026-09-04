@@ -72,8 +72,8 @@ instead by the `Recovery` block, which derives all six merged statements *throug
 * the three `…_of_smooth_of_hprin` corollaries, with the non-constancy hypothesis **discharged** at
   every `3`-smooth `n ≠ 0`.  These are the first rung-6 statements on this board that reach an index
   other than `2` and `3`;
-* the three `…_of_ne_zero_of_hprin` corollaries — **the same at every `n` with `(n : F) ≠ 0`**
-  (`#1549`), the transcendence coming from
+* the three `…_of_ne_zero_of_hprin` corollaries — **the same at every `n` with
+  `((n : ℤ) : F) ≠ 0`** (`#1549`), the transcendence coming from
   `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ `n = 5` and `n = 10` are here, so these
   are the first rung-6 statements that reach an index outside the `3`-smooth class; the
@@ -115,8 +115,9 @@ this.
   here"*.  It has now been measured (`#1549`): **the ceiling was the transcendence and nothing
   else**, and `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`, `#1213`) has proved it at every `n` with
-  `(n : F) ≠ 0` all along.  The three `…_of_ne_zero_of_hprin` statements below are the consequence,
-  and the cost of the correction was **one `import`** — that file was cited here and not consumed.
+  `((n : ℤ) : F) ≠ 0` all along.  The three `…_of_ne_zero_of_hprin` statements below are the
+  consequence, and the cost of the correction was **one `import`** — that file was cited here and
+  not consumed.
   ⚠️ `#1184` is **not** behind this ceiling and never was; it gates `isCoprime_ΨSq_adjacent` over an
   arbitrary commutative ring.
 * **Non-degeneracy is untouched**, and stays over `F̄`: there `[IsAlgClosed F]` is load-bearing and
@@ -421,8 +422,8 @@ beyond the setting.**  `exists_weilPairingElt_translatePoint_add_n_of_hprin` wit
 
 ⚠️ **This statement** does not cover `n = 5`: the argument that supplies its transcendence
 manufactures no new prime.  ⚠️ **The file does** — `…_of_ne_zero_of_hprin` below is the same
-conclusion at every `n` with `(n : F) ≠ 0`, and this one is a corollary of it, compiled in the
-`example` beside it.  It is kept as an independent route. -/
+conclusion at every `n` with `((n : ℤ) : F) ≠ 0`, and this one is a corollary of it, compiled in
+the `example` beside it.  It is kept as an independent route. -/
 theorem exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
@@ -445,7 +446,7 @@ theorem exists_weilPairingElt_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F
 
 open Classical in
 /-- **Additivity of the Weil-pairing element in the translation slot at every `n` with
-`(n : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** —
+`((n : ℤ) : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** —
 `exists_weilPairingElt_translatePoint_add_n_of_hprin` with `hn` discharged by
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth degree tower.
@@ -535,7 +536,8 @@ theorem exists_weilPairingMu_translatePoint_add_of_smooth_of_hprin (h2 : (2 : F)
 
 open Classical in
 /-- **Additivity of the `μ_n`-valued pairing in the translation slot at every `n` with
-`(n : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same substitution. -/
+`((n : ℤ) : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same
+substitution. -/
 theorem exists_weilPairingMu_translatePoint_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
     {xP yP xQ yQ xR yR xS yS : F} (hP : W.Nonsingular xP yP) (hQ : W.Nonsingular xQ yQ)
@@ -584,8 +586,8 @@ theorem exists_weilPairingTorsionMuHom_of_smooth_of_hprin (h2 : (2 : F) ≠ 0) (
   exists_weilPairingTorsionMuHom_n_of_hprin _ hS hmS hprin
 
 open Classical in
-/-- **The `μ_n`-valued homomorphism out of `E[n]` at every `n` with `(n : F) ≠ 0`** — the bundled
-form of the two theorems above, by the same substitution and nothing else. -/
+/-- **The `μ_n`-valued homomorphism out of `E[n]` at every `n` with `((n : ℤ) : F) ≠ 0`** — the
+bundled form of the two theorems above, by the same substitution and nothing else. -/
 theorem exists_weilPairingTorsionMuHom_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) {xS yS : F}
     (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion n)

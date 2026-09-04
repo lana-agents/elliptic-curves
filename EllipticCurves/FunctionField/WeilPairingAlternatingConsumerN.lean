@@ -56,7 +56,7 @@ affine point instead of `n` of them.
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth` — the same at every `3`-smooth `n ≠ 0`,
   with the transcendence hypothesis discharged;
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_ne_zero` — **the same at every `n` with
-  `(n : F) ≠ 0`** (`#1549`), the transcendence coming from
+  `((n : ℤ) : F) ≠ 0`** (`#1549`), the transcendence coming from
   `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than from the `3`-smooth degree tower.
   ⚠️ `n = 5` and `n = 10` are here, and the `_of_smooth` form is a corollary of it — the `example`
@@ -151,8 +151,8 @@ hypotheses beyond the setting.
 
 ⚠️ **This statement** does not cover `n = 5` — the argument that supplies its transcendence
 manufactures no new prime — but **the file does**: `…_of_ne_zero` below is the same conclusion at
-every `n` with `(n : F) ≠ 0`, and this one is a corollary of it (`#1549`).  ⚠️ It is kept because
-its transcendence comes by composing `[2]` and `[3]` and consumes no division polynomial: an
+every `n` with `((n : ℤ) : F) ≠ 0`, and this one is a corollary of it (`#1549`).  ⚠️ It is kept
+because its transcendence comes by composing `[2]` and `[3]` and consumes no division polynomial: an
 independent route, not dead weight. -/
 theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
@@ -167,8 +167,8 @@ theorem translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth
   translateEndo_eq_self_of_mul_algebraMap_pow_eq hnz _ hP hT hmul hg hc hc₀ htel hpow
 
 open Classical in
-/-- **The affine workhorse at every `n` with `(n : F) ≠ 0`**, with the transcendence hypothesis
-discharged by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+/-- **The affine workhorse at every `n` with `((n : ℤ) : F) ≠ 0`**, with the transcendence
+hypothesis discharged by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth ladder, and with
 the telescoping product `htel`, the `n`-th-root relation `hpow` and their non-vanishing side
 conditions `hg`, `hc`, `hc₀` the only hypotheses beyond the setting.

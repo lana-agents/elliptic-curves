@@ -83,7 +83,7 @@ places, and a reader who carries the paragraph above across to the `_of_smooth` 
 exactly backwards.  Each statement says which is which.
 
 ⚠️ **And that half is paid** (`#1549`): `exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero`
-below is the arbitrary-field statement at every `n` with `(n : F) ≠ 0`, off
+below is the arbitrary-field statement at every `n` with `((n : ℤ) : F) ≠ 0`, off
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`), and the `_of_smooth` form is a corollary of it
 — compiled in the `example` beside it, not asserted.
@@ -101,8 +101,8 @@ overstate the arbitrary-field reach.  Each statement says which is which.
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth`** — the same
   over an arbitrary field at `3`-smooth `n ≠ 0`, with the transcendence discharged;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_ne_zero`** — the same
-  over an arbitrary field at every `n` with `(n : F) ≠ 0` (`#1549`), the transcendence coming from
-  `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  over an arbitrary field at every `n` with `((n : ℤ) : F) ≠ 0` (`#1549`), the transcendence
+  coming from `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`); ⚠️ the `_of_smooth` form above is a
   corollary of it, compiled in the `example` beside them;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`** — over
@@ -307,9 +307,9 @@ The core with `hn` supplied by `transcendental_xCoord_nsmul_of_smooth`
 ⚠️ **For this corollary the unreachable `n = 5` is the transcendence**, as for every other
 `_of_smooth` statement on this front: the degree tower that supplies
 `Transcendental F (n • 𝒫).xCoord` manufactures no new prime.  ⚠️ **That obstruction is discharged
-one theorem below** — `…_of_hprin_n_of_ne_zero` is this statement at every `n` with `(n : F) ≠ 0`,
-and this one is a corollary of it.  It is kept as an independent route: its transcendence consumes
-no division polynomial.
+one theorem below** — `…_of_hprin_n_of_ne_zero` is this statement at every `n` with
+`((n : ℤ) : F) ≠ 0`, and this one is a corollary of it.  It is kept as an independent route: its
+transcendence consumes no division polynomial.
 
 ⚠️ Its neighbour `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` stops at `5` for the
 *other* reason — there the transcendence is general in `n ≠ 0` and it is the **halving point** that
@@ -334,8 +334,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth (h2 : (2 : F) ≠
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hPT hprin
 
 open Classical in
-/-- **`e_n(T, T) = 1` at every `n` with `(n : F) ≠ 0`, over an arbitrary field**, with the halving
-point still a hypothesis.
+/-- **`e_n(T, T) = 1` at every `n` with `((n : ℤ) : F) ≠ 0`, over an arbitrary field**, with the
+halving point still a hypothesis.
 
 The core with `hn` supplied by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than by the `3`-smooth degree tower,

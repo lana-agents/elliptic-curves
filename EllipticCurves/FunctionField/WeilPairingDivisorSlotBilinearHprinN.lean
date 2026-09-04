@@ -83,8 +83,8 @@ the right thing to cite at `n = 2, 3`, their proofs do not route through the gen
   function field and in `μ_n(F)`.
 * `…_of_smooth_of_hprin` for each, with the non-constancy hypothesis discharged at every `3`-smooth
   `n ≠ 0`.  ⚠️ Those two do not reach `n = 5`: the argument manufactures no new prime.
-* `…_of_ne_zero_of_hprin` for each — **the same at every `n` with `(n : F) ≠ 0`** (`#1549`), the
-  transcendence coming from `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+* `…_of_ne_zero_of_hprin` for each — **the same at every `n` with `((n : ℤ) : F) ≠ 0`** (`#1549`),
+  the transcendence coming from `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ `n = 5` and `n = 10` are here, and the
   `_of_smooth` pair is a corollary — compiled in the `example` beside them, not asserted.
 
@@ -294,8 +294,8 @@ the setting.**  `exists_weilPairingElt_divisorSlot_add_n_of_hprin` with `hn` dis
 
 ⚠️ **This statement** does not cover `n = 5`: the argument that supplies its transcendence
 manufactures no new prime.  ⚠️ **The file does** — `…_of_ne_zero_of_hprin` below is the same
-conclusion at every `n` with `(n : F) ≠ 0`, and this one is a corollary of it.  It is kept as an
-independent route: its transcendence consumes no division polynomial. -/
+conclusion at every `n` with `((n : ℤ) : F) ≠ 0`, and this one is a corollary of it.  It is kept
+as an independent route: its transcendence consumes no division polynomial. -/
 theorem exists_weilPairingElt_divisorSlot_add_of_smooth_of_hprin (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     {xP yP xS yS xT yT xR yR : F} (hP : W.Nonsingular xP yP) (hS : W.Nonsingular xS yS)
@@ -327,8 +327,8 @@ theorem exists_weilPairingElt_divisorSlot_add_of_smooth_of_hprin (h2 : (2 : F) �
 
 
 open Classical in
-/-- **Additivity of the Weil-pairing element in the divisor slot at every `n` with `(n : F) ≠ 0`,
-with `hprin` the only hypothesis beyond the setting** —
+/-- **Additivity of the Weil-pairing element in the divisor slot at every `n` with
+`((n : ℤ) : F) ≠ 0`, with `hprin` the only hypothesis beyond the setting** —
 `exists_weilPairingElt_divisorSlot_add_n_of_hprin` with `hn` discharged by
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) instead of by the `3`-smooth degree tower.
@@ -445,8 +445,9 @@ theorem exists_weilPairingMu_divisorSlot_add_of_smooth_of_hprin (h2 : (2 : F) �
   exists_weilPairingMu_divisorSlot_add_n_of_hprin _ hP hS hT hR hmP hmS hmT hadd hprin
 
 open Classical in
-/-- **Additivity of the `μ_n`-valued pairing in the divisor slot at every `n` with `(n : F) ≠ 0`**
-— the `weilPairingMu` companion of the theorem above, by the same substitution. -/
+/-- **Additivity of the `μ_n`-valued pairing in the divisor slot at every `n` with
+`((n : ℤ) : F) ≠ 0`** — the `weilPairingMu` companion of the theorem above, by the same
+substitution. -/
 theorem exists_weilPairingMu_divisorSlot_add_of_ne_zero_of_hprin (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
     {xP yP xS yS xT yT xR yR : F} (hP : W.Nonsingular xP yP) (hS : W.Nonsingular xS yS)
