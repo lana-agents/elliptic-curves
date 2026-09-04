@@ -74,7 +74,8 @@ an index hypothesis while the two above it have none.
   (`WeilPairingAlternatingWorkhorseN`) with its halving-point hypothesis **removed, not relocated**,
   over an arbitrary field at `3`-smooth `n`.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` —
-  `e_n(T, T) = 1` over an arbitrary field with `hprin` the only gate.
+  `e_n(T, T) = 1` over an arbitrary field, so that `h2`, `3`-smoothness, the transcendence and
+  `hprin` are the whole hypothesis list; `hprin` is the only gate.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange` — the same
   with the transcendence discharged as well, so that `h2`, `h3`, `3`-smoothness and `hprin` are the
   whole hypothesis list.
@@ -167,12 +168,14 @@ theorem translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange (h2 : (2 :
 /-! ### The assembly over an arbitrary field -/
 
 open Classical in
-/-- **`e_n(T, T) = 1` at an arbitrary `n` over an arbitrary field**, with `hprin` (`#418`) the only
-gate.
+/-- **`e_n(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0` with a
+non-constant `[n]∗`**, with `hprin` (`#418`) the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n` (`WeilPairingAlternatingAssemblyN`) is this statement
-with the halving point `[n]P = T` added as a hypothesis; the hypotheses and the conclusion are
-otherwise identical, and the proof is that one with gate B replaced by its descended form. -/
+with the halving point `[n]P = T` added as a hypothesis **and `h2` and `hfac` dropped**: those two
+are what the descent spends over `F̄` to produce the halving point it no longer takes, so the
+explicit hypothesis lists are *not* otherwise identical.  The conclusions are.  The proof is that
+one with gate B replaced by its descended form. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hn0 : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
