@@ -232,11 +232,24 @@ variable {F : Type*} [Field F] {W : Affine F} [IsDedekindDomain W.CoordinateRing
 /-! ### The relative residue degree of `[n]∗`
 
 ⚠️ Not defined here.  `residueDegreeN`, its tower formula
-`residueDegreeProj_mul_residueDegreeN`, `residueDegreeN_none_eq_one` (`f_∞ = 1` at **every** `n`)
-and the consistency pair `residueDegreeN_two` / `residueDegreeN_three` are
-`EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which this file imports; the
-`φ`-congruence they are proved by is `residueDegreeComap_congr`
-(`EllipticCurves.FunctionField.PlaceResidueComap`).  Everything below consumes them. -/
+`residueDegreeProj_mul_residueDegreeN`, `residueDegreeN_none_eq_one` (`f_∞ = 1`, at every `n` at
+which `[n]` is non-constant) and the consistency pair `residueDegreeN_two` /
+`residueDegreeN_three` are `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which
+this file imports; the `φ`-congruence they are proved by is `residueDegreeComap_congr`
+(`EllipticCurves.FunctionField.PlaceResidueComap`).  Everything below consumes them.
+
+⚠️ **The index clause is quoted from the defining module, not paraphrased** (`#1652`).  It read
+*"`f_∞ = 1` at every `n`"* here from `4a30e82` (`#1221`) until now; PR #653 (`#1636`) repaired
+that same claim where the declaration lives, because `residueDegreeN_none_eq_one` binds
+`hn : Transcendental F (n • genericPoint).xCoord` and `xCoord_zero` makes it false at `n = 0`, so
+a clause naming the index range and not `hn` is the omission `README.md` `### Reach clauses`
+convicts by name in `ramificationIdxN_pos` — over the same binder in the same argument position.
+⚠️ **A reach clause is answerable in the file that writes it**, wherever the declaration lives: a
+repaired bullet and a register at the head of a `## Main *` list sit in the defining module's own
+docstring and reach that list, so a fortiori they do not reach a sentence in an importing file, and
+a citation restating an imported statement's reach names that statement's whole hypothesis list
+itself or names none of it.  `README.md` `### Module-block bullets`' *"The traffic runs one way"*
+is the in-file form of the same direction. -/
 
 namespace CoordinateRing
 
