@@ -56,12 +56,29 @@ trivial at infinity, at `3`-smooth `n`"*: the second half is true much more wide
 * `…residueDegreeProj_mul_residueDegreeN` — the tower formula `[κ([n]⁻¹ p) : F] · f_p = [κ(p) : F]`;
 * `…residueDegreeN_eq_one_of_residueDegreeProj_eq_one` — at a place rational over `F`, `[n]∗` is
   residually trivial;
-* **`…residueDegreeN_none_eq_one`** — `f_∞ = 1`, at every `n`, unconditionally, together with its
-  companion `…residueDegreeProj_comapProjPointN_none_eq_one` for the place below;
+* **`…residueDegreeN_none_eq_one`** — `f_∞ = 1`, at every `n` at which `[n]` is non-constant,
+  unconditionally, together with its companion
+  `…residueDegreeProj_comapProjPointN_none_eq_one` for the place below;
 * `…residueDegreeN_eq_one` — over an algebraically closed base field, `f_p = 1` at *every* place and
-  every `n`;
+  every `n` at which `[n]` is non-constant;
 * `…residueDegreeN_two` and `…residueDegreeN_three` — the general-`n` layer agrees with the merged
   `residueDegreeTwo` and `residueDegreeThree`.
+
+⚠️ **The non-constancy is named in those two rows and in no other, because no other row makes a
+claim about which `n` are reached.**  It is the explicit `hn` that every declaration listed above
+binds except `…residueDegreeN_two` and `…residueDegreeN_three`, and `xCoord_zero` makes it false at
+`n = 0` — so a clause reading *"at every `n`"* over one of the others is short on the index axis,
+which is the omission `README.md` `### Reach clauses` convicts by name in `ramificationIdxN_pos`,
+over the same binder in the same argument position.  ⚠️ The first of the two used to be cleared in
+`README.md` on the ground that `hn` is a **data argument** of `residueDegreeN n hn p`; `#1631`
+withdrew that reading — the discriminator is what the condition is *about*, and `hn` is about the
+index however the conclusion consumes it (`#1636`).
+⚠️ **No head-of-list register is written**, and the `DeterminantModGeneral` form
+(`README.md` `### Module-block bullets`) is not the repair here: `…residueDegreeN_two` and
+`…residueDegreeN_three` bind no transcendence — they take `(2 : F) ≠ 0`, the second `(3 : F) ≠ 0`
+as well, and derive it — so a register saying every statement below takes it would be false of the
+last row, and the two rows heading the list make no claim about which fields or indices are
+reached.
 
 ## What is *not* here
 
