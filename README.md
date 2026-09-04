@@ -453,57 +453,103 @@ provided each row is compliant on its own terms; what it must not hold is two ro
 ### Module-block bullets
 
 A `## Main statements` / `## Main results` bullet makes the same kind of claim, about the same
-declaration, as that declaration's headline does. The two registers above therefore reach it — but
-the reader is in a different position, and one clause of the boundary above **inverts**.
+declaration, as that declaration's headline does. The two registers above therefore reach it, and
+`### Scope of the rules above` below scopes this section as it scopes them — but the reader is in a
+different position, and one clause of that section, *"Declaration headlines are reach clauses too"*,
+**inverts** here.
 
-**A bullet is read inside its own list.** *"Declaration headlines are reach clauses too"* under
-`### Scope of the rules above` is justified by rendering distance: doc-gen prints the rest of *this*
-docstring beside a headline and the module block nowhere near it, so a completing sentence in the
-module block is one the reader of a headline never sees. At the module-block layer that distance is
-zero — a bullet's context *is* the block, contiguously above it. So a register the block declares
-binds every bullet under it, and such a bullet is compliant relative to that register. The tree
-already writes registers of this kind, in `EllipticCurves.FunctionField.MulByNFibre` — *"**Every one
-of the thirteen below does take both**, and the bullets give the conclusions and not the
-hypotheses"* — and in `EllipticCurves.TateModule.DeterminantModGeneral`, whose `## Main statements`
-opens *"**Every statement and definition below takes `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, and the rank
-and the basis take `1 < n` as well; the bullets give the conclusions and not the hypotheses"*.
+**A bullet is read inside its own list.** *"Declaration headlines are reach clauses too"* is
+justified by rendering distance: doc-gen prints the rest of *this* docstring beside a headline and
+the module block nowhere near it, so a completing sentence in the module block is one the reader of
+a headline never sees. At the module-block layer that distance is zero — a bullet's context *is* the
+block, contiguously above it. So a **register** — a sentence in the block that says what the bullets
+under it leave out — can reach a bullet in a way that the same sentence could never reach a
+headline, and such a bullet is compliant relative to it.
 
-⚠️ **That second one is the form to copy**, and it is the cheap repair for a list whose bullets are
-each short of the same hypotheses: name them **once**, at the head of the list, and say that the
-bullets do not repeat them. The alternative — inserting the same two conditions into a dozen bullets
-— is what `### Scope of the rules above` calls making the block worse, and it is not what a reader
-of a list wants.
+⚠️ **How far it reaches depends on which of the two registers above the bullet is answerable to,
+and the two scopes are not the same.** This is the whole of the reading, and getting it wrong in
+either direction decides a different population.
 
-⚠️ **A register binds the list it heads, not the file.** `MulByNFibre`'s is the first bullet of its
-`### The general layer` sub-list, and reaches the thirteen declarations named below it; the outer
-`## Main statements` list higher up the same docstring is a different block and is not covered.
+* A **reach register** names the hypotheses its bullets omit. It binds **the list it heads** and
+  nothing further up the docstring. The tree writes these —
+  `EllipticCurves.FunctionField.MulByNFibre` (*"**Every one of the thirteen below does take both**,
+  and the bullets give the conclusions and not the hypotheses"*) and
+  `EllipticCurves.TateModule.DeterminantModGeneral`, whose `## Main statements` **opens** *"**Every
+  statement and definition below takes `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, and the rank and the basis
+  take `1 < n` as well; the bullets give the conclusions and not the hypotheses"*.
+* A **gate-discharge register** supplies the *subject* of *"unconditionally"*, *"with no hypothesis
+  left"*, *"nothing further"* — the gate list the word is a delta against. It may sit **anywhere in
+  the module block**. `### Gate-discharge claims` above already treats such a register as a
+  per-file object and names the precedent, `EllipticCurves.Torsion.PrimaryTowerAlgClosed`, which
+  runs one from its H1 through its module block and down into the declaration headlines.
 
-Two rows show the reading is not a formality, because under a per-bullet reading both are defects
-and under the block reading both are the register working as intended:
+⚠️ **The asymmetry is not new either — it is the one `### Gate-discharge claims` states, with the
+unit moved.** That section earns its exception on the ground that *"a reader who meets a defined
+term looks it up once and is then equipped for the whole register, where a reader who meets a
+partial hypothesis list has no signal that a completing sentence exists anywhere"*. A
+gate-discharge word carries that signal — it is visibly relative to something — so a subject
+anywhere on the page it is printed on will do. A partial reach clause carries no signal at all, so
+the register has to be where the reader meets it, and a paragraph two `##` sections up is the
+*"prose sitting elsewhere in the module"* the boundary excludes. What this section contributes is
+therefore the **reach** half; the gate-discharge half follows from the rule above once the unit is
+the module docstring.
 
-* `residueDegreeN_none_eq_one` (`EllipticCurves.FunctionField.MulByNResidueDegree`) is bulleted
-  *"`f_∞ = 1`, at every `n`, unconditionally"* over a signature binding the transcendence of
-  `(n • 𝒫).xCoord`. Higher in the same module docstring the word's subject is written out in full —
-  that declaration *"holds at every `n` at which `[n]` is non-constant, with no `3`-smoothness, no
-  `(2 : F) ≠ 0`, no `(3 : F) ≠ 0`, no `[IsAlgClosed F]`"* — on the same page as the bullet.
-* `card_torsion_eq_sq_of_wronskian_of_pair` (`EllipticCurves.Torsion.WronskianSeparable`) is
-  bulleted *"`#E[n] = n²` from two equations and nothing else"* over six explicit hypotheses. The
-  module's opening paragraph states the setting the file works in — *"over an algebraically closed
-  field of characteristic `≠ 2`, at an odd `n` with `char F ∤ n`"* — and *"two equations"* is the
-  delta against it, `hid` and `hpair`.
+⚠️ **That `DeterminantModGeneral` opener is the form to copy**, and it is the cheap repair for a
+list whose bullets are each short of the same hypotheses: name them **once**, at the head of the
+list, and say that the bullets do not repeat them. The alternative — inserting the same two
+conditions into a dozen bullets — is what `### Scope of the rules above` calls making the block
+worse, and it is not what a reader of a list wants.
+
+One file shows the reach half in both directions, and both readings are decided by the signatures
+rather than argued:
+
+* **Reached.** `MulByNFibre`'s register is the first bullet of its `### The general layer` sub-list.
+  The bullet three rows below it reads *"…`comapProjPointN_add_torsion_of_ne_zero`, and **over
+  `F̄`** `…card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero`, …"* — a reach clause naming the
+  instance and nothing else, over a signature binding `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` as well.
+  Those are the two the register names, so the bullet is compliant relative to it, and repairing the
+  row in place would mean repairing all thirteen.
+* **Not reached.** The **outer** `## Main statements` list higher up the same docstring is a
+  different block. Its own head is *"⚠️ Every public declaration of this file is listed"* and
+  declares no register, so its bullets are read against that and get nothing from the sub-list below
+  them — including the two that carry a reach clause of their own over signatures binding more
+  (`#1616`).
+
+And the gate-discharge half, where the subject legitimately sits two `##` sections above the list:
+`residueDegreeN_none_eq_one` (`EllipticCurves.FunctionField.MulByNResidueDegree`) is bulleted
+*"`f_∞ = 1`, at every `n`, unconditionally"* under a list whose head declares no register at all.
+The word's subject is written out in full under that module's
+`## ⚠️ The residue degree at infinity is *not* in the composition class` — the declaration *"holds
+at every `n` at which `[n]` is non-constant, with no `3`-smoothness, no `(2 : F) ≠ 0`, no
+`(3 : F) ≠ 0`, no `[IsAlgClosed F]`"* — and that is a gate list, the hypotheses `#1214`'s
+composition route carries and this one does not. A subject, not a hypothesis list, and compliant
+where it stands.
+
+⚠️ **Read the two clauses of that bullet separately, because the halves decide independently.**
+*"At every `n`"* is a reach clause and gets nothing from two sections up; it is compliant for the
+other reason, that the declaration's one propositional binder is a **data argument of the object
+the bullet is about** — `residueDegreeN n hn p` does not typecheck without it, so there is no reach
+for the clause to misreport. A bullet that mixes the registers is answerable to both, and a row
+that clears is not evidence that it cleared on the ground you had in mind.
 
 ⚠️ **A register says what a list omits. It cannot make a count true.** So a register's reach stops
 exactly where `### Gate-discharge claims` stops, and for the same reason: *"the whole hypothesis
-list"*, *"the single hypothesis"*, *"from nothing but"* are claims about the hypothesis list itself,
-and no sentence elsewhere in the block supplies a member such a claim excludes. The compliant form
-is `ψ_pair_mul_of_ψ_eq_zero` (`EllipticCurves.Torsion.OmegaPairCoprime`), bulleted *"at every
-`n : ℤ` and with no hypothesis but `ψₙ(x, y) = 0`"* over a signature whose one propositional binder
-is that equation.
+list"*, *"the single hypothesis"*, *"from nothing but"*, *"and nothing else"* are claims about the
+hypothesis list itself, and no sentence elsewhere in the block supplies a member such a claim
+excludes. The compliant form is `ψ_pair_mul_of_ψ_eq_zero`
+(`EllipticCurves.Torsion.OmegaPairCoprime`), bulleted *"at every `n : ℤ` and with no hypothesis but
+`ψₙ(x, y) = 0`"* over a signature whose one propositional binder is that equation.
 
-⚠️ **This is not a further exemption, and it must not be counted as one.** `### Reach clauses`
-above states its exemptions and `### Gate-discharge claims` adds the next; this section adds none.
-It is a **scoping** rule — it says which text a bullet is read against — and every exemption above
-then applies to a bullet exactly as it does to a headline.
+⚠️ **The traffic runs one way.** A block repairs a bullet; a bullet repairs nothing. Under
+`### Scope of the rules above` a module list and the file's headlines are two blocks, so a row this
+section clears as a bullet is still held to the rules above as a headline, and the two layers are
+repaired separately. **A sibling bullet is not a register either** — it is a bullet, so a count in
+one bullet is not completed by the hypotheses another bullet of the same list happens to name.
+
+⚠️ **This is not a further exemption, and it must not be counted as one.** `### Reach clauses` above
+states its exemptions and `### Gate-discharge claims` adds the next; this section adds none. It is a
+**scoping** rule — it says which text a bullet is read against — and every exemption above then
+applies to a bullet exactly as it does to a headline.
 
 ⚠️ **And it does not reopen *"a phrase a file coins for itself earns nothing here"*** in
 `### Gate-discharge claims`. That clause governs a **declaration headline**, whose unit is its own
@@ -513,21 +559,25 @@ headline *"has no signal that a completing sentence exists anywhere"*. A bullet'
 than *"prose sitting elsewhere in the module"*, and the reader of a bullet is reading the list. The
 boundary is unchanged; the **unit** moves with the layer, which is the same fact stated twice.
 
-⚠️ **The traffic runs one way.** A block repairs a bullet; a bullet repairs nothing. Under
-`### Scope of the rules above` a module list and the file's headlines are two blocks, so a row this
-section clears as a bullet is still held to the rules above as a headline, and the two layers are
-repaired separately.
+Measured at `7495d3e`, and the two halves of this paragraph are of different qualities. **1696**
+bullets in **425** `## Main *` sections — reproduced to the unit by three independently written
+extractors — spread over **364** of the tree's **419** module docstrings. Measured **once**, on
+`#1614`, by a join against the elaborated environment: **1690** of the 1696 resolve to a declaration
+of this development, the misses being anonymous `instance :` rows, brace-contracted name patterns
+and two prose bullets. **59** rows are triaged individually on `#1614` and are named there.
 
-Measured at `0ab8d8d`: **1696** bullets in **425** `## Main *` sections, **1690** of which resolve
-to a declaration of this development. **58** are admitted by the counting/totality phrase list
-published on `#1614` — `the whole hypothesis list`, `the only hypothesis`, `the single hypothesis`,
-`the only gate`, `unconditional`, `with no hypothesis`, `no hypothesis beyond`, `the entire
-hypothesis`, `the only input`, matched after whole-file whitespace normalisation — and **one**
-further row was added by hand, `nonempty_torsionPow_addEquiv_of_card`
-(`EllipticCurves.Torsion.PrimaryTowerAlgClosed`), which reads *"with `hcard` as the only
-**remaining** hypothesis"* and is admitted by none of the nine. Those **59** are triaged row by row
-on `#1614`. The remaining 1637 have not been measured on this axis, and this section is not a claim
-about them.
+⚠️ **That 59 is a triage set, not a measurement, and the number should not be quoted as one.** It
+was found with a phrase list — `the whole hypothesis list`, `the only hypothesis`,
+`the single hypothesis`, `the only gate`, `unconditional`, `with no hypothesis`,
+`no hypothesis beyond`, `the entire hypothesis`, `the only input` — and on this tree that list is
+not stable under choices no one would think to publish. The same nine phrases over the same 1696
+bullets return **57** matched case-sensitively, **59** case-insensitively, and **54** if a bullet is
+terminated at the end of its list instead of absorbing the module prose that follows it; four
+further phrases the tree does use (`nothing else`, `nothing but`, `no other hypothes…`,
+`the only remaining`) add **6** more. `#1584` is the standing record of what a phrase list does to
+this front, and this is the same fact one layer up: **publish the recogniser beside any count, or
+write no count.** The remaining ~1640 bullets have not been read on this axis, and this section is
+not a claim about them.
 
 ### Scope of the rules above
 
