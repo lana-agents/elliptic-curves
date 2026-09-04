@@ -75,8 +75,23 @@ last takes `((n : ℤ) : F) ≠ 0`, which gives it.  The two `translatePointEndo
 telescope `htel` and the `n`-th-power identity `hpow`; the four `exists_weilPairingElt_…` forms
 take the nonsingular `n`-torsion `T` and `hprin`.  The non-constancy of `x([n]𝒫)` is a hypothesis
 of both `translatePointEndo_…` forms and of the two whose names carry `_of_hprin_n`; the other two
-discharge it, which is what their bullets say.  The bullets give the conclusions and not the
-hypotheses.
+discharge it, which is what their bullets say.
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+without counting is neither, and sits under this register unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
+`#1647` decided (`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`, PR #658), and this
+list is one of the reasons it had to be decided at all: it carries hypothesis counts of its own,
+below.
+
+⚠️ **It replaces a universal that this list had falsified before the universal was written.**
+This register formerly closed *"The bullets give the conclusions and not the hypotheses"*
+(`#1626`, PR #654), while the rows below saying *"are the whole hypothesis list"* had been on the
+page since `#1611` (PR #641) and `#1619` (PR #643), and the ⚠️ block under them argues for them at
+length.  ⚠️ **Those counts are not the defect and are untouched**: they are the form `README.md`
+`### Module-block bullets` mandates, because *"A register says what a list omits.  It cannot make a
+count true"* — so the universal is the sentence that had to go, and not the rows (`#1650`).
 
 * `WeierstrassCurve.Affine.translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange` — gate B
   (`WeilPairingAlternatingWorkhorseN`) with its halving-point hypothesis **removed, not relocated**,

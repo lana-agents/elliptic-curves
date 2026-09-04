@@ -66,8 +66,25 @@ instead by the `Recovery` block, which derives all six merged statements *throug
 `exists_weilPairingMu_…` members the `n`-torsion of `P` too.  The six `_of_smooth` / `_of_ne_zero`
 corollaries take `(2 : F) ≠ 0`, and the three `_of_smooth` ones `(3 : F) ≠ 0`.**  The first
 statement takes none of these: its inputs are the `n`-torsion `T`, the non-constancy of `x([n]𝒫)`
-and a rung-5 datum, which is what its bullet says.  The bullets give the conclusions and not the
-hypotheses.
+and a rung-5 datum.  ⚠️ **Its bullet names the torsion and the datum and not the non-constancy**,
+which this register carries for it.  The bullet opens *"the one new input"*, so it does give
+hypotheses — but it gives some of them without counting them, and this sentence used to close
+*"which is what its bullet says"*, which read it as giving all three (`#1650`).
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+without counting is neither, and sits under this register unchanged — which is the branch the first
+bullet falls under, and why the ruling above re-scopes this register rather than repairing that
+row; reporting one *discharged* is a gate-discharge claim, which `README.md`
+`### Gate-discharge claims` governs, and that is the branch the `_of_smooth` corollaries fall under.
+
+⚠️ **That is the house form `#1647` decided**
+(`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`, PR #658), and it replaces the
+universal this register used to close with, *"The bullets give the conclusions and not the
+hypotheses"* (`#1626`, PR #654) — which the sentence one line above it contradicted, by asserting
+that a bullet states its inputs.  A universal over the bullets cannot survive this development's own
+count repairs: `README.md` `### Module-block bullets` puts a count beyond every register, and so
+sends each one into the row it is about (`#1650`).
 
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_pow_eq_one_of_gS_n_torsion` — the one new
   input: `e(T, g) ^ k = 1` for an `n`-torsion `T` and a rung-5 datum over `[n]∗`;
