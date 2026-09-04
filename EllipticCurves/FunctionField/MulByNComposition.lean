@@ -42,9 +42,9 @@ with the group-law multiple `n • P` is `#251`, and it is **closed**:
 `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
 function-field form `nMulRatFunc_eq_ΦDivΨSq`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(n : F) ≠ 0`.  ⚠️ **`#1184`
-is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half — `ωₙ/(2ψₙ³)` as
-`y(n • P)` — **is closed too, at every index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️
+**`#1184` is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half —
+`ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
 (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0`
 the `x`-half asks.  ⚠️ So the whole *pair* is available at every index, and the `#251` bullets on
 the Weil-pairing front no longer name an open gate.  ⚠️ Neither `EllipticCurves.Torsion.NsmulOrder`
