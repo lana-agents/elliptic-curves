@@ -463,14 +463,17 @@ over signatures binding points, their torsion, a halving point and `hprin` besid
   gate-discharge word *"is visibly relative to something"*, and a bare reach clause carries no
   signal at all. It is *"not a licence to say the signature is short"* read at its own layer, since
   the licence those thirteen rows need is the one that sentence refuses.
-* **And on this front there is no such register to read them against.** Measured at `d92c0a1` by a
-  nesting-aware comment scanner: the seven files hold **19** occurrences of *"the setting"* between
-  them, and **18 are in declaration docstrings**. The single occurrence inside a module block —
-  `WeilPairingAlternatingBaseChangeN`'s — is a sentence **declining** the register, not declaring
-  one. Under `### Scope of the rules above` a module list and the file's headlines are two blocks,
-  and by `### Module-block bullets`' *"the traffic runs one way"* a headline repairs no bullet. So a
-  **yes** would have cleared none of the thirteen either; the two answers differ only in what they
-  license next.
+* **And on this front there is no such register to read them against.** A nesting-aware comment
+  scanner — one that tracks `/-` nesting and tells `/-!` from `/--`, since these files carry later
+  `/-! … -/` section blocks, so a line below the module block need not be in a declaration
+  docstring — puts every occurrence of *"the setting"* in these seven files inside a declaration
+  docstring, with one module block excepted: `WeilPairingAlternatingBaseChangeN`'s, where the phrase
+  occurs only in sentences **declining** the register, not declaring one. ⚠️ **No count is written
+  here on purpose**: one docstring moves any number, and what carries the argument is that no module
+  block on this front **declares** such a register. Under `### Scope of the rules above` a module
+  list and the file's headlines are two blocks, and by `### Module-block bullets`' *"the traffic
+  runs one way"* a headline repairs no bullet. So a **yes** would have cleared none of the thirteen
+  either; the two answers differ only in what they license next.
 
 **Twelve of the thirteen are therefore defects**, and the repair is the `DeterminantModGeneral`
 opener `### Module-block bullets` names — one **reach register** at the head of each of the six
