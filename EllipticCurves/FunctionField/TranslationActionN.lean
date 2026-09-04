@@ -124,7 +124,8 @@ Every public declaration of this file is listed, and all are in namespace
   unfolding lemmas `translateAutNHom_apply` and `torsionNMul_smul_def`;
 * `card_torsionNMul` — `Nat.card (TorsionNMul W n) = n ^ 2` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`,
   at every `3`-smooth `n ≠ 0` over `F̄`;
-* `finite_torsionNMul` — finiteness at the same indices;
+* `finite_torsionNMul` — `TorsionNMul W n` is finite, with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at
+  every `3`-smooth `n ≠ 0` over `F̄`;
 * `card_torsionNMul_of_ne_zero` and `finite_torsionNMul_of_ne_zero` — the same two with
   `(2 : F) ≠ 0`, at **every** `n` with `(n : F) ≠ 0`, with no `(3 : F) ≠ 0` and no smoothness
   (`#1523`);
