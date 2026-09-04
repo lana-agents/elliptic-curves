@@ -226,7 +226,8 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F}
 
 /-! ### The contraction at a rational point -/
 
-/-- **`[2 ^ a · 3 ^ b]∗` contracts the place of `P` to the place of `(2 ^ a · 3 ^ b) • P`.**
+/-- **`[2 ^ a · 3 ^ b]∗` contracts the place of `P` to the place of `(2 ^ a · 3 ^ b) • P`**, at
+every `2 ^ a · 3 ^ b` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.
 
 Induction on `a` and then on `b`, **generalising over `P`** at both levels: each step peels one
 prime off the index with `comapProjPointN_of_mul_eq` and lands the merged
@@ -290,9 +291,10 @@ theorem projPointOfPoint_add_injective (n : ℕ) (P : W.Point) :
     Function.Injective fun R : W.torsion n => projPointOfPoint W (P + R) :=
   fun _ _ hEq => Subtype.ext (add_right_injective P (projPointOfPoint_injective hEq))
 
-/-- **`P ⊕ R` lies over `n • P`, for every `R ∈ E[n]`**: the coset of `E[n]` through any `P` with
-`n • P = S` sits inside the fibre over `S`.  This is the inclusion `⊇` of the fibre description; the
-reverse is pure counting and needs `[IsAlgClosed F]`. -/
+/-- **`P ⊕ R` lies over `n • P`, for every `R ∈ E[n]`**, at every `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`: the coset of `E[n]` through any `P` with `n • P = S` sits inside
+the fibre over `S`.  This is the inclusion `⊇` of the fibre description; the reverse is pure
+counting and needs `[IsAlgClosed F]`. -/
 theorem comapProjPointN_add_torsion_of_smooth (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : Transcendental F (n • genericPoint (W := W)).xCoord) {S P : W.Point} (hP : n • P = S)
@@ -825,8 +827,8 @@ theorem card_fibre_comapProjPointN_projPointOfPoint (h2 : (2 : F) ≠ 0) (h3 : (
       (comapProjPointN_add_torsion_of_smooth h2 h3 hn hfac h hP R))
     (Set.injOn_of_injective (projPointOfPoint_add_injective n P))
 
-/-- **The fibre of `[n]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[n] }`**, for any `P`
-with `n • P = S`.
+/-- **The fibre of `[n]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[n] }`**, at every
+`3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` over `F̄`, for any `P` with `n • P = S`.
 
 The set-theoretic half of the fibre description at every `3`-smooth `n`.  The inclusion `⊇` is
 `comapProjPointN_add_torsion_of_smooth`; the reverse is pure counting — `n²` distinct elements
@@ -893,8 +895,8 @@ theorem ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint (h2 : (2 
   omega
 
 omit [DecidableEq F] in
-/-- **The fibre description of `[n]∗` over a rational point**: `[n]∗(S) = ∑_{p ↦ S} (p)`, every
-coefficient `1`.
+/-- **The fibre description of `[n]∗` over a rational point**, at every `3`-smooth `n ≠ 0` with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0` over `F̄`: `[n]∗(S) = ∑_{p ↦ S} (p)`, every coefficient `1`.
 
 At `S = O` this is `comapProjPointN_none_of_smooth` and `ramificationIdxN_none_of_smooth`
 (`EllipticCurves.FunctionField.MulByNPlaceComposition`) read as a divisor — or, more sharply,
@@ -927,7 +929,8 @@ theorem pullbackDivisorN_single_projPointOfPoint (h2 : (2 : F) ≠ 0) (h3 : (3 :
       ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint h2 h3 hn hfac h hq, if_pos rfl]
   · rw [Finsupp.single_apply, if_neg fun hc => hq hc.symm, mul_zero, if_neg hq]
 
-/-- **The fibre description in the shape a rung-4 consumer wants**: for any `P` with `n • P = S`,
+/-- **The fibre description in the shape a rung-4 consumer wants**, at every `3`-smooth `n ≠ 0`
+with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` over `F̄`: for any `P` with `n • P = S`,
 
 ```
 [n]∗(S) = ∑_{R ∈ E[n]} (P ⊕ R).
