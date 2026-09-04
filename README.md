@@ -351,8 +351,11 @@ false at the commit that wrote it (`#1643`). What the pair is evidence of does n
 document *had* decided two rows no such test can tell apart in opposite directions. Under the
 discriminator both are **reach** — `hn` is a condition on the index, and `xCoord_zero` makes it
 false at `n = 0` — so the second stays convicted and the first is convicted with it. ⚠️ **Neither
-is a sweep and neither is repaired here**: the two readings below are corrected where they stand,
-and the `residueDegreeN` row itself belongs to `#1616`.
+is a sweep and neither is repaired here**: the repair of `residueDegreeN_none_eq_one`'s reading
+belongs where that reading stands (⚠️ until `#1649` this clause read *"the two readings below are
+corrected where they stand"*, promising a repair for each member of the pair and pointing *below*
+for a reading this document keeps above, in its own fenced `-- wrong:` row), and the
+`residueDegreeN` row itself belongs to `#1616`.
 
 ⚠️ **And the first has since been repaired there**, which is where the sentence above put it:
 `#1636` (PR #653) named the condition in the row — it now reads *"at every `n` at which `[n]` is
