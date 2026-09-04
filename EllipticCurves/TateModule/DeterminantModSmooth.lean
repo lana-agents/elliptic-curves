@@ -64,7 +64,8 @@ freeness; the Non-vacuity section below measures the failure rather than asserti
   theorem.  Everything else here is a projection of it, except the finiteness and the `n = 2` block.
 * `WeierstrassCurve.Affine.finite_torsion_zmod_of_smooth` — `E[n]` is a finite `ZMod n`-module.
 * `WeierstrassCurve.Affine.free_torsion_zmod_of_smooth` — and a free one.
-* `WeierstrassCurve.Affine.finrank_torsion_of_smooth` — of rank `2`, for `1 < n`.
+* `WeierstrassCurve.Affine.finrank_torsion_of_smooth` — of rank `2`, with `(2 : F) ≠ 0` and
+  `(3 : F) ≠ 0`, at `3`-smooth `n` with `1 < n`.
 * `WeierstrassCurve.Affine.finite_torsion_two_zmod`, `WeierstrassCurve.Affine.finrank_torsion_two` —
   the `n = 2` named instances, on `h2` alone.  ⚠️ Their input `#E[2] = 4` is `card_torsion_two`
   (`EllipticCurves.Torsion.TwoTorsion`); it is consumed here and not reproved.

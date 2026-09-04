@@ -156,10 +156,10 @@ and it is invisible to every other check in this tree.
   `E[9] ≃+ (ℤ/9ℤ)²`.
 * `WeierstrassCurve.Affine.card_torsion_two_pow_mul_three_pow`,
   `…nonempty_torsionTwoPowMulThreePow_addEquiv`: the two towers glued.
-* `WeierstrassCurve.Affine.card_torsion_eq_sq_of_smooth`: `#E[n] = n²` for `3`-smooth `n`, the
-  equality form of `card_torsion_le_sq_of_smooth`.
-* `WeierstrassCurve.Affine.nonempty_torsion_addEquiv_zmod_sq_of_smooth`: `E[n] ≃+ (ℤ/nℤ)²` for
-  `3`-smooth `n`.
+* `WeierstrassCurve.Affine.card_torsion_eq_sq_of_smooth`: `#E[n] = n²` with `(2 : F) ≠ 0` and
+  `(3 : F) ≠ 0`, at `3`-smooth `n ≠ 0`, the equality form of `card_torsion_le_sq_of_smooth`.
+* `WeierstrassCurve.Affine.nonempty_torsion_addEquiv_zmod_sq_of_smooth`: `E[n] ≃+ (ℤ/nℤ)²` with
+  `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at `3`-smooth `n ≠ 0`.
 * `WeierstrassCurve.Affine.card_torsion_thirtysix`, `…nonempty_torsionThirtySix_addEquiv`:
   `#E[36] = 1296` and `E[36] ≃+ (ℤ/36ℤ)²`.
 

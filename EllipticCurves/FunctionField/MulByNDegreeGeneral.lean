@@ -46,7 +46,7 @@ finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent h2 hn (isCoprime_ΨSq_
 ## Main statements
 
 * `WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` :
-  **`[F(W) : [n]∗F(W)] = n²`** at every index with `((n : ℤ) : F) ≠ 0`.
+  **`[F(W) : [n]∗F(W)] = n²`** with `(2 : F) ≠ 0`, at every index with `((n : ℤ) : F) ≠ 0`.
 
 ## References
 
