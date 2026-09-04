@@ -96,6 +96,20 @@ overstate the arbitrary-field reach.  Each statement says which is which.
 
 ## Main results
 
+⚠️ **Every statement below takes `hprin` and the nonsingular `n`-torsion `T` the pairing is
+evaluated at, and every one but the four `_of_algClosed` forms takes the halving point `n • P = T`
+as well** — those four get it from surjectivity on `E(F̄)` instead.  ⚠️ **`(2 : F) ≠ 0` is a
+hypothesis of every statement below except the two whose names stop at `…_of_hprin_n`**, which take
+the non-constancy of `x([n]𝒫)` explicitly and no condition on the characteristic at all;
+`(3 : F) ≠ 0` is a hypothesis of `…_of_hprin_n_of_smooth` alone.  The bullets give the conclusions
+and not the hypotheses.
+
+⚠️ **This register does not reach the fourth bullet's *"with `hprin` the only hypothesis left"***,
+which is a **count** — *"A register says what a list omits.  It cannot make a count true"*
+(`README.md` `### Module-block bullets`).  That row is short of `(2 : F) ≠ 0` and of the torsion
+this register names, its repair is in-row, and it is filed as `#1637` together with the question of
+whether the fifth bullet's *"the same"* carries the count forward.
+
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n`** — over an arbitrary
   field, with `hprin` and the halving point as hypotheses;
 * **`WeierstrassCurve.Affine.exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth`** — the same

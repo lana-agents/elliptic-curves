@@ -61,6 +61,14 @@ instead by the `Recovery` block, which derives all six merged statements *throug
 
 ## Main statements
 
+⚠️ **Every `…_of_hprin` statement below takes `hprin` and the `n`-torsion of `S`; the six
+`…translatePoint_add…` forms take the `n`-torsion of `Q` and `P ⊕ Q = R` as well, and their three
+`exists_weilPairingMu_…` members the `n`-torsion of `P` too.  The six `_of_smooth` / `_of_ne_zero`
+corollaries take `(2 : F) ≠ 0`, and the three `_of_smooth` ones `(3 : F) ≠ 0`.**  The first
+statement takes none of these: its inputs are the `n`-torsion `T`, the non-constancy of `x([n]𝒫)`
+and a rung-5 datum, which is what its bullet says.  The bullets give the conclusions and not the
+hypotheses.
+
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_pow_eq_one_of_gS_n_torsion` — the one new
   input: `e(T, g) ^ k = 1` for an `n`-torsion `T` and a rung-5 datum over `[n]∗`;
 * `WeierstrassCurve.Affine.exists_weilPairingElt_translatePoint_add_n_of_hprin` —

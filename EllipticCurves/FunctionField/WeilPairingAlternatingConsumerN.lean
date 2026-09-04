@@ -52,6 +52,10 @@ affine point instead of `n` of them.
 
 ## Main statements
 
+⚠️ **All three below take a point `P` on the curve, a point `T` on the curve with `[n]P = T`, the
+telescope `htel` and the `n`-th-power identity `hpow`; the second and the third take `(2 : F) ≠ 0`
+as well, and the second `(3 : F) ≠ 0`.**  The bullets give the conclusions and not the hypotheses.
+
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq` — the affine-indexed form of the workhorse;
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth` — the same at every `3`-smooth `n ≠ 0`,
   with the transcendence hypothesis discharged;
