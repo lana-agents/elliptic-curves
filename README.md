@@ -488,13 +488,26 @@ and under the block reading both are the register working as intended:
   field of characteristic `≠ 2`, at an odd `n` with `char F ∤ n`"* — and *"two equations"* is the
   delta against it, `hid` and `hpair`.
 
-⚠️ **A register says what a list omits. It cannot make a count true.** So the exemption stops
+⚠️ **A register says what a list omits. It cannot make a count true.** So a register's reach stops
 exactly where `### Gate-discharge claims` stops, and for the same reason: *"the whole hypothesis
 list"*, *"the single hypothesis"*, *"from nothing but"* are claims about the hypothesis list itself,
 and no sentence elsewhere in the block supplies a member such a claim excludes. The compliant form
 is `ψ_pair_mul_of_ψ_eq_zero` (`EllipticCurves.Torsion.OmegaPairCoprime`), bulleted *"at every
 `n : ℤ` and with no hypothesis but `ψₙ(x, y) = 0`"* over a signature whose one propositional binder
 is that equation.
+
+⚠️ **This is not a third exemption, and it must not be counted as one.** `### Reach clauses`
+has *"one narrow exemption"* and `### Gate-discharge claims` is *"a second"*; this section adds
+neither. It is a **scoping** rule — it says which text a bullet is read against — and both
+exemptions above then apply to a bullet exactly as they do to a headline.
+
+⚠️ **And it does not reopen *"a phrase a file coins for itself earns nothing here"*** in
+`### Gate-discharge claims`. That clause governs a **declaration headline**, whose unit is its own
+docstring, and it turns on an asymmetry it names: a reader who meets a partial hypothesis list in a
+headline *"has no signal that a completing sentence exists anywhere"*. A bullet's own docstring
+**is** the module docstring. A register at the head of its list is *in the same docstring* rather
+than *"prose sitting elsewhere in the module"*, and the reader of a bullet is reading the list. The
+boundary is unchanged; the **unit** moves with the layer, which is the same fact stated twice.
 
 ⚠️ **The traffic runs one way.** A block repairs a bullet; a bullet repairs nothing. Under
 `### Scope of the rules above` a module list and the file's headlines are two blocks, so a row this
