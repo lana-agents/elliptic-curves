@@ -99,9 +99,14 @@ At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `�
 Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
 `comapProjPointN n h`, or anything built on them — takes
 `h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
-it.  That is the `README.md` exemption
-(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
-*does* name adds no reach — and this is the citation it asks for:
+it.  **That sentence is the register**, in the sense of `README.md` `### Module-block bullets`: it
+is what tells a reader which declarations below bind `h`, and no clause below repeats it.  Where
+a row's clause names `(2 : F) ≠ 0` together with an
+index cast, or `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the register is not the
+only thing that clears it: `h` is derivable from what such a clause already names, so that row is
+covered by the `README.md` exemption as well (`## Docstring conventions` → `### Reach clauses`) —
+a hypothesis derivable from the ones the clause *does* name adds no reach — and this is the
+citation that exemption asks for:
 
 * `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
@@ -118,6 +123,25 @@ the exemption but the defect class `#1137` is named after.
 statements below are about that same layer and take no `h` at all: they **discharge** it inline
 from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
 exhibited in this file rather than only asserted about it.
+
+⚠️ **The exemption is keyed on the clause and not on the name, and this section used to claim it
+for the whole list.**  Until `#1658` the register sentence above ran straight into *"That is the
+`README.md` exemption … and this is the citation it asks for"* (`01f955b`, `#1137`), which reads
+as clearing every row below on that ground.  It does not reach all of them.  **Two bullets, three
+declarations, carry an index clause that names neither set of hypotheses:**
+`isSeparable_mulByNEndoFieldRange_of_charZero`, bulleted *"at every `n` in characteristic zero"*,
+and `sum_ramificationIdxN_mul_residueDegreeN_finrank` / `…_finrank_of_charZero`, *"at every `n` at
+which `[n]∗F(W)` is separably closed below and at every `n` in characteristic zero"*.  What those
+clauses name is `hsep` and the instance `[CharZero F]`, and neither derivation above runs from
+either.  ⚠️ `[CharZero F]` does not derive the non-constancy in any case: `xCoord_zero` makes `h`
+false at `n = 0` in every characteristic, so *"at every `n` in characteristic zero"* is not true
+on its own terms.  **Those three are cleared by the register and not by the exemption** — they are
+not silently short, because the sentence opening this section tells the reader they bind `h`; what
+was wrong is the ground.  The clearance is real; that wording of it was not, which is `#1631`'s
+shape one layer down.  ⚠️ Several further rows below make no claim about which `n` are reached at
+all — `finrank_mulByNEndoFieldRange_of_smooth`, the integral-closure pair at the ring level, and
+`placeBelowN` with its instances — and those are compliant on `### Reach clauses`' *"or it names
+none"* branch, which is a third ground again and needs neither of the two above.
 
 ## Main results
 
@@ -153,8 +177,9 @@ file consumes them rather than restating them.
 * `finrank_mulByNEndoFieldRange_five`, `sum_ramificationIdxN_mul_residueDegreeN_five` and
   `sum_ramificationIdxN_five` — the first index outside `{2, 3}`, named rather than left as
   `example`s.
-* `sum_ramificationIdxN_of_smooth` — the collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`, the
-  general-`n` shape of `sum_ramificationIdxTwo_eq_four` and `sum_ramificationIdxThree_eq_nine`;
+* `sum_ramificationIdxN_of_smooth` — the collapsed form `∑_{p ↦ q} e_p = n²` over `F̄`, at every
+  `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, the general-`n` shape of
+  `sum_ramificationIdxTwo_eq_four` and `sum_ramificationIdxThree_eq_nine`;
 * `sum_ramificationIdxN_mul_residueDegreeN_two` and `…_three` — the sum-level consistency with the
   two merged instantiations;
 * **`sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero`** — `∑_{p ↦ q} e_p · f_p = 9` in
