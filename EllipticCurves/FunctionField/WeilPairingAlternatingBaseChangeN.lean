@@ -70,6 +70,14 @@ an index hypothesis while the two above it have none.
 
 ## Main statements
 
+⚠️ **Every statement below takes `(2 : F) ≠ 0`, and every one but the last takes `n ≠ 0`** — the
+last takes `((n : ℤ) : F) ≠ 0`, which gives it.  The two `translatePointEndo_…` forms take the
+telescope `htel` and the `n`-th-power identity `hpow`; the four `exists_weilPairingElt_…` forms
+take the nonsingular `n`-torsion `T` and `hprin`.  The non-constancy of `x([n]𝒫)` is a hypothesis
+of both `translatePointEndo_…` forms and of the two whose names carry `_of_hprin_n`; the other two
+discharge it, which is what their bullets say.  The bullets give the conclusions and not the
+hypotheses.
+
 * `WeierstrassCurve.Affine.translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange` — gate B
   (`WeilPairingAlternatingWorkhorseN`) with its halving-point hypothesis **removed, not relocated**,
   over an arbitrary field at `3`-smooth `n`.

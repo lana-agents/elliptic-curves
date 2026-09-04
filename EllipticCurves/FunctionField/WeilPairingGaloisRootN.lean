@@ -77,6 +77,13 @@ that `σ⋆` is only an `S`-algebra map, and that is enough.
 
 ## Main statements
 
+⚠️ **Every `…_of_hprin` statement below takes `hprin` and the `n`-torsion of the point `S` it is
+about, and its three `exists_weilPairingMu_…` forms the `n`-torsion of `(x₂, y₂)` as well; the four
+`_of_smooth` / `_of_ne_zero` corollaries take `(2 : F) ≠ 0`, and the two `_of_smooth` ones
+`(3 : F) ≠ 0`.**  The brick, the two `…_of_gS_n` forms and the two `…_galois_n_of_hprin` forms take
+the non-constancy of `x([n]𝒫)` explicitly, and the `…_of_gS_n` pair takes rung-5 data at `S` and at
+`σS` in place of `hprin`.  The bullets give the conclusions and not the hypotheses.
+
 * `WeierstrassCurve.Affine.CoordinateRing.galoisPointHom` — the action of `σ⋆` on
   `(W ⁄ F(W⁄F)).Point`, as an `AddMonoidHom`; `…_genericPoint` says it fixes `𝒫`.
 * `WeierstrassCurve.Affine.CoordinateRing.galoisFunctionField_mulByNEndo` — **the new brick**:

@@ -74,6 +74,12 @@ the right thing to cite at `n = 2, 3`, their proofs do not route through the gen
 
 ## Main statements
 
+⚠️ **Every `…_of_hprin` statement below takes `hprin`, the `n`-torsion of `P`, `S` and `T`, and
+`S ⊕ T = R`; the four `_of_smooth` / `_of_ne_zero` corollaries take `(2 : F) ≠ 0` as well, and the
+two `_of_smooth` ones `(3 : F) ≠ 0`.**  The three statements above them take the `n`-torsion `T`,
+the non-constancy of `x([n]𝒫)` and the function they are about, and the third the product
+decomposition its bullet names.  The bullets give the conclusions and not the hypotheses.
+
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_mulByNEndo` and
   `…_of_baseField` — a `[n]∗`-pullback contributes `1`, at every `n`.
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_divisorSlot_add_n` — divisor-slot
