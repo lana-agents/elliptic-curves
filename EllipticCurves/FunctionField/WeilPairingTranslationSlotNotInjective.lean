@@ -31,7 +31,8 @@ this file records that as a theorem rather than leaving a false gate standing.
 ## Main results
 
 * `WeierstrassCurve.Affine.CoordinateRing.not_injective_weilPairingTorsionMuHom_two` and
-  `…_three` — the map is not injective, for **every** `S`, every rung-5 root and every certificate;
+  `…_three` — the map is not injective over a field with `(2 : F) ≠ 0`, and `(3 : F) ≠ 0` as well
+  at `n = 3`, for **every** `S`, every rung-5 root and every certificate;
 * `WeierstrassCurve.Affine.CoordinateRing.ker_weilPairingTorsionMuHom_two_ne_bot` and `…_three_…` —
   the same statement about the kernel, in the shape
   `EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate`'s
@@ -152,8 +153,8 @@ variable {F : Type*} [Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]
 /-! ### `n = 2` -/
 
 open Classical in
-/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is not injective**, for every `S`, every rung-5 root `gS` and
-every certificate `hu`.
+/-- **`e_2(S, ·) : E[2] → μ_2(F̄)` is not injective** over a field with `(2 : F) ≠ 0`, for every
+`S`, every rung-5 root `gS` and every certificate `hu`.
 
 ⚠️ Not a gap in the pairing and not a statement that could be improved: `#E[2] = 4`
 (`card_torsion_two`) and `#μ_2(F̄) = 2` (`natCard_rootsOfUnity_of_ne_zero`), so no injection

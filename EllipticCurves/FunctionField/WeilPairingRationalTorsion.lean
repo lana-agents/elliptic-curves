@@ -61,12 +61,13 @@ statement, and the Non-vacuity section compiles its absence rather than assertin
 * `WeierstrassCurve.Affine.nontrivial_torsion_three` — `E[3]` has a nonzero point over an
   algebraically closed field of characteristic `≠ 2, 3`.
 * `WeierstrassCurve.Affine.forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed` —
-  **the theorem**: `σ` fixing `E[3]` pointwise fixes `μ_3(F)` pointwise.
+  **the theorem**: over a field of characteristic `≠ 2, 3`, a `σ` fixing `E[3]` pointwise fixes
+  `μ_3(F)` pointwise.
 * `WeierstrassCurve.Affine.galoisModularCyclotomicChar_eq_one_of_forall_torsion_three_fixed` — the
   same conclusion as `χ_3 σ = 1`, via `galoisModularCyclotomicChar_eq_one_iff`.
 * `WeierstrassCurve.Affine.exists_torsion_three_smul_ne_self_of_galoisModularCyclotomicChar_ne_one`
-  — the contrapositive, which is the direction one applies: a `σ` that moves a cube root of unity
-  must move a `3`-torsion point.
+  — the contrapositive, which is the direction one applies: over a field of characteristic
+  `≠ 2, 3`, a `σ` that moves a cube root of unity must move a `3`-torsion point.
 
 ## Naming and placement
 
@@ -176,8 +177,9 @@ variable {S F : Type*} [Field S] [Field F] [Algebra S F] {W : Affine S} [W.IsEll
   [IsAlgClosed F]
 
 open Classical in
-/-- **A `σ` fixing `E[3]` pointwise fixes `μ_3(F)` pointwise** — Silverman III.8.1.1 at `n = 3`,
-the statement usually written `E[3] ⊆ E(K) ⟹ μ_3 ⊆ K`.
+/-- **A `σ` fixing `E[3]` pointwise fixes `μ_3(F)` pointwise, over a field of characteristic
+`≠ 2, 3`** — Silverman III.8.1.1 at `n = 3`, the statement usually written
+`E[3] ⊆ E(K) ⟹ μ_3 ⊆ K`.
 
 Pick any nonzero `P ∈ E[3]` (`nontrivial_torsion_three`).  Given `t ∈ μ_3(F)`, surjectivity of
 `e_3(P, ·)` (`#938`) produces a `T` with `e_3(P, T) = t`, and then equivariance (`#936`) reads
@@ -208,8 +210,8 @@ theorem forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed (σ : F ≃�
   simpa [restrictRootsOfUnity_coe_apply] using this
 
 open Classical in
-/-- **The same conclusion as a value of the cyclotomic character**: `χ_3 σ = 1` for every `σ`
-fixing `E[3]` pointwise.
+/-- **The same conclusion as a value of the cyclotomic character**: `χ_3 σ = 1` over a field of
+characteristic `≠ 2, 3`, for every `σ` fixing `E[3]` pointwise.
 
 `galoisModularCyclotomicChar_eq_one_iff` is an iff, so this loses nothing relative to the pointwise
 form and gains the shape `#944`'s exponent theorems consume:
@@ -223,8 +225,8 @@ theorem galoisModularCyclotomicChar_eq_one_of_forall_torsion_three_fixed (σ : F
     (forall_mem_rootsOfUnity_three_fixed_of_forall_torsion_fixed σ h2 h3 hfix)
 
 open Classical in
-/-- **The contrapositive, which is the direction one applies**: a `σ` acting nontrivially on
-`μ_3(F)` must move some `3`-torsion point.
+/-- **The contrapositive, which is the direction one applies**: over a field of characteristic
+`≠ 2, 3`, a `σ` acting nontrivially on `μ_3(F)` must move some `3`-torsion point.
 
 Read as an obstruction, this is `μ_3 ⊄ K ⟹ E[3] ⊄ E(K)`: rational `3`-torsion is impossible over a
 field that does not already contain the cube roots of unity.  ⚠️ Stated rather than left to `mt`

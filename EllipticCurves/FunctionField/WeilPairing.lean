@@ -693,10 +693,10 @@ theorem weilPairingElt_pow_eq_one_of_gS_three {x₂ y₂ : F} (h₂ : W.Equation
     weilPairingElt h₂ g ^ n = 1 :=
   weilPairingElt_pow_eq_one h₂ hg (translateEndo_pow_eq_self_of h₂ hu hcomm huf)
 
-/-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 2`).**  The `huf` hypothesis
-of `weilPairingElt_pow_eq_one_of_gS_two` is now discharged by `translateEndo_algebraMap_unit`
-(the unit `u` is a constant), leaving only the geometric commuting identity `hcomm`
-(`[n](P + T) = [n]P`). -/
+/-- **`e_n(S, T) ^ n = 1` with `(2 : F) ≠ 0`, from the rung-5 datum and `hcomm` — the only inputs
+left (`n = 2`).**  The `huf` hypothesis of `weilPairingElt_pow_eq_one_of_gS_two` is now discharged
+by `translateEndo_algebraMap_unit` (the unit `u` is a constant), leaving the geometric commuting
+identity `hcomm` (`[n](P + T) = [n]P`) as the only input beyond the rung-5 datum. -/
 theorem weilPairingElt_pow_eq_one_of_gS_two' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂) (h2 : (2 : F) ≠ 0)
     {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ} (hg : g ≠ 0)
     (hu : (u : W.CoordinateRing) • g ^ n = mulByTwoEndo h2 f)
@@ -704,9 +704,10 @@ theorem weilPairingElt_pow_eq_one_of_gS_two' {x₂ y₂ : F} (h₂ : W.Equation 
     weilPairingElt h₂ g ^ n = 1 :=
   weilPairingElt_pow_eq_one_of_gS_two h₂ h2 hg hu hcomm (translateEndo_algebraMap_unit h₂ u)
 
-/-- **`e_n(S, T) ^ n = 1` from the rung-5 datum and `hcomm` alone (`n = 3`).**  The `mulByThreeEndo`
-analogue of `weilPairingElt_pow_eq_one_of_gS_two'`; `huf` is discharged by
-`translateEndo_algebraMap_unit`, leaving only `hcomm`. -/
+/-- **`e_n(S, T) ^ n = 1` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, from the rung-5 datum and `hcomm`
+— the only inputs left (`n = 3`).**  The `mulByThreeEndo` analogue of
+`weilPairingElt_pow_eq_one_of_gS_two'`; `huf` is discharged by `translateEndo_algebraMap_unit`,
+leaving `hcomm` as the only input beyond the rung-5 datum. -/
 theorem weilPairingElt_pow_eq_one_of_gS_three' {x₂ y₂ : F} (h₂ : W.Equation x₂ y₂)
     (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {f g : W.FunctionField} {u : W.CoordinateRingˣ} {n : ℕ}
     (hg : g ≠ 0) (hu : (u : W.CoordinateRing) • g ^ n = mulByThreeEndo h2 h3 f)

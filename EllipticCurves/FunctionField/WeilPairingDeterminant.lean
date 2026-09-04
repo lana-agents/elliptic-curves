@@ -221,7 +221,8 @@ theorem weilPairingTwo_zsmul_add_zsmul (h2 : (2 : F) ≠ 0) (P T : W.torsion 2) 
   ring_nf
 
 open Classical in
-/-- **`P` and `T` are `ℤ/2`-independent** as soon as `e_2(P, T) ≠ 1`.
+/-- **`P` and `T` are `ℤ/2`-independent** over a field with `(2 : F) ≠ 0`, as soon as
+`e_2(P, T) ≠ 1`.
 
 ⚠️ The hypothesis is consumed **twice, at both slots**: pairing the relation against `P` bounds `v`
 and pairing it against `T` bounds `u`.  Neither half gives the other. -/
@@ -330,7 +331,8 @@ theorem weilPairingThree_zsmul_add_zsmul (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 
   ring_nf
 
 open Classical in
-/-- **`P` and `T` are `ℤ/3`-independent** as soon as `e_3(P, T) ≠ 1`.
+/-- **`P` and `T` are `ℤ/3`-independent** over a field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, as
+soon as `e_3(P, T) ≠ 1`.
 
 ⚠️ The conclusion is a pair of congruences mod `3` and cannot be strengthened to `u = 0 ∧ v = 0`
 over `ℤ`: `u = 3` satisfies the hypothesis.  That is exactly why the determinant statements below

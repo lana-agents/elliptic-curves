@@ -197,7 +197,8 @@ either, since `EllipticCurves.TateModule.DeterminantMod` has no matrix and no
 `Matrix.SpecialLinearGroup` in it. -/
 
 open Classical in
-/-- **If `χ_3(σ) ≠ 1` then `det (ρ_{E,3}(σ)) ≠ 1`**, for the matrix representation at any basis.
+/-- **If `χ_3(σ) ≠ 1` then `det (ρ_{E,3}(σ)) ≠ 1`**, over a field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, for the matrix representation at any basis.
 
 `#947`'s `exists_galoisModularCyclotomicChar_three_ne_one` produces such a `σ` over `ℚ`
 unconditionally; the non-vacuity block below fires it. -/
@@ -210,8 +211,9 @@ theorem det_galoisRepModMatrix_three_ne_one_of_galoisModularCyclotomicChar_ne_on
   exact hσ
 
 open Classical in
-/-- **The image of `ρ_{E,3}` is not contained in `SL₂(ℤ/3)`**, as soon as one `σ` has
-`χ_3(σ) ≠ 1` — and at **every** basis `b`, since the hypothesis mentions none.
+/-- **The image of `ρ_{E,3}` is not contained in `SL₂(ℤ/3)`**, over a field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, as soon as one `σ` has `χ_3(σ) ≠ 1` — and at **every** basis `b`, since `hσ`
+mentions none.
 
 The inclusion is written as `(galoisRepModMatrix b).range ≤ (Matrix.SpecialLinearGroup.toGL).range`
 with Mathlib's monoid embedding `SLₙ(R) →* GLₙ(R)`, so the statement is literally *"every matrix in
