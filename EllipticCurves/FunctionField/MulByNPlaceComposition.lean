@@ -201,16 +201,16 @@ This file's verdict is its own: the census above was run here.
   of characteristic `≠ 2` by `EllipticCurves.Torsion.CoprimeAdjacent`; open over an arbitrary ring)
   and Ward (`#260`, closed) are unused.
 
-⚠️ **Both of the things that sentence names are now closed, and it is an independence claim
-rather than a gate.**  `#404`'s on-curve identity is
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557, at
-every index over every commutative ring) and Ward's theorem (`#260`) is
-`WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`), unconditional.
-The claim below is unchanged in force: this file uses neither.  ⚠️ **Nor is the third thing this
-paragraph used to call open**: the identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P` is `#251`
-on its `x`-half and `#1500` on its `y`-half, and both are closed at every index with `(2 : F) ≠ 0`
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`;
-`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, PR #579); see
+⚠️ **Both of the things that sentence names are now closed, and it is an independence claim rather
+than a gate.**  `#404`'s on-curve identity is `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
+(`EllipticCurves.Torsion.OmegaCrux`, PR #557, at every index over a field with `(2 : F) ≠ 0`) and
+Ward's theorem (`#260`) is `WeierstrassCurve.Affine.ψ_isEllipticNet`
+(`EllipticCurves.Torsion.WardHalving`), unconditional.  The claim below is unchanged in force: this
+file uses neither.  ⚠️ **Nor is the third thing this paragraph used to call open**: the
+identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P` is `#251` on its `x`-half and `#1500` on its
+`y`-half, and both are closed at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`; `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
+`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579); see
 `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## References

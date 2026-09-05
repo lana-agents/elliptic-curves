@@ -10,9 +10,9 @@ import EllipticCurves.Torsion.TriplingCoords
 /-!
 # `y(n • P) = ωₙ/(2ψₙ³)` along the ladder: the `y`-half of the coordinate formula
 
-Issue `#1500`.  `EllipticCurves.Torsion.OmegaCrux` proves that the pair
-`(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` **lies on the curve** at every index over every commutative ring, and says
-in terms that this is *not* a statement about `n • P`.  `EllipticCurves.Torsion.DoublingCoords` and
+Issue `#1500`.  `EllipticCurves.Torsion.OmegaCrux` proves that the pair `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))`
+**lies on the curve** at every index over a field with `(2 : F) ≠ 0`, and says in terms that this is
+*not* a statement about `n • P`.  `EllipticCurves.Torsion.DoublingCoords` and
 `EllipticCurves.Torsion.TriplingCoords` identify the second coordinate with `y(n • P)` at `n = 2`
 and `n = 3`.  **This file closes the gap between them at every index for which the ladder of
 `EllipticCurves.Torsion.NsmulLadder` does not pass through a zero.**

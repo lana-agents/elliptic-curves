@@ -62,15 +62,14 @@ proof and ask which of its inputs actually mention the generic point.
   `#1500`, and it is **closed**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579) proves `n • (x, y) = (Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` at
   every index over a field with `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0` — the non-vanishing that
-  `hasXCoordFormula_of_two_ne_zero`'s `HasXCoordFormula W n` asks of a consumer, that theorem
-  taking the same `(2 : F) ≠ 0` and binding no `ΨSq` condition itself.
-  ⚠️ That module is **import-incomparable** with this one, so it is cited and not consumed, and
-  nothing below changes.  `#404`'s own deliverable was the weaker on-curve identity, that
-  `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and it is **closed**:
-  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` of `EllipticCurves.Torsion.OmegaCrux`, at
-  every index over every commutative ring, PR #557.  ⚠️ That module and this one are **import-
-  incomparable** — neither is in the other's closure — so the name is not resolvable here and
-  nothing below uses it.  The two-reading account is in
+  `hasXCoordFormula_of_two_ne_zero`'s `HasXCoordFormula W n` asks of a consumer, that theorem taking
+  the same `(2 : F) ≠ 0` and binding no `ΨSq` condition itself.  ⚠️ That module is
+  **import-incomparable** with this one, so it is cited and not consumed, and nothing below changes.
+  `#404`'s own deliverable was the weaker on-curve identity, that `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies
+  `W.Equation` at all, and it is **closed**: `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` of
+  `EllipticCurves.Torsion.OmegaCrux`, at every index over a field with `(2 : F) ≠ 0`, PR #557.  ⚠️
+  That module and this one are **import-incomparable** — neither is in the other's closure — so the
+  name is not resolvable here and nothing below uses it.  The two-reading account is in
   `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ The `n = 3` case is
   `EllipticCurves.Torsion.TriplingCoords`, the mirror of this file, likewise not here.
 * Any statement about places, divisors or the function field; this file is pure point arithmetic and

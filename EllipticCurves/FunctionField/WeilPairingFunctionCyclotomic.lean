@@ -114,17 +114,18 @@ inconsistency introduced here — the *function*-level statements have been in `
   below still makes the weaker, in-file point that the unconditional script *fails* at `n = 3`.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
-PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative
-ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.
-The *other* statement this tree also called `ωₙ` — the identification of those coordinates with the
-**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
-are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
-`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
-every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is
-retired, not relettered a second time**: the coordinate formula gates nothing here.  ⚠️ What *does*
-stand between this file and a general index was **not** re-measured when the entry was retired — do
-not read this paragraph as putting `#1184`, `#938` or `#962` in its place.  The two-reading account
-is `EllipticCurves.FunctionField.MulByNPullback`.
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
+`(2 : F) ≠ 0` — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`.  The *other* statement this tree also called `ωₙ` — the
+identification of those coordinates with the **group-law** multiple `n • P` — is `#251` on its
+`x`-half and `#1500` on its `y`-half, and **both are closed**: `hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
+(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at every index over a field with
+`(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ **So the entry is retired, not relettered a
+second time**: the coordinate formula gates nothing here.  ⚠️ What *does* stand between this file
+and a general index was **not** re-measured when the entry was retired — do not read this paragraph
+as putting `#1184`, `#938` or `#962` in its place.  The two-reading account is
+`EllipticCurves.FunctionField.MulByNPullback`.
 
 ## ⚠️ `WeilPairingCyclotomic` was cited as `#867`; it is `#638`
 
