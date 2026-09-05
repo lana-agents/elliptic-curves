@@ -899,9 +899,22 @@ true"*, one layer up, in this document's own prose. They are:
 
 * **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
   is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
-  phrase about a statement of this development that also takes `h2` is a defect. Resolve the
-  sentence's subject to a declaration and read its binders; a `grep`-keyed sweep of this class
+  phrase about a statement of this development that also takes `h2` is a defect. Resolve each
+  clause's subject to a declaration and read its binders; a `grep`-keyed sweep of this class
   produces false positives as well as false negatives.
+  ⚠️ **A reach clause is a clause, not a sentence** (`#1679`). A sentence can carry two subjects,
+  and a condition named for one of them does **not** reach the other; a census keyed on sentences
+  cannot see the difference, because the sentence passes its field test on either subject's
+  strength. The instruction above therefore reads *"each clause's subject"*; it read *"the
+  sentence's subject"* until `#1679`, which is a **completion** and not a retirement — the old
+  words were partial rather than false, which is the test `### Reach clauses` sets.
+  ⚠️ **The class is anti-monotone under this front's own repair programme**, so it does not shrink
+  on its own: repairing one clause is what hides its neighbour. All four rows `#1679` found are
+  `#1137`'s own residue — PR #602, PR #605 and PR #616 each wrote `(2 : F) ≠ 0` into the clause
+  beside `nsmul_surjective_of_two_ne_zero`'s and left that one naming the index alone, and from
+  each of those commits a sentence-keyed test reads the whole sentence as clear.
+  ⚠️ **A list item is a unit too.** Two of the four are bullets, where what the reader meets is
+  the bullet and not the sentence a splitter would cut out of it.
 * **`(n : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` are different clauses.** The `_of_natCast_ne_zero`
   and `_of_intCast_ne_zero` suffixes say which, and a reach clause should match the suffix.
 * **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to

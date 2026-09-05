@@ -27,7 +27,8 @@ and their proofs are one line. There is **no** `isClosed_ker_galoisRep_of_nonemp
 
 * the level filtration `ker_galoisRep_eq_iInf` (`EllipticCurves.TateModule.Kernel`), which is
   **already** general and asks only for surjectivity of `[ℓ]`, supplied by
-  `nsmul_surjective_of_two_ne_zero` at every nonzero index; and
+  `nsmul_surjective_of_two_ne_zero` at every nonzero index with `(2 : F) ≠ 0` — ⚠️ **both**, and
+  this bullet used to name only the index (`#1679`); and
 * openness of each level kernel, which asks for `Finite (E[ℓ^k])`, supplied by
   `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) at every `n` with
   `(2 : F) ≠ 0` and `(n : F) ≠ 0`. ⚠️ **Both**, and this bullet used to name only the second.

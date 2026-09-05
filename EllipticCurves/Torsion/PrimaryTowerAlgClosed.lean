@@ -121,8 +121,8 @@ that is owed no longer: `nonempty_torsionPow_addEquiv_of_odd`
 
 `p.Prime` enters twice, and only one of the
 two uses needs it: the rank check inside `nonempty_torsionPow_addEquiv`, as recorded there, and —
-through `hp.pos.ne'` — the `p ≠ 0` that `nsmul_surjective_of_two_ne_zero` asks at any index, which
-is why the three counting statements above are stated at `p ≠ 0`. -/
+through `hp.pos.ne'` — the `p ≠ 0` that `nsmul_surjective_of_two_ne_zero` asks at any index with
+`(2 : F) ≠ 0`, which is why the three counting statements above are stated at `p ≠ 0`. -/
 theorem nonempty_torsionPow_addEquiv_of_card (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p.Prime)
     (hcard : Nat.card (W.torsion p) = p ^ 2) (k : ℕ) :
     Nonempty (W.torsion (p ^ k) ≃+ ZMod (p ^ k) × ZMod (p ^ k)) :=

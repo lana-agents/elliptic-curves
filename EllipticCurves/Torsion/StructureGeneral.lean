@@ -28,10 +28,10 @@ The structure theorem follows by the same shape one level up.  `#E[p] = p²` is 
 **every** prime `p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0` — the same pair as the display above, three
 lines up — and `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`) has supplied surjectivity of `[p]` at every nonzero index
-since PR #569 — so `EllipticCurves.Torsion.PrimaryTower`'s `nonempty_torsionPow_addEquiv` applies at
-every prime power, and `EllipticCurves.Torsion.CoprimeStructure`'s
-`nonempty_torsion_addEquiv_zmod_sq_of_coprime` glues the prime powers along
-`Nat.recOnPosPrimePosCoprime`:
+with `(2 : F) ≠ 0` since PR #569 — so `EllipticCurves.Torsion.PrimaryTower`'s
+`nonempty_torsionPow_addEquiv` applies at every prime power, and
+`EllipticCurves.Torsion.CoprimeStructure`'s `nonempty_torsion_addEquiv_zmod_sq_of_coprime` glues the
+prime powers along `Nat.recOnPosPrimePosCoprime`:
 
 ```
 E[n] ≃+ ℤ/nℤ × ℤ/nℤ              for every n with (2 : F) ≠ 0 and (n : F) ≠ 0.
@@ -191,10 +191,10 @@ theorem card_torsion_eq_sq (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
 
 `nonempty_torsionPow_addEquiv` (`EllipticCurves.Torsion.PrimaryTower`) takes exactly two inputs
 beyond primality: surjectivity of `[p]`, which `nsmul_surjective_of_two_ne_zero` supplies at every
-nonzero index, and `#E[p] = p²`, which `card_torsion_eq_sq` now supplies at every `p` with
-`(2 : F) ≠ 0` and `(p : F) ≠ 0` — the two hypotheses this theorem takes, and the section above says
-where the first enters.  ⚠️ The general-`p` form of `nonempty_torsionTwoPow_addEquiv` and of
-`nonempty_torsionThreePow_addEquiv`, and it subsumes both. -/
+nonzero index with `(2 : F) ≠ 0`, and `#E[p] = p²`, which `card_torsion_eq_sq` now supplies at every
+`p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0` — the two hypotheses this theorem takes, and the section
+above says where the first enters.  ⚠️ The general-`p` form of `nonempty_torsionTwoPow_addEquiv` and
+of `nonempty_torsionThreePow_addEquiv`, and it subsumes both. -/
 theorem nonempty_torsionPrimePow_addEquiv (h2 : (2 : F) ≠ 0) {p : ℕ} (hp : p.Prime)
     (hpF : (p : F) ≠ 0) (k : ℕ) :
     Nonempty (W.torsion (p ^ k) ≃+ ZMod (p ^ k) × ZMod (p ^ k)) :=
