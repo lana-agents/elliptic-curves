@@ -186,10 +186,13 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   right.
   ⚠️ **A clause that restricts the POINT or the PLACE rather than the index is decided by this same
   test, and the answer is not uniform across a case split** (`#1728`). *"at an affine point that is
-  not `n`-torsion"*, *"at every affine `P` that is not `n`-torsion"* and *"every affine `n`-torsion
-  place"* are one clause carried by the **six** rows of
-  `EllipticCurves.FunctionField.MulByNFibre`'s `/-! ### The contraction at a rational point -/`
-  section that carry one at all — `ord_mulByNCoordHom_XClass_pos`, `ord_mulByNCoordHom_YClass_pos`,
+  not `n`-torsion"*, *"at every affine `P` that is not `n`-torsion"*, *"at every affine `n`-torsion
+  point"* and *"every affine `n`-torsion place"* are one clause in four wordings, carried by the
+  **six** rows of `EllipticCurves.FunctionField.MulByNFibre`'s *"### The contraction at a rational
+  point, at every `n` with `((n : ℤ) : F) ≠ 0`"* section that carry one at all — ⚠️ **not** the
+  shorter *"### The contraction at a rational point"* section above it, which is a different
+  four-row section and is what a grep for the short title finds first —
+  `ord_mulByNCoordHom_XClass_pos`, `ord_mulByNCoordHom_YClass_pos`,
   `ord_mulByNEndo_genX_nonneg`, `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`,
   `ord_mulByNEndo_genX_neg` and `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero` — and the
   test sorts them **five to one**. Ask what the tree proves with the clause struck out:
@@ -197,7 +200,7 @@ discriminator"* — is untouched, because it names a **position** and not a coun
     is an artefact of the proof, the clause says when *this row* applies, and it is a reach clause
     owing the rest of the list. `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero` is the one row
     here on this side: strike its clause and what is left — *"`[n]` on places is `[n]` on points"* —
-    is `comapProjPointN_projPointOfPoint_of_ne_zero`, the assembly that closes the same section,
+    is `comapProjPointN_projPointOfPoint_of_ne_zero`, the assembly that section is built around,
     whose docstring names this row as one of the three **branches** it puts together.
   * **No declaration does.** Then the clause is part of the predicate and the headline is on the
     *"or it names none"* branch. Either a sibling proves the **opposite** on exactly the set the
@@ -209,6 +212,7 @@ discriminator"* — is untouched, because it names a **position** and not a coun
     the clause, which is the
     two `ord_mulByNCoordHom_*_pos` rows: `x(n • P)` is `Φₙ(x)/ΨSqₙ(x)`, and at an `n`-torsion `P`
     there is nothing for the headline to say vanishes.
+
   ⚠️ **Decide this only when you are about to CLEAR a row, never when you are about to complete
   one.** An insertion is branch-neutral: it moves a headline from *"or it names none"* to *"names
   every hypothesis"*, and both branches are compliant, so appending the missing conditions is right
@@ -218,6 +222,7 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   have left the block with rows in two registers"* is an independent ground for them in any case. A
   **clearance** is the one move that turns on the headline having no reach clause at all, and it is
   the only move that has to pay for this call.
+
   ⚠️ **The `n = 2` and `n = 3` ancestors of the convicted row are convicted with it, and are named
   rather than counted.** `comapProjPointTwo_pointClosedPoint`
   (`EllipticCurves.FunctionField.MulByTwoFibreAffine`) and `comapProjPointThree_pointClosedPoint`
@@ -315,16 +320,24 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   ⚠️ **The witness slot — the rows that bind an index condition and state no range — is published
   with its recogniser** (`#1658`, `#1728`), because that is the one figure the pair above never
   wrote out. Measured at `3e1bef2` over the same 43 rows and the same extractor: a headline states
-  an index range if it either **(a)** carries an index-quantifier phrase — ``at every `n` ``,
-  ``at every `3`-smooth `n` ``, *"at every index"*, *"at a general index"*, ``at general `n` ``,
-  ``for every `n` ``, *"at an odd `p`"* — or **(b)** carries an inline code span constraining the
+  an index range if it either **(a)** carries an index-quantifier phrase — ``at every `n` `` (19),
+  ``at every `3`-smooth `n ≠ 0` `` (6), *"at every index"* (1), ``at general `n` `` (1),
+  ``for every `n ≠ 0` `` (1), and *"at a general index"* / *"at an odd `p`"*, which are declared and
+  match nothing in this corpus (0) — or **(b)** carries an inline code span constraining the
   index — `` `n ≠ 0` ``, `` `(n : F) ≠ 0` ``, `` `((n : ℤ) : F) ≠ 0` ``, `` `3`-smooth ``. Headline
   means the block text `**`-stripped and whitespace-normalised, cut at the first `.` followed by
   optional bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whichever comes
   first. That returns **30** stating a range and **13** not — and it is *"or"*, not *"and"*, which
   is where two implementations part: (a) alone returns 28 and
   (b) alone 25, which is the spread the marking above is for and the reason a bare numeral was
-  never going to settle it. ⚠️ **The slot has three rows, and a dated measurement may name what a
+  never going to settle it. ⚠️ **Match the (a) phrases as they are written here, condition and
+  all.** The corpus writes the index span with its own condition inside it, so the normalised forms
+  ``at every `3`-smooth `n` `` and ``for every `n` `` match **zero** rows and drop (a) to **21** —
+  whether a quantifier phrase's index span may carry a condition is a **fifth** axis of the spread,
+  and it is the one that moves the slot: an (a)-only recogniser reading the normalised forms puts
+  **12** rows in it, against the **5** an (a)-only recogniser reading these forms does and the
+  **3** the full test below finds.
+  ⚠️ **The slot has three rows, and a dated measurement may name what a
   present-tense parenthetical may not:**
   * `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`
     (`EllipticCurves.FunctionField.MulByNFibre`) — **short**, convicted by the case-split
