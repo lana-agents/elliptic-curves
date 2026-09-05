@@ -133,7 +133,7 @@ identity is a different theorem rather than a descent of this one.
   description this bullet used to call `#251`**: `hasXCoordFormula_of_two_ne_zero`
   (`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579) give both halves at every index with
-  `(2 : F) ≠ 0`.  The general-`n` residue degree is
+  `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0`.  The general-`n` residue degree is
   `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which imports this file and is this
   file with `mulByThreeEndo_*` replaced by `mulByNEndo_*` — plus the observation that
   `residueDegreeThree_none_eq_one`'s route below is uniform in the endomorphism, so `f_∞ = 1` holds

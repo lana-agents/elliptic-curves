@@ -187,9 +187,9 @@ separate step — it is what `EllipticCurves.Torsion.DoublingCoords` and
 `#251` on the `x`-half and `#1500` on the `y`-half, and **both are now closed** —
 `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
-every index over a field with `(2 : F) ≠ 0`.  Both are downstream of this file; the separateness
-claimed above is unaffected, only its openness.  The two `OmegaTwo`/`OmegaThree` docstrings make
-the same disclaimer and it is unchanged.
+every index over a field with `(2 : F) ≠ 0` and under `ΨSqₙ(x) ≠ 0`.  Both are downstream of this
+file; the separateness claimed above is unaffected, only its openness.  The two
+`OmegaTwo`/`OmegaThree` docstrings make the same disclaimer and it is unchanged.
 
 ## References
 
