@@ -520,9 +520,9 @@ is rational and which has a halving point `P` with `[2]P = S`, the pullback `[2]
 twice a principal divisor.
 
 ⚠️ `hsep` is discharged internally from `hcard`; what is left is `h2`, `hcard`, `hP`, the
-nonsingularity and `2`-torsion of `S`, and the divisor condition on `f`.  ⚠️ This is **not**
-`#962` — see the module docstring for what still stands between this and `hprin` over a field
-where those two facts fail.
+nonsingularity and `2`-torsion of `S`, and a nonzero `f` whose divisor is `2·(S)`.  ⚠️ This is
+**not** `#962` — see the module docstring for what still stands between this and `hprin` over a
+field where those two facts fail.
 
 ⚠️ **That clause used to read** *"the hypotheses are `hcard` and `hP` and nothing else about
 `F`"* (`dcc912e`, `#1339`, PR #508).  It closes its list and `h2 : (2 : F) ≠ 0` is a hypothesis
