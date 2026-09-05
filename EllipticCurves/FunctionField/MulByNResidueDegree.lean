@@ -9,7 +9,8 @@ import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByThreeResidueDegree
 
 /-!
-# The relative residue degree of `[n]∗`, and `f_∞ = 1` at every `n`
+# The relative residue degree of `[n]∗`, and `f_∞ = 1` at every `n` at which `[n]` is
+non-constant
 
 `EllipticCurves.FunctionField.PlaceResidueComap` defines the relative residue degree
 `f_p = [κ(p) : κ(q)]` of a contraction `q = comapProjPoint φ p` for an arbitrary `F`-fixing
@@ -80,6 +81,28 @@ as well, and derive it — so a register saying every statement below takes it w
 last row, and the two rows heading the list make no claim about which fields or indices are
 reached.
 
+⚠️ **The headlines are a second block, and they were repaired second** (`#1660`).  Until now the
+title of this file, the `### The point at infinity` section heading and the headlines of
+`…residueDegreeN_none_eq_one`, `…residueDegreeProj_comapProjPointN_none_eq_one` and
+`…residueDegreeN_eq_one` all read *"at every `n`"* — the clause the paragraph above convicts — while
+`#1636` repaired only the bullets.  `README.md` `### Module-block bullets`' *"The traffic runs one
+way"* is what says those are two blocks and are repaired separately; they now carry the phrase the
+bullets already carried rather than a third wording of it.
+
+⚠️ **`…residueDegreeN_none_eq_one`'s own ⚠️ did not repair its headline, and that is a ruling
+rather than a reading.**  That paragraph names the non-constancy — *"the only thing `n` is asked
+for"* — four lines below a headline that said *"at every `n`"*, so the row turned on whether a
+declaration's own docstring answers for its headline.  `README.md` `### Scope of the rules above`
+now decides it: it does not, because a reach clause is answered where the reader meets it, and the
+same-docstring unit belongs to `### Gate-discharge claims`, whose word carries a signal to read on
+where a partial reach clause carries none.  The ⚠️ is unchanged and is now a gate list that
+agrees with its headline instead of a completion propping one up.
+
+⚠️ `### Retired claims`.  The retired clause is *"at every `n`"*, in each of those places, from
+`e914313` (`#1225`, the commit that created this file); `git log -S` returns that commit and no
+other for every one of them.  So none of them was drift — `xCoord_zero` has made `hn` false at
+`n = 0` since the day the file was written, and they were false on arrival.
+
 ## What is *not* here
 
 * **Not the fundamental identity at general `n`.**  `#701` and `#1046` are the *fibre sums*
@@ -137,9 +160,10 @@ theorem residueDegreeN_eq_one_of_residueDegreeProj_eq_one (n : ℕ)
     (hp : residueDegreeProj W p = 1) : residueDegreeN n hn p = 1 :=
   (residueDegreeComap_eq_one_of_residueDegreeProj_eq_one _ _ hp).2
 
-/-! ### The point at infinity, at every `n` -/
+/-! ### The point at infinity, at every `n` at which `[n]` is non-constant -/
 
-/-- **`[n]∗` is residually trivial at the point at infinity, at every `n`**: `f_∞ = 1`.
+/-- **`[n]∗` is residually trivial at the point at infinity, at every `n` at which `[n]` is
+non-constant**: `f_∞ = 1`.
 
 ⚠️ **Read the hypotheses.**  There is no `3`-smoothness, no `(2 : F) ≠ 0`, no `(3 : F) ≠ 0` and no
 `[IsAlgClosed F]`; the only thing `n` is asked for is the non-constancy that `mulByNEndo` needs in
@@ -155,7 +179,7 @@ theorem residueDegreeN_none_eq_one (n : ℕ)
   residueDegreeComap_none_eq_one _ _
 
 /-- **The place of `[n]∗F(W)` below the point at infinity is rational**, the other half of the same
-collapse: `[κ([n]⁻¹ ∞) : F] = 1`, at every `n`.
+collapse: `[κ([n]⁻¹ ∞) : F] = 1`, at every `n` at which `[n]` is non-constant.
 
 ⚠️ This says nothing about *which* place that is.  At `3`-smooth `n` it is the point at infinity
 (`#1214`); at a general `n` the tree does not know, and does not need to know, because a degree-one
@@ -166,7 +190,7 @@ theorem residueDegreeProj_comapProjPointN_none_eq_one (n : ℕ)
   residueDegreeProj_comapProjPoint_none_eq_one _ _
 
 /-- **Over an algebraically closed base field `[n]∗` is residually trivial at every place**, at
-every `n`.  `residueDegreeProj_eq_one` supplies the hypothesis of
+every `n` at which `[n]` is non-constant.  `residueDegreeProj_eq_one` supplies the hypothesis of
 `residueDegreeN_eq_one_of_residueDegreeProj_eq_one` everywhere; this is what would collapse a
 weighted fibre sum `∑_{p ↦ q} e_p · f_p` to `∑_{p ↦ q} e_p`.  ⚠️ No such sum is stated here — see
 *"What is not here"* in the module docstring. -/

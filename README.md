@@ -757,7 +757,22 @@ Four consequences worth stating, because each has cost a review cycle:
   and `_of_intCast_ne_zero` suffixes say which, and a reach clause should match the suffix.
 * **Declaration headlines are reach clauses too**, and doc-gen surfaces them in preference to
   module prose. A `## Hypotheses` section elsewhere in the same module does not repair a
-  partial headline.
+  partial headline. ⚠️ **Nor does a sentence lower in the declaration's own docstring** (`#1660`).
+  This is where this rule and `### Gate-discharge claims` part company, and not a second
+  application of one boundary: that section's exemption is *"in the same docstring"* precisely
+  because a gate-discharge word is **visibly relative to something**, so a reader who meets one
+  knows a subject for it exists and reads on. `### Module-block bullets` states the asymmetry —
+  *"A partial reach clause carries no signal at all, so the register has to be where the reader
+  meets it"* — and for a headline the place the reader meets the clause **is** the headline.
+  The worked case is `residueDegreeN_none_eq_one`
+  (`EllipticCurves.FunctionField.MulByNResidueDegree`), whose headline read *"`[n]∗` is residually
+  trivial at the point at infinity, at every `n`"* four lines above a ⚠️ naming the non-constancy
+  as *"the only thing `n` is asked for"*: the ⚠️ was true, the headline was false at `n = 0`, and a
+  reader who stopped at the headline had nothing telling them not to.
+  ⚠️ **The paragraph opening this section decides it the same way**, which is what makes the
+  ruling cheap rather than a new cost: that headline's two neighbours in the same section were
+  short of the same condition and take the insertion on nobody's argument, so clearing this one
+  would have left the block with rows in two registers and no way to tell which is which.
 * **Sort the class before repairing it, and expect to do two things at once.** A headline that
   lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
   that insertion **and** a deletion or a re-scoping of the assertion — because *"with `(2 : F) ≠ 0`
