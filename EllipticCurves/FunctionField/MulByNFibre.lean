@@ -233,12 +233,60 @@ two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 ## The non-constancy hypothesis is not named in the headlines below
 
 Where a statement here takes `h : Transcendental F (n • genericPoint).xCoord` as an explicit
-argument, no reach clause names it, under `README.md`'s derivability exemption: at a `3`-smooth
-`n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is `transcendental_xCoord_nsmul_of_smooth`
-(`EllipticCurves.FunctionField.MulByNComposition`), and at a general `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0` it is `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+argument, its **headline** does not name it, under `README.md`'s derivability exemption: at a
+`3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` it is
+`transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), and at
+a general `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` it is
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`).  Each derives `h` from exactly what the
 clause above it names.
+
+⚠️ **That sentence used to quantify over every reach clause, and this file's own module block
+falsifies the wider form** (`#1696`).  Until now it read *"no reach clause names it"*, and two
+clauses here name it:
+
+* `### The general layer`'s first bullet, of `…mulByNEndo_algebraMap`,
+  `…mulByNCoordHom_injective` and their two siblings — *"they hold at every `n`, on the
+  transcendence hypothesis alone"*.  ⚠️ **A reach phrase and the parameter in one clause**, which
+  is the shape `README.md` `### Reach clauses` defines and the strongest falsifier this sentence
+  has;
+* `### Non-vacuity`'s opening — *"Every statement in this file carries
+  `[IsDedekindDomain W.CoordinateRing]` and `[W.IsElliptic]` **on top of a non-constancy
+  hypothesis**"* — the hypothesis-load shape `EllipticCurves.FunctionField.MulByNInertia` counts
+  among its own nine (`#1669`, PR #671).
+
+⚠️ **The heading's claim is the narrower one and it stands.**  Neither falsifier is a headline: the
+first is a module-block bullet and the second a section gloss, and **no** declaration headline here
+that takes `h` names the parameter.  The one headline that names it —
+`exampleFibreFourteenT`'s *"The non-constancy input at `n = 14`, **produced** from the index
+condition alone"* — is a statement whose *conclusion* is the non-constancy and which takes no `h`
+at all, which is the case the paragraph below already carves out in terms.  ⚠️ **Recorded so the
+next census does not re-open it**: a census keyed on the words rather than on the role convicts
+that row, and it should not.
+
+Recogniser, published beside the count as `README.md` `### Module-block bullets` asks: every prose
+occurrence of *"non-constan…"* or *"transcenden…"* at or below the `## Main statements` heading,
+outside backticks, inside a comment, and **outside this section** — ⚠️ this section is where the
+repair went, so a recogniser that included it would count its own repair — read one by one.
+**Six** occur, and only the two above are clauses:
+
+* `exampleFibreFourteenT`'s headline, the *produces*-rather-than-takes row ruled on above;
+* the gate-attribution bullet's *"the transcendence input"*, which cites
+  `transcendental_xCoord_nsmul_of_isAlgClosed` to say it was never the gate — a citation, and
+  backticked names are excluded anyway (PR #671's exclusion);
+* the import census's note that the same lemma *"produces the non-constancy input of the `n = 14`
+  certificates"*, which is about this file's imports;
+* `### Non-vacuity`'s *"The non-constancy hypothesis is **produced**, never assumed"*, which
+  quantifies over one certificate rather than over the declarations below.  ⚠️ The reach phrase its
+  `EllipticCurves.FunctionField.MulByNInertia` twin carries — *"produced **at every index below**,
+  never assumed"* — is exactly what this one lacks, and that phrase is why the twin counts and this
+  does not.
+
+⚠️ **The wider wording was false on the day it landed**, not stale by growth.  `1ed28ec` (`#1574`,
+PR #625) wrote it and the `### The general layer` bullet in one commit — `git show 1ed28ec:…` lines
+`93` and `196`.  False rather than partial, so `README.md` `### Retired claims` binds and the
+wording is quoted here rather than deleted.  What replaced it is the headline-scoped claim above,
+which is what the heading has said all along.
 
 ⚠️ **Two statements below take no such argument, and this paragraph is not about them.**
 `projPointOfPoint_add_injective` holds at every `n` with no hypothesis on `F` at all, as its own

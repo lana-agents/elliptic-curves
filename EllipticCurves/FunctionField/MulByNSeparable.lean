@@ -42,6 +42,27 @@ such argument — it is about two arbitrary `F`-algebra endomorphisms and sits a
 `…_one` take transcendence hypotheses as the *data* they are statements about and name no
 hypothesis at all.
 
+⚠️ **That universal was read row by row and it HOLDS, which is why it is still here** (`#1696`).
+The sentence is a copy — `#1688` and `#1696` measured six files carrying it — and this file's copy
+is the one that survived the reading.  The ground is recorded here so that the next sweep does not
+repair a true sentence: `#1647`'s standing instruction covers wordings that are false of their own
+lists, and pre-emptive editing is the thing it rules out.  Recogniser, run
+here: every prose occurrence of *"non-constan…"* or *"transcenden…"* at or below the
+`## Main statements` heading, outside backticks and inside a comment, read one by one.  **Two**
+occur and neither is a reach clause:
+
+* `### Non-vacuity`'s *"The non-constancy hypothesis is **produced** by
+  `transcendental_xCoord_nsmul_of_smooth` rather than assumed"* quantifies over one certificate at
+  `n = 12`, not over the declarations below.  ⚠️ Its `…MulByNInertia` twin **does** count, and the
+  difference is a phrase and not a file: that one reads *"produced **at every index below**, never
+  assumed"*, and `README.md` `### Reach clauses` wants a phrase that says how far something goes;
+* the non-surjectivity certificate's *"certified here on the same curve only because that is where
+  the non-constancy hypothesis is already built"* says why the witness lives where it does.
+
+None of the `## Main statements` bullets names the parameter either: they name index conditions
+(*"at `3`-smooth `n ∉ {0, 1}`"*) and instance hypotheses, which is the register's own subject.
+⚠️ Backticked `transcendental_…` names are citations and not clauses (PR #671's exclusion).
+
 ## ⚠️ What this refutes
 
 `EllipticCurves.FunctionField.MulByThreeGalois` listed, under *"What is not here"*:
