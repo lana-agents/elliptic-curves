@@ -235,8 +235,17 @@ file consumes them rather than restating them.
   `sum_ramificationIdxN_mul_residueDegreeN_of_ne_zero`,
   `sum_ramificationIdxN_mul_residueDegreeN_of_charZero_of_ne_zero` and
   `sum_ramificationIdxN_of_ne_zero` — **the same six statements as their `_of_smooth` siblings, at
-  every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`** (`#1523` item 4).  The two substituted inputs
-  are `#1213`'s general degree and `#1523`'s general separability; no new argument.
+  every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`** (`#1523` item 4), with
+  `finrank_integralClosure_placeBelowN_of_ne_zero` and
+  `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero` **carrying separability as a
+  hypothesis besides**, as their own headlines say and the other four do not.  The two substituted
+  inputs are `#1213`'s general degree and `#1523`'s general separability; no new argument.
+  ⚠️ **That is an input to those proofs and not a discharge of `hsep` across the six** (`#1665`):
+  `finrank_mulByNEndoFieldRange_of_ne_zero` needs no separability at all, and the other three
+  discharge it from an instance they carry — `isSeparable_mulByNEndoFieldRange_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNGalois`) under `[IsAlgClosed F]` and
+  `isSeparable_mulByNEndoFieldRange_of_charZero` above under `[CharZero F]` — neither of which the
+  two named with it carry, so the `README.md` derivability exemption does not reach them.
 * `finrank_mulByNEndoFieldRange_five`, `sum_ramificationIdxN_mul_residueDegreeN_five` and
   `sum_ramificationIdxN_five` — the first index outside `{2, 3}`, named rather than left as
   `example`s.
