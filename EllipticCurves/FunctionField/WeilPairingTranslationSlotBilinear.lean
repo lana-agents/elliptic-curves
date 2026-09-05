@@ -109,12 +109,12 @@ over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0` —
 **group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
 are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
-every index over a field with `(2 : F) ≠ 0`.  ⚠️ That was the step `hprin` reaches through
-`MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is `addY_self_eq_div`
-(`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input now exists at
-every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**, here or
-anywhere in this tree: the bullet is retired because the reason it gave is false, not because a
-replacement reason was found.  The two-reading account is
+every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ That was the step
+`hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
+`addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input
+now exists at every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**,
+here or anywhere in this tree: the bullet is retired because the reason it gave is false, not
+because a replacement reason was found.  The two-reading account is
 `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **The two slots are combined elsewhere, and not by extending either of them.**  This bullet

@@ -48,7 +48,8 @@ every index over a field of characteristic `≠ 2` (`hasXCoordFormula_of_two_ne_
 `EllipticCurves.Torsion.NsmulOrder`), ⚠️ which is **import-incomparable** with this file, so nothing
 below can use it without a new import.  ⚠️ The `y`-identification holds at every index too —
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`), under the
-same hypotheses — and is likewise not reachable from here.  As in
+same characteristic `≠ 2` and under `ΨSqₙ(x) ≠ 0` (which that theorem **binds**, where the `x`-half
+asks it of a consumer inside `HasXCoordFormula`) — and is likewise not reachable from here.  As in
 `EllipticCurves.Torsion.XDifference`, everything below is a statement about polynomials and their
 values, never about `n • P`.
 

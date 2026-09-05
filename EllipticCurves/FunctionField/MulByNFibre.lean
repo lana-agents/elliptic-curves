@@ -51,7 +51,7 @@ coordinate formula is evaluated at any new index.**  `addY_self_eq_div`
 (`EllipticCurves.Torsion.TriplingCoords`) enter exactly where they already did, at `n = 2` and
 `n = 3`, and the general-`n` `ωₙ` duplication formula is not approached.  ⚠️ That formula used to
 be named here as `#251`, **not** `#404`; the attribution was right and the openness is not — it
-holds at every index with `(2 : F) ≠ 0` (`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
+holds at every index with `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0` (`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
 `EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579).  ⚠️ **This paragraph used to end
 *"Nothing below consumes it."*  That was true of the `3`-smooth layer and is false of the file**:
 `ord_mulByNCoordHom_YClass_pos` consumes exactly that formula, and it is the step that closes the
@@ -448,9 +448,9 @@ theorem mulByNCoordHom_YClass (n : ℕ)
 omit [DecidableEq F] in
 /-- **`x ∘ [n] − x(n • P)` vanishes at `P`**, at every affine `P` that is not `n`-torsion.
 
-The `x`-coordinate formula `x(n • P) = Φₙ(x)/ΨSqₙ(x)` — merged at every index with `(2 : F) ≠ 0`
-(`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`) — read through the
-presentation `x ∘ [n] = Φₙ(genX)/ΨSqₙ(genX)` (`mulByNEndo_genX_eq_ΦDivΨSq`,
+The `x`-coordinate formula `x(n • P) = Φₙ(x)/ΨSqₙ(x)` — merged at every index with `(2 : F) ≠ 0`,
+under `ΨSqₙ(x) ≠ 0` (`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`)
+— read through the presentation `x ∘ [n] = Φₙ(genX)/ΨSqₙ(genX)` (`mulByNEndo_genX_eq_ΦDivΨSq`,
 `EllipticCurves.FunctionField.MulByNYCoordFormula`).  ⚠️ The general-`n` counterpart of
 `ord_mulByTwoCoordHom_XClass_pos`, and the same argument: numerator vanishes, denominator does
 not. -/
