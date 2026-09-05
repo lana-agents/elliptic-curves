@@ -101,10 +101,15 @@ Every general-`n` declaration below whose statement mentions the `[n]∗` layer 
 `h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  ⚠️ **That sentence is
 not a reach register for `## Main results`, and this section used to say it was** (`#1668`).  It
 read *"**That sentence is the register**, in the sense of `README.md` `### Module-block bullets`:
-it is what tells a reader which declarations below bind `h`, and no bullet of `## Main results`
-repeats it"* (`5dfd94d`, `#1658`, PR #664).  `README.md` `### Module-block bullets` now fixes the
-unit in terms — a reach register binds *"the list it heads"*, and this sentence heads a different
-`##` section — so the claim was false rather than partial and `### Retired claims` binds.  What
+it is what tells a reader which declarations below bind `h`"* (`5dfd94d`, `#1658`, PR #664), closing
+*"and no bullet of `## Main results` repeats it"* — ⚠️ **and that closing clause is a second
+commit's**, so it is attributed to its own rather than folded into the first: `5dfd94d` closed
+*"and no clause below repeats it"*, and PR #671 substituted the bullet form (`1354e2d`, `#1669`).
+The earlier wording is retired on its own ground in the paragraph below; what is retired here is
+the register claim, and with it the bullet form of its closing clause.  `README.md`
+`### Module-block bullets` now fixes the unit in terms — a reach register binds *"the list it
+heads"*, and this sentence heads a different `##` section — so the claim was false rather than
+partial and `### Retired claims` binds.  What
 this sentence is instead is the **derivability exemption's citation**, which may sit anywhere in
 the module block, over a statement of fact about which declarations bind `h`; the two bullets that
 hung on it are repaired in the list itself.  ⚠️ **Eleven clauses below do name it — two of them
@@ -165,9 +170,10 @@ all — `finrank_mulByNEndoFieldRange_of_smooth`, the integral-closure pair at t
 `placeBelowN` with its instances — and those are compliant on `### Reach clauses`' *"or it names
 none"* branch, which is a third ground again and needs neither of the two above.
 
-⚠️ **The sentence opening this section closed *"and no clause below repeats it"* until `#1658`,
-and clauses below repeat it** (PR #664).  It was false rather than partial, so `README.md`
-`### Retired claims` binds and the wording is quoted here rather than deleted.  ⚠️ **And its
+⚠️ **The sentence opening this section closed *"and no clause below repeats it"* until PR #671
+rewrote it, and clauses below repeat it** (`5dfd94d`, `#1658`, PR #664).  It was false rather
+than partial, so `README.md` `### Retired claims` binds and the wording is quoted here rather
+than deleted.  ⚠️ **And its
 replacement is retired in its turn by the repair above** (`#1668`): PR #671 put *"what replaced it
 is the `## Main results` scope above, which holds — no bullet of that list names the
 non-constancy"* in its place (`1354e2d`, `#1669`), and two bullets of that list now name it.  A

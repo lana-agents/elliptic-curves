@@ -785,21 +785,37 @@ theirs hangs on the label. `…MulByNInertia` said *"cleared by the register and
 exemption"* of three declarations, which is a clearance stated **on** the register, and is what
 this ruling convicts.
 
-**Measured at `fac2ce1`, with the recogniser, as this section requires.** Over every module
-docstring: lines carrying a hypothesis universal over *"below"* / *"above"*, or the word
-*register*, keyed to the `## ` section they sit in — **117** lines in **45** files, read one by
-one. **Ten** are a hypothesis universal sitting outside the `## Main *` section whose bullets it
-could be read as clearing. Of those, **one** states a clearance on itself: `MulByNInertia`, **two**
+**Measured at `8d31527`, with the recogniser written out, as this section requires.** Over every
+`/-! … -/` block of every `git ls-files '*.lean'`, lines matching `\bregister\b` or
+`(Every|All|Each).*(below|above).*(takes|binds|carries|is stated)`, keyed to the `## ` section they
+sit in — **128** lines in **57** files, read one by one. ⚠️ **The universal alternative is
+unanchored on purpose**: this tree writes *"Everything below carries …"* as a third wording of the
+same object, and `\b(Every|All|Each)\b` would drop every one of them. **Thirteen** are a universal
+over hypotheses or over the setting, sitting outside the `## Main *` section whose bullets it could
+be read as clearing. Of those, **one** states a clearance on itself: `MulByNInertia`, **two**
 bullets covering **three** declarations, repaired in the row by this PR. **Four** are the
-exemption-citation label above. The remaining **five** clear no bullet — four because every bullet
-of their list names its own hypotheses or names none
-(`EllipticCurves.Torsion.StructureGeneral`, `EllipticCurves.TateModule.FreeGeneral`,
-`…FunctionField.TranslationMulByNCommGeneral`, whose sentence also sits *below* its list, and
-`…PullbackPrincipalityTwoRationalTorsion`), and one (`…WeilPairingAlternatingTwoRational`) because
-what it quantifies over is an **instance**, which `### Reach clauses` leaves ambient. ⚠️ **Every
+exemption-citation label above. The remaining **eight** clear no bullet:
+
+* three because every bullet of their list names its own hypotheses or names none —
+  `EllipticCurves.Torsion.StructureGeneral`, `EllipticCurves.TateModule.FreeGeneral`,
+  `…FunctionField.PullbackPrincipalityTwoRationalTorsion`;
+* three because the sentence sits **below** its list, which is the *"nothing further up the
+  docstring"* half read in the other direction — `…FunctionField.TranslationMulByNCommGeneral`,
+  and `…PullbackPrincipalityThree` and `…WeilPairingTranslationSlotNotInjective`, each of which
+  carries *"Everything below carries `[IsAlgClosed F]`"* in a `## Scope` section printed **after**
+  the `## Main *` list it could otherwise be read against;
+* two because what they quantify over is an **instance** or the setting, which `### Reach clauses`
+  leaves ambient — `…WeilPairingAlternatingTwoRational` (`[DecidableEq F]`) and
+  `…TranslationActionN` (*"at an arbitrary `n` over an arbitrary field"*).
+
+⚠️ **Two exclusions with their grounds, because an exclusion needs one as much as a conviction
+does.** The bulk of the 128 are non-vacuity paragraphs quantifying over what is **above** them
+(*"Every statement above carries `[IsDedekindDomain W.CoordinateRing]`"*), which can clear no
+bullet below by construction; and `…PlaceDegreeComparison`'s `## Scope` hit is a marked
+`### Retired claims` quotation of a wording that is already gone, not a live claim. ⚠️ **Every
 register PR #654 wrote is inside its own `## Main *` section and is safe by construction**, which
-is why the convicted count is one and not ten: this rule bites on prose registers written before
-that PR fixed the placement, and on nothing written from this section.
+is why the convicted count is one and not thirteen: this rule bites on prose registers written
+before that PR fixed the placement, and on nothing written from this section.
 
 ⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
 the cheap repair for a list whose bullets are each short of the same hypotheses: name them
