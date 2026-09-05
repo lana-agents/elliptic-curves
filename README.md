@@ -973,6 +973,30 @@ italics, not backticks.** Backticks are how this development marks a live citati
 name-resolution check keys on them; a retired name in backticks is indistinguishable from a
 dangling one.
 
+⚠️ **A clause replicated into many blocks retires once if those blocks share its subject, and once
+per block otherwise.** `#1694` is what forced the question: one sentence about
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` was copy-pasted into 37 module blocks by a
+single sweep (`5d6884a`, PR #561), and read literally this section asked for 37 quotations of it. It
+asks for **one**, in `EllipticCurves.Torsion.OmegaCrux` — the file that defines the declaration the
+clause was about — because the 37 copies asserted **one proposition, not 37**: each said the same
+thing about the same declaration, one reading of one signature falsified all of them at once, and
+the reader this section serves is a reader who wants to know what that declaration says. ⚠️
+**Contrast the two wordings that were retired at every site they occupied**, neither of them
+replicated any less: *"the bullets give the conclusions and not the hypotheses"* across seven blocks
+(`#1647`, `#1650`, `#1662`, `#1686`) and *"no reach clause names it"* across five (`#1688`,
+`#1696`). Both are universals over **the block's own list**, so each copy is a different proposition
+falsified by a different list, and one quotation elsewhere would leave every other block with no
+account of why its own sentence changed. **The test is what the clause is about — not how many files
+carry it, and not how many PRs repaired it.** A claim about the block it sits in retires where it
+sits; a claim about a subject that lives elsewhere retires at the subject, once. ⚠️ Apply
+`### Reach clauses`' *"Read whether the old clause was false or merely partial"* first: it decides
+whether this section binds at all, and only then does the count above apply. ⚠️ **No census width
+changes either way.** `### Module-block bullets` already prices the phantom that a retirement leaves
+in a phrase-keyed count, and says the gap widens with every repair; that cost is accepted there and
+is **not** what decides placement here. ⚠️ **The rule is retrospective and nothing is owed to it** —
+both rulings on record already comply, which is why this paragraph states the tree rather than
+changing it.
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the
