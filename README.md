@@ -1377,6 +1377,34 @@ They apply **per block, not per phrase** — a `## Main statements` list, or a `
 column, is one place. A fix that repairs one row and leaves its neighbour partial makes the
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
+⚠️ **The neighbour may instead be compliant on the OTHER branch, and that case is not the one
+above** (`#1748`). *"Names every hypothesis, or it names none"* has two compliant sides, so a
+section can hold a row naming a field condition beside one that binds it and names none, with
+neither row defective. Measured at `823cf46` over
+`FunctionField.MulBy{TwoFibreAffine,TwoFibreInfinity,ThreeFibre,NFibre}` — a row listed when it
+binds `(2 : F) ≠ 0` or `(3 : F) ≠ 0`, from its own binder list or a `variable` line above it, and
+its headline names neither — **49** rows sit in the silent register and **five** `` /-! ### ``
+sections hold both. ⚠️ **Two of the five are in `MulByNFibre` itself**, and they are the answer
+rather than the problem: its silent rows are `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero`,
+which the first bullet of `### Reach clauses` clears by name, and
+`card_fibre_comapProjPointN_le_sq_five`, which the fixed-numeral discriminator below exempts.
+**A split section is sound when every silent row in it is silent on a ground the reader can reach,
+and unsound when the difference is left to be guessed.**
+⚠️ **The other three were unsound and are repaired by insertion rather than by a note** (`#1748`).
+Two are `ord_*` rows — `ord_mulByTwoEndo_genX_nonneg`, `ord_mulByThreeEndo_genX_nonneg` — standing
+beside a crux a ruling had just repaired, carrying a **word-identical** point clause and naming
+nothing, with the reason they are silent (`#1728` sorts them *predicate*, because the transposed
+pair `ord_mulBy{Two,Three}Endo_genX_neg` proves the **opposite** off the clause) recorded only for
+`MulByNFibre`'s copies. The third is `comapProjPointThree_projPointOfPoint`, left as the one silent
+row of four by `#1743`, whose general-`n` counterpart
+`comapProjPointN_projPointOfPoint_of_ne_zero` names its conditions. `fddba5c` (`#1664`, PR #684)
+met this shape in `MulByNFibre`'s own six-row section and took the insertion *"even though it puts
+all four on the predicate side"*, because an insertion is branch-neutral (`#1728`) and needs no
+ruling to be defended; the same move transposed to the ancestors costs three lines and makes the
+three indices read alike.
+⚠️ **The remaining 46 are NOT defects and none is repaired**, so do not read the figure as a
+backlog. They sit in sections no ruling has reached, so there is no split to close, and converting
+them would be a preference dressed as a sweep.
 
 Consequences worth stating, because each has cost a review cycle. ⚠️ **Their number is
 deliberately not given** (`#1667`): this line read *"Four consequences worth stating"* from
