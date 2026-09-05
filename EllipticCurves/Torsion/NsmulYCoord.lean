@@ -58,7 +58,7 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
 * **Not the coordinate formula at every index — but that is no longer open.**  The hypothesis here
   is the *ladder* one — `ψ_k(x, y) ≠ 0` for every `1 ≤ k ≤ n` — exactly as in
   `nsmul_eq_some_Φ_div_ΨSq`, and it is strictly stronger than `ψₙ(x, y) ≠ 0`.  The `x`-half was
-  lifted off the ladder to every index by
+  lifted off the ladder to every index with `(2 : F) ≠ 0` by
   `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
   through a **third** branch that reduces `n` to `j = n mod d` at the least vanishing index `d` and
   transports along `divX_add_mul_of_not_dvd` — the `d`-periodicity of the `x`-prediction.

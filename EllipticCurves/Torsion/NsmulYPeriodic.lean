@@ -99,8 +99,9 @@ statement, and three facts about the fixture point `(0, 1)`).
   period, in the packaging `EllipticCurves.Torsion.NsmulOrder` uses.
 * `WeierstrassCurve.Affine.divY_add_mul_of_not_dvd` : **the statement `#1500` was narrowed to.**
 * `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero` : **the headline** —
-  `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))` at every index, under `ΨSqₙ(x) ≠ 0`, which is exactly
-  the hypothesis `hasXCoordFormula_of_two_ne_zero` asks of the `x`-half.
+  `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))` at every index with `(2 : F) ≠ 0`, under
+  `ΨSqₙ(x) ≠ 0` — the non-vanishing that `hasXCoordFormula_of_two_ne_zero`'s `HasXCoordFormula W n`
+  asks of a consumer, that theorem taking the same `(2 : F) ≠ 0`.
 * `WeierstrassCurve.Affine.nsmul_four_omegaY_y2EqX3AddOne` : the non-vacuity certificate — the
   `y`-half at an index the ladder cannot reach, landing in the `d = 3` branch.
 * `WeierstrassCurve.Affine.exists_isEllipticNet_not_divT_periodic` : ⚠️ the certificate that the

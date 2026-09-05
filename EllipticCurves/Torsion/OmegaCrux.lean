@@ -207,7 +207,9 @@ issue `#251`, and is untouched by this file.
 The `y`-half — that the second coordinate above **is** `y(n • P)` — is
 `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
 (`EllipticCurves.Torsion.NsmulYPeriodic`, issue `#1500`), and ⚠️ it holds at **every** index under
-exactly the hypothesis this theorem asks for, `ψₙ(x, y) ≠ 0`.  ⚠️ The ladder-only
+`ΨSqₙ(x) ≠ 0` — at a point of `W` that is this theorem's `ψₙ(x, y) ≠ 0`, by
+`ψ_sq_evalEval` (`EllipticCurves.Torsion.DivisionPolynomialEval`) — with the same `(2 : F) ≠ 0` as
+here, and `W.Nonsingular x y` where this theorem asks only `W.Equation x y`.  ⚠️ The ladder-only
 `WeierstrassCurve.Affine.nsmul_eq_some_omegaY` (`EllipticCurves.Torsion.NsmulYCoord`) is its weaker
 predecessor and is **not** the sharp statement.
 

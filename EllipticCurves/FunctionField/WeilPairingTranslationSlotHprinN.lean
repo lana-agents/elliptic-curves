@@ -195,8 +195,8 @@ kept the gate and moved the number, and that is no longer right either.  The ste
 isolates — `addY_self_eq_div`'s general-`n` form, the `y`-coordinate of the **group-law** multiple
 `n • P` in division-polynomial form — is `#1500`, not `#251` and not `#404`, and PR #579 **closed**
 it: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`) at every index
-under `ΨSqₙ(x) ≠ 0`.  ⚠️ `#404`'s own deliverable was the strictly weaker on-curve identity, that
-`(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and PR #557 **closed** it
+with `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0`.  ⚠️ `#404`'s own deliverable was the strictly weaker
+on-curve identity, that `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and PR #557 **closed** it
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`, every
 index, every commutative ring).  ⚠️ The mis-attribution entered through the `DoublingCoords`
 sentence quoted above, which this paragraph quoted in good faith; `DoublingCoords` now says so

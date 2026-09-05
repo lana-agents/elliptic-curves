@@ -104,8 +104,9 @@ the same.**  `#404`'s deliverable — the on-curve identity for `(Φₙ/ΨSqₙ,
 import-incomparable with this file).  What `addY_add_self_eq_div` below states at `n = 3` is the
 identification with the **group-law** multiple, and ⚠️ **that is no longer general-`n` open
 either**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`,
-PR #579) proves it at every index, with `hasXCoordFormula_of_two_ne_zero`
-(`EllipticCurves.Torsion.NsmulOrder`, `#251`) as its `x`-half.  Both are downstream of this file.
+PR #579) proves it at every index over a field with `(2 : F) ≠ 0`, and
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, `#251`) is its `x`-half,
+under the same hypotheses.  Both are downstream of this file.
 
 ⚠️ **`GenericTripling`'s two theorems are instances of the ones below** (take the base-changed curve
 over `F(W)` and the point `(genX, genY)`), and collapsing the duplication would be a worthwhile

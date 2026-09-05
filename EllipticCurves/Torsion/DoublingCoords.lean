@@ -61,7 +61,9 @@ proof and ask which of its inputs actually mention the generic point.
   general-`n` form of *that* is `WeierstrassCurve.Affine.HasXCoordFormula`'s `y`-half — issue
   `#1500`, and it is **closed**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579) proves `n • (x, y) = (Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` at
-  every index under `ΨSqₙ(x) ≠ 0`, which is `hasXCoordFormula_of_two_ne_zero`'s own hypothesis.
+  every index over a field with `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0` — the non-vanishing that
+  `hasXCoordFormula_of_two_ne_zero`'s `HasXCoordFormula W n` asks of a consumer, that theorem
+  taking the same `(2 : F) ≠ 0` and binding no `ΨSq` condition itself.
   ⚠️ That module is **import-incomparable** with this one, so it is cited and not consumed, and
   nothing below changes.  `#404`'s own deliverable was the weaker on-curve identity, that
   `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and it is **closed**:
