@@ -737,6 +737,33 @@ correctly, and was short on the `hΨ` axis in the same six words. The class is s
 reading it is the instrument: **25** bare anaphors in **18** files at `4148f23`, out of **32**
 occurrences of the phrase family in **23** files, from **231** seeded occurrences in **123** files,
 every one read; the seeds and the row-by-row verdicts are on `#1705`.
+⚠️ **That `25` is the count on the PHRASE axis while this ruling is keyed on the CLAIM, so it is
+short of the population the ruling governs** (`#1714`). Re-run at `cb6ad1f` over twelve seeds chosen
+for the claim rather than the wording — `the hypotheses of`, `the same reach`, ``same binders?``,
+``keeps? the hypotheses``, ``inherits? the hypotheses``, ``weakens? or strengthens``,
+``no (further|extra|additional) hypothes``, `carries no`, `same telescope`, `binder for binder`,
+`argument position`, and `hypotheses` followed by `inherited`, `unchanged` or `verbatim` — over the
+same nesting-aware `/-`-depth comment regions, whitespace squeezed, case-insensitive: **107** raw
+hits over **420** files, every one read, of which **8** state reach identity and are **not** among
+the 25 — `MulByNFibre:999` and `:1164`, `WeilPairingRootIndependence:202`,
+`WeilPairingCyclotomic:50`, `DeterminantModGeneral:218` and `:239`, `MatrixRepModGeneral:120`,
+`WeilPairing:255`. **The identity axis is 33 rows in 23 files, not 25 in 18.** Seven are true — the
+two `binder for binder` restatement claims were read against the four `_of_smooth` signatures they
+name, `omit` lines included — and one, `WeilPairingCyclotomic`'s *"Nothing here weakens or
+strengthens the hypotheses of the merged equivariance statements"*, was **false** and is repaired in
+that file. ⚠️ **The 25 is not retired**: it is a true, dated count of the rows the phrase seeds
+return, so it is **partial** and takes the qualification above rather than a marked quotation. Run
+*"false or merely partial"* before opening `### Retired claims` on a count that is merely **short**.
+⚠️ **An inhabitation claim is not a reach clause, and the widest claim-axis seed is almost all
+inhabitation.** *"The hypotheses of `X` are satisfiable"*, *"… are also necessary"*, and the
+non-vacuity certificates that carry them, say a hypothesis **list is inhabited**; they do not say
+which situations `X` reaches, so nothing in this section binds them. **Ten of the 28
+`the hypotheses of` hits are non-vacuity certificates and five more are section titles named after
+one**, and `carries no` is **56** hits in **49** files of which **none** is an identity claim —
+every one names a *single* absent binder, instance or name component, which is the absence
+register (`#1682`, `#1683`) and not this branch. The discriminator, written down so the next
+census does not re-derive it: a clause is on this branch when its subject is a **declaration's
+reach**, and off it when its subject is a **hypothesis list's inhabitants** (`#1714`).
 
 ⚠️ **A clause that points *and* names is not on this branch**, which is what separates those two
 counts. *"with the same hypothesis `ΨSqₙ(x) ≠ 0` that … `hasXCoordFormula_of_two_ne_zero` asks of
