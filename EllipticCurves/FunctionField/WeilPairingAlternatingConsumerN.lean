@@ -54,7 +54,27 @@ affine point instead of `n` of them.
 
 ⚠️ **All three below take a point `P` on the curve, a point `T` on the curve with `[n]P = T`, the
 telescope `htel` and the `n`-th-power identity `hpow`; the second and the third take `(2 : F) ≠ 0`
-as well, and the second `(3 : F) ≠ 0`.**  The bullets give the conclusions and not the hypotheses.
+as well, and the second `(3 : F) ≠ 0`.**
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+without counting is neither, and sits under this register unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
+`#1647` decided, in `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` (PR #658).
+
+⚠️ **It replaces a universal that was false of this list on the day it landed.**  This register
+formerly closed *"The bullets give the conclusions and not the hypotheses"* (`6f7fe82`, `#1626`,
+PR #654), and both of the bullets that falsify it were already on the page at that commit: the
+second names *"at every `3`-smooth `n ≠ 0`"* over `(hnz : n ≠ 0)` and
+`(hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)`, and the third *"at every `n` with
+`((n : ℤ) : F) ≠ 0`"* over `(hn : ((n : ℤ) : F) ≠ 0)` — explicit binders of the declarations those
+bullets are about, not glosses.  ⚠️ **A bullet that NAMES a hypothesis falsifies that sentence**:
+it says the bullets give the conclusions *and not the hypotheses*, so giving one is enough, and
+**counting** them is the narrower, stronger failure the form above routes separately.  Reading the
+form's *"naming some without counting is neither"* back into the sentence it replaced is the error
+`README.md` `### Module-block bullets` now warns against by name — that branch is one this form
+**adds**, and wanting it is why the old wording had to go.  Same test, same verdict and same repair
+as in `…AssemblyN` and `…GaloisRootN` (`#1647`, `#1662`, `#1686`).
 
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq` — the affine-indexed form of the workhorse;
 * `translateEndo_eq_self_of_mul_algebraMap_pow_eq_of_smooth` — the same at every `3`-smooth `n ≠ 0`,

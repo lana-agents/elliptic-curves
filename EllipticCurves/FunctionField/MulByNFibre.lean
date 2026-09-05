@@ -104,8 +104,11 @@ from its general companion, so the containment is compiled rather than claimed.
 * `…mulByNEndo_algebraMap`, `…mulByNCoordHom_injective`, `…mulByNCoordHom_XClass`,
   `…mulByNCoordHom_YClass` — the general-`n` forms of the `mulByTwoCoordHom` basics.  ⚠️ These four
   take **neither** `(2 : F) ≠ 0` **nor** `((n : ℤ) : F) ≠ 0`: they hold at every `n`, on the
-  transcendence hypothesis alone.  ⚠️ **Every one of the thirteen below does take both**, and the
-  bullets give the conclusions and not the hypotheses;
+  transcendence hypothesis alone.  ⚠️ **Every one of the thirteen below does take both.**
+  ⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+  counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+  without counting is neither, and sits under this register unchanged; reporting one *discharged* is
+  a gate-discharge claim, which `README.md` `### Gate-discharge claims` governs;
 * `…ord_mulByNCoordHom_XClass_pos` and `…ord_mulByNCoordHom_YClass_pos` — `x ∘ [n] − x(n • P)` and
   `y ∘ [n] − y(n • P)` vanish at an affine `P` that is not `n`-torsion.  ⚠️ The second is the step
   neither `#774` nor `#1540` priced, and it is the one that needs `ωₙ`;
@@ -122,6 +125,29 @@ from its general companion, so the containment is compiled rather than claimed.
   `…pullbackDivisorN_single_projPointOfPoint_of_ne_zero` and
   `…pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` — `#1540` item 3, the six consumers, whose
   proofs are their `3`-smooth originals with `hfac` deleted.
+
+⚠️ **The register heading this sub-list formerly closed *"and the bullets give the conclusions and
+not the hypotheses"***, and it was false of the thirteen it is scoped to **on the day it landed** —
+the register and the rows that falsify it are one commit, `135f257` (`#1540` items 2 and 3,
+PR #612).  The `ord_mulByNCoordHom_XClass_pos` / `…_YClass_pos` row names *"vanish at an affine `P`
+that is not `n`-torsion"* over `(h : W.Equation x y)` and `(hΨ : (W.ΨSq n).eval x ≠ 0)`, and the
+`ord_mulByNEndo_genX_nonneg` / `…_neg` row *"regular off the `n`-torsion locus and has a pole on
+it"* over that same pair, `(hx : (W.ΨSq n).eval x = 0)` on the pole side — explicit binders of the
+declarations those rows are about, named in the same shape as
+`WeilPairingAlternatingConsumerN`'s *"at every `3`-smooth `n ≠ 0`"* (`#1686`).  ⚠️ **A bullet that
+NAMES a hypothesis falsifies that sentence**; **counting** them is the narrower, stronger failure
+the form above routes separately.  What replaces it is that form, in the register's own bullet.
+
+⚠️ **This answers whether the register's universal was TRUE, and not whether any row is
+COMPLIANT** — two questions in opposite directions, and `README.md` `### Module-block bullets`
+already rules on the second for the sixth row of this list, *"a reach clause naming the instance and
+nothing else … so the bullet is compliant relative to it"*.  ⚠️ **That ruling is untouched here and
+no row is edited**: it says a bullet naming less than its signature binds is cleared by the register
+above it, where the retired sentence claimed the bullets name **nothing**, which is a claim about
+the bullets and not about their signatures.  ⚠️ **The verdict does not turn on the sixth row's
+*"over `F̄`"*** either — that phrase names an **instance**, `README.md` rules in terms that *"the
+reach-clause rule never reached instances"*, and the two rows above settle the universal without it.
+So nothing here reopens the instance question (`#1686`).
 
 ## What is *not* here
 
