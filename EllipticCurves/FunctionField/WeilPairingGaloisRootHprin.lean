@@ -154,8 +154,8 @@ variable {x₂ y₂ x y : F}
 /-! ### Over an arbitrary field, at the level of `F(W⁄F)` -/
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing at `n = 2` over an arbitrary field**, with `hprin`
-the only gate:
+/-- **Galois-equivariance of the Weil pairing at `n = 2` over an arbitrary field with
+`(2 : F) ≠ 0`**, with `hprin` the only gate:
 
 ```
 σ⋆(e_2(S, T)) = e_2(σS, σT).
@@ -202,9 +202,10 @@ theorem exists_weilPairingElt_galois_two_of_hprin (σ : F ≃ₐ[S] F) (h2 : (2 
     weilPairingElt_galois_of_gS_two σ h2 h₂ h.left hg hg' hfdiv hf'div hu hu'⟩
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing at `n = 3` over an arbitrary field**, with `hprin`
-the only gate: the `n = 3` mirror of `exists_weilPairingElt_galois_two_of_hprin`, and
-`exists_weilPairingElt_galois_three` with `hprin` in place of `[IsAlgClosed F]`.
+/-- **Galois-equivariance of the Weil pairing at `n = 3` over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin` the only gate: the `n = 3` mirror of
+`exists_weilPairingElt_galois_two_of_hprin`, and `exists_weilPairingElt_galois_three` with `hprin`
+in place of `[IsAlgClosed F]`.
 
 Only the producer differs — `exists_gS_three` for `exists_gS_two`, with the extra `h3` — and the
 engine `weilPairingElt_galois_of_gS_three` was already stated over an arbitrary field. -/
@@ -240,8 +241,8 @@ theorem exists_weilPairingElt_galois_three_of_hprin (σ : F ≃ₐ[S] F) (h2 : (
 /-! ### Over an arbitrary field, at the level of `μ_n(F)` -/
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing in `μ_2(F)` over an arbitrary field**, with `hprin`
-the only gate:
+/-- **Galois-equivariance of the Weil pairing in `μ_2(F)` over an arbitrary field with
+`(2 : F) ≠ 0`**, with `hprin` the only gate:
 
 ```
 σ · μ_2(S, T) = μ_2(σS, σT)     in `rootsOfUnity 2 F`.
@@ -296,8 +297,9 @@ theorem exists_weilPairingMu_galois_two_of_hprin (σ : F ≃ₐ[S] F) (h2 : (2 :
     weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing in `μ_3(F)` over an arbitrary field**, with `hprin`
-the only gate: the `n = 3` mirror of `exists_weilPairingMu_galois_two_of_hprin`.
+/-- **Galois-equivariance of the Weil pairing in `μ_3(F)` over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin` the only gate: the `n = 3` mirror of
+`exists_weilPairingMu_galois_two_of_hprin`.
 
 Two things differ from the `n = 2` statement and neither is mathematical: the envelope is
 `exists_weilPairingElt_galois_three_of_hprin`'s, and the `hpow` producer is

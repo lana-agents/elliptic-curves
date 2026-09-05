@@ -200,7 +200,8 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 section Two
 
 open Classical in
-/-- **Translation-slot bilinearity at `n = 2` over an arbitrary field, with `hprin` the only gate.**
+/-- **Translation-slot bilinearity at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, with
+`hprin` the only gate.**
 
 ```
 e_2(R, g) = e_2(P, g) · e_2(Q, g),     for  P ⊕ Q = R.
@@ -240,8 +241,8 @@ theorem exists_weilPairingElt_translatePoint_add_two_of_hprin (h2 : (2 : F) ≠ 
       hpowQ⟩
 
 open Classical in
-/-- **Translation-slot bilinearity at `n = 2` in `μ_n(F)` over an arbitrary field, with `hprin` the
-only gate.**
+/-- **Translation-slot bilinearity at `n = 2` in `μ_n(F)` over an arbitrary field with
+`(2 : F) ≠ 0`, with `hprin` the only gate.**
 
 ```
 μ_n(R, g) = μ_n(P, g) · μ_n(Q, g)   in rootsOfUnity n F.
@@ -291,8 +292,8 @@ theorem exists_weilPairingMu_translatePoint_add_two_of_hprin (h2 : (2 : F) ≠ 0
       hpowR⟩
 
 open Classical in
-/-- **`e_2(S, ·) : E[2] → μ_2(F)` is a group homomorphism over an arbitrary field, with `hprin` the
-only gate.**
+/-- **`e_2(S, ·) : E[2] → μ_2(F)` is a group homomorphism over an arbitrary field with
+`(2 : F) ≠ 0`, with `hprin` the only gate.**
 
 `exists_weilPairingTorsionMuHom_two` (`#890`) verbatim, with the root producer swapped.  ⚠️ The
 whole of `E[2]` is the domain, named as a group rather than point by point, so this is the one
@@ -320,7 +321,8 @@ end Two
 section Three
 
 open Classical in
-/-- **Translation-slot bilinearity at `n = 3` over an arbitrary field, with `hprin` the only gate.**
+/-- **Translation-slot bilinearity at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, with `hprin` the only gate.**
 
 The `n = 3` mirror of `exists_weilPairingElt_translatePoint_add_two_of_hprin`: only the pullback
 differs, `mulByThreeEndo h2 h3` in place of `mulByTwoEndo h2`, and with it the rung-5 producer
@@ -349,9 +351,10 @@ theorem exists_weilPairingElt_translatePoint_add_three_of_hprin (h2 : (2 : F) �
       hpowQ⟩
 
 open Classical in
-/-- **Translation-slot bilinearity at `n = 3` in `μ_n(F)` over an arbitrary field, with `hprin` the
-only gate.**  The `n = 3` mirror of `exists_weilPairingMu_translatePoint_add_two_of_hprin`; its
-three `hpow` data come from `weilPairingElt_pow_eq_one_of_gS_three_baseField`
+/-- **Translation-slot bilinearity at `n = 3` in `μ_n(F)` over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with `hprin` the only gate.**  The `n = 3` mirror of
+`exists_weilPairingMu_translatePoint_add_two_of_hprin`; its three `hpow` data come from
+`weilPairingElt_pow_eq_one_of_gS_three_baseField`
 (`TranslationTriplingComm`) in place of `weilPairingElt_pow_eq_one_of_gS_two_torsion`
 (`TranslationTorsion`). -/
 theorem exists_weilPairingMu_translatePoint_add_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
@@ -389,9 +392,9 @@ theorem exists_weilPairingMu_translatePoint_add_three_of_hprin (h2 : (2 : F) ≠
       hpowR⟩
 
 open Classical in
-/-- **`e_3(S, ·) : E[3] → μ_3(F)` is a group homomorphism over an arbitrary field, with `hprin` the
-only gate.**  The `n = 3` mirror of `exists_weilPairingTorsionMuHom_two_of_hprin`, off
-`exists_gS_three` (`NthRootOfPullback`). -/
+/-- **`e_3(S, ·) : E[3] → μ_3(F)` is a group homomorphism over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with `hprin` the only gate.**  The `n = 3` mirror of
+`exists_weilPairingTorsionMuHom_two_of_hprin`, off `exists_gS_three` (`NthRootOfPullback`). -/
 theorem exists_weilPairingTorsionMuHom_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS : F} (hS : W.Nonsingular xS yS) (hmS : Point.some xS yS hS ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
