@@ -739,6 +739,68 @@ the register has to be where the reader meets it, and a paragraph two `##` secti
 therefore the **reach** half; the gate-discharge half follows from the rule above once the unit is
 the module docstring.
 
+⚠️ **How far above its list a reach register may sit, in terms, because the two sentences above
+name two different units and both call theirs *"the block"*** (`#1668`). *"It binds the list it
+heads"* and *"a bullet's context **is** the block, contiguously above it"* are consistent read
+each against its own unit and inconsistent read against the other's; what settles it is that the
+two registers do not share a unit, and this document already fixes both:
+
+* a **reach register**'s unit is **its list**. That is the `## Main *` section it opens, or a
+  sub-list inside one: it begins at that heading and ends at the next heading of the same or a
+  higher level, and the register binds the bullets **below** it inside that span and nothing else.
+  `### Scope of the rules above` is where the unit is written down — *"a `## Main statements` list
+  … is one place"* — so *"the block"* in *"a bullet's context is the block"* is that list.
+* a **gate-discharge register**'s unit is the **module docstring**, which is what *"anywhere in the
+  module block"* says, and `MulByNResidueDegree`'s worked example below is a subject sitting two
+  `##` sections above the list it serves.
+
+⚠️ **So prose in another `##` section does not clear a bullet, and the distance does not enter.**
+*"A paragraph two `##` sections up"* above is the instance the boundary was stated on, not the
+boundary: **one** section up is excluded on the same ground, and so is one paragraph up on the
+other side of a heading. ⚠️ **Nor does a register reach a bullet *above* it** — that is the
+*"nothing further up the docstring"* half read in the other direction, and it is what makes a
+sub-list's register invisible to the outer list, as the *"Not reached"* row below records.
+
+⚠️ **This narrows nothing and retires nothing.** Each wording was true of the unit it governs, so
+`### Reach clauses`' *"was the old clause false or merely partial"* test puts this paragraph under
+**completing** a clause, and `### Retired claims` says completing retires nothing. What is new is
+that the two units are named beside each other, which is the whole of what `#1668` asked for.
+
+⚠️ **And it points the same way as *"Nor does a sentence lower in the declaration's own
+docstring"*** in `### Scope of the rules above` (`#1660`), which is the reconciliation that decides
+this rather than the wording. That ruling holds a completing sentence **four lines** from its
+headline insufficient, on the ground that the reader meets the clause first and a partial one
+carries no signal. A register in another `##` section is fifty lines from its bullet. The two
+rulings differ in **unit** — a headline is its own unit, a bullet's unit is its list — and give the
+same answer for the same reason; a rule that let a bullet reach further than a headline would have
+to say why, and there is no ground for it.
+
+⚠️ **A sentence that cites the derivability exemption is not thereby a register**, and calling it
+one is a label rather than a reach claim — which is what the convicted population turns on.
+`EllipticCurves.FunctionField.MulByNGalois`, `…MulByNGaloisGroup` and `…MulByNPlaceComposition`
+each open a `## ⚠️ The transcendence parameter` section with the same sentence, and
+`…MulByNComposition` carries it under `## Hypotheses, and the one that has to be composed first`;
+all four say **in the next clause** that the exemption is what clears their rows, so no bullet of
+theirs hangs on the label. `…MulByNInertia` said *"cleared by the register and not by the
+exemption"* of three declarations, which is a clearance stated **on** the register, and is what
+this ruling convicts.
+
+**Measured at `fac2ce1`, with the recogniser, as this section requires.** Over every module
+docstring: lines carrying a hypothesis universal over *"below"* / *"above"*, or the word
+*register*, keyed to the `## ` section they sit in — **117** lines in **45** files, read one by
+one. **Ten** are a hypothesis universal sitting outside the `## Main *` section whose bullets it
+could be read as clearing. Of those, **one** states a clearance on itself: `MulByNInertia`, **two**
+bullets covering **three** declarations, repaired in the row by this PR. **Four** are the
+exemption-citation label above. The remaining **five** clear no bullet — four because every bullet
+of their list names its own hypotheses or names none
+(`EllipticCurves.Torsion.StructureGeneral`, `EllipticCurves.TateModule.FreeGeneral`,
+`…FunctionField.TranslationMulByNCommGeneral`, whose sentence also sits *below* its list, and
+`…PullbackPrincipalityTwoRationalTorsion`), and one (`…WeilPairingAlternatingTwoRational`) because
+what it quantifies over is an **instance**, which `### Reach clauses` leaves ambient. ⚠️ **Every
+register PR #654 wrote is inside its own `## Main *` section and is safe by construction**, which
+is why the convicted count is one and not ten: this rule bites on prose registers written before
+that PR fixed the placement, and on nothing written from this section.
+
 ⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
 the cheap repair for a list whose bullets are each short of the same hypotheses: name them
 **once**, at the head of the list, and say that the bullets do not repeat them. The alternative —
