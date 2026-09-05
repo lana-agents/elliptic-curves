@@ -776,6 +776,13 @@ is compliant only on the *partial* reading; had the phrase come out **closed**, 
 would assert and deny a condition on `F` in one clause, and the repair owed would have been a
 deletion with a marked quotation instead. **Ask whether the words you are adding lean on the
 phrase's classification. If they do, rule it first; if they do not, repair now.**
+⚠️ **This narrows *"an insertion is branch-neutral"* above (`#1728`) rather than contradicting
+it, and the two are one rule read together.** That sentence is about an insertion of conditions the
+headline names **nowhere**, which is compliant on both branches of *"names every hypothesis, or it
+names none"*. The move it does not cover is an insertion **hung off a phrase whose own
+classification is the open question** — there the added words inherit the phrase's reading, so the
+result is compliant on one branch and self-contradictory on the other. Branch-neutrality is a
+property of the **repaired sentence**, not of the act of inserting.
 
 ### Gate-discharge claims
 
