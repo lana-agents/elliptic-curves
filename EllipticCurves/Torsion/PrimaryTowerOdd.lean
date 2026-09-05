@@ -84,10 +84,34 @@ of that index in `F`** — `(p : F) ≠ 0` on the four `pᵏ` rows, `(n : F) ≠
 rows take one hypothesis more and this sentence names those as well:
 `nonempty_torsionPow_addEquiv_of_odd` takes `p.Prime`, and `card_nsmul_eq_zero_torsion_le_of_odd`
 takes `q.Prime`.  That is the whole **explicit hypothesis list** of every declaration below —
-instance arguments are ambient (`README.md` `### Reach clauses`) — so the bullets give the
-conclusions and are not read for hypotheses at all.  **Nothing is delegated to them**, which is the
-`EllipticCurves.TateModule.DeterminantModGeneral` form `README.md` `### Module-block bullets` names
-as the one to copy.
+instance arguments are ambient (`README.md` `### Reach clauses`) — so no bullet is short relative to
+it and none has to repeat it, which is the `EllipticCurves.TateModule.DeterminantModGeneral` form
+`README.md` `### Module-block bullets` names as the one to copy.
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a bullet
+counts them, the count is that bullet's own claim and no register makes it true.**  Naming some
+without counting is neither, and sits under this register unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
+`#1647` decided (`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`, PR #658).
+
+⚠️ **No bullet below counts, and two of them make gate-discharge claims.**  The third names no
+hypothesis at all; the other five name some of the register's without counting them; and the first's
+*"no `hcard`"* and the fourth's *"with its last gate discharged"* are claims about a **gate**, not
+about the hypothesis list.  Their subject is the numbered list at the head of this module block,
+where `hcard` is named as *"the gate"* — which is exactly where `README.md` `### Module-block
+bullets` says a gate-discharge register may sit, *"anywhere in the module block"*, on the precedent
+of `EllipticCurves.Torsion.PrimaryTowerAlgClosed`.  ⚠️ `hcard` is a real binder and not a manner of
+speaking: `card_torsion_pow_of_card` (`EllipticCurves.Torsion.PrimaryTowerAlgClosed`) takes
+`hcard : Nat.card (W.torsion p) = p ^ 2` explicitly, and `card_torsion_eq_sq_of_odd` is what
+discharges it here.
+
+⚠️ **This register formerly closed *"so the bullets give the conclusions and are not read for
+hypotheses at all.  Nothing is delegated to them"*** (`d92c0a1`, `#1616`, PR #646).  *"Nothing is
+delegated"* is true and is kept above in the form that says it — the count is complete, so no bullet
+can be short against it.  What went is *"not read for hypotheses at all"*, which instructed a reader
+to disregard the one kind of claim a register cannot make on a bullet's behalf: *"no `hcard`"* is an
+**absence**, and a complete positive count of what a declaration takes does not entail that any
+particular named binder is gone (`#1656`).
 
 * `WeierstrassCurve.Affine.card_torsion_pow_of_odd` : `#E[pᵏ] = (pᵏ)²` at odd `p`, no `hcard`.
 * `WeierstrassCurve.Affine.finite_torsion_pow_of_odd` : `E[pᵏ]` is finite, at odd `p`.
