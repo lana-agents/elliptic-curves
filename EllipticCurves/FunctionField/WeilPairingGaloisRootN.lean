@@ -82,18 +82,41 @@ about, and its three `exists_weilPairingMu_…` forms the `n`-torsion of `(x₂,
 `_of_smooth` / `_of_ne_zero` corollaries take `(2 : F) ≠ 0`, and the two `_of_smooth` ones
 `(3 : F) ≠ 0`.**  The brick, the two `…_of_gS_n` forms and the two `…_galois_n_of_hprin` forms take
 the non-constancy of `x([n]𝒫)` explicitly, and the `…_of_gS_n` pair takes rung-5 data at `S` and at
-`σS` in place of `hprin`.  The bullets give the conclusions and not the hypotheses.
+`σS` in place of `hprin`.
 
 ⚠️ **`n ≠ 0` is an explicit hypothesis of the two `…_of_gS_n` forms, of
 `exists_weilPairingElt_galois_n_of_hprin` and of
-`exists_weilPairingElt_galois_of_smooth_of_hprin`**, and every index clause below is read against
-it.  The three `exists_weilPairingMu_…` forms carry it as the instance `[NeZero n]` rather than as
-an explicit binder, which `README.md` `### Reach clauses` leaves ambient;
+`exists_weilPairingElt_galois_of_smooth_of_hprin`**, and their index clauses are read against it.
+The three `exists_weilPairingMu_…` forms carry it as the instance `[NeZero n]` rather than as an
+explicit binder, which `README.md` `### Reach clauses` leaves ambient;
 `exists_weilPairingElt_galois_of_ne_zero_of_hprin` gets it from `((n : ℤ) : F) ≠ 0`; and the brick
-takes no condition on the index beyond the non-constancy (`#1641`, `#1642`).
+takes no condition on the index beyond the non-constancy (`#1641`, `#1642`).  ⚠️ **What that leaves
+for the brick's *"at every `n`"* is this paragraph and not `n ≠ 0`**: the paragraph is the
+accounting of `n ≠ 0` row by row across the list, and the brick is the row that takes none.
 
-⚠️ **The phrase *"the general-`n` forms of"* is a reach clause, and the register above carries
-`n ≠ 0` for it.**  The fourth bullet says *"the general-`n` forms of … `_two` / `_three`
+⚠️ **Where a bullet says nothing about hypotheses, read it against these two registers; where a
+bullet counts them, the count is that bullet's own claim and no register makes it true.**  Naming
+some without counting is neither, and sits under them unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
+`#1647` decided, in `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` (PR #658).
+
+⚠️ **Two closing universals went, and each was false rather than partial** — the test
+`README.md` `### Retired claims` turns on.  The register just above formerly closed *"and every
+index clause below is read against it"* (`252f702`, `#1641` / `#1642`, PR #661), which its own last
+clause falsifies: the brick's *"at every `n`"* is an index clause, it is below, and it is not read
+against `n ≠ 0`.  The first register formerly closed *"The bullets give the conclusions and not the
+hypotheses"* (`6f7fe82`, `#1626`, PR #654) — false of this list on the day it landed, the last three
+bullets having named `3`-smooth `n ≠ 0`, `((n : ℤ) : F) ≠ 0` and the rung-5 data produced from
+`hprin` since PR #606 and before.  Same test, same verdict and same repair as in `…AssemblyN`
+(`#1647`, `#1662`).
+
+⚠️ **The two registers stay separate rather than merging into one.**  They account for different
+things — `hprin`, the torsion and the characteristic above, `n ≠ 0` here — the ruling below cites
+the second by name as *"the `n ≠ 0` register above"*, and one paragraph carrying both would make
+a per-group claim that no census can check group by group.  Decided rather than left open (`#1662`).
+
+⚠️ **The phrase *"the general-`n` forms of"* is a reach clause, and the `n ≠ 0` register above
+carries `n ≠ 0` for it.**  The fourth bullet says *"the general-`n` forms of … `_two` / `_three`
 headlines"* rather than *"at every `n`"*, which reads as a contrast with two numerals; it is
 nonetheless an answer to the
 question a reach clause answers — *which indices are reached* — and this development already glosses
