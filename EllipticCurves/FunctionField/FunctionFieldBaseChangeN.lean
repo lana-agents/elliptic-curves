@@ -81,11 +81,26 @@ consumer on the Weil-pairing front — all of them are already over an elliptic 
   `W ⁄ F(W)`, and that it fixes the generic point.
 * `…functionFieldMap_xCoord_nsmul`, `…functionFieldMap_yCoord_nsmul` — the coordinates of `n • 𝒫`
   transport, at every `n`.
-* **`…functionFieldMap_mulByNEndo`** — the new brick: base change intertwines `[n]∗` at every `n`.
+* **`…functionFieldMap_mulByNEndo`** — the new brick: base change intertwines `[n]∗`, at every
+  `n` at which `[n]` is non-constant **over `F` and over `K`**.
 * `…basePointMap`, `…functionFieldMap_translatePointEndo` — the `W.Point`-indexed translation
   intertwiner, which is `functionFieldMap_translateEndo` extended over the point at infinity.  It is
   what a general-`n` descent needs, because the general-`n` telescope is indexed by `i • T` rather
   than by an affine pair.
+
+⚠️ **The non-constancy is named in that one row and in no other, because no other row binds it.**
+`functionFieldMap_mulByNEndo` is the only declaration listed above with a propositional hypothesis
+at all, and it takes **two** — `hn` over `F` and `hn'` over `K` — which is exactly what the section
+above says cannot be reduced to one.  `xCoord_zero` makes each of them false at `n = 0`, so a
+clause reading *"at every `n`"* over that pair is short on the index axis, which is the omission
+`README.md` `### Reach clauses` convicts by name in `ramificationIdxN_pos`, over the same binder in
+the same argument position.  ⚠️ Until `#1658` this row's clause stopped at *"base change
+intertwines `[n]∗` at every `n`"* (`b821a45`, `#1333`), naming neither.
+
+⚠️ **No head-of-list register is written**, and the `DeterminantModGeneral` form (`README.md`
+`### Module-block bullets`) is not the repair here: every other declaration listed above binds no
+propositional hypothesis whatever, so a register saying every statement below takes the
+non-constancy would be false of all of them — `#1636`'s finding, in its strongest form.
 
 ## References
 

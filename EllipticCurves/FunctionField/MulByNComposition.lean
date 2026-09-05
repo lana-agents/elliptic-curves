@@ -146,8 +146,9 @@ owed there either.
   `…finrank_mulByNFieldRange_two_pow_mul_three_pow` — `[2^a · 3^b]` is non-constant, and its degree
   is `(2^a · 3^b)^2`;
 * `…transcendental_xCoord_nsmul_of_smooth` and `…finrank_mulByNFieldRange_of_smooth` — the same
-  under the hypothesis `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3`, which is the shape
-  `card_torsion_eq_sq_of_smooth` (`EllipticCurves.Torsion.ThreePrimary`) states `#E[n] = n²` in;
+  with `(2 : F) ≠ 0`, `(3 : F) ≠ 0` and `n ≠ 0`, under the hypothesis
+  `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3`, which is the shape `card_torsion_eq_sq_of_smooth`
+  (`EllipticCurves.Torsion.ThreePrimary`) states `#E[n] = n²` in;
 * `…finrank_mulByNFieldRange_four` and `…finrank_mulByNFieldRange_six` — `16` and `36`, the first
   degrees this tree knows at an index outside `{2, 3}`.
 
