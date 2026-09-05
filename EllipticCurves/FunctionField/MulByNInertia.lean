@@ -112,10 +112,11 @@ heads"*, and this sentence heads a different `##` section — so the claim was f
 partial and `### Retired claims` binds.  What
 this sentence is instead is the **derivability exemption's citation**, which may sit anywhere in
 the module block, over a statement of fact about which declarations bind `h`; the two bullets that
-hung on it are repaired in the list itself.  ⚠️ **Eleven clauses below do name it — two of them
+hung on it are repaired in the list itself.  ⚠️ **Twelve clauses below do name it — three of them
 declaration headlines, and two of them bullets of `## Main results` since that repair** —
-`isSeparable_mulByNEndoFieldRange_of_charZero`'s *"at every `n` at which `[n]` is non-constant"*
-and `sum_ramificationIdxN_mul_residueDegreeN_finrank`'s, which is the same clause; the remaining
+`isSeparable_mulByNEndoFieldRange_of_charZero`'s *"at every `n` at which `[n]` is non-constant"*,
+`sum_ramificationIdxN_mul_residueDegreeN_finrank`'s, which is the same clause, and
+`…_finrank_of_charZero`'s, which is that clause again since `#1664` (below); the remaining
 nine are listed with their recogniser below.  **What that sentence is for is the rest** — the
 declarations whose clause says nothing about the non-constancy, and those that carry no index
 clause at all.  Where a row's clause names `(2 : F) ≠ 0` together with an index cast, or
@@ -180,24 +181,47 @@ non-constancy"* in its place (`1354e2d`, `#1669`), and two bullets of that list 
 claim about the bullets is repaired where the bullets are; what replaces it is the count below,
 which is over the **clauses** and does not quantify over the list.  Recogniser, published beside
 the count as `### Module-block bullets` asks: every prose occurrence of *"non-constan…"* at or
-below `## Main results`, read one by one.  **Twelve** occur; two are the general
+below `## Main results`, read one by one.  **Thirteen** occur; two are the general
 *"`deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`"* fact about maps rather than a clause about a
-declaration here, and ten are clauses.  A second pass for the same
+declaration here, and eleven are clauses.  A second pass for the same
 parameter named in other words adds one, the `_of_ne_zero` family's *"The transcendence proof is a
 parameter of these statements"*.  ⚠️ **Backticked `transcendental_…` names are citations and not
 clauses**, and are excluded; a recogniser that counts them reads this file as carrying dozens.
 
-The eleven, because a count with no list under it is not checkable: the two `## Main results`
+The twelve, because a count with no list under it is not checkable: the two `## Main results`
 bullets repaired above, `isSeparable_mulByNEndoFieldRange_of_charZero`'s and
 `sum_ramificationIdxN_mul_residueDegreeN_finrank` / `…_finrank_of_charZero`'s; the headlines of
-the first two of those three declarations; the docstring bodies of
-`…_finrank_of_charZero` and `…_of_charZero_of_ne_zero`; the `_of_ne_zero` family's section
+**all three** of those declarations, the third since `#1664` below; the docstring bodies of
+`…_finrank_of_charZero` — its headline and its body are two clauses, not one entry counted
+twice — and `…_of_charZero_of_ne_zero`; the `_of_ne_zero` family's section
 sentence; three sentences of `### Non-vacuity`; and the `### The relative residue degree`
 block's gloss on `residueDegreeN_none_eq_one`.  ⚠️ **The last of those is about a declaration this
 file imports, and it counts anyway** — *"A reach clause is answerable in the file that writes it,
 wherever the declaration lives"* is this file's own ruling, written in that same block, so
 *"below"* is positional and not a claim about where a cited declaration lives.  The verdict does not
-turn on that reading: the other ten are declarations of this file.
+turn on that reading: the other eleven are declarations of this file.
+
+⚠️ **That census has moved again, and the figures it replaces are quoted rather than
+overwritten.**  It read *"**Twelve** occur; … and ten are clauses"*, over a list headed
+*"The eleven"* (`365dd39`, `#1668`, PR #683), and `#1664` falsified both figures and the list.  The
+row that moved is `…_finrank_of_charZero`: its headline read *"in characteristic zero, at every
+`n`"* and named the parameter only in its body — which is the entry the list already carried — and
+`README.md` `### Scope of the rules above` rules that a sentence lower in a declaration's own
+docstring does **not** repair its headline, the clause being where the reader meets it.  So the
+headline now carries *"at every `n` at which `[n]` is non-constant"*, the wording its two siblings
+already use, and the body clause stays.  False rather than partial, so `README.md`
+`### Retired claims` binds: the figures are quoted here rather than deleted, and the live ones
+above are stated **with the list of twelve printed in full**, because *"a count with no list under
+it is not checkable"* is that census's own rule and a list told only that it gains an entry is the
+state that rule forbids.
+
+⚠️ **Every other numeral in this section is arithmetic on that census and moves with it in
+place.**  The opening sentence's *"twelve clauses … three of them declaration headlines"*, *"the
+other eleven are declarations of this file"* above, and *"the twelve listed above … the three
+headlines"* and *"three of the twelve"* below are all read off the list; none of them is a claim
+the census does not already make, which is why they are restated rather than quoted one by one.
+⚠️ The census itself is the exception because it publishes its own recogniser and its own list, so
+it is the sentence a reader quotes.
 
 ⚠️ **That same sentence carried a second universal, older and wider than the one above, and the
 section heading restated it** (`#1688`).  Until now it read *"… as an explicit argument, and no
@@ -206,7 +230,7 @@ clause below names it"* — both written by `01f955b` (`#1137`, PR #614), which 
 appended clause and quantifies over a strictly wider unit than a bullet: `README.md`
 `### Reach clauses` defines a reach clause as *"a docstring phrase that says how far a named
 declaration or a named layer goes"*, and `### Scope of the rules above` makes a declaration
-headline one.  **So the eleven listed above are eleven reach clauses that name it**, and the two
+headline one.  **So the twelve listed above are twelve reach clauses that name it**, and the three
 headlines among them settle it without the other nine.  ⚠️ **It was false on the day it landed**:
 both of those headlines already read *"at every `n` at which `[n]` is non-constant"* at `01f955b`
 itself.  False rather than partial, so `README.md` `### Retired claims` binds and both wordings are
@@ -228,14 +252,18 @@ headlines in a different block, and a headline clears no bullet.**  `README.md`
 nothing … a module list and the file's headlines are two blocks … and the two layers are repaired
 separately."*  So the verdict on those two bullets is a claim about the bullets, and what those
 three headlines say neither strengthened nor weakened it — which is why the headlines did not spare
-the bullets the repair above.  Recorded because two of the eleven clauses listed above are
-headlines of these three: those two name
-the non-constancy in the headline itself, and `…_finrank_of_charZero`'s does not — it reads
-*"in characteristic zero, at every `n`"* and names the non-constancy a line lower in the same
-docstring, which `README.md`'s *"Nor does a sentence lower in the declaration's own docstring"*
-(`#1660`) says does not repair a headline.  ⚠️ **A `#1664` candidate, recorded and not repaired
-here**: that issue is the headline block, and the elaborated read it asks of every row is owed
-there.
+the bullets the repair above.  Recorded because three of the twelve clauses listed above are
+headlines of these three, and all three now name the non-constancy in the headline itself.
+⚠️ **`…_finrank_of_charZero`'s did not until `#1664`, and this paragraph is where that was
+recorded** (`1354e2d`, `#1669`, PR #671).  It read *"and `…_finrank_of_charZero`'s does not"*, of a
+headline reading *"in characteristic zero, at every `n`"* and naming the non-constancy a line lower
+in the same docstring, and it closed *"A `#1664` candidate, recorded and not repaired here: that
+issue is the headline block, and the elaborated read it asks of every row is owed there"*.  That
+arrangement is the one `README.md`'s *"Nor does a sentence lower in the declaration's own
+docstring"* (`#1660`) rules does not repair a headline, which is why it was recorded; the read is
+now done and the headline repaired, so both sentences are false rather than partial and
+`### Retired claims` binds — quoted here rather than deleted.  What replaced them is the headline
+naming the non-constancy, with the body clause left standing.
 
 ## Main results
 
@@ -523,7 +551,8 @@ theorem sum_ramificationIdxN_mul_residueDegreeN_finrank (n : ℕ)
   exact sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre
     (mulByNEndo_algebraMap_base n h) (mulByNEndo_isIntegralElem n h)
 
-/-- **`∑_{p ↦ q} e_p · f_p = [F(W) : [n]∗F(W)]` in characteristic zero, at every `n`.**
+/-- **`∑_{p ↦ q} e_p · f_p = [F(W) : [n]∗F(W)]` in characteristic zero, at every `n` at which
+`[n]` is non-constant.**
 
 The widest statement in this file: over `ℚ`, or any characteristic-zero field, the fundamental
 identity for `[n]∗` holds at **every** `n` at which `[n]` is non-constant — no `3`-smoothness, no

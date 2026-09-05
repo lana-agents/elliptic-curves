@@ -101,8 +101,8 @@ section Rational
 variable [W.IsElliptic] {x₂ y₂ : F}
 
 open Classical in
-/-- **`e_2(T, T) = 1` over an arbitrary field**, from a rational `E[2]` and a rational halving
-point.
+/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`**, from a rational `E[2]` and a
+rational halving point.
 
 For a nonsingular affine `2`-torsion point `T = (x₂, y₂)` there are a nonzero `f_T` whose projective
 divisor is `2(T) − 2(O)` and a nonzero `g_T` with `u · g_T ^ 2 = [2]∗ f_T` for a unit `u` of `F[W]`,

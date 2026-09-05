@@ -239,7 +239,8 @@ lemma functionFieldMap_yCoord_nsmul (n : ℕ) :
 
 /-! ### The multiplication-by-`n` intertwiner -/
 
-/-- **Base change intertwines the multiplication-by-`n` endomorphism, at every `n`.**
+/-- **Base change intertwines the multiplication-by-`n` endomorphism, at every `n` at which
+`[n]` is non-constant over `F` and over `K`.**
 
 The general-`n` form of `functionFieldMap_mulByTwoEndo` and `functionFieldMap_mulByThreeEndo`.
 `[n]∗` fixes the constants and sends the two coordinate generators to the coordinates of `n • 𝒫`,
