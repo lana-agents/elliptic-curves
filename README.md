@@ -652,6 +652,15 @@ either direction decides a different population.
   `EllipticCurves.TateModule.DeterminantModGeneral`, whose `## Main statements` **opens** *"**Every
   statement and definition below takes `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, and the rank and the basis
   take `1 < n` as well; the bullets give the conclusions and not the hypotheses"*.
+  ⚠️ **Both are quoted as they stand, and neither closing clause is the form to copy.**
+  *"The bullets give the conclusions and not the hypotheses"* is a **universal over the bullets**,
+  which `#1647` decided against — as a **form**, and separately from whether it is true of any
+  particular list. So neither quotation is edited here: what this section prescribes is the
+  **naming** half of the sentence, and the closing form to copy is below. ⚠️ **The two exemplars
+  do not agree on the second question**, which is why the form is decided without them:
+  `DeterminantModGeneral`'s list was read row by row and the universal holds of it, and
+  `MulByNFibre`'s is contested on `#1686` — its sixth row names `over F̄`, an instance five of the
+  six declarations in that row carry and the sixth does not.
 * A **gate-discharge register** supplies the *subject* of *"unconditionally"*, *"with no hypothesis
   left"*, *"nothing further"* — the gate list the word is a delta against. It may sit **anywhere in
   the module block**. `### Gate-discharge claims` above already treats such a register as a
@@ -669,11 +678,93 @@ the register has to be where the reader meets it, and a paragraph two `##` secti
 therefore the **reach** half; the gate-discharge half follows from the rule above once the unit is
 the module docstring.
 
-⚠️ **That `DeterminantModGeneral` opener is the form to copy**, and it is the cheap repair for a
-list whose bullets are each short of the same hypotheses: name them **once**, at the head of the
-list, and say that the bullets do not repeat them. The alternative — inserting the same two
-conditions into a dozen bullets — is what `### Scope of the rules above` calls making the block
-worse, and it is not what a reader of a list wants.
+⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
+the cheap repair for a list whose bullets are each short of the same hypotheses: name them
+**once**, at the head of the list, and say that the bullets do not repeat them. The alternative —
+inserting the same two conditions into a dozen bullets — is what `### Scope of the rules above`
+calls making the block worse, and it is not what a reader of a list wants.
+
+⚠️ **What it is not the form to copy for is the sentence it closes on**, and a register written
+from this document rather than from a sibling file is how that sentence keeps being re-introduced.
+*"The bullets give the conclusions and not the hypotheses"* is a universal over the bullets, and it
+cannot survive this development's own repairs: a count is repaired **in the row** (*"a register
+says what a list omits. It cannot make a count true"*, below), and every such repair costs the
+universal another instance. ⚠️ **Nor did it survive its own lists** — the test below is weaker than
+a count and most of the blocks that carried it failed it on the day it was written. `#1647` decided
+it and PR #658 replaced it in
+`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` with the form to copy here — a
+**routing** sentence rather than a universal:
+
+> ⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a
+> bullet counts them, the count is that bullet's own claim and no register makes it true.** Naming
+> some without counting is neither, and sits under this register unchanged; reporting one
+> *discharged* is a gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.
+
+Every branch of it is decided elsewhere in this document and the sentence only routes: silence to
+the register, a count past every register, a discharged hypothesis to `### Gate-discharge claims`.
+⚠️ **The branch worth reading twice is *"naming some without counting"***, because it is what a
+reach-register list is *for* and it is the one a phrase-keyed sweep keeps re-triaging as a defect:
+a bullet that names two of its declaration's four hypotheses and claims nothing about the rest sits
+under its register **unchanged**, and repairing it in the row is what makes a block worse.
+
+⚠️ **The population, with the recogniser beside it**, because this section's own rule is
+*publish the recogniser beside any count, or write no count*. Scan **whole** `## Main *` blocks —
+not the prose above the first bullet, since one instance sits inside a bullet and another after the
+list — for a sentence carrying both a quantifier (`every`, `all`, `none`, `no `, `each`,
+`not read`, `neither`) and a bullet-subject (`bullet`, `row`, `the entries`, `list above/below`),
+and **read** every hit rather than counting it. ⚠️ **Date the answer.** At `01c1748` ten
+`## Main *` blocks in ten files close over their own bullets, in three live wordings: **four** in
+`DeterminantModGeneral`'s (`MulByNFibre`, whose instance is scoped inside a bullet,
+`WeilPairingAlternatingConsumerN`, `WeilPairingDivisorSlotBilinearHprinN`, and
+`DeterminantModGeneral` itself), **five** in the routing form above
+(`WeilPairingAlternatingAssemblyN`, `WeilPairingAlternatingBaseChangeN`,
+`WeilPairingTranslationSlotHprinN`, `WeilPairingGaloisRootN`,
+`EllipticCurves.Torsion.PrimaryTowerOdd`), and **one** converse — *"Every bullet above names the
+whole explicit hypothesis list"* (`EllipticCurves.Torsion.WronskianSeparable`, over a list that
+carries no register on purpose, so *"a register cannot make a count true"* does not bite; its
+failure mode is the mirror one, going stale when a bullet is **simplified** rather than completed).
+A fourth wording — *"the bullets … are not read for hypotheses at all"* — survives only as
+`PrimaryTowerOdd`'s own retired quotation (`#1656`, PR #667), and was live two commits earlier.
+That is what the date is for.
+
+⚠️ **Four ways to miscount it, all of them live, and no two agree.** Over the first wording: a
+**phrase**-keyed census reads eight where there are four, because `…AssemblyN`,
+`…AlternatingBaseChangeN`, `…TranslationSlotHprinN` and `…GaloisRootN` each carry it as a retired
+quotation under `### Retired claims`, and a retired quotation is not a live universal; and a
+**line**-keyed `grep` reads five of those eight, because the phrase wraps mid-sentence in three of
+them. Over the converse: a **file**-keyed census reads two where there is one, because
+`…AlternatingBaseChangeN` quotes `WronskianSeparable`'s sentence as a cross-reference to another
+file's register — ⚠️ **and a census that joins lines without collapsing whitespace cannot see
+that second occurrence at all**, since the quotation wraps inside an *indented* bullet and leaves
+two spaces mid-phrase. Join the lines **and** squeeze runs of whitespace, or the trap you are
+publishing a warning about is invisible to your own recogniser.
+
+⚠️ **What falsifies that universal is a bullet that NAMES a hypothesis, not only one that counts
+them.** The sentence says the bullets give the conclusions *and not the hypotheses*, so a bullet
+that gives one is a counterexample; counting is the narrower, stronger failure that the routing
+form's second branch is about. ⚠️ **Do not borrow the routing form's leniency to certify the
+sentence it replaced** — *"naming some without counting is neither"* is a branch that form **adds**,
+and the want of it is why the old wording had to go. The merged statement of the test is
+`WeilPairingAlternatingAssemblyN`'s own retired-claims paragraph, which retires the wording as
+*"false already of the first bullet, which has **named** `hprin` and the halving point"*.
+
+⚠️ **`#1647`'s no-sweep instruction stands, and it is an instruction rather than a verdict.**
+The rule is to replace the universal *"in the rest as each is touched rather than re-arguing it"*;
+this tree does not pre-emptively edit sentences that are not wrong, and nothing here orders a sweep.
+But the exemption it grants is *"true of its list"*, and ⚠️ **that truth is a per-bullet reading,
+not a property of the phrase**. Of every block that has ever carried this wording five have now been
+read row by row — `…AssemblyN` (`#1647`), `…GaloisRootN` (`#1662`), `…AlternatingConsumerN` and
+`…DivisorSlotBilinearHprinN` (`#1686`), and `DeterminantModGeneral` — and **only
+`DeterminantModGeneral` held.** The falsifying row is a house idiom rather than an accident: an
+`_of_smooth` or `_of_ne_zero` bullet reading *"the same at every `3`-smooth `n ≠ 0`"* or *"at every
+`n` with `((n : ℤ) : F) ≠ 0`"* names an explicit binder of its own declaration. ⚠️ **So do not
+write *"the rest are fine"* from a census, and read the list before quoting a table's `true`
+column** — a census tells you where a phrase is, never whether it is true there.
+
+⚠️ **Repairing a sentence already known to be false is not the sweep `#1647` ruled out**, and the
+two rows above are tracked on `#1686` rather than left to the next agent who happens to touch them.
+What the routing form binds unconditionally is the **next** register written or repaired — including
+any written from this section.
 
 One file shows the reach half in both directions, and both readings are decided by the signatures
 rather than argued:
