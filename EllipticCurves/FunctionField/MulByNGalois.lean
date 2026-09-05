@@ -119,14 +119,20 @@ are shipped here.  ⚠️ This is a genuine addition, not a mirror: at `n = 2` a
 corresponding `Subfield` statements are still absent from the tree, and closing that gap is a
 separate (small) `#699`-style question, not this file's business.
 
-## ⚠️ The transcendence parameter, and why no reach clause below names it
+## ⚠️ The transcendence parameter, and which clauses below name it
 
 Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
 `comapProjPointN n h`, or anything built on them — takes
-`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
-it.  That is the `README.md` exemption
-(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
-*does* name adds no reach — and this is the citation it asks for:
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  ⚠️ **Two clauses below
+do name it**: `fixedFieldN_eq_mulByNFieldRange_of_ne_zero`'s own docstring, *"The transcendence
+proof `h` is a parameter of the statement"*, and `### Non-vacuity`'s *"The headline needs …
+`3`-smoothness **and** the transcendence of `x([n]𝒫)` at once"*, which lists what one named
+declaration needs and so says how far it goes.  Both are read out with their recogniser below.
+**What the register is for is the rest** — the declarations whose clause names an index condition
+and says nothing about the transcendence, and those that carry no index clause at all.  For those
+the `README.md` exemption (`## Docstring conventions` → `### Reach clauses`) is what clears the
+omission — a hypothesis derivable from the ones the clause *does* name adds no reach — and this is
+the citation it asks for:
 
 * `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
@@ -150,6 +156,26 @@ carrying this same section.**  `fixedFieldN`, `mem_fixedFieldN_iff`, `finrank_fi
 `E[n]` on `F(W)` rather than about `[n]∗`, and they take **no** `h` at any index.  Their reach
 clauses are complete hypothesis lists with nothing elided from them, and the exemption is not in
 play there.  Those four are the only general-`n` declarations in these four files that take no `h`.
+
+⚠️ **That sentence closed *"and no reach clause names it"* until now, and two clauses below name
+it** (`#1696`).  Recogniser, published beside the count as `README.md` `### Module-block bullets`
+asks: every prose occurrence of *"non-constan…"* or *"transcenden…"* at or below `## Main results`,
+outside backticks and inside a comment, read one by one.  **Three** occur, and the two above are
+two of them.  The third — `### Non-vacuity`'s *"Every hypothesis is **produced**, not assumed — in
+particular the transcendence"* — is **not** counted: it quantifies over the hypotheses of one
+certificate rather than over the declarations below, so it names the parameter without saying how
+far anything reaches, and `README.md` `### Reach clauses` asks for both.  ⚠️ Backticked
+`transcendental_…` names are citations and not clauses, and are excluded (PR #671's exclusion); a
+recogniser that counts them reads this file as carrying dozens.
+
+⚠️ **It was false on the day it landed**, not stale by growth.  `01f955b` (`#1137`, PR #614) wrote
+the clause, the heading *"⚠️ The transcendence parameter, and why no reach clause below names it"*
+and **both** naming clauses in one commit — `git show 01f955b:…` lines `442` and `649`.  False
+rather than partial, so `README.md` `### Retired claims` binds and both wordings are quoted here
+rather than deleted.  What replaced the clause is the subset claim above; what replaced the heading
+is a title asking **which** clauses below name the parameter instead of asserting that none do,
+which is the form `EllipticCurves.FunctionField.MulByNInertia` took for this same sentence
+(`#1688`, PR #674).  This file's verdict is its own: the census above was run here.
 
 ## Main results
 

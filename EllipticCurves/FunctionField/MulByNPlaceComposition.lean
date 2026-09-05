@@ -81,14 +81,20 @@ half is exactly right and is why the `_of_smooth` layer stops where it does — 
 `((n : ℤ) : F) ≠ 0` by a different argument: the pole order, which manufactures no primes because
 it counts degrees rather than composing maps.
 
-## ⚠️ The transcendence parameter, and why no reach clause below names it
+## ⚠️ The transcendence parameter, and which clauses below name it
 
 Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
 `comapProjPointN n h`, or anything built on them — takes
-`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
-it.  That is the `README.md` exemption
-(`## Docstring conventions` → `### Reach clauses`) — a hypothesis derivable from the ones the clause
-*does* name adds no reach — and this is the citation it asks for:
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  ⚠️ **One clause below
+does name it, and it is the sharpness paragraph of a section of its own**: *"At `n = char F > 2`
+the transcendence hypothesis is still met, `[n]` is inseparable, and `ordInfty ([n]∗ genX)` is
+`-2n` or `-2n²` rather than `-2` — so `e_∞ = 1` is **false** there"*, which says how far the `[n]∗`
+layer reaches and names the parameter in doing it.  It is read out with its recogniser below.
+**What the register is for is the rest** — the declarations whose clause names an index condition
+and says nothing about the transcendence, and those that carry no index clause at all.  For those
+the `README.md` exemption (`## Docstring conventions` → `### Reach clauses`) is what clears the
+omission — a hypothesis derivable from the ones the clause *does* name adds no reach — and this is
+the citation it asks for:
 
 * `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
@@ -105,6 +111,35 @@ instance of the exemption but the defect class `#1137` is named after.
 statements below are about that same layer and take no `h` at all: they **discharge** it inline
 from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
 exhibited in this file rather than only asserted about it.
+
+⚠️ **That sentence closed *"and no reach clause names it"* until now, and one clause below names
+it** (`#1696`).  Recogniser, published beside the count as `README.md` `### Module-block bullets`
+asks: every prose occurrence of *"non-constan…"* or *"transcenden…"* at or below the
+`## Main statements` heading, outside backticks and inside a comment, read one by one.  **Three**
+occur and one is a clause — the sharpness paragraph quoted above.  The other two are **not**
+counted, and the grounds are different:
+
+* `comapProjPointN_of_mul_eq`'s docstring — *"so that a caller holding `k` as `2 ^ (a + 1) * 3 ^ b`
+  never transports the non-constancy hypothesis along an arithmetic identity"* — names the
+  parameter and says nothing about how far anything goes.  It is a reason for the statement's
+  **shape**, not a reach clause, and `README.md` `### Reach clauses` asks for both halves;
+* `### Non-vacuity`'s *"The non-constancy hypothesis is **produced** by
+  `transcendental_xCoord_nsmul_of_smooth` rather than assumed"* names it while quantifying over one
+  certificate rather than over the declarations below.  ⚠️ **The same wording in
+  `EllipticCurves.FunctionField.MulByNInertia` does count**, and the difference is not the file: its
+  version reads *"produced **at every index below**, never assumed"*, and that phrase is the reach.
+
+⚠️ Backticked `transcendental_…` names are citations and not clauses, and are excluded (PR #671's
+exclusion); a recogniser that counts them reads this file as carrying dozens.
+
+⚠️ **It was false on the day it landed**, not stale by growth.  `01f955b` (`#1137`, PR #614) wrote
+the clause, the heading *"⚠️ The transcendence parameter, and why no reach clause below names it"*
+and the sharpness paragraph in one commit — `git show 01f955b:…` line `471`.  False rather than
+partial, so `README.md` `### Retired claims` binds and both wordings are quoted here rather than
+deleted.  What replaced the clause is the subset claim above; what replaced the heading is a title
+asking **which** clauses below name the parameter instead of asserting that none do, which is the
+form `EllipticCurves.FunctionField.MulByNInertia` took for this same sentence (`#1688`, PR #674).
+This file's verdict is its own: the census above was run here.
 
 ## Main statements
 
