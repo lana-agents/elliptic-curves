@@ -271,12 +271,23 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   *"The general-`n` form of"* at the head of a headline and *"the general-`n` form of"* mid
   sentence, and either anchoring alone splits the class rather than measuring it — lowercase
   `the` returns **23**, capital `The` **33**, and only the two together are the 56. The phrase
-  occurs **56** times — **43** in `/--` headlines, **13** in `/-!` module blocks — and
+  occurs **56** times — **43** in `/--` blocks, **13** in `/-!` module blocks — and
   **29** of the 43 head a declaration binding a condition on the index: `n ≠ 0`, `(n : F) ≠ 0`,
   `((n : ℤ) : F) ≠ 0`, `3`-smoothness of `n`, or the instance `[NeZero n]` — **28** if that
   instance is not counted, and one of the 29 (`divisorProj_mulByNEndoOfAlgClosed`) takes `n ≠ 0`
   from a `variable` line and not from its own binder list, so the count is over the binders **in
   scope** and not over the ones written at the declaration.
+  ⚠️ **The phrase is matched anywhere in a block; the headline cut defined further down this
+  bullet is applied to the matched blocks afterwards, and only for the range test.** The corpus
+  line above read *"in `/--` headlines"* where it now reads *"in `/--` blocks"* (`7f0a162`,
+  `#1678`, PR #685) — **false** under this bullet's own definition of *headline*, which is the cut
+  prefix and not the block. Matched against the cut prefix the figure is **5**, not **43**: this
+  tree writes the phrase in a *later* sentence of a docstring — *"The general-`n` form of
+  `ord_mulByTwoEndo_genX_nonneg`."* — and almost never in a headline. ⚠️ **Only the noun was
+  wrong and no figure moves**, which is why this is a correction in place; it is quoted rather
+  than silently fixed because a reader who implements the line as written gets **5** rows, a
+  binder count of **4** and a **one**-row witness slot, and the three names printed under the slot
+  are the only thing that tells them to try again.
   ⚠️ **The non-constancy hypothesis is not a condition on the index, and the other 14 rows are
   not convicted by carrying one.** Thirteen of them bind
   `Transcendental F (n • genericPoint …).xCoord` and nothing else about `n` — three of those add
@@ -346,6 +357,13 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   and it is the one that moves the slot: an (a)-only recogniser reading the normalised forms puts
   **12** rows in it, against the **5** an (a)-only recogniser reading these forms does and the
   **3** the full test below finds.
+  ⚠️ **The trailing space inside those (a) spans is code-span syntax and not part of the phrase**,
+  and it is the second way to fail to reproduce a correct figure from correct text. A code span
+  whose content ends in a backtick needs that space to close, so ``at every `n` `` cannot be
+  written without it — and CommonMark does not strip it, because stripping needs a space at
+  **both** ends, so it renders as though it were part of the phrase. It is not: the corpus ends
+  that phrase with a full stop twice and a comma once, and requiring the space literally drops
+  (a) from **28** to **25**. Match the phrases with surrounding whitespace normalised away.
   ⚠️ **The slot has three rows at `3e1bef2`, and a dated measurement may name what a
   present-tense parenthetical may not:**
   * `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`
@@ -376,7 +394,11 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   range-stating rows named above keep the present tense — no sweep on this front removes a range
   statement from a headline or adds an index binder to a signature, so nothing is scheduled to
   reach them — and why the slot's three are named under a date instead, the one of those three
-  `#1137` is scheduled to reach carrying its own expiry in the sentence that names it. That is the
+  `#1137` **was** scheduled to reach at `3e1bef2` carrying its own expiry in the sentence that
+  names it. ⚠️ **That expiry has since fired** (`#1735`, `b41a87c`) and the entry above records
+  it, which is why this clause is tensed and dated rather than retired: a claim that announces its
+  own expiry and is read again when the expiry fires is discharged by the record and not falsified
+  by it — the ruling this bullet already applies to the entry itself. That is the
   ruling `#1728` asked for, and it is
   why the *"and states none"* half of that parenthetical is now a pointer to this paragraph rather
   than a name.
