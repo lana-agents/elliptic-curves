@@ -746,7 +746,13 @@ column, is one place. A fix that repairs one row and leaves its neighbour partia
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
 
-Four consequences worth stating, because each has cost a review cycle:
+Consequences worth stating, because each has cost a review cycle. ⚠️ **Their number is
+deliberately not given** (`#1667`): this line read *"Four consequences worth stating"* from
+`f1d1473` (`#1569`, PR #620) onwards and was true until the *"A heading is one source line"*
+bullet below made it five, in the same PR that wrote the bullet. A numeral standing over a list
+is falsified by whatever next extends the list, and no bullet under it can repair the numeral —
+which is `### Module-block bullets`' *"A register says what a list omits. It cannot make a count
+true"*, one layer up, in this document's own prose. They are:
 
 * **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
   is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
@@ -773,6 +779,25 @@ Four consequences worth stating, because each has cost a review cycle:
   ruling cheap rather than a new cost: that headline's two neighbours in the same section were
   short of the same condition and take the insertion on nobody's argument, so clearing this one
   would have left the block with rows in two registers and no way to tell which is which.
+* **A heading is one source line, because a heading that wraps is a heading that is cut off
+  there** (`#1667`). A Markdown ATX heading (`# `, `## `, …) is a leaf block that ends at the end
+  of its line, and there is no continuation syntax, so a title written across two lines renders as
+  a heading containing the first line and an ordinary **paragraph** containing the rest. The reader
+  who consults the heading — the reader this section's previous bullet is about — is therefore
+  given a clause chopped at whatever word the line broke on:
+  `EllipticCurves.FunctionField.MulByNFibre`'s H1 named two index ranges and doc-gen printed
+  *"…and the fibre over one — at"*. ⚠️ **The hundred-column limit is therefore a limit on what a
+  heading may *say*, not only on how it is typed**: a title that does not fit has to be shortened,
+  and a reach clause that does not fit inside the shortened title has to be dropped to the
+  *"or it names none"* branch of `### Reach clauses` and stated in the prose below, not wrapped.
+  ⚠️ **Prefixing the second line with its own `#` does not join it either** — it makes a *second*
+  heading. `EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinearHprinN` carried
+  *"…and it stopped being so"* / *"twelve hours ago"* as two `##`s, and doc-gen printed
+  *"twelve hours ago"* as a section of the module. ⚠️ That variant is invisible to a census keyed
+  on *"a heading followed by prose"*, which is how it survived the sweep that found the other
+  three: read every heading whose text begins in lower case as well.
+  ⚠️ It is only headings. A paragraph, a bullet and a `**bold**` span all cross a line break
+  correctly, and several repairs on this front rely on that.
 * **Sort the class before repairing it, and expect to do two things at once.** A headline that
   lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
   that insertion **and** a deletion or a re-scoping of the assertion — because *"with `(2 : F) ≠ 0`

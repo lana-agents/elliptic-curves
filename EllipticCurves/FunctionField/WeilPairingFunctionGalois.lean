@@ -41,8 +41,7 @@ equation between two values of one function, so it composes with bilinearity and
 non-degeneracy.  That is the whole content of this file, and it is the same move `#922` made for
 the other four properties.
 
-## ⚠️ The action on `E[n]` was already there, and the two spellings of a `σ`-side proof are
-interchangeable
+## ⚠️ The action on `E[n]` was already there, and the two `σ`-side spellings are interchangeable
 
 `TateModule/GaloisAction` supplies `SMul (F ≃ₐ[S] F) ((W⁄F).torsion n)` and
 `torsion_galois_smul_coe`, so `σ • S` needs no construction here; `GaloisPointAction`'s
@@ -51,6 +50,12 @@ the `σ`-side hypothesis as `equation_algEquiv σ h.left` where the bridge produ
 `(nonsingular_algEquiv σ h).left`.  **Both are proofs of the same `Prop`, so proof irrelevance
 closes every such mismatch and no transport lemma is needed** — this is the same observation
 `exists_weilPairingMu_galois_two`'s docstring records at the existential level.
+
+⚠️ **This heading used to be written across two source lines** (`#1667`), as *"…and the two
+spellings of a `σ`-side proof are interchangeable"* from `73a748e` (`#375`) onwards, so the `##`
+doc-gen printed ended at *"…a `σ`-side proof are"* and *"interchangeable"* rendered as a paragraph
+under it.  A Markdown heading ends at the end of its own line; the wording above says the same
+thing on one line, inside the hundred-column limit.
 
 ⚠️ `torsion` takes `[DecidableEq F]` (`Torsion/Defs.lean`) and `TateModule/GaloisAction`'s
 instances are generic in it, so `open Classical in` is enough and **no `Subsingleton.elim` bridge

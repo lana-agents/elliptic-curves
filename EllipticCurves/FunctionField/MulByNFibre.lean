@@ -10,9 +10,7 @@ import EllipticCurves.FunctionField.MulByThreeFibre
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 
 /-!
-# The place contraction of `[n]∗` **is** `[n]` on rational points, and the fibre over one — at
-every `3`-smooth `n` by composition, and at every `n` with `((n : ℤ) : F) ≠ 0` by the coordinate
-formulas
+# The place contraction of `[n]∗` **is** `[n]` on rational points, and the fibre over one
 
 `EllipticCurves.FunctionField.MulByTwoFibreAffine` (`#774`) proves
 
@@ -29,6 +27,19 @@ every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` (`#1540` items 2 and 
 used to end *"and this file supplies one at every `3`-smooth `n`"*; neither layer subsumes the
 other's *proof*, and the second subsumes the first's *statements*, which the `example`s below
 compile.
+
+⚠️ **The title used to carry the two ranges, and it never rendered them** (`#1667`).  It read
+*"The place contraction of `[n]∗` **is** `[n]` on rational points, and the fibre over one — at every
+`3`-smooth `n` by composition, and at every `n` with `((n : ℤ) : F) ≠ 0` by the coordinate
+formulas"* from `135f257` (`#1540`, PR #612) onwards, written across three source lines — and a
+Markdown heading ends at the end of its own line, so the H1 doc-gen printed was
+*"…and the fibre over one — at"*, with the rest below it as an ordinary paragraph.  ⚠️ **It could
+not be repaired in place, because the corrected clause does not fit on one line**: every
+general-`n` statement in this file binds `(2 : F) ≠ 0` as well — the `_of_smooth` family takes it
+with `(3 : F) ≠ 0`, the `_of_ne_zero` family with `((n : ℤ) : F) ≠ 0` — and naming all three
+conditions costs more than the hundred columns a heading has.  So the title now names **none** of
+them, which is `README.md` `### Reach clauses`' second branch, and the paragraph above states both
+ranges with `(2 : F) ≠ 0` in place.
 
 ## Why composition reaches this, and what it costs
 

@@ -24,8 +24,7 @@ same four headlines at **every** `n`, and discharges the one new side condition 
 `n`.  It is the divisor-slot counterpart of what `#1308`
 (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) did for the translation slot.
 
-## ⚠️ The restriction to `n = 2, 3` was chronological, not mathematical — and it stopped being so
-## twelve hours ago
+## ⚠️ The restriction to `n = 2, 3` was chronological, not mathematical — and it has lapsed
 
 Strip the numerals from `exists_weilPairingElt_divisorSlot_add_two_of_hprin` and
 `…_three_of_hprin` and the two proof bodies are the same five steps.  Of the seven inputs those
@@ -47,6 +46,14 @@ general on 2026-08-31**:
 what happens here: `φ := mulByNEndo n hn`.  **Nothing in this file needs `ωₙ`**, Ward, rung 4 or
 `#251`; `mulByNEndo` comes from the group law on the generic point (`#1165`/PR #436), not from the
 division-polynomial coordinates.
+
+⚠️ **The heading above used to be two headings, and was only ever meant to be one** (`#1667`).  It
+was written as *"…and it stopped being so"* / *"twelve hours ago"* across two source lines from
+`4526675` (`#1317`, PR #495) onwards, and because the second line was given a `##` of its own,
+doc-gen printed *"twelve hours ago"* as a section heading of this module, table of contents
+included.  A Markdown heading ends at the end of its own line — there is no continuation syntax,
+and a `##` on the second line makes a second heading rather than joining the first.  The date that
+relative phrase meant is in the table above, where it does not go stale: **2026-08-31**.
 
 ## The one new brick, and why it lives here
 

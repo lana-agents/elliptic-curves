@@ -9,8 +9,7 @@ import EllipticCurves.FunctionField.MulByNPlacePullback
 import EllipticCurves.FunctionField.MulByThreeResidueDegree
 
 /-!
-# The relative residue degree of `[n]∗`, and `f_∞ = 1` at every `n` at which `[n]` is
-non-constant
+# The relative residue degree of `[n]∗`, and `f_∞ = 1` at every `n` at which `[n]` is non-constant
 
 `EllipticCurves.FunctionField.PlaceResidueComap` defines the relative residue degree
 `f_p = [κ(p) : κ(q)]` of a contraction `q = comapProjPoint φ p` for an arbitrary `F`-fixing
