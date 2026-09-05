@@ -94,14 +94,19 @@ At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `�
 (`PlaceInertiaGeneral`) already say everything below at that index; the content there is the bridge
 `sum_ramificationIdxN_mul_residueDegreeN_two`, nothing more.
 
-## ⚠️ The transcendence parameter, and why no reach clause below names it
+## ⚠️ The transcendence parameter, and which clauses below name it
 
 Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
 `comapProjPointN n h`, or anything built on them — takes
-`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
-it.  **That sentence is the register**, in the sense of `README.md` `### Module-block bullets`: it
-is what tells a reader which declarations below bind `h`, and no bullet of `## Main results`
-repeats it.  Where a row's clause names `(2 : F) ≠ 0` together with an index cast, or
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  **That sentence is the
+register**, in the sense of `README.md` `### Module-block bullets`: it is what tells a reader which
+declarations below bind `h`, and no bullet of `## Main results` repeats it.  ⚠️ **Nine clauses
+below do name it, and two of those are headlines** —
+`isSeparable_mulByNEndoFieldRange_of_charZero`'s *"at every `n` at which `[n]` is non-constant"*
+and `sum_ramificationIdxN_mul_residueDegreeN_finrank`'s, which is the same clause; the remaining
+seven are listed with their recogniser below.  **What the register is for is the rest** — the
+declarations whose clause says nothing about the non-constancy, and those that carry no index
+clause at all.  Where a row's clause names `(2 : F) ≠ 0` together with an index cast, or
 `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the register is not the
 only thing that clears it: `h` is derivable from what such a clause already names, so that row is
 covered by the `README.md` exemption as well (`## Docstring conventions` → `### Reach clauses`) —
@@ -165,6 +170,26 @@ file imports, and it counts anyway** — *"A reach clause is answerable in the f
 wherever the declaration lives"* is this file's own ruling, written in that same block, so
 *"below"* is positional and not a claim about where a cited declaration lives.  The verdict does not
 turn on that reading: the other eight are declarations of this file.
+
+⚠️ **That same sentence carried a second universal, older and wider than the one above, and the
+section heading restated it** (`#1688`).  Until now it read *"… as an explicit argument, and no
+reach clause names it"*, under the heading *"⚠️ The transcendence parameter, and why no reach
+clause below names it"* — both written by `01f955b` (`#1137`, PR #614), which predates PR #664's
+appended clause and quantifies over a strictly wider unit than a bullet: `README.md`
+`### Reach clauses` defines a reach clause as *"a docstring phrase that says how far a named
+declaration or a named layer goes"*, and `### Scope of the rules above` makes a declaration
+headline one.  **So the nine listed above are nine reach clauses that name it**, and the two
+headlines among them settle it without the other seven.  ⚠️ **It was false on the day it landed**:
+both of those headlines already read *"at every `n` at which `[n]` is non-constant"* at `01f955b`
+itself.  False rather than partial, so `README.md` `### Retired claims` binds and both wordings are
+quoted here rather than deleted.  What replaced the clause is the subset claim in the register
+sentence, naming those two and pointing at this list for the rest; what replaced the heading is a
+title that asks **which** clauses below name the parameter instead of asserting that none do.
+⚠️ **The heading is the half that had to go first.**  doc-gen prints it as the section title, it is
+the one sentence here that no later paragraph qualifies, and a reader who reads nothing else in
+this section reads it.  ⚠️ **This changes nothing about which list the register binds** (`#1668`):
+the replacement claim is about the clauses, and *"no bullet of `## Main results` repeats it"* above
+is untouched and stays true.
 
 ⚠️ **`isSeparable_mulByNEndoFieldRange_of_charZero`,
 `sum_ramificationIdxN_mul_residueDegreeN_finrank` and `…_finrank_of_charZero` answer for their
