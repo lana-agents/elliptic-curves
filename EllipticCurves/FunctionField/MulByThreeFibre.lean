@@ -306,7 +306,8 @@ theorem ord_mulByThreeEndo_genX_nonneg (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   omega
 
 omit [DecidableEq F] in
-/-- **The crux: `[3]` on places is `[3]` on points at an affine non-`3`-torsion point.**
+/-- **The crux: `[3]` on places is `[3]` on points at an affine non-`3`-torsion point, with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.**
 
 For `P = (x, y)` on `W` with `Ψ₃(x) ≠ 0`, the contraction of the closed point of `P` along `[3]∗`
 is the closed point of the tripling coordinates `(Φ₃(x)/ΨSq₃(x), ω₃(x, y)/(2 ψ₃(x, y)³))`, whose
@@ -320,8 +321,8 @@ The `3`-torsion case is `comapProjPointThree_pointClosedPoint_of_eval_Ψ₃_eq_z
 `comapProjPointThree_none` (`#814`) is the case `P = O`; `comapProjPointThree_projPointOfPoint`
 assembles all three.
 
-No hypothesis on `F` beyond `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, and — unlike the `3`-torsion case,
-which needs `Φ₃`/`ΨSq₃` coprimality and hence `IsUnit Δ` — **no `[W.IsElliptic]`**. -/
+The headline's `(2 : F) ≠ 0` and `(3 : F) ≠ 0` are the whole of it: unlike the `3`-torsion case,
+which needs `Φ₃`/`ΨSq₃` coprimality and hence `IsUnit Δ`, there is **no `[W.IsElliptic]`** here. -/
 theorem comapProjPointThree_pointClosedPoint (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Equation x y) (hT : W.Ψ₃.eval x ≠ 0) :
     comapProjPointThree h2 h3 (some (pointClosedPoint h))

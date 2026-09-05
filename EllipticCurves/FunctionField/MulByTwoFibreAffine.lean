@@ -279,7 +279,8 @@ theorem ord_mulByTwoEndo_genX_nonneg (h2 : (2 : F) ≠ 0) (h : W.Equation x y)
     (eval_map_genX_ne_zero (W.Ψ₂Sq_ne_zero h4)), hΨ]
   omega
 
-/-- **The crux: `[2]` on places is `[2]` on points at an affine non-`2`-torsion point.**
+/-- **The crux: `[2]` on places is `[2]` on points at an affine non-`2`-torsion point, with
+`(2 : F) ≠ 0`.**
 
 For `P = (x, y)` on `W` with `y ≠ negY x y`, the contraction of the closed point of `P` along
 `[2]∗` is the closed point of `2 • P`, whose coordinates are Mathlib's `addX`/`addY` of `P` with
@@ -289,8 +290,8 @@ The `2`-torsion case is `MulByTwoFibreInfinity`'s
 `comapProjPointTwo_pointClosedPoint_of_eval_Ψ₂Sq_eq_zero`, and `comapProjPointTwo_none` (`#670`) is
 the case `P = O`; `comapProjPointTwo_projPointOfPoint` below assembles all three.
 
-No hypothesis on `F` beyond `(2 : F) ≠ 0`, and — unlike the `2`-torsion case, which needs
-`Φ₂ ≠ 0` at a root of `Ψ₂Sq` and hence `IsUnit Δ` — no `[W.IsElliptic]`. -/
+The headline's `(2 : F) ≠ 0` is the whole of it: unlike the `2`-torsion case, which needs
+`Φ₂ ≠ 0` at a root of `Ψ₂Sq` and hence `IsUnit Δ`, there is no `[W.IsElliptic]` here. -/
 theorem comapProjPointTwo_pointClosedPoint (h2 : (2 : F) ≠ 0) (h : W.Equation x y)
     (hy : y ≠ W.negY x y) :
     comapProjPointTwo h2 (some (pointClosedPoint h))

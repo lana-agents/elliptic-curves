@@ -559,7 +559,8 @@ theorem ord_mulByNEndo_genX_nonneg (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : �
   omega
 
 omit [DecidableEq F] in
-/-- **The crux: `[n]` on places is `[n]` on points at an affine point that is not `n`-torsion.**
+/-- **The crux: `[n]` on places is `[n]` on points at an affine point that is not `n`-torsion, with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.**
 
 The general-`n` form of `comapProjPointTwo_pointClosedPoint`
 (`EllipticCurves.FunctionField.MulByTwoFibreAffine`), with the doubling coordinates `addX`/`addY`
