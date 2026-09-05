@@ -40,7 +40,7 @@ multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**: the `n
 formula is elementary (it is the tangent-line doubling identity) and is all that
 `DoublingSurjective` needs.  ⚠️ The independence claim is the point of this sentence and is
 unchanged; only its trailing *"which gate the general case"* was dropped, because the coordinate
-formula is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+formula is now proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
 `EllipticCurves.Torsion.NsmulOrder`) and gates nothing.
 
 ## The state of `E[n] ≅ (ℤ/nℤ)²` after this file
@@ -50,7 +50,7 @@ Known exactly for `n ∈ {2 ^ k, 3, 2 ^ k * 3}` **from this file**. Still open a
 * `#E[p] = p²` for a prime `p ≥ 5`.  ⚠️ This bullet used to read *"`#E[p] ≤ p²` …, which needs the
   general coordinate formula"* and both halves of that were wrong: the `≤` half is
   `card_torsion_le_sq` (`EllipticCurves.Torsion.XSupport`) at every index, and the coordinate
-  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+  formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
   `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ The `≥` half is no longer open either:
   `card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) proves the equality at every
   odd `n` with `(n : F) ≠ 0`, over a field with `(2 : F) ≠ 0`, and

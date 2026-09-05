@@ -131,27 +131,28 @@ four.
   the name is not usable here either, though for a different reason than a forward reference. ⚠️
   This bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
   general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are
-  wrong**: `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
-  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
-  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
-  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR
-  #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.
-  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
+  wrong**: `[ℓ]`-surjectivity holds at every nonzero index with `(2 : F) ≠ 0`
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
+  formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux — that is `#404`'s on-curve
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557), and
+  `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.  ⚠️
+  **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
   (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
   `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it. ⚠️ **And the clause that used to close this bullet —
+  this bullet used to cite as open — with it.  ⚠️ **And the clause that used to close this bullet —
   *"instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done here"*
   — has been paid.** `EllipticCurves.TateModule.DeterminantGeneral` states
   `galoisTrace_one_of_natCast_ne_zero` and `charpoly_galoisRepMatrix_one_of_natCast_ne_zero` — this
   file's two `_of_nonempty` invariants with the rank-two hypothesis discharged — at every prime `ℓ`
   with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`, adding the instances `[IsAlgClosed F]` and
   `[(W'⁄F).IsElliptic]` and no further instance, and commits `tr ρ_{E,ℓ}(1) = 2` as certificates at
-  `ℓ = 5` and at `ℓ = 7`. ⚠️ **This sentence used to end *"at every prime `ℓ` with `(ℓ : F) ≠ 0` …
+  `ℓ = 5` and at `ℓ = 7`.  ⚠️ **This sentence used to end *"at every prime `ℓ` with `(ℓ : F) ≠ 0` …
   and nothing else"*, and the last three words were false**: the general form also takes
   `(2 : F) ≠ 0`, which `galoisTrace_one_of_nonempty` does not, so `#check @` on the theorem
-  falsifies the claim (`#1137`). ⚠️ `EllipticCurves.TateModule.DeterminantGeneral`, and every
+  falsifies the claim (`#1137`).  ⚠️ `EllipticCurves.TateModule.DeterminantGeneral`, and every
   theorem named in it, is a **forward reference** here: that module is downstream of this one — it
-  imports this file and this file does not import it — so none of those names is usable here. What
+  imports this file and this file does not import it — so none of those names is usable here.  What
   being generic bought is what this bullet predicted it would: the general file is a list of
   one-line instantiations and no argument was written a third time.
 

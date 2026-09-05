@@ -65,7 +65,8 @@ quotation.  At `n = 5` the division-polynomial route still waits on `#E[n] = n²
 is closed**: the identification of the division-polynomial coordinates with the group-law multiple
 `n • P`, which `#404` never claimed to supply, is `hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) on its `x`-half and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-(`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579) on its `y`-half, at every index.
+(`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579) on its `y`-half, at every index with
+`(2 : F) ≠ 0`.
 
 This is `#1213`'s finding a second time, and by the same detector: **take a merged sentence of the
 form "X is gated on A, B, C" and ask whether A, B, C gate the statement or gate one route to it.**

@@ -974,8 +974,8 @@ theorem pullbackDivisorN_single_eq_sum_torsion (h2 : (2 : F) ≠ 0) (h3 : (3 : F
 ⚠️ The two independent uses of `[IsAlgClosed F]` recorded at the head of this section are
 **unchanged**: the general layer still needs every place rational
 (`sum_ramificationIdxN_of_ne_zero`) and still needs `[n]`-surjectivity on points
-(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`, at every `n ≠ 0`).
-What changes is the *index* axis and nothing else. -/
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`, at every `n ≠ 0` with
+`(2 : F) ≠ 0`).  What changes is the *index* axis and nothing else. -/
 
 omit [DecidableEq F] in
 /-- **The fibre of `[n]` over any rational point has exactly `n²` elements**, at every `n` with

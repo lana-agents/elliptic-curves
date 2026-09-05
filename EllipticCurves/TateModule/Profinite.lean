@@ -82,7 +82,7 @@ The coordinate formula *is* available at `n = 3` (`EllipticCurves.Torsion.Tripli
 naming it as the obstruction proved the wrong thing: it is a cost at `ℓ = 3`, not a gate.  ⚠️ **And
 the salvage this paragraph used to offer — *"the clause is true for every prime `ℓ ≥ 5`, where the
 formula is the general `x(nP) = Φₙ/ΨSqₙ` and is genuinely unavailable"* — is false as well.**  The
-general formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+general formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
 `EllipticCurves.Torsion.NsmulOrder`), and `Finite (E[ℓ^k])` does not wait on it at any prime:
 `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) gives it at every index
 with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, and `card_torsion_le_sq` there gives `#E[n] ≤ n²` with it.
@@ -132,12 +132,12 @@ at a prime `ℓ ≥ 5` needs `#E[ℓ] ≤ ℓ²` and hence the general multiplic
 `x(nP) = Φₙ/ΨSqₙ`, which this development does not have"*.  Every clause of that is now wrong:
 `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) proves `Finite (E[n])` at
 **every** index with `(2 : F) ≠ 0` and `(n : F) ≠ 0`; `card_torsion_le_sq` there proves
-`#E[n] ≤ n²` under the same hypotheses; and the coordinate formula is proved at every index
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **This file still
-instantiates only `ℓ = 2` and `ℓ = 3`, and that is unchanged** — `compactSpace` and `isCompact_coe`
-take finiteness as a hypothesis and never assume it, so they apply verbatim at any prime whose
-finiteness witness is supplied, and supplying it at `ℓ ≥ 5` is a follow-up nobody has written.
-⚠️ No new gate is asserted in place of the old one: what an `ℓ ≥ 5` layer costs was not
+`#E[n] ≤ n²` under the same hypotheses; and the coordinate formula is proved at every index with
+`(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **This
+file still instantiates only `ℓ = 2` and `ℓ = 3`, and that is unchanged** — `compactSpace` and
+`isCompact_coe` take finiteness as a hypothesis and never assume it, so they apply verbatim at any
+prime whose finiteness witness is supplied, and supplying it at `ℓ ≥ 5` is a follow-up nobody has
+written.  ⚠️ No new gate is asserted in place of the old one: what an `ℓ ≥ 5` layer costs was not
 re-measured here.
 
 ⚠️ **There is no `3`-smooth analogue of the two layers below, and a reader arriving from

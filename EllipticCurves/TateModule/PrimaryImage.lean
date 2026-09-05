@@ -129,25 +129,26 @@ instantiating files close it separately, with `Infinite (T_ℓE)`.
   the name is not usable here either, though for a different reason than a forward reference. ⚠️
   This bullet used to say it was gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the
   general coordinate formula `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are
-  wrong**: `[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
-  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
-  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
-  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR
-  #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.
-  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
+  wrong**: `[ℓ]`-surjectivity holds at every nonzero index with `(2 : F) ≠ 0`
+  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
+  formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux — that is `#404`'s on-curve
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557), and
+  `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.  ⚠️
+  **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
   (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
   `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it. ⚠️ **And the clause that used to close this bullet —
+  this bullet used to cite as open — with it.  ⚠️ **And the clause that used to close this bullet —
   *"instantiating this file at `ℓ ≥ 5` on top of that count is separate work and is not done here"*
   — has been paid.** `EllipticCurves.TateModule.ImageGeneral` states
   `isCompact_range_galoisDet_of_natCast_ne_zero` and `isClosed_range_galoisDet_of_natCast_ne_zero`,
   and `EllipticCurves.TateModule.ImageProfiniteGeneral` packages the range as a `ProfiniteGrp`
   (`profiniteGrpRangeGaloisDet_of_natCast_ne_zero`), all at every prime `ℓ` with `(ℓ : F) ≠ 0` under
   `[Algebra.IsIntegral S F]`, `[IsGalois S F]`, `[IsAlgClosed F]` and `[(W'⁄F).IsElliptic]`, with
-  certificates committed at `ℓ = 5` and at `ℓ = 7`. ⚠️ `EllipticCurves.TateModule.ImageGeneral` and
+  certificates committed at `ℓ = 5` and at `ℓ = 7`.  ⚠️ `EllipticCurves.TateModule.ImageGeneral` and
   `EllipticCurves.TateModule.ImageProfiniteGeneral`, and every theorem named in them, are **forward
   references** here: both are downstream of this one — they import this file and this file imports
-  neither — so none of those names is usable here. What being generic bought is what this bullet
+  neither — so none of those names is usable here.  What being generic bought is what this bullet
   predicted it would: the general file is a list of one-line instantiations and no argument was
   written a third time.
 

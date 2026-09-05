@@ -131,9 +131,9 @@ Same shape as `finite_torsionThreeMul` in `TranslationActionThree`, and for the 
   (`EllipticCurves.Torsion.OmegaCrux`, PR #557), so at `n = 5` the division-polynomial route waits
   on `#E[n] = n²` and on `#403`/`#405` — whose one missing input `#404` was.  ⚠️ **A third entry,
   `#251`, has since been closed too**: the identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P`,
-  which `#404` never supplied, holds at every index — `hasXCoordFormula_of_two_ne_zero`
-  (`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-  (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579).
+  which `#404` never supplied, holds at every index with `(2 : F) ≠ 0` —
+  `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+  `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579).
   ⚠️ **This bullet used to end *"`Normal` and
   `IsGalois` do not come along, because normality is not transitive; see that file"*, and the reason
   is still correct while the conclusion is not.**  Normality does not travel up `#1219`'s tower; but

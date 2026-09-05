@@ -45,21 +45,20 @@ and are replaced. The first, *"which is not available"*, is false at `p = 2`
 *"it stands verbatim for every prime `p ≥ 5`, which still needs the general coordinate formula
 `x(nP) = Φₙ/ΨSqₙ`"* — is false now too**: `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`) gives `[p]`-surjectivity at **every** nonzero index over
-`F̄` with `(2 : F) ≠ 0`, and the coordinate formula it named is itself proved at every index
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **A third clause is
-now false as well.**  It read *"what still stops the prime-power reduction from closing at `p ≥ 5`
-is the count `#E[p] = p²`, not surjectivity"*; that count is `card_torsion_eq_sq_of_odd`
-(`EllipticCurves.Torsion.OmegaChordSum`) at every odd index, so the prime-power reduction closes at
-every odd `p` — see `EllipticCurves.Torsion.PrimaryTowerOdd`, which also settles `E[n] ≃+ (ℤ/nℤ)²`
-at every odd `n` directly, without going through a factorisation at all.  What still holds is that
-the gate list is `EllipticCurves.Torsion.PrimaryTower`'s and that this file does not re-measure it.
-The
-second, *"only the exponent-one cases `p = 2` and `p = 3` are known"*, is false at every exponent:
-`nonempty_torsionTwoPow_addEquiv` (`EllipticCurves.Torsion.TwoPrimary`) and
-`nonempty_torsionThreePow_addEquiv` (`EllipticCurves.Torsion.ThreePrimary`) give every `2 ^ k` and
-every `3 ^ k`, and gluing them gives every `3`-smooth `n`
-(`nonempty_torsion_addEquiv_zmod_sq_of_smooth`). The concrete result at `n = 6` below is one
-instance of that.
+`F̄` with `(2 : F) ≠ 0`, and the coordinate formula it named is itself proved at every index with
+`(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **A
+third clause is now false as well.** It read *"what still stops the prime-power reduction from
+closing at `p ≥ 5` is the count `#E[p] = p²`, not surjectivity"*; that count is
+`card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`) at every odd index, so the
+prime-power reduction closes at every odd `p` — see `EllipticCurves.Torsion.PrimaryTowerOdd`, which
+also settles `E[n] ≃+ (ℤ/nℤ)²` at every odd `n` directly, without going through a factorisation at
+all.  What still holds is that the gate list is `EllipticCurves.Torsion.PrimaryTower`'s and that
+this file does not re-measure it.  The second, *"only the exponent-one cases `p = 2` and `p = 3` are
+known"*, is false at every exponent: `nonempty_torsionTwoPow_addEquiv`
+(`EllipticCurves.Torsion.TwoPrimary`) and `nonempty_torsionThreePow_addEquiv`
+(`EllipticCurves.Torsion.ThreePrimary`) give every `2 ^ k` and every `3 ^ k`, and gluing them gives
+every `3`-smooth `n` (`nonempty_torsion_addEquiv_zmod_sq_of_smooth`). The concrete result at `n = 6`
+below is one instance of that.
 
 ⚠️ **In particular this file does *not* give `#E[4] = 16` or `#E[9] = 81`.** That sentence is about
 *this file's contents*, not about the development, and it is still true: those counts live in
