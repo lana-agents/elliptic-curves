@@ -288,6 +288,23 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   than silently fixed because a reader who implements the line as written gets **5** rows, a
   binder count of **4** and a **one**-row witness slot, and the three names printed under the slot
   are the only thing that tells them to try again.
+  ⚠️ **Both quotations in the case split above are singular and the pattern is not — the `s?` is
+  load-bearing and it carries five rows.** *"the general-`n` forms of"* occurs **5** times, all
+  lowercase and all in `/-!` blocks, so the singular alone returns **51** splitting **43 / 8**, and
+  puts **18** under lowercase `the` against the published **23**. ⚠️ **The 43 does not move on that
+  read**, which is why the binder **29 / 28**, the range test and the witness slot are all untouched
+  by it. This clause is here because the misread happened: `#1749` was filed against this paragraph
+  proposing the **23** be corrected to **18**, read off the two singular quotations rather than off
+  the pattern three lines above them.
+  ⚠️ **The hyphen is literal, and one site writes the phrase without it.** `nsmul_genericPoint_eq`
+  (`EllipticCurves.FunctionField.MulByNPullback`) says *"This is the general `n` form of the merged
+  `genericPoint_add_self`"* in a later sentence, and it is **outside** the corpus as published.
+  Folding it in moves **56 → 57** and **43 → 44** and adds one row to the *states none* side of the
+  range test — **30 / 13 → 30 / 14** at `3e1bef2` — and moves **nothing else**: the binder
+  **29 / 28** and the slot are unchanged and membership-identical at that sha and at head, because
+  its only hypothesis about `n` is the non-constancy the paragraph below rules is not a condition on
+  the index. **Decided rather than left open** (`#1749`): the corpus stays hyphenated, so every
+  figure dated to `3e1bef2` keeps its meaning, and the cost of the other choice is on the page.
   ⚠️ **The non-constancy hypothesis is not a condition on the index, and the other 14 rows are
   not convicted by carrying one.** Thirteen of them bind
   `Transcendental F (n • genericPoint …).xCoord` and nothing else about `n` — three of those add
