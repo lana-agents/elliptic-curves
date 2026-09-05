@@ -439,6 +439,67 @@ review of the defining module ever looks at it; the trigger for it going stale i
 else. It is bound by this section exactly as a headline or a `## Main *` bullet is, and the repair
 is the one this section already prescribes: name the condition in the clause, or name none.
 
+**A clause that points at another list is a third branch, and it is exactly as complete as the
+list it points at.** *"under the same hypotheses"*, *"at the same hypotheses"*, *"with it"*,
+*"under the hypotheses of `X`"* name neither every hypothesis nor none: they **incorporate** a list
+by reference, so the rule above binds them through their antecedent. A short antecedent is a defect
+at every clause pointing at it, in every file, and it is invisible where it lands, because the
+pointing clause contains no hypothesis to be missing. ⚠️ Read the antecedent, and read it **for the
+anaphor's own subject** — two declarations in one sentence need not share a list, since a condition
+may be a binder of one and sit inside the other's predicate. `hasXCoordFormula_of_two_ne_zero`
+carries `ΨSqₙ(x) ≠ 0` inside `HasXCoordFormula` while `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` binds
+it, and `EllipticCurves.Torsion.Collinearity`'s six words were complete for the first and short for
+the second at once. **Where the antecedent is what is short, repair the antecedent**: one insertion
+pays off two sentences and stops the propagation.
+
+⚠️ **An anaphor can also fail by importing too much, and that direction is the one nothing
+renders.** `neronOggShafarevich_galoisRepMod_eq_one`
+(`EllipticCurves.Reduction.NeronOggShafarevich`) said *"under the same hypotheses"* over an
+antecedent headline reading *"`ℓ` is a prime invertible in `A`"* — **prime** — and binds no
+`[Fact ℓ.Prime]`: a correct instance **mention** was carried across a declaration boundary onto a
+declaration that does not have the instance, where it is wrong about the instance it names. The
+paragraphs above make a stale mention a defect exactly there, and the asymmetry they rest on is
+what makes this shape worse than a stale mention in place — doc-gen contradicts a wrong mention on
+its own declaration's page, and cannot contradict one imported from another's.
+
+**Identity is measured on reach, not on the telescope.** *"X has the same hypotheses as Y"* is a
+reach clause whenever it is doing reach work, and what it is held to is whether the two are claims
+about the same situations, not whether their binder lists match token for token. Two consequences,
+each of which decides a row this section would otherwise leave undecidable:
+
+* a binder cleared by the derivability exemption above does not count against it.
+  `isGalois_mulByNFieldRange_of_smooth`'s *"the separable half is `#1219`'s
+  `isSeparable_mulByNFieldRange_of_smooth`, at the same hypotheses"* is **complete** — the two bind
+  the identical five arguments and the transcendence `h` neither names is the exempt one, cited in
+  `EllipticCurves.FunctionField.MulByNGalois`'s own transcendence section;
+* a residual binder at a fixed numeral restricts nothing, by the *"a phrase about a fixed numeral
+  is a remark"* discriminator above. `finrank_torsion_of_smooth h2 h3 (n := 3)` *"has the same
+  hypotheses as the merged `finrank_torsion_three`"*
+  (`EllipticCurves.TateModule.DeterminantModSmooth`) is **true** although `1 < 3` and `hfac` are
+  still binders of the applied term, and `EllipticCurves.FunctionField.MulByThreeGalois`'s *"the
+  general-`n` package carries the same hypotheses as this file's at `n = 3` and no fewer"* is true
+  for the same reason — `isGalois_mulByNFieldRange_three` certifies it, over `h2` and `h3` alone.
+
+⚠️ **An anaphor is a pointer and not evidence of completeness, so a census may not clear a row on
+one.** `#1679` publishes ``under the same hypotheses`` and ``with it`` as **field seeds**, which
+clears a row on the strength of a neighbouring list without checking that list is complete for the
+new subject. That is sound only where the antecedent has been read: on the `h2` axis it has been,
+and `EllipticCurves.TateModule.Profinite`'s *"`card_torsion_le_sq` there proves `#E[n] ≤ n²` under
+the same hypotheses"* is the correct row it protects. On any other axis a seeded row is
+**unmeasured, not clean** — `Collinearity` above was cleared by that seed on the `h2` axis,
+correctly, and was short on the `hΨ` axis in the same six words. The class is small enough that
+reading it is the instrument: **25** bare anaphors in **18** files at `4148f23`, out of **32**
+occurrences of the phrase family in **23** files, from **231** seeded occurrences in **123** files,
+every one read; the seeds and the row-by-row verdicts are on `#1705`.
+
+⚠️ **A clause that points *and* names is not on this branch**, which is what separates those two
+counts. *"with the same hypothesis `ΨSqₙ(x) ≠ 0` that … `hasXCoordFormula_of_two_ne_zero` asks of
+the `x`-half"* (`EllipticCurves.Torsion.NsmulYPeriodic`) and *"at **every** prime `p` with
+`(2 : F) ≠ 0` and `(p : F) ≠ 0` — the same pair as the display above"*
+(`EllipticCurves.Torsion.StructureGeneral`) are ordinary reach clauses with an attribution
+attached: they carry their own list, so the paragraphs above measure them directly and nothing has
+to be resolved elsewhere. The branch is for the clause that points **instead of** naming.
+
 ⚠️ **Completing such a clause does not retire anything.** *"at every nonzero index"* is not
 falsified by *"at every nonzero index with `(2 : F) ≠ 0`"* — the words stay and a condition is
 added — so `### Retired claims` does not bind, and `#1659` added no marked quotation at any of its
