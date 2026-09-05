@@ -161,7 +161,7 @@ Every public declaration of this file is listed, and all are in namespace
   remain unavailable and are not needed"*.  ⚠️ **Two of those four are now closed and this is an
   independence claim, not a gate** (`#1460`): `#404`'s on-curve identity is
   `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557,
-  every index, over a field with `(2 : F) ≠ 0`) and Ward is
+  every index, over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0`) and Ward is
   `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`), unconditional.
   ⚠️ **And `#251`, which this bullet named as the one of the four still open, is closed as well** —
   `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) with its `y`-half

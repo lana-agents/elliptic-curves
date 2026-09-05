@@ -203,8 +203,8 @@ This file's verdict is its own: the census above was run here.
 
 ⚠️ **Both of the things that sentence names are now closed, and it is an independence claim rather
 than a gate.**  `#404`'s on-curve identity is `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`
-(`EllipticCurves.Torsion.OmegaCrux`, PR #557, at every index over a field with `(2 : F) ≠ 0`) and
-Ward's theorem (`#260`) is `WeierstrassCurve.Affine.ψ_isEllipticNet`
+(`EllipticCurves.Torsion.OmegaCrux`, PR #557, at every index over a field with `(2 : F) ≠ 0` and
+under `ψₙ(x, y) ≠ 0`) and Ward's theorem (`#260`) is `WeierstrassCurve.Affine.ψ_isEllipticNet`
 (`EllipticCurves.Torsion.WardHalving`), unconditional.  The claim below is unchanged in force: this
 file uses neither.  ⚠️ **Nor is the third thing this paragraph used to call open**: the
 identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P` is `#251` on its `x`-half and `#1500` on its

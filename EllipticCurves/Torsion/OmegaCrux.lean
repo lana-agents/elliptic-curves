@@ -62,10 +62,14 @@ over every commutative ring"*, and it does not** (`#1694`).  The wording entered
 `5d6884a`, PR #561 (`#1460`), which rewrote 61 sites at once — and it attached **this file's**
 `CommRing` reach to the wrong statement of the three above.  `WeierstrassCurve.hasΨSqDoubling` and
 `WeierstrassCurve.hasPreΩSq` are the ones at every index over every commutative ring;
-`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` is over a **field** with `(2 : F) ≠ 0` and could
-not be otherwise, its conclusion being an equation between quotients.  All thirty-seven now read
-*"at every index over a field with `(2 : F) ≠ 0`"*, which is the form
-`EllipticCurves.FunctionField.MulByNPullback` already wrote beside the `CommRing` half.
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` is over a **field** with `(2 : F) ≠ 0`, under
+`ψₙ(x, y) ≠ 0`, and could not be otherwise, its conclusion being an equation between quotients.
+⚠️ **The setting was repaired one width before the hypothesis list was** (`#1700`).  PR #675 wrote
+all thirty-seven as *"at every index over a field with `(2 : F) ≠ 0`"*, which named two of this
+theorem's three hypotheses and dropped `hψ` — the *proper non-empty subset* that `README.md`
+`### Reach clauses` calls the defect.  They now read *"at every index over a field with
+`(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0`"*, which is the form
+`EllipticCurves.FunctionField.MulByNPullback` had beside the `CommRing` half all along.
 
 ⚠️ **That retirement is quoted once, here, rather than thirty-seven times.**  `README.md`
 `### Retired claims` names no file for the marked quotation, and the purpose it states is that

@@ -111,7 +111,7 @@ that `#1184` was never a gate on **this file**, and an unscoped *"`#1184` is wha
 paragraphs later reads as a retraction of it.  Both are true; they are about different things.
 
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
-`(2 : F) ≠ 0` (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0` (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
 `EllipticCurves.Torsion.OmegaCrux`) — that was `#404`, and it says only that those coordinates lie
 on the curve.  Identifying the `x`-coordinate with the group-law multiple `n • P` is `#251`, and it
 is **closed**: `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`

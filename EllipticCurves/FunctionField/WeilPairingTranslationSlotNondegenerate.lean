@@ -86,13 +86,13 @@ purely additive.
 
 ⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of
 those are now closed.**  PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index
-over a field with `(2 : F) ≠ 0` — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
-`EllipticCurves.Torsion.OmegaCrux`.  The *other* statement this tree also called `ωₙ` — the
-identification of those coordinates with the **group-law** multiple `n • P` — is `#251` on its
-`x`-half and `#1500` on its `y`-half, and **both are closed**: `hasXCoordFormula_of_two_ne_zero`
-(`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at every index over a field with
-`(2 : F) ≠ 0`.  ⚠️ That was the step `hprin` reaches through
+over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0` —
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`.  The
+*other* statement this tree also called `ωₙ` — the identification of those coordinates with the
+**group-law** multiple `n • P` — is `#251` on its `x`-half and `#1500` on its `y`-half, and **both
+are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and
+`nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), each at
+every index over a field with `(2 : F) ≠ 0`.  ⚠️ That was the step `hprin` reaches through
 `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is `addY_self_eq_div`
 (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input now exists at
 every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**, here or
