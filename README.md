@@ -344,7 +344,14 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   not the slot — it was naming a **survivor** in the present tense, which the sweep falsifies the
   moment it arrives and `### Retired claims` then charges for. **Name rows inside a dated
   measurement, where `## Layout`'s *"the counts drift, the structure does not"* protects them; do
-  not name one in a present-tense parenthetical.** That is the ruling `#1728` asked for, and it is
+  not name in a present-tense parenthetical a row a standing sweep is scheduled to reach.**
+  ⚠️ **The qualifier is the rule and not a softening of it**, and the reason is one line up: a name
+  is a countdown only when something is scheduled to falsify it. That is why the **four**
+  range-stating rows named above keep the present tense — no sweep on this front removes a range
+  statement from a headline or adds an index binder to a signature, so nothing is scheduled to
+  reach them — and why the slot's three are named under a date instead, the one of those three
+  `#1137` is scheduled to reach carrying its own expiry in the sentence that names it. That is the
+  ruling `#1728` asked for, and it is
   why the *"and states none"* half of that parenthetical is now a pointer to this paragraph rather
   than a name.
   ⚠️ **Everything else in this bullet is confirmed unmoved at `fddba5c`, not assumed**: `56` /
