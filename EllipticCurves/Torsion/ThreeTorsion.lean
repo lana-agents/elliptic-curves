@@ -23,8 +23,8 @@ Like the `n = 2` computation, it is **independent of the elliptic-net recurrence
 multiplication-by-`n` coordinate formula `x(nP) = Φₙ(x)/ΨSqₙ(x)`**: for `n = 3` the whole content
 is the tangent-line doubling formula, available in closed form in Mathlib.  ⚠️ The independence
 claim is unchanged; only its trailing *"which gate the general case"* was dropped, because the
-coordinate formula is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-`EllipticCurves.Torsion.NsmulOrder`).
+coordinate formula is now proved at every index with `(2 : F) ≠ 0`
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
 
 ## The mechanism
 

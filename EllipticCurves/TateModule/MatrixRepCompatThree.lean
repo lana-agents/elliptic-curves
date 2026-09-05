@@ -87,8 +87,9 @@ about by name.
   every prime — what is missing there is a basis of `T_ℓE`, which needs `#E[ℓ^k]`.  ⚠️ This bullet
   used to add *"and surjectivity of `[ℓ]` on `E(F̄)`, i.e. the multiplication-by-`n` coordinate
   formula `x(nP) = Φₙ/ΨSqₙ`"*, and both halves are stale: surjectivity holds at every nonzero index
-  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
-  proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
+  with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`)
+  and the formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`).
 
 ## References
 

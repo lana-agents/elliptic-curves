@@ -101,12 +101,12 @@ been paid.
 (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, so what
 is left is building the equivalence on top of it (`#268`), not proving a count.
 ⚠️ This sentence used to add *"and `[ℓ]`-surjectivity, i.e. the general coordinate formula
-`x(nP) = Φₙ/ΨSqₙ`"*, and both clauses are stale: surjectivity holds at every nonzero index
-(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
-proved at every index (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).
-`EllipticCurves.Torsion.PrimaryTower` carries the gate list for the count. Everything
-is stated for a base change `W'⁄F`, matching `EllipticCurves.TateModule.MatrixRep` and
-`EllipticCurves.TateModule.MatrixContinuity`.
+`x(nP) = Φₙ/ΨSqₙ`"*, and both clauses are stale: surjectivity holds at every nonzero index with
+`(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the
+formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`).  `EllipticCurves.Torsion.PrimaryTower` carries the gate list
+for the count.  Everything is stated for a base change `W'⁄F`, matching
+`EllipticCurves.TateModule.MatrixRep` and `EllipticCurves.TateModule.MatrixContinuity`.
 
 Not proved here: **openness** of the image — that is Serre's theorem, it is *false* for curves with
 complex multiplication, and nothing about compactness approaches it; **surjectivity** of `ρ_{E,2}`,

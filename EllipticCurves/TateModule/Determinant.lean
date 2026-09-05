@@ -122,11 +122,12 @@ one is not progress towards the cyclotomic-character identification**, which is 
 reader will hope: knowing the image of a character is closed says nothing about which character it
 is. ⚠️ This paragraph used to continue *"at `ℓ ≥ 5` surjectivity is genuinely unavailable, because
 it needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`"*, and that reason is false:
-`[ℓ]`-surjectivity holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
-`EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is proved at every index
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **No replacement
-reason is asserted**: what a determinant statement at `ℓ ≥ 5` costs was not re-measured here, and
-this file supplies nothing towards it either way.
+`[ℓ]`-surjectivity holds at every nonzero index with `(2 : F) ≠ 0`
+(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the formula is
+proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+`EllipticCurves.Torsion.NsmulOrder`).  ⚠️ **No replacement reason is asserted**: what a determinant
+statement at `ℓ ≥ 5` costs was not re-measured here, and this file supplies nothing towards it
+either way.
 
 **Continuity is not asserted in this file**: `galoisRep` is built purely as a group homomorphism,
 and passing to determinants changes nothing about that.

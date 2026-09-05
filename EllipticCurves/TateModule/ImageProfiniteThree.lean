@@ -131,30 +131,30 @@ profiniteness or matrices.
   its input `Nonempty (T₅E ≃ₗ ℤ_[5]²)` is gated on `#E[5^k]`.  ⚠️ This bullet used to say it was
   gated *"on `[5]`-surjectivity and `#E[5^k]`, both of which need the general coordinate formula,
   i.e. the `ωₙ` crux"*, and all three clauses are wrong: `[5]`-surjectivity holds at every nonzero
-  index (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the
-  coordinate formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
-  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).
-  ⚠️ **`#E[ℓ^k]` is not open at any prime `ℓ` with `(ℓ : F) ≠ 0`, and this file's generic sibling
-  is now instantiated there.** The sharp count is `card_torsion_eq_sq`
-  (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with `(2 : F) ≠ 0` and
-  `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ` attribution this bullet used to
-  carry.  ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this bullet used to name only the index
-  one** (`#1137`); it is a hypothesis of the count and of all 22 `_of_natCast_ne_zero` statements
-  in the `TateModule/` directory, so none of them reaches characteristic `2`.  ⚠️ **Two entry
-  points, not one, and this sentence used to say `built on it` of all 22**: eighteen take `h2`
-  through the count, and the four in `EllipticCurves.TateModule.OpenKernel` and
-  `EllipticCurves.TateModule.OpenKernelGeneral` take it through `finite_torsion_of_intCast_ne_zero`
-  (`EllipticCurves.Torsion.XSupport`) instead — `EllipticCurves.Torsion.StructureGeneral` is not in
-  `OpenKernel`'s import closure at all.
+  index with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`,
+  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index with
+  `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is
+  **not** the `ωₙ` crux, which is `#404`'s on-curve identity, closed in
+  `EllipticCurves.Torsion.OmegaCrux` (PR #557).  ⚠️ **`#E[ℓ^k]` is not open at any prime `ℓ` with
+  `(ℓ : F) ≠ 0`, and this file's generic sibling is now instantiated there.** The sharp count is
+  `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`): every `n` with
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0`, `ℓ = 2` included, so it is sharper than the odd-`ℓ` attribution
+  this bullet used to carry.  ⚠️ **`(2 : F) ≠ 0` is the second hypothesis and this bullet used to
+  name only the index one** (`#1137`); it is a hypothesis of the count and of all 22
+  `_of_natCast_ne_zero` statements in the `TateModule/` directory, so none of them reaches
+  characteristic `2`.  ⚠️ **Two entry points, not one, and this sentence used to say `built on it`
+  of all 22**: eighteen take `h2` through the count, and the four in
+  `EllipticCurves.TateModule.OpenKernel` and `EllipticCurves.TateModule.OpenKernelGeneral` take it
+  through `finite_torsion_of_intCast_ne_zero` (`EllipticCurves.Torsion.XSupport`) instead —
+  `EllipticCurves.Torsion.StructureGeneral` is not in `OpenKernel`'s import closure at all.
   `nonempty_tateModuleEquivProd_of_natCast_ne_zero` (`EllipticCurves.TateModule.FreeGeneral`,
   `#268`) turns that count into the rank-two input the generic layer takes as an argument, and
   **`EllipticCurves.TateModule.ImageProfiniteGeneral` supplies it at every prime `ℓ` with
   `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`** — so *"separate work and is not done here"* is discharged rather
-  than owed. ⚠️
-  The clause that followed — *"what is missing there is a basis to feed it, not a theorem"* — was
-  the right diagnosis, and the basis is `tateModule.nonempty_basis_tateModule_of_natCast_ne_zero`
-  (`EllipticCurves.TateModule.MatrixRepGeneral`). ⚠️ `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the
+  than owed.  ⚠️ The clause that followed — *"what is missing there is a basis to feed it, not a
+  theorem"* — was the right diagnosis, and the basis is
+  `tateModule.nonempty_basis_tateModule_of_natCast_ne_zero`
+  (`EllipticCurves.TateModule.MatrixRepGeneral`).  ⚠️ `(ℓ : F) ≠ 0` is sharp: at `ℓ = char F` the
   conclusion is **false**, not open — `E[ℓ]` is `0` or `ℤ/ℓℤ`, so `T_ℓE` has rank `0` or `1`.
 
 ## Using this file

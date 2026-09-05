@@ -404,6 +404,48 @@ are load-bearing — of which exactly one makes a counting claim and is therefor
 `### Gate-discharge claims` below. Naming it in the other seventeen would put a uniform directory
 into two registers, which is what `### Scope of the rules above` is for.
 
+**A cited declaration's *name* does not complete the clause that cites it.** *"surjectivity holds
+at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`)"* is short of `(2 : F) ≠ 0`, and the `_of_two_ne_zero`
+inside the backticked identifier four words away does not repair it. A reach clause is what a
+reader consults *instead of* the signature; an identifier is a name, not a hypothesis list.
+
+⚠️ **The suffix rule this document already has is a *matching* rule, not a substituting one.**
+`### Scope of the rules above` says *"`(n : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` are different clauses.
+The `_of_natCast_ne_zero` and `_of_intCast_ne_zero` suffixes say which, and a reach clause should
+match the suffix."* That lets a suffix decide **which** of two conditions a clause that already
+names one is naming. It does not let a suffix supply a condition the clause names nowhere, and the
+two are not points on a spectrum: the defect this section defines is the **proper non-empty
+subset**, and a clause that lists the index and drops `(2 : F) ≠ 0` reads as a complete hypothesis
+list however the cited identifier is spelled.
+
+⚠️ **Three further grounds, each decisive on its own.**
+
+* The rule would be keyed on **naming luck**. It clears `nsmul_surjective_of_two_ne_zero` and
+  clears nothing for `card_torsion_eq_sq`, which binds the identical `h2` and carries no suffix —
+  so one block would hold rows in two registers for a reason that is not about the mathematics,
+  which is what `### Scope of the rules above` exists to forbid.
+* The suffix is **itself a proper subset**. `_of_two_ne_zero` names `h2` and not the `hn : n ≠ 0`
+  beside it, so a reader told to read identifiers as hypothesis lists is reading a partial one.
+* The development **already writes the compliant form** for this declaration in this phrasing —
+  *"`[n]`-surjectivity at every `n ≠ 0` with `(2 : F) ≠ 0`"*
+  (`EllipticCurves.TateModule.DeterminantModSmooth`). **12** sentences in the tree named both
+  conditions before `#1659`, measured at `5dfd94d` with the recogniser published on that issue. If
+  the suffix cleared, all twelve would be redundant and somebody would have deleted them.
+
+⚠️ **This rules on citations, which is the layer no register reaches.** A reach clause about a
+declaration whose file the writer is not editing is covered by no register in either file, and no
+review of the defining module ever looks at it; the trigger for it going stale is an edit somewhere
+else. It is bound by this section exactly as a headline or a `## Main *` bullet is, and the repair
+is the one this section already prescribes: name the condition in the clause, or name none.
+
+⚠️ **Completing such a clause does not retire anything.** *"at every nonzero index"* is not
+falsified by *"at every nonzero index with `(2 : F) ≠ 0`"* — the words stay and a condition is
+added — so `### Retired claims` does not bind, and `#1659` added no marked quotation at any of its
+sites for that reason. ⚠️ Contrast `#1660`, where *"at every `n`"* over a binder
+`xCoord_zero` falsifies at `n = 0` **was** false and each replacement was quoted and attributed.
+**Read whether the old clause was false or merely partial before deciding.**
+
 ### Gate-discharge claims
 
 A third exemption is narrower still, and it has a different shape: it is not about which

@@ -96,16 +96,16 @@ satisfiable, are certified in the `Nonvacuity` section at the end of this file.
   here.** Ward's theorem and the elliptic-net recurrence remain unused at every `ℓ`.
 * **General odd `ℓ` stays out.** ⚠️ This bullet used to give the reason as *"`[ℓ]`-surjectivity
   for `ℓ ≥ 5` needs the *general* coordinate formula, still gated behind the `ωₙ` crux"*, and all
-  three clauses are wrong: `[ℓ]`-surjectivity holds at every nonzero index
+  three clauses are wrong: `[ℓ]`-surjectivity holds at every nonzero index with `(2 : F) ≠ 0`
   (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate
-  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s
-  on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  ⚠️ What
+  formula is proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the `ωₙ` crux, which is `#404`'s on-curve
+  identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR #557).  ⚠️ What
   `EllipticCurves.TateModule.PrimaryFree` used to lack at `ℓ ≥ 5` was the count `#E[ℓ^k]`, and
-  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at
-  every odd `ℓ` with `(ℓ : F) ≠ 0`.  That file is already stated at an arbitrary prime, so the
-  `ℓ ≥ 5` file is now a list of instantiations and no argument has to be written a third time —
-  which is `#268`, and is not done here.
+  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
+  odd `ℓ` with `(ℓ : F) ≠ 0`.  That file is already stated at an arbitrary prime, so the `ℓ ≥ 5`
+  file is now a list of instantiations and no argument has to be written a third time — which is
+  `#268`, and is not done here.
 * **The Galois action on `T₃E` and `ρ_{E,3} : G → GL₂(ℤ_3)` are NOT in scope.**
   `EllipticCurves.TateModule.Free` names them as its own follow-up at `ℓ = 2` and the same split
   applies at `ℓ = 3`.

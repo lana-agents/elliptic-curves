@@ -182,10 +182,9 @@ formalised** in this tree.
 Consequently `comapProjPointN … none = none` (*"`[n]` fixes the point at infinity"*) is **also**
 absent *from this file*: `comapProjPointTwo_none` is proved from the pole order, and so are the
 fibre-sum identities `#701` and `#1046`.  ⚠️ **Absent from this file, and present in the tree at
-every `n` with `((n : ℤ) : F) ≠ 0`** — `comapProjPointN_none_of_ne_zero` and
-`ramificationIdxN_none_of_ne_zero`
-(`EllipticCurves.FunctionField.MulByNPlaceComposition`), by the pole order and with the `n = 2`
-proof transposed unchanged.
+every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`** — `comapProjPointN_none_of_ne_zero` and
+`ramificationIdxN_none_of_ne_zero` (`EllipticCurves.FunctionField.MulByNPlaceComposition`), by the
+pole order and with the `n = 2` proof transposed unchanged.
 
 ⚠️ **This paragraph used to conclude that the statement is absent from the tree, and that is now
 false at every `3`-smooth `n`.**  `EllipticCurves.FunctionField.MulByNPlaceComposition` (`#1214`)
@@ -206,6 +205,24 @@ infinity: `f_∞ = 1`, `EllipticCurves.FunctionField.MulByNResidueDegree` (`#122
 uniform in the endomorphism that needs neither the pole order nor the fibre statement.  The two
 local invariants at infinity are not alike — `e_∞ = 1` is `3`-smooth-only and false in general,
 `f_∞ = 1` is free.
+
+⚠️ **`comapProjPointN_none_of_ne_zero`, `ramificationIdxN_none_of_ne_zero` and
+`ramificationIdxN_none_of_smooth` (`EllipticCurves.FunctionField.MulByNPlaceComposition`) each take
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and the clauses citing
+them in this file do not name it.**  That is the `README.md` exemption (`## Docstring conventions`
+→ `### Reach clauses`) — a hypothesis derivable from the ones the clause *does* name adds no reach
+— and this is the citation it asks for:
+
+* `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, which is what the two `_of_ne_zero` clauses name;
+* `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) proves
+  it from `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, which is what the `_of_smooth`
+  clause names.
+
+⚠️ **Neither derivation runs from the index condition alone**, which is all those three clauses
+named until `#1659`: `(2 : F) ≠ 0` is derivable from nothing any reach clause here names, so it is
+reach and had to be added rather than left to the exemption.
 
 ## Main definitions and statements
 
@@ -256,12 +273,13 @@ noncomputable def comapProjPointN (n : ℕ)
 ⚠️ It is *defined* as the value of the transported order at a uniformizer, exactly as at `n = 2`.
 Nothing below computes it at any particular place, and in particular nothing here says it is `1` at
 the place at infinity — that is `#670`'s statement, and at an `n` divisible by the characteristic it
-is **false** (see the module docstring).  ⚠️ At every `3`-smooth `n` it is `1`:
+is **false** (see the module docstring).  ⚠️ At every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0` it is `1`:
 `EllipticCurves.FunctionField.MulByNPlaceComposition.ramificationIdxN_none_of_smooth`, by
-multiplicativity of this index along `[m · n]∗ = [m]∗ ∘ [n]∗` rather than by any computation
-here; ⚠️ and at every `n` with `((n : ℤ) : F) ≠ 0`, `…ramificationIdxN_none_of_ne_zero`, by the pole
-count.  ⚠️ *"At general `n`"* in the sentence above meant *"with no hypothesis on `(n : F)`"*, which
-is the only range in which it is false. -/
+multiplicativity of this index along `[m · n]∗ = [m]∗ ∘ [n]∗` rather than by any computation here;
+⚠️ and at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, `…ramificationIdxN_none_of_ne_zero`,
+by the pole count.  ⚠️ *"At general `n`"* in the sentence above meant *"with no hypothesis on
+`(n : F)`"*, which is the only range in which it is false. -/
 noncomputable def ramificationIdxN (n : ℕ)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord) (p : ProjPoint W) : ℤ :=
   ramificationIdx (mulByNEndo_algebraMap_base n hn) (mulByNEndo_isIntegralElem n hn) p

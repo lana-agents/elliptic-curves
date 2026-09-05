@@ -96,9 +96,9 @@ available"* and *"`[p]`-surjectivity … needs it too"*.  On `main` today:
   field with `(2 : F) ≠ 0` and `(p : F) ≠ 0`;
 * `[p]`-surjectivity at every nonzero index is `nsmul_surjective_of_two_ne_zero`
   (`EllipticCurves.Torsion.TwoTorsionOrder`), over `F̄` with `(2 : F) ≠ 0`;
-* the coordinate formula itself is proved at every index — `hasXCoordFormula_of_two_ne_zero`
-  (`EllipticCurves.Torsion.NsmulOrder`) on the `x`-half, `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-  (`EllipticCurves.Torsion.NsmulYPeriodic`) on the `y`-half.
+* the coordinate formula itself is proved at every index with `(2 : F) ≠ 0` —
+  `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) on the `x`-half,
+  `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`) on the `y`-half.
 
 ⚠️ **The `≥` half of `#E[p] = p²` at `p ≥ 5` used to be what was open, and it no longer is.**
 `EllipticCurves.Torsion.PrimaryTower` carries the authoritative gate list; the single entry it had

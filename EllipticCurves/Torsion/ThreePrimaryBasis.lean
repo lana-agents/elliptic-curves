@@ -75,11 +75,11 @@ different places.**
 * **`ℓ = 3` only.** ⚠️ This bullet used to give its reason as *"a general odd `ℓ` needs
   `[ℓ]`-surjectivity on `E(F̄)`, which needs the general coordinate formula `x(ℓP) = Φ_ℓ/ΨSq_ℓ`; at
   `ℓ = 3` that formula is proved … and for `ℓ ≥ 5` it is not"*, and the last clause is false: the
-  formula is proved at **every** index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`), and `[ℓ]`-surjectivity with it
-  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ **The scope
-  restriction itself is unchanged and no replacement reason is asserted**: what this file still
-  takes at `ℓ = 3` only was not re-measured, and the tower's own gate list is
+  formula is proved at **every** index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+  `EllipticCurves.Torsion.NsmulOrder`), and `[ℓ]`-surjectivity at every nonzero index with
+  `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️
+  **The scope restriction itself is unchanged and no replacement reason is asserted**: what this
+  file still takes at `ℓ = 3` only was not re-measured, and the tower's own gate list is
   `EllipticCurves.Torsion.PrimaryTower`'s.  The generic layer in
   `EllipticCurves.Torsion.PrimaryBasis` is ready for any such `ℓ` the moment one arrives.
 * ⚠️ **`TwoPrimaryBasis.lean` used to say of itself that nothing in it uses `x(nP) = Φₙ/ΨSqₙ`. That

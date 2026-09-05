@@ -136,14 +136,14 @@ discrete"* above is a **different** sentence and is correct: it cites a true sta
 as a fact, not as a gate.
 
 ⚠️ At `ℓ ≥ 5` the gate is real, but it is **not** the general coordinate formula.  This paragraph
-used to name that formula, and it is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-`EllipticCurves.Torsion.NsmulOrder`), as is `[ℓ]`-surjectivity with it
-(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  What nothing
-supplies at `ℓ ≥ 5` is still the generic file's hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)`, and what
-that rests on is the count `#E[ℓ^k]`.  ⚠️ That count is no longer owed:
-`card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
-odd `ℓ` with `(ℓ : F) ≠ 0`, so what is left at `ℓ ≥ 5` is to build the linear equivalence on top of
-it — `#268`, and not this file.
+used to name that formula, and it is proved at every index with `(2 : F) ≠ 0`
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), as is `[ℓ]`-surjectivity
+at every nonzero index with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`).  What nothing supplies at `ℓ ≥ 5` is still the generic
+file's hypothesis `Nonempty (T_ℓE ≃ₗ ℤ_[ℓ]²)`, and what that rests on is the count `#E[ℓ^k]`.  ⚠️
+That count is no longer owed: `card_torsion_pow_mul_self_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, so what
+is left at `ℓ ≥ 5` is to build the linear equivalence on top of it — `#268`, and not this file.
 
 Everything is stated for a base change `W'⁄F` of a curve `W' : Affine S` rather than for a bare
 `W : Affine F`, matching the representation section of `EllipticCurves.TateModule.MatrixRep`. This

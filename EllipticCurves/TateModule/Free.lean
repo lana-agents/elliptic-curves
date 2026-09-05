@@ -74,13 +74,13 @@ rests on surjectivity of `[2]`"* is now false of the development:
 `EllipticCurves.TateModule.PrimaryFree` rests on surjectivity of `[ℓ]`, and
 `EllipticCurves.Torsion.TriplingSurjective` pays that at `ℓ = 3`.  ⚠️ **And the rest of the old
 sentence no longer survives at `ℓ ≥ 5` either**: it ended *"where `x(ℓP) = Φ_ℓ/ΨSq_ℓ` is still the
-gate"*, and that formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-`EllipticCurves.Torsion.NsmulOrder`), with `[ℓ]`-surjectivity following at every nonzero index
-(`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ What
-`EllipticCurves.TateModule.PrimaryFree` used to want at `ℓ ≥ 5` was the count `#E[ℓ^k]`, and
-`card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
-odd `ℓ` with `(ℓ : F) ≠ 0`.  This file remains `ℓ = 2` only for its own
-reasons, and that is unchanged.
+gate"*, and that formula is proved at every index with `(2 : F) ≠ 0`
+(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), with `[ℓ]`-surjectivity
+following at every nonzero index with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`,
+`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ What `EllipticCurves.TateModule.PrimaryFree` used to
+want at `ℓ ≥ 5` was the count `#E[ℓ^k]`, and `card_torsion_pow_mul_self_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`.  This
+file remains `ℓ = 2` only for its own reasons, and that is unchanged.
 
 The Galois action on `T₂E` (`EllipticCurves.TateModule.GaloisAction`) and the representation
 `ρ_{E,2} : G_F → GL₂(ℤ_2)` are a separate follow-up, which the rank statement here makes meaningful

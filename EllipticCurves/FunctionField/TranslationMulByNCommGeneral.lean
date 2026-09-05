@@ -71,7 +71,7 @@ every index over every commutative ring) and Ward's theorem (`#260`) is
 `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`), unconditional.
 The claim below is unchanged in force: this file uses neither.  ⚠️ **Nor is the third thing this
 paragraph used to call open**: the identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P` is `#251`
-on its `x`-half and `#1500` on its `y`-half, and both are closed at every index
+on its `x`-half and `#1500` on its `y`-half, and both are closed at every index with `(2 : F) ≠ 0`
 (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`;
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, PR #579); see
 `EllipticCurves.FunctionField.MulByNPullback`.

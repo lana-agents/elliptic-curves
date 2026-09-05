@@ -34,7 +34,7 @@ for **every** nonzero `n` whose prime factors are all `2` or `3`, in particular 
 the elliptic-net recurrence and of the multiplication-by-`n` coordinate formula
 `x(nP) = Φₙ(x)/ΨSqₙ(x)`**.  ⚠️ The independence claim is unchanged and is the point of this
 sentence; its trailing *"which gate the general case"* was dropped, because the coordinate formula
-is now proved at every index (`hasXCoordFormula_of_two_ne_zero`,
+is now proved at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
 `EllipticCurves.Torsion.NsmulOrder`) and gates nothing.
 
 ## The mechanism

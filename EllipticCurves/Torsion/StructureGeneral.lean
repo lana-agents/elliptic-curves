@@ -106,8 +106,9 @@ citations are prose, and feeding the count in is separate work.
 * `WeierstrassCurve.Affine.nonempty_torsion_addEquiv_zmod_sq_of_coprime`
   (`Torsion.CoprimeStructure`) — the Chinese-remainder glue.
 * `WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero` (`Torsion.TwoTorsionOrder`) —
-  surjectivity of `[n]` at every `n ≠ 0`.  ⚠️ It does **not** need `(n : F) ≠ 0`, and it has been a
-  theorem since long before the count was; nothing about the `≥ n²` half follows from it.
+  surjectivity of `[n]` at every `n ≠ 0` with `(2 : F) ≠ 0`.  ⚠️ It does **not** need `(n : F) ≠ 0`,
+  and it has been a theorem since long before the count was; nothing about the `≥ n²` half follows
+  from it.
 
 **No new geometry, no new polynomial identity and no new curve is used below.**
 

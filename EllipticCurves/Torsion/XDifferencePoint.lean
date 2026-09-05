@@ -39,10 +39,10 @@ x(2 • P) − x(3 • P) = ψ₅(x, y)/(ΨSq₃(x)·ΨSq₂(x)),
 It is the **witness that the identity in `XDifference` is about points**, not a step towards `#251`.
 A polynomial identity between `Φ` and `ΨSq` is compatible with `Φₙ/ΨSqₙ` never being anybody's
 `x`-coordinate; exhibiting one pair of indices at which it *is* rules that out.  ⚠️ It is no longer
-the only thing in this tree that can — `hasXCoordFormula_of_two_ne_zero` rules it out at every
-index — but it is the only one **at this point in the import order**.  Nothing here is used by
-`XDifference`.  Generalising the statement below is now a matter of importing that module and
-substituting for the two hypotheses; it is not done here, and no consumer has asked for it.
+the only thing in this tree that can — `hasXCoordFormula_of_two_ne_zero` rules it out at every index
+with `(2 : F) ≠ 0` — but it is the only one **at this point in the import order**.  Nothing here is
+used by `XDifference`.  Generalising the statement below is now a matter of importing that module
+and substituting for the two hypotheses; it is not done here, and no consumer has asked for it.
 
 ## Main statements
 
@@ -92,10 +92,10 @@ at a point of `W` at which neither `ΨSq₂` nor `ΨSq₃` vanishes.
 This is `xCoord_sub_xCoord_of_hasXCoordFormula` at `(p, q) = (3, 2)`, where `ψ_{p−q} = ψ₁ = 1`.  It
 is the only unconditional point-level instance of the `x`-difference identity this tree admits, and
 it exists to witness that the identity of `EllipticCurves.Torsion.XDifference` has point-level
-content.  ⚠️ It does not generalise *here*: `HasXCoordFormula W n` holds at every index
-(`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), but that module and this
-one are import-incomparable, and the hypotheses substituted below are the two instances reachable
-from here. -/
+content.  ⚠️ It does not generalise *here*: `HasXCoordFormula W n` holds at every index with
+`(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), but that
+module and this one are import-incomparable, and the hypotheses substituted below are the two
+instances reachable from here. -/
 theorem xCoord_two_sub_xCoord_three (h2 : (2 : F) ≠ 0) (h : W.Nonsingular x y)
     (h3 : (W.ΨSq 3).eval x ≠ 0) (h2' : (W.ΨSq 2).eval x ≠ 0) :
     ∃ (x₃ y₃ x₂ y₂ : F) (h₃ : W.Nonsingular x₃ y₃) (h₂ : W.Nonsingular x₂ y₂),

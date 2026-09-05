@@ -94,19 +94,20 @@ instances, and this one does too.
   reference.  ⚠️ This bullet used to say it was
   gated *"on `[ℓ]`-surjectivity and `#E[ℓ^k]`, both of which need the general coordinate formula
   `x(nP) = Φₙ/ΨSqₙ`, i.e. the `ωₙ` crux"*, and **all three clauses are wrong**: `[ℓ]`-surjectivity
-  holds at every nonzero index (`nsmul_surjective_of_two_ne_zero`,
-  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index
-  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is **not** the
-  `ωₙ` crux — that is `#404`'s on-curve identity, closed in `EllipticCurves.Torsion.OmegaCrux` (PR
-  #557), and `EllipticCurves.FunctionField.MulByNPullback` is the module that keeps the two apart.
-  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.** `card_torsion_pow_mul_self_of_odd`
-  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`, over
-  `F̄` with `(2 : F) ≠ 0`, and discharges `EllipticCurves.Torsion.PrimaryTower`'s gate list — which
-  this bullet used to cite as open — with it.  ⚠️ **Exactly one clause of this bullet survives, and
-  it survives for a different reason than the one it was written for.** Instantiating this file at
-  `ℓ ≥ 5` is separate work and is not done here — and, unlike the four sibling `Primary*` files
-  whose bullets carried this same sentence, it is **not done anywhere**: this file's reverse import
-  cone is `EllipticCurves.TateModule.MatrixRepBasisChange` (`ℓ = 2`),
+  holds at every nonzero index with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`,
+  `EllipticCurves.Torsion.TwoTorsionOrder`); the coordinate formula is proved at every index with
+  `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`); and it is
+  **not** the `ωₙ` crux — that is `#404`'s on-curve identity, closed in
+  `EllipticCurves.Torsion.OmegaCrux` (PR #557), and `EllipticCurves.FunctionField.MulByNPullback` is
+  the module that keeps the two apart.  ⚠️ **`#E[ℓ^k]` is no longer open at `ℓ ≥ 5`.**
+  `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every
+  odd `ℓ` with `(ℓ : F) ≠ 0`, over `F̄` with `(2 : F) ≠ 0`, and discharges
+  `EllipticCurves.Torsion.PrimaryTower`'s gate list — which this bullet used to cite as open — with
+  it.  ⚠️ **Exactly one clause of this bullet survives, and it survives for a different reason than
+  the one it was written for.** Instantiating this file at `ℓ ≥ 5` is separate work and is not done
+  here — and, unlike the four sibling `Primary*` files whose bullets carried this same sentence, it
+  is **not done anywhere**: this file's reverse import cone is
+  `EllipticCurves.TateModule.MatrixRepBasisChange` (`ℓ = 2`),
   `EllipticCurves.TateModule.MatrixRepBasisChangeThree` (`ℓ = 3`),
   `EllipticCurves.TateModule.MatrixRepMod` (mod `n`) and
   `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`, and none of them states the

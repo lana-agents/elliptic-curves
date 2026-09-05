@@ -500,8 +500,9 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F]
 
 The two statements above consume `hfac` in exactly one place, `exists_nsmul_eq_of_smooth`, and
 `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is the same conclusion
-under the same instances at **every** `n ≠ 0`.  So the two below are the two above with `hfac`
-deleted and **nothing put in its place** — no index condition, no `h3`, no extra instance.
+under the same instances at **every** `n ≠ 0` with `(2 : F) ≠ 0`.  So the two below are the two
+above with `hfac` deleted and **nothing put in its place** — no index condition, no `h3`, no extra
+instance.
 
 ⚠️ **This is the only place on this front where the general layer is free.** Everywhere else — the
 nine group-1 statements, the `_of_smooth` corollaries over an arbitrary field — dropping `hfac`
@@ -523,7 +524,8 @@ the core takes on top of `hprin` are discharged, and neither needs `3`-smoothnes
 
 * the transcendence, by `transcendental_xCoord_nsmul_of_isAlgClosed`;
 * the halving point, by `nsmul_surjective_of_two_ne_zero`
-  (`EllipticCurves.Torsion.TwoTorsionOrder`), `[n]`-surjectivity on `E(F̄)` at every `n ≠ 0`.
+  (`EllipticCurves.Torsion.TwoTorsionOrder`), `[n]`-surjectivity on `E(F̄)` at every `n ≠ 0` with
+  `(2 : F) ≠ 0`.
 
 ⚠️ `h2` is the *only* condition on the characteristic, and it is not an index condition: `n` may be
 divisible by `char F`.  `[n]` is still non-constant there — it is inseparable, not constant — which

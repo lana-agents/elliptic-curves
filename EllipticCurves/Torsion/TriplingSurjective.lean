@@ -291,9 +291,9 @@ x(3P) · ΨSq₃(x) = Φ₃(x).
 This is the `n = 3` instance of the multiplication-by-`n` coordinate formula
 `x(nP) = Φₙ(x)/ΨSqₙ(x)`, in a form that needs no division.  ⚠️ This docstring used to add *"the
 general case is not available in this tree"*, and that is false:
-`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) proves it at every index.
-The division-free shape below is still worth having on its own terms, and is what this file's
-consumers take.  The mirror statement at the generic point of `F(W)` is
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) proves it at every index
+with `(2 : F) ≠ 0`.  The division-free shape below is still worth having on its own terms, and is
+what this file's consumers take.  The mirror statement at the generic point of `F(W)` is
 `EllipticCurves.FunctionField.GenericTripling.addX_gen_eq_mulByThree`; it cannot be specialised to
 an `F`-point, so the computation is redone here.
 
@@ -442,8 +442,8 @@ This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root`
 `exists_nsmul_two_eq_some_of_root` (`EllipticCurves.Torsion.DoublingSurjective`).  Those two are
 the engine's finite-level layer's only instances anywhere in this tree.  ⚠️ **The reason recorded
 here used to be `#251`, and that reason is gone**: `hasXCoordFormula_of_two_ne_zero`
-(`EllipticCurves.Torsion.NsmulOrder`) supplies the coordinate formula at every index, and the
-general-`n` surjectivity it feeds is `nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) supplies the coordinate formula at every index with
+`(2 : F) ≠ 0`, and the general-`n` surjectivity it feeds is `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`).  ⚠️ Both are **downstream** of this file, so the two
 instances below are still the only ones reachable *here*; what is no longer true is that anything
 stands between this tree and a general `n`.

@@ -132,11 +132,12 @@ identity is a different theorem rather than a descent of this one.
   `EllipticCurves.Torsion.OmegaCrux`, PR #557).  ⚠️ **Neither is the general-`n` coordinate
   description this bullet used to call `#251`**: `hasXCoordFormula_of_two_ne_zero`
   (`EllipticCurves.Torsion.NsmulOrder`) and `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-  (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579) give both halves at every index.  The
-  general-`n` residue degree is `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which
-  imports this file and is this file with `mulByThreeEndo_*` replaced by `mulByNEndo_*` — plus the
-  observation that `residueDegreeThree_none_eq_one`'s route below is uniform in the endomorphism,
-  so `f_∞ = 1` holds at **every** `n` and not only at the two primes.
+  (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579) give both halves at every index with
+  `(2 : F) ≠ 0`.  The general-`n` residue degree is
+  `EllipticCurves.FunctionField.MulByNResidueDegree` (`#1225`), which imports this file and is this
+  file with `mulByThreeEndo_*` replaced by `mulByNEndo_*` — plus the observation that
+  `residueDegreeThree_none_eq_one`'s route below is uniform in the endomorphism, so `f_∞ = 1` holds
+  at **every** `n` and not only at the two primes.
 * **The ramification side is not re-examined.**  `ramificationIdxThree_none` (`[3]` is unramified at
   infinity) is merged and is not consumed below: the residue degree at infinity is `1` for a reason
   that has nothing to do with ramification, namely that `[0 : 1 : 0]` is a rational point of every

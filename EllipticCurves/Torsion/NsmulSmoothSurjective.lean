@@ -83,10 +83,10 @@ surviving obstruction should not stop here.
 
 * **No new index.**  The two merged surjectivity theorems are the only inputs; nothing is proved at
   a prime other than `2` and `3`.  In particular this is not progress on `#251` — ⚠️ **whose
-  coordinate formula has since been closed at every index** (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`), so the sentence that used to end *"which is the live gate"*
-  is retired: nothing here stands between the tree and a fifth index.  ⚠️ This bullet used to name
-  `#404` beside it; `#404`'s on-curve identity is closed
+  coordinate formula has since been closed at every index with `(2 : F) ≠ 0`**
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), so the sentence that
+  used to end *"which is the live gate"* is retired: nothing here stands between the tree and a
+  fifth index.  ⚠️ This bullet used to name `#404` beside it; `#404`'s on-curve identity is closed
   (`EllipticCurves.Torsion.OmegaCrux`, PR #557) and was never what `HasXCoordFormula` needed.
 * **No injectivity, no degree, and no statement about `E[n]`.**  `#E[n] = n²` at `3`-smooth `n` is
   `card_torsion_eq_sq_of_smooth`, already merged, and it is an *input* to the consumers of this

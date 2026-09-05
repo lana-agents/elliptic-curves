@@ -85,11 +85,11 @@ generalised. It then needs no `ℓ = 3` twin either: the statement below, applie
   `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`, which needs `#E[ℓ^k]`.  ⚠️ This clause used to add
   *"and surjectivity of `[ℓ]` on `E(F̄)` and so runs through the multiplication-by-`n` coordinate
   formula `x(nP) = Φₙ/ΨSqₙ`"*, and both halves are stale: surjectivity holds at every nonzero index
-  (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`) and the coordinate
-  formula is proved at every index (`hasXCoordFormula_of_two_ne_zero`,
-  `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ `#E[ℓ^k]` alone was what was left, and it is left
-  no longer: `card_torsion_pow_mul_self_of_odd` (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies
-  it at every odd `ℓ` with `(ℓ : F) ≠ 0`.
+  with `(2 : F) ≠ 0` (`nsmul_surjective_of_two_ne_zero`, `EllipticCurves.Torsion.TwoTorsionOrder`)
+  and the coordinate formula is proved at every index with `(2 : F) ≠ 0`
+  (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`).  ⚠️ `#E[ℓ^k]` alone was
+  what was left, and it is left no longer: `card_torsion_pow_mul_self_of_odd`
+  (`EllipticCurves.Torsion.PrimaryTowerOdd`) supplies it at every odd `ℓ` with `(ℓ : F) ≠ 0`.
   Instantiations exist at `ℓ = 2` (`EllipticCurves.TateModule.MatrixRepCompat`) and at `ℓ = 3`
   (`EllipticCurves.TateModule.MatrixRepCompatThree`); at `ℓ ≥ 5` there is still nothing to
   instantiate *with* — the basis has to be built first (`#268`) — and the statements here remain

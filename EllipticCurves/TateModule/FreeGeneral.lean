@@ -42,8 +42,8 @@ inputs, and none of them is new here:
 * `WeierstrassCurve.Affine.card_torsion_eq_sq` (same file) — `#E[n] = n²`, which gives `hcard` in
   the `ℓ^k · ℓ^k` shape `EllipticCurves.TateModule.PrimaryFree` asks for.
 * `WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero`
-  (`EllipticCurves.Torsion.TwoTorsionOrder`) — surjectivity of `[ℓ]` at every `ℓ ≠ 0`, a theorem
-  since PR #569. ⚠️ It needs only `(2 : F) ≠ 0`, **not** `(ℓ : F) ≠ 0`.
+  (`EllipticCurves.Torsion.TwoTorsionOrder`) — surjectivity of `[ℓ]` at every `ℓ ≠ 0` with
+  `(2 : F) ≠ 0`, a theorem since PR #569.  ⚠️ It needs only `(2 : F) ≠ 0`, **not** `(ℓ : F) ≠ 0`.
 * `EllipticCurves.TateModule.PrimaryFree` and `EllipticCurves.Torsion.PrimaryBasis`, both already
   written at an arbitrary prime `ℓ`.
 

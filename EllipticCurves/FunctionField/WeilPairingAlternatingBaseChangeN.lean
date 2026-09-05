@@ -54,7 +54,7 @@ these statements did not reach was `n = 5` **for the halving point** — and a g
 
 ⚠️ **That surjectivity was never missing, and swapping it in is measured now (`#1549` group 2): it
 costs nothing.**  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is
-`[n]`-surjectivity on `E(F̄)` at every `n ≠ 0`, under the same instances
+`[n]`-surjectivity on `E(F̄)` at every `n ≠ 0` with `(2 : F) ≠ 0`, under the same instances
 `exists_nsmul_eq_of_smooth` was already being called with at this file's one call site — so
 `…_of_baseChange_of_ne_zero` and `…_of_hprin_n_of_baseChange_of_ne_zero` below are the two
 statements above with `hfac` deleted and **no index condition, no `h3` and no instance** put in its
@@ -293,9 +293,9 @@ theorem exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange (h2 : (2 : F) 
 `hfac` is consumed in exactly one place in this file — `exists_nsmul_eq_of_smooth`, the halving
 point over `F̄` — and `nsmul_surjective_of_two_ne_zero`
 (`EllipticCurves.Torsion.TwoTorsionOrder`) is the same conclusion under the same instances at
-**every** `n ≠ 0`.  The module docstring above recorded that substitution as *"not measured"*.
-It is measured now, and the answer is that it costs nothing: the two statements below are the two
-above with `hfac` deleted and **no index condition put in its place**.
+**every** `n ≠ 0` with `(2 : F) ≠ 0`.  The module docstring above recorded that substitution as
+*"not measured"*.  It is measured now, and the answer is that it costs nothing: the two statements
+below are the two above with `hfac` deleted and **no index condition put in its place**.
 
 ⚠️ The `[(W.map (algebraMap F K)).IsElliptic]` instance the surjectivity needs is the same one
 `exists_nsmul_eq_of_smooth` was already using at this call site, so no instance is added either.
