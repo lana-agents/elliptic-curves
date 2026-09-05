@@ -88,8 +88,9 @@ theorem neronOggShafarevich_galoisRep_eq_one
 
 open Classical in
 /-- **Néron–Ogg–Shafarevich, good ⇒ unramified (mod-`ℓ` representation form).**  Under the same
-hypotheses, the mod-`ℓ` Galois representation `ρ̄_ℓ = galoisRepMod` on the `ℓ`-torsion `E[ℓ]` is
-*trivial on the inertia subgroup*:
+hypotheses, and ⚠️ **at every `ℓ` invertible in `A` rather than at every prime one — this form
+binds no `[Fact ℓ.Prime]`** — the mod-`ℓ` Galois representation `ρ̄_ℓ = galoisRepMod` on the
+`ℓ`-torsion `E[ℓ]` is *trivial on the inertia subgroup*:
 
 ```
 ∀ σ ∈ A.inertiaSubgroup K,   galoisRepMod ℓ σ = 1.
@@ -97,7 +98,15 @@ hypotheses, the mod-`ℓ` Galois representation `ρ̄_ℓ = galoisRepMod` on the
 
 The mirror of `neronOggShafarevich_galoisRep_eq_one` at the single level `E[ℓ]`, packaging
 `torsion_isUnramifiedAt` (inertia fixes every `ℓ`-torsion point): `galoisRepMod ℓ σ` acts as
-`P ↦ σ • P` (`galoisRepMod_apply_coe`), the identity since `σ • P = P` for every `P`. -/
+`P ↦ σ • P` (`galoisRepMod_apply_coe`), the identity since `σ • P = P` for every `P`.
+
+⚠️ **The qualifier above is a repair, and the mechanism is why it was invisible** (`#1705`).
+*"Under the same hypotheses"* carried the antecedent's *"`ℓ` is a **prime** invertible in `A`"* —
+a correct mention of that theorem's `[Fact ℓ.Prime]` — across a declaration boundary onto this one,
+which does not have the instance.  doc-gen contradicts a stale instance mention on its own
+declaration's page; it cannot contradict one imported from another's, and the pointing clause has
+no hypothesis of its own to be wrong about.  `torsion_isUnramifiedAt` needs no primality either,
+which is what makes the mod-`ℓ` form the wider of the two rather than the `ℓ`-adic one's shadow. -/
 theorem neronOggShafarevich_galoisRepMod_eq_one
     [IsAdicComplete (IsDiscreteValuationRing.maximalIdeal A).asIdeal A]
     [HasGoodReduction A (W'⁄L)] [(W'⁄L).IsElliptic]
