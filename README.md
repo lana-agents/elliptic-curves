@@ -746,7 +746,13 @@ column, is one place. A fix that repairs one row and leaves its neighbour partia
 block worse rather than better, because the reader now has two rows in different registers and
 no way to tell which is which.
 
-Four consequences worth stating, because each has cost a review cycle:
+Consequences worth stating, because each has cost a review cycle. ⚠️ **Their number is
+deliberately not given** (`#1667`): this line read *"Four consequences worth stating"* from
+`f1d1473` (`#1569`, PR #620) onwards and was true until the *"A heading is one source line"*
+bullet below made it five, in the same PR that wrote the bullet. A numeral standing over a list
+is falsified by whatever next extends the list, and no bullet under it can repair the numeral —
+which is `### Module-block bullets`' *"A register says what a list omits. It cannot make a count
+true"*, one layer up, in this document's own prose. They are:
 
 * **The subject decides, not the string.** *"it is `natDegree_ΨSq` that needs `(n : F) ≠ 0`"*
   is correct — Mathlib's `natDegree_ΨSq` asks that and nothing else — while the identical
