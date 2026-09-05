@@ -88,7 +88,8 @@ supply it at `n = 2` and `n = 3`. The `OmegaTwo`/`OmegaThree` docstrings make th
 ⚠️ That separate statement is now available at **every** index and not only at `2` and `3`:
 `WeierstrassCurve.Affine.nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
 (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`), whose `x`-half is
-`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, `#251`).  Both are
+`hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, `#251`) — each at every
+index over a field with `(2 : F) ≠ 0`, and the `y`-half under `ΨSqₙ(x) ≠ 0` besides.  Both are
 downstream of this file and neither is consumed here.
 
 ## References
