@@ -125,9 +125,13 @@ answer to the question a reach clause answers — *which indices are reached*"* 
 above"* (`01c1748`, `#1662`, PR #669) — ⚠️ **two commits, so each half is attributed to the one
 that wrote it** rather than the whole quotation to the first.  `README.md` `### Reach clauses` now
 sorts the phrase as **provenance**: its subject is the *pair* of declarations and its predicate a
-relation between them, not a set of indices.  False rather than partial — 36 of the 43 headlines
-carrying it head a declaration that does **not** reach every `n` — so `### Retired claims` binds
-and the wording is quoted here rather than deleted.
+relation between them, not a set of indices.  False rather than partial — **29** of the 43
+headlines carrying it head a declaration that binds a condition on the index and so does **not**
+reach every `n` — so `### Retired claims` binds and the wording is quoted here rather than deleted.
+⚠️ **The brick is one of the other 14, and that is the check this count has to pass**: it carries
+the phrase, it binds nothing on the index beyond the non-constancy, and the `n ≠ 0` register above
+accounts for its *"at every `n`"* in terms.  A count of binders **named** `hn` in place of a count
+of conditions on the index convicts it, and reads 36 (`#1678`).
 
 ⚠️ **The fourth bullet's verdict does not move, only its ground.**  Naming no reach at all, it sits
 on `### Reach clauses`' *"or it names none"* branch, and the `n ≠ 0` register above covers it as it
@@ -136,11 +140,12 @@ was reaching for and did not need a new clause kind to get.
 
 ⚠️ **The `MulByNFibre` evidence the retired ruling cited says the opposite of what it was read as
 saying.**  That bullet is *"the general-`n` forms of the `mulByTwoCoordHom` basics.  ⚠️ These four
-take neither `(2 : F) ≠ 0` nor `((n : ℤ) : F) ≠ 0`: **they hold at every `n`**, on the transcendence
-hypothesis alone."*  The reach is a **separate sentence**; the bullet supplements the phrase rather
-than glossing it, and on the retired reading that sentence would be redundant.  ⚠️ **Read what a
-cited gloss adds, not only that it sits nearby** — a sentence that states the reach beside a phrase
-is evidence the phrase does not state it.
+take **neither** `(2 : F) ≠ 0` **nor** `((n : ℤ) : F) ≠ 0`: they hold at every `n`, on the
+transcendence hypothesis alone."*  The reach — *"they hold at every `n`"*, the emphasis in the
+source being on *"neither"* / *"nor"* — is a **separate sentence**; the bullet supplements the
+phrase rather than glossing it, and on the retired reading that sentence would be redundant.
+⚠️ **Read what a cited gloss adds, not only that it sits nearby** — a sentence that states the
+reach beside a phrase is evidence the phrase does not state it.
 
 * `WeierstrassCurve.Affine.CoordinateRing.galoisPointHom` — the action of `σ⋆` on
   `(W ⁄ F(W⁄F)).Point`, as an `AddMonoidHom`; `…_genericPoint` says it fixes `𝒫`.
