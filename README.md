@@ -753,6 +753,75 @@ sites for that reason. ⚠️ Contrast `#1660`, where *"at every `n`"* over a bi
 `xCoord_zero` falsifies at `n = 0` **was** false and each replacement was quoted and attributed.
 **Read whether the old clause was false or merely partial before deciding.**
 
+⚠️ **That test has been run on *"over an arbitrary field"*, and the answer is *partial*: the phrase
+denies a structural assumption on `F` and composes with a `with` clause, so it takes an insertion
+and retires nothing** (`#1733`). Recogniser: the case-insensitive literal *"over an arbitrary
+field"* in the **headline** of a `/--` block of an `EllipticCurves/**/*.lean` file, headline meaning
+the block text `**`-stripped and whitespace-normalised, cut at the first `.` followed by optional
+bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whichever comes first. At
+`2765fc9` the phrase occurs **211** times in **63** files — **96** `/--` blocks and **77** `/-!`
+blocks — and **88** occurrences fall inside a `/--` headline. Joining those 88 to their declarations
+and reading every `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `((n : ℤ) : F) ≠ 0`, `(n : F) ≠ 0`,
+`[IsAlgClosed F]`, `[CharZero F]`, `[PerfectField F]` and `[Fintype F]` binder **in scope** — own
+list plus every `variable` line above the block — splits them **57 / 8 / 23**: 57 bind a condition
+on `F` the headline does not name, 8 already carry the completion, and 23 bind nothing about `F`
+and are true as written.  After `#1733` the split is **47 / 18 / 23**.
+
+⚠️ **The 8 decide it, and they decide it against the closed reading.**
+`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`
+(`EllipticCurves.FunctionField.MulByNInertia`), `**`-stripped as the recogniser reads it, is
+*"`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, over an arbitrary field, with separability carried as a hypothesis."* — the phrase
+and a `with` clause naming two conditions on `F`, in one headline, and
+`…_of_isSeparable_of_ne_zero` below it does the same at `(n : F) ≠ 0`. If
+*"over an arbitrary field"* closed a list about `F`, those two headlines would contradict
+themselves in their own text. They do not, because the phrase denies a **structural** assumption —
+an algebraic closure — and the tree glosses it in exactly those words itself:
+`exists_nsmul_three_eq_some_of_root` (`EllipticCurves.Torsion.TriplingSurjective`) ends its headline
+*"with no algebraic closure"*.
+
+⚠️ **The closed wordings are a different phrase and they do retire**, so do not read this ruling
+across to them. *"Nothing else about `F` is assumed"* and *"the hypotheses are `hcard` and `hP` and
+nothing else about `F`"* (`dcc912e`, `#1339`, PR #508) were both ruled **false** and quoted under
+`### Retired claims` by PR #687 (`#1719`) — in the same file, one paragraph from the ten
+*"over an arbitrary field"* headlines that took a completion under `#1733`. *"Nothing else"* closes
+the list; *"arbitrary"* does not.
+
+⚠️ **The 57 are a population to read, not a verdict, and only ten of them are repaired.** `#1733`
+completed the ten in `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` — in
+that file's own wording, *"over an arbitrary field with `(2 : F) ≠ 0`"* — leaving **47** in eleven
+files, filed rather than swept. At least one will clear on a reading rather than a count:
+`exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange`
+(`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`) closes its headline *"with
+`hprin` the only hypothesis that is not about the characteristic"*, which tells the reader the
+characteristic conditions exist without naming them, while its neighbour of the same shape at
+`…_of_ne_zero_of_baseChange` names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` outright. ⚠️ **A module
+H1 cannot always take the insertion**, and that is the one place this ruling and the heading rule
+below pull apart: completing `PullbackPrincipalityTwoRationalTorsion`'s title in place makes it
+**117** columns, so the phrase was dropped from the title to the prose instead, on
+`### Scope of the rules above`'s heading bullet.
+
+⚠️ **Rule a phrase before repairing rows of it when the repair is a `with` clause hung off the
+phrase, and not before otherwise** (`#1733`). This is the cost that ruling makes visible rather
+than a rule invented for it: **three PRs inside four hours** on 2026-09-05 — `fddba5c`
+(`#1664`, PR #684), `2765fc9` (`#1719`, PR #687) and `#1733`'s own — repaired rows of
+*"over an arbitrary field"* in one file, each correct under its own issue, and the file stood in
+**two registers** on one phrase in between. A repair that merely *appends* conditions a headline
+names nowhere is safe to make before the phrase is classified, because naming every hypothesis is
+compliant on any reading.
+⚠️ **Appending to the phrase is not that repair.** *"over an arbitrary field with `(2 : F) ≠ 0`"*
+is compliant only on the *partial* reading; had the phrase come out **closed**, the same words
+would assert and deny a condition on `F` in one clause, and the repair owed would have been a
+deletion with a marked quotation instead. **Ask whether the words you are adding lean on the
+phrase's classification. If they do, rule it first; if they do not, repair now.**
+⚠️ **This narrows *"an insertion is branch-neutral"* above (`#1728`) rather than contradicting
+it, and the two are one rule read together.** That sentence is about an insertion of conditions the
+headline names **nowhere**, which is compliant on both branches of *"names every hypothesis, or it
+names none"*. The move it does not cover is an insertion **hung off a phrase whose own
+classification is the open question** — there the added words inherit the phrase's reading, so the
+result is compliant on one branch and self-contradictory on the other. Branch-neutrality is a
+property of the **repaired sentence**, not of the act of inserting.
+
 ### Gate-discharge claims
 
 A third exemption is narrower still, and it has a different shape: it is not about which
