@@ -652,6 +652,11 @@ either direction decides a different population.
   `EllipticCurves.TateModule.DeterminantModGeneral`, whose `## Main statements` **opens** *"**Every
   statement and definition below takes `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, and the rank and the basis
   take `1 < n` as well; the bullets give the conclusions and not the hypotheses"*.
+  ⚠️ **Both are quoted as they stand, and neither closing clause is the form to copy.**
+  *"The bullets give the conclusions and not the hypotheses"* is a **universal over the bullets**,
+  which `#1647` decided against — as a **form**, not as a verdict on any list that carries it. So
+  neither quotation is edited here and neither file is in defect; what this section prescribes is
+  the **naming** half of the sentence, and the closing form to copy is below.
 * A **gate-discharge register** supplies the *subject* of *"unconditionally"*, *"with no hypothesis
   left"*, *"nothing further"* — the gate list the word is a delta against. It may sit **anywhere in
   the module block**. `### Gate-discharge claims` above already treats such a register as a
@@ -669,11 +674,70 @@ the register has to be where the reader meets it, and a paragraph two `##` secti
 therefore the **reach** half; the gate-discharge half follows from the rule above once the unit is
 the module docstring.
 
-⚠️ **That `DeterminantModGeneral` opener is the form to copy**, and it is the cheap repair for a
-list whose bullets are each short of the same hypotheses: name them **once**, at the head of the
-list, and say that the bullets do not repeat them. The alternative — inserting the same two
-conditions into a dozen bullets — is what `### Scope of the rules above` calls making the block
-worse, and it is not what a reader of a list wants.
+⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
+the cheap repair for a list whose bullets are each short of the same hypotheses: name them
+**once**, at the head of the list, and say that the bullets do not repeat them. The alternative —
+inserting the same two conditions into a dozen bullets — is what `### Scope of the rules above`
+calls making the block worse, and it is not what a reader of a list wants.
+
+⚠️ **What it is not the form to copy for is the sentence it closes on**, and a register written
+from this document rather than from a sibling file is how that sentence keeps being re-introduced.
+*"The bullets give the conclusions and not the hypotheses"* is a universal over the bullets, and it
+cannot survive this development's own repairs: a count is repaired **in the row** (*"a register
+says what a list omits. It cannot make a count true"*, below), and every such repair costs the
+universal another instance. `#1647` decided it and PR #658 replaced it in
+`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` with the form to copy here — a
+**routing** sentence rather than a universal:
+
+> ⚠️ **Where a bullet says nothing about hypotheses, read it against this register; where a
+> bullet counts them, the count is that bullet's own claim and no register makes it true.** Naming
+> some without counting is neither, and sits under this register unchanged; reporting one
+> *discharged* is a gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.
+
+Every branch of it is decided elsewhere in this document and the sentence only routes: silence to
+the register, a count past every register, a discharged hypothesis to `### Gate-discharge claims`.
+⚠️ **The branch worth reading twice is *"naming some without counting"***, because it is what a
+reach-register list is *for* and it is the one a phrase-keyed sweep keeps re-triaging as a defect:
+a bullet that names two of its declaration's four hypotheses and claims nothing about the rest sits
+under its register **unchanged**, and repairing it in the row is what makes a block worse.
+
+⚠️ **The population, with the recogniser beside it**, because this section's own rule is
+*publish the recogniser beside any count, or write no count*. Scan **whole** `## Main *` blocks —
+not the prose above the first bullet, since one instance sits inside a bullet and another after the
+list — for a sentence carrying both a quantifier (`every`, `all`, `none`, `no `, `each`,
+`not read`, `neither`) and a bullet-subject (`bullet`, `row`, `the entries`, `list above/below`),
+and **read** every hit rather than counting it. At `b764fae` ten `## Main *` blocks in ten files
+close over their own bullets, in three live wordings: five in `DeterminantModGeneral`'s
+(`MulByNFibre`, whose instance is scoped inside a bullet, `WeilPairingAlternatingConsumerN`,
+`WeilPairingDivisorSlotBilinearHprinN`, `WeilPairingGaloisRootN`, and `DeterminantModGeneral`
+itself), four in the form above (`WeilPairingAlternatingAssemblyN`,
+`WeilPairingAlternatingBaseChangeN`, `WeilPairingTranslationSlotHprinN`,
+`EllipticCurves.Torsion.PrimaryTowerOdd`), and one **converse** — *"Every bullet above names the
+whole explicit hypothesis list"* (`EllipticCurves.Torsion.WronskianSeparable`, over a list that
+carries no register on purpose, so *"a register cannot make a count true"* does not bite; its
+failure mode is the mirror one, going stale when a bullet is **simplified** rather than completed).
+
+⚠️ **Three ways to miscount that, all of them live.** A **phrase**-keyed census reads eight of
+the first wording where there are five: `…AssemblyN`, `…AlternatingBaseChangeN` and
+`…TranslationSlotHprinN` each carry it as a retired quotation under `### Retired claims`, and a
+retired quotation is not a live universal. A **file**-keyed census reads two of the converse where
+there is one: `…AlternatingBaseChangeN` quotes `WronskianSeparable`'s sentence as a cross-reference
+to another file's register. And a **line**-keyed `grep` reads six of the eight, because the phrase
+wraps mid-sentence in two of them. A fourth wording — *"the bullets … are not read for hypotheses
+at all"* — exists now only as `PrimaryTowerOdd`'s own retired quotation (`#1656`, PR #667); it was
+live when this class was last measured, which is why a census of it has to be dated.
+
+⚠️ **The five that still close on the old wording are not defective, and this is not licence for
+a sweep.** What falsifies that universal is a bullet that **counts** — and no bullet under any of
+the five carries one today, on the thirteen phrases this section publishes below with their own
+instability warning. (⚠️ The one hit that recogniser returns in those files,
+`projPointOfPoint_add_injective`'s *"at **every** `n` and with no hypothesis on `F`"*, is in
+`MulByNFibre`'s **outer** list, which is the different block this section separates below — and it
+is true: that signature binds no propositional hypothesis at all.) `#1647`'s instruction is
+accordingly to replace the universal *"in the rest as each is touched rather than re-arguing it"*:
+this tree does not pre-emptively edit sentences that are not wrong, and a five-file docstring sweep
+to change one is cost with no reader on the other end. What the rule binds is the **next**
+register written or repaired — including any written from this section.
 
 One file shows the reach half in both directions, and both readings are decided by the signatures
 rather than argued:
