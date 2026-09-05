@@ -85,7 +85,7 @@ the right thing to cite at `n = 2, 3`, their proofs do not route through the gen
 `S ⊕ T = R`; the four `_of_smooth` / `_of_ne_zero` corollaries take `(2 : F) ≠ 0` as well, and the
 two `_of_smooth` ones `(3 : F) ≠ 0`.**  The three statements above them take the `n`-torsion `T`,
 the non-constancy of `x([n]𝒫)` and the function they are about, and the third the product
-decomposition its bullet names.  The bullets give the conclusions and not the hypotheses.
+decomposition its bullet names.
 
 ⚠️ **The two `…_divisorSlot_add_n_of_hprin` headlines take the non-constancy of `x([n]𝒫)` as
 well**, and their *"at an arbitrary `n`"* clause is read against it — the contrast with *"the three
@@ -94,6 +94,30 @@ statements above them"* is a claim about that trio and not an exclusive one.
 that as the instance `[NeZero n]`, which `README.md` `### Reach clauses` leaves ambient.  The four
 `_of_smooth` / `_of_ne_zero` corollaries **discharge** the non-constancy rather than binding it,
 which is what their bullets say (`#1641`, `#1642`).
+
+⚠️ **Where a bullet says nothing about hypotheses, read it against these two registers; where a
+bullet counts them, the count is that bullet's own claim and no register makes it true.**  Naming
+some without counting is neither, and sits under them unchanged; reporting one *discharged* is a
+gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
+`#1647` decided, in `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` (PR #658),
+pluralised because this block carries two registers, as `WeilPairingGaloisRootN` does (`#1662`).
+
+⚠️ **It replaces a universal that was false of this list on the day it landed, and that the second
+register contradicts in terms.**  The first register formerly closed *"The bullets give
+the conclusions and not the hypotheses"* (`6f7fe82`, `#1626`, PR #654), and the two bullets that
+falsify it were already on the page at that commit: the fourth names *"with the non-constancy
+hypothesis discharged at every `3`-smooth `n ≠ 0`"* over `(hnz : n ≠ 0)` and
+`(hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)`, and the fifth *"at every `n` with
+`((n : ℤ) : F) ≠ 0`"* over `(hn : ((n : ℤ) : F) ≠ 0)` — explicit binders of the declarations those
+bullets are about.  ⚠️ **And the second register ends *"which is what their bullets say"***, so the
+block asserted one paragraph apart that its bullets do and do not say things about hypotheses; it
+was self-falsifying on the page, in the shape `WeilPairingGaloisRootN`'s `n ≠ 0` register was
+(`#1662`).  ⚠️ **A bullet that NAMES a hypothesis falsifies that sentence** — it says the bullets
+give the conclusions *and not the hypotheses* — and **counting** them is the narrower, stronger
+failure the form above routes separately; the discharge report in the fourth bullet is a third
+thing again, a gate-discharge claim, which is the branch that form sends to
+`README.md` `### Gate-discharge claims`.  Same test, same verdict and same repair as in
+`…AssemblyN` and `…GaloisRootN` (`#1647`, `#1662`, `#1686`).
 
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_mulByNEndo` and
   `…_of_baseField` — a `[n]∗`-pullback contributes `1`, at every `n`.
