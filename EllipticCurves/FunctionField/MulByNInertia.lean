@@ -218,10 +218,16 @@ state that rule forbids.
 ⚠️ **Every other numeral in this section is arithmetic on that census and moves with it in
 place.**  The opening sentence's *"twelve clauses … three of them declaration headlines"*, *"the
 other eleven are declarations of this file"* above, and *"the twelve listed above … the three
-headlines"* and *"three of the twelve"* below are all read off the list; none of them is a claim
-the census does not already make, which is why they are restated rather than quoted one by one.
-⚠️ The census itself is the exception because it publishes its own recogniser and its own list, so
-it is the sentence a reader quotes.
+headlines"*, *"naming those three"* and *"three of the twelve"* below are all read off the list;
+none of them is a claim the census does not already make, which is why they are restated rather
+than quoted one by one.  ⚠️ **One designator below tracks the list without moving with it**:
+*"two of those three headlines"* is fixed at two by what `01f955b` says, and only the phrase
+naming the set it picks from had to follow the count.  ⚠️ **This enumeration is itself a count and
+is membership-checked against the section rather than written from the edits made** — a list of
+the numerals a repair touched cannot contain the ones it did not, and both designators in this
+paragraph's own sentence were found that way, by reading every quantity word in the section at
+the base and at the head.  ⚠️ The census itself is the exception because it publishes its own
+recogniser and its own list, so it is the sentence a reader quotes.
 
 ⚠️ **That same sentence carried a second universal, older and wider than the one above, and the
 section heading restated it** (`#1688`).  Until now it read *"… as an explicit argument, and no
@@ -232,12 +238,16 @@ appended clause and quantifies over a strictly wider unit than a bullet: `README
 declaration or a named layer goes"*, and `### Scope of the rules above` makes a declaration
 headline one.  **So the twelve listed above are twelve reach clauses that name it**, and the three
 headlines among them settle it without the other nine.  ⚠️ **It was false on the day it landed**:
-both of those headlines already read *"at every `n` at which `[n]` is non-constant"* at `01f955b`
-itself.  False rather than partial, so `README.md` `### Retired claims` binds and both wordings are
-quoted here rather than deleted.  What replaced the clause is the subset claim in this section's
-opening sentence, naming those two and pointing at this list for the rest; what replaced the
-heading is a title that asks **which** clauses below name the parameter instead of asserting that
-none do.
+two of those three headlines already read *"at every `n` at which `[n]` is non-constant"* at
+`01f955b` itself — `isSeparable_mulByNEndoFieldRange_of_charZero`'s and
+`sum_ramificationIdxN_mul_residueDegreeN_finrank`'s.  ⚠️ **The third is not a witness and cannot
+be**: `…_finrank_of_charZero`'s headline read *"in characteristic zero, at every `n`"* at
+`01f955b` and carries the non-constancy only since `#1664`, which is what the retirement above
+records.  Two are enough and the ground does not move.  False rather than partial, so `README.md`
+`### Retired claims` binds and both wordings are quoted here rather than deleted.  What replaced
+the clause is the subset claim in this section's opening sentence, naming those three and
+pointing at this list for the rest; what replaced the heading is a title that asks **which**
+clauses below name the parameter instead of asserting that none do.
 ⚠️ **The heading is the half that had to go first.**  doc-gen prints it as the section title, it is
 the one sentence here that no later paragraph qualifies, and a reader who reads nothing else in
 this section reads it.  ⚠️ **`#1668` has since decided which list this section's opening sentence
@@ -257,8 +267,11 @@ headlines of these three, and all three now name the non-constancy in the headli
 ⚠️ **`…_finrank_of_charZero`'s did not until `#1664`, and this paragraph is where that was
 recorded** (`1354e2d`, `#1669`, PR #671).  It read *"and `…_finrank_of_charZero`'s does not"*, of a
 headline reading *"in characteristic zero, at every `n`"* and naming the non-constancy a line lower
-in the same docstring, and it closed *"A `#1664` candidate, recorded and not repaired here: that
-issue is the headline block, and the elaborated read it asks of every row is owed there"*.  That
+in the same docstring, and it closed — under a ⚠️, with everything up to the colon in bold —
+*"A `#1664` candidate, recorded and not repaired here: that issue is the headline block, and the
+elaborated read it asks of every row is owed there"*.  ⚠️ **The emphasis is named outside the
+quotation rather than reproduced inside it**, because the quotation already sits in an italic span
+and `### Retired claims` asks for the old text, of which the emphasis is part.  That
 arrangement is the one `README.md`'s *"Nor does a sentence lower in the declaration's own
 docstring"* (`#1660`) rules does not repair a headline, which is why it was recorded; the read is
 now done and the headline repaired, so both sentences are false rather than partial and
