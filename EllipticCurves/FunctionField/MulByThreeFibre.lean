@@ -283,9 +283,9 @@ theorem ord_mulByThreeCoordHom_YClass_pos (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠
 /-! ### The contraction at an affine point that is not `3`-torsion -/
 
 omit [DecidableEq F] in
-/-- `x ∘ [3]` is regular at an affine point that is not `3`-torsion: its denominator `ΨSq₃(x)` does
-not vanish there.  The counterpart of `ord_mulByThreeEndo_genX_neg` below, on the other side of the
-`3`-torsion locus. -/
+/-- `x ∘ [3]` is regular at an affine point that is not `3`-torsion, with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`: its denominator `ΨSq₃(x)` does not vanish there.  The counterpart of
+`ord_mulByThreeEndo_genX_neg` below, on the other side of the `3`-torsion locus. -/
 theorem ord_mulByThreeEndo_genX_nonneg (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Equation x y) (hT : W.Ψ₃.eval x ≠ 0) :
     0 ≤ ord (pointClosedPoint h) (mulByThreeEndo h2 h3 (genX W)) := by
@@ -524,7 +524,8 @@ theorem comapProjPointThree_projPointOfPoint_of_Ψ₃_ne (h2 : (2 : F) ≠ 0) (h
   · exact comapProjPointThree_projPointOfPoint_of_Y_eq h2 h3 hy hT
   · exact comapProjPointThree_projPointOfPoint_of_Y_ne h2 h3 hy hT
 
-/-- **The place contraction of `[3]∗` is the tripling map, on the whole rational locus.**
+/-- **The place contraction of `[3]∗` is the tripling map, on the whole rational locus, with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.**
 
 ```
 comapProjPointThree h2 h3 (projPointOfPoint P) = projPointOfPoint (3 • P)

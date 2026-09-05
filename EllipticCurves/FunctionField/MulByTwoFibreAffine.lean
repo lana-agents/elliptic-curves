@@ -254,8 +254,8 @@ theorem ord_mulByTwoCoordHom_YClass_pos (h2 : (2 : F) ≠ 0) (h : W.Equation x y
 /-! ### The contraction at an affine point that is not `2`-torsion -/
 
 omit [DecidableEq F] in
-/-- `x ∘ [2]` is regular at an affine point that is not `2`-torsion: its denominator `Ψ₂Sq(x)` does
-not vanish there.  The counterpart of `MulByTwoFibreInfinity`'s
+/-- `x ∘ [2]` is regular at an affine point that is not `2`-torsion, with `(2 : F) ≠ 0`: its
+denominator `Ψ₂Sq(x)` does not vanish there.  The counterpart of `MulByTwoFibreInfinity`'s
 `ord_mulByTwoEndo_genX_neg`, on the other side of the `2`-torsion locus. -/
 theorem ord_mulByTwoEndo_genX_nonneg (h2 : (2 : F) ≠ 0) (h : W.Equation x y)
     (hy : y ≠ W.negY x y) :
