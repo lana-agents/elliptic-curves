@@ -455,7 +455,7 @@ pays off two sentences and stops the propagation.
 ⚠️ **An anaphor can also fail by importing too much, and that direction is the one nothing
 renders.** `neronOggShafarevich_galoisRepMod_eq_one`
 (`EllipticCurves.Reduction.NeronOggShafarevich`) said *"under the same hypotheses"* over an
-antecedent headline reading *"`ℓ` is a **prime** invertible in `A`"*, and binds no
+antecedent headline reading *"`ℓ` is a prime invertible in `A`"* — **prime** — and binds no
 `[Fact ℓ.Prime]`: a correct instance **mention** was carried across a declaration boundary onto a
 declaration that does not have the instance, where it is wrong about the instance it names. The
 paragraphs above make a stale mention a defect exactly there, and the asymmetry they rest on is
@@ -468,7 +468,7 @@ about the same situations, not whether their binder lists match token for token.
 each of which decides a row this section would otherwise leave undecidable:
 
 * a binder cleared by the derivability exemption above does not count against it.
-  `isGalois_mulByNFieldRange_of_smooth`'s *"the separable half is
+  `isGalois_mulByNFieldRange_of_smooth`'s *"the separable half is `#1219`'s
   `isSeparable_mulByNFieldRange_of_smooth`, at the same hypotheses"* is **complete** — the two bind
   the identical five arguments and the transcendence `h` neither names is the exempt one, cited in
   `EllipticCurves.FunctionField.MulByNGalois`'s own transcendence section;
@@ -488,9 +488,17 @@ and `EllipticCurves.TateModule.Profinite`'s *"`card_torsion_le_sq` there proves 
 the same hypotheses"* is the correct row it protects. On any other axis a seeded row is
 **unmeasured, not clean** — `Collinearity` above was cleared by that seed on the `h2` axis,
 correctly, and was short on the `hΨ` axis in the same six words. The class is small enough that
-reading it is the instrument: **29** anaphoric reach clauses in **23** files at `4148f23`, from
-**231** seeded occurrences in **123** files, every one read; the seeds and the row-by-row verdicts
-are on `#1705`.
+reading it is the instrument: **25** bare anaphors in **18** files at `4148f23`, out of **32**
+occurrences of the phrase family in **23** files, from **231** seeded occurrences in **123** files,
+every one read; the seeds and the row-by-row verdicts are on `#1705`.
+
+⚠️ **A clause that points *and* names is not on this branch**, which is what separates those two
+counts. *"with the same hypothesis `ΨSqₙ(x) ≠ 0` that … `hasXCoordFormula_of_two_ne_zero` asks of
+the `x`-half"* (`EllipticCurves.Torsion.NsmulYPeriodic`) and *"at **every** prime `p` with
+`(2 : F) ≠ 0` and `(p : F) ≠ 0` — the same pair as the display above"*
+(`EllipticCurves.Torsion.StructureGeneral`) are ordinary reach clauses with an attribution
+attached: they carry their own list, so the paragraphs above measure them directly and nothing has
+to be resolved elsewhere. The branch is for the clause that points **instead of** naming.
 
 ⚠️ **Completing such a clause does not retire anything.** *"at every nonzero index"* is not
 falsified by *"at every nonzero index with `(2 : F) ≠ 0`"* — the words stay and a condition is

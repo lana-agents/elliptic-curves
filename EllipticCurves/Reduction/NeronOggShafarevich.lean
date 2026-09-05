@@ -12,7 +12,8 @@ Let `K` be a field, `L / K` a field extension, and `A ⊆ L` a valuation subring
 complete discrete valuation ring lying over the base DVR `R = A ∩ K` — the situation of the maximal
 unramified / strictly-henselian tower over `R`.  Let `W'` be a Weierstrass curve over `K` whose base
 change `W'⁄L` has good reduction over `A`, and let `ℓ` be a prime invertible in `A` (so prime to the
-residue characteristic).
+residue characteristic).  ⚠️ Primality is the ℓ-adic statement's, through `ℤ_[ℓ]`; the mod-`ℓ` one
+below binds no `[Fact ℓ.Prime]` and its own headline says so.
 
 This file records the **good ⇒ unramified** direction of the Néron–Ogg–Shafarevich criterion
 (Silverman AEC VII.7, Theorem 7.1) in its standard **representation-theoretic form**: the ℓ-adic
@@ -101,8 +102,8 @@ The mirror of `neronOggShafarevich_galoisRep_eq_one` at the single level `E[ℓ]
 `P ↦ σ • P` (`galoisRepMod_apply_coe`), the identity since `σ • P = P` for every `P`.
 
 ⚠️ **The qualifier above is a repair, and the mechanism is why it was invisible** (`#1705`).
-*"Under the same hypotheses"* carried the antecedent's *"`ℓ` is a **prime** invertible in `A`"* —
-a correct mention of that theorem's `[Fact ℓ.Prime]` — across a declaration boundary onto this one,
+*"Under the same hypotheses"* carried the antecedent's *"`ℓ` is a prime invertible in `A`"* — a
+correct mention of that theorem's `[Fact ℓ.Prime]` — across a declaration boundary onto this one,
 which does not have the instance.  doc-gen contradicts a stale instance mention on its own
 declaration's page; it cannot contradict one imported from another's, and the pointing clause has
 no hypothesis of its own to be wrong about.  `torsion_isUnramifiedAt` needs no primality either,
