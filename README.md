@@ -223,20 +223,29 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   **clearance** is the one move that turns on the headline having no reach clause at all, and it is
   the only move that has to pay for this call.
 
-  ⚠️ **The `n = 2` and `n = 3` ancestors of the convicted row are convicted with it, and are named
+  ⚠️ **The `n = 2` and `n = 3` ancestors of the convicted row were convicted with it, and are named
   rather than counted.** `comapProjPointTwo_pointClosedPoint`
   (`EllipticCurves.FunctionField.MulByTwoFibreAffine`) and `comapProjPointThree_pointClosedPoint`
   (`EllipticCurves.FunctionField.MulByThreeFibre`) carry the same clause on the same generic
   branch — each is the generic case of an assembly that states the conclusion unrestricted — and
-  neither headline names `h2`, nor, at `n = 3`, `h3`. ⚠️ Both answer it in a
-  *"No hypothesis on `F` beyond …"* sentence **lower in the same docstring**, which
-  `### Scope of the rules above` rules does not repair a headline. Their two
-  `_of_eval_…_eq_zero` siblings are cleared with `MulByNFibre`'s. ⚠️ **The tree-wide population of
-  point-and-place clauses is much larger and is deliberately not counted here**, on this section's
-  own precedent: a first-pass recogniser returns over a hundred headlines and is already known to
-  miss rows on a backtick boundary, so measuring it is `#1137`'s, and the three convicted rows
-  named above — one at general `n`, one at `n = 2`, one at `n = 3` — are filed with it rather than
-  swept here.
+  all three headlines now name their conditions (`#1735`): *"…at an affine non-`2`-torsion point,
+  with `(2 : F) ≠ 0`"*, *"…at an affine non-`3`-torsion point, with `(2 : F) ≠ 0` and
+  `(3 : F) ≠ 0`"*, and at general `n` the wording of the four `ord_*` rows beside it.
+  ⚠️ This read *"neither headline names `h2`, nor, at `n = 3`, `h3`"*, with a second ⚠️ adding that
+  both answered it in a *"No hypothesis on `F` beyond …"* sentence **lower in the same docstring**,
+  which `### Scope of the rules above` rules does not repair a headline (`0a1049f`, `#1728`,
+  PR #688) — true when written and false from the repair on both counts, since those two sentences
+  were re-scoped to the `[W.IsElliptic]` contrast they also carry, which is the half no headline
+  here states. ⚠️ **The conviction itself is not retired and is what the repair discharged**: an
+  insertion is branch-neutral, so a repaired row is evidence for the reading that convicted it and
+  never against it, which is what this bullet already says in terms of
+  `intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_two` and `…_three` above. Their
+  two `_of_eval_…_eq_zero` siblings are cleared with `MulByNFibre`'s. ⚠️ **The tree-wide population
+  of point-and-place clauses is much larger and is deliberately not counted here**, on this
+  section's own precedent: a first-pass recogniser returns over a hundred headlines and is already
+  known to miss rows on a backtick boundary, so measuring it is `#1137`'s, and the three convicted
+  rows named above — one at general `n`, one at `n = 2`, one at `n = 3` — were filed with it as
+  `#1735` rather than swept here, and repaired under that issue.
 * **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
   that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
   `10` is not quantified and there is nothing for a condition to range over. Same for
@@ -337,12 +346,16 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   and it is the one that moves the slot: an (a)-only recogniser reading the normalised forms puts
   **12** rows in it, against the **5** an (a)-only recogniser reading these forms does and the
   **3** the full test below finds.
-  ⚠️ **The slot has three rows, and a dated measurement may name what a
+  ⚠️ **The slot has three rows at `3e1bef2`, and a dated measurement may name what a
   present-tense parenthetical may not:**
   * `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`
     (`EllipticCurves.FunctionField.MulByNFibre`) — **short**, convicted by the case-split
     discriminator in the first bullet of this section, `#1137`'s to repair, and it leaves the slot
-    when it is repaired.
+    when it is repaired — ⚠️ **which `#1735` has since done**, so the count above is the `3e1bef2`
+    measurement it says it is and two rows sit here at head. The row's headline now names
+    `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`; the entry is kept rather than deleted because the
+    measurement is what makes the other two readable as *permanent* occupants and not as a
+    remainder.
   * `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero`, same file — **cleared** by that
     discriminator, so its headline is on the *"or it names none"* branch and no sweep reaches it.
   * `torsion_le_weilPairingPointSubgroup_n`
