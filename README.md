@@ -616,11 +616,11 @@ bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whi
 blocks — and **88** occurrences fall inside a `/--` headline. Joining those 88 to their declarations
 and reading every `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `((n : ℤ) : F) ≠ 0`, `(n : F) ≠ 0`,
 `[IsAlgClosed F]`, `[CharZero F]`, `[PerfectField F]` and `[Fintype F]` binder **in scope** — own
-list plus every `variable` line above the block — splits them **57 / 10 / 21**: 57 bind a condition
-on `F` the headline does not name, 10 already carry the completion, and 21 bind nothing about `F`
-and are true as written.
+list plus every `variable` line above the block — splits them **57 / 8 / 23**: 57 bind a condition
+on `F` the headline does not name, 8 already carry the completion, and 23 bind nothing about `F`
+and are true as written.  After `#1733` the split is **47 / 18 / 23**.
 
-⚠️ **The 10 decide it, and they decide it against the closed reading.**
+⚠️ **The 8 decide it, and they decide it against the closed reading.**
 `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`
 (`EllipticCurves.FunctionField.MulByNInertia`), `**`-stripped as the recogniser reads it, is
 *"`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
