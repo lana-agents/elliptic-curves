@@ -184,6 +184,54 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   does not touch it**: the phrase is a reach clause because of what the file proves beside it, not
   because the row was defective, and a row repaired on that reading is evidence the reading was
   right.
+  ⚠️ **A clause that restricts the POINT or the PLACE rather than the index is decided by this same
+  test, and the answer is not uniform across a case split** (`#1728`). *"at an affine point that is
+  not `n`-torsion"*, *"at every affine `P` that is not `n`-torsion"* and *"every affine `n`-torsion
+  place"* are one clause carried by the **six** rows of
+  `EllipticCurves.FunctionField.MulByNFibre`'s `/-! ### The contraction at a rational point -/`
+  section that carry one at all — `ord_mulByNCoordHom_XClass_pos`, `ord_mulByNCoordHom_YClass_pos`,
+  `ord_mulByNEndo_genX_nonneg`, `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`,
+  `ord_mulByNEndo_genX_neg` and `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero` — and the
+  test sorts them **five to one**. Ask what the tree proves with the clause struck out:
+  * **Some declaration states the same conclusion with the case hypothesis gone.** Then the split
+    is an artefact of the proof, the clause says when *this row* applies, and it is a reach clause
+    owing the rest of the list. `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero` is the one row
+    here on this side: strike its clause and what is left — *"`[n]` on places is `[n]` on points"* —
+    is `comapProjPointN_projPointOfPoint_of_ne_zero`, the assembly that closes the same section,
+    whose docstring names this row as one of the three **branches** it puts together.
+  * **No declaration does.** Then the clause is part of the predicate and the headline is on the
+    *"or it names none"* branch. Either a sibling proves the **opposite** on exactly the set the
+    clause removes — `ord_mulByNEndo_genX_nonneg` (*"`x ∘ [n]` is regular …"*) and
+    `ord_mulByNEndo_genX_neg` (*"… has a pole …"*) are the `ψ_evalEval_ne_zero_of_not_dvd` /
+    `ψ_evalEval_eq_zero_of_dvd` pair above transposed, eighty lines apart and split on the same
+    `ΨSqₙ(x) ≠ 0`, and `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero` is contradicted on
+    its own removed set by the branch beside it — or the conclusion is not **formable** at all off
+    the clause, which is the
+    two `ord_mulByNCoordHom_*_pos` rows: `x(n • P)` is `Φₙ(x)/ΨSqₙ(x)`, and at an `n`-torsion `P`
+    there is nothing for the headline to say vanishes.
+  ⚠️ **Decide this only when you are about to CLEAR a row, never when you are about to complete
+  one.** An insertion is branch-neutral: it moves a headline from *"or it names none"* to *"names
+  every hypothesis"*, and both branches are compliant, so appending the missing conditions is right
+  whichever way the call goes. That is what makes `fddba5c`'s four `ord_*` repairs (`#1664`,
+  PR #684) correct under the ruling above even though it puts all four on the predicate side, and
+  it is why nothing here reopens them — `### Scope of the rules above`'s *"clearing this one would
+  have left the block with rows in two registers"* is an independent ground for them in any case. A
+  **clearance** is the one move that turns on the headline having no reach clause at all, and it is
+  the only move that has to pay for this call.
+  ⚠️ **The `n = 2` and `n = 3` ancestors of the convicted row are convicted with it, and are named
+  rather than counted.** `comapProjPointTwo_pointClosedPoint`
+  (`EllipticCurves.FunctionField.MulByTwoFibreAffine`) and `comapProjPointThree_pointClosedPoint`
+  (`EllipticCurves.FunctionField.MulByThreeFibre`) carry the same clause on the same generic
+  branch — each is the generic case of an assembly that states the conclusion unrestricted — and
+  neither headline names `h2`, nor, at `n = 3`, `h3`. ⚠️ Both answer it in a
+  *"No hypothesis on `F` beyond …"* sentence **lower in the same docstring**, which
+  `### Scope of the rules above` rules does not repair a headline. Their two
+  `_of_eval_…_eq_zero` siblings are cleared with `MulByNFibre`'s. ⚠️ **The tree-wide population of
+  point-and-place clauses is much larger and is deliberately not counted here**, on this section's
+  own precedent: a first-pass recogniser returns over a hundred headlines and is already known to
+  miss rows on a backtick boundary, so measuring it is `#1137`'s, and the three convicted rows
+  named above — one at general `n`, one at `n = 2`, one at `n = 3` — are filed with it rather than
+  swept here.
 * **A phrase about a fixed numeral is a remark, not a reach clause.** *"`#E[10] = 100`, at an index
   that is neither odd nor `3`-smooth"* (`card_torsion_ten`) cannot be a hypothesis list, because
   `10` is not quantified and there is nothing for a condition to range over. Same for
@@ -229,9 +277,14 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   *the general* indices, which is **false** rather than partial, and this
   section treats false the more severely of the two. **29** of the 43 also state an index range in
   the same headline — ⚠️ **a different 29**: this one is measured on headline text and the first
-  on the binders in scope, and neither set contains the other
-  (`galoisFunctionField_mulByNEndo` states a range and binds no index condition,
-  `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero` binds `((n : ℤ) : F) ≠ 0` and states none) —
+  on the binders in scope, and neither set contains the other. ⚠️ **Only one direction of that is
+  witnessed by name here, and the asymmetry is the point**: **four** rows state a range and bind no
+  index condition — `galoisFunctionField_mulByNEndo`, `functionFieldMap_mulByNEndo`,
+  `weilPairingElt_divisorSlot_add_n` and `weilPairingElt_pow_eq_one_of_gS_n_torsion` — and stating
+  a range a signature does not ask for is nobody's sweep, so those four are durable — both
+  figures on the recogniser published below. The other
+  direction is the **witness slot** measured further down this bullet, and it is named there under
+  a date rather than here under a present tense (`#1728`) —
   **24** of them a range
   strictly narrower than every `n`, so the wide
   reading has those headlines answering one question twice and incompatibly:
@@ -259,11 +312,50 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   that is not `n`-torsion"* — counts as a range over the index. **The two rows named above have
   since crossed onto both sides.** They corroborate and are not the argument: the two examples
   are, and both are still true at head.
+  ⚠️ **The witness slot — the rows that bind an index condition and state no range — is published
+  with its recogniser** (`#1658`, `#1728`), because that is the one figure the pair above never
+  wrote out. Measured at `3e1bef2` over the same 43 rows and the same extractor: a headline states
+  an index range if it either **(a)** carries an index-quantifier phrase — ``at every `n` ``,
+  ``at every `3`-smooth `n` ``, *"at every index"*, *"at a general index"*, ``at general `n` ``,
+  ``for every `n` ``, *"at an odd `p`"* — or **(b)** carries an inline code span constraining the
+  index — `` `n ≠ 0` ``, `` `(n : F) ≠ 0` ``, `` `((n : ℤ) : F) ≠ 0` ``, `` `3`-smooth ``. Headline
+  means the block text `**`-stripped and whitespace-normalised, cut at the first `.` followed by
+  optional bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whichever comes
+  first. That returns **30** stating a range and **13** not — and it is *"or"*, not *"and"*, which
+  is where two implementations part: (a) alone returns 28 and
+  (b) alone 25, which is the spread the marking above is for and the reason a bare numeral was
+  never going to settle it. ⚠️ **The slot has three rows, and a dated measurement may name what a
+  present-tense parenthetical may not:**
+  * `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero`
+    (`EllipticCurves.FunctionField.MulByNFibre`) — **short**, convicted by the case-split
+    discriminator in the first bullet of this section, `#1137`'s to repair, and it leaves the slot
+    when it is repaired.
+  * `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero`, same file — **cleared** by that
+    discriminator, so its headline is on the *"or it names none"* branch and no sweep reaches it.
+  * `torsion_le_weilPairingPointSubgroup_n`
+    (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) — binds **only** the instance
+    `[NeZero n]`, which *"Instance arguments are ambient"* below exempts in terms, so no sweep
+    reaches it either. ⚠️ It is in the binder-**29** and not in the **28**, so it witnesses on one
+    of that count's two conventions and not on the other.
+  ⚠️ **So the slot is not a subset of the class `#1137` is sweeping, and that is the answer to what
+  a witness drawn from a swept population raises** (`#1728`): *states none* is a **compliant
+  branch** of this section's rule and not only a symptom of a short clause, so a row can sit in the
+  slot permanently, and two of these three do. What made the parenthetical above a countdown was
+  not the slot — it was naming a **survivor** in the present tense, which the sweep falsifies the
+  moment it arrives and `### Retired claims` then charges for. **Name rows inside a dated
+  measurement, where `## Layout`'s *"the counts drift, the structure does not"* protects them; do
+  not name one in a present-tense parenthetical.** That is the ruling `#1728` asked for, and it is
+  why the *"and states none"* half of that parenthetical is now a pointer to this paragraph rather
+  than a name.
   ⚠️ **Everything else in this bullet is confirmed unmoved at `fddba5c`, not assumed**: `56` /
   `43` / `13`, the `23` / `33` case split, the `132` and the `120` / `113` siblings all re-run to
   the unit, and the binder-measured **29** cannot have moved at all, because every commit from
   `8d31527` to `fddba5c` is **docstring-only** — six `.lean` files touched and their stripped code
-  byte-identical, so no signature in the tree changed.
+  byte-identical, so no signature in the tree changed. ⚠️ **Re-derived again at `3e1bef2`** by a
+  fourth extractor (`#1728`), which also returns the binder-**29** with
+  `divisorProj_mulByNEndoOfAlgClosed` taking its condition from a `variable` line and the **28**
+  once `[NeZero n]` is dropped — so the two figures this bullet does not mark as triage have now
+  reproduced across implementations, and the two it does mark have not.
   ⚠️ **The sibling wordings go the same way**, because the ground is the phrase's subject and not
   its noun: ``general-`n` <noun>`` (*"the general-`n` surjectivity"*, *"the general-`n` layer"*)
   and *"at general `n`"* — ``general-`n` (?!forms? of)[a-z]`` and ``at general `n` ``, same
