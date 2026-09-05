@@ -490,8 +490,9 @@ theorem comapProjPointThree_pointClosedPoint_of_eval_Ψ₃_eq_zero (h2 : (2 : F)
 
 /-! ### The uniform statement on the rational locus -/
 
-/-- The crux in `Point` language, at an affine point that is neither `2`- nor `3`-torsion.  This is
-the one place `EllipticCurves.Torsion.TriplingCoords` is used. -/
+/-- The crux in `Point` language, at an affine point that is neither `2`- nor `3`-torsion, with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.  This is the one place
+`EllipticCurves.Torsion.TriplingCoords` is used. -/
 theorem comapProjPointThree_projPointOfPoint_of_Y_ne (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {h : W.Nonsingular x y} (hy : y ≠ W.negY x y) (hT : W.Ψ₃.eval x ≠ 0) :
     comapProjPointThree h2 h3 (projPointOfPoint W (Point.some x y h))
@@ -500,8 +501,8 @@ theorem comapProjPointThree_projPointOfPoint_of_Y_ne (h2 : (2 : F) ≠ 0) (h3 : 
   exact comapProjPointThree_pointClosedPoint h2 h3 h.left hT
 
 omit [W.IsElliptic] in
-/-- The same at an affine `2`-torsion point that is not `3`-torsion, where `3 • P = P` and the
-tripling coordinates collapse to `(x, y)`. -/
+/-- The same at an affine `2`-torsion point that is not `3`-torsion, with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`, where `3 • P = P` and the tripling coordinates collapse to `(x, y)`. -/
 theorem comapProjPointThree_projPointOfPoint_of_Y_eq (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {h : W.Nonsingular x y} (hy : y = W.negY x y) (hT : W.Ψ₃.eval x ≠ 0) :
     comapProjPointThree h2 h3 (projPointOfPoint W (Point.some x y h))
@@ -513,7 +514,8 @@ theorem comapProjPointThree_projPointOfPoint_of_Y_eq (h2 : (2 : F) ≠ 0) (h3 : 
   rw [pointClosedPoint_asIdeal, pointClosedPoint_asIdeal,
     tripling_eq_self_of_Y_eq h.left hy hT, omegaThree_div_eq_self_of_Y_eq h2 h.left hy hT]
 
-/-- The two cases above, at any affine point that is not `3`-torsion. -/
+/-- The two cases above, at any affine point that is not `3`-torsion, with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`. -/
 theorem comapProjPointThree_projPointOfPoint_of_Ψ₃_ne (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {h : W.Nonsingular x y} (hT : W.Ψ₃.eval x ≠ 0) :
     comapProjPointThree h2 h3 (projPointOfPoint W (Point.some x y h))
