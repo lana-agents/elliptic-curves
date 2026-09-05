@@ -18,9 +18,20 @@ that instance by the two hypotheses it was ever used for:
 * `hcard : Nat.card (W.torsion 2) = 4`, i.e. `E[2] ⊆ E(F)`;
 * `hP : 2 • P = S` for the `2`-torsion point `S` in question.
 
-Nothing else about `F` is assumed.  The headline
+⚠️ **`(2 : F) ≠ 0` is assumed as well**, and it is not a third rationality fact: it is the
+explicit binder `h2` that `mulByTwoEndo`, `comapProjPointTwo`, `ramificationIdxTwo`,
+`residueDegreeTwo` and `pullbackDivisorTwo` all take as an argument, so every statement below that
+names the `[2]∗` layer carries it.  It is load-bearing rather than vestigial — `mulByTwoEndo h2`
+occurs in the headline's own *statement*, so no proof change can drop it.  The headline
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card` and its consumer form `exists_gS_two_of_card`
-are therefore available over `ℚ`, and the last section exhibits both on a named rational curve.
+are therefore available over `ℚ` — which has characteristic `0` — and the last section exhibits
+both on a named rational curve.
+
+⚠️ **That sentence used to read** *"Nothing else about `F` is assumed."* (`dcc912e`, `#1339`,
+PR #508), and it was false on the day the file landed rather than made false later.  It **closes**
+a list about `F`, and `(2 : F) ≠ 0` is a hypothesis about `F`; `README.md` `### Reach clauses`'
+*"was the old clause false or merely partial"* test therefore returns **false**, so
+`### Retired claims` binds and the wording is quoted rather than completed in place (`#1719`).
 
 ## ⚠️ What this does *not* do
 
@@ -91,13 +102,16 @@ two lives inside `card_torsionTwoMul_of_card` and nowhere else.
   `φ`, over an arbitrary field; and `…CoordinateRing.residueDegreeTwo_pos`, its `[2]∗`
   instantiation.  Both are the tower formula `residueDegreeProj_mul_residueDegreeComap` against
   `degProjPt_pos`, and neither needs separability, module-finiteness or a fibre.
-* `…CoordinateRing.isSeparable_mulByTwoEndoFieldRange_of_card` — the Galois package at `hcard`.
+* `…CoordinateRing.isSeparable_mulByTwoEndoFieldRange_of_card` — the Galois package at `hcard`,
+  over a field with `(2 : F) ≠ 0`.
 * `…CoordinateRing.ramificationIdxTwo_eq_one_of_card`,
   `…CoordinateRing.fibre_comapProjPointTwo_eq_range_of_card` — the fibre over a rational point,
   described without an algebraic closure.
 * **`WeierstrassCurve.Affine.exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card`** — `hprin` at
-  `n = 2`, over an arbitrary field.
-* **`WeierstrassCurve.Affine.exists_gS_two_of_card`** — rung 5 at `n = 2`, over an arbitrary field.
+  `n = 2`, over an arbitrary field with `(2 : F) ≠ 0`, at a nonsingular `2`-torsion point `S` with
+  `hcard` and a halving `hP`, for a nonzero `f` whose divisor is `2·(S)`.
+* **`WeierstrassCurve.Affine.exists_gS_two_of_card`** — rung 5 at `n = 2`, over an arbitrary field
+  with `(2 : F) ≠ 0`, on `hcard` and `hP` at the same `S`; it produces the `f` itself.
 
 `Recovery` derives the merged `exists_nsmul_divisor_eq_divisor_mulByTwoEndo` and
 `exists_gS_two_of_isAlgClosed` from these, by supplying `card_torsion_two` and
@@ -505,9 +519,17 @@ theorem exists_divisor_eq_affinePart_pullbackDivisorTwo_of_card (h2 : (2 : F) �
 is rational and which has a halving point `P` with `[2]P = S`, the pullback `[2]∗((S) − (O))` is
 twice a principal divisor.
 
-⚠️ `hsep` is discharged internally from `hcard`; the hypotheses are `hcard` and `hP` and nothing
-else about `F`.  ⚠️ This is **not** `#962` — see the module docstring for what still stands between
-this and `hprin` over a field where those two facts fail. -/
+⚠️ `hsep` is discharged internally from `hcard`; what is left is `h2`, `hcard`, `hP`, the
+nonsingularity and `2`-torsion of `S`, and a nonzero `f` whose divisor is `2·(S)`.  ⚠️ This is
+**not** `#962` — see the module docstring for what still stands between this and `hprin` over a
+field where those two facts fail.
+
+⚠️ **That clause used to read** *"the hypotheses are `hcard` and `hP` and nothing else about
+`F`"* (`dcc912e`, `#1339`, PR #508).  It closes its list and `h2 : (2 : F) ≠ 0` is a hypothesis
+about `F`, so it was false rather than partial; PR #684 (`#1664`) completed the headline above from
+exactly that reading — a headline whose reach clause is contradicted lower in its own docstring —
+and left this clause standing, which is why the docstring said two things about one signature
+until `#1719`. -/
 theorem exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card (h2 : (2 : F) ≠ 0)
     (hcard : Nat.card (W.torsion 2) = 4) {x y : F}
     (h : W.Nonsingular x y) (hS : Point.some x y h ∈ W.torsion 2)
