@@ -446,7 +446,8 @@ theorem mulByNCoordHom_YClass (n : ℕ)
     mulByNEndo_algebraMap_base]
 
 omit [DecidableEq F] in
-/-- **`x ∘ [n] − x(n • P)` vanishes at `P`**, at every affine `P` that is not `n`-torsion.
+/-- **`x ∘ [n] − x(n • P)` vanishes at `P`**, at every affine `P` that is not `n`-torsion, with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.
 
 The `x`-coordinate formula `x(n • P) = Φₙ(x)/ΨSqₙ(x)` — merged at every index with `(2 : F) ≠ 0`,
 under `ΨSqₙ(x) ≠ 0` (`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`)
@@ -476,7 +477,8 @@ theorem ord_mulByNCoordHom_XClass_pos (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n :
   · simpa only [evalEval_C] using hΨ
 
 omit [DecidableEq F] in
-/-- **`y ∘ [n] − y(n • P)` vanishes at `P`**, at every affine `P` that is not `n`-torsion.
+/-- **`y ∘ [n] − y(n • P)` vanishes at `P`**, at every affine `P` that is not `n`-torsion, with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.
 
 The `y`-coordinate formula `y(n • P) = ωₙ(x, y)/(2 ψₙ(x, y)³)` — `omegaY`,
 `EllipticCurves.Torsion.NsmulYCoord`, merged at every index — read through the presentation
@@ -534,8 +536,9 @@ theorem ord_mulByNCoordHom_YClass_pos (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n :
     exact mul_ne_zero h2 (pow_ne_zero 3 hψ)
 
 omit [DecidableEq F] in
-/-- **`x ∘ [n]` is regular at an affine point that is not `n`-torsion**: its denominator
-`ΨSqₙ(x)` does not vanish there.  The general-`n` form of `ord_mulByTwoEndo_genX_nonneg`. -/
+/-- **`x ∘ [n]` is regular at an affine point that is not `n`-torsion, with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`**: its denominator `ΨSqₙ(x)` does not vanish there.  The general-`n` form of
+`ord_mulByTwoEndo_genX_nonneg`. -/
 theorem ord_mulByNEndo_genX_nonneg (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (hT : Transcendental F (n • genericPoint (W := W)).xCoord) (h : W.Equation x y)
     (hΨ : (W.ΨSq (n : ℤ)).eval x ≠ 0) :
@@ -611,10 +614,11 @@ theorem comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero (h2 : (2 : F) ≠ 0) {n
     exact congrArg some (HeightOneSpectrum.ext (hmax.eq_of_le v.isPrime.ne_top hle).symm)
 
 omit [DecidableEq F] in
-/-- **`x ∘ [n]` has a pole at every affine `n`-torsion point.**  At a root of `ΨSqₙ` the
-denominator of `Φₙ/ΨSqₙ` vanishes and the numerator does not, because the two are coprime —
-`isCoprime_Φ_ΨSq` (`EllipticCurves.Torsion.CoprimeAdjacent`), at **every** `n : ℤ` over a field
-with `(2 : F) ≠ 0`.  The general-`n` form of `ord_mulByTwoEndo_genX_neg`. -/
+/-- **`x ∘ [n]` has a pole at every affine `n`-torsion point, with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`.**  At a root of `ΨSqₙ` the denominator of `Φₙ/ΨSqₙ` vanishes and the numerator
+does not, because the two are coprime — `isCoprime_Φ_ΨSq`
+(`EllipticCurves.Torsion.CoprimeAdjacent`), at **every** `n : ℤ` over a field with `(2 : F) ≠ 0`.
+The general-`n` form of `ord_mulByTwoEndo_genX_neg`. -/
 theorem ord_mulByNEndo_genX_neg (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (hT : Transcendental F (n • genericPoint (W := W)).xCoord) (h : W.Equation x y)
     (hx : (W.ΨSq (n : ℤ)).eval x = 0) :

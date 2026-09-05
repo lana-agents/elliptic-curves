@@ -500,9 +500,10 @@ theorem exists_divisor_eq_affinePart_pullbackDivisorTwo_of_card (h2 : (2 : F) �
   (exists_divisor_eq_iff_classOfDivisor_eq_one _).2
     (classOfDivisor_affinePart_pullbackDivisorTwo_eq_one_of_card h2 hsep hcard hP hS)
 
-/-- **`hprin` at `n = 2` over an arbitrary field**, in the shape `exists_gS_two` consumes it: for a
-nonsingular `2`-torsion point `S` on a curve whose `2`-torsion is rational and which has a halving
-point `P` with `[2]P = S`, the pullback `[2]∗((S) − (O))` is twice a principal divisor.
+/-- **`hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`**, in the shape
+`exists_gS_two` consumes it: for a nonsingular `2`-torsion point `S` on a curve whose `2`-torsion
+is rational and which has a halving point `P` with `[2]P = S`, the pullback `[2]∗((S) − (O))` is
+twice a principal divisor.
 
 ⚠️ `hsep` is discharged internally from `hcard`; the hypotheses are `hcard` and `hP` and nothing
 else about `F`.  ⚠️ This is **not** `#962` — see the module docstring for what still stands between
