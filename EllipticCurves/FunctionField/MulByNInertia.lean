@@ -100,9 +100,9 @@ Every general-`n` declaration below whose statement mentions the `[n]∗` layer 
 `comapProjPointN n h`, or anything built on them — takes
 `h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and no reach clause names
 it.  **That sentence is the register**, in the sense of `README.md` `### Module-block bullets`: it
-is what tells a reader which declarations below bind `h`, and no clause below repeats it.  Where
-a row's clause names `(2 : F) ≠ 0` together with an
-index cast, or `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the register is not the
+is what tells a reader which declarations below bind `h`, and no bullet of `## Main results`
+repeats it.  Where a row's clause names `(2 : F) ≠ 0` together with an index cast, or
+`(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the register is not the
 only thing that clears it: `h` is derivable from what such a clause already names, so that row is
 covered by the `README.md` exemption as well (`## Docstring conventions` → `### Reach clauses`) —
 a hypothesis derivable from the ones the clause *does* name adds no reach — and this is the
@@ -142,6 +142,44 @@ shape one layer down.  ⚠️ Several further rows below make no claim about whi
 all — `finrank_mulByNEndoFieldRange_of_smooth`, the integral-closure pair at the ring level, and
 `placeBelowN` with its instances — and those are compliant on `### Reach clauses`' *"or it names
 none"* branch, which is a third ground again and needs neither of the two above.
+
+⚠️ **The register sentence opening this section closed *"and no clause below repeats it"* until
+now, and nine clauses below repeat it** (`#1658`, PR #664).  It was false rather than partial, so
+`README.md` `### Retired claims` binds and the wording is quoted here rather than deleted; what
+replaced it is the `## Main results` scope above, which holds — no bullet of that list names the
+non-constancy.  Recogniser, published beside the count as `### Module-block bullets` asks: every
+prose occurrence of *"non-constan…"* at or below `## Main results`, read one by one.  **Ten**
+occur; two are the general *"`deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`"* fact about maps
+rather than a clause about a declaration here, and eight are clauses.  A second pass for the same
+parameter named in other words adds one, the `_of_ne_zero` family's *"The transcendence proof is a
+parameter of these statements"*.  ⚠️ **Backticked `transcendental_…` names are citations and not
+clauses**, and are excluded; a recogniser that counts them reads this file as carrying dozens.
+
+The nine, because a count with no list under it is not checkable: the headlines of
+`isSeparable_mulByNEndoFieldRange_of_charZero` and
+`sum_ramificationIdxN_mul_residueDegreeN_finrank`; the docstring bodies of
+`…_finrank_of_charZero` and `…_of_charZero_of_ne_zero`; the `_of_ne_zero` family's section
+sentence; three sentences of `### Non-vacuity`; and the `### The relative residue degree`
+block's gloss on `residueDegreeN_none_eq_one`.  ⚠️ **The last of those is about a declaration this
+file imports, and it counts anyway** — *"A reach clause is answerable in the file that writes it,
+wherever the declaration lives"* is this file's own ruling, written in that same block, so
+*"below"* is positional and not a claim about where a cited declaration lives.  The verdict does not
+turn on that reading: the other eight are declarations of this file.
+
+⚠️ **`isSeparable_mulByNEndoFieldRange_of_charZero`,
+`sum_ramificationIdxN_mul_residueDegreeN_finrank` and `…_finrank_of_charZero` answer for their
+headlines in a different block, and a headline clears no bullet.**  `README.md`
+`### Module-block bullets`: *"The traffic runs one way.  A block repairs a bullet; a bullet repairs
+nothing … a module list and the file's headlines are two blocks … and the two layers are repaired
+separately."*  So *"Those three are cleared by the register and not by the exemption"* above is a
+claim about the two bullets, and what those three headlines say neither strengthens nor weakens it.
+Recorded because two of the nine clauses listed above are headlines of these three: those two name
+the non-constancy in the headline itself, and `…_finrank_of_charZero`'s does not — it reads
+*"in characteristic zero, at every `n`"* and names the non-constancy a line lower in the same
+docstring, which `README.md`'s *"Nor does a sentence lower in the declaration's own docstring"*
+(`#1660`) says does not repair a headline.  ⚠️ **A `#1664` candidate, recorded and not repaired
+here**: that issue is the headline block, and the elaborated read it asks of every row is owed
+there.
 
 ## Main results
 
