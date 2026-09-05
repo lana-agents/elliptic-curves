@@ -110,26 +110,23 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
 that `#1184` was never a gate on **this file**, and an unscoped *"`#1184` is what is left"* two
 paragraphs later reads as a retraction of it.  Both are true; they are about different things.
 
-PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every
-commutative ring
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
-`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
-with the group-law multiple `n • P` is `#251`, and it is **closed**:
-`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
+`(2 : F) ≠ 0` (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`) — that was `#404`, and it says only that those coordinates lie
+on the curve.  Identifying the `x`-coordinate with the group-law multiple `n • P` is `#251`, and it
+is **closed**: `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
 (`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
-function-field form `nMulRatFunc_eq_ΦDivΨSq`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`.  ⚠️ **`#1184` is untouched** and now stands alone beside that pair; ⚠️ and
-the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
-`nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
-(`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0`
-the `x`-half asks.  ⚠️ So the whole *pair* is available at every index, and the `#251` bullets on
-the Weil-pairing front no longer name an open gate.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is
-cited and not consumed — it is not in this file's import closure.  ⚠️ **`MulByNXCoordFormula` is
-now consumed**: this sentence used to say that it too was only cited, and that was exactly the
-reason `n = 5` looked unreachable.  The edge costs **10 modules** in the import closure
-(`79 → 89`) and cannot cycle — that file names nothing in this one.  The two-reading account is
-`EllipticCurves.FunctionField.MulByNPullback`.
+function-field form `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at
+every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ **`#1184` is untouched** and now stands
+alone beside that pair; ⚠️ and the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every
+index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579),
+under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0` the `x`-half asks.  ⚠️ So the whole *pair* is
+available at every index, and the `#251` bullets on the Weil-pairing front no longer name an open
+gate.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is cited and not consumed — it is not in this file's
+import closure.  ⚠️ **`MulByNXCoordFormula` is now consumed**: this sentence used to say that it too
+was only cited, and that was exactly the reason `n = 5` looked unreachable.  The edge costs **10
+modules** in the import closure (`79 → 89`) and cannot cycle — that file names nothing in this one.
+The two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
 

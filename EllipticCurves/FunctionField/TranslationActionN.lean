@@ -157,17 +157,17 @@ Every public declaration of this file is listed, and all are in namespace
   remains nowhere in this tree.
 * **No coordinate work.**  `ωₙ` (`#404`), the general-`n` on-curve identity, `#251` and Ward
   (`#260`) are all unused: `mulByNEndo` is built from the **group law** on `(W ⁄ F(W)).Point`, and
-  as `TranslationMulByNCommGeneral` says of itself, *"the coordinates of `[n]` as rational
-  functions remain unavailable and are not needed"*.  ⚠️ **Two of those four are now closed and
-  this is an independence claim, not a gate** (`#1460`): `#404`'s on-curve identity is
-  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR
-  #557, every index, every commutative ring) and Ward is
-  `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`),
-  unconditional.  ⚠️ **And `#251`, which this bullet named as the one of the four still open, is
-  closed as well** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) with
-  its `y`-half `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`,
-  `#1500`, PR #579), at every index with `(2 : F) ≠ 0`.  So all four are closed, this is an
-  independence claim throughout, and none of the four is a gate on anything here.
+  as `TranslationMulByNCommGeneral` says of itself, *"the coordinates of `[n]` as rational functions
+  remain unavailable and are not needed"*.  ⚠️ **Two of those four are now closed and this is an
+  independence claim, not a gate** (`#1460`): `#404`'s on-curve identity is
+  `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557,
+  every index, over a field with `(2 : F) ≠ 0`) and Ward is
+  `WeierstrassCurve.Affine.ψ_isEllipticNet` (`EllipticCurves.Torsion.WardHalving`), unconditional.
+  ⚠️ **And `#251`, which this bullet named as the one of the four still open, is closed as well** —
+  `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) with its `y`-half
+  `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`, PR #579),
+  at every index with `(2 : F) ≠ 0`.  So all four are closed, this is an independence claim
+  throughout, and none of the four is a gate on anything here.
 * **No re-examination of `TranslationTriplingComm`.**  Whether its coordinate work is now redundant
   is a `#699`-style de-duplication question and belongs in its own issue, as that file records.
 * `TranslationAction`'s own Scope sentence, that nothing in *that* file is `[2]`- or

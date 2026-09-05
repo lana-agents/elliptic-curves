@@ -199,34 +199,34 @@ So nothing here reopens the instance question (`#1686`).
   back at an uncorrected sentence is gone; PR #593's review asked for exactly that.
 
 ⚠️ **That pair is paid on both halves, and `(n : F) ≠ 0` is what is left.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0`
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
 `#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
 with the group-law multiple `n • P` is `#251`, and it is **closed**:
-`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
-(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
-function-field form `nMulRatFunc_eq_ΦDivΨSq`
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) at
+every index over any field with `(2 : F) ≠ 0`, and in function-field form `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️
 **`#1184` has since been discharged over a field** —
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) at every
 `n : ℤ` for an elliptic curve of characteristic `≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
 (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `((n : ℤ) : F) ≠ 0` and nothing else
 beyond the `(2 : F) ≠ 0` and `[W.IsElliptic]` that this whole paragraph already carries.  ⚠️ The
-arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.
-⚠️ And the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
+arbitrary-**ring** form that `EllipticCurves.DivisionPolynomial.Coprime` states is still open.  ⚠️
+And the `y`-half — `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**:
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579), under the
 same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0` the `x`-half asks.  ⚠️ So the whole *pair* is available at
-every index, and the `#251` bullets on the Weil-pairing front no longer name an open gate.
-⚠️ **This paragraph used to end *"None of `EllipticCurves.Torsion.NsmulOrder`,
+every index, and the `#251` bullets on the Weil-pairing front no longer name an open gate.  ⚠️
+**This paragraph used to end *"None of `EllipticCurves.Torsion.NsmulOrder`,
 `EllipticCurves.FunctionField.MulByNXCoordFormula`, `EllipticCurves.Torsion.CoprimeAdjacent` or
 `EllipticCurves.FunctionField.MulByNDegreeGeneral` is in this file's import closure and none is
 added: all four names are cited, not consumed."*  All four were in it when that was written**, and
 by the same edge — this file imports `EllipticCurves.FunctionField.MulByNInertia`, which imports
-`…MulByNDegreeGeneral`, which imports `…MulByNXCoordFormula` and `EllipticCurves.Torsion.
-CoprimeAdjacent`, and `…MulByNXCoordFormula` imports `EllipticCurves.Torsion.NsmulOrder`.  Two of
-the four are now **consumed** rather than cited: `isCoprime_Φ_ΨSq` closes the affine `n`-torsion
-branch, and `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` produces the non-constancy
-input of the `n = 14` certificates.  ⚠️ The **one** module this file gained is
+`…MulByNDegreeGeneral`, which imports `…MulByNXCoordFormula` and
+`EllipticCurves.Torsion.  CoprimeAdjacent`, and `…MulByNXCoordFormula` imports
+`EllipticCurves.Torsion.NsmulOrder`.  Two of the four are now **consumed** rather than cited:
+`isCoprime_Φ_ΨSq` closes the affine `n`-torsion branch, and
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` produces the non-constancy input of
+the `n = 14` certificates.  ⚠️ The **one** module this file gained is
 `EllipticCurves.FunctionField.MulByNYCoordFormula`, for the `ωₙ` half (`155 → 156`).  The
 two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 

@@ -35,13 +35,12 @@ and `natDegree_ΨSq`'s `(n : F) ≠ 0`.  **All three are gates on the `Φₙ/ΨS
 degree.**  Degrees multiply in towers, so the two merged values
 
 ⚠️ **That pair is paid on both halves, and `#1184` is what is left.**  PR #557 proved the on-curve
-identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0`
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
 `#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
 with the group-law multiple `n • P` is `#251`, and it is **closed**:
-`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
-(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
-function-field form `nMulRatFunc_eq_ΦDivΨSq`
+`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) at
+every index over any field with `(2 : F) ≠ 0`, and in function-field form `nMulRatFunc_eq_ΦDivΨSq`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️
 **`#1184` is untouched** and now stands alone beside `(n : F) ≠ 0`; ⚠️ and the `y`-half —
 `ωₙ/(2ψₙ³)` as `y(n • P)` — **is closed too, at every index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`

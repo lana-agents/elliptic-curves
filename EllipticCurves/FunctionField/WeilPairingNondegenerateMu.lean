@@ -96,7 +96,7 @@ theorems or their proofs.
 
 ⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of
 those are now closed.**  PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index
-over every commutative ring — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+over a field with `(2 : F) ≠ 0` — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
 `EllipticCurves.Torsion.OmegaCrux`.  The *other* statement this tree also called `ωₙ` — the
 identification of those coordinates with the **group-law** multiple `n • P` — is `#251` on its
 `x`-half and `#1500` on its `y`-half, and **both are closed**: `hasXCoordFormula_of_two_ne_zero`

@@ -101,7 +101,7 @@ general `n` is `EllipticCurves.FunctionField.MulByNDegreeGeneral`.  ⚠️ `MulB
 with it.
 
 ⚠️ That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over every commutative ring
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0`
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  That
 identity is **not** what discharged gate 1 — it says those coordinates lie on the curve and makes no
 claim about `n • P` — and the route above goes nowhere near it.  The two-reading account is

@@ -59,8 +59,8 @@ action and `#293`'s count, and they consume none of `#403`/`#405`.
 
 ⚠️ **`#404` has since been paid and is no longer one of them** (`#1460`).  Its on-curve identity is
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557),
-at every index over every commutative ring.  ⚠️ The quotation above is left verbatim because it is a
-quotation.  At `n = 5` the division-polynomial route still waits on `#E[n] = n²` and on
+at every index over a field with `(2 : F) ≠ 0`.  ⚠️ The quotation above is left verbatim because it
+is a quotation.  At `n = 5` the division-polynomial route still waits on `#E[n] = n²` and on
 `#403`/`#405` — whose missing input `#404` was.  ⚠️ **`#251` used to be listed here as a third and
 is closed**: the identification of the division-polynomial coordinates with the group-law multiple
 `n • P`, which `#404` never claimed to supply, is `hasXCoordFormula_of_two_ne_zero`

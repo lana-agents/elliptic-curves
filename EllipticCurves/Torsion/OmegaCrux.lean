@@ -57,6 +57,32 @@ The base is taken algebraically closed only to produce a `y` with `W.Equation x 
 * `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` : `#404`'s on-curve identity, with its one
   index-dependent hypothesis discharged — `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` is a point of `W`.
 
+⚠️ **Thirty-seven module blocks elsewhere used to say that on-curve identity holds *"at every index
+over every commutative ring"*, and it does not** (`#1694`).  The wording entered in one sweep —
+`5d6884a`, PR #561 (`#1460`), which rewrote 61 sites at once — and it attached **this file's**
+`CommRing` reach to the wrong statement of the three above.  `WeierstrassCurve.hasΨSqDoubling` and
+`WeierstrassCurve.hasPreΩSq` are the ones at every index over every commutative ring;
+`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` is over a **field** with `(2 : F) ≠ 0` and could
+not be otherwise, its conclusion being an equation between quotients.  All thirty-seven now read
+*"at every index over a field with `(2 : F) ≠ 0`"*, which is the form
+`EllipticCurves.FunctionField.MulByNPullback` already wrote beside the `CommRing` half.
+
+⚠️ **That retirement is quoted once, here, rather than thirty-seven times.**  `README.md`
+`### Retired claims` names no file for the marked quotation, and the purpose it states is that
+*"a reader who remembers the old claim learns why it went"*: there was **one** claim, copy-pasted
+by one sweep, and this is the file a reader comes to for what the identity says.  Thirty-seven
+quotations would also put a thirty-seven-site phantom into the phrase-keyed census width `README.md`
+publishes, which is the divergence `#1686` measured.  ⚠️ **No text in this file was ever wrong** —
+the two crux bullets carry the `CommRing` reach, this one names no setting at all, and that is
+`### Reach clauses`' *"or it names none"* branch.  The citing blocks now say what the identity
+states and leave the `CommRing` half here, where its subject is.
+
+⚠️ **One of the thirty-seven named no declaration** — `EllipticCurves.Torsion.NsmulYCoord`'s opening
+said *"`EllipticCurves.Torsion.OmegaCrux` proves that the pair … lies on the curve at every index
+over every commutative ring"*, naming this **module** and not the theorem.  A census keyed on
+`equation_div_of_ψ_ne_zero` reads that file as clean, which is why the population was measured by
+the claim and not by the name.
+
 ## References
 
 * M. Ward, *Memoir on elliptic divisibility sequences*, Amer. J. Math. 70 (1948).
