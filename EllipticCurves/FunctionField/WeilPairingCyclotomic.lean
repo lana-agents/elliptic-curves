@@ -45,22 +45,38 @@ The equivariance is merged in three shapes — from transport data, from divisor
 data (`EllipticCurves.FunctionField.WeilPairingGaloisPoint`) — and each is rewritten here, so that
 a consumer holding any one of them gets the exponent form without a detour.
 
-## Scope — hypotheses inherited verbatim
+## Scope — the merged hypotheses, plus a roots-of-unity count
 
-Nothing here weakens or strengthens the hypotheses of the merged equivariance statements: the
-transport hypothesis `htr` (respectively the divisor hypothesis `hdiv`) is passed straight through,
-and only the *conclusion* is rewritten. In particular there is no longer a residual gate to
-inherit: the **unconditional** Galois-equivariance is merged in
-`EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which discharges `htr` and `hdiv` from
-rung-5 data without ever computing `divisor g_S`, so a consumer holding it reaches the exponent
-form below directly. ⚠️ At the `μ_n(F)` level that file goes one step further over an
-algebraically closed base field: `exists_weilPairingMu_galois_two` / `_three` (`#859`) carry no
-rung-5 data and no `hpow` proof at all, only the `n`-torsion of the two points. ⚠️ Earlier text
-here named `divisor g_S = [n]∗(S)` (`#418`, gated on `#421` / `#422`) as that gate; it is not,
-and the identity itself remains open and out of scope.
-Non-degeneracy of the pairing stays out, and it is **not** Ward-gated — `WeilPairing`'s
-scope section is the canonical account of what it consumes (`#769`). Nothing here touches the
-alternating property (`#465` deliverable 2).
+The transport hypothesis `htr` (respectively the divisor hypothesis `hdiv`), together with `hpow`
+and `hpow'`, is passed straight through, and only the *conclusion* is rewritten. ⚠️ **Every mod-`n`
+statement here binds one hypothesis the merged form does not**: `hn`, reading
+`Nat.card { x // x ∈ rootsOfUnity n F } = n`, on `weilPairingMu_galois_of_transport_eq_pow`,
+`weilPairingMu_galois_of_divisor_eq_pow` and `weilPairingMu_galois_of_divisor_eq_single_pow`,
+against `weilPairingMu_galois_of_transport`
+(`EllipticCurves.FunctionField.WeilPairingGaloisMu`) and its siblings, which bind none. That is a
+restriction on `F` — it says `F` carries `n` distinct `n`-th roots of unity — so the reach here is
+strictly narrower than the merged reach and not equal to it. The `_padic` form takes
+`[Fact p.Prime]` and `[∀ i, HasEnoughRootsOfUnity F (p ^ i)]` in its place.
+
+⚠️ **This section used to be headed** *"Scope — hypotheses inherited verbatim"* **and to open**
+*"Nothing here weakens or strengthens the hypotheses of the merged equivariance statements"*
+(`9482daf`, `#638`, PR #260; convicted by `#1714`). Both are **false**, and false on the cheapest
+ground available: they quantify over the *whole* hypothesis list, and `hn` is on it. ⚠️ **The
+correction does not turn on whether `hn` is a data argument of the conclusion** — it is one, and
+`#1631` is open on what that clears — because `README.md`'s data-argument clearance is a licence to
+omit a binder and not a bar on naming one (`#1628`), so no register can make a claim *about the
+list* true. What the old sentence got right is kept above, and only the totality is gone.
+
+In particular there is no longer a residual gate to inherit: the **unconditional**
+Galois-equivariance is merged in `EllipticCurves.FunctionField.WeilPairingGaloisRoot`, which
+discharges `htr` and `hdiv` from rung-5 data without ever computing `divisor g_S`, so a consumer
+holding it reaches the exponent form below directly. ⚠️ At the `μ_n(F)` level that file goes one
+step further over an algebraically closed base field: `exists_weilPairingMu_galois_two` / `_three`
+(`#859`) carry no rung-5 data and no `hpow` proof at all, only the `n`-torsion of the two points. ⚠️
+Earlier text here named `divisor g_S = [n]∗(S)` (`#418`, gated on `#421` / `#422`) as that gate; it
+is not, and the identity itself remains open and out of scope. Non-degeneracy of the pairing stays
+out, and it is **not** Ward-gated — `WeilPairing`'s scope section is the canonical account of what
+it consumes (`#769`). Nothing here touches the alternating property (`#465` deliverable 2).
 
 ## Main statements
 
