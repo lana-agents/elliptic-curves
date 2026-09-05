@@ -199,14 +199,14 @@ So nothing here reopens the instance question (`#1686`).
   back at an uncorrected sentence is gone; PR #593's review asked for exactly that.
 
 ⚠️ **That pair is paid on both halves, and `(n : F) ≠ 0` is what is left.**  PR #557 proved the
-on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0`
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`) — that was
-`#404`, and it says only that those coordinates lie on the curve.  Identifying the `x`-coordinate
-with the group-law multiple `n • P` is `#251`, and it is **closed**:
-`WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) at
-every index over any field with `(2 : F) ≠ 0`, and in function-field form `nMulRatFunc_eq_ΦDivΨSq`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) at every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️
-**`#1184` has since been discharged over a field** —
+on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0` and under
+`ψₙ(x, y) ≠ 0` (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`) — that was `#404`, and it says only that those coordinates lie
+on the curve.  Identifying the `x`-coordinate with the group-law multiple `n • P` is `#251`, and it
+is **closed**: `WeierstrassCurve.Affine.hasXCoordFormula_of_two_ne_zero`
+(`EllipticCurves.Torsion.NsmulOrder`) at every index over any field with `(2 : F) ≠ 0`, and in
+function-field form `nMulRatFunc_eq_ΦDivΨSq` (`EllipticCurves.FunctionField.MulByNXCoordFormula`) at
+every `n` with `((n : ℤ) : F) ≠ 0`.  ⚠️ **`#1184` has since been discharged over a field** —
 `WeierstrassCurve.Affine.isCoprime_ΨSq_adjacent` (`EllipticCurves.Torsion.CoprimeAdjacent`) at every
 `n : ℤ` for an elliptic curve of characteristic `≠ 2` — so `[F(W) : [n]∗F(W)] = n²` at general `n`
 (`EllipticCurves.FunctionField.MulByNDegreeGeneral`) is owed `((n : ℤ) : F) ≠ 0` and nothing else
@@ -222,7 +222,7 @@ every index, and the `#251` bullets on the Weil-pairing front no longer name an 
 added: all four names are cited, not consumed."*  All four were in it when that was written**, and
 by the same edge — this file imports `EllipticCurves.FunctionField.MulByNInertia`, which imports
 `…MulByNDegreeGeneral`, which imports `…MulByNXCoordFormula` and
-`EllipticCurves.Torsion.  CoprimeAdjacent`, and `…MulByNXCoordFormula` imports
+`EllipticCurves.Torsion. CoprimeAdjacent`, and `…MulByNXCoordFormula` imports
 `EllipticCurves.Torsion.NsmulOrder`.  Two of the four are now **consumed** rather than cited:
 `isCoprime_Φ_ΨSq` closes the affine `n`-torsion branch, and
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` produces the non-constancy input of

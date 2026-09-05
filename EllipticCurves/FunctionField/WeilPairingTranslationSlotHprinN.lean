@@ -198,19 +198,19 @@ division-polynomial form — is `#1500`, not `#251` and not `#404`, and PR #579 
 `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0`.  ⚠️ `#404`'s own deliverable was the strictly weaker on-curve
 identity, that `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies `W.Equation` at all, and PR #557 **closed** it
 (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`, every
-index, over a field with `(2 : F) ≠ 0`).  ⚠️ The mis-attribution entered through the
-`DoublingCoords` sentence quoted above, which this paragraph quoted in good faith; `DoublingCoords`
-now says so itself, and `EllipticCurves.FunctionField.MulByNPullback` carries the two-reading
-account.  ⚠️ So the 21 bullets were **relettered to `#251`** and are now **retired**: the gate they
-described is gone.  ⚠️ **Retiring them supplies no replacement ceiling** — whether `hprin` at a
-general index is now reachable depends on the fibre description, which is merged only at `n = 2, 3`,
-and that has **not** been re-measured.  Matching the phrase *general `n`* or *uniform `n`* within
-170 characters of `ωₙ`, on whitespace-normalised source, returns **39 sites in 30 modules**: 18
-across the nine modules that say `ωₙ` is *not* used, and **21 — exactly one in each of 21 modules —
-citing it as the general-`n` gate, every one of those `hprin`-discharged and every one correct**.
-⚠️ Three of the 39 belong to the paragraph you are reading, which is why the match is written out
-here rather than merely cited: a later reader who runs it should not be startled by this file's own
-five hits.
+index, over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0`).  ⚠️ The mis-attribution entered
+through the `DoublingCoords` sentence quoted above, which this paragraph quoted in good faith;
+`DoublingCoords` now says so itself, and `EllipticCurves.FunctionField.MulByNPullback` carries the
+two-reading account.  ⚠️ So the 21 bullets were **relettered to `#251`** and are now **retired**:
+the gate they described is gone.  ⚠️ **Retiring them supplies no replacement ceiling** — whether
+`hprin` at a general index is now reachable depends on the fibre description, which is merged only
+at `n = 2, 3`, and that has **not** been re-measured.  Matching the phrase *general `n`* or *uniform
+`n`* within 170 characters of `ωₙ`, on whitespace-normalised source, returns **39 sites in 30
+modules**: 18 across the nine modules that say `ωₙ` is *not* used, and **21 — exactly one in each of
+21 modules — citing it as the general-`n` gate, every one of those `hprin`-discharged and every one
+correct**.  ⚠️ Three of the 39 belong to the paragraph you are reading, which is why the match is
+written out here rather than merely cited: a later reader who runs it should not be startled by this
+file's own five hits.
 
 ⚠️ **The cheapest check that the split is real**: of the six `…Hprin` modules only the twin ever
 carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRootHprin`,

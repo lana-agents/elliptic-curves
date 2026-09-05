@@ -77,11 +77,11 @@ conditional forms below are unchanged and stay conditional.  And a field degree 
 still not a point count, so nothing here bears on `#E[n] = n²`.
 
 That gate used to be stated as a pair with `#404`, whose half PR #557 paid: it proved the on-curve
-identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0`
-(`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`, `EllipticCurves.Torsion.OmegaCrux`).  ⚠️ That
-identity is **not** what discharged gate 1: it says those coordinates lie on the curve and makes no
-claim about `n • P`, and the route above goes nowhere near it.  The two-reading account is
-`EllipticCurves.FunctionField.MulByNPullback`.
+identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with `(2 : F) ≠ 0` and under
+`ψₙ(x, y) ≠ 0` (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
+`EllipticCurves.Torsion.OmegaCrux`).  ⚠️ That identity is **not** what discharged gate 1: it says
+those coordinates lie on the curve and makes no claim about `n • P`, and the route above goes
+nowhere near it.  The two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 `finrank_fieldRange_eq_of_eq_ΦDivΨSq` below is the conditional statement those three gates
 discharge, so a future `n` at which they are available needs nothing further from this side.

@@ -67,10 +67,10 @@ proof and ask which of its inputs actually mention the generic point.
   **import-incomparable** with this one, so it is cited and not consumed, and nothing below changes.
   `#404`'s own deliverable was the weaker on-curve identity, that `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` satisfies
   `W.Equation` at all, and it is **closed**: `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` of
-  `EllipticCurves.Torsion.OmegaCrux`, at every index over a field with `(2 : F) ≠ 0`, PR #557.  ⚠️
-  That module and this one are **import-incomparable** — neither is in the other's closure — so the
-  name is not resolvable here and nothing below uses it.  The two-reading account is in
-  `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ The `n = 3` case is
+  `EllipticCurves.Torsion.OmegaCrux`, at every index over a field with `(2 : F) ≠ 0` and under
+  `ψₙ(x, y) ≠ 0`, PR #557.  ⚠️ That module and this one are **import-incomparable** — neither is in
+  the other's closure — so the name is not resolvable here and nothing below uses it.  The
+  two-reading account is in `EllipticCurves.FunctionField.MulByNPullback`.  ⚠️ The `n = 3` case is
   `EllipticCurves.Torsion.TriplingCoords`, the mirror of this file, likewise not here.
 * Any statement about places, divisors or the function field; this file is pure point arithmetic and
   is imported by the function-field layer, not the other way round.
