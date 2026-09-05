@@ -739,6 +739,119 @@ the register has to be where the reader meets it, and a paragraph two `##` secti
 therefore the **reach** half; the gate-discharge half follows from the rule above once the unit is
 the module docstring.
 
+⚠️ **How far above its list a reach register may sit, in terms, because the two sentences above
+name two different units and both call theirs *"the block"*** (`#1668`). *"It binds the list it
+heads"* and *"a bullet's context **is** the block, contiguously above it"* are consistent read
+each against its own unit and inconsistent read against the other's; what settles it is that the
+two registers do not share a unit, and this document already fixes both:
+
+* a **reach register**'s unit is **its list**. That is the `## Main *` section it opens, or a
+  sub-list inside one: it begins at that heading and ends at the next heading of the same or a
+  higher level, and the register binds the bullets **below** it inside that span and nothing else.
+  `### Scope of the rules above` is where the unit is written down — *"a `## Main statements` list
+  … is one place"* — so *"the block"* in *"a bullet's context is the block"* is that list.
+* a **gate-discharge register**'s unit is the **module docstring**, which is what *"anywhere in the
+  module block"* says, and `MulByNResidueDegree`'s worked example below is a subject sitting two
+  `##` sections above the list it serves.
+
+⚠️ **So prose in another `##` section does not clear a bullet, and the distance does not enter.**
+*"A paragraph two `##` sections up"* above is the instance the boundary was stated on, not the
+boundary: **one** section up is excluded on the same ground, and so is one paragraph up on the
+other side of a heading. ⚠️ **Nor does a register reach a bullet *above* it** — that is the
+*"nothing further up the docstring"* half read in the other direction, and it is what makes a
+sub-list's register invisible to the outer list, as the *"Not reached"* row below records.
+
+⚠️ **This narrows nothing and retires nothing.** Each wording was true of the unit it governs, so
+`### Reach clauses`' *"was the old clause false or merely partial"* test puts this paragraph under
+**completing** a clause, and `### Retired claims` says completing retires nothing. What is new is
+that the two units are named beside each other, which is the whole of what `#1668` asked for.
+
+⚠️ **And it points the same way as *"Nor does a sentence lower in the declaration's own
+docstring"*** in `### Scope of the rules above` (`#1660`), which is the reconciliation that decides
+this rather than the wording. That ruling holds a completing sentence **four lines** from its
+headline insufficient, on the ground that the reader meets the clause first and a partial one
+carries no signal. A register in another `##` section is fifty lines from its bullet. The two
+rulings differ in **unit** — a headline is its own unit, a bullet's unit is its list — and give the
+same answer for the same reason; a rule that let a bullet reach further than a headline would have
+to say why, and there is no ground for it.
+
+⚠️ **A sentence that cites the derivability exemption is not thereby a register**, and calling it
+one is a label rather than a reach claim — which is what the convicted population turns on.
+`EllipticCurves.FunctionField.MulByNGalois`, `…MulByNGaloisGroup` and `…MulByNPlaceComposition`
+each open a `## ⚠️ The transcendence parameter` section with the same sentence, and
+`…MulByNComposition` carries it under `## Hypotheses, and the one that has to be composed first`;
+all four say **in the next clause** that the exemption is what clears their rows, so no bullet of
+theirs hangs on the label. `…MulByNInertia` said *"cleared by the register and not by the
+exemption"* of three declarations, which is a clearance stated **on** the register, and is what
+this ruling convicts.
+
+**Measured at `8d31527`, with the recogniser written out, as this section requires.** Over every
+`/-! … -/` block of every `git ls-files '*.lean'`, lines matching `\bregister\b`, or matching
+`(every|all|each).*(below|above).*(takes?|binds?|carr(y|ies)|is stated|is an)`
+**case-insensitively**, keyed to the `## ` section they sit in — **150** lines in **68** files,
+read one by one.
+
+⚠️ **The universal alternative is loose on three axes on purpose, and every one of the three was
+found by losing rows to it.** It is **unanchored**, because this tree writes *"Everything below
+carries …"* as a third wording of the same object and `\b(Every|All|Each)\b` drops every one of
+them; it is **case-insensitive**, because the same universal is also written mid-sentence in lower
+case — `…FunctionField.MulByNComposition`'s *"so every statement below takes the hypothesis as an
+ordinary argument"*, `…TateModule.FreeGeneral`'s *"every `_of_natCast_ne_zero` statement below
+carries `h2` as well as `hℓ`"* and `…PullbackPrincipalityTwoRationalTorsion`'s *"every statement
+below takes `hcard` as **binder**"*, which are three of the fourteen rows below; and its **verb
+list is wide**, because the bare stems and *"is an"* catch wordings that
+`takes|binds|carries|is stated` does not. **A recogniser published beside a count is an
+instrument, and anchoring, case and the verb list are three independent ways for it to be short of
+its own rows.** ⚠️ **So run the count
+you are about to publish, and assert that every row you name is in its output** — a one-line
+membership check, which is what found the fourteenth row below; all fourteen are asserted present
+in the 150.
+
+**Fourteen** are a universal over hypotheses or over the setting, sitting outside the `## Main *`
+section whose bullets it could be read as clearing. Of those, **one** states a clearance on
+itself: `MulByNInertia`, **two** bullets covering **three** declarations, repaired in the row by
+this PR. **Four** are the exemption-citation label above. The remaining **nine** clear no bullet:
+
+* three because every bullet of their list names its own hypotheses or names none —
+  `EllipticCurves.Torsion.StructureGeneral`, `EllipticCurves.TateModule.FreeGeneral`,
+  `…FunctionField.PullbackPrincipalityTwoRationalTorsion`;
+* four because the sentence sits **below** its list, which is the *"nothing further up the
+  docstring"* half read in the other direction — `…FunctionField.TranslationMulByNCommGeneral`;
+  `…PullbackPrincipalityThree` and `…WeilPairingTranslationSlotNotInjective`, each of which
+  carries *"Everything below carries `[IsAlgClosed F]`"* in a `## Scope` section printed **after**
+  the `## Main *` list it could otherwise be read against; and `…WeilPairingGaloisRootN`, whose
+  *"everything general below carries `hprin`"* sits in
+  `## ⚠️ What is NOT here, and why it cannot be`, printed after `## Main statements` — and that
+  list opens with a register of its own, so no bullet of it was waiting on the later sentence;
+* two because what they quantify over is an **instance** or the setting, which `### Reach clauses`
+  leaves ambient — `…WeilPairingAlternatingTwoRational` (`[DecidableEq F]`) and
+  `…TranslationActionN` (*"at an arbitrary `n` over an arbitrary field"*).
+
+⚠️ **Exclusions with their grounds, because an exclusion needs one as much as a conviction does.**
+The bulk of the 150 are non-vacuity paragraphs quantifying over what is **above** them (*"Every
+statement above carries `[IsDedekindDomain W.CoordinateRing]`"*), which can clear no bullet below
+by construction; and `…PlaceDegreeComparison`'s `## Scope` hit is a marked `### Retired claims`
+quotation of a wording that is already gone, not a live claim. The widened alternative adds **22**
+lines over the anchored one: **three** are rows already counted above, **one** is the fourteenth,
+and the other **18** are excluded on four grounds — **four** sit **inside** their own `## Main *`
+section and are safe by construction, **five** quantify over what is **above**, **seven** quantify
+over **content, provenance or naming** rather than over hypotheses or the setting, and **two** are
+not universals at all but substring matches (*"taken"* on `take`, *"Integrally"* on `all`).
+
+⚠️ **The borderline row is excluded on its *subject*, and that is the whole of the ground.**
+`EllipticCurves.TateModule.ImageProfinite`'s *"All fifteen names below carry a `Two`, and all
+fifteen statements are byte-identical to what this file shipped before the extraction"* sits in
+`## Naming`, printed **above** that file's `## Main statements` — the geometry of a candidate — and
+is excluded because it quantifies over **names and byte-identity**, not over hypotheses or the
+setting, so it leaves no hypothesis for a bullet to be short of. `…TateModule.FreeGeneral`'s
+*"Every statement below is an application"* goes the same way for the same reason. ⚠️ **If that
+ground is rejected they are two further rows that *clear*, not two convictions**: neither says a
+hypothesis is taken or is absent, so no bullet below them is short of anything they assert.
+
+⚠️ **Every register PR #654 wrote is inside its own `## Main *` section and is safe by
+construction**, which is why the convicted count is one and not fourteen: this rule bites on prose
+registers written before that PR fixed the placement, and on nothing written from this section.
+
 ⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
 the cheap repair for a list whose bullets are each short of the same hypotheses: name them
 **once**, at the head of the list, and say that the bullets do not repeat them. The alternative —

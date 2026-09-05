@@ -98,20 +98,31 @@ At `n = 2`, `sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable` and `�
 
 Every general-`n` declaration below whose statement mentions the `[n]∗` layer — `mulByNEndo n h`,
 `comapProjPointN n h`, or anything built on them — takes
-`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  **That sentence is the
-register**, in the sense of `README.md` `### Module-block bullets`: it is what tells a reader which
-declarations below bind `h`, and no bullet of `## Main results` repeats it.  ⚠️ **Nine clauses
-below do name it, and two of those are headlines** —
+`h : Transcendental F (n • genericPoint).xCoord` as an explicit argument.  ⚠️ **That sentence is
+not a reach register for `## Main results`, and this section used to say it was** (`#1668`).  It
+read *"**That sentence is the register**, in the sense of `README.md` `### Module-block bullets`:
+it is what tells a reader which declarations below bind `h`"* (`5dfd94d`, `#1658`, PR #664), closing
+*"and no bullet of `## Main results` repeats it"* — ⚠️ **and that closing clause is a second
+commit's**, so it is attributed to its own rather than folded into the first: `5dfd94d` closed
+*"and no clause below repeats it"*, and PR #671 substituted the bullet form (`1354e2d`, `#1669`).
+The earlier wording is retired on its own ground in the paragraph below; what is retired here is
+the register claim, and with it the bullet form of its closing clause.  `README.md`
+`### Module-block bullets` now fixes the unit in terms — a reach register binds *"the list it
+heads"*, and this sentence heads a different `##` section — so the claim was false rather than
+partial and `### Retired claims` binds.  What
+this sentence is instead is the **derivability exemption's citation**, which may sit anywhere in
+the module block, over a statement of fact about which declarations bind `h`; the two bullets that
+hung on it are repaired in the list itself.  ⚠️ **Eleven clauses below do name it — two of them
+declaration headlines, and two of them bullets of `## Main results` since that repair** —
 `isSeparable_mulByNEndoFieldRange_of_charZero`'s *"at every `n` at which `[n]` is non-constant"*
 and `sum_ramificationIdxN_mul_residueDegreeN_finrank`'s, which is the same clause; the remaining
-seven are listed with their recogniser below.  **What the register is for is the rest** — the
+nine are listed with their recogniser below.  **What that sentence is for is the rest** — the
 declarations whose clause says nothing about the non-constancy, and those that carry no index
 clause at all.  Where a row's clause names `(2 : F) ≠ 0` together with an index cast, or
-`(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the register is not the
-only thing that clears it: `h` is derivable from what such a clause already names, so that row is
-covered by the `README.md` exemption as well (`## Docstring conventions` → `### Reach clauses`) —
-a hypothesis derivable from the ones the clause *does* name adds no reach — and this is the
-citation that exemption asks for:
+`(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness, the `README.md` exemption
+(`## Docstring conventions` → `### Reach clauses`) is what clears it — a hypothesis derivable from
+the ones the clause *does* name adds no reach — and this is the citation that exemption asks
+for:
 
 * `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
   (`EllipticCurves.FunctionField.MulByNXCoordFormula`) proves `h` from `(2 : F) ≠ 0` and
@@ -140,36 +151,53 @@ which `[n]∗F(W)` is separably closed below and at every `n` in characteristic 
 clauses name is `hsep` and the instance `[CharZero F]`, and neither derivation above runs from
 either.  ⚠️ `[CharZero F]` does not derive the non-constancy in any case: `xCoord_zero` makes `h`
 false at `n = 0` in every characteristic, so *"at every `n` in characteristic zero"* is not true
-on its own terms.  **Those three are cleared by the register and not by the exemption** — they are
-not silently short, because the sentence opening this section tells the reader they bind `h`; what
-was wrong is the ground.  The clearance is real; that wording of it was not, which is `#1631`'s
-shape one layer down.  ⚠️ Several further rows below make no claim about which `n` are reached at
+on its own terms.  ⚠️ **Those three were short, and the second ground offered for them does not
+hold either** (`#1668`).  This paragraph closed *"**Those three are cleared by the register and
+not by the exemption** — they are not silently short, because the sentence opening this section
+tells the reader they bind `h`; what was wrong is the ground.  The clearance is real; that wording
+of it was not"* (`5dfd94d`, `#1658`, PR #664).  There is no register for them to be cleared by:
+the sentence that wording names heads another `##` section, and `README.md`
+`### Module-block bullets` binds a reach register to *"the list it heads"*.  False rather than
+partial, so `### Retired claims` binds and the wording is quoted here.  **What replaces it is the
+repair** — both bullets now name the non-constancy in the row, in the wording those declarations'
+own headlines already use.  ⚠️ **In the row and not as a head-of-list register**, because two
+bullets of the eleven were short and not eleven: `README.md` calls the `DeterminantModGeneral`
+opener *"the cheap repair for a list whose bullets are **each** short of the same hypotheses"*,
+and a register saying every statement below takes the non-constancy would be false of
+`sum_ramificationIdxN_mul_residueDegreeN_two` and `…_three`, which derive it (`#1636`).
+⚠️ Several further rows below make no claim about which `n` are reached at
 all — `finrank_mulByNEndoFieldRange_of_smooth`, the integral-closure pair at the ring level, and
 `placeBelowN` with its instances — and those are compliant on `### Reach clauses`' *"or it names
 none"* branch, which is a third ground again and needs neither of the two above.
 
-⚠️ **The register sentence opening this section closed *"and no clause below repeats it"* until
-now, and nine clauses below repeat it** (`#1658`, PR #664).  It was false rather than partial, so
-`README.md` `### Retired claims` binds and the wording is quoted here rather than deleted; what
-replaced it is the `## Main results` scope above, which holds — no bullet of that list names the
-non-constancy.  Recogniser, published beside the count as `### Module-block bullets` asks: every
-prose occurrence of *"non-constan…"* at or below `## Main results`, read one by one.  **Ten**
-occur; two are the general *"`deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`"* fact about maps
-rather than a clause about a declaration here, and eight are clauses.  A second pass for the same
+⚠️ **The sentence opening this section closed *"and no clause below repeats it"* until PR #671
+rewrote it, and clauses below repeat it** (`5dfd94d`, `#1658`, PR #664).  It was false rather
+than partial, so `README.md` `### Retired claims` binds and the wording is quoted here rather
+than deleted.  ⚠️ **And its
+replacement is retired in its turn by the repair above** (`#1668`): PR #671 put *"what replaced it
+is the `## Main results` scope above, which holds — no bullet of that list names the
+non-constancy"* in its place (`1354e2d`, `#1669`), and two bullets of that list now name it.  A
+claim about the bullets is repaired where the bullets are; what replaces it is the count below,
+which is over the **clauses** and does not quantify over the list.  Recogniser, published beside
+the count as `### Module-block bullets` asks: every prose occurrence of *"non-constan…"* at or
+below `## Main results`, read one by one.  **Twelve** occur; two are the general
+*"`deg φ = [F(W) : φ∗F(W)]` for non-constant `φ`"* fact about maps rather than a clause about a
+declaration here, and ten are clauses.  A second pass for the same
 parameter named in other words adds one, the `_of_ne_zero` family's *"The transcendence proof is a
 parameter of these statements"*.  ⚠️ **Backticked `transcendental_…` names are citations and not
 clauses**, and are excluded; a recogniser that counts them reads this file as carrying dozens.
 
-The nine, because a count with no list under it is not checkable: the headlines of
-`isSeparable_mulByNEndoFieldRange_of_charZero` and
-`sum_ramificationIdxN_mul_residueDegreeN_finrank`; the docstring bodies of
+The eleven, because a count with no list under it is not checkable: the two `## Main results`
+bullets repaired above, `isSeparable_mulByNEndoFieldRange_of_charZero`'s and
+`sum_ramificationIdxN_mul_residueDegreeN_finrank` / `…_finrank_of_charZero`'s; the headlines of
+the first two of those three declarations; the docstring bodies of
 `…_finrank_of_charZero` and `…_of_charZero_of_ne_zero`; the `_of_ne_zero` family's section
 sentence; three sentences of `### Non-vacuity`; and the `### The relative residue degree`
 block's gloss on `residueDegreeN_none_eq_one`.  ⚠️ **The last of those is about a declaration this
 file imports, and it counts anyway** — *"A reach clause is answerable in the file that writes it,
 wherever the declaration lives"* is this file's own ruling, written in that same block, so
 *"below"* is positional and not a claim about where a cited declaration lives.  The verdict does not
-turn on that reading: the other eight are declarations of this file.
+turn on that reading: the other ten are declarations of this file.
 
 ⚠️ **That same sentence carried a second universal, older and wider than the one above, and the
 section heading restated it** (`#1688`).  Until now it read *"… as an explicit argument, and no
@@ -178,27 +206,30 @@ clause below names it"* — both written by `01f955b` (`#1137`, PR #614), which 
 appended clause and quantifies over a strictly wider unit than a bullet: `README.md`
 `### Reach clauses` defines a reach clause as *"a docstring phrase that says how far a named
 declaration or a named layer goes"*, and `### Scope of the rules above` makes a declaration
-headline one.  **So the nine listed above are nine reach clauses that name it**, and the two
-headlines among them settle it without the other seven.  ⚠️ **It was false on the day it landed**:
+headline one.  **So the eleven listed above are eleven reach clauses that name it**, and the two
+headlines among them settle it without the other nine.  ⚠️ **It was false on the day it landed**:
 both of those headlines already read *"at every `n` at which `[n]` is non-constant"* at `01f955b`
 itself.  False rather than partial, so `README.md` `### Retired claims` binds and both wordings are
-quoted here rather than deleted.  What replaced the clause is the subset claim in the register
-sentence, naming those two and pointing at this list for the rest; what replaced the heading is a
-title that asks **which** clauses below name the parameter instead of asserting that none do.
+quoted here rather than deleted.  What replaced the clause is the subset claim in this section's
+opening sentence, naming those two and pointing at this list for the rest; what replaced the
+heading is a title that asks **which** clauses below name the parameter instead of asserting that
+none do.
 ⚠️ **The heading is the half that had to go first.**  doc-gen prints it as the section title, it is
 the one sentence here that no later paragraph qualifies, and a reader who reads nothing else in
-this section reads it.  ⚠️ **This changes nothing about which list the register binds** (`#1668`):
-the replacement claim is about the clauses, and *"no bullet of `## Main results` repeats it"* above
-is untouched and stays true.
+this section reads it.  ⚠️ **`#1668` has since decided which list this section's opening sentence
+binds, and the answer is none** — it heads no list.  The replacement claim survives that ruling
+because it is about the **clauses**; *"no bullet of `## Main results` repeats it"*, which was about
+the list, did not.
 
 ⚠️ **`isSeparable_mulByNEndoFieldRange_of_charZero`,
 `sum_ramificationIdxN_mul_residueDegreeN_finrank` and `…_finrank_of_charZero` answer for their
 headlines in a different block, and a headline clears no bullet.**  `README.md`
 `### Module-block bullets`: *"The traffic runs one way.  A block repairs a bullet; a bullet repairs
 nothing … a module list and the file's headlines are two blocks … and the two layers are repaired
-separately."*  So *"Those three are cleared by the register and not by the exemption"* above is a
-claim about the two bullets, and what those three headlines say neither strengthens nor weakens it.
-Recorded because two of the nine clauses listed above are headlines of these three: those two name
+separately."*  So the verdict on those two bullets is a claim about the bullets, and what those
+three headlines say neither strengthened nor weakened it — which is why the headlines did not spare
+the bullets the repair above.  Recorded because two of the eleven clauses listed above are
+headlines of these three: those two name
 the non-constancy in the headline itself, and `…_finrank_of_charZero`'s does not — it reads
 *"in characteristic zero, at every `n`"* and names the non-constancy a line lower in the same
 docstring, which `README.md`'s *"Nor does a sentence lower in the declaration's own docstring"*
@@ -218,15 +249,16 @@ file consumes them rather than restating them.
   `placeBelowN_comapProjPointN` — the place of `[n]∗F(W)` below `q`;
 * `finrank_mulByNEndoFieldRange_of_smooth` — `[F(W) : [n]∗F(W)] = n²` in the `Subfield`
   presentation.  ⚠️ **No `[IsAlgClosed F]`**: this is `#1213`'s degree, which needs none;
-* `isSeparable_mulByNEndoFieldRange_of_charZero` — separability at **every** `n` in characteristic
-  zero, the general-`n` form of the merged `isSeparable_mulByTwoEndoFieldRange`.  ⚠️ Incomparable
-  with `#1219`'s: neither `[CharZero F]` nor `[IsAlgClosed F]` implies the other, and this one is
-  not restricted to `3`-smooth `n`;
+* `isSeparable_mulByNEndoFieldRange_of_charZero` — separability in characteristic zero at
+  **every** `n` at which `[n]` is non-constant, the general-`n` form of the merged
+  `isSeparable_mulByTwoEndoFieldRange`.  ⚠️ Incomparable with `#1219`'s: neither `[CharZero F]` nor
+  `[IsAlgClosed F]` implies the other, and this one is not restricted to `3`-smooth `n`;
 * `module_finite_integralClosure_placeBelowN_of_isSeparable` and
   `finrank_integralClosure_placeBelowN_of_smooth` — the right-hand side at the ring level;
 * **`sum_ramificationIdxN_mul_residueDegreeN_finrank`** and
   **`…_finrank_of_charZero`** — **the identity**, `∑_{p ↦ q} e_p · f_p = [F(W) : [n]∗F(W)]`, at
-  every `n` at which `[n]∗F(W)` is separably closed below and at every `n` in characteristic zero;
+  every `n` at which `[n]` is non-constant: the first with `[n]∗F(W)` separably closed below, the
+  second in characteristic zero;
 * **`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`**, **`…_of_smooth`** and
   **`…_of_charZero`** — the same with the right-hand side evaluated, `= n ^ 2`, at every
   `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`;
