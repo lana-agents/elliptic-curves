@@ -117,8 +117,8 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 section Two
 
 open Classical in
-/-- **Antisymmetry at `n = 2` for roots the caller supplies, over an arbitrary field**, with `hprin`
-the only gate:
+/-- **Antisymmetry at `n = 2` for roots the caller supplies, over an arbitrary field with
+`(2 : F) ≠ 0`**, with `hprin` the only gate:
 
 ```
 e_2(S, g_T) · e_2(T, g_S) = 1.
@@ -163,8 +163,8 @@ theorem weilPairingElt_mul_swap_eq_one_two_of_hprin (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **Antisymmetry at `n = 2` for supplied roots, in the quotable inverse form**
-`e_2(S, g_T) = (e_2(T, g_S))⁻¹`, over an arbitrary field with `hprin` the only gate.  One line off
-the product form. -/
+`e_2(S, g_T) = (e_2(T, g_S))⁻¹`, over an arbitrary field with `(2 : F) ≠ 0`, with `hprin` the only
+gate.  One line off the product form. -/
 theorem weilPairingElt_eq_inv_two_of_hprin (h2 : (2 : F) ≠ 0) {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 2) (hmT : Point.some xT yT hT ∈ W.torsion 2)
@@ -185,8 +185,8 @@ theorem weilPairingElt_eq_inv_two_of_hprin (h2 : (2 : F) ≠ 0) {xS yS xT yT xR 
     hadd hprin hfS hfT hdS hdT hgS hgT huS huT)
 
 open Classical in
-/-- **Antisymmetry at `n = 2` for supplied roots, in `μ_n(F)`, over an arbitrary field** with
-`hprin` the only gate.
+/-- **Antisymmetry at `n = 2` for supplied roots, in `μ_n(F)`, over an arbitrary field with
+`(2 : F) ≠ 0`**, with `hprin` the only gate.
 
 ⚠️ `n` is the index of the value group and is **not** tied to the `2`-torsion of `S` and `T`; the
 two `hpow` data are hypotheses because `weilPairingMu` is indexed by the *proof*, and a caller
@@ -220,8 +220,8 @@ theorem weilPairingMu_mul_swap_eq_one_two_of_hprin (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **Antisymmetry at `n = 2` for supplied roots, in `μ_n(F)`, in the quotable inverse form**, over
-an arbitrary field with `hprin` the only gate.  The inverse is the **group** inverse of
-`rootsOfUnity n F`, not a transport of the field division of `F(W)`. -/
+an arbitrary field with `(2 : F) ≠ 0`, with `hprin` the only gate.  The inverse is the **group**
+inverse of `rootsOfUnity n F`, not a transport of the field division of `F(W)`. -/
 theorem weilPairingMu_eq_inv_two_of_hprin (h2 : (2 : F) ≠ 0) {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 2) (hmT : Point.some xT yT hT ∈ W.torsion 2)
@@ -248,8 +248,9 @@ end Two
 section Three
 
 open Classical in
-/-- **Antisymmetry at `n = 3` for roots the caller supplies, over an arbitrary field**, with `hprin`
-the only gate: the `n = 3` mirror of `weilPairingElt_mul_swap_eq_one_two_of_hprin`, and
+/-- **Antisymmetry at `n = 3` for roots the caller supplies, over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin` the only gate: the `n = 3` mirror of
+`weilPairingElt_mul_swap_eq_one_two_of_hprin`, and
 `weilPairingElt_mul_swap_eq_one_three_of_isAlgClosed` with `hprin` in place of `[IsAlgClosed F]`.
 Only the pullback differs from the `n = 2` twin, `mulByThreeEndo h2 h3` for `mulByTwoEndo h2`. -/
 theorem weilPairingElt_mul_swap_eq_one_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
@@ -284,7 +285,8 @@ theorem weilPairingElt_mul_swap_eq_one_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 :
 
 open Classical in
 /-- **Antisymmetry at `n = 3` for supplied roots, in the quotable inverse form**
-`e_3(S, g_T) = (e_3(T, g_S))⁻¹`, over an arbitrary field with `hprin` the only gate. -/
+`e_3(S, g_T) = (e_3(T, g_S))⁻¹`, over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with
+`hprin` the only gate. -/
 theorem weilPairingElt_eq_inv_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
@@ -306,10 +308,10 @@ theorem weilPairingElt_eq_inv_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) 
     hadd hprin hfS hfT hdS hdT hgS hgT huS huT)
 
 open Classical in
-/-- **Antisymmetry at `n = 3` for supplied roots, in `μ_n(F)`, over an arbitrary field** with
-`hprin` the only gate.  As at `n = 2`, `n` indexes the value group and the two `hpow` data are
-hypotheses; at a `3`-torsion `T` they are `weilPairingElt_pow_eq_one_of_gS_three_baseField` applied
-to the caller's own certificates. -/
+/-- **Antisymmetry at `n = 3` for supplied roots, in `μ_n(F)`, over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin` the only gate.  As at `n = 2`, `n` indexes the
+value group and the two `hpow` data are hypotheses; at a `3`-torsion `T` they are
+`weilPairingElt_pow_eq_one_of_gS_three_baseField` applied to the caller's own certificates. -/
 theorem weilPairingMu_mul_swap_eq_one_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
@@ -335,7 +337,7 @@ theorem weilPairingMu_mul_swap_eq_one_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : 
 
 open Classical in
 /-- **Antisymmetry at `n = 3` for supplied roots, in `μ_n(F)`, in the quotable inverse form**, over
-an arbitrary field with `hprin` the only gate. -/
+an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with `hprin` the only gate. -/
 theorem weilPairingMu_eq_inv_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)

@@ -124,7 +124,7 @@ section Two
 
 open Classical in
 /-- The rung-5 datum at a `2`-torsion point together with the alternating property for **that**
-root, over an arbitrary field: the affine-divisor repackaging of
+root, over an arbitrary field with `(2 : F) ≠ 0`: the affine-divisor repackaging of
 `exists_weilPairingElt_self_eq_one_of_hprin_two`, and the `_of_hprin` twin of `#845`'s private
 `rungFiveAlt_two`.
 
@@ -144,8 +144,8 @@ private lemma rungFiveAltHprin_two (h2 : (2 : F) ≠ 0) {x y : F}
   exact ⟨f, g, hf, hg, divisor_eq_single_of_divisorProj_eq_single_sub_single hdivproj, hu, halt⟩
 
 open Classical in
-/-- **Antisymmetry of the Weil pairing at `n = 2` over an arbitrary field**, with `hprin` the only
-gate:
+/-- **Antisymmetry of the Weil pairing at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`**,
+with `hprin` the only gate:
 
 ```
 e_2(S, T) · e_2(T, S) = 1.
@@ -196,8 +196,9 @@ theorem exists_weilPairingElt_mul_swap_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **Antisymmetry at `n = 2` in the quotable inverse form** `e_2(S, T) = (e_2(T, S))⁻¹`, over an
-arbitrary field with `hprin` the only gate.  Immediate from the previous theorem; `a * b = 1`
-already forces `a = b⁻¹` in a field, so no nonvanishing hypothesis is needed. -/
+arbitrary field with `(2 : F) ≠ 0`, with `hprin` the only gate.  Immediate from the previous
+theorem; `a * b = 1` already forces `a = b⁻¹` in a field, so no nonvanishing hypothesis is
+needed. -/
 theorem exists_weilPairingElt_eq_inv_of_hprin_two (h2 : (2 : F) ≠ 0) {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
     (hmS : Point.some xS yS hS ∈ W.torsion 2) (hmT : Point.some xT yT hT ∈ W.torsion 2)
@@ -220,7 +221,8 @@ theorem exists_weilPairingElt_eq_inv_of_hprin_two (h2 : (2 : F) ≠ 0) {xS yS xT
   exact ⟨gS, gT, hgS, hgT, hcS, hcT, eq_inv_of_mul_eq_one_left hswap⟩
 
 open Classical in
-/-- **Antisymmetry at `n = 2` in `μ_2(F)`, over an arbitrary field** with `hprin` the only gate:
+/-- **Antisymmetry at `n = 2` in `μ_2(F)`, over an arbitrary field with `(2 : F) ≠ 0`**, with
+`hprin` the only gate:
 
 ```
 μ_2(S, T) · μ_2(T, S) = 1   in rootsOfUnity 2 F.
@@ -262,7 +264,8 @@ theorem exists_weilPairingMu_mul_swap_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **Antisymmetry at `n = 2` in `μ_2(F)`, in the quotable inverse form**
-`μ_2(S, T) = (μ_2(T, S))⁻¹`, over an arbitrary field with `hprin` the only gate.
+`μ_2(S, T) = (μ_2(T, S))⁻¹`, over an arbitrary field with `(2 : F) ≠ 0`, with `hprin` the only
+gate.
 
 The inverse is the **group** inverse of `rootsOfUnity 2 F`, obtained by `eq_inv_of_mul_eq_one_left`
 in that group — not a transport of the field division of `F(W)`. -/
@@ -295,7 +298,8 @@ section Three
 
 open Classical in
 /-- The rung-5 datum at a `3`-torsion point together with the alternating property for **that**
-root, over an arbitrary field: the `n = 3` twin of `rungFiveAltHprin_two`. -/
+root, over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`: the `n = 3` twin of
+`rungFiveAltHprin_two`. -/
 private lemma rungFiveAltHprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {x y : F}
     (h : W.Nonsingular x y) (htors : Point.some x y h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
@@ -311,8 +315,9 @@ private lemma rungFiveAltHprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {
   exact ⟨f, g, hf, hg, divisor_eq_single_of_divisorProj_eq_single_sub_single hdivproj, hu, halt⟩
 
 open Classical in
-/-- **Antisymmetry of the Weil pairing at `n = 3` over an arbitrary field**, with `hprin` the only
-gate: the `n = 3` twin of `exists_weilPairingElt_mul_swap_eq_one_of_hprin_two`, and
+/-- **Antisymmetry of the Weil pairing at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`**, with `hprin` the only gate: the `n = 3` twin of
+`exists_weilPairingElt_mul_swap_eq_one_of_hprin_two`, and
 `exists_weilPairingElt_mul_swap_eq_one_three` (`WeilPairingProductRelation`) with `hprin` in place
 of `[IsAlgClosed F]`.
 
@@ -359,7 +364,7 @@ theorem exists_weilPairingElt_mul_swap_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0
 
 open Classical in
 /-- **Antisymmetry at `n = 3` in the quotable inverse form** `e_3(S, T) = (e_3(T, S))⁻¹`, over an
-arbitrary field with `hprin` the only gate. -/
+arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with `hprin` the only gate. -/
 theorem exists_weilPairingElt_eq_inv_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
@@ -383,9 +388,9 @@ theorem exists_weilPairingElt_eq_inv_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (
   exact ⟨gS, gT, hgS, hgT, hcS, hcT, eq_inv_of_mul_eq_one_left hswap⟩
 
 open Classical in
-/-- **Antisymmetry at `n = 3` in `μ_3(F)`, over an arbitrary field** with `hprin` the only gate.
-Only the arity of the `hpow` producer differs from the `n = 2` twin,
-`weilPairingElt_pow_eq_one_of_gS_three_baseField` in place of
+/-- **Antisymmetry at `n = 3` in `μ_3(F)`, over an arbitrary field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`**, with `hprin` the only gate.  Only the arity of the `hpow` producer differs from
+the `n = 2` twin, `weilPairingElt_pow_eq_one_of_gS_three_baseField` in place of
 `weilPairingElt_pow_eq_one_of_gS_two_torsion`. -/
 theorem exists_weilPairingMu_mul_swap_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
@@ -420,7 +425,8 @@ theorem exists_weilPairingMu_mul_swap_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **Antisymmetry at `n = 3` in `μ_3(F)`, in the quotable inverse form**
-`μ_3(S, T) = (μ_3(T, S))⁻¹`, over an arbitrary field with `hprin` the only gate. -/
+`μ_3(S, T) = (μ_3(T, S))⁻¹`, over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, with
+`hprin` the only gate. -/
 theorem exists_weilPairingMu_eq_inv_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {xS yS xT yT xR yR : F}
     (hS : W.Nonsingular xS yS) (hT : W.Nonsingular xT yT) (hR : W.Nonsingular xR yR)
