@@ -231,7 +231,8 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   the same headline — ⚠️ **a different 29**: this one is measured on headline text and the first
   on the binders in scope, and neither set contains the other
   (`galoisFunctionField_mulByNEndo` states a range and binds no index condition,
-  `ord_mulByNEndo_genX_nonneg` binds `((n : ℤ) : F) ≠ 0` and states none) — **24** of them a range
+  `comapProjPointN_pointClosedPoint_of_ΨSq_ne_zero` binds `((n : ℤ) : F) ≠ 0` and states none) —
+  **24** of them a range
   strictly narrower than every `n`, so the wide
   reading has those headlines answering one question twice and incompatibly:
   `torsionNMulGaloisEquiv_of_ne_zero` (`EllipticCurves.FunctionField.MulByNGaloisGroup`) reads
@@ -239,6 +240,30 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   `torsionNMulGaloisEquiv`"*, and `card_torsionNMul`
   (`EllipticCurves.FunctionField.TranslationActionN`) *"at every `3`-smooth `n ≠ 0` with
   `(2 : F) ≠ 0` and `(3 : F) ≠ 0` … the general-`n` form of `card_torsionThreeMul`"*.
+  ⚠️ **That second witness used to be `ord_mulByNEndo_genX_nonneg`, and `#1664` falsified it
+  twenty-three minutes after this bullet landed** (`#1725`). It read
+  *"`ord_mulByNEndo_genX_nonneg` binds `((n : ℤ) : F) ≠ 0` and states none"* (`7f0a162`, `#1678`,
+  PR #685); that row's headline now names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, as does
+  `ord_mulByNEndo_genX_neg` beside it, so both state what they bind and neither witnesses anything.
+  ⚠️ **A dated census does not owe a re-measure and this parenthetical did, and the difference is
+  the discriminator worth keeping**: `## Layout`'s *"the counts drift, the structure does not"* and
+  `### Module-block bullets`' *"Date the answer"* say a **count** under a named head is not
+  falsified by a later head. A **present-tense claim about a named declaration** is not a count —
+  a reader checks it against the declaration, not against the head — so it is falsified, and
+  `### Retired claims` binds on it and not on the figures beside it.
+  ⚠️ **The `29` and the `24` are a triage pair and not a measurement**, on the precedent
+  `### Module-block bullets` sets two sections down for its own `59`: the recogniser for them is
+  the one figure in this bullet never written out, and four implementations of it return **27**,
+  **28**, **29** and **30** over the same 43 rows, differing on the phrase list and above all on
+  whether a range over *points* — *"at every affine `n`-torsion point"*, *"at an affine point
+  that is not `n`-torsion"* — counts as a range over the index. **The two rows named above have
+  since crossed onto both sides.** They corroborate and are not the argument: the two examples
+  are, and both are still true at head.
+  ⚠️ **Everything else in this bullet is confirmed unmoved at `fddba5c`, not assumed**: `56` /
+  `43` / `13`, the `23` / `33` case split, the `132` and the `120` / `113` siblings all re-run to
+  the unit, and the binder-measured **29** cannot have moved at all, because every commit from
+  `8d31527` to `fddba5c` is **docstring-only** — six `.lean` files touched and their stripped code
+  byte-identical, so no signature in the tree changed.
   ⚠️ **The sibling wordings go the same way**, because the ground is the phrase's subject and not
   its noun: ``general-`n` <noun>`` (*"the general-`n` surjectivity"*, *"the general-`n` layer"*)
   and *"at general `n`"* — ``general-`n` (?!forms? of)[a-z]`` and ``at general `n` ``, same
