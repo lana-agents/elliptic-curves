@@ -27,13 +27,16 @@ file**, supply them at `p = 2` and `p = 3` and obtain their towers as one-line i
 
 ⚠️ **Nothing is proved here at any `p`.**  This file contains no instance of either hypothesis;
 taken alone its statements are conditional, with no witness.  **Both are now witnessed downstream at
-every `p` this file's consumers need**, and neither in this file: (1) at every nonzero index by
-`nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`), and (2) at every odd
-`p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0` by `card_torsion_eq_sq_of_odd`
+every `p` this file's consumers need**, and neither in this file: (1) at every nonzero index with
+`(2 : F) ≠ 0` by `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`), and
+(2) at every odd `p` with `(2 : F) ≠ 0` and `(p : F) ≠ 0` by `card_torsion_eq_sq_of_odd`
 (`EllipticCurves.Torsion.OmegaChordSum`), which ⚠️ used to be witnessed at `p = 2` and `p = 3`
 only.  ⚠️ **Both value hypotheses, and this clause used to name only the index one** (`#1137`):
 witness (2) does not reach characteristic `2` at any `p`, which is invisible if only `(p : F) ≠ 0`
-is written down.  See the gate list below.
+is written down.  ⚠️ **Witness (1)'s clause took the same insertion one repair later** (`#1679`),
+and the census that found witness (2) could not see it: PR #605 wrote the pair into (2) and left
+(1) naming the index alone, so from that commit on a sentence-keyed test reads this whole sentence
+as clear on (2)'s strength.  See the gate list below.
 
 What the file *does* settle is **how much is needed, and that it is exactly two things**.  Composed
 with `nsmul_surjective_of_hasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurjective`), which
