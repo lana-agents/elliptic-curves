@@ -145,6 +145,15 @@ the citation it asks for:
 file names derives it — not `3`-smoothness, not `(n : F) ≠ 0` — so omitting it is not an instance of
 the exemption but the defect class `#1137` is named after.
 
+⚠️ **An anaphoric clause inherits the exemption from the clause it points at, and this file has
+the one row on that axis** (`#1705`).  `isGalois_mulByNFieldRange_of_smooth`'s headline says the
+separable half is `isSeparable_mulByNFieldRange_of_smooth` *"at the same hypotheses"*, and that is
+**complete**: the two bind the identical five arguments, and the `h` neither names is the one the
+second bullet above derives from the `_of_smooth` clauses' own `(2 : F) ≠ 0`, `(3 : F) ≠ 0`,
+`n ≠ 0` and `3`-smoothness.  ⚠️ The inheritance runs the other way too — an anaphor pointing at a
+**short** clause is short in whatever file it sits in, without containing a hypothesis to be
+missing — which is why the row was read here rather than counted clean by the register above.
+
 ⚠️ **The general-`n` half of that sentence is a restriction, not filler.**  Several fixed-index
 statements below are about that same layer and take no `h` at all: they **discharge** it inline
 from their own hypotheses — the `n = 5` ones by the first lemma cited above — so the derivation is
