@@ -112,18 +112,40 @@ bullets having named `3`-smooth `n ≠ 0`, `((n : ℤ) : F) ≠ 0` and the rung-
 (`#1647`, `#1662`).
 
 ⚠️ **The two registers stay separate rather than merging into one.**  They account for different
-things — `hprin`, the torsion and the characteristic above, `n ≠ 0` here — the ruling below cites
-the second by name as *"the `n ≠ 0` register above"*, and one paragraph carrying both would make
-a per-group claim that no census can check group by group.  Decided rather than left open (`#1662`).
+things — `hprin`, the torsion and the characteristic above, `n ≠ 0` here — the paragraphs below
+cite the second by name as *"the `n ≠ 0` register above"*, and one paragraph carrying both would
+make a per-group claim that no census can check group by group.  Decided rather than left open
+(`#1662`).
 
-⚠️ **The phrase *"the general-`n` forms of"* is a reach clause, and the `n ≠ 0` register above
-carries `n ≠ 0` for it.**  The fourth bullet says *"the general-`n` forms of … `_two` / `_three`
-headlines"* rather than *"at every `n`"*, which reads as a contrast with two numerals; it is
-nonetheless an answer to the
-question a reach clause answers — *which indices are reached* — and this development already glosses
-the phrase that way, in `EllipticCurves.FunctionField.MulByNFibre`, whose *"the general-`n` forms of
-the `mulByTwoCoordHom` basics"* continues *"they hold at every `n`"* in the same bullet.  Ruled here
-so a census meets the answer rather than the question (`#1641`).
+⚠️ **The phrase *"the general-`n` forms of"* is NOT a reach clause, and this block used to rule
+that it was** (`#1678`).  It read *"**The phrase *"the general-`n` forms of"* is a reach clause,
+and the register above carries `n ≠ 0` for it.**  The fourth bullet says … it is nonetheless an
+answer to the question a reach clause answers — *which indices are reached*"* (`252f702`, `#1641` /
+`#1642`, PR #661), whose *"the register above"* a later commit rewrote to *"the `n ≠ 0` register
+above"* (`01c1748`, `#1662`, PR #669) — ⚠️ **two commits, so each half is attributed to the one
+that wrote it** rather than the whole quotation to the first.  `README.md` `### Reach clauses` now
+sorts the phrase as **provenance**: its subject is the *pair* of declarations and its predicate a
+relation between them, not a set of indices.  False rather than partial — **29** of the 43
+headlines carrying it head a declaration that binds a condition on the index and so does **not**
+reach every `n` — so `### Retired claims` binds and the wording is quoted here rather than deleted.
+⚠️ **The brick is one of the other 14, and that is the check this count has to pass**: it carries
+the phrase, it binds nothing on the index beyond the non-constancy, and the `n ≠ 0` register above
+accounts for its *"at every `n`"* in terms.  A count of binders **named** `hn` in place of a count
+of conditions on the index convicts it, and reads 36 (`#1678`).
+
+⚠️ **The fourth bullet's verdict does not move, only its ground.**  Naming no reach at all, it sits
+on `### Reach clauses`' *"or it names none"* branch, and the `n ≠ 0` register above covers it as it
+covers every other bullet of this list that names no hypothesis — which is what the retired ruling
+was reaching for and did not need a new clause kind to get.
+
+⚠️ **The `MulByNFibre` evidence the retired ruling cited says the opposite of what it was read as
+saying.**  That bullet is *"the general-`n` forms of the `mulByTwoCoordHom` basics.  ⚠️ These four
+take **neither** `(2 : F) ≠ 0` **nor** `((n : ℤ) : F) ≠ 0`: they hold at every `n`, on the
+transcendence hypothesis alone."*  The reach — *"they hold at every `n`"*, the emphasis in the
+source being on *"neither"* / *"nor"* — is a **separate sentence**; the bullet supplements the
+phrase rather than glossing it, and on the retired reading that sentence would be redundant.
+⚠️ **Read what a cited gloss adds, not only that it sits nearby** — a sentence that states the
+reach beside a phrase is evidence the phrase does not state it.
 
 * `WeierstrassCurve.Affine.CoordinateRing.galoisPointHom` — the action of `σ⋆` on
   `(W ⁄ F(W⁄F)).Point`, as an `AddMonoidHom`; `…_genericPoint` says it fixes `𝒫`.

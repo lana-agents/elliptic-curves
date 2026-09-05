@@ -118,8 +118,17 @@ looks like a clause that lists them all. Concretely:
 `card_torsion_eq_sq` is `#E[n] = n²` at a general index
 ```
 
-**Two phrases look like reach clauses and are not.** Both have been flagged, triaged and cleared
-more than once, so the discriminators are written down here rather than re-derived each round:
+**Some phrases look like reach clauses and are not**, and their number is deliberately not given
+(`#1678`), on the precedent `### Scope of the rules above` sets one section down. Each has been
+flagged, triaged and cleared more than once, so the discriminators are written down here rather
+than re-derived each round. ⚠️ This read *"**Two phrases look like reach clauses and are not.**
+Both have been flagged, triaged and cleared more than once"* (`f1d1473`, `#1569`, PR #620),
+true from that commit until the third discriminator below was added — a numeral standing over a
+list is falsified by whatever next extends the list, which that section states in terms and
+answered the same way. ⚠️ **Both numeral-bearing words are quoted, and they are two words rather
+than one**: *"Two"* and *"Both"* were written by one commit and either alone would leave the
+other with no account of why it changed. The ordinal reference below — *"The second
+discriminator"* — is untouched, because it names a **position** and not a count. They are:
 
 * **A phrase that says which indices the statement is a claim *about* is part of naming the
   theorem, not a hypothesis list**; a phrase that enumerates the conditions under which the
@@ -180,6 +189,71 @@ more than once, so the discriminators are written down here rather than re-deriv
   `10` is not quantified and there is nothing for a condition to range over. Same for
   `nonempty_torsionThirtySix_addEquiv`, `card_torsion_four`, `nonempty_torsionFour_addEquiv` and
   `nonempty_torsionTwelve_addEquiv`.
+* **A phrase that says which declaration this one generalises is provenance, not a reach clause**
+  (`#1678`). *"The general-`n` form of `X`"* names a **lineage** — this declaration is the
+  general-`n` layer's version of the numeral-indexed `X` — and answers *which merged declaration
+  this generalises*, not *which indices this reaches*.
+  ⚠️ **The deletion test above does not decide this class, which is why it needs a bullet of its
+  own.** Delete *"the general-`n` form of `mulByTwoCoordHom_injective`"* from
+  `mulByNCoordHom_injective`'s headline and the remainder — *"Dominance for `mulByNCoordHom`"* —
+  is a claim of the same kind, so the test returns **reach clause**, wrongly. That test sorts
+  *predicate* from *reach*, and provenance is a third thing neither of its branches has room for.
+  What does decide it is `### Scope of the rules above`'s *"**The subject decides, not the
+  string**"*: a reach clause's subject is this declaration and its predicate is a set of indices,
+  while this phrase's subject is the **pair** of declarations and its predicate is a relation
+  between them.
+  ⚠️ **The wide reading is refuted by the tree rather than merely unattractive.** Measured at
+  `8d31527` with a nesting-aware `/-`-depth extractor over every `EllipticCurves/**/*.lean`,
+  whitespace-normalised and `**`-stripped, matching ``the general-`n` forms? of``
+  **case-insensitively** — ⚠️ **the case matters and is not a detail**: this tree writes both
+  *"The general-`n` form of"* at the head of a headline and *"the general-`n` form of"* mid
+  sentence, and either anchoring alone splits the class rather than measuring it — lowercase
+  `the` returns **23**, capital `The` **33**, and only the two together are the 56. The phrase
+  occurs **56** times — **43** in `/--` headlines, **13** in `/-!` module blocks — and
+  **29** of the 43 head a declaration binding a condition on the index: `n ≠ 0`, `(n : F) ≠ 0`,
+  `((n : ℤ) : F) ≠ 0`, `3`-smoothness of `n`, or the instance `[NeZero n]` — **28** if that
+  instance is not counted, and one of the 29 (`divisorProj_mulByNEndoOfAlgClosed`) takes `n ≠ 0`
+  from a `variable` line and not from its own binder list, so the count is over the binders **in
+  scope** and not over the ones written at the declaration.
+  ⚠️ **The non-constancy hypothesis is not a condition on the index, and the other 14 rows are
+  not convicted by carrying one.** Thirteen of them bind
+  `Transcendental F (n • genericPoint …).xCoord` and nothing else about `n` — three of those add
+  an `n`-torsion condition on a *point*, which is a condition on the pair and not on the index —
+  and `fixedFieldN` binds nothing about the index at all.
+  `EllipticCurves.FunctionField.WeilPairingGaloisRootN` rules exactly this of its own brick, whose
+  *"at every `n`"* stands beside the non-constancy and is true. ⚠️ **A binder NAME decides
+  nothing**: this tree writes the non-constancy as `hn` as readily as `hT` or `h`, so a recogniser
+  keyed on the name `hn` sorts `functionFieldMap_mulByNEndo` and `mulByNCoordHom_injective` — the
+  same hypothesis over the same reach, one named `hn` and one `hT` — onto opposite sides, and
+  convicts the brick (`#1678`). Read as a reach clause the phrase tells the reader those 29 reach
+  *the general* indices, which is **false** rather than partial, and this
+  section treats false the more severely of the two. **29** of the 43 also state an index range in
+  the same headline — ⚠️ **a different 29**: this one is measured on headline text and the first
+  on the binders in scope, and neither set contains the other
+  (`galoisFunctionField_mulByNEndo` states a range and binds no index condition,
+  `ord_mulByNEndo_genX_nonneg` binds `((n : ℤ) : F) ≠ 0` and states none) — **24** of them a range
+  strictly narrower than every `n`, so the wide
+  reading has those headlines answering one question twice and incompatibly:
+  `torsionNMulGaloisEquiv_of_ne_zero` (`EllipticCurves.FunctionField.MulByNGaloisGroup`) reads
+  *"at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0` … the general-`n` form of
+  `torsionNMulGaloisEquiv`"*, and `card_torsionNMul`
+  (`EllipticCurves.FunctionField.TranslationActionN`) *"at every `3`-smooth `n ≠ 0` with
+  `(2 : F) ≠ 0` and `(3 : F) ≠ 0` … the general-`n` form of `card_torsionThreeMul`"*.
+  ⚠️ **The sibling wordings go the same way**, because the ground is the phrase's subject and not
+  its noun: ``general-`n` <noun>`` (*"the general-`n` surjectivity"*, *"the general-`n` layer"*)
+  and *"at general `n`"* — ``general-`n` (?!forms? of)[a-z]`` and ``at general `n` ``, same
+  extractor, same case-insensitivity, **132** and **120** further sites at `8d31527`. The ruling
+  clears them, and both recognisers are written out beside their counts so the next census meets
+  a **measured** rule rather than inferring the width from this bullet's examples. ⚠️ **The second
+  figure is what the case rule costs if it is skipped**: case-sensitively it reads **113**, and
+  that is the number a first pass at this issue produced.
+  ⚠️ **A row cleared here lands on the *"or it names none"* branch and is not exempt from the
+  rule.** If its headline names nothing else, the signature is what the reader is deferred to; if
+  it names a proper non-empty subset of the hypotheses it is defective for that reason, and the
+  phrase neither repairs it nor makes it worse. ⚠️ **So this ruling clears a *phrase*, not the 43
+  rows.** **37** of the 43 head a declaration binding an explicit `Transcendental …` argument, and
+  what their headlines say about it is `#1137`'s standing question, decided by each file's own
+  transcendence register and untouched here.
 
 ⚠️ The second discriminator is what separates *"at an index that is neither odd nor `3`-smooth"*
 from *"at an odd `p`"*: the first describes the numeral `10`, while the second restricts a variable.
@@ -230,7 +304,7 @@ instances the block never had. In `EllipticCurves.FunctionField.MulByNFibre`,
 `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` binds `[Fintype (W.torsion n)]` in the
 statement. An instrument that reads the `variable` lines and stops gets all three wrong.
 
-⚠️ **This paragraph is not a third discriminator for the bullet list above.** It does not say that
+⚠️ **This paragraph is not a further discriminator for the bullet list above.** It does not say that
 an instance mention looks like a reach clause and is not; it says the reach-clause rule never
 reached instances, so there is nothing for the *"or it names none"* branch to decide.
 
