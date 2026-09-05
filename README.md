@@ -786,36 +786,71 @@ exemption"* of three declarations, which is a clearance stated **on** the regist
 this ruling convicts.
 
 **Measured at `8d31527`, with the recogniser written out, as this section requires.** Over every
-`/-! … -/` block of every `git ls-files '*.lean'`, lines matching `\bregister\b` or
-`(Every|All|Each).*(below|above).*(takes|binds|carries|is stated)`, keyed to the `## ` section they
-sit in — **128** lines in **57** files, read one by one. ⚠️ **The universal alternative is
-unanchored on purpose**: this tree writes *"Everything below carries …"* as a third wording of the
-same object, and `\b(Every|All|Each)\b` would drop every one of them. **Thirteen** are a universal
-over hypotheses or over the setting, sitting outside the `## Main *` section whose bullets it could
-be read as clearing. Of those, **one** states a clearance on itself: `MulByNInertia`, **two**
-bullets covering **three** declarations, repaired in the row by this PR. **Four** are the
-exemption-citation label above. The remaining **eight** clear no bullet:
+`/-! … -/` block of every `git ls-files '*.lean'`, lines matching `\bregister\b`, or matching
+`(every|all|each).*(below|above).*(takes?|binds?|carr(y|ies)|is stated|is an)`
+**case-insensitively**, keyed to the `## ` section they sit in — **150** lines in **68** files,
+read one by one.
+
+⚠️ **The universal alternative is loose on three axes on purpose, and every one of the three was
+found by losing rows to it.** It is **unanchored**, because this tree writes *"Everything below
+carries …"* as a third wording of the same object and `\b(Every|All|Each)\b` drops every one of
+them; it is **case-insensitive**, because the same universal is also written mid-sentence in lower
+case — `…FunctionField.MulByNComposition`'s *"so every statement below takes the hypothesis as an
+ordinary argument"*, `…TateModule.FreeGeneral`'s *"every `_of_natCast_ne_zero` statement below
+carries `h2` as well as `hℓ`"* and `…PullbackPrincipalityTwoRationalTorsion`'s *"every statement
+below takes `hcard` as **binder**"*, which are three of the fourteen rows below; and its **verb
+list is wide**, because the bare stems and *"is an"* catch wordings that
+`takes|binds|carries|is stated` does not. **A recogniser published beside a count is an
+instrument, and anchoring, case and the verb list are three independent ways for it to be short of
+its own rows.** ⚠️ **So run the count
+you are about to publish, and assert that every row you name is in its output** — a one-line
+membership check, which is what found the fourteenth row below; all fourteen are asserted present
+in the 150.
+
+**Fourteen** are a universal over hypotheses or over the setting, sitting outside the `## Main *`
+section whose bullets it could be read as clearing. Of those, **one** states a clearance on
+itself: `MulByNInertia`, **two** bullets covering **three** declarations, repaired in the row by
+this PR. **Four** are the exemption-citation label above. The remaining **nine** clear no bullet:
 
 * three because every bullet of their list names its own hypotheses or names none —
   `EllipticCurves.Torsion.StructureGeneral`, `EllipticCurves.TateModule.FreeGeneral`,
   `…FunctionField.PullbackPrincipalityTwoRationalTorsion`;
-* three because the sentence sits **below** its list, which is the *"nothing further up the
-  docstring"* half read in the other direction — `…FunctionField.TranslationMulByNCommGeneral`,
-  and `…PullbackPrincipalityThree` and `…WeilPairingTranslationSlotNotInjective`, each of which
+* four because the sentence sits **below** its list, which is the *"nothing further up the
+  docstring"* half read in the other direction — `…FunctionField.TranslationMulByNCommGeneral`;
+  `…PullbackPrincipalityThree` and `…WeilPairingTranslationSlotNotInjective`, each of which
   carries *"Everything below carries `[IsAlgClosed F]`"* in a `## Scope` section printed **after**
-  the `## Main *` list it could otherwise be read against;
+  the `## Main *` list it could otherwise be read against; and `…WeilPairingGaloisRootN`, whose
+  *"everything general below carries `hprin`"* sits in
+  `## ⚠️ What is NOT here, and why it cannot be`, printed after `## Main statements` — and that
+  list opens with a register of its own, so no bullet of it was waiting on the later sentence;
 * two because what they quantify over is an **instance** or the setting, which `### Reach clauses`
   leaves ambient — `…WeilPairingAlternatingTwoRational` (`[DecidableEq F]`) and
   `…TranslationActionN` (*"at an arbitrary `n` over an arbitrary field"*).
 
-⚠️ **Two exclusions with their grounds, because an exclusion needs one as much as a conviction
-does.** The bulk of the 128 are non-vacuity paragraphs quantifying over what is **above** them
-(*"Every statement above carries `[IsDedekindDomain W.CoordinateRing]`"*), which can clear no
-bullet below by construction; and `…PlaceDegreeComparison`'s `## Scope` hit is a marked
-`### Retired claims` quotation of a wording that is already gone, not a live claim. ⚠️ **Every
-register PR #654 wrote is inside its own `## Main *` section and is safe by construction**, which
-is why the convicted count is one and not thirteen: this rule bites on prose registers written
-before that PR fixed the placement, and on nothing written from this section.
+⚠️ **Exclusions with their grounds, because an exclusion needs one as much as a conviction does.**
+The bulk of the 150 are non-vacuity paragraphs quantifying over what is **above** them (*"Every
+statement above carries `[IsDedekindDomain W.CoordinateRing]`"*), which can clear no bullet below
+by construction; and `…PlaceDegreeComparison`'s `## Scope` hit is a marked `### Retired claims`
+quotation of a wording that is already gone, not a live claim. The widened alternative adds **22**
+lines over the anchored one: **three** are rows already counted above, **one** is the fourteenth,
+and the other **18** are excluded on four grounds — **four** sit **inside** their own `## Main *`
+section and are safe by construction, **five** quantify over what is **above**, **seven** quantify
+over **content, provenance or naming** rather than over hypotheses or the setting, and **two** are
+not universals at all but substring matches (*"taken"* on `take`, *"Integrally"* on `all`).
+
+⚠️ **The borderline row is excluded on its *subject*, and that is the whole of the ground.**
+`EllipticCurves.TateModule.ImageProfinite`'s *"All fifteen names below carry a `Two`, and all
+fifteen statements are byte-identical to what this file shipped before the extraction"* sits in
+`## Naming`, printed **above** that file's `## Main statements` — the geometry of a candidate — and
+is excluded because it quantifies over **names and byte-identity**, not over hypotheses or the
+setting, so it leaves no hypothesis for a bullet to be short of. `…TateModule.FreeGeneral`'s
+*"Every statement below is an application"* goes the same way for the same reason. ⚠️ **If that
+ground is rejected they are two further rows that *clear*, not two convictions**: neither says a
+hypothesis is taken or is absent, so no bullet below them is short of anything they assert.
+
+⚠️ **Every register PR #654 wrote is inside its own `## Main *` section and is safe by
+construction**, which is why the convicted count is one and not fourteen: this rule bites on prose
+registers written before that PR fixed the placement, and on nothing written from this section.
 
 ⚠️ **That `DeterminantModGeneral` opener is the form to copy for the naming half**, and it is
 the cheap repair for a list whose bullets are each short of the same hypotheses: name them
