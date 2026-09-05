@@ -762,15 +762,18 @@ files, filed rather than swept. At least one will clear on a reading rather than
 characteristic conditions exist without naming them, while its neighbour of the same shape at
 `…_of_ne_zero_of_baseChange` names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` outright. ⚠️ **A module
 H1 cannot always take the insertion**, and that is the one place this ruling and the heading rule
-below pull apart: completing that file's title in place makes it **117** columns, so the phrase was
-dropped from the title to the prose instead, on `### Scope of the rules above`'s heading bullet.
+below pull apart: completing `PullbackPrincipalityTwoRationalTorsion`'s title in place makes it
+**117** columns, so the phrase was dropped from the title to the prose instead, on
+`### Scope of the rules above`'s heading bullet.
 
 ⚠️ **Rule a phrase before repairing rows of it when the repair is a `with` clause hung off the
 phrase, and not before otherwise** (`#1733`). This is the cost that ruling makes visible rather
-than a rule invented for it: three PRs in three days repaired rows of *"over an arbitrary field"*
-in one file, each correct under its own issue, and the file stood in **two registers** on one
-phrase in between. A repair that merely *appends* conditions a headline names nowhere is safe to
-make before the phrase is classified, because naming every hypothesis is compliant on any reading.
+than a rule invented for it: **three PRs inside four hours** on 2026-09-05 — `fddba5c`
+(`#1664`, PR #684), `2765fc9` (`#1719`, PR #687) and `#1733`'s own — repaired rows of
+*"over an arbitrary field"* in one file, each correct under its own issue, and the file stood in
+**two registers** on one phrase in between. A repair that merely *appends* conditions a headline
+names nowhere is safe to make before the phrase is classified, because naming every hypothesis is
+compliant on any reading.
 ⚠️ **Appending to the phrase is not that repair.** *"over an arbitrary field with `(2 : F) ≠ 0`"*
 is compliant only on the *partial* reading; had the phrase come out **closed**, the same words
 would assert and deny a condition on `F` in one clause, and the repair owed would have been a
