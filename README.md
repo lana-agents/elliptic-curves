@@ -2093,7 +2093,8 @@ true"*, one layer up, in this document's own prose. They are:
   following the pointer, which is still the only instrument there is.
   ⚠️ **`above` and `below` are not the direction words, only the two this seed knows, and the rest
   of the axis is measured here** (`#1811`). Second seed, case-insensitive over this file's
-  non-fenced prose at `d3a4ac5`, with no noun anchor because these words carry their own:
+  non-fenced prose at `d3a4ac5`, on `\b` boundaries — the hyphen is one — with no noun
+  anchor because these words carry their own:
   `up`, `down`, `earlier`, `later`, `preceding`, `following`, `overleaf`, `previously`,
   `beforehand`. **41 matches**, none in a fence, split `up` 19, `down` 11, `later` 7, `following` 3
   and `earlier` 1 — and **31 are not pointers at this page**, each excluded on a stated ground:
@@ -2118,25 +2119,52 @@ true"*, one layer up, in this document's own prose. They are:
   which that ruling now extends to a distance; and both were false at the commit that published
   them, which makes four of four on the rows these two seeds have convicted.
   ⚠️ **The limits, and they are wider than the first seed's.** The nine words are a list and not a
-  class — `back`, `ahead`, `supra`, `infra` and `hereafter` were tried and return nothing,
-  `higher` and `lower` return 7 matches of which
-  every one is about a module docstring, and four of the nine themselves — `preceding`, `overleaf`,
-  `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the next reader
-  rather than for this count. Neither **target** nor **distance** is mechanical, so both
-  convictions came from reading all 41 rather than from the regex. And a pointer carrying no
-  direction word at all is invisible to both seeds: *"the first bullet of `### Reach clauses`"* is
-  an address, and this axis can neither convict nor clear one. ⚠️ **The softest of the ten** is
-  `## Scope`'s *"The following are developed here"*, a cataphora to the list under it rather than a
-  cross-reference; it resolves either way, and a reader who excludes it gets nine, seven and the
-  same two. ⚠️ **This bullet is inside its own population, exactly as the seed it extends is.**
-  The second seed returns 78 at this head. The two convicted rows **leave** it — both repairs drop
-  the direction word rather than turning it round, which is the preference in
+  class, and the five candidates tried against it are keyed the way this bullet's other figures
+  are, at both ends: `ahead`, `supra`, `infra` and `hereafter` return **0 matches** each at
+  `d3a4ac5` and **1 match** each here, which is this clause naming them, while `back` returns
+  **1 match** at `d3a4ac5` — *"an `n`-th root of the pulled-back function"* in
+  `### What is formalised` — and **3 matches** here. ⚠️ **The boundary belongs to the seed and not
+  to this clause**, which is why it is now stated where the seed is: a tenth word added to the
+  list inherits `\b` with the hyphen inside it, and owes its result under that. The one hit is a
+  compound and not a direction word, so no eleventh pointer appears and the 41, 78, ten and eight
+  this bullet publishes are untouched — the claim was short of the token, never false of the axis.
+  `higher` and `lower` return **7 matches** at `d3a4ac5` and **9 matches** here, the two new ones
+  being this clause's own two words. ⚠️ **The seven rows were read one by one, and the gloss they
+  were read to confirm does not survive them** (`#1628`): *"every one is about a module
+  docstring"* — PR #715 (`#1811`), at `0eb4f70` — is true of four of them and **false** of three,
+  which is the over-reaching branch, so it retires rather than taking a qualification. **Two of
+  the three** name *"the declaration's own docstring"* in those words — one in
+  `### Module-block bullets` and one in this section, the ruling that a sentence there does not
+  repair a headline — and the third, in `### Reach clauses`, answers a headline from inside its
+  own docstring without using the phrase. That ruling is the boundary the gloss crossed, and it
+  is itself a row of the population glossed. What holds of all seven is that **none of them is
+  about this page**: three put a sentence in a docstring, one puts a `## Main statements` list
+  there, one is a heading **level** inside one, and two are about letter **case** — so three of
+  the seven name no place at all, which is the point the gloss was making and the reason the
+  correction costs the clause nothing. ⚠️ **The bucket noun was measured against this page's own
+  rule rather than left as a synonym**: this section rules that *"A list item is a unit too … what
+  the reader meets is the bullet and not the sentence a splitter would cut out of it"*, so a
+  *sentence* bucket pinned at four rows and true of three over-reaches, and over-reaching is
+  **false** rather than short. It is repaired here rather than retired, and the ground is the one
+  thing separating it from the gloss it sits inside: that gloss was **published** — PR #715
+  (`#1811`), at `0eb4f70` — and this wording never left an unmerged branch, so there is no claim in
+  the record for a marked quotation to preserve. And four of the nine themselves —
+  `preceding`, `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are
+  carried for the next reader rather than for this count. Neither **target** nor **distance** is
+  mechanical, so both convictions came from reading all 41 rather than from the regex. And a pointer
+  carrying no direction word at all is invisible to both seeds: *"the first bullet of
+  `### Reach clauses`"* is an address, and this axis can neither convict nor clear one. ⚠️ **The
+  softest of the ten** is `## Scope`'s *"The following are developed here"*, a cataphora to the list
+  under it rather than a cross-reference; it resolves either way, and a reader who excludes it gets
+  nine, seven and the same two. ⚠️ **This bullet is inside its own population, exactly as the seed
+  it extends is.** The second seed returns 78 at this head. The two convicted rows **leave** it —
+  both repairs drop the direction word rather than turning it round, which is the preference in
   `### Gate-discharge claims` applied to itself — and 39 matches are new: the nine seed words
   written out, the exclusion grounds quoted, the split counts, and the wording of the two
   convictions. ⚠️ **The other two populations are unmoved, and that was checked rather than
   assumed**: no bolded numeral standing alone is added here, so the bolded-numeral seed
-  `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175
-  is at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
+  `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175 is
+  at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
 
 ### Retired claims
 
