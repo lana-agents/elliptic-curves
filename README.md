@@ -2138,26 +2138,33 @@ true"*, one layer up, in this document's own prose. They are:
   repair a headline — and the third, in `### Reach clauses`, answers a headline from inside its
   own docstring without using the phrase. That ruling is the boundary the gloss crossed, and it
   is itself a row of the population glossed. What holds of all seven is that **none of them is
-  about this page**: four put a sentence in a docstring, one is a heading **level** inside one,
-  and two are about letter **case** — so three of the seven name no place at all, which is the
-  point the gloss was making and the reason the correction costs the clause nothing.
-  And four of the nine themselves — `preceding`,
-  `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the
-  next reader rather than for this count. Neither **target** nor **distance** is mechanical, so both
-  convictions came from reading all 41 rather than from the regex. And a pointer carrying no
-  direction word at all is invisible to both seeds: *"the first bullet of `### Reach clauses`"* is
-  an address, and this axis can neither convict nor clear one. ⚠️ **The softest of the ten** is
-  `## Scope`'s *"The following are developed here"*, a cataphora to the list under it rather than a
-  cross-reference; it resolves either way, and a reader who excludes it gets nine, seven and the
-  same two. ⚠️ **This bullet is inside its own population, exactly as the seed it extends is.**
-  The second seed returns 78 at this head. The two convicted rows **leave** it — both repairs drop
-  the direction word rather than turning it round, which is the preference in
+  about this page**: three put a sentence in a docstring, one puts a `## Main statements` list
+  there, one is a heading **level** inside one, and two are about letter **case** — so three of
+  the seven name no place at all, which is the point the gloss was making and the reason the
+  correction costs the clause nothing. ⚠️ **The bucket noun was measured against this page's own
+  rule rather than left as a synonym**: `### Module-block bullets` rules that *"A list item is a
+  unit too … what the reader meets is the bullet and not the sentence a splitter would cut out of
+  it"*, so a *sentence* bucket pinned at four rows and true of three over-reaches, and
+  over-reaching is **false** rather than short. It is repaired here rather than retired, and the
+  ground is the one thing separating it from the gloss it sits inside: that gloss was
+  **published** — PR #715 (`#1811`), at `d3a4ac5` — and this wording never left a draft, so there
+  is no claim in the record for a marked quotation to preserve. And four of the nine themselves —
+  `preceding`, `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are
+  carried for the next reader rather than for this count. Neither **target** nor **distance** is
+  mechanical, so both convictions came from reading all 41 rather than from the regex. And a pointer
+  carrying no direction word at all is invisible to both seeds: *"the first bullet of
+  `### Reach clauses`"* is an address, and this axis can neither convict nor clear one. ⚠️ **The
+  softest of the ten** is `## Scope`'s *"The following are developed here"*, a cataphora to the list
+  under it rather than a cross-reference; it resolves either way, and a reader who excludes it gets
+  nine, seven and the same two. ⚠️ **This bullet is inside its own population, exactly as the seed
+  it extends is.** The second seed returns 78 at this head. The two convicted rows **leave** it —
+  both repairs drop the direction word rather than turning it round, which is the preference in
   `### Gate-discharge claims` applied to itself — and 39 matches are new: the nine seed words
   written out, the exclusion grounds quoted, the split counts, and the wording of the two
   convictions. ⚠️ **The other two populations are unmoved, and that was checked rather than
   assumed**: no bolded numeral standing alone is added here, so the bolded-numeral seed
-  `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175
-  is at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
+  `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175 is
+  at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
 
 ### Retired claims
 
