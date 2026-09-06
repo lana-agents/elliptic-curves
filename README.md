@@ -758,7 +758,8 @@ every one read; the seeds and the row-by-row verdicts are on `#1705`.
 short of the population the ruling governs** (`#1714`). Re-run at `cb6ad1f` over twelve seeds chosen
 for the claim rather than the wording — `the hypotheses of`, `the same reach`, ``same binders?``,
 ``keeps? the hypotheses``, ``inherits? the hypotheses``, ``weakens? or strengthens``,
-``no (further|extra|additional) hypothes``, `carries no`, `same telescope`, `binder for binder`,
+``no (further|extra|additional) hypothes``, ``carries no\b``, `same telescope`,
+`binder for binder`,
 `argument position`, and `hypotheses` followed by `inherited`, `unchanged` or `verbatim` — over the
 same nesting-aware `/-`-depth comment regions, whitespace squeezed, case-insensitive: **107** raw
 hits over **420** files, every one read, of which **8** state reach identity and are **not** among
@@ -771,16 +772,41 @@ strengthens the hypotheses of the merged equivariance statements"*, was **false*
 that file. ⚠️ **The 25 is not retired**: it is a true, dated count of the rows the phrase seeds
 return, so it is **partial** and takes the qualification above rather than a marked quotation. Run
 *"false or merely partial"* before opening `### Retired claims` on a count that is merely **short**.
+
 ⚠️ **An inhabitation claim is not a reach clause, and the widest claim-axis seed is almost all
 inhabitation.** *"The hypotheses of `X` are satisfiable"*, *"… are also necessary"*, and the
 non-vacuity certificates that carry them, say a hypothesis **list is inhabited**; they do not say
 which situations `X` reaches, so nothing in this section binds them. **Ten of the 28
 `the hypotheses of` hits are non-vacuity certificates and five more are section titles named after
-one**, and `carries no` is **56** hits in **49** files of which **none** is an identity claim —
-every one names a *single* absent binder, instance or name component, which is the absence
-register (`#1682`, `#1683`) and not this branch. The discriminator, written down so the next
-census does not re-derive it: a clause is on this branch when its subject is a **declaration's
-reach**, and off it when its subject is a **hypothesis list's inhabitants** (`#1714`).
+one**, and ``carries no\b`` is **56** hits in **49** files of which **none** is an identity claim.
+The discriminator, written down so the next census does not re-derive it: a clause is on this
+branch when its subject is a **declaration's reach**, and off it when its subject is a **hypothesis
+list's inhabitants** (`#1714`).
+
+⚠️ **Retired.** PR #694 (`#1714`), which first published that **56**, glossed it *"every one names
+a single absent binder, instance or name component, which is the absence register (#1682, #1683)
+and not this branch"*. The operative half stands and is what the paragraph above keeps: all 56 were
+read, none states reach identity, and the seed returns **zero** rows on this branch. The gloss is a
+**universal**, and **16** of the 56 falsify it (`#1756`). What replaces it, re-derived at `039d7e4`
+with the recogniser above: **40** of the 56 are absence claims naming a binder, an instance or a
+name component, and those — only those — are `#1682` / `#1683`'s register; the other **16** say an
+object *carries no information, content, weight, dependencies or basis*, or that a docstring
+*carries no line number, issue number, certificate or falsity claim*. Those name neither a
+hypothesis nor a declaration, so no register in this section governs them, and a sweeper working
+from the old gloss reaches them with nothing to file. ⚠️ *"A single"* fails as well, on **6** of
+the 40: `MulByNDegreeTower:27` names five, `WeilPairingTelescopeN:236` and
+`WeilPairingTelescopeThree:216` three each, `WeilPairingTelescopeTwo:131`, `MulByTwoDegree:92` and
+`WeilPairingProductRelationRootIndependentHprin:36` two each.
+
+⚠️ **That retirement is the worked contrast to the `25` qualified above, and both came out of the
+same PR.** Each was run through *"false or merely partial"* first and they answer differently:
+a **count** stays true of what it counted and is only ever **short**, so the 25 took a qualification
+in place; a **universal** is falsified by a single counterexample and this one had 16, so it takes a
+marked quotation. **Short is partial, over-reaching is false**, and the two live one paragraph apart
+here so that the next census does not have to guess which shape it is holding. ⚠️ **The seed is
+also boundary-anchored**: written as the bare literal `carries no` it returns **60** hits in **51**
+files rather than 56, so the list above publishes ``carries no\b``. A published recogniser that
+does not return its published count is `#1749`'s defect, one notch smaller.
 
 ⚠️ **A clause that points *and* names is not on this branch**, which is what separates those two
 counts. *"with the same hypothesis `ΨSqₙ(x) ≠ 0` that … `hasXCoordFormula_of_two_ne_zero` asks of
