@@ -154,7 +154,8 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic] {x₂ y₂ x₃ y�
 local notation3 "K" => AlgebraicClosure F
 
 open Classical in
-/-- **Translation by a `2`-torsion point fixes the square root, over an arbitrary field.**
+/-- **Translation by a `2`-torsion point fixes the square root, over an arbitrary field with
+`(2 : F) ≠ 0`.**
 
 This is `translateEndo_eq_self_of_mul_algebraMap_sq_eq` (`WeilPairingAlternatingTwo`) with its two
 halving-point hypotheses `hP` and `hdouble` **removed** — not relocated, removed — and with
@@ -194,7 +195,8 @@ theorem translateEndo_eq_self_of_mul_algebraMap_sq_eq_of_baseChange
   exact key
 
 open Classical in
-/-- **`e_2(T, T) = 1` over an arbitrary field**, with `hprin` (`#418`) as the only gate.
+/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`**, with `hprin` (`#418`) as the
+only gate.
 
 `exists_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingAlternatingTwo`) is this statement
 with `[IsAlgClosed F]` added; the hypotheses and the conclusion are otherwise identical, and the
@@ -226,7 +228,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
     weilPairingElt_self_of_translateEndo_fixed h.left hg htinv⟩
 
 open Classical in
-/-- **The alternating property at `n = 2` in the value group, over an arbitrary field.**
+/-- **The alternating property at `n = 2` in the value group, over an arbitrary field with
+`(2 : F) ≠ 0`.**
 
 `weilPairingMu` is indexed by a proof that the pairing element is an `n`-th root of unity, so the
 statement produces one; it costs nothing, since the previous theorem gives `e_2(T, T) = 1` and
@@ -251,7 +254,8 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
     weilPairingMu_self_of_translateEndo_fixed h.left hg _ htinv⟩
 
 open Classical in
-/-- **Translation by a `3`-torsion point fixes the cube root, over an arbitrary field.**
+/-- **Translation by a `3`-torsion point fixes the cube root, over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.**
 
 The `n = 3` twin, with `exists_equation_nsmul_three_eq`'s halving data removed.  ⚠️ Two steps have
 no `n = 2` counterpart: `3`-torsion must be transported to `F̄` (done through
@@ -304,8 +308,8 @@ theorem translateEndo_eq_self_of_mul_algebraMap_cube_eq_of_baseChange
   exact key
 
 open Classical in
-/-- **`e_3(T, T) = 1` over an arbitrary field**, with `hprin` as the only gate: the `n = 3` twin of
-`exists_weilPairingElt_self_eq_one_of_hprin_two`, and
+/-- **`e_3(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin`
+as the only gate: the `n = 3` twin of `exists_weilPairingElt_self_eq_one_of_hprin_two`, and
 `exists_weilPairingElt_self_eq_one_of_algClosed_three` minus `[IsAlgClosed F]`. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3)
@@ -336,7 +340,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h
     weilPairingElt_self_of_translateEndo_fixed h.left hg htinv⟩
 
 open Classical in
-/-- **The alternating property at `n = 3` in the value group, over an arbitrary field.** -/
+/-- **The alternating property at `n = 3` in the value group, over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.** -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

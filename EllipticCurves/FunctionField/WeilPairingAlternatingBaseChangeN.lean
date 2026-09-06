@@ -178,7 +178,7 @@ local notation3 "K" => AlgebraicClosure F
 /-! ### Gate B without the halving point -/
 
 open Classical in
-/-- **Translation by `T` fixes the `n`-th root, over an arbitrary field.**
+/-- **Translation by `T` fixes the `n`-th root, over an arbitrary field with `(2 : F) ≠ 0`.**
 
 `translatePointEndo_eq_self_of_prod_eq_of_pow_eq` (`WeilPairingAlternatingWorkhorseN`) with the
 halving hypothesis `[n]P = T` **removed** — not relocated — at every `3`-smooth `n ≠ 0`.
@@ -264,8 +264,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange (h2 : (2 : F)
     weilPairingElt_self_of_translateEndo_fixed h.left hg htinv⟩
 
 open Classical in
-/-- **`e_n(T, T) = 1` over an arbitrary field at every `3`-smooth `n ≠ 0`**, with `hprin` the only
-hypothesis that is not about the characteristic.
+/-- **`e_n(T, T) = 1` over an arbitrary field at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`**, with `hprin` the only hypothesis that is not about the characteristic.
 
 The transcendence is discharged by `transcendental_xCoord_nsmul_of_smooth`, which is where `h3`
 enters — the halving point needs neither `h3` nor, over `F̄`, the transcendence.  See the module
@@ -363,8 +363,8 @@ example (h2 : (2 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
     htel hpow
 
 open Classical in
-/-- **`e_n(T, T) = 1` at every `n ≠ 0` over an arbitrary field**, with `hprin` (`#418`) the only
-gate.
+/-- **`e_n(T, T) = 1` at every `n ≠ 0` over an arbitrary field with `(2 : F) ≠ 0`**, with `hprin`
+(`#418`) the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` with `hfac` removed and nothing put in
 its place.  ⚠️ `hn` stays a hypothesis: over an *arbitrary* `F` the transcendence is not free, and
