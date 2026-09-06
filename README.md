@@ -32,6 +32,17 @@ description of the tree, not a completeness claim: most of these are established
 under hypotheses that are stated in the relevant module docstrings, and several
 hold at small or restricted indices rather than in general.
 
+⚠️ **The disclaimer covers what this list omits; it does not cover the restrictions it
+states.** A clause here saying a result holds *only* at some indices, or is *currently*
+proved on some range, is a claim about the tree that the tree can falsify — and this
+section is outside `## Docstring conventions` below, so no register, census or recogniser
+on this page reads it. The only instrument is someone re-reading the tree. Of the three
+bullets below that state an index range, all three had been superseded four to six days
+before anyone re-read them. ⚠️ The repair is the second data point: its first draft, written
+while hunting exactly this axis, still stated three reach clauses without the `(2 : F) ≠ 0`
+that every declaration behind them binds, and the only thing that caught them was a reviewer
+opening each signature at source.
+
 * **Reduction over a discrete valuation ring** (`Reduction/`) — the reduction map on
   points and its additivity, the kernel of reduction `E₁(K)` and its identification
   with the formal group `Ê(𝔪)`, injectivity on prime-to-`p` torsion, the reduction-type
@@ -45,49 +56,97 @@ hold at small or restricted indices rather than in general.
   the divisor-theoretic engine that turns a *principal* `n`-th-root divisor into an
   `n`-th root of the pulled-back function is stated at a general `n`
   (`NthRootOfPullback.lean`); principality is not a consequence of `n`-divisibility —
-  that gap is exactly what the pairing measures — and the root `g_S` itself is
-  constructed at `n = 2` and `n = 3` only, as is everything downstream of it: the
-  pairing as a function of two torsion points, its bilinearity, antisymmetry, the
-  alternating property, non-degeneracy, perfectness, Galois equivariance and the
-  identification of `det ρ_{E,n}` with the cyclotomic character `χₙ`.
+  that gap is exactly what the pairing measures — and it is principality, not the index,
+  that this front is still parametrised by. **Taking principality as a hypothesis**, the
+  root `g_S` (`NthRootOfPullbackN.lean`) and four of the things that follow from it are
+  proved at every `n` prime to the characteristic over a field of characteristic other than
+  `2`: the pairing as a homomorphism `E[n] → μₙ(F)`, its bilinearity in each of the two
+  slots, the alternating property, and Galois equivariance. ⚠️ The field is *not* required
+  to be algebraically closed: none of the six declarations behind that list carries
+  `[IsAlgClosed F]`, so this clause is completed by `(2 : F) ≠ 0` and by nothing else.
+  Antisymmetry is stated at every `n ≠ 0` (`WeilPairingAntisymmetric.lean`), but from the
+  alternating property at the three points as hypotheses rather than from principality.
+  **Principality itself is discharged at `n = 2` and `n = 3` only** — over an algebraically
+  closed field (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`), and at
+  `n = 2` also over an arbitrary field from rational `2`-torsion and a halving
+  (`PullbackPrincipalityTwoRationalTorsion.lean`) — so those are the two indices at which
+  the chain is unconditional. Non-degeneracy and perfectness are stated at `n = 2` and
+  `n = 3` only, and the identification of `det ρ_{E,n}` with the cyclotomic character `χₙ`
+  at `n = 3` only (`WeilPairingDeterminantCharacter.lean`).
+  ⚠️ **Retired.** This bullet read *"and the root `g_S` itself is constructed at `n = 2` and
+  `n = 3` only, as is everything downstream of it"* from `6e5245c` (2026-08-30) until this
+  commit, and it was false the day after it was written: `exists_gS_n` landed in
+  `NthRootOfPullbackN.lean` at `74658f2` (`#1304`, PR #489) and was widened at `6df393f`
+  (`#1523`, PR #604) to every `n` prime to the characteristic over a field of characteristic
+  other than `2`. *only* is a universal negative, so it cannot be completed by adding a
+  condition the way the two clauses below are — it has to be deleted, which is what makes
+  this a retirement and those two not.
+  ⚠️ Read item by item, the retired clause also over-claimed in the other direction: the
+  identification `det ρ_{E,n} = χₙ` is on `main` at `n = 3` and at no other index, so
+  *everything downstream* was one item wider than the tree as well as several indices
+  narrower.
 * **The Weierstrass formal group** (`FormalGroup/`) — the coordinate series `x(z)`,
   `y(z)`, the formal group law `F_E` as a genuine bivariate power series with its
   commutativity and associativity, the formal logarithm and exponential, the
   multiplication-by-`n` series, and the group `Ê(𝔪)` over a complete local ring.
 * **`n`-torsion and division polynomials** (`Torsion/`, `DivisionPolynomial/`) — `E[n]`,
-  the duplication and tripling coordinate formulas, surjectivity of `[2]` and `[3]`,
-  and the structure theorem `E[n] ≅ (ℤ/nℤ)²`, currently proved for every `3`-smooth `n`
-  over an algebraically closed field of characteristic other than `2` and `3`.
+  the duplication and tripling coordinate formulas, surjectivity of `[2]` and `[3]`, and
+  the structure theorem `E[n] ≅ (ℤ/nℤ)²` with the count `#E[n] = n²` beside it, proved for
+  every `n` prime to the characteristic over an algebraically closed field of
+  characteristic other than `2` (`Torsion/StructureGeneral.lean`).
+  ⚠️ This clause read *"currently proved for every `3`-smooth `n` over an algebraically
+  closed field of characteristic other than `2` and `3`"* until `9bd6a23` (`#293`, PR #591)
+  removed the smoothness. That is **short, not false** — the `3`-smooth statement is still
+  on `main` and is an instance of the general one — so it is completed in place and nothing
+  retires.
 * **The Tate module and its Galois representation** (`TateModule/`) — `T_ℓE = lim_k E[ℓᵏ]`,
-  the matrix form `ρ_ℓ : G → GL₂(ℤ_ℓ)` of the ℓ-adic representation, its continuity, and
-  the profiniteness of its image. `T_ℓE ≅ ℤ_ℓ²` is unconditional at `ℓ = 2` and `ℓ = 3`,
-  and at a general `ℓ` it is reduced to a coherent system of generating pairs for the
-  `E[ℓᵏ]` (`TateModule/PrimaryFree.lean`).
+  the matrix form `ρ_ℓ : G → GL₂(ℤ_ℓ)` of the ℓ-adic representation, its continuity, the
+  profiniteness of its image, and the mod-`n` matrix representation
+  `ρ_{E,n} : G → GL₂(ℤ/nℤ)` at every `n > 1` prime to the characteristic, over an
+  algebraically closed field of characteristic other than `2`
+  (`TateModule/MatrixRepModGeneral.lean`). `T_ℓE ≅ ℤ_ℓ²` is proved at every prime
+  `ℓ ≠ char F` over an algebraically closed field of characteristic other than `2`
+  (`TateModule/FreeGeneral.lean`); the route is still `TateModule/PrimaryFree.lean`'s
+  reduction to a coherent system of generating pairs for the `E[ℓᵏ]`, whose input the
+  structure theorem above now supplies at every such `ℓ`.
+  ⚠️ This clause read *"`T_ℓE ≅ ℤ_ℓ²` is unconditional at `ℓ = 2` and `ℓ = 3`, and at a
+  general `ℓ` it is reduced to a coherent system of generating pairs"* until `1411d36`
+  (`#268`, PR #592). That is **short, not false** — the reduction is still there and is
+  still the route — so it too is completed in place, and nothing retires.
 * Supporting Galois-theoretic material (`Galois/`) and the Newton-polygon dichotomy for a
   Weierstrass equation (`NewtonPolygon.lean`), which is consumed by both `Reduction/` and
   `FunctionField/`.
 
 ## Layout
 
-Measured at commit `d5951f8`; the counts drift, the structure does not.
+Measured at commit `f71a713`; the counts drift, the directory structure does not.
 
 ```
 EllipticCurves.lean          -- root module, imports the whole library
 EllipticCurves/
 ├── Basic.lean               -- re-exports two Mathlib modules; only EllipticCurves.lean imports it
+├── Fixtures.lean            -- the certificate curves the non-vacuity blocks run on
 ├── NewtonPolygon.lean       -- the slope-3/2 dichotomy at a pole of a Weierstrass equation
+├── UniversalCurve.lean      -- the universal Weierstrass curve and the specialisation map
 ├── DivisionPolynomial/      --   1 file   coprimality of the division polynomials
 ├── FormalGroup/             --  57 files  the Weierstrass formal group law and Ê(𝔪)
-├── FunctionField/           -- 167 files  F(W), its places and divisors; the Weil pairing
+├── FunctionField/           -- 183 files  F(W), its places and divisors; the Weil pairing
 ├── Galois/                  --   3 files  cyclotomic character, unramified Galois modules
 ├── Reduction/               --  65 files  reduction over a DVR; reduction types; NOS
-├── TateModule/              --  36 files  T_ℓE and the ℓ-adic representation ρ_ℓ
-└── Torsion/                 --  29 files  E[n] and the torsion structure theorem
+├── TateModule/              --  45 files  T_ℓE and the ℓ-adic representation ρ_ℓ
+└── Torsion/                 --  61 files  E[n] and the torsion structure theorem
 ```
 
-360 `.lean` files in total. `FunctionField/` is flat rather than nested; within it the
-file-name prefixes `MulByTwo`/`MulByThree`/`MulByN`, `Translation`, `Place`, `Divisor` and
-`WeilPairing` are what group the material.
+The seven directory counts sum to **415**; with the four top-level modules listed above them
+that is **419** under `EllipticCurves/`, and **420** tree-wide once the root module is
+counted. `FunctionField/` is flat rather than nested; within it the file-name prefixes
+`MulByTwo`/`MulByThree`/`MulByN`, `Translation`, `Place`, `Divisor` and `WeilPairing` are
+what group the material.
+
+⚠️ The counts above stood at `d5951f8` (`1`/`57`/`167`/`3`/`65`/`36`/`29`, 360) and were
+drift rather than a defect, since the line dates them. What was **not** drift is the file
+list: `Fixtures.lean` and `UniversalCurve.lean` are two top-level modules the diagram did
+not have a row for, so *the structure does not* is now stated of the directories only.
 
 New files should be added under `EllipticCurves/` and imported from the root
 `EllipticCurves.lean` module (kept in sync with `lake exe mk_all`).
