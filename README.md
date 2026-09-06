@@ -992,34 +992,79 @@ the 40: `MulByNDegreeTower:27` names five, `WeilPairingTelescopeN:236` and
 
 ⚠️ **That retirement is the worked contrast to the `25` qualified above, and both came out of the
 same PR.** Each was run through *"false or merely partial"* first and they answer differently:
-a **count** stays true of what it counted and is only ever **short**, so the 25 took a qualification
-in place; a **universal** is falsified by a single counterexample and this one had 16, so it takes a
-marked quotation. **Short is partial, over-reaching is false**, and the two live one paragraph apart
-here so that the next census does not have to guess which shape it is holding.
-⚠️ **There are three, and the third is in `### Gate-discharge claims`** (`#1765`, `#1780`): a
+a **count over a population that can grow under it** stays true of what it counted and is only ever
+**short**, so the 25 took a qualification in place; a **universal** is falsified by a single
+counterexample and this one had 16, so it takes a marked quotation. **Short is partial,
+over-reaching is false**, and the two live one paragraph apart here so that the next census does not
+have to guess which shape it is holding.
+⚠️ **That scope is a retirement and not a reading.** The clause read *"a **count** stays true of
+what it counted and is only ever **short**"* when it landed (`8fda8c4`, `#1756`, PR #698) —
+unqualified, over every count — and **a count can over-reach**. The witness is on this page and
+needs no tree: `### Gate-discharge claims`' *"bind `h2` (four also `h3`)"* stood over a population
+of exactly **six** that the same sentence closes, and `h3` is bound by **three** of them, the three
+whose names end `_three`, so there is no fourth row for the numeral to be true of. It is false
+rather than short, and that section gives it a marked quotation. ⚠️ **What replaces the clause is
+the question *what could move this numeral*.** If the only thing that can is the population growing
+under it, growth never makes a count say more than it counted: it is only ever short and takes a
+qualification in place. If the sentence itself pins the denominator — *k* of a row set it names —
+then *k* can name rows that are not there, a *k* with no *k*-th row is **false**, and
+`### Retired claims` binds. ⚠️ **The slogan survives the retirement and was never the defect**:
+*"over-reaching is false"* is exactly what convicts the four. What the retired clause got wrong was
+denying that a count can reach that half at all.
+⚠️ **The reading is argued and not assumed, because the two candidates cost differently.** Read as a
+universal over counts the clause is **false**, one measured counterexample is enough, and
+`### Retired claims` binds. Read instead as a claim about the two worked examples it stands
+between, it is true of both, merely short of the wider class, and would take a qualification in
+place with nothing retired. **The first reading is the one the sentence asks for**: it is written in
+the same indefinite singular as *"a **universal** is falsified by a single counterexample"* one
+clause later, which is unarguably about every universal and not about the one it stands over; and
+the sentence closes by handing the slogan to *"the next census"*, which a rule scoped to its own two
+examples would tell nothing. Hence the marked quotation rather than the softer disposition, and the
+reading is recorded here because this front has had to settle it three times (`#1782`, `#1780`,
+`#1790`).
+⚠️ **Which branch a numeral is on is measured rather than assumed, and the pinned branch is the
+larger one.** Seed, fence-aware over this file's own non-fenced prose at `2947444`: a `**`-bold span
+whose whole content is a numeral, in digits or as an English number word. **166** occurrences, every
+one read. **Seven** are not counts over a population at all, among them *"both ends"*, *"one
+diff"*, *"one section up"* and a column width; of the remaining **159**, **51** are dated totals a
+recogniser returned over the tree and **108** are counts inside a set the same sentence names —
+*"29 of the 43"*, *"16 of the 56"*, *"40 of the 56"*, *"three of the six"*. The branch the clause
+did not have is the one two thirds of this page's own figures are on. ⚠️ **Recogniser limits,
+published beside the count because the count depends on them** (`#1749`): the seed is bold-keyed
+and the witness that falsifies the rule is **not** bold — *"four"* was written bare — so it cannot
+find the defect it was written for; `**zero**` and `**once**` are number-shaped words the pattern
+omits; and open against pinned is read off each sentence, so the split is a reading and re-running
+the regex is not the check. ⚠️ **This PR moves the population it is measuring**, so the figure
+carries both ends (`#1749`): the same seed run at this PR's head returns **175**, **nine** more than
+the 166 it was read on, and the split above is the reading of the 166.
+⚠️ **There are four; the third is in `### Gate-discharge claims`** (`#1765`, `#1780`): a
 universal that **survives its first measurement** is neither short nor over-reaching, and what it
 takes is the measurement itself, published where the claim stood. That is a **pointer and not a
 copy** (`#1766`) — the paragraph stays over there because its own remedy is *publish it where the
 claim stood*, so moving it here would falsify the rule by the act of stating it. ⚠️ **The slogan
 is untouched**: neither half of it is falsified by a third shape, since a shape that is neither
 short nor over-reaching is outside both. What was short is *"the two"* — a count of the shapes
-stated here, and a count stays true of what it counted — so this is the qualification in place its
-own rule prescribes, and **nothing retires**. ⚠️ **The third shape is general, not
-gate-specific**: its discriminator is the claim's own form, a count or a universal, together with
-what the measurement returned, and neither of those mentions a register; the paragraph carrying it
-sits under a gate heading because that is where the claim it repaired stood. **This section holds a
-standing instance of its population** — *"A reach clause about a declaration whose file the writer
-is not editing is covered by no register in either file, and no review of the defining module ever
-looks at it"* above is a universal over registers and over reviews, carrying no count, no sha and
-no recogniser, where every other population claim in this section carries all three. Measuring it
-is `#1794`, not this pointer. ⚠️ **`### Retired claims` gets no second pointer**: it delegates
-this test rather than restating its branches, so the list is complete there as soon as it is
-complete here. ⚠️ And this **unmeasured** is not the one above — that one is a *row* a seed
-cleared on an axis nobody read, this one is a *claim this page makes about its own population*.
-⚠️ **The seed is
-also boundary-anchored**: written as the bare literal `carries no` it returns **60** hits in **51**
-files rather than 56, so the list above publishes ``carries no\b``. A published recogniser that
-does not return its published count is `#1749`'s defect, one notch smaller.
+stated here, over a class that grew under it rather than one this page closes — so this is the
+qualification in place the open branch prescribes, and **nothing retires**. ⚠️ **The fourth is
+the over-reaching count two paragraphs up**, and it belongs here rather than over there because its
+subject is this section's own rule: a count whose denominator its own sentence pins can fail its
+measurement, where the third shape is a universal that survives one. **Three** went short exactly as
+*"the two"* did, on the same open branch and for the same reason, and takes the same qualification.
+⚠️ **The third shape is general, not gate-specific**: its discriminator is the claim's own form, a
+count or a universal, together with what the measurement returned, and neither of those mentions a
+register; the paragraph carrying it sits under a gate heading because that is where the claim it
+repaired stood. **This section holds a standing instance of its population** — *"A reach clause
+about a declaration whose file the writer is not editing is covered by no register in either file,
+and no review of the defining module ever looks at it"* above is a universal over registers and over
+reviews, carrying no count, no sha and no recogniser, where every other population claim in this
+section carries all three. Measuring it is `#1794`, not this pointer. ⚠️ **`### Retired claims` gets
+no second pointer**: it delegates this test rather than restating its branches, so the list is
+complete there as soon as it is complete here. ⚠️ And this **unmeasured** is not the one above —
+that one is a *row* a seed cleared on an axis nobody read, this one is a *claim this page makes
+about its own population*. ⚠️ **The seed is also boundary-anchored**: written as the bare literal
+`carries no` it returns **60** hits in **51** files rather than 56, so the list above publishes
+``carries no\b``. A published recogniser that does not return its published count is `#1749`'s
+defect, one notch smaller.
 
 ⚠️ **A clause that points *and* names is not on this branch**, which is what separates those two
 counts. *"with the same hypothesis `ΨSqₙ(x) ≠ 0` that … `hasXCoordFormula_of_two_ne_zero` asks of
@@ -1324,14 +1369,15 @@ clear and no docstring of theirs says it, which is `#1694`'s subject test applie
 applied it above. ⚠️ **No verdict moves**: `h3` is a standing characteristic hypothesis on either
 count, the six still clear, and `#1781`'s *"no `.lean` diff"* stands.
 
-⚠️ **This is the case the count rule in `### Reach clauses` does not cover, and it is recorded
-rather than repaired here** (`#1799`). That rule reads *"a **count** stays true of what it counted
-and is only ever **short**"* — which holds of a census whose population grew under it, the **25**
-it was written on, and not of a count over a population the same sentence closes, which is what the
-*"four"* of the six was. ⚠️ **Nor is it the third shape the pointer up there names**: that one is a
-universal that **survives** its measurement, and this is a count that does not. Which counts are of
-which kind is a ruling with its own population to measure, and folding it into this repair is the
-sweep `#1614` forbids.
+⚠️ **The count rule in `### Reach clauses` now covers this case, and this paragraph cites it
+rather than restating it** (`#1799`). That rule was unqualified when this row was convicted, and it
+is retired there: it is scoped to a count over a population that can grow under it, and given a
+second branch for a count whose denominator its own sentence pins. The *"four"* of the six is that
+branch's worked case, so the disposition above is what the rule prescribes and no longer something
+this paragraph decides for itself — which is why it is a citation, `### Scope of the rules above`
+forbidding two blocks answering one question in different registers. ⚠️ **It is still not the
+third shape the pointer up there names**: that one is a universal that **survives** its measurement,
+and this is a count that does not, which is the fourth item in that section's branch list.
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
 how many hypotheses a statement has and everything about which gates it does not carry; a reader
