@@ -1012,9 +1012,9 @@ next paragraph moves the four `…AssemblyN` rows out of the third bucket and in
 The total is invariant and each split holds only at the sha named beside it: re-run the seed before
 that commit and it returns **53 / 19 / 23**, after it **57 / 19 / 19**. A census figure this page
 publishes and then moves in the same breath has to carry both, or the recogniser reads as broken
-(`#1749`). The first two buckets are the compliant forms, nothing is owed on them, and they stay
-two: the paragraph below rules that the per-block clause does not fire between them, so there is
-nothing to converge (`#1754`). **Fourteen of the third bucket are non-vacuity `example` blocks** —
+(`#1749`). The first two buckets are the compliant forms, and they stay two: the paragraph below
+rules that the per-block clause does not fire between them, so there is nothing to converge
+(`#1754`). **Fourteen of the third bucket are non-vacuity `example` blocks** —
 fourteen of the 23 before the repair, of the 19 after — over a concrete curve (`ℚ`,
 `exampleField`), and for **eleven** of them *"with `hprin` the only hypothesis left"* is a
 hypothesis-**list** claim that is literally true: `hprin` is their whole top-level binder list.
@@ -1024,6 +1024,35 @@ hypothesis-**list** claim that is literally true: `hprin` is their whole top-lev
 *setting* reading and not on the count. **The test is the declaration's top-level binder list, not
 the block's shape**: a census keyed on `example` clears three rows it has not read, and one keyed
 on the noun alone convicts eleven it should not.
+
+⚠️ **That the first two buckets are compliant is measured rather than asserted** (`#1765`), and this
+paragraph is what replaced the assertion. The section's own test — *does the signature bind a gate
+the clause says is gone?* — was run over all **76** rows of those two buckets at `f317634`, reading
+an explicit binder as gate-shaped when its type mentions a divisor, an endomorphism, a root, a
+division-polynomial identity or `hprin` itself, which is what makes the four items of the gate list
+above one test. **Nine** of the 76 are module-block headlines and have no binder list for it to
+read; the other **67** are declarations, and **13** of those bind a gate-shaped hypothesis besides
+`hprin`. **Five name it as the clause's own subject** — `OmegaPairCoprime:304`'s `hid`,
+`WronskianRecurrence:360`'s `hC1` and `hC2`, `WronskianUniversal:255`'s `h`, and
+`WeilPairingAlternatingConsumerN:171` and `:194`, which name `htel`, `hpow`, `hg`, `hc` and `hc₀`
+one by one. ⚠️ **The other eight are the only rows in the register whose clause names a gate that
+does not exhaust the signature's**, and they are `WeilPairingProductRelationRootIndependentHprin`'s
+`_of_hprin` family: *"with `hprin` the only gate"* over a signature that also takes the caller's
+`fS`, `fT`, `gS`, `gT` with their divisor and root certificates. **They clear on the wrong example's
+own remedy** — each says *"for roots the caller supplies"* or *"for supplied roots"* in the same
+sentence, and *"naming the carried thing"* is what that remedy prescribes. ⚠️ **The `hpowST` and
+`hpowTS` the four `μ` rows add are not on the gate axis at all**: `weilPairingMu hS.left hpowST` is
+a term of their own conclusion, so an object in the conclusion takes them — the same test the
+paragraph on *"the data the statement is about"* below applies to `htors`, `hPT`, `hS` and `hm₂`
+*"which no object in any of these conclusions takes"*, returning the opposite answer. **No row of
+either bucket is convicted**, and the eight are named here so the next census does not re-read them.
+
+⚠️ **A universal that survives its first measurement is a third shape beside `### Reach clauses`'
+*"short is partial, over-reaching is false"* above**, and *"nothing is owed on them"* — which stood
+in this paragraph until `#1765` — was it. Nothing convicts it, so it was not over-reaching and
+`### Retired claims` does not bind; it is not a count, so it was not merely short either. It was
+**unmeasured**, and what that takes is neither a marked quotation nor a qualification in place but
+the measurement, published where the claim stood.
 
 ⚠️ **And *"the only hypothesis left"* standing over a theorem is the `card_torsion_pow_of_odd`
 shape, so the four that were theorems were repaired** (`#1754`):
