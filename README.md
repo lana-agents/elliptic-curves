@@ -2207,7 +2207,7 @@ true"*, one layer up, in this document's own prose. They are:
   against this file's headings puts **110 of the 138** on a title this file also carries; two of
   those name a `.lean` module's own section of the same title, so **108 cite this page** — 104 at
   `###` and 4 at `##` — and **30 name a heading inside a `.lean` docstring**. Keying on the `#`
-  count alone gives 104 / 33, and it discards the four `##` citations of this page: **two of the
+  count alone gives 105 / 33, and it discards the four `##` citations of this page: **two of the
   three defects convicted here are among those four**. ⚠️ **The test is on the span, never on
   proximity.** Resolve the named section's span from the heading table, find what the citing
   sentence attributes to it, and test that against the span. Of the 110, **59 carry a marked
@@ -2236,10 +2236,12 @@ true"*, one layer up, in this document's own prose. They are:
   takes a marked quotation. The `### Module-block bullets` row is repaired to the shorter *"false or
   merely partial"* and not to the full sentence, because that is the form this file already uses at
   those three other sites. ⚠️ **The typo ruling reaches a drifted quotation more easily than it
-  reaches a sha**, and that difference is `#1819`'s to settle: a drifted quotation names a place
-  that still holds the sentence one word from the quoted form, where a wrong sha names a commit at
-  which the text is not there at all. ⚠️ **What this axis convicts is fidelity, and no recogniser
-  reads fidelity.** No citation of the 108 names the wrong section at this head. A verbatim check
+  reaches a sha**, and `#1819` has since settled that difference in `### Gate-discharge claims`: a
+  drifted quotation names a place that still holds the sentence one word from the quoted form,
+  where a wrong sha names a commit at which the text is not there at all, so what carries the
+  exemption there is that the `PR #<n>` beside an attribution names the same commit a second time.
+  ⚠️ **What this axis convicts is fidelity, and no recogniser reads fidelity.** No citation of the
+  108 names the wrong section at this head. A verbatim check
   catches a drifted quotation only once the section has been resolved mechanically, and PR #716's
   round-4 review is the converse failure — a quotation verified verbatim against text that sat in a
   different section, 59 lines past the boundary and in prose that reads like the section it was
@@ -2274,12 +2276,16 @@ true"*, one layer up, in this document's own prose. They are:
   `…MulByNFibre`'s do the same. A reader greps and finds all five, so all five take the typo reading
   and none is repaired — but no rule on this page says a cited heading may be abbreviated, and that
   is what this axis leaves open. ⚠️ **This bullet is inside its own population and beside the other
-  three.** Re-run at this head, the heading-citation recogniser returns **147 spans**, **116
-  citing this page** and **31 naming a `.lean` heading**, and the sha recogniser returns **87
-  spans**, **44 distinct**, with none dangling and with the merge check still flagging exactly
-  one sha, `ee0b8a4`, now on two rows because this bullet quotes it. The span test **loses the three
-  repaired rows and gains five**, and all five are this bullet's own quotations of the two convicted
-  wordings, paired with the citation beside each. ⚠️ **The three seeds the axis just before this one
+  three.** ⚠️ **The census is dated to `5a2fe24`, and `4769f3e` is this commit's parent**, a merge
+  that added a paragraph to `### Gate-discharge claims` and moved both recognisers without reaching
+  a conviction: 140 heading spans on 112 titles this file also carries, and 73 sha spans on 41
+  distinct. Re-run at this head, the heading-citation recogniser returns **151 spans**, **120
+  citing this page** and **31 naming a `.lean` heading**, and the sha recogniser returns **93
+  spans**, **45 distinct**, with none dangling and with the merge check still flagging exactly one
+  sha, `ee0b8a4`, now on three rows — the row this census cleared, the quotation of it that parent
+  added, and this bullet's. The span test **loses the three repaired rows and gains five**, and all
+  five are this bullet's own quotations of the two convicted wordings, paired with the citation
+  beside each. ⚠️ **The three seeds the axis just before this one
   publishes are unmoved, and that was checked rather than assumed**: the bolded-numeral seed returns
   184 at `5a2fe24` and 184 here, the noun-and-direction seed 40 matches on 39 lines at both ends,
   and the nine-word seed 78 at both ends, with that seed's five negative results — 3, and 1 each for
