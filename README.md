@@ -1212,17 +1212,30 @@ completed by extending its own list, or only by deleting its own words.
 
 ⚠️ **One figure in that account was not short but wrong, and it takes the other branch.** The
 sentence above read *"bind `h2` (four also `h3`)"* when it landed (PR #708, `5018e25`); `h3` is
-bound by **three** of the six — the three whose names end `_three`, at
-`WeilPairingAlternatingThreeAlgClosed:115` and `:137` and
-`WeilPairingRootIndependenceAlgClosed:174` — and none of the three files' `variable` blocks carries
-a characteristic hypothesis, so the other three bind `h2` and no other condition on the
-characteristic. A numeral cannot be completed by extending anything: it has to be replaced, which
-is the deleting-its-own-words side of the discriminator, so this is a **marked quotation** and not
-a qualification. It is marked here rather than in the three files it is about because the claim is
-this section's account of why those rows clear and no docstring of theirs says it, which is
-`#1694`'s subject test applied as PR #707 applied it above. ⚠️ **No verdict moves**: `h3` is a
-standing characteristic hypothesis on either count, the six still clear, and `#1781`'s *"no `.lean`
-diff"* stands.
+bound by **three** of the six — the three whose names end `_three`, whose `theorem` lines are
+`WeilPairingAlternatingThreeAlgClosed:125` and `:149` and
+`WeilPairingRootIndependenceAlgClosed:184` and whose docstrings open at `:115`, `:137` and `:174` —
+and none of the three files' `variable` blocks carries a characteristic hypothesis, so the other
+three bind `h2` and no other condition on the characteristic. ⚠️ **The numeral over-reaches rather
+than falling short**: it counts a fourth row over a population of exactly six and there is no
+fourth, so *"short is partial, over-reaching is false"* in `### Reach clauses` sends it to
+`### Retired claims` and it takes a **marked quotation** — where PR #707's **1350** and **1335**
+take a qualification in place, because those under-report and stay true of what they counted. The
+extend-or-delete discriminator gives the same answer in the other vocabulary: a numeral that
+over-reaches cannot be completed by extending anything, only replaced. It is marked here rather
+than in the three files it is about because the claim is this section's account of why those rows
+clear and no docstring of theirs says it, which is `#1694`'s subject test applied as PR #707
+applied it above. ⚠️ **No verdict moves**: `h3` is a standing characteristic hypothesis on either
+count, the six still clear, and `#1781`'s *"no `.lean` diff"* stands.
+
+⚠️ **This is the case the count rule in `### Reach clauses` does not cover, and it is recorded
+rather than repaired here** (`#1799`). That rule reads *"a **count** stays true of what it counted
+and is only ever **short**"* — which holds of a census whose population grew under it, the **25**
+it was written on, and not of a count over a population the same sentence closes, which is what the
+*"four"* of the six was. ⚠️ **Nor is it the third shape the pointer up there names**: that one is a
+universal that **survives** its measurement, and this is a count that does not. Which counts are of
+which kind is a ruling with its own population to measure, and folding it into this repair is the
+sweep `#1614` forbids.
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
 how many hypotheses a statement has and everything about which gates it does not carry; a reader
