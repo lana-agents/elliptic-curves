@@ -2131,7 +2131,7 @@ true"*, one layer up, in this document's own prose. They are:
   `higher` and `lower` return **7 matches** at `d3a4ac5` and **9 matches** here, the two new ones
   being this clause's own two words. ⚠️ **The seven rows were read one by one, and the gloss they
   were read to confirm does not survive them** (`#1628`): *"every one is about a module
-  docstring"* — PR #715 (`#1811`), at `d3a4ac5` — is true of four of them and **false** of three,
+  docstring"* — PR #715 (`#1811`), at `0eb4f70` — is true of four of them and **false** of three,
   which is the over-reaching branch, so it retires rather than taking a qualification. **Two of
   the three** name *"the declaration's own docstring"* in those words — one in
   `### Module-block bullets` and one in this section, the ruling that a sentence there does not
@@ -2142,13 +2142,13 @@ true"*, one layer up, in this document's own prose. They are:
   there, one is a heading **level** inside one, and two are about letter **case** — so three of
   the seven name no place at all, which is the point the gloss was making and the reason the
   correction costs the clause nothing. ⚠️ **The bucket noun was measured against this page's own
-  rule rather than left as a synonym**: `### Module-block bullets` rules that *"A list item is a
-  unit too … what the reader meets is the bullet and not the sentence a splitter would cut out of
-  it"*, so a *sentence* bucket pinned at four rows and true of three over-reaches, and
-  over-reaching is **false** rather than short. It is repaired here rather than retired, and the
-  ground is the one thing separating it from the gloss it sits inside: that gloss was
-  **published** — PR #715 (`#1811`), at `d3a4ac5` — and this wording never left a draft, so there
-  is no claim in the record for a marked quotation to preserve. And four of the nine themselves —
+  rule rather than left as a synonym**: this section rules that *"A list item is a unit too … what
+  the reader meets is the bullet and not the sentence a splitter would cut out of it"*, so a
+  *sentence* bucket pinned at four rows and true of three over-reaches, and over-reaching is
+  **false** rather than short. It is repaired here rather than retired, and the ground is the one
+  thing separating it from the gloss it sits inside: that gloss was **published** — PR #715
+  (`#1811`), at `0eb4f70` — and this wording never left an unmerged branch, so there is no claim in
+  the record for a marked quotation to preserve. And four of the nine themselves —
   `preceding`, `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are
   carried for the next reader rather than for this count. Neither **target** nor **distance** is
   mechanical, so both convictions came from reading all 41 rather than from the regex. And a pointer
