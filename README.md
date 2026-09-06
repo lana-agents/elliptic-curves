@@ -1002,16 +1002,22 @@ boundary is the `card_torsion_pow_of_odd` one above: the word has to have a subj
 blocks that a noun-keyed census convicts wrongly.** Over `EllipticCurves/**/*.lean` with the
 headline rule above and the seed `` the only (gate|hypothes\w*) ``: **95** headline occurrences at
 `5cfd485`, splitting **53 / 19 / 23** — noun it *gate*, noun it *hypothesis beyond the setting*, or
-noun it *hypothesis* with no gate list named. ⚠️ **The repair in the next paragraph moves the four
-`…AssemblyN` rows out of the third bucket and into the first, leaving 95 splitting 57 / 19 / 19.**
+noun it *hypothesis* with no gate list named. ⚠️ **The noun buckets a row in either number**:
+`gates` folds into *gate* and *hypotheses beyond the setting* into its singular. **5** of the 95 are
+plural, so keying the buckets on the literal singular drops all five and returns **52 / 15 / 28**
+and **56 / 15 / 24** where this paragraph publishes 53 / 19 / 23 and 57 / 19 / 19, and a re-runner
+concludes the seed is broken when it is the bucket names that are (`#1766`). ⚠️ **The repair in the
+next paragraph moves the four `…AssemblyN` rows out of the third bucket and into the first, leaving
+95 splitting 57 / 19 / 19.**
 The total is invariant and each split holds only at the sha named beside it: re-run the seed before
 that commit and it returns **53 / 19 / 23**, after it **57 / 19 / 19**. A census figure this page
 publishes and then moves in the same breath has to carry both, or the recogniser reads as broken
-(`#1749`). The first two buckets are the compliant forms and nothing is owed on them. **Fourteen of
-the third bucket are non-vacuity `example` blocks** — fourteen of the 23 before the repair, of the
-19 after — over a concrete curve (`ℚ`, `exampleField`), and for **eleven** of them *"with `hprin`
-the only hypothesis left"* is a hypothesis-**list** claim that is literally true: `hprin` is their
-whole top-level binder list.
+(`#1749`). The first two buckets are the compliant forms, nothing is owed on them, and they stay
+two: the paragraph below rules that the per-block clause does not fire between them, so there is
+nothing to converge (`#1754`). **Fourteen of the third bucket are non-vacuity `example` blocks** —
+fourteen of the 23 before the repair, of the 19 after — over a concrete curve (`ℚ`,
+`exampleField`), and for **eleven** of them *"with `hprin` the only hypothesis left"* is a
+hypothesis-**list** claim that is literally true: `hprin` is their whole top-level binder list.
 ⚠️ **The other three bind an automorphism and an equation proof besides** —
 `WeilPairingGaloisRootHprin`'s two and `WeilPairingGaloisRootN`'s one, each of the shape
 `example (σ : …) {x₂ y₂ : …} (h₂ : … .Equation x₂ y₂) (hprin : …)` — so they are true on the
