@@ -488,7 +488,23 @@ by no `variable` block, which is the whole of what makes the retired middle clau
 its own worked case. ⚠️ **The shape is `#1694`'s — claiming too much — and this section's own
 census is the counterexample**: `[W.IsElliptic]` is propositional, so the row is one of the **1352**
 the `IsElliptic` figures below count. It is PR #694's ``carries no`` gloss again, retired below in
-this section (`#1756`) — true of the rows it was read on, false of *every*. ⚠️ **The 571 is a
+this section (`#1756`) — each a universal asserted wider than its own check: this one read on the
+binder `[NeZero n]` and asserted of every instance on the row, PR #694's read for identity claims
+over the **56** and asserted of what each of them names, where **16** falsify it.
+⚠️ **Retired** (`87c5313`, `#1782`, PR #707; `#1789`), and the clause above is what replaced it:
+the gloss read *"true of the rows it was read on, false of every"*, and it is false of both claims
+it glosses. PR #694's gloss was read on the **56** and **16** of those 56 falsify it, so it is false
+of rows it was read on; and no narrower reading rescues it, since over the **40** absence claims
+that are its proper subject *"a single"* fails on a further **6**, all of them rows it was read on
+as well. PR #706's clause was read on **one** row and is false of that row — that
+`torsion_le_weilPairingPointSubgroup_n` takes `[Field F]` and `[W.IsElliptic]` from a `variable`
+block is the whole argument above. What is true of what that clause was read on is a claim about a
+**binder**, which is what ⚠️ *"Only the universal fell"* above states in the right unit (`#1660`).
+⚠️ **A shape-gloss that summarises two falsified universals is itself a universal and is checked
+against both** — `#1628`'s membership rather than a total, transposed from counts onto glosses. This
+is the third over-broad universal in three consecutive PRs on this one paragraph and the last of
+them landed inside the sentence that names the shape, which is the evidence that line is written
+from. ⚠️ **The 571 is a
 floor, and the recogniser convention costs two rows.** It matches each bracket group written at
 the declaration against the telescope's `inst`-and-`Prop` binders on the head identifier's last
 component, so
