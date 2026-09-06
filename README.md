@@ -38,11 +38,12 @@ proved on some range, is a claim about the tree that the tree can falsify — an
 section is outside `## Docstring conventions` below, so no register, census or recogniser
 on this page reads it. The only instrument is someone re-reading the tree. Of the three
 bullets below that state an index range, all three had been superseded four to six days
-before anyone re-read them. ⚠️ Repairing it produced two more: its first draft, written while
+before anyone re-read them. ⚠️ Repairing it produced three more: its first draft, written while
 hunting exactly this axis, still stated three reach clauses without the `(2 : F) ≠ 0` that every
 declaration behind them binds; its second stated a universal negative — the identification
-`det ρ_{E,n} = χₙ` at `n = 3` *only* — that the tree falsifies at `n = 2`. Both were caught by a
-reviewer opening each cited signature at source, and by nothing else.
+`det ρ_{E,n} = χₙ` at `n = 3` *only* — that the tree falsifies at `n = 2`; its third read the
+absence of `[IsAlgClosed F]` from six signatures as a saving when for one of them it is a trade.
+All three were caught by a reviewer opening each cited signature at source, and by nothing else.
 
 * **Reduction over a discrete valuation ring** (`Reduction/`) — the reduction map on
   points and its additivity, the kernel of reduction `E₁(K)` and its identification
@@ -62,9 +63,16 @@ reviewer opening each cited signature at source, and by nothing else.
   root `g_S` (`NthRootOfPullbackN.lean`) and four of the things that follow from it are
   proved at every `n` prime to the characteristic over a field of characteristic other than
   `2`: the pairing as a homomorphism `E[n] → μₙ(F)`, its bilinearity in each of the two
-  slots, the alternating property, and Galois equivariance. ⚠️ The field is *not* required
-  to be algebraically closed: none of the six declarations behind that list carries
-  `[IsAlgClosed F]`, so this clause is completed by `(2 : F) ≠ 0` and by nothing else.
+  slots, the alternating property, and Galois equivariance. ⚠️ The field is *not* required to
+  be algebraically closed — none of the six declarations behind that list carries
+  `[IsAlgClosed F]` — but on one of the four items that is a **trade** and not a saving. The
+  alternating property takes, on top of principality, an explicit halving point `P` with
+  `[n]P = T` (`WeilPairingAlternatingAssemblyN.lean`, whose module docstring records that
+  `[IsAlgClosed F]` reaches this front by two independent routes, `hprin` and the halving
+  point, and which discharges the second one over `F̄`); no other declaration behind the list
+  takes one. ⚠️ Closure buys a wider index range there as well: over `F̄` the alternating
+  property is proved at every `n ≠ 0`, `n` divisible by the characteristic included, and the
+  index condition stated above is the arbitrary-field one.
   Antisymmetry is stated at every `n ≠ 0` (`WeilPairingAntisymmetric.lean`), but from the
   alternating property at the three points as hypotheses rather than from principality.
   **Principality itself is discharged at `n = 2` and `n = 3` only** — over an algebraically
