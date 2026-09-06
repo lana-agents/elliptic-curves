@@ -225,7 +225,7 @@ theorem translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange (h2 : (2 :
 
 open Classical in
 /-- **`e_n(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0` with a
-non-constant `[n]∗`**, with `hprin` (`#418`) the only gate.
+non-constant `[n]∗` and every nonsingular `n`-torsion `T`**, with `hprin` (`#418`) the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n` (`WeilPairingAlternatingAssemblyN`) is this statement
 with the halving point `[n]P = T` added as a hypothesis **and `h2` and `hfac` dropped**: those two
@@ -364,8 +364,8 @@ example (h2 : (2 : F) ≠ 0) {n : ℕ} (hn0 : n ≠ 0)
     htel hpow
 
 open Classical in
-/-- **`e_n(T, T) = 1` at every `n ≠ 0` over an arbitrary field with `(2 : F) ≠ 0`**, with `hprin`
-(`#418`) the only gate.
+/-- **`e_n(T, T) = 1` at every `n ≠ 0` with a non-constant `[n]∗`, over an arbitrary field with
+`(2 : F) ≠ 0`, and at every nonsingular `n`-torsion `T`**, with `hprin` (`#418`) the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange` with `hfac` removed and nothing put in
 its place.  ⚠️ `hn` stays a hypothesis: over an *arbitrary* `F` the transcendence is not free, and

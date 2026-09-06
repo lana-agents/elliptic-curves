@@ -101,8 +101,8 @@ section Rational
 variable [W.IsElliptic] {x₂ y₂ : F}
 
 open Classical in
-/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`**, from a rational `E[2]` and a
-rational halving point.
+/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`, at every nonsingular `2`-torsion
+`T`**, from a rational `E[2]` and a rational halving point.
 
 For a nonsingular affine `2`-torsion point `T = (x₂, y₂)` there are a nonzero `f_T` whose projective
 divisor is `2(T) − 2(O)` and a nonzero `g_T` with `u · g_T ^ 2 = [2]∗ f_T` for a unit `u` of `F[W]`,
@@ -136,7 +136,8 @@ theorem exists_weilPairingElt_self_eq_one_of_card_two (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **The alternating property at `n = 2` in the value group `μ_n(F)`, over an arbitrary field with
-`(2 : F) ≠ 0`.**
+`(2 : F) ≠ 0`, at every nonsingular `2`-torsion `T`, from a rational `E[2]` and a rational halving
+point.**
 
 The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_card_two`.  `weilPairingMu` is indexed
 by a proof `hpow` that the pairing element is an `n`-th root of unity, so the statement *produces*
