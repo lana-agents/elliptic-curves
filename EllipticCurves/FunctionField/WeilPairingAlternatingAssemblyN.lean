@@ -432,8 +432,8 @@ example (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
 section AlgClosed
 
 open Classical in
-/-- **`e_n(T, T) = 1` over `F̄` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0`**, with `hprin` the
-only gate.
+/-- **`e_n(T, T) = 1` over `F̄` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0` and every
+nonsingular `n`-torsion `T`**, with `hprin` the only gate.
 
 Both hypotheses the core takes on top of `hprin` are discharged here:
 
@@ -468,8 +468,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hP hprin
 
 open Classical in
-/-- **`e_n(T, T) = 1` in `μ_m(F̄)` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0`**, with `hprin`
-the only gate.
+/-- **`e_n(T, T) = 1` in `μ_m(F̄)` with `(2 : F) ≠ 0`, at every `3`-smooth `n ≠ 0` and every
+nonsingular `n`-torsion `T`**, with `hprin` the only gate.
 
 The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`, standing to it
 exactly as `exists_weilPairingMu_self_eq_one_of_hprin_n` stands to the core.  Both hypotheses the
@@ -517,7 +517,8 @@ runs through the `ΨSq`-root dictionary.  They are independent routes to the sam
 the `example`s below compile the containment rather than asserting it. -/
 
 open Classical in
-/-- **`e_n(T, T) = 1` over `F̄` with `(2 : F) ≠ 0`, at every `n ≠ 0`**, with `hprin` the only gate.
+/-- **`e_n(T, T) = 1` over `F̄` with `(2 : F) ≠ 0`, at every `n ≠ 0` and every nonsingular
+`n`-torsion `T`**, with `hprin` the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` with `hfac` removed.  Both hypotheses
 the core takes on top of `hprin` are discharged, and neither needs `3`-smoothness:
@@ -549,8 +550,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed_of_ne_zero [Is
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hP hprin
 
 open Classical in
-/-- **`e_n(T, T) = 1` in `μ_m(F̄)` with `(2 : F) ≠ 0`, at every `n ≠ 0`**, with `hprin` the only
-gate.
+/-- **`e_n(T, T) = 1` in `μ_m(F̄)` with `(2 : F) ≠ 0`, at every `n ≠ 0` and every nonsingular
+`n`-torsion `T`**, with `hprin` the only gate.
 
 The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed_of_ne_zero`.
 ⚠️ As above, `m` is arbitrary and need not equal `n`. -/
