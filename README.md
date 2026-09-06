@@ -2122,17 +2122,26 @@ true"*, one layer up, in this document's own prose. They are:
   class, and the five candidates tried against it are keyed the way this bullet's other figures
   are, at both ends: `ahead`, `supra`, `infra` and `hereafter` return **0 matches** each at
   `d3a4ac5` and **1 match** each here, which is this clause naming them, while `back` returns
-  **1 match** at `d3a4ac5` — *"the `n`-th root of the pulled-back function"* in
+  **1 match** at `d3a4ac5` — *"an `n`-th root of the pulled-back function"* in
   `### What is formalised` — and **3 matches** here. ⚠️ **The boundary belongs to the seed and not
   to this clause**, which is why it is now stated where the seed is: a tenth word added to the
   list inherits `\b` with the hyphen inside it, and owes its result under that. The one hit is a
   compound and not a direction word, so no eleventh pointer appears and the 41, 78, ten and eight
   this bullet publishes are untouched — the claim was short of the token, never false of the axis.
   `higher` and `lower` return **7 matches** at `d3a4ac5` and **9 matches** here, the two new ones
-  being this clause's own two words. All seven are about a module docstring, and the rows were
-  read rather than the total restated: four put a sentence in one, one is a heading **level**
-  inside one, and two are about letter **case** — so three of the seven name no place at all,
-  which is the point the gloss was making. And four of the nine themselves — `preceding`,
+  being this clause's own two words. ⚠️ **The seven rows were read one by one, and the gloss they
+  were read to confirm does not survive them** (`#1628`): *"every one is about a module
+  docstring"* — PR #715 (`#1811`), at `d3a4ac5` — is true of four of them and **false** of three,
+  which is the over-reaching branch, so it retires rather than taking a qualification. **Two of
+  the three** name *"the declaration's own docstring"* in those words — one in
+  `### Module-block bullets` and one in this section, the ruling that a sentence there does not
+  repair a headline — and the third, in `### Reach clauses`, answers a headline from inside its
+  own docstring without using the phrase. That ruling is the boundary the gloss crossed, and it
+  is itself a row of the population glossed. What holds of all seven is that **none of them is
+  about this page**: four put a sentence in a docstring, one is a heading **level** inside one,
+  and two are about letter **case** — so three of the seven name no place at all, which is the
+  point the gloss was making and the reason the correction costs the clause nothing.
+  And four of the nine themselves — `preceding`,
   `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the
   next reader rather than for this count. Neither **target** nor **distance** is mechanical, so both
   convictions came from reading all 41 rather than from the regex. And a pointer carrying no
