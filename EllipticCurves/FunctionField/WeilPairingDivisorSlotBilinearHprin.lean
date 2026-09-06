@@ -127,7 +127,8 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 section Two
 
 open Classical in
-/-- **Divisor-slot bilinearity at `n = 2` over an arbitrary field**, with `hprin` the only gate:
+/-- **Divisor-slot bilinearity at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`**, with
+`hprin` the only gate:
 
 ```
 e_2(P, g_R) = e_2(P, g_S) · e_2(P, g_T),     for  S ⊕ T = R.
@@ -175,8 +176,8 @@ theorem exists_weilPairingElt_divisorSlot_add_two_of_hprin (h2 : (2 : F) ≠ 0)
     weilPairingElt_divisorSlot_add_two hP.left h2 htorsP hc hk hprod⟩
 
 open Classical in
-/-- **Divisor-slot bilinearity at `n = 2` in `μ_n(F)`, over an arbitrary field** with `hprin` the
-only gate.
+/-- **Divisor-slot bilinearity at `n = 2` in `μ_n(F)`, over an arbitrary field with
+`(2 : F) ≠ 0`**, with `hprin` the only gate.
 
 The envelope is `exists_weilPairingElt_divisorSlot_add_two_of_hprin`'s, extended by the three `hpow`
 data: they are bound existentially because `weilPairingMu` is indexed by the *proof*, and they are
@@ -230,8 +231,9 @@ end Two
 section Three
 
 open Classical in
-/-- **Divisor-slot bilinearity at `n = 3` over an arbitrary field**, with `hprin` the only gate: the
-`n = 3` mirror of `exists_weilPairingElt_divisorSlot_add_two_of_hprin`, and
+/-- **Divisor-slot bilinearity at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`**, with `hprin` the only gate: the `n = 3` mirror of
+`exists_weilPairingElt_divisorSlot_add_two_of_hprin`, and
 `exists_weilPairingElt_divisorSlot_add_three` with `hprin` in place of `[IsAlgClosed F]`.  Only the
 pullback differs from the `n = 2` twin, `mulByThreeEndo h2 h3` for `mulByTwoEndo h2`, and with it
 the rung-5 producer `exists_gS_three` and the discharge of the correction factor. -/
@@ -270,8 +272,9 @@ theorem exists_weilPairingElt_divisorSlot_add_three_of_hprin (h2 : (2 : F) ≠ 0
     weilPairingElt_divisorSlot_add_three hP.left h2 h3 htorsP hc hk hprod⟩
 
 open Classical in
-/-- **Divisor-slot bilinearity at `n = 3` in `μ_n(F)`, over an arbitrary field** with `hprin` the
-only gate.  The `n = 3` mirror of `exists_weilPairingMu_divisorSlot_add_two_of_hprin`; the three
+/-- **Divisor-slot bilinearity at `n = 3` in `μ_n(F)`, over an arbitrary field with
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin` the only gate.  The `n = 3` mirror of
+`exists_weilPairingMu_divisorSlot_add_two_of_hprin`; the three
 `hpow` data come from `weilPairingElt_pow_eq_one_of_gS_three_baseField` (`TranslationTriplingComm`)
 in place of `weilPairingElt_pow_eq_one_of_gS_two_torsion`. -/
 theorem exists_weilPairingMu_divisorSlot_add_three_of_hprin (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
