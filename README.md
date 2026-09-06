@@ -1158,26 +1158,84 @@ Gate-shaped is read as `#1765` read it — an explicit binder whose type mention
 endomorphism, a root, a division-polynomial identity or `hprin` itself — and the recogniser is
 calibrated by re-deriving that paragraph's **13 of 67** over its own 76 rows, returning the same
 thirteen declarations. ⚠️ **A `•` beside an identifier beginning `g` is not a root**: the nine
-`_of_hprin_n` rows binding `hn : Transcendental F (n • genericPoint …).xCoord` match such a seed and
-are transcendence hypotheses, and a predicate that takes them returns **22** where the page
+`_of_hprin_n` rows binding `hn : Transcendental F (n • genericPoint …).xCoord` match such a seed
+and are transcendence hypotheses, and a predicate that takes them returns **22** where the page
 publishes 13. The 30 that clear bind nothing but `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, the nonsingularity
-or equation of their points, those points' torsion, the group relation `hadd`, and on
-`WeilPairingGaloisRoot`'s four the automorphism `σ` the conclusion is about. **Every one of those
-is named in this section's own description of the setting**, so the 30 are compliant on it in terms
-rather than by an exemption.
+or equation of their points, those points' torsion, the group relation `hadd`, on
+`WeilPairingGaloisRoot`'s four the automorphism `σ` the conclusion is about together with the
+`[IsAlgClosed F]` the other 26 take from a `variable` line, and on
+`WeilPairingAlternatingTwoAlgClosed`'s and `WeilPairingAlternatingThreeAlgClosed`'s `μ` rows the
+index `(n : ℕ)` with its `[NeZero n]`. ⚠️ **Both binder lists here — this one and `#1781`'s six in
+the paragraph below — are over what a row writes at its own `theorem` line, the points' coordinates
+aside** (`#1790`), and the scope is stated because a list closed over the elaborated telescope
+would have to name the ambient `variable` blocks — which are the setting by this section's own
+definition of it — and those coordinates, implicit at the declaration on **20** of the 30. The
+characteristic hypotheses, the points, their torsion and `hadd` are named in this section's own
+description of the setting, so on those the 30 are compliant on it in terms rather than by an
+exemption. ⚠️ **`σ`, that `[IsAlgClosed F]` and the index pair are not, and they clear on the test
+rather than on that enumeration**: the clause is a claim about **gates**, and an automorphism, an
+algebraic closure, an index and a `NeZero` on it are none of `hprin`, `hprod`, a caller-supplied
+root or a rung-4/5 certificate. The two grounds are not interchangeable and the setting's
+enumeration does not reach every binder, which is why the test this section sets is the signature
+question and not the list.
 
 ⚠️ **That settles `#1781`'s six, and settles them clear with no `.lean` diff.**
 `WeilPairingAlternatingTwoAlgClosed`'s and `WeilPairingAlternatingThreeAlgClosed`'s
-`_of_isAlgClosed` pairs and `WeilPairingRootIndependenceAlgClosed`'s two bind `h2` (four also
-`h3`), `h : W.Nonsingular …` and `htors`, and nothing else: `h2` and `h3` are the front's standing
-characteristic hypotheses, and `htors` is *"the data the statement is about — the points, **their
-torsion**"*, both named in the description of the setting above. ⚠️ **`htors` clearing here is not
-`htors` clearing on the reach axis**, and neither may be quoted as the other: the paragraph below
-says in terms that *"the data the statement is about"* describes a **gate list** and is not a second
-route to clearing a data hypothesis from a reach clause, where `htors` is reach by name. `#1774`
-had already cleared the reach half of the same six on a different ground — their only reach phrase
-is an instance mention, so they name none — so both halves are answered and neither answer carries
-to the other.
+`_of_isAlgClosed` pairs and `WeilPairingRootIndependenceAlgClosed`'s two bind `h2` (three also
+`h3`, and they are exactly the three whose names end `_three`), `h : W.Nonsingular …`, `htors`, and
+on the two `μ` rows the index `(n : ℕ)` with its `[NeZero n]`, and nothing else: `h2` and `h3` are
+the front's standing characteristic hypotheses, and `htors` is *"the data the statement is about —
+the points, **their torsion**"*, both named in the description of the setting above, and the index
+pair clears on the gate test as `σ` does. ⚠️ **`htors` clearing here is not `htors` clearing on the
+reach axis**, and neither may be quoted as the other: the paragraph below says in terms that *"the
+data the statement is about"* describes a **gate list** and is not a second route to clearing a
+data hypothesis from a reach clause, where `htors` is reach by name. `#1774` had already cleared
+the reach half of the same six on a different ground — their only reach phrase is an instance
+mention, so they name none — so both halves are answered and neither answer carries to the other.
+
+⚠️ **Both lists above were short of `(n : ℕ)` when they landed, and completing them retires
+nothing** (`#1790`). `exists_weilPairingMu_self_eq_one_of_isAlgClosed_two` and its `_three` twin
+bind the index and its `[NeZero n]` in their own `theorem` lines; neither is gate-shaped, so no
+verdict moved — but both clauses **close** a list, which is the shape `### Module-block bullets`
+names in terms (*"from nothing but"*, *"and nothing else"* … *"claims about the hypothesis list
+itself"*), here over a list that carries data binders as well, and a reader checking either against
+a signature would have found it short. ⚠️ **`### Reach clauses`' *"false or merely partial"* test
+decides the disposition, and it is worth showing on this pair**, because a clause on this same axis
+was retired in that section on the same day and this pair is not it. Its criterion is *"Completing
+such a clause does not retire anything … the words stay and a condition is added"*: here the words
+stay and the missing binders go **into** the list, so `### Retired claims` does not bind and
+neither list owes a marked quotation. Contrast the clause PR #707 retired — PR #706's *"takes no
+instance from a `variable` block **at all**"* — where completing it meant striking *"at all"* and
+re-scoping the *"no"*, so its own words could not survive the repair. ⚠️ **That is the
+discriminator, and it is cheaper than counting counterexamples**: ask whether the clause can be
+completed by extending its own list, or only by deleting its own words.
+
+⚠️ **One figure in that account was not short but wrong, and it takes the other branch.** The
+sentence above read *"bind `h2` (four also `h3`)"* when it landed (PR #708, `5018e25`); `h3` is
+bound by **three** of the six — the three whose names end `_three`, whose `theorem` lines are
+`WeilPairingAlternatingThreeAlgClosed:125` and `:149` and
+`WeilPairingRootIndependenceAlgClosed:184` and whose docstrings open at `:115`, `:137` and `:174` —
+and none of the three files' `variable` blocks carries a characteristic hypothesis, so the other
+three bind `h2` and no other condition on the characteristic. ⚠️ **The numeral over-reaches rather
+than falling short**: it counts a fourth row over a population of exactly six and there is no
+fourth, so *"short is partial, over-reaching is false"* in `### Reach clauses` sends it to
+`### Retired claims` and it takes a **marked quotation** — where PR #707's **1350** and **1335**
+take a qualification in place, because those under-report and stay true of what they counted. The
+extend-or-delete discriminator gives the same answer in the other vocabulary: a numeral that
+over-reaches cannot be completed by extending anything, only replaced. It is marked here rather
+than in the three files it is about because the claim is this section's account of why those rows
+clear and no docstring of theirs says it, which is `#1694`'s subject test applied as PR #707
+applied it above. ⚠️ **No verdict moves**: `h3` is a standing characteristic hypothesis on either
+count, the six still clear, and `#1781`'s *"no `.lean` diff"* stands.
+
+⚠️ **This is the case the count rule in `### Reach clauses` does not cover, and it is recorded
+rather than repaired here** (`#1799`). That rule reads *"a **count** stays true of what it counted
+and is only ever **short**"* — which holds of a census whose population grew under it, the **25**
+it was written on, and not of a count over a population the same sentence closes, which is what the
+*"four"* of the six was. ⚠️ **Nor is it the third shape the pointer up there names**: that one is a
+universal that **survives** its measurement, and this is a count that does not. Which counts are of
+which kind is a ruling with its own population to measure, and folding it into this repair is the
+sweep `#1614` forbids.
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
 how many hypotheses a statement has and everything about which gates it does not carry; a reader
