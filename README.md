@@ -1014,11 +1014,16 @@ then *k* can name rows that are not there, a *k* with no *k*-th row is **false**
 denying that a count can reach that half at all.
 ⚠️ **The retired words have one other live use, it is on the open branch, and that is what makes
 this a scope rather than a deletion.** Whitespace-normalised, `stays true of what it counted`
-occurs three times in this file at `d3a4ac5` and at this commit: the scoped rule here, the
-quotation of the unqualified form beside it, and one use in the `1350` / `1352` paragraph of this
-section, whose count is over a telescope that grew under it. That one is scoped where it stands
-rather than retired, because a clause applied on the branch that survives is a use and not a copy,
-and `### Retired claims` counts retirements rather than occurrences (`#1811`).
+occurs three times in this file at `d3a4ac5` and four at this commit: the scoped rule here, the
+quotation of the unqualified form beside it, one use in the `1350` / `1352` paragraph of this
+section whose count is over a telescope that grew under it, and — the fourth, and the reason the
+figure carries both ends (`#1749`) — this sentence's own mention of the words, in the code span
+that opens it. ⚠️ **The bare literal is the wrong instrument and that is why the transform is
+named** (`#1749`): the quotation beside this rule wraps mid-phrase, so `grep -nF` returns two and
+three where the normalised seed returns three and four, and a reader who runs the literal finds
+neither figure. That one live use is scoped where it stands rather than retired, because a clause
+applied on the branch that survives is a use and not a copy, and `### Retired claims` counts
+retirements rather than occurrences (`#1811`).
 ⚠️ **The reading is argued and not assumed, because the two candidates cost differently.** Read as a
 universal over counts the clause is **false**, one measured counterexample is enough, and
 `### Retired claims` binds. Read instead as a claim about the two worked examples it stands
