@@ -911,7 +911,28 @@ same PR.** Each was run through *"false or merely partial"* first and they answe
 a **count** stays true of what it counted and is only ever **short**, so the 25 took a qualification
 in place; a **universal** is falsified by a single counterexample and this one had 16, so it takes a
 marked quotation. **Short is partial, over-reaching is false**, and the two live one paragraph apart
-here so that the next census does not have to guess which shape it is holding. ⚠️ **The seed is
+here so that the next census does not have to guess which shape it is holding.
+⚠️ **There are three, and the third is in `### Gate-discharge claims`** (`#1765`, `#1780`): a
+universal that **survives its first measurement** is neither short nor over-reaching, and what it
+takes is the measurement itself, published where the claim stood. That is a **pointer and not a
+copy** (`#1766`) — the paragraph stays over there because its own remedy is *publish it where the
+claim stood*, so moving it here would falsify the rule by the act of stating it. ⚠️ **The slogan
+is untouched**: neither half of it is falsified by a third shape, since a shape that is neither
+short nor over-reaching is outside both. What was short is *"the two"* — a count of the shapes
+stated here, and a count stays true of what it counted — so this is the qualification in place its
+own rule prescribes, and **nothing retires**. ⚠️ **The third shape is general, not
+gate-specific**: its discriminator is the claim's own form, a count or a universal, together with
+what the measurement returned, and neither of those mentions a register; the paragraph carrying it
+sits under a gate heading because that is where the claim it repaired stood. **This section holds a
+standing instance of its population** — *"A reach clause about a declaration whose file the writer
+is not editing is covered by no register in either file, and no review of the defining module ever
+looks at it"* above is a universal over registers and over reviews, carrying no count, no sha and
+no recogniser, where every other population claim in this section carries all three. Measuring it
+is `#1794`, not this pointer. ⚠️ **`### Retired claims` gets no second pointer**: it delegates
+this test rather than restating its branches, so the list is complete there as soon as it is
+complete here. ⚠️ And this **unmeasured** is not the one above — that one is a *row* a seed
+cleared on an axis nobody read, this one is a *claim this page makes about its own population*.
+⚠️ **The seed is
 also boundary-anchored**: written as the bare literal `carries no` it returns **60** hits in **51**
 files rather than 56, so the list above publishes ``carries no\b``. A published recogniser that
 does not return its published count is `#1749`'s defect, one notch smaller.
