@@ -1070,9 +1070,67 @@ setting.
 
 -- wrong: the same clause over a signature that still carries `hprin`, `hprod` or a root the
 -- caller supplies.  Naming the carried thing is what the compliant form above does.
--- No live instance, and that is the point: the register is self-policing across the whole front,
--- with the word "no" never standing over a signature that carries a gate (measured on `#1571`).
+-- Two live instances, and they clear on this remedy rather than on the shape being absent:
+-- `weilPairingElt_mul_swap_eq_one_two_of_isAlgClosed` and its `_three` twin (`#1781`, below).
 ```
+
+⚠️ **The line that stood in that code block is retired, and it was false at the commit that
+published it.** It read *"No live instance, and that is the point: the register is self-policing
+across the whole front, with the word "no" never standing over a signature that carries a gate"*,
+measured on `#1571` and published at `685d755`. Two rows falsify it, and both predate it by eleven
+days (`bb81ce0`): `weilPairingElt_mul_swap_eq_one_two_of_isAlgClosed` and
+`weilPairingElt_mul_swap_eq_one_three_of_isAlgClosed`
+(`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`) say *"over an
+algebraically closed field with no hypothesis beyond the setting"* over signatures binding `hdS`,
+`hdT`, `hgS`, `hgT`, `huS` and `huT` — a divisor certificate and a rung-5 relation on a root **the
+caller supplies**, which is the third item of this section's own gate list. ⚠️ **Both rows clear
+all the same**, on the eight `_of_hprin` rows' own remedy above: each names the carried thing —
+*"for roots the caller supplies"* — in the same sentence as the clause. Splitting them off from
+those eight is not available either, since `weilPairingElt_mul_swap_eq_one_three_of_hprin`
+(`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependentHprin`) cites the second of
+them by name and `### Scope of the rules above` forbids two blocks answering one question in
+different registers. **What was false is the sentence, not the register**: the remedy clears rows,
+and a universal quantified over *signatures* is not repaired by what a docstring names.
+
+⚠️ **The census above cannot see this shape at all, which is why the line survived.** Its seed is
+`` the only (gate|hypothes\w*) ``, and *"with **no** hypothesis beyond the setting"* does not match
+it, so no row of this shape is among the 95, and `#1765`'s signature test over the 76 rows of
+buckets one and two reached none of them — **including this section's own worked *right* example**,
+`exists_weilPairingElt_divisorSlot_add_two`. Measured at `4efeb97` with the headline rule above and
+the seed `` no (gates?|hypothes\w*) … beyond the setting ``: **32** declaration headlines carry the
+shape, across **11** files, every one a `theorem`. Six further matches are `/-!` blocks — two `###`
+sub-headings standing over rows already counted (`WeilPairingTranslationSlotHom` and
+`WeilPairingTranslationSlotNondegenerate`), and four the headline cut running past an H1 that
+carries no full stop, onto prose about *another* module's declarations — and one `/--` block
+(`WeilPairingAlternating`) carries the phrase **below** its headline, in the same kind of prose.
+⚠️ **The population is 32 and not 33**: keyed on the phrase anywhere in a `/--` block it is 33,
+and the extra row is that last one, which makes no claim about its own signature.
+
+⚠️ **Run over the 32, this section's own test convicts the two above and clears the other 30.**
+Gate-shaped is read as `#1765` read it — an explicit binder whose type mentions a divisor, an
+endomorphism, a root, a division-polynomial identity or `hprin` itself — and the recogniser is
+calibrated by re-deriving that paragraph's **13 of 67** over its own 76 rows, returning the same
+thirteen declarations. ⚠️ **A `•` beside an identifier beginning `g` is not a root**: the nine
+`_of_hprin_n` rows binding `hn : Transcendental F (n • genericPoint …).xCoord` match such a seed and
+are transcendence hypotheses, and a predicate that takes them returns **22** where the page
+publishes 13. The 30 that clear bind nothing but `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, the nonsingularity
+or equation of their points, those points' torsion, the group relation `hadd`, and on
+`WeilPairingGaloisRoot`'s four the automorphism `σ` the conclusion is about. **Every one of those
+is named in this section's own description of the setting**, so the 30 are compliant on it in terms
+rather than by an exemption.
+
+⚠️ **That settles `#1781`'s six, and settles them clear with no `.lean` diff.**
+`WeilPairingAlternatingTwoAlgClosed`'s and `WeilPairingAlternatingThreeAlgClosed`'s
+`_of_isAlgClosed` pairs and `WeilPairingRootIndependenceAlgClosed`'s two bind `h2` (four also
+`h3`), `h : W.Nonsingular …` and `htors`, and nothing else: `h2` and `h3` are the front's standing
+characteristic hypotheses, and `htors` is *"the data the statement is about — the points, **their
+torsion**"*, both named in the description of the setting above. ⚠️ **`htors` clearing here is not
+`htors` clearing on the reach axis**, and neither may be quoted as the other: the paragraph below
+says in terms that *"the data the statement is about"* describes a **gate list** and is not a second
+route to clearing a data hypothesis from a reach clause, where `htors` is reach by name. `#1774`
+had already cleared the reach half of the same six on a different ground — their only reach phrase
+is an instance mention, so they name none — so both halves are answered and neither answer carries
+to the other.
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
 how many hypotheses a statement has and everything about which gates it does not carry; a reader
