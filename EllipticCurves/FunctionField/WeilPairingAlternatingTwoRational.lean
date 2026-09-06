@@ -135,7 +135,8 @@ theorem exists_weilPairingElt_self_eq_one_of_card_two (h2 : (2 : F) ≠ 0)
   simpa only [mulByNEndo_two h2, Nat.cast_ofNat] using key
 
 open Classical in
-/-- **The alternating property at `n = 2` in the value group `μ_n(F)`, over an arbitrary field.**
+/-- **The alternating property at `n = 2` in the value group `μ_n(F)`, over an arbitrary field with
+`(2 : F) ≠ 0`.**
 
 The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_card_two`.  `weilPairingMu` is indexed
 by a proof `hpow` that the pairing element is an `n`-th root of unity, so the statement *produces*

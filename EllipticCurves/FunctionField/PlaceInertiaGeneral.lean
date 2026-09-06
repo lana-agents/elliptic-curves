@@ -272,8 +272,8 @@ theorem residueDegreeTwo_projPointOfPoint (h2 : (2 : F) ≠ 0) (S : W.Point) :
 
 /-! ### The `[2]∗` instantiation -/
 
-/-- **`∑_{p ↦ q} e_p · f_p = 4` for `[2]∗`, over an arbitrary field**, with separability carried as
-a hypothesis exactly as `#754` carries it.
+/-- **`∑_{p ↦ q} e_p · f_p = 4` for `[2]∗` with `(2 : F) ≠ 0`, over an arbitrary field**, with
+separability carried as a hypothesis exactly as `#754` carries it.
 
 ⚠️ The separability is **not** discharged here.  Over `F̄` it is
 `isSeparable_mulByTwoEndoFieldRange_of_isAlgClosed`, and discharging it inside this statement would
