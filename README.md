@@ -1160,24 +1160,49 @@ calibrated by re-deriving that paragraph's **13 of 67** over its own 76 rows, re
 thirteen declarations. ⚠️ **A `•` beside an identifier beginning `g` is not a root**: the nine
 `_of_hprin_n` rows binding `hn : Transcendental F (n • genericPoint …).xCoord` match such a seed and
 are transcendence hypotheses, and a predicate that takes them returns **22** where the page
-publishes 13. The 30 that clear bind nothing but `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, the nonsingularity
-or equation of their points, those points' torsion, the group relation `hadd`, and on
-`WeilPairingGaloisRoot`'s four the automorphism `σ` the conclusion is about. **Every one of those
-is named in this section's own description of the setting**, so the 30 are compliant on it in terms
-rather than by an exemption.
+publishes 13. The 30 that clear bind `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, the nonsingularity or equation
+of their points, those points' torsion, the group relation `hadd`, on `WeilPairingGaloisRoot`'s
+four the automorphism `σ` the conclusion is about, and on `WeilPairingAlternatingTwoAlgClosed`'s
+and `WeilPairingAlternatingThreeAlgClosed`'s `μ` rows the index `(n : ℕ)` of the value group with
+its `[NeZero n]` — the whole binder list, read off the elaborated telescope and not off the
+declaration lines. **The first four are named in this section's own description of the setting**,
+so on those the 30 are compliant on it in terms rather than by an exemption. ⚠️ **`σ` and the index
+pair are not, and they clear on the test rather than on that enumeration** (`#1790`): the clause is
+a claim about **gates**, and an automorphism, an index and a `NeZero` on it are none of `hprin`,
+`hprod`, a caller-supplied root or a rung-4/5 certificate. The two grounds are not interchangeable
+and the enumeration does not reach every binder, which is why the test this section sets is the
+signature question and not the list.
 
 ⚠️ **That settles `#1781`'s six, and settles them clear with no `.lean` diff.**
 `WeilPairingAlternatingTwoAlgClosed`'s and `WeilPairingAlternatingThreeAlgClosed`'s
 `_of_isAlgClosed` pairs and `WeilPairingRootIndependenceAlgClosed`'s two bind `h2` (four also
-`h3`), `h : W.Nonsingular …` and `htors`, and nothing else: `h2` and `h3` are the front's standing
-characteristic hypotheses, and `htors` is *"the data the statement is about — the points, **their
-torsion**"*, both named in the description of the setting above. ⚠️ **`htors` clearing here is not
-`htors` clearing on the reach axis**, and neither may be quoted as the other: the paragraph below
-says in terms that *"the data the statement is about"* describes a **gate list** and is not a second
-route to clearing a data hypothesis from a reach clause, where `htors` is reach by name. `#1774`
-had already cleared the reach half of the same six on a different ground — their only reach phrase
-is an instance mention, so they name none — so both halves are answered and neither answer carries
-to the other.
+`h3`), `h : W.Nonsingular …`, `htors`, and on the two `μ` rows the index `(n : ℕ)` with its
+`[NeZero n]`, and nothing else: `h2` and `h3` are the front's standing characteristic hypotheses,
+and `htors` is *"the data the statement is about — the points, **their torsion**"*, both named in
+the description of the setting above, and the index pair clears on the gate test as `σ` does.
+⚠️ **`htors` clearing here is not `htors` clearing on the reach axis**, and neither may be quoted
+as the other: the paragraph below says in terms that *"the data the statement is about"* describes
+a **gate list** and is not a second route to clearing a data hypothesis from a reach clause, where
+`htors` is reach by name. `#1774` had already cleared the reach half of the same six on a different
+ground — their only reach phrase is an instance mention, so they name none — so both halves are
+answered and neither answer carries to the other.
+
+⚠️ **Both lists above were short of `(n : ℕ)` when they landed, and completing them retires
+nothing** (`#1790`). `exists_weilPairingMu_self_eq_one_of_isAlgClosed_two` and its `_three` twin
+bind the index and its `[NeZero n]` in their own `theorem` lines; neither is gate-shaped, so no
+verdict moved — but both clauses **close** a list, which is the shape `### Module-block bullets`
+names in terms (*"from nothing but"*, *"and nothing else"* … *"claims about the hypothesis list
+itself"*), here over a list that carries data binders as well, and a reader checking either against
+a signature would have found it short. ⚠️ **`### Reach clauses`' *"false or merely partial"* test
+decides the disposition, and it is worth showing on this pair**, because a clause on this same axis
+was retired in that section on the same day and this pair is not it. Its criterion is *"Completing
+such a clause does not retire anything … the words stay and a condition is added"*: here the words
+stay and two binders go **into** the list, so `### Retired claims` does not bind and no marked
+quotation is owed. Contrast the clause PR #707 retired — PR #706's *"takes no instance from a
+`variable` block **at all**"* — where completing it meant striking *"at all"* and re-scoping the
+*"no"*, so its own words could not survive the repair. ⚠️ **That is the discriminator, and it is
+cheaper than counting counterexamples**: ask whether the clause can be completed by extending its
+own list, or only by deleting its own words.
 
 ⚠️ **It is not a licence to say the signature is short.** *"Beyond the setting"* says nothing about
 how many hypotheses a statement has and everything about which gates it does not carry; a reader
