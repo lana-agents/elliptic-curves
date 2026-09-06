@@ -2093,7 +2093,8 @@ true"*, one layer up, in this document's own prose. They are:
   following the pointer, which is still the only instrument there is.
   ⚠️ **`above` and `below` are not the direction words, only the two this seed knows, and the rest
   of the axis is measured here** (`#1811`). Second seed, case-insensitive over this file's
-  non-fenced prose at `d3a4ac5`, with no noun anchor because these words carry their own:
+  non-fenced prose at `d3a4ac5`, on `\b` boundaries — the hyphen is one — with no noun
+  anchor because these words carry their own:
   `up`, `down`, `earlier`, `later`, `preceding`, `following`, `overleaf`, `previously`,
   `beforehand`. **41 matches**, none in a fence, split `up` 19, `down` 11, `later` 7, `following` 3
   and `earlier` 1 — and **31 are not pointers at this page**, each excluded on a stated ground:
@@ -2118,11 +2119,22 @@ true"*, one layer up, in this document's own prose. They are:
   which that ruling now extends to a distance; and both were false at the commit that published
   them, which makes four of four on the rows these two seeds have convicted.
   ⚠️ **The limits, and they are wider than the first seed's.** The nine words are a list and not a
-  class — `back`, `ahead`, `supra`, `infra` and `hereafter` were tried and return nothing,
-  `higher` and `lower` return 7 matches of which
-  every one is about a module docstring, and four of the nine themselves — `preceding`, `overleaf`,
-  `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the next reader
-  rather than for this count. Neither **target** nor **distance** is mechanical, so both
+  class, and the five candidates tried against it are keyed the way this bullet's other figures
+  are, at both ends: `ahead`, `supra`, `infra` and `hereafter` return **0 matches** each at
+  `d3a4ac5` and **1 match** each here, which is this clause naming them, while `back` returns
+  **1 match** at `d3a4ac5` — *"the `n`-th root of the pulled-back function"* in
+  `### What is formalised` — and **3 matches** here. ⚠️ **The boundary belongs to the seed and not
+  to this clause**, which is why it is now stated where the seed is: a tenth word added to the
+  list inherits `\b` with the hyphen inside it, and owes its result under that. The one hit is a
+  compound and not a direction word, so no eleventh pointer appears and the 41, 78, ten and eight
+  this bullet publishes are untouched — the claim was short of the token, never false of the axis.
+  `higher` and `lower` return **7 matches** at `d3a4ac5` and **9 matches** here, the two new ones
+  being this clause's own two words. All seven are about a module docstring, and the rows were
+  read rather than the total restated: four put a sentence in one, one is a heading **level**
+  inside one, and two are about letter **case** — so three of the seven name no place at all,
+  which is the point the gloss was making. And four of the nine themselves — `preceding`,
+  `overleaf`, `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the
+  next reader rather than for this count. Neither **target** nor **distance** is mechanical, so both
   convictions came from reading all 41 rather than from the regex. And a pointer carrying no
   direction word at all is invisible to both seeds: *"the first bullet of `### Reach clauses`"* is
   an address, and this axis can neither convict nor clear one. ⚠️ **The softest of the ten** is
