@@ -265,7 +265,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange (h2 : (2 : F)
 
 open Classical in
 /-- **`e_n(T, T) = 1` over an arbitrary field at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
-`(3 : F) ≠ 0`**, with `hprin` the only hypothesis that is not about the characteristic.
+`(3 : F) ≠ 0`**, taking the nonsingular `n`-torsion `T`, with `hprin` the only hypothesis that is
+not about the characteristic.
 
 The transcendence is discharged by `transcendental_xCoord_nsmul_of_smooth`, which is where `h3`
 enters — the halving point needs neither `h3` nor, over `F̄`, the transcendence.  See the module
@@ -404,7 +405,8 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_baseChange_of_ne_zero (h
 
 open Classical in
 /-- **`e_n(T, T) = 1` over an arbitrary field at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`**, with `hprin` the only hypothesis that is not about the characteristic.
+`((n : ℤ) : F) ≠ 0`**, taking the nonsingular `n`-torsion `T`, with `hprin` the only hypothesis
+that is not about the characteristic.
 
 Both `3`-smooth inputs of `exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange` are gone at
 once, and they are gone for two different reasons — which is the distinction the module docstring
