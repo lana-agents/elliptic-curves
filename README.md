@@ -409,10 +409,10 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   PR #685); that row's headline now names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, as does
   `ord_mulByNEndo_genX_neg` beside it, so both state what they bind and neither witnesses anything.
   ⚠️ **A dated census does not owe a re-measure and this parenthetical did, and the difference is
-  the discriminator worth keeping**: `## Layout`'s *"the counts drift, the structure does not"* and
-  `### Module-block bullets`' *"Date the answer"* say a **count** under a named head is not
-  falsified by a later head. A **present-tense claim about a named declaration** is not a count —
-  a reader checks it against the declaration, not against the head — so it is falsified, and
+  the discriminator worth keeping**: `## Layout`'s *"the counts drift, the directory structure does
+  not"* and `### Module-block bullets`' *"Date the answer"* say a **count** under a named head is
+  not falsified by a later head. A **present-tense claim about a named declaration** is not a count
+  — a reader checks it against the declaration, not against the head — so it is falsified, and
   `### Retired claims` binds on it and not on the figures beside it.
   ⚠️ **The `29` and the `24` are a triage pair and not a measurement**, on the precedent
   `### Module-block bullets` sets two sections down for its own `59`: the recogniser for them is
@@ -472,8 +472,8 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   slot permanently, and two of these three do. What made the parenthetical above a countdown was
   not the slot — it was naming a **survivor** in the present tense, which the sweep falsifies the
   moment it arrives and `### Retired claims` then charges for. **Name rows inside a dated
-  measurement, where `## Layout`'s *"the counts drift, the structure does not"* protects them; do
-  not name in a present-tense parenthetical a row a standing sweep is scheduled to reach.**
+  measurement, where `## Layout`'s *"the counts drift, the directory structure does not"* protects
+  them; do not name in a present-tense parenthetical a row a standing sweep is scheduled to reach.**
   ⚠️ **The qualifier is the rule and not a softening of it**, and the reason is one line up: a name
   is a countdown only when something is scheduled to falsify it. That is why the **four**
   range-stating rows named above keep the present tense — no sweep on this front removes a range
@@ -1653,9 +1653,9 @@ other side of a heading. ⚠️ **Nor does a register reach a bullet *above* it*
 sub-list's register invisible to the outer list, as the *"Not reached"* row below records.
 
 ⚠️ **This narrows nothing and retires nothing.** Each wording was true of the unit it governs, so
-`### Reach clauses`' *"was the old clause false or merely partial"* test puts this paragraph under
-**completing** a clause, and `### Retired claims` says completing retires nothing. What is new is
-that the two units are named beside each other, which is the whole of what `#1668` asked for.
+`### Reach clauses`' *"false or merely partial"* test puts this paragraph under **completing** a
+clause, and `### Retired claims` says completing retires nothing. What is new is that the two units
+are named beside each other, which is the whole of what `#1668` asked for.
 
 ⚠️ **And it points the same way as *"Nor does a sentence lower in the declaration's own
 docstring"*** in `### Scope of the rules above` (`#1660`), which is the reconciliation that decides
@@ -2191,6 +2191,101 @@ true"*, one layer up, in this document's own prose. They are:
   assumed**: no bolded numeral standing alone is added here, so the bolded-numeral seed
   `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175 is
   at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
+* **A citation's provenance is a claim about this page too, and it is the third pointer axis**
+  (`#1818`). A sha, and a citation that names a section by its heading, are both addresses carrying
+  no direction word, so neither seed of the axis stated just before this one matches a single member
+  of this population: the three axes are **disjoint by construction** rather than nested. That is
+  why two members of this one survived a round-1 rejection, a round-2 delivery, a round-2 rejection,
+  a round-3 rejection and a round-4 re-delivery of one seven-line clause in PR #716 (`#1812`). ⚠️
+  **Measured at `5a2fe24`**, fence-aware over `README.md`, with two recognisers and this file's own
+  heading table. ⚠️ **The heading-citation recogniser, and it must not be keyed on a line.** An
+  inline code span whose content is two to six `#` characters, a space and a title: **138 spans**,
+  none inside a fence. A reader who scans line by line gets 137, because one span wraps across a
+  source line — `## The non-constancy hypothesis is not named in the headlines below` — and that
+  pair of lines is one of the three odd-backtick pairs this file's own checks already carry. ⚠️
+  **Split it against the heading table, never against the `#` count.** Resolving each cited title
+  against this file's headings puts **110 of the 138** on a title this file also carries; two of
+  those name a `.lean` module's own section of the same title, so **108 cite this page** — 104 at
+  `###` and 4 at `##` — and **30 name a heading inside a `.lean` docstring**. Keying on the `#`
+  count alone gives 104 / 33, and it discards the four `##` citations of this page: **two of the
+  three defects convicted here are among those four**. ⚠️ **The test is on the span, never on
+  proximity.** Resolve the named section's span from the heading table, find what the citing
+  sentence attributes to it, and test that against the span. Of the 110, **59 carry a marked
+  quotation bound to the citation** and 51 attribute nothing a span test can check; those 51 were
+  read one at a time rather than counted. The 59 give **62 pairs**, of which **34 land inside** the
+  named span at this head. Of the 28 that do not, **20 are the binder over-reaching** — the
+  quotation is of a `.lean` docstring or of some other subject, and the citing sentence attributes
+  it to no section — **five quote a wording that is already gone** and every one of the five lands
+  inside the named span at the commit its own row dates it to (`5018e25`, `2947444`, `7f0a162`,
+  `d3a4ac5`, and the parent of `5c3fce2`), and **three are defects**. ⚠️ **The three, and not one of
+  them names the wrong section.**
+  * `## Layout`'s *"the counts drift, the structure does not"*, quoted twice in `### Reach clauses`
+    (`3e1bef2`, `#1725`, PR #686 and `0a1049f`, `#1728`, PR #688) and verbatim at both of those
+    commits. `2947444` (`#1802`, PR #711) re-measured `## Layout`, and the sentence there now reads
+    *"the counts drift, the **directory** structure does not"*. Two marked quotations were falsified
+    by an edit to what they quote, with nothing about either citing sentence touched.
+  * `### Reach clauses`' *"was the old clause false or merely partial"*, in
+    `### Module-block bullets`, was **never** verbatim. That section has read *"Read whether the old
+    clause was false or merely partial before deciding."* since `ee0b8a4` (`#1659`, PR #666); the
+    quotation reorders it, so it was false at `365dd39` (`#1668`, PR #683), the commit that wrote
+    it, while the same words are quoted correctly as *"false or merely partial"* at three other
+    sites in this file.
+  **All three are repaired in this commit, one span each**, on the wrong-pointer ruling in
+  `### Gate-discharge claims`: the sentence a reader is sent to is on the page whichever words the
+  quotation gives for it, so this is a typo and not a claim, nothing retires and none of the three
+  takes a marked quotation. The `### Module-block bullets` row is repaired to the shorter *"false or
+  merely partial"* and not to the full sentence, because that is the form this file already uses at
+  those three other sites. ⚠️ **The typo ruling reaches a drifted quotation more easily than it
+  reaches a sha**, and that difference is `#1819`'s to settle: a drifted quotation names a place
+  that still holds the sentence one word from the quoted form, where a wrong sha names a commit at
+  which the text is not there at all. ⚠️ **What this axis convicts is fidelity, and no recogniser
+  reads fidelity.** No citation of the 108 names the wrong section at this head. A verbatim check
+  catches a drifted quotation only once the section has been resolved mechanically, and PR #716's
+  round-4 review is the converse failure — a quotation verified verbatim against text that sat in a
+  different section, 59 lines past the boundary and in prose that reads like the section it was
+  cited to — so the two halves of the test fail independently and neither substitutes for the other.
+  ⚠️ **A quotation goes stale by an edit somewhere else**: neither `## Layout` citation was touched
+  after it was written, and the commit that falsified both was re-measuring a third thing. ⚠️ **The
+  sha half, where the population is clean and the syntax is not.** `[0-9a-f]{7,40}` inside an inline
+  code span, non-fenced: **69 spans**, **40 distinct**, and `git cat-file -t` resolves all 40 to
+  commits of this repository, so no sha in this file dangles. **25 sit within 70 characters** of a
+  `PR #<n>`, and **24 of those** are that PR's merge on `main`. The one that is not is `ee0b8a4`,
+  and it is **cleared by reading and not by the test**: that sentence says the wording *"was live
+  at"* the commit rather than that it landed there, and `EllipticCurves.Torsion.PrimaryTowerOdd`
+  carries the wording as live prose at `ee0b8a4` and as a marked retired quotation at `b764fae`,
+  which is PR #667's merge. ⚠️ **A sha does three jobs here under one syntax, and this file
+  distinguishes none of them:**
+  * **Attribution** — *where a clause landed*. The sha must be that PR's merge, and all 24 agreeing
+    rows are of this kind.
+  * **Measurement** — *the base a figure was taken at*. Any commit, and the row owes a statement of
+    what was measured; the axis stated just before this one uses `d3a4ac5` that way six times.
+  * **State-at** — *the commit at which a wording that is now gone was still live*, which is by
+    construction **not** the commit that changed it. `ee0b8a4` is the only instance in this file,
+    and it is the whole reason a PR-to-merge check cannot be the instrument.
+  PR #716 was convicted twice for writing an attribution inside a sentence that had already fixed a
+  measurement sha, which is the pair of senses a reader conflates most easily. ⚠️ **The 30 citations
+  of a `.lean` docstring heading are in scope, and their test is a different instrument.** **14 of
+  the 30 name a heading of a named module** — 17 checks, since one citation covers three files and
+  another covers two — and every check resolves: that file's docstring carries that heading. The
+  other **16 name a heading shape** over no particular file and assert nothing an address test can
+  check. ⚠️ **Three of the 14 name their heading by a prefix of it**, five of the 17 checks:
+  `EllipticCurves.FunctionField.MulByNGalois`, `…MulByNGaloisGroup` and `…MulByNPlaceComposition`
+  each open a section whose heading runs on past the cited words, and `…PlaceDegreeComparison`'s and
+  `…MulByNFibre`'s do the same. A reader greps and finds all five, so all five take the typo reading
+  and none is repaired — but no rule on this page says a cited heading may be abbreviated, and that
+  is what this axis leaves open. ⚠️ **This bullet is inside its own population and beside the other
+  three.** Re-run at this head, the heading-citation recogniser returns **147 spans**, **116
+  citing this page** and **31 naming a `.lean` heading**, and the sha recogniser returns **87
+  spans**, **44 distinct**, with none dangling and with the merge check still flagging exactly
+  one sha, `ee0b8a4`, now on two rows because this bullet quotes it. The span test **loses the three
+  repaired rows and gains five**, and all five are this bullet's own quotations of the two convicted
+  wordings, paired with the citation beside each. ⚠️ **The three seeds the axis just before this one
+  publishes are unmoved, and that was checked rather than assumed**: the bolded-numeral seed returns
+  184 at `5a2fe24` and 184 here, the noun-and-direction seed 40 matches on 39 lines at both ends,
+  and the nine-word seed 78 at both ends, with that seed's five negative results — 3, and 1 each for
+  the other four — and the 9 beside them unchanged. No numeral in this bullet stands alone inside a
+  bold span, none of the nine words is written here, and no noun of the first seed's list is put in
+  front of a direction word.
 
 ### Retired claims
 
