@@ -475,10 +475,23 @@ modules. ⚠️ **One of the 571 is the row this section cites the exemption on.
 `torsion_le_weilPairingPointSubgroup_n`
 (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) — the witness-slot entry above
 that *"binds **only** the instance `[NeZero n]`"* — writes `[NeZero n]` in its own `theorem` line
-and takes no instance from a `variable` block at all, so the published ground was false of the
-section's own worked case for it. ⚠️ **The 571 is a floor, and the recogniser convention costs two
-rows.** It matches each bracket group written at the declaration against the telescope's
-`inst`-and-`Prop` binders on the head identifier's last component, so
+and takes **that** instance from no `variable` block, so the published ground was false of the
+section's own worked case for it. ⚠️ **Retired, and here rather than at the theorem it names**
+(`4efeb97`, `#1774`, PR #706): the clause read *"and takes no instance from a `variable` block at
+all"*, and the row's own elaborated telescope falsifies it — `[Field F]` and the **propositional**
+`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:251`, there is no `section` or `end`
+between that line and the `theorem` at `:290`, and both are included because the statement mentions
+`W`. `#1694`'s subject test puts the quotation here rather than in that file: the claim is about
+**this section's ground**, not about what the theorem says, so a reader of the file it names has no
+stake in it. ⚠️ **Only the universal fell.** `[NeZero n]` is written at the declaration and carried
+by no `variable` block, which is the whole of what makes the retired middle clause above false of
+its own worked case. ⚠️ **The shape is `#1694`'s — claiming too much — and this section's own
+census is the counterexample**: `[W.IsElliptic]` is propositional, so the row is one of the **1352**
+the `IsElliptic` figures below count. It is PR #694's ``carries no`` gloss again, retired below in
+this section (`#1756`) — true of the rows it was read on, false of *every*. ⚠️ **The 571 is a
+floor, and the recogniser convention costs two rows.** It matches each bracket group written at
+the declaration against the telescope's `inst`-and-`Prop` binders on the head identifier's last
+component, so
 `[(XYIdeal W x (C y)).IsPrime]` (`isIntegrallyClosed_localization_of_nonsingular`) and
 `[∀ i, HasEnoughRootsOfUnity F (p ^ i)]` (`galoisCyclotomicChar_spec`) have no head to key on and
 drop — counting those the figures
@@ -501,6 +514,19 @@ name `[NeZero n]`. **1350** declarations carry an `IsElliptic` propositional ins
 them name it in the headline, so `[W.IsElliptic]` behaves exactly as `[IsAlgClosed F]` does, named
 on a small minority of the rows that carry it and unnamed on the rest — which is what a **mention**
 rule predicts, and which a *must name* rule would turn into **1335** defects on that one instance.
+⚠️ **Both of those figures are the head key's, and it costs two rows here exactly as it costs two
+above.** The telescope carries **1352** declarations with an `IsElliptic` propositional instance, so
+**1337** on the *must name* reading; the two that drop are `torsion_isUnramifiedAt`
+(`EllipticCurves.Reduction.ReductionUnramified`) and
+`galois_smul_eq_of_isUnit_nsmul_of_residue_trivial`
+(`EllipticCurves.Reduction.ReductionGaloisEquivariant`), whose instance is written
+`(W'.baseChange L).IsElliptic` and `(W'.baseChange K).IsElliptic` — a leading `(`, so no head
+identifier to key on. Membership rather than a total (`#1628`): the 1352 are **1200**
+`WeierstrassCurve.IsElliptic W`, **89** `W.IsElliptic`, **57** `… (W'.baseChange F)`, **2**
+`… (W'.baseChange L)` and one each of four further forms, one instance per declaration.
+⚠️ **No verdict moves and nothing retires** — *"named on a small minority of the rows that carry
+it"* is true at 15 / 1350 and at 15 / 1352 alike, and a count stays true of what it counted, which
+is *"short is partial, over-reaching is false"* below (`#1782`).
 The binder info sorts all four the same way, and two consequences the issue tabled are settled with
 it:
 
