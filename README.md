@@ -38,10 +38,11 @@ proved on some range, is a claim about the tree that the tree can falsify — an
 section is outside `## Docstring conventions` below, so no register, census or recogniser
 on this page reads it. The only instrument is someone re-reading the tree. Of the three
 bullets below that state an index range, all three had been superseded four to six days
-before anyone re-read them. ⚠️ The repair is the second data point: its first draft, written
-while hunting exactly this axis, still stated three reach clauses without the `(2 : F) ≠ 0`
-that every declaration behind them binds, and the only thing that caught them was a reviewer
-opening each signature at source.
+before anyone re-read them. ⚠️ Repairing it produced two more: its first draft, written while
+hunting exactly this axis, still stated three reach clauses without the `(2 : F) ≠ 0` that every
+declaration behind them binds; its second stated a universal negative — the identification
+`det ρ_{E,n} = χₙ` at `n = 3` *only* — that the tree falsifies at `n = 2`. Both were caught by a
+reviewer opening each cited signature at source, and by nothing else.
 
 * **Reduction over a discrete valuation ring** (`Reduction/`) — the reduction map on
   points and its additivity, the kernel of reduction `E₁(K)` and its identification
@@ -71,8 +72,12 @@ opening each signature at source.
   `n = 2` also over an arbitrary field from rational `2`-torsion and a halving
   (`PullbackPrincipalityTwoRationalTorsion.lean`) — so those are the two indices at which
   the chain is unconditional. Non-degeneracy and perfectness are stated at `n = 2` and
-  `n = 3` only, and the identification of `det ρ_{E,n}` with the cyclotomic character `χₙ`
-  at `n = 3` only (`WeilPairingDeterminantCharacter.lean`).
+  `n = 3` only, and so is the identification of `det ρ_{E,n}` with the cyclotomic character
+  `χₙ` — in coordinates at **both** indices (`WeilPairingDeterminant.lean`, whose own docstring
+  argues that the `n = 2` case is a genuine constraint on four integers and not an empty mirror,
+  `χ₂ ≡ 1` notwithstanding), and bundled as an identity of monoid homomorphisms
+  `galoisDetMod 3 = χ₃` at `n = 3` only (`WeilPairingDeterminantCharacter.lean`,
+  `MatrixRepDeterminantCharacter.lean`).
   ⚠️ **Retired.** This bullet read *"and the root `g_S` itself is constructed at `n = 2` and
   `n = 3` only, as is everything downstream of it"* from `6e5245c` (2026-08-30) until this
   commit, and it was false the day after it was written: `exists_gS_n` landed in
@@ -81,10 +86,6 @@ opening each signature at source.
   other than `2`. *only* is a universal negative, so it cannot be completed by adding a
   condition the way the two clauses below are — it has to be deleted, which is what makes
   this a retirement and those two not.
-  ⚠️ Read item by item, the retired clause also over-claimed in the other direction: the
-  identification `det ρ_{E,n} = χₙ` is on `main` at `n = 3` and at no other index, so
-  *everything downstream* was one item wider than the tree as well as several indices
-  narrower.
 * **The Weierstrass formal group** (`FormalGroup/`) — the coordinate series `x(z)`,
   `y(z)`, the formal group law `F_E` as a genuine bivariate power series with its
   commutativity and associativity, the formal logarithm and exponential, the
