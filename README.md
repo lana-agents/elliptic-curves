@@ -1377,6 +1377,32 @@ apply it — one drops its count rather than correcting it — and it governs wh
 rather than what is on the page: *"two sections down"* in `### Reach clauses` is right today and is
 not convicted by preferring the other form.
 
+⚠️ **It does not reach a wrong sha on the ground stated for a direction, and it reaches an
+attribution sha on a different one** (`#1819`). A sha points at a commit and not at a place in this
+file, so *"an instruction for finding text that is on the page whichever way it points"* cannot
+carry it: at the wrong commit the text is not there, and
+`git show d3a4ac5:README.md | grep -c "about a module docstring"` returns 0 for a gloss that landed
+at `0eb4f70`. What carries instead is that an attribution sha never travels alone — the `PR #n`
+beside it names the same commit a second time, so the reader is handed the target twice and one
+wrong half cannot strand them, which is true of both rows PR #716 repaired. ⚠️ **That ground splits
+the axis rather than covering it**: a sha with no PR number beside it is the sole address of what
+its sentence measures, and that sentence asserts a figure *at* that commit, so this exemption's own
+caveat — *"still read for its assertion, on the assertion's own terms"* — governs, and
+`### Retired claims` binds it. ⚠️ **The convention was enforced against a PR twice before it was
+written here** (`#1749`): an attribution sha is the commit where the clause **landed**, which is
+that PR's own merge and not the merge before it. Fence-aware over this file's non-fenced prose at
+`5a2fe24`, with a `` `[0-9a-f]{7,40}` `` inline code span a citation and a citation within 40
+characters of a `PR #n` in the whitespace-joined text an attribution: 69 citations, 40 distinct,
+40 of 40 resolving under `git cat-file -t`, and 23 paired, every one read. One of the 23 is
+`### Module-block bullets`' *"was live at `ee0b8a4`"*, a measurement at the merge before PR #667's
+and right to be there; the other **22 of 22** are on the convention. The population is
+window-sensitive and the verdict is not: at 70 characters `5a2fe24` gives 25 rows with that same
+single row the only one off it. ⚠️ **This paragraph is inside its own population and carries both
+ends for it** (`#1749`): at this head the census reads 73 citations and 41 distinct, the
+40-character figure is unmoved at 22 of the 23 paired, and at 70 characters this paragraph's own
+quotation of that row is a second row off the convention — quoting a measurement sha reproduces its
+shape, which is why a census of this axis is dated rather than standing.
+
 ⚠️ **One figure in that account was not short but wrong, and it takes the other branch.** The
 sentence above read *"bind `h2` (four also `h3`)"* when it landed (PR #708, `5018e25`); `h3` is
 bound by **three** of the six — the three whose names end `_three`, whose `theorem` lines are
