@@ -2210,15 +2210,24 @@ true"*, one layer up, in this document's own prose. They are:
   count alone gives 105 / 33, and it discards the four `##` citations of this page: **two of the
   three defects convicted here are among those four**. ⚠️ **The test is on the span, never on
   proximity.** Resolve the named section's span from the heading table, find what the citing
-  sentence attributes to it, and test that against the span. Of the 110, **59 carry a marked
-  quotation bound to the citation** and 51 attribute nothing a span test can check; those 51 were
-  read one at a time rather than counted. The 59 give **62 pairs**, of which **34 land inside** the
-  named span at this head. Of the 28 that do not, **20 are the binder over-reaching** — the
-  quotation is of a `.lean` docstring or of some other subject, and the citing sentence attributes
-  it to no section — **five quote a wording that is already gone** and every one of the five lands
-  inside the named span at the commit its own row dates it to (`5018e25`, `2947444`, `7f0a162`,
-  `d3a4ac5`, and the parent of `5c3fce2`), and **three are defects**. ⚠️ **The three, and not one of
-  them names the wrong section.**
+  sentence attributes to it, and test that against the span. ⚠️ **A cited section's span nests**:
+  it ends at the next heading whose `#` count is no greater, so a `##` section holds its `###`
+  children rather than stopping at the first of them. This file writes that convention for a
+  **reach register**'s unit in `### Module-block bullets` and nowhere for a section of this page,
+  and it decides exactly one citation of the 110 — `## Scope`'s, whose quoted words sit in
+  `### What is formalised`. On the flat reading, where a span stops at the next heading of any
+  level, that one row is a wrong-section citation and this axis convicts four rather than three.
+  Nothing else in the file turns on the choice: there is no `####` heading anywhere, so all 104
+  `###` citations of this page have the same span either way, `## Layout` has no `###` child, and
+  the single `## Docstring conventions` citation attributes no quotation a span test can read.
+  Of the 110, **59 carry a marked quotation bound to the citation** and 51 attribute nothing a
+  span test can check; those 51 were read one at a time rather than counted. The 59 give
+  **62 pairs**, of which **34 land inside** the named span at this head. Of the 28 that do not,
+  **20 are the binder over-reaching** — the quotation is of a `.lean` docstring or of some other
+  subject, and the citing sentence attributes it to no section — **five quote a wording that is
+  already gone** and every one of the five lands inside the named span at the commit its own row
+  dates it to (`5018e25`, `2947444`, `7f0a162`, `d3a4ac5`, and the parent of `5c3fce2`), and
+  **three are defects**. ⚠️ **The three, and not one of them names the wrong section.**
   * `## Layout`'s *"the counts drift, the structure does not"*, quoted twice in `### Reach clauses`
     (`3e1bef2`, `#1725`, PR #686 and `0a1049f`, `#1728`, PR #688) and verbatim at both of those
     commits. `2947444` (`#1802`, PR #711) re-measured `## Layout`, and the sentence there now reads
@@ -2279,7 +2288,7 @@ true"*, one layer up, in this document's own prose. They are:
   three.** ⚠️ **The census is dated to `5a2fe24`, and `4769f3e` is this commit's parent**, a merge
   that added a paragraph to `### Gate-discharge claims` and moved both recognisers without reaching
   a conviction: 140 heading spans on 112 titles this file also carries, and 73 sha spans on 41
-  distinct. Re-run at this head, the heading-citation recogniser returns **151 spans**, **120
+  distinct. Re-run at this head, the heading-citation recogniser returns **156 spans**, **125
   citing this page** and **31 naming a `.lean` heading**, and the sha recogniser returns **93
   spans**, **45 distinct**, with none dangling and with the merge check still flagging exactly one
   sha, `ee0b8a4`, now on three rows — the row this census cleared, the quotation of it that parent
