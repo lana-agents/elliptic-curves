@@ -1223,7 +1223,7 @@ them by name and `### Scope of the rules above` forbids two blocks answering one
 different registers. **What was false is the sentence, not the register**: the remedy clears rows,
 and a universal quantified over *signatures* is not repaired by what a docstring names.
 
-⚠️ **The census above cannot see this shape at all, which is why the line survived.** Its seed is
+⚠️ **The census below cannot see this shape at all, which is why the line survived.** Its seed is
 `` the only (gate|hypothes\w*) ``, and *"with **no** hypothesis beyond the setting"* does not match
 it, so no row of this shape is among the 95, and `#1765`'s signature test over the 76 rows of
 buckets one and two reached none of them — **including this section's own worked *right* example**,
@@ -1293,6 +1293,18 @@ instance from a `variable` block **at all**"* — where completing it meant stri
 re-scoping the *"no"*, so its own words could not survive the repair. ⚠️ **That is the
 discriminator, and it is cheaper than counting counterexamples**: ask whether the clause can be
 completed by extending its own list, or only by deleting its own words.
+
+⚠️ **It does not reach a wrong cross-reference, and `### Retired claims` does not bind one.**
+*"the discriminator below"* over a target that is above cannot be completed by extending anything,
+so read literally this discriminator answers *delete* and sends a one-word direction error to that
+section for a marked quotation. The ground that section gives is that a reader who remembers the
+old claim learns why it went — and no reader carries a direction word out of a previous reading,
+because a pointer asserts nothing about a declaration, a hypothesis or a population. It is an
+instruction for finding text that is on the page whichever way it points, so **the word is corrected
+in place and nothing retires**. ⚠️ The exemption is for the **direction** and not for the clause
+carrying it: a sentence that points *and* asserts is still read for its assertion, on the
+assertion's own terms. The measurement that produced this ruling is in
+`### Scope of the rules above`, which is where one of the two rows it clears sits.
 
 ⚠️ **One figure in that account was not short but wrong, and it takes the other branch.** The
 sentence above read *"bind `h2` (four also `h3`)"* when it landed (PR #708, `5018e25`); `h3` is
@@ -1853,7 +1865,7 @@ its headline names neither — **49** rows sit in the silent register and **five
 sections hold both. ⚠️ **Two of the five are in `MulByNFibre` itself**, and they are the answer
 rather than the problem: its silent rows are `comapProjPointN_pointClosedPoint_of_eval_ΨSq_eq_zero`,
 which the first bullet of `### Reach clauses` clears by name, and
-`card_fibre_comapProjPointN_le_sq_five`, which the fixed-numeral discriminator below exempts.
+`card_fibre_comapProjPointN_le_sq_five`, which the fixed-numeral discriminator above exempts.
 **A split section is sound when every silent row in it is silent on a ground the reader can reach,
 and unsound when the difference is left to be guessed.**
 ⚠️ **The other three were unsound and are repaired by insertion rather than by a note** (`#1748`).
@@ -1959,6 +1971,54 @@ true"*, one layer up, in this document's own prose. They are:
     **hypothesis**"* to *"the only **gate**"* and *"no second **hypothesis**"* to *"no second
     **gate**"*, a few lines below two of those headlines. A repair that stops at the headline leaves
     the docstring contradicting itself.
+* **A cross-reference's direction is a claim about this page, and no register here reads one.**
+  Every rule above is keyed on something else — `### Reach clauses` on hypothesis lists,
+  `### Gate-discharge claims` on gate words, `### Module-block bullets` on a bullet's register and
+  this section's other bullets on phrases, subjects and headings — while a pointer's target is a
+  **location**, and none of those four recognises one. ⚠️ **Measured at `2947444`**, over
+  `README.md`, case-insensitively, with the seed `<noun>` + whitespace + `above` or `below`, where
+  `<noun>` ranges over `discriminator`, `rule`, `test`, `bullet`, `clause`, `slogan`, `convention`,
+  `paragraph`, `register`, `ruling`, `list`, `sentence`, `account`, `census`, `figure`, `table`,
+  `note` and `branch`: **34** matches on 34 distinct lines, **none** inside a code fence.
+  **Five are not pointers at this document** and are excluded with their grounds: the match on
+  `list above/below` is this page's own bullet-subject literal quoted inside a recogniser, and four
+  more quote or describe a **module docstring**'s layout — *"quantifying over what is above them"*,
+  *"no bullet below them"*, *"Every bullet above names the whole explicit hypothesis list"* and
+  *"the sub-list below them"* — where the direction is a fact about that docstring and not about
+  this page. **Twenty-nine point at this document. Twenty-seven of them point the right way and two
+  did not**, and both were false at the commit that published them:
+  * `### Gate-discharge claims`' *"The census **above** cannot see this shape"* — the census it
+    names, `#1754`'s, was **46** lines *below* it at `5018e25`, the commit that wrote the sentence,
+    and **104** below it at `2947444`.
+  * this section's *"which the fixed-numeral discriminator **below** exempts"* — that discriminator
+    is the second bullet of `### Reach clauses`, **1539** lines *above* it at `2947444`, and this
+    section's own neighbouring clause names that section correctly one line earlier. First recorded
+    in PR #695's review and re-observed in PR #707's and PR #712's without being paid (`#1803`).
+  **Both are repaired in this commit, one word each**, on the ruling in `### Gate-discharge claims`
+  above: a wrong pointer is a typo and not a claim, so nothing retires and neither takes a marked
+  quotation. ⚠️ **One of the 27 is not forced by its own grammar and is named rather than counted
+  silently**: *"the **3** the full test **below** finds"* in `### Reach clauses` resolves if the
+  direction word attaches to where those three rows are listed, which is below it, and does not if
+  it attaches to *the full test*, which is defined above it. It is read the first way here.
+  ⚠️ **The seed's limits, because a published recogniser owes them** (`#1749`). It leaves **172**
+  bare `above`/`below` tokens unread, and at least three of those are pointers it should have
+  caught — *"the paragraph on ... below"*, *"is covered by no register in either file ... above"*
+  and *"a register says what a list omits ..., below"* — all three of which resolve correctly, so
+  **the population is wider than 34 and the two convictions are a floor, not a total**. ⚠️ **Inline
+  emphasis defeats it**: `census **above**` does not match, which is why this bullet's own
+  quotations of the two convicted rows do not re-enter the count. It is not fence-aware, so the
+  fence check was run separately. And it sees **direction** only — a pointer wrong by **target** is
+  invisible to it, as is one wrong by **distance**: *"the paragraph **immediately** above"* in
+  `### Reach clauses` points the right way at a paragraph two above it. ⚠️ **This bullet is inside
+  its own population, so the figure moves by being stated.** Re-run at head and the same seed
+  returns **40**: the two repaired rows still match, with their direction words swapped, and six
+  matches are new — **one** genuine pointer, in this bullet's own opening paragraph, which
+  resolves, and **five** quotations or literals carried by this bullet and by that ruling. The two
+  convicted rows are quoted here and are **not** among the six: their directions are emphasised.
+  ⚠️ **The axis is not new, only unmeasured.** `### Reach clauses` already carries one direction
+  error as a retired quotation: *"the two readings **below** are corrected where they stand"*
+  pointed below for a reading this document keeps above (`#1649`). It was caught by a reader
+  following the pointer, which is still the only instrument there is.
 
 ### Retired claims
 
