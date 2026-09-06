@@ -998,6 +998,38 @@ who wants the count reads the signature doc-gen prints beside the docstring. A h
 `(2 : F) ≠ 0` while making a plain hypothesis-list claim is not rescued by this paragraph. The
 boundary is the `card_torsion_pow_of_odd` one above: the word has to have a subject.
 
+⚠️ **The register's own population was measured on `#1754`, and the largest part of it is `example`
+blocks that a noun-keyed census convicts wrongly.** Over `EllipticCurves/**/*.lean` with the
+headline rule above and the seed `` the only (gate|hypothes\w*) ``: **95** headline occurrences at
+`5cfd485`, splitting **53 / 19 / 23** — noun it *gate*, noun it *hypothesis beyond the setting*, or
+noun it *hypothesis* with no gate list named. ⚠️ **The repair in the next paragraph moves the four
+`…AssemblyN` rows out of the third bucket and into the first, leaving 95 splitting 57 / 19 / 19.**
+The total is invariant and each split holds only at the sha named beside it: re-run the seed before
+that commit and it returns **53 / 19 / 23**, after it **57 / 19 / 19**. A census figure this page
+publishes and then moves in the same breath has to carry both, or the recogniser reads as broken
+(`#1749`). The first two buckets are the compliant forms and nothing is owed on them. **Fourteen of
+the third bucket are non-vacuity `example` blocks** — fourteen of the 23 before the repair, of the
+19 after — over a concrete curve (`ℚ`, `exampleField`), and for **eleven** of them *"with `hprin`
+the only hypothesis left"* is a hypothesis-**list** claim that is literally true: `hprin` is their
+whole top-level binder list.
+⚠️ **The other three bind an automorphism and an equation proof besides** —
+`WeilPairingGaloisRootHprin`'s two and `WeilPairingGaloisRootN`'s one, each of the shape
+`example (σ : …) {x₂ y₂ : …} (h₂ : … .Equation x₂ y₂) (hprin : …)` — so they are true on the
+*setting* reading and not on the count. **The test is the declaration's top-level binder list, not
+the block's shape**: a census keyed on `example` clears three rows it has not read, and one keyed
+on the noun alone convicts eleven it should not.
+
+⚠️ **And *"the only hypothesis left"* standing over a theorem is the `card_torsion_pow_of_odd`
+shape, so the four that were theorems were repaired** (`#1754`):
+`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`'s `_of_algClosed` and
+`_of_algClosed_of_ne_zero` pairs took `### Retired claims`' move **whole** — the noun goes from
+*hypothesis* to *gate* **and** the `(2 : F) ≠ 0` insertion goes in beside it. ⚠️ **The re-scope
+alone would not have discharged them**, and that file's own module block says why: `#1637` had
+already convicted the identical words about the identical declaration one layer up, recording that
+they *"formerly read 'with `hprin` the only hypothesis left', which was short of `(2 : F) ≠ 0` and
+of the torsion this register names"*. A headline left saying less than the bullet that was repaired
+for saying too little is the same defect one layer down, where doc-gen surfaces it in preference.
+
 The per-block clause below does not fire *between* the two registers. A gate-discharge claim and a
 hypothesis list are different kinds of claim, not two dialects of one, so a block may hold both
 provided each row is compliant on its own terms; what it must not hold is two rows making the
