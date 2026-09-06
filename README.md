@@ -454,9 +454,91 @@ test above: `#E[pᵏ] = (pᵏ)²` is still a claim of the same kind once that ph
 asks whether the remainder is a claim of the same kind"* rules that reading out for every row, this
 one included.
 
-The rule is about **explicit** hypotheses. Instance arguments are ambient, are carried by the
-module's `variable` block, and are visible in the signature doc-gen renders beside the docstring
-— so a reach clause need not list them.
+The rule is about **explicit** hypotheses, and the discriminator is the **binder info**: a binder
+Lean elaborates as `instImplicit` is outside the rule, one it elaborates as `explicit` is inside it.
+That is one test, it is the whole of the answer, and it settles every case this development has
+without an exemption for any of them — because none of them was ever *in* the rule for an exemption
+to take it out of. The ground is that doc-gen renders the **declaration's** instance list beside its
+docstring, so a reader is never consulting the clause *instead of* that list, which is what makes a
+partial **hypothesis** list a defect and is the argument of *"A phrase that names one instance"*
+below as well.
+
+⚠️ **The ground published with this paragraph had three clauses and the middle one is false**, and
+that is what kept the question open long enough to be filed as an issue. It read *"Instance
+arguments are ambient, are carried by the module's `variable` block, and are visible in the
+signature doc-gen renders beside the docstring"* (`ee3c067`, `#1137`, PR #613); the `variable`-block
+clause is falsified four paragraphs below by this section's own ⚠️ *"**The instance list is per
+declaration, not per `variable` block**"*, and by the tree. Measured at `d459037` from the
+elaborated telescope: **2179** of the **3599** documented declarations bind at least one
+propositional instance, and **571** of those write one **in their own binder list**, across **163**
+modules. ⚠️ **One of the 571 is the row this section cites the exemption on.**
+`torsion_le_weilPairingPointSubgroup_n`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) — the witness-slot entry above
+that *"binds **only** the instance `[NeZero n]`"* — writes `[NeZero n]` in its own `theorem` line
+and takes no instance from a `variable` block at all, so the published ground was false of the
+section's own worked case for it. ⚠️ **The 571 is a floor, and the recogniser convention costs two
+rows.** It matches each bracket group written at the declaration against the telescope's
+`inst`-and-`Prop` binders on the head identifier's last component, so
+`[(XYIdeal W x (C y)).IsPrime]` (`isIntegrallyClosed_localization_of_nonsingular`) and
+`[∀ i, HasEnoughRootsOfUnity F (p ^ i)]` (`galoisCyclotomicChar_spec`) have no head to key on and
+drop — counting those the figures
+are **573** and **164** — and **38** further declarations could not be matched to a source signature
+at all. It is `Prop`-only by construction, so `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`,
+one of the three rows the per-declaration ⚠️ below names, is **not** in it:
+`[Fintype (W.torsion n)]` is data.
+
+⚠️ **`#1774` is that issue, and it is answered here rather than by a new sentence anywhere else.**
+It asks for **one** discriminator covering `[IsAlgClosed F]`,
+`[W.IsElliptic]` / `[IsDedekindDomain W.CoordinateRing]` and `[NeZero n]`, on the reading that the
+first is named in headlines everywhere
+and the middle pair *nowhere*. ⚠️ **That reading is wrong about the middle pair, and the correction
+is what makes the discriminator obvious**: measured on the same dump, **20** headlines carry a
+bracketed `IsElliptic` mention — `degProj_divisorProj`'s *"unconditional in `[W.IsElliptic]`"*,
+`isOpen_ker_galoisRepMod_two_pow`'s *"and otherwise over an algebraically closed field with
+`(2 : F) ≠ 0` and `[(W'⁄F).IsElliptic]`"* — while **0** name `[IsDedekindDomain W.CoordinateRing]`
+and **0**
+name `[NeZero n]`. **1350** declarations carry an `IsElliptic` propositional instance and **15** of
+them name it in the headline, so `[W.IsElliptic]` behaves exactly as `[IsAlgClosed F]` does, named
+on a small minority of the rows that carry it and unnamed on the rest — which is what a **mention**
+rule predicts, and which a *must name* rule would turn into **1335** defects on that one instance.
+The binder info sorts all four the same way, and two consequences the issue tabled are settled with
+it:
+
+* **The `μ`-valued front clears on `[NeZero n]`.** `exists_weilPairingMu_self_eq_one_of_hprin_two`
+  and `…_three` (`WeilPairingAlternatingBaseChange`) and
+  `exists_weilPairingMu_self_eq_one_of_card_two` (`WeilPairingAlternatingTwoRational`) write
+  `[NeZero n]` in their own binder lists, and each headline names that declaration's whole
+  **explicit** list — the characteristic conditions, the nonsingularity and the torsion of `T`, and
+  `hprin` or, at `…_of_card_two`, the rational-`E[2]` and rational-halving hypotheses standing in
+  its place. `[NeZero n]` is the only binder beside them that could add anything, and it is
+  `instImplicit`, so **no insertion is owed** and PR #704's conditional residue (`#1770`) is empty
+  rather than pending.
+* **A headline whose only reach phrase is an instance mention names no hypothesis at all**, so it
+  lands on the *"or it names none"* branch and is compliant. That is the whole of `#1779`'s ten
+  `_of_algClosed` rows — `exists_weilPairingElt_self_eq_one_of_algClosed_two` and `…_three`
+  (`WeilPairingAlternatingTwo`, `WeilPairingAlternatingThree`),
+  `exists_forall_weilPairingElt_self_eq_one_of_algClosed_two` and `…_three`
+  (`WeilPairingRootIndependence`), and their six twins in `WeilPairingAlternatingTwoAlgClosed`,
+  `WeilPairingAlternatingThreeAlgClosed` and `WeilPairingRootIndependenceAlgClosed` — **cleared,
+  with no diff**, over signatures binding `h2`, `h3`, `htors` and `hprin`.
+  ⚠️ **On the reach axis only, and six of the ten carry a second half this does not reach.** Those
+  six add *"with no hypothesis beyond the setting"*, and a totality phrase stated relative to a gate
+  list is a gate-discharge claim governed by `### Gate-discharge claims`, which this section's ⚠️
+  *"A totality phrase stated **relative to a named gate list**"* below says in terms. `#1781` is
+  about that half; nothing here clears it, and a clearance on this axis must not be quoted as one on
+  that one.
+  ⚠️ **The clearance is also not a reason to revert an insertion**, on the branch-neutrality ruling
+  the first bullet of this section states: appending the missing conditions moves a headline from
+  one compliant branch to the other, so `#1763` / PR #702's four repaired `_of_algClosed` headlines
+  in `WeilPairingAlternatingAssemblyN` stand, and so would a repair of any of these ten.
+* ⚠️ **The `residueDegreeN_none_eq_one` withdrawal does not transpose to an instance**, which is the
+  second of the two routes `#1774` rules out and the one that needs an account rather than a denial.
+  That withdrawal turns on *"`hn` is a condition on the index, and `xCoord_zero` makes it false at
+  `n = 0`"* — and `hn` is an **explicit** binder in both members of the pair it is argued from,
+  printed as such in the fenced signatures below. It is a ruling inside the explicit side of this
+  paragraph's first sentence and reaches no `instImplicit` binder. ⚠️ The same goes the other way:
+  nothing here reinstates the data-argument clearance for an explicit binder, and `#1631`'s
+  occurrence-test wording stays retired.
 
 **A phrase that names one instance is a claim about that one instance and commits the clause to
 nothing else.** *"over `F̄`"* says `[IsAlgClosed F]` is in the declaration's instance list; *"with
