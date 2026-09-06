@@ -187,7 +187,7 @@ looks like a clause that lists them all. Concretely:
 ```
 
 **Some phrases look like reach clauses and are not**, and their number is deliberately not given
-(`#1678`), on the precedent `### Scope of the rules above` sets one section down. Each has been
+(`#1678`), on the precedent `### Scope of the rules above` sets for its own list. Each has been
 flagged, triaged and cleared more than once, so the discriminators are written down here rather
 than re-derived each round. ⚠️ This read *"**Two phrases look like reach clauses and are not.**
 Both have been flagged, triaged and cleared more than once"* (`f1d1473`, `#1569`, PR #620),
@@ -609,8 +609,9 @@ identifier to key on. Membership rather than a total (`#1628`): the 1352 are **1
 `WeierstrassCurve.IsElliptic W`, **89** `W.IsElliptic`, **57** `… (W'.baseChange F)`, **2**
 `… (W'.baseChange L)` and one each of four further forms, one instance per declaration.
 ⚠️ **No verdict moves and nothing retires** — *"named on a small minority of the rows that carry
-it"* is true at 15 / 1350 and at 15 / 1352 alike, and a count stays true of what it counted, which
-is *"short is partial, over-reaching is false"* below (`#1782`).
+it"* is true at 15 / 1350 and at 15 / 1352 alike, and a count over a population that can grow
+under it stays true of what it counted, which is the open branch of *"short is partial,
+over-reaching is false"* below (`#1782`): this telescope grew.
 The binder info sorts all four the same way, and two consequences the issue tabled are settled with
 it:
 
@@ -1011,6 +1012,13 @@ then *k* can name rows that are not there, a *k* with no *k*-th row is **false**
 `### Retired claims` binds. ⚠️ **The slogan survives the retirement and was never the defect**:
 *"over-reaching is false"* is exactly what convicts the four. What the retired clause got wrong was
 denying that a count can reach that half at all.
+⚠️ **The retired words have one other live use, it is on the open branch, and that is what makes
+this a scope rather than a deletion.** Whitespace-normalised, `stays true of what it counted`
+occurs three times in this file at `d3a4ac5` and at this commit: the scoped rule here, the
+quotation of the unqualified form beside it, and one use in the `1350` / `1352` paragraph of this
+section, whose count is over a telescope that grew under it. That one is scoped where it stands
+rather than retired, because a clause applied on the branch that survives is a use and not a copy,
+and `### Retired claims` counts retirements rather than occurrences (`#1811`).
 ⚠️ **The reading is argued and not assumed, because the two candidates cost differently.** Read as a
 universal over counts the clause is **false**, one measured counterexample is enough, and
 `### Retired claims` binds. Read instead as a claim about the two worked examples it stands
@@ -1046,10 +1054,11 @@ is untouched**: neither half of it is falsified by a third shape, since a shape 
 short nor over-reaching is outside both. What was short is *"the two"* — a count of the shapes
 stated here, over a class that grew under it rather than one this page closes — so this is the
 qualification in place the open branch prescribes, and **nothing retires**. ⚠️ **The fourth is
-the over-reaching count two paragraphs up**, and it belongs here rather than over there because its
-subject is this section's own rule: a count whose denominator its own sentence pins can fail its
-measurement, where the third shape is a universal that survives one. **Three** went short exactly as
-*"the two"* did, on the same open branch and for the same reason, and takes the same qualification.
+the over-reaching count the retirement above is written on**, and it belongs here rather than over
+there because its subject is this section's own rule: a count whose denominator its own sentence
+pins can fail its measurement, where the third shape is a universal that survives one. **Three**
+went short exactly as *"the two"* did, on the same open branch and for the same reason, and takes
+the same qualification.
 ⚠️ **The third shape is general, not gate-specific**: its discriminator is the claim's own form, a
 count or a universal, together with what the measurement returned, and neither of those mentions a
 register; the paragraph carrying it sits under a gate heading because that is where the claim it
@@ -1350,6 +1359,18 @@ in place and nothing retires**. ⚠️ The exemption is for the **direction** an
 carrying it: a sentence that points *and* asserts is still read for its assertion, on the
 assertion's own terms. The measurement that produced this ruling is in
 `### Scope of the rules above`, which is where one of the two rows it clears sits.
+
+⚠️ **A wrong distance takes the same exemption as a wrong direction, and the two rows repaired
+under it were both distances** (`#1811`): *"one section down"* for a section three sections down,
+and *"two paragraphs up"* for a target in the same paragraph. Neither asserts anything about a
+declaration, a hypothesis or a population, and no reader carries a distance out of a previous
+reading either, so both are corrected in place and nothing retires. ⚠️ **The prospective half is
+the part worth having: prefer a direction to a distance, and a heading's name to both.** A distance
+is falsified by any insertion between the pointer and its target, so it rots with nobody touching
+either; a direction survives everything but a move, and a name survives that too. Both repairs
+apply it — one drops its count rather than correcting it — and it governs what is written next
+rather than what is on the page: *"two sections down"* in `### Reach clauses` is right today and is
+not convicted by preferring the other form.
 
 ⚠️ **One figure in that account was not short but wrong, and it takes the other branch.** The
 sentence above read *"bind `h2` (four also `h3`)"* when it landed (PR #708, `5018e25`); `h3` is
@@ -2065,6 +2086,52 @@ true"*, one layer up, in this document's own prose. They are:
   error as a retired quotation: *"the two readings **below** are corrected where they stand"*
   pointed below for a reading this document keeps above (`#1649`). It was caught by a reader
   following the pointer, which is still the only instrument there is.
+  ⚠️ **`above` and `below` are not the direction words, only the two this seed knows, and the rest
+  of the axis is measured here** (`#1811`). Second seed, case-insensitive over this file's
+  non-fenced prose at `d3a4ac5`, with no noun anchor because these words carry their own:
+  `up`, `down`, `earlier`, `later`, `preceding`, `following`, `overleaf`, `previously`,
+  `beforehand`. **41 matches**, none in a fence, split `up` 19, `down` 11, `later` 7, `following` 3
+  and `earlier` 1 — and **31 are not pointers at this page**, each excluded on a stated ground:
+  idiom (*"written down"*, *"looks it up"*, *"prop it up"*), the preposition (*"following
+  Silverman's"*), a time rather than a place (*"a later PR"*, *"falsified by a later head"*), a
+  **module docstring**'s own layout (*"a later sentence"*, *"nothing further up the docstring"*,
+  *"down into the declaration headlines"*), the docstring **layer** rather than any location
+  (*"one layer up"*, five of them), and quotations of rows already counted here. **Ten point at
+  this page, eight of them correctly, and both misses are wrong by DISTANCE with the direction
+  right** — which is the class named as invisible to the first seed, now measured rather than
+  named:
+  * `### Reach clauses`' *"the precedent `### Scope of the rules above` sets one section down"* —
+    that section is three `###` sections down, and it was three at `7f0a162` (`#1678`, PR #685),
+    the commit that wrote the clause. The parallel clause in the same section,
+    *"`### Module-block bullets` sets two sections down"*, counts the same way from the same origin
+    and is right.
+  * `### Reach clauses`' *"the over-reaching count two paragraphs up"* (`#1799`, PR #714) — its
+    target sits in the **same** blank-line-delimited paragraph, which is what *paragraph* means
+    wherever this file measures one: *"the two live one paragraph apart here"* is true with exactly
+    one such paragraph between the rows it counts. On the `⚠️`-block reading it is three up.
+  **Both are repaired in this commit**, on the wrong-pointer ruling in `### Gate-discharge claims`,
+  which that ruling now extends to a distance; and both were false at the commit that published
+  them, which makes four of four on the rows these two seeds have convicted.
+  ⚠️ **The limits, and they are wider than the first seed's.** The nine words are a list and not a
+  class — `back`, `ahead`, `supra`, `infra` and `hereafter` were tried and return nothing,
+  `higher` and `lower` return 7 matches of which
+  every one is about a module docstring, and four of the nine themselves — `preceding`, `overleaf`,
+  `previously`, `beforehand` — matched nothing at `d3a4ac5` and are carried for the next reader
+  rather than for this count. Neither **target** nor **distance** is mechanical, so both
+  convictions came from reading all 41 rather than from the regex. And a pointer carrying no
+  direction word at all is invisible to both seeds: *"the first bullet of `### Reach clauses`"* is
+  an address, and this axis can neither convict nor clear one. ⚠️ **The softest of the ten** is
+  `## Scope`'s *"The following are developed here"*, a cataphora to the list under it rather than a
+  cross-reference; it resolves either way, and a reader who excludes it gets nine, seven and the
+  same two. ⚠️ **This bullet is inside its own population, exactly as the seed it extends is.**
+  The second seed returns 78 at this head. The two convicted rows **leave** it — both repairs drop
+  the direction word rather than turning it round, which is the preference in
+  `### Gate-discharge claims` applied to itself — and 39 matches are new: the nine seed words
+  written out, the exclusion grounds quoted, the split counts, and the wording of the two
+  convictions. ⚠️ **The other two populations are unmoved, and that was checked rather than
+  assumed**: no bolded numeral standing alone is added here, so the bolded-numeral seed
+  `### Reach clauses` publishes returns 184 at `d3a4ac5` and 184 at this head — its own dated 175
+  is at PR #714's head, one merge earlier — and the first seed returns 40 at both ends.
 
 ### Retired claims
 
