@@ -334,8 +334,9 @@ placement of the `n = 5` gate carefully — it sits somewhere different here tha
 below. -/
 
 open Classical in
-/-- **`e_n(T, T) = 1` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, over an
-arbitrary field**, with the halving point `hPT` and `hprin` the only hypotheses beyond the setting.
+/-- **`e_n(T, T) = 1` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, and every
+nonsingular `n`-torsion `T`, over an arbitrary field**, with the halving point `hPT` and `hprin` the
+only hypotheses beyond the setting.
 
 The core with `hn` supplied by `transcendental_xCoord_nsmul_of_smooth`
 (`EllipticCurves.FunctionField.MulByNComposition`) and nothing else changed.
@@ -370,8 +371,9 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_smooth (h2 : (2 : F) ≠
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hPT hprin
 
 open Classical in
-/-- **`e_n(T, T) = 1` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, over an arbitrary
-field**, with the halving point `hPT` and `hprin` the only hypotheses beyond the setting.
+/-- **`e_n(T, T) = 1` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, and every nonsingular
+`n`-torsion `T`, over an arbitrary field**, with the halving point `hPT` and `hprin` the only
+hypotheses beyond the setting.
 
 The core with `hn` supplied by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than by the `3`-smooth degree tower,

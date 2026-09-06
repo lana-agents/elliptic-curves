@@ -195,8 +195,8 @@ theorem translateEndo_eq_self_of_mul_algebraMap_sq_eq_of_baseChange
   exact key
 
 open Classical in
-/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`**, with `hprin` (`#418`) as the
-only gate.
+/-- **`e_2(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0`, at every nonsingular `2`-torsion
+`T`**, with `hprin` (`#418`) as the only gate.
 
 `exists_weilPairingElt_self_eq_one_of_algClosed_two` (`WeilPairingAlternatingTwo`) is this statement
 with `[IsAlgClosed F]` added; the hypotheses and the conclusion are otherwise identical, and the
@@ -229,7 +229,7 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
 
 open Classical in
 /-- **The alternating property at `n = 2` in the value group, over an arbitrary field with
-`(2 : F) ≠ 0`.**
+`(2 : F) ≠ 0`, at every nonsingular `2`-torsion `T`, taking `hprin` (`#418`).**
 
 `weilPairingMu` is indexed by a proof that the pairing element is an `n`-th root of unity, so the
 statement produces one; it costs nothing, since the previous theorem gives `e_2(T, T) = 1` and
@@ -308,8 +308,9 @@ theorem translateEndo_eq_self_of_mul_algebraMap_cube_eq_of_baseChange
   exact key
 
 open Classical in
-/-- **`e_3(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, with `hprin`
-as the only gate: the `n = 3` twin of `exists_weilPairingElt_self_eq_one_of_hprin_two`, and
+/-- **`e_3(T, T) = 1` over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at every
+nonsingular `3`-torsion `T`**, with `hprin` as the only gate: the `n = 3` twin of
+`exists_weilPairingElt_self_eq_one_of_hprin_two`, and
 `exists_weilPairingElt_self_eq_one_of_algClosed_three` minus `[IsAlgClosed F]`. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3)
@@ -341,7 +342,7 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h
 
 open Classical in
 /-- **The alternating property at `n = 3` in the value group, over an arbitrary field with
-`(2 : F) ≠ 0` and `(3 : F) ≠ 0`.** -/
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at every nonsingular `3`-torsion `T`, taking `hprin`.** -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →
