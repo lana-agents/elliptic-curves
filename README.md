@@ -2181,6 +2181,67 @@ true"*, one layer up, in this document's own prose. They are:
   three: read every heading whose text begins in lower case as well.
   ⚠️ It is only headings. A paragraph, a bullet and a `**bold**` span all cross a line break
   correctly, and several repairs on this front rely on that.
+* **A heading is its own unit, so a reach clause in one is read against that line and nothing
+  else** (`#1879`). The bullet above fixes what a heading *is*; this fixes what it *reaches*.
+  `### Reach clauses` fixes the unit for a **declaration headline** — its own docstring, and by
+  `#1660` not even a sentence lower down in it — and `### Module-block bullets` fixes it for a
+  **bullet**, whose unit is the list it sits in. Neither covers a module `# H1`, a `##` heading
+  inside a module docstring, or a standalone `/-! ### … -/` section header, and the two grounds
+  already on this page point opposite ways: the rendering ground — *"doc-gen renders the rest of
+  **this** docstring beside the headline"* — clears an H1, because doc-gen does render a module
+  body beside its H1, while `#1660`'s ground — *"the reader meets the clause first and a partial
+  one carries no signal"* — convicts it.
+  ⚠️ **`#1660`'s ground governs, and neither reason for that is new.** First, the rendering ground
+  is not what decides a headline either: `#1660` overrode it *inside a single docstring*, holding a
+  completing sentence four lines below a headline insufficient, so *"the body is rendered beside
+  it"* has already been held not to reach at the layer this one is being compared to. Second, **the
+  bullet above already treats a heading this way, and its remedy is only coherent under this
+  unit** — *"a reach clause that does not fit inside the shortened title has to be dropped to the
+  'or it names none' branch … and stated in the prose below, not wrapped"*. If a heading's unit ran
+  on into the prose below it, an over-long clause could be **continued** there and stay a naming
+  clause; it is required to be **dropped** instead, and all-or-nothing in the heading is what that
+  requirement means.
+  ⚠️ **So the repair for a heading is usually the *"or it names none"* branch, and it is the
+  cheaper of the two.** A heading is one source line inside a hundred columns and a complete
+  hypothesis list often does not fit beside a title: deleting the clause from the heading and
+  stating it in the prose below is compliant, costs no width, and is already what the bullet above
+  asks for when the line overflows.
+  ⚠️ **A heading over a LAYER may have no single hypothesis list to name**, which is the same
+  conclusion reached from the other side. `EllipticCurves.FunctionField.MulByNGalois` says in its
+  own `##` section *"Two ranges of `n` live in this file, and they must not be conflated"* that its
+  two halves carry different conditions, so its H1's clause has no one list to complete and
+  *"names none"* is the only branch open to it.
+  ⚠️ **This is about reach clauses only and leaves `### Gate-discharge claims` exactly where it
+  was.** A gate-discharge word is *visibly relative to something*, so its subject may sit anywhere
+  in the module block: `EllipticCurves.Torsion.PrimaryTowerAlgClosed` runs one from its H1 down
+  into the declaration headlines and is named above as the precedent for doing so, and
+  `EllipticCurves.Torsion.PrimaryTowerOdd`'s H1 — *"at an odd `p`, **with no hypothesis left**"* —
+  is compliant on that branch and is **not** convicted here.
+  ⚠️ **It narrows nothing and retires nothing.** `### Module-block bullets`' *"the **unit** moves
+  with the layer"* named the unit at two layers; this names it at a third, which
+  `### Reach clauses`' *"false or merely partial"* test sorts as **completing**, and
+  `### Retired claims` says completing retires nothing. `#1660` is untouched — it and this bullet
+  give the same answer for the same reason, one layer apart.
+  ⚠️ **The population, dated, with its recogniser — and it is a CANDIDATE set and not a conviction
+  set.** At `58df5a5`, over every tracked `EllipticCurves/**.lean`: ATX headings inside `/-!`
+  blocks, the file's **first** such block being the module docstring and every later one a section
+  header, number **3193** — **421** module H1s, **1736** `##` / `###` headings inside a module
+  docstring, and **1036** standalone `/-! ## … -/` and `/-! ### … -/` section headers. Over the
+  heading text alone, case-insensitively, the substring alternation `at every`, `at each`,
+  `at any`, `at a `, `at an `, `for every`, `for all`, `over a `, `over an `, `over any`,
+  `over every`, `in every characteristic`, `in any characteristic`, `unconditional`,
+  `prime to the characteristic`, `≠ 0`, `invertible`, `at composite`, `at odd`, `-smooth`,
+  `at the numeral` returns **219** — 95 H1, 113 section header, 11 in-module. The narrower cut that
+  names an index condition and no field condition returns **65** — 19 / 41 / 5.
+  ⚠️ **Both cuts over-report and the second under-reports too, and the rows that have been read say
+  by how much.** All **5** in-module rows are titles carrying no reach clause at all
+  (`EllipticCurves.Torsion.ChordSum`'s *"The proof, and what each hypothesis is spent on"* is the
+  shape), and `PrimaryTowerOdd`'s H1 is one of the 19 and clears on the gate-discharge branch
+  above. In the other direction the field list excludes **10** H1s that do match the index list, of
+  which **7** are the `TateModule.*General` family saying only *"at EVERY prime `ℓ ≠ char F`"* —
+  they are outside the 65 and they are **not** thereby cleared. **Only the three rows `#1879` names
+  have been read against a signature**; the rest are unread, and reading them is that issue's
+  successor rather than this bullet.
 * **A nested list is closed by a blank line, and parent-level prose that resumes without one is
   swallowed by the sub-list's last row** (`#1833`). A `  * ` sub-bullet's own continuation lines are
   written at four spaces and are right at every site in this file. The prose that returns to the
