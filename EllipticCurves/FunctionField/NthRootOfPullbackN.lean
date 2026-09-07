@@ -41,7 +41,10 @@ proves it at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  The fo
 side condition at all.
 
 The only gated input to rung 5 is `hprin`, and `hprin` is a **hypothesis** of the statement at every
-`n` — it does not get harder as `n` grows, it stays open.  So nothing about the mathematics was
+`n` — it does not get harder as `n` grows, and over an arbitrary field it stays open at every index
+alike (`#962`).  ⚠️ Over `F̄` it is discharged at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`, in `EllipticCurves.FunctionField.PullbackPrincipalityN`, which is a leaf and
+not this file.  So nothing about the mathematics was
 `[2]`- or `[3]`-specific; only `mulByNEndo`'s arrival date was.
 
 ## ⚠️ This does NOT subsume `exists_gS_two` / `exists_gS_three`
@@ -80,15 +83,28 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
 
 ## ⚠️ What is NOT here, and one corollary that must not be added
 
-* **`hprin` is not discharged at any `n`.**  It is an *existence* statement, and `#899`'s test —
-  *is the obstruction used to prove an equality, or to produce a witness?* — puts it firmly on the
-  witness side.
-* ⚠️ **There is deliberately no `exists_gS_of_smooth_of_isAlgClosed`.**  At `n = 2` and `n = 3`
-  `hprin` is discharged over `F̄` by `PullbackPrincipalityTwo` / `PullbackPrincipalityThree`, whose
-  input is the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))` — merged **only**
-  at those two indices (`MulByTwoFibreAffine`, `MulByThreeFibre`).  At `3`-smooth `n > 3` no such
-  description exists, so a hypothesis-free corollary would be one nothing can feed.  That is the
-  vacuity trap, not a gap to fill.
+* **`hprin` is not discharged at any `n` here, and over an arbitrary field it is not discharged
+  anywhere.**  It is an *existence* statement, and `#899`'s test — *is the obstruction used to
+  prove an equality, or to produce a witness?* — puts it firmly on the witness side, which is why
+  it does not descend from `F̄` (`#962`).  ⚠️ **Over `F̄` it IS discharged**, at every `n` with
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  The clause is qualified rather than
+  retired because it was true of this file and of every arbitrary-field statement, and both of
+  those remain so.
+* ⚠️ **RETIRED — the corollary this bullet refused now exists, in a leaf.**  It read
+  *"There is deliberately no `exists_gS_of_smooth_of_isAlgClosed`.  At `n = 2` and `n = 3` `hprin`
+  is discharged over `F̄` by `PullbackPrincipalityTwo` / `PullbackPrincipalityThree`, whose input is
+  the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))` — merged only at those two
+  indices (`MulByTwoFibreAffine`, `MulByThreeFibre`).  At `3`-smooth `n > 3` no such description
+  exists, so a hypothesis-free corollary would be one nothing can feed.  That is the vacuity trap,
+  not a gap to fill."*  The premise is false at `main`: the fibre description is
+  `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNFibre`) at every index prime to the characteristic, and the
+  corollary is `exists_gS_of_ne_zero_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`) — wider than the `3`-smooth form the
+  bullet declined, and non-vacuous at `n = 5` by a compiled certificate beside it.
+  ⚠️ **The half of the decision that stands is placement**: the discharge needs `[IsAlgClosed F]`
+  and `[W.IsElliptic]`, which this file's variable block does not carry, so it is not added here.
 * ⚠️ **`n = 5` IS reached, and this bullet used to say it was not.**  It read *"the ceiling is
   `transcendental_xCoord_nsmul_of_smooth`'s, and behind it stands `#1184`"*, with the hedge that
   *"which of this file's inputs is now the binding one was not re-measured"*.  It has now been

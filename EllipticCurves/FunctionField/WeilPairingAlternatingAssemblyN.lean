@@ -258,8 +258,12 @@ and no interior multiple `[i]P` or `[i]T` is either — that is what
 `EllipticCurves.FunctionField.TranslationPointEndomorphism` buys, and it is why the `n = 3`
 assembly's auxiliary point `Q` has no analogue in this hypothesis list.
 
-⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, it is open at general `n`, and it is
-the last real gate on this front. -/
+⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, and over an arbitrary field — which
+is this statement's setting — it is open at every index alike (`#962`) and is the last real gate on
+this front.  ⚠️ **Over `F̄` it is no longer open**: `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`) discharges it at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so a reader taking *"open at general `n`"* unqualified would
+now be taking it wrongly. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)

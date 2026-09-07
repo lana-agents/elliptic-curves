@@ -176,11 +176,21 @@ whole Weil-pairing front and does not import the generic-point stack; moving it 
 
 `exists_weilPairingElt_galois_two` / `…_three` — the **unconditional** headlines over an
 algebraically closed base field — have **no general-`n` form**, and this file does not pretend
-otherwise.  Their bodies call `exists_gS_two_of_isAlgClosed` (`#791`), which discharges `hprin` over
-`F̄`; at general `n` there is no such producer (`exists_gS_n` and `exists_gS_of_smooth` both still
-carry `hprin`).  Discharging `hprin` produces a *witness*, and `#899`'s test says witnesses do not
-descend.  So everything general below carries `hprin`, exactly as `#1308`'s and `#1317`'s headlines
+otherwise.  Everything general below carries `hprin`, exactly as `#1308`'s and `#1317`'s headlines
 do.
+
+⚠️ **RETIRED — the reason given for that was the absence of a producer, and there is one now.**
+This section read *"Their bodies call `exists_gS_two_of_isAlgClosed` (`#791`), which discharges
+`hprin` over `F̄`; at general `n` there is no such producer (`exists_gS_n` and `exists_gS_of_smooth`
+both still carry `hprin`).  Discharging `hprin` produces a witness, and `#899`'s test says witnesses
+do not descend."*  The parenthetical is still true of those two theorems, but the claim it supports
+is false: `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`) is exactly that producer, at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ **The `#899` sentence is untouched and is about
+something else** — it is why `hprin` does not descend from `F̄` to an arbitrary field (`#962`), not
+why it could not be reached at an arbitrary index over `F̄`.  ⚠️ **Nothing below changes**: the
+unconditional general-index headlines are not added here, because they would be an assembly with
+its own hypotheses and this file's subject is the `hprin`-carrying layer.
 
 Out of scope: any edit to `WeilPairingGaloisRoot` or `GaloisFunctionField`; the alternating and
 antisymmetry families, which `#1317` showed are gated on `#899` rather than on a numeral; `ωₙ`

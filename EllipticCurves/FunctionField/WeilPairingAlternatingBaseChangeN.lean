@@ -536,7 +536,12 @@ end Recovery
 
 /-! ### Non-vacuity at `n = 6`, over a field that is not algebraically closed — and at `n = 10`
 
-⚠️ `hprin` is `#418` and cannot be discharged at any index, so it stays bound below.  What is
+⚠️ `hprin` is `#418` and, over a field that is not algebraically closed, cannot be discharged at
+any index, so it stays bound below.  (⚠️ Over `F̄` it is discharged at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` by
+`EllipticCurves.FunctionField.PullbackPrincipalityN`, which is why the qualification is now
+written: `ℚ` is the setting of this certificate and the sentence is true of it, but the unqualified
+form is not true of the tree.)  What is
 certified is that **every other hypothesis of the `3`-smooth headline is simultaneously satisfiable
 over `ℚ`** at an index no merged statement reaches: the elliptic instance, `(2 : ℚ) ≠ 0`,
 `(3 : ℚ) ≠ 0`, `n ≠ 0`, `3`-smoothness, an affine nonsingular `T`, and `T ∈ torsion 6`.  The halving
