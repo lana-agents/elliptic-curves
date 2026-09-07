@@ -197,10 +197,14 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
 
 ⚠️ **RETIRED — and under `### Retired claims`' replication rule this is the one place it retires.**
 The **General `n`** bullet above read *"only `n = 2, 3` are concretely available"* from `3f8ba10`
-(2026-09-02, `#1504`, PR #580) until this commit; every other block that made the same claim made
-it in the words *"this development has the pairing at `n = 2` and `n = 3` only"* or
-*"… and nowhere else"*, first written at `53a5712` (2026-08-24, `#951`, PR #381) and last at
-`680911a` (2026-08-30, `#1242`, PR #462).  **What falsified all of them at once is `ecfb3e9`**
+(2026-09-02, `#1504`, PR #580) until this commit.  The blocks that made the same claim in the words
+*"this development has the pairing at `n = 2` and `n = 3` only"* or *"… and nowhere else"* — the
+ones the recogniser below returns — run from `53a5712` (2026-08-24, `#951`, PR #381) to `5437e189`
+(2026-08-30, `#1240`, PR #460).  ⚠️ **The last block to make the claim made it in neither of those
+wordings**, so the bracket above is the bracket of the *quotation* and not of the claim: it is
+`EllipticCurves.TateModule.MatrixRepMod` at `680911a` (2026-08-30, `#1242`, PR #462), whose words
+are quoted below with the other row the recogniser misses.  **What falsified all of them at once is
+`ecfb3e9`**
 (2026-09-07, `#1843`, PR #723):
 `exists_gS_n_of_isAlgClosed` supplies the root datum over `F̄` at every `n` with `(2 : F) ≠ 0` and
 `((n : ℤ) : F) ≠ 0` and assumes no `hprin`, where before it the general-`n` layer was gated on

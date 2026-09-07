@@ -113,13 +113,18 @@ Nothing is deleted here; the de-duplication question is a separate one.
 
 * **`det ρ_{E,n} = χ_n`.**  This file supplies the *well-definedness* of the left-hand side at more
   indices and nothing else.  The identification needs the Weil pairing **over the base field**, and
-  there `#962` is the standing gate at a general index; the one index at which it has landed is
-  `n = 3`, as `galoisDetMod_three_eq_galoisModularCyclotomicChar` in
-  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.  ⚠️ **This bullet used to bound
-  the development's pairing to two indices; that bound is false and is retired once, in
-  `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
-  (`### Retired claims`): over `F̄` it is available at every `n` with `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  there `#962` is the standing gate at a general index.  ⚠️ **Say which form of the identification
+  has landed, because the two answers differ and a bare index picks one of them silently.**  As an
+  identity of `galoisDetMod` — the left-hand side this file is about, with no basis and no chosen
+  pair in the statement — it is `galoisDetMod_three_eq_galoisModularCyclotomicChar`
+  (`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`), at `n = 3`.  **In coordinates**
+  it is `galoisModularCyclotomicChar_two_eq_det` and `galoisModularCyclotomicChar_three_eq_det`
+  (`EllipticCurves.FunctionField.WeilPairingDeterminant`), at `n = 2` and at `n = 3` — which is the
+  reach `EllipticCurves.TateModule.Determinant` states for that file, and this bullet has to agree
+  with it.  ⚠️ **This bullet used to bound the development's pairing to two indices; that bound is
+  false and is retired once, in `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every
+  block that carried it** (`### Retired claims`): over `F̄` it is available at every `n` with
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
   (`EllipticCurves.FunctionField.PullbackPrincipalityN`).
 * **Anything at `n = 5`** — ⚠️ **out of scope of *this file*, and no longer out of reach.**  This
   bullet used to end *"i.e. the general multiplication-by-`n` coordinate formula"*, naming the two
