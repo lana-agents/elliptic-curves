@@ -94,6 +94,22 @@ to `F̄` at both `n`; general `n` (⚠️ no longer `#251`, which is closed — 
 question (`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level
 theorems or their proofs.
 
+⚠️ **Qualified, not retired: *"general `n`"* is out of scope of THIS file and stays out of it, but
+the general-`n` `μ_n(F)` layer now exists** —
+`EllipticCurves.FunctionField.WeilPairingNondegenerateN` (`#1844`) states this file's three
+headline shapes at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`, off the same
+descent `weilPairingMu_eq_one_iff` used here and off the general-`n` `hpow` producer
+`weilPairingElt_pow_eq_one_of_gS_n_torsion` in place of the two numeral ones named above; it
+recovers this file's two Silverman-shaped headlines verbatim.  `### Reach clauses`' *"false or
+merely partial"* test returns **partial** — the words stay and a pointer is added — so
+`### Retired claims` does not bind here.  ⚠️ **The other three items in that list are untouched and
+are NOT qualified by this** — the list is four items and not three, so read it rather than the
+count: `hprin` over a general field is `#962` and is still open; the `weilPairingMuHom` bundling is
+still blocked on the uniform-`hpow` question, which a general index does not answer; and *"any
+change to the six `F(W)`-level theorems or their proofs"* stays true of `#1844` in the strict sense
+it asserts — that PR adds a module docstring paragraph to `WeilPairingNondegenerate{Two,Three}` and
+to this file, and touches no statement, no proof and no binder of the six.
+
 ⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of
 those are now closed.**  PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index
 over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0` —

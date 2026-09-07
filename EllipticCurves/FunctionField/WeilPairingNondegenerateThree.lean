@@ -100,6 +100,17 @@ Subsingleton.elim _ _`.
 too): it is Ward-free for the same
 reason the `n = 2` file is.
 
+⚠️ **Qualified, not retired: *"not general `n`"* is a claim about THIS file's reach and stays true
+of it, but the general-`n` statement now exists** —
+`EllipticCurves.FunctionField.WeilPairingNondegenerateN` (`#1844`) proves all four headlines below
+at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`, and recovers this file's two
+headlines from them verbatim.  `### Reach clauses`' *"false or merely partial"* test returns
+**partial** — the words stay and a pointer is added — so `### Retired claims` does not bind here.
+⚠️ **The `#E[n] = n²` sentence above is a different case and is left exactly as it is**, for the
+reason the `n = 2` file now records at the same place: it is about this file's own reach, is still
+true, and `#242` is a merged theorem that reaches the general-`n` file through step 1 rather than
+through step 4.
+
 ⚠️ **There now IS a `W.Point`-level pairing in this tree at `n = 3`, and this file's headline is
 what its non-degeneracy consumes.**  This section used to say the opposite — *"there is no
 `W.Point`-level pairing in this tree at `n = 3`, so non-degeneracy cannot be stated here as a
