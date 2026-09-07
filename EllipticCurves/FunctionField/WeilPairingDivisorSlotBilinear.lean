@@ -83,9 +83,17 @@ are closed**: `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOr
 every index over a field with `(2 : F) ≠ 0` and under the same `ΨSqₙ(x) ≠ 0`.  ⚠️ That was the step
 `hprin` reaches through `MulByTwoFibreAffine`/`MulByThreeFibre`, whose own input is
 `addY_self_eq_div` (`EllipticCurves.Torsion.DoublingCoords`) and its `n = 3` mirror — and that input
-now exists at every index.  ⚠️ **Whether it unblocks those two fibre descriptions is NOT measured**,
-here or anywhere in this tree: the bullet is retired because the reason it gave is false, not
-because a replacement reason was found.  The two-reading account is
+now exists at every index.  ⚠️ **Whether it unblocks those two fibre descriptions is still NOT
+measured**, here or anywhere in this tree, and the bullet is still retired because the reason it
+gave is false and not because a replacement reason was found.  ⚠️ **But a general-`n` fibre
+description no longer waits on that question**: `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNFibre`, `#1540`, PR #612) is merged at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`, reached through the place layer rather than by
+generalising those two files — whose coordinate inputs enter only at `n = 2` and `n = 3` — and
+`exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`, `#1843`)
+consumes it.  ⚠️ So the sentence above is **short and not false**: what it declines to measure is a
+route, and the destination that route was wanted for has since been reached without it.  The
+two-reading account is
 `EllipticCurves.FunctionField.MulByNPullback`.
 
 ⚠️ **This file's headline is what the `W.Point`-level pairing's divisor slot is proved from.**  This

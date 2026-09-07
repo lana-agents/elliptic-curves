@@ -169,8 +169,18 @@ met head-on.
   `#251`/`#1500` and both halves are closed at every index with `(2 : F) ≠ 0`
   (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`;
   `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).  ⚠️
-  **Whether a general-`n` fibre description now follows is NOT measured** — nothing here is a claim
-  that the only thing it was waiting on has been removed.
+  **RETIRED — a general-`n` fibre description does follow, and it is merged.**  This clause read
+  *"Whether a general-`n` fibre description now follows is NOT measured — nothing here is a claim
+  that the only thing it was waiting on has been removed."*  It landed at `3f8ba10` (`#1504`,
+  PR #580, 2026-09-02) and was false the next day:
+  `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+  (`EllipticCurves.FunctionField.MulByNFibre`) landed at `135f257` (`#1540`, PR #612, 2026-09-03)
+  and is the fibre description at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`,
+  with `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`,
+  `#1843`) consuming it.  ⚠️ **What replaces it is the narrower claim, which is what this bullet
+  was for**: nothing general-`n` is attempted *here*, and the route that reached it is the place
+  layer of `MulByNFibre` rather than a general-`n` coordinate formula — the coordinate inputs of
+  this file and of `MulByTwoFibreAffine` enter only at `n = 3` and `n = 2`.
 
 ## References
 

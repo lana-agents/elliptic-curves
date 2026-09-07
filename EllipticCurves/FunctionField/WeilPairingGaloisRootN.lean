@@ -36,9 +36,15 @@ formula** — it comes from the group law on the generic point (`#1165`), not fr
 route is closed at general `n`.  ⚠️ **This sentence used to say it stays closed until `#251`, and
 `#251` has since landed** (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`,
 with its `y`-half `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`,
-`#1500`).  ⚠️ Those give the coordinates of `n • P` on the **curve**; the missing step here is the
-function-field intertwiner `galoisFunctionField_mulByNEndo`, and **whether the curve-level formula
-supplies it is not measured**.
+`#1500`).  ⚠️ Those give the coordinates of `n • P` on the **curve**, and what they do not give is
+the function-field intertwiner `galoisFunctionField_mulByNEndo` — ⚠️ **which is not missing: it is
+this file's own new brick**, proved below from the `σ⋆`-action on the generic point and
+`functionField_ringHom_ext`, and listed under *Main statements*.  ⚠️ **RETIRED.**  This sentence
+called it *"the missing step here"* and said *"whether the curve-level formula supplies it is not
+measured"* (`3f8ba10`, `#1504`, PR #580).  The first half was false when it was typed — the theorem
+has been in this file since `8986be6` (`#1321`, PR #497) — and what survives of the second is only
+the counterfactual: whether the curve-level formula *would* also supply it is untried, and the file
+reaches the intertwiner without one.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
