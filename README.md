@@ -2232,16 +2232,30 @@ true"*, one layer up, in this document's own prose. They are:
   `over every`, `in every characteristic`, `in any characteristic`, `unconditional`,
   `prime to the characteristic`, `≠ 0`, `invertible`, `at composite`, `at odd`, `-smooth`,
   `at the numeral` returns **219** — 95 H1, 113 section header, 11 in-module. The narrower cut that
-  names an index condition and no field condition returns **65** — 19 / 41 / 5.
+  names an index condition and no field condition returns **65** — 19 H1, 41 section header, 5
+  in-module — and its two lists are case-insensitive substrings of the heading text like the seed,
+  except that the backticks inside three of the index literals are **part of the literal**: those
+  three are written with a space at each end, which CommonMark strips, so what renders is the
+  literal exactly and the warning at `### Reach clauses` about a one-sided trailing space does not
+  apply to them. Index:
+  `prime to the characteristic`, `at every`, `at each`, `at any index`, `at a general`,
+  `` for every `n` ``, `` `(n : F) ≠ 0` ``, `` `((n : ℤ) : F) ≠ 0` ``, `-smooth`, `at composite`,
+  `at an odd`. Field, which excludes: `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `characteristic ≠`, `char ≠`,
+  `characteristic other`, `characteristic zero`, `invertible`, `≠ 2`, `odd characteristic`,
+  `charzero`, `char f`.
+  ⚠️ **The cut is a second recogniser and not a partition of the seed, so do not try to rebuild it
+  from the twenty-one above** — **16** of these 22 literals are not among them. Exhaustively: of the
+  2²¹ ways of splitting the seed's own literals into an index list and a field list, 15808 reach the
+  total **65** and **none** reaches the split 19 / 41 / 5.
   ⚠️ **Both cuts over-report and the second under-reports too, and the rows that have been read say
   by how much.** All **5** in-module rows are titles carrying no reach clause at all
   (`EllipticCurves.Torsion.ChordSum`'s *"The proof, and what each hypothesis is spent on"* is the
-  shape), and `PrimaryTowerOdd`'s H1 is one of the 19 and clears on the gate-discharge branch
-  above. In the other direction the field list excludes **10** H1s that do match the index list, of
-  which **7** are the `TateModule.*General` family saying only *"at EVERY prime `ℓ ≠ char F`"* —
-  they are outside the 65 and they are **not** thereby cleared. **Only the three rows `#1879` names
-  have been read against a signature**; the rest are unread, and reading them is that issue's
-  successor rather than this bullet.
+  shape), and `EllipticCurves.Torsion.PrimaryTowerOdd`'s H1 is one of the 19 and clears on the
+  gate-discharge branch above. In the other direction the field list excludes **10** H1s that do
+  match the index list, of which **7** are the `TateModule.*General` family whose only condition is
+  `ℓ ≠ char F` — they are outside the 65 and they are **not** thereby cleared. **Only the three rows
+  `#1879` names have been read against a signature**; the rest are unread, and reading them is that
+  issue's successor rather than this bullet.
 * **A nested list is closed by a blank line, and parent-level prose that resumes without one is
   swallowed by the sub-list's last row** (`#1833`). A `  * ` sub-bullet's own continuation lines are
   written at four spaces and are right at every site in this file. The prose that returns to the
