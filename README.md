@@ -2250,22 +2250,22 @@ true"*, one layer up, in this document's own prose. They are:
   where a wrong sha names a commit at which the text is not there at all, so what carries the
   exemption there is that the `PR #<n>` beside an attribution names the same commit a second time.
   ⚠️ **What this axis convicts is fidelity, and no recogniser reads fidelity.** No citation of the
-  108 names the wrong section at this head. A verbatim check
-  catches a drifted quotation only once the section has been resolved mechanically, and PR #716's
-  round-4 review is the converse failure — a quotation verified verbatim against text that sat in a
-  different section, 59 lines past the boundary and in prose that reads like the section it was
-  cited to — so the two halves of the test fail independently and neither substitutes for the other.
-  ⚠️ **A quotation goes stale by an edit somewhere else**: neither `## Layout` citation was touched
-  after it was written, and the commit that falsified both was re-measuring a third thing. ⚠️ **The
-  sha half, where the population is clean and the syntax is not.** `[0-9a-f]{7,40}` inside an inline
-  code span, non-fenced: **69 spans**, **40 distinct**, and `git cat-file -t` resolves all 40 to
-  commits of this repository, so no sha in this file dangles. **25 sit within 70 characters** of a
-  `PR #<n>`, and **24 of those** are that PR's merge on `main`. The one that is not is `ee0b8a4`,
-  and it is **cleared by reading and not by the test**: that sentence says the wording *"was live
-  at"* the commit rather than that it landed there, and `EllipticCurves.Torsion.PrimaryTowerOdd`
-  carries the wording as live prose at `ee0b8a4` and as a marked retired quotation at `b764fae`,
-  which is PR #667's merge. ⚠️ **A sha does three jobs here under one syntax, and this file
-  distinguishes none of them:**
+  108 names the wrong section at `5a2fe24`, the commit that population is measured at, and it clears
+  nothing this page has gained since. A verbatim check catches a drifted quotation only once the
+  section has been resolved mechanically, and PR #716's round-4 review is the converse failure — a
+  quotation verified verbatim against text that sat in a different section, 59 lines past the
+  boundary and in prose that reads like the section it was cited to — so the two halves of the test
+  fail independently and neither substitutes for the other. ⚠️ **A quotation goes stale by an edit
+  somewhere else**: neither `## Layout` citation was touched after it was written, and the commit
+  that falsified both was re-measuring a third thing. ⚠️ **The sha half, where the population is
+  clean and the syntax is not.** `[0-9a-f]{7,40}` inside an inline code span, non-fenced: **69
+  spans**, **40 distinct**, and `git cat-file -t` resolves all 40 to commits of this repository, so
+  no sha in this file dangles. **25 sit within 70 characters** of a `PR #<n>`, and **24 of those**
+  are that PR's merge on `main`. The one that is not is `ee0b8a4`, and it is **cleared by reading
+  and not by the test**: that sentence says the wording *"was live at"* the commit rather than that
+  it landed there, and `EllipticCurves.Torsion.PrimaryTowerOdd` carries the wording as live prose at
+  `ee0b8a4` and as a marked retired quotation at `b764fae`, which is PR #667's merge. ⚠️ **A sha
+  does three jobs here under one syntax, and this file distinguishes none of them:**
   * **Attribution** — *where a clause landed*. The sha must be that PR's merge, and all 24 agreeing
     rows are of this kind.
   * **Measurement** — *the base a figure was taken at*. Any commit, and the row owes a statement of
@@ -2301,6 +2301,50 @@ true"*, one layer up, in this document's own prose. They are:
   the other four — and the 9 beside them unchanged. No numeral in this bullet stands alone inside a
   bold span, none of the nine words is written here, and no noun of the first seed's list is put in
   front of a direction word.
+* **A clearance is not a count, and the discriminator in `### Reach clauses` does not reach it**
+  (`#1824`). That discriminator sorts a dated census, which a new head does not falsify, from a
+  present-tense claim about a named declaration, which it does. A **clearance** — the claim that no
+  member of a named population is defective — sits with the census on that test and with neither on
+  what going stale costs. A stale count **under-reports**: it says the population is smaller than it
+  is, and the reader who cares re-runs the recogniser. A stale clearance **hollows**: the population
+  grew, the verdict did not, and the rows nobody read look exactly like the rows somebody did. The
+  first is visible to the next person who counts and the second is visible to no one. ⚠️ **So a
+  clearance is keyed to one commit at both ends and never to the head**: it names the size of the
+  population it cleared and the commit that population was measured at, and it is silent about every
+  commit past that one. A head-relative phrase is what a count may use and a clearance may not,
+  because a reader who dates one by `git blame` repairs a count by re-running a recogniser and a
+  clearance only by reading rows. ⚠️ **A count phrased against the head is dated by the commit that
+  wrote it, and this file already leaves such a count standing**: `### Gate-discharge claims` gives
+  its sha census at the head that published it, the commit after that moved both figures and did not
+  re-key them, and that account rules for itself that a census of the axis is dated rather than
+  standing. This commit does the same to the figures in the bullet it repairs, deliberately rather
+  than by oversight, and that licence is exactly what a clearance must not have. ⚠️ **The other
+  branch — a clearance that binds at head — is refused because nothing could check it.** It puts a
+  standing obligation on every author who adds a citation to re-run a fidelity test over a
+  population they did not measure, and the citation-provenance bullet in this list is the
+  demonstration that no recogniser reads fidelity. ⚠️ **That bullet is the standing instance**,
+  which is why the rule is written beside it: its clearance names 108 citations of this page
+  measured at `5a2fe24`, the census in the same bullet returns 125 at `b2d1981`, and the
+  **17 in the difference** are covered by no clearance here, as is every citation this page has
+  gained since. Dating the verdict convicts nothing — the clause was **partial in its scope and
+  never false of its population**, which is the test `### Retired claims` requires first.
+* **A cited heading may be shortened to a prefix of it and to nothing else** (`#1824`). The five
+  prefix citations the citation-provenance bullet names are correct as written, and no rule on this
+  page said so when they were written. ⚠️ **The ground is that a reader searches for the cited words
+  and lands on the heading**, and it holds under three conditions rather than in general: the cited
+  words are a contiguous run at the **start** of the heading, so they are in the file verbatim and
+  in the order given; the citing sentence **names the file**, without which a title this page also
+  carries — and one of the five is such a title — resolves here instead; and no second heading of
+  the named file opens the same way. All five meet all three, re-checked against the `.lean` files
+  at this head, and none is repaired. ⚠️ **Nothing else about a citation is licensed by this.** A
+  title with words dropped from its middle, or with its words put in another order, is neither a
+  prefix nor what a reader would search for. And the rule is about an **address**: it reaches no
+  marked quotation, which claims the words themselves, so the reordered quotation convicted in that
+  same bullet stays convicted. ⚠️ **It is also why a short citation is not a short reach clause**,
+  though `### Reach clauses` sorts short as partial and would otherwise take both: a reach clause
+  that names some of a declaration's conditions leaves a reader no way to learn the rest exist,
+  where a prefix leaves the rest of the heading one search away in a file the sentence has already
+  named.
 
 ### Retired claims
 
