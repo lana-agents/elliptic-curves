@@ -136,8 +136,17 @@ this.
 
 ## ⚠️ What is NOT here
 
-* **`hprin` is not discharged at any `n`.**  `#899`'s test — is the obstruction used to prove an
-  *equality* or to produce a *witness*? — puts it on the witness side.
+* **`hprin` is not discharged at any `n` here.**  `#899`'s test — is the obstruction used to prove
+  an *equality* or to produce a *witness*? — puts it on the witness side.  ⚠️ **Elsewhere it IS
+  discharged, and on both axes**: over `F̄` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`,
+  by `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`); and over
+  an arbitrary field with `(2 : F) ≠ 0` at `n = 2`, by `exists_gS_two_of_card`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`), from rational `2`-torsion
+  and a halving.  ⚠️ **The bullet is scoped to this file and is not a claim about the tree** — it
+  read *"`hprin` is not discharged at any `n`"* under this same `## ⚠️ What is NOT here` heading
+  until this commit, and *here* is what makes it true, so the clause is completed in place rather
+  than retired.  This is the repair `NthRootOfPullbackN` took for the same clause, under a heading
+  that opens with the same words; the wording is matched to it deliberately.
 * ⚠️ **RETIRED — the corollary is refused for a different reason now, and the reason this bullet
   gave is false.**  It read *"There is deliberately no general-`n` `_of_isAlgClosed` corollary.  At
   `n = 2` and `n = 3` `hprin` is discharged over `F̄` by `PullbackPrincipalityTwo` /
