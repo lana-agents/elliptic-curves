@@ -170,7 +170,11 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   which is the canonical account of what it consumes.  Over an algebraically closed base field it
   is merged at both `n`, as `EllipticCurves.FunctionField.WeilPairingNondegenerateTwo` (`#796`) and
   `EllipticCurves.FunctionField.WeilPairingNondegenerateThree` (`#831`); over a general field at
-  either `n`, it is not.
+  either `n`, it is not.  ⚠️ **Partial rather than false, so the words stay and this pointer is
+  added**: it is also merged at a general `n` over `F̄`, as
+  `EllipticCurves.FunctionField.WeilPairingNondegenerateN` (`#1844`), under `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` — the two named files remain merged and the general-field verdict is
+  unchanged, so `### Reach clauses`' *"false or merely partial"* test returns **partial**.
 * **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
   (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
   named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`,
@@ -256,9 +260,24 @@ every `T`, which is what `weilPairingElt` taking `g_S` as an *argument*
 the ⚠️ below records.
 
 ⚠️ **"Non-degeneracy is proved" is true only over an algebraically closed base field**, where it
-is `#796` at `n = 2` and `#831` at `n = 3`.  Over a general field at either `n` it is not, and for
-general `n` this section remains an account of what non-degeneracy *consumes* rather than of
-a theorem.
+is `#796` at `n = 2`, `#831` at `n = 3` and `#1844` at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0` (`EllipticCurves.FunctionField.WeilPairingNondegenerateN`).  Over a general
+field it is not, at any `n`.
+
+⚠️ **Retired, and the commit that added `WeilPairingNondegenerateN` is what falsified it.**  The
+paragraph above closed — with *consumes* in italics — *"and for general `n` this section remains an
+account of what non-degeneracy consumes rather than of a theorem"*, from `38ff4ba` (`#796`,
+PR #323) until that commit.  `eq_zero_of_forall_weilPairingElt_eq_one_n` assembles the seven-step
+argument above at an arbitrary index, so at general `n` there is a theorem and the clause does not
+survive.  ⚠️ **It is a claim about the tree and not about this file's own reach**, so
+`### Reach clauses`' *"false or merely partial"* test returns **false** and `### Retired claims`
+binds: it is quoted here rather than completed in place.  ⚠️ **What replaced it is the enumeration
+above, and this section is still the canonical account of what non-degeneracy consumes** — the
+seven-step list is unchanged, the general-`n` assembly spending `exists_gS_n_of_isAlgClosed`
+(`#1843`) at step 1 and `fixedFieldN_eq_mulByNFieldRange_of_ne_zero` (`MulByNGalois`) at step 4,
+with steps 2, 6 and 7 `n`-free.  ⚠️ **Step 4 at general `n` is not `#242`**: it spends a `finrank`
+computation and states no torsion count, and `#242` reaches the general-`n` file through step 1
+instead.
 
 ⚠️ **`#418` has two halves, and only the first one is on this path.**  `hprin`, the hypothesis of
 `exists_gS_two`, asks that `divisor W ([2]∗ f)` be `2 •` a principal divisor; it mentions the

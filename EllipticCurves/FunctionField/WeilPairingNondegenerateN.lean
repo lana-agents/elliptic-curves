@@ -500,9 +500,14 @@ end Nondegenerate
 
 ⚠️ **A certificate at `n = 2` or `n = 3` would prove nothing the two merged files do not**, so the
 witness has to be produced at an index neither of them reaches.  `#1843`'s
-`exists_nonsingular_mem_torsion` supplies one at **every** `n ≠ 0, 1`: `#E[n] = n² > 1`
-(`card_torsion_eq_sq`, `#242`) makes `E[n]` nontrivial, and a nonzero point of `W.Point` is a
-`Point.some` by construction.
+`exists_nonsingular_mem_torsion` supplies one **over `F̄` at every `n ≠ 0, 1` with `(2 : F) ≠ 0`
+and `(n : F) ≠ 0`** — its own headline's words, and the two field conditions are part of what it
+reaches and not of an ambient setting: `#E[n] = n² > 1` (`card_torsion_eq_sq`, `#242`) makes `E[n]`
+nontrivial, and a nonzero point of `W.Point` is a `Point.some` by construction.  ⚠️ **Naming the
+index condition alone would be false and not merely partial**, which is why it is not named alone
+here: at `n = char F` the index condition holds and no affine `n`-torsion point is supplied, because
+the count it is produced from fails there — of `#E[n] = n²`, `PullbackPrincipalityN` says *"at
+`n = char F` the latter is **false**, not merely unproved"*.
 
 ⚠️ **The point is not nameable at `n = 5`**, and the certificate below is stated at a *quantified*
 `(x, y)` rather than exhibiting coordinates the way `WeilPairingNondegenerateTwo` exhibits `(0, 0)`.

@@ -128,6 +128,10 @@ formed at all, and it is discharged for `σT` rather than assumed a second time.
 ⚠️ **Non-degeneracy is not in scope**, and neither is `#E[n] = n²`.  `WeilPairing`'s scope section
 is the canonical account of what non-degeneracy consumes (`#769`); over `F̄` it is merged at both
 `n`, as `WeilPairingNondegenerateTwo` (`#796`) and `WeilPairingNondegenerateThree` (`#831`).
+⚠️ **Partial rather than false, so the words stay and this pointer is added**: over `F̄` it is now
+also merged at a general `n`, as `WeilPairingNondegenerateN` (`#1844`), under `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`.  Both named files are still merged and this file's scope is unmoved, so
+`README.md` `### Reach clauses`' *"false or merely partial"* test returns **partial**.
 
 ## Placement
 
