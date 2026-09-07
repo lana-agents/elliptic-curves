@@ -107,9 +107,14 @@ nothing to prove.  Here there is something to prove and the pairing proves it.
 ⚠️ **This does not close `EllipticCurves.TateModule.Determinant`'s gap and nothing below should be
 read as closing it.**  `galoisDetTwo` there is `LinearEquiv.det` on the `2`-adic Tate module `T₂E`,
 and identifying *it* with the cyclotomic character needs the pairing at **every** level `E[2 ^ k]`.
-This development has the pairing at `n = 2` and `n = 3` and nowhere else, so the inverse limit
-cannot be taken.  The only sentence there this file falsifies is the parenthetical claim that the
-Weil pairing and its Galois equivariance are unavailable.
+⚠️ **This sentence used to ground that on the development having the pairing at two indices only;
+that bound is false and is retired once, in `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`,
+for every block that carried it** (`### Retired claims`).  Over `F̄` the pairing is available at
+every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`).  What the inverse limit needs is the pairing
+on `E[2 ^ k]` at `k > 1` **over the base field**, and there `#962` is the standing gate; `F̄` is not
+a setting `galoisDetTwo` says anything in.  The only sentence there this file falsifies is the
+parenthetical claim that the Weil pairing and its Galois equivariance are unavailable.
 
 Also out of scope: general `n` (⚠️ no longer `#251`, which is closed — see below); ⚠️ the ceiling
 inherited here is `#938`'s and **not** `#940`'s, since `exists_weilPairing{Two,Three}_ne_one` routes

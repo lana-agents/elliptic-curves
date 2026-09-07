@@ -112,10 +112,15 @@ Nothing is deleted here; the de-duplication question is a separate one.
 ## Explicitly out of scope
 
 * **`det ρ_{E,n} = χ_n`.**  This file supplies the *well-definedness* of the left-hand side at more
-  indices and nothing else.  The identification needs the Weil pairing, which this development has
-  at `n = 2` and `n = 3` only, and it is
-  `galoisDetMod_three_eq_galoisModularCyclotomicChar` in
-  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
+  indices and nothing else.  The identification needs the Weil pairing **over the base field**, and
+  there `#962` is the standing gate at a general index; the one index at which it has landed is
+  `n = 3`, as `galoisDetMod_three_eq_galoisModularCyclotomicChar` in
+  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.  ⚠️ **This bullet used to bound
+  the development's pairing to two indices; that bound is false and is retired once, in
+  `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
+  (`### Retired claims`): over `F̄` it is available at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`).
 * **Anything at `n = 5`** — ⚠️ **out of scope of *this file*, and no longer out of reach.**  This
   bullet used to end *"i.e. the general multiplication-by-`n` coordinate formula"*, naming the two
   things behind `nonempty_torsion_addEquiv_zmod_sq_of_smooth` as missing: `[5]`-surjectivity and

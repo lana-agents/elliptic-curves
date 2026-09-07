@@ -127,11 +127,16 @@ buys over `α : E[3] →+ E[3]` is not strength, it is that `LinearMap.det α` c
   reading: `(ZMod 2)ˣ` is trivial, so the *equivalence* version degenerates to "every automorphism
   of `E[2]` preserves `e_2`", but the *endomorphism* version does not, since `LinearMap.det α` can
   be `0` there.
-* **General `n` is out of scope** and is not merely unproved here: this development has the Weil
-  pairing at `n = 2` and `n = 3` and nowhere else.  ⚠️ This bullet used to name `#251` as the
-  ceiling for the pairing itself; `#251` is closed, so what is left of the sentence is `#938`'s
-  double obstruction at composite `n`.  ⚠️ Whether that is now the *only* ceiling is **not
-  measured**.
+* **General `n` is out of scope** and is not merely unproved here.  ⚠️ **The reason this bullet
+  used to give — that the development had the pairing at two indices only — is false and is retired
+  once, in `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried
+  it** (`### Retired claims`): over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0`
+  and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **What is out of scope here is the
+  determinant/linearity argument at a general `n`, and nothing above moves it.**  ⚠️ This bullet
+  used to name `#251` as the ceiling for the pairing itself; `#251` is closed, so what is left of
+  the sentence is `#938`'s double obstruction at composite `n`.  ⚠️ Whether that is now the *only*
+  ceiling is **not measured**.
 * ⚠️ **This does not touch `EllipticCurves.TateModule.Determinant`.**  `galoisDetTwo` there is
   `LinearEquiv.det` on the `2`-adic Tate module, and identifying it with the cyclotomic character
   needs the pairing at every level `E[2 ^ k]`.  Nothing below is a step towards that.

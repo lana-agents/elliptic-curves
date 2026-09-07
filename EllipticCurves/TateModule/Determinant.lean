@@ -172,8 +172,15 @@ cyclotomic form (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`), 
 no chosen pair in the statement. ⚠️ Be exact about which half that moves: it is the **mod-`3`**
 half, and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo`
 itself is different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at
-**every** level `E[2 ^ k]` in order to take the inverse limit, and this development has the pairing
-at `n = 2` and `n = 3` only. The gate is the general-`n` pairing, not the equivariance.
+**every** level `E[2 ^ k]` in order to take the inverse limit — **over the base field**, and there
+`#962` is the standing gate at a general index. The gate is the general-`n` pairing, not the
+equivariance. ⚠️ **This sentence used to ground that on the development having the pairing at two
+indices only; that bound is false and is retired once, in
+`EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
+(`### Retired claims`): over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`), and `F̄` is not a setting `galoisDetTwo`
+says anything in.
 
 ⚠️ **`galoisDetThree` existing does not move that gate either, and this file will now look as
 though it does.** The `3`-adic identity `galoisDetThree = χ_3` over `ℤ_[3]` needs the pairing on
