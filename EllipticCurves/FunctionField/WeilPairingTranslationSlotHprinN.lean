@@ -138,12 +138,22 @@ this.
 
 * **`hprin` is not discharged at any `n`.**  `#899`'s test — is the obstruction used to prove an
   *equality* or to produce a *witness*? — puts it on the witness side.
-* ⚠️ **There is deliberately no general-`n` `_of_isAlgClosed` corollary.**  At `n = 2` and `n = 3`
-  `hprin` is discharged over `F̄` by `PullbackPrincipalityTwo` / `PullbackPrincipalityThree`, whose
-  input is the fibre description `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))` — merged **only**
-  at those two indices (`MulByTwoFibreAffine`, `MulByThreeFibre`).  At `3`-smooth `n > 3` no such
-  description exists, so the corollary would be one nothing can feed.  That is the `#944` vacuity
-  trap, and `#1304` refused the same corollary for the same reason.
+* ⚠️ **RETIRED — the corollary is refused for a different reason now, and the reason this bullet
+  gave is false.**  It read *"There is deliberately no general-`n` `_of_isAlgClosed` corollary.  At
+  `n = 2` and `n = 3` `hprin` is discharged over `F̄` by `PullbackPrincipalityTwo` /
+  `PullbackPrincipalityThree`, whose input is the fibre description
+  `[n]∗((S) − (O)) = ∑_{R ∈ E[n]} ((P ⊕ R) − (R))` — merged only at those two indices
+  (`MulByTwoFibreAffine`, `MulByThreeFibre`).  At `3`-smooth `n > 3` no such description exists, so
+  the corollary would be one nothing can feed.  That is the `#944` vacuity trap, and `#1304` refused
+  the same corollary for the same reason."*  The fibre description is merged at every index prime to
+  the characteristic (`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`,
+  `EllipticCurves.FunctionField.MulByNFibre`), so there is no vacuity: `hprin` over `F̄` at an
+  arbitrary index is `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **The corollary is still not added
+  here**, and the reason is now the ordinary one: this file's statements are over an arbitrary
+  field, an `_of_isAlgClosed` corollary would carry `[IsAlgClosed F]` and `[W.IsElliptic]` that its
+  variable block does not, and it belongs beside the discharge.  ⚠️ The `#1304` half of the
+  attribution stands as history and is not reopened here.
 * ⚠️ **`n = 5` IS reached, and this bullet used to say it was not.**  It read *"the ceiling is
   `transcendental_xCoord_nsmul_of_smooth`'s"*, recorded `#251` and `#1184` behind it, noted that
   both had since been closed, and declined to say whether that moved the ceiling — *"not measured
@@ -202,9 +212,18 @@ index, over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0`).  ⚠️
 through the `DoublingCoords` sentence quoted above, which this paragraph quoted in good faith;
 `DoublingCoords` now says so itself, and `EllipticCurves.FunctionField.MulByNPullback` carries the
 two-reading account.  ⚠️ So the 21 bullets were **relettered to `#251`** and are now **retired**:
-the gate they described is gone.  ⚠️ **Retiring them supplies no replacement ceiling** — whether
-`hprin` at a general index is now reachable depends on the fibre description, which is merged only
-at `n = 2, 3`, and that has **not** been re-measured.  Matching the phrase *general `n`* or *uniform
+the gate they described is gone.  ⚠️ **Retiring them supplied no replacement ceiling, and the
+ceiling this paragraph wrote in its place is now retired too.**  It read *"whether `hprin` at a
+general index is now reachable depends on the fibre description, which is merged only at
+`n = 2, 3`, and that has not been re-measured"*.  It has been re-measured, and the answer is that
+the premise was the false half: the fibre description
+`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNFibre`) has been merged at every index prime to the
+characteristic since `#1540`, and `hprin` at an arbitrary index over `F̄` is now
+`exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **Nothing
+in this file changes.**  Its statements are over an arbitrary field, where `hprin` stands at every
+index and is `#962`; what was retired is a claim about the *reachability* of a discharge over `F̄`,
+not about anything this file proves.  Matching the phrase *general `n`* or *uniform
 `n`* within 170 characters of `ωₙ`, on whitespace-normalised source, returns **39 sites in 30
 modules**: 18 across the nine modules that say `ωₙ` is *not* used, and **21 — exactly one in each of
 21 modules — citing it as the general-`n` gate, every one of those `hprin`-discharged and every one

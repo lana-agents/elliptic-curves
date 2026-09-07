@@ -135,9 +135,18 @@ approached here, and `#404`'s general `ωₙ` is untouched — ⚠️ and no lon
 as what principality at a general index still wants, is closed too** — `#251` on its `x`-half,
 `#1500` on its `y`-half, at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
 `EllipticCurves.Torsion.NsmulOrder`; `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
-`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).  ⚠️ Principality at a general index reaches it
-**through the fibre description**, which is merged only at `n = 2, 3`; whether the coordinate
-formula now supplies that description is **not measured**, here or anywhere.
+`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).  ⚠️ **RETIRED**: this paragraph ended
+*"Principality at a general index reaches it through the fibre description, which is merged only at
+`n = 2, 3`; whether the coordinate formula now supplies that description is not measured, here or
+anywhere."*  It has been measured.  The fibre description is
+`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+(`EllipticCurves.FunctionField.MulByNFibre`) at every index prime to the characteristic, and
+principality at an arbitrary index over `F̄` is
+`exists_divisor_eq_affinePart_pullbackDivisorN` with `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`), which transposes every step of this file
+with `3 ↦ n`.  ⚠️ **Nothing in this file is superseded**: its statements are the `n = 3` instance,
+they are what the general file's recovery block reproduces, and the `n = 3` non-vacuity certificate
+below names a torsion point the general one cannot.
 
 ## References
 
