@@ -91,13 +91,37 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
   on the witness side, which is why it does not descend from `F̄` (`#962`).  ⚠️ **Elsewhere it
   IS discharged, and on both axes**: over `F̄` at every `n` with `(2 : F) ≠ 0` and
   `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
-  (`EllipticCurves.FunctionField.PullbackPrincipalityN`); and over an arbitrary field at `n = 2`,
-  by `exists_gS_two_of_card`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`); and over an arbitrary field with
+  `(2 : F) ≠ 0` at `n = 2`, by `exists_gS_two_of_card`
   (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`), from rational
   `2`-torsion and a halving.  ⚠️ **The bullet is scoped to this file and is not a claim about
   the tree** — it read *"`hprin` is not discharged at any `n`"* under this same
-  `## ⚠️ What is NOT here` heading until this commit, and *here* is what makes it true, so the
+  `## ⚠️ What is NOT here` heading until `ecfb3e9`, and *here* is what makes it true, so the
   clause is completed in place rather than retired.
+  ⚠️ **That sha is an address and it replaces one, so nothing is quoted and nothing retires.**
+  The clause named the same commit as *this commit* — `ecfb3e9` (`#1843`, PR #723) wrote it and it
+  was true of that commit — but an indexical address is re-pointed by any later commit that reflows
+  the paragraph carrying it, and completing the `n = 2` half above does exactly that.  Only the
+  address changes: the claim about what the bullet read, and about the commit at which it stopped
+  reading it, is the same claim.  So `### Reach clauses`' *"false or merely partial"* test has no
+  old claim to sort, and `### Retired claims`, which that test gates, is not reached.
+  ⚠️ **No other site carrying those words is swept here**, `WeilPairingAlternatingBaseChangeN` and
+  `WeilPairingTranslationSlotHprinN` included, and `README.md` carrying more: the address goes wrong
+  only where a later commit has moved the paragraph carrying it, and none of those paragraphs is in
+  this file.  Whether any has since been moved by something else is a question for whoever asks it,
+  and no claim is made about it here.
+  ⚠️ **That exemption is anchored to the file and not to the commit, deliberately.**  A note that
+  cleared them by saying *this commit* moves none of them would be a fresh instance of the very
+  indexical this bullet is here to remove: it resolves only through blame, so the next commit to
+  reflow this paragraph inherits the clearance as a claim about itself.  The file is what `#1852`
+  scopes *here* to, and it survives a reflow.
+  ⚠️ **And it names those sites without counting them, also deliberately.**  An earlier draft of
+  this note read *"The two other sites carrying those words"*, which was already false where it
+  stood: `until\s+this\s+commit` over the tree at `2aebb05` returns **six**, one of them the
+  occurrence repaired above and **five** outside this file, three of those in `README.md`.  A
+  numeral standing over a list is falsified by whatever next extends the list and no clause under
+  it can repair the numeral, which is what `### Scope of the rules above` says in `README.md` where
+  it deletes its own.
 * ⚠️ **RETIRED — the corollary this bullet refused now exists, in a leaf.**  It read
   *"There is deliberately no `exists_gS_of_smooth_of_isAlgClosed`.  At `n = 2` and `n = 3` `hprin`
   is discharged over `F̄` by `PullbackPrincipalityTwo` / `PullbackPrincipalityThree`, whose input is
