@@ -75,11 +75,14 @@ All three were caught by a reviewer opening each cited signature at source, and 
   index condition stated above is the arbitrary-field one.
   Antisymmetry is stated at every `n ≠ 0` (`WeilPairingAntisymmetric.lean`), but from the
   alternating property at the three points as hypotheses rather than from principality.
-  **Principality itself is discharged at `n = 2` and `n = 3` only** — over an algebraically
-  closed field (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`), and at
-  `n = 2` also over an arbitrary field from rational `2`-torsion and a halving
-  (`PullbackPrincipalityTwoRationalTorsion.lean`) — so those are the two indices at which
-  the chain is unconditional. Non-degeneracy and perfectness are stated at `n = 2` and
+  **Principality itself is discharged at every `n` prime to the characteristic over an
+  algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
+  with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
+  files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
+  and their headlines come back out of the general one verbatim. Off `F̄` the one file that
+  discharges it is `PullbackPrincipalityTwoRationalTorsion.lean`, at `n = 2` over an arbitrary
+  field from rational `2`-torsion and a halving — hypotheses, not setting — and `#962` is the
+  standing gate elsewhere. Non-degeneracy and perfectness are stated at `n = 2` and
   `n = 3` only, and so is the identification of `det ρ_{E,n}` with the cyclotomic character
   `χₙ` — in coordinates at **both** indices (`WeilPairingDeterminant.lean`, whose own docstring
   argues that the `n = 2` case is a genuine constraint on four integers and not an empty mirror,
@@ -94,6 +97,19 @@ All three were caught by a reviewer opening each cited signature at source, and 
   other than `2`. *only* is a universal negative, so it cannot be completed by adding a
   condition the way the two clauses below are — it has to be deleted, which is what makes
   this a retirement and those two not.
+  ⚠️ **Retired, and a sibling of the clause above.** This bullet read *"**Principality itself is
+  discharged at `n = 2` and `n = 3` only** … so those are the two indices at which the chain is
+  unconditional"* from `2947444` (2026-09-06, `#1802`, PR #711) until this commit, and this commit
+  is what falsified it: `PullbackPrincipalityN.lean` discharges principality over `F̄` at every `n`
+  with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so neither *only* nor *the two indices* survives.
+  ⚠️ **It goes the same way as the clause above and for the same reason** — *only* and *the two
+  indices* close the list, so `### Reach clauses`' *"false or merely partial"* test returns
+  **false** and neither can be completed by adding a condition. The two differ in one respect worth
+  recording: the `g_S` clause was false the day after it was written, and was retired by a reader;
+  this one was true from the day it was written until the commit that retires it. ⚠️ **The middle
+  of the retired sentence was true and is kept live above** — `n = 2` over an arbitrary field,
+  from `PullbackPrincipalityTwoRationalTorsion.lean` — so this is a retirement of the two
+  universals around it and not of the whole sentence.
 * **The Weierstrass formal group** (`FormalGroup/`) — the coordinate series `x(z)`,
   `y(z)`, the formal group law `F_E` as a genuine bivariate power series with its
   commutativity and associativity, the formal logarithm and exponential, the

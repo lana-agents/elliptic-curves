@@ -29,21 +29,31 @@ numeral files come back out of it verbatim (see the recovery block).
 ## ⚠️ Why this was believed to be out of reach, and what changed
 
 `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` — the module that holds this seam's
-ceiling, and the only place in the tree that rules on the question — says of a general index:
+**ceiling**, the sentence a reader consults before pricing anything at a general index — says of a
+general index:
 
 > ⚠️ **Retiring them supplies no replacement ceiling** — whether `hprin` at a general index is now
 > reachable depends on the fibre description, which is merged only at `n = 2, 3`, and that has
 > **not** been re-measured.
 
-Two things it names have since become available, and neither was when it was written.
+⚠️ **It is the ceiling, not the only ruling on the question, and this commit retires three more.**
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` said principality at a general index was
+*"not measured, here or anywhere"*; `EllipticCurves.FunctionField.NthRootOfPullbackN` said no
+hypothesis-free corollary could be fed at a general index; and
+`EllipticCurves.FunctionField.WeilPairingGaloisRootN` said *"at general `n` there is no such
+producer"*.  Each is retired in its own module, in the marked-quotation form `README.md`'s
+`### Retired claims` lays down.
+
+Two things the ceiling names have since become available, and neither was when it was written.
 
 * **The fibre description is merged at every `n` prime to the characteristic**, as
   `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
   (`EllipticCurves.FunctionField.MulByNFibre`) — `#774`'s formula at a general index, and the last
   of the eleven declarations `#1540` measured as blocked.  ⚠️ **That sentence's *"merged only at
   `n = 2, 3`"* is therefore false rather than merely partial**, which is why the sentence is
-  retired rather than qualified; the retirement is recorded in that module and in
-  `README.md`'s `### Retired claims`.
+  retired rather than qualified; the retirement is recorded in that module, in the marked-quotation
+  form `README.md`'s `### Retired claims` lays down, and `README.md`'s `### What is formalised`
+  carries a second retirement of its own, of the bullet this commit falsifies there.
 * **`#E[n] = n²` is a theorem at every `n` prime to the characteristic**, as
   `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#242`).  It is the *only*
   mathematical input this route needed that did not exist when the `n = 2` file was written, and it

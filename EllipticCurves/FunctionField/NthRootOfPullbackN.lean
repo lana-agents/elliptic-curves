@@ -41,10 +41,13 @@ proves it at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  The fo
 side condition at all.
 
 The only gated input to rung 5 is `hprin`, and `hprin` is a **hypothesis** of the statement at every
-`n` — it does not get harder as `n` grows, and over an arbitrary field it stays open at every index
-alike (`#962`).  ⚠️ Over `F̄` it is discharged at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`, in `EllipticCurves.FunctionField.PullbackPrincipalityN`, which is a leaf and
-not this file.  So nothing about the mathematics was
+`n` — it does not get harder as `n` grows, and *here* it stays open at every index (`#962`).
+⚠️ **It is not open everywhere, and it is not open uniformly over an arbitrary field either.**
+Over `F̄` it is discharged at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`; over an arbitrary field the tree discharges it
+at `n = 2`, from rational `2`-torsion and a halving (`exists_gS_two_of_card`,
+`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`, which carries no
+`[IsAlgClosed F]`).  Both are leaves and neither is this file.  So nothing about the mathematics was
 `[2]`- or `[3]`-specific; only `mulByNEndo`'s arrival date was.
 
 ## ⚠️ This does NOT subsume `exists_gS_two` / `exists_gS_three`
@@ -83,14 +86,18 @@ the root up to a unit of `F[W]` at an arbitrary exponent.
 
 ## ⚠️ What is NOT here, and one corollary that must not be added
 
-* **`hprin` is not discharged at any `n` here, and over an arbitrary field it is not discharged
-  anywhere.**  It is an *existence* statement, and `#899`'s test — *is the obstruction used to
-  prove an equality, or to produce a witness?* — puts it firmly on the witness side, which is why
-  it does not descend from `F̄` (`#962`).  ⚠️ **Over `F̄` it IS discharged**, at every `n` with
-  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
-  (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  The clause is qualified rather than
-  retired because it was true of this file and of every arbitrary-field statement, and both of
-  those remain so.
+* **`hprin` is not discharged at any `n` here.**  It is an *existence* statement, and `#899`'s
+  test — *is the obstruction used to prove an equality, or to produce a witness?* — puts it firmly
+  on the witness side, which is why it does not descend from `F̄` (`#962`).  ⚠️ **Elsewhere it
+  IS discharged, and on both axes**: over `F̄` at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`); and over an arbitrary field at `n = 2`,
+  by `exists_gS_two_of_card`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`), from rational
+  `2`-torsion and a halving.  ⚠️ **The bullet is scoped to this file and is not a claim about
+  the tree** — it read *"`hprin` is not discharged at any `n`"* under this same
+  `## ⚠️ What is NOT here` heading until this commit, and *here* is what makes it true, so the
+  clause is completed in place rather than retired.
 * ⚠️ **RETIRED — the corollary this bullet refused now exists, in a leaf.**  It read
   *"There is deliberately no `exists_gS_of_smooth_of_isAlgClosed`.  At `n = 2` and `n = 3` `hprin`
   is discharged over `F̄` by `PullbackPrincipalityTwo` / `PullbackPrincipalityThree`, whose input is

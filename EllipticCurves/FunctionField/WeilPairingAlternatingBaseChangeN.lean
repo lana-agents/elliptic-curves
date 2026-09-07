@@ -536,16 +536,28 @@ end Recovery
 
 /-! ### Non-vacuity at `n = 6`, over a field that is not algebraically closed — and at `n = 10`
 
-⚠️ `hprin` is `#418` and, over a field that is not algebraically closed, cannot be discharged at
-any index, so it stays bound below.  (⚠️ Over `F̄` it is discharged at every `n` with
-`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` by
-`EllipticCurves.FunctionField.PullbackPrincipalityN`, which is why the qualification is now
-written: `ℚ` is the setting of this certificate and the sentence is true of it, but the unqualified
-form is not true of the tree.)  What is
-certified is that **every other hypothesis of the `3`-smooth headline is simultaneously satisfiable
-over `ℚ`** at an index no merged statement reaches: the elliptic instance, `(2 : ℚ) ≠ 0`,
-`(3 : ℚ) ≠ 0`, `n ≠ 0`, `3`-smoothness, an affine nonsingular `T`, and `T ∈ torsion 6`.  The halving
-point is not in that list because the theorem produces it — which is the whole content of this file.
+⚠️ `hprin` is `#418` and it stays bound below: nothing in the tree discharges it at `n = 6` or at
+`n = 10` over `ℚ`, which is this certificate's setting.
+
+⚠️ **RETIRED.**  This paragraph opened *"`hprin` is `#418` and cannot be discharged at any index,
+so it stays bound below"* until this commit, and *at any index* is a universal negative that was
+already false before this commit touched the file — so it is retired rather than qualified, and
+what this commit adds is not what falsified it.  Three merged declarations falsify it:
+`exists_gS_two_of_isAlgClosed` (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`) discharge it
+over `F̄` at `n = 2` and `n = 3`, and `exists_gS_two_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it at `n = 2`
+over an arbitrary field — `ℚ` included — from rational `2`-torsion and a halving.  What this commit
+adds is the general-index `F̄` form, `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`), at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`.  ⚠️ **The replacement above is a statement about `n = 6` and `n = 10` over
+`ℚ` and about nothing else**, because that is what this section certifies and every wider reading
+of the old sentence is one of the three falsifications.
+
+What is certified is that **every other hypothesis of the `3`-smooth headline is simultaneously
+satisfiable over `ℚ`** at an index no merged statement reaches: the elliptic instance,
+`(2 : ℚ) ≠ 0`, `(3 : ℚ) ≠ 0`, `n ≠ 0`, `3`-smoothness, an affine nonsingular `T`, and
+`T ∈ torsion 6`.  The halving point is not in that list because the theorem produces it — which is
+the whole content of this file.
 
 ⚠️ `ℚ` is **not** algebraically closed (`rat_not_isAlgClosed'`), so neither the merged
 `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed` nor `exists_nsmul_eq_of_smooth` applies
