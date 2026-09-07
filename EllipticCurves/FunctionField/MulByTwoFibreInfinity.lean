@@ -71,7 +71,17 @@ of `#774` is cheap and the affine half is not.
   `Ψ₂Sq`;
 * **`comapProjPointTwo_pointClosedPoint_of_eval_Ψ₂Sq_eq_zero`** (in
   `WeierstrassCurve.Affine.CoordinateRing`) — `[2]` contracts every affine `2`-torsion place to the
-  place at infinity.  No hypothesis on `F`;
+  place at infinity.  No hypothesis on `F` beyond `(2 : F) ≠ 0`.
+  ⚠️ **This row read** *"No hypothesis on `F`"*, **and that was false** (`#1683`): the declaration
+  binds `h2 : (2 : F) ≠ 0` explicitly, and its own headline docstring in this file has read
+  *"No hypothesis on `F` beyond `(2 : F) ≠ 0`"* since `903ef4d` (`#774`, PR #314) — the commit that
+  wrote **both**.  The bullet dropped a qualification its declaration never dropped, which is the
+  one direction that cannot be read charitably: `README.md` `### Reach clauses` records that
+  *"an absence claim is contradicted by nothing a reader can see"*, and here the contradiction was
+  in the same file all along.  ⚠️ The row also carries `[W.IsElliptic]`, unlike its affine twin
+  `comapProjPointTwo_pointClosedPoint` (`EllipticCurves.FunctionField.MulByTwoFibreAffine`), whose
+  bullet says *"not even `[W.IsElliptic]`"*; the clause here is scoped to `F` and claims nothing
+  about `W`, so it is exact rather than silent on that;
 * **`WeierstrassCurve.Affine.CoordinateRing.card_fibre_comapProjPointTwo_none`** — over
   `[IsAlgClosed F]`, the fibre over the point at infinity has exactly four elements;
 * **`ramificationIdxTwo_eq_one_of_comapProjPointTwo_eq_none`** and

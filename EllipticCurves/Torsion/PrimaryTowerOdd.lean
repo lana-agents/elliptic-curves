@@ -94,16 +94,29 @@ without counting is neither, and sits under this register unchanged; reporting o
 gate-discharge claim, which `README.md` `### Gate-discharge claims` governs.  That is the house form
 `#1647` decided (`EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`, PR #658).
 
-⚠️ **No bullet below counts, and two of them make gate-discharge claims.**  The third names no
-hypothesis at all; the other five name some of the register's without counting them; and the first's
-*"no `hcard`"* and the fourth's *"with its last gate discharged"* are claims about a **gate**, not
-about the hypothesis list.  Their subject is the numbered list at the head of this module block,
-where `hcard` is named as *"the gate"* — which is exactly where `README.md` `### Module-block
-bullets` says a gate-discharge register may sit, *"anywhere in the module block"*, on the precedent
-of `EllipticCurves.Torsion.PrimaryTowerAlgClosed`.  ⚠️ `hcard` is a real binder and not a manner of
+⚠️ **No bullet below counts; two of them make gate-discharge claims and a third makes an absence
+claim that is not one.**  The third names no hypothesis at all; the other five name some of the
+register's without counting them; and the first's *"no `hcard`"* and the fourth's *"with its last
+gate discharged"* are claims about a **gate**, not about the hypothesis list.  Their subject is the
+numbered list at the head of this module block, where `hcard` is named as *"the gate"* — which is
+exactly where `README.md` `### Module-block bullets` says a gate-discharge register may sit,
+*"anywhere in the module block"*, on the precedent of
+`EllipticCurves.Torsion.PrimaryTowerAlgClosed`.  ⚠️ `hcard` is a real binder and not a manner of
 speaking: `card_torsion_pow_of_card` (`EllipticCurves.Torsion.PrimaryTowerAlgClosed`) takes
 `hcard : Nat.card (W.torsion p) = p ^ 2` explicitly, and `card_torsion_eq_sq_of_odd` is what
 discharges it here.
+
+⚠️ **The sixth's *"prime or not"* is an absence claim, and primality is in no gate list of this
+file** (`#1682`, `#1683`).  That numbered list has two entries, `hsurj` and `hcard`, so
+`README.md` `### Gate-discharge claims` does not reach this one and it is the bullet's own claim.
+It is **true**, on both of the grounds `README.md` `### Module-block bullets` separates: the
+signature is `nonempty_torsion_addEquiv_of_odd (h2) {n} (hodd : Odd n) (hn : (n : F) ≠ 0)` and
+binds no primality; and the register above closes a complete **list** rather than a count — it
+names `p.Prime` on `nonempty_torsionPow_addEquiv_of_odd` and `q.Prime` on
+`card_nsmul_eq_zero_torsion_le_of_odd` and says that is the whole explicit hypothesis list of every
+declaration below, so a row that is neither of those two binds neither.  ⚠️ **Do not delete the
+clause to tidy the enumeration**: *"prime or not"* is the one thing distinguishing this bullet from
+the fourth, which is the same conclusion at a prime.
 
 ⚠️ **This register formerly closed *"so the bullets give the conclusions and are not read for
 hypotheses at all.  Nothing is delegated to them"*** (`d92c0a1`, `#1616`, PR #646).  *"Nothing is
@@ -111,7 +124,14 @@ delegated"* is true and is kept above in the form that says it — the count is 
 can be short against it.  What went is *"not read for hypotheses at all"*, which instructed a reader
 to disregard the one kind of claim a register cannot make on a bullet's behalf: *"no `hcard`"* is an
 **absence**, and a complete positive count of what a declaration takes does not entail that any
-particular named binder is gone (`#1656`).
+particular named binder is gone (`#1656`).  ⚠️ **That reason is true of a count and is not the one
+that applies here** (`#1682`): the register above closes a **list**, not a count, and a complete
+list does entail every absence it excludes.  What carries the retirement instead is the reading of
+the rows themselves — bullets 1, 2, 4, 5 and 6 each name a hypothesis positively (the first two
+*"at odd `p`"*, then *"at an odd prime `p`"*, *"at every prime `q`, for odd `n`"* and *"at every
+odd `n` with `(n : F) ≠ 0`"*), so *"not read for hypotheses at all"* was false of five of the six
+independently of anything about absences.  `README.md` `### Module-block bullets` records the
+count/list distinction and the branch the absence claims sit in.
 
 * `WeierstrassCurve.Affine.card_torsion_pow_of_odd` : `#E[pᵏ] = (pᵏ)²` at odd `p`, no `hcard`.
 * `WeierstrassCurve.Affine.finite_torsion_pow_of_odd` : `E[pᵏ]` is finite, at odd `p`.

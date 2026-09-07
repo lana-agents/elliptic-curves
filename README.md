@@ -1772,6 +1772,97 @@ reach-register list is *for* and it is the one a phrase-keyed sweep keeps re-tri
 a bullet that names two of its declaration's four hypotheses and claims nothing about the rest sits
 under its register **unchanged**, and repairing it in the row is what makes a block worse.
 
+⚠️ **A fifth branch, and the routing form has no home for it: a bullet that says a named
+hypothesis is ABSENT** (`#1682`, `#1683`). *"Prime or not"*, *"no `[IsAlgClosed F]`"*, *"it needs
+no `g ≠ 0`"*, *"no `(3 : F) ≠ 0` and no smoothness"* fall through all four: such a bullet says
+something about hypotheses, so it is not the first branch; it is none of this document's count
+phrases, so it is not the second; it is a **denial** and not a naming, so filing it under the third
+is a mis-file; and where the absent thing is in no gate list of its own file, the fourth does not
+reach it either. **An absence claim is the bullet's own claim, and the test is one question of the
+signature — does the declaration bind the thing the bullet says is gone?** Where the absent thing
+*is* a gate, `### Gate-discharge claims` governs and asks that same question over its own
+population, which is where *"no `hcard`"* goes.
+
+⚠️ **A register can falsify such a bullet, and can make one true only when it closes a LIST.** The
+distinction is count versus list and it is not a quibble. A complete **count** — a register that
+says only how many hypotheses each row takes — entails no particular absence, which is what
+*"A register says what a list omits. It cannot make a count true."* already says. A complete
+**list** — `PrimaryTowerOdd`'s *"That is the whole **explicit hypothesis list** of every
+declaration below"*, which names `p.Prime` and `q.Prime` on the two rows that take them — entails
+every absence it excludes, so it does make that block's *"prime or not"* true. ⚠️ **The general
+answer is nevertheless the signature**: of the 33 rows this branch's census finds, **30 sit in
+blocks carrying no register at
+all**, and a reader who meets an absence claim has no signal telling them which kind of block they
+are in. A register is a sufficient ground where a block has one, never a necessary one, and no
+bullet may be written on the expectation that a reader will go looking for one.
+
+⚠️ **The measurement demand transfers to this branch unchanged, and the section that makes it is
+`### Reach clauses`.** `#1682`'s description attributes it to `### Gate-discharge claims`; the
+paragraph it means is in `### Reach clauses`, which says in terms that the gate question is decided
+by that other section and not by itself, so the attribution is worth correcting here rather than
+inheriting. `### Reach clauses` is where the asymmetry is stated — *"a presence mention is
+contradicted on its own page as soon as it goes stale, while an absence claim is contradicted by
+nothing a reader can see"* — and where
+`not_forall_det_eq_intCast_of_zsmul_add_zsmul` is named as the form to copy because it *"records
+that the `omit` above it is measured rather than guessed"*. At the bullet layer the measurement is
+the **elaborated telescope**, instance binders included. Reading the `theorem` line alone is
+`#1577`'s `variable`-block blindspot and it decides rows in both directions here.
+
+⚠️ **The setting is not part of what such a clause denies**: `[Field F]`, `[DecidableEq F]` and
+`[Algebra S F]` are the scaffolding a statement is written in, not conditions
+a clause claims are absent, so *"no hypothesis on `F`"* is read against the **mathematical**
+conditions — characteristic, closure, ellipticity, torsion, smoothness. Seven rows turn on that
+convention and none changes verdict under it; stating it is what stops the next sweep convicting
+them.
+
+**The census, with the recogniser beside it, as this section requires.** Over every `/-! … -/`
+docstring of every `EllipticCurves/**/*.lean`, take each `## Main *` section, split it at
+`\n(?=\* )` so a wrapped row stays whole, whitespace-normalise each row, and keep the rows
+matching, case-insensitively, the alternation
+
+```
+\bno\s+`                                                        \bprime or not\b
+\bno\s+(primality|hypothesis|condition|further|extra|hcard|halving)
+\bwithout\s+`     \bneeds no\b     \btakes no\b     \bnot required\b     \bno longer\b
+```
+
+⚠️ **Bound the section by its docstring**: without that bound the same scan reads a row's text
+straight through the closing `-/` and on to the next `##` anywhere in the file, which on two rows
+is several hundred lines of Lean. It changes no row here, and that is luck rather than a property
+of the seed. **1696** `## Main *` bullets tree-wide and **64** matching rows, at `8f95181` and at
+this commit alike. Over the tree `#1683` itself measured, which is `b764fae` and is `#1656`,
+PR #667, the same instrument returns **63** — the one addition being `MulByNInertia`'s *"needs no
+separability at all"*, which `#1665` wrote. **Every one of the 64 was read**, and they split four
+ways. **15** are gate-relative, and `### Gate-discharge claims` decides them. **3** are a complete
+count in absence clothing — `EllipticCurves.Torsion.OmegaChordSum`'s bullet for
+`card_torsion_eq_sq_of_odd` reads
+*"with no hypothesis beyond `2 ≠ 0` and `(n : F) ≠ 0`"* — which is the second branch, and belongs
+to the counting axis (`#1645`, `#1767`) rather than here. **13** are not about a hypothesis
+list at all and are false positives of the seed — claims about Mathlib's API, about what the tree
+does not contain, about a refactor, or about a statement's vocabulary. And **33** are this branch.
+
+⚠️ **Of the 33, thirty-two are TRUE and one was FALSE**, and the false one is the shape this branch
+exists to catch. `EllipticCurves.FunctionField.MulByTwoFibreInfinity`'s row for
+`comapProjPointTwo_pointClosedPoint_of_eval_Ψ₂Sq_eq_zero` read *"No hypothesis on `F`"* over a
+signature binding `h2 : (2 : F) ≠ 0`, while that declaration's **own headline in the same file**
+reads *"No hypothesis on `F` beyond `(2 : F) ≠ 0`"* — and `903ef4d` (`#774`, PR #314) wrote both,
+so the block and the declaration disagreed from the commit that created them. ⚠️ **No register was
+involved and none would have helped**: that block carries none, and is one of the 30.
+The repair is the qualification the declaration already carried, and the retired wording is quoted
+at the row.
+
+⚠️ **Two limits of the seed, published because a recogniser owes them** (`#1749`). It is
+**vocabulary-keyed**: an absence written *"free of `hprin`"*, *"drops `[IsAlgClosed F]`"* or
+*"neither condition is needed"* does not match, so 64 is a floor and not a population. And it reads
+`## Main *` bullets **only** — a headline absence claim is a different layer with a different
+denominator, and the `.lean` docstrings are the whole of its reach, so nothing this document says
+about itself is inside it.
+
+⚠️ **This paragraph and `#1680` are different sentences of this section and neither answers the
+other.** `#1680` is open against the `EllipticCurves.TateModule.DeterminantModGeneral` *"form to
+copy"* naming above; nothing here edits that sentence or the paragraph holding it. If `#1680`
+lands first, this branch is unaffected; if this lands first, `#1680`'s repair is unaffected.
+
 ⚠️ **The population, with the recogniser beside it**, because this section's own rule is
 *publish the recogniser beside any count, or write no count*. Scan **whole** `## Main *` blocks —
 not the prose above the first bullet, since one instance sits inside a bullet and another after the
