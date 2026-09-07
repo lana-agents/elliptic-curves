@@ -14,7 +14,8 @@ import EllipticCurves.FunctionField.WeilPairingAlternatingTwoAlgClosed
 `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN` assembles `e_n(T, T) = 1` over an
 arbitrary field with the `#418` datum `hprin` carried as a hypothesis, and
 `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` (`#1339`) proves that datum at
-`n = 2` over an arbitrary field from two rationality facts.  This file joins them.
+`n = 2` over an arbitrary field with `(2 : F) ≠ 0`, from two rationality facts.  This file joins
+them.
 
 ## The statement
 

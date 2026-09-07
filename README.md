@@ -81,8 +81,8 @@ All three were caught by a reviewer opening each cited signature at source, and 
   files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
   and their headlines come back out of the general one verbatim. Off `F̄` the one file that
   discharges it is `PullbackPrincipalityTwoRationalTorsion.lean`, at `n = 2` over an arbitrary
-  field from rational `2`-torsion and a halving — hypotheses, not setting — and `#962` is the
-  standing gate elsewhere. **Non-degeneracy is stated at every `n` prime to the
+  field with `(2 : F) ≠ 0`, from rational `2`-torsion and a halving — hypotheses, not setting —
+  and `#962` is the standing gate elsewhere. **Non-degeneracy is stated at every `n` prime to the
   characteristic over an algebraically closed field** of characteristic other than `2`
   (`WeilPairingNondegenerateN.lean`), as an inequation in `F(W)` and in `μ_n(F)` alike, with
   nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral files
