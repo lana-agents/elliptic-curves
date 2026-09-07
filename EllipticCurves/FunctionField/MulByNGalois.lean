@@ -11,7 +11,7 @@ import Mathlib.FieldTheory.Galois.Basic
 import Mathlib.FieldTheory.IntermediateField.Algebraic
 
 /-!
-# `F(W)` is Galois over `[n]∗F(W)` at every `n` prime to the characteristic, with group `E[n]`
+# `F(W)` is Galois over `[n]∗F(W)`, with group `E[n]`
 
 `EllipticCurves.FunctionField.TranslationActionN` (`#1232`) builds the group `G = E[n]` of
 translations by `n`-torsion points, acting faithfully on `F(W)` by `F`-algebra automorphisms, with
