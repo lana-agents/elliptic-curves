@@ -82,13 +82,39 @@ All three were caught by a reviewer opening each cited signature at source, and 
   and their headlines come back out of the general one verbatim. Off `F̄` the one file that
   discharges it is `PullbackPrincipalityTwoRationalTorsion.lean`, at `n = 2` over an arbitrary
   field from rational `2`-torsion and a halving — hypotheses, not setting — and `#962` is the
-  standing gate elsewhere. Non-degeneracy and perfectness are stated at `n = 2` and
-  `n = 3` only, and so is the identification of `det ρ_{E,n}` with the cyclotomic character
+  standing gate elsewhere. **Non-degeneracy is stated at every `n` prime to the
+  characteristic over an algebraically closed field** of characteristic other than `2`
+  (`WeilPairingNondegenerateN.lean`), as an inequation in `F(W)` and in `μ_n(F)` alike, with
+  nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral files
+  (`WeilPairingNondegenerateTwo.lean`, `WeilPairingNondegenerateThree.lean`) and the `μ_n(F)`
+  file (`WeilPairingNondegenerateMu.lean`) are still on `main` and their headlines come back out
+  of the general one verbatim. Perfectness is stated at `n = 2` and `n = 3`
+  only, and so is the identification of `det ρ_{E,n}` with the cyclotomic character
   `χₙ` — in coordinates at **both** indices (`WeilPairingDeterminant.lean`, whose own docstring
   argues that the `n = 2` case is a genuine constraint on four integers and not an empty mirror,
   `χ₂ ≡ 1` notwithstanding), and bundled as an identity of monoid homomorphisms
   `galoisDetMod 3 = χ₃` at `n = 3` only (`WeilPairingDeterminantCharacter.lean`,
   `MatrixRepDeterminantCharacter.lean`).
+  ⚠️ **Retired, and a sibling of the `g_S` and principality clauses below.** This bullet read
+  *"Non-degeneracy and perfectness are stated at `n = 2` and `n = 3` only"* from `2947444`
+  (2026-09-06, `#1802`, PR #711) until this commit, and this commit is what falsified it:
+  `WeilPairingNondegenerateN.lean` states Silverman III.8.1(c) over `F̄` at every `n` with
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes the same way as
+  those two and for the same reason — *only* is a universal negative and closes the
+  list, so `### Reach clauses`' *"false or merely partial"* test returns **false** and it cannot
+  be completed by adding a condition. ⚠️ **The perfectness half was true and is kept live above,
+  so this retires a conjunct and not the sentence**: `bijective_weilPairingTwoHom` and
+  `bijective_weilPairingThreeHom` (`WeilPairingPerfect.lean`) are still stated at those two
+  indices and nothing here touches them — the general-`n` file supplies non-degeneracy in one
+  slot, which is what Silverman III.8.1(c) asserts, and perfectness runs off the two-slot
+  `ker_weilPairing{Two,Three}Hom` instead. ⚠️ **The three module docstrings that put general `n`
+  outside their own reach are NOT retired**, and the difference is the subject: each is a claim
+  about *its own file's* reach, which stays true of it, so `### Reach clauses`' test returns
+  **partial** there and each takes a pointer in place. This clause was a claim about the tree,
+  which is what makes it the one that goes. ⚠️ Two of the three write *"not general `n`"*
+  (`WeilPairingNondegenerateTwo.lean`, `WeilPairingNondegenerateThree.lean`) and the third puts
+  *"general `n`"* in an out-of-scope list (`WeilPairingNondegenerateMu.lean`), so there is no one
+  form to quote and none is quoted for all three.
   ⚠️ **Retired.** This bullet read *"and the root `g_S` itself is constructed at `n = 2` and
   `n = 3` only, as is everything downstream of it"* from `6e5245c` (2026-08-30) until this
   commit, and it was false the day after it was written: `exists_gS_n` landed in

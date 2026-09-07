@@ -93,6 +93,20 @@ only count it uses is
 `card_torsion_two`, inside `#759`, which counts the roots
 of the `2`-division cubic and does not go through Ward.
 
+⚠️ **Qualified, not retired: *"not general `n`"* is a claim about THIS file's reach and stays true
+of it, but the general-`n` statement now exists** —
+`EllipticCurves.FunctionField.WeilPairingNondegenerateN` (`#1844`) proves all four headlines below
+at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`, and recovers this file's two
+headlines from them verbatim.  `### Reach clauses`' *"false or merely partial"* test returns
+**partial** — the words stay and a pointer is added — so `### Retired claims` does not bind here.
+⚠️ **The `#E[n] = n²` sentence above is a different case and is left exactly as it is**: it too is
+about this file's own reach and is still true, and its parenthesis dates rather than gates.  `#242`
+is now a **merged** theorem (`card_torsion_eq_sq`, `EllipticCurves.Torsion.StructureGeneral`), and
+it reaches the general-`n` file through step 1 — `#1843`'s class computation — and **not** through
+its step 4, which spends a `finrank` computation and states no torsion count.  A reader who takes
+the parenthesis for a live gate will get that attribution backwards; `#1844`'s description is the
+long form.
+
 ⚠️ **There now IS a `W.Point`-level pairing in this tree, and this file's headline is what its
 non-degeneracy consumes.**  This section used to say the opposite — *"there is no `W.Point`-level
 pairing in this tree, so non-degeneracy cannot be stated as a property of a bilinear map"* — and
