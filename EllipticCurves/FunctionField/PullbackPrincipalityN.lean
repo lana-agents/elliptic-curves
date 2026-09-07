@@ -62,8 +62,8 @@ Two things the ceiling names have since become available, and neither was when i
   The fibre description binds `((n : ℤ) : F) ≠ 0` and `card_torsion_eq_sq` binds `(n : F) ≠ 0`;
   `README.md`'s `### Scope of the rules above` says *"`(n : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` are
   different clauses"*.  ⚠️ Neither declaration carries an `_of_natCast_ne_zero` /
-  `_of_intCast_ne_zero` suffix to say which, so the rows are the only place a reader is told, and
-  copying one onto the other would make one of them false.
+  `_of_intCast_ne_zero` suffix to say which, and copying one onto the other would make one of them
+  false.
 
 ## The five steps, and where each comes from
 
