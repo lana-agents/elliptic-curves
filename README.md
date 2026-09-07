@@ -405,7 +405,7 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   read**, which is why the binder **29 / 28**, the range test and the witness slot are all untouched
   by it. This clause is here because the misread happened: `#1749` was filed against this paragraph
   proposing the **23** be corrected to **18**, read off the two singular quotations rather than off
-  the pattern three lines above them.
+  the pattern two lines above them.
   ⚠️ **The hyphen is literal, and one site writes the phrase without it.** `nsmul_genericPoint_eq`
   (`EllipticCurves.FunctionField.MulByNPullback`) says *"This is the general `n` form of the merged
   `genericPoint_add_self`"* in a later sentence, and it is **outside** the corpus as published.
@@ -578,7 +578,7 @@ below as well.
 that is what kept the question open long enough to be filed as an issue. It read *"Instance
 arguments are ambient, are carried by the module's `variable` block, and are visible in the
 signature doc-gen renders beside the docstring"* (`ee3c067`, `#1137`, PR #613); the `variable`-block
-clause is falsified four paragraphs below by this section's own ⚠️ *"**The instance list is per
+clause is falsified six paragraphs below by this section's own ⚠️ *"**The instance list is per
 declaration, not per `variable` block**"*, and by the tree. Measured at `d459037` from the
 elaborated telescope: **2179** of the **3599** documented declarations bind at least one
 propositional instance, and **571** of those write one **in their own binder list**, across **163**
@@ -792,8 +792,8 @@ answer. `divisorProj_mulByNEndo` (`EllipticCurves.FunctionField.MulByNPlacePullb
 the set of `f` at which the identity holds.
 
 ⚠️ **The discriminator is what the condition is *about*, and it is NOT *"the binder occurs in the
-conclusion"* — the paragraph immediately above rules that test out by name and this one does not
-reinstate it.** The two are easy to confuse, because a non-vanishing does typically occur in the
+conclusion"* — that test is ruled out by name two paragraphs above and this one does not reinstate
+it.** The two are easy to confuse, because a non-vanishing does typically occur in the
 conclusion: `torsion_le_weilPairingPointSubgroup_two`
 (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHom`) concludes
 `W.torsion 2 ≤ weilPairingPointSubgroup hg 2`. But so does `(2 : F) ≠ 0`, in every statement about
@@ -2155,9 +2155,9 @@ true"*, one layer up, in this document's own prose. They are:
   meets it"* — and for a headline the place the reader meets the clause **is** the headline.
   The worked case is `residueDegreeN_none_eq_one`
   (`EllipticCurves.FunctionField.MulByNResidueDegree`), whose headline read *"`[n]∗` is residually
-  trivial at the point at infinity, at every `n`"* four lines above a ⚠️ naming the non-constancy
-  as *"the only thing `n` is asked for"*: the ⚠️ was true, the headline was false at `n = 0`, and a
-  reader who stopped at the headline had nothing telling them not to.
+  trivial at the point at infinity, at every `n`"* while a ⚠️ in the same docstring named the
+  non-constancy as *"the only thing `n` is asked for"*: the ⚠️ was true, the headline was false at
+  `n = 0`, and a reader who stopped at the headline had nothing telling them not to.
   ⚠️ **The paragraph opening this section decides it the same way**, which is what makes the
   ruling cheap rather than a new cost: that headline's two neighbours in the same section were
   short of the same condition and take the insertion on nobody's argument, so clearing this one
@@ -2300,9 +2300,12 @@ true"*, one layer up, in this document's own prose. They are:
   quotations of the two convicted rows do not re-enter the count. It is not fence-aware, so the
   fence check was run separately. And it sees **direction** only — a pointer wrong by **target** is
   invisible to it, as is one wrong by **distance**: *"the paragraph **immediately** above"* in
-  `### Reach clauses` points the right way at a paragraph two above it. ⚠️ **This bullet is inside
-  its own population, so the figure moves by being stated.** Re-run at head and the same seed
-  returns **40**: the two repaired rows still match, with their direction words swapped, and six
+  `### Reach clauses` (`712c35e`, `#1608`, PR #639) pointed the right way at a paragraph two above
+  it. ⚠️ **This commit takes those words out of that section** — the distance axis in this same
+  list convicts that row and repairs its count — so what is quoted here is dated to the commit that
+  wrote it and is not a claim about what that section reads now. ⚠️ **This bullet is inside its own
+  population, so the figure moves by being stated.** Re-run at head and the same seed returns
+  **40**: the two repaired rows still match, with their direction words swapped, and six
   matches are new — **one** genuine pointer, in this bullet's own opening paragraph, which
   resolves, and **five** quotations or literals carried by this bullet and by that ruling. The two
   convicted rows are quoted here and are **not** among the six: their directions are emphasised.
@@ -2541,6 +2544,150 @@ true"*, one layer up, in this document's own prose. They are:
   that names some of a declaration's conditions leaves a reader no way to learn the rest exist,
   where a prefix leaves the rest of the heading one search away in a file the sentence has already
   named.
+* **A cross-reference's *distance* is the fourth pointer claim, and the unit for a `line` was
+  never written** (`#1810`). The two direction seeds this section publishes key on a direction word
+  and the citation-provenance axis in this same list keys on an address; this one keys on the count
+  in front of a direction. ⚠️ **The four populations are neither nested nor disjoint, and that was
+  measured**: at this commit's parent the distance seed's nineteen matches fall on eighteen lines,
+  of which none is matched by the noun-and-direction seed and eleven by the nine-word seed — and
+  **not one of the four rows convicted here is matched by either**, so no direction seed could have
+  reached them. ⚠️ **Two of the three questions this axis raises are answered already, and neither
+  is restated here.** `### Gate-discharge claims` disposes of a wrong count — *"A wrong distance
+  takes the same exemption as a wrong direction"* — and the second direction seed fixes the unit for
+  a **paragraph** as the blank-line-delimited block (`#1811`), on this file's own calibration
+  `### Reach clauses`' *"the two live one paragraph apart here"*. ⚠️ **What no sentence decides is
+  the unit for a `line`, and it is a separate question with its own answer.** *"N lines above X"*
+  can name the line N nearer the top of the file than X, or the Nth of N lines counted from X
+  inclusive, and those differ by one at every row. **It is the subtraction, and four of the six line
+  distances this file stated at this commit's parent agreed on it**: the two one-line pointers it
+  carries, one in `### Reach clauses` and one here, each name the line immediately before themselves
+  and that line is in both cases the target; and the two dated figures this section's direction axis
+  publishes are exact subtractions, the census `#1754` took opening 46 lines past the clause that
+  names it at `5018e25` and the fixed-numeral discriminator sitting 1539 lines before the clause
+  that cited it at `2947444`. ⚠️ **The other two were the two rows this axis convicts, and they did
+  not fall the same way.** The fifth site read like a calibration and was not one — it is the fourth
+  defect convicted here, the only one whose target sits in a `.lean` file rather than on this page,
+  and its count was right under neither reading, so it settled nothing either way. ⚠️ **The sixth is
+  the first row convicted here, and it was this file's only evidence for the reading this ruling
+  discards** — counted the second way its numeral was right, since the third of three lines taken
+  from the pair it counts from, inclusive, is the pattern it names. ⚠️ **The population is dated
+  because this commit empties both dissents out of it**: the fifth has its count dropped and the
+  sixth has its numeral corrected, so at this head five line distances are stated and all five
+  agree, and the two that disagreed survive only as this bullet's dated quotations of them. The
+  ruling is therefore made at the parent, where both dissents were still in the file to be weighed.
+  **So this is a ruling and not a reading-off, and it is made four against one**: the four are
+  preferred because under the second reading a pointer that counts from its own line names that line
+  rather than the one it means, which is a form neither of the two one-line rows can be written in.
+  A **section** distance needs no ruling here: the two rows that state one count `###` headings, and
+  no `##` heading falls between either pair, so the two readings agree. ⚠️ **The seed, published so
+  it can be re-run** (`#1749`): case-insensitive and fence-aware, matching a numeral, a unit and a
+  direction in that order, or a unit, the word `immediately` and a direction. The numeral is
+  `immediately`, `a`, a word for one of the numbers 1 to 10, or a digit string; the unit is
+  `paragraph`, `section`, `line`, `bullet`, `row`, `clause` or `entry`, with an optional plural; the
+  direction is any of the eleven the two direction seeds key on, the first's two and the second's
+  nine. ⚠️ **And it is keyed on a source line**, which is a property of the seed and not of the
+  distances it looks for; the limits state it and measure what it costs. ⚠️ **Six of those eleven
+  never occur in that position** at either end, so the count does not turn on which of the two sets
+  is taken as the source. It returns **14 matches** at `d3a4ac5` and 19 at this commit's parent, and
+  every one of the 19 was read rather than sampled.
+  **Seven quote a row counted elsewhere**, six of them carried by that ruling and by the direction
+  axis's own bullet. **Four state a `.lean` docstring's own layout rather than a place on this
+  page**, and the two of those four that make a checkable claim about a named file split one each:
+  `MulByNFibre`'s register bullet and the one *"five rows below"* it are the first and the sixth of
+  a single sub-list, which holds; the `MulByNResidueDegree` row is the fourth defect convicted here.
+  **Eight point at this page, five of them correctly and three not** — a miss rate the direction
+  axis's 2 of 29 does not predict, which is what this axis was filed on — and all three of those
+  were already wrong at the commit that published them, as was the fourth conviction, whose count is
+  right at no commit. That makes eight of eight on every row this page's direction and distance
+  seeds have convicted — the denominator is what the seeds convicted and not what points at this
+  page, and the fourth is outside that class and inside this one.
+  * `### Reach clauses`' *"the pattern three lines above them"* (`acbf51a`, `#1749`, PR #692) — the
+    pattern it contrasts and the two singular quotations it contrasts them with are two lines apart,
+    here and at `:269` and `:271` at that commit.
+  * `### Reach clauses`' *"falsified four paragraphs below"* (`4efeb97`, `#1774`, PR #706) — six
+    blank-line-delimited paragraphs separate that clause from the ⚠️ whose words it quotes, here and
+    at that commit, and no construction returns four without dropping a bullet list from the count
+    and merging two unmarked paragraphs into one.
+  * `### Reach clauses`' *"the paragraph immediately above"* (`712c35e`, `#1608`, PR #639) — the
+    paragraph immediately before that clause is the `f ≠ 0` exemption, which says nothing about the
+    occurrence test; the one that rules the test out by name is two, here and at that commit. The
+    direction axis names the same target as *"a paragraph two above it"*, as a limit of its own
+    seed rather than as a defect, and its quotation of the wording this row removes is dated in
+    this commit rather than left standing as a claim about what that section reads now.
+  * this section's *"four lines above"* (`06b014d`, `#1660`, PR #663) — the only one of the four
+    whose target is in a `.lean` docstring, and the only one whose own quotation fixes which commit
+    it is a claim about: the headline it quotes still carried those words at that commit's parent,
+    and there the ⚠️ it names opens two lines past it. `#1660` repaired that headline — the repair
+    this sentence exists to record — and the gap became three, which is what it still is.
+    ⚠️ **Four is the gap at no commit**, and the choice of anchor does not rescue it. Measuring to
+    the line carrying the quoted words rather than to the ⚠️ that carries them reaches four only at
+    a commit where the quoted headline is not in the file at all, and it is not the reading this
+    file calibrates: the dated 46 is counted to the line its target *opens* on.
+
+  **All four are repaired in this commit** on the exemption named above: two take the corrected
+  count, the third is rewritten around it so that the clause reads as one sentence again, and the
+  fourth has its count **dropped rather than corrected**, because it is the demonstration that a
+  distance into a file this page does not own is moved by the very edit the sentence describes — and
+  its target is already named by the words it quotes, in a file it names. Nothing retires and none
+  of the four takes a marked quotation. ⚠️ **The false-or-partial test is not what decides that, and
+  running it is the argument for why it cannot be.** *"three lines"* and *"four lines"* both
+  over-reach their gaps, where *"four paragraphs"* and *"immediately"* both under-report theirs — so
+  `### Reach clauses`' *"over-reaching is false"* would retire two of these four and complete the
+  other two, splitting one class on a distinction no reader who follows a pointer can use. The
+  exemption reaches all four alike. That is the conflict `#1810` was filed to have resolved, and the
+  four rows are the evidence for resolving it the way `#1811` did.
+  ⚠️ **The limits, measured rather than named** (`#1749`). The seed is bare-token keyed and inline
+  emphasis defeats it, exactly as emphasis defeats the first seed: relaxing it to allow a bold,
+  italic or code marker around each of the three tokens takes 19 to **24 matches** at the parent,
+  and all five it recovers are live rows — two in `### Module-block bullets`, two in this section's
+  direction axis, where both dated line figures are written with the numeral bolded and the
+  direction italicised, and that axis's own quotation of the third of the four rows convicted here.
+  **So 19 is a floor and 24 is a floor as well**: a distance that names no numeral, or that puts the
+  target between the count and the direction, is invisible to both. The seed reads distance only,
+  so a pointer wrong by *target* is as unmeasured after this axis as it was after the two direction
+  seeds; and it matches quotations, which is why the split above separates them out rather than
+  counting them as pointers.
+  ⚠️ **The third limit is the line key itself, and this page has already ruled against one.** The
+  citation-provenance axis in this same list publishes its heading recogniser with the ruling that
+  it must not be keyed on a line, and this seed is keyed on one all the same: a distance phrase
+  that wraps across a source line is invisible to it. Dropping the line key and changing nothing
+  else takes the three counts to 16 at `d3a4ac5`, 21 at the parent and 25 at this head, and the
+  rows it recovers are the same two at every one of the three. One is in `### What is formalised`,
+  wrapping between its numeral and its unit, and its target is the set of bullets in that section
+  whose stated index range had been superseded; the other is in `### Reach clauses`, wrapping in
+  the same place, and its target is the clause on the far side of the semicolon that closes the one
+  it counts from.
+  ⚠️ **Both are correct**, so the line key costs this axis no conviction — what it costs is a
+  direction word: one of the second seed's nine reaches this position on no other row, so the line
+  key hides its only occurrence, which is why six of the eleven never occur in this position and not
+  five.
+  ⚠️ **This bullet is inside its own population, so its own figure moves by being stated.** Re-run
+  at this head the seed returns 23 and the relaxed variant 28, and the five each gains are this
+  bullet's own quotations of rows already counted in it — the four wordings it convicts and the
+  `.lean` layout row it clears. ⚠️ **Three of the four repairs keep their row inside the seed** and
+  the fourth takes it out, which is what dropping a count does: nineteen at the parent, less that
+  one row, plus these five quotations is the 23. A re-run sees the same eight pointers at this page
+  that this one did, since the row that leaves is one of the four naming a `.lean` layout. ⚠️ **The
+  other seeds this section publishes were checked rather than assumed**: the bolded-numeral seed
+  returns 191 at the parent and 191 here, with its added and removed multisets both empty; the
+  noun-and-direction seed 42 matches on 41 lines at both ends; and the nine-word seed 78 at both
+  ends, with its split byte-identical and its five negative results unchanged. No numeral in this
+  bullet stands alone inside a bold span, no noun of the first seed's list is put in front of a
+  direction word, and none of the nine words is written here. ⚠️ **The citation-provenance axis's
+  figures do move, and they are not re-keyed here**: they are counts phrased against their own head,
+  which the clearance ruling in this list dates to the commit that wrote them rather than to this
+  one. ⚠️ **What is recorded instead is what this commit adds to that population**, measured against
+  this commit's parent with that axis's own recogniser: ten heading-citation spans, all ten citing
+  this page and none naming a heading inside a `.lean` docstring, and ten sha spans on eight shas,
+  three of them new to the file, all three resolving and none of the three flagged by the merge
+  check, which still flags `ee0b8a4` and nothing else. ⚠️ **Nothing here is keyed to an absolute
+  count, to a line address or to the parent's sha**, and that is one defence and not three: a rebase
+  moves all three and leaves the sentence that quotes them behind, where a difference between two
+  heads, a gap between two lines, and *this commit's parent* name the same thing at every base this
+  commit can land on. ⚠️ **No sha this commit adds is a state-at instance**, so that sense keeps the
+  single occupant the sha bullet records: the ones written beside a `PR #<n>` are that PR's merge
+  and agree with the check, the rest date a measurement and say what was measured beside them, and
+  the one that does neither is the sha the check itself flags, written here as its result.
 
 ### Retired claims
 
