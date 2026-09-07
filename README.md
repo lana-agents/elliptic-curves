@@ -466,6 +466,7 @@ discriminator"* — is untouched, because it names a **position** and not a coun
     `[NeZero n]`, which *"Instance arguments are ambient"* below exempts in terms, so no sweep
     reaches it either. ⚠️ It is in the binder-**29** and not in the **28**, so it witnesses on one
     of that count's two conventions and not on the other.
+
   ⚠️ **So the slot is not a subset of the class `#1137` is sweeping, and that is the answer to what
   a witness drawn from a swept population raises** (`#1728`): *states none* is a **compliant
   branch** of this section's rule and not only a symptom of a short clause, so a row can sit in the
@@ -2138,6 +2139,64 @@ true"*, one layer up, in this document's own prose. They are:
   three: read every heading whose text begins in lower case as well.
   ⚠️ It is only headings. A paragraph, a bullet and a `**bold**` span all cross a line break
   correctly, and several repairs on this front rely on that.
+* **A nested list is closed by a blank line, and parent-level prose that resumes without one is
+  swallowed by the sub-list's last row** (`#1833`). A `  * ` sub-bullet's own continuation lines are
+  written at four spaces and are right at every site in this file. The prose that returns to the
+  parent bullet's column is written at two, and CommonMark reads a two-space line touching the row
+  it follows as a lazy continuation of that row rather than as a new block of the parent. The
+  sub-list therefore never closes: the returning paragraph renders inside the final sub-item, and a
+  second `  * ` run written after that paragraph joins the same list instead of opening a new one.
+  ⚠️ **This file already writes the closing form once, so what follows is that form made general
+  and not a new convention** — the blank line at `:283`, which closes the two-branch sub-list of
+  `### Reach clauses`' first bullet and puts the paragraph opening *"Decide this only when you are
+  about to CLEAR a row"* at the parent's own level, where it reads as the bullet's conclusion.
+
+  ⚠️ **The census, at `b2d1981`, and every row of it is repaired in this commit.** Three of the five
+  swallowed paragraphs open on a sentence of the form *"Both are repaired in this commit"* — a claim
+  over **every** row of the list it closes, rendered as the closing sentence of **one row** of it,
+  so a reader of the rendered page was told the last defect alone had been repaired and was shown
+  nothing at all about the others. The five sites swallowed 190 lines of parent prose between them:
+  `:464` in `### Reach clauses`, and `:2091`, `:2140`, `:2236` and `:2273` in this section.
+  ⚠️ **The flattening is the same defect read from the other side.** Two source runs separated by
+  swallowed prose render as one list, so the two rules in this section that carry two runs of
+  sub-bullets rendered as a **four-item** and a **five-item** list where the source writes 2 + 2 and
+  2 + 3, each with a heading sentence that introduces only its own run. Both split correctly once
+  the blank lines are in, and no row of either moves.
+
+  ⚠️ **The cost is one list turning loose and it is this section's**, measured with a CommonMark
+  parser at both trees rather than inferred from the specification. A blank line inside a list item
+  makes the whole enclosing list *loose*, so each of this section's ten top-level rules is now
+  wrapped in `<p>`, and the nine that were already here carry vertical space they did not. Nothing
+  else moves: `### Reach clauses`' three-item list was already loose for exactly this reason, since
+  it holds the `:283` blank line, and every sub-list in the file stays tight. ⚠️ **And it is the
+  only source form there is** — nothing ends a list and returns to the parent's prose without a
+  blank line — so the choice is between that spacing and a paragraph rendered inside a row it
+  quantifies over, which is a false claim on the page and not a matter of taste.
+
+  ⚠️ **Where a NEW bullet may be added to a long top-level rule, which is the half of this that has
+  already sprung.** A `  * ` written at the end of such a rule joins whatever sub-list came before
+  it, however much prose sits between the two: PR #719's first round added two general rulings that
+  way and they rendered as items six and seven of a three-item list about what a sha does. The only
+  placement that reliably renders as a sibling of the top-level rules is `* ` at column 0 with its
+  continuation lines at two spaces, which is the form every rule in this section already uses.
+  ⚠️ **Check the render rather than reading the source**, with
+  `readme-list-structure-render-check.js` from this project's memory: markdown-it in its
+  `commonmark` preset, which agrees with the `cmark-gfm` that GitHub renders this page with.
+  `marked` disagrees with it at four of the five sites and agrees at the fifth, which is what makes
+  it useless rather than merely wrong: at `:2091`, `:2140`, `:2236` and `:2273` it cuts the
+  swallowed paragraph off partway — after sixteen of the forty lines at `:2091` and after a single
+  line at `:2273` — and reports the tail as parent-level prose, while at `:464` it swallows all
+  forty-five lines and returns exactly what CommonMark returns. Measured at `marked` 4.3.0 and at
+  18.0.11, which agree site for site, so a version pin does not rescue it; it was checked against a
+  hand-written minimal case and discarded.
+
+  ⚠️ **This changes what a reader sees and no ruling this file makes.** Each of the five paragraphs
+  is moved by one blank line and not a word of any of them is touched, so no clause is false and
+  none is partial. `#1667`'s *"a paragraph, a bullet and a `**bold**` span all cross a line break
+  correctly"* stands untouched and is about the other mechanism: a continuation line does cross a
+  line break, and what does not cross is the boundary out of a list, which only a blank line
+  crosses. Nothing here retires, so `### Retired claims` does not bind.
+
 * **Sort the class before repairing it, and expect to do two things at once.** A headline that
   lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
   that insertion **and** a deletion or a re-scoping of the assertion — because *"with `(2 : F) ≠ 0`
@@ -2183,6 +2242,7 @@ true"*, one layer up, in this document's own prose. They are:
     is the second bullet of `### Reach clauses`, **1539** lines *above* it at `2947444`, and this
     section's own neighbouring clause names that section correctly one line earlier. First recorded
     in PR #695's review and re-observed in PR #707's and PR #712's without being paid (`#1803`).
+
   **Both are repaired in this commit, one word each**, on the ruling in `### Gate-discharge claims`
   above: a wrong pointer is a typo and not a claim, so nothing retires and neither takes a marked
   quotation. ⚠️ **One of the 27 is not forced by its own grammar and is named rather than counted
@@ -2232,6 +2292,7 @@ true"*, one layer up, in this document's own prose. They are:
     target sits in the **same** blank-line-delimited paragraph, which is what *paragraph* means
     wherever this file measures one: *"the two live one paragraph apart here"* is true with exactly
     one such paragraph between the rows it counts. On the `⚠️`-block reading it is three up.
+
   **Both are repaired in this commit**, on the wrong-pointer ruling in `### Gate-discharge claims`,
   which that ruling now extends to a distance; and both were false at the commit that published
   them, which makes four of four on the rows these two seeds have convicted.
@@ -2330,6 +2391,7 @@ true"*, one layer up, in this document's own prose. They are:
     quotation reorders it, so it was false at `365dd39` (`#1668`, PR #683), the commit that wrote
     it, while the same words are quoted correctly as *"false or merely partial"* at three other
     sites in this file.
+
   **All three are repaired in this commit, one span each**, on the wrong-pointer ruling in
   `### Gate-discharge claims`: the sentence a reader is sent to is on the page whichever words the
   quotation gives for it, so this is a typo and not a claim, nothing retires and none of the three
@@ -2364,6 +2426,7 @@ true"*, one layer up, in this document's own prose. They are:
   * **State-at** — *the commit at which a wording that is now gone was still live*, which is by
     construction **not** the commit that changed it. `ee0b8a4` is the only instance in this file,
     and it is the whole reason a PR-to-merge check cannot be the instrument.
+
   PR #716 was convicted twice for writing an attribution inside a sentence that had already fixed a
   measurement sha, which is the pair of senses a reader conflates most easily. ⚠️ **The 30 citations
   of a `.lean` docstring heading are in scope, and their test is a different instrument.** **14 of
