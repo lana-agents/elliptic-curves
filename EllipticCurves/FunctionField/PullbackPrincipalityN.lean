@@ -46,18 +46,24 @@ producer"*.  Each is retired in its own module, in the marked-quotation form `RE
 
 Two things the ceiling names have since become available, and neither was when it was written.
 
-* **The fibre description is merged at every `n` prime to the characteristic**, as
-  `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+* **The fibre description is merged at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over
+  `F̄`**, as `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
   (`EllipticCurves.FunctionField.MulByNFibre`) — `#774`'s formula at a general index, and the last
   of the eleven declarations `#1540` measured as blocked.  ⚠️ **That sentence's *"merged only at
   `n = 2, 3`"* is therefore false rather than merely partial**, which is why the sentence is
   retired rather than qualified; the retirement is recorded in that module, in the marked-quotation
   form `README.md`'s `### Retired claims` lays down, and `README.md`'s `### What is formalised`
   carries a second retirement of its own, of the bullet this commit falsifies there.
-* **`#E[n] = n²` is a theorem at every `n` prime to the characteristic**, as
+* **`#E[n] = n²` is a theorem at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, as
   `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#242`).  It is the *only*
   mathematical input this route needed that did not exist when the `n = 2` file was written, and it
   enters at exactly one place — the class computation below.
+  ⚠️ **The two bullets name different index conditions, and that is not a slip to reconcile.**
+  The fibre description binds `((n : ℤ) : F) ≠ 0` and `card_torsion_eq_sq` binds `(n : F) ≠ 0`;
+  `README.md`'s `### Scope of the rules above` says *"`(n : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` are
+  different clauses"*.  ⚠️ Neither declaration carries an `_of_natCast_ne_zero` /
+  `_of_intCast_ne_zero` suffix to say which, and copying one onto the other would make one of them
+  false.
 
 ## The five steps, and where each comes from
 
