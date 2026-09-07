@@ -546,8 +546,8 @@ what this commit adds is not what falsified it.  Three merged declarations falsi
 `exists_gS_two_of_isAlgClosed` (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`) discharge it
 over `F̄` at `n = 2` and `n = 3`, and `exists_gS_two_of_card`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it at `n = 2`
-over an arbitrary field — `ℚ` included — from rational `2`-torsion and a halving.  What this commit
-adds is the general-index `F̄` form, `exists_gS_n_of_isAlgClosed`
+over an arbitrary field with `(2 : F) ≠ 0` — `ℚ` included — from rational `2`-torsion and a
+halving.  What this commit adds is the general-index `F̄` form, `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), at every `n` with `(2 : F) ≠ 0` and
 `((n : ℤ) : F) ≠ 0`.  ⚠️ **The replacement above is a statement about `n = 6` and `n = 10` over
 `ℚ` and about nothing else**, because that is what this section certifies and every wider reading

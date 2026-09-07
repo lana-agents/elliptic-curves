@@ -263,8 +263,8 @@ index — an arbitrary `n` over an arbitrary field (`#962`) — and it is the la
 front.  ⚠️ **It is not open uniformly, on either axis, and *"open at general `n`"* unqualified is
 now the wrong reading.**  Over `F̄` `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`) discharges it at every `n` with
-`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field `n = 2` is better off than the
-rest, since `exists_gS_two_of_card`
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field with `(2 : F) ≠ 0`, `n = 2` is
+better off than the rest, since `exists_gS_two_of_card`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it there from
 rational `2`-torsion and a halving. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
