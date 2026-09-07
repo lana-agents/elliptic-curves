@@ -196,16 +196,18 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   lines then moved the block again.
 
 ⚠️ **RETIRED — and under `### Retired claims`' replication rule this is the one place it retires.**
-The **General `n`** bullet above read *"only `n = 2, 3` are concretely available"* from `3f8ba10`
-(2026-09-02, `#1504`, PR #580) until this commit.  The blocks that made the same claim in the words
-*"this development has the pairing at `n = 2` and `n = 3` only"* or *"… and nowhere else"* — the
-ones the recogniser below returns — run from `53a5712` (2026-08-24, `#951`, PR #381) to `5437e189`
-(2026-08-30, `#1240`, PR #460).  ⚠️ **The last block to make the claim made it in neither of those
-wordings**, so the bracket above is the bracket of the *quotation* and not of the claim: it is
-`EllipticCurves.TateModule.MatrixRepMod` at `680911a` (2026-08-30, `#1242`, PR #462), whose words
-are quoted below with the other row the recogniser misses.  **What falsified all of them at once is
-`ecfb3e9`**
-(2026-09-07, `#1843`, PR #723):
+The **General `n`** bullet above read *"only `n = 2, 3` are concretely available"* from `bec91b5`
+(2026-08-10, `#419`, PR #156) until this commit — ⚠️ **not from `3f8ba10`** (2026-09-02, `#1504`,
+PR #580), which is only what a per-line `git blame` returns: that commit reflowed the rest of the
+sentence and added the *"was not re-measured"* conjunct, while `git log -S` on the quoted words adds
+them once, at `bec91b5`, and removes them never (`#1877`).  The blocks that made the same claim in
+the words *"this development has the pairing at `n = 2` and `n = 3` only"* or *"… and nowhere
+else"* — the ones the recogniser below returns — run from `53a5712` (2026-08-24, `#951`, PR #381)
+to `5437e189` (2026-08-30, `#1240`, PR #460).  ⚠️ **The last block other than this one to make the
+claim made it in neither of those wordings**, so the bracket above is the bracket of the
+*quotation* and not of the claim: it is `EllipticCurves.TateModule.MatrixRepMod` at `680911a`
+(2026-08-30, `#1242`, PR #462), whose words are quoted below with the other row the recogniser
+misses.  **What falsified all of them at once is `ecfb3e9`** (2026-09-07, `#1843`, PR #723):
 `exists_gS_n_of_isAlgClosed` supplies the root datum over `F̄` at every `n` with `(2 : F) ≠ 0` and
 `((n : ℤ) : F) ≠ 0` and assumes no `hprin`, where before it the general-`n` layer was gated on
 `hprin` throughout; `444da7f` (`#1844`, PR #724) then stated non-degeneracy at the same indices.
