@@ -178,7 +178,13 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
 * **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
   (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
   named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`,
-  its `y`-half); only `n = 2, 3` are concretely available, and what confines them was **not**
+  its `y`-half).  ⚠️ **Over `F̄` the pairing is available at every `n`** with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`: the root datum is `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which discharges `hprin` outright rather
+  than assuming it, and non-degeneracy at the same indices is
+  `EllipticCurves.FunctionField.WeilPairingNondegenerateN`.  Off `F̄`, `#962` is the standing gate
+  at a general index, and `weilPairingTwo` / `weilPairingThree` below are constructed under
+  `(2 : F) ≠ 0` and `(3 : F) ≠ 0` with no gate at all; what confines *the two numerals* was **not**
   re-measured when the coordinate-formula reason was withdrawn.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
@@ -188,6 +194,41 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   supply one.  ⚠️ Said relative to the file rather than by line number, which rots: the number
   first written into this bullet was already stale when it was pushed, and the bullet's own added
   lines then moved the block again.
+
+⚠️ **RETIRED — and under `### Retired claims`' replication rule this is the one place it retires.**
+The **General `n`** bullet above read *"only `n = 2, 3` are concretely available"* from `bec91b5`
+(2026-08-10, `#419`, PR #156) until this commit — ⚠️ **not from `3f8ba10`** (2026-09-02, `#1504`,
+PR #580), which is only what a per-line `git blame` returns: that commit reflowed the rest of the
+sentence and added the *"was not re-measured"* conjunct, while `git log -S` on the quoted words adds
+them once, at `bec91b5`, and removes them never (`#1877`).  The blocks that made the same claim in
+the words *"this development has the pairing at `n = 2` and `n = 3` only"* or *"… and nowhere
+else"* — the ones the recogniser below returns — run from `53a5712` (2026-08-24, `#951`, PR #381)
+to `5437e189` (2026-08-30, `#1240`, PR #460).  ⚠️ **The last block other than this one to make the
+claim made it in neither of those wordings**, so the bracket above is the bracket of the
+*quotation* and not of the claim: it is `EllipticCurves.TateModule.MatrixRepMod` at `680911a`
+(2026-08-30, `#1242`, PR #462), whose words are quoted below with the other row the recogniser
+misses.  **What falsified all of them at once is `ecfb3e9`** (2026-09-07, `#1843`, PR #723):
+`exists_gS_n_of_isAlgClosed` supplies the root datum over `F̄` at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0` and assumes no `hprin`, where before it the general-`n` layer was gated on
+`hprin` throughout; `444da7f` (`#1844`, PR #724) then stated non-degeneracy at the same indices.
+⚠️ **One quotation and not one per block.**  The copies asserted **one** proposition about **one**
+subject — the indices at which this development has the pairing — and one reading of
+`EllipticCurves.FunctionField.PullbackPrincipalityN` falsified every copy at once, so the retirement
+goes at the subject; the other sites are corrected in place and point here.  ⚠️ **The population is
+a dated measurement and not a standing count** (`### Scope of the rules above`): at `cc74561`, over
+the whitespace-normalised text of every tracked `.lean` and `.md` blob, the recogniser
+``pairing[^.]{0,80}?<IDX>[^.]{0,60}?(?:only|nowhere else)`` — where `<IDX>` is the wrapping-tolerant
+index pattern `` `?n`?\s*=\s*2`?\s*(?:and|,)\s*`?\s*(?:n`?\s*=\s*)?3`? `` — returns **9**.  ⚠️ Run
+it with the `\s*` and over normalised text, not as a literal string: the phrase wraps a source line
+in several of those files and a plain `grep` under-reports.  **Two** further rows lie outside that
+recogniser and were read by hand: the **General `n`** bullet above, and
+`EllipticCurves.TateModule.MatrixRepMod`'s *"a pairing basis exists only at `n = 2` and `n = 3`,
+where the pairing does"*.  ⚠️ **Re-running it will match this paragraph**, because a retirement
+quotes the words it retires; a hit inside a marked quotation is a retirement and not a live claim,
+and `### Retired claims` says the words stay for exactly that reason.  ⚠️ **The dated half of the
+retired sentence is kept rather than retired with it**: *"was not re-measured when the
+coordinate-formula reason was withdrawn"* is a claim about the moment the reason was withdrawn, not
+about the tree, so it cannot go stale (`#1848`) and only its antecedent needed repair.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with

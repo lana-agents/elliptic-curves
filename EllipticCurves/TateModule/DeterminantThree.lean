@@ -80,8 +80,14 @@ statement about a zero module is satisfiable by anything.
   `ℓ = 2` route that it needs no such thing; **that sentence must not be read as applying here.**
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is NOT unblocked by this file**, and this file will look as
   though it just got closer. The `3`-adic identity needs the Weil pairing on `E[3^k]` for **every**
-  `k`, i.e. the pairing at composite `n`, exactly as at `ℓ = 2`; this development has the pairing at
-  `n = 2` and `n = 3` only. The **mod-`3`** identity `galoisDetMod 3 = χ_3` is a *different
+  `k`, i.e. the pairing at composite `n` **over the base field**, exactly as at `ℓ = 2`, and there
+  `#962` is the standing gate at a general index. ⚠️ **This sentence used to ground that on the
+  development having the pairing at two indices only; that bound is false and is retired once, in
+  `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
+  (`### Retired claims`) — over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityN`), and `F̄` is not a setting `ρ_{E,3}` says
+  anything in. The **mod-`3`** identity `galoisDetMod 3 = χ_3` is a *different
   statement about a different object* — `galoisDetMod 3` is valued in `(ZMod 3)ˣ`, not `ℤ_[3]ˣ` —
   and it landed separately as
   `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`).

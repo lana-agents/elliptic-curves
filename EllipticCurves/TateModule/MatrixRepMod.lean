@@ -112,7 +112,13 @@ its inputs are a counting argument (`exists_zsmul_add_zsmul_eq_three`) and a uni
 distinguished pair; it has a functor `b ↦ ρ_b` and a conjugacy.  The relation is exactly the one
 `EllipticCurves.TateModule.DeterminantMod` states between `#951` and `galoisDetMod` — *"`#951` has
 an **equation**; this file has an **object**"* — and it holds verbatim one level up.  Nor does
-`#951` subsume this: a pairing basis exists only at `n = 2` and `n = 3`, where the pairing does.
+`#951` subsume this: a pairing basis needs a pair `P, T` with `e_n(P, T) ≠ 1`, and this file has no
+way to produce one.  ⚠️ **This clause used to bound that to two indices, on the ground that the
+pairing was bounded to them; that bound is false and is retired once, in
+`EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
+(`### Retired claims`) — over `F̄` the pair is `exists_gS_n_weilPairingElt_ne_one`
+(`EllipticCurves.FunctionField.WeilPairingNondegenerateN`), at every `n` with `(2 : F) ≠ 0` and
+`((n : ℤ) : F) ≠ 0`.
 
 **Nothing at `n = 5` in *this file*, and it is no longer out of reach**: this clause used to end
 *"`basisTorsionOfSmooth` is `3`-smooth, and behind that stand `[5]`-surjectivity and `#E[5]`"*, and
