@@ -62,10 +62,15 @@ odd `n`, so what is `3`-smooth is that one lemma's range, not the count.
 (`EllipticCurves.FunctionField.MulByNComposition`) is not a ceiling any more: at a `3`-smooth `n`
 its own `(2 : F) ≠ 0` and `(3 : F) ≠ 0` give `(n : F) ≠ 0`, which is all
 `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) asks.  ⚠️ That substitution is *not* made
-anywhere and the import direction for it was not measured; what is claimed here is only that the
-`3`-smoothness of this file is no longer a coordinate-formula ceiling, so a reader hunting the
-surviving obstruction should not stop here.
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`) asks.  ⚠️ **RETIRED — the substitution has
+been made and its import cost measured.**  This clause read *"That substitution is not made anywhere
+and the import direction for it was not measured"* (`6af226f`, `#1499`, PR #575, 2026-09-02).  It
+was made the next day, at `d780bf8` (`#1549` group 2, PR #608, 2026-09-03), in
+`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`, whose `…_of_ne_zero_of_hprin`
+statements are its consequence and whose docstring records the cost as **one `import`**;
+`EllipticCurves.FunctionField.WeilPairingGaloisRootN` carries the same pair.  ⚠️ What is claimed
+here is unchanged: the `3`-smoothness of this file is no longer a coordinate-formula ceiling, so a
+reader hunting the surviving obstruction should not stop here.
 
 ## Main statements
 

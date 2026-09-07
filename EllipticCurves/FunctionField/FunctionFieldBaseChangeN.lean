@@ -26,9 +26,14 @@ At general `n` no such formula is available *here*.  ⚠️ This sentence used t
 is **closed** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) and its
 `y`-half `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`)
 give both coordinates of `n • P` at every index with `(2 : F) ≠ 0`, under `ΨSqₙ(x) ≠ 0`, on the
-**curve**.  ⚠️ What is missing is the *function-field* intertwiner `functionFieldMap_mulByNEndo`,
-and whether the affine formula supplies it is **not measured**: `mulByNEndo` is not defined by a
-formula (see below).
+**curve**.  ⚠️ **What they leave open is the *function-field* intertwiner, and this file is where
+it is closed**: `functionFieldMap_mulByNEndo` below is that statement, and the next paragraph is the
+answer to how — the affine formula does **not** supply it, because `mulByNEndo` is not defined by a
+formula at all.  ⚠️ **RETIRED.**  This sentence read *"What is missing is the function-field
+intertwiner `functionFieldMap_mulByNEndo`, and whether the affine formula supplies it is **not
+measured**"* (`469e456`, `#1702`, PR #679).  Both halves were false when they were typed: that
+theorem has been this file's headline since `b821a45` (`#1333`, PR #505), it is listed below as the
+new brick, and the measurement the clause says was not taken is the paragraph immediately after it.
 
 `mulByNEndo n hn` is not defined by a formula.  It is `pointEndo` at the point `n • 𝒫`, so it is
 pinned by
