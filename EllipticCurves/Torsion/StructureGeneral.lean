@@ -7,7 +7,7 @@ import EllipticCurves.Torsion.CoprimeStructure
 import EllipticCurves.Torsion.OmegaChordSum
 
 /-!
-# `#E[n] = n²` and `E[n] ≅ (ℤ/nℤ)²` at every `n` prime to the characteristic
+# `#E[n] = n²` and `E[n] ≅ (ℤ/nℤ)²` at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`
 
 `EllipticCurves.Torsion.OmegaChordSum` proves `#E[n] = n²` at **odd** `n`
 (`WeierstrassCurve.Affine.card_torsion_eq_sq_of_odd`), because its route runs through

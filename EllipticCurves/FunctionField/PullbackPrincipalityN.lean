@@ -312,7 +312,7 @@ theorem exists_nsmul_divisor_eq_divisor_mulByNEndo {n : ℕ}
     rw [← affinePart_divisorProj, hkey, map_zsmul]
   rw [hdivn, hgdiv, ← natCast_zsmul]
 
-/-! ### Rung 5 without `hprin`, at every `n` prime to the characteristic -/
+/-! ### Rung 5 without `hprin`, at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` -/
 
 /-- **Rung 5 of the Weil pairing at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, over an
 algebraically closed field, unconditionally.**  `exists_gS_n` with its `hprin` discharged: for a
