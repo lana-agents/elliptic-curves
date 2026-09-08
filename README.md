@@ -594,8 +594,8 @@ and takes **that** instance from no `variable` block, so the published ground wa
 section's own worked case for it. ⚠️ **Retired, and here rather than at the theorem it names**
 (`4efeb97`, `#1774`, PR #706): the clause read *"and takes no instance from a `variable` block at
 all"*, and the row's own elaborated telescope falsifies it — `[Field F]` and the **propositional**
-`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:280`, there is no `section` or `end`
-between that line and the `theorem` at `:319`, and both are included because the statement mentions
+`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:313`, there is no `section` or `end`
+between that line and the `theorem` at `:352`, and both are included because the statement mentions
 `W`. `#1694`'s subject test puts the quotation here rather than in that file: the claim is about
 **this section's ground**, not about what the theorem says, so a reader of the file it names has no
 stake in it. ⚠️ **Only the universal fell.** `[NeZero n]` is written at the declaration and carried
