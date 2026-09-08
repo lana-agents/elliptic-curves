@@ -1083,20 +1083,45 @@ examples would tell nothing. Hence the marked quotation rather than the softer d
 reading is recorded here because this front has had to settle it three times (`#1782`, `#1780`,
 `#1790`).
 ⚠️ **Which branch a numeral is on is measured rather than assumed, and the pinned branch is the
-larger one.** Seed, fence-aware over this file's own non-fenced prose at `2947444`: a `**`-bold span
-whose whole content is a numeral, in digits or as an English number word. **166** occurrences, every
-one read. **Seven** are not counts over a population at all, among them *"both ends"*, *"one
-diff"*, *"one section up"* and a column width; of the remaining **159**, **51** are dated totals a
-recogniser returned over the tree and **108** are counts inside a set the same sentence names —
-*"29 of the 43"*, *"16 of the 56"*, *"40 of the 56"*, *"three of the six"*. The branch the clause
-did not have is the one two thirds of this page's own figures are on. ⚠️ **Recogniser limits,
-published beside the count because the count depends on them** (`#1749`): the seed is bold-keyed
-and the witness that falsifies the rule is **not** bold — *"four"* was written bare — so it cannot
-find the defect it was written for; `**zero**` and `**once**` are number-shaped words the pattern
-omits; and open against pinned is read off each sentence, so the split is a reading and re-running
-the regex is not the check. ⚠️ **This PR moves the population it is measuring**, so the figure
-carries both ends (`#1749`): the same seed run at this PR's head returns **175**, **nine** more than
-the 166 it was read on, and the split above is the reading of the 166.
+larger one.** Seed, fence-aware over this file's own non-fenced prose: a `**`-bold span whose whole
+content is a numeral, in digits or as an English number word. ⚠️ **Four flags decide what that
+returns and none of them stood here until `#1864`**, which is why the sentence was reimplemented
+five times and reproduced once. The match is **case-insensitive**, so the sentence-initial `Seven`,
+`Three`, `Nine`, `Four` and `Eight` are in: the same regex read case-sensitively returns **162** at
+`2947444` where this one returns 165, and **186** at `444da7f` where this one returns 191 — the
+gaps are three and five rather than five and five because only `Nine`, `Four` and `Eight` are there
+at `2947444`, `Seven` and `Three` arriving with PR #714, and `Seven` is this paragraph's own worked
+example. The word list stops at `twelve`, so `Fourteen` is out. `**zero**` is matched. And the seed
+is fence-aware but **not** inline-code-aware, so a `**zero**` written inside backticks counts too,
+and one of that 191 is this paragraph's own. Under the four flags the seed returns **165** at
+`2947444` and **175** at `e80a588`, which is PR #714's head.
+⚠️ **Retired, and it is the count that was wrong and not the recogniser** (`#1864`): this paragraph
+read *"**166** occurrences"* at `2947444`, where the seed returns **165**, so `### Reach clauses`'
+own test returns **false** rather than partial and the figure retires here — it is a claim about
+this page's own population, published on this page. ⚠️ **Every other dated reading this page gives
+for this seed reproduces to the digit** — seven of them, at `e80a588`, `d3a4ac5`, `0eb4f70`,
+`5a2fe24`, `b2d1981`, `444da7f` and `3c183d8` — both ends of each of the three
+`### Scope of the rules above` bullets that re-run this seed, and the head this paragraph's own
+*"**nine** more than the 166"* was written against. So the base figure alone was one too high, and
+that clause is **ten** more than the 165.
+⚠️ **The split retires with it, because it was a partition of the 166 and not three lists.** It
+read *"**Seven** are not counts over a population at all … of the remaining **159**, **51** are
+dated totals a recogniser returned over the tree and **108** are counts inside a set the same
+sentence names"*, and 7 + 159 = 166 with 51 + 108 = 159; at a true total of 165 exactly one of the
+three is one too high, and nothing on record says which, because the reading published counts and
+never the rows. ⚠️ **What the split was written to establish survives it**: the pinned branch is
+the larger one however the row comes off, since the three ways it can are 108 of 159, 108 of 158
+and 107 of 158, and every one of them is about two thirds.
+⚠️ **Recogniser limits, published beside the count because the count depends on them** (`#1749`):
+the seed is bold-keyed and the witness that falsifies the rule is **not** bold — *"four"* was
+written bare — so it cannot find the defect it was written for. ⚠️ **Retired — the third claim in
+this paragraph to go, and the only one of the three that is a rule rather than a count**
+(`#1864`): it read *"`**zero**` and `**once**` are number-shaped words the pattern omits"*.
+`**once**` is; `**zero**` is not, and excluding it drops every dated figure by exactly its own
+occurrence count — **165** becomes 163 at `2947444` and **191** becomes 188 at `444da7f`, against
+**2** and **3** occurrences — so the published numbers count it and a reimplementer who obeyed the
+clause lands low by that much at every dated ref. And open against pinned is read off each
+sentence, so the split was a reading and re-running the regex is not the check.
 ⚠️ **There are four; the third is in `### Gate-discharge claims`** (`#1765`, `#1780`): a
 universal that **survives its first measurement** is neither short nor over-reaching, and what it
 takes is the measurement itself, published where the claim stood. That is a **pointer and not a
