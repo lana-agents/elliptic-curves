@@ -58,11 +58,12 @@ irrelevance and must not be matched by hand.  This is the idiom of
 ## What is discharged, and what `#962` still wants
 
 `hprin` at `n = 2` was `#418`, the last standing gate on this front.  It is now discharged over any
-field over which the two rationality facts hold.  ⚠️ **This does not close `#962`**, which asks for
-`hprin` over a field where `E[2]` is *not* rational.  That still needs three things, none of them
-touched here: a finite `L/F` over which both facts hold, the descent statement
-`L(W⁄L)^{Gal(L/F)} = F(W)` (`#692`'s open divisor half), and separability of `L/F` in characteristic
-`p`.  Mathlib's *finite* Hilbert 90 suffices for the cohomology; no profinite machinery is needed.
+field with `(2 : F) ≠ 0` over which the two rationality facts hold.  ⚠️ **This does not close
+`#962`**, which asks for `hprin` over a field where `E[2]` is *not* rational.  That still needs
+three things, none of them touched here: a finite `L/F` over which both facts hold, the descent
+statement `L(W⁄L)^{Gal(L/F)} = F(W)` (`#692`'s open divisor half), and separability of `L/F` in
+characteristic `p`.  Mathlib's *finite* Hilbert 90 suffices for the cohomology; no profinite
+machinery is needed.
 
 ⚠️ Nothing here transfers to `n = 3`.  `PullbackPrincipalityThree` has never been audited for the
 arbitrary-field reduction, and `#947` rules out full rational `3`-torsion over `ℚ` for *every*
