@@ -1726,6 +1726,77 @@ meets the unamended text. ⚠️ **Whether the wider gate should have a record o
 about the tracker and not about any docstring** — nothing here files one, and nothing here is
 evidence that one is owed.
 
+⚠️ **An indexical address is a kind of claim this section has not sorted, and the tree writes one:
+*this commit*** (`#1877`). This section sorts a clause by *"what kind of claim the clause is
+making"*, and an address is a claim about a **commit**. In a commit message it is self-resolving,
+because the message is part of the commit it names. In a **file** it is not, and two resolutions
+are available that do not agree: `git blame` on the line carrying the words, and `git log -S` on
+the words the clause is about. ⚠️ **Blame is the unsound one**, and it is the one this page names
+in passing.
+⚠️ **The failure this rule is written on sits inside one paragraph of one file, and the commit that
+broke it never touched the sentence it broke.**
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`'s retirement block carries four
+copies of the words, all written by `ecfb3e9` (2026-09-07, `#1843`, PR #723). `aadc404`
+(2026-09-07, `#1861`, PR #727) later completed a reach clause inside that block and reflowed two of
+its lines, so *"What this commit adds is the general-index `F̄` form"* now sits on a line `aadc404`
+owns. That commit adds `(2 : F) ≠ 0` to a clause about `n = 2` and adds nothing of the
+general-index form, while the three sibling copies in the same block still blame to `ecfb3e9`.
+**Identical words, one paragraph, two referents, one of them wrong.**
+⚠️ **`git log -S` on the quoted words is the resolver, and the tree says so rather than this page
+inventing it.** `EllipticCurves.FunctionField.WeilPairing`'s retirement brackets its quotation at
+`bec91b5` (2026-08-10, `#419`, PR #156) and says in terms that per-line blame returns a different
+commit for it, `3f8ba10`, *"which is only what a per-line `git blame` returns"* — on the ground
+that `git log -S` on the quoted words *"adds them once, at `bec91b5`, and removes them never"*.
+⚠️ **That is the compliant form of the class**: the end of the bracket that can be written as a sha
+is written as one, and only the end that cannot be — the commit being authored — is left
+indexical.
+⚠️ **The second gap is not blame at all: *this commit's parent* names two different commits.** A
+one-commit PR lands as a squash whose parent is `main` at merge time, while the tree its figures
+were measured against is the branch it was built on; the two differ whenever anything lands in
+between. `3c183d8`'s parent is `8e55db0` (2026-09-07), and the other end `### Reach clauses` names
+for that same commit is `444da7f` — **six commits earlier**. ⚠️ **A delta is safe and a state-at is
+not.** A clause of the shape *"What is recorded instead is what this commit adds to that
+population"*, measured against the commit's own parent, is true by construction of the squash
+whichever tree that parent is, and `### Scope of the rules above` already draws the distinction for
+shas in the bullet that writes it: *"No sha this commit adds is a state-at instance"*. ⚠️ **That
+bullet — the `#1810` distance one — writes *this commit's parent* five times at `e122163`: one
+delta, one mention, and three figures that name a tree and need the right one**, among them
+*"at this commit's parent the distance seed's nineteen matches fall on eighteen lines"*. **That
+figure survives**, the distance seed returning 19 on 18 lines at `444da7f` and at `8e55db0` alike,
+**by luck and not by form.**
+⚠️ **The disposition is `#1862`'s, it has landed, and it is restated here rather than re-decided.**
+An author cannot write their own sha and a rebase moves any sha they do write, so the indexical is
+not a defect when it is written: it is a placeholder whose debt falls due the moment the commit
+lands. Re-key it to the seven-character sha, resolved with `git log -S` and confirmed with
+`git cat-file -t`. **Nothing retires on the re-key** — the claim about what the text read, and
+about the commit at which it stopped reading it, is the same claim, and only its anchor changes, so
+`### Reach clauses`' *"false or merely partial"* test has no old claim to sort and
+`### Retired claims`, which that test gates, is not reached. ⚠️ **Anchor any exemption to the file
+and not to the commit, and bound it by naming rather than by counting**: a clearance saying *this
+commit* moves none of the others is a fresh instance of the thing it clears, and a numeral standing
+over a list is falsified by whatever next extends the list. Both are that PR's findings against its
+own drafts.
+⚠️ **A quotation of the words is a mention and not an address.** An occurrence italicised inside a
+retirement, or quoted in order to be ruled on, asserts nothing about any commit; the test is
+whether taking the quotation marks off would change what the sentence claims. **Every occurrence
+of the words in this rule is a mention**, and none of them is bare.
+⚠️ **The seed, with its flags, because a recogniser that does not state them is reimplemented as
+the other branch** (`#1864`, `#1895`). Over whole blobs of every tracked `.lean` and `.md` file:
+
+```
+\bthis\s+commit\b        case-insensitive, whole blobs — the phrase wraps across source lines
+```
+
+At `e122163` it returns **36** occurrences on **32** lines in **6** files. ⚠️ **Both flags cost
+two**: read case-sensitively it returns 34, read line by line it returns 34, and read both ways 32.
+Fence-filtering costs nothing at that sha or at `cc74561`, so it is not a flag on this seed and is
+recorded rather than assumed. At that sha **26 of the 36 are on this page**, **19** of those in
+`### Scope of the rules above` where each commit records what it did, and the other **10** are in
+five `.lean` files. At `cc74561`, **8** commits earlier, the same seed returns **22** on **19**
+lines in **5** files. ⚠️ **The thirty-six at `e122163` are not read one at a time here, and this
+rule clears none of them** — that reading is `#1877`'s sweep, and this is the ruling it asked for
+first.
+
 ### Module-block bullets
 
 A `## Main statements` / `## Main results` bullet makes the same kind of claim, about the same
