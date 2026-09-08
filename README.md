@@ -1517,9 +1517,9 @@ noun it *hypothesis* with no gate list named. ⚠️ **The noun buckets a row in
 `gates` folds into *gate* and *hypotheses beyond the setting* into its singular. **5** of the 95 are
 plural, so keying the buckets on the literal singular drops all five and returns **52 / 15 / 28**
 and **56 / 15 / 24** where this paragraph publishes 53 / 19 / 23 and 57 / 19 / 19, and a re-runner
-concludes the seed is broken when it is the bucket names that are (`#1766`). ⚠️ **The repair in the
-next paragraph moves the four `…AssemblyN` rows out of the third bucket and into the first, leaving
-95 splitting 57 / 19 / 19.**
+concludes the seed is broken when it is the bucket names that are (`#1766`). ⚠️ **The
+`card_torsion_pow_of_odd` repair below moves the four `…AssemblyN` rows out of the third bucket and
+into the first, leaving 95 splitting 57 / 19 / 19.**
 The total is invariant and each split holds only at the sha named beside it: re-run the seed before
 that commit and it returns **53 / 19 / 23**, after it **57 / 19 / 19**. A census figure this page
 publishes and then moves in the same breath has to carry both, or the recogniser reads as broken
@@ -1564,6 +1564,90 @@ in this paragraph until `#1765` — was it. Nothing convicts it, so it was not o
 `### Retired claims` does not bind; it is not a count, so it was not merely short either. It was
 **unmeasured**, and what that takes is neither a marked quotation nor a qualification in place but
 the measurement, published where the claim stood.
+
+⚠️ **The prospective half of that is a rule about form, and this development already writes it.** A
+clause saying that something *has not been measured* is a claim whose truth moves under other
+people's commits, and it comes in three forms that decay at three different rates. ⚠️ **The
+discriminator is where the sentence says the measuring did not happen, not what the measurement
+would be of.**
+
+* **Dated** — *"was **not** re-measured when the entry was retired"* — is a claim about a past act,
+  so nothing merged afterwards can falsify it. ⚠️ **A sweep must not "refresh" one**: re-dating it
+  to today's head trades a permanent truth for a perishable one.
+* **Scoped** — *"not measured here"*, *"and this file does not measure it"* — is a claim about one
+  file, so the only thing that falsifies it is *that file* gaining the measurement and the check is
+  a one-file read. ⚠️ **Cheap, not immune**, and the tree carries the worked case:
+  `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` retires its own *"not measured
+  here"* with *"It has now been measured (`#1549`)"* — measured by that file, which is the only way
+  a scoped clause can fall.
+* **Neither** — *"not measured, here or anywhere"* — is a claim about the whole tree at the moment
+  of reading, and a merge in a file its author never opened falsifies it silently. Only this form
+  can be put through `### Reach clauses`' *"false or merely partial"* test by a merge elsewhere: the
+  scoped form reaches that test too — `WeilPairingTranslationSlotHprinN`'s retirement above is it
+  returning **false** — but only from inside the file that measures.
+
+**Prefer a date to a scope, and a scope to neither**, on the ground *"prefer a direction to a
+distance, and a heading's name to both"* above gives for the pointer axis: *"A distance is falsified
+by any insertion between the pointer and its target, so it rots with nobody touching either"*. An
+undated, unscoped *not measured* rots the same way and over the whole tree rather than over one
+file. ⚠️ **It governs what is written next and convicts nothing standing** — the eleven undated
+rows the census below counts are a population and not a worklist, and re-dating them would be a
+sweep, which `### Scope of the rules above` refuses.
+
+⚠️ **Codification and not a preference: the tree applies this rule already and cites the issue
+because this page did not carry it.** `EllipticCurves.FunctionField.WeilPairing`'s
+`## Explicitly out of scope` keeps the dated half of a sentence whose antecedent it retires, on the
+ground that it *"is a claim about the moment the reason was withdrawn, not about the tree, so it
+cannot go stale"*. ⚠️ **It is ruled here and not in `### Reach clauses` on `#1694`'s subject
+test**: the subject is what a docstring's own *form* costs the next editor, which is this section's
+subject in the pointer rulings above, and not that section's hypothesis lists.
+
+⚠️ **The census, with the recogniser beside it** (`#1867`), as `### Module-block bullets`' *"publish
+the recogniser beside any count, or write no count"* asks — over whitespace-normalised whole blobs
+of every tracked `.lean` and `.md` file, case-insensitive:
+
+```
+\b(?:not|never)\b[^.]{0,40}?(?:re-)?measured   |   \bun-?measured\b
+```
+
+At `4655854` it returns **57** clauses in **42** files: **17** dated, **5** scoped, **11** undated
+and unscoped, **12** already-retired quotations, **2** rows of prose about the form itself, **5**
+seed false positives and **5** rows of this page's own prose about the disposition. Every clause
+this axis has convicted sits in the third bucket, and of the twelve retirements **none quotes a
+dated clause**, exactly one quotes a scoped one, and the other eleven quote undated unscoped ones.
+⚠️ **The figure is dated to the base and no head figure is written**, because this paragraph is in
+the population it counts: it quotes all three forms and lands in the last bucket, so a re-runner at
+any head carrying these lines reads more than 57, and the difference is these lines.
+
+⚠️ **The count is invariant under a correct repair and the split is not.** A retirement *quotes* the
+clause it retires and a qualification *leaves it standing*, so both dispositions keep the words: the
+seed returns **54 in 42** at `2aebb05` and **57 in 42** here, across a `#1848` cut whose repairs
+keep the words either way; it is **byte-identical** at `855f993`, `1d79187` and `4655854`, so a
+merge that touches neither the clauses nor the seed moves nothing on this axis. **Publish the
+split; a count on this axis measures nothing.**
+
+⚠️ **The boundary between the second and third buckets is written down rather than left to the next
+reader.** `EllipticCurves.Torsion.ThreePrimaryBasis`'s *"what this file still takes at `ℓ = 3` only
+was not re-measured"* scopes its **subject** to the file and leaves the measuring unqualified, so it
+is undated and unscoped here; `EllipticCurves.FunctionField.NthRootOfPullbackN`'s retired *"which of
+this file's inputs is now the binding one was not re-measured"* is the same shape and was retired as
+one. A clause is scoped when it says the *measuring* did not happen here, and not when the thing
+left unmeasured happens to be local. ⚠️ **A clause that says both is scoped**:
+`EllipticCurves.Torsion.EllipticNetRegularity`'s *"is **unmeasured**, and this file does not measure
+it"* pairs an unlocated conjunct with a located one, and the second glosses the first rather than
+adding a claim beside it — adding a conjunct cannot make a sentence harder to falsify, so the pair
+is read as scoped and goes in the second bucket. Its neighbour
+`EllipticCurves.Torsion.EllipticNetSlices` states the same proposition **without** the gloss and is
+in the third for exactly that reason. ⚠️ **On that shape the recogniser's hit does not decide the
+bucket**: the seed matches the unlocated conjunct, so a re-runner reads *unmeasured* and never
+reaches *"does not measure it"* — the two buckets are separated by reading the sentence, never by
+the span the seed returns.
+
+⚠️ **Normalise whitespace, and check it per string rather than per axis.** All eight surviving
+copies of *"**Whether it unblocks those two fibre descriptions is still NOT measured**, here or
+anywhere in this tree"* wrap between *NOT* and *measured*, so a single-line `grep` for them returns
+**0**; the sixteen copies of the dated clause wrap nowhere at `4655854` and a single-line `grep`
+finds all sixteen there. One axis, two replications, opposite answers.
 
 ⚠️ **And *"the only hypothesis left"* standing over a theorem is the `card_torsion_pow_of_odd`
 shape, so the four that were theorems were repaired** (`#1754`):
