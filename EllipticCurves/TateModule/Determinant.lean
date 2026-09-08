@@ -168,17 +168,19 @@ cyclotomic form (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`), 
 `EllipticCurves.FunctionField.WeilPairingDeterminant` proves the identification **mod `n`**, at
 `n = 2` and `n = 3`, in coordinates. ⚠️ At `n = 3` it is no longer only in coordinates:
 `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`) proves
-`galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms `G →* (ZMod 3)ˣ`, with no basis and
-no chosen pair in the statement. ⚠️ Be exact about which half that moves: it is the **mod-`3`**
-half, and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo`
-itself is different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at
-**every** level `E[2 ^ k]` in order to take the inverse limit — **over the base field**, and there
-`#962` is the standing gate at a general index. The gate is the general-`n` pairing, not the
-equivariance. ⚠️ **This sentence used to ground that on the development having the pairing at two
-indices only; that bound is false and is retired once, in
-`EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
-(`### Retired claims`): over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+`galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms `G →* (ZMod 3)ˣ`, with no basis and no
+chosen pair in the statement. ⚠️ Be exact about which half that moves: it is the **mod-`3`** half,
+and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo` itself is
+different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at **every** level
+`E[2 ^ k]` in order to take the inverse limit — **over the base field**, and there `hprin` is the
+standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`. The gate is the
+general-`n` pairing, not the equivariance. ⚠️ **That citation used to read *"`#962` is the standing
+gate at a general index"*, which over-reaches the record; it is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`, `#1888`).
+⚠️ **This sentence used to ground that on the development having the pairing at two indices only;
+that bound is false and is retired once, in `EllipticCurves.FunctionField.WeilPairing`'s
+`## Scope`, for every block that carried it** (`### Retired claims`): over `F̄` the pairing is
+available at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), and `F̄` is not a setting `galoisDetTwo`
 says anything in.
 

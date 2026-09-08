@@ -130,6 +130,31 @@ exactly as they do today at `n = 2` and `n = 3`.
 ⚠️ `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` carries the same warning
 about itself — *"It does not discharge `#962`, and must not be reported as doing so."*  It binds
 here too.
+⚠️ **Retired, once and here** (`#1888`): **13** blocks in 13 files at `855f993` put `#962` at an
+index outside `n = 2` and `n = 3`, and every one of them is **false**, not short.
+⚠️ **The count is on the proposition and not on any one sentence.**  Seven of the thirteen — the
+`EllipticCurves.TateModule` blocks — carried it as *"there `#962` is the standing gate at a general
+index"*, and the other six in their own words, from `README.md`'s *"`#962` is the standing gate
+elsewhere"* to `EllipticCurves.FunctionField.WeilPairingAlternatingAssemblyN`'s *"an arbitrary `n`
+over an arbitrary field (`#962`)"*.  A grep of the seven-block wording at `855f993` returns
+**seven**, so quoting it beside the count of the whole population would send a reader to a check
+that fails.
+`#962`'s `## Explicitly NOT this issue` section reads *"**General `n`.**  `#404`'s `ωₙ` crux, and
+`#938`'s double obstruction at composite `n`.  This issue is `n = 2` and `n = 3` only"*, so a
+citation of it at a general index over-reaches, and `README.md` `### Gate-discharge claims` rules
+that a `#NNNN` citation reaches exactly what the record it names reaches.  It retires **once**
+because all thirteen asserted one proposition about one record and one reading of that record
+falsifies them together, and it retires **here** because this is where the tree says what `#962` is
+(`### Retired claims`' *"a claim about a subject that lives elsewhere retires at the subject"*).
+What replaced it names the gate without the citation and leaves the citation at the two numerals —
+in eight of the thirteen in these words, *"`hprin` is the standing gate at every index; `#962` is
+that gate at `n = 2` and `n = 3`"*, and in the other five in their own block's sentence shape.
+⚠️ **`#962`'s stated reason for that scope is falsified by this file and its scope has not moved.**
+The record gives the two numerals *"because those are the only `n` at which the `F̄` statement
+exists"*, and `exists_gS_n_of_isAlgClosed` below is that statement at every `n` with `(2 : F) ≠ 0`
+and `((n : ℤ) : F) ≠ 0`.  That is an argument for amending the record on the tracker; it is not a
+licence for a docstring to read the record as already amended, and nothing here files a record for
+the wider gate or is evidence that one is owed.
 
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_n`'s.**  Everything below carries
 `[IsAlgClosed F]` and `[W.IsElliptic]`, which `exists_gS_n` — stated over an arbitrary field with

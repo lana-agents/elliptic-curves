@@ -223,22 +223,23 @@ through the `DoublingCoords` sentence quoted above, which this paragraph quoted 
 two-reading account.  ⚠️ So the 21 bullets were **relettered to `#251`** and are now **retired**:
 the gate they described is gone.  ⚠️ **Retiring them supplied no replacement ceiling, and the
 ceiling this paragraph wrote in its place is now retired too.**  It read *"whether `hprin` at a
-general index is now reachable depends on the fibre description, which is merged only at
-`n = 2, 3`, and that has not been re-measured"*.  It has been re-measured, and the answer is that
-the premise was the false half: the fibre description
-`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
+general index is now reachable depends on the fibre description, which is merged only at `n = 2, 3`,
+and that has not been re-measured"*.  It has been re-measured, and the answer is that the premise
+was the false half: the fibre description `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
 (`EllipticCurves.FunctionField.MulByNFibre`) has been merged at every index prime to the
 characteristic since `#1540`, and `hprin` at an arbitrary index over `F̄` is now
 `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **Nothing
 in this file changes.**  Its statements are over an arbitrary field, where `hprin` stands at every
-index and is `#962`; what was retired is a claim about the *reachability* of a discharge over `F̄`,
-not about anything this file proves.  Matching the phrase *general `n`* or *uniform
-`n`* within 170 characters of `ωₙ`, on whitespace-normalised source, returns **39 sites in 30
-modules**: 18 across the nine modules that say `ωₙ` is *not* used, and **21 — exactly one in each of
-21 modules — citing it as the general-`n` gate, every one of those `hprin`-discharged and every one
-correct**.  ⚠️ Three of the 39 belong to the paragraph you are reading, which is why the match is
-written out here rather than merely cited: a later reader who runs it should not be startled by this
-file's own five hits.
+index and `#962` is that gate at `n = 2` and `n = 3`; what was retired is a claim about the
+*reachability* of a discharge over `F̄`, not about anything this file proves.  ⚠️ **The `#962`
+citation itself used to be stated at every index; it over-reaches the record and is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+`#1888`).  Matching the phrase *general `n`* or *uniform `n`* within 170 characters of `ωₙ`, on
+whitespace-normalised source, returns **39 sites in 30 modules**: 18 across the nine modules that
+say `ωₙ` is *not* used, and **21 — exactly one in each of 21 modules — citing it as the general-`n`
+gate, every one of those `hprin`-discharged and every one correct**.  ⚠️ Three of the 39 belong to
+the paragraph you are reading, which is why the match is written out here rather than merely cited:
+a later reader who runs it should not be startled by this file's own five hits.
 
 ⚠️ **The cheapest check that the split is real**: of the six `…Hprin` modules only the twin ever
 carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRootHprin`,

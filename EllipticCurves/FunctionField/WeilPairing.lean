@@ -177,15 +177,18 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
   unchanged, so `### Reach clauses`' *"false or merely partial"* test returns **partial**.
 * **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
   (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
-  named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`,
-  its `y`-half).  ⚠️ **Over `F̄` the pairing is available at every `n`** with `(2 : F) ≠ 0` and
+  named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`, its
+  `y`-half).  ⚠️ **Over `F̄` the pairing is available at every `n`** with `(2 : F) ≠ 0` and
   `((n : ℤ) : F) ≠ 0`: the root datum is `exists_gS_n_of_isAlgClosed`
   (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which discharges `hprin` outright rather
   than assuming it, and non-degeneracy at the same indices is
-  `EllipticCurves.FunctionField.WeilPairingNondegenerateN`.  Off `F̄`, `#962` is the standing gate
-  at a general index, and `weilPairingTwo` / `weilPairingThree` below are constructed under
-  `(2 : F) ≠ 0` and `(3 : F) ≠ 0` with no gate at all; what confines *the two numerals* was **not**
-  re-measured when the coordinate-formula reason was withdrawn.
+  `EllipticCurves.FunctionField.WeilPairingNondegenerateN`.  Off `F̄`, `hprin` is the standing gate
+  at every index and `#962` is that gate at `n = 2` and `n = 3`.  ⚠️ **That citation used to read
+  *"Off `F̄`, `#962` is the standing gate at a general index"*; it over-reaches the record and is
+  retired once, in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`**
+  (`### Retired claims`, `#1888`).  `weilPairingTwo` / `weilPairingThree` below are constructed
+  under `(2 : F) ≠ 0` and `(3 : F) ≠ 0` with no gate at all; what confines *the two numerals* was
+  **not** re-measured when the coordinate-formula reason was withdrawn.
 * The normality discharge `IsIntegrallyClosed W.CoordinateRing` — out of scope of this file because
   it is **done**, not because it is blocked.
   `EllipticCurves.FunctionField.CoordinateRingNormalGeneral` registers it, and Dedekindness with

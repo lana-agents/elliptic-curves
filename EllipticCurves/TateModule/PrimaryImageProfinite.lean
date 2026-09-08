@@ -194,15 +194,19 @@ and two of the three are in this file:
   `profiniteGrpRangeGaloisDet_of_basis` will look exactly like progress towards it and is not:
   knowing that the image of a character is closed says nothing about *which* character it is. The
   `ℓ`-adic identification needs the Weil pairing on `E[ℓ^k]` for **every** `k` **over the base
-  field**, and there `#962` is the standing gate at a general index. ⚠️ **This sentence used to
-  ground that on the development having the pairing at two indices only; that bound is false and is
-  retired once, in `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that
-  carried it** (`### Retired claims`) — over `F̄` the pairing is available at every `n` with
-  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
+  field**, and there `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and
+  `n = 3`.  ⚠️ **That citation used to read *"`#962` is the standing gate at a general index"*,
+  which over-reaches the record; it is retired once, in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+  `#1888`). ⚠️ **This sentence used to ground that on the development having the pairing at two
+  indices only; that bound is false and is retired once, in
+  `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
+  (`### Retired claims`) — over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
   (`EllipticCurves.FunctionField.PullbackPrincipalityN`), and `F̄` is not a setting `ρ_{E,ℓ}` says
-  anything in. The **mod-`ℓ`** identity is a different
-  statement about a different object — valued in `(ZMod ℓ)ˣ`, not `ℤ_[ℓ]ˣ` — and it landed
-  separately as `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
+  anything in. The **mod-`ℓ`** identity is a different statement about a different object — valued
+  in `(ZMod ℓ)ˣ`, not `ℤ_[ℓ]ˣ` — and it landed separately as
+  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`.
 * ⚠️ **This file is usable at `ℓ ≥ 5` only as far as its inputs are.** Everything that takes a
   basis is available at every prime today; the two `_of_nonempty` rows need
   `Nonempty (T_ℓE ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])`, which at `ℓ ≥ 5` is gated on `#E[ℓ^k]`.  ⚠️ This

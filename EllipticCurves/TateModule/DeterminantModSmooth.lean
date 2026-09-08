@@ -113,10 +113,14 @@ Nothing is deleted here; the de-duplication question is a separate one.
 
 * **`det ρ_{E,n} = χ_n`.**  This file supplies the *well-definedness* of the left-hand side at more
   indices and nothing else.  The identification needs the Weil pairing **over the base field**, and
-  there `#962` is the standing gate at a general index.  ⚠️ **Say which form of the identification
-  has landed, because the two answers differ and a bare index picks one of them silently.**  As an
-  identity of `galoisDetMod` — the left-hand side this file is about, with no basis and no chosen
-  pair in the statement — it is `galoisDetMod_three_eq_galoisModularCyclotomicChar`
+  there `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`.  ⚠️
+  **That citation used to read *"`#962` is the standing gate at a general index"*, which
+  over-reaches the record; it is retired once, in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+  `#1888`).  ⚠️ **Say which form of the identification has landed, because the two answers differ
+  and a bare index picks one of them silently.**  As an identity of `galoisDetMod` — the left-hand
+  side this file is about, with no basis and no chosen pair in the statement — it is
+  `galoisDetMod_three_eq_galoisModularCyclotomicChar`
   (`EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`), at `n = 3`.  **In coordinates**
   it is `galoisModularCyclotomicChar_two_eq_det` and `galoisModularCyclotomicChar_three_eq_det`
   (`EllipticCurves.FunctionField.WeilPairingDeterminant`), at `n = 2` and at `n = 3` — which is the

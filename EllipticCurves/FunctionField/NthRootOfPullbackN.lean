@@ -41,14 +41,17 @@ proves it at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  The fo
 side condition at all.
 
 The only gated input to rung 5 is `hprin`, and `hprin` is a **hypothesis** of the statement at every
-`n` — it does not get harder as `n` grows, and *here* it stays open at every index (`#962`).
-⚠️ **It is not open everywhere, and it is not open uniformly over an arbitrary field either.**
-Over `F̄` it is discharged at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, in
-`EllipticCurves.FunctionField.PullbackPrincipalityN`; over an arbitrary field with `(2 : F) ≠ 0`
-the tree discharges it at `n = 2`, from rational `2`-torsion and a halving
-(`exists_gS_two_of_card`, `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`,
-which carries no `[IsAlgClosed F]`).  Both are leaves and neither is this file.  So nothing about
-the mathematics was `[2]`- or `[3]`-specific; only `mulByNEndo`'s arrival date was.
+`n` — it does not get harder as `n` grows, and *here* it stays open at every index; `#962` is that
+gate at `n = 2` and `n = 3`.  ⚠️ **That citation used to be stated at every index; it over-reaches
+the record and is retired once, in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s
+`## Scope`** (`### Retired claims`, `#1888`). ⚠️ **It is not open everywhere, and it is not open
+uniformly over an arbitrary field either.** Over `F̄` it is discharged at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, in `EllipticCurves.FunctionField.PullbackPrincipalityN`; over
+an arbitrary field with `(2 : F) ≠ 0` the tree discharges it at `n = 2`, from rational `2`-torsion
+and a halving (`exists_gS_two_of_card`,
+`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`, which carries no
+`[IsAlgClosed F]`).  Both are leaves and neither is this file.  So nothing about the mathematics was
+`[2]`- or `[3]`-specific; only `mulByNEndo`'s arrival date was.
 
 ## ⚠️ This does NOT subsume `exists_gS_two` / `exists_gS_three`
 
