@@ -3105,6 +3105,108 @@ true"*, one layer up, in this document's own prose. They are:
   re-resolved it, which is the same failure as trusting a review — a reject comment and a review's
   silence are both claims about a delivery and neither is a check of it.
 
+* **A published recogniser is not published until its flags are** (`#1910`).
+  `### Module-block bullets` rules *publish the recogniser beside any count, or write no count*,
+  writing those words twice and both times about a count of its own, and it is silent on what
+  publishing one takes. That is **short** and not false, which is the branch `### Reach clauses`'
+  test sends to completion in place, so nothing retires here and neither copy is edited.
+  ⚠️ **The bullet `#1915` landed in this list (`2f1a674`, PR #742) defers to that rule for exactly
+  what the rule does not carry**: it rules that a count copied out of a review arrives with that
+  reviewer's reading rather than with the one this page publishes, and that *Which reading is right
+  is what `### Module-block bullets`' recogniser rule decides*, plain in the original. A reading is
+  decided by the flags a count was published with, so that deferral lands on what is written here
+  rather than on the sentence it names, and neither bullet edits the other.
+  ⚠️ **It is completed in this list rather than in that section because its subject is what any
+  published count owes a re-runner**, and three of the four readings that earned it are elsewhere:
+  a seed on this page (`#1864`), a census inside a `.lean` docstring (`#1895`), and a paragraph of
+  `### Gate-discharge claims` (`#1877`). Carrying a rule stated in one section out to the rest is
+  what this list already does for *Declaration headlines are reach clauses too*. Beside the
+  pattern, a count states:
+  * **Case** — whether the match is case-insensitive.
+  * **The unit of reading** — whole blob, or line by line. ⚠️ **A count of *lines* published beside
+    a count of *occurrences* has to come out of one run of the seed**, or say which reading each is
+    from: once a match may wrap, it lies on two lines and is a hit on neither of them line by line.
+  * **Window anchoring and width**, for a proximity seed — centred on the match, or one-sided and
+    which side.
+  * **What one site is**, when the seed relates two tokens — which of the two the count is taken
+    per. ⚠️ **The anchoring flag does not settle this**: a window taken *either side* of a token is
+    a **symmetric** relation and admits the same pairs whichever end it is cut from, so what is
+    left to decide is the projection. The worked case is the census this bullet states (`#1916`):
+    the same **58** pairs at `e122163` are **36** sites counted one per matched phrase and **38**
+    counted one per anchor token.
+  * **Which files** — extensions, and whether anything untracked or generated is in.
+  * **Whitespace normalisation**, and whether it is applied before the window is cut or after.
+  * **Fence and markup handling, including when it costs nothing.** That a fence filter changes no
+    figure at a named sha is a measurement; not having thought about fences is not. This list
+    already records that inline emphasis defeats **both** of the phrase-keyed seeds its pointer
+    axis publishes — the noun-and-direction seed and the distance seed — which is this flag met on
+    two axes of this section and never carried off them. ⚠️ **And it is silent on the third, where
+    the same flag costs nothing.** That seed keys on a bare token at a `\b` boundary, so a marker
+    around the word leaves it matching, and the **41** it publishes at `d3a4ac5` counts a match
+    written inside a pair of italic markers. A flag that defeats two seeds of an axis and leaves
+    its third untouched is exactly the one a re-runner cannot guess.
+
+  ⚠️ **The consequence is the half that pays**: a figure that cannot be reproduced from the flags
+  printed beside it is not evidence, and a reader whose implementation disagrees with a published
+  count should suspect the **flags** before either the figure or their own code. Four sessions on
+  `#1895` and five reimplementations on `#1864` suspected the figure, and in both the figure was
+  right and a flag was missing.
+  ⚠️ **The flag that moves an answer furthest is not case, and it is the one this page states
+  least often.** The `#962` citation census names its anchoring, in the `±160` of its own window;
+  the attribution seed keyed on a citation *within 40 characters of a `PR #n`* is published twice
+  here, names a width and no side both times, and sits in a paragraph that says in terms that
+  *"The population is window-sensitive and the verdict is not"*.
+  `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` publishes its census, at
+  `2f1a674`, as: match *general `n`* or *uniform `n`* case-insensitively, within 170 characters
+  either side of `ωₙ`, over every tracked `.lean` and `.md` file with whitespace normalised to
+  single spaces. ⚠️ **That sentence does not state its unit**, and every figure here is counted one
+  site per matched phrase; `#1916` holds the repair of it. Hold the phrases, the width and the sha
+  fixed at `8b6571b` and move only the two flags, and it returns
+  **39** sites in **30** modules centred and case-insensitively, **32 / 24** centred and
+  case-sensitively, **30 / 26** and **23 / 20** with the window taken to the right of the match
+  only, and **10 / 8** either way with it taken to the left. **Anchoring costs a factor of four,
+  39 to 10, where case costs seven sites, 39 to 32** — a ratio and a difference, named as such
+  because a parallel construction otherwise elides the second into *a factor of seven*, which is
+  false and reverses the claim it is the evidence for. The sentence that first published that
+  census stated neither flag.
+  ⚠️ **Fence filtering moves no cell of that table at that sha**, under either reading of the
+  filter — dropping the matches that sit in a fence, or deleting fenced text before the window is
+  cut. That it costs nothing there is a measurement and not an omission, and it does not cost
+  nothing everywhere: at `2f1a674` the second reading takes the same census from 36 to 37, because
+  deleting a fence shortens the distances the window measures.
+  ⚠️ **Writing the seed out here moves it, and a delta is what may be written about that.** The two
+  phrases above land inside their own window, so this bullet adds exactly **two** matches to that
+  census and no module — a difference between two trees, which holds at whatever base it lands on
+  where a count of the tree would not. The defining file records **36** sites in **21** modules at
+  `e122163` and dates every figure it publishes to a sha, so none of them is falsified, and the
+  phantom a phrase-keyed count takes from prose about itself is one `### Module-block bullets`
+  already prices.
+  ⚠️ **What this bullet does to the other seeds this section publishes was checked and not
+  assumed.** It adds no member of any of its three seeds, and it puts **14** bolded numerals
+  standing alone on this page — counting the one in this clause, which is what makes that figure a
+  fixed point rather than a count of the lines above it. ⚠️ **In digits, because that seed's word
+  list stops at `twelve`**: written as a word this figure would not count itself, which is the
+  calibration `#1864` landed and the cheapest demonstration of it. Every reading of the
+  bolded-numeral seed this page gives is keyed to a sha or to the commit that wrote it, so none of
+  them is falsified.
+  ⚠️ **A sub-count flat across a long range of commits is a smell and not a corroboration.** The
+  case-sensitive reading of that census is constant at **33 in 19** across all **58** commits from
+  `6a1b8bf` to `e122163` inclusive, while the case-insensitive one steps 34 → 36 at `1d79187`. So
+  the sessions that recorded the census as failing to reproduce also recorded base and head as
+  equal and read the second as evidence for the first. One missing flag produced both readings.
+  ⚠️ **The rule governs what is written next, and what is standing is named rather than swept.**
+  `### Gate-discharge claims` publishes *"**36** occurrences on **32** lines in **6** files"*, with
+  all three numerals bold in the original, under a seed it declares case-insensitive and read over
+  whole blobs — and no single run returns that pair. Both of those figures are true of that tree:
+  over whole blobs the 36 matches begin on 33 lines and touch 34, while the reading that gives 32
+  lines gives 34 occurrences. ⚠️ **The pair is short of a flag rather than false**, which is why
+  it takes a clause and not a retirement; `#1877` holds that seed's population and it is left
+  there.
+  ⚠️ **No count of compliant seeds is written here and none is owed.** Sizing that population is a
+  reading job — `recogniser` is a word this page uses about seeds and about itself, so a
+  vocabulary count is not a population of them — and `#1848`'s trap is a rule whose test is a
+  count. A rule does not need a census to land.
+
 ### Retired claims
 
 A clause that a later PR falsifies is kept as a **marked quotation** — the old text in
