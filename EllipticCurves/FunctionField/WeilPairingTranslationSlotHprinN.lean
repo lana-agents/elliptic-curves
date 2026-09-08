@@ -234,12 +234,45 @@ index and `#962` is that gate at `n = 2` and `n = 3`; what was retired is a clai
 *reachability* of a discharge over `F̄`, not about anything this file proves.  ⚠️ **The `#962`
 citation itself used to be stated at every index; it over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
-`#1888`).  Matching the phrase *general `n`* or *uniform `n`* within 170 characters of `ωₙ`, on
-whitespace-normalised source, returns **39 sites in 30 modules**: 18 across the nine modules that
-say `ωₙ` is *not* used, and **21 — exactly one in each of 21 modules — citing it as the general-`n`
-gate, every one of those `hprin`-discharged and every one correct**.  ⚠️ Three of the 39 belong to
-the paragraph you are reading, which is why the match is written out here rather than merely cited:
-a later reader who runs it should not be startled by this file's own five hits.
+`#1888`).  ⚠️ **Retired — the census over-reaches in both coordinates, and it retires where it
+sits because its subject is the whole tree** (`### Retired claims`, `#1895`): this paragraph read
+*"returns 39 sites in 30 modules: 18 across the nine modules that say `ωₙ` is not used, and 21 —
+exactly one in each of 21 modules — citing it as the general-`n` gate, every one of those
+`hprin`-discharged and every one correct"*, with the two counts bold in the original and the word
+*not* italic in it, and the sentence wrapped, so the check is whitespace-normalised.  ⚠️
+`### Reach clauses`' *"false or merely partial"* test returns **false** rather than short: 39 over a
+tree where it is 36, and 30 modules over 21, so it over-reaches in both coordinates and
+`### Retired claims` binds.  ⚠️ **That section sorts a claim about the block it sits in from a claim
+about a subject that lives elsewhere, and a tree-wide count is neither**: what places this one is
+the companion rule *publish the recogniser beside any count, or write no count* — a count belongs
+where its recogniser stands, and the recogniser stands in this sentence.
+⚠️ **The recogniser was right, and the sentence never published the flag that decides it.**  Read
+case-insensitively the seed returns 39 in 30 at `8b6571b`, the commit that wrote the sentence
+(PR #492), to the digit and with this file's own five hits beside it.  Read case-sensitively it
+returns 32 in 24 there and **33 in 19** at every one of the 58 commits from `6a1b8bf` to `e122163`
+inclusive — which is both the figure `#1895` records four separate sessions reading as a failure to
+reproduce, and the reason they read it as unchanged between a base and a head: the case-sensitive
+count is constant across that whole range, where the case-insensitive one steps 34 → 36 at
+`1d79187`.  What the flag turns on is sentence-initial *General `n`*.
+⚠️ **Restated with its flags and a sha**, because a recogniser that does not state its flags is not
+published (`#1895`): matching *general `n`* or *uniform `n`* case-insensitively, within 170
+characters either side of `ωₙ`, over every tracked `.lean` and `.md` file with whitespace normalised
+to single spaces, the seed returns **36 sites in 21 modules** at `e122163` — nine modules hold one
+hit, eleven hold two, and this file holds **five**.  ⚠️ **The sub-split failed on its own arithmetic
+before the total did**: only nine modules carry exactly one hit at that sha, so no 21-module subset
+can be *exactly one each*, and it is not re-derived here — which modules cite `ωₙ` as the gate and
+which say it is not used is a reading of 21 module blocks, and no phrase seed decides it.
+⚠️ **Two of the 36 are the two phrases the restatement above writes out**, which is why the seed is
+written here rather than merely cited: a later reader who runs it should not be startled by this
+file's own five hits, the one figure in this paragraph that is about this file rather than about the
+tree and five at every sha named here — against **eight** raw occurrences of the two phrases in this
+file, three of which carry no `ωₙ` inside that window, the sentence-initial worked example above
+among them.  *"Three of the 39 belong to the paragraph you are reading"* was exact at `8b6571b`, is
+**two of the 36** here, and retires with the total it counts into.  ⚠️ **This repair adds no match
+of its own, and that was measured rather than assumed**: the quotation above writes the hyphenated
+*general-`n` gate*, which the seed does not match, and the worked example falls outside its own
+window, so the seed returns 36 in 21 at this commit as well — the phantom that
+`### Module-block bullets` prices for a phrase-keyed repair does not arise here.
 
 ⚠️ **The cheapest check that the split is real**: of the six `…Hprin` modules only the twin ever
 carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRootHprin`,
