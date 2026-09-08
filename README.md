@@ -1084,17 +1084,45 @@ reading is recorded here because this front has had to settle it three times (`#
 `#1790`).
 ⚠️ **Which branch a numeral is on is measured rather than assumed, and the pinned branch is the
 larger one.** Seed, fence-aware over this file's own non-fenced prose: a `**`-bold span whose whole
-content is a numeral, in digits or as an English number word. ⚠️ **Four flags decide what that
-returns and none of them stood here until `#1864`**, which is why the sentence was reimplemented
-five times and reproduced once. The match is **case-insensitive**, so the sentence-initial `Seven`,
-`Three`, `Nine`, `Four` and `Eight` are in: the same regex read case-sensitively returns **162** at
-`2947444` where this one returns 165, and **186** at `444da7f` where this one returns 191 — the
-gaps are three and five rather than five and five because only `Nine`, `Four` and `Eight` are there
-at `2947444`, `Seven` and `Three` arriving with PR #714, and `Seven` is this paragraph's own worked
-example. The word list stops at `twelve`, so `Fourteen` is out. `**zero**` is matched. And the seed
-is fence-aware but **not** inline-code-aware, so a `**zero**` written inside backticks counts too,
-and one of that 191 is this paragraph's own. Under the four flags the seed returns **165** at
-`2947444` and **175** at `e80a588`, which is PR #714's head.
+content is a numeral, in digits or as an English number word. ⚠️ **The flags known to decide what
+that returns are published here and none of them stood here until `#1864`**, which is why the
+sentence was reimplemented five times and reproduced once before any of them did — a count that can
+only grow, and the sixth reimplementation is what found the fifth flag: run from the four as
+published it returned **154** at `2947444`, eleven short. ⚠️ **`known` is load-bearing**: the flags
+that decide what the seed returns are a fixed set of unknown size — a fifth was found by running the
+four — so *the* flags that decide would assert a closure nobody has checked, and a sixth would
+falsify it exactly as the count it replaces is falsified below. What is published is what is known,
+and a later flag extends that rather than breaking it. The match is **case-insensitive**, so the
+sentence-initial `Seven`, `Three`, `Nine`, `Four` and `Eight` are in: the same regex read
+case-sensitively returns **162** at `2947444` where this one returns 165, and **186** at `444da7f`
+where this one returns 191 — the gaps are three and five rather than five and five because only
+`Nine`, `Four` and `Eight` are there at `2947444`, `Seven` and `Three` arriving with PR #714, and
+`Seven` is this paragraph's own worked example. The word list stops at `twelve`, so `Fourteen` is
+out, and this is the flag the verdict below turns on, so it is measured rather than asserted:
+admitting `fourteen` adds exactly one at every dated ref, which turns 165 into the **166** this
+paragraph retires but turns the seven readings that do reproduce into **176**, **185** and **192**.
+⚠️ **A recogniser wrong in that direction would be wrong at every ref, and seven of the eight are
+exact** — that is what makes the verdict *the count was wrong* rather than *the recogniser was
+wrong*, and without it the two are equally available. `**zero**` is matched. And the seed is
+fence-aware but **not** inline-code-aware, so a `**zero**` written inside backticks counts too, and
+one of that 191 is this paragraph's own. ⚠️ **Bold spans are paired over the whole document and not
+line by line**, which is the flag the four above did not include: this file wraps a bold span across
+a line break, and on the line that closes one the first `**` is a closer and not an opener, so every
+`**` after it on that line pairs one position out — **287** lines at `2947444` and **405** at
+`444da7f` carry an odd number of them. A line-keyed regex returns **154** and **182**; a
+document-wide non-greedy one returns **156** and **180**. ⚠️ **They are short by 11 and 9 and by 9
+and 11 — the two miss in opposite amounts**, which is the inconsistent direction of disagreement
+`#1864` was filed on, now with a mechanism under it rather than a missing rule. A CommonMark parse
+pairs them correctly and is what every figure this paragraph attributes to **the seed** was run on;
+the **154** / **182**, the **156** / **180** and the two odd-`**` line counts are what the three
+other instruments return, and are named as theirs rather than as the seed's. ⚠️ **Retired — a count
+of the flags, and it was one too low** (`#1864`): this sentence read
+*"Four flags decide what that returns and none of them stood here until `#1864`"*, bold across the
+whole clause in the original and wrapped after *that*, so a single-line `grep` for it returns 0 and
+the check is whitespace-normalised. The pairing rule is a fifth. The numeral is dropped rather than
+raised, which is the remedy `#1864` names for a figure its own sentence does not need — publishing
+the flags is what a re-runner needs and counting them buys nothing. Under the flags above the seed
+returns **165** at `2947444` and **175** at `e80a588`, which is PR #714's head.
 ⚠️ **Retired, and it is the count that was wrong and not the recogniser** (`#1864`): this paragraph
 read *"**166** occurrences"* at `2947444`, where the seed returns **165**, so `### Reach clauses`'
 own test returns **false** rather than partial and the figure retires here — it is a claim about
@@ -1114,14 +1142,19 @@ the larger one however the row comes off, since the three ways it can are 108 of
 and 107 of 158, and every one of them is about two thirds.
 ⚠️ **Recogniser limits, published beside the count because the count depends on them** (`#1749`):
 the seed is bold-keyed and the witness that falsifies the rule is **not** bold — *"four"* was
-written bare — so it cannot find the defect it was written for. ⚠️ **Retired — the third claim in
-this paragraph to go, and the only one of the three that is a rule rather than a count**
-(`#1864`): it read *"`**zero**` and `**once**` are number-shaped words the pattern omits"*.
-`**once**` is; `**zero**` is not, and excluding it drops every dated figure by exactly its own
-occurrence count — **165** becomes 163 at `2947444` and **191** becomes 188 at `444da7f`, against
-**2** and **3** occurrences — so the published numbers count it and a reimplementer who obeyed the
-clause lands low by that much at every dated ref. And open against pinned is read off each
-sentence, so the split was a reading and re-running the regex is not the check.
+written bare — so it cannot find the defect it was written for. ⚠️ **Retired — the only claim in
+this paragraph to go that is a rule rather than a count** (`#1864`): it read
+*"`**zero**` and `**once**` are number-shaped words the pattern omits"*. `**once**` is; `**zero**`
+is not, and excluding it drops every dated figure by exactly its own occurrence count — **165**
+becomes 163 at `2947444` and **191** becomes 188 at `444da7f`, against **2** and **3** occurrences —
+so the published numbers count it and a reimplementer who obeyed the clause lands low by that much
+at every dated ref. And open against pinned is read off each sentence, so the split was a reading
+and re-running the regex is not the check. ⚠️ **The ordinal that headline carried is dropped rather
+than raised**: it read *"the third claim in this paragraph to go, and the only one of the three"*
+from `4655854` (`#1864`, PR #734) and was true until the flag-count retirement above was written
+into the same paragraph — a numeral standing over a list is falsified by whatever next extends the
+list, and no clause under it can repair the numeral, which is the answer this section gave for its
+own discriminator list and `### Scope of the rules above` gave for its own.
 ⚠️ **There are four; the third is in `### Gate-discharge claims`** (`#1765`, `#1780`): a
 universal that **survives its first measurement** is neither short nor over-reaching, and what it
 takes is the measurement itself, published where the claim stood. That is a **pointer and not a
