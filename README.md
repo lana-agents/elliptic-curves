@@ -1620,6 +1620,83 @@ any of the twelve** — each keeps `hprin`, a torsion hypothesis or
 argument however the conclusion reaches it — so what those registers must name is settled, and it is
 not settled by this section.
 
+⚠️ **A `#NNNN` citation names a gate list by reference, and it reaches exactly what the record it
+names reaches.** That is `### Reach clauses`' anaphor branch — *"a clause that points at another
+list is a third branch, and it is exactly as complete as the list it points at"* — applied to a
+tracker record rather than to a signature, so it inherits that branch's two directions and adds
+nothing to them. A citing sentence may **narrow** a record, because a gate standing over a range
+stands at each point of it; it may not **widen** one. The reader's only move on meeting `#NNNN` is
+to open it, and a record that denies the sentence which sent them there leaves them unable to tell
+which of the two is wrong — the failure
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` wrote its warning heading
+against, in the words *"the confusion is one letter deep"*.
+⚠️ **Silence is the compliant other branch**, exactly as *"names every hypothesis, or it names
+none"* is. *"`hprin` over a **general** field (`#962`)"* states no index and is clean; *"there
+`#962` is the standing gate at a general index"* states one the record excludes and is not. A gloss
+is held to what it asserts, and asserting no range asserts nothing false — so a sweep on this axis
+convicts far fewer citations than an occurrence test suggests, and the difference is not a
+judgement call.
+⚠️ **The two directions sort as `### Reach clauses` sorts them: short is partial, over-reaching is
+false.** A citation short of its record completes in place. A citation wider than its record
+over-reaches, so `### Retired claims` binds — and it binds **once, at the subject**, because every
+copy asserts one proposition about one record and one reading of that record falsifies all of them
+together. That is `### Retired claims`' *equation_div_of_ψ_ne_zero* test and not its
+*"universal over the block's own list"* contrast: the block a copy sits in is not what the claim is
+about, and the place the tree says what the record is, is.
+⚠️ **Where the wider claim is the true one, say it and leave the citation at the record's range.**
+*"`hprin` is the standing gate at every index"* is true over the base field, and the proposition is
+already the tree's own: `EllipticCurves.FunctionField.NthRootOfPullbackN` states it in that file's
+own words, *"it stays open at every index"* — one occurrence tree-wide at `855f993`. ⚠️ **The
+wording quoted first is the sweep's, not that file's**, and it is nowhere in the tree at `855f993`;
+what is already the tree's is the claim. What no docstring can do is attach a record to a range the
+record refuses. Widening a record is a change to the tracker and is made there.
+
+⚠️ **The worked case, measured** (`#1888`). The recogniser, over whitespace-normalised whole blobs
+of every tracked `.lean` and `.md` file — the citation, and an index word within ±160 characters of
+it:
+
+```
+`#962`
+general index | general `n` | every `n` | arbitrary `n` | composite `n`
+| `n = 2` and `n = 3` | numeral
+```
+
+At `855f993` it returns **63** citations in **45** files, of which **38** carry an index word; all
+63 were read, and **13 in 13 files** attributed to `#962` a reach outside `n = 2` and `n = 3`.
+Its title, its statement section and its `## Explicitly NOT this issue` section — *"**General `n`.**
+`#404`'s `ωₙ` crux, and `#938`'s double obstruction at composite `n`. This issue is `n = 2` and
+`n = 3` only"* — all three refuse that reach, so the thirteen are false and not short. They are
+repaired under `#1888`, and at head the same recogniser returns **95** citations in the same **45**
+files, **67** with an index word, and **none** of the thirteen left. ⚠️ **Both counts grow under
+their own repair and the file count does not**, because each repair names the two numerals beside
+the citation and each repaired block carries a pointer to the retirement, which cites `#962` again —
+the phantom `### Module-block bullets` prices for phrase-keyed counts, arriving in the census's own
+subject and including this paragraph. **Every surviving occurrence of *"`#962` is the standing
+gate"* is inside a marked quotation**, which is what `### Retired claims` asks for and not a
+residue; ⚠️ **no count is written for that phrase on purpose**, because the sentence writing it
+would be in the population it counts.
+⚠️ **The seed misses one of the thirteen, and the miss is published because it is the instructive
+one**: `EllipticCurves.FunctionField.WeilPairingDeterminant`'s *"the pairing on `E[2 ^ k]` at
+`k > 1` **over the base field**, and there `#962` is the standing gate"* carries its range in a
+**variable** and in no index word. A range can be spelled in a bound variable, so an index-word
+seed is a candidate set on this axis and never a conviction set.
+⚠️ **Three of the fifty clean citations are negative controls and each names the wider range while
+keeping the citation off it**: `WeilPairingAlternatingMu`'s *"`hprin` over a **general** field
+(`#962`) and general `n`"*, `PlaceOrder`'s *"discharging `hprin` there is open (`#962`), and so is
+every `n` outside `{2, 3}`"*, and `WeilPairingAlternatingAssemblyN`'s *"at general `n` nothing does,
+and `#962` records the general field case"*. **The compliant form was already in the tree three
+times over**, which is what makes this a ruling on the page rather than a preference: the sweep
+writes what three files had written for themselves.
+⚠️ **`#962`'s stated reason for its scope is falsified and its scope has not moved, and the
+distinction is the whole of this rule.** The record gives the two numerals *"because those are the
+only `n` at which the `F̄` statement exists"*, and `exists_gS_n_of_isAlgClosed`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`) is that statement at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`. That is an argument for amending the record; it is not a
+licence for a docstring to read the record as already amended, and a reader who opens `#962` today
+meets the unamended text. ⚠️ **Whether the wider gate should have a record of its own is a question
+about the tracker and not about any docstring** — nothing here files one, and nothing here is
+evidence that one is owed.
+
 ### Module-block bullets
 
 A `## Main statements` / `## Main results` bullet makes the same kind of claim, about the same
