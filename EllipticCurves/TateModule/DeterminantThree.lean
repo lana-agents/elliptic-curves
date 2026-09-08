@@ -81,18 +81,21 @@ statement about a zero module is satisfiable by anything.
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is NOT unblocked by this file**, and this file will look as
   though it just got closer. The `3`-adic identity needs the Weil pairing on `E[3^k]` for **every**
   `k`, i.e. the pairing at composite `n` **over the base field**, exactly as at `ℓ = 2`, and there
-  `#962` is the standing gate at a general index. ⚠️ **This sentence used to ground that on the
-  development having the pairing at two indices only; that bound is false and is retired once, in
+  `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`.  ⚠️
+  **That citation used to read *"`#962` is the standing gate at a general index"*, which
+  over-reaches the record; it is retired once, in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+  `#1888`). ⚠️ **This sentence used to ground that on the development having the pairing at two
+  indices only; that bound is false and is retired once, in
   `EllipticCurves.FunctionField.WeilPairing`'s `## Scope`, for every block that carried it**
   (`### Retired claims`) — over `F̄` the pairing is available at every `n` with `(2 : F) ≠ 0` and
   `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
   (`EllipticCurves.FunctionField.PullbackPrincipalityN`), and `F̄` is not a setting `ρ_{E,3}` says
-  anything in. The **mod-`3`** identity `galoisDetMod 3 = χ_3` is a *different
-  statement about a different object* — `galoisDetMod 3` is valued in `(ZMod 3)ˣ`, not `ℤ_[3]ˣ` —
-  and it landed separately as
-  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`).
-  `EllipticCurves.TateModule.Determinant`'s Scope makes this distinction carefully for `ℓ = 2`;
-  it is repeated rather than re-invented here.
+  anything in. The **mod-`3`** identity `galoisDetMod 3 = χ_3` is a *different statement about a
+  different object* — `galoisDetMod 3` is valued in `(ZMod 3)ˣ`, not `ℤ_[3]ˣ` — and it landed
+  separately as `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`).
+  `EllipticCurves.TateModule.Determinant`'s Scope makes this distinction carefully for `ℓ = 2`; it
+  is repeated rather than re-invented here.
 * **Continuity is not asserted here**, and it is no longer missing at `ℓ = 3`:
   `continuous_galoisDetThree` and `continuous_galoisTraceThree` are in
   `EllipticCurves.TateModule.MatrixContinuityThree`, over the `ℓ`-generic

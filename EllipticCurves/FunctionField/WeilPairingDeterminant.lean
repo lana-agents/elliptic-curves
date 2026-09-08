@@ -112,9 +112,14 @@ that bound is false and is retired once, in `EllipticCurves.FunctionField.WeilPa
 for every block that carried it** (`### Retired claims`).  Over `F̄` the pairing is available at
 every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  What the inverse limit needs is the pairing
-on `E[2 ^ k]` at `k > 1` **over the base field**, and there `#962` is the standing gate; `F̄` is not
-a setting `galoisDetTwo` says anything in.  The only sentence there this file falsifies is the
-parenthetical claim that the Weil pairing and its Galois equivariance are unavailable.
+on `E[2 ^ k]` at `k > 1` **over the base field**, and there `hprin` is the standing gate at every
+index; `#962` is that gate at `n = 2` and `n = 3`, which no `k > 1` reaches.  ⚠️ **That citation
+used to read *"there `#962` is the standing gate"* over a range of indices `#962` does not reach; it
+over-reaches the record and is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+`#1888`).  `F̄` is not a setting `galoisDetTwo` says anything in.  The only sentence there this file
+falsifies is the parenthetical claim that the Weil pairing and its Galois equivariance are
+unavailable.
 
 Also out of scope: general `n` (⚠️ no longer `#251`, which is closed — see below); ⚠️ the ceiling
 inherited here is `#938`'s and **not** `#940`'s, since `exists_weilPairing{Two,Three}_ne_one` routes

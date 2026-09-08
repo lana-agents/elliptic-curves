@@ -259,12 +259,15 @@ and no interior multiple `[i]P` or `[i]T` is either — that is what
 assembly's auxiliary point `Q` has no analogue in this hypothesis list.
 
 ⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, it is open at this statement's own
-index — an arbitrary `n` over an arbitrary field (`#962`) — and it is the last real gate on this
-front.  ⚠️ **It is not open uniformly, on either axis, and *"open at general `n`"* unqualified is
+index — an arbitrary `n` over an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3` —
+and it is the last real gate on this front.  ⚠️ **That citation used to be stated at an arbitrary
+`n`; it over-reaches the record and is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
+`#1888`).  ⚠️ **It is not open uniformly, on either axis, and *"open at general `n`"* unqualified is
 now the wrong reading.**  Over `F̄` `exists_gS_n_of_isAlgClosed`
-(`EllipticCurves.FunctionField.PullbackPrincipalityN`) discharges it at every `n` with
-`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field with `(2 : F) ≠ 0`, `n = 2` is
-better off than the rest, since `exists_gS_two_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityN`) discharges it at every `n` with `(2 : F) ≠ 0`
+and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field with `(2 : F) ≠ 0`, `n = 2` is better off than
+the rest, since `exists_gS_two_of_card`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it there from
 rational `2`-torsion and a halving. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)

@@ -82,7 +82,11 @@ All three were caught by a reviewer opening each cited signature at source, and 
   and their headlines come back out of the general one verbatim. Off `F̄` the one file that
   discharges it is `PullbackPrincipalityTwoRationalTorsion.lean`, at `n = 2` over an arbitrary
   field with `(2 : F) ≠ 0`, from rational `2`-torsion and a halving — hypotheses, not setting —
-  and `#962` is the standing gate elsewhere. **Non-degeneracy is stated at every `n` prime to the
+  and `hprin` is the standing gate elsewhere; `#962` is that gate at `n = 2` and `n = 3`.
+  ⚠️ That clause used to read *"`#962` is the standing gate elsewhere"*, which over-reaches the
+  record; `### Gate-discharge claims` below rules why, and the retirement is in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`#1888`).
+  **Non-degeneracy is stated at every `n` prime to the
   characteristic over an algebraically closed field** of characteristic other than `2`
   (`WeilPairingNondegenerateN.lean`), as an inequation in `F(W)` and in `μ_n(F)` alike, with
   nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral files
@@ -590,8 +594,8 @@ and takes **that** instance from no `variable` block, so the published ground wa
 section's own worked case for it. ⚠️ **Retired, and here rather than at the theorem it names**
 (`4efeb97`, `#1774`, PR #706): the clause read *"and takes no instance from a `variable` block at
 all"*, and the row's own elaborated telescope falsifies it — `[Field F]` and the **propositional**
-`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:251`, there is no `section` or `end`
-between that line and the `theorem` at `:290`, and both are included because the statement mentions
+`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:280`, there is no `section` or `end`
+between that line and the `theorem` at `:319`, and both are included because the statement mentions
 `W`. `#1694`'s subject test puts the quotation here rather than in that file: the claim is about
 **this section's ground**, not about what the theorem says, so a reader of the file it names has no
 stake in it. ⚠️ **Only the universal fell.** `[NeZero n]` is written at the declaration and carried
@@ -1001,7 +1005,7 @@ same nesting-aware `/-`-depth comment regions, whitespace squeezed, case-insensi
 hits over **420** files, every one read, of which **8** state reach identity and are **not** among
 the 25 — `MulByNFibre:999` and `:1164`, `WeilPairingRootIndependence:202`,
 `WeilPairingCyclotomic:50`, `DeterminantModGeneral:218` and `:239`, `MatrixRepModGeneral:120`,
-`WeilPairing:255`. **The identity axis is 33 rows in 23 files, not 25 in 18.** Seven are true — the
+`WeilPairing:303`. **The identity axis is 33 rows in 23 files, not 25 in 18.** Seven are true — the
 two `binder for binder` restatement claims were read against the four `_of_smooth` signatures they
 name, `omit` lines included — and one, `WeilPairingCyclotomic`'s *"Nothing here weakens or
 strengthens the hypotheses of the merged equivariance statements"*, was **false** and is repaired in
