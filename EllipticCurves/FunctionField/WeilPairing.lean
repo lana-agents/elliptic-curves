@@ -200,20 +200,27 @@ is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relatio
 
 ⚠️ **RETIRED — and under `### Retired claims`' replication rule this is the one place it retires.**
 The **General `n`** bullet above read *"only `n = 2, 3` are concretely available"* from `bec91b5`
-(2026-08-10, `#419`, PR #156) until this commit — ⚠️ **not from `3f8ba10`** (2026-09-02, `#1504`,
-PR #580), which is only what a per-line `git blame` returns: that commit reflowed the rest of the
-sentence and added the *"was not re-measured"* conjunct, while `git log -S` on the quoted words adds
-them once, at `bec91b5`, and removes them never (`#1877`).  The blocks that made the same claim in
-the words *"this development has the pairing at `n = 2` and `n = 3` only"* or *"… and nowhere
-else"* — the ones the recogniser below returns — run from `53a5712` (2026-08-24, `#951`, PR #381)
-to `5437e189` (2026-08-30, `#1240`, PR #460).  ⚠️ **The last block other than this one to make the
-claim made it in neither of those wordings**, so the bracket above is the bracket of the
-*quotation* and not of the claim: it is `EllipticCurves.TateModule.MatrixRepMod` at `680911a`
-(2026-08-30, `#1242`, PR #462), whose words are quoted below with the other row the recogniser
-misses.  **What falsified all of them at once is `ecfb3e9`** (2026-09-07, `#1843`, PR #723):
-`exists_gS_n_of_isAlgClosed` supplies the root datum over `F̄` at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0` and assumes no `hprin`, where before it the general-`n` layer was gated on
-`hprin` throughout; `444da7f` (`#1844`, PR #724) then stated non-degeneracy at the same indices.
+(2026-08-10, `#419`, PR #156) until `8e55db0` (2026-09-07, `#1868`, PR #730) — ⚠️ **not from
+`3f8ba10`** (2026-09-02, `#1504`, PR #580), which is only what a per-line `git blame` returns: that
+commit reflowed the rest of the sentence and added the *"was not re-measured"* conjunct, while
+`git log -S` on the quoted words adds them once, at `bec91b5`, and removes them never (`#1877`).
+The blocks that made the same claim in the words *"this development has the pairing at `n = 2` and
+`n = 3` only"* or *"… and nowhere else"* — the ones the recogniser below returns — run from
+`53a5712` (2026-08-24, `#951`, PR #381) to `5437e189` (2026-08-30, `#1240`, PR #460).  ⚠️ **The last
+block other than this one to make the claim made it in neither of those wordings**, so the bracket
+above is the bracket of the *quotation* and not of the claim: it is
+`EllipticCurves.TateModule.MatrixRepMod` at `680911a` (2026-08-30, `#1242`, PR #462), whose words
+are quoted below with the other row the recogniser misses.  **What falsified all of them at once is
+`ecfb3e9`** (2026-09-07, `#1843`, PR #723): `exists_gS_n_of_isAlgClosed` supplies the root datum
+over `F̄` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` and assumes no `hprin`, where
+before it the general-`n` layer was gated on `hprin` throughout; `444da7f` (`#1844`, PR #724) then
+stated non-degeneracy at the same indices.  ⚠️ **The later end of that bracket read *this commit*
+until it was re-keyed** (`#1877`).  `README.md`'s `### Gate-discharge claims` names this block as
+the compliant form of the class — the end of a bracket that can be written as a sha is written as
+one, and only the commit being authored is left indexical — and that end stops being unwritable the
+moment the commit lands.  `git log -S` on this block's own words puts it at `8e55db0`, which is also
+what per-line blame returned for the line carrying them at `7c0460d`.  Nothing retires on a re-key:
+only the anchor changes.
 ⚠️ **One quotation and not one per block.**  The copies asserted **one** proposition about **one**
 subject — the indices at which this development has the pairing — and one reading of
 `EllipticCurves.FunctionField.PullbackPrincipalityN` falsified every copy at once, so the retirement

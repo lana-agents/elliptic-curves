@@ -539,19 +539,29 @@ end Recovery
 ⚠️ `hprin` is `#418` and it stays bound below: nothing in the tree discharges it at `n = 6` or at
 `n = 10` over `ℚ`, which is this certificate's setting.
 
-⚠️ **RETIRED.**  This paragraph opened *"`hprin` is `#418` and cannot be discharged at any index,
-so it stays bound below"* until this commit, and *at any index* is a universal negative that was
-already false before this commit touched the file — so it is retired rather than qualified, and
-what this commit adds is not what falsified it.  Three merged declarations falsify it:
-`exists_gS_two_of_isAlgClosed` (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`) discharge it
-over `F̄` at `n = 2` and `n = 3`, and `exists_gS_two_of_card`
+⚠️ **RETIRED.**  This paragraph opened *"`hprin` is `#418` and cannot be discharged at any index, so
+it stays bound below"* until `ecfb3e9` (2026-09-07, `#1843`, PR #723), and *at any index* is a
+universal negative that was already false before `ecfb3e9` touched the file — so it is retired
+rather than qualified, and what `ecfb3e9` adds is not what falsified it.  Three merged declarations
+falsify it: `exists_gS_two_of_isAlgClosed` (`#791`) and `exists_gS_three_of_isAlgClosed` (`#825`)
+discharge it over `F̄` at `n = 2` and `n = 3`, and `exists_gS_two_of_card`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it at `n = 2`
-over an arbitrary field with `(2 : F) ≠ 0` — `ℚ` included — from rational `2`-torsion and a
-halving.  What this commit adds is the general-index `F̄` form, `exists_gS_n_of_isAlgClosed`
+over an arbitrary field with `(2 : F) ≠ 0` — `ℚ` included — from rational `2`-torsion and a halving.
+What `ecfb3e9` adds is the general-index `F̄` form, `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), at every `n` with `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`.  ⚠️ **The replacement above is a statement about `n = 6` and `n = 10` over
-`ℚ` and about nothing else**, because that is what this section certifies and every wider reading
-of the old sentence is one of the three falsifications.
+`((n : ℤ) : F) ≠ 0`.  ⚠️ **The replacement above is a statement about `n = 6` and `n = 10` over `ℚ`
+and about nothing else**, because that is what this section certifies and every wider reading of the
+old sentence is one of the three falsifications.  ⚠️ **Those four addresses read *this commit* until
+they were re-keyed, and one of the four had already gone wrong** (`#1877`).  `README.md`'s
+`### Gate-discharge claims` rules that an indexical address in a file is resolved by `git log -S` on
+the words the clause is about, and that the per-line `git blame` a reader actually performs is
+unsound.  `aadc404` (2026-09-07, `#1861`, PR #727) completed a reach clause in this block and
+reflowed two of its lines, so the fourth copy came to sit on a line `aadc404` owns and blame
+returned that commit for a sentence about the general-index form it does not add — what it adds is
+`(2 : F) ≠ 0` in the `n = 2` clause above.  Whitespace-normalised, `git log -S` puts all four at
+`ecfb3e9`; at `7c0460d`, the tree this re-key was measured against, blame agreed with it on three of
+the four.  **Nothing retires**: the claim about what the paragraph read, and about the commit at
+which it stopped reading it, is the same claim, and only its anchor changes.
 
 What is certified is that **every other hypothesis of the `3`-smooth headline is simultaneously
 satisfiable over `ℚ`** at an index no merged statement reaches: the elliptic instance,

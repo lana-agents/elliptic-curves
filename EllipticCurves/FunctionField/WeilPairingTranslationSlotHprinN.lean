@@ -144,9 +144,12 @@ this.
   (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`), from rational `2`-torsion
   and a halving.  ⚠️ **The bullet is scoped to this file and is not a claim about the tree** — it
   read *"`hprin` is not discharged at any `n`"* under this same `## ⚠️ What is NOT here` heading
-  until this commit, and *here* is what makes it true, so the clause is completed in place rather
-  than retired.  This is the repair `NthRootOfPullbackN` took for the same clause, under a heading
-  that opens with the same words; the wording is matched to it deliberately.
+  until `2aebb05` (2026-09-07, `#1852`, PR #725), and *here* is what makes it true, so the clause is
+  completed in place rather than retired.  This is the repair `NthRootOfPullbackN` took for the same
+  clause, under a heading that opens with the same words; the wording is matched to it deliberately.
+  ⚠️ **That address read *this commit* until it was re-keyed** (`#1877`): `README.md`'s
+  `### Gate-discharge claims` rules that an indexical address in a file is resolved by `git log -S`
+  on the words the clause is about, and nothing retires on a re-key.
 * ⚠️ **RETIRED — the corollary is refused for a different reason now, and the reason this bullet
   gave is false.**  It read *"There is deliberately no general-`n` `_of_isAlgClosed` corollary.  At
   `n = 2` and `n = 3` `hprin` is discharged over `F̄` by `PullbackPrincipalityTwo` /
@@ -271,8 +274,12 @@ among them.  *"Three of the 39 belong to the paragraph you are reading"* was exa
 **two of the 36** here, and retires with the total it counts into.  ⚠️ **This repair adds no match
 of its own, and that was measured rather than assumed**: the quotation above writes the hyphenated
 *general-`n` gate*, which the seed does not match, and the worked example falls outside its own
-window, so the seed returns 36 in 21 at this commit as well — the phantom that
-`### Module-block bullets` prices for a phrase-keyed repair does not arise here.
+window, so the seed returns 36 in 21 at `830a050` as well — the phantom that
+`### Module-block bullets` prices for a phrase-keyed repair does not arise here.  ⚠️ **That figure
+was written as a claim about *this commit* and is re-keyed** (`#1877`): it is a state-at figure, so
+it names a tree and needs the right one, and `830a050` (2026-09-08, `#1895`, PR #737) is the commit
+that wrote it.  Re-measured rather than carried, the seed returns **36 in 21** at that tree and at
+`7c0460d` alike.
 
 ⚠️ **The cheapest check that the split is real**: of the six `…Hprin` modules only the twin ever
 carried the bullet.  `WeilPairingDivisorSlotBilinearHprin`, `WeilPairingGaloisRootHprin`,

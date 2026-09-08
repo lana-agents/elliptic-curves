@@ -36,13 +36,20 @@ general index:
 > reachable depends on the fibre description, which is merged only at `n = 2, 3`, and that has
 > **not** been re-measured.
 
-⚠️ **It is the ceiling, not the only ruling on the question, and this commit retires three more.**
+⚠️ **It is the ceiling, not the only ruling on the question, and `ecfb3e9` retires three more.**
 `EllipticCurves.FunctionField.PullbackPrincipalityThree` said principality at a general index was
 *"not measured, here or anywhere"*; `EllipticCurves.FunctionField.NthRootOfPullbackN` said no
 hypothesis-free corollary could be fed at a general index; and
 `EllipticCurves.FunctionField.WeilPairingGaloisRootN` said *"at general `n` there is no such
 producer"*.  Each is retired in its own module, in the marked-quotation form `README.md`'s
 `### Retired claims` lays down.
+
+⚠️ **Both addresses in this module read *this commit* until they were re-keyed** (`#1877`):
+`README.md`'s `### Gate-discharge claims` rules that an indexical address in a file is resolved by
+`git log -S` on the words the clause is about, and that the per-line `git blame` a reader performs
+instead is unsound.  Both resolve to `ecfb3e9` (2026-09-07, `#1843`, PR #723), the commit that
+created this module.  Nothing retires on a re-key: the claim is the same claim and only its anchor
+changes.
 
 Two things the ceiling names have since become available, and neither was when it was written.
 
@@ -53,7 +60,7 @@ Two things the ceiling names have since become available, and neither was when i
   `n = 2, 3`"* is therefore false rather than merely partial**, which is why the sentence is
   retired rather than qualified; the retirement is recorded in that module, in the marked-quotation
   form `README.md`'s `### Retired claims` lays down, and `README.md`'s `### What is formalised`
-  carries a second retirement of its own, of the bullet this commit falsifies there.
+  carries a second retirement of its own, of the bullet `ecfb3e9` falsifies there.
 * **`#E[n] = n²` is a theorem at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`**, as
   `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#242`).  It is the *only*
   mathematical input this route needed that did not exist when the `n = 2` file was written, and it
