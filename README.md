@@ -3058,6 +3058,53 @@ true"*, one layer up, in this document's own prose. They are:
   and agree with the check, the rest date a measurement and say what was measured beside them, and
   the one that does neither is the sha the check itself flags, written here as its result.
 
+* **An address a delivery did not derive has been checked by nobody, and what handed it over does
+  not change that** (`#1915`). A `### `-heading citation, a line address, or an attribution of a
+  property to a named seed is re-resolved against the tree the delivery is landing on, whatever its
+  source: an issue description, a review comment, a round of the same branch that has already been
+  pushed, a note in this project's memory, or a sibling section of this page. None of those is a
+  checked source, and a delivery that repeats one has published it.
+  ⚠️ **The review is the source worth naming, because it is the one nobody expects to fail.** A
+  reject comment is a claim and not a verification, and a reviewer who has just re-derived every
+  figure in a delivery to the digit will be believed on the clause they did not run — the accuracy
+  of the checked half is what licenses the rest. `### Gate-discharge claims` takes a wrong pointer
+  out of `### Retired claims`' reach on the ground that *a pointer asserts nothing about a
+  declaration, a hypothesis or a population*, plain in the original — which settles what a wrong
+  pointer costs once it has landed.  ⚠️ **The half before that is stated in the same section, for
+  one source and one shape**: the worked example on `#1626`'s triage table closes with
+  *Re-derive a row before repairing it*, bold in the original over that clause alone, and
+  *a triage set inherited is a triage set unread*, plain. That names an issue and a table row and
+  reaches no address, no figure and no review; what is written here generalises it.
+  ⚠️ **Re-resolving is a different operation for each of the two shapes this page writes, and
+  neither of them is a string comparison**:
+
+  * a **heading citation carrying a line address** is resolved by locating that heading and its own
+    line range in the base blob and asking whether the cited line falls inside it. The sections of
+    this file run to hundreds of lines, so an address that sat inside one when it was written is
+    inside its neighbour once enough insertion has gone in between, while the citation beside it
+    still names the section it always named — two halves of one span that rot at different rates.
+  * an **attribution of a property to a named seed** is resolved by reading that seed's own
+    defining paragraph. The paragraph asserting the property is where a wrong attribution reads
+    true, and on this page the two are routinely several screens apart.
+
+  ⚠️ **A figure is inherited on the same terms as an address**, which a rule about line numbers
+  alone would miss: a count arrives with a reading attached to it, and a count copied out of a
+  review arrives with that reviewer's reading rather than with the one the page publishes. Which
+  reading is right is what `### Module-block bullets`' recogniser rule decides; what this adds is
+  that copying the number does not import the flag.
+  ⚠️ **It governs what is written next and no sweep is owed, which is a measured statement rather
+  than a convenient one.** No seed over this tree can find an inherited address, because what makes
+  one inherited is a fact about a source that is not in the tree: a blob records what a sentence
+  says and never where its author read it. So there is no population here to size and no count is
+  written for one, which is the second branch of the rule `### Module-block bullets` states twice.
+  ⚠️ **An instance already on the page is paid, and it is this rule failing with the observation
+  running the other way**: the direction error recorded in this section's own pointer axis as
+  *First recorded in PR #695's review and re-observed in PR #707's and PR #712's without being
+  paid*, plain in the original. Three reviews saw that one, and none of the eleven deliveries
+  that touched this file between the commit that wrote the pointer and the commit that repaired it
+  re-resolved it, which is the same failure as trusting a review — a reject comment and a review's
+  silence are both claims about a delivery and neither is a check of it.
+
 ### Retired claims
 
 A clause that a later PR falsifies is kept as a **marked quotation** — the old text in
