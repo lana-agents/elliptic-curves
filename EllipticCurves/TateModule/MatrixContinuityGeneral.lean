@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.PrimaryMatrixContinuity
 
 /-!
-# `ρ_{E,ℓ}` is a CONTINUOUS `GL₂(ℤ_[ℓ])`-valued representation at EVERY prime `ℓ ≠ char F`
+# `ρ_{E,ℓ}` is a CONTINUOUS `GL₂(ℤ_[ℓ])`-valued representation
 
 `EllipticCurves.TateModule.PrimaryMatrixContinuity` proves continuity of `ρ_{E,ℓ}`, of
 `det ρ_{E,ℓ}` and of `tr ρ_{E,ℓ}` in a *given* basis at an arbitrary prime, and states the three

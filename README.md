@@ -2643,11 +2643,24 @@ true"*, one layer up, in this document's own prose. They are:
   by how much.** All **5** in-module rows are titles carrying no reach clause at all
   (`EllipticCurves.Torsion.ChordSum`'s *"The proof, and what each hypothesis is spent on"* is the
   shape), and `EllipticCurves.Torsion.PrimaryTowerOdd`'s H1 is one of the 19 and clears on the
-  gate-discharge branch above. In the other direction the field list excludes **10** H1s that do
-  match the index list, of which **7** are the `TateModule.*General` family whose only condition is
-  `ℓ ≠ char F` — they are outside the 65 and they are **not** thereby cleared. **Only the three rows
-  `#1879` names have been read against a signature**; the rest are unread, and reading them is that
-  issue's successor rather than this bullet.
+  gate-discharge branch above. In the other direction the field list excludes H1s that do match the
+  index list: **10** at `58df5a5` and eleven at `949369c`, the extra one `Torsion.StructureGeneral`,
+  which PR #731 completed into the excluded set. **7** of them are the `TateModule.*General` family
+  whose only condition was `ℓ ≠ char F`; they were outside the 65 and were **not** thereby cleared.
+  ⚠️ **`#1885` read all seven against `#check`-level signatures at `949369c` and repaired them, and
+  not one was a false positive**: all twenty-two declarations under the seven take `(2 : F) ≠ 0`.
+  Twenty of the twenty-two take `(ℓ : F) ≠ 0` as well; the two that do not are `FreeGeneral`'s
+  `exists_closure_pair_eq_torsion`, which is the `n`-level lemma, and
+  `proj_surjective_of_two_ne_zero`, which holds on `h2` alone and says so in its own docstring. So
+  all seven named the index condition and dropped the field one. Four name it in the heading; the
+  other three, whose completed clause does not fit inside a hundred columns, take the
+  *"or it names none"* branch above.
+  ⚠️ **That repair moves the excluded set and not only the headings**: it takes the eleven at
+  `949369c` to eight, four of them the family, because the three rows that dropped their clause
+  leave the index list while the four completions stay in both.
+  ⚠️ **What that leaves unread is the cut itself**: it returns sixty-two rows at `949369c`, six of
+  them the five in-module titles and `PrimaryTowerOdd` above, and the other fifty-six are unread —
+  that issue's work rather than this bullet's.
 * **A nested list is closed by a blank line, and parent-level prose that resumes without one is
   swallowed by the sub-list's last row** (`#1833`). A `  * ` sub-bullet's own continuation lines are
   written at four spaces and are right at every site in this file. The prose that returns to the

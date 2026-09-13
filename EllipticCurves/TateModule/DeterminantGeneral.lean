@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.PrimaryDeterminant
 
 /-!
-# `tr ρ_{E,ℓ}(1) = 2` and `charpoly ρ_{E,ℓ}(1) = (X - 1)²` at EVERY prime `ℓ ≠ char F`
+# `tr ρ_{E,ℓ}(1) = 2` and `charpoly ρ_{E,ℓ}(1) = (X - 1)²`
 
 `EllipticCurves.TateModule.PrimaryDeterminant` states the determinant and trace of `ρ_{E,ℓ}` at an
 arbitrary prime, but its two *rank-sensitive* statements — the ones that would be false if `T_ℓE`

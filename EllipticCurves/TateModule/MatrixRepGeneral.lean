@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.PrimaryMatrixRep
 
 /-!
-# `ρ_{E,ℓ} : G → GL₂(ℤ_ℓ)` at EVERY prime `ℓ ≠ char F`
+# `ρ_{E,ℓ} : G → GL₂(ℤ_ℓ)` at EVERY prime `ℓ ≠ char F` with `(2 : F) ≠ 0`
 
 For a Weierstrass curve `W'` over a field `S`, an algebraically closed extension `F / S` with
 `(2 : F) ≠ 0` for which `W'⁄F` is elliptic, and `G = F ≃ₐ[S] F`, the `ℓ`-adic Galois representation
