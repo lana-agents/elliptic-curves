@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.PrimaryImage
 
 /-!
-# The image of `det ρ_{E,ℓ}` is compact and closed, at EVERY prime `ℓ ≠ char F`
+# The image of `det ρ_{E,ℓ}` is compact and closed, at EVERY prime `ℓ ≠ char F` with `(2 : F) ≠ 0`
 
 `EllipticCurves.TateModule.PrimaryImage` proves compactness and closedness of `range ρ_{E,ℓ}` in a
 *given* basis at an arbitrary prime, and states the two basis-free consequences —

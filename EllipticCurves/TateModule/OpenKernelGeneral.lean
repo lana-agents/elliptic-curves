@@ -9,7 +9,7 @@ import EllipticCurves.TateModule.Kernel
 import EllipticCurves.TateModule.OpenKernel
 
 /-!
-# `ker ρ_{E,ℓ}` is closed at EVERY prime `ℓ ≠ char F`
+# `ker ρ_{E,ℓ}` is closed at EVERY prime `ℓ ≠ char F` with `(2 : F) ≠ 0`
 
 `EllipticCurves.TateModule.OpenKernel` proves `IsClosed (ker ρ_{E,ℓ})` at `ℓ = 2`
 (`isClosed_ker_galoisRepTwo`) and at `ℓ = 3` (`isClosed_ker_galoisRepThree`), by writing the kernel

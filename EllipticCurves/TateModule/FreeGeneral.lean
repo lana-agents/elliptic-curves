@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.PrimaryFree
 import EllipticCurves.Torsion.StructureGeneral
 
 /-!
-# `T_ℓE ≅ ℤ_ℓ²` at every prime `ℓ ≠ char F` — `#268`
+# `T_ℓE ≅ ℤ_ℓ²` at every prime `ℓ ≠ char F` with `(2 : F) ≠ 0` — `#268`
 
 For an elliptic curve `W` over an algebraically closed field `F` with `(2 : F) ≠ 0`, and a prime
 `ℓ` with `(ℓ : F) ≠ 0`, the `ℓ`-adic Tate module `T_ℓE = lim_k E[ℓ^k]` is a free `ℤ_[ℓ]`-module of

@@ -8,7 +8,7 @@ import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.PrimaryImageProfinite
 
 /-!
-# The image of `det ρ_{E,ℓ}` as a closed subgroup and a profinite group, at EVERY prime `ℓ ≠ char F`
+# The image of `det ρ_{E,ℓ}` as a closed subgroup and a profinite group
 
 `EllipticCurves.TateModule.PrimaryImageProfinite` bundles `range (det ρ_{E,ℓ})` as a
 `ClosedSubgroup ℤ_[ℓ]ˣ` and as a `ProfiniteGrp` at an arbitrary prime, and states the three
