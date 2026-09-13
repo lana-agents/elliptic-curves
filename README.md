@@ -785,6 +785,59 @@ occurs inside the conclusion of every statement about them. `(2 : F) ≠ 0` is d
 any reach clause on this development names — not from `3`-smoothness, not from `(n : F) ≠ 0` — so it
 is reach, and the rule binds it. Omitting it is the defect class `#1137` exists to pay off.
 
+⚠️ **Whose module block: the one that STATES the declaration, not every module whose prose recites
+its reach.** The sentence above does not say which, and the two readings convict two files and
+twenty-four. Seed, over the whitespace-normalised text of every tracked `.lean` and `.md` blob —
+normalise first, a line-anchored `grep` sees 30 of the 77 rows below and 26 of the 62:
+
+```
+PHRASE = every\s+`?n`?\s+with\s+`\(2 : F\) ≠ 0`\s+and\s+`\(\(n : ℤ\) : F\) ≠ 0`
+DER    = transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero
+```
+
+**77 rows in 33 files at `42c9b11`, and 62 in 23 at `58df5a5`.** Sort the `.lean` files by whether
+the blob writes the token `Transcendental` at all — one that never writes it states nothing binding
+`h`, so no statement of its own can be using the exemption:
+
+* **the blob binds `h`** — 10 files carrying 50 rows at `42c9b11`, 10 carrying 47 at `58df5a5`, and
+  **every one of them names the derivation**;
+* **the blob never writes `Transcendental`** — 22 files carrying 24 rows at `42c9b11`, 12 carrying
+  13 at `58df5a5`, and **not one of them names it**. Every row in this class is a pointer to a
+  declaration stated somewhere else.
+
+⚠️ **The correlation is exact at both refs** — 10 of 10 and 22 of 22 at the later one — so the tree
+has been paying this clause once per *defining* module throughout, and the twenty-two are not an
+unpaid backlog. The other reading is the expensive one and buys a reader nothing: it writes this one
+derivation into twenty-two further module blocks, eight of them `TateModule` files that state
+nothing about `[n]∗`, about transcendence or about the function field, for a hypothesis no statement
+of theirs takes — while a reader who follows the pointer arrives at the defining block, which cites
+it, having already passed the derivation worked out above on this page.
+
+⚠️ **What the clause still convicts is two files, and the defect there is placement and not
+absence.** `PullbackPrincipalityN` (12 rows) and `WeilPairingAlternatingBaseChangeN` (3) bind `h`,
+use the exemption, and name the derivation only *below* the module block, in a declaration
+docstring. `PullbackPrincipalityN` is the one that costs: ten of the twenty-four pointer rows name
+`exists_gS_n_of_isAlgClosed` as their ground and nine more name it as the consumer of the row they
+do cite, so it is where a pointer sends its reader. Moving those two citations is a sweep, and a
+convention runs on its own diff, so it is not done here.
+
+⚠️ **A pointer that names a MODULE rather than a declaration is not decided here.** Four rows do —
+in `WeilPairing`, `WeilPairingNondegenerateMu`, `WeilPairingNondegenerateThree` and
+`WeilPairingNondegenerateTwo`, all naming `WeilPairingNondegenerateN`, whose seven theorems split.
+Five bind `hT`; `exists_gS_n_weilPairingElt_ne_one` and `exists_gS_n_weilPairingMu_ne_one` do not,
+because they apply the derivation *inside the statement*, so those two omit no hypothesis and are
+not using the exemption at all. No name-keyed recogniser separates the two cases and the rows have
+to be read. One of the twenty-four already is: `MatrixRepMod` names
+`exists_gS_n_weilPairingElt_ne_one` by itself, so its clause omits nothing and owes nothing.
+
+⚠️ **Two flags on that seed, and the second is a whole second population.** Requiring the backticks
+round `n` returns the same 77 and 62, so that choice costs no row. The sibling clause carrying
+`(n : F) ≠ 0` where this one carries `((n : ℤ) : F) ≠ 0` returns 71 rows at `42c9b11` and is
+excluded by construction: the two are interderivable propositions but different clauses, matched to
+the declaration suffix, and this seed reads only the `ℤ`-cast one. What is **not** measured is
+whether each of the 50 rows in the ten binding files is itself a use of the exemption — nothing
+above turns on it, because those files name the derivation either way.
+
 **The second exemption is the non-vanishing of the function a statement is an equation about**, and
 it is not the first one in other clothes — `hf : f ≠ 0` is derivable from nothing. A reach clause
 answers *where* a statement holds, over which fields and at which indices, because that is the
