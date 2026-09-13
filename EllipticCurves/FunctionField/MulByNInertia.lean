@@ -270,13 +270,33 @@ headline reading *"in characteristic zero, at every `n`"* and naming the non-con
 in the same docstring, and it closed — under a ⚠️, with everything up to the colon in bold —
 *"A `#1664` candidate, recorded and not repaired here: that issue is the headline block, and the
 elaborated read it asks of every row is owed there"*.  ⚠️ **The emphasis is named outside the
-quotation rather than reproduced inside it**, because the quotation already sits in an italic span
-and `### Retired claims` asks for the old text, of which the emphasis is part.  That
-arrangement is the one `README.md`'s *"Nor does a sentence lower in the declaration's own
-docstring"* (`#1660`) rules does not repair a headline, which is why it was recorded; the read is
-now done and the headline repaired, so both sentences are false rather than partial and
-`### Retired claims` binds — quoted here rather than deleted.  What replaced them is the headline
-naming the non-constancy, with the body clause left standing.
+quotation rather than reproduced inside it here** because part of it is the ⚠️ itself, which is
+paragraph structure and goes inside no span, and because `### Retired claims` asks for the old
+text, of which the emphasis is part.  ⚠️ **That is a reason at this row and not a rule about
+bold** (`#1875`): the same section of `README.md` decides the axis on fidelity rather than on
+form — the emphasis a quotation shows must be the emphasis its source carries, recorded inside
+the span or named outside it — and this sentence was partial in its scope and never false of
+this row, which is why it is scoped here rather than retired.
+⚠️ **The reason it used to give is retired, and it is the only part of the sentence that is.**  It
+read *"because the quotation already sits in an italic span"* (`fddba5c`, `#1664`, PR #684), and a
+reason is tested as a reason: the fact it states is true — the quotation is an italic span — and it
+still does not do the work here, because the emphasis at this row is bold and a bold span inside a
+marked quotation renders.  ⚠️ **False of its own row rather than partial**, which is the test
+`### Reach clauses` sets: a partial clause keeps its words and takes an insertion, and no insertion
+makes an italic span the obstruction where the ⚠️ is.  So `### Retired claims` binds, the clause is
+quoted here rather than deleted, and what replaced it is the ⚠️ reason above.  What is true in it
+is general rather than local, and `README.md` `### Retired claims` now carries that: a reproduction
+is owed only where it renders, and an italic emphasis reproduced inside a marked quotation is the
+case that shows a reader nothing.  ⚠️ The quoted clause carries no emphasis of its own, so this
+quotation has none to name and none to reproduce.  **The headline arrangement recorded above** —
+`…_finrank_of_charZero`'s headline, with the non-constancy named a line lower in the same docstring
+— is the one `README.md`'s *"Nor does a sentence lower in the declaration's own docstring"*
+(`#1660`) rules does not repair a headline, which is why it was recorded; the read is now done and
+the headline repaired, so **both sentences quoted above from this paragraph's earlier text** — the
+`does not` clause and the `#1664`-candidate close, and not the claim and the reason of the ruling
+dispositioned between them and here — are false rather than partial and `### Retired claims`
+binds — quoted here rather than deleted.  What replaced them is the headline naming the
+non-constancy, with the body clause left standing.
 
 ## Main results
 
