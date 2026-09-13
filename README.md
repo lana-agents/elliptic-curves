@@ -3320,6 +3320,137 @@ true"*, one layer up, in this document's own prose. They are:
   re-resolved it, which is the same failure as trusting a review — a reject comment and a review's
   silence are both claims about a delivery and neither is a check of it.
 
+* **A citation asserts that the record it names is still live, and no seed over the tree can check
+  that** (`#1960`). Two axes of a `#NNNN` citation are ruled on already: what the number
+  **resolves** to is `EllipticCurves.FunctionField.WeilPairing`'s `## Citing a number`, which
+  settled it by resolving every number in the tree against the tracker rather than by matching a
+  shape (`#1303`, completed), and what the record **reaches** is `### Gate-discharge claims`'
+  *"A `#NNNN` citation names a gate list by reference, and it reaches exactly what the record it
+  names reaches"* — the whole sentence bold in the original. A sentence that says work is **owed**
+  and names its owner makes a third claim, that the owner is **open**, and a status is in no blob:
+  it is the one claim in a citation that no recogniser over this tree can evaluate, however keyed,
+  and the only one that goes false with no edit to this page and none to the record's own text. The
+  issue completes, and the sentence that routed a reader to it stands untouched and wrong.
+  ⚠️ **The disposition is decided already and none of it is invented here.** A sentence saying a
+  population is owed where none is does not fall **short** of the tree, it over-reaches it, so
+  *"short is partial, over-reaching is false"* in `### Reach clauses` sends it to
+  `### Retired claims`, and it takes a marked quotation with the outcome beside it. That is where
+  `### Gate-discharge claims`' citation rule already sends one wider than its record, and it binds
+  **once, at the subject**, for the reason given there: one proposition about one record. What is
+  new is only the trigger. There the record is open and denies the sentence that cites it; here the
+  record is closed, and a reader who opens it finds nothing to disagree with.
+  ⚠️ **The check that does not decay is a reviewer's, not a sweep's**, because nothing in the loop
+  walks back to the page. The 47 this bullet convicts below went to zero in three commits between
+  23:41Z and 01:43Z on the night of 2026-09-05 and this page has not moved on them since, so a
+  sweep of this axis is stale from the day it lands. The review that approves the pull request
+  discharging a population is the only step in the loop that reads both the diff and the record,
+  and the check there is one sentence — **does any page publish this population?**
+  ⚠️ **Where a sentence names a record that is not open, it says so in the same sentence**, because
+  the reader's only move on meeting `#NNNN` is to open it, and a closed record under a live routing
+  leaves them unable to tell which of the two is stale. This bullet marks the status of every
+  record it cites in a claim about work: `#1303` and `#1742` are completed, the one it routes a row
+  to is `#1956` and is open, and the three numbers resolving outside this project are marked where
+  they are named.
+  ⚠️ **The recogniser, and its join is not in the tree.** The seed is the backticked token
+  `` `#(\d+)` `` over `README.md` read line by line, and the join is one `list_issues` call per
+  status — the instrument `## Citing a number` used on the resolution axis, pointed at the status
+  column instead. No blob carries the answer, so every figure here is dated **twice**, to a ref and
+  to the tracker read: `be1a4d5`, 2026-09-13 21:20Z. ⚠️ **And where one of these figures says what
+  writing this bullet does to a count, both of its endpoints are that ref with this bullet spliced
+  into it**, not the page wherever this lands: the delta is what the bullet owns and travels with
+  it, the endpoints are the page's and do not. That clause is not a precaution — while this bullet
+  was in review `main` put two more backticked tokens on this page, which moves both endpoints of
+  its `#NNNN` count and leaves the delta alone, and a reader re-running an endpoint against the
+  page in front of them would read a miss where there is none.
+  * **297** occurrences, **103** distinct issues. By issue, **91** completed, **11** open, **1**
+    claimed and **none** abandoned; by occurrence, **250 / 44 / 3 / 0**. At `d559108`, this base's
+    parent, the same seed and the same read return 296 and 102, and 250 / 43 / 3 / 0.
+  * ⚠️ **The join convicts nothing on its own**, and that is why the seed has a second half: 250 of
+    the 297 name a completed issue, and almost every one of them is provenance — the issue that
+    decided a rule, named beside it in the past tense.
+  * **The narrow cut** is an owed-work word in the **same sentence** as the token, and the list is
+    written out whole rather than sampled: `filed`, `unswept`, `unread`, `unrepaired`,
+    `unmeasured`, `swept`, `sweep` with any suffix, `owed`, `owes`, `residue`, `pending`,
+    `outstanding`, `remaining`, `remains`, `nobody has`, `no one has`, `never been` and
+    `not been` each with `read`, `measured`, `swept` or `counted`, `still` with `open`, `owed`,
+    `unread` or `stands`, `open issue`, `owner`, `owns`. ⚠️ **A ten-word form of that list is a
+    different recogniser and not a summary of it**: `filed`, `unswept`, `unread`, `owed`, `owes`,
+    `residue`, `sweep`, `remaining`, `pending` and `nobody has read` return 28 of these sentences,
+    or 29 with `sweep` read as a stem, and the three in the gap carry `sweeping`, `owns` and
+    `unmeasured`, in paragraphs opening at `:516`, `:1907` and `:2829` at this base. It returns
+    **31** sentences at `be1a4d5`, the same 31 as at `d559108`, and every one is read here:
+    **1** stale, **8** routing live work to an
+    owner that is open or claimed, **3** saying in terms that nothing is owed, **14** provenance,
+    **4** where the word is about no issue at all (*"a line `aadc404` owns"*, **plain** in the
+    original; *"recogniser owes them"* twice and *"what any published count owes a re-runner"*
+    once, each **bold in the original** and named here rather than reproduced inside the span,
+    which `### Retired claims` makes the compliant alternative), and **1** population claim
+    that names no owner. ⚠️ The one
+    reading in that table is the four `#1877` rows at `:1968`, where two sentences route a sweep
+    that has not run and two describe what its landed half did; the split is a judgement and is
+    named rather than hidden.
+    ⚠️ **One quotation is deliberately left as the page has it**: *"short is partial,
+    over-reaching is false"*, whose source in `### Reach clauses` is bold and capitalised. No
+    marked quotation of it on this page carries a bold span inside, `:1656` included; what is
+    different there is that a bold run encloses that quotation end to end, so among the marked
+    ones a reader sees the emphasis only at that row, and annotating this bullet's alone would
+    leave one quotation in three forms. It is `#1875`'s population — the half of that ruling with
+    no instrument — and it is named rather than repaired.
+  * **The flags.** *Backticks*: the loose reading adds **97** bare `#\d+`, **94** of them preceded
+    by `PR ` — of the other three, two are issue numbers inside one marked quotation at `:1088` and
+    one is a pull request whose `PR ` was elided at `:1804`, so the strict reading misses two and
+    the loose one admits a pull request. *Unit*: sentence, **31**; paragraph, taken as a maximal run
+    of non-blank lines, **38** — and the 14 paragraphs the wider unit adds carry no owed claim.
+    *Inline code*: the splitter masks code spans before it splits, because `(2 : F)` ends a sentence
+    under any `.`-or-`:` rule and cutting there is what loses the one defect this page has.
+    *Fences*: **2** of the 297 sit inside a fenced block. *Vocabulary*: it is a word list, so this
+    cut is a candidate set and never a conviction set, which is what `#1584` is the standing record
+    of.
+  * **A second reading, keyed on nothing the first one uses.** `#1864`'s bolded numeral in the same
+    sentence as a completed-owner token returns **22** sentences, **20** of them outside the cut
+    above, and not one asserts owed work: they are dated measurements and retirements. Two seeds
+    that disagree about which sentences to read agree about the verdict.
+
+  ⚠️ **The one stale row, and it is named here rather than repaired.** `### Reach clauses` says 47
+  headlines are, in its own words, *"in eleven files, filed rather than swept"* — the numeral is
+  bold there and is left out of the span so that the quotation matches. Those 47 were filed as
+  `#1742`, which this page names nowhere and which is **completed**, and that section's own split
+  returns **47 / 18 / 23** at `0083238`, **0 / 65 / 23** at `5cfd485` and **0 / 65 / 23** at
+  `be1a4d5`: the population emptied on 2026-09-06 and the routing outlived it by a week. `#1956`
+  owns that paragraph in terms, so the row is left there — two blocks repairing one sentence is
+  what this section's rule against answering a question twice is for.
+  ⚠️ **Three residues, named rather than swept.** *The unowned row*: `:2534`'s *"The remaining ~1640
+  bullets have not been read on this axis"* names no owner, so no status can be read against it at
+  all; naming one is a change to the tracker and is made there, as that citation rule says of
+  widening a record. *The tree*: the same seed over every tracked `.lean` and `.md` file returns
+  **3893** occurrences in **254** files and **358** distinct issues at `be1a4d5`, of which this page
+  is 297 — the other 3596 are not read here, and no reading of them is claimed. *The resolution
+  axis*: **9** of those 358 resolve to no issue of this project, **6** of them inside prose that
+  says exactly that, and the three that do not are `WeilPairingFunctionGalois`:55 (`#375`, an issue
+  of project 9), `OmegaNumerator`:55 (`#533`, an issue of project 527) and
+  `ImageProfiniteGeneral`:113 (`#594`). Those three belong to `## Citing a number`'s axis and not to
+  this one.
+  ⚠️ **This bullet is inside its own population, and the recogniser's two keys date its own too.**
+  Writing it takes this page from 297 occurrences and 103 distinct issues to 317 and 110, and the
+  narrow cut from 31 sentences to 35. The four sentences it adds to that cut cite `#1877`, `#1864`,
+  `#1742` and `#1956`, and two of those four records are closed: `#1742` is cited in a claim about
+  work and marks itself closed in the sentence, which is this bullet's rule applied to itself,
+  while `#1864` is cited for a recogniser and for no claim about work, which is the scope this
+  bullet gives that rule where it states it. ⚠️ It also puts the page's first three tokens
+  resolving to no issue of this project on it, all three in the residues clause and each
+  marked there.
+  ⚠️ **What this bullet does to the other seeds on this page was measured and not assumed.** It adds
+  no member of the noun-and-direction seed and no member of the nine-word seed — 49 matches on 48
+  lines under that seed's published single-space reading, 52 under its `\s` flag reading, and 88,
+  each of the three unmoved from the base — and it takes the bolded-numeral seed from 279 to 303,
+  which is the twenty-four figures it publishes, each in digits and each dated by the recogniser's
+  two keys. The heading-citation census moves with it, 236 spans to 246 and 202 title-matching to
+  209, the binding window taking 97 bound to 101 and, with any heading citation counting as a
+  blocker, 102 pairs to 106 — the reading this page's own 102 at `49b327d` is measured under, where
+  restricting blockers to title-matching citations gives 103 there and one more at each end here,
+  and leaves the bound half alone. The span test reads all four of the quotations it binds as IN, 49
+  to 53, and leaves OUT at 14 and NO-SOURCE at 39.
+
 * **A published recogniser is not published until its flags are** (`#1910`).
   `### Module-block bullets` rules *publish the recogniser beside any count, or write no count*,
   writing those words twice and both times about a count of its own, and it is silent on what
