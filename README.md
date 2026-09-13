@@ -808,11 +808,19 @@ repair. What separates them is subject matter: `(2 : F) ≠ 0` restricts the fie
 over, `f ≠ 0` restricts the argument its caller passes in.
 
 ⚠️ **That discriminator is the whole of the *data-argument* clearance too, and `#1631` is what it
-cost to find that out.** `### Module-block bullets` below clears a binder that is *"a data argument
-of the object the bullet is about"*, and gives the test as *"does not typecheck without it"*. That
-is an occurrence test — the one the paragraph above rules out by name and this one says it does not
-reinstate — and read as written it clears `(2 : F) ≠ 0` in every statement about `mulByTwoEndo h2`
-or `mulByNEndoOfAlgClosed h2 hn`, which is the occurrence reading the paragraph above says *"would
+cost to find that out.** `### Module-block bullets` below **used to clear** a binder that is
+*"a data argument of the object the bullet is about"*, and gave the test as *"does not typecheck
+without it"* — at `5c3fce2^`, where that section carried both as a live clearance.
+⚠️ **The premise belongs in the past tense, and this is a tense and not a cut** (`#1935`): PR #651
+withdrew the ground and rewrote that section in the **same** diff that wrote this sentence, so the
+present tense was false at the commit that wrote it, and `#1643` (PR #657) made the identical
+repair to the sibling premise in this section without reaching this one. That section carries
+the wording still, under *"This document used to clear that on the ground that"*, and names **this**
+section as what withdrew the ground — so in the present tense this paragraph had the document
+withdrawing a ground and resting on it at once. That wording is an occurrence test — the
+one the paragraph above rules out by name and this one says it does not reinstate — and read as
+written it cleared `(2 : F) ≠ 0` in every statement about `mulByTwoEndo h2` or
+`mulByNEndoOfAlgClosed h2 hn`, which is the occurrence reading the paragraph above says *"would
 clear it and reverse that repair"* of PR #637 (`#1605`). **The clearance is real; that wording of it
 is not.** What clears a binder is the same thing that clears `f ≠ 0`: the condition is about the
 argument the caller passes in — a supplied root, a certificate, a point on the curve. Being an
@@ -2980,6 +2988,49 @@ true"*, one layer up, in this document's own prose. They are:
   the other four — and the 9 beside them unchanged. No numeral in this bullet stands alone inside a
   bold span, none of the nine words is written here, and no noun of the first seed's list is put in
   front of a direction word.
+
+  ⚠️ **THE AXIS IS RE-RUN HERE, BOTH HALVES HAVE GROWN BY MORE THAN HALF, AND THE ONE CONVICTION IS
+  ONE NO SPAN TEST COULD HAVE MADE** (`#1935`). Measured at **`49b327d`**, this commit's base, with
+  the two recognisers this bullet publishes: **226 heading-citation spans** (**225 line-keyed**, the
+  wrap costing exactly one still), **192 on a title this file also carries**, and the binding window
+  splits those into **97 bound to a marked quotation** and **95 attributing nothing a span test can
+  check**, giving **102 pairs**. ⚠️ **The calibration is what licenses those, and it is twelve
+  figures at three commits, eleven of which this bullet already publishes**: the same recogniser
+  returns 138 spans, 137 line-keyed and 110 title-matching at `5a2fe24` and the same window returns
+  59 / 51 / 62 there; 140 spans on 112 titles at `4769f3e`; and 156 spans, 155 line-keyed, at
+  `b2d1981`, splitting 125 / 31 on this bullet's own sort. ⚠️ **The twelfth is that 155, and at
+  this head this paragraph is the only place on the page it occurs**: it is derived and not
+  published, and a calibration is checked by looking each figure up in the text it is claimed from
+  — so a reader who takes all twelve to this bullet finds eleven and fails on the last.
+  ⚠️ **`b2d1981` is where the *"Re-run at this head"* figures belong, and the sentence that
+  publishes them does not date them**: `4769f3e` is named there as the parent, so a reader takes
+  the pair as one measurement. ⚠️ **The sha is on this page, three times at `49b327d`, and never
+  beside the figures.** The decisive site is the next bullet of this list, `49b327d:2895`, whose
+  own arithmetic binds figure to sha by name: its clearance names 108 citations of this page
+  measured at `5a2fe24`, then *"the census in the same bullet returns 125 at `b2d1981`"*, and 125
+  is one of the figures in question. `49b327d:1131` names the same sha as one end of this bullet's
+  own re-run; `49b327d:2565` dates a different census. ⚠️ **So the defect is placement and not
+  absence**, and that is the harder shape to catch: `49b327d:2859` publishes the figures and
+  `49b327d:2895` dates them, 36 lines below, in a sentence arguing something else — so the one
+  sentence a reader checking the figures reads is the one that withholds the date. `git log -S` on
+  the publishing sentence returns `b2d1981` too, and the commit that follows it on `main` returns
+  160 spans rather than 156.
+  The span test — the quoted words, whitespace-normalised over the whole file, with the quotation's
+  own printing dropped **by offset and never by line** — puts **49 pairs inside** the named span,
+  leaves **39 whose words are not on this page at all**, and returns **14 candidates**. ⚠️ **Every
+  one of the fourteen was read, thirteen are the binder over-reaching** this bullet already names,
+  and the fourteenth is the paragraph `### Reach clauses` repairs in this commit. ⚠️ **The filter
+  did not catch it on the section, and after the repair it still returns it**: the section that
+  paragraph names is the right one and holds the words, and what the filter matched on is a leading
+  article and a bold marker. What was false there is the **verb** — that section says *used to* of
+  the wording the paragraph had it giving — so a citation can name the right section, quote it
+  verbatim, and still be false. **That is the second way provenance goes stale and no recogniser on
+  this page reads it.** ⚠️ **What this paragraph does to the figures it publishes was checked and
+  not assumed.** It names a section once and binds no quotation to that name, so at this commit's
+  head the span count is 227 on 193 titles and the unbound half is 96, while **the bound half, the
+  pairs and all three verdict counts are unmoved** — 97, 102, and 49 / 14 / 39. The repair this
+  commit makes moves none of the nine: it retires no heading citation, and the quotation it adds has
+  no citation inside the window. No numeral written here stands alone inside a bold span.
 * **A clearance is not a count, and the discriminator in `### Reach clauses` does not reach it**
   (`#1824`). That discriminator sorts a dated census, which a new head does not falsify, from a
   present-tense claim about a named declaration, which it does. A **clearance** — the claim that no
