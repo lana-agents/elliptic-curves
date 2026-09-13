@@ -3460,6 +3460,80 @@ every repair; that cost is accepted there and is **not** what decides placement 
 is retrospective and nothing is owed to it** — both rulings on record already comply, which is why
 this paragraph states the tree rather than changing it.
 
+⚠️ **A marked quotation's emphasis is the source's, and the form it is recorded in is free**
+(`#1875`). `EllipticCurves.FunctionField.MulByNInertia` rules, of one retirement it makes, that the
+emphasis is named outside the quotation rather than reproduced inside it, and until this paragraph
+that reading was written down nowhere else. Read as a rule about **form** it is a rule this tree
+has never held. The seed is whole-tree over every tracked `.lean` and `.md` file with runs of
+whitespace collapsed: a marked quotation is an italic span wrapping a quoted string, and it breaks
+the form when a bold span falls inside the quotation. At `42c9b11` that returns 1445 marked
+quotations with 124 carrying a bold span inside, in 48 files — 50 in this file, 54 under
+`EllipticCurves/FunctionField/`, and four in the file that publishes the ruling. At `aadc404` it
+returns 1340 and 107. ⚠️ **A rule its own file breaks four times and this file breaks fifty times
+is not an unswept rule**, and the direction of travel says the same: of the seventeen added in
+those five days, fifteen are in this file, so the form is being exercised and not repaired.
+⚠️ **The seed carries one flag and it costs five rows.** Refuse a `*` that is the second of a `**`
+run to open a quotation, and refuse the same at the close, and the counts read 1433 and 129 at
+`42c9b11`, 1328 and 112 at `aadc404`. The looser reading is the one every figure here is published
+at; under either the population is in three digits and the finding does not move.
+⚠️ **What the ruling is right about is fidelity, and fidelity is the test.** The emphasis a
+quotation shows a reader must be the emphasis its source carries. Reproducing it inside the span
+and naming it outside are both compliant, and the two defects are emphasis the source carries and
+the quotation **drops** — the old text loses a part this section asks for — and emphasis the source
+does not carry and the quotation **asserts**, which is the worse of the two, because it wears the
+compliant form and no seed keyed on markup inside the span can see it.
+⚠️ **Reproduce inside only where the reproduction renders.** A bold span inside a marked quotation
+is `<strong>` inside `<em>` and a reader sees it; a single-asterisk span inside the same quotation
+is `<em>` inside `<em>`, which applies one style twice and shows a reader nothing.
+⚠️ **That, and not the bold, is the population the ruling's clause names, and it is nine rows** —
+the same nine at `aadc404` and at `42c9b11`, every one of them a retirement:
+`FunctionField.MulByNGalois`, `…MulByThreeGalois`, `…MulByTwoGalois`, `…MulByNInertia`,
+`…WeilPairingAlternatingBaseChange`, `…WeilPairingAlternatingMu`, `…WeilPairingNondegenerateMu`,
+`TateModule.FreeThree` and `TateModule.PrimaryImage`. ⚠️ **An uncalibrated seed decides nothing, so
+one row is worked**: `MulByNGalois`'s quotes a bullet that stood at `06d36c8`, and the source there
+— **with `group` in italics** — read *"`IsGalois` is delivered; the Galois group is not identified
+with `E[n]`"*. That row is faithful and only its rendering is not, which is the distinction this
+paragraph turns on.
+⚠️ **The seed for the nine is given in words and not in markup, because this page is inside its
+own corpus.** A printed example would itself be a row of the population it measures, which is how a
+recogniser moves the figure it publishes. It is the marked quotation above, with a span opened and
+closed by a lone asterisk inside it. Four delimiter flags decide what that returns, and set the way
+below it returns ten rows at `42c9b11` and ten at `aadc404`, nine of them the nine.
+⚠️ **Each of the first three flags set the other way returns twelve — the second only where bold is
+left in — and the first returns a different twelve.** The opening asterisk may not be the second of
+a doubled run: allow it and two bold spans wrapping a plain quoted string score, and one of those
+false spans opens forty-eight lines above `TateModule.PrimaryImage`'s row and swallows it, so a
+reader who diffs by module name sees agreement where the rows disagree. The closing asterisk may be
+followed by another: refuse that and a quotation sitting inside a bold span — which closes on three
+asterisks in a row — loses its close, runs on to the next quotation mark and scores whatever italic
+lies between, which is two further rows, one of them in this file. The span inside may not cross a
+line break: allow it and two wrapped lines join at unrelated asterisks, for two more. ⚠️ **The
+fourth flag is whether bold runs are cut from the quotation before the span inside is looked for**,
+and it is free at the setting above and worth those two rows at any setting where the closing flag
+is wrong — a flag that costs nothing alone and something in company, which is the kind a seed
+published one flag at a time hides.
+⚠️ **The tenth row is an artefact and is dropped in the open rather than in a comment**: in
+`EllipticCurves.FunctionField.WeilPairing` the span opens on the asterisk of an ordinary italic
+clause that happens to contain a quoted phrase, so it is not a marked quotation at all. Every
+implementation of the seed returns ten and this page names nine; the row above is the difference,
+and a reader who finds it has reproduced the figure rather than contradicted it.
+⚠️ **Emphasis that is not inline cannot be reproduced inside at all**, and that is the ruling's own
+row: it closed under a ⚠️ as well as in bold, and a ⚠️ is paragraph structure rather than part of
+the sentence, so naming the ⚠️ outside was the only way to record the ⚠️. The bold beside it is not
+in that position — it renders inside a marked quotation — so naming the two outside together was
+one compliant form of two, and the only way to record one of them rather than either. That is a
+reason at that site and not a rule about bold. Its clause is partial in its scope and never false
+of its own row, which `### Reach clauses` decides before this section binds, so it is scoped where
+it stands rather than retired.
+⚠️ **What is NOT measured, dated to `42c9b11` and scoped to this ruling.** None of the nine rows is
+read against its source here — one worked row is not a census — so whether each reproduces its
+source's emphasis, drops one, or asserts one is the read this rule makes possible, and it is owed.
+The dropped half has no seed, because deciding it needs the old text at the attributed ref, and its
+confirmed floor is four rows. The asserted half has no seed either, and its one known instance came
+from a review comment's own emphasis being read back as the source's — the one mode with a known
+cause, and the rule it wants is to re-read the source at the named ref rather than carry markup
+across from a thread.
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the
