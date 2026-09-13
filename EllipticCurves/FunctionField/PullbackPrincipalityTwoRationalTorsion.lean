@@ -40,13 +40,42 @@ algebraic closure**, which is the whole difference from `PullbackPrincipalityTwo
 named `hcard` and `hP` and omitted `h2` — the proper non-empty subset `README.md`
 `### Reach clauses` convicts — while its *"over an arbitrary field"* was true as far as it went.
 The ten headlines below took the completion instead, in the wording
-`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card` already carried.
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card` already carried — ten at `0083238`, and
+**eleven** here, since the `#1773` sweep gives that same wording to
+`affinePart_pullbackDivisorTwo_single_sub_single_of_card` as well.
 
 ⚠️ **That sentence used to read** *"Nothing else about `F` is assumed."* (`dcc912e`, `#1339`,
 PR #508), and it was false on the day the file landed rather than made false later.  It **closes**
 a list about `F`, and `(2 : F) ≠ 0` is a hypothesis about `F`; `README.md` `### Reach clauses`'
 *"was the old clause false or merely partial"* test therefore returns **false**, so
 `### Retired claims` binds and the wording is quoted rather than completed in place (`#1719`).
+
+⚠️ **The ten headlines `#1733` completed at `0083238` took the `h2` half of a two-item hypothesis
+list, and the half they did not take left this file's headlines in two OPPOSITE registers**
+(`#1773`).  Read one at a time against the elaborated telescope at `d559108`, the **17**
+declarations here that bind `hcard : Nat.card (W.torsion 2) = 4` split **9 / 2 / 2 / 4**: **nine**
+named `(2 : F) ≠ 0` and omitted `hcard` — eight of those omitted the halving `hP` too — while
+**two**, `fixedFieldTwo_eq_mulByTwoFieldRange_of_card` and
+`isSeparable_mulByTwoFieldRange_of_card`, named `hcard` and omitted `(2 : F) ≠ 0`.  ⚠️ **So each
+half of one hypothesis list was the omitted half somewhere in this same file**, and both directions
+are the proper non-empty subset `### Reach clauses` convicts: a reader of the nine took *"over an
+arbitrary field with `(2 : F) ≠ 0`"* for the whole hypothesis and read the file as having removed
+the closure for nothing, which is the opposite of what it does.  The remaining **two** named
+neither and were on the compliant *"or it names none"* branch; the **four** already complete are
+`card_torsionTwoMul_of_card`, `finite_torsionTwoMul_of_card`, `finrank_fixedFieldTwo_of_card` —
+each binding `hcard` alone — and the reference headline itself.
+
+⚠️ **All thirteen are completed together and none is cleared**, because `### Gate-discharge claims`
+makes a register a per-file object and `README.md` rules an insertion **branch-neutral**, so the two
+*"names none"* rows take the clause without anything turning on which branch they were on.  The
+wording is this file's own: *"at a rational `E[2]`"*, which three headlines here already carried
+verbatim, and the reference headline's *"a halving point `P`"* shortened to *"a halving `P`"* at
+the **nine** headlines given it here, since `P` is already the point.  ⚠️ **`hsep` is still not
+named anywhere**, on the exemption declared under *"Where the separability comes from"* below — it
+is discharged from `hcard` and is not a third hypothesis — and the **two** positivity lemmas,
+`one_le_ramificationIdxTwo_mul_residueDegreeTwo` and
+`card_fibre_comapProjPointTwo_le_four_of_isSeparable` bind no rationality hypothesis at all and are
+untouched.
 
 ## ⚠️ What this does *not* do
 
@@ -233,7 +262,7 @@ theorem finrank_fixedFieldTwo_of_card (hcard : Nat.card (W.torsion 2) = 4) :
 
 omit [IsDedekindDomain W.CoordinateRing] in
 open Classical in
-/-- **`Fixed(E[2]) = [2]∗F(W)` at a rational `E[2]`.**  The sandwich of
+/-- **`Fixed(E[2]) = [2]∗F(W)` at a rational `E[2]`, with `(2 : F) ≠ 0`.**  The sandwich of
 `fixedFieldTwo_eq_mulByTwoFieldRange`: both outer degrees are `4`, the inner inclusion is `#758`'s,
 and `IntermediateField.eq_of_le_of_finrank_eq'` closes it.  `finrank_mulByTwoFieldRange` (`#682`)
 never needed a closure. -/
@@ -251,8 +280,8 @@ theorem fixedFieldTwo_eq_mulByTwoFieldRange_of_card (h2 : (2 : F) ≠ 0)
 
 omit [IsDedekindDomain W.CoordinateRing] in
 open Classical in
-/-- **`F(W) / [2]∗F(W)` is separable at a rational `E[2]`**, in the `IntermediateField`
-presentation. -/
+/-- **`F(W) / [2]∗F(W)` is separable at a rational `E[2]`, with `(2 : F) ≠ 0`**, in the
+`IntermediateField` presentation. -/
 theorem isSeparable_mulByTwoFieldRange_of_card (h2 : (2 : F) ≠ 0)
     (hcard : Nat.card (W.torsion 2) = 4) :
     Algebra.IsSeparable ↥(mulByTwoEndoAlgHom (W := W) h2).fieldRange W.FunctionField := by
@@ -264,8 +293,9 @@ theorem isSeparable_mulByTwoFieldRange_of_card (h2 : (2 : F) ≠ 0)
 
 omit [IsDedekindDomain W.CoordinateRing] in
 open Classical in
-/-- **Separability in the `Subfield` presentation**, which is the one the fibre count consumes.
-Carried across `mulByTwoFieldRangeEquivSubfield`, the identity on elements. -/
+/-- **Separability in the `Subfield` presentation**, which is the one the fibre count consumes,
+at a rational `E[2]` and with `(2 : F) ≠ 0`.  Carried across `mulByTwoFieldRangeEquivSubfield`,
+the identity on elements. -/
 theorem isSeparable_mulByTwoEndoFieldRange_of_card (h2 : (2 : F) ≠ 0)
     (hcard : Nat.card (W.torsion 2) = 4) :
     Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField := by
@@ -315,7 +345,7 @@ theorem card_fibre_comapProjPointTwo_le_four_of_isSeparable (h2 : (2 : F) ≠ 0)
   exact Finset.sum_le_sum fun p _ => one_le_ramificationIdxTwo_mul_residueDegreeTwo h2 p
 
 /-- **The fibre of `[2]` over a rational point has exactly four elements**, over an arbitrary
-field with `(2 : F) ≠ 0`.
+field with `(2 : F) ≠ 0`, at a rational `E[2]` and a halving `P`.
 
 `≤ 4` is the previous lemma; `≥ 4` is the coset `{ P ⊕ R : R ∈ E[2] }`, four distinct elements of
 the fibre by `hcard` and `projPointOfPoint_add_injective_two`.
@@ -337,8 +367,9 @@ theorem card_fibre_comapProjPointTwo_projPointOfPoint_of_card (h2 : (2 : F) ≠ 
     (Set.injOn_of_injective (projPointOfPoint_add_injective_two P))
 
 /-- **The fibre of `[2]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[2] }`**, over an
-arbitrary field with `(2 : F) ≠ 0`.  Four distinct elements inside a four-element set; no further
-geometry, exactly as in `fibre_comapProjPointTwo_eq_range`. -/
+arbitrary field with `(2 : F) ≠ 0`, at a rational `E[2]` and a halving `P`.  Four distinct elements
+inside a four-element set; no further geometry, exactly as in
+`fibre_comapProjPointTwo_eq_range`. -/
 theorem fibre_comapProjPointTwo_eq_range_of_card (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
     (hcard : Nat.card (W.torsion 2) = 4) {S P : W.Point} (hP : 2 • P = S) :
@@ -361,7 +392,8 @@ theorem fibre_comapProjPointTwo_eq_range_of_card (h2 : (2 : F) ≠ 0)
       hcard]
   omega
 
-/-- **`[2]` is unramified over a rational point**, over an arbitrary field with `(2 : F) ≠ 0`.
+/-- **`[2]` is unramified over a rational point**, over an arbitrary field with `(2 : F) ≠ 0`, at
+a rational `E[2]` and a halving `P`.
 
 Four terms of the fibre sum are already `≥ 1` each and the sum is `4`, so the term at `p` is `1`;
 being a product of two positive naturals it forces `e_p = 1`.
@@ -405,7 +437,8 @@ theorem ramificationIdxTwo_eq_one_of_card (h2 : (2 : F) ≠ 0)
 /-! ### The fibre description of `[2]∗` -/
 
 /-- **`[2]∗(S) = ∑_{p ↦ S} (p)`, every coefficient `1`**, over an arbitrary field with
-`(2 : F) ≠ 0`: the previous lemma read into the definition of `pullbackDivisorTwo`. -/
+`(2 : F) ≠ 0`, at a rational `E[2]` and a halving `P`: the previous lemma read into the definition
+of `pullbackDivisorTwo`. -/
 theorem pullbackDivisorTwo_single_projPointOfPoint_of_card (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
     (hcard : Nat.card (W.torsion 2) = 4) {S P : W.Point} (hP : 2 • P = S) :
@@ -427,7 +460,8 @@ theorem pullbackDivisorTwo_single_projPointOfPoint_of_card (h2 : (2 : F) ≠ 0)
   · rw [Finsupp.single_apply, if_neg fun hc => hq hc.symm, mul_zero, if_neg hq]
 
 /-- **`[2]∗(S) = ∑_{R ∈ E[2]} (P ⊕ R)`** for any `P` with `2 • P = S`, over an arbitrary field
-with `(2 : F) ≠ 0`.  `#774`'s formula in the shape `#418` consumes it, with the closure removed.
+with `(2 : F) ≠ 0` and at a rational `E[2]`.  `#774`'s formula in the shape `#418` consumes it,
+with the closure removed.
 
 The `[Fintype (W.torsion 2)]` is carried in the statement for the reason `#763` gives: the sum
 cannot be written without it, and `Fintype.ofFinite` in a statement is a noncomputable leak. -/
@@ -462,8 +496,8 @@ end CoordinateRing
 open CoordinateRing
 
 /-- **`[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`**, over an arbitrary field with
-`(2 : F) ≠ 0`.  The `(O)` half is the same theorem at `S = O` with `P = O`, since
-`projPointOfPoint W 0` is `none` by `rfl`. -/
+`(2 : F) ≠ 0`, at a rational `E[2]` and a halving `P`.  The `(O)` half is the same theorem at
+`S = O` with `P = O`, since `projPointOfPoint W 0` is `none` by `rfl`. -/
 theorem pullbackDivisorTwo_single_sub_single_eq_sum_torsion_of_card [Fintype (W.torsion 2)]
     (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
@@ -478,7 +512,9 @@ theorem pullbackDivisorTwo_single_sub_single_eq_sum_torsion_of_card [Fintype (W.
     ← Finset.sum_sub_distrib]
   exact Finset.sum_congr rfl fun R _ => by rw [zero_add]
 
-/-- The same formula on the affine chart, where `hprin` lives; each `(O)` drops out. -/
+/-- The same formula on the affine chart, where `hprin` lives,
+over an arbitrary field with `(2 : F) ≠ 0`, at a rational `E[2]` and a halving `P`; each `(O)`
+drops out. -/
 theorem affinePart_pullbackDivisorTwo_single_sub_single_of_card [Fintype (W.torsion 2)]
     (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
@@ -489,7 +525,8 @@ theorem affinePart_pullbackDivisorTwo_single_sub_single_of_card [Fintype (W.tors
   rw [pullbackDivisorTwo_single_sub_single_eq_sum_torsion_of_card h2 hsep hcard hP, map_sum]
   exact Finset.sum_congr rfl fun R _ => map_sub _ _ _
 
-/-- **The class-group computation**, over an arbitrary field with `(2 : F) ≠ 0`:
+/-- **The class-group computation**, over an arbitrary field with `(2 : F) ≠ 0`, at a rational
+`E[2]`, a halving `P` and a `2`-torsion `S`:
 
 ```
 ∑_R toClass (P ⊕ R) − ∑_R toClass R = 4 • toClass P = toClass (4 • P) = toClass (2 • S) = 0.
@@ -522,8 +559,8 @@ theorem classOfDivisor_affinePart_pullbackDivisorTwo_eq_one_of_card (h2 : (2 : F
   rfl
 
 /-- **`[2]∗((S) − (O))` is principal on the affine chart**, over an arbitrary field with
-`(2 : F) ≠ 0`: the vanishing class above turned back into a generator by `#726`'s criterion, which
-never needed a closure. -/
+`(2 : F) ≠ 0`, at a rational `E[2]`, a halving `P` and a `2`-torsion `S`: the vanishing class above
+turned back into a generator by `#726`'s criterion, which never needed a closure. -/
 theorem exists_divisor_eq_affinePart_pullbackDivisorTwo_of_card (h2 : (2 : F) ≠ 0)
     (hsep : Algebra.IsSeparable ↥(mulByTwoEndo (W := W) h2).fieldRange W.FunctionField)
     (hcard : Nat.card (W.torsion 2) = 4) {S P : W.Point} (hP : 2 • P = S) (hS : 2 • S = 0) :
@@ -585,7 +622,8 @@ theorem exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card (h2 : (2 : F) ≠ 0
     rw [← affinePart_divisorProj, hkey, map_zsmul]
   rw [hdiv2, hgdiv, two_nsmul, two_zsmul]
 
-/-- **Rung 5 of the Weil pairing at `n = 2`, over an arbitrary field with `(2 : F) ≠ 0`.**
+/-- **Rung 5 of the Weil pairing at `n = 2`, over an arbitrary field with `(2 : F) ≠ 0`**, at a
+nonsingular `2`-torsion point `S`, a rational `E[2]` and a halving `P`.
 `exists_gS_two` with its `hprin` discharged from `hcard` and `hP`: there are a principal `f_S` with
 `div f_S = 2·(S)` and a nonzero `g_S` with `u · g_S ^ 2 = [2]∗ f_S` for a unit `u` of `F[W]`.
 
