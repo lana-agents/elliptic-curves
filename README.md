@@ -1913,6 +1913,104 @@ five `.lean` files. At `cc74561`, **8** commits earlier, the same seed returns *
 lines in **5** files. ⚠️ **The thirty-six at `e122163` are not read one at a time here, and this
 rule clears none of them** — that reading is `#1877`'s sweep, and this is the ruling it asked for
 first.
+⚠️ **The question the sweep stopped on — whether a *delta* is owed a sha at all — is decided here,
+and it is decided against an exemption** (`#1877`). That sweep's `.lean` half read its population
+one site at a time and could place three shapes: a retirement bracket, a figure naming a tree, and
+a clause of the form *"Both are repaired in this commit, one word each"* — bold in the original
+over that clause, and a specimen standing in `### Scope of the rules above` on this page rather than
+in any of the five `.lean` files — which describes the very edit its reader is looking at. The
+reading that exempts the third says such a clause self-resolves the way a commit message does.
+⚠️ **It does not, and the counter-example is the failure this rule is written on**: the
+general-index clause quoted here is of exactly that shape, and it is the one that went wrong. A
+message is part of the commit it names, which this rule's opening paragraph already says; what
+follows from it — stated here rather than quoted, because the page does not carry it — is that a
+**file** outlives its commit and is read at heads that commit cannot name. **Nothing is exempt by
+what a clause asserts**, and this rule's
+*"A delta is safe and a state-at is not"* — bold in the original over that whole sentence — is true
+of the **parent** gap alone: a delta is immune to which tree a parent is, and a reflow breaks it
+exactly like every other shape.
+⚠️ **The record that looks like an exemption is luck, and the mechanism behind it is live on this
+page.** Walking every commit that has touched this file and comparing per-line blame against the
+whitespace-normalised resolver at each of them, keyed on a 90-character window either side of each
+occurrence: **74** commits, **388** occurrence-readings, and blame names the writing commit **388**
+times — not one disagreement, where the `.lean` half went wrong on the same day it was written.
+⚠️ **But this page is not append-only and its rows are not one commit each**: **49** of those 74
+commits delete a line, and **4** of the **14** top-level rows of `### Scope of the rules above` —
+the lines opening `* ` at column zero between that heading and the next — carry text from more than
+one commit, two of them rows that carry occurrences of this seed. So a commit that did not write a
+row does edit it here, and the only reason nothing has gone wrong is that those edits have missed
+the lines carrying the words. **A clean record over a live mechanism is what this section already
+calls luck and not form.**
+⚠️ **What the record does buy is an order of work, and an order is not a clearance.** A wrong
+resolution costs most where the sentence cannot be used without it: a bracket loses the end that
+dates it and a figure loses the tree it was measured on, while a delta's content — that two
+pointers are repaired, one word each — is checkable against the head in front of the reader
+whatever the address resolves to. So a sweep takes the tree-naming and bracketing sites first and
+the deltas after them, and no site is cleared by being second.
+⚠️ **The debt regenerates by one row per commit, and saying so is part of the ruling.** An author
+cannot write their own sha, so every row recording what its commit did falls due the moment it
+lands, and a sweep that pays twelve of them writes a thirteenth. A sweep of this class is therefore
+periodic and never final. ⚠️ **The one form that retires the debt instead of deferring it is a
+record whose subject is the file rather than the commit** — *both pointers now read the other way*,
+which any reader settles by opening the file, against *this commit repairs both*, which no reader
+settles at all. That is the cheaper form for whoever writes the next row; it is not imposed on the
+rows already here, which are owed a sha and not a rewrite.
+⚠️ **`git log -S` is the resolver this page names, it takes a LITERAL string, and a source line is
+the only unit of this tree that is one.** Three readings of it, taken over this page's 34
+occurrences at `49b327d`. Given the words **as they read**, flattened across the wrap, which is how
+a re-runner types them, **0 of 34** resolve: the pickaxe returns the empty set, because a window
+wide enough to be distinctive is wider than this file's 100-column wrap and so occurs in no blob at
+all. Given the **source line** carrying them, quoted whole, **34 of 34** return the writing commit.
+And given a flattened phrase that happens to fit one line at the head but was **wrapped when it was
+written**, it returns the wrong commit, which is the one this rule exists to avoid:
+`git log -S 'What this commit adds is the general-index'` at `7c0460d`, on
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`, returns **`aadc404`** — the
+reflowing commit — because `ecfb3e9` wrote those words across two source lines and the literal
+count really did go 0 → 1 at the reflow.
+⚠️ **So quote the source line, or normalise both sides before comparing, and never the words as
+they read.** The sound form is a walk over the file's own history oldest-first, taking the first
+commit whose whitespace-normalised blob carries the words while its parent's does not; it returns
+the writing commit for all 34 here and agrees with every one of `#1877`'s nine `.lean` re-keys.
+⚠️ **The key is a flag of that resolver and it decides the answer** (`#1910`): *the words* means the
+clause's own span, or the source line carrying it, and never a fixed-width neighbourhood of it.
+Keyed instead on the 90-character window this rule's own walk uses, the same resolver agrees with
+only seven of those nine, and one of the two it loses is the
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN` clause this rule is written on,
+where it returns `aadc404` — the wrong answer the rule exists to prevent. A 180-character window is
+not the words but the neighbourhood, and a neighbourhood was written first by whichever commit last
+edited any part of it.
+⚠️ **The naming-not-counting clause in this rule reaches any clause standing over a population,
+not only an exemption.** It was written against an exemption because that is the instance PR #726
+had, but its mechanism — a numeral standing over a list is falsified by whatever next extends the
+list — is indifferent to what the clause does with the numeral. Two of the re-key notes `#1877`'s
+sweep landed bound themselves by a numeral, each inside a bold clause:
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s opens on *Both addresses in this module* and
+`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`'s on *Those four addresses*, where
+each stands over the addresses of a module that a single edit can extend. **Neither is false at
+this head and neither clears anything**, so both are short rather than wrong, nothing retires, and
+`### Retired claims` is not reached. They are named so that whoever next edits either module bounds
+them by naming, and so that the next such note is written that way outright.
+⚠️ **The population, with the seed's flags restated because a count that does not carry them is
+reimplemented as the other branch** (`#1910`). Over whole blobs of every tracked `.lean` and `.md`
+file, case-insensitively, at `49b327d` the seed returns **41** occurrences on **36** lines in
+**6** files. ⚠️ **The line unit is a flag too, and it is the one this rule was short of**: a line is
+a source line carrying at least one *complete* match, which is the unit of the pairs this rule
+already publishes — 19 at `cc74561` and 32 at `e122163` — where counting every line a match touches
+gives 21, 34 and 40 instead. ⚠️ **Both the other flags still cost**: read case-sensitively the seed
+returns 39 occurrences, read line by line 38, and read both ways 36. Those three are occurrence
+counts, and at this sha two of them collide with a line count taken under another unit, which is
+the reason the unit has to be said at all. **Seven are in five `.lean` files and every one of those
+is italicised** — `#1877`'s sweep left no bare occurrence in any of them — and the other **34** are
+on this page,
+split by its `^### ` fences as five in `### What is formalised`, one in `### Reach clauses`, eight
+in this rule, one in `### Module-block bullets` and **nineteen** in `### Scope of the rules above`.
+⚠️ **This completion adds four more to the eight, and every one of the four is a mention**, so the
+seed grows by it and the reading of the 34 does not. ⚠️ **Read one site at a time, which is a
+reading and not a recogniser**: **ten** are mentions and **twenty-four** are addresses, of which
+twelve name a tree or date a bracket — the five retirements of `### What is formalised`, the two
+figures outside that list, and the five inside it written against *this commit's parent* — and
+twelve are deltas. **Nothing is cleared here and nothing is re-keyed here**: the re-keying is
+`#1877`'s sweep, which now has the decision it was held on.
 
 ### Module-block bullets
 
