@@ -3421,6 +3421,198 @@ true"*, one layer up, in this document's own prose. They are:
   reading job — `recogniser` is a word this page uses about seeds and about itself, so a
   vocabulary count is not a population of them — and `#1848`'s trap is a rule whose test is a
   count. A rule does not need a census to land.
+* **A span test's third verdict is not a defect count, and the binder that builds its population is
+  a recogniser this page never wrote down** (`#1940`). The citation-provenance axis above resolves a
+  cited section's span and tests the quotation bound to the citation against it. Run at head that
+  test has three outcomes, not two: the quoted words lie inside the named span, or they lie on this
+  page outside it, or **they are not on this page at all** — and the third is neither a pass nor a
+  defect. It is what the test returns when it cannot evaluate the row. ⚠️ **Measured at `42c9b11`**,
+  with the two recognisers that axis publishes: 235 heading-citation spans, 234 of them line-keyed,
+  201 on a title this file also carries, splitting 97 bound to a marked quotation and 104
+  attributing nothing a span test can read, for 102 pairs. The span test puts 49 pairs inside the
+  named span, returns 14 whose words are on this page outside it, and leaves 39 it cannot score.
+  Against `49b327d` the recogniser has gained nine spans and nine titles and every one of the nine
+  is unbound, so the bound half, the pairs and all three verdicts are unmoved.
+  ⚠️ **THE RULE: a quotation that stood in the cited section at the commit its own row dates it to
+  is compliant, and no test run at head can say so.** The resolver is this file's history and not
+  its head. 77 commits touch `README.md` from `2e6ee26` to `42c9b11`, counting `2e6ee26` itself; for
+  each unscored row, ask whether the quoted words stood in this page's **ordinary prose** — outside
+  every `*"…"*` printing — at any of them, and whether that prose lay inside the cited section at
+  that commit. That is mechanical, it is cheap, and it converts the class this axis could previously
+  only assert by hand into a measurement.
+  ⚠️ **The resolver is calibrated against this page rather than trusted**, and it recovers five shas
+  this file names without being given any of them: it dates *"the paragraph immediately above"* to
+  `712c35e`, *"the pattern three lines above them"* to `acbf51a`, *"falsified four paragraphs
+  below"* to `4efeb97`, *"the precedent `### Scope of the rules above` sets one section down"* to
+  `7f0a162`, and *"The census **above** cannot see this shape"* to `5018e25` — the same five commits
+  the direction and distance bullets above name for those rows. It also closes the `## Layout` pair
+  the provenance axis convicts: the quoted wording last stood at `05a385d`, and the next commit to
+  touch this file is `2947444`, which is the commit that axis names as having falsified both.
+  ⚠️ **The one row where it disagrees with a sha beside a quotation is a sha in another of its three
+  senses.** `### Reach clauses`' retired *"**166** occurrences"* first stood at `d3a4ac5`, two
+  commits after the `2947444` written beside it — and that `2947444` is the base the count was taken
+  at, not a commit the wording was live at. The provenance axis rules that a sha here does three
+  jobs under one syntax; this is that gap costing a reader a wrong date rather than costing a claim.
+  ⚠️ **The 39, sorted one at a time — and no verdict in it is *a citation whose quotation is
+  false*** except the one this page already convicts:
+  * **7 stand in the cited section at this very head** and are unscored only because the match is
+    not normalised: six on emphasis or case, and a seventh on a marked elision. Named below.
+  * **11 stood in the cited section at a past head and nowhere since**, nine of them dated in the
+    citing sentence itself. This is the class the rule above governs.
+  * **7 stand on this page but never inside the cited section** — the binder over-reaching, which
+    the provenance axis already names as its largest class.
+  * **10 never stood on this page at all and quote a `.lean` docstring**, the binder over-reaching
+    again. ⚠️ **Two of the ten are worse than a window failure**: the `## Scope` citations at
+    `:1785` and `:2155` — every line address in this bullet is at `42c9b11` — name a **module's**
+    `## Scope`, and no recogniser keyed on this file's heading table can tell such a citation from
+    a citation of this page.
+  * **2 never stood anywhere, because they quote no text.** `### Retired claims`' *"universal over
+    the block's own list"* inflects the plural that section carries, and *"the discriminator below"*
+    names a **form** of clause rather than any sentence. The first attributes and is the defect this
+    page already defines; the second attributes to nothing.
+  * **2 are that defect's own quotation.** The provenance axis convicts *"was the old clause false
+    or merely partial"* as never verbatim and quotes it twice, once beside each citation.
+
+  ⚠️ **So the bucket is 7 instrument failures, 17 rows the binder over-reaches on, 11 rows the rule
+  above clears, 2 marked spans that quote no text, and 2 printings of one already-convicted
+  wording.** Not one of them is a live citation of a section that never said what it is given.
+  ⚠️⚠️ **THE BINDER IS THE UNPUBLISHED RECOGNISER, AND TWO READINGS OF IT AGREE ON EVERY FIGURE
+  ABOVE WHILE DISAGREEING ON THE POPULATION UNDERNEATH.** The provenance axis publishes its heading
+  recogniser and its sha recogniser and says of this step only *"find what the citing sentence
+  attributes to it"*, which is a reading and not a recogniser. Every `bound` and every `pairs`
+  figure on the axis in fact comes from a third one: **a citation is bound to the nearest marked
+  quotation that begins within 139 characters after it or ends within 60 characters before it, with
+  no other heading citation in between, distances counted after runs of whitespace are collapsed to
+  one space.** Both halves of that sentence are flags, and the axis states neither:
+  * **the width.** 140 forward instead of 139 gives **103** pairs, and the one character is not
+    verdict-neutral: the row it admits is `### Module-block bullets` cited at `:873`, bound forward
+    to *"at every `n`"* at `:875` exactly 140 away, and that row scores inside, so the published
+    triple reads 50 / 14 / 39 at that width.
+  * **the unit.** Counted in source characters rather than collapsed ones, both windows shorten
+    across this file's wrap and there are **101** pairs. The row it drops is `### Reach clauses`
+    cited at `:2824`, bound backwards to a quotation that ends 65 source characters and 59 collapsed
+    characters earlier.
+
+  ⚠️ **The trap is that the two flags cancel.** 140 forward counted in source characters returns
+  **102** pairs and **49 / 14 / 39**, both the published figures, and it is **not the same 102** —
+  it holds the `:873` row and not the `:2824` one. A published count does not pin a recogniser, and
+  this is that shown at the level of the instrument rather than of the rows: the figure agrees, the
+  population does not, and nothing on the page could have told the two apart.
+  ⚠️ **A fenced block is not this page's prose, and the word the axis already uses for that is
+  *fence-aware*.** Every recogniser here excludes fences on the matching side — a heading inside one
+  is not a heading of this page, a `*"…"*` inside one is not a quotation of it — so an instrument
+  that then searches fenced text for the *source* of a quotation has dropped the adjective on one
+  side only. What sits in these fences is `-- right:` and `-- wrong:` specimens of a `.lean`
+  docstring, written here to be read as specimens of another file. It decides one row:
+  `### Gate-discharge claims`' *"with no hypothesis left"*, cited at `:717`, whose only occurrence
+  on this page outside a marked quotation is `:1300`, inside the fenced `-- right:` specimen of
+  `EllipticCurves.Torsion.PrimaryTowerOdd`'s headline.
+  ⚠️ **The recogniser's own flags, because a published recogniser is not published until its flags
+  are.** Strip `*` runs and casefold **both** sides and six of the 39 resolve into the cited
+  section: on emphasis, `### Scope of the rules above`'s *"**The subject decides, not the string**"*
+  and its `(n : F) ≠ 0` pair, `### Reach clauses`' *"the **3** the full test **below** finds"* and
+  `## Layout`'s *"the counts drift, the **directory** structure does not"*; on **case alone**,
+  `### Module-block bullets`' *"the traffic runs one way"* and `### Reach clauses`' *"a clause that
+  points at another list is a third branch"*. A seventh, *"a `## Main statements` list … is one
+  place"*, resolves on a **separate** flag — that a `…` inside a quotation marks an elision and
+  stands for a gap — and an eighth, *"The data the statement is about"*, resolves on case into a
+  **different** section, so it is a wrong-section row and not an unscoreable one. ⚠️ **That carries
+  inline emphasis onto the provenance axis, which is the one place the recogniser rule in this list
+  had not reached.** That rule records emphasis defeating the noun-and-direction and the distance
+  seeds, states that it costs the nine-word seed nothing, and says in terms that the flag has been
+  met on two axes of this section and never carried off them. This is it carried onto the third,
+  where it costs four rows outright and case costs two more.
+  ⚠️ **Six is the count on one reading of *resolve into the cited section* and seven is the count on
+  the other, and this flag is on the second.** The words resolve there either by standing in this
+  page's ordinary prose — the reading the resolver is run on, and the one the sort of the 39 is
+  keyed to — or by standing there at all, which is what a span test returns while it still counts
+  another marked quotation as a source. The six just named are the rows that resolve on the first
+  reading. On the second there is a seventh: the citation at `:2800`, bound forward to `:2801`,
+  whose words stand at `:866` inside the section it names and nowhere on this page outside a marked
+  quotation — which is why the sort dates that row instead and holds it among the 11.
+  ⚠️ **The whole transition, so that the cells are derivable and not merely stated.** Strip and
+  casefold both sides at `42c9b11` and twelve of the 102 rows change verdict: seven leave the
+  unscoreable bucket for inside, four leave it for outside, and one that was already scoreable moves
+  from outside to inside — the citation at `:811` bound to `:812`, the row the provenance axis
+  convicts, whose words do stand in the section it names, at `:2417`, under a `**` that opens
+  mid-phrase and closes after a wrap. So 49 → 57 is seven out of the bucket and one from outside,
+  14 → 17 is four in and one out, 39 → 28 is the eleven, and the elision flag then moves two more,
+  `:2085` to inside and `:350` to outside, for 58 / 18 / 26.
+  ⚠️ **The last flag is not about the match at all: a quotation is not a source.** The test drops
+  the row's own printing and asks whether the words survive somewhere else; on the published reading
+  every *other* `*"…"*` printing on this page still counts, so a wording this file quotes twice
+  certifies itself. Refuse a quotation as a source — an occurrence counts only where it lies outside
+  every marked quotation and outside every fence — and 14 of the 49 inside verdicts fall out, 9 to
+  outside and 5 to unscoreable, while the unscoreable bucket takes 9 rows in all, 5 from inside and
+  4 from outside. ⚠️ **The two worked rows.** `### Retired claims`' *"false or merely partial"* at
+  `:1022` is scored inside on that section's own quotation of `### Reach clauses`, where the words
+  are, in prose, one section away; and `### Module-block bullets`' *"at every `n` at which `[n]` is
+  non-constant"* at `:873` is scored inside on that section's two quotations of a `.lean` bullet and
+  a `.lean` heading, so the words are not this page's at any head.
+  ⚠️ **The binder's two flags and that one-sided fence-awareness are why two independent
+  implementations of this last flag returned two different answers, and why neither had the flag
+  itself wrong.** On 139 collapsed characters with fenced text readable it returns 36 / 19 / 47; on
+  140 source characters with fenced text blanked, 34 / 20 / 48. A third implementation carrying all
+  three as parameters reproduces both cells exactly, and the whole two-row gap is one row apiece —
+  `:873` on the width, `:2824` on the unit, `:717` on the fence. ⚠️ **The disagreement was never
+  about what a source is**, which is the question the sentence describing the flag actually has to
+  answer, and all three readings answer it the same way.
+  ⚠️ **Every figure in this bullet is on the ruled reading — 139, collapsed, fences blanked — which
+  is neither of those two.**
+  ⚠️ **The span test's own four flags are independent, so the same 102 pairs read five ways.** None
+  of them, the 49 / 14 / 39 published above; emphasis and case alone, 57 / 17 / 28; the elision too,
+  58 / 18 / 26; refusing a quotation as a source alone, 35 / 19 / 48; all of them together,
+  46 / 17 / 39. ⚠️ **The 39 in the last of those is not the 39 in the first**: 23 of the 102 rows
+  hold a different verdict at the two ends, which is this page's own rule that a count is not a
+  reading (`#1628`) shown on a figure that does not move.
+  ⚠️ **15 of the 39 are a pointer bullet quoting a row it convicts**, which is unscoreable by
+  construction, since convicting a wording is what removes it: 7 in the direction bullet, 5 in the
+  provenance bullet — which publishes exactly that five and no other bullet's — and 3 in the
+  distance bullet.
+  ⚠️ **A flag on a seed this section publishes, and not on the span test.** The noun-and-direction
+  seed is given as a noun *+ whitespace +* `above` or `below`, and `whitespace` read as a character
+  class matches across this file's wrap: 37 at `2947444` where the published figure is 34, and 51
+  against 48 at `42c9b11`. ⚠️ **At this bullet's own head the same flag gains five, not three**,
+  because its prose wraps two more of them, so the gap is a property of a ref and not of the seed.
+  The published reading is a **single space**, and the three it drops are pointers that resolve, so
+  the figure is short of a flag rather than false.
+  ⚠️ **What is NOT measured here, dated and scoped to `42c9b11`.** The 49 inside verdicts were not
+  read one at a time — only the 14 the source flag moves — so this bullet clears none of them. The
+  104 unbound citations are `#1834`'s population and are untouched. The resolver is run over
+  `README.md` only: whether a quotation of a `.lean` docstring resolves in *that* file's history is
+  the same instrument pointed elsewhere and it has not been run, which is what would sort the 10
+  `.lean` rows above into correct-and-stale versus wrong. And the binder's two flags were read for
+  their effect on this test only; what they do to the `59`, the `97` and the `62 pairs` the
+  provenance axis publishes at its own bases has not been measured.
+  ⚠️⚠️ **THIS BULLET MOVES THE FIGURE ITS SOURCE FLAG IS ABOUT, BY THE MECHANISM THE FLAG NAMES,
+  AND THAT IS THE DEMONSTRATION AND NOT AN ACCIDENT.** Printing a dead wording here puts it on the
+  page, so under the published reading the test stops returning the rows that quote it. At this head
+  the recogniser returns 255 spans, 254 line-keyed, 219 title-matching, splitting 110
+  bound and 109 unbound for 120 pairs, and the verdicts read 62 / 35 / 23 against the
+  49 / 14 / 39 above. 16 of the 39 change verdict, every one of them because this bullet quotes
+  it: 13 to outside, and three to inside, which this bullet certifies by quoting them at themselves
+  — it sits in `### Scope of the rules above`, so its printings of *"**The subject decides, not the
+  string**"*, of *"The data the statement is about"* and of *"a `## Main statements` list … is one
+  place"* land inside the section each of those three rows cites. ⚠️ **Under the ruled reading not
+  one row moves**: all 48 rows the flagged test leaves unscoreable at `42c9b11` are unscoreable
+  here, all 102 hold their verdict, and the difference between 48 and 64 is this bullet's
+  own new pairs and nothing else. A figure that is stable under the reading this bullet argues for
+  and moves by 16 under the one it argues against is the cheapest evidence either could have.
+  ⚠️ **The other populations, checked and not assumed, and published as the delta this commit adds
+  rather than as a pair of absolutes.** This commit adds two matches to the noun-and-direction seed
+  on the single-space reading, four to the nine-word seed, seven to the bolded-numeral seed, and
+  three matches on three lines to the distance seed. ⚠️ **The delta form is the claim and not a
+  presentation of it.** An absolute stated for the head a bullet lands at is an indexical address
+  (`#1877`), and any `README.md` commit that lands first falsifies it: `d559108` landed between
+  `42c9b11` and this base and moved three of these four seeds by one apiece, while all four deltas
+  are identical at both bases, since an insertion that misses a seed's other matches adds the same
+  count to each end of a subtraction.
+  ⚠️ **Seven numerals written here stand alone inside a bold span**, and the bolded-numeral seed
+  gains exactly those: four are inside quotations this bullet reproduces — two printings each of the
+  retired *"**166** occurrences"* and of *"the **3** the full test **below** finds"* — and three are
+  figures of its own, the pair counts the binder returns at its three readings. Every published
+  reading of all four seeds is keyed to a sha or stated as this commit's own delta, so no base move
+  falsifies any of them.
 
 ### Retired claims
 
