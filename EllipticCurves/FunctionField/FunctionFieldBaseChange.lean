@@ -70,9 +70,7 @@ two.
 
 The divisor-level compatibilities — `divisor` and `divisorProj` — are not here. They are not
 coordinate computations: they need the behaviour of `functionFieldMap` on the places of `F(W)`,
-which is a genuinely different argument. A `Point.map` bridge identifying the base-changed torsion
-point with the image of the original is likewise still missing; the analogous gadget for
-`F → F(W)` is `torsionPointMap` (`TranslationTorsionMap.lean`).
+which is a genuinely different argument.
 
 ⚠️ **`weilPairingElt` was in that list and did not belong there.** The sentence above used to read
 *"The divisor-level compatibilities — `divisor`, `divisorProj`, **and hence `weilPairingElt`** —
@@ -82,6 +80,28 @@ and no divisor, so `map_div₀` and `functionFieldMap_translateEndo` transport i
 `EllipticCurves.FunctionField.WeilPairingEltBaseChange.functionFieldMap_weilPairingElt`, together
 with the descent corollaries that follow from `functionFieldMap_injective`. ⚠️ A prose pointer and
 not an `import`: that module sits above this one.
+
+⚠️ **The `Point.map` bridge was in that list too, and it is built.** The first paragraph used to
+continue *"A `Point.map` bridge identifying the base-changed torsion point with the image of the
+original is likewise still missing; the analogous gadget for `F → F(W)` is `torsionPointMap`
+(`TranslationTorsionMap.lean`)."* It is
+`EllipticCurves.FunctionField.FunctionFieldBaseChangeN`, which ships `functionFieldMapAlgHom`,
+`functionFieldPointMap`, `functionFieldPointMap_some`, `functionFieldPointMap_genericPoint`,
+`functionFieldPointMap_nsmul_genericPoint` and `basePointMap` — the last of these described there,
+in the retired clause's own comparison, as the *"analogue of `torsionPointMap`, which is the same
+gadget for `F → F(W)`"*. `EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN` consumes
+it. ⚠️ A prose pointer and not an `import`: that module, like the one named above, sits above this
+one. The `divisor` / `divisorProj` half of the first paragraph is untouched by this and stands.
+
+⚠️ **The retirement above was written by the commit that last rewrote this clause, and did not
+reach it.** `d137db1` retired `weilPairingElt` and reflowed the `Point.map` sentence in the same
+diff; `FunctionFieldBaseChangeN` landed at `b821a45`, **18 h 13 m** later, and the clause stood
+through every subsequent edit to this file.
+That is the failure mode of the heading and not of the author: a `## Remaining work` paragraph is a
+negative existential over the whole tree, so the commit that falsifies it is a commit to a
+*different* file and no diff on this one ever shows it. `#1982` files the class. ⚠️ **And the cost
+is not only a misread**: this clause sent a later worker to build `functionFieldPointMap` a second
+time before `FunctionFieldBaseChangeN` was found.
 
 ⚠️ It is the **rung-5 datum** `div g_S = [n]∗(S)` that needs the divisor half, not the pairing
 element built from it — which is why the ease of that transport says nothing about the difficulty

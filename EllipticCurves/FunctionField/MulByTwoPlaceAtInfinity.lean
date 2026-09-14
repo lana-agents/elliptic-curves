@@ -75,7 +75,20 @@ the passage from `q(genX)` to the coordinate-ring class `mk W (C q)` is.
   `ramificationIdxTwo h2 (some (pointClosedPoint h)) = 1` at every affine `2`-torsion point over an
   algebraically closed base field.  What ramifies there is the degree-`4` map `x ∘ [2] : ℙ¹ → ℙ¹`
   — which is exactly the `Ψ₂Sq` vanishing this file exploits — and not `[2] : E → E`, a separable
-  isogeny.  Indices at a place lying over an *affine* place are still computed nowhere.
+  isogeny.
+  ⚠️ **And this bullet used to end** *"Indices at a place lying over an affine place are still
+  computed nowhere"*.  ⚠️ **In the source *affine* is italic, and the emphasis is named here
+  rather than reproduced inside the span**, because a single-asterisk span inside a marked
+  quotation is `<em>` inside `<em>` and shows a reader nothing (`README.md`, `### Retired
+  claims`).  The clause is **false**:
+  `ramificationIdxTwo_eq_one_of_comapProjPointTwo_eq_projPointOfPoint`
+  (`EllipticCurves.FunctionField.MulByTwoFibreAffine`, `#774`) gives `ramificationIdxTwo h2 p = 1`
+  from `comapProjPointTwo h2 p = projPointOfPoint W S` for **every** `S : W.Point` — its headline
+  says `[2]` is unramified over every rational point — so the affine `S` are covered along with
+  `S = O`, over an algebraically closed base field.  It landed at `903f6b1`, **1 h 6 m** after
+  `903ef4d` last wrote the retired clause.  ⚠️ What that theorem does **not** reach, and what is
+  still untouched both here and there, is a place lying over a closed point that is *not* the
+  closed point of an `F`-rational point; its own docstring says so.
 * **The degree formula `∑_{p ↦ q} e_p · f_p = 4`.**  ⚠️ **This bullet used to read** *"The degree
   formula `∑_{p ↦ q} e_p · deg p = 4`.  That needs finiteness of the fibres of
   `comapProjPointTwo`, which is not in this tree; it is also what `pullbackDivisor` as a map of
