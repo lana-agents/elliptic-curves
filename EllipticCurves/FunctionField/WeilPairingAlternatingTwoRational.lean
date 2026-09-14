@@ -145,10 +145,11 @@ The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_card_two`.  `weilP
 by a proof `hpow` that the pairing element is an `n`-th root of unity, so the statement *produces*
 one; that costs nothing, because the previous theorem already gives `e_2(T, T) = 1` and `1 ^ n = 1`.
 
-⚠️ **The index `n` is arbitrary and has nothing to do with the `2`.**  This is the group identity of
-`μ_n(F)` for whichever `n` the caller has packaged the value in — not a claim that `e_2` lands in
-`μ_n`.  Both merged `μ`-valued statements at this index say the same of themselves, for the same
-reason: the root-of-unity witness is manufactured from `1 ^ n = 1`.
+⚠️ **The index `n` carries only the `[NeZero n]` that `weilPairingMu` binds, and has nothing to do
+with the `2`.**  This is the group identity of `μ_n(F)` for whichever `n ≠ 0` the caller has
+packaged the value in — not a claim that `e_2` lands in `μ_n`.  Both merged `μ`-valued statements
+at this index say the same of themselves, for the same reason: the root-of-unity witness is
+manufactured from `1 ^ n = 1`.
 
 ⚠️ Routed through the `Elt` statement above rather than through
 `exists_weilPairingMu_self_eq_one_of_hprin_n`, so the numeral bridge is crossed once instead of

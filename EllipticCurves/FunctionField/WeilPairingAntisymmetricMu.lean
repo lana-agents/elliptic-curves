@@ -73,7 +73,7 @@ Note that `weilPairingMu h₂ hpow` depends on the *proof* `hpow` only up to pro
   identity;
 * **`weilPairingMu_divisorSlot_add_of_weilPairingElt`** and
   **`weilPairingMu_mul_swap_eq_one_of_weilPairingElt`** — the two *descents*: each takes the
-  `F(W)`-level conclusion as a hypothesis and pushes it into `μ_n(F)`, for arbitrary `n` and with
+  `F(W)`-level conclusion as a hypothesis and pushes it into `μ_n(F)`, at every `n ≠ 0` and with
   no torsion hypothesis.  ⚠️ Each is stated immediately before the theorem it generalises, and that
   theorem is a one-line application of it (`#868`);
 * **`weilPairingMu_divisorSlot_add`** — divisor-slot bilinearity in `μ_n(F)`, with the concrete
@@ -272,7 +272,7 @@ e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T)  in F(W)
 ⚠️ **The descent, stated before the theorem it generalises.**  `weilPairingMu_divisorSlot_add`
 below is this lemma applied to `weilPairingElt_divisorSlot_add` (`#723`) and nothing else, so
 `hprod` and `hw` — and every rung-5 input behind them — collapse here to the single conclusion they
-were only ever used to produce.  Arbitrary `n`, no torsion hypothesis, hypotheses a strict subset.
+were only ever used to produce.  Every `n ≠ 0`, no torsion hypothesis, hypotheses a strict subset.
 
 ⚠️ **The recipe, written down where a reader will meet it** (`#868`): when a `μ_n(F)` theorem's
 proof ends in a single `exact <the F(W)-level theorem> <args>`, replacing that `exact` by a

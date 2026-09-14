@@ -155,9 +155,9 @@ have been made here.
   `μ_m(F)`-valued twins of the first, fourth and fifth, in the shape
   `exists_weilPairingMu_self_eq_one_of_hprin_two`
   (`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChange`) has at `n = 2`.  ⚠️ Their index
-  `m` is arbitrary and **need not equal `n`**: the witness is manufactured from `1 ^ m = 1`, so the
-  statement is the group identity of `μ_m(F)` for whichever `m` the caller packaged the value in,
-  not a claim that `e_n` lands in `μ_m`.
+  `m` carries only the `[NeZero m]` that `weilPairingMu` binds and **need not equal `n`**: the
+  witness is manufactured from `1 ^ m = 1`, so the statement is the group identity of `μ_m(F)` for
+  whichever `m ≠ 0` the caller packaged the value in, not a claim that `e_n` lands in `μ_m`.
 
 ## Imports, measured rather than preferred
 
@@ -252,14 +252,14 @@ function `f_T` with `div f_T = n(T) − n(O)` and an `n`-th root `g_T` of `[n]�
 `F[W]`) with `τ_T∗ g_T = g_T`, hence `e_n(T, T) = 1`.
 
 This is `exists_weilPairingElt_self_eq_one_of_algClosed_two`
-(`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`) at an arbitrary `n`, with
+(`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`) at every `n ≠ 0`, with
 `[IsAlgClosed F]` traded for the explicit halving point.  ⚠️ `P` is **not** required to be affine
 and no interior multiple `[i]P` or `[i]T` is either — that is what
 `EllipticCurves.FunctionField.TranslationPointEndomorphism` buys, and it is why the `n = 3`
 assembly's auxiliary point `Q` has no analogue in this hypothesis list.
 
 ⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, it is open at this statement's own
-index — an arbitrary `n` over an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3` —
+index — every `n ≠ 0` over an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3` —
 and it is the last real gate on this front.  ⚠️ **That citation used to be stated at an arbitrary
 `n`; it over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
@@ -311,11 +311,11 @@ The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n`, and the 
 statement *produces* one rather than taking it; that costs nothing, because the `Elt`-level theorem
 already gives `e_n(T, T) = 1` and `1 ^ m = 1`.
 
-⚠️ **The index `m` is arbitrary and need not equal `n`.**  This is the group identity of `μ_m(F)`
-for whichever `m` the caller has packaged the value in — it is *not* a claim that `e_n` lands in
-`μ_m` for `m ≠ n`.  Both merged `μ`-valued assemblies say the same of themselves, and the reason is
-the same: the root-of-unity witness is manufactured from `1 ^ m = 1`, which knows nothing about
-`n`. -/
+⚠️ **The index `m` carries only the `[NeZero m]` that `weilPairingMu` binds, and need not equal
+`n`.**  This is the group identity of `μ_m(F)` for whichever `m ≠ 0` the caller has packaged the
+value in — it is *not* a claim that `e_n` lands in `μ_m` for `m ≠ n`.  Both merged `μ`-valued
+assemblies say the same of themselves, and the reason is the same: the root-of-unity witness is
+manufactured from `1 ^ m = 1`, which knows nothing about `n`. -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
@@ -487,7 +487,7 @@ The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClos
 exactly as `exists_weilPairingMu_self_eq_one_of_hprin_n` stands to the core.  Both hypotheses the
 core takes on top of `hprin` are discharged, by the same two lemmas and for the same reasons.
 
-⚠️ As above, `m` is arbitrary and need not equal `n`. -/
+⚠️ As above, `m` carries only `[NeZero m]` and need not equal `n`. -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
@@ -566,7 +566,7 @@ open Classical in
 `n`-torsion `T`**, with `hprin` the only gate.
 
 The `μ`-valued twin of `exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed_of_ne_zero`.
-⚠️ As above, `m` is arbitrary and need not equal `n`. -/
+⚠️ As above, `m` carries only `[NeZero m]` and need not equal `n`. -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_n_of_algClosed_of_ne_zero [IsAlgClosed F]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hnz : n ≠ 0)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)

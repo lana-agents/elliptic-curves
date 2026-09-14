@@ -10,7 +10,7 @@ import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinearHprin
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN
 
 /-!
-# Divisor-slot bilinearity at an ARBITRARY `n`, with `hprin` the only gate (rung 6)
+# Divisor-slot bilinearity at every `n ≠ 0`, with `hprin` the only gate (rung 6)
 
 `EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinearHprin` (`#918`) proves that for a fixed
 torsion translation point `P` the Weil pairing is multiplicative in its **divisor** slot,
@@ -20,8 +20,8 @@ e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T),      for  S ⊕ T = R,
 ```
 
 over an arbitrary field with `hprin` the only gate — at `n = 2` and `n = 3`.  This file states the
-same four headlines at **every** `n`, and discharges the one new side condition at every `3`-smooth
-`n`.  It is the divisor-slot counterpart of what `#1308`
+same four headlines at **every** `n ≠ 0`, and discharges the one new side condition at every
+`3`-smooth `n ≠ 0`.  It is the divisor-slot counterpart of what `#1308`
 (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) did for the translation slot.
 
 ## ⚠️ The restriction to `n = 2, 3` was chronological, not mathematical — and it has lapsed
@@ -88,7 +88,7 @@ the non-constancy of `x([n]𝒫)` and the function they are about, and the third
 decomposition its bullet names.
 
 ⚠️ **The two `…_divisorSlot_add_n_of_hprin` headlines take the non-constancy of `x([n]𝒫)` as
-well**, and their *"at an arbitrary `n`"* clause is read against it — the contrast with *"the three
+well**, and their *"at every `n ≠ 0`"* clause is read against it — the contrast with *"the three
 statements above them"* is a claim about that trio and not an exclusive one.
 `exists_weilPairingElt_divisorSlot_add_n_of_hprin` takes `n ≠ 0` explicitly; its `…Mu…` twin carries
 that as the instance `[NeZero n]`, which `README.md` `### Reach clauses` leaves ambient.  The four
@@ -124,7 +124,7 @@ thing again, a gate-discharge claim, which is the branch that form sends to
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_divisorSlot_add_n` — divisor-slot
   bilinearity with the classical correction factor `c · [n]∗f`, at every `n`.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_divisorSlot_add_n_of_hprin` and
-  `…exists_weilPairingMu_divisorSlot_add_n_of_hprin` — the two headlines at an arbitrary `n`, in the
+  `…exists_weilPairingMu_divisorSlot_add_n_of_hprin` — the two headlines at every `n ≠ 0`, in the
   function field and in `μ_n(F)`.
 * `…_of_smooth_of_hprin` for each, with the non-constancy hypothesis discharged at every `3`-smooth
   `n ≠ 0`.  ⚠️ Those two do not reach `n = 5`: the argument manufactures no new prime.
@@ -215,10 +215,10 @@ open CoordinateRing IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
-/-! ### The two headlines at an arbitrary `n` -/
+/-! ### The two headlines at every `n ≠ 0` -/
 
 open Classical in
-/-- **Divisor-slot bilinearity at an arbitrary `n` over an arbitrary field**, with `hprin` the only
+/-- **Divisor-slot bilinearity at every `n ≠ 0` over an arbitrary field**, with `hprin` the only
 gate:
 
 ```
@@ -228,7 +228,7 @@ e_n(P, g_R) = e_n(P, g_S) · e_n(P, g_T),     for  S ⊕ T = R.
 `exists_weilPairingElt_divisorSlot_add_two_of_hprin` (`#918`) with the numeral removed:
 `exists_gS_two` becomes `exists_gS_n`, `mulByTwoEndo h2` becomes `mulByNEndo n hn`, and
 `weilPairingElt_divisorSlot_add_two` becomes `weilPairingElt_divisorSlot_add_n`.  The product
-relation step `exists_prod_eq_of_pullback` was already stated at an arbitrary `n` and an arbitrary
+relation step `exists_prod_eq_of_pullback` was already stated at every `n ≠ 0` and an arbitrary
 pullback.
 
 ⚠️ `hprin` is quantified over the *point*, because roots are needed at all three of `S`, `T` and
@@ -273,7 +273,7 @@ theorem exists_weilPairingElt_divisorSlot_add_n_of_hprin {n : ℕ}
     weilPairingElt_divisorSlot_add_n hP.left n hn (mem_torsion_iff.mp hmP) hc hk hprod⟩
 
 open Classical in
-/-- **Divisor-slot bilinearity at an arbitrary `n` in `μ_n(F)`, over an arbitrary field** with
+/-- **Divisor-slot bilinearity at every `n ≠ 0` in `μ_n(F)`, over an arbitrary field** with
 `hprin` the only gate.
 
 The envelope is `exists_weilPairingElt_divisorSlot_add_n_of_hprin`'s, extended by the three `hpow`
@@ -330,7 +330,7 @@ theorem exists_weilPairingMu_divisorSlot_add_n_of_hprin {n : ℕ} [NeZero n]
     ⟨fR, hfR, hdR, uR, huR⟩, hpowS, hpowT, hpowR,
     weilPairingMu_divisorSlot_add_of_weilPairingElt hP.left hpowS hpowT hpowR hbil⟩
 
-/-! ### The two headlines at every `3`-smooth `n`, with the non-constancy hypothesis discharged -/
+/-! ### The two headlines at every `3`-smooth `n ≠ 0`, with the non-constancy discharged -/
 
 open Classical in
 /-- **Divisor-slot bilinearity at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis beyond

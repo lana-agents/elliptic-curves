@@ -139,9 +139,9 @@ open Classical in
 
 `weilPairingMu` is indexed by a proof `hpow` that the pairing element is an `n`-th root of unity, so
 the statement produces one; it costs nothing, since the previous theorem already gives
-`e_3(T, T) = 1` and `1 ^ n = 1`.  The `n` is arbitrary for the same reason — this is the group
-identity of `μ_n(F)` for whichever `n` the caller has packaged the value in, not a claim that `e_3`
-lands in `μ_n` for `n ≠ 3`.
+`e_3(T, T) = 1` and `1 ^ n = 1`.  The `n` carries only the `[NeZero n]` that `weilPairingMu`
+binds, for the same reason — this is the group identity of `μ_n(F)` for whichever `n ≠ 0` the
+caller has packaged the value in, not a claim that `e_3` lands in `μ_n` for `n ≠ 3`.
 
 The `μ_n`-level reduction is `weilPairingMu_self_of_translateEndo_fixed`
 (`WeilPairingAlternatingMu`), whose own hypothesis is the translation-invariance that the previous

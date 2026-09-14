@@ -163,7 +163,7 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 /-! ### The workhorse -/
 
 open Classical in
-/-- **Translation by `T` fixes the `n`-th root, at an arbitrary `n`.**
+/-- **Translation by `T` fixes the `n`-th root, at every `n ≠ 0`.**
 
 Given an `n`-division point `P` of `T` (`hPT : [n]P = T`), a function `f` whose translates over
 `⟨T⟩` multiply to the nonzero constant `c` (`htel`), and a `g` with `c₀ · gⁿ = [n]∗ f` (`hpow`), the

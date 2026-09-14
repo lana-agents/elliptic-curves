@@ -11,7 +11,7 @@ import EllipticCurves.FunctionField.WeilPairingGaloisRootHprin
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN
 
 /-!
-# Galois equivariance of the Weil pairing at an ARBITRARY `n` (rung 6, Galois slot)
+# Galois equivariance of the Weil pairing at every `n ≠ 0` (rung 6, Galois slot)
 
 `EllipticCurves.FunctionField.WeilPairingGaloisRoot` (`#456` deliverable 2) proves
 
@@ -19,8 +19,8 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN
 σ⋆(e_n(S, T)) = e_n(σS, σT)
 ```
 
-from rung-5 data, at `n = 2` and `n = 3`.  This file proves it at **every** `n`, and assembles the
-two headlines that produce the rung-5 data from `hprin`.
+from rung-5 data, at `n = 2` and `n = 3`.  This file proves it at **every** `n ≠ 0`, and assembles
+the two headlines that produce the rung-5 data from `hprin`.
 
 ## ⚠️ This family is NOT a numeral strip, and the detector cannot see why
 
@@ -158,7 +158,7 @@ reach beside a phrase is evidence the phrase does not state it.
 * `WeierstrassCurve.Affine.CoordinateRing.galoisFunctionField_mulByNEndo` — **the new brick**:
   `σ⋆ ∘ [n]∗ = [n]∗ ∘ σ⋆` at every `n`.
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_galois_of_gS_n` and
-  `…weilPairingMu_galois_of_gS_n` — `#456` deliverable 2 at every `n`, from rung-5 data.
+  `…weilPairingMu_galois_of_gS_n` — `#456` deliverable 2 at every `n ≠ 0`, from rung-5 data.
 * `WeierstrassCurve.Affine.exists_weilPairingElt_galois_n_of_hprin` and
   `…exists_weilPairingMu_galois_n_of_hprin` — the general-`n` forms of
   `EllipticCurves.FunctionField.WeilPairingGaloisRootHprin`'s `_two` / `_three` headlines, with the
@@ -346,11 +346,11 @@ theorem galoisFunctionField_mulByNEndo (σ : F ≃ₐ[S] F) (n : ℕ)
   have := RingHom.congr_fun key z
   simpa only [RingHom.comp_apply, RingEquiv.coe_toRingHom] using this
 
-/-! ### `#456` deliverable 2 at an arbitrary `n`, from rung-5 data -/
+/-! ### `#456` deliverable 2 at every `n ≠ 0`, from rung-5 data -/
 
 variable {x₂ y₂ x y : F}
 
-/-- **Galois-equivariance of the Weil-pairing element at an arbitrary `n`, from rung-5 data.**
+/-- **Galois-equivariance of the Weil-pairing element at every `n ≠ 0`, from rung-5 data.**
 
 `σ⋆(e_n(S, T)) = e_n(σS, σT)`, where the divisor-slot roots `g` at `S` and `g'` at `σS` are given by
 the rung-5 relations `u · g ^ n = [n]∗ f` and `u' · g' ^ n = [n]∗ f'` over `div f = n·(S)` and
@@ -378,7 +378,7 @@ theorem weilPairingElt_galois_of_gS_n (σ : F ≃ₐ[S] F) (n : ℕ)
       (divisor_eq_equivMapDomain_of_eq_single σ h hf hf'))
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing in `μ_k(F)` at an arbitrary `n`, from rung-5 data.**
+/-- **Galois-equivariance of the Weil pairing in `μ_k(F)` at every `n ≠ 0`, from rung-5 data.**
 `weilPairingElt_galois_of_gS_n` in the honest value group of the pairing.
 
 ⚠️ The `k` of `μ_k(F)` is the order of the pairing value and is unrelated to the `n` of the rung-5
@@ -411,12 +411,12 @@ variable {x₂ y₂ x y : F}
 
 open CoordinateRing
 
-/-! ### The rung-5 data produced from `hprin`, at an arbitrary `n` -/
+/-! ### The rung-5 data produced from `hprin`, at every `n ≠ 0` -/
 
 open Classical in
-/-- **Galois-equivariance of the Weil-pairing element at an arbitrary `n`, with `hprin` the only
-gate.**  `exists_weilPairingElt_galois_two`'s envelope at every `n`, with the rung-5 data produced
-by `exists_gS_n` (`#1304`) rather than by `exists_gS_two_of_isAlgClosed`.
+/-- **Galois-equivariance of the Weil-pairing element at every `n ≠ 0`, with `hprin` the only
+gate.**  `exists_weilPairingElt_galois_two`'s envelope at every `n ≠ 0`, with the rung-5 data
+produced by `exists_gS_n` (`#1304`) rather than by `exists_gS_two_of_isAlgClosed`.
 
 ⚠️ **`hprin` is quantified over the point**, because the producer is called at `S` *and* at `σS` —
 `#912`'s shape (`EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinearHprin`), not `#913`'s
@@ -463,7 +463,7 @@ theorem exists_weilPairingElt_galois_n_of_hprin (σ : F ≃ₐ[S] F) {n : ℕ}
     weilPairingElt_galois_of_gS_n σ n hn hnz h₂ h.left hg hg' hfdiv hf'div hu hu'⟩
 
 open Classical in
-/-- **Galois-equivariance of the Weil pairing in `μ_n(F)` at an arbitrary `n`, with `hprin` the only
+/-- **Galois-equivariance of the Weil pairing in `μ_n(F)` at every `n ≠ 0`, with `hprin` the only
 gate.**  The `μ_n` mirror of `exists_weilPairingElt_galois_n_of_hprin`, with the two `hpow` data
 **produced** rather than assumed, by `weilPairingElt_pow_eq_one_of_gS_n_torsion` (`#1308`).
 
@@ -512,7 +512,7 @@ theorem exists_weilPairingMu_galois_n_of_hprin (σ : F ≃ₐ[S] F) {n : ℕ} [N
   exact ⟨g, g', hg, hg', ⟨f, hf, hfdiv, u, hu⟩, ⟨f', hf', hf'div, u', hu'⟩, hpow, hpow',
     weilPairingMu_galois_of_weilPairingElt σ h₂.left hgal hpow hpow'⟩
 
-/-! ### The same at every `3`-smooth `n`, with the non-constancy hypothesis discharged -/
+/-! ### The same at every `3`-smooth `n ≠ 0`, with the non-constancy discharged -/
 
 open Classical in
 /-- **Galois-equivariance of the Weil-pairing element at every `3`-smooth `n ≠ 0`**, with `hprin`

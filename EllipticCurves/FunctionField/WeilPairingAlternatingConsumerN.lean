@@ -143,7 +143,7 @@ variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
 open Classical in
 /-- **The general-`n` alternating workhorse, indexed by affine points** — the direct analogue of the
-merged `translateEndo_eq_self_of_mul_algebraMap_{sq,cube}_eq` at an arbitrary `n`.
+merged `translateEndo_eq_self_of_mul_algebraMap_{sq,cube}_eq` at every `n ≠ 0`.
 
 `P` and `T` are affine, the relation between them is asked for at the **base-field** level
 (`torsionPoint`, in `W.Point`) rather than at the `F(W)` level (`translatePoint`), and the telescope

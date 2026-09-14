@@ -16,7 +16,7 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin
 `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprin` states the rung-6 translation slot
 over an arbitrary field — bilinearity in `F(W)`, the same in `μ_n(F)`, and the bundled homomorphism
 `e_n(S, ·) : E[n] → μ_n(F)` — at `n = 2` and `n = 3`, with `hprin` the only gate.  This file states
-all three at **every** `n`, and discharges the one side condition at every `3`-smooth `n`.
+all three at **every** `n ≠ 0`, and discharges the one side condition at every `3`-smooth `n ≠ 0`.
 
 ## ⚠️ The `n = 2, 3` restriction was chronological, and its scope bullet blamed the wrong gate
 
@@ -37,7 +37,7 @@ Every input to the six merged headlines is already stated at a general index, an
 | `weilPairingElt_translatePoint_add_of_baseField` (`WeilPairingBilinearBaseField`) | `n ≠ 0` |
 | `weilPairingMu_translatePoint_add_of_baseField` (`WeilPairingBilinearMu`) | `[NeZero n]` |
 | `weilPairingPointMuHom` (`WeilPairingTranslationSlotHom`) | `(n : ℕ)`, `[NeZero n]` |
-| `exists_gS_n`, `exists_gS_of_smooth` (`NthRootOfPullbackN`) | arbitrary `n` / `3`-smooth `n` |
+| `exists_gS_n`, `exists_gS_of_smooth` (`NthRootOfPullbackN`) | arbitrary `n` / `3`-smooth `n ≠ 0` |
 
 ⚠️ **The specificity lived in exactly two places, and neither is `ωₙ`**: the root producer
 `exists_gS_two` / `exists_gS_three`, generalised by `#1304`; and the single lemma
@@ -99,11 +99,11 @@ sends each one into the row it is about (`#1650`).
 * `WeierstrassCurve.Affine.CoordinateRing.weilPairingElt_pow_eq_one_of_gS_n_torsion` — the one new
   input: `e(T, g) ^ k = 1` for an `n`-torsion `T` and a rung-5 datum over `[n]∗`;
 * `WeierstrassCurve.Affine.exists_weilPairingElt_translatePoint_add_n_of_hprin` —
-  `e_n(R, g) = e_n(P, g) · e_n(Q, g)` for `P ⊕ Q = R`, in `F(W)`, at every `n`;
+  `e_n(R, g) = e_n(P, g) · e_n(Q, g)` for `P ⊕ Q = R`, in `F(W)`, at every `n ≠ 0`;
 * `WeierstrassCurve.Affine.exists_weilPairingMu_translatePoint_add_n_of_hprin` — the same in
   `rootsOfUnity n F`, with the three `hpow` data **produced** rather than assumed;
 * `WeierstrassCurve.Affine.exists_weilPairingTorsionMuHom_n_of_hprin` —
-  `e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism, at every `n`;
+  `e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism, at every `n ≠ 0`;
 * the three `…_of_smooth_of_hprin` corollaries, with the non-constancy hypothesis **discharged** at
   every `3`-smooth `n ≠ 0`.  These are the first rung-6 statements on this board that reach an index
   other than `2` and `3`;
@@ -191,7 +191,7 @@ because this is the file a reader carries the wrong generalisation out of.
 
 * **`hprin` a hypothesis** — this file and its twin.  The only `n`-indexed input is the
   non-constancy of `[n]`, which is a side condition and not a coordinate statement:
-  `transcendental_xCoord_nsmul_of_smooth` discharges it at every `3`-smooth `n`, and
+  `transcendental_xCoord_nsmul_of_smooth` discharges it at every `3`-smooth `n ≠ 0`, and
   `transcendental_xCoord_nsmul_of_isAlgClosed` (`EllipticCurves.FunctionField.MulByNTranscendence`)
   discharges it over `F̄` of characteristic `≠ 2` at **every** `n ≠ 0`.  No `ωₙ` at either index.
 * **`hprin` discharged** — every `_of_isAlgClosed` statement on this front.  It has exactly two
@@ -401,10 +401,10 @@ open CoordinateRing IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic]
 
-/-! ### The three headlines at an arbitrary `n` -/
+/-! ### The three headlines at every `n ≠ 0` -/
 
 open Classical in
-/-- **Translation-slot bilinearity at an arbitrary `n` over an arbitrary field, with `hprin` the
+/-- **Translation-slot bilinearity at every `n ≠ 0` over an arbitrary field, with `hprin` the
 only gate.**
 
 ```
@@ -414,7 +414,7 @@ e_n(R, g) = e_n(P, g) · e_n(Q, g),     for  P ⊕ Q = R.
 `exists_weilPairingElt_translatePoint_add_two_of_hprin` (`#873`, `WeilPairingTranslationSlotHprin`)
 with the numeral removed: `exists_gS_two` becomes `exists_gS_n` and
 `weilPairingElt_pow_eq_one_of_gS_two_torsion` becomes its general-`n` form.  The bilinearity step
-`weilPairingElt_translatePoint_add_of_baseField` was already stated at an arbitrary `n`.
+`weilPairingElt_translatePoint_add_of_baseField` was already stated at every `n ≠ 0`.
 
 ⚠️ `hprin` is stated at the **divisor** point `S` only, and is `exists_gS_n`'s own hypothesis: the
 three translation points `P`, `Q`, `R` do not index a root.  See the twin's module docstring for why
@@ -445,7 +445,7 @@ theorem exists_weilPairingElt_translatePoint_add_n_of_hprin {n : ℕ}
     weilPairingElt_translatePoint_add_of_baseField hP.left hQ.left hR.left hadd hg hnz hpowQ⟩
 
 open Classical in
-/-- **Translation-slot bilinearity at an arbitrary `n` in `μ_n(F)`, with `hprin` the only gate.**
+/-- **Translation-slot bilinearity at every `n ≠ 0` in `μ_n(F)`, with `hprin` the only gate.**
 
 ```
 μ_n(R, g) = μ_n(P, g) · μ_n(Q, g)   in rootsOfUnity n F.
@@ -492,7 +492,7 @@ theorem exists_weilPairingMu_translatePoint_add_n_of_hprin {n : ℕ} [NeZero n]
       hpowR⟩
 
 open Classical in
-/-- **`e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism at an arbitrary `n` over an arbitrary
+/-- **`e_n(S, ·) : E[n] → μ_n(F)` is a group homomorphism at every `n ≠ 0` over an arbitrary
 field, with `hprin` the only gate.**
 
 `exists_weilPairingTorsionMuHom_two_of_hprin` (`#890`) with the numeral removed.  ⚠️ The whole of
@@ -517,7 +517,7 @@ theorem exists_weilPairingTorsionMuHom_n_of_hprin {n : ℕ} [NeZero n]
   exact ⟨g, hg, ⟨f, hf, hd, u, hu⟩, weilPairingTorsionMuHom_n hn hg hu,
     fun P => algebraMap_coe_weilPairingTorsionMuHom_n hn hg hu P⟩
 
-/-! ### The three headlines at every `3`-smooth `n`, with the non-constancy hypothesis discharged -/
+/-! ### The three headlines at every `3`-smooth `n ≠ 0`, with the non-constancy discharged -/
 
 open Classical in
 /-- **Translation-slot bilinearity at every `3`-smooth `n ≠ 0`, with `hprin` the only hypothesis
