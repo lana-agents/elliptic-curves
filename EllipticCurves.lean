@@ -76,6 +76,7 @@ import EllipticCurves.FunctionField.DivisorTransport
 import EllipticCurves.FunctionField.Divisors
 import EllipticCurves.FunctionField.FunctionFieldBaseChange
 import EllipticCurves.FunctionField.FunctionFieldBaseChangeN
+import EllipticCurves.FunctionField.FunctionFieldGaloisDescent
 import EllipticCurves.FunctionField.GaloisClosedPoint
 import EllipticCurves.FunctionField.GaloisFunctionField
 import EllipticCurves.FunctionField.GaloisFunctoriality
