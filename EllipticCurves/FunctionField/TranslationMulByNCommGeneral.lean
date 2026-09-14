@@ -98,10 +98,35 @@ discharges it at `n = 4` over `ℚ`.
 ## What is *not* here
 
 * **`[n]`-surjectivity on the base field.**  At `n = 2, 3` the caller obtained `P` from a
-  surjectivity result (`nsmul_three_surjective`, `Torsion/TriplingSurjective`, `#690`); there is no
-  general `n` counterpart on this tree, and producing one needs the place theory of `mulByNEndo`.
-  So `translateEndo_mulByNEndo_apply_of_baseField` takes the relation `n • P = T` as a hypothesis
-  and does not attempt to discharge it.  ⚠️ The **torsion** statements need none of this: their
+  surjectivity result (`nsmul_three_surjective`, `Torsion/TriplingSurjective`, `#690`), and
+  `translateEndo_mulByNEndo_apply_of_baseField` takes the relation `n • P = T` as a hypothesis
+  rather than discharging it.
+  ⚠️ **This bullet used to give the reason as** *"there is no general `n` counterpart on this
+  tree, and producing one needs the place theory of `mulByNEndo`"*, **and both halves are false.**
+  `WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`) is surjectivity of `P ↦ n • P` at **every** `n ≠ 0`
+  under `[IsAlgClosed F]`, `[W.IsElliptic]` and `(2 : F) ≠ 0`, and `nsmul_surjective_of_smooth`
+  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is the `3`-smooth form.  Neither goes near a
+  place, and ⚠️ **they are not the same route**: the general one comes off
+  `hasXCoordFormula_of_two_ne_zero` through `nsmul_surjective_of_root`
+  (`EllipticCurves.Torsion.NsmulOrder`), while the `3`-smooth one composes the merged low-index
+  slices `hasXCoordFormula_two` and `hasXCoordFormula_three` through `exists_nsmul_two_eq`
+  (`Torsion/DoublingSurjective`) and `exists_nsmul_three_eq` (`Torsion/TriplingSurjective`).  For
+  it the general route is not merely unused but unavailable — `Torsion.NsmulOrder` is not among
+  the **19** `EllipticCurves` modules in `NsmulSmoothSurjective`'s import closure, and that file
+  records the import claim itself.  Both are the torsion route and neither is the place theory of
+  `mulByNEndo`.
+  ⚠️ **The reason the hypothesis stays is a different one**: the general form carries
+  `[IsAlgClosed F]`, which `translateEndo_mulByNEndo_apply_of_baseField` does not bind, so
+  discharging `hmul` from it would narrow that theorem to an algebraically closed base.  ⚠️ **And
+  narrowing would not be enough.**  `### Over an algebraically closed field` below binds exactly
+  that instance, and `translateEndo_mulByNEndoOfAlgClosed_apply` **still** takes `hmul`:
+  surjectivity produces *some* preimage of `T`, while both statements are indexed by a **given**
+  affine pair `(xP, yP)`, and an existence statement supplies no relation between two given
+  points.  The retired clause was written at
+  `619f7d1`; the `3`-smooth form landed **1 d 9 h** later at `68b6028` and the general one at
+  `3e21ad4`, whose own commit subject reads *"`[n]`-surjectivity on `E(F̄)` with no hypothesis
+  left"*.  ⚠️ The **torsion** statements need none of this: their
   hypothesis is `n • T = 0`, which a member of `E[n]` carries by definition, so
   `translateEndo_mulByNEndo_apply_torsion_of_baseField` leaves nothing undischarged.
 * **Any rewriting of `TranslationTriplingComm`'s ~250 lines of coordinate work.**  Whether they are
@@ -185,8 +210,13 @@ open Classical in
 `F(W)`-level relation the theorem above consumes, through the base-change homomorphism
 `torsionPointMap` commuting with `nsmul`.
 
-⚠️ Unlike `n = 2, 3`, the relation is **not** discharged here: `[n]`-surjectivity on `E(F̄)` does
-not exist on this tree.  See the module docstring. -/
+⚠️ Unlike `n = 2, 3`, the relation is **not** discharged here.  ⚠️ **The reason given used to be**
+*"`[n]`-surjectivity on `E(F̄)` does not exist on this tree"*, **which is false** —
+`nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is exactly that, at
+every `n ≠ 0`.  It carries `[IsAlgClosed F]`, which this statement does not, and narrowing to that
+base would not discharge `hmul` either: `translateEndo_mulByNEndoOfAlgClosed_apply` below binds
+`[IsAlgClosed F]` and **still** takes it, because surjectivity produces *some* preimage of `T` and
+this statement is about the given `(xP, yP)`.  See the module docstring. -/
 theorem translateEndo_mulByNEndo_apply_of_baseField (hP : W.Equation xP yP) (hT : W.Equation xT yT)
     (n : ℕ) (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
     (hmul : n • torsionPoint hP = torsionPoint hT) (f : W.FunctionField) :
