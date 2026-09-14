@@ -3273,6 +3273,55 @@ true"*, one layer up, in this document's own prose. They are:
   and agree with the check, the rest date a measurement and say what was measured beside them, and
   the one that does neither is the sha the check itself flags, written here as its result.
 
+  ⚠️ **The fifth pointer claim names no distance at all, and it is the one this list has never
+  written down**: a bare **demonstrative** — a *the*- or *that*-phrase standing for a unit named
+  earlier — sends a reader to that unit without counting to it, so every seed named here is blind to
+  it by construction, and no register here reads one for whether it resolves. `### Reach clauses`
+  does read anaphors, but its subject is whether an antecedent supplies a hypothesis list rather
+  than whether a back-reference resolves to the unit it means, so `#1694`'s test puts this ruling
+  here and doubles no register. ⚠️ **A demonstrative resolves by being determinate and not by being
+  near, and two of them in `### Reach clauses` rank those two properties against each other
+  at `77fb54d`**, where *"The 8 decide it"* stands four lines below the `57 / 8 / 23` it means
+  and two lines below a later split of the same 88 rows in which no bucket is 8, and *"The 57 are a
+  population to read"* stands at the far end of the same chain with no other 57 anywhere between it
+  and that figure. **The nearer of the two is the one whose nearest figure is the wrong one**, so
+  proximity ranks them backwards and a rule keyed on the gap would repair the row that does not need
+  it. Both rows are live, and a repair that anchors either is what this ruling asks for rather than
+  a falsification of it: the measurement is dated to `77fb54d` and not to this page's head.
+  ⚠️ **The record is six convictions in one day and it is a floor rather than a census**: its
+  population is this board's review threads, and no seed on this page can open one. PR #747
+  round 2, PR #750 rounds 1 and 2, PR #752 rounds 1 and 2 and this bullet's own round 1 were each
+  rejected in part for this shape, at 11:53Z, 16:32Z, 17:54Z, 18:57Z, 21:01Z and 22:46Z on
+  2026-09-13, and the shape is older than the day: PR #689 was rejected for it on 2026-09-05, on a
+  *that*-phrase whose nearest antecedent was the wrong file. The earliest of the six states the
+  rule in terms — in a review comment, which is the one place a later round does not read.
+  **A convention that lives in a review is paid once per round and never once for good**, and that
+  is `#1915`'s ruling on sources turned on this page's own conventions rather than on a delivery's
+  figures. ⚠️ **One of the six was recorded by the session that drafted this paragraph, 44 minutes
+  before round 1 of this bullet was committed, and one is the review of that round** — so the
+  count is a floor for a stronger reason than a record growing after the fact: a row can sit in
+  the drafting session's own thread and still be outside it, and no instrument on this page could
+  check that.
+  ⚠️ **The repair is not to move the interposed text back, and that has been convicted rather than
+  argued.** PR #750 round 2 took the move, which returned the gap to its base value and left the
+  displaced paragraph needing a new opener; the opener it got at that round gave *the ten headlines*
+  the direction **above**, where at `77fb54d` `PullbackPrincipalityTwoRationalTorsion:42` gives
+  the same ten *below* and that file carries no declaration headline until `:184`. **A move
+  converts an anaphora into a pointer, and a pointer is a claim this same list convicts on two axes
+  already.** It also cannot be run twice: the displaced text has to sit somewhere, and in a chain
+  written as this one is, every somewhere is directly above the next demonstrative.
+  ⚠️ **So the repair is to make the referent determinate rather than close**: name it in apposition,
+  or anchor it to the ref its figure is dated to. Both cost one clause, neither creates a pointer,
+  and both survive an insertion of any length — which is the property a gap does not have and the
+  reason this is ruled here rather than handed to the seed. ⚠️ **The population is unmeasured and
+  this is a ruling and not a reading** (`#1628`): a demonstrative carries no direction word and no
+  distance numeral: where it carries a figure at all, as this ruling's own two witnesses do, the
+  figure counts its referent and not lines, and the bolded-numeral seed wants one standing alone
+  inside a bold span where theirs wrap a sentence. So not one of the four seeds this section
+  publishes could return it, and nothing written here says how many of them this page holds.
+  ⚠️ **The two gaps this paragraph states are themselves inside the distance seed's population**
+  and they are the only rows this commit adds to that population.
+
 * **An address a delivery did not derive has been checked by nobody, and what handed it over does
   not change that** (`#1915`). A `### `-heading citation, a line address, or an attribution of a
   property to a named seed is re-resolved against the tree the delivery is landing on, whatever its
