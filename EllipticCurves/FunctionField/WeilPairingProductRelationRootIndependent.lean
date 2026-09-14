@@ -55,7 +55,7 @@ gives: nothing in the argument sees `[2]∗` or `[3]∗`, and a future divisor-l
 
 ## Main results
 
-* `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` — the transfer, for arbitrary `n` and arbitrary
+* `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` — the transfer, at every `m ≠ 0` and every
   base-field-fixing `φ`; no `[IsAlgClosed F]`, no torsion hypothesis;
 * `weilPairingElt_mul_swap_eq_one_{two,three}_of_isAlgClosed` — antisymmetry in product form for
   **given** `g_S`, `g_T`, over `F̄`, with no hypothesis beyond the setting and the caller's own

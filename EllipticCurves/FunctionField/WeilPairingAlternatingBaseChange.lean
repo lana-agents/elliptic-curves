@@ -97,7 +97,7 @@ need.  **No `[IsAlgClosed F]` anywhere in this file.**  No rung 4, no Ward, no
 
 On naming: `_two` and `_three` track the **isogeny**, per the `## Naming` section of
 `EllipticCurves.FunctionField.WeilPairing` (`#886`).  ⚠️ They do not say the exponent is fixed —
-`exists_weilPairingMu_self_eq_one_of_hprin_two` quantifies over an arbitrary `n` for its `μ_n(F)`,
+`exists_weilPairingMu_self_eq_one_of_hprin_two` quantifies over every `n ≠ 0` for its `μ_n(F)`,
 and its `n = 2`-ness is entirely in `mulByTwoEndo`.  An unsuffixed name on this front means
 isogeny-general, and no declaration here is.
 
@@ -241,8 +241,9 @@ open Classical in
 
 `weilPairingMu` is indexed by a proof that the pairing element is an `n`-th root of unity, so the
 statement produces one; it costs nothing, since the previous theorem gives `e_2(T, T) = 1` and
-`1 ^ n = 1`.  The `n` is arbitrary for the same reason — this is the group identity of `μ_n(F)` for
-whichever `n` the caller packaged the value in. -/
+`1 ^ n = 1`.  The `n` carries only the `[NeZero n]` that `weilPairingMu` binds, for the same
+reason — this is the group identity of `μ_n(F)` for whichever `n ≠ 0` the caller packaged the
+value in. -/
 theorem exists_weilPairingMu_self_eq_one_of_hprin_two (h2 : (2 : F) ≠ 0)
     (h : W.Nonsingular x₂ y₂) (htors : Point.some x₂ y₂ h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

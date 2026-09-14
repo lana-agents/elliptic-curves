@@ -65,7 +65,7 @@ directly (`#868`).
 ## Main results
 
 * **`weilPairingMu_galois_of_weilPairingElt`** — the *descent*: it takes the `F(W⁄F)`-level
-  conclusion as a hypothesis and pushes it into `μ_n(F)`, for arbitrary `n` and with nothing about
+  conclusion as a hypothesis and pushes it into `μ_n(F)`, at every `n ≠ 0` and with nothing about
   `divisor g`.  ⚠️ It is stated immediately before the theorem it generalises, and that theorem is
   a one-line application of it (`#868`);
 * `weilPairingMu_galois_of_transport` — the conditional group-level Galois-equivariance
@@ -114,7 +114,7 @@ open Classical in
 `weilPairingMu_galois_of_transport` below is this lemma applied to
 `weilPairingElt_galois_of_transport` (`#456`) and nothing else, so the transport datum `htr` — and
 with it every rung-5 input behind it — collapses here to the single conclusion `hgal` it was only
-ever used to produce.  Arbitrary `n`, no `[IsAlgClosed F]`, no torsion hypothesis, nothing about
+ever used to produce.  Every `n ≠ 0`, no `[IsAlgClosed F]`, no torsion hypothesis, nothing about
 `divisor g`.
 
 ⚠️ **The recipe** (`#868`): when a `μ_n(F)` theorem's proof ends in a single
