@@ -3111,6 +3111,111 @@ true"*, one layer up, in this document's own prose. They are:
   **17 in the difference** are covered by no clearance here, as is every citation this page has
   gained since. Dating the verdict convicts nothing — the clause was **partial in its scope and
   never false of its population**, which is the test `### Retired claims` requires first.
+* **A figure this page states about itself is decided by the tree it lands in, and a figure that
+  names no commit names none** (`#1972`). The clearance rule this list carries for `#1824` sorts a
+  dated census — which a new head does not falsify — from a present-tense claim about a named
+  declaration, which it does. ⚠️ **A self-figure keyed to *"this head"* is neither of those, and it
+  is the shape this page has most of.** Its subject is the tree, so a new head decides it; and its
+  key is an indexical address (`#1877`), so what it is a claim about is recoverable only through
+  `git blame`. What lands is not the branch tip the figure was resolved against but the **merge**
+  of that tip with whatever `main` has become, and a commit that touches no line near the figure
+  moves it.
+
+  ⚠️ **The ruling is that every self-figure takes this and not only the seeds**, because the
+  instance that forced it was a census sentence and not a seed. A wording confined to the seeds was
+  drafted first and would have cleared the two branches that failed on it in one session. Each
+  published a nine-figure provenance census as an absolute at its own tip, and each had the same
+  four of the nine falsified by one heading citation that landed first.
+
+  ⚠️ **The key is convicted and not merely dispreferred, and one row does the convicting.** The
+  noun-and-direction seed is restated in this section at *"at head"* with the value **40**.
+  `git log -S` on that source line — the resolver this page names — returns `3c183d8`, and per-line
+  `git blame` returns it too, and at `3c183d8` that seed returns 42: that commit reflowed the line
+  and wrote none of the sentence. A walk that flattens each blob with `re.sub(r'\s+', ' ', blob)`
+  and searches all 79 commits that had touched this file at `77fb54d` returns `10519af`, where the
+  seed returns 40. **So a reader who resolves the indexical the way this page says to resolve one
+  arrives at a commit where the printed figure is wrong.** ⚠️ **That does not falsify this page's
+  own walk of the *"this commit"* seed**, which found blame naming the writing commit 388 times out
+  of 388: this occurrence carries none of those words and is outside that population. What it shows
+  is that the agreement there does not extend to a figure's key. And the reading on which
+  *"at head"* simply denotes whatever commit wrote it is the one `#1824` refuses, since a date is a
+  commit **named** and not a commit gestured at.
+
+  ⚠️ **The repair is a delta, and the reason is a property and not a preference.** A delta is a
+  fact about the block a commit inserts; an absolute is a fact about a ref. Splice this bullet's
+  own block at its own index into each of the three bases named at the end of this item and all
+  three trees return the same deltas — and they would still be the same against any base into which
+  the block merges cleanly, because not one of them is computed from a base at all.
+
+  ⚠️ **A sha is the other repair and it is cheaper**, since it re-measures nothing: a figure that
+  was right when it was written stays right forever once the commit it was measured at is written
+  beside it.
+
+  ⚠️ **The gate, written out because it is cheap and nothing on this board runs it.** Difference a
+  branch's `README.md` against its own base; if that is one contiguous insertion, splice the
+  inserted block into `main`'s `README.md` at the same index, run the census on the branch tip and
+  on the spliced tree, and report every figure that differs. Then, for each such figure, search the
+  **block** for its value as a standalone numeral: a branch is exposed exactly where it prints one.
+
+  ⚠️ **The second half of that is a coincidence detector, every hit has to be read, and a run says
+  nothing at all unless its base and its heads are one moment.** Run at `be1a4d5` over the six
+  branches under review when it landed — PRs #741, #746, #749, #750, #751 and #752 — it reaches
+  three of them: two change no `README.md` line and one is not a single contiguous insertion. **It
+  flags all three that it reaches, and two of the flags are true.** PR #746 and PR #749, at the
+  heads they stood at then (`bab3319` and `f7b2514`, force-pushed since, so both resolve only
+  through `refs/pull/<n>/head`), each printed a provenance census as an absolute at its own tip, and
+  the same four figures of it — spans, line-keyed, title-matching and unbound — are each one short
+  at the merged tree. The third flag is false: PR #751's block prints `25`, which is that branch's
+  own distance-seed value and is 26 at the merged tree, and reading the row shows the `25` is that
+  bullet's absence-seed widening figure and not the distance seed at all. ⚠️ **Re-run at `77fb54d`
+  over PRs #741, #746, #749, #751, #752, #753, #754 and #755, PR #751's is the only flag left**,
+  because a subsequent round of each of the other two converted its census to deltas or keyed it to
+  a sha — which is the repair this item asks for, arriving twice before the rule was written.
+  ⚠️ **That population is enumerated and not counted at a date**: a calendar day names no commit,
+  and the set of branches under review is not constant over one, so a count keyed to a date is true
+  at an instant the clause does not give.
+
+  ⚠️ **The landed population is measured, and the sweep is filed rather than folded in here**
+  (`#1975`, PR #614). Counting every restatement of the four seeds this section publishes and of the
+  sha census `### Gate-discharge claims` publishes that is keyed by an indexical and not by a sha:
+  **13** at `77fb54d`. ⚠️ **Every one of the thirteen was true at the commit the walk returns for
+  it** — not one is a measurement error — and **12** state a value the seed no longer returns. At
+  `77fb54d` the noun-and-direction seed returns 49 where three of them state 40 and one states 42,
+  the nine-word seed returns 88 where three state 78, the bolded-numeral seed returns 279 where two
+  state 184 and one states 191, the distance seed returns 26 where one states 23, and the sha census
+  returns 207 citations and 74 distinct where one states 73 and 41 — 4 + 3 + 3 + 1 + 1, which is the
+  12. The thirteenth is true, and it is checkable only because `### Gate-discharge claims` dates it
+  in a sentence 1,193 lines away at `77fb54d`, arguing something else — the
+  *"the defect is placement and not absence"* shape, bold in the original, that this section already
+  names, met for a second time.
+
+  ⚠️ **The clearance this ruling reaches first is the one asserting it has nothing to reach.** The
+  last item of this section clears its own seed with
+  *"keyed to a sha or to the commit that wrote it, so none of them is falsified"*, and **three** of
+  that seed's readings on this page at `77fb54d` take the second disjunct and no other. The disjunct
+  licenses precisely the key convicted here, so the clause is true only on the reading `#1824`
+  refuses. It is `#1975`'s to repair with the rows, and it is named here because a universal over a
+  population that has now been read is a different thing from one over a population that has not.
+
+  ⚠️ **This item is inside its own population, so it is written as this commit's own delta, and
+  every other figure it states about this page is keyed to `77fb54d`.** Spliced at its own index
+  into `d559108`, into `be1a4d5` and into `77fb54d`, the three trees return the same deltas: it adds
+  **3** heading-citation spans, all three line-keyed and all three on a title this file also
+  carries, **1** to the bound half and **2** to the unbound, for one new pair, which the span test
+  scores `OUT`: this item quotes *"the defect is placement and not absence"*, bold in the original,
+  whose words are in this section, and the binder reaches past it to the heading citation in the
+  same sentence — which is the over-reach the citation-provenance item in this list already prices,
+  arriving in prose about it. **No pre-existing row of any verdict moves**, checked as a row-set
+  identity and not inferred from the totals. The noun-and-direction, nine-word and distance seeds
+  gain nothing. The bolded-numeral seed gains **10**, and that figure counts itself: four stand in
+  the paragraphs above and six stand in this one. It carries **17** sha citations naming seven
+  distinct shas, **6** of which this page does not carry at `77fb54d`, so the sha census that
+  `### Gate-discharge claims` publishes gains seventeen there. ⚠️ **The two halves are not the same
+  kind of figure, and only one of them is merge-invariant.** Seventeen counts spans this block adds,
+  so every tree it merges into gains seventeen. Six counts shas the base does not already carry, so
+  it moves with the base: three of the six are consecutive commits of `main`, and against a tree
+  that has already taken those the distinct gain is three and not six. ⚠️ **This item's own thesis
+  reaches this item's own delta** — which is why this paragraph publishes a tuple and not a number.
 * **A cited heading may be shortened to a prefix of it and to nothing else** (`#1824`). The five
   prefix citations the citation-provenance bullet names are correct as written, and no rule on this
   page said so when they were written. ⚠️ **The ground is that a reader searches for the cited words
