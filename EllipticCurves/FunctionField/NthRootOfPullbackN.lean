@@ -172,10 +172,14 @@ alone beside that pair; ⚠️ and the `y`-half — `ωₙ/(2ψₙ³)` as `y(n �
 index**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, PR #579),
 under the same `ΨSqₙ(x) ≠ 0` and `(2 : F) ≠ 0` the `x`-half asks.  ⚠️ So the whole *pair* is
 available at every index, and the `#251` bullets on the Weil-pairing front no longer name an open
-gate.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is cited and not consumed — it is not in this file's
-import closure.  ⚠️ **`MulByNXCoordFormula` is now consumed**: this sentence used to say that it too
-was only cited, and that was exactly the reason `n = 5` looked unreachable.  The edge costs **10
-modules** in the import closure (`79 → 89`) and cannot cycle — that file names nothing in this one.
+gate.  ⚠️ **`MulByNXCoordFormula` is now consumed**: this sentence used to say that it too was only
+cited, and that was exactly the reason `n = 5` looked unreachable.  The edge cost **10** modules in
+the import closure — `78 → 88` at `6df393f`, the module itself not counted, which is the convention
+`EllipticCurves.Galois.SubfieldAut` publishes — and cannot cycle, that file names nothing in this
+one.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is cited and not consumed, but it **is** in this file's
+import closure, and that same edge is what put it there: `MulByNXCoordFormula` reaches it
+transitively.  This clause used to deny it, and the sentence beside it is what falsified it, in one
+commit (`README.md` `## Import-closure figures`).
 The two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.
 
 ## Non-vacuity
