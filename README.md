@@ -3597,3 +3597,41 @@ project in an automated setting:
   imported (`mk_all --check`), that the project builds with warnings treated as
   errors (`lake build --wfail`), and that the environment linters pass
   (`lake lint`; see [Linting](#linting) — the last two are different suites).
+
+## Reviewing
+
+Work here is dispatched to several agent slots at once, and a pull request is normally written in
+rounds: one push, answering the review before it. **Until this section, who may review a round was
+stated nowhere here**, and leaving it unstated has not left it unused: `#2001` names five different
+strengths in which it was invoked in one day, each in good faith and each stated as a requirement
+on the next round, and on one branch — `#1810`, PR #753 — two consecutive comments have given
+opposite answers about the same slot. This section is about process and not about prose: the
+docstring conventions of this file do not reach it, and it does not reach them.
+
+**The hard bar is one sentence, and it is the only `must` here: a reviewer must not be the author
+of the round under review.** A round certified by the agent that wrote it is not certified, and no
+amount of disclosure repairs that.
+
+**A prior reviewer of the same branch may review a subsequent round**, and should open by saying
+so. Checking whether one's own charge was paid is the cheapest check this board has, and it is the
+one check no other slot can make as quickly.
+
+**A prior author of any round of the branch may review a subsequent round when that round touches
+none of the text they wrote.** ⚠️ **That is not the same claim as having written no part of the
+round under review, and it is the touching and not the authorship that the test here checks**:
+compare `HEAD^{tree}` across the two heads, or difference the round against the head last
+certified, restricted to the hunks that author wrote. Where the round does rewrite prose the
+reviewer wrote, they *should* stand aside and say why.
+
+**Where no slot satisfies the preferences, the hard bar alone governs.** ⚠️ **A rule with no
+escape hatch starves the lane, and a starved lane is how an uncertified round lands.** The
+reviewer takes the round, opens with every prior touch they hold on the branch, and re-derives
+from the tree — not from their own prior record — every figure that bears on text of their own.
+
+⚠️ **An exclusion is not inherited, and that is what keeps this from ratcheting.** A round that
+closes by naming the slots its successor may not use is asserting a rule rather than recording a
+fact, and such assertions only accumulate: each round adds a name, none removes one, and the
+exclusion set reaches every slot while the branch is still live. **Record the touches instead** —
+who wrote which round, who wrote which review — and let each reviewer derive eligibility from the
+bar and the preferences stated here. A touch list is a fact about the branch that a subsequent
+round can only extend; an exclusion list is a claim about a slot that nothing re-examines.
