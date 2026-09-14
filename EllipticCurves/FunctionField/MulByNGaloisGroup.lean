@@ -79,7 +79,9 @@ field over a fixed base and is not this, `IntermediateField.equivOfEq` is an `Al
 two subfields themselves rather than between their automorphism groups, and there is no hit for a
 base-changing `autCongr` anywhere in Mathlib.  This file imports that leaf and consumes the helper
 below exactly as before; no statement, proof or hypothesis here changed, and this file's own
-`EllipticCurves`-import closure grew by exactly the one leaf, from **70** modules to **71**.
+`EllipticCurves`-import closure grew by exactly the one leaf, from **70** modules to **71**, at
+`008fea7`.  ⚠️ **The delta is what the move owns; the endpoints are the tree's and have moved** —
+the closure is **107** at `542e721` (`README.md` `## Import-closure figures`).
 
 ## ⚠️ The two presentations of `[n]∗F(W)` give the *same type* here — no second declaration
 

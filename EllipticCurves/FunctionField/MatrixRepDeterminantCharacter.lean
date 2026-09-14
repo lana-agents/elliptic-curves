@@ -24,9 +24,10 @@ two is a statement for a `FunctionField/` file, not for this one"* — and this 
 direction is deliberate and was re-verified rather than assumed: **no module under `TateModule/`
 imports anything under `FunctionField/`**, and `MatrixRepMod` is **not** in
 `WeilPairingDeterminantCharacter`'s import closure either (measured in Python over the project's
-own `import` lines, both directions; the closures are 39 and 168 modules and neither contains the
-other).  So this file imports both, and it is a **leaf**: nothing under `TateModule/` may import
-it.
+own `import` lines, both directions; at `542e721` the closures are **40** and **171** modules and
+neither contains the other — they were 39 and 168 at `d0ae34e`, which wrote this sentence, and only
+the **incomparability** is invariant).  So this file imports both, and it is a **leaf**: nothing
+under `TateModule/` may import it.
 
 ```
 det ∘ ρ_{E,3} = χ_3   as monoid homomorphisms  Gal(F/S) →* (ZMod 3)ˣ.
