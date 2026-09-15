@@ -3427,6 +3427,119 @@ true"*, one layer up, in this document's own prose. They are:
   ⚠️ **The two gaps this paragraph states are themselves inside the distance seed's population**
   and they are the only rows this commit adds to that population.
 
+* **A line number is the fifth pointer claim, and the only one that goes false with no edit to
+  either end** (`#2037`). A declaration name, a heading, a marked quotation and an import edge are
+  content-keyed and survive their target moving; a `` `Module:NNN` `` does not, and the commit that
+  falsifies it need touch neither the citing file nor the cited declaration. ⚠️ **A line address
+  resolves at the ref named in the smallest RENDERED BLOCK that names one — its paragraph, or the
+  list item that holds it, and the nearest ref above it where that block names several — and at
+  the tree the reader has checked out when no enclosing block names any** — and the three senses
+  of a sha this list distinguishes above decide which ref that is: a **measurement** or
+  **state-at** sha resolves a line address, an **attribution** sha does **not**, because it dates
+  a claim's landing and not a coordinate. ⚠️ **The unit is the block and not the sentence, and
+  which one it is was measured rather than chosen**: of the sixteen bare rows this page keys to a
+  ref at `02a1652`, the sentence clears **2**, the paragraph **7** and the enclosing list item
+  **16**, because the fourteen keyed to `b2d1981` are spread over four paragraphs of one bullet
+  and only its second names the sha. ⚠️ **The block is also the unit `### The render gate` already
+  computes** — `md.parse`'s `paragraph_open` and `list_item_open` maps — so a re-runner settles it
+  with the instrument this file publishes and not by reading for a full stop. ⚠️ **Prefer a
+  content key wherever one exists**: a line is admissible where the target has no name — a
+  `variable` line, an `open Classical in`, a blank line — and re-pointing a stale number leaves it
+  stale after the next insertion above it, which is why the two repairs this branch makes under it
+  replace the number rather than move it.
+
+  The census, at `02a1652`, over `EllipticCurves/**/*.lean` and this file, keyed on
+  `` `([A-Z][A-Za-z0-9]*):(\d+)(?:-(\d+))?` `` with the name required to be a module stem of this
+  tree, and on `` `:(\d+)(?:-(\d+))?` `` for the bare continuation form: **22 named** (20 here, 2 in
+  `.lean`) and **36 bare** (25 here, 11 in `.lean`). ⚠️ **The named key requires the name to be a
+  module stem of this tree, and that is a boundary and not a definition**: three further spans of
+  the same shape carry a path-prefixed or `.lean`-suffixed name — `PlaceResidueComap` cites
+  `RingTheory/RamificationInertia/Basic.lean` by line twice, and `MatrixRepModGeneral` cites
+  `MatrixRepMod.lean` by line once. ⚠️ **The first two address a file of Mathlib, and a
+  cross-repository line address resolves at no head of THIS repository at all**, because the pin
+  moves under it: name the declaration and the pin. ⚠️ **Two tests, and they convict different
+  rows.** Blank-or-out-of-bounds is automatic and is a floor and not a staleness test: it returns
+  the two `.lean` rows and clears both live defects here. The drift test — the cited line's text at
+  the commit that introduced the citation token (`git log -1 -S`) against its text at the resolving
+  ref — returns **4 of the 22**: those two, which are repaired on an unlanded branch and are left
+  alone here, and the two this branch repairs.
+
+  ⚠️ **The bare form is the cleaner half and no automatic test can read it.** Sixteen of its 25
+  rows at `02a1652` are keyed to a ref the block they sit in names — fourteen to `b2d1981` and two
+  to `acbf51a` — and every one resolves there. ⚠️ **Re-scored against `9147113`, NOT ONE OF THE
+  SIXTEEN IS CLEARED BY BOTH TESTS**: the drift test convicts **14**, the blank-or-out-of-bounds
+  floor convicts **6**, they agree on **4**, and between them they cover all sixteen. ⚠️ **The two
+  the drift test clears are the same address twice**, `:283`, blank at `b2d1981` and blank there —
+  and those are the two the floor convicts wrongly, because the sentence cites that line AS a
+  blank one. What has moved is the paragraph it is described as closing: *"Decide this only when
+  you are about to CLEAR a row"* stands at `b2d1981:284` and **46** lines further down at
+  `9147113`. **So on that row the floor convicts a correct citation while drift clears a stale
+  one, and only the ruling above gets it right** — which is what a rule is for where two automatic
+  tests disagree with each other and with the truth.
+  And the module of a bare number is **not** the nearest named citation before it: at
+  `02a1652:1576` three of them are distributed across the two modules that sentence names, in
+  order, so a nearest-preceding resolver mis-assigns `:115` and reports a blank line that is not
+  there. ⚠️ **Two of the 36 are convicted under this ruling, and the second is the sharper of the
+  two.** The first is the `theorem`-line coordinate of the `#1774` retirement this branch repairs,
+  whose block names a sha that is an **attribution** and so resolves nothing. The second is in
+  `EllipticCurves.TateModule.ImageThree`, in the module-docstring paragraph that counts
+  `EllipticCurves.TateModule.Image`'s declarations: it says that line 27 of that file is a fenced
+  `lean` block, and line 27 is prose — the fence opens at line 23, the quoted `instance` stands at
+  line 24 and the fence closes at line 25, and a `grep` for a fence in that file returns exactly
+  those two. Its enclosing paragraph names no ref, so it resolves at the reader's tree, and there
+  it is false. ⚠️ **And it was exact at no ref at all**: `git log -1 -S` puts the citation in
+  `ffc3e20` (2026-08-24), where that file's fence already stood at the same three lines. **So the
+  floor clears it — line 27 is not blank — and the drift test clears it too, because the cited
+  line's text is byte-identical at the introducing commit and at the resolving ref. Only the
+  ruling convicts it.** That is a third bucket beside *stale* and *blank*, it is the one no
+  automatic test can reach at any ref, and the other 34 clear the blank-or-out-of-bounds test at
+  their resolving ref. ⚠️ **That clearance is a floor and is not the drift test**, which does
+  not run on this form at all, because a bare number's module is not mechanically recoverable. The
+  shape that carries no risk is the one this file writes **five** times at `02a1652` — the sha and
+  the line in one span, `49b327d:2895` — which resolves forever and is what a coordinate wants
+  where no content key exists.
+  ⚠️ **This bullet is inside two of the three populations it counts, and the figure that matters
+  is the one for the tree this branch lands in.** ⚠️ **A ledger over this population has to be
+  double-entered or it does not close**, and the rows here move in pairs: the two repairs take the
+  `#1774` retirement's two coordinates out — one named, one bare — print the
+  `WeilPairingCyclotomic` row of the eight-row list a second time in the new resolver clause, and
+  move that list's eighth pointer out of it and back in as the quotation of the address retired
+  there. **Two named tokens out and two in, so the two repairs are net 0 on the named form**; one
+  bare out and two in — the number this bullet quotes and the blank line the paragraph above
+  reads. Score the re-print as an addition without scoring the removal it pairs with and the sum
+  derives one more than the tree has. ⚠️ **But the repairs are not the whole of it, and a ledger
+  that stops at them does not close.** This bullet also PRINTS, as census tokens of its own, the
+  two addresses PR #769 added to the tree — named, **+2** — and the three sha-and-line spans it
+  writes itself, one as the shape that carries no risk and two as addresses — **+3**. So base
+  `9147113`'s **24 named / 36 bare / 5 sha-keyed** becomes **26 / 37 / 8** with both commits
+  in, and the three lines close: named 24 + 0 + 2, bare 36 − 1 + 2, sha-keyed 5 + 0 + 3.
+  ⚠️ **The 22 in the census paragraph above is dated to `02a1652`, and that is drift and not
+  falsification**: PR #769 landed as `9147113` and added `NthRootOfPullbackN:176` and
+  `XDifference:53` on one table row of the triage in `### Import-closure membership`.
+
+  ⚠️ **Those two are the newest rows in this population, and the ruling scores them the hard
+  way.** The block they sit in is that table, which under the `commonmark` parse
+  `### The render gate` prescribes is one paragraph and names no ref; the sentence that does name
+  one — *"The triage of the 64, at `3f61ad7`"* — is the paragraph before it. So they resolve at
+  the reader's tree, and at the reader's tree two of the three addresses in that row point at
+  their own repair: `9147113` rewrites `XDifference.lean` and
+  `WeilPairingAlternatingTwoRational.lean` in the same commit that writes the row, so the `false`
+  verdict the cell records is true at `3f61ad7` while the line it addresses carries the **repair**
+  here. ⚠️ **That is this axis's own mechanism in landed prose rather than in a commit message,
+  and the drift test cannot see it**: the citation token and the resolving ref are the same
+  commit, so drift is **0** by construction. Widen the block to the paragraph that names
+  `3f61ad7` and both are exact; leave it as written and both are one commit stale on arrival.
+
+  ⚠️ **And the third address in that cell is invisible to the named key**: its module stem is
+  ELIDED to a leading `…`, so `[A-Z][A-Za-z0-9]*` does not match and the census counts two where
+  the row has three. It is the **fourth** shape outside that key's boundary and the worst of the
+  four — a path prefix or a `.lean` suffix still lets a reader recover the module, and an elision
+  destroys the name, so the coordinate resolves only for a reader who already knows which file is
+  meant. **One occurrence in the tree at `9147113`, and it landed today.** ⚠️ **An elided name
+  must never carry a line address**: there is nothing left to re-point. ⚠️ **These are figures
+  about `9147113` plus this branch and not forecasts**: PR #768 at `130cf38` adds three bare
+  numbers, and whichever of the two lands last re-measures rather than copies.
+
 * **An address a delivery did not derive has been checked by nobody, and what handed it over does
   not change that** (`#1915`). A `### `-heading citation, a line address, or an attribution of a
   property to a named seed is re-resolved against the tree the delivery is landing on, whatever its
