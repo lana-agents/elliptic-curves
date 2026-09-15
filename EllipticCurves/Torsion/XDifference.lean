@@ -51,8 +51,19 @@ is in this file's import closure, so `HasXCoordFormula`, `hasXCoordFormula_two` 
 `hasXCoordFormula_three` are named here and used nowhere below.  `XDifferencePoint` imports this
 file, so it is a forward reference; `NsmulSurjective` neither imports this file nor is imported by
 it, so it is import-incomparable with it.  ⚠️ The two are not disjoint downstream, though:
-`XDifferencePoint` is the unique module in the tree whose closure contains both, since it imports
-this file directly and `NsmulSurjective` through `EllipticCurves.Torsion.TriplingSurjective`.
+**51** of the **423** modules under `EllipticCurves/` have both in their import closure at
+`3f61ad7` — the root aggregator `EllipticCurves.lean` imports all 423 directly and so is in every
+count of this shape; it is excluded here, as `README.md` `### Import-closure membership` rules.
+Exactly **two** of the 51 are minimal — `EllipticCurves.Torsion.XDifferencePoint`, which imports
+this file directly and reaches `NsmulSurjective` through
+`EllipticCurves.Torsion.TriplingSurjective`, and `EllipticCurves.Torsion.NsmulLadder`, which also
+imports this file directly and reaches it through `EllipticCurves.Torsion.DoublingCoords`.  The two
+witnesses are import-incomparable with each other, so neither is the join.  ⚠️ **This clause used
+to read *"`XDifferencePoint` is the unique module in the tree whose closure contains both"***, and
+that is a universal over the tree, not a fact about this file's diff: it is false of the **49**
+modules downstream of either witness and false of `NsmulLadder`, which existed when it was written.
+A *"unique module"* claim about the import graph is a count, and `README.md`
+`### Import-closure membership` asks it to carry one — and to say where the population stops.
 
 ## Why this is a Ward corollary and could not be written before
 

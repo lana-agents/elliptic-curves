@@ -3688,6 +3688,133 @@ from a review comment's own emphasis being read back as the source's — the one
 cause, and the rule it wants is to re-read the source at the named ref rather than carry markup
 across from a thread.
 
+### Import-closure membership
+
+A module docstring that says *"`X` is not in this file's import closure"*, *"the two are
+import-incomparable"*, *"that module imports this one"* or *"this file is a leaf"* is making a claim
+about the project's import graph from inside one file. ⚠️ **Each one is decided by a single walk
+over the `^import EllipticCurves…` lines, in seconds, with no build** — the cheapest per-row cost of
+any axis this page carries — and the population had never been walked before `#2033`.
+
+**The recogniser and the count.** At `3f61ad7`:
+
+```
+git grep -o "import closure" 3f61ad7 -- '*.lean' README.md | wc -l   →  64
+git grep -l "import closure" 3f61ad7 -- '*.lean' README.md | wc -l   →  47
+git grep -o "import closure" 3f61ad7 -- README.md            | wc -l   →   0
+```
+
+⚠️ **Run it at a ref and not at `HEAD`, because this section is inside the population.** The third
+figure is what makes this a `.lean`-docstring axis, and it is `0` at `3f61ad7` and at no commit
+carrying these paragraphs: prose *about* a vocabulary is written *in* it. The same trap is on
+`#2036`, where the house retirement form quotes the clause it retires and so keeps a paid row in
+the seed's population — **a seed whose subject is prose has to say whether the rules text is in
+scope**, and here it is not: the 64 are `.lean` docstring rows.
+
+⚠️ **That is the narrow key and it is a vocabulary key, so the number it returns is a floor.** The
+widened seed is ten atoms and is printed as a command rather than as a list of phrases:
+
+```
+W='import closure|import-incomparable|is a leaf|import graph|reverse import cone'
+W="$W"'|does not import|neither imports|in the closure of|reached through|imported by'
+W="$W"'|imports this file|imports this one|imports this module'
+git grep -Eh "$W" 3f61ad7 -- '*.lean' README.md | wc -l                      →  178
+git grep -El "$W" 3f61ad7 -- '*.lean' README.md | wc -l                      →  101
+git grep -Eh "$W" 3f61ad7 -- '*.lean' README.md | grep -Evc "import closure"  →  114
+```
+
+**114 of those are outside the narrow key and none has been read**; the triage below is over the
+64 and says nothing about them. ⚠️ **Print the alternation, not a prose list of its atoms.** Ten
+quoted phrases in running prose read as a recogniser and are not one: drop a single atom in
+transcription and the count moves by four lines and one file, with nothing in the wording to show a
+re-implementer which atom is missing — `imported by` is the one that is easiest to lose, because
+every other atom in the list is written from the importing end.
+
+**The triage of the 64, at `3f61ad7`.** **43 true, 3 false, 5 true of less than they are offered
+for, 6 counts routed to `#2005`, 7 not claims about this tree's graph at all.**
+
+| bucket | n | what it is |
+| --- | --- | --- |
+| true | 43 | the relation holds, in the direction and at the strength the sentence states |
+| **false** | **3** | `NthRootOfPullbackN:176`, `XDifference:53`, `…TwoRational:303` |
+| split | 5 | one sentence copied into five files: true of the module it names, offered for two |
+| count | 6 | a **standing figure** for a file's own closure size — `#2005`'s population |
+| not a graph claim | 7 | a `Mathlib` closure, a scratch module, or *"a large import closure"* |
+
+⚠️ **The `count` bucket is keyed on the figure being the claim, not on a number appearing.** Six
+further rows carry a closure size as *evidence* for a membership or placement claim and are scored
+`true`, because what they assert is the membership: `FormalGroup.GenuineLawComm:55` (**14**, and
+*does not contain* `GenuineLawTransfer`), `FunctionField.TranslationMulByNCommGeneral:116` (**19**,
+and `Torsion.NsmulOrder` is not among them), `TateModule.DeterminantModGeneral:34` (`37 → 71` and
+`40 → 74`, pricing an edge *not* taken), `Galois.SubfieldAut:17` (**empty**, i.e. *"imports nothing
+from this development"*), and `TateModule.Determinant:147` and `TateModule.GaloisAction:32`, which
+list a sibling's closure out member for member. **All six figures were re-walked and all six are
+exact.**
+
+⚠️ **Say where the population stops.** `EllipticCurves.lean` imports all **423** modules under
+`EllipticCurves/` directly, so the root aggregator is in *every* answer to *"which modules have both
+`X` and `Y` in their closure"* and moves every such count by one. **The counts in this section and
+in the rows they repair exclude it**, and the tree's prose already names it when it is the only
+member — `TateModule.MatrixRepCompat:65-66`, *"its reverse import cone being empty apart from the
+root aggregator `EllipticCurves`"*, which is exact.
+
+⚠️ **The rule the three false rows share is one sentence: a membership claim that quantifies over
+the tree is a COUNT, and must carry one.** *"`X` is not in this file's closure"* names two modules
+and is refuted by one walk from one of them. *"the unique module in the tree whose closure contains
+both"* and *"in the closure of **each** of its three imports"* quantify over modules the sentence
+does not name, and neither carried a number:
+
+* `Torsion.XDifference` said `XDifferencePoint` was **the unique** module whose closure contains
+  both it and `Torsion.NsmulSurjective`. **51** modules do; **two** of them are minimal, the second
+  being `Torsion.NsmulLadder`, which imports `XDifference` directly exactly as the named witness
+  does. Repaired with the count and both witnesses.
+* `FunctionField.WeilPairingAlternatingTwoRational` said two modules were in the closure of **each
+  of its three imports**. It has **four**, and the fourth is `EllipticCurves.Fixtures` — a leaf with
+  an empty `EllipticCurves` closure, which contains neither. ⚠️ **A leaf is the import an *"each of
+  its imports"* clause forgets**, because it is the one nothing was taken from. Repaired.
+* `FunctionField.NthRootOfPullbackN` denied that `Torsion.NsmulOrder` was in its closure in one
+  clause and announced, in the next, the `MulByNXCoordFormula` edge that put it there. That row is
+  `#2005`'s and is repaired on its branch; it is counted here because the axis convicts it and a
+  triage that dropped it would publish 2 where the walk returns 3.
+
+⚠️ **`import` in this tree's prose means the Lean keyword, and a sentence that means the closure
+should say so.** Under the closure reading a sentence contrasting *"imports"* with *"reached through
+them"* says nothing, which is the tell that the direct reading was meant. Two true rows are loose
+here rather than wrong, and they are loose in different ways. `Torsion.DivisionPolynomialEval:171`
+writes *"they import this file"* of **two** consumers — its subject is *"Both consumers named
+above"*, `Torsion.TriplingSurjective` and `Torsion.OmegaNumerator` — and **neither imports it**: the
+first reaches it through `Torsion.DoublingSurjective`, the second through its single import
+`Torsion.OmegaOnCurve`. ⚠️ **It is the cleanest instance of the rule this paragraph states**, being
+the only row loose about *both* modules it names; its second clause, *"neither is in its import
+closure"*, is true and is about the other direction. `Torsion.WardR1:67` writes *"those modules
+import this file"* of **two**, and is the split shape rather than the loose one:
+`Torsion.WardR1Core` imports `WardR1` **directly**, and only `Torsion.WardHalving` reaches it
+transitively — through its single import `Torsion.EllipticNetSlices`. ⚠️ **The two-module sentence
+is where this axis keeps failing**: every false row above quantifies past what it names, and so does
+this one, by one module. The form that gets it right is in the tree already, at
+`Torsion.WardR1Core:116-117`: *"that module imports this one (through
+`EllipticCurves.Torsion.EllipticNetSlices`)"*. Name the route or write *"reaches"*.
+
+**The split bucket is not a fifth false row and must not be reported as one.** One sentence in
+`TateModule/DeterminantThree`, `ImageProfiniteThree`, `ImageThree`, `MatrixContinuityThree` and
+`MatrixRepThree` reads *"`EllipticCurves.Torsion.StructureGeneral` is not in `OpenKernel`'s import
+closure at all"*, one clause after naming **both** `OpenKernel` and `OpenKernelGeneral`. It is true
+of `OpenKernel`; `OpenKernelGeneral`'s closure **does** contain `StructureGeneral`. Being in a
+closure is not taking a hypothesis through it, so the claim the sentence is supporting stands, and
+the defect — if a reader agrees there is one — is elision and not falsity. ⚠️ **Five files carry it
+and one walk decides all five**, so under `#1614` it is one repair, not five.
+
+⚠️ **Walk the source, not the environment, and say which you walked.** `ModuleData.imports` from a
+`run_cmd` is the same graph *of the modules in that environment*, and an environment built on a
+branch carries modules that are not in the tree: the same probe returned **52** where the source
+walk returns **51**, the extra being a module from an unlanded branch's `.olean`s left in the build
+directory. ⚠️ **And a source walk that counts the root aggregator returns 52 too, with different
+membership** — agreeing on the number is not agreeing on the answer, which is why the population
+clause above is not optional. `env.allImportedModuleNames` answers a third question — what the
+*querying* file imports — and a scratch file that imports both `A` and `B` reports `B` in `A`'s
+closure whatever `A` does.
+**Per-module is `moduleData[idx].imports` transitively, or the `^import` lines; nothing else.**
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the
