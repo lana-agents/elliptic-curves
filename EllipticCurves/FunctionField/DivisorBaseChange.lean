@@ -69,7 +69,7 @@ hypothesis, and is applied here as `isScalarTower_functionFieldMap W K rfl`, whi
 `isScalarTower_coordinateRing_baseChange` needs no such treatment because both of its algebras are
 global.  ⚠️ **None of this is visible to `grep`, to `lake build` or to `lake lint`** — only to
 `Expr.getUsedConstants` on the elaborated type, which is how the sentence above is checked, over
-all **16** public declarations at once.
+all **22** public declarations at once.
 
 ## Main definitions
 
@@ -79,31 +79,54 @@ all **16** public declarations at once.
 ## Main statements
 
 **The four hypothesis classes the statement bullets omit**, written out per declaration over all
-**16** public declarations of this file.  ⚠️ It is a complete account of those four and not of
+**22** public declarations of this file.  ⚠️ It is a complete account of those four and not of
 every binder: `count_spanSingleton_algebraMap_liesOver` alone carries sixteen instance binders,
-being Mathlib's `AKLB` variable block copied verbatim.
+being Mathlib's `AKLB` variable block copied verbatim.  ⚠️ **Re-scored over all 22 rather than
+incremented** when the fibre section was added, and the re-score **reproduces the increment at all
+four rows** (`+5`, `+5`, `+0`, `+3`): every figure moves by exactly the number of new declarations
+its own list names, which is the check passing rather than a formality.  ⚠️ **22 is the count of
+declarations with source text.**  Enumerating `Environment.const2ModIdx` for this module returns
+**39** constants and **23** non-internal, non-blacklisted names; the twenty-third is
+`IsDedekindDomain.HeightOneSpectrum.under.congr_simp`, a congruence lemma Lean generates and no
+line of this file writes.
 
-* `[W.IsElliptic]`: carried by **10** — `ord_functionFieldMap`,
+* `[W.IsElliptic]`: carried by **15** — `ord_functionFieldMap`,
   `ramificationIdx'_functionFieldMap_ne_zero`, `ramificationIdx'_functionFieldMap_pos`,
   `divisor_functionFieldMap`, `ord_functionFieldMap_eq_zero_iff`, `dvd_ord_functionFieldMap`,
   `ord_functionFieldMap_under`, `divisor_functionFieldMap_under`,
-  `ord_functionFieldMap_under_eq_zero_iff` and `dvd_ord_functionFieldMap_under`.  It is where
-  `[IsDedekindDomain W.CoordinateRing]` comes from.  ⚠️ The other **6** do **not** carry it, and the
-  two easily missed are the instances: `count_spanSingleton_algebraMap_liesOver` (no curve at all),
-  `algebraFunctionFieldMap`, `isScalarTower_coordinateRing_baseChange`,
-  `isScalarTower_functionFieldMap`, **`instModuleFiniteCoordinateRingMap`** and
-  **`instIsIntegralCoordinateRingMap`**.
-* `[Module.Finite F K]`: carried by **6** — the two instances just named and the four `under`-forms
-  `ord_functionFieldMap_under`, `divisor_functionFieldMap_under`,
-  `ord_functionFieldMap_under_eq_zero_iff` and `dvd_ord_functionFieldMap_under`, which get it
-  through `instIsIntegralCoordinateRingMap`.
-* `[w.asIdeal.LiesOver v.asIdeal]`: carried by **7** — `count_spanSingleton_algebraMap_liesOver` in
-  the abstract setting, and the six curve statements that name a `v`.  ⚠️ The four `under`-forms
-  carry **no** `LiesOver` hypothesis: `Ideal.over_under` discharges it by construction, which is the
-  whole point of taking `[Module.Finite F K]` instead.
-* `f ≠ 0` (`x ≠ 0` in the abstract statement): carried by **9** — every statement that mentions
-  `ord` or `divisor` of an `f`, i.e. all **10** of the `[W.IsElliptic]` group except the two
-  `ramificationIdx'` statements, plus `count_spanSingleton_algebraMap_liesOver`.
+  `ord_functionFieldMap_under_eq_zero_iff`, `dvd_ord_functionFieldMap_under`, `exists_liesOver`,
+  `exists_under_eq`, `ord_eq_of_forall_ord_functionFieldMap_eq`,
+  `divisor_eq_of_divisor_functionFieldMap_eq` and `divisor_functionFieldMap_eq_zero_iff`.  It is
+  where `[IsDedekindDomain W.CoordinateRing]` comes from.  ⚠️ The other **7** do **not** carry it,
+  and the three easily missed are the instances: `count_spanSingleton_algebraMap_liesOver` (no curve
+  at all), `algebraFunctionFieldMap`, `isScalarTower_coordinateRing_baseChange`,
+  `isScalarTower_functionFieldMap`, **`instModuleFiniteCoordinateRingMap`**,
+  **`instIsIntegralCoordinateRingMap`** and **`instFaithfulSMulCoordinateRingMap`**.
+* `[Module.Finite F K]`: carried by **11** — `instModuleFiniteCoordinateRingMap` and
+  `instIsIntegralCoordinateRingMap`; the four `under`-forms `ord_functionFieldMap_under`,
+  `divisor_functionFieldMap_under`, `ord_functionFieldMap_under_eq_zero_iff` and
+  `dvd_ord_functionFieldMap_under`, which get it through `instIsIntegralCoordinateRingMap`; and the
+  five of the fibre section, `exists_liesOver`, `exists_under_eq`,
+  `ord_eq_of_forall_ord_functionFieldMap_eq`, `divisor_eq_of_divisor_functionFieldMap_eq` and
+  `divisor_functionFieldMap_eq_zero_iff`, which get it through the same instance.
+  ⚠️ `instFaithfulSMulCoordinateRingMap` does **not** take it — injectivity of
+  `CoordinateRing.map` holds for any field extension.
+* `[w.asIdeal.LiesOver v.asIdeal]`: **bound** by **7** — `count_spanSingleton_algebraMap_liesOver`
+  in the abstract setting, and the six curve statements that both name a `v` **and** bind it.
+  ⚠️ *Naming a `v` is not the key*: **nine** curve statements below name one, the other three being
+  `exists_liesOver`, `exists_under_eq` and `ord_eq_of_forall_ord_functionFieldMap_eq`, which produce
+  a `w` over `v` rather than assuming one.  ⚠️ The four `under`-forms carry **no** `LiesOver`
+  hypothesis: `Ideal.over_under` discharges it by construction, which is the whole point of taking
+  `[Module.Finite F K]` instead.  ⚠️ **This is the one figure of the four that a
+  `getUsedConstants` key does not reproduce**: it returns **8**, because `exists_liesOver` has
+  `Ideal.LiesOver` in its *conclusion*.  Bound as a hypothesis: 7.  Occurring in the type: 8.
+* `f ≠ 0` (`x ≠ 0` in the abstract statement): carried by **12** declarations and **14** binders —
+  every statement that mentions `ord` or `divisor` of an `f`, i.e. all **15** of the
+  `[W.IsElliptic]` group except the two `ramificationIdx'` statements and the two existence
+  statements `exists_liesOver` and `exists_under_eq`, plus
+  `count_spanSingleton_algebraMap_liesOver`.  ⚠️ The declaration and binder counts differ because
+  `ord_eq_of_forall_ord_functionFieldMap_eq` and `divisor_eq_of_divisor_functionFieldMap_eq` each
+  bind **two** — they compare two functions.
 
 * `IsDedekindDomain.HeightOneSpectrum.count_spanSingleton_algebraMap_liesOver` : the general
   Dedekind-domain statement.  **No curve is mentioned and it is upstreamable as it stands.**
@@ -122,6 +145,16 @@ being Mathlib's `AKLB` variable block copied verbatim.
   hence integral `F[W]`-module, which is what makes `HeightOneSpectrum.under` total.
 * `WeierstrassCurve.Affine.CoordinateRing.ord_functionFieldMap_under` and
   `divisor_functionFieldMap_under` : the `v`-free forms, quantified over `w` alone.
+* `WeierstrassCurve.Affine.CoordinateRing.instFaithfulSMulCoordinateRingMap` : `F[W] → K[W⁄K]` is
+  faithful, being injective.  **No finiteness**; it is what the going-up lemma below takes.
+* `WeierstrassCurve.Affine.CoordinateRing.exists_liesOver` and `exists_under_eq` : **the fibre over
+  a closed point of `F(W)` is non-empty**, i.e. `HeightOneSpectrum.under` is surjective.
+* `WeierstrassCurve.Affine.CoordinateRing.ord_eq_of_forall_ord_functionFieldMap_eq` and
+  `divisor_eq_of_divisor_functionFieldMap_eq` : **the descent.**  `n • divisor g = divisor f` proved
+  over a finite `K / F` holds over `F`.  ⚠️ It consumes no value for the ramification index — the
+  same `e` stands in front of both sides and cancels.
+* `WeierstrassCurve.Affine.CoordinateRing.divisor_functionFieldMap_eq_zero_iff` : `divisor f = 0`
+  iff `divisor (functionFieldMap f) = 0`, over **both** spectra rather than at one named pair.
 
 ## What is *not* here
 
@@ -132,7 +165,10 @@ being Mathlib's `AKLB` variable block copied verbatim.
 * **A formula for the ramification index.**  `ramificationIdx'` is left abstract.  In particular
   ⚠️ **nothing below says it is `1`**, which is what a separable `K / F` would give, and which is
   what a consumer wanting `divisor` to transport *on the nose* needs.  The positivity statements
-  are all that is proved about it.
+  are all that is proved about it.  ⚠️ **A consumer comparing two divisors does not need it**, and
+  since the fibre section landed this file contains such a consumer:
+  `divisor_eq_of_divisor_functionFieldMap_eq` puts the same `e` in front of both sides and cancels
+  it.  The absence above is a limit on transporting *one* divisor, not on relating two.
 * **`divisorProj`.**  Only the affine `divisor` transports here.  The point at infinity is not a
   height-one prime of `F[W]` and `ordInfty` is a different object.  Below the module block the
   tokens `divisorProj`, `ProjPoint` and `ordInfty` do not occur.
@@ -145,10 +181,16 @@ being Mathlib's `AKLB` variable block copied verbatim.
   divisor.  ⚠️ The word *principal* does occur once below, in
   `count_spanSingleton_algebraMap_liesOver`'s docstring, about a principal **fractional ideal** —
   which is what `count` is defined on, and is not a divisor claim.
-* **Surjectivity of `w ↦ under w`.**  That every closed point of `F(W)` has a point of `K(W⁄K)`
-  above it is `Ideal.exists_maximal_ideal_liesOver_of_isIntegral`'s business and is not stated
-  below; `ord_functionFieldMap_eq_zero_iff` is therefore an `iff` at one named `w` and **not** over
-  the fibre.
+* ~~**Surjectivity of `w ↦ under w`.**~~  ⚠️ **Retired.**  This bullet used to read *"That every
+  closed point of `F(W)` has a point of `K(W⁄K)` above it is
+  `Ideal.exists_maximal_ideal_liesOver_of_isIntegral`'s business and is not stated below;
+  `ord_functionFieldMap_eq_zero_iff` is therefore an `iff` at one named `w` and **not** over the
+  fibre."*  Both halves are now discharged **in this file**: `exists_under_eq` is the surjectivity,
+  and `divisor_functionFieldMap_eq_zero_iff` is the `iff` over the whole spectrum.  The prediction
+  about which Mathlib lemma does it was right — it is that lemma, at
+  `instIsIntegralCoordinateRingMap` and `instFaithfulSMulCoordinateRingMap`, plus a `ne_bot` step
+  the lemma does not supply.  `ord_functionFieldMap_eq_zero_iff` itself is unchanged and is still
+  stated at one named pair; what is new is the quantified consequence beside it.
 
 ## Non-vacuity
 
@@ -169,6 +211,13 @@ at the closed point of the rational point `(0, 0)` and at the function `x`.
   Evaluating `ord` at a `pointClosedPoint` goes through
   `EllipticCurves.FunctionField.DivisorTheoryElliptic`'s torsion machinery, which this file does
   not import, so the instance is certified as a statement and not as an arithmetic.
+* The fibre section is certified at the **same** curve and the **same** proper extension:
+  `exists_under_eq_cert` produces a closed point of `K[W⁄K]` above the closed point of `(0, 0)` on
+  the **base** curve.  ⚠️ That is the certificate that has to be over a proper extension: along an
+  isomorphism `under` is a bijection and surjectivity is free, so a certificate over `F̄` or over
+  `F` itself would certify nothing.  ⚠️ **The two certificate points are different objects over
+  different rings** — `certPoint` is a `HeightOneSpectrum` of `K[W⁄K]` and `certPointBase` one of
+  `ℚ[W]` — and it is the second that this section needed and did not have.
 
 ## References
 
@@ -265,6 +314,16 @@ below. -/
 instance instIsIntegralCoordinateRingMap [Module.Finite F K] :
     Algebra.IsIntegral W.CoordinateRing (W.map (algebraMap F K)).CoordinateRing :=
   Algebra.IsIntegral.of_finite _ _
+
+/-- **`F[W] → K[W⁄K]` is faithful**, because it is injective.
+
+⚠️ Unlike the two instances above this needs **no** finiteness: `CoordinateRing.map` is injective
+for any field extension `K / F` (`FunctionFieldBaseChange.map_algebraMap_injective`).  It is stated
+because `Ideal.exists_maximal_ideal_liesOver_of_isIntegral` takes it as an instance argument
+alongside integrality, and without it the going-up lemma does not apply to this algebra. -/
+instance instFaithfulSMulCoordinateRingMap :
+    FaithfulSMul W.CoordinateRing (W.map (algebraMap F K)).CoordinateRing :=
+  (faithfulSMul_iff_algebraMap_injective _ _).mpr (map_algebraMap_injective W K)
 
 /-! ## The transport -/
 
@@ -381,6 +440,108 @@ theorem dvd_ord_functionFieldMap_under [Module.Finite F K] {n : ℤ}
     rw [HeightOneSpectrum.under_asIdeal]; infer_instance
   exact dvd_ord_functionFieldMap _ w hf hd
 
+/-! ## The fibre is non-empty, and the transport runs backwards
+
+`HeightOneSpectrum.under` sends a closed point of `K[W⁄K]` down to one of `F[W]`.  This section says
+it is **surjective**: every closed point of `F(W)` is `under` some closed point of `K(W⁄K)`.  That
+is Mathlib's `Ideal.exists_maximal_ideal_liesOver_of_isIntegral` at
+`instIsIntegralCoordinateRingMap`
+and `instFaithfulSMulCoordinateRingMap`, with one step of its own — the lemma produces an `Ideal`,
+and a `HeightOneSpectrum` additionally needs it to be nonzero.
+
+⚠️ **What this buys is a descent, and it does not need a value for the ramification index.**  The
+transport above multiplies by `e(w ∣ v)`, and `## What is *not* here` records that nothing here says
+`e` is `1`.  A consumer that compares two orders at the same place does not care: the same `e`
+stands in front of both sides and `ramificationIdx'_functionFieldMap_ne_zero` cancels it.  So an
+identity `n • divisor (functionFieldMap g) = divisor (functionFieldMap f)` proved over `K` comes
+back down to `n • divisor W g = divisor W f` over `F`, for an arbitrary finite `K / F`.
+-/
+
+/-- **Every closed point of `F(W)` has a closed point of `K(W⁄K)` above it.**
+
+⚠️ The `ne_bot` half is the part Mathlib's lemma does not supply.  It comes from the same
+injectivity `instFaithfulSMulCoordinateRingMap` is built on: `Ideal.under` of `⊥` is the kernel of
+`F[W] → K[W⁄K]`, so a `Q` lying over `v.asIdeal` with `Q = ⊥` would force `v.asIdeal = ⊥`. -/
+theorem exists_liesOver [Module.Finite F K] (v : HeightOneSpectrum W.CoordinateRing) :
+    ∃ w : HeightOneSpectrum (W.map (algebraMap F K)).CoordinateRing,
+      w.asIdeal.LiesOver v.asIdeal := by
+  obtain ⟨Q, hQmax, hQ⟩ := Ideal.exists_maximal_ideal_liesOver_of_isIntegral
+    (R := W.CoordinateRing) (S := (W.map (algebraMap F K)).CoordinateRing) v.asIdeal
+  refine ⟨⟨Q, hQmax.isPrime, ?_⟩, hQ⟩
+  rintro rfl
+  refine v.ne_bot (hQ.over.trans ?_)
+  rw [Ideal.under, ← RingHom.ker_eq_comap_bot]
+  exact (RingHom.injective_iff_ker_eq_bot _).mp
+    (FaithfulSMul.algebraMap_injective W.CoordinateRing _)
+
+/-- **`HeightOneSpectrum.under` is surjective**, which is `exists_liesOver` read through
+`HeightOneSpectrum.under_asIdeal`.  This is the form the `∀ w` statements above are quantified by,
+so it is what says those statements reach every `v`. -/
+theorem exists_under_eq [Module.Finite F K] (v : HeightOneSpectrum W.CoordinateRing) :
+    ∃ w : HeightOneSpectrum (W.map (algebraMap F K)).CoordinateRing,
+      HeightOneSpectrum.under W.CoordinateRing w = v :=
+  let ⟨w, hw⟩ := exists_liesOver W K v
+  ⟨w, HeightOneSpectrum.ext hw.over.symm⟩
+
+/-- **The descent of an order identity.**  If `n * ord (functionFieldMap g) = ord (functionFieldMap
+f)` holds at every closed point of `K(W⁄K)`, it holds at every closed point of `F(W)`.
+
+⚠️ **No value for the ramification index is used.**  At a given `v` the hypothesis is read at one
+`w` above it, where both sides carry the same factor `e(w ∣ v)`;
+`ramificationIdx'_functionFieldMap_ne_zero` makes that factor cancellable.  This is why
+`## What is *not* here`'s missing `e = 1` does not block a descent, only an on-the-nose
+transport. -/
+theorem ord_eq_of_forall_ord_functionFieldMap_eq [Module.Finite F K] {n : ℤ}
+    {f g : W.FunctionField} (hf : f ≠ 0) (hg : g ≠ 0)
+    (h : ∀ w : HeightOneSpectrum (W.map (algebraMap F K)).CoordinateRing,
+      n * ord w (functionFieldMap W K g) = ord w (functionFieldMap W K f))
+    (v : HeightOneSpectrum W.CoordinateRing) :
+    n * ord v g = ord v f := by
+  obtain ⟨w, hw⟩ := exists_liesOver W K v
+  haveI := hw
+  have hwv := h w
+  rw [ord_functionFieldMap W K v w hf, ord_functionFieldMap W K v w hg] at hwv
+  refine mul_left_cancel₀ (a := (v.asIdeal.ramificationIdx' w.asIdeal : ℤ)) ?_ ?_
+  · exact_mod_cast ramificationIdx'_functionFieldMap_ne_zero v w
+  · rw [← hwv]; ring
+
+/-- **The descent of a divisor identity.**  `n • divisor g = divisor f` may be proved over any
+finite extension `K / F` and then read back over `F`.
+
+This is the shape a descent argument ends on: the divisor identity is produced over a field where
+enough points are rational, and the conclusion is wanted over the field one started from. -/
+theorem divisor_eq_of_divisor_functionFieldMap_eq [Module.Finite F K] {n : ℤ}
+    {f g : W.FunctionField} (hf : f ≠ 0) (hg : g ≠ 0)
+    (h : n • divisor (W.map (algebraMap F K)) (functionFieldMap W K g)
+      = divisor (W.map (algebraMap F K)) (functionFieldMap W K f)) :
+    n • divisor W g = divisor W f := by
+  ext v
+  simpa using ord_eq_of_forall_ord_functionFieldMap_eq W K hf hg
+    (fun w => by simpa using congrArg (fun D => D w) h) v
+
+/-- **A function has trivial divisor exactly when its base change does.**
+
+⚠️ This is `ord_functionFieldMap_eq_zero_iff` with the quantifier the absence section said it did
+not have: that statement is an `iff` at one named `w` over one named `v`, and this one ranges over
+both spectra.  The forward direction is `exists_liesOver`; the backward one is
+`ord_functionFieldMap_under_eq_zero_iff`, which already quantified over `w` alone. -/
+theorem divisor_functionFieldMap_eq_zero_iff [Module.Finite F K] {f : W.FunctionField}
+    (hf : f ≠ 0) :
+    divisor (W.map (algebraMap F K)) (functionFieldMap W K f) = 0 ↔ divisor W f = 0 := by
+  constructor
+  · intro h
+    ext v
+    obtain ⟨w, hw⟩ := exists_liesOver W K v
+    haveI := hw
+    have hw0 := congrArg (fun D => D w) h
+    simp only [divisor_apply, Finsupp.coe_zero, Pi.zero_apply] at hw0 ⊢
+    exact (ord_functionFieldMap_eq_zero_iff v w hf).mp hw0
+  · intro h
+    ext w
+    have hv0 := congrArg (fun D => D (HeightOneSpectrum.under W.CoordinateRing w)) h
+    simp only [divisor_apply, Finsupp.coe_zero, Pi.zero_apply] at hv0 ⊢
+    exact (ord_functionFieldMap_under_eq_zero_iff W K w hf).mpr hv0
+
 /-! ## Non-vacuity -/
 
 section Nonvacuity
@@ -453,6 +614,29 @@ private theorem ord_functionFieldMap_under_cert :
         * ord (HeightOneSpectrum.under (y2EqX3SubX ℚ).CoordinateRing certPoint)
             (genPsi (y2EqX3SubX ℚ) (XClass (y2EqX3SubX ℚ) 0)) :=
   ord_functionFieldMap_under _ _ certPoint genPsi_XClass_ne_zero
+
+private theorem equation_zero_zero_base : (y2EqX3SubX ℚ).Equation 0 0 := by
+  rw [equation_iff']
+  simp [y2EqX3SubX]
+
+/-- The certificate closed point **of the base curve**: the one attached to `(0, 0)` on
+`y² = x³ - x` over `ℚ` itself.  `certPoint` is its analogue upstairs, and the two are different
+objects over different rings — which is the whole content of `exists_under_eq_cert`. -/
+private noncomputable def certPointBase :
+    HeightOneSpectrum (y2EqX3SubX ℚ).CoordinateRing :=
+  pointClosedPoint equation_zero_zero_base
+
+/-- **The fibre over a named closed point of a named curve is non-empty**, over the same proper
+quadratic extension the rest of this section uses.
+
+⚠️ This is what makes `exists_under_eq` non-vacuous in the only way that counts: over an
+algebraically closed base, or along an isomorphism, `under` is a bijection and the statement is
+free.  Here `certRoot_not_mem_range` says the extension is proper. -/
+private theorem exists_under_eq_cert :
+    ∃ w : HeightOneSpectrum (((y2EqX3SubX ℚ).map
+        (algebraMap ℚ (X ^ 2 + 1 : ℚ[X]).SplittingField)).CoordinateRing),
+      HeightOneSpectrum.under (y2EqX3SubX ℚ).CoordinateRing w = certPointBase :=
+  exists_under_eq _ _ certPointBase
 
 end Nonvacuity
 
