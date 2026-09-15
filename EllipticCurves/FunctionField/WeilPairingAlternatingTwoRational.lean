@@ -300,10 +300,15 @@ The enumeration this replaces — four points, an injection out of `Fin 4`, and 
 through `slope`/`addX`/`addY`/`negAddY` — proved the same two facts about *this* curve and nothing
 about any other.
 
-⚠️ Neither replacement adds an import.  Both modules are already in this file's import closure —
-in fact in the closure of **each** of its three imports — so this block is a pure in-file change
-with no import-graph cost.  If a variant of it needs a new `import`, it is reaching for the wrong
-lemma. -/
+⚠️ Neither replacement adds an import.  Both modules are already in this file's import closure — in
+fact in the closure of each of its three non-leaf imports, `PullbackPrincipalityTwoRationalTorsion`,
+`WeilPairingAlternatingAssemblyN` and `WeilPairingAlternatingTwoAlgClosed` — so this block is a pure
+in-file change with no import-graph cost.  If a variant of it needs a new `import`, it is reaching
+for the wrong lemma.  ⚠️ **This sentence used to say *"the closure of **each** of its three
+imports"***: this file has **four** `EllipticCurves` imports at `3f61ad7`, and the fourth,
+`EllipticCurves.Fixtures`, is a leaf whose own `EllipticCurves`-import closure is empty, so it
+contains neither module and no universal over all four holds.  A leaf is what an *"each of its
+imports"* clause forgets, because it is the import nothing was taken from. -/
 
 /-- The `2`-torsion cubic of the example curve, factored: `4X³ + 20X² + 16X = 4·X·(X+1)·(X+4)`. -/
 private lemma Ψ₂Sq_exampleCurve :
