@@ -3576,6 +3576,74 @@ true"*, one layer up, in this document's own prose. They are:
   vocabulary count is not a population of them — and `#1848`'s trap is a rule whose test is a
   count. A rule does not need a census to land.
 
+* **These rules reach the COMMIT MESSAGE, and this page has been reasoning from one without ever
+  saying whether it reasons about one** (`#1857`). `### Gate-discharge claims` leans twice on a
+  property of commit messages in order to decide a clause in a *file*: an indexical address, *"In a
+  commit message it is self-resolving, because the message is part of the commit it names"*, and
+  the reading it rejects, which holds that a delta clause *"self-resolves the way a commit message
+  does"*. Neither sentence says whether the conventions apply to the message itself, and nothing
+  else here did either. ⚠️ **They do, for every claim whose subject is not the commit.** That
+  exemption is exactly as wide as its reason: a message is part of its commit, so a claim about
+  that commit — *this commit*, *this round*, a delta against the parent — resolves out of the
+  object it is bound to and is owed no sha. Any other claim is not self-resolving, and a commit
+  message is the worst place here to leave one, because it is the one artefact this development
+  produces that lands in `main`'s history and that no subsequent commit can amend.
+  ⚠️ **The ruling is prospective and it sweeps nothing** (`#1857`). A retirement cannot be written
+  into a landed message, and `### Retired claims`' whole move is to put the superseded text where
+  a reader who remembers it will look; a reader of `git log` does not find a retirement in a file.
+  So what is on record stays on record. ⚠️ **A retirement in the tree is owed only where the tree
+  CITES the message**, since that is the one case in which this page's reader meets the false text
+  at all, and whether any landed message meets that condition is `#1857`'s own next step and is not
+  read here.
+  ⚠️ **The population, dated, with its recogniser, as this section requires.** Over
+  `git log --format=%B`, whole bodies, `re.S`, matching `` \*"[^"]{4,400}"\* ``: at `02a1652` the
+  marked-quotation form returns 776 quotations in 125 of 724 landed messages, against the 432 in 98
+  of 690 that `#1857` measured at `ecfb3e9`, and the number anyone has read against what they quote
+  is zero at both ends. ⚠️ **That is a population and not a backlog** — most of these quote a
+  section name of this page and clear on sight, and the ones worth reading are the ones quoting
+  source text and attributing it to a counted set of sites. ⚠️ **Both figures are dated because the
+  commit that lands this bullet joins the population they count**, and a numeral fixed before that
+  message exists is a numeral about a different text — which is the second of the three shapes this
+  bullet ends by ruling on, met here in its own first instance.
+  ⚠️ **A second seed over the same bodies, and this one already convicts.** It is printed as code
+  because the reading that resolves `<name>` decides the population, and a name rule stated in
+  prose hid a row of this one. Over the same 724 bodies at `02a1652`, matching
+  `` `([A-Za-z_][A-Za-z0-9_./-]*):(\d+)` ``: 302 line-keyed pointers in 80 messages. A `<name>`
+  resolves when exactly one path of `git ls-tree -r` is it, carries it as a basename, carries it
+  plus `.lean` as a basename, is it with each `.` replaced by `/` plus `.lean`, or ends with `/`
+  and either — and 299 of the 302 reach a file of this tree. Of those, 23 address a blank line at
+  `02a1652` and 11 address one at the commit that wrote each, 5 being blank at both ends, so 18
+  were exact where they were written and address nothing now. ⚠️ **That subtraction is 23 − 5 and
+  not 23 − 11**: six run the other way, blank then and non-empty now, and a re-runner who
+  differences the two columns gets 12 and writes a charge. ⚠️ **The single flag that decides this
+  population is whether `<name>` carries a `/`** — excluding the 63 that do returns 239 in 68, and
+  5 of those 63 are verbatim tracked paths, 31 are a tracked path's tail carrying the extension,
+  26 are one without it and the 63rd resolves to no file here at all, so the rule that drops them
+  keys on a house style and reports it as a population. ⚠️ **Three pointers name no file of this
+  repository, and TWO of them are Mathlib**: `` `IsSplittingField.lean:126` `` (`2a72ea2`) and
+  `` `RingTheory/Ideal/Norm/RelNorm.lean:341` `` (`79d37d3`, whose own clause names Mathlib beside
+  it), the second invisible to any key restricted to this tree's own names; the third is
+  `` `README:168` `` (`600dcd7`), which drops the extension the tracked name carries.
+  ⚠️ **A pointer into Mathlib is the one shape here that resolves at no head of this repository**,
+  because its pin moves under it and neither end of it is ours.
+  ⚠️ **Landing on a blank line is a FLOOR and not the defect count**, because a pointer that has
+  drifted onto a different non-empty line is equally false and this test scores it as resolving.
+  One `<name>`, `Coprime`, matches two tracked paths; that row reads non-empty at both ends under
+  either, so no tie-break is exercised here and one is owed by whoever re-runs this on a moved tree.
+  ⚠️ **What follows for what gets written next, and all three shapes are named because all three
+  have been read as self-resolving.** A `Module:NNN` pointer is not: the message is written against
+  a tree the same commit is still moving and that subsequent commits move again, so a line key in a
+  message is anchored at neither end — cite a declaration or a heading by name, which `grep`
+  resolves at every head. A count is not, when what it counts is the message: a self-census must
+  count the sentence that publishes it, and a numeral fixed before that sentence exists is a numeral
+  about a different text. A marked quotation of the tree is not: the message is frozen and the tree
+  is not, which is `#1824`'s clearance rule with its two halves at their furthest apart.
+  ⚠️ **The other seeds this section publishes were checked rather than assumed**: the
+  bolded-numeral seed returns 243 at the parent and 243 here and its word form 46 at both, the
+  noun-and-direction seed 52 matches at both ends, and the nine-word seed 95 at both ends. No
+  numeral in this bullet stands alone inside a bold span, no noun of the first seed's list is put
+  in front of a direction word, and none of the nine words is written here.
+
 ### Retired claims
 
 A clause that a later PR falsifies is kept as a **marked quotation** — the old text in
