@@ -116,7 +116,12 @@ and applied to exactly this headline, in
 `hprin`, same conclusion, no hypothesis added.  ⚠️ This paragraph used to
 call the layer *"deliberately deferred (`#692`)"*, which is now wrong twice over — the descent is
 done, and `#692`'s *endomorphism* half (the only half `#899` uses) has been merged since PR #356.
-Only `#692`'s divisor half remains open, and nothing on the alternating front wants it.
+⚠️ **And it is now wrong a third way.**  This paragraph used to close *"Only `#692`'s divisor half
+remains open, and nothing on the alternating front wants it"*; the divisor half is merged too — the
+affine `divisor` in `EllipticCurves.FunctionField.DivisorBaseChange`, up to a ramification index,
+and `divisorProj` in `EllipticCurves.FunctionField.DivisorProjBaseChange`, with no index at the
+point at infinity.  The *want* clause survives untouched: nothing on the alternating front uses
+either, and neither module is named in this file's `import` block.
 
 ## Explicitly not here
 

@@ -131,10 +131,24 @@ two products against the tree:
   `exists_weilPairingElt_self_eq_one_of_hprin_{two,three}` — the merged `F̄` theorems **verbatim
   minus `[IsAlgClosed F]`**, same `hprin`, no hypothesis added.
 
-  ⚠️ **`#692` is not "deferred"; its endomorphism half is merged and its divisor half is not**, and
-  only the endomorphism half is used here — `#899`'s docstring says so explicitly, and the three
+  ⚠️ **`#692` is not "deferred", and both of its halves are now merged**, and only the endomorphism
+  half is used here — `#899`'s docstring says so explicitly, and the three
   intertwiners `functionFieldMap_{translateEndo,mulByTwoEndo,mulByThreeEndo}` are its whole input.
   Reading `#692` as a single undelivered block is what kept this bullet looking current.
+
+  ⚠️ **That sentence used to price the divisor half as absent**, reading *"its endomorphism half is
+  merged and its divisor half is not"*.  It was true when it was written and stopped being true in
+  two steps: `EllipticCurves.FunctionField.DivisorBaseChange` transports the affine `divisor`, up to
+  a ramification index it leaves abstract, and
+  `EllipticCurves.FunctionField.DivisorProjBaseChange` transports `divisorProj`, with no index at
+  the point at infinity.  ⚠️ *Merged* is not *closed*, and this bullet does not say what is left:
+  the two registers to read are those modules' own `## What is *not* here` sections, **each scoped
+  to the file that carries it** and not to the tree.  ⚠️ **They carry several rows each and this
+  bullet summarises neither**, because a summary of another module's register goes false on a
+  commit to that module and not on any edit here.  The one membership claim worth making is
+  `#692`'s item 3: the `Point.map` bridge is **not** among what they leave standing — it is built,
+  in `EllipticCurves.FunctionField.FunctionFieldBaseChangeN`.  ⚠️ Neither module is named in this
+  file's `import` block, and nor is that one.
 
 This file supplies the ungated scaffolding both halves plug into.
 
