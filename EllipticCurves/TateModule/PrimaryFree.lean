@@ -134,8 +134,21 @@ file re-measures nothing and instantiates nothing; feeding the count in — i.e.
 are not used at any `ℓ`; the coordinate formula is used, but only at `ℓ = 3`.
 
 The Galois action on `T_ℓE` (`EllipticCurves.TateModule.GaloisAction`) and the representation
-`ρ_{E,ℓ} : G_F → GL₂(ℤ_ℓ)` are a separate follow-up, which the rank statement here makes meaningful
-for the first time.
+`ρ_{E,ℓ} : G_F → GL₂(ℤ_ℓ)` are not built here, and the rank statement below is what makes the
+second of them *producible*: `galoisRepMatrix` is read off a basis of `T_ℓE`, so with the rank-two
+input gone there is no basis, hence no matrix, and the `GL₂` shape cannot be produced at all — the
+point `EllipticCurves.TateModule.PrimaryMatrixRep` makes of its own hypothesis.
+
+⚠️ **That sentence used to call them** *"a separate follow-up"*. It was inherited verbatim from
+`EllipticCurves.TateModule.Free`, where it was already stale, and it was false at generic `ℓ`
+within the day: `galoisRepMatrix : (F ≃ₐ[S] F) →* GL (Fin 2) ℤ_[ℓ]`
+(`EllipticCurves.TateModule.PrimaryMatrixRep`, `#989`) landed **2 h 13 min** after this file, and
+its `ℓ = 2` instance had existed for four days already. ⚠️ Only the gloss changes, and here the
+two files are **siblings** in the import graph: neither imports the other, and their only common
+ancestors are `EllipticCurves.TateModule.Basic` and `EllipticCurves.Torsion.Defs`.
+`galoisRepMatrix` takes the basis as an *argument*, which is exactly why it does not need this
+file. Nothing below can name `galoisRep` at all — this file does not reach
+`EllipticCurves.TateModule.GaloisAction` — so nothing below uses the representation.
 
 ## Main statements
 
