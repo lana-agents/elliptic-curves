@@ -133,8 +133,20 @@ law**, so it never needed `#404`'s `ωₙ` — that parenthetical named as a gat
 group-law construction bypasses.  The general-`n` commutation is
 `translateEndo_mulByNEndo_apply_general`
 (`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`), which takes `[n]P = T` as a
-hypothesis exactly as its `n = 2, 3` siblings above do; ⚠️ that file's own docstring records what
-is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the relation.
+hypothesis exactly as its `n = 2, 3` siblings above do.  ⚠️ **The clause that used to close this
+sentence is retired too, and it was false in both of its halves** — it read *"that file's own
+docstring records what is still missing, namely `[n]`-surjectivity on `E(F̄)` to discharge the
+relation"*, written here at `c8a25d9` (2026-08-29), by the commit whose own subject is *"twelve
+stale clauses retired"*.  `[n]`-surjectivity on `E(F̄)` is
+`WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero`
+(`EllipticCurves.Torsion.TwoTorsionOrder`), at every `n ≠ 0` under `[IsAlgClosed F]`,
+`[W.IsElliptic]` and `(2 : F) ≠ 0`, landed three days later at `3e21ad4`; and that file's
+`## What is *not* here` retired the identical claim at `44844ba`, adding that surjectivity would
+**not** discharge the relation even so, because it produces *some* preimage of `T` while the
+statement is indexed by a **given** affine pair.  ⚠️ **The hypothesis stays for that reason and
+not for an absence.**  ⚠️ A prose pointer and not an `import`: neither
+`EllipticCurves.Torsion.TwoTorsionOrder` nor
+`EllipticCurves.FunctionField.TranslationMulByNCommGeneral` is in this file's import closure.
 
 ## Explicitly out of scope (as issue #419 records)
 

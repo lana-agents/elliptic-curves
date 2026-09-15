@@ -109,15 +109,37 @@ form of the equality is `SetLike.ext` off the headline — no second degree comp
 import of `MulByNInertia` with its `[IsDedekindDomain W.CoordinateRing]` variable block.  The
 `Normal` and `IsGalois` crossings go along `mulByNFieldRangeEquivSubfield` (`#1219`) instead.
 
-## ⚠️ The `Subfield` `Normal`/`IsGalois` are new relative to `n = 2` and `n = 3`
+## ⚠️ The `Subfield` `Normal`/`IsGalois` crossing, and the `n = 2` / `n = 3` twins
 
-`MulByTwoGalois` and `MulByThreeGalois` cross **only separability** into the `Subfield`
-presentation, and their docstrings give a reason that applies to the `Subring` — not to the
-`Subfield`.  Mathlib has `Normal.of_equiv_equiv` and `IsGalois.of_equiv_equiv` with exactly the
-`hcomp` shape `Algebra.IsSeparable.of_equiv_equiv` takes, so the crossing costs one line each.  They
-are shipped here.  ⚠️ This is a genuine addition, not a mirror: at `n = 2` and `n = 3` the
-corresponding `Subfield` statements are still absent from the tree, and closing that gap is a
-separate (small) `#699`-style question, not this file's business.
+Mathlib has `Normal.of_equiv_equiv` and `IsGalois.of_equiv_equiv` with exactly the `hcomp` shape
+`Algebra.IsSeparable.of_equiv_equiv` takes, so the crossing costs one line each.  They are shipped
+here at every `3`-smooth `n ≠ 0`, along `mulByNFieldRangeEquivSubfield` (`#1219`) — the index bound
+spelled out because `(0 : ℕ).primeFactors = ∅` makes `hfac` vacuous at `n = 0` while every
+declaration below binds `n ≠ 0` as well (`#2010`).
+
+⚠️ **The clause this paragraph used to carry is retired, and it had been false for sixteen
+days** — it read *"`MulByTwoGalois` and `MulByThreeGalois` cross **only separability** into the
+`Subfield` presentation … at `n = 2` and `n = 3` the corresponding `Subfield` statements are
+still absent from the tree, and closing that gap is a separate (small) `#699`-style question"* (a
+**partial** quotation of a four-sentence paragraph, joined at the ellipsis), written at `06d36c8`,
+2026-08-30T08:57:39Z.  `#1244` closed that gap at `c2db2cc`, **1 h 12 min later**:
+`normal_mulByTwoEndoFieldRange_of_isAlgClosed` and `isGalois_mulByTwoEndoFieldRange_of_isAlgClosed`
+(`EllipticCurves.FunctionField.MulByTwoGalois`) with their `n = 3` twins
+(`EllipticCurves.FunctionField.MulByThreeGalois`) are exactly the statements it called absent, and
+both files record it in their own docstrings — *"Until `#1244` the `Subfield` column really did
+hold separability alone"*.  ⚠️ **Live citations and not prose pointers**: both modules are in
+this file's import closure, through `EllipticCurves.FunctionField.MulByNSeparable`.
+
+⚠️ **What survives is the narrow claim, and it is why this section stays**: the general-`n`
+`Subfield` statements below are not read off the `n = 2` / `n = 3` ones and share no proof with
+them, and no `3`-smooth-`n` `Subfield` **`Normal` or `IsGalois`** statement existed before this
+file.  ⚠️ **The separability half of that column DID exist, and the unqualified form of this
+sentence was false on exactly one declaration**:
+`isSeparable_mulByNEndoFieldRange_of_smooth` (`EllipticCurves.FunctionField.MulByNSeparable`)
+binds the same `hfac` and concludes in the same `Subfield`, and it landed at `41b9796`,
+**3 h 26 min before** this file's own crossings at `06d36c8`.  It is a live citation on the route
+named just above, and `isGalois_mulByNEndoFieldRange_of_smooth` below reuses it in its proof
+rather than reproving it.
 
 ## ⚠️ The transcendence parameter, and which clauses below name it
 
@@ -409,7 +431,9 @@ theorem isGalois_mulByNFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
 `Subfield` coercion is one.  Carried across `mulByNFieldRangeEquivSubfield` (`#1219`), which is the
 identity on elements.
 
-⚠️ New relative to `n = 2` and `n = 3`, which cross only separability; see the module docstring.
+⚠️ New relative to `n = 2` and `n = 3` in the narrow sense the module docstring states: this is not
+read off `normal_mulByTwoEndoFieldRange_of_isAlgClosed` or its `n = 3` twin and shares no proof with
+them.  It is **not** that the numeral files lack the statement — they have carried it since `#1244`.
 There is deliberately no `Subring` version, for the reason `#759` established. -/
 theorem normal_mulByNEndoFieldRange_of_smooth [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
     {n : ℕ} (hn : n ≠ 0) (hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3)
