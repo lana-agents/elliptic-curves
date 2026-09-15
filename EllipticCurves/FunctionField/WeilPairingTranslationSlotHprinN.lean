@@ -260,11 +260,23 @@ count is constant across that whole range, where the case-insensitive one steps 
 ⚠️ **Restated with its flags and a sha**, because a recogniser that does not state its flags is not
 published (`#1895`): matching *general `n`* or *uniform `n`* case-insensitively, within 170
 characters either side of `ωₙ`, over every tracked `.lean` and `.md` file with whitespace normalised
-to single spaces, the seed returns **36 sites in 21 modules** at `e122163` — nine modules hold one
-hit, eleven hold two, and this file holds **five**.  ⚠️ **The sub-split failed on its own arithmetic
-before the total did**: only nine modules carry exactly one hit at that sha, so no 21-module subset
-can be *exactly one each*, and it is not re-derived here — which modules cite `ωₙ` as the gate and
-which say it is not used is a reading of 21 module blocks, and no phrase seed decides it.
+to single spaces, **counting one site per occurrence of the matched phrase**, the seed returns
+**36 sites in 21 modules** at `e122163` — nine modules hold one hit, eleven hold two, and this file
+holds **five**.  ⚠️ **The unit was the flag this restatement was still short of, and it is not the
+same flag as the anchoring** (`#1916`).  A window taken *either side* of a token is a **symmetric**
+relation: the pairs it admits are the same set whichever of the two tokens the 170 is measured from
+— **58** of them at `e122163` and **56** at `31177f4` — so naming one token rather than the other
+decides nothing about which pairs are in.  What it decides is how many *sites* those pairs are, and
+that is a projection with two answers: one per matched phrase gives **36** at both shas, one per
+anchor token gives **38** at `e122163` and **37** at `31177f4`.  ⚠️ **The sentence named the token
+that misleads about the unit and then never stated the unit**, which is short of a flag rather than
+false — the relation is described correctly, so nothing retires and `### Retired claims` is not
+reached.  This paragraph had the unit right all along, in the sentence that counts **two of the
+36** as phrases and prices **eight** raw phrase occurrences against them.
+⚠️ **The sub-split failed on its own arithmetic before the total did**: only nine modules carry
+exactly one hit at that sha, so no 21-module subset can be *exactly one each*, and it is not
+re-derived here — which modules cite `ωₙ` as the gate and which say it is not used is a reading of
+21 module blocks, and no phrase seed decides it.
 ⚠️ **Two of the 36 are the two phrases the restatement above writes out**, which is why the seed is
 written here rather than merely cited: a later reader who runs it should not be startled by this
 file's own five hits, the one figure in this paragraph that is about this file rather than about the
