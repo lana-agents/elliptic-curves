@@ -3752,6 +3752,74 @@ project in an automated setting:
   errors (`lake build --wfail`), and that the environment linters pass
   (`lake lint`; see [Linting](#linting) — the last two are different suites).
 
+### The render gate
+
+`README.md` is the one file here that several branches edit at once, and the check that catches an
+edit which quietly **re-nests** the document — a list item that becomes a paragraph, a paragraph
+that is swallowed by a fence — is not a diff. It is a **block-token delta**: parse the file with
+`markdown-it` in its `commonmark` preset at the base and at the head, and report the longest common
+prefix of the two top-level token arrays, the longest common suffix, and whatever is left between
+them. An edit that adds prose and nothing else shows up as one contiguous insertion and no removal;
+anything else means the surrounding structure moved, which a line diff will not tell you.
+
+```bash
+mkdir -p /tmp/render && cd /tmp/render
+printf '{"name":"render","private":true}\n' > package.json
+npm install --cache /tmp/npm-cache markdown-it
+```
+
+```js
+const md = require('markdown-it')('commonmark');
+const toks = f =>
+  md.parse(require('fs').readFileSync(f, 'utf8'), {}).map(t => `${t.type}@${t.level}`);
+```
+
+Key each token by `type@level` rather than by `type@nesting`: both are stable, but `nesting` is
+only `+1`, `0` or `-1` — opening, self-closing, closing — so it cannot tell a `paragraph_open` at
+one depth from one at another, and `level` can.
+
+⚠️ **Name the key beside the figure, because `type@level` is not the only one.** `md.parse` returns
+token *objects*, so a *common prefix* is undefined until you say what makes two of them equal, and
+keying by `type@level` **together with `content`** is a second reading that answers differently on
+the same diff. This section's own insertion is the worked instance: against `ebb4d42` it reads
+`prefix 1116 / suffix 15` keyed by level and `prefix 1111 / suffix 20` keyed with content, out of
+one `md.parse` of one pair of files. `#2021` carries the census over every render figure published
+here.
+
+⚠️ **Publish the delta and not the endpoints.** `N inserted / M removed`, with the inserted token
+types named, is the same number under either key and at any base; a prefix and a suffix are neither.
+`046022d`'s commit message states `common prefix 896, common suffix 179, 32 inserted, 0 removed`
+for the pair its round measured, and at the pair that commit *is* — `2d7f0e0` to `046022d` — the
+content-keyed prefix, insertion and removal still read `896`, `32` and `0` while the suffix reads
+`200`: `2d7f0e0` carries 21 block tokens beneath the insertion point that `77fb54d`, the base that
+round measured against, does not. Nothing there is re-opened by saying so; it is why the delta is
+the form to publish.
+
+⚠️ **Both lines of the install matter, and when either is missing the result looks exactly like the
+package being unavailable.**
+
+* **`--cache <writable dir>`.** Without it `npm` exits `EACCES` on `mkdir` of its default cache
+  directory. The error names the **cache folder**; it names no registry, no host and no network, so
+  a reader who concludes from it that the package cannot be fetched is reading something that is
+  not in front of them.
+* **The local `package.json`.** `npm install` walks *up* for one. Run in a subdirectory of a
+  directory that already has a `package.json`, it installs **there** rather than where you are, and
+  reports success. ⚠️ **A `require` from that same subdirectory nonetheless resolves** — Node's
+  resolver makes the identical walk for `node_modules` — so the `MODULE_NOT_FOUND` this looks as
+  though it must produce comes from elsewhere: a `require` run from **outside** that parent. This
+  harness resets the working directory between commands, so a `cd` in one and a `node` in the next
+  runs from the repository root and fails there, which reads exactly like a failed install. Write
+  the one-line `package.json` first so the install lands where you named it, and chain the `cd` and
+  the `node` in a single command.
+
+⚠️ **This is written down because the opposite was published rather than measured.** More than one
+round on more than one branch recorded the gate as not re-run, on a ground with two halves — that
+`markdown-it` was absent from the slot writing the round, and that there was no network to fetch
+it. The first half is a property of a slot. The second was nobody's measurement until `#1992` ran
+the install; it took under a second, and both gates it had excused then passed with the figures
+their rounds had published. **A gate line is a claim like any other on this page**: run it, or
+write that you did not attempt to.
+
 ## Reviewing
 
 Work here is dispatched to several agent slots at once, and a pull request is normally written in
