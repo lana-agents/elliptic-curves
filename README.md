@@ -697,6 +697,45 @@ it:
   paragraph's first sentence and reaches no `instImplicit` binder. ⚠️ The same goes the other way:
   nothing here reinstates the data-argument clearance for an explicit binder, and `#1631`'s
   occurrence-test wording stays retired.
+* **The `3`-smooth sub-axis clears on the same test, and the clearance is a measurement rather than
+  a reading** (`#2010`). ⚠️ `hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` does **not** bound the
+  index — `(0 : ℕ).primeFactors = ∅`, so it is vacuous at `n = 0`, exactly where the companion
+  binder bites — so a `` `3`-smooth `n` `` clause is a reach clause over the index and not a setting
+  phrase, and the question is what carries `n ≠ 0` beside it. At `2d7f0e0` **every one of the 94
+  declarations binding `hfac` bounds the index anyway**: **80** by an explicit `n ≠ 0`, **5** by an
+  explicit `1 < n`, **9** by the instance `[NeZero n]`, and **not one** by nothing at all. ⚠️ **That
+  census has a seed too, and it owes its blind spot.** A declaration binds `hfac` when the binder
+  opens in its *signature* — the span from the declaration keyword to the first top-level `:=` —
+  with every comment and docstring blanked **before** the search, `example` among the declaration
+  keywords, the index read off the `.primeFactors` in `hfac`'s own type, and the section `variable`
+  lines in scope for the instance row. ⚠️ **And the blind spot is the one the signature clause is
+  there to exclude.** The same binder opening searched over the **raw** source returns **96**, and
+  the two it adds are the only places in this tree where that opening stands inside a code span —
+  in the module blocks of `WeilPairingAlternatingConsumerN` and
+  `WeilPairingDivisorSlotBilinearHprinN`, each beside a quoted `(hnz : n ≠ 0)`, which is why the raw
+  reading inflates the total *and* the `n ≠ 0` bucket and moves no other cell: `96 = 94 + 2` and
+  `82 = 80 + 2`, one mechanism. **A quotation of a binder is not a declaration.** No declaration
+  binds `hfac` twice, so the signature walk and the token count agree at **94**, and
+  `94 / 80 / 5 / 9 / 0` holds at every one of the eleven commits of `main` from `2d7f0e0` through
+  `a570d4d` — it was never `96` in code. The `3`-smooth seed is `` `3`-smooth `n` `` **not**
+  followed by `≠`, whitespace-tolerant because this tree wraps at 100 columns; over the tracked
+  `.lean` source it returns **89** occurrences in **36** files there, **73** in module blocks and
+  **16** in declaration docstrings. ⚠️ Its blind spots, because a
+  published seed owes them: `` `3`-smooth index ``, an emphasised span (`` `3`-smooth **`n`** ``),
+  and every compliant headline, which it excludes by construction. Of the **16**, exactly **three**
+  stand in a headline — `nonempty_torsionLinearEquiv_of_smooth`, `finite_torsion_zmod_of_smooth` and
+  `free_torsion_zmod_of_smooth` (`EllipticCurves.TateModule.DeterminantModSmooth`) — and all three
+  are on the `[NeZero n]` row, so the binder info clears them exactly as it clears the `μ` front.
+  The other **13** are **four** second mentions inside a docstring whose own headline already names
+  `n ≠ 0`, and **nine** claims about a different declaration, six of them in another file. ⚠️ **Both
+  compliant branches are occupied on the same instance**: the three
+  `exists_weilPairingMu_…_of_smooth_of_hprin` headlines do name `n ≠ 0` over `[NeZero n]`, and a ⚠️
+  paragraph under each headline — a body sentence, which is the unit the second-mention rows turn
+  on — says that the instance stands where the function-field-level sibling takes `hnz`: written
+  `F(W)` in two of the three and `F(W⁄F)` in `WeilPairingGaloisRootN`, whose curve is the
+  base-changed one. That is this section's branch-neutrality ruling read on this seed.
+  **Zero convictions and no diff.** The **73** module-block rows are `#1616`'s layer and are not
+  read here.
 
 **A phrase that names one instance is a claim about that one instance and commits the clause to
 nothing else.** *"over `F̄`"* says `[IsAlgClosed F]` is in the declaration's instance list; *"with
