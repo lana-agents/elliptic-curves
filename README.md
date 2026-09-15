@@ -1266,16 +1266,70 @@ denies a structural assumption on `F` and composes with a `with` clause, so it t
 and retires nothing** (`#1733`). Recogniser: the case-insensitive literal *"over an arbitrary
 field"* in the **headline** of a `/--` block of an `EllipticCurves/**/*.lean` file, headline meaning
 the block text `**`-stripped and whitespace-normalised, cut at the first `.` followed by optional
-bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whichever comes first. At
-`2765fc9` the phrase occurs **211** times in **63** files — **96** `/--` blocks and **77** `/-!`
-blocks — and **88** occurrences fall inside a `/--` headline. Joining those 88 to their declarations
-and reading every `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `((n : ℤ) : F) ≠ 0`, `(n : F) ≠ 0`,
+bold, code-span, bracket or quote marks and a space, or at the first ⚠️, whichever comes first.
+⚠️ **The stripping and the normalisation are flags of the whole census and not only of the headline
+cut, which is the only clause they are written under** (`#1956`). The population figures below match
+the same literal against `/--` and `/-!` block text prepared the same way, and **the same key
+without the stripping returns 184 occurrences in 54 files** rather than 211 in 63.
+That pair is where a re-implementation lands, and the record has it derived **five** times rather
+than once — four of them in the `#1733` and `#1742` threads and the fifth in `#1956` itself.
+PR #689's **rejecting** review derived it first, called the stripping load-bearing and ruled the
+flag merely inferable (19:55Z); PR #696's approving review, PR #697's delivery comment and PR #697's
+approving review each derived it again the same night (23:32Z, 23:45Z and 23:59Z), each recording
+that the unstripped reading looks exactly like the census failing, one of them having taken it that
+way first. Those four sit inside four hours and five minutes and straddle this paragraph's own
+landing in `0083238` at 21:18Z. ⚠️ **Three of them say in terms that the global `**`-strip and the
+block-versus-occurrence split both belonged in this page the next time this paragraph was open** —
+which is what is printed here — **and two of the three ruled it**: PR #696's approving review
+(23:32Z) and PR #697's approving review (23:59Z). The third is PR #697's delivery comment (23:45Z),
+and a delivery comment asks rather than rules — which is the whole of the difference between
+the three and the two. The fifth is `#1956`, filed **2026-09-13T16:52Z** on the ground that this
+census publishes no phrase key at all — eight calendar days after `0083238` but **7 d 16 h** after
+the last of the four, which is why the gap is written as two clocks rather than as a count of days.
+**A flag stated under one figure is not published for the others.**
+At `2765fc9` the phrase occurs **211** times in **63** files — **98** occurrences spread over
+**96** `/--` blocks and **113** over **77** `/-!` blocks, so `98 + 113 = 211` closes as an
+equation — and **88** occurrences fall inside a `/--` headline. Joining those 88 to their
+declarations and reading every `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `((n : ℤ) : F) ≠ 0`, `(n : F) ≠ 0`,
 `[IsAlgClosed F]`, `[CharZero F]`, `[PerfectField F]` and `[Fintype F]` binder **in scope** — own
 list plus every `variable` line above the block — splits them **57 / 8 / 23**: 57 bind a condition
 on `F` the headline does not name, 8 already carry the completion, and 23 bind nothing about `F`
-and are true as written.  After `#1733` the split is **47 / 18 / 23**.
+and are true as written.  After `#1733` (`0083238`) the split is **47 / 18 / 23**.
 
-⚠️ **The 8 decide it, and they decide it against the closed reading.**
+⚠️ **Re-run at `d559108` the split is `0 / 65 / 23`: the 47 no longer exist** (`#1956`). `#1742`
+completed them the same night, inside four and a half hours of `#1733` landing, in three cuts —
+`dd7a2ff` (PR #696, **18** rows), `039d7e4` (PR #697, **14**) and `5cfd485` (PR #699, the last
+**15**) — and `18 + 14 + 15 = 47` closes against the buckets, each cut re-measured at its own sha
+here rather than taken from its subject line. The population at `d559108` is **223** occurrences in
+**65** files — **100** over **96** `/--` blocks and **123** over **80** `/-!` blocks — while the
+headline count is **88** at all three refs. Every figure in this paragraph comes from the recogniser
+above, re-implemented from these words at `2765fc9`, `0083238` and `d559108`; the control is that
+deleting one completion from one headline at `d559108` moves exactly one row out of that **65** and
+into the bucket `#1742` emptied, giving `1 / 64 / 23`.
+
+⚠️ **The population, the headline count and the split are all live, which is why each is written
+against a named ref and not against this page's head** (`#1956`). At `77fb54d` the phrase occurs
+**225** times in **65** files — **101** over **97** `/--` blocks and **124** over **80** `/-!`
+blocks — **89** of them inside a `/--` headline, and the split is `0 / 66 / 23`. One diff moved all
+three: `#1773` (PR #750) rewrote headlines in
+`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` and its module block. That
+file's phrase-carrying `/--` headlines go **12 → 13** — **nine** of the twelve were extended
+without gaining an occurrence, **three** carry the same headline at both refs, and the thirteenth
+is `affinePart_pullbackDivisorTwo_single_sub_single_of_card`, whose headline is the affine-chart
+form *"where `hprin` lives"* and gained the phrase outright, so `9 + 3 + 1 = 13` closes — while its
+module `/-!` block goes **5 → 6**, and `+1` with `+1` is the whole of `223 → 225`. That new row
+already names the condition its declaration binds, so it lands in the middle bucket: the `23` does
+not move and the `0` stays `0`.
+⚠️ **A count of a DIFF has no recogniser unless it is given one, and it is the figure on a page
+like this least likely to be re-run** (`#1956`). That `9 / 3 / 1` is published with the census's
+own: cut the headline as defined above at `d559108` and at `77fb54d` — PR #750 is the only commit
+that touches this file between them — and compare the strings declaration by declaration. Each of
+the nine is one contiguous insertion into the old headline, which is what *extended* is measuring;
+the three unchanged are `residueDegreeComap_pos`,
+`card_fibre_comapProjPointTwo_le_four_of_isSeparable` and
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card`.
+
+⚠️ **The 8 at `2765fc9` decide it, and they decide it against the closed reading.**
 `sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable`
 (`EllipticCurves.FunctionField.MulByNInertia`), `**`-stripped as the recogniser reads it, is
 *"`∑_{p ↦ q} e_p · f_p = n²` for `[n]∗` at every `3`-smooth `n ≠ 0` with `(2 : F) ≠ 0` and
@@ -1295,16 +1349,28 @@ nothing else about `F`"* (`dcc912e`, `#1339`, PR #508) were both ruled **false**
 *"over an arbitrary field"* headlines that took a completion under `#1733`. *"Nothing else"* closes
 the list; *"arbitrary"* does not.
 
-⚠️ **The 57 are a population to read, not a verdict, and only ten of them are repaired.** `#1733`
-completed the ten in `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` — in
-that file's own wording, *"over an arbitrary field with `(2 : F) ≠ 0`"* — leaving **47** in eleven
-files, filed rather than swept. At least one will clear on a reading rather than a count:
+⚠️ **The 57 at `2765fc9` were a population to read and not a verdict, and at `d559108` every one
+of them is repaired.** `#1733` completed the ten in
+`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` — in that file's own wording,
+*"over an arbitrary field with `(2 : F) ≠ 0`"* — and `#1742` completed the other **47**, in eleven
+files, in the three cuts named above. ⚠️ **This paragraph used to read** *"and only ten of them are
+repaired"* and *"leaving 47 in eleven files, filed rather than swept"* (`0083238`, `#1733`,
+PR #689; the first span was bold and the `47` in the second was, neither reproduced inside the
+quotation): both were true when written and `#1742` falsified them the same night, so they are
+quoted here rather than completed in place (`#1956`). ⚠️ **The prediction beside them did not hold
+either.** This paragraph also said *"At least one will clear on a reading rather than a count"* of
 `exists_weilPairingElt_self_eq_one_of_smooth_of_baseChange`
-(`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`) closes its headline *"with
-`hprin` the only hypothesis that is not about the characteristic"*, which tells the reader the
-characteristic conditions exist without naming them, while its neighbour of the same shape at
-`…_of_ne_zero_of_baseChange` names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` outright. ⚠️ **A module
-H1 cannot always take the insertion**, and that is the one place this ruling and the heading rule
+(`EllipticCurves.FunctionField.WeilPairingAlternatingBaseChangeN`), which at `0083238` closed its
+headline *"with `hprin` the only hypothesis that is not about the characteristic"* — telling the
+reader the characteristic conditions existed without naming them — while its neighbour of the same
+shape at `…_of_ne_zero_of_baseChange` named them. ⚠️ **The conditions the neighbour names have not
+changed.** `…_of_ne_zero_of_baseChange` names `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` in its
+headline at `2765fc9`, at `0083238` and at `d559108` alike, and still does at `77fb54d`;
+`…_of_smooth_of_baseChange` is the one that took the count, and it took it rather than clearing on
+a reading. At `d559108` its own headline names `(2 : F) ≠ 0` and `(3 : F) ≠ 0` outright **and**
+still closes on the same `hprin` clause (`5cfd485`, PR #699), so the reading it was predicted to
+clear on sits untouched beside the completion it was predicted not to need. ⚠️ **A module H1
+cannot always take the insertion**, and that is the one place this ruling and the heading rule
 below pull apart: completing `PullbackPrincipalityTwoRationalTorsion`'s title in place makes it
 **117** columns, so the phrase was dropped from the title to the prose instead, on
 `### Scope of the rules above`'s heading bullet.
