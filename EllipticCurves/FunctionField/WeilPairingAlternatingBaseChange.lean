@@ -63,8 +63,37 @@ the transport as `functionFieldMap_weilPairingElt`
 (`EllipticCurves.FunctionField.WeilPairingEltBaseChange`) — one `rw`, from `map_div₀` and
 `functionFieldMap_translateEndo`.  Do not go looking for the misleading sentence; it is quoted as
 retired in the very section it used to be in.  ⚠️ The *first* half of this paragraph is untouched by
-that: `divisor` and `divisorProj` still do not transport, that is still `#692`'s open remainder, and
-nothing below uses them.
+that: no divisor-level compatibility is used below, whatever the state of `#692`.
+
+⚠️ **The clause that read that first half as an ABSENCE is retired here.**  It ran *"`divisor` and
+`divisorProj` still do not transport, that is still `#692`'s open remainder, and nothing below uses
+them"*.  Its last clause stands read of the base-change *compatibility*, which is what the sentence
+above it is about — the two tokens themselves do occur below, in the `hprin` hypotheses and in the
+proofs that consume them — and its first two clauses are false: the affine `divisor` transports in
+`EllipticCurves.FunctionField.DivisorBaseChange`, multiplied by a ramification index that module
+leaves abstract, and `divisorProj` transports in
+`EllipticCurves.FunctionField.DivisorProjBaseChange` — with **no** index at the point at infinity,
+where `ordInfty` is preserved outright.
+
+⚠️ Merged is not closed, and this file does not say what `#692` still owes: the registers to read
+are those two modules' own `## What is *not* here` sections, **each scoped to the file that carries
+it** and not to the tree.  ⚠️ **They carry several rows each and this file summarises neither** —
+a summary of another module's register is falsified by a commit to that module, so it is a pointer
+that rots with no edit to the file carrying it.  One membership claim is worth making, because it
+is the one an earlier round of this paragraph got wrong: **`#692`'s item 3, the `Point.map` bridge,
+is NOT among what they leave standing** — it is built, in
+`EllipticCurves.FunctionField.FunctionFieldBaseChangeN`, and `FunctionFieldBaseChange`'s
+`## Remaining work` retires the clause that called it missing.  Both registers say only that it is
+absent from the file carrying them (*"no statement below has a `W.Point` in it"*), which is a
+different claim from unbuilt, and reading it as the stronger one is the mistake this paragraph
+exists to retire.
+
+⚠️ **One caveat is about this file's own setting rather than about `#692`'s ledger**, and it is
+keyed on a binder rather than on a register: `DivisorBaseChange`'s `under`-forms write
+`[Module.Finite F K]` in their own signatures, and the extension this file pushes to is `F̄`.
+Nothing below needs them — no divisor-level compatibility is used here at all — but a reader who
+follows the pointer above meaning to use one should read that binder first.  ⚠️ A prose pointer and
+not an `import`: none of the three modules is named in this file's `import` block.
 
 ## Main results
 
