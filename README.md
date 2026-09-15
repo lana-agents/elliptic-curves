@@ -3084,6 +3084,138 @@ true"*, one layer up, in this document's own prose. They are:
   pairs and all three verdict counts are unmoved** — 97, 102, and 49 / 14 / 39. The repair this
   commit makes moves none of the nine: it retires no heading citation, and the quotation it adds has
   no citation inside the window. No numeral written here stands alone inside a bold span.
+
+  ⚠️ **THE `IN` BUCKET IS READ — ALL 49, ONE AT A TIME — AND *CLEARED BY CONSTRUCTION* WAS COVERING
+  FOUR DIFFERENT THINGS** (`#1942`). Measured at **`be1a4d5`**, with the two recognisers above:
+  **236 heading-citation spans**, **235 line-keyed**, **202 on a title this file also carries**,
+  splitting **97 bound** and **105 unbound** into **102 pairs**, and the span test returns **49 / 14
+  / 39** — unmoved from `d559108`, from `eb4b11a` and from `49b327d`, where the first three figures
+  read 235 / 234 / 201, 234 / 233 / 200 and 226 / 225 / 192. ⚠️ **The corrected reading — refuse
+  every `*"…"*` printing as a source, not only the row's own — moves 13 of the 49, nine to `OUT` and
+  four to `NO-SOURCE`. Three of the thirteen move on CASE and not on that flag at all**, identically
+  at all four commits: `:1580` and `:1655` quote *"short is partial, over-reaching is false"* and
+  `### Reach clauses` writes it at `:1106`, capitalised at a sentence start; `:2603` quotes
+  *"in the same docstring"* and `### Gate-discharge claims` writes it at `:1369`, capitalised the
+  same way. **So the quotation flag is worth ten rows and not thirteen**, and a 2×2 that moves
+  emphasis and case together cannot tell which of the two paid. Stripping emphasis alone recovers
+  none.
+
+  ⚠️ **Both of those counts turn on a third flag, and it is named here because a figure that turns
+  on an unnamed flag is not published.** The flag is whether the search for a **source** may read
+  **fenced** text. Both recognisers this bullet uses exclude fences on the *matching* side and
+  neither says anything about the source side, and the two readings differ by exactly one row of the
+  49. With fenced text readable the corrected reading is **36 / 19 / 47**: it moves **13**, nine to
+  `OUT` and four to `NO-SOURCE`, leaving **ten** once the three case rows come out. With it blanked
+  the reading is **35 / 19 / 48**: it moves **14**, nine and **five**, leaving **eleven**. **The
+  thirteen and the ten are the readable reading, and so is the sort below.**
+
+  ⚠️ **The row the flag adds is `:717`, and it is not an eleventh member of the four classes
+  below.** Those four sort a row by what its citing sentence *does*, and by that sort `:717` is a
+  *names a place* row: it says a totality phrase *"is a gate-discharge claim and is governed by"*
+  `### Gate-discharge claims`, which cites what **governs** the phrase and is `:2279`'s shape
+  exactly. What is new is its **support**. Its quotation *"with no hypothesis left"* occurs inside
+  the cited section twice at `be1a4d5` — at `:1339`, in that section's own list of gate-discharge
+  wordings, which the corrected reading refuses; and at `:1353`, inside the fenced `-- right:`
+  specimen, where it is `EllipticCurves.Torsion.PrimaryTowerOdd`'s headline copied character for
+  character. ⚠️ **So a section is certified as the source of words that belong to another file, and
+  the device is a fence and not a marked quotation.** It is the only row of the 49 whose only
+  surviving in-section support is a fenced specimen, and it is why the flag is worth naming rather
+  than inferring: refusing quotations without refusing fences prices this row at zero.
+
+  ⚠️ **The ruling, and it is neither branch of the question as it was put.** A section's quotation
+  of other text is that text sitting in this section: a place a reader finds the words, and not the
+  section saying them. So wherever a citing sentence **attributes** — says the words are that
+  section's — a printing inside the cited span is not a source, and the corrected reading is right.
+  **But most pairs attribute nothing.** The citation names what **governs** a phrase, or **where** a
+  row sits, or which row a repair rewrites, and a flag about sources decides nothing for those. The
+  population this test can rule on is the attributing pairs, and **the binding window does not
+  select them**: it takes the nearest quotation in either direction whatever the sentence does with
+  it. ⚠️ **That is the same defect the 14 `OUT` rows already showed** — thirteen of those fourteen
+  are the binder over-reaching, and this bucket is the other end of one recogniser gap, not a second
+  one.
+
+  ⚠️ **The attribution recogniser, and its blind spot is named rather than left to be found**
+  (`#1867`). A pair attributes when the citation is the quotation's grammatical attributor, and the
+  form this file writes for that is the possessive: the citation span, then `'s` or a bare `'` and
+  at most one space, then the quotation, forwards only. **31 of the 102 pairs**, **21 of the 49
+  inside**, and **1 of the ten**, identical at `49b327d`, `eb4b11a`, `d559108` and `be1a4d5`. ⚠️
+  **That space is counted after runs of whitespace are collapsed to one, and the flag is named
+  because the first two figures turn on it**: read as a literal `U+0020` they are **30 and 20** at
+  all four commits. The row is `:1655`, where the citation ends a line and its quotation opens at
+  the first character of the next, so the gap is `'` and a newline. It is one of the three case
+  rows, so it is in the thirteen and outside the ten, and the **1 of the ten** is `:1112` under both
+  readings. ⚠️ **It is a lower bound, and the two shapes it misses do not sit in the same bucket**.
+  The naming verb — *"the shape `### Module-block bullets` names in terms"* at `:1508` — is in the
+  ten. The anaphoric possessive — *"that section's exemption is"* at `:2603` — is **not**: `:2603`
+  is one of the three case rows this bullet has just taken out of the thirteen, so it is in the
+  thirteen and outside the ten, and no citing sentence of the ten carries that shape. Read by hand,
+  two of the ten attribute where the recogniser finds one, and the second of the two is `:1508`.
+  **The counts are the recogniser's and the disposition below is the reading's**, which is the only
+  way round that order works.
+
+  ⚠️ **The ten, and not one of them is a false citation.**
+  * **Four are the binder over-reaching.** `:926` attributes its quotation to the `.lean` row it
+    says *"now reads"* it, and names `### Module-block bullets` for carrying the repaired row.
+    `:1075`'s `### Retired claims` is the object of *opening*, not an attribution. `:1952` and
+    `:2676` both name the owner possessively in the **same sentence** — `### Reach clauses`' — and
+    the backward binder reaches past that citation to the one that follows the quotation.
+  * **Three name a place and not a source.** `:2279` says `### Gate-discharge claims` **governs**
+    the bullet phrase *"no `hcard`"*; `:2901` says two rows of a glossed population **sit** in the
+    two sections it names; `:2984` names the row a repair in that same commit **rewrites**.
+  * **Two are phrase-vocabulary mentions, where the section's printing is the act cited.** `:1508`
+    and `:2491` cite `### Module-block bullets` and `### Gate-discharge claims` for **naming** those
+    phrases, and naming them is exactly what those printings do.
+  * **One is a true citation of retired text, and no verdict this test has can hold it.** `:1112`
+    reads `### Gate-discharge claims`' *"bind `h2` (four also `h3`)"* **stood over** a population of
+    exactly six, and that section carries those words only as its own retired quotation at `:1573`.
+    The verb is past and the sentence is true. The corrected reading sends it to `NO-SOURCE` —
+    *"the quoted words are not on this page"* — which is the one thing it is not. ⚠️ **The test has
+    no tense**, and the axis has now failed on the verb from both sides: a citation can name the
+    right section and quote it verbatim and still be false, and it can quote a wording the section
+    has retired and still be true.
+
+  ⚠️ **Zero convictions is a reading here and not a count** (`#1628`). Each of the 49 was read
+  against its citing sentence and against the sentence its support sits in, and the verb of each
+  was read. ⚠️ **What is NOT measured, and it is scoped rather than waved at** (`#1848`): no figure
+  any of the 49 rows asserts was re-derived; the 39 `NO-SOURCE` rows and the 14 `OUT` rows are not
+  re-read here and remain where `#1940` and `#1935` leave them; and the 105 unbound citations
+  attribute nothing this test can score and are `#1834`'s. ⚠️ **One row of the 49 turns on the
+  nesting reading, and it is the row this bullet already names**: `## Scope`'s *"The following are
+  developed here"*, whose words sit in `### What is formalised`. **48 of the 49 are inside on the
+  flat reading too**, at all four commits — so the convention that decides one citation of the 110
+  decides exactly one of the 49, and it is the same one.
+
+  ⚠️ **Nothing is re-keyed, because the ruling leaves the published reading standing.** The test
+  returns `49 / 14 / 39` and this bullet goes on saying so; what is new is that the 49 are **read**
+  rather than assumed, and that the corrected reading is priced at ten rows with its own flag
+  separated from case. ⚠️ **What this paragraph does to the figures it publishes was measured and
+  not assumed, and it is inside its own population — and it is written as this commit's own delta
+  and not as a state of the tree, so no base move falsifies it.** This commit adds **16
+  heading-citation spans**, all sixteen line-keyed and all sixteen on a title this file carries,
+  **ten to the bound half** and **six to the unbound**, for **twelve new pairs**, nine inside and
+  three outside, and **not one of the 39 moves**. Every one of those nine deltas is identical at
+  `d559108` and at `be1a4d5`. ⚠️ **Every row it adds to `OUT` is the binder over-reaching on this
+  paragraph's own sentences** — the citations beside *"that section's exemption is"*, beside
+  *"now reads"* and beside this paragraph's own quotation of `:717`'s citing sentence are named for
+  what they govern and for what they carry — so the bucket this paragraph reads gains three more of
+  exactly the shape it reads them as, one of them produced by reading a row of that shape. The
+  attribution recogniser goes **31 → 33** pairs and **21 → 23** of the inside rows, and the rows
+  whose only support inside the cited span is a printing go **10 → 12** — ⚠️ **and `:717` is not
+  among them at either end, which is the fence flag showing through the census**: its in-section
+  support survives the refusal of printings because a fence is not one. ⚠️ **It also adds the second
+  nesting-dependent row**, by quoting `## Scope`'s wording here: 48 of 49 on the flat reading at the
+  base becomes 56 of 58 at this head. ⚠️ **The four seeds this section publishes are written here as
+  deltas against this commit's parent and not as states of the tree**, which
+  `### Gate-discharge claims` asks for in terms — *"A delta is safe and a state-at is not"*. The
+  noun-and-direction and distance seeds gain no match. The nine-word seed gains **two**, and this
+  paragraph can account for both: the quotation of `## Scope`'s wording, which is the row this
+  bullet names above as the one of the 49 that turns on the nesting reading, and this sentence
+  naming the word `following` to say so. ⚠️ **The bolded-numeral seed is the one this round moves,
+  and its figure counts itself**: this commit adds **7** standing-alone bolded numerals — five of
+  them pricing the two readings of the fence flag, one on the nine-word seed just above, and one
+  here. ⚠️ **The emphasis figures are untouched**: this commit adds **fifteen marked quotations** to
+  the tree and **none** to the count carrying a bold span inside, which is 124 in 48 files at
+  `be1a4d5` and at this head, because no quotation written here carries emphasis of its own.
 * **A clearance is not a count, and the discriminator in `### Reach clauses` does not reach it**
   (`#1824`). That discriminator sorts a dated census, which a new head does not falsify, from a
   present-tense claim about a named declaration, which it does. A **clearance** — the claim that no
