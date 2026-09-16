@@ -3898,12 +3898,15 @@ npm install --cache /tmp/npm-cache markdown-it
 ```js
 const md = require('markdown-it')('commonmark');
 const toks = f =>
-  md.parse(require('fs').readFileSync(f, 'utf8'), {}).map(t => `${t.type}@${t.level}`);
+  md.parse(require('fs').readFileSync(f, 'utf8'), {}).map(t => `${t.type}:${t.tag}:${t.level}`);
 ```
 
 Key each token by `type@level` rather than by `type@nesting`: both are stable, but `nesting` is
 only `+1`, `0` or `-1` — opening, self-closing, closing — so it cannot tell a `paragraph_open` at
 one depth from one at another, and `level` can.
+⚠️ **`tag` is the third field the recipe above reads, and it is not optional.** A heading's rank
+lives in `tag` and nowhere else, so `type` and `level` alone score `## H` and `### H` equal; the
+ranking of `level` over `nesting` is untouched by adding it, and the case is worked below.
 
 ⚠️ **Name the key beside the figure, because `type@level` is not the only one.** `md.parse` returns
 token *objects*, so a *common prefix* is undefined until you say what makes two of them equal, and
@@ -3947,6 +3950,113 @@ the install; it took under a second, and both gates it had excused then passed w
 their rounds had published. **A gate line is a claim like any other on this page**: run it, or
 write that you did not attempt to.
 
+⚠️ **The key this section prescribed before this paragraph matched an `h2` against an `h3`, and the
+one pair in this page's own history where the two skeleton keys disagree is exactly that**
+(`#2021`). A heading's rank lives in `tag` and nowhere else, so a key built from `type` and `level`
+alone cannot see it:
+`## H` rewritten as `### H` scores **0 inserted / 0 removed** under `type@level` and under
+`type@level` with `content`, and **3 in / 3 out** under `type:tag:level`. That is not a corner.
+Across the fifteen landed messages this section now counts, each re-run at the pair its commit
+*is* — its parent to itself — `type@level` and `type:tag:level` return the same prefix and suffix at
+fourteen and differ at one, `ebb4d42` → `3f61ad7`: `1116 / 15` against `1110 / 21`. ⚠️ **Each of
+the three answers is produced by a different field, and they are produced by two different tokens.**
+At index 1110 of that base array the base holds a `heading_open` whose `tag` is `h2` and the head
+one whose `tag` is `h3`; `type` and `level` score those equal and walk six tokens further, to
+`1116`, which is the whole of the `tag` axis. ⚠️ **The heading's words are not in that token** —
+its `content` is the empty string at both ends — and *"Reviewing"* against *"The render gate"* is
+index 1111, the `inline`, which is where a key carrying `content` diverges. That is why the three
+prefixes are `1116 / 1110 / 1111` and not `1116 / 1110 / 1110`, and the six tokens the first two
+answers straddle are a `heading_open`, an `inline`, a `heading_close`, a `paragraph_open`, an
+`inline` and a `paragraph_close`. ⚠️ **That commit is the one that wrote this section**, so the
+rule and its counter-example landed together, and a heading demotion is the re-nesting a line diff
+hides best.
+
+⚠️ **So key by `type:tag:level`.** It is a strict refinement of `type@level`, it is what four of
+the five landed messages that state a key state, and it leaves the reason given for preferring
+`level` to `nesting` standing — `tag` adds what `level` cannot carry rather than replacing it. The
+clause *"Key each token by `type@level` rather than by `type@nesting`"* is **completed and not
+retired**: `### Reach clauses`' test for which of those applies is whether the old clause was false
+or merely partial, and that one ranks two keys correctly and is silent on a third. ⚠️ **The
+completion is in place above and not deferred to this paragraph** — the sentence keeps its ranking
+and gains the `tag` field beside it, and the runnable recipe maps `type:tag:level`, so the
+imperative and the executable form of it name one key. **A section that prescribes in prose and
+implements something else is read through the code**, which is the thing a re-runner copies. So is
+*"keying by `type@level` **together with `content`** is a second reading"* — a second, and not the
+last.
+
+⚠️ **The landed record, with its recogniser and its date.** `git log --format=%B` over `main`,
+whole bodies whitespace-flattened, substring `markdown-it`: **15** of **725** messages at
+`9147113`. The two other substrings tried return **6** (`common prefix`) and **2** (`block token`)
+and add no message the first does not. Of the fifteen, **5** state a key as a field list —
+`type:tag:level` four times, which `aadc404` writes *"type / tag / level"*, and `type@level` once,
+beside `type@level` with `content` — **4** say *"token skeleton"* and give no fields, and **6**
+name nothing at all. ⚠️ **A round keying by `type@level` on this section's word takes one landed
+message in five as its authority.**
+
+⚠️ **Three keys, three answers, and the pair that produces all three is this section's own
+insertion.** The fifteen re-run at their parent pairs under the three: **6** give one prefix and
+suffix under all of them, **8** give two, and **1** gives three — `ebb4d42` → `3f61ad7`,
+`1116 / 15` by level, `1110 / 21` by `type:tag:level`, `1111 / 20` with `content`. The insertion
+count there is **35** under every one of the three, which is the delta rule measured rather than
+asserted.
+⚠️ **Unpacked, that bucket points the other way from the ruling, and the ruling is still the right
+one.** The axis this section now prescribes separates `type@level` from `type:tag:level` at **1**
+of the fifteen; `content` separates itself from `type:tag:level` at **9** — `3f61ad7`, `046022d`,
+`949369c`, `31177f4`, `2d5ce68`, `4655854`, `855f993`, `3c183d8` and `aadc404` — so the whole of
+the *"two answers"* bucket is the `content` axis and none of it is the `tag` axis. ⚠️ **That is
+what a structural gate looks like when it is working.** The question this gate is built to answer
+is whether the surrounding structure moved — a list item that became a paragraph, a heading that
+changed rank, a paragraph swallowed by a fence — and a prose rewrite that moves no block is a
+change a line diff already shows in full. A key carrying `content` re-scores every one of those
+edits as a token insertion and a token removal, which is why four of the fifteen honestly read
+`0 in / 0 out` on a diff that changed words: the zero is the gate saying *nothing re-nested*, and
+it is the answer the gate was asked for. `content` stays a second reading rather than the
+prescribed one for that reason and not by headcount.
+
+⚠️ **An index is an endpoint, and the delta rule does not yet exclude one.** `ebb4d42`'s message
+publishes its gate as *"+3 block tokens with the divergence at token 928"*, under its own clause
+*"stated as DELTAS and not as endpoints, because an endpoint is base-relative and a delta is not"*.
+The `+3` and the three token types it names are base-invariant and reproduce at every pair; the
+**928** is a position in the base array, and at the pair that commit is — a parent that round never
+saw — the same three tokens sit at **960**. Publish `N inserted / M removed` with the types named,
+and name the `base → head` pair beside them; do not publish a position **as the figure**. ⚠️ **An
+index used to say why two keys disagree is not a figure and is exempt**, which is what the `1110`
+and the `1111` above are: both ends of their pair are landed shas, so the arrays they index are
+fixed forever, and the sentence is unreadable without them. The rule binds on a position offered
+as the gate's answer, because that is the one a later base silently re-numbers.
+
+⚠️ **No figure in the fifteen is false under the key and the pair its author used**, recorded so
+that the census is not re-run blind. The two measured against a base other than their commit's own
+parent both reproduce at the base they name: `046022d`'s `prefix 896 / suffix 179` at
+`77fb54d` → `0904ac7` keyed with `content`, and `ebb4d42`'s `928` at `77fb54d` → `91c6980` under
+all three keys. ⚠️ **Both pairs share that base, and what is luck is the two heads** — a branch
+head force-pushed over is not fetchable by sha afterwards, so a figure keyed to one can be
+re-derived but never re-run, and a pair is only as durable as its weaker end.
+⚠️ **And the key prescribed above costs the landed record almost nothing, which is a better warrant
+for it than four-of-five.** Every one of the **4** messages that say *"token skeleton"* and name no
+fields returns, under `type:tag:level` at the pair it names, exactly the figure it published:
+`949369c` `1038 / 0` with 0 in and 0 out at `0199a96` → itself, and `49b327d` `915 / 78` with 45
+in, `2f1a674` `895 / 78` with 20 in and `7c0460d` `471 / 453` with 7 in, each at its parent. So
+does `ac0a053`, which names no key at all — `1075 / 0`, 21 in, 0 out. The three that already write
+`type:tag:level` are true by construction. ⚠️ **Two published figures are not the prescribed key's
+answer, and only one of the two leaves a reader unable to tell**: `3f61ad7` gives `1116 / 15` and
+`1111 / 20` and **names both keys**, so a reader has what they need; `046022d` gives
+`prefix 896 / suffix 179` where `type:tag:level` reads `898 / 177` at the same
+`77fb54d` → `0904ac7`, and **names none**. **The ruling retro-validates every landed figure whose
+author said what they measured**, which is what makes *name the key* the half of this section that
+was always load-bearing.
+
+⚠️ **One exception to the clearance above, and it is not about the key at all — it is about the
+word *this*.** `31177f4` writes *"the whole token skeleton (`type:tag:level`, **966** tokens) is
+**byte-identical** `88f9253` → this head"*. `88f9253` still resolves and carries **966** tokens, so
+the base is fine; **`this head` is what does not hold still**. It was the branch head the round was
+written at, that head was amended away, and read at the commit the sentence landed in the pair is
+`88f9253` → `31177f4`, which is **966 → 973** with **7** inserted under all three keys — one
+`fence`, one `bullet_list` and five more. The same bullet's other figures are measured parent to
+**landed** and reproduce, so *this head* is the landed commit and the identity claim is false there.
+⚠️ **A pair with a landed sha at each end can be re-run forever; a pair with `this` at one end is
+re-measured by every later round of its own branch**, and this is the one row of the fifteen where
+that happened. Name both ends by sha, in a message that is still open to be amended.
 ## Reviewing
 
 Work here is dispatched to several agent slots at once, and a pull request is normally written in
