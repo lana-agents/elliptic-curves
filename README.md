@@ -594,12 +594,18 @@ and takes **that** instance from no `variable` block, so the published ground wa
 section's own worked case for it. ⚠️ **Retired, and here rather than at the theorem it names**
 (`4efeb97`, `#1774`, PR #706): the clause read *"and takes no instance from a `variable` block at
 all"*, and the row's own elaborated telescope falsifies it — `[Field F]` and the **propositional**
-`[W.IsElliptic]` are bound by `WeilPairingTranslationSlotHprinN:313`, there is no `section` or `end`
-between that line and the `theorem` at `:352`, and both are included because the statement mentions
-`W`. `#1694`'s subject test puts the quotation here rather than in that file: the claim is about
-**this section's ground**, not about what the theorem says, so a reader of the file it names has no
-stake in it. ⚠️ **Only the universal fell.** `[NeZero n]` is written at the declaration and carried
-by no `variable` block, which is the whole of what makes the retired middle clause above false of
+`[W.IsElliptic]` are bound by the `variable` line that opens
+`WeilPairingTranslationSlotHprinN`'s `CoordinateRing` namespace — the one that also binds
+`{xT yT : F}` — there is no `section` or `end` between it and the
+`theorem torsion_le_weilPairingPointSubgroup_n`, and both are included because the statement
+mentions `W`. ⚠️ **Both coordinates were line numbers and both had gone stale** (`#2037`): they were
+exact at `830a050`, the commit that wrote them, and at `02a1652` they name a bibliography bullet and
+an `open Classical in`. The sha this sentence carries is an **attribution** and resolves neither, so
+the repair is the content key rather than a new number. `#1694`'s subject test puts the quotation
+here rather than in that file: the claim is about **this section's ground**, not about what the
+theorem says, so a reader of the file it names has no stake in it. ⚠️ **Only the universal fell.**
+`[NeZero n]` is written at the declaration and carried by no `variable` block, which is the whole
+of what makes the retired middle clause above false of
 its own worked case. ⚠️ **The shape is `#1694`'s — claiming too much — and this section's own
 census is the counterexample**: `[W.IsElliptic]` is propositional, so the row is one of the **1352**
 the `IsElliptic` figures below count. It is PR #694's ``carries no`` gloss again, retired below in
@@ -1065,10 +1071,15 @@ for the claim rather than the wording — `the hypotheses of`, `the same reach`,
 same nesting-aware `/-`-depth comment regions, whitespace squeezed, case-insensitive: **107** raw
 hits over **420** files, every one read, of which **8** state reach identity and are **not** among
 the 25 — `MulByNFibre:999` and `:1164`, `WeilPairingRootIndependence:202`,
-`WeilPairingCyclotomic:50`, `DeterminantModGeneral:218` and `:239`, `MatrixRepModGeneral:120`,
-`WeilPairing:303`. **The identity axis is 33 rows in 23 files, not 25 in 18.** Seven are true — the
-two `binder for binder` restatement claims were read against the four `_of_smooth` signatures they
-name, `omit` lines included — and one, `WeilPairingCyclotomic`'s *"Nothing here weakens or
+`WeilPairingCyclotomic:50`, `DeterminantModGeneral:218` and `:239`, `MatrixRepModGeneral:120`, and
+`WeilPairing`'s `## What non-degeneracy actually consumes`. **The identity axis is 33 rows in 23
+files, not 25 in 18.** ⚠️ **The seven line addresses in that list resolve at `cb6ad1f`, which is the
+sha this paragraph names and not the tree** (`#2037`), and `WeilPairingCyclotomic:50` resolves there
+and necessarily not at `HEAD`, because this paragraph records below that that row was repaired. The
+eighth resolved at neither and is keyed by heading here: it read `WeilPairing:303`, exact only at
+`1d79187`, which added it to a list the other seven had been in since `bde07d8`. Seven are true —
+the two `binder for binder` restatement claims were read against the four `_of_smooth` signatures
+they name, `omit` lines included — and one, `WeilPairingCyclotomic`'s *"Nothing here weakens or
 strengthens the hypotheses of the merged equivariance statements"*, was **false** and is repaired in
 that file. ⚠️ **The 25 is not retired**: it is a true, dated count of the rows the phrase seeds
 return, so it is **partial** and takes the qualification above rather than a marked quotation. Run
