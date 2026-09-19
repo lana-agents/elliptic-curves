@@ -181,6 +181,30 @@ non-constancy of `[n]` is available at every `n ≠ 0` including `n = char F`
 (`transcendental_xCoord_nsmul_of_isAlgClosed`); what needs the index hypothesis here is the fibre
 description and `#E[n] = n²`, and at `n = char F` the latter is **false**, not merely unproved.
 
+⚠️ **Twelve clauses in this file read *at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`*,
+nine of them omit the transcendence parameter, and this is where the derivation those nine rest on
+is cited** (`README.md` `### Reach clauses`, first exemption; `#1881`).  The statements those nine
+describe bind `h : Transcendental F (n • genericPoint).xCoord` as an explicit argument, because
+`mulByNEndo` is indexed by it; `h` follows from exactly the two conditions the clauses name, by
+`transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`).  ⚠️ **Live citation, not a prose pointer**:
+that module is in this file's import closure, through `EllipticCurves.FunctionField.MulByNFibre`
+and through `EllipticCurves.FunctionField.NthRootOfPullbackN`.  ⚠️ The lemma named two paragraphs
+up, `transcendental_xCoord_nsmul_of_isAlgClosed`, is a **different** derivation — it is the one this
+route does *not* take, for the reason that paragraph gives — so naming it does not discharge this.
+
+⚠️ **The other three of the twelve are not uses of the exemption and the citation is not offered
+for them.**  The `## Main statements` bullet for `exists_gS_n_of_isAlgClosed` *names* the parameter
+instead of omitting it — *"taking the non-constancy of `x([n]𝒫)` as `exists_gS_n` does"*.  The
+headline of `exists_gS_of_ne_zero_of_isAlgClosed` describes a statement binding **no** transcendence
+parameter at all, because that statement applies the derivation inside itself; its own
+`## Main statements` bullet says as much, *"the same with that non-constancy discharged"*.  And the
+clause naming `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` points at a statement of
+`EllipticCurves.FunctionField.MulByNFibre`, which cites the derivation in its own block — under
+*whose module block*, a pointer owes nothing here.  ⚠️ `exists_nonsingular_mem_torsion` is outside
+the twelve for a fourth reason: its clause carries the sibling `(n : F) ≠ 0`, and its statement
+takes no transcendence parameter either.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8.

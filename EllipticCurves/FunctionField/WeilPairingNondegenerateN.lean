@@ -142,6 +142,22 @@ the conclusions is the second half of the same phenomenon and is explained in
 `EllipticCurves.FunctionField.WeilPairingNondegenerateMu`'s module docstring: `hpow` proves a
 `Prop`, so the `∃ hpow`/`∀ hpow` forms assume nothing the `F(W)` statements do not.
 
+⚠️ **Where the transcendence parameter is omitted, this is where the derivation is cited**
+(`README.md` `### Reach clauses`, first exemption; `#1881`).  Five of the seven statements below —
+`not_forall_torsionNMul_smul_eq`, `exists_torsion_n_weilPairingElt_ne_one`,
+`eq_zero_of_forall_weilPairingElt_eq_one_n`, `exists_torsion_n_weilPairingMu_ne_one` and
+`eq_zero_of_forall_weilPairingMu_eq_one_n` — bind
+`hT : Transcendental F (n • genericPoint).xCoord` as an explicit argument, and every clause reading
+*at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`* omits it: it follows from exactly those
+two conditions, by `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+(`EllipticCurves.FunctionField.MulByNXCoordFormula`), which is in this file's import closure.
+⚠️ The other two, `exists_gS_n_weilPairingElt_ne_one` and `exists_gS_n_weilPairingMu_ne_one`, apply
+that lemma **inside the statement** and so bind no transcendence parameter and omit nothing; the
+exemption is not in use there.  ⚠️ This clause is owed **here** and not in the four files that
+recite this file's reach — `EllipticCurves.FunctionField.WeilPairing`,
+`…WeilPairingNondegenerateMu`, `…WeilPairingNondegenerateThree` and `…WeilPairingNondegenerateTwo`
+— because the citation is owed by the module that *states* the declaration.
+
 ## References
 
 * [J. H. Silverman, *The Arithmetic of Elliptic Curves*][silverman2009], III.8, Prop. 8.1(c).

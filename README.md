@@ -813,28 +813,97 @@ nothing about `[n]∗`, about transcendence or about the function field, for a h
 of theirs takes — while a reader who follows the pointer arrives at the defining block, which cites
 it, having already passed the derivation worked out above on this page.
 
-⚠️ **What the clause still convicts is two files, and the defect there is placement and not
-absence.** `PullbackPrincipalityN` (12 rows) and `WeilPairingAlternatingBaseChangeN` (3) bind `h`,
-use the exemption, and name the derivation only *below* the module block, in a declaration
-docstring. `PullbackPrincipalityN` is the one that costs: ten of the twenty-four pointer rows name
-`exists_gS_n_of_isAlgClosed` as their ground and nine more name it as the consumer of the row they
-do cite, so it is where a pointer sends its reader. Moving those two citations is a sweep, and a
-convention runs on its own diff, so it is not done here.
+⚠️ **The sweep has run (`#1881`), and the row count is the wrong key: a module can owe this
+citation while carrying no row of the phrase at all.** Two paragraphs stood here and both are
+retired. The first said *"What the clause still convicts is two files, and the defect there is
+placement and not absence"* and named `PullbackPrincipalityN` (12 rows) and
+`WeilPairingAlternatingBaseChangeN` (3); the second said *"A pointer that names a MODULE rather
+than a declaration is not decided here"*, of four rows in `WeilPairing`,
+`WeilPairingNondegenerateMu`, `WeilPairingNondegenerateThree` and `WeilPairingNondegenerateTwo`.
+**One of those two convictions is false and the other is paid; the four rows are decided.** The
+seed's own population is **77 rows in 33 files at `02a1652`**, with the same 10 / 50 and 22 / 24
+split as at `42c9b11`, so every figure above this paragraph is exact at its own sha and none of
+them moves.
 
-⚠️ **A pointer that names a MODULE rather than a declaration is not decided here.** Four rows do —
-in `WeilPairing`, `WeilPairingNondegenerateMu`, `WeilPairingNondegenerateThree` and
-`WeilPairingNondegenerateTwo`, all naming `WeilPairingNondegenerateN`, whose seven theorems split.
-Five bind `hT`; `exists_gS_n_weilPairingElt_ne_one` and `exists_gS_n_weilPairingMu_ne_one` do not,
-because they apply the derivation *inside the statement*, so those two omit no hypothesis and are
-not using the exemption at all. No name-keyed recogniser separates the two cases and the rows have
-to be read. One of the twenty-four already is: `MatrixRepMod` names
-`exists_gS_n_weilPairingElt_ne_one` by itself, so its clause omits nothing and owes nothing.
+⚠️ **The repair is self-populating, and the delta is published rather than left for a re-runner to
+convict.** A block that cites the derivation has to say *which* clauses omit the parameter, and
+saying so restates the clause verbatim, so the two blocks repaired below add **2 rows in 1 new
+file**: `PullbackPrincipalityN` 12 → **13** and `WeilPairingNondegenerateN` 0 → **1**, taking the
+10 / 50 half to 11 / 52 and leaving the 22 / 24 half untouched. ⚠️ **The delta is the durable
+figure and the total is not, and this paragraph says which is which rather than printing a sum
+with no sha**: the tree `02a1652` + this diff reads **79 rows in 34 files**, and PR #768 at
+`130cf38` adds a further row in a further file (`WeilPairingPerfect`), so whichever of the two
+lands second stands in a tree of **80 / 35**. The delta survives either order and the sum does not.
+**Every one of the two new rows is inside a paragraph whose subject is the exemption itself**, which
+is the one place in the tree where the phrase is mentioned rather than used. This is `#2036`'s
+finding on a different seed — *the house repair form does not remove a row from a vocabulary-keyed
+population, it adds one* — and a seed that wants the live rows alone needs the
+quotation-and-mention filter that issue specifies.
 
-⚠️ **Two flags on that seed, and the second is a whole second population.** Requiring the backticks
-round `n` returns the same 77 and 62, so that choice costs no row. The sibling clause carrying
-`(n : F) ≠ 0` where this one carries `((n : ℤ) : F) ≠ 0` returns 71 rows at `42c9b11` and is
-excluded by construction: the two are interderivable propositions but different clauses, matched to
-the declaration suffix, and this seed reads only the `ℤ`-cast one. What is **not** measured is
+⚠️ **The key that decides the question is `names the derivation somewhere but not in its module
+block`, and it returns four files at `02a1652`** — `PullbackPrincipalityN`,
+`WeilPairingAlternatingBaseChangeN`, `MulByNDegreeGeneral` and `WeilPairingNondegenerateN`. The
+last two are the ones a row-keyed sort cannot see, and they are invisible to it for two different
+reasons: `MulByNDegreeGeneral` carries no row of the phrase under either reading of the seed, and
+`WeilPairingNondegenerateN` carries none under the published reading and **one** under the
+emphasis-tolerant reading the third flag on that seed names — a row standing inside the very module
+block convicted here, which leaves that file convicted twice over rather than once. A module owes
+the citation by *stating* a declaration whose clause omits the parameter, and reciting someone
+else's reach is neither necessary nor sufficient for that.
+
+* **`PullbackPrincipalityN` — convicted, and paid.** **Nine** of its twelve rows describe
+  statements of its own that bind `h`, and its module block now cites the derivation. ⚠️ **The
+  other three take the three dispositions this list gives the other files, inside the convicted
+  one**, and the block says which: the `## Main statements` bullet for `exists_gS_n_of_isAlgClosed`
+  *names* the parameter rather than omitting it, the headline of
+  `exists_gS_of_ne_zero_of_isAlgClosed` describes a statement that applies the derivation inside
+  itself and so binds none, and the row naming
+  `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` is a pointer to `MulByNFibre`. A row of the
+  phrase is not by itself a use of the exemption, in the convicted file either. ⚠️ The block
+  already named `transcendental_xCoord_nsmul_of_isAlgClosed`, which is a **different** derivation —
+  the one that route deliberately does not take — so a reader who saw *a* transcendence lemma in
+  the block was not being sent to the one the clauses rest on.
+* **`WeilPairingAlternatingBaseChangeN` — acquitted, and nothing there is changed.** Two of its
+  three rows describe `exists_weilPairingElt_self_eq_one_of_ne_zero_of_baseChange`, which applies
+  the derivation *inside* the statement and therefore binds no transcendence parameter and omits
+  nothing; the third is a pointer to `exists_gS_n_of_isAlgClosed`, stated in
+  `PullbackPrincipalityN`. **Exactly one** clause in that file uses the exemption — the `3`-smooth
+  `translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange` — and its derivation is
+  `transcendental_xCoord_nsmul_of_smooth`, which that module block cites twice. Of the four other
+  statements there that bind the parameter, three name it in their headlines as *"with a
+  non-constant `[n]∗`"*, and the fourth is the `example` restating the first verbatim, which makes
+  no reach clause of its own. ⚠️ **It was convicted by a file-level token key, not by any row of
+  its own.**
+* **`MulByNDegreeGeneral` — acquitted**, for the reason the paragraph above already gives about
+  `exists_gS_n_weilPairingElt_ne_one`: `finrank_mulByNFieldRange_eq_sq_of_two_ne_zero` applies the
+  derivation inside the statement.
+* **`WeilPairingNondegenerateN` — convicted, and paid. ⚠️ It is also what the four module rows
+  owed.** They recite the reach of statements that bind `hT` as an explicit argument, so the
+  exemption *is* in use in them; under *whose module block* what they owe is a citation in the
+  module that states those statements, and that module had none. Five of its seven bind `hT`;
+  `exists_gS_n_weilPairingElt_ne_one` and `exists_gS_n_weilPairingMu_ne_one` do not, because they
+  apply the derivation inside the statement, and its block now names which are which. One of the
+  twenty-four pointer rows was already decided this way: `MatrixRepMod` names
+  `exists_gS_n_weilPairingElt_ne_one` by itself, so its clause omits nothing and owes nothing.
+
+⚠️ **Three flags on that seed; the second is a whole second population and the third is a blind
+spot rather than a choice.** Requiring the backticks round `n` returns the same 77 and 62, so that
+choice costs no row. The sibling clause carrying `(n : F) ≠ 0` where this one carries
+`((n : ℤ) : F) ≠ 0` returns 71 rows at `42c9b11` and is excluded by construction: the two are
+interderivable propositions but different clauses, matched to the declaration suffix, and this seed
+reads only the `ℤ`-cast one. ⚠️ **And every count this section publishes over it is
+emphasis-blind**, because a `**` falling inside the span stops the match. Strip the emphasis
+markers from the normalised text before matching and the population is 79 in 34 at `42c9b11`, at
+`02a1652` and at `9147113`, and 63 in 24 at `58df5a5` — **two hidden rows at `42c9b11`, `02a1652`
+and `9147113`, and one at `58df5a5`, which is what 62 → 63 says.**
+`WeilPairingNondegenerateN` hides one at all four refs, at line 22 in each, where a bold span
+closes between the quantifier and the index.
+`WeilPairing` hides the other at `42c9b11`, `02a1652` and `9147113`, at line 181 in
+each, where a bold span closes between the index and the word `with`; ⚠️ **at `58df5a5` it hides
+none, because that sentence is not in that file at that ref under either key**, and line 181 there
+is a different sentence of the same bullet. ⚠️ **Neither reading is wrong, and they differ by two
+rows at those three refs and by one at `58df5a5`**, so a figure over this seed owes its flag the
+way it owes its sha. What is **not** measured is
 whether each of the 50 rows in the ten binding files is itself a use of the exemption — nothing
 above turns on it, because those files name the derivation either way.
 
