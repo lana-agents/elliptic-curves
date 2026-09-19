@@ -1256,8 +1256,28 @@ and 11 — the two miss in opposite amounts**, which is the inconsistent directi
 `#1864` was filed on, now with a mechanism under it rather than a missing rule. A CommonMark parse
 pairs them correctly and is what every figure this paragraph attributes to **the seed** was run on;
 the **154** / **182**, the **156** / **180** and the two odd-`**` line counts are what the three
-other instruments return, and are named as theirs rather than as the seed's. ⚠️ **Retired — a count
-of the flags, and it was one too low** (`#1864`): this sentence read
+other instruments return, and are named as theirs rather than as the seed's.
+⚠️ **AND THAT CLAUSE IS WHERE THE RECIPE STOPS SHORT, because a CommonMark parse ALONE implements
+four of the five flags** (`#2080`): to such a parse a backticked bold numeral is a single
+`code_inline` token and not a bold span at all, so an implementation keyed on `strong_open` /
+`strong_close` cannot see the inline-code flag's population however carefully it reads the clause
+that states it. **The count is two passes summed** — the bold spans that parse pairs, plus a
+`**`-delimited numeral matched literally inside every `code_inline` token. What every figure here
+publishes is the sum, which tells a reimplementation the total it missed and never which pass, so
+the split is published too: at `9147113` the first pass over this file returns `296` and the
+second `4`, and `c28c462`'s own message publishes their sum as `300`. ⚠️ **Calibrate at `d3a4ac5`,
+or at a ref after it, or you have not calibrated**: the second pass returns `0` at `2947444`, so a
+one-pass reading reproduces the `165` this paragraph dates there and is short at every dated ref
+after that one — by `1` at `e80a588`, `0eb4f70`, `d3a4ac5`, `5a2fe24`, `b2d1981`, `444da7f` and
+`3c183d8`, and by `4` at `77fb54d`, at `9147113`, at `c28c462` and at `93cf1d4`. Every site it
+misses is the word `zero`, so the one-pass reading is exact in digits and short by that same count
+on the word form and on the total. ⚠️ **Nothing published at `93cf1d4` that this page or a commit
+message attributes to the seed is a one-pass value, and that was read rather than assumed**
+(`#1749`): `18` of the `728` commit messages reachable from `93cf1d4` name this seed, keyed
+case-insensitively on `bolded.numeral` over the whitespace-flattened body, and all `18` were read.
+The one one-pass pair among them is in `c28c462`'s own message, which quotes it from PR #777 and
+prints it at `+4` of its own — naming the gap, and not the flag that is its cause.
+⚠️ **Retired — a count of the flags, and it was one too low** (`#1864`): this sentence read
 *"Four flags decide what that returns and none of them stood here until `#1864`"*, bold across the
 whole clause in the original and wrapped after *that*, so a single-line `grep` for it returns 0 and
 the check is whitespace-normalised. The pairing rule is a fifth. The numeral is dropped rather than
