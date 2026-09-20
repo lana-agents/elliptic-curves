@@ -65,9 +65,10 @@ Write `p = Ψ₂Sq(x)`, `T = Ψ₃(x)`, `Q = preΨ₄(x)` for an affine point `P
   relation collapses to `(p² + Q)² = 0`, so `Q = −p²` and therefore `Φ₃(x) = x·0 − Q·p = p³`, which
   is nonzero because a root of `Ψ₃` is never a root of `Ψ₂Sq` (`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`,
   merged).  **No resultant computation and no Bézout certificate for `(Φ₃, Ψ₃)` is needed** — the
-  `n = 3` mirror of the same economy in `DoublingSurjective`.  ⚠️ It needs `[IsAlgClosed F]` and
-  `(2 : F) ≠ 0`, and that is why it is no longer the route input (2) takes; see *"The hypotheses of
-  input (2)"* below.
+  `n = 3` mirror of the same economy in `DoublingSurjective`.  ⚠️ **It used to need
+  `[IsAlgClosed F]` and it no longer does**: `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃` lost its closure in
+  `#2104`, and this lemma's was inherited from it and from nowhere else.  `(2 : F) ≠ 0` remains,
+  and it is still not the route input (2) takes; see *"The hypotheses of input (2)"* below.
 
 ⚠️ **Those two inputs are the whole of what is `n`-specific here, and the argument that consumes
 them is not in this file.**  `EllipticCurves.Torsion.NsmulSurjective` runs it once at general `n`:
@@ -89,7 +90,7 @@ and there `2P = O`, so the secant construction of `3P = 2P + P` does not apply. 
 * `WeierstrassCurve.Affine.tripling_core` — the core relation
   `(p² − Q)² + 4T³ − (b₂ + 12x)·p·T² + 4Qp² = 0`;
 * `WeierstrassCurve.Affine.Φ_three_eval_ne_zero_of_Ψ₃` — `Φ₃` and `Ψ₃` have no common root, over
-  an algebraically closed field of characteristic `≠ 2`, and
+  any field of characteristic `≠ 2` with `Δ` a unit, and
   `WeierstrassCurve.Affine.eval_Φ_three_ne_zero_of_root_ΨSq` — the same fact in the form the engine
   consumes, input (2) at `n = 3`, over any field with `Δ` a unit;
 * `WeierstrassCurve.Affine.addX_add_self_mul_ΨSq_three_eval` — the tripling formula
@@ -192,8 +193,13 @@ lemma Φ_three_eval_of_Ψ₃ {x : F} (hT : W.Ψ₃.eval x = 0) :
 
 /-- **`Φ₃` and `Ψ₃` have no common root.**  A root of `Ψ₃` is never a root of `Ψ₂Sq`
 (`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, merged), and there `Φ₃(x) = Ψ₂Sq(x)³`.  No Bézout certificate for
-the pair `(Φ₃, Ψ₃)` is needed. -/
-lemma Φ_three_eval_ne_zero_of_Ψ₃ [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) {x : F}
+the pair `(Φ₃, Ψ₃)` is needed.
+
+⚠️ **This used to take `[IsAlgClosed F]` and it does not**: the instance was inherited from
+`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, which dropped it in `#2104` once the point above `x` was taken to
+be `twoTorsionY` rather than produced by `exists_equation`.  Nothing else in the proof ever used
+it, and `lake lint`'s `unusedArguments` is what said so. -/
+lemma Φ_three_eval_ne_zero_of_Ψ₃ [W.IsElliptic] (h2 : (2 : F) ≠ 0) {x : F}
     (hT : W.Ψ₃.eval x = 0) : (W.Φ 3).eval x ≠ 0 := by
   rw [Φ_three_eval_of_Ψ₃ hT]
   exact pow_ne_zero 3 (Ψ₂Sq_eval_ne_zero_of_root_Ψ₃ h2 hT)
