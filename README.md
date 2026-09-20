@@ -2907,7 +2907,8 @@ true"*, one layer up, in this document's own prose. They are:
   `### Gate-discharge claims` on gate words, `### Module-block bullets` on a bullet's register and
   this section's other bullets on phrases, subjects and headings — while a pointer's target is a
   **location**, and none of those four recognises one. ⚠️ **Measured at `2947444`**, over
-  `README.md`, case-insensitively, with the seed `<noun>` + whitespace + `above` or `below`, where
+  `README.md`, case-insensitively, with the **noun-and-direction** seed — named here because that
+  is the name every citation of it uses — `<noun>` + whitespace + `above` or `below`, where
   `<noun>` ranges over `discriminator`, `rule`, `test`, `bullet`, `clause`, `slogan`, `convention`,
   `paragraph`, `register`, `ruling`, `list`, `sentence`, `account`, `census`, `figure`, `table`,
   `note` and `branch`: **34** matches on 34 distinct lines, **none** inside a code fence.
@@ -2955,9 +2956,9 @@ true"*, one layer up, in this document's own prose. They are:
   pointed below for a reading this document keeps above (`#1649`). It was caught by a reader
   following the pointer, which is still the only instrument there is.
   ⚠️ **`above` and `below` are not the direction words, only the two this seed knows, and the rest
-  of the axis is measured here** (`#1811`). Second seed, case-insensitive over this file's
-  non-fenced prose at `d3a4ac5`, on `\b` boundaries — the hyphen is one — with no noun
-  anchor because these words carry their own:
+  of the axis is measured here** (`#1811`). Second seed, the **nine-word** seed under the name its
+  citations use, case-insensitive over this file's non-fenced prose at `d3a4ac5`, on `\b`
+  boundaries — the hyphen is one — with no noun anchor because these words carry their own:
   `up`, `down`, `earlier`, `later`, `preceding`, `following`, `overleaf`, `previously`,
   `beforehand`. **41 matches**, none in a fence, split `up` 19, `down` 11, `later` 7, `following` 3
   and `earlier` 1 — and **31 are not pointers at this page**, each excluded on a stated ground:
@@ -3368,9 +3369,10 @@ true"*, one layer up, in this document's own prose. They are:
   preferred because under the second reading a pointer that counts from its own line names that line
   rather than the one it means, which is a form neither of the two one-line rows can be written in.
   A **section** distance needs no ruling here: the two rows that state one count `###` headings, and
-  no `##` heading falls between either pair, so the two readings agree. ⚠️ **The seed, published so
-  it can be re-run** (`#1749`): case-insensitive and fence-aware, matching a numeral, a unit and a
-  direction in that order, or a unit, the word `immediately` and a direction. The numeral is
+  no `##` heading falls between either pair, so the two readings agree. ⚠️ **The distance seed,
+  under the name its citations use, published so it can be re-run** (`#1749`): case-insensitive and
+  fence-aware, matching a numeral, a unit and a direction in that order, or a unit, the word
+  `immediately` and a direction. The numeral is
   `immediately`, `a`, a word for one of the numbers 1 to 10, or a digit string; the unit is
   `paragraph`, `section`, `line`, `bullet`, `row`, `clause` or `entry`, with an optional plural; the
   direction is any of the eleven the two direction seeds key on, the first's two and the second's
@@ -3704,6 +3706,23 @@ true"*, one layer up, in this document's own prose. They are:
   `### Gate-discharge claims` (`#1877`). Carrying a rule stated in one section out to the rest is
   what this list already does for *Declaration headlines are reach clauses too*. Beside the
   pattern, a count states:
+  * ⚠️ **The name it will be cited by.** A seed is re-run because some other sentence names it, and
+    a recogniser published under no name cannot be reached from the sentences that cite it: `grep`
+    for the name finds the citations and never the flags. **Measured at `a570d4d`**, over
+    `README.md`, the three seeds `### Module-block bullets`' pointer axis publishes are cited by
+    name in `20` places — `7`, `5` and `8` for the noun-and-direction, nine-word and distance seeds
+    — and are named at their own definitions in `0` of the three (`#2087`). All three now carry
+    their name where they are defined; not one flag of any of them changed, and no figure any of
+    them publishes moves. ⚠️ **The three are reproducible from what is printed beside them**, which
+    is what makes the missing name the whole defect: re-implemented cold from those sentences
+    alone they return `34` on `34` distinct lines at `2947444`, `41` at `d3a4ac5` and `14` at
+    `d3a4ac5`, each exact, and a re-runner handed one of the names can still find none of them.
+    ⚠️ **The control is the fourth seed of that axis** — the one with no noun anchor, keyed on the
+    two direction words the first seed knows: `` `\b(above|below)\b` ``, case-insensitive over
+    this file's non-fenced prose, which is the one recogniser of the family a stranger can guess
+    from its name, and the guess is exact at `321` at `93cf1d4` and `328` at `a570d4d`.
+    **A name a re-runner can resolve is worth as much as a flag**, and it is the cheapest one
+    stated here.
   * **Case** — whether the match is case-insensitive.
   * **The unit of reading** — whole blob, or line by line. ⚠️ **A count of *lines* published beside
     a count of *occurrences* has to come out of one run of the seed**, or say which reading each is
