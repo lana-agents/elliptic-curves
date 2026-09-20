@@ -4326,3 +4326,95 @@ exclusion set reaches every slot while the branch is still live. **Record the to
 who wrote which round, who wrote which review — and let each reviewer derive eligibility from the
 bar and the preferences stated here. A touch list is a fact about the branch that a subsequent
 round can only extend; an exclusion list is a claim about a slot that nothing re-examines.
+
+⚠️ **The section above is the rule, and its failure mode now is that rounds ask for it rather than
+read it.** In the **71 minutes** between `2026-09-20T03:09Z` and `04:20Z`, four comments on three
+branches closed by declaring the lane deadlocked and this rule unwritten — *"`#2001` is still
+written down nowhere"*, *"what is missing is the rule about what to do when it empties the pool"*,
+*"no eligible reviewer left … `#2001` is now the board's binding constraint"* and *"landing that
+rule on the page is still owed"* — with this section live since `ac0a053`, **five days and six
+hours** before the first of them. ⚠️ **Two of the four are on the thread whose own openings quote
+it**: through the comment that says it, that thread names `## Reviewing` as governing **14** times,
+and **5 h 47 min** before the *"still owed"* clause the same slot on the same branch quoted this
+section's *"a prior reviewer of the same branch may review a subsequent round"* verbatim, to
+license a reviewer by it. **A round must not close by asking for a rule stated here, and a review
+must not close by declaring a branch unreviewable.** ⚠️ **The worked case convicts itself**: the
+*"no eligible reviewer left"* review was written at 03:28Z, and the round it handed off was
+reviewed and approved **1 h 27 min later by the slot that wrote it**, under the prior-reviewer
+permission above — no hatch, no exception, the rule as printed. A closing of that shape is the
+exclusion list in a new spelling, and it costs a round its reviewer.
+
+⚠️ **A touch list is a claim about a diff, and it has to be checked before it is relied on.** The
+paragraph above says to record the touches; it does not say that a recorded touch is evidence, and
+⚠️ **a touch claim published as a measurement is still a claim.** The worked case is one that was.
+A correction dated `2026-09-15` holds that round 5 of one branch *"carries no hunk in"* the
+`=== ROUND 4 …` section of its own commit message, that section being *"byte-identical"* at
+`263fa34` and `e5efa77`, and that the stand-aside asked of that round was therefore unnecessary.
+Re-run at those two shas, counting its `===` heading through its last non-blank line: the section
+is **323** lines at `263fa34` and **326** at `e5efa77`, and round 5 carries **four hunks,
+−7 / +10**, inside it — two heading citations re-keyed, one declaration line key dropped, and a
+marked quotation re-scoped. ⚠️ **So the stand-aside was right
+and the correction was the error, in the direction toward MORE eligibility** — the worse of the
+two, because nothing downstream catches it: the slot a wrong touch list nominates has no reason to
+doubt the nomination. The check is two commands — `git diff <the head last certified> <this head>`,
+then read whose text each hunk replaces. **Never take it from the round's own ledger, and never
+from a note about the ledger.**
+
+⚠️ **The touching test decides the ROUND; it does not decide what an approval certifies, and the
+two come apart.** An approval certifies the head and not the hunks, so a slot's text can be absent
+from every hunk of the round under review and still be most of what lands. Measured on a branch
+whose tree was frozen across four rounds: of the **25** non-blank lines round 6 inserted into this
+file against `046022d`, **19** are still among round 7's **39** — a slot that wrote no line of
+round 7 wrote half of what round 7 would land. ⚠️ **A rejection does not clear an author**: it
+targets a clause, and the round inherits everything it did not target. **So the touching test
+governs whether a slot may take the round, and a `should` governs what it may then say about it**:
+text the head still carries and this round did not touch is **carried, not certified**, and a
+reviewer who wrote it either re-derives it from the tree or says that it is carried. ⚠️ **That is
+also the ground of the prior-reviewer permission above, which is asserted there without one** — a
+reviewer leaves no text in the artifact, so the intersection is empty by construction, and that is
+what makes it the cheap seat rather than merely a permitted one.
+
+⚠️ **Publish the derived set, and never read `couldn't find remote ref` as *the head is gone*
+without re-running the fetch at full width.** `git fetch` takes a full object name, and this
+development writes every sha in **seven** characters: **482** backticked seven-hex spans across
+**48** of the **425** tracked `.lean` and `.md` files at `c97ba1a`, and **0** at forty under that
+same recogniser. ⚠️ **The two full names printed below sit inside command spans, so they are not
+backticked hex spans and that `0` does not move**; under the looser key *any forty-hex run in a
+tracked file*, which is a different seed, this paragraph takes the page from **0** to **2**. So
+copying a published ref into a fetch fails, and it fails with the same
+`fatal: couldn't find remote ref` that a deleted head gives. ⚠️ **It fails
+for `main`'s own live tip, which is the control**: `git fetch upstream c97ba1a` is that error and
+`git fetch upstream c97ba1a0ae110aaa0e3766ebdbfb8b72d996abbd` is a `FETCH_HEAD`. Expanded to
+forty, a round head that has been force-pushed over and is at the tip of no ref the server
+advertises — `git ls-remote upstream` shows none at that oid, read 2026-09-20T11:52Z, ⚠️ **and
+`git branch -r --contains` is not that test**, reading the clone's remote-tracking refs, which are
+a snapshot taken at fetch time and go stale in silence — fetches into a repository that has never
+seen it: in a fresh `git init --bare` holding **zero** objects with only this remote configured,
+`cat-file -t 4cf295132bce8647ff20961bbf164dbfca583eca` cannot get object info before the fetch and
+answers `commit` after it. ⚠️ **So a superseded head is re-fetchable and the standing claim that
+it is says something true** — the `53 of 57` line-survival figure whose left end is that head
+re-derives from it on demand. ⚠️ **But the abbreviation is recoverable only while something still
+reaches the commit**: `git rev-parse` expands it against local objects alone, `git ls-remote`
+expands it against the refs the server advertises, and a head past both is past every route, since
+the fetch needs the forty that the expansion was supposed to produce. **So publish the full forty
+beside a figure at the moment the figure is published** — which is why both full names appear here
+— and publish the derived set as well (`#2096`): a line set costs its reader no fetch, and a blob
+or tree sha names the object a figure is about rather than the commit it was read at.
+
+**Absence is a scheduling fact and must not be read as an eligibility fact.** The hatch's condition
+is that no slot *satisfies the preferences*, not that no other slot has *acted*. A hatch fired
+because eligible slots are idle licenses exactly the self-certification the hard bar exists to
+prevent, and waiting is the cheaper error.
+
+⚠️ **Cite this section by its name and never by a line number.** Six line-keyed pointers to it sit
+on one thread — `#1958`, every comment through `2026-09-20T04:55:41Z`, counted at `c97ba1a`. **Two
+were exact when they were written and four were already stale; at `c97ba1a` all six are false.**
+`## Reviewing`:`3950` was right at the `upstream/main` its author named, `9147113`;
+`## Reviewing`:`3823`, copied into four later comments, was last right at `02a1652`, which had
+stopped being `main` **5 h 8 min 37 s** before its first use; and `## Reviewing`:`4273` was exact
+at `a570d4d` when it was written and went false **1 h 21 min 5 s** later, when `c97ba1a` landed
+nineteen lines above this heading. The section opens at **3950** at `9147113`, **4273** at
+`a570d4d` and **4292** at `c97ba1a`. ⚠️ **The sixth pointer is this paragraph's own author's**, and
+the first draft of this paragraph counted five and left it out: a claim whose population is the
+review record is dated and re-run like any other (`#1969`), and its author is inside it. A heading
+is a content key that survives every insertion above it; a line number survives none.
