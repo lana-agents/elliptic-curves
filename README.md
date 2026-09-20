@@ -2022,6 +2022,80 @@ delta, one mention, and three figures that name a tree and need the right one**,
 *"at this commit's parent the distance seed's nineteen matches fall on eighteen lines"*. **That
 figure survives**, the distance seed returning 19 on 18 lines at `444da7f` and at `8e55db0` alike,
 **by luck and not by form.**
+⚠️ **A base-named self-measurement has two ends, and they resolve under different rules** (`#2084`).
+The head end resolves at the commit carrying it, because a message is part of the commit it names,
+which this rule's opening paragraph already says; the base end resolves at the ref its own sentence
+names, and ⚠️ **only a sha names a ref**. Each half convicts a different landed row, which is what
+makes the split worth stating rather than assuming. ⚠️ **A delta takes neither limb: its base end
+is the commit's own parent and never the ref the sentence names**, because parent-relativity is the
+only thing the squash preserves — so the two ends are the reading for a state-at figure, and a
+delta is scored against the parent whatever ref its own heading names.
+⚠️ **The head end is where a delta stops being safe, and one clause of `ebb4d42` carries both
+verdicts at once.** It publishes *"SELF-MEASUREMENT, base `77fb54d` -> head"* and, inside that
+block, *"bolded-numeral +0 (279 at both ends)"*. `77fb54d` is six commits older than that commit's
+parent `046022d`, and the seed under its five published flags returns `279` at `77fb54d`, `289` at
+`046022d` and `289` at `ebb4d42`. ⚠️ **So the `+0` is exact against the parent while the
+`279 at both ends` is false of the head end it names** — the delta limb scores `289` against `289`
+at a parent that sentence never names, since a figure *"measured against the commit's own parent"*
+is what a squash preserves whichever tree that parent turns out to be, while the endpoint pair is a
+state-at claim keyed six commits too far into the history. **Naming an older base does not extend a
+delta's protection to the endpoints; it converts them into state-at figures**, which is this rule's
+*"A delta is safe and a state-at is not"* meeting the case it was not written for.
+⚠️ **And a commit's own base is not a name.** `42c9b11` calls `49b327d` its base where its parent
+is `eb4b11a`; its `268 / 224` is exact at the ref it names and false of its parent, so what fails
+there is the description of the ref and not the figure — the opposite disposition from the row
+convicted first, and on the same seed. A branch's base while it is being written and the landed
+commit's parent are different objects whenever anything lands in between, and the squash is what
+re-parents it.
+⚠️ **The head end cannot be addressed at all, so it is re-run rather than named.** An author cannot
+write the sha of the commit being authored, so the remedy is the one this page already gives for a
+self-figure — measure it on the finished text and iterate to a fixed point — and, where the figure
+is about the tree rather than about the message, key it to `git rev-parse HEAD^{tree}`. ⚠️ **That
+key is stable under an amend and not under the landing**: the squash re-trees a branch exactly as
+it re-parents it, so it addresses the draft and settles nothing about what lands once `main` has
+moved over the same file. Where a tree figure has to survive the landing there is no name for it at
+all, and the durable form is the delta against the parent.
+⚠️ **The reading that says such a figure asserts nothing once it is pushed is refused here, and the
+ground is that a gate which cannot come out false is not a gate.** Every gate block in this
+development's messages is offered as a discharge, and a discharge no subsequent call can
+check discharges nothing.
+⚠️ **The ruling is prospective and it sweeps nothing** (`#1938`): a landed message cannot be
+amended, so `eb4b11a`'s `254` — false at both ends under either half of the rule, the seed
+returning `279` at `949369c` and at `eb4b11a` alike — stays on record as `#2084`'s row rather than
+being repaired anywhere.
+⚠️ **The population, dated, with its seed stated.** Over `git log --format=%B` for every commit
+reachable from `ab5ec3a`, bodies whitespace-flattened and matched case-insensitively against the
+alternation of `` self[-\s]measurement ``, `` base\s*(?:->|→)\s*head ``, `at both ends`,
+`unmoved at`, `` re-run rather than assumed `` and `` checked rather than assumed ``: `31` of
+`729`. ⚠️ **`14` of the `31` carry no backticked seven-hex sha within `200` characters of any
+match, and `13` of those `14` carry one somewhere else in the message**, so what the bolded figure
+measures is the window and not the class. ⚠️ **Carrying a sha is not naming a base** — which this
+paragraph already says of shas *inside* the window, and which holds outside it too. All `14` were
+read one at a time, and they partition in `4` ways rather than `2`: `8` name the base of their
+matched clause by no sha, `2` have no base end for a sha to name, `3` name it, and `1` is named
+under one limb of this rule and not the other. ⚠️ **The `8` are `855f993`, `77fb54d`, `4655854`,
+`31177f4`, `8e55db0` and `7c0460d`** — each writing `base -> head` or `at both ends` over its own
+parent while carrying only attributions to other commits — **`8f95181`, which carries no sha
+anywhere, and `b2d1981`**, whose *"All three self-measurement seeds unmoved"* is a state-at pair
+naming no ref, its parent `4769f3e` standing in a different commit's bullet of a concatenated
+body. ⚠️ **The `2` are the seed matching a clause that measures nothing**: `cb6ad1f`'s *"stripping
+needs a space at both ends"* is about CommonMark and `2aebb05`'s *"false at both ends of the
+discharge front"* is about a front, so this predicate has a third verdict — *not applicable* —
+and no instrument stated here emits one. The `3` name their base in terms: `3f61ad7` writes *"every
+figure ... is measured at `ebb4d42` -> this head"*, `aadc404` writes *"base `2aebb05` → head"*, and
+`e122163`'s `4655854` stands inside the code span `` `upstream/main = 4655854` `` — cleared by
+reading and convicted by the seed, because a recogniser keyed on a backtick-delimited sha cannot
+see a sha sharing its span. ⚠️ **And `2` rows, not `1`, are sorted differently by the two limbs,
+in opposite senses**: `42c9b11` names `49b327d`, so its state-at end IS named while its parent
+`eb4b11a` is not, and `b2d1981`'s *"unmoved"* is safe under the delta limb and unnamed under the
+state-at one, which is `ebb4d42`'s own disposition arriving on a second row.
+⚠️ **That window is a flag and not the class, and the count is a population and not a backlog**:
+it misses `42c9b11`'s own `49b327d`, which sits outside it; a sha
+inside the window may be an attribution rather than a base; and which of the other `17` name a
+base is a reading nobody has done. **The vocabulary is a cut** (`#1846`), and a rule does not
+need a census to land.
+⚠️ **The commit that lands this paragraph joins that population**, which is why the figure carries
+its sha in the sentence that gives it.
 ⚠️ **The disposition is `#1862`'s, it has landed, and it is restated here rather than re-decided.**
 An author cannot write their own sha and a rebase moves any sha they do write, so the indexical is
 not a defect when it is written: it is a placeholder whose debt falls due the moment the commit
