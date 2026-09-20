@@ -346,13 +346,18 @@ choice into the proof of a choice-independent number.  `Module.card_eq_pow_finra
 `card_torsion_three` avoids it, and it makes visible that the load-bearing input is `#E[3] = 9`.
 
 ⚠️ The script below consumes `h2` at exactly one place, `card_torsion_three h2 h3`, but **inside
-that lemma `h2` is used three times over and not once**: `card_setOf_equation_eq_two h2` (the fibre
-above an `x` has exactly two points), `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃ h2` (a root of `Ψ₃` is never a
-root of `Ψ₂Sq`) and `card_roots_Ψ₃ h2 h3`.  ⚠️ So "`h2` enters through the separability of `Ψ₃`" is
-too narrow a reading — the fibre count is at least as fundamental, and `card_roots_Ψ₃` consumes both
-hypotheses at once, so they do not split cleanly into "`h2` for `Ψ₃`, `h3` for the value group".
-The two are not interchangeable; see the third measured run below for what does and does not
-establish that. -/
+that lemma `h2` is used three times over and not once**:
+`card_setOf_equation_eq_two_of_isSquare h2` (the fibre above an `x` has exactly two points),
+`Ψ₂Sq_eval_ne_zero_of_root_Ψ₃ h2` (a root of `Ψ₃` is never a root of `Ψ₂Sq`) and
+`card_roots_Ψ₃_of_splits h2 h3`.  ⚠️ The first and third are named in their `_of_isSquare` and
+`_of_splits` forms because those are the sites the proof reaches: `card_torsion_three` is a
+one-line corollary of `card_torsion_three_of_splits`, and it is inside *that* lemma that `h2` is
+consumed three times.  `card_setOf_equation_eq_two` and `card_roots_Ψ₃` are the algebraically
+closed corollaries of the two named here — siblings of the sites and not the sites.  ⚠️ So "`h2`
+enters through the separability of `Ψ₃`" is too narrow a reading — the fibre count is at least as
+fundamental, and `card_roots_Ψ₃_of_splits` consumes both hypotheses at once, so they do not split
+cleanly into "`h2` for `Ψ₃`, `h3` for the value group".  The two are not interchangeable; see the
+third measured run below for what does and does not establish that. -/
 theorem finrank_torsion_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Module.finrank (ZMod 3) (W.torsion 3) = 2 := by
   haveI := W.finite_torsion_three h3
