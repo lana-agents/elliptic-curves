@@ -2172,6 +2172,122 @@ twelve name a tree or date a bracket — the five retirements of `### What is fo
 figures outside that list, and the five inside it written against *this commit's parent* — and
 twelve are deltas. **Nothing is cleared here and nothing is re-keyed here**: the re-keying is
 `#1877`'s sweep, which now has the decision it was held on.
+⚠️ **The merger SQUASH-merges, and for a branch of more than one commit that means every message
+lands in ONE body** (`#2085`). This rule is written as though the commit an author pushes is the
+commit that lands. It is not, and what the page already says about the gap is scoped to **one**
+commit: `grep -n squash` over `README.md` at `c97ba1a` returns exactly **two** lines, both inside
+this rule — *"A one-commit PR lands as a squash whose parent is `main` at merge time"* and the
+delta clause that follows it — and neither reaches a branch carrying more than one. **The
+discriminator is three characters in the subject**: GitHub appends ` (#N)` to the title on a squash
+and never on a rebase, and at `c97ba1a` **730** of the **731** landed subjects carry it — the one
+that does not is the initial commit `2e6ee26`, *"Create README.md"*. ⚠️ **The `Co-authored-by:`
+line the squash appends names the branch commits' AUTHOR, and it is no second discriminator.**
+`48bbb78`, authored by `reviewer <agent@example.com>`, landed as `dba89ee` carrying
+`Co-authored-by: reviewer <agent@example.com>` and no `Lana Agent` line at all — nineteen minutes
+before `93cf1d4`, which carries one because `febb7e8`'s author is `Lana Agent`. ⚠️ **And that
+population owes its trailer, because the two readings of it differ by thirty.** Keyed on the
+canonical line `Co-authored-by: Lana Agent <agent@lana-agents.local>`: **254** bodies and **255**
+occurrences at `a570d4d`, where `a570d4d` itself — whose head `d0e9521` wrote the line — is the
+only body carrying it twice. Keyed on the **name**, at any address, **at that same `a570d4d`**:
+**284** bodies, **286** occurrences, **six** distinct addresses, and **two** bodies carry it twice,
+`a570d4d` and `ac333af`, whose pair is `<agent@lana>` and `<agent@lana-agents.local>`. ⚠️ **The ref
+is repeated rather than inherited by parallel construction, because both counts move and the thing
+the sentence turns on does not**: at `c97ba1a` the two readings are `255 / 256` and `285 / 287`, at
+`ea5022d` they are `256 / 257` and `286 / 288`, and **the gap is `30` at all three**, over the same
+six addresses and the same two doubles. The line is appended whether or not the branch already
+wrote it; ⚠️ **which of the two counts is meant is a flag, and the name reading also falsifies the
+uniqueness claim** — which is why both are printed here.
+⚠️ **NEITHER MODE LEAVES THE MESSAGE UNTOUCHED, AND THE TWO ARE TOUCHED DIFFERENTLY.** For **one**
+commit the body is that message with its **`Co-authored-by:` block rewritten** and the prose
+untouched — the branch's own `Co-Authored-By:` line is *replaced* by a canonical lowercase pair and
+the trailing blank is dropped. At the three one-commit landings named here, `diff` of
+`git log -1 --format=%b` over each pair is confined to the last two lines, and ⚠️ **the rewrite is
+length-preserving at all three, by luck and not by form** — one line out, one line in:
+`febb7e8` → `93cf1d4` **487 → 487**, `48bbb78` → `dba89ee` **520 → 520** (with
+`reviewer <agent@example.com>` as the author line), `d0e9521` → `a570d4d` **219 → 219**. So a
+clause whose subject is *this body* and whose figure is its length does survive a one-commit squash
+on this board today — and survives it the way this rule already says of the distance seed's
+nineteen-on-eighteen figure, **by luck and not by form**.
+For **two or more** it is GitHub's concatenation: each commit's subject on a line of its own
+opening `* `, then that commit's body **and its own trailers byte-exact, capital-B
+`Co-Authored-By:` included**, then the next — and then a tail without which the shape does not
+reconstruct: a line-initial `---------`, a blank, the canonical `Co-authored-by:` block, a blank.
+Built from the shape *without* that tail over `d1d45a4` and `c10ee0c`, the reconstruction is **419**
+lines against `ab5ec3a`'s **424**, and the five missing lines are exactly that tail.
+⚠️ **That separator is the zero-error recogniser for the body-level population.** Bodies carrying a
+line-initial `---------`: **125** at `a570d4d`, at `c97ba1a` and at `ea5022d` alike, and at all
+three refs the symmetric difference against the gated subject seed below is **EMPTY** — no gate, no
+type alternation, no subject shape, and ⚠️ **none of the commits the gate removes carries one, at
+any of the three**, a count the sentence does not need and which is `7`, `8` and `10` at the three
+refs respectively. It counts **bodies** where the seed counts **subjects**, so it retires nothing;
+but the **125 / 733 / ≥2** figures are body-level, and this is the recogniser they should be keyed
+on.
+**Every message survives in full and attributable, and not one of them is a commit any more.**
+⚠️ **So a per-commit indexical does not survive the landing, and the worked instance is on `main`.**
+`ab5ec3a` (PR #775, `#2037`) landed two commits as one **424**-line body with its bullets at body
+lines **1** and **300**. Inside it *"THIS BODY … 297 lines"* and *"… 119 lines"* now stand in one
+body of neither length; *"the other commit's body is measured in its own message"* and *"at this
+commit and at the one before it"* are false of a single commit; and the two trees it names,
+`1a858088…` and `826af1c8…`, are reachable from no ref on `main` now that the branch ref is gone.
+⚠️ **`#1938`: none of that is amendable**, and no one edited anything — the clauses were true of the
+objects the author pushed and false of the object that landed.
+⚠️ **What survives a squash is the DIFF and what is measured from it.** A patch-id, a `+N / -M` and
+a `difflib` opcode against a base named by sha survive the concatenation; a body length, a tree
+object, *the other commit* and a count of this branch's commits do not. ⚠️ **And *this commit's
+parent* joins them as soon as the branch is longer than one commit** — *"the one before it"* is the
+parent, and every commit but the first has a **branch** commit for a parent: `c10ee0c` measured
+against `d1d45a4`, which is reachable from no ref on `main`. Only the first commit's parent is the
+base. So *"A delta is safe and a state-at is not"*, which this rule states of the **parent** gap
+and derives where that parent is `main` at merge time, buys nothing at the second commit of a
+branch: key the delta to the base by sha, which is the form that survives either way.
+⚠️ **The rule for an author costs nothing at the time it is written**: on a branch that will carry
+more than one commit, write no clause whose subject is *this body*, *this commit's tree*, *this
+commit's parent* or *the other commit* — say *this bullet*, name the base by sha, or collapse to one
+commit. The standing reason to split — *"a convention runs on its own diff"*, in three of
+`a570d4d`'s messages and first in `ea2d434` — is still a reason to split; it is not a reason to
+address the split from inside it.
+⚠️ **The population, with the seed and with BOTH of its error directions, because neither is zero.**
+Over `git log --format=%b`, a body whose FIRST non-empty line matches
+`` ^\* [A-Za-z]+(\([^)]*\))?: \S ``, counting every line-initial match of that same pattern: at
+`ea5022d`, **125** of **733** commits, **124** of them carrying two or more, **292** matches, split
+`1` / `94` / `20` / `7` / `3` from one bullet to five — and every one of those five cells is
+identical at `c97ba1a` and at `a570d4d`, two and three landings earlier. ⚠️ **The open-with-a-bullet
+gate is the whole recogniser and it is not optional on this tree**: without it the same pattern
+returns **135** commits and **308** matches at `ea5022d`, and the **ten** it adds are single-commit
+messages whose own prose writes a `* word: ` line. ⚠️ **THE GATED FIGURE HAS NOT MOVED ACROSS THE
+THREE LANDINGS AND THE UNGATED ONE HAS MOVED AT EVERY ONE OF THEM** — `132 / 301` at `a570d4d`,
+`133 / 302` at `c97ba1a`, `135 / 308` at `ea5022d` — **because each of those landings is itself a
+false positive of the ungated pattern**: `a570d4d`, `c97ba1a`, `dc82d79` and `ea5022d` are four of
+the ten, so the gate's cost is measured by the very commits that arrive while it is being written,
+and the ungated count is a figure no ref can stabilise. ⚠️ **BOTH error directions are two rows
+each, they are equal and opposite, and the raw 292 is therefore right by coincidence.** Over-count:
+`ab5ec3a`'s `* Drift: ` at its body line 178 and `59be74e`'s `* Collinearity: ` at its line 29 are
+prose of that shape rather than subjects, and neither body drops under two without them.
+Under-count: a subject that is not conventional-shaped is missed outright, and **two** are —
+`d5951f8`:29 reads `* docs(README) + ci: …` and is the sole `1` in the split, a two-commit landing
+scored one; `759aa29`:26 reads `* Merge main; resolve formalGroup name collision …` and is a
+**three**-commit landing scored **2**, which shows in no cell of the split at all. ⚠️ **A structural
+recogniser settles the population**: a line-initial `* ` isolated by a blank line above and below —
+GitHub's concatenation shape itself, with no vocabulary in it — returns **292** matches in **125**
+bodies at both refs, and its symmetric difference with the seed is exactly those four rows.
+**So the population is 292, and `290` was the one figure in this paragraph that was wrong.**
+⚠️ **The instruments, because three true observations do NOT separate the two modes.** A landed
+commit is a new object, `git merge-base --is-ancestor <head> main` is **false**, and the patch-id
+matches — and all three hold of a squash of one commit exactly as they hold of a rebase, so only
+the appended ` (#N)` tells them apart. To confirm a landing use `git patch-id --stable`:
+`git diff 9147113 c10ee0c` and `git show ab5ec3a` both give `ceb75b58…`, at a pair where
+`git merge-base --is-ancestor c10ee0c a570d4d` is false. ⚠️ **A pushed head is reachable from no
+branch once it lands, which is the same fact seen from the reader's side**: `febb7e8` (PR #772),
+`48bbb78` (PR #773), `c10ee0c` and its parent `d1d45a4` (PR #775) and `d0e9521` (PR #778) all fail
+`git merge-base --is-ancestor <sha> main`. ⚠️ **TWO routes reach them and the durable one is the
+full object name, not the pull ref.** Measured at 2026-09-20T11:31Z, `git fetch upstream <forty>`
+serves every one of the five into a `git init --bare` holding **zero** objects, while
+`git fetch upstream refs/pull/<N>/head` reaches four of them at their own tip and the fifth,
+`d1d45a4`, only as `c10ee0c`'s ancestor — a pull ref names the PR's **head**, and `ls-remote`
+advertises `d1d45a4` on no ref at all. ⚠️ **And those four refs are frozen only because these PRs
+are closed**: on an open PR the same ref moves with every force-push, so a superseded head is keyed
+to its **forty** or to nothing (`#2096`). ⚠️ **This paragraph rules and sweeps nothing**: the
+**292** are `#2085`'s population and `#1857` owns the commit-message layer they sit in.
 
 ### Module-block bullets
 
