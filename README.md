@@ -2908,10 +2908,13 @@ true"*, one layer up, in this document's own prose. They are:
   this section's other bullets on phrases, subjects and headings — while a pointer's target is a
   **location**, and none of those four recognises one. ⚠️ **Measured at `2947444`**, over
   `README.md`, case-insensitively, with the **noun-and-direction** seed — named here because that
-  is the name every citation of it uses — `<noun>` + whitespace + `above` or `below`, where
-  `<noun>` ranges over `discriminator`, `rule`, `test`, `bullet`, `clause`, `slogan`, `convention`,
-  `paragraph`, `register`, `ruling`, `list`, `sentence`, `account`, `census`, `figure`, `table`,
-  `note` and `branch`: **34** matches on 34 distinct lines, **none** inside a code fence.
+  is the name every citation of it uses — `<noun>` + whitespace **within one source line** +
+  `above` or `below`, where `<noun>` ranges over `discriminator`, `rule`, `test`, `bullet`,
+  `clause`, `slogan`, `convention`, `paragraph`, `register`, `ruling`, `list`, `sentence`,
+  `account`, `census`, `figure`, `table`, `note` and `branch`: **34** matches on 34 distinct
+  lines, **none** inside a code fence. ⚠️ **The line key is the seed's and not the axis's**, and
+  a noun whose direction word wrapped to the next line is not a match: the same key the distance
+  seed in this list publishes for itself, and unstated here until `#2100`. The limits price it.
   **Five are not pointers at this document** and are excluded with their grounds: the match on
   `list above/below` is this page's own bullet-subject literal quoted inside a recogniser, and four
   more quote or describe a **module docstring**'s layout — *"quantifying over what is above them"*,
@@ -2945,7 +2948,26 @@ true"*, one layer up, in this document's own prose. They are:
   `### Reach clauses` (`712c35e`, `#1608`, PR #639) pointed the right way at a paragraph two above
   it. ⚠️ **This commit takes those words out of that section** — the distance axis in this same
   list convicts that row and repairs its count — so what is quoted here is dated to the commit that
-  wrote it and is not a claim about what that section reads now. ⚠️ **This bullet is inside its own
+  wrote it and is not a claim about what that section reads now.
+  ⚠️ **The line key is a limit as well, and it is worth exactly three.** Taking the whitespace as
+  `\s+` over the whole blob rather than within one line returns **37** where this sentence
+  publishes 34, and it is **+3** at every one of the five refs this page dates this seed at and at
+  `c97ba1a` as well — 37, 43, 43, 45, 52 and 58 against 34, 40, 40, 42, 49 and 55 at `2947444`,
+  `d3a4ac5`, `5a2fe24`, `444da7f`, `77fb54d` and `c97ba1a`.
+  ⚠️ **It is the same three wrapped pairs at every one of the six**, and all three were read
+  rather than counted: `paragraph` / `above` and `rule` / `below` in `### Reach clauses`, and
+  `list` / `above` in `### Gate-discharge claims`, are each a cross-reference at this page and
+  each points the right way, so the line key costs this axis **no** conviction — which is exactly
+  what it costs the distance axis. They sit inside the
+  *"wider than 34"* limit stated here, and they sit inside it as **read** and not as unread.
+  ⚠️ **The same question was put to the other two seeds and they answer differently, which is
+  why it is worth stating.** The nine-word seed is inert under it: it anchors on a single token,
+  so a blob reading and a line reading agree at all six refs. The distance seed's
+  already-published line key is **live**, worth **+1** at `2947444` and **+2** at the other five.
+  So the flag is not decoration on the one seed of the three that carried it, and this is the
+  seed that wrapped. ⚠️ **The 172 is dated to `2947444` and is not re-keyed here**, as the 34 is
+  not.
+  ⚠️ **This bullet is inside its own
   population, so the figure moves by being stated.** Re-run at head and the same seed returns
   **40**: the two repaired rows still match, with their direction words swapped, and six
   matches are new — **one** genuine pointer, in this bullet's own opening paragraph, which
