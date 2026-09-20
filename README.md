@@ -4079,12 +4079,15 @@ from this development"*), and `TateModule.Determinant:147` and `TateModule.Galoi
 list a sibling's closure out member for member. **All six figures were re-walked and all six are
 exact.**
 
-⚠️ **Say where the population stops.** `EllipticCurves.lean` imports all **423** modules under
+⚠️ **Say where the population stops.** `EllipticCurves.lean` imports **every** module under
 `EllipticCurves/` directly, so the root aggregator is in *every* answer to *"which modules have both
-`X` and `Y` in their closure"* and moves every such count by one. **The counts in this section and
-in the rows they repair exclude it**, and the tree's prose already names it when it is the only
-member — `TateModule.MatrixRepCompat:65-66`, *"its reverse import cone being empty apart from the
-root aggregator `EllipticCurves`"*, which is exact.
+`X` and `Y` in their closure"* and moves every such count by one. ⚠️ **This cell carried the
+numeral 423 until `#2105` added the 424th module**, and `mk_all --check` is what enforces the
+*every* — so the count was the only part of it that could go stale, and it is dropped rather than
+bumped. `Torsion.XDifference:54-55` still publishes the figure, with its `3f61ad7` pin.
+**The counts in this section and in the rows they repair exclude it**, and the tree's prose already
+names it when it is the only member — `TateModule.MatrixRepCompat:65-66`, *"its reverse import cone
+being empty apart from the root aggregator `EllipticCurves`"*, which is exact.
 
 ⚠️ **The rule the three false rows share is one sentence: a membership claim that quantifies over
 the tree is a COUNT, and must carry one.** *"`X` is not in this file's closure"* names two modules

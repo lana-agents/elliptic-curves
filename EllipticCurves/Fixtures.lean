@@ -39,26 +39,37 @@ discriminants — `64`, `−27`, `−432`, `2304`, `−4096` — is a nonzero in
 is the exact hypothesis, and it covers the `ℚ` and `AlgebraicClosure ℚ` sites with a single
 instance rather than one per base type.
 
-⚠️ **The finite-field certificates are deliberately NOT served here, and there are FOUR of them.**
+⚠️ **The finite-field certificates are deliberately NOT served here, and there are FIVE of them.**
 `EllipticCurves.FunctionField.NegYGaloisGroup` certifies over `ZMod 2` on purpose — its curve
 docstring records that `negYAlgEquiv_ne_one` is exactly what would fail for `y² = x³ + …` in
 characteristic `2` — and `EllipticCurves.FunctionField.NegYGalois`,
-`EllipticCurves.FunctionField.NegYInvolution` and `EllipticCurves.FunctionField.MulByNDegreeTower`
-do the same over `ZMod 2`, `ZMod 2` and `ZMod 5`. In full, so that no sweep has to rediscover it:
+`EllipticCurves.FunctionField.NegYInvolution`, `EllipticCurves.FunctionField.MulByNDegreeTower` and
+`EllipticCurves.Torsion.ThreeTorsionSplitCertificate` do the same over `ZMod 2`, `ZMod 2`, `ZMod 5`
+and `ZMod 7`. ⚠️ **This count read *"there are FOUR of them"* from `0db45cd` (2026-09-01, `#1380`,
+PR #528) until this commit**, which adds the fifth (`#2105`); a numeral standing over a list is
+falsified by whatever next extends the list, and the four rows it named are all still here. In
+full, so that no sweep has to rediscover it:
 
 * `FunctionField/NegYGaloisGroup.lean`, `exampleCurveNegYGalois`, `⟨0,0,1,0,0⟩`, over
   `exampleFieldNegYGalois`;
 * `FunctionField/NegYGalois.lean`, `exampleCurveChar2`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
 * `FunctionField/NegYInvolution.lean`, `exampleCurveTwo`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
-* `FunctionField/MulByNDegreeTower.lean`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`.
+* `FunctionField/MulByNDegreeTower.lean`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`;
+* `Torsion/ThreeTorsionSplitCertificate.lean`, `exampleCurveSeven`, `⟨0,0,0,0,2⟩`, over `ZMod 7`.
 
-All four prove `IsElliptic` by `decide +kernel`. ⚠️ `NegYGalois` and `NegYGaloisGroup` are two
-different files with near-identical names, both in `FunctionField/` and both certifying over
-`ZMod 2`; the quotation above belongs to `NegYGaloisGroup`, and `exampleFieldNegYGalois` is that
-file's own `private abbrev` for `ZMod 2`.
+All five prove `IsElliptic` by `decide +kernel`. ⚠️ **The fifth is the only one outside
+`FunctionField/`, and a finite base is forced there rather than chosen**:
+`Torsion.ThreeTorsionStructure`'s two `_of_splits` hypotheses are jointly unsatisfiable over `ℚ`
+for every elliptic curve, so no rational fixture can certify them and the base has to contain a
+primitive cube root of unity. That file's `## What is *not* here` carries the argument, and marks
+it classical and load-bearing for nothing.
+⚠️ `NegYGalois` and `NegYGaloisGroup` are two different files with near-identical names, both in
+`FunctionField/` and both certifying over `ZMod 2`; the quotation above belongs to
+`NegYGaloisGroup`, and `exampleFieldNegYGalois` is that file's own `private abbrev` for `ZMod 2`.
 
 ⚠️ **Each row is a file plus a declaration name and carries NO line number, on purpose. Do not add
-them back.** The rows did carry `file.lean:NNN`, and three of the four went stale in one commit.
+them back.** The rows did carry `file.lean:NNN`, and three of the four this list then had went
+stale in one commit.
 The `#1373` sweep added a single `import` line to the top of each of the 98 files it migrated, so
 every line above such a file's `section Nonvacuity` block moved by `+1` and everything below it by
 that block's own delta: `393 → 391`, `468 → 466`, `281 → 282`, while `NegYGaloisGroup` — the one
@@ -80,13 +91,18 @@ Those bases are not of characteristic zero, so the instances below do not apply,
 piece is an import: `Mathlib.FieldTheory.Finite.Basic` is what supplies `Field (ZMod p)` and makes
 their `decide +kernel` proofs go through (checked, both directions). It is **not** imported here,
 because this module is imported across the library and pulling a finite-field file into every one
-of those import closures to serve four certificates is the wrong trade. **Those four keep their
-local fixtures**, and a later sweep should not "finish the job" by deleting them: they are the only
-positive-characteristic non-vacuity evidence on the `negY` front.
+of those import closures to serve five certificates is the wrong trade. **Those five keep their
+local fixtures**, and a later sweep should not "finish the job" by deleting them: the four in
+`FunctionField/` are the only positive-characteristic non-vacuity evidence in that directory, and
+the fifth is the only non-vacuity evidence of any characteristic for the `n = 3` structure
+theorem.
 
 ⚠️ **How that list came out one row short, because the same mistake is easy to repeat.** A grep for
-`: Affine (ZMod` finds three of the four and misses `NegYGaloisGroup`, whose base is spelled through
-an abbreviation; filtering on file names instead finds a different three. Enumerate every
+`: Affine (ZMod` finds four of the five and misses `NegYGaloisGroup`, whose base is spelled through
+an abbreviation; filtering on file names instead finds a different subset. ⚠️ **That cell read
+*"finds three of the four"* and *"a different three"* from `0db45cd` (2026-09-01, `#1380`, PR #528)
+until this commit, and the fifth row is what moved it** — a count of what a recogniser returns is
+falsified by whatever extends its population, exactly as the list above is. Enumerate every
 `private … : Affine … := ⟨…⟩` in the tree, resolve each base through its own file's `abbrev`s, group
 by the resolved base, and read **every** group — do not grep for the shape you expect. The same
 recipe is what gives the counts quoted above, and running it is how the `(2 : F) ≠ 0` tally below
@@ -189,10 +205,22 @@ are true; what is downstream is that instance's *address*, and the instance itse
 `baseChange`, `map` and `IsElliptic` — all Mathlib, all already in this module's closure.
 
 ⚠️ **What `#1408` did not change**: no `#916` certificate, no statement and no proof term. Root
-`lake build EllipticCurves --wfail` is green at the same job count as before, and the four
+`lake build EllipticCurves --wfail` is green at the same job count as before, and the five
 positive-characteristic certificates listed at the top of this docstring are untouched — they are
-`IsElliptic` over `ZMod 2` / `ZMod 5`, not base changes, and the instance below does not serve
-them.
+`IsElliptic` over `ZMod 2` / `ZMod 5` / `ZMod 7`, not base changes, and the instance below does not
+serve them. ⚠️ **This sentence read *"the four positive-characteristic certificates listed at the
+top of this docstring"* and *"`IsElliptic` over `ZMod 2` / `ZMod 5`"* from `6012496f` (2026-09-01,
+`#1408`, PR #538) until this commit**, which adds the fifth (`#2105`). The phrase *"listed at the
+top of this docstring"* is a definite description that resolves against the list above, so both
+cells move whenever that list does. ⚠️ **It is the same falsification as at the list itself and at
+its grep cell, but two sections away** — those two sit under the design section
+(`## The design, and the two decisions in it`) and this one under the base-changed-instance
+section, with `## Imports` between them, so an author who follows the diff reaches the first two
+and not this one. **Whatever next extends the list must sweep the whole file rather than the hunks
+it edited.** (No line distance is quoted here, for the reason the list itself gives for carrying
+no line numbers.) The fifth certificate postdates `#1408` and is untouched by it for that reason;
+*"the instance below does not serve them"* stays true of it, since its `IsElliptic` is a local
+`decide +kernel` and its `Fact (Nat.Prime 7)` is an `attribute [local instance]`.
 
 ## Characteristic side-conditions
 

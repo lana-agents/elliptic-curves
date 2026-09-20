@@ -402,6 +402,7 @@ import EllipticCurves.Torsion.StructureGeneral
 import EllipticCurves.Torsion.ThreePrimary
 import EllipticCurves.Torsion.ThreePrimaryBasis
 import EllipticCurves.Torsion.ThreeTorsion
+import EllipticCurves.Torsion.ThreeTorsionSplitCertificate
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import EllipticCurves.Torsion.TriplingCoords
 import EllipticCurves.Torsion.TriplingSurjective
