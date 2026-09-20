@@ -39,26 +39,102 @@ discriminants — `64`, `−27`, `−432`, `2304`, `−4096` — is a nonzero in
 is the exact hypothesis, and it covers the `ℚ` and `AlgebraicClosure ℚ` sites with a single
 instance rather than one per base type.
 
-⚠️ **The finite-field certificates are deliberately NOT served here, and there are FOUR of them.**
-`EllipticCurves.FunctionField.NegYGaloisGroup` certifies over `ZMod 2` on purpose — its curve
-docstring records that `negYAlgEquiv_ne_one` is exactly what would fail for `y² = x³ + …` in
-characteristic `2` — and `EllipticCurves.FunctionField.NegYGalois`,
-`EllipticCurves.FunctionField.NegYInvolution` and `EllipticCurves.FunctionField.MulByNDegreeTower`
-do the same over `ZMod 2`, `ZMod 2` and `ZMod 5`. In full, so that no sweep has to rediscover it:
+⚠️ **The finite-field certificates are deliberately NOT served here, and this paragraph no longer
+says how many there are.** `EllipticCurves.FunctionField.NegYGaloisGroup` certifies over `ZMod 2`
+on purpose — its curve docstring records that `negYAlgEquiv_ne_one` is exactly what would fail for
+`y² = x³ + …` in characteristic `2` — and `EllipticCurves.FunctionField.NegYGalois`,
+`EllipticCurves.FunctionField.NegYInvolution`, `EllipticCurves.FunctionField.MulByNDegreeTower`,
+`EllipticCurves.Torsion.TwoTorsionCharTwo`, `EllipticCurves.Torsion.ThreeTorsionCharThree` and
+`EllipticCurves.Torsion.ThreeTorsionSplitCertificate` do the same over `ZMod 2`, `ZMod 2`,
+`ZMod 5`, `ZMod 2`, `ZMod 3` (twice) and `ZMod 7`.
+
+⚠️ **This sentence carried a numeral — *"there are FOUR of them"* from `0db45cd` (2026-09-01,
+`#1380`, PR #528) — and `#2105` retires it rather than bumping it, because the numeral went stale
+while `#2105` was in review.** Measured and not asserted, by the recogniser below: the population
+is `4` at `ee48553` (this branch's first base), `5` at `ebb8735` (2026-09-28T05:51:55Z, `#2228`,
+PR #820), `7` at `ceb5db9` (2026-09-29T04:49:29Z, `#2241`, PR #825) and `8` with this commit — two
+falsifications in 23 hours, neither by anything that touched this file, and one of them already an
+ancestor of the base this branch was rebased onto. A numeral standing over a list is falsified by
+whatever next extends the list, and nothing in this repository re-checks one.
+
+⚠️ **The rows are generated, not remembered.** Every one of them is the same three lines,
+
+```
+private instance : C.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
+  decide +kernel
+```
+
+so
+
+```
+grep -rn -B1 'rw \[WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero\]' \
+  --include=*.lean EllipticCurves/ |
+  grep 'private instance' | grep -v '^EllipticCurves/Fixtures.lean'
+```
+
+returns exactly them, in one command, at any ref. ⚠️ **The last filter is not cosmetic and is the
+reason this paragraph prints the command rather than a number: the fenced block above is itself a
+match**, so without it the command returns `9` against the tree's `8`. That is `#2244`'s
+phantom-`import` class in a second spelling — a docstring line is indistinguishable from source to
+every walker this board writes, and a recogniser published beside its own example is the one place
+it is guaranteed to bite. ⚠️ **That recogniser is sharp only after `#1408`**: at `0db45cd` it
+returns **133** under both forms, because every non-vacuity block then declared its own instance
+and the single `[CharZero F]` instance below is what collapsed the characteristic-zero ones. What
+survives is, at every ref measured above, exactly the finite-base rows, and that is a measurement
+and not a derivation: `decide` is not what excludes `ℚ` — `#1408` is. In full at this commit, as
+a snapshot of what that command returns and not as a census:
 
 * `FunctionField/NegYGaloisGroup.lean`, `exampleCurveNegYGalois`, `⟨0,0,1,0,0⟩`, over
   `exampleFieldNegYGalois`;
 * `FunctionField/NegYGalois.lean`, `exampleCurveChar2`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
 * `FunctionField/NegYInvolution.lean`, `exampleCurveTwo`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
-* `FunctionField/MulByNDegreeTower.lean`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`.
+* `FunctionField/MulByNDegreeTower.lean`, `exampleCurveFive`, `⟨0,0,0,-1,0⟩`, over `ZMod 5`;
+* `Torsion/TwoTorsionCharTwo.lean`, `y2AddYEqX3 (ZMod 2)`, `⟨0,0,1,0,0⟩`, over `ZMod 2`;
+* `Torsion/ThreeTorsionCharThree.lean`, `curveSS`, `⟨0,0,0,-1,0⟩`, over `ZMod 3`;
+* `Torsion/ThreeTorsionCharThree.lean`, `curveOrd`, `⟨0,1,0,0,-1⟩`, over `ZMod 3`;
+* `Torsion/ThreeTorsionSplitCertificate.lean`, `exampleCurveSeven`, `⟨0,0,0,0,2⟩`, over `ZMod 7`.
 
-All four prove `IsElliptic` by `decide +kernel`. ⚠️ `NegYGalois` and `NegYGaloisGroup` are two
-different files with near-identical names, both in `FunctionField/` and both certifying over
-`ZMod 2`; the quotation above belongs to `NegYGaloisGroup`, and `exampleFieldNegYGalois` is that
-file's own `private abbrev` for `ZMod 2`.
+⚠️ **The `TwoTorsionCharTwo` row is the one that shows why the numeral had to go, and this file is
+where it should have been noticed.** Its curve is *this module's own* `y2AddYEqX3`, applied to
+`ZMod 2`; only the instance is local, because the instance below is stated over `[CharZero F]` and
+`ZMod 2` is not one — and that file's docstring says so, quoting this paragraph's then-current
+*"All four prove `IsElliptic` by `decide +kernel`"* back at it while not being added to the list it
+quotes. So the row carries no `: Affine (ZMod` ascription at all, which is precisely the shape the
+paragraph below warns against grepping for. ⚠️ **It landed at `ebb8735`, an ancestor of this
+branch's base, so it was missing from this list before any rebase moved anything, and the review
+that convicted the numeral counted SEVEN and not EIGHT for exactly the same reason.**
+
+⚠️ **`Torsion/ThreeTorsionSplitCertificate`'s finite base is forced rather than chosen**:
+`Torsion.ThreeTorsionStructure`'s two `_of_splits` hypotheses are jointly unsatisfiable over `ℚ`
+for every elliptic curve, so no rational fixture can certify them and the base has to contain a
+primitive cube root of unity. That file's *"Why the base is `ZMod 7` and not `ℚ`"* section carries
+the argument and marks it classical and load-bearing for nothing; its `## What is *not* here`
+carries only a redirect to it.
+⚠️ `NegYGalois` and `NegYGaloisGroup` are two different files with near-identical names, both in
+`FunctionField/` and both certifying over `ZMod 2`; the quotation above belongs to
+`NegYGaloisGroup`, and `exampleFieldNegYGalois` is that file's own `private abbrev` for `ZMod 2`.
+
+⚠️ **The near-misses, recorded so that the next sweep does not keep re-finding them as rows.**
+`Torsion/TriplingSurjective.lean`'s `curveChar2` and `Torsion/TwoTorsionCharTwo.lean`'s
+`curveOrdinaryCharTwo` are local finite-base fixtures declared for the reason this paragraph gives
+— the second says so in terms, *"It belongs in `EllipticCurves.Fixtures` and is here instead"* —
+but neither is a row above: `curveChar2` declares no `IsElliptic` at all, and
+`curveOrdinaryCharTwo` is polymorphic in its base, with its `IsElliptic` a hypothesis-taking
+`theorem` rather than an instance. **They are inside the subject of the first sentence and outside
+the recogniser**, which is the third reason the numeral could not be maintained: it was never
+stated which of the two populations it counted, and the two differ.
+`Torsion/ThreeTorsionStructure.lean`'s `curveAlgClosureCharTwo` and
+`Torsion/NsmulSmoothSurjective.lean`'s `curveClosureCharTwo` are private `IsElliptic` instances in
+characteristic `2` as well, and are **not** near-misses of the same kind: their base is
+`AlgebraicClosure (ZMod 2)`, which is not a finite field, and neither proves `Δ` a unit by
+`decide` — both go through `linear_combination` and `isUnit_one`, which is why the recogniser does
+not see them. `FunctionField/FunctionFieldGaloisDescent.lean` uses `y2AddYEqX3 (ZMod 2)` too and
+rules itself out in terms, in its own `### Non-vacuity`.
 
 ⚠️ **Each row is a file plus a declaration name and carries NO line number, on purpose. Do not add
-them back.** The rows did carry `file.lean:NNN`, and three of the four went stale in one commit.
+them back.** The rows did carry `file.lean:NNN`, and three of the four this list then had went
+stale in one commit.
 The `#1373` sweep added a single `import` line to the top of each of the 98 files it migrated, so
 every line above such a file's `section Nonvacuity` block moved by `+1` and everything below it by
 that block's own delta: `393 → 391`, `468 → 466`, `281 → 282`, while `NegYGaloisGroup` — the one
@@ -80,13 +156,22 @@ Those bases are not of characteristic zero, so the instances below do not apply,
 piece is an import: `Mathlib.FieldTheory.Finite.Basic` is what supplies `Field (ZMod p)` and makes
 their `decide +kernel` proofs go through (checked, both directions). It is **not** imported here,
 because this module is imported across the library and pulling a finite-field file into every one
-of those import closures to serve four certificates is the wrong trade. **Those four keep their
-local fixtures**, and a later sweep should not "finish the job" by deleting them: they are the only
-positive-characteristic non-vacuity evidence on the `negY` front.
+of those import closures to serve them is the wrong trade. **They keep their local fixtures**, and
+a later sweep should not "finish the job" by deleting them: the rows in `FunctionField/` are the
+only positive-characteristic non-vacuity evidence in that directory, and
+`ThreeTorsionSplitCertificate`'s row is the only non-vacuity evidence of any characteristic for
+the `n = 3` structure theorem. ⚠️ **`#2264` is open on the *"checked, both directions"* above**:
+as of this commit `Torsion/ThreeTorsionSplitCertificate` is the only file in the tree that takes
+that import at all, and every other row reaches `Field (ZMod p)` without it.
 
-⚠️ **How that list came out one row short, because the same mistake is easy to repeat.** A grep for
-`: Affine (ZMod` finds three of the four and misses `NegYGaloisGroup`, whose base is spelled through
-an abbreviation; filtering on file names instead finds a different three. Enumerate every
+⚠️ **How that list came out rows short, twice, because the same mistake is easy to repeat.** A grep
+for `: Affine (ZMod` misses `NegYGaloisGroup`, whose base is spelled through an abbreviation, and
+misses `TwoTorsionCharTwo`, whose curve is one of this module's own definitions applied to `ZMod 2`
+and so carries no type ascription at all; filtering on file names instead finds a different subset.
+⚠️ **That cell read *"finds three of the four"* and *"a different three"* from `0db45cd`
+(2026-09-01, `#1380`, PR #528) until this commit, and it is dropped for the same reason the numeral
+above it is** — a count of what a recogniser returns is falsified by whatever extends its
+population, exactly as the list above is. Enumerate every
 `private … : Affine … := ⟨…⟩` in the tree, resolve each base through its own file's `abbrev`s, group
 by the resolved base, and read **every** group — do not grep for the shape you expect. The same
 recipe is what gives the counts quoted above, and running it is how the `(2 : F) ≠ 0` tally below
@@ -189,10 +274,23 @@ are true; what is downstream is that instance's *address*, and the instance itse
 `baseChange`, `map` and `IsElliptic` — all Mathlib, all already in this module's closure.
 
 ⚠️ **What `#1408` did not change**: no `#916` certificate, no statement and no proof term. Root
-`lake build EllipticCurves --wfail` is green at the same job count as before, and the four
+`lake build EllipticCurves --wfail` is green at the same job count as before, and the
 positive-characteristic certificates listed at the top of this docstring are untouched — they are
-`IsElliptic` over `ZMod 2` / `ZMod 5`, not base changes, and the instance below does not serve
-them.
+`IsElliptic` over a finite base, not base changes, and the instance below does not serve them.
+⚠️ **This sentence read *"the four positive-characteristic certificates listed at the top of this
+docstring"* and *"`IsElliptic` over `ZMod 2` / `ZMod 5`"* from `6012496f` (2026-09-01, `#1408`,
+PR #538) until this commit**, and both cells are dropped rather than bumped. The phrase *"listed at
+the top of this docstring"* is a definite description that resolves against the list above, so both
+cells moved whenever that list did. ⚠️ **It is the same falsification as at the list itself and at
+its grep cell, but two sections away** — those two sit under the design section
+(`## The design, and the two decisions in it`) and this one under the base-changed-instance
+section, with `## Imports` between them, so an author who follows the diff reaches the first two
+and not this one. **Whatever next extends the list must sweep the whole file rather than the hunks
+it edited.** (No line distance is quoted here, for the reason the list itself gives for carrying
+no line numbers.) Every row added since `#1408` postdates it and is untouched by it for that
+reason; *"the instance below does not serve them"* stays true of each, since every `IsElliptic`
+above is local and `ThreeTorsionSplitCertificate`'s `Fact (Nat.Prime 7)` is an
+`attribute [local instance]`.
 
 ## Characteristic side-conditions
 
