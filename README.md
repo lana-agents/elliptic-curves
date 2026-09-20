@@ -4245,13 +4245,94 @@ one `md.parse` of one pair of files. `#2021` carries the census over every rende
 here.
 
 ⚠️ **Publish the delta and not the endpoints.** `N inserted / M removed`, with the inserted token
-types named, is the same number under either key and at any base; a prefix and a suffix are neither.
+types named, is the same number **at any base**; a prefix and a suffix are neither. ⚠️ **It is not
+the same number under either key** (`#2092`), and the reason is the arithmetic rather than the keys:
+a prefix/suffix-derived delta spans the first differing token to the last and scores everything
+between them as churn, so a paragraph whose words change is free under `type:tag:level` — an
+`inline` is still an `inline` — and costs the whole span from the first differing token to the last
+once `content` is in the key, whether or not anything structural changed anywhere in the diff.
+⚠️ **A structural edit widens that span; it is not what sets it.** At the seven census rows whose
+structural delta is `0 / 0` there is no structural edit anywhere in the diff to be near — the
+type-keyed multiset is `+0 / -0` at all seven — and the content-keyed pair is nonzero regardless:
+`16 / 16` at `dc82d79`, which is the gap between two reworded bullets, and `1 / 1` at the other
+six, which is a gap of zero.
 `046022d`'s commit message states `common prefix 896, common suffix 179, 32 inserted, 0 removed`
 for the pair its round measured, and at the pair that commit *is* — `2d7f0e0` to `046022d` — the
 content-keyed prefix, insertion and removal still read `896`, `32` and `0` while the suffix reads
 `200`: `2d7f0e0` carries 21 block tokens beneath the insertion point that `77fb54d`, the base that
 round measured against, does not. Nothing there is re-opened by saying so; it is why the delta is
 the form to publish.
+⚠️ **Measured over this section's own population, the two keys disagree more often than they agree,
+and the number of hunks is not the discriminator.** The `markdown-it` recogniser — the substring in
+a whole commit body, whitespace-flattened — returns **23** messages at `08096d3`: the **15** at
+`9147113` and `c28c462`, `dba89ee`, `ab5ec3a`, `a570d4d`, `c97ba1a`, `dc82d79`, `ea5022d` and
+`3f7d03c` since.
+Each is re-run at the pair its commit *is*, `README.md` only, one `md.parse` per end and both keys
+off the same two arrays; the thirteen that disagree are:
+
+```
+head      parent    hunks   type:tag:level   with content   content multiset
+3f7d03c   ea5022d     1         0 / 0            1 / 1         +1 / -1
+dc82d79   c97ba1a     2         0 / 0           16 / 16        +2 / -2
+c97ba1a   a570d4d     4         5 / 0          198 / 193       +8 / -3
+ab5ec3a   93cf1d4     3        17 / 0          822 / 805      +19 / -2
+3c183d8   8e55db0     6        30 / 0          678 / 648      +35 / -5
+c28c462   9147113     3        21 / 0           48 / 27       +23 / -2
+31177f4   2d5ce68     2        42 / 0           49 / 7        +43 / -1
+dba89ee   c28c462     1        25 / 0           32 / 7        +28 / -3
+a570d4d   ab5ec3a     1         0 / 0            1 / 1         +1 / -1
+949369c   49b327d     1         0 / 0            1 / 1         +1 / -1
+4655854   1d79187     1         0 / 0            1 / 1         +1 / -1
+aadc404   2aebb05     1         0 / 0            1 / 1         +1 / -1
+2d5ce68   9bc0c1b     2         0 / 0            1 / 1         +1 / -1
+```
+
+**The ten that agree are `3f61ad7`, `ebb4d42`, `046022d`, `ac0a053`, `be1a4d5`, `49b327d`,
+`2f1a674`, `7c0460d`, `855f993` and `ea5022d`**, every one of them a single contiguous insertion
+that rewords nothing. ⚠️ **All seven multi-hunk diffs disagree, and so do six single-hunk ones**,
+because the unit is the *token* and not the hunk: two hunks inside one paragraph are one changed
+`inline` (`2d5ce68`), and one hunk that replaces three paragraphs while adding a bullet list is
+three `inline`s out and eight in beside a twenty-token block insertion (`dba89ee`, `+91 / -22` lines
+in a single hunk, multiset `+28 / -3`). ⚠️ **Seven of the thirteen disagree as `0 / 0` against
+something** — under the structural key a commit that only rewords is invisible, which is the
+sharpest statement both of what that key is for and of what it cannot see. The something is `1 / 1`
+at six of them and `16 / 16` at `dc82d79`, whose two reworded bullets are all it changes and whose
+multiset is `+2 / -2`: the content-keyed pair is charging for the sixteen tokens that lie between
+them.
+⚠️ **And the newest row is the sharpest, because NO token-keyed figure tells it from a one-word
+reword.** `3f7d03c` adds **74** lines and removes none, in one hunk carrying **no blank line**, so
+all seventy-four fold into the paragraph that was already there: top-level tokens **1313 at both
+ends**, `type:tag:level` `0 / 0` with multiset `+0 / -0`, and `content` `1 / 1` with multiset
+`+1 / -1` — the pair five other rows in the table return for a single changed `inline` — while the
+rendered page gains **21** `<strong>` and **84** `<code>` spans over the same pair. ⚠️ **The
+multiset does not rescue that one**, because it is token-keyed too: prose added inside an existing
+paragraph is one token however it is counted, and what sees it is the line figure `+74 / -0` and the
+rendered-span counts beside it, neither of which is token-keyed. ⚠️ **This section is written in
+exactly that shape**, flush-left prose in long paragraphs, so it is not a curiosity — it is what a
+round inserting here measures about itself.
+⚠️ **The multiset delta is the form that is additive over edit sites**: count tokens by key at each
+end and difference the two bags. Over all twenty-three rows the type-keyed multiset equals the
+type-keyed prefix/suffix delta — **twenty-three of twenty-three**, so nothing is given up by
+publishing it — while the content-keyed prefix/suffix form is out against its own multiset by a
+factor of **43** on the insertion and **402** on the removal at the worst row
+(`ab5ec3a`, `822 / 805` against `+19 / -2`). ⚠️ **It earns that keep at exactly seven of the
+twenty-three** — `dc82d79`, `c97ba1a`, `ab5ec3a`, `3c183d8`, `c28c462`, `31177f4` and `dba89ee` —
+and costs nothing at the other sixteen, where the content-keyed pair already equals its own
+multiset; that includes all six of the `0 / 0` against `1 / 1` rows, at which `1 / 1` **is**
+`+1 / -1`. ⚠️ **The hunk count is not the discriminator there either, and it fails in both
+directions**: `2d5ce68` has two hunks and needs no multiset, `dba89ee` has one and does.
+**So publish the prefix/suffix pair with its key and its base, and where a diff changes more than
+one token publish the multiset beside it**: it is the only one of the two whose figure a re-runner
+reconstructs without also reconstructing the distance between the edits.
+⚠️ **`#2021` is unaffected in its population and affected in its verdicts.** It asks *which key* a
+landed figure was taken under; this asks *which arithmetic*, and a structurally keyed figure is
+unmoved by every reword in its diff. ⚠️ **The two populations are not the same set.** `#2021`'s
+census is the **nine** published render figures its own table carries, and at `08096d3` five of
+them are landed — `2f1a674`, `49b327d`, `ac0a053`, `949369c`, and `046022d`, which is that table's
+PR #755 row `0904ac7` as its own thread records the merge — while the other four are unmerged PR
+heads (`31b471b`, `91c6980`, `9471324`, `8db312f`) and so are not messages on `main` at all. The
+population the fenced table ranges over is the twenty-three landed ones; the overlap is exactly
+those five, and neither flag settles the other.
 
 ⚠️ **Both lines of the install matter, and when either is missing the result looks exactly like the
 package being unavailable.**
