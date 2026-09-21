@@ -92,12 +92,21 @@ as enforced by `#918` and `#927`.
   ⚠️ **Both now exist, so the condition that sentence is stated under is met and this bullet is a
   live pointer rather than a closed door.**  They are
   `EllipticCurves.FunctionField.WeilPairingFunctionN` (`#2030`), which builds the two-slot pairing
-  as a function at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`.  ⚠️ **What is
-  still absent is the transcription itself** — no `bijective_weilPairingNHom` is in this tree, and
-  `#2031` is that work; the sentence above is left exactly as it was, because it was and remains
-  true, and what changed is the tree and not the claim.  ⚠️ A prose pointer and **not** an
-  `import`: measured at the landing, neither module is in the other's import closure, and `#2031`
-  is the one that will import both.
+  as a function at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`.
+  ⚠️ **And the transcription has now been made** — `bijective_weilPairingNHom`,
+  `weilPairingNEquiv`, `existsUnique_weilPairingNHom_eq` and `natCard_monoidHom_torsionN` are
+  `EllipticCurves.FunctionField.WeilPairingPerfectN` (`#2031`), which imports both this file and
+  `WeilPairingFunctionN` and consumes this file's two curve-free declarations unchanged.  The
+  quoted sentence above is left exactly as it was, because it was and remains true, and what
+  changed is the tree and not the claim.  ⚠️ **This bullet's own heading still stands**: general
+  `n` is out of scope *here*, and it is a different module that carries it.  ⚠️ **The pointer is
+  still prose and not an `import` in this direction, and that has not changed**: neither this file
+  nor `WeilPairingFunctionN` is in the other's import closure, and `WeilPairingPerfectN` is the
+  module that imports both — which `#2030` wrote in the future tense and is now a fact.
+  ⚠️ This clause used to read *"what is still absent is the transcription itself — no
+  `bijective_weilPairingNHom` is in this tree, and `#2031` is that work"*, which was exact at
+  `9c03c4e` and is false at the commit that adds `WeilPairingPerfectN`; the retirement is recorded
+  here rather than in that file, because an absence claim is repaired where it is written.
 * **`E[n] ≅ (ℤ/nℤ)²`** — `#242`/`#293`, a different statement whose `n = 2` and `n = 3` instances
   are already merged (`nonempty_torsionTwo_addEquiv`, `nonempty_torsionThree_addEquiv`).  ⚠️ This
   file deliberately does **not** route through them: the duality count needs only finiteness, and

@@ -92,10 +92,16 @@ All three were caught by a reviewer opening each cited signature at source, and 
   nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral files
   (`WeilPairingNondegenerateTwo.lean`, `WeilPairingNondegenerateThree.lean`) and the `μ_n(F)`
   file (`WeilPairingNondegenerateMu.lean`) are still on `main` and their headlines come back out
-  of the general one verbatim. Perfectness is stated at `n = 2` and `n = 3`
-  only, and so is the identification of `det ρ_{E,n}` with the cyclotomic character
-  `χₙ` — in coordinates at **both** indices (`WeilPairingDeterminant.lean`, whose own docstring
-  argues that the `n = 2` case is a genuine constraint on four integers and not an empty mirror,
+  of the general one verbatim. **Perfectness is stated at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` over an algebraically closed field** (`WeilPairingPerfectN.lean`) — as a
+  bijection onto the dual group, as an `≃*`, as the `∃!` reading a consumer quotes, and as
+  `#E[n]^∨ = n²`; the numeral statements at `n = 2` and `n = 3` (`WeilPairingPerfect.lean`) are
+  still on `main` and ⚠️ they are **not** corollaries of it, `weilPairingTwoHom` and
+  `weilPairingNHom` being different constructions. **The identification of `det ρ_{E,n}` with the
+  cyclotomic character `χₙ` is stated at `n = 2` and `n = 3` only** — in coordinates at **both**
+  indices
+  (`WeilPairingDeterminant.lean`, whose own docstring argues that the `n = 2` case is a genuine
+  constraint on four integers and not an empty mirror,
   `χ₂ ≡ 1` notwithstanding), and bundled as an identity of monoid homomorphisms
   `galoisDetMod 3 = χ₃` at `n = 3` only (`WeilPairingDeterminantCharacter.lean`,
   `MatrixRepDeterminantCharacter.lean`).
@@ -111,7 +117,28 @@ All three were caught by a reviewer opening each cited signature at source, and 
   `bijective_weilPairingThreeHom` (`WeilPairingPerfect.lean`) are still stated at those two
   indices and nothing here touches them — the general-`n` file supplies non-degeneracy in one
   slot, which is what Silverman III.8.1(c) asserts, and perfectness runs off the two-slot
-  `ker_weilPairing{Two,Three}Hom` instead. ⚠️ **The three module docstrings that put general `n`
+  `ker_weilPairing{Two,Three}Hom` instead. ⚠️ **That half has since gone the same way, and the two
+  lives ended at different commits, so they are recorded separately** (`#2116`): the sentence
+  above is a true account of the non-degeneracy retirement and of the state at the commit that
+  made it, and the perfectness conjunct it kept live is retired in the paragraph immediately
+  below. **Do not read *"is kept live above"* as current** — it is dated to that commit, and what
+  is above now is the general-`n` reading.
+  ⚠️ **Retired, and it is the conjunct the clause above deliberately kept.** This bullet read
+  *"Perfectness is stated at `n = 2` and `n = 3` only, and so is the identification of
+  `det ρ_{E,n}` with the cyclotomic character `χₙ`"* from the non-degeneracy retirement until
+  this commit, and this commit is what falsified it: `WeilPairingPerfectN.lean` states
+  `bijective_weilPairingNHom`, `weilPairingNEquiv`, `existsUnique_weilPairingNHom_eq` and
+  `natCard_monoidHom_torsionN` over `F̄` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`,
+  so *only* does not survive. ⚠️ It goes the same way as the three clauses around it and for the
+  same reason — *only* is a universal negative, so `### Reach clauses`' *"false or merely
+  partial"* test returns **false** and it cannot be completed by adding a condition.
+  ⚠️ **The `det ρ_{E,n}` half is untouched by this work and is kept live above**, exactly as the
+  non-degeneracy retirement kept perfectness live when it went the other way: `galoisDetMod 3 = χ₃`
+  is still `n = 3` only and `WeilPairingDeterminant.lean` is still both indices, so this retires a
+  conjunct and not the sentence. ⚠️ **And `WeilPairingPerfect.lean`'s own `General n` bullet is
+  NOT retired**, for the reason the three non-degeneracy docstrings were not: it is a claim about
+  *its own file's* reach, which stays true of it, so the test returns **partial** there and it
+  takes a pointer in place. ⚠️ **The three module docstrings that put general `n`
   outside their own reach are NOT retired**, and the difference is the subject: each is a claim
   about *its own file's* reach, which stays true of it, so `### Reach clauses`' test returns
   **partial** there and each takes a pointer in place. This clause was a claim about the tree,
