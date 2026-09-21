@@ -157,7 +157,7 @@ met head-on.
   there too, next to the sentence that carries it.
 * **General `n`.**  ⚠️ **The clause this bullet used to carry has been paid** — it read
   *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete endomorphisms this tree
-  has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  has"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is non-constant,
   `EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, with its place
   layer in `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ Nothing general-`n` is
   attempted *here*: the identification of the contraction with tripling, and the count, are

@@ -128,9 +128,9 @@ discharged by a follow-on"*, not *"carried here as hypotheses"*.
 ⚠️ **The clause that used to close that paragraph has been paid, and it was wrong twice over** —
 it read *"And the general-`n` `hcomm` still has no case at all: it would need `mulByNEndo`, which
 does not exist (`#404`'s `ωₙ`)"*.  `mulByNEndo` is
-`EllipticCurves.FunctionField.MulByNPullback`'s, at every `n`, and it is built from the **group
-law**, so it never needed `#404`'s `ωₙ` — that parenthetical named as a gate the very crux the
-group-law construction bypasses.  The general-`n` commutation is
+`EllipticCurves.FunctionField.MulByNPullback`'s, at every `n` at which `[n]` is non-constant, and
+it is built from the **group law**, so it never needed `#404`'s `ωₙ` — that parenthetical named as
+a gate the very crux the group-law construction bypasses.  The general-`n` commutation is
 `translateEndo_mulByNEndo_apply_general`
 (`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`), which takes `[n]P = T` as a
 hypothesis exactly as its `n = 2, 3` siblings above do.  ⚠️ **The clause that used to close this
@@ -187,13 +187,13 @@ not for an absence.**  ⚠️ A prose pointer and not an `import`: neither
   `EllipticCurves.FunctionField.WeilPairingNondegenerateN` (`#1844`), under `(2 : F) ≠ 0` and
   `((n : ℤ) : F) ≠ 0` — the two named files remain merged and the general-field verdict is
   unchanged, so `### Reach clauses`' *"false or merely partial"* test returns **partial**.
-* **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` at every `n` is `mulByNEndo`
-  (`EllipticCurves.FunctionField.MulByNPullback`), from the group law; and `#404`'s crux, which it
-  named as the gate, is closed.  ⚠️ **So is `#251`, which this bullet named next** (and `#1500`, its
-  `y`-half).  ⚠️ **Over `F̄` the pairing is available at every `n`** with `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0`: the root datum is `exists_gS_n_of_isAlgClosed`
-  (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which discharges `hprin` outright rather
-  than assuming it, and non-degeneracy at the same indices is
+* **General `n`** — ⚠️ **this bullet was wrong twice over.**  `[n]∗` is `mulByNEndo`
+  (`EllipticCurves.FunctionField.MulByNPullback`) at every `n` at which `[n]` is non-constant, from
+  the group law; and `#404`'s crux, which it named as the gate, is closed.  ⚠️ **So is `#251`, which
+  this bullet named next** (and `#1500`, its `y`-half).  ⚠️ **Over `F̄` the pairing is available at
+  every `n`** with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`: the root datum is
+  `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which
+  discharges `hprin` outright rather than assuming it, and non-degeneracy at the same indices is
   `EllipticCurves.FunctionField.WeilPairingNondegenerateN`.  Off `F̄`, `hprin` is the standing gate
   at every index and `#962` is that gate at `n = 2` and `n = 3`.  ⚠️ **That citation used to read
   *"Off `F̄`, `#962` is the standing gate at a general index"*; it over-reaches the record and is

@@ -7,7 +7,7 @@ import EllipticCurves.Torsion.NsmulOrder
 import EllipticCurves.Torsion.TwoThreeDisjoint
 
 /-!
-# The order dictionary at a `2`-torsion point, and `[n]`-surjectivity at every `n`
+# The order dictionary at a `2`-torsion point, and `[n]`-surjectivity on `E(F̄)`
 
 `EllipticCurves.Torsion.NsmulOrder` proves `n • P = 0 ↔ ψₙ(P) = 0` at every point `P` that is
 **not** `2`-torsion, and records the one case it leaves open:
@@ -112,6 +112,31 @@ side condition would leave `hroot` open at exactly the `x` where `Ψ₂Sq` vanis
   left.
 * `WeierstrassCurve.Affine.nsmul_eq_zero_iff_two_dvd_y2EqX3AddOne` : the certificate — a point at
   which `NsmulOrder`'s hypothesis provably fails and this file's dictionary still answers.
+
+## ⚠️ The title's index clause was short, and the title now names no condition at all
+
+⚠️ **Retired** (`#2009`).  The H1 above read *"The order dictionary at a `2`-torsion point, and
+`[n]`-surjectivity at every `n`"* from `3e21ad4` (`#1484`, PR #569, the commit that created this
+file) until now.  `nsmul_surjective_of_two_ne_zero` binds `hn : n ≠ 0` explicitly, so a clause
+reading *"at every `n`"* over it is short on the index axis — `README.md` `### Reach clauses`, the
+same omission it convicts by name in `ramificationIdxN_pos`.
+⚠️ **THE REPAIR IS THE *"or it names none"* BRANCH AND NOT `` at every `n ≠ 0` ``, BECAUSE THAT
+DECLARATION BINDS TWO EXPLICIT CONDITIONS AND NOT ONE.**  Its full signature is
+`(h2 : (2 : F) ≠ 0) {n : ℕ} (hn : n ≠ 0)`, so a title naming the index condition alone would name
+a **proper non-empty subset** — the defect `### Reach clauses` convicts by worked example, and
+`(2 : F) ≠ 0` is not derivable from `n ≠ 0`, so no exemption reaches it.  Naming both would put
+the title well past a hundred columns, which `### Scope of the rules above` rules is a limit on
+what a heading may *say*.  ⚠️ **The other two layers already name BOTH conditions**, each closing —
+outside its bolded clause, which is where the index condition sits — the `## Main statements` entry
+with *"over an algebraically closed field of characteristic `≠ 2`, with no hypothesis left"* and
+the declaration's own headline with *"over an algebraically closed field of characteristic `≠ 2` —
+with no remaining hypothesis."*  ⚠️ **So the file never stood in two registers with only the title
+wrong**: it stood in two registers that agree and name both, and an index-only repair of the title
+would have put it in a third.
+⚠️ **That layer is not unread and it is not a third block**: `#1660` (`06b014d`, PR #663) repaired
+`EllipticCurves.FunctionField.MulByNResidueDegree`'s title off this same phrase, and its record puts
+*"the title of this file, the `### The point at infinity` section heading and the headlines"* in
+**one** second block.  What is new here is the row, not the layer.
 
 ## References
 

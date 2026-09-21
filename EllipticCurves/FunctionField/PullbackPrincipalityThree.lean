@@ -124,24 +124,23 @@ count of points: that passage runs through "a separable isogeny has `#ker = deg`
 this tree contains.
 
 ⚠️ **General `n` is untouched *here*.**  ⚠️ **The clause this paragraph used to carry has been
-paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
-endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete endomorphisms
+this tree has"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is non-constant,
 `EllipticCurves.FunctionField.MulByNPullback`, built from the **group law**, and its divisor
 pullback is `pullbackDivisorN` (`EllipticCurves.FunctionField.MulByNPlacePullback`).  ⚠️ The
 principality of `[n]∗((S) − (O))` is a different statement from either of those and is not
 approached here, and `#404`'s general `ωₙ` is untouched — ⚠️ and no longer open, being
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557).
-⚠️ **The identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P`, which this paragraph used to name
-as what principality at a general index still wants, is closed too** — `#251` on its `x`-half,
-`#1500` on its `y`-half, at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
+⚠️ **The identification of `(Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` with `n • P`, which this paragraph used to name as
+what principality at a general index still wants, is closed too** — `#251` on its `x`-half, `#1500`
+on its `y`-half, at every index with `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`,
 `EllipticCurves.Torsion.NsmulOrder`; `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`,
 `EllipticCurves.Torsion.NsmulYPeriodic`, PR #579).  ⚠️ **RETIRED**: this paragraph ended
 *"Principality at a general index reaches it through the fibre description, which is merged only at
 `n = 2, 3`; whether the coordinate formula now supplies that description is not measured, here or
 anywhere."*  It has been measured.  The fibre description is
-`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero`
-(`EllipticCurves.FunctionField.MulByNFibre`) at every index prime to the characteristic, and
-principality at an arbitrary index over `F̄` is
+`pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` (`EllipticCurves.FunctionField.MulByNFibre`) at
+every index prime to the characteristic, and principality at an arbitrary index over `F̄` is
 `exists_divisor_eq_affinePart_pullbackDivisorN` with `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which transposes every step of this file
 with `3 ↦ n`.  ⚠️ **Nothing in this file is superseded**: its statements are the `n = 3` instance,

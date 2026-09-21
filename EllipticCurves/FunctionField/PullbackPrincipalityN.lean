@@ -10,7 +10,7 @@ import EllipticCurves.FunctionField.PullbackPrincipalityThree
 import EllipticCurves.Torsion.StructureGeneral
 
 /-!
-# `[n]∗((S) − (O))` is principal at every `n`, and rung 5 loses its hypothesis over `F̄`
+# `[n]∗((S) − (O))` is principal, and rung 5 loses its hypothesis, over `F̄`
 
 Rung 5 of the divisor-theoretic Weil pairing (Silverman AEC III.8) produces, from the principal
 function `f_S` of an `n`-torsion point `S`, an `n`-th root `g_S` of `f_S ∘ [n]`.  It is merged at
@@ -204,6 +204,20 @@ clause naming `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` points at a st
 *whose module block*, a pointer owes nothing here.  ⚠️ `exists_nonsingular_mem_torsion` is outside
 the twelve for a fourth reason: its clause carries the sibling `(n : F) ≠ 0`, and its statement
 takes no transcendence parameter either.
+
+## ⚠️ The title claimed an index range this file does not reach
+
+⚠️ **Retired** (`#2009`).  The H1 above read *"`[n]∗((S) − (O))` is principal at every `n`, and
+rung 5 loses its hypothesis over `F̄`"* from `ecfb3e9` (`#1843`, the commit that created this file)
+until now.  Every statement in the `## Main statements` list binds an explicit condition on the
+index: **seven of the eight** bind `hn : ((n : ℤ) : F) ≠ 0`, and the eighth,
+`exists_nonsingular_mem_torsion`, binds the sibling `(n : F) ≠ 0` — which is the exception the
+`## Scope` section above names in terms.  The module block states this file's own reach beside its
+two numeral predecessors — *"at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, over an
+algebraically closed base field"* — so the title was short on the index axis against its own module
+block.  ⚠️ **The repair takes the *"or it names none"* branch** of `README.md` `### Reach clauses`
+rather than carrying both conditions into a heading: a title is one line, the conditions are two,
+and the module block carries them.
 
 ## References
 

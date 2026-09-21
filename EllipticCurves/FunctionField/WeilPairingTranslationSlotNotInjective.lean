@@ -93,11 +93,11 @@ theory (`#639`).  ⚠️ `#251` used to be listed first and is **closed**
 `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`, `EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`); removing
 it from the list is not a claim that the frontier has moved.  ⚠️ **The clause this paragraph used to
 end with has been paid** — it read *"A general-`n` statement would need `mulByNEndo`, which does not
-exist"*.  `mulByNEndo` is `EllipticCurves.FunctionField.MulByNPullback`'s, at every `n`, and it was
-never what a general-`n` version of *this* statement needed: the subject here is the bundled
-`weilPairingTorsionMuHom_two` / `weilPairingTorsionMuHom_three`, and the counting inputs the
-argument runs on are `card_torsion_two` / `card_torsion_three`.  Both are `n`-indexed for reasons
-that have nothing to do with `[n]∗`.
+exist"*.  `mulByNEndo` is `EllipticCurves.FunctionField.MulByNPullback`'s, at every `n` at which
+`[n]` is non-constant, and it was never what a general-`n` version of *this* statement needed: the
+subject here is the bundled `weilPairingTorsionMuHom_two` / `weilPairingTorsionMuHom_three`, and the
+counting inputs the argument runs on are `card_torsion_two` / `card_torsion_three`.  Both are
+`n`-indexed for reasons that have nothing to do with `[n]∗`.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
