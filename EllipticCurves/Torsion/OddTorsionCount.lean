@@ -416,9 +416,32 @@ proves it directly, and it is the evidence that the equivalence is oriented corr
 and in this file's import closure; over an algebraically closed field it *is* separability of `Ψ₃`,
 one `Polynomial.nodup_roots_iff_of_splits` away — the same lemma
 `card_torsion_eq_sq_iff_separable_preΨ` runs on.  And `card_torsion_three` is proved *from*
-`nodup_roots_Ψ₃`, through `card_roots_Ψ₃`.  So what this certifies is that the equivalence returns
-its own input, which is the whole of what a check at a settled index can certify — and it is *not*
-evidence that the general `Separable (W.preΨ n)` is any closer. -/
+`nodup_roots_Ψ₃`, through `card_roots_Ψ₃_of_splits`.  ⚠️ **The `_of_splits` form is named because
+that is the SITE the proof reaches, and its algebraically closed sibling is not.**
+`card_torsion_three` is a one-line corollary of `card_torsion_three_of_splits`, whose proof
+consumes `card_roots_Ψ₃_of_splits`; `card_roots_Ψ₃` is the algebraically closed corollary of that
+same lemma and is reached by nothing here.  ⚠️ **This clause stopped being TRUE and stopped being
+READ at two different commits, and the gap between them is the whole of this row.**  It read
+*"through `card_roots_Ψ₃`"* from `d5af642` (2026-09-02, `#1498`, PR #574) until its repair; it was
+exact only until `08096d3` (2026-09-20, `#2104`, PR #785) re-routed the proof through the
+`_of_splits` layer, and `08096d3` touches no line of this file.  ⚠️ **Only the name of the hop
+moved: `nodup_roots_Ψ₃` is still in the closure**, so the round trip below is unaffected (checked
+with a transitive-constant walk, not read off the source).  So what this certifies is that the
+equivalence returns its own input, which is the whole of what a check at a settled index can
+certify — and it is *not* evidence that the general `Separable (W.preΨ n)` is any closer.
+
+⚠️ **The rule this row pays, stated so the next `_of_*` generalisation does not have to rediscover
+it**: a docstring sentence naming a declaration as the SITE a proof reaches goes false with no edit
+to either file the moment that proof is re-routed through a sibling, and a `_of_*` generalisation is
+exactly such a re-routing.  ⚠️ It is mechanically checkable and the check is not a grep: the name
+must be in the **transitive closure** of the proof the sentence describes, and this row was decided
+that way — `card_roots_Ψ₃_of_splits` is in `card_torsion_three`'s closure and `card_roots_Ψ₃` is
+not.  ⚠️ **The SIZE of that closure is deliberately not published here**: it spans the whole
+Mathlib import closure, so it moves on a pin bump (`#1439`) in a file the bump does not touch —
+this front's own defect one register over (`#2005`).  The two membership verdicts carry the whole
+argument and go stale only when the proof they describe does.  The seed for the rest of the
+population, its three flags and its counts are on `#2116`; they are not published here because this
+file is not where a tree-wide census belongs. -/
 theorem separable_preΨ_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     (W.preΨ (3 : ℤ)).Separable := by
   classical
