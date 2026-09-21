@@ -89,6 +89,15 @@ as enforced by `#918` and `#927`.
   at composite `n`; Mathlib's duality is stated for an arbitrary finite abelian group, so the
   argument in this file would transcribe unchanged to any `n` for which `weilPairingNHom` and
   `ker_weilPairingNHom` existed.  One obstruction here, two there.
+  ⚠️ **Both now exist, so the condition that sentence is stated under is met and this bullet is a
+  live pointer rather than a closed door.**  They are
+  `EllipticCurves.FunctionField.WeilPairingFunctionN` (`#2030`), which builds the two-slot pairing
+  as a function at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over `F̄`.  ⚠️ **What is
+  still absent is the transcription itself** — no `bijective_weilPairingNHom` is in this tree, and
+  `#2031` is that work; the sentence above is left exactly as it was, because it was and remains
+  true, and what changed is the tree and not the claim.  ⚠️ A prose pointer and **not** an
+  `import`: measured at the landing, neither module is in the other's import closure, and `#2031`
+  is the one that will import both.
 * **`E[n] ≅ (ℤ/nℤ)²`** — `#242`/`#293`, a different statement whose `n = 2` and `n = 3` instances
   are already merged (`nonempty_torsionTwo_addEquiv`, `nonempty_torsionThree_addEquiv`).  ⚠️ This
   file deliberately does **not** route through them: the duality count needs only finiteness, and
