@@ -4220,7 +4220,7 @@ anything else means the surrounding structure moved, which a line diff will not 
 ```bash
 mkdir -p /tmp/render && cd /tmp/render
 printf '{"name":"render","private":true}\n' > package.json
-npm install --cache /tmp/npm-cache markdown-it
+npm install --cache /tmp/npm-cache markdown-it@14.3.2
 ```
 
 ```js
@@ -4228,6 +4228,140 @@ const md = require('markdown-it')('commonmark');
 const toks = f =>
   md.parse(require('fs').readFileSync(f, 'utf8'), {}).map(t => `${t.type}:${t.tag}:${t.level}`);
 ```
+
+⚠️ **Pin the parser in the recipe AND name the version beside the figure.** Both, for the reason the
+key needs both: the recipe is what a re-runner copies, and the figure is what a later reader has to
+check. The install above is pinned because an unpinned `npm install markdown-it` no longer resolves
+to what the figures here were taken under — run in a fresh directory with this recipe's own
+`package.json` and `--cache` it returns **15.0.2**, read back at 09:33Z and again at 11:54Z on
+2026-09-21, so a re-runner following an unpinned recipe today is reading a parser no gate line on
+this page names. ⚠️ **A pin on its own would not close it**: a slot that already has the package
+never executes the recipe, and a figure that names no parser cannot be re-keyed to one afterwards —
+the argument of *"Name the key beside the figure"* one field down. The standing form `markdown-it`
+**14.3.2** `commonmark` is prescribed here rather than left to habit.
+
+⚠️ **The `package.json` line in that fence is load-bearing, and the walk-up bullet below states
+only half of why.** That bullet's case — *"Run in a subdirectory of a directory that already has a
+`package.json`"* — is the install landing somewhere other than where you are. ⚠️ **The half it does
+not state is the one that reaches a figure: where the list npm lands on already SATISFIES the range
+asked for**, npm installs nothing at all, reports success, and the `require` resolves to the version
+that was there before. ⚠️ **Which list it lands on is decided by whether the install directory has a
+`package.json` of its own, and that — not the range — is what a re-runner's number turns on.** With
+none, npm walks up to `/tmp/package.json`, which in this harness carries `"markdown-it": "^14.3.2"`
+and is already satisfied, so nothing is installed anywhere and the `require` resolves to the
+**14.3.2** that was there. With the fence's own `package.json` — the line the recipe writes — npm
+never looks up: it installs locally, unpinned resolves to latest, and the same command in the same
+parent returns **15.0.2**, the figure the paragraph directly above this one already publishes —
+directly above under `md.parse`'s own block map, which is the unit this page rules on. Both cases
+measured on 2026-09-21 in fresh directories beneath `/tmp`, with `/tmp/package.json` and
+`/tmp/node_modules` re-read afterwards and unchanged. ⚠️ **`mkdir` does not escape the walk, and in
+a directory with no `package.json` of its own the obvious check cannot see it**:
+`node -e "require('markdown-it/package.json')"` makes the same walk and reports whatever the parent
+holds — while in the fence's own directory that command reports the LOCAL version, so it is right in
+one case, wrong in the other, and tells the two apart in neither. Read the version back through the
+install directory's own absolute path, which is what makes the parser beside a figure a fact about
+that run rather than about the machine it ran on.
+
+⚠️ **And the `15.0.2` reading is the one a re-runner following the fence is most likely to hit, and
+on this page's own evidence it is harmless**: the 24-row census below agrees in every cell across
+the two versions, as does each of the two consumers this section names. The pin is here so that a
+figure names a parser, not because the other version is known to move one.
+
+⚠️ **Measured across the two versions before the rule was written, and nothing published is in
+question BY THE VERSION DIFFERENCE.** ⚠️ **That scope is the whole of this clearance and it reaches
+no other axis** — a cell can still be wrong about the ref it is keyed to, and one below is. The
+recogniser this section publishes below returns **24** messages at `ee48553` — the
+**23** it counts at `08096d3` plus that commit's own landing — and all twenty-four pairs, each at
+its own parent, were run twice, once under `14.3.2` and once under `15.0.2`, both keys, prefix,
+suffix, insertion, removal and multiset: **24 of 24 rows agree in every cell**, top-level token
+counts at both ends included. ⚠️ **The landed record names a version in 9 of the 24**, and every
+one of the nine names `14.3.2` as the parser its own figures were taken under (`ee48553` also names
+`15.0.2`, as what an unpinned install returned). ⚠️ **The other 15 are exactly the 15 this section
+already counts at `9147113` below** — set-identity, checked in both directions rather than read off
+two equal cardinalities — so the two `15`s in this section are one population under two readings,
+and the habit of naming a parser begins precisely where that count stops: of the 24 at `ee48553`,
+every one the recogniser has added since `9147113` names a version and not one of the fifteen at
+`9147113` does. `14.3.2` is still installable by exact version
+(`npm install --cache /tmp/npm-cache markdown-it@14.3.2`, run 2026-09-21), so a landed figure can be
+re-run under the parser it was taken under and not only under one that agrees with it.
+
+⚠️ **The other consumer of this package on this page is unpinned too, and this rule reaches it on
+BOTH conjuncts.** `readme-list-structure-render-check.js`, cited in `### Scope of the rules above`
+and living in this project's memory rather than in the tree, installs `markdown-it` with no version
+in its own header comment, while the paragraph citing it pins **both** versions of the `marked` it
+tested and discarded. A ground that speaks only of what the script PRINTS answers one conjunct and
+is silent on the other, so both are answered here and separately.
+
+* ⚠️ **The figure half reaches the citing paragraph and not the script's stdout.** This rule binds
+  what the page publishes off a run, and ⚠️ **the population is PRINTED rather than counted**,
+  because a numeral standing over a list nobody wrote down goes stale the moment the list grows.
+  The rows of `### Scope of the rules above` whose truth value is a parser's output over this file
+  are **sixteen** at `ee48553`, unmoved by this commit, whose every edit is below `:4200`.
+  ⚠️ **The predicate is printed with the list, because a printed population that is short closes
+  the question a bare numeral would have left open**: a row is IN when re-running a parser over
+  this file is what settles its truth value, and OUT when reading the source settles it — and
+  under `:3641-3642` the block unit is `md.parse`'s own, so a verdict about which block a row sits
+  in, or about how many blocks separate two rows, is a parser's output as much as one about `<p>`.
+  ⚠️ **The RENDER shape, TEN**, where the parse settles how this file's own text renders:
+  `:2915` (the five swallowed sites, 190 lines of parent prose), `:2919` (a four-item and a
+  five-item list where the source writes 2 + 2 and 2 + 3), `:2923` (one list turns loose and it is
+  this section's), `:2925-2926` (ten top-level rules wrapped in `<p>`, nine of them gaining
+  vertical space), `:2927` (`### Reach clauses`' three-item list was already loose, on the `:283`
+  blank line), `:2928` (the tree-wide universal that every sub-list stays tight), `:2936` (two
+  rulings rendered as items six and seven of a three-item list), `:2942` and `:2944-2946` (`marked`
+  against CommonMark, in summary and site by site) and `:3719-3720` (that table is one paragraph
+  under the `commonmark` parse).
+  ⚠️ **The BLOCK-UNIT shape, SIX**, where the parse settles which block a row sits in or how many
+  separate two: `:3074-3077` (*"the over-reaching count two paragraphs up"* lands in the same
+  paragraph), `:3407-3408` (ten matches split four in the paragraphs above and six in this one),
+  `:3494-3497` (six paragraphs separate a clause from the `⚠️` it quotes, where it says four),
+  `:3498-3500` (the paragraph immediately above is not the one that rules the test out; that is
+  two), `:3638-3640` (the `2 / 7 / 16` sentence-paragraph-item clearance split) and `:3666`
+  (sixteen of 25 rows keyed to a ref the block they sit in names).
+  **Not one of the sixteen names a `markdown-it` version**, re-checked over the widened population
+  and not carried from the nine this clause read before.
+  ⚠️ **Six neighbours are read and left OUT, each with the class it falls in**: `:2865` and `:2937`
+  are settled at source — a code-span rule applied to three literals, and a column-0 placement;
+  `:2794` and `:2900-2905` state what CommonMark does in general and rule on no text of this page;
+  `:3491-3493` is a LINE distance, and a line is not a parser's unit; and `:3641-3642` and `:3444`
+  name the instrument and the calibration without publishing a verdict off either.
+  ⚠️ **The SEED is published with the population, so the round that next extends this list re-runs
+  the population and not the list** — and it is a candidate generator and not a recogniser, which
+  is said here rather than left to be discovered. Over `:2711`-`:3906`, the section's own range at
+  `ee48553`: the render seed
+  `render|CommonMark|commonmark|loose|tight|swallow|paragraph_open|list_item|md\.parse` returns
+  **32** lines, and the block seed — the alternation
+  `paragraph(s)? (up|above|below|down|apart|between)`, `paragraph immediately`,
+  `enclosing list item`, `block (they|it) sits? in` — returns **13**; their union reaches
+  **fifteen** of the sixteen rows above, and the row it misses is `:2942`, whose verdict sentence
+  carries none of the vocabulary while the paragraph holding it does. The union also returns the
+  six exclusions and the paragraphs that state the mechanism rather than a verdict, which is why
+  it is read row by row.
+  ⚠️ **They are flagged here and not repaired here, and the flag now carries the right ref.**
+  `git blame` at `ee48553` returns **`b9d353e`** for every line of the nine inside that bullet —
+  one commit — and `git rev-parse b9d353e^` is **`6c22e12`**, so `b2d1981`, the only sha the bullet
+  names, is the ref its CENSUS was taken at (`:2911`) and not the ref these cells resolve at.
+  ⚠️ **And the difference is measurable, not notional**: `:2925-2926`'s *ten* top-level rules and
+  *nine* already-here are exact at `b9d353e` (**10 / 10**) and false at both candidates — **7 / 0**
+  at `b2d1981`, **9 / 0** at `6c22e12` — counted at the token level (`list_item_open` at the
+  section list's own level; `<p>`-wrapped iff the item's first `paragraph_open` is not hidden),
+  **identical under `14.3.2` and `15.0.2`**, 2026-09-21. Re-dating another round's measurement from
+  a branch about a different section is worse than leaving it named, so `#2153` takes the row with
+  that second and sharper defect attached: these cells name no parser, AND under `:3637`'s
+  block-unit ruling at least one of them is keyed to a ref that falsifies it.
+* ⚠️ **The recipe half reaches the script's header, and it cannot be paid from this tree.** That
+  header's unpinned install is a recipe in exactly the sense above, it says to run it *in `/tmp`*,
+  and it is the walk-up case: what it resolves to is a fact about the scratch directory and not
+  about the registry. The script lives in this project's memory, where one run does not rewrite
+  another run's file, so this section declines it rather than editing it, and `#2153` carries the
+  reason with the row.
+
+⚠️ **Neither consumer publishes anything the VERSION DIFFERENCE puts in question**: the script's
+whole-file output over this page at `ee48553` — the blob `6a7136d`, `1 4597` — is byte-identical
+under `14.3.2` and `15.0.2`, **504** rows, as is every row of the 24-message census above, on
+2026-09-21. ⚠️ **The ref is named because *"this page"* is an indexical and other branches under
+review on this board edit `README.md`**; the same run over this commit's own tree is published in
+its message, which is where a self-figure can be re-taken after the last edit (`#1972`).
 
 Key each token by `type@level` rather than by `type@nesting`: both are stable, but `nesting` is
 only `+1`, `0` or `-1` — opening, self-closing, closing — so it cannot tell a `paragraph_open` at
