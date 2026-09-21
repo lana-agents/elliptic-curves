@@ -248,6 +248,7 @@ import EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotNondegenerate
 import EllipticCurves.FunctionField.WeilPairingTranslationSlotNotInjective
 import EllipticCurves.Galois.CyclotomicCharacter
+import EllipticCurves.Galois.NormalClosureSeparable
 import EllipticCurves.Galois.SubfieldAut
 import EllipticCurves.Galois.Unramified
 import EllipticCurves.NewtonPolygon
@@ -378,6 +379,7 @@ import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.EllipticNetSlices
 import EllipticCurves.Torsion.Finite
 import EllipticCurves.Torsion.HalvingExtension
+import EllipticCurves.Torsion.HalvingGaloisTower
 import EllipticCurves.Torsion.Multiplicative
 import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
