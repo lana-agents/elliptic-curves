@@ -2981,6 +2981,45 @@ true"*, one layer up, in this document's own prose. They are:
   line break, and what does not cross is the boundary out of a list, which only a blank line
   crosses. Nothing here retires, so `### Retired claims` does not bind.
 
+  ⚠️ **None of the seven `markdown-it` `commonmark` figures enumerated below names the version it
+  was taken under, while the `marked` comparison beside them names two** — `4.3.0` and `18.0.11`, at
+  the end of the paragraph that discards `marked`, and **not** the one immediately above — so the
+  page pinned the tool it rejected and left unnamed the tool it kept (`#2153`). Said rather than
+  repaired by assertion, because for most of them it is not recoverable. **Five name no parser at
+  all**: the `190` swallowed lines, the *"four-item"* and *"five-item"* pair, the `ten` and the
+  `nine`, *"every sub-list in the file stays tight"* and *"items six and seven"*. ⚠️ **The other two
+  are COMPARISONS, and it is their CommonMark half that is unkeyed**: *"four of the five"* sites and
+  the *"sixteen of the forty"* and forty-five swallow lengths each need both parsers, and only the
+  `marked` side of them carries a version. All seven were written by `b9d353e` (2026-09-07), whose
+  message names no parser at all, and the first commit in this file's own history to name a
+  `markdown-it` version is `c28c462` (2026-09-19), twelve days later. The two readings of the same
+  kind below this bullet, the `2 / 7 / 16` block split and *"one paragraph and names no ref"*, were
+  written by `ab5ec3a`, whose message does name one, for a different cell of the same commit:
+  *"`markdown-it` 14.3.2 `commonmark`"*.
+  ⚠️ **Unrecorded is not unreproducible, and the control is published rather than assumed.** Under
+  `markdown-it` **14.3.2** and **15.0.2**, each installed into a package root of its own and read
+  back through that root's absolute path, `readme-list-structure-render-check.js` over the whole
+  file is **byte-identical**: **339** rows at `b9d353e` and **522** at `0eb7e8b`, the commit this
+  bullet is written against, which this insertion takes to **523**. This section's own rules agree
+  under both as well — **7 / 0** top-level rules and `<p>`-wrapped rows at `b2d1981`, **9 / 0** at
+  `6c22e12`, **10 / 10** at `b9d353e` and **16 / 16** at `0eb7e8b`, unmoved by this insertion, with
+  **0** loose sub-lists at all four. **So no figure here is in question by the version difference**;
+  what is missing is the key and not the number.  ⚠️ **Every count in this paragraph is keyed
+  to a sha rather than to *"this tree"*, and a rebase is what that buys against**: an earlier draft
+  published the whole-file row count under the indexical, the branch was rebased under it
+  **twice**, and the numeral stayed at the value of the head it was taken at — while the `339`
+  beside it, keyed to a sha from the start, survived both.
+  ⚠️ **And that script's install recipe is pinned by accident, which is how this bullet could lose
+  its parser without anything failing.** Its header says to run `npm install markdown-it` *in
+  `/tmp`*, and `npm` installs into the nearest enclosing package root, walking **up** from `$PWD`:
+  this harness carries an untracked `/tmp/package.json` whose `^14.3.2` is already satisfied, so
+  the unpinned command installs nothing, reports success, and the script's hardcoded
+  `require('/tmp/node_modules/markdown-it')` resolves to whatever that root happens to hold — while
+  the same command in a directory that has a `package.json` of its own resolves **15.0.2**.
+  ⚠️ **Give the run a package root of its own, pin the version in the install itself, and read the
+  version back through that root's absolute path.** A bare `require('markdown-it/package.json')`
+  walks the same chain and reports the ambient answer, so it cannot tell the two apart.
+
 * **Sort the class before repairing it, and expect to do two things at once.** A headline that
   lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
   that insertion **and** a deletion or a re-scoping of the assertion — because *"with `(2 : F) ≠ 0`
