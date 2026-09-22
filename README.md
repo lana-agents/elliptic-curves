@@ -4234,6 +4234,155 @@ project in an automated setting:
   errors (`lake build --wfail`), and that the environment linters pass
   (`lake lint`; see [Linting](#linting) — the last two are different suites).
 
+### The neighbour population
+
+A round in review publishes a **merge gate**: `git merge-tree` against `main`, and against the
+other pull requests that are open at the same time, to show that the branch is not about to collide
+with one of them.  ⚠️ **The right-hand ends of that gate are other branches, which makes it the one
+gate here whose POPULATION drifts as well as its values.**  Every other **gate** a round publishes
+is a function of `(tree, base)` and moves only when one of those moves; this one moves when
+somebody else opens or lands a pull request, with no edit to either side.  ⚠️ **Not every
+*figure*, and the wider claim is false in this file**: a count whose population is this board's own
+record drifts the same way and is not a gate — `### Scope of the rules above` publishes a
+conviction count whose own sentence says *"its population is this board's review threads, and no
+seed on this page can open one"* (`#1969`).  **What is peculiar to this gate is that
+its right-hand ends are other branches**, not that nothing else drifts.  **This section decides
+which pull requests the gate is run over.  It does not decide what the gate's output means.**
+
+⚠️ **The word the messages use for that population is used on this page for something else.**
+The stem occurs **12** times in this file at `ac462ef` — whitespace-flattened, keyed
+`[Nn]eighbour[a-z]*`, and unmoved at `871a224`, which does not touch this file — and it carries
+**two** senses here, neither of them a pull request:
+
+* **9 occurrences, on 9 lines: an adjacent unit of text** — a clause, row, bullet, list, section or
+  declaration, as in *"leaves its neighbour partial"* and *"its neighbour of the same shape"*.
+* **3 occurrences, on 2 lines: a fixed-width character window.**  This is `neighbourhood`, and
+  `### Gate-discharge claims` defines it *against* the first sense in terms — *"A 180-character
+  window is not the words but the neighbourhood"* — so collecting it under *adjacent* contradicts
+  the page.
+* **0 occurrences: a pull request.**
+
+⚠️ **Count occurrences or count lines, and say which**: the same twelve are `9 / 3` by occurrence
+and `9 / 2` by line, because one sentence carries `neighbourhood` twice.  ⚠️ **And say which SITES,
+because in two ratios a unit disagreement and a missed one look the same.**  Two reviews of the
+round that wrote this paragraph returned `9 / 3` and `10 / 2`, and the second is not the first
+taken by line: their window buckets are lines `2237` and `2242` twice against line `2242` twice, at
+`ac462ef`, so the two read different twelves and `10` is the second's count of what it filed as
+adjacent — one of them a window occurrence.  The site that separates them is `2237`,
+*"the clause's own span, or the source line carrying it, and never a fixed-width neighbourhood of
+it"*, and ⚠️ **the first of the two reviews had already printed both of its window sites with their
+quotations while the second printed neither**, so the ratios were reconstructed with a bucket list
+already sitting in the thread they were reconstructed from.  **A sense census owes its unit
+exactly as a seed owes its flags, and it owes its sites for the same reason**: printed as lines
+`1151`, `1432`, `1860`, `2741`, `2744`, `2793`, `2816`, `3031` and `3791` against `2237` and
+`2242`, all at `ac462ef`, the gap is one `comm` rather than a reconstruction of somebody's
+arithmetic — which is what the two ratios forced, and it got the mechanism wrong.
+⚠️ **This section is inside its own population, so the figure is resolved at both ends** (`#1972`)
+— ⚠️ **and it is published as a DELTA, because the right-hand end is decided by the merger's queue
+and not by this branch**: the stem returns **12** on **11** lines at `ac462ef`, and this section
+adds **9** occurrences on **8** lines, **2** of them its own `NEIGHBOURS`, quoted from the two
+messages that make the case-insensitive key load-bearing.  ⚠️ **Three open pull requests add the
+stem to this file** — one, three and two occurrences — so an endpoint pair is true only if this
+branch lands next, while `+9 on +8` is what all four landing orders return.  That is
+`### The render gate`'s *"Publish the delta and not the endpoints"* one section below, applied to a
+population figure rather than to a token count.  ⚠️ **The delta is a self-figure too, and repairing
+the paragraph above moved it**: quoting the site that separates the two window buckets put one more
+instance of the stem on this page, so the round that retired the endpoint moved the delta it
+replaced it with, by one.  **A count of a page by that page is re-derived at the head that
+publishes it, every round, or it is stale by construction.**
+
+On `main` the same stem splits the other way round: **15 occurrences in 7** messages are the
+pull-request sense and **30 in 25** are the docstring sense — **45 in 32** together, out of
+**745** messages at `871a224` (**743** at `ac462ef`, with the same 45 in 32).  ⚠️ **That seed is
+case-INSENSITIVE and this page has to say so**: `c28c462` and `dba89ee` write `NEIGHBOURS` in
+capitals, a `[Nn]`-keyed grep returns **43 in 30**, and both messages it drops are inside the
+**seven** the pull-request sense is counted over — so the flag is load-bearing for the split and
+not incidental to it.  So a reader who meets *"every neighbour"* in a merge bullet and looks the
+word up here does not find it undefined — they find **two different** senses of it, which is worse.
+**Write *open pull requests*, and use *neighbour* only after saying which one is meant.**
+
+**The population is a three-way partition of the pull refs, and two of the three parts are decided
+by one command each.**  `git ls-remote upstream 'refs/pull/*/head'` answers for every pull request
+this repository has ever had — **796** at 2026-09-22T12:33:09Z — and ⚠️ **a `head` ref is frozen at
+the pull request's last head and outlives the pull request**, so it answers just as readily for one
+that landed a week ago.  It decides nothing.  These two do:
+
+* ⚠️ **`refs/pull/<n>/merge` is advertised only while the pull request is OPEN**, and is deleted the
+  moment it merges or closes.  **35** at 12:33:09Z, and the key is **sound**: #757, #764, #770,
+  #790 and #793 have all landed and not one of the five is advertised.
+* ⚠️ **A pull request has landed iff its number is the TRAILING `(#N)` of a subject on `main`** —
+  the merger writes `(#issue) (#pr)` and the pull number is last, so the trailing position is what
+  separates the two.  **742** distinct numbers over `main`'s **743** subjects at `ac462ef` (exactly
+  one subject carries no trailing `(#N)`), with **0** of the open set among them.  ⚠️ **`git
+  merge-base --is-ancestor` is not this test and cannot be made into one**: the merger squashes, so
+  a landed head is an ancestor of nothing and the ancestry test reads *live* at all 742.
+  ⚠️ **The key is checked in BOTH directions against an oracle, not only in the direction the
+  partition needs**: at 15:30:49Z the trailing-subject key returns **744** numbers and
+  `gh pr list --state merged --limit 2000 --json number` returns **744**, and the two sets are
+  identical — `comm -13` and `comm -23` are both empty — with every one of the 744 also carrying a
+  head ref.  An *iff* asserted in one direction is a rule; checked in both it is a measurement.
+
+The two keys are **disjoint** — no number satisfies both — and together they account for **777** of
+the 796:
+
+```text
+796 head refs  =  35 open (merge ref)  +  742 landed (trailing subject)  +  19 residue   @ 12:33:09Z
+800 head refs  =  37 open (merge ref)  +  744 landed (trailing subject)  +  19 residue   @ 15:30:49Z
+```
+
+⚠️ **AND THE RESIDUE IS NOT EMPTY, SO THE MERGE REF IS A LOWER BOUND AND NOT THE OPEN SET.**  At
+12:33:09Z this repository has **36** open pull requests against **35** merge refs.  The missing one
+is **PR #471**, open since 2026-08-30: `refs/pull/471/head` resolves, to
+`6327391e25667aebb7cfec4b5f5b9d970b9e28c4`, and `refs/pull/471/merge` does not exist.  ⚠️ **Do not
+write GitHub's `mergeable` field down as the reason.**  It is a cache invalidated whenever the base
+moves, and for this pull request it read `UNKNOWN` at 12:33:09Z, **`CONFLICTING`** at 15:01:10Z and
+`UNKNOWN` again at 15:25:20Z, with the pull request itself untouched across all three.  The two
+durable facts are that the ref is absent at every one of those clocks and that
+`git merge-tree --write-tree <main> 6327391e` exits **1** against `ac462ef`, `44272f7` and
+`871a224` alike — which is item 3's control, and it needs no server-side field at all.  The other
+**18** of the residue are pull requests closed without merging.
+**So a sweep keyed on merge refs is short, and being short is the failure a total on the left of
+*of N* cannot show** — the same numeral reads identically whether the world had 35 members or the
+sweeper found 35 of 36.  **Publish the residue's size beside the count.**
+
+**What a merge bullet owes, then, is four things and none of them is a bigger sweep:**
+
+1. **The rule and the clock, not the number alone** — *open pull requests, read from
+   `refs/pull/*/merge` in one advertisement pass at `<time>`, `N` of them, with `R` head refs
+   neither open nor landed under the trailing-subject key*.
+2. **Both buckets, with the excluded set named in full.**  At `ac462ef` the 35 split **23 clean** /
+   **12 conflicting with `main` ITSELF**: #481 #483 #484 #493 #504 #507 #514 #541 #644 #645 #648
+   #668.  Excluding those twelve is defensible; omitting them in silence is not, because a reader
+   given one number cannot tell *not swept* from *swept and clean*.
+3. **The control that licenses the exclusion.**  A conflict against a branch that already conflicts
+   with `main` is a fact about **that** branch.  Run each excluded head against `main` with the
+   branch under test out of the picture, and print the result: the twelve above are exactly the
+   heads that fail it, and no branch of ours is the cause of any of them.
+4. **What entered and what left since the previous matrix.**  ⚠️ **Two equal counts at two clocks
+   are not two readings of one set.**  The merge-ref population was **35** at 2026-09-21T21:41:18Z
+   and **35** at 2026-09-22T12:33:09Z, and **six** memberships moved in between: #757, #764 and
+   #793 left by *landing*, and #794, #795 and #796 entered by being opened.  The conflicting bucket
+   went **13 → 12** over the same window, and its one departure is #764 — which left by landing,
+   not by being repaired.  **Say which moved, or an unchanged total is a coincidence and not a
+   check.**
+
+   ⚠️ **The clock is not optional in the second slot either, and this paragraph is the proof.**
+   Written with *"and is **35** now"* — the draft wording round 1 of this branch published and this
+   section replaced, so it is recorded on `#2146` and resolves in no blob (`#1969`) — the sentence
+   was false within the minute: the pull request carrying it was opened at **12:42:18Z**,
+   **33 seconds after** the commit that wrote it, and it is itself the seventh move.  Four
+   readings of one population, each explained by the moves between them:
+
+```text
+35  @ 12:33:09Z     +#797 12:42:18  +#798 13:53:59  −#796 landed 14:25:38
+37  @ 14:54:46Z     +#799 14:43:15
+36  @ 15:25:20Z     −#799 landed 15:03:45
+37  @ 15:30:49Z     +#800 15:26:25
+```
+
+   **Publish the derived SET at both ends and not the count at both.**  A reader given `35` and
+   `35` cannot recover the seventh move; a reader given the two sets has it by `comm`.
+
 ### The render gate
 
 `README.md` is the one file here that several branches edit at once, and the check that catches an
