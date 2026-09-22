@@ -60,7 +60,11 @@ every other Galois-group statement in this directory — the results below hold 
 `EllipticCurves.FunctionField.MulByNGaloisGroup`, so this file had to import that whole front to
 reach six lines that mention no curve.  It now lives in `EllipticCurves.Galois.SubfieldAut`, a leaf
 with no project imports, and this file's own `EllipticCurves`-import closure fell from **71**
-modules to **19** — `EllipticCurves.FunctionField.NegYGalois`, its 17, and that leaf.  ⚠️ Nothing
+modules to **19** across `008fea7` — `EllipticCurves.FunctionField.NegYGalois`, its **17**, and that
+leaf.  ⚠️ **Both endpoints are that commit's and neither is the tree's today**: the closure is
+**22** at `542e721`, `NegYGalois`'s being **20**.  A closure count states a property of the tree, so
+anything that gains an import anywhere upstream falsifies it; the sha is what keeps it true
+(`README.md` `## Import-closure figures`).  ⚠️ Nothing
 below changed: no statement, no proof, no hypothesis.  The prose here still cites
 `EllipticCurves.FunctionField.MulByNGaloisGroup` in several places as the template it followed, and
 those citations are to a module this file no longer imports — which is the normal shape for a

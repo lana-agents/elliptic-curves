@@ -4622,3 +4622,97 @@ nineteen lines above this heading. The section opens at **3950** at `9147113`, *
 the first draft of this paragraph counted five and left it out: a claim whose population is the
 review record is dated and re-run like any other (`#1969`), and its author is inside it. A heading
 is a content key that survives every insertion above it; a line number survives none.
+
+## Import-closure figures
+
+A docstring that publishes an **import-closure** figure — a count of modules, or a claim that one
+module is or is not in another's closure — states something about the whole tree from inside one
+file. `#2005` read every one of them: **73 occurrences in 50 files** at `542e721`, the
+`EllipticCurves` graph walked transitively from the `^import EllipticCurves…` lines. **15 carry a
+count; 58 are membership or qualitative.** Five were false at `542e721`; all five are repaired,
+and every one of the fifteen is listed below.
+
+⚠️ **That population is itself a count and it has already moved.** At `eab2fe9` the same seed
+returns **83 occurrences in 57 files**: **ten rows entered** while this section waited to land, and
+they sit in **ten** files — seven of them new to the population, three already in it and taking a
+second row — and **none of the ten has been read**. Every figure of the fifteen below is re-run and
+unmoved at that commit, and no repair here rests on the ten. **An axis is swept at a sha** — which
+is this section's own rule turned on the section, and it is why `#2005` stays open.
+
+**The rule is one sentence: a closure COUNT carries a sha, and a membership claim does not need
+one.** The reason is measured rather than argued, and the population separates cleanly.
+
+* **Three count rows carry a sha and none of the three is false at its key** —
+  `DivisionPolynomial.Coprime`'s *"Measured at `68fd254`"* (`0` and `7` there, `0` and `8` at
+  `542e721`), `FunctionField.WeilPairingEltBaseChange`'s *"at `008fea7`"* (`12`, `9`, `10`, `76`)
+  and `Galois.SubfieldAut`'s *"Measured at `320f413`"* table (`0` / `22` / `74`;
+  `MulByNGaloisGroup` is `107` at `542e721`). ⚠️ **That one sha keys all three figure columns of a
+  four-column table at once, and one of them — the total over this project plus all nine
+  `.lake/packages` — cannot be re-measured from this repository at all**, the package trees not
+  being tracked in it. That is what a key buys, and re-measuring is not a substitute for it.
+* **Four of the twelve unkeyed count rows are false**, and every one of them was exactly right at
+  the commit that wrote it. Two were written by one commit, `008fea7`, in two different files.
+
+**The fifteen, because the 3 / 12 split is the whole of the argument above and a reader who cannot
+audit it has to take it.** Verdicts at `542e721`, re-run and unmoved at `2a72ea2` and at
+`eab2fe9`.
+
+| row | the count | key | verdict |
+| --- | --- | --- | --- |
+| `Coprime:196` | `0` and `7`; `1` and `8` after a leaf | `68fd254` | true at its key |
+| `GenuineLawComm:55` | `GroupLawBundle` is `14` | — | true, unkeyed |
+| `MulByN:42` | this file is `0` | — | true, exempt |
+| `MatrixRepDeterminantCharacter:26` | `39`, `168`; `40`, `171` | `d0ae34e`, `542e721` | repaired |
+| `MulByNGaloisGroup:82` | `70` → `71`; `107` | `008fea7`, `542e721` | repaired |
+| `NegYGaloisGroup:62` | `71` → `19`, `17`; `22`, `20` | `008fea7`, `542e721` | repaired |
+| `NthRootOfPullbackN:177` | `78` → `88`, an edge of `10` | `6df393f` | repaired |
+| `TranslationMulByNCommGeneral:116` | `NsmulSmoothSurjective` is `19` | — | true, unkeyed |
+| `WeilPairingEltBaseChange:84` | `12`, `9`, `10`, `76` | `008fea7` | true at its key |
+| `SubfieldAut:17` | this file is `0` | — | true, exempt |
+| `SubfieldAut:48` | `0` / `22` / `74`, and two totals | `320f413` | true at its key |
+| `Determinant:147` | `Continuity`'s closure, listed in full | — | true, unkeyed |
+| `DeterminantModGeneral:34` | `37` → `71`, `40` → `74` | — | true, unkeyed |
+| `GaloisAction:32` | this file's closure, listed in full | — | true, unkeyed |
+| `DivisionPolynomialEval:62` | this file is `0`; an intersection of `1` | — | true, `0` exempt |
+
+⚠️ **Two of the fifteen carry no numeral at all** — `Determinant:147` and `GaloisAction:32` name a
+closure by listing it out — so no numeral-keyed triage of this population can return the fifteen,
+and a reviewer who reaches for one comes up short.
+
+⚠️ **The exemption, and it is the only one.** A count of **0** stated of a module that imports
+nothing from this development is falsifiable only by that module's own `import` lines, so its
+subject is the file and its own diff can always see it (`Galois.SubfieldAut`, `FormalGroup.MulByN`,
+`Torsion.DivisionPolynomialEval`). **Every other count's subject is the tree**: an edge added
+anywhere upstream moves it, and the file carrying it is in no part of that commit's diff.
+
+⚠️ **Eight of the fifteen carry no sha once the four repairs land, and this rule convicts six of
+them.** Two are wholly inside the exemption — `MulByN:42` and `SubfieldAut:17`. The other six are
+**true** at `542e721` and at `2a72ea2`, and are named rather than repaired: `GenuineLawComm:55`,
+`TranslationMulByNCommGeneral:116`, `Determinant:147`, `DeterminantModGeneral:34`,
+`GaloisAction:32`, and `DivisionPolynomialEval:62` — whose own `0` is exempt, but whose second
+figure, the claim that this module alone lies in the intersection of two **other** modules'
+closures, is a count over the tree and is not. ⚠️ **A rule that lands with live instances nobody
+has counted reads as swept when it is not**, so they are counted here; keying or retiring them is
+`#2005`'s to finish.
+
+⚠️ **The convention belongs beside the figure and must not be assumed.** `Galois.SubfieldAut` rules
+that the `EllipticCurves` closure does **not** count the module itself while a total closure does,
+*"and assuming one convention for both is how a re-run comes out one high on three cells"*. Reading
+the other convention into a figure written under this one is how
+`FunctionField.NthRootOfPullbackN` came to publish `79 → 89` where the walker returns `78 → 88` —
+**wrong at the commit that wrote it, not stale**, and invisible to any reviewer who re-ran it
+under the reading it was written in.
+
+⚠️ **A membership claim needs no sha because it is *cheap* to re-run, not because it is safe.**
+*"`X` is not in this file's import closure"* is refuted by any new edge whose far end reaches `X`,
+and the commit that adds that edge is usually the commit that announces it:
+`FunctionField.NthRootOfPullbackN` denied that `Torsion.NsmulOrder` was in its closure in one
+clause and announced the `MulByNXCoordFormula` edge that put it there in the next, in one diff.
+**Before adding an `import`, re-run every closure claim in the file you are adding it to** — the
+one you falsify is most often in the paragraph you are editing.
+
+**The gate, for a branch author.** `#1972`'s splice test is defined on `README.md` and cannot reach
+this layer: a `.lean` closure figure is not a block that can be spliced into another page, it is a
+claim about the tree, and the only resolver is to re-run the walk. ⚠️ **Re-run it at
+`upstream/main` and not at your base** — a `.lean`-only base move is exactly the case a
+`README.md`-keyed gate reports as clean.
