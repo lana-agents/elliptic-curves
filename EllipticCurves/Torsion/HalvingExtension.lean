@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Galois.NormalClosureSeparable
 import EllipticCurves.Torsion.DoublingSurjective
 import Mathlib.FieldTheory.Galois.Basic
 import Mathlib.FieldTheory.Normal.Closure
@@ -73,11 +74,10 @@ quadratic, hence Galois, so the tower is finite and separable over `F`
 (`isSeparable_halvingField`, `finiteDimensional_halvingField`).
 
 ⚠️ **Separable and finite is not Galois**, normality not being transitive, so the Galois statement
-is made about the normal closure: `isGalois_normalClosure_halvingField`.  Getting it needed
-`Algebra.IsSeparable F ↥(normalClosure F K L)` assembled by hand from
-`IntermediateField.isSeparable_iSup` and `AlgEquiv.ofInjectiveField` — in this tree's pinned
-Mathlib, `IsGalois.normalClosure` proves the same thing only under `[IsGalois k F]` for the
-**ambient** field, which an algebraic closure does not supply in characteristic `p`.
+is made about the normal closure: `isGalois_normalClosure_halvingField`.  That step mentions no
+curve, and it is not taken here: `EllipticCurves.Galois.NormalClosureSeparable` states it for an
+arbitrary separable extension, records why `IsGalois.normalClosure` does not supply it at
+this tree's pin, and this file's theorem is the corollary of it at the halving field.
 
 ## Main statements
 
@@ -483,34 +483,19 @@ theorem finiteDimensional_halvingField : FiniteDimensional F (W.halvingField x�
 
 /-- **The Galois closure of the halving field is Galois over `F`.**
 
-⚠️ Assembled by hand rather than taken from `IsGalois.normalClosure`, which needs the **ambient**
-extension to be Galois over `F`; an algebraic closure is normal but not separable over `F` in
-characteristic `p`.  Normality of the closure is `normalClosure.normal` over the algebraic closure
-and separability is `IntermediateField.isSeparable_iSup` applied to
-`normalClosure = ⨆ f, f.fieldRange`, each summand being `AlgEquiv.ofInjectiveField`-isomorphic to
-the halving field. -/
+`EllipticCurves.Galois.NormalClosureSeparable`'s `isGalois_normalClosure_of_isSeparable` at the
+instance this file has just proved.  ⚠️ **Every line of the field-theoretic argument is there and
+none of it is here**: that lemma is this proof with the curve deleted, and the deletion costs
+nothing because the argument never reads `W`, `h2`, `hsep` or `hx₀` except through
+`isSeparable_halvingField`.  ⚠️ **`finiteDimensional_halvingField` is not used either**, here or
+there — `lake lint` convicted the finiteness hypothesis as unused when the leaf was written with
+it, and `IsGalois` asks only for normal and separable. -/
 theorem isGalois_normalClosure_halvingField [W.IsElliptic] (h2 : (2 : F) ≠ 0)
     (hsep : W.Ψ₂Sq.Separable) (hx₀ : W.Ψ₂Sq.eval x₀ = 0) :
     IsGalois F (IntermediateField.normalClosure F (W.halvingField x₀)
       (AlgebraicClosure (W.halvingField x₀))) := by
   haveI := isSeparable_halvingField h2 hsep hx₀
-  haveI : FiniteDimensional F (W.halvingField x₀) := finiteDimensional_halvingField
-  haveI : Algebra.IsAlgebraic F (AlgebraicClosure (W.halvingField x₀)) :=
-    Algebra.IsAlgebraic.trans F (W.halvingField x₀) (AlgebraicClosure (W.halvingField x₀))
-  haveI : IsAlgClosure F (AlgebraicClosure (W.halvingField x₀)) := ⟨inferInstance, inferInstance⟩
-  haveI : Normal F (AlgebraicClosure (W.halvingField x₀)) := IsAlgClosure.normal _ _
-  haveI : Normal F (IntermediateField.normalClosure F (W.halvingField x₀)
-    (AlgebraicClosure (W.halvingField x₀))) :=
-    normalClosure.normal F (W.halvingField x₀) (AlgebraicClosure (W.halvingField x₀))
-  haveI : Algebra.IsSeparable F ↥(IntermediateField.normalClosure F (W.halvingField x₀)
-    (AlgebraicClosure (W.halvingField x₀))) := by
-    haveI : ∀ f : (W.halvingField x₀) →ₐ[F] (AlgebraicClosure (W.halvingField x₀)),
-        Algebra.IsSeparable F ↥f.fieldRange :=
-      fun f => AlgEquiv.Algebra.isSeparable (AlgEquiv.ofInjectiveField f)
-    change Algebra.IsSeparable F ↥(⨆ f : (W.halvingField x₀) →ₐ[F]
-      (AlgebraicClosure (W.halvingField x₀)), f.fieldRange)
-    infer_instance
-  exact ⟨⟩
+  exact _root_.isGalois_normalClosure_of_isSeparable F (W.halvingField x₀)
 
 end Separability
 
