@@ -99,11 +99,16 @@ and that is machine-checked rather than assumed.
   **`WeierstrassCurve.Affine.nonempty_torsionPow_addEquiv_of_separable`** : the `p`-primary tower
   with the gate substituted.
 * `WeierstrassCurve.Affine.separable_preΨ_three` and its `Ψ₃` form
-  `WeierstrassCurve.Affine.separable_Ψ₃` : the gate read *backwards* at `n = 3` against the merged
-  sharp count — this file's non-vacuity certificate.  ⚠️ A **round trip, not a new statement**:
-  `WeierstrassCurve.Affine.nodup_roots_Ψ₃` (`EllipticCurves.Torsion.ThreeTorsionStructure`) is
-  merged, and over `F̄` it *is* separability of `Ψ₃`, one `Polynomial.nodup_roots_iff_of_splits`
-  away.  See the theorem's own docstring.
+  `WeierstrassCurve.Affine.separable_Ψ₃_of_isAlgClosed` : the gate read *backwards* at `n = 3`
+  against the merged sharp count — this file's non-vacuity certificate.  ⚠️ A **round trip, not a
+  new statement**: `WeierstrassCurve.Affine.nodup_roots_Ψ₃`
+  (`EllipticCurves.Torsion.ThreeTorsionStructure`) is merged, and over `F̄` it *is* separability of
+  `Ψ₃`, one `Polynomial.nodup_roots_iff_of_splits` away.  See the theorem's own docstring.
+  ⚠️ **The second name carried the bare `separable_Ψ₃` until
+  `EllipticCurves.Torsion.ThreeDivisionField` proved the same conclusion with no `[IsAlgClosed F]`
+  and no `[DecidableEq F]` at all**, which is a
+  strictly stronger statement and takes the bare name; both live in `WeierstrassCurve.Affine`, so
+  the two could not coexist.  Nothing consumed the old name outside this file.
 
 ## References
 
@@ -449,8 +454,17 @@ theorem separable_preΨ_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     (by rw [card_torsion_three h2 h3]; norm_num)
 
 omit [DecidableEq F] in
-/-- **`Ψ₃` is separable**, the same statement under Mathlib's other name for `preΨ 3`. -/
-theorem separable_Ψ₃ (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) : W.Ψ₃.Separable := by
+/-- **`Ψ₃` is separable** over an algebraically closed field, the same statement as
+`separable_preΨ_three` under Mathlib's other name for `preΨ 3`.
+
+⚠️ **The conclusion needs neither the closure nor the `DecidableEq`, and the general form is
+`WeierstrassCurve.Affine.separable_Ψ₃` in `EllipticCurves.Torsion.ThreeDivisionField`** — proved
+there from `nodup_roots_Ψ₃` at a splitting field rather than from the count, so it is not a round
+trip and does not pass through `card_torsion_eq_sq_iff_separable_preΨ` at all.  This one keeps its
+`[IsAlgClosed F]` on purpose: what it certifies is that the equivalence above returns its own
+input, and reading it backwards is the whole point of the section. -/
+theorem separable_Ψ₃_of_isAlgClosed (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    W.Ψ₃.Separable := by
   have h : W.preΨ (3 : ℤ) = W.Ψ₃ := by simp [WeierstrassCurve.preΨ]
   exact h ▸ separable_preΨ_three h2 h3
 
