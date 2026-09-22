@@ -75,7 +75,7 @@ is the same lemma applied at `S` with `g_T`'s certificate, which the existential
 setting of `#845`; the descent they consume carries neither `[IsAlgClosed F]` nor any torsion
 hypothesis.  **No `#418`, no rung 4, no Ward, no normality beyond what `#845` already merged.**
 
-Out of scope: `hprin` over a **general** field, which is open at both `n` and is what confines
+Out of scope: `hprin` over a **general** field, which is open at `n = 3` and is what confines
 these statements to `F̄`; general `n` (⚠️ no longer `#251`, which is closed — see below); bundling
 `e_n` as a `MonoidHom` into `μ_n(F)` in the divisor slot, which needs a `hpow` datum uniform in the
 slot variable and is a different statement (`WeilPairingDivisorSlotHom`); any change to `#845`'s or

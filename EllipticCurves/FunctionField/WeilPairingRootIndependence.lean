@@ -75,7 +75,7 @@ is a genuinely different statement that needs root extraction.  It is not attemp
 
 * Discharging `hprin` (`#418`) — done for the two headlines over `F̄` in
   `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`), still open over a
-  **general** field at both `n`.  Nor the descent of the `F̄`-statements to a general `F` (`#692`),
+  **general** field at `n = 3`.  Nor the descent of the `F̄`-statements to a general `F` (`#692`),
   antisymmetry, or anything at general `n`.
 * The `μ_n` forms (`WeilPairingAlternatingMu`), which lift through
   `algebraMap_coe_rootsOfUnity_injective`; the `∀ g` ones are in

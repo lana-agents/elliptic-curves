@@ -66,7 +66,7 @@ the non-vacuity section for what that costs a certificate.
 `[Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]` for the four headlines; the descent
 lemma they consume carries neither.
 
-Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
+Out of scope: `hprin` over a **general** field, open at `n = 3`, which is what confines these to
 `F̄`; general `n` (⚠️ no longer `#251`, which is closed — see below); rung 4 (`#414`/`#421`/`#422`)
 — `#845` established this line does not need it; non-degeneracy; bundling into `weilPairingMuHom`
 (`WeilPairingDivisorSlotHom`), which wants a `hpow` datum uniform in the slot variable and is a

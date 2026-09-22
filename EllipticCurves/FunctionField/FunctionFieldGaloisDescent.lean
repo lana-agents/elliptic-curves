@@ -31,7 +31,13 @@ i.e. `F(W⁄F) ^ Gal(F/S) = S(W)`, and the coordinate-ring statement underneath 
 ## Why this is wanted
 
 `#962` — `hprin` over a general field — is the last gate on rungs 5–6 over an arbitrary base
-field, and its thread carries a ledger of what discharging it would need.  The row
+field **at `n = 3`**, and its thread carries a ledger of what discharging it would need.  ⚠️ **At
+`n = 2` that gate is discharged as of `#2029`**, by
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`), and **this file is one of its
+inputs**: the descent step below is what brings the identity back down from the Galois closure of
+the halving tower.  ⚠️ That sentence named no index when it landed, and the `n = 2` reading of it is
+what went false.  The row
 `L(W⁄L)^{Gal(L/F)} = F(W)` is recorded there as belonging to `#692`, and **this file is that
 row**: the descent step is supplied below, and no rationality input and no separability statement
 is proved here.

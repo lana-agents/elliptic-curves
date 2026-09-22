@@ -89,7 +89,7 @@ by giving its coordinates.
 ## Scope
 
 Out of scope, and untouched: `hprin` over a **general** field, which is what confines all of this
-to `F̄` at both `n`; general `n` (⚠️ no longer `#251`, which is closed — see below); bundling into
+to `F̄` at `n = 3`; general `n` (⚠️ no longer `#251`, which is closed — see below); bundling into
 `weilPairingMuHom`, which needs a `hpow` datum uniform in the slot variable and is a separate design
 question (`WeilPairingDivisorSlotHom` states the obstruction); any change to the six `F(W)`-level
 theorems or their proofs.

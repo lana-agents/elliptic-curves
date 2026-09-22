@@ -64,7 +64,7 @@ is how `WeilPairingAlternatingThree` obtains the point `P` with `[3]P = T` that 
 translates by.  A theorem that discharges a hypothesis inherits the hypotheses of its *proof*, not
 those of the statement it discharges, which is why this file exists rather than an edit to
 `WeilPairingAlternatingThree` — whose conditional statement is unchanged, so that a future
-general-field discharge has somewhere to land.  `hprin` over a general field is open at both `n`.
+general-field discharge has somewhere to land.  `hprin` over a general field is open at `n = 3`.
 
 ⚠️ **`h2` and `h3` are both genuinely needed, and not for symmetric reasons.**  `h3` enters only
 through `mulByThreeEndo`, which the statement mentions; `h2` enters through the doubling slope that

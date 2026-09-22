@@ -132,7 +132,7 @@ from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_
 (`#801`, `#829`), which carry `[IsAlgClosed F]`.  ⚠️ The Abel–Jacobi statement and the generic
 producer do **not**, and are stated without it.
 
-⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at both `n`.
+⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at `n = 3`.
 So is general `n` (⚠️ no longer `#251`, which is closed — see below), and rung 4 itself
 (`#414`/`#421`/`#422`) — which this file does not use and does not advance.
 
