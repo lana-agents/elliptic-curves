@@ -137,7 +137,26 @@ line of this file writes.
 * `WeierstrassCurve.Affine.CoordinateRing.divisor_functionFieldMap` : the same, read on `divisor`.
 * `WeierstrassCurve.Affine.CoordinateRing.ord_functionFieldMap_eq_zero_iff` : `ord v f = 0` iff
   `ord w (functionFieldMap f) = 0`, for **the** `w` the statement is given.  ⚠️ It is not quantified
-  over the fibre, and nothing below quantifies it over the fibre.
+  over the fibre **in its conclusion**, and **no statement below carries a universal over one fibre
+  there** — that is the key, and under it the clause is as true as it was at `2d7f0e0`.
+  `exists_liesOver` and `exists_under_eq` are the only two whose conclusion quantifies over a fibre
+  at all, and both do it *existentially*.  ⚠️ **Under the binder key the answer is different**: a
+  `∀ v w, [w.asIdeal.LiesOver v.asIdeal] → …` **is** a universal over each fibre, and this bullet's
+  own subject is one of the **7** statements below carrying that binder, against **5** more that
+  name `HeightOneSpectrum.under` — so **twelve** mention a fibre, scored over the public signatures
+  here with each split at `:=` so that no proof contributes.  That `7` is the figure
+  `## Main statements` publishes above: the two keys agree on the total and differ by one member in
+  each direction, a signature scan taking `exists_liesOver` from its conclusion and missing
+  `count_spanSingleton_algebraMap_liesOver`, which inherits `LiesOver` from Mathlib's `AKLB`
+  `variable` block.  **Say which scope a re-run covers.**
+  ⚠️ **The fibre-quantified `iff` costs nothing, and it is this statement's own binder**: read at a
+  fixed `v` and at every `w` over it, the line above **is**
+  `∀ w over v, (ord w (functionFieldMap f) = 0 ↔ ord v f = 0)` — no new lemma, no new hypothesis and
+  no finiteness, for any `K / F`.  The two forms that *state* it rather than derive it,
+  `ord_functionFieldMap_under_eq_zero_iff` over `w` alone and
+  `divisor_functionFieldMap_eq_zero_iff` over both spectra, are `[Module.Finite F K]` forms, so at
+  `K = F̄` the derivation above is the one that still runs — which is what `## What is *not* here`
+  says of the `under`-forms.
 * `WeierstrassCurve.Affine.CoordinateRing.dvd_ord_functionFieldMap` : `n ∣ ord v f` implies
   `n ∣ ord w (functionFieldMap f)` — the shape a descent argument takes as a hypothesis.
 * `WeierstrassCurve.Affine.CoordinateRing.instModuleFiniteCoordinateRingMap` and
