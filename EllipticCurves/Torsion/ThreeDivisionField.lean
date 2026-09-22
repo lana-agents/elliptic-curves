@@ -3,8 +3,11 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Galois.NormalClosureSeparable
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import Mathlib.FieldTheory.Galois.Basic
+import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+import Mathlib.FieldTheory.Normal.Closure
 
 /-!
 # The `3`-division field
@@ -59,26 +62,36 @@ whose `a ≠ 0` side condition is discharged for free at a root of `Ψ₃` by
 * `WeierstrassCurve.Affine.Ψ₂SqRootPoly`: the product of `X² - C c` over the values `c` taken by
   `Ψ₂Sq` at the roots of `Ψ₃`, whose splitting field is layer two.
 * `WeierstrassCurve.Affine.threeDivisionField`: the tower, built at the canonical splitting fields.
+* `WeierstrassCurve.Affine.threeDivisionGaloisField`: its normal closure over `F`, which is the
+  Galois extension a descent argument consumes.
 
 ## Main statements
 
-**The hypotheses the bullets omit**, keyed on the binders and not on the names.  **Nine** of the
-eighteen statements below take `[W.IsElliptic]`, and they are exactly the nine that take both
-`(2 : F) ≠ 0` and `(3 : F) ≠ 0`: `separable_Ψ₃`, `isGalois_of_isSplittingField_Ψ₃`,
-`card_torsion_three_tower`, `nonempty_torsionThree_addEquiv_tower`, `isGalois_tower_top`,
-`isSeparable_tower`, and the three `threeDivisionField` statements other than
-`finiteDimensional_threeDivisionField`.  `separable_Ψ₂SqRootPoly` is the same shape one layer up:
-`[(W⁄L₁).IsElliptic]`, `(2 : L₁) ≠ 0` and `(3 : L₁) ≠ 0`.  **Two** take a characteristic
-hypothesis alone and no ellipticity — `isSquare_Ψ₂Sq_eval_tower` takes `(3 : F) ≠ 0` and
-`dvd_Ψ₂SqRootPoly` takes `(3 : L₁) ≠ 0`.  ⚠️ The remaining **six** take none of them at all:
-`splits_Ψ₃_baseChange`, `splits_Ψ₃_tower`, `Ψ₂SqRootPoly_ne_zero` and **all three**
-`finiteDimensional_*` — `finiteDimensional_threeDivisionField` included, which is why that family
-is not globbed here.  The four counting statements additionally take a `DecidableEq` instance on
-the field they count over, `[DecidableEq L₂]` for the two `_tower` ones and
-`[DecidableEq (threeDivisionField W)]` for the two concrete ones.  The `_tower` statements take the
-tower `[Algebra F L₁] [Algebra L₁ L₂] [IsScalarTower F L₁ L₂]` together with
-`[W.Ψ₃.IsSplittingField F L₁]` and `[(Ψ₂SqRootPoly W L₁).IsSplittingField L₁ L₂]`, and name `L₁`
-explicitly because it does not occur in their conclusions.
+**The hypotheses the bullets omit**, keyed on the binders and not on the names.  ⚠️ **Re-scored
+over all 26 statements** when `## The Galois closure` and the `_of_algHom` family were added, not
+incremented from the earlier `nine / eighteen` reading.  **Fourteen** of the twenty-six statements
+below take `[W.IsElliptic]`, and they are exactly the fourteen that take both `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0`: `separable_Ψ₃`, `isGalois_of_isSplittingField_Ψ₃`, `card_torsion_three_tower`,
+`nonempty_torsionThree_addEquiv_tower`, `isGalois_tower_top`, `isSeparable_tower`, the two
+`_of_algHom` counting statements, `isGalois_threeDivisionGaloisField`, the two
+`_threeDivisionGaloisField` counting statements, and the three `threeDivisionField` statements
+other than `finiteDimensional_threeDivisionField`.  `separable_Ψ₂SqRootPoly` is the same shape one
+layer up: `[(W⁄L₁).IsElliptic]`, `(2 : L₁) ≠ 0` and `(3 : L₁) ≠ 0`.  **Three** take a
+characteristic hypothesis alone and no ellipticity — `isSquare_Ψ₂Sq_eval_tower` and
+`isSquare_Ψ₂Sq_eval_of_algHom` take `(3 : F) ≠ 0` and `dvd_Ψ₂SqRootPoly` takes `(3 : L₁) ≠ 0`.
+⚠️ The remaining **eight** take none of them at all: `splits_Ψ₃_baseChange`, `splits_Ψ₃_tower`,
+`splits_Ψ₃_of_algHom`, `Ψ₂SqRootPoly_ne_zero` and **all four** `finiteDimensional_*` —
+`finiteDimensional_threeDivisionField` and `finiteDimensional_threeDivisionGaloisField` included,
+which is why that family is not globbed here.  The **eight** counting statements additionally take
+a `DecidableEq` instance on the field they count over: `[DecidableEq L₂]` for the two `_tower`
+ones, `[DecidableEq (threeDivisionField W)]` for the two concrete ones, `[DecidableEq M]` for the
+two `_of_algHom` ones and `[DecidableEq (threeDivisionGaloisField W)]` for the two over the Galois
+closure.  The `_tower` statements take the tower `[Algebra F L₁] [Algebra L₁ L₂]
+[IsScalarTower F L₁ L₂]` together with `[W.Ψ₃.IsSplittingField F L₁]` and
+`[(Ψ₂SqRootPoly W L₁).IsSplittingField L₁ L₂]`, and name `L₁` explicitly because it does not occur
+in their conclusions.  The `_of_algHom` statements take **no** instance relating `L` and `M`: the
+`F`-algebra map is an explicit argument, which is what an `IntermediateField` can supply and a
+scalar tower cannot.
 
 * `WeierstrassCurve.Affine.separable_Ψ₃`: the `3`-division quartic is a separable polynomial.
 * `WeierstrassCurve.Affine.splits_Ψ₃_baseChange`: `Ψ₃` of `W⁄L₁` splits.
@@ -99,6 +112,17 @@ explicitly because it does not occur in their conclusions.
   `finiteDimensional_threeDivisionField` and `isSeparable_threeDivisionField`: the same four
   statements at `threeDivisionField W`, with no splitting-field instance left for the caller to
   supply.
+* `WeierstrassCurve.Affine.splits_Ψ₃_of_algHom` and
+  `WeierstrassCurve.Affine.isSquare_Ψ₂Sq_eval_of_algHom`: both conditions go up an arbitrary
+  `F`-algebra map, the second given the first downstairs.
+* `WeierstrassCurve.Affine.card_torsion_three_of_algHom` and
+  `WeierstrassCurve.Affine.nonempty_torsionThree_addEquiv_of_algHom`: so both conclusions do.
+* `WeierstrassCurve.Affine.isGalois_threeDivisionGaloisField` and
+  `WeierstrassCurve.Affine.finiteDimensional_threeDivisionGaloisField`: the Galois closure is
+  finite and **Galois** over `F`.
+* `WeierstrassCurve.Affine.card_torsion_three_threeDivisionGaloisField` and
+  `WeierstrassCurve.Affine.nonempty_torsionThree_addEquiv_threeDivisionGaloisField`: `#E[3] = 9`
+  and `E[3] ≃+ ZMod 3 × ZMod 3` over it.
 
 ## What is *not* here
 
@@ -106,18 +130,28 @@ explicitly because it does not occur in their conclusions.
   are both Galois, and Galois is not transitive: `L₂ / F` is finite and separable but need not be
   normal. What a descent argument wants is therefore built here in two pieces rather than one —
   `finiteDimensional_tower` and `isSeparable_tower` are exactly the hypotheses under which the
-  normal closure of `L₂ / F` is Galois. Nothing below forms that normal closure.
-* **The descent itself.** `#962` records the `hprin` gate at `n = 3`; this file supplies one of its
-  inputs and no statement below mentions a divisor, a place or a principal divisor. ⚠️ Nothing here
-  closes that ledger row: the `n = 3` analogues of the halving extension and of the cocycle
-  argument are untouched.
+  normal closure of `L₂ / F` is Galois. ⚠️ **This bullet used to close *"Nothing below forms that
+  normal closure"*, and that clause is retired**: `## The Galois closure` forms it and
+  `isGalois_threeDivisionGaloisField` is the conclusion. ⚠️ **The statement about `L₂` itself is
+  unchanged and is still not here** — no statement below says `IsGalois F L₂`, because it is false.
+* ⚠️ **A Galois closure at a general `L₂`.** `threeDivisionGaloisField` is formed only at the
+  concrete `threeDivisionField W`; there is no `_tower` form of it, because the normal closure has
+  to be taken inside a named ambient field and the `_tower` section's `L₂` comes with none.
+  Nothing below states the general form, in either direction.
+* **The descent itself.** `#962` records the `hprin` gate at `n = 3`; this file supplies two of its
+  inputs — a field over which `E[3]` is full, and a **Galois** such field — and no statement below
+  mentions a divisor, a place or a principal divisor. ⚠️ Nothing here closes that ledger row: the
+  `n = 3` analogues of the halving extension and of the cocycle argument are untouched.
 * **Any statement about the degree `[L₂ : F]`.** The construction gives finiteness and nothing
   sharper; in particular nothing below says the tower is proper at layer two, only that layer one
   is proper for the certificate curve.
 * **`n = 2`.** `EllipticCurves.Torsion.TwoTorsionSplittingField` is the `n = 2` layer and is
   untouched; nothing below is stated at a general index, and the second layer has no `n = 2`
   counterpart at all, because a `2`-torsion point is its own `x`-coordinate and there is no `y` to
-  solve for.
+  solve for. ⚠️ The `n = 2` counterpart of `## The Galois closure` is a **different** construction
+  and not an instance of anything below: at `n = 2` the extension whose normal closure is taken is
+  a halving tower over the `2`-division field (`EllipticCurves.Torsion.HalvingExtension`), and
+  `EllipticCurves.Torsion.HalvingGaloisTower` is where it is built (`#2161`, landed at `f263f90`).
 * **Characteristic `2` or `3`.** Every statement that mentions the torsion carries `(2 : F) ≠ 0`
   and `(3 : F) ≠ 0`, and nothing below decides anything in either characteristic.
 
@@ -129,6 +163,15 @@ standard `n = 3` certificate curve"* — that layer one is a **proper** extensio
 factors as `3X(X + 1)(X² - X + 1)` whose last factor is positive over `ℚ`, so `Ψ₃` has exactly `2`
 rational roots against the `4` that `card_roots_Ψ₃_of_splits` would force, and it does not split
 over `ℚ`. The `9` is then certified at `threeDivisionField (y2AddYEqX3 ℚ)`.
+
+Over `threeDivisionGaloisField (y2AddYEqX3 ℚ)` the section certifies `IsGalois ℚ` and the same `9`
+— ⚠️ **two** theorems and not three, because the not-splitting certificate is not re-run there
+and **could not be**: `Ψ₃` splits over the closure, by `splits_Ψ₃_of_algHom` along the same
+`IsScalarTower.toAlgHom` that `card_torsion_three_threeDivisionGaloisField` feeds itself. ⚠️ **They
+certify the construction and not that the closure is proper over the tower**: nothing below
+computes `[L₂ : F]` or compares it with the degree of the closure, so the case
+`threeDivisionGaloisField W = threeDivisionField W` is not excluded for this curve or for any
+other. What the `ℚ` base does exclude is the degenerate case at the **bottom**, `L₁ = F`.
 
 ⚠️ **A rational base is not vacuous here, and that is the opposite of the `_of_splits` layer's
 situation.** `ThreeTorsionStructure`'s `## What is *not* here` argues that its two hypotheses force
@@ -412,6 +455,91 @@ theorem isSeparable_tower [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 
 
 end Tower
 
+/-! ## Both conditions are inherited by every extension
+
+⚠️ **Neither condition is about the tower, and this section says so by proving them over an
+arbitrary `F`-algebra map.**  `splits_Ψ₃_tower` and `isSquare_Ψ₂Sq_eval_tower` above are stated at
+the top of the tower because that is where layer two *establishes* them; once established they go
+up any `F`-algebra map for free, and the consumer that wants that is the Galois closure below,
+which is **not** a scalar extension of `L₂` by any instance the tower supplies.
+
+The first is `Polynomial.Splits.map` and nothing else.  The second is the same three-step argument
+`isSquare_Ψ₂Sq_eval_tower` runs, with its middle step — *divide `Ψ₂SqRootPoly` and take a root* —
+replaced by the hypothesis: a root `z` upstairs is `φ x` for a root `x` downstairs because `Ψ₃`
+already splits downstairs, and `IsSquare` is carried by any ring hom. ⚠️ **The splitting hypothesis
+is doing the work in both, and it cannot be dropped**: without it a new root can appear upstairs
+and nothing downstairs says anything about `Ψ₂Sq` there. -/
+
+section AlgHom
+
+variable {L M : Type*} [Field L] [Field M] [Algebra F L] [Algebra F M]
+
+/-- `Ψ₃` over `M` is `Ψ₃` over `L` pushed along an `F`-algebra map: `WeierstrassCurve.map_Ψ₃` at
+both ends and `AlgHom.comp_algebraMap`.  The scalar-tower form is `Ψ₃_eq_map` above; this one takes
+a map rather than an instance, which is what an `IntermediateField` needs. -/
+private lemma Ψ₃_eq_map_algHom (φ : L →ₐ[F] M) : (W⁄M).Ψ₃ = ((W⁄L).Ψ₃).map φ := by
+  rw [show (W⁄M).Ψ₃ = W.Ψ₃.map (algebraMap F M) from WeierstrassCurve.map_Ψ₃ ..,
+    show (W⁄L).Ψ₃ = W.Ψ₃.map (algebraMap F L) from WeierstrassCurve.map_Ψ₃ ..,
+    Polynomial.map_map, ← φ.comp_algebraMap]
+
+/-- `Ψ₂Sq` over `M` is `Ψ₂Sq` over `L` pushed along an `F`-algebra map. -/
+private lemma Ψ₂Sq_eq_map_algHom (φ : L →ₐ[F] M) : (W⁄M).Ψ₂Sq = ((W⁄L).Ψ₂Sq).map φ := by
+  rw [show (W⁄M).Ψ₂Sq = W.Ψ₂Sq.map (algebraMap F M) from WeierstrassCurve.map_Ψ₂Sq ..,
+    show (W⁄L).Ψ₂Sq = W.Ψ₂Sq.map (algebraMap F L) from WeierstrassCurve.map_Ψ₂Sq ..,
+    Polynomial.map_map, ← φ.comp_algebraMap]
+
+/-- **The first condition goes up any `F`-algebra map.**  It takes no hypothesis on the
+characteristic and no `[W.IsElliptic]`: `Polynomial.Splits.map` is the whole proof. -/
+theorem splits_Ψ₃_of_algHom (φ : L →ₐ[F] M) (h : (W⁄L).Ψ₃.Splits) : (W⁄M).Ψ₃.Splits := by
+  rw [Ψ₃_eq_map_algHom φ]
+  exact h.map _
+
+/-- **The second condition goes up any `F`-algebra map, given the first downstairs.**
+
+⚠️ **`hsplits` is a hypothesis of this statement and not a consequence of `hsq`.**  It is what
+identifies the roots of `(W⁄M).Ψ₃` with the images of the roots of `(W⁄L).Ψ₃`
+(`Polynomial.Splits.roots_map`); over an `M` where `Ψ₃` gains a root, `hsq` downstairs says nothing
+at all about that root.  Given it, the argument is two rewrites: `z = φ x` for a root `x` of
+`(W⁄L).Ψ₃`, and `(W⁄M).Ψ₂Sq.eval (φ x) = φ ((W⁄L).Ψ₂Sq.eval x)`, which is `φ s * φ s`. -/
+theorem isSquare_Ψ₂Sq_eval_of_algHom (h3 : (3 : F) ≠ 0) (φ : L →ₐ[F] M)
+    (hsplits : (W⁄L).Ψ₃.Splits)
+    (hsq : ∀ x : L, (W⁄L).Ψ₃.eval x = 0 → IsSquare ((W⁄L).Ψ₂Sq.eval x))
+    {z : M} (hz : (W⁄M).Ψ₃.eval z = 0) : IsSquare ((W⁄M).Ψ₂Sq.eval z) := by
+  have h3L : (3 : L) ≠ 0 := algebraMap_ofNat_ne_zero 3 h3
+  have h3M : (3 : M) ≠ 0 := algebraMap_ofNat_ne_zero 3 h3
+  have hmem : z ∈ (W⁄M).Ψ₃.roots := (mem_roots ((W⁄M).Ψ₃_ne_zero h3M)).mpr hz
+  rw [Ψ₃_eq_map_algHom φ, hsplits.roots_map] at hmem
+  obtain ⟨x, hx, rfl⟩ := Multiset.mem_map.mp hmem
+  rw [mem_roots ((W⁄L).Ψ₃_ne_zero h3L)] at hx
+  obtain ⟨s, hs⟩ := hsq x hx
+  rw [Ψ₂Sq_eq_map_algHom φ, eval_map, eval₂_hom, hs, map_mul]
+  exact ⟨φ s, rfl⟩
+
+/-- **`#E[3] = 9` goes up any `F`-algebra map out of a field where both conditions hold**, for an
+elliptic curve over a field of characteristic `≠ 2, 3`.  `card_torsion_three_of_splits` over `M`,
+with its two hypotheses supplied by the two statements above. -/
+theorem card_torsion_three_of_algHom [W.IsElliptic] [DecidableEq M] (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) (φ : L →ₐ[F] M) (hsplits : (W⁄L).Ψ₃.Splits)
+    (hsq : ∀ x : L, (W⁄L).Ψ₃.eval x = 0 → IsSquare ((W⁄L).Ψ₂Sq.eval x)) :
+    Nat.card ((W⁄M).torsion 3) = 9 := by
+  haveI : (W⁄M).IsElliptic := inferInstanceAs (W.map (algebraMap F M)).IsElliptic
+  exact card_torsion_three_of_splits (algebraMap_ofNat_ne_zero 2 h2)
+    (algebraMap_ofNat_ne_zero 3 h3) (splits_Ψ₃_of_algHom φ hsplits)
+    fun _ hz => isSquare_Ψ₂Sq_eval_of_algHom h3 φ hsplits hsq hz
+
+/-- **`E[3] ≃+ ZMod 3 × ZMod 3` goes up any `F`-algebra map out of a field where both conditions
+hold**, for an elliptic curve over a field of characteristic `≠ 2, 3`. -/
+theorem nonempty_torsionThree_addEquiv_of_algHom [W.IsElliptic] [DecidableEq M] (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) (φ : L →ₐ[F] M) (hsplits : (W⁄L).Ψ₃.Splits)
+    (hsq : ∀ x : L, (W⁄L).Ψ₃.eval x = 0 → IsSquare ((W⁄L).Ψ₂Sq.eval x)) :
+    Nonempty ((W⁄M).torsion 3 ≃+ ZMod 3 × ZMod 3) := by
+  haveI : (W⁄M).IsElliptic := inferInstanceAs (W.map (algebraMap F M)).IsElliptic
+  exact nonempty_torsionThree_addEquiv_of_splits (algebraMap_ofNat_ne_zero 2 h2)
+    (algebraMap_ofNat_ne_zero 3 h3) (splits_Ψ₃_of_algHom φ hsplits)
+    fun _ hz => isSquare_Ψ₂Sq_eval_of_algHom h3 φ hsplits hsq hz
+
+end AlgHom
+
 section Concrete
 
 variable (W)
@@ -451,6 +579,90 @@ theorem isSeparable_threeDivisionField [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 :
   isSeparable_tower (W := W) W.Ψ₃.SplittingField h2 h3
 
 end Concrete
+
+/-! ## The Galois closure
+
+`isSeparable_threeDivisionField` and `finiteDimensional_threeDivisionField` are together exactly
+the hypotheses under which the normal closure of the `3`-division field over `F` is Galois, and
+this section forms it.  The Galois half is `EllipticCurves.Galois.NormalClosureSeparable`'s
+`isGalois_normalClosure_of_isSeparable`, **cited and not repeated**: it is curve-free, it takes no
+finiteness, and its own file records why `IsGalois.normalClosure` does not prove it at the pin.
+
+⚠️ **What the closure fails is the tower's own `[Algebra L₁ L₂]` and not only the splitting-field
+instance**, and the difference decides which statements above can reach it.  Mathlib does give
+`Algebra L₂ ↥(normalClosure ‥)` and `IsScalarTower F L₂ ↥(normalClosure ‥)` for a normal closure,
+and `IsScalarTower.toAlgHom` is how the map below is built — so a map **out of** `L₂` is available.
+An `IntermediateField F (AlgebraicClosure L₂)`, taken as its own `L₂`, satisfies **neither**
+`[Algebra L₁ L₂]`, which all **seven** `_tower` statements bind, **nor**
+`[(Ψ₂SqRootPoly W L₁).IsSplittingField L₁ L₂]`, which **six** of them bind — ⚠️ `splits_Ψ₃_tower`
+`omit`s that one.  ⚠️ **Both counts are read off the elaborated types and not off the source**:
+`#check @splits_Ψ₃_tower` against `#check @isSquare_Ψ₂Sq_eval_tower` settles the pair in one
+command.  ⚠️ **At the closure `splits_Ψ₃_tower` fails on TWO of them, and those two are the whole
+list**: it fails on `Algebra (Ψ₃ W).SplittingField (threeDivisionGaloisField W)`, then — with that
+one supplied by hand — on `IsScalarTower F (Ψ₃ W).SplittingField (threeDivisionGaloisField W)`,
+and with both supplied the same term elaborates.  That second instance **six** of the seven bind
+as well, all but `isGalois_tower_top`, which `omit`s it together with `[Algebra F L₂]` — so the
+tower's three relative instances read **7 / 6 / 6**, and the two sixes exclude **different**
+statements.  That is why the two conditions are transported along an `AlgHom` in the section
+above, and the `AlgHom` statements are the general ones and cost nothing extra.
+
+⚠️ **Galois over `F` is strictly more than either floor gives.**  `isGalois_of_isSplittingField_Ψ₃`
+is `L₁ / F` and `isGalois_tower_top` is `L₂ / L₁`; normality is not transitive, so neither composes
+into `L₂ / F` and the statement that would say so is false in general. -/
+
+section GaloisClosure
+
+variable (W)
+
+/-- **The Galois closure of the `3`-division field**: the normal closure of `threeDivisionField W`
+over `F`, taken inside an algebraic closure of it.
+
+⚠️ It is an `abbrev` for the same reason `threeDivisionField` is: Mathlib supplies
+`Algebra (threeDivisionField W) ↥(normalClosure ‥)` and `IsScalarTower F (threeDivisionField W) ‥`
+for a normal closure, and a reducible definition inherits them. -/
+noncomputable abbrev threeDivisionGaloisField : Type _ :=
+  IntermediateField.normalClosure F (threeDivisionField W)
+    (AlgebraicClosure (threeDivisionField W))
+
+/-- **The Galois closure is Galois over `F`**, for an elliptic curve over a field of characteristic
+`≠ 2, 3`: `isSeparable_threeDivisionField` fed to `EllipticCurves.Galois.NormalClosureSeparable`'s
+curve-free `isGalois_normalClosure_of_isSeparable`.  ⚠️ This is the statement `isSeparable_tower`
+was built for and the one neither floor of the tower gives. -/
+theorem isGalois_threeDivisionGaloisField [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    IsGalois F (threeDivisionGaloisField W) := by
+  haveI := isSeparable_threeDivisionField W h2 h3
+  exact _root_.isGalois_normalClosure_of_isSeparable F (threeDivisionField W)
+
+/-- **The Galois closure is finite over `F`.**  `normalClosure.is_finiteDimensional` at
+`finiteDimensional_threeDivisionField`; it takes no hypothesis on the characteristic and does not
+need `[W.IsElliptic]`. -/
+theorem finiteDimensional_threeDivisionGaloisField :
+    FiniteDimensional F (threeDivisionGaloisField W) := by
+  haveI := finiteDimensional_threeDivisionField W
+  infer_instance
+
+/-- **`#E[3] = 9` over the Galois closure**, for an elliptic curve over a field of characteristic
+`≠ 2, 3`.  `card_torsion_three_of_algHom` along `IsScalarTower.toAlgHom`, at the two conditions the
+tower already establishes over `threeDivisionField W`. -/
+theorem card_torsion_three_threeDivisionGaloisField [W.IsElliptic]
+    [DecidableEq (threeDivisionGaloisField W)] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    Nat.card ((W⁄(threeDivisionGaloisField W)).torsion 3) = 9 :=
+  card_torsion_three_of_algHom h2 h3
+    (IsScalarTower.toAlgHom F (threeDivisionField W) (threeDivisionGaloisField W))
+    (splits_Ψ₃_tower (W := W) W.Ψ₃.SplittingField)
+    fun _ hz => isSquare_Ψ₂Sq_eval_tower (W := W) W.Ψ₃.SplittingField h3 hz
+
+/-- **`E[3] ≃+ ZMod 3 × ZMod 3` over the Galois closure**, for an elliptic curve over a field of
+characteristic `≠ 2, 3`. -/
+theorem nonempty_torsionThree_addEquiv_threeDivisionGaloisField [W.IsElliptic]
+    [DecidableEq (threeDivisionGaloisField W)] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    Nonempty ((W⁄(threeDivisionGaloisField W)).torsion 3 ≃+ ZMod 3 × ZMod 3) :=
+  nonempty_torsionThree_addEquiv_of_algHom h2 h3
+    (IsScalarTower.toAlgHom F (threeDivisionField W) (threeDivisionGaloisField W))
+    (splits_Ψ₃_tower (W := W) W.Ψ₃.SplittingField)
+    fun _ hz => isSquare_Ψ₂Sq_eval_tower (W := W) W.Ψ₃.SplittingField h3 hz
+
+end GaloisClosure
 
 section Nonvacuity
 
@@ -499,6 +711,17 @@ private noncomputable instance : DecidableEq (threeDivisionField (y2AddYEqX3 ℚ
 private theorem card_torsion_three_threeDivisionField_y2AddYEqX3 :
     Nat.card (((y2AddYEqX3 ℚ)⁄(threeDivisionField (y2AddYEqX3 ℚ))).torsion 3) = 9 :=
   card_torsion_three_threeDivisionField _ (by norm_num) (by norm_num)
+
+private noncomputable instance : DecidableEq (threeDivisionGaloisField (y2AddYEqX3 ℚ)) :=
+  Classical.decEq _
+
+private theorem isGalois_threeDivisionGaloisField_y2AddYEqX3 :
+    IsGalois ℚ (threeDivisionGaloisField (y2AddYEqX3 ℚ)) :=
+  isGalois_threeDivisionGaloisField _ (by norm_num) (by norm_num)
+
+private theorem card_torsion_three_threeDivisionGaloisField_y2AddYEqX3 :
+    Nat.card (((y2AddYEqX3 ℚ)⁄(threeDivisionGaloisField (y2AddYEqX3 ℚ))).torsion 3) = 9 :=
+  card_torsion_three_threeDivisionGaloisField _ (by norm_num) (by norm_num)
 
 end Nonvacuity
 

@@ -48,10 +48,12 @@ half from `IntermediateField.normalClosure.is_finiteDimensional` and its own
 * `isGalois_normalClosure_of_isSeparable`: for `K / F` separable,
   `IsGalois F (IntermediateField.normalClosure F K (AlgebraicClosure K))`.
 
-Its two consumers in this development are `EllipticCurves.Torsion.HalvingExtension`, for the
-halving field of a `2`-torsion point over its own base, and
-`EllipticCurves.Torsion.HalvingGaloisTower`, for the two-floor tower
-`F ⊆ Ψ₂Sq.SplittingField ⊆ halvingField` over the bottom field.
+Its three consumers in this development are `EllipticCurves.Torsion.HalvingExtension`, for the
+halving field of a `2`-torsion point over its own base, `EllipticCurves.Torsion.HalvingGaloisTower`,
+for the two-floor tower `F ⊆ Ψ₂Sq.SplittingField ⊆ halvingField` over the bottom field, and
+`EllipticCurves.Torsion.ThreeDivisionField`, for the `3`-division field over `F`.  ⚠️ **The count
+is `3` from the commit that adds the third**, not from the next round that happens to open this
+file: the sentence is false the moment a consumer lands, and nothing else re-runs it.
 
 ## What is *not* here
 
