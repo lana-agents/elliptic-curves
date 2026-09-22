@@ -148,8 +148,16 @@ but its own discriminant one.
   `EllipticCurves.Torsion.ThreeTorsionStructure`.
 * **A halving of a point that is not `2`-torsion.**  `hx₀ : W.Ψ₂Sq.eval x₀ = 0` is a hypothesis of
   the square identity and of everything downstream of it.  ⚠️ For an `S` outside `E[2]` the quartic
-  is generically *separable* and the whole mechanism of this file is unnecessary there; that case is
-  not stated, in either direction.
+  is generically *separable* and the whole mechanism of this file is unnecessary there; **nothing
+  below** states that case, in either direction.  ⚠️ **One of the two directions is stated
+  elsewhere**, and it is the one this file's own mechanism decides:
+  `EllipticCurves.Torsion.TwoTorsionHalvingSquare` proves that the quartic is the square of **no**
+  polynomial over `F` when `W.Ψ₂Sq.eval x₀ ≠ 0` (`not_isSquare_Φ_two_sub_C_mul_Ψ₂Sq`), and that the
+  two sides are equivalent (`isSquare_Φ_two_sub_C_mul_Ψ₂Sq_iff`), so
+  `Φ_two_sub_C_mul_Ψ₂Sq_eq_halvingX_sq`'s root hypothesis is necessary and not merely sufficient.
+  *Not a square* is strictly weaker than *separable* — a quartic can fail to be a square and still
+  have a repeated root — so the separability called generic above is left open there too, in that
+  module's own `## What is *not* here`.
 * **Characteristic `2`.**  `halvingX` divides by `2` and is junk there; every statement that uses it
   non-trivially carries `(2 : F) ≠ 0`.  Nothing below decides whether a halving extension is
   separable in characteristic `2`.

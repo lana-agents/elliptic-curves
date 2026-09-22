@@ -21,9 +21,10 @@ other case, in terms:
 > **A halving of a point that is not `2`-torsion.**  `hx₀ : W.Ψ₂Sq.eval x₀ = 0` is a hypothesis of
 > the square identity and of everything downstream of it.
 
-and adds that the case *"is not stated, in either direction"*.  **This file states it.**  The
-hypothesis is not merely sufficient: it is **necessary**, and necessary in the strongest available
-sense — not only is the quartic then not *that* square, it is not the square of **any** polynomial.
+and adds that **nothing below in that file** states the case, *"in either direction"*.  **This file
+states one of those two directions**, and that bullet points here for it.  The hypothesis is not
+merely sufficient: it is **necessary**, and necessary in the strongest available sense — not only is
+the quartic then not *that* square, it is not the square of **any** polynomial.
 
 ## The mechanism: the defect is linear and its `X`-coefficient is `2·Ψ₂Sq(x₀)`
 
