@@ -29,13 +29,28 @@ statement with no work, and this file is the compiled form of that sentence.
 
 ## Why this is a new file
 
-⚠️ Measured, not argued.  The general basis lives in
-`EllipticCurves.TateModule.DeterminantModGeneral`, which is a leaf over
-`EllipticCurves.Torsion.StructureGeneral`; putting this theorem in `MatrixRepMod` instead would
-cost that file **+34 modules** (40 → 74), and would charge the same edge again to everything
-*downstream* of it — today that is `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`,
-at **+28** (176 → 204) — under `+34` only because it already carries 25 of the 53 modules in
-`StructureGeneral`'s closure, against `MatrixRepMod`'s 19.  As a leaf the edge costs **0** to
+⚠️ Measured, not argued, and ⚠️ **an edge costs the module it adds as well as that module's
+closure** — the two conventions differ by exactly one and this paragraph used to use both.  The
+general basis lives in `EllipticCurves.TateModule.DeterminantModGeneral`, which this paragraph
+calls **a leaf over** `EllipticCurves.Torsion.StructureGeneral` — ⚠️ a third sense of *leaf*,
+meaning neither *imports nothing* nor *is imported by nothing* but *adds nothing over `X` that
+the file being charged already has*, which is a claim about three modules and not about one.
+Putting this theorem in `MatrixRepMod` instead would cost that file **+35 modules** (40 → 75), of
+which **34** are `DeterminantModGeneral`'s closure with that module itself dropped — the figure
+this paragraph used to publish as the whole cost.  ⚠️ **The same 34 are `StructureGeneral` *and*
+its closure**: one set of modules under two descriptions.  `StructureGeneral`'s closure **alone**
+is **33** of them, because `MatrixRepMod` does not already carry `StructureGeneral`, so the edge
+pays for that module as well — which is the convention this paragraph opens with, applied to its
+own numeral.  Putting the theorem there charges the same edge again to everything *downstream* of
+it: at `ac462ef` that is `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter` and nothing
+else, at **+29** (176 → 205), lower only because it already carries 25 of the 53 modules
+`StructureGeneral` brings, against `MatrixRepMod`'s 19.  Both readings are stable — the same at
+`a1910da`, where this paragraph was written, at `ac462ef`, and at `1f3c95c`, which has **six** more
+modules than `ac462ef` — so what was wrong was never the walk, only which module the count starts
+from, and ⚠️ **the set named after that colon is keyed too**: six modules landed between the
+first of those shas and the last, and not one of them is downstream of this file.
+⚠️ And *leaf* in the OTHER direction is what makes the edge free: nothing
+but this file imports `DeterminantModGeneral` at `ac462ef`, so putting it here costs **0** to
 every existing file.
 
 ⚠️ **`EllipticCurves.TateModule.DeterminantModSmooth` is *upstream* of `MatrixRepMod`** — it is

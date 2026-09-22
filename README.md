@@ -4209,6 +4209,188 @@ clause above is not optional. `env.allImportedModuleNames` answers a third quest
 closure whatever `A` does.
 **Per-module is `moduleData[idx].imports` transitively, or the `^import` lines; nothing else.**
 
+**The widened residue, read one row at a time at `ac462ef`.** The narrow key's 64 were triaged
+above; the widened alternation returns **117** further `.lean` rows in **75** files that the narrow
+key does not see, and that is all of them **at that sha**. (The same alternation returns 130 rows
+over `.lean` and `README.md` together; the other **13** are on this page, which is the rules text
+and is out of this axis's scope by the same clause that makes the narrow key's `README.md` figure
+`0`.) ⚠️ **A population figure is keyed on the left and reads forward, and this one moved while it
+was in review**: it is **119** rows in **77** files at `1f3c95c`, the two arrivals being
+`TateModule/FreeThree:117` and `TateModule/PrimaryFree:147`, both landed by PR #428. **Both are
+read here and both are TRUE** — `MatrixRepThree` imports `FreeThree` on an `^import` line and
+`FreeThree` does not reach `TateModule.GaloisAction`; `PrimaryFree` and `PrimaryMatrixRep` import
+neither the other, and their common ancestors are **exactly** `TateModule.Basic` and
+`Torsion.Defs`, two of two. **So the `true` bucket is 85 at `ac462ef` and 87 at `1f3c95c`, and the
+`false` and `loose` counts below are the whole residue at either sha.**
+
+| bucket | n | what it is |
+| --- | --- | --- |
+| true | 85 | the relation holds, in the direction and at the strength the sentence states |
+| **false** | **7** | in **6** files, listed below; all six are repaired in this commit |
+| **loose** | **9** | true of the closure, false of the `import` the page prescribes |
+| not a graph claim | 16 | a route through a *lemma*, a Mathlib closure, or `AddSubgroup.closure` |
+
+⚠️ **The seed is printed as thirteen alternatives and described above as ten in two places, only
+one of which carries the words** — the widened-seed paragraph writes *"ten atoms"* and the
+paragraph beside the alternation writes *"Ten quoted phrases in running prose"* — **and no rule on
+this page gets from one number to the other.**  ⚠️ **A count of *two* over the quoted span is
+therefore a count over the CLAIM and not over the WORDS**, which is a distinction this page
+enforces on other files' prose and must state when it counts its own.
+
+The only arithmetic that gets from thirteen to ten: drop `import closure`, which is the narrow key
+and not a widening atom, and read
+`imports this file` / `imports this one` / `imports this module` as three spellings of one atom —
+`13 − 1 − 2 = 10`. ⚠️ **Both steps are needed and neither is written down**, which matters because
+the paragraph beside the count is the one telling a re-implementer that *"drop a single atom in
+transcription and the count moves by four lines and one file"*: **a re-implementer counting the
+atoms as a check gets thirteen and cannot tell which reading is wrong.** Print the alternation, and
+if a count of its atoms is offered, say what an atom is. (`imports this module` returns **0**
+`.lean` rows at `ac462ef` — its one hit there is the alternation line on this page printing
+itself — so the three spellings are two in practice as well.)
+
+⚠️ **The `count` bucket is empty here and that is a property of the key, not of the tree**: a
+standing closure *size* is written with the words `import closure`, so the narrow key already holds
+every one of them and the residue holds none. The residue's own size figures — *"closures of **19**
+and **24**"* (`Torsion.NsmulSmoothSurjective:47`), `Continuity`'s three-member closure listed out —
+are evidence for a membership claim and score `true`, as the six above do.
+
+⚠️ **Four of the seven were exact at the commit that wrote them and the other three were false
+when written, and the four split again by *where the falsifying edit was*.** Two are claims about
+the rest of the tree — a reverse import cone, a count of modules — and are falsified by an edit to
+a file they do not name, which no reviewer of the carrying file ever sees. **The other two are
+falsified by an edit to the file that carries them**: one counts that file's own `^import` lines
+and the file gained one; one is a *marginal* cost, which is a function of the other imports, and
+the file gained three. ⚠️ **That second half is the cheap one — the diff that breaks the figure is
+the diff a reviewer is already reading** — and it is half of **the four**, which is **two of the
+seven**: *bucket* is this table's word for the seven, and both denominators are live in this
+paragraph.
+
+* `FunctionField.MulByNFibre:853` — *"nothing imports this file"*. At `ac462ef` the reverse cone
+  apart from the root is **4** and the direct importers are **1**; at `135f257`, where it was
+  written, both are **0**. Exact, then rotted. ⚠️ **Which of the two a row reports is itself part
+  of the row** — see the paragraph below this list.
+* `Torsion.Collinearity:59-62` — *"measured over all **387** project modules"*, *"the only module
+  whose closure contains this file and any of them is the root aggregator"* and *"this file's only
+  direct importer"*. At `ac462ef`: **429**, **29** other modules, and `Torsion.NetVieta`. **All
+  three were exact at `b1a4cda`**, where they were written.
+* `…WeilPairingProductRelationRootIndependent:138` — *"one of this file's **two** imports"*. Three
+  at `ac462ef`; **two at `dd08255`**, and the one it gained is `Fixtures`, a leaf.
+* `…WeilPairingAlternatingAssemblyN:167` — *"`MulByNComposition` costs **12** more"*. **1** at
+  `ac462ef`; **12 at `4ad5475`**, where it was written.
+* `…WeilPairingAlternatingAssemblyN:169` — *"nothing imports this file … a file that is a leaf"*.
+  At `ac462ef` the reverse cone apart from the root is **4** and the direct importers are **3**;
+  at `4ad5475` both are ⚠️ **1: false when it was written**, under either reading.
+* `TateModule.PrimaryMatrixRepBasisChange:109` — a reverse cone **enumerated** as four modules. At
+  `ac462ef` the cone apart from the root is **5** and the direct importers are **3**, and ⚠️ **the
+  cone was 5 at `ee0b8a4` too**: short from the start, not rotted.
+* `TateModule.MatrixRepModGeneral:33` — *"**+34** modules (40 → 74)"*. The walk gives **+35**
+  (40 → 75) at `ac462ef` ⚠️ **and at `a1910da`**, where it was written.
+
+⚠️ **A REVERSE-CONE COUNT AND A DIRECT-IMPORTER COUNT ARE DIFFERENT NUMBERS, AND A ROW THAT
+REPORTS ONE IN THE OTHER'S WORDING IS THE SAME DEFECT THIS AXIS EXISTS TO FIND.** *"`X` imports
+this file"* and *"`X` has this file in its closure"* are the two relations this section already
+rules between, and the false rows above are a running demonstration that the numbers come apart:
+`MulByNFibre` is **4 / 1** at `ac462ef`, `…AssemblyN:169` is **4 / 3**, and
+`PrimaryMatrixRepBasisChange:109` is **5 / 3**. ⚠️ **At the older end of a two-ref comparison they
+routinely agree** — `MulByNFibre` is `0 / 0` at `135f257`, `…AssemblyN` is `1 / 1` at `4ad5475` —
+**so only the right-hand end can expose a count taken with one instrument and written with the
+other**, and a repair that carries the old wording forward re-commits the row it retires.
+**The three rows above whose figure is a reverse-cone count — `MulByNFibre:853`,
+`…AssemblyN:169` and `PrimaryMatrixRepBasisChange:109` — therefore print the direct count beside
+it, and the other four count something else (a joint closure condition, a file's own `^import`
+lines, a marginal cost, a closure size) and say which.** ⚠️ **The refutation needs no walker**:
+`git show <sha>:<file> | grep '^import'` over each *named* module decides the direct half of an
+enumerated claim outright, with no graph walk and no build — which is how an enumeration is
+checked against its own wording.
+
+⚠️ **Two of the seven are arithmetic rather than membership, and each is worth a rule.** The first:
+**an edge costs the module it adds *as well as* that module's closure.**
+`MatrixRepModGeneral`'s `+34` is exactly the closure of the module the import names with the module
+itself dropped, and the same paragraph writes *"the **53** modules in `StructureGeneral`'s
+closure"*, which counts it — **both conventions in one sentence, and they differ by one at every
+row**. The second: **a marginal cost is a function of the *other* imports, so it is falsified by a
+sibling.** `MulByNComposition`'s `12` did not move because anything about that module changed; it
+moved to `1` because `WeilPairingAlternatingAssemblyN` has since taken three further imports that
+carry eleven of the twelve between them.
+
+⚠️ **`leaf`, *as an import-graph word*, is written in this tree in three incompatible senses, and
+nothing on this page said so.**  ⚠️ **The scope is not decoration, because the word is wider than
+the graph**: `\bleaf\b` returns **43** occurrences on **41** lines in **22** `.lean` files at
+`ac462ef`, and **four** of those lines are not about imports at all — `WeilPairing:626` and `:640`
+and `WeilPairingAntisymmetric:99` name the leaf of an **issue** tree, and `LocalRingTaylor:132` is
+about *"the leaf polynomials"* of a Taylor expansion. ⚠️ **And a fourth graph reading is not one
+of the three: a sense SCOPED TO A SUBTREE, which no tree-wide walk decides.**
+`TranslationAutomorphism:239` and `TranslationProjAction:84` each keep a file *"a leaf of the
+translation subtree"* — sense 1 scoped — and `MatrixRepMod:99-100`, which this paragraph holds up
+below as the form to copy, is sense 2 scoped to `TateModule/`. **That is eight line numbers in
+seven citations across six files**, and ⚠️ **six of the eight resolve identically at `ac462ef` and
+at this head — two do NOT.** `WeilPairing:626` and `:640` are `:688` and `:702` at `1f3c95c`:
+PR #804's `+66 / −4` in that file all lands above them and shifts both by **62**, with no edit to
+either line and no round of this branch touching the file, which is `#2037`'s class exactly. They
+are quoted here at `ac462ef`, the sha this section is keyed to. None of the six files is touched
+by this commit. `EllipticCurves.Fixtures` is
+*"a leaf importing no `EllipticCurves` module at all"* — it imports nothing.
+`WeilPairingAlternatingAssemblyN:169` and `TateModule.MatrixRepMod:99-100` call a file a leaf for
+the opposite reason, that nothing imports **it**. And `MatrixRepModGeneral:33`
+writes *"a leaf **over** `StructureGeneral`"*, which is neither: it means *adds nothing over `X`
+that the file being charged already has*, a claim about three modules. ⚠️ **The first two are
+opposite ends of the same edge and the third is not an edge at all**, so a bare *"is a leaf"* is
+decided by no walk until the sentence says which. `MatrixRepMod:99` is the form to copy — *"is a
+leaf: **nothing here or elsewhere under `TateModule/` imports it**"* — and it is exact: the module
+it says that of is `FunctionField.MatrixRepDeterminantCharacter`, whose reverse cone at `ac462ef`
+is **0** apart from the root aggregator and whose direct importers are **0** as well, so the row
+does not turn on the distinction at all.
+
+**The loose bucket, and why the nine are not a fifth false row.** Each is true of the closure and
+false of the `import` this page prescribes — `DivisionPolynomialEval:171`'s shape, one bucket
+wider. They are `Torsion.XDifference:40`, `:84` and `:159`, `Torsion.WardR1Core:155`,
+`Torsion.OmegaCrux:249`, `FunctionField.MulByNXCoordRatFunc:309`,
+`FunctionField.ValuationAtInfinity:452`, `FunctionField.WeilPairingProductRelation:114` and
+`FunctionField.WeilPairingDivisorSlotBilinearHprinN:68`. Three of them are worth naming:
+
+* ⚠️ **One edge, described from both ends, each end true only under the opposite reading.**
+  `WeilPairingProductRelation:114` says *"`WeilPairingFunctionThree` imports this file"* and
+  `WeilPairingFunctionThree:46` says *"this file does not import that module"*. Both are about the
+  same pair; the module is in the closure and is not one of the four `^import` lines. **The pair
+  is the cleanest argument on this board for the page's own rule**, because no single reading makes
+  both sentences true.
+* ⚠️ **The file this page holds up as the form to copy contains the counterexample.**
+  `WardR1Core:116-117` is quoted above as the right shape — *"that module imports this one (through
+  `EllipticCurves.Torsion.EllipticNetSlices`)"* — and it is exact. Thirty-nine lines later, about
+  the same pair, `:155` writes *"since that module imports this one"* with no route.
+* ⚠️ **A sentence that advertises the measurement can still group the two.** `OmegaCrux:249` opens
+  *"The three sit differently against this file, and the difference is measured"* and then says
+  `NsmulYCoord` and `NsmulYPeriodic` *"both import this module"*: the first is an `^import` line,
+  the second reaches it through the first.
+
+⚠️ **`XDifference` carries three of the nine and the direct form beside them** — `:52` says
+*"`XDifferencePoint` imports this file"*, which is an `^import` line, while `:40`, `:84` and `:159`
+say *"`Torsion.NsmulOrder` … which imports this file"*, which is two hops (through `NsmulLadder` or
+`NsmulSurjective`). **Both spellings are in one docstring**, which is why the fix for this bucket
+is a house word and not a per-row judgement: write *"reaches"*, or name the route.
+
+⚠️ **Run the widened seed at `ac462ef` and not at this head, for the reason the narrow key already
+gives.** The repairs this commit makes quote the clauses they retire and this section names the
+vocabulary it rules on, so the residue at the head of the commit that publishes these figures is
+**123** rows in **77** files — against **119** in **77** at `1f3c95c`, this commit's base, and
+**117** in **75** at `ac462ef`, the sha the triage is keyed to — and the page's own share is
+**26** rather than 13. ⚠️ **A head figure is re-run at the head it names and never carried from
+an earlier round's head, because the base under it moves**: this commit adds **4** rows to the
+`.lean` residue and takes none away, and changes no file's membership at all, so a head cell of
+**75** under a base cell of **77** is refuted by arithmetic before any grep is run. **A triage is
+keyed to the tree it read, and this one is keyed to `ac462ef`.**
+
+**What reproduced exactly, and is worth knowing before the next reorganisation.**
+`WeilPairingFunctionN:109`'s route table — *"three of those seven modules are `import`s of this
+file and four are reached through them"* — is exact row for row at `ac462ef`, **including** its
+sharpest clause, that `#854`'s module rides in **only** through `WeilPairingFunctionTwo`.
+`TateModule.Continuity:28` is the residue's only sha-keyed row and it reproduces at both ends,
+under the exclusion the row itself states (*"apart from the root aggregator and this one"*): at
+`807ac29` `TateModule.GaloisAction`'s reverse cone is **8**, and at `ac462ef` it is **51**, which
+is the *"wider margin"* that row claims without having to be re-run. ⚠️ **Dropping only the root
+gives 9 and 52** — one exclusion, stated once in the source and owed at both ends of any
+re-measurement of it.
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the
