@@ -233,7 +233,12 @@ was the false half: the fibre description `pullbackDivisorN_single_eq_sum_torsio
 characteristic since `#1540`, and `hprin` at an arbitrary index over `F̄` is now
 `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **Nothing
 in this file changes.**  Its statements are over an arbitrary field, where `hprin` stands at every
-index and `#962` is that gate at `n = 2` and `n = 3`; what was retired is a claim about the
+index and `#962` is that gate at `n = 3`;
+⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+`hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+**`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+what was retired is a claim about the
 *reachability* of a discharge over `F̄`, not about anything this file proves.  ⚠️ **The `#962`
 citation itself used to be stated at every index; it over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,

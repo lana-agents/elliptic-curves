@@ -113,7 +113,12 @@ Nothing is deleted here; the de-duplication question is a separate one.
 
 * **`det ρ_{E,n} = χ_n`.**  This file supplies the *well-definedness* of the left-hand side at more
   indices and nothing else.  The identification needs the Weil pairing **over the base field**, and
-  there `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`.  ⚠️
+  there `hprin` is the standing gate at every index; `#962` is that gate at `n = 3`.
+  ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+  `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once,
+  in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+  **`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+  ⚠️
   **That citation used to read *"`#962` is the standing gate at a general index"*, which
   over-reaches the record; it is retired once, in
   `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,

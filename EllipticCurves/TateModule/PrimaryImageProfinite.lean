@@ -194,8 +194,12 @@ and two of the three are in this file:
   `profiniteGrpRangeGaloisDet_of_basis` will look exactly like progress towards it and is not:
   knowing that the image of a character is closed says nothing about *which* character it is. The
   `ℓ`-adic identification needs the Weil pairing on `E[ℓ^k]` for **every** `k` **over the base
-  field**, and there `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and
-  `n = 3`.  ⚠️ **That citation used to read *"`#962` is the standing gate at a general index"*,
+  field**, and there `hprin` is the standing gate at every index; `#962` is that gate at `n = 3`.
+  ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+  `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once,
+  in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+  **`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+  ⚠️ **That citation used to read *"`#962` is the standing gate at a general index"*,
   which over-reaches the record; it is retired once, in
   `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
   `#1888`). ⚠️ **This sentence used to ground that on the development having the pairing at two

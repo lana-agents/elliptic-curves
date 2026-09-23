@@ -58,12 +58,22 @@ irrelevance and must not be matched by hand.  This is the idiom of
 ## What is discharged, and what `#962` still wants
 
 `hprin` at `n = 2` was `#418`, the last standing gate on this front.  It is now discharged over any
-field with `(2 : F) ≠ 0` over which the two rationality facts hold.  ⚠️ **This does not close
-`#962`**, which asks for `hprin` over a field where `E[2]` is *not* rational.  That still needs
-three things, none of them touched here: a finite `L/F` over which both facts hold, the descent
-statement `L(W⁄L)^{Gal(L/F)} = F(W)` (`#692`'s open divisor half), and separability of `L/F` in
-characteristic `p`.  Mathlib's *finite* Hilbert 90 suffices for the cohomology; no profinite
-machinery is needed.
+field with `(2 : F) ≠ 0` over which the two rationality facts hold.  ⚠️ **This file does not close
+`#962`**, which asks for `hprin` over a field where `E[2]` is *not* rational — ⚠️ **and that half is
+no longer open either, by a branch that does not touch this file.**  This paragraph read *"That
+still needs three things, none of them touched here: a finite `L/F` over which both facts hold, the
+descent statement `L(W⁄L)^{Gal(L/F)} = F(W)` (`#692`'s open divisor half), and separability of
+`L/F` in characteristic `p`"*, and `#2029` supplied or bypassed all three:
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`) discharges `hprin` at `n = 2` over
+an arbitrary field with `(2 : F) ≠ 0`, for a nonsingular `F`-rational `2`-torsion point and with no
+rationality of `E[2]`, over the finite Galois `W.halvingGaloisField`
+(`EllipticCurves.Torsion.HalvingGaloisTower`, which carries the separability as well) and by
+Hilbert 90 at the finite level (`EllipticCurves.FunctionField.DivisorGaloisDescentNsmul`).
+⚠️ **`#692`'s divisor half was not needed at all**: what descends there is a divisor *identity* and
+not a function field.  Mathlib's *finite* Hilbert 90 suffices for the cohomology and no profinite
+machinery is needed — which that branch confirms, and its own docstring records why the `F̄` route
+is closed at the pin.  ⚠️ **What `#962` still wants is `n = 3`**, where its ledger row is unaudited.
 
 ⚠️ Nothing here transfers to `n = 3`.  `PullbackPrincipalityThree` has never been audited for the
 arbitrary-field reduction, and `#947` rules out full rational `3`-torsion over `ℚ` for *every*

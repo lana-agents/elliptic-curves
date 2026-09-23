@@ -275,17 +275,27 @@ and no interior multiple `[i]P` or `[i]T` is either — that is what
 assembly's auxiliary point `Q` has no analogue in this hypothesis list.
 
 ⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, it is open at this statement's own
-index — every `n ≠ 0` over an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3` —
-and it is the last real gate on this front.  ⚠️ **That citation used to be stated at an arbitrary
+index — every `n ≠ 0` over an arbitrary field **except `n = 2`, where `(2 : F) ≠ 0` and a
+nonsingular `F`-rational `2`-torsion point discharge it** (`#2029`) — where `#962` is that gate at
+`n = 3`, and it is the last real gate on this front.  ⚠️ **That clause read *"every `n ≠ 0` over
+an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3`"* until then, and BOTH halves
+went false at once**: the citation's `n = 2` half and the universal around it are each refuted by
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`), which carries no closure and no
+rationality hypothesis beyond `S` itself being `F`-rational; the narrowing is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
+⚠️ **`n = 3` is untouched by it** and `#962`'s ledger row there is unaudited.
+⚠️ **That citation used to be stated at an arbitrary
 `n`; it over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,
 `#1888`).  ⚠️ **It is not open uniformly, on either axis, and *"open at general `n`"* unqualified is
 now the wrong reading.**  Over `F̄` `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`) discharges it at every `n` with `(2 : F) ≠ 0`
-and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field with `(2 : F) ≠ 0`, `n = 2` is better off than
-the rest, since `exists_gS_two_of_card`
+and `((n : ℤ) : F) ≠ 0`; and over an arbitrary field with `(2 : F) ≠ 0`, `n = 2` is not merely
+better off than the rest but **done**: `exists_gS_two_of_card`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion`) discharges it there from
-rational `2`-torsion and a halving. -/
+rational `2`-torsion and a halving, and `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`) discharges it from neither. -/
 theorem exists_weilPairingElt_self_eq_one_of_hprin_n {n : ℕ} (hnz : n ≠ 0)
     (hn : Transcendental F (n • genericPoint (W := W)).xCoord)
     (h : W.Nonsingular xT yT) (htors : Point.some xT yT h ∈ W.torsion n)
