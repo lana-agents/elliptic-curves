@@ -157,9 +157,18 @@ of `#774` — no longer on the fibre description of `[2]∗` either, which is me
 `[W.IsElliptic]`, which this statement does not carry**.
 
 ✅ Over such a base field `hprin` is now discharged and this theorem has a hypothesis-free
-corollary, `exists_gS_two_of_isAlgClosed` (`PullbackPrincipalityTwo`, `#791`).  This statement keeps
-its hypothesis because it is the general-field one: for an arbitrary `F` the fibre description is
-not available and `hprin` is still open. -/
+corollary, `exists_gS_two_of_isAlgClosed` (`PullbackPrincipalityTwo`, `#791`).
+
+⚠️ **The clause that followed read** *"This statement keeps its hypothesis because it is the
+general-field one: for an arbitrary `F` the fibre description is not available and `hprin` is still
+open."* (`#409`), **and its last five words are false as of `#2029`**: over an arbitrary field with
+`(2 : F) ≠ 0` the hypothesis is discharged by
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`, and
+`exists_gS_two_general` (`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`) is this
+theorem with it discharged.  ⚠️ **The hypothesis stays here and the reason is the other half of that
+clause**, which is still true: the fibre description is not available over a general field, so this
+statement is the shape a caller in characteristic `2` — where the discharge does not reach — still
+needs. -/
 theorem exists_gS_two [DecidableEq F] (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Nonsingular x y)
     (hP : Point.some x y h ∈ W.torsion 2)
     (hprin : ∀ f : W.FunctionField, f ≠ 0 →

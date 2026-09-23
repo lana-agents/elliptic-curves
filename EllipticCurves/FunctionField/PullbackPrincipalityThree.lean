@@ -116,7 +116,13 @@ input at `n = 3`, not the pairing.
 `[IsAlgClosed F]` and `[W.IsElliptic]`, which `exists_gS_three` — stated over an arbitrary field
 with `[IsDedekindDomain W.CoordinateRing]` — does not.  Two separate inputs need the algebraically
 closed base: the surjectivity of `[3]` on points and `#819`'s fibre description.  **Over a general
-field `hprin` is still open at both `n`**, and this file says nothing about it.
+field `hprin` is still open at `n = 3`**, and this file says nothing about it.
+
+⚠️ **That clause read *"still open at both `n`"*** until `#2029` discharged the `n = 2` half over an
+arbitrary field with `(2 : F) ≠ 0` (`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`,
+`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`).  ⚠️ **Nothing in that discharge
+transfers to `n = 3`**: its tower is built from `Ψ₂Sq`, a cubic, and from the halving quadratic of a
+`2`-torsion point, and `EllipticCurves.Torsion.HalvingGaloisTower` is `n = 2` in every statement.
 
 ⚠️ **Nothing here says `#E[n] = n²` at general `n`.**  `card_torsion_three` is an *input*, it is
 `[3]`-specific, and it does not go through Ward.  Nor does anything here say that `∑ e_p = 9` is a

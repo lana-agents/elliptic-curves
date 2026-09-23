@@ -70,6 +70,7 @@ import EllipticCurves.FunctionField.DivisorBaseChangeRationalPoint
 import EllipticCurves.FunctionField.DivisorClassGroup
 import EllipticCurves.FunctionField.DivisorConstant
 import EllipticCurves.FunctionField.DivisorDegree
+import EllipticCurves.FunctionField.DivisorGaloisDescentNsmul
 import EllipticCurves.FunctionField.DivisorInjective
 import EllipticCurves.FunctionField.DivisorPrincipality
 import EllipticCurves.FunctionField.DivisorProd
@@ -158,6 +159,7 @@ import EllipticCurves.FunctionField.PullbackDivisor
 import EllipticCurves.FunctionField.PullbackPrincipalityN
 import EllipticCurves.FunctionField.PullbackPrincipalityThree
 import EllipticCurves.FunctionField.PullbackPrincipalityTwo
+import EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral
 import EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion
 import EllipticCurves.FunctionField.PullbackTorsionDivisor
 import EllipticCurves.FunctionField.RatFuncExtension

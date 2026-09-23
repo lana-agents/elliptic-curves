@@ -91,7 +91,17 @@ the mirror is `EllipticCurves.FunctionField.PullbackPrincipalityThree`, which co
 `[W.IsElliptic]`, which `exists_gS_two` — stated over an arbitrary field with
 `[IsDedekindDomain W.CoordinateRing]` — does not.  Two separate inputs need the algebraically closed
 base: the surjectivity of `[2]` on points and `#774`'s fibre description.  Over a general field
-`hprin` is still open, and this file says nothing about it.
+this file says nothing about `hprin`, and that is still true of this file.
+
+⚠️ **That paragraph used to close** *"Over a general field `hprin` is still open, and this file says
+nothing about it."* (`#1339`), **and its first half is false as of `#2029`**: `hprin` at `n = 2`
+over an arbitrary field with `(2 : F) ≠ 0` is discharged by
+`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`).  The half about this file stands —
+nothing below mentions a field that is not algebraically closed — and the discharge runs through
+`…_of_card` (`PullbackPrincipalityTwoRationalTorsion`) over a finite Galois extension rather than
+through anything here.  ⚠️ `n = 3` is untouched by it: `PullbackPrincipalityThree` is still
+closure-only.
 
 ⚠️ **This is not the Weil pairing.**  Rung 6 (`#419`, `#465`, `#456`) and the non-degeneracy of
 `e_n` are untouched; `WeilPairing.lean` holds the canonical account of what non-degeneracy consumes

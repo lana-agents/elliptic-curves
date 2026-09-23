@@ -94,7 +94,7 @@ applied directly.  A reader looking for the `exact` to bind will not find one.
 
 `[Field F] [IsAlgClosed F] {W : Affine F} [W.IsElliptic]` throughout.
 
-Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
+Out of scope: `hprin` over a **general** field, open at `n = 3`, which is what confines these to
 `F̄`; general `n` (⚠️ no longer `#251`, which is closed — see below); rung 4 (`#414`/`#421`/`#422`),
 which is not in this path; non-degeneracy; bundling into `weilPairingMuHom` —
 `WeilPairingDivisorSlotHom` explains why the translation slot wants a map out of the torsion

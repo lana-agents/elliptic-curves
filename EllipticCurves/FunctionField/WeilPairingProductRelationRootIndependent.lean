@@ -72,7 +72,7 @@ that an instance is present.
 setting; the transfer lemma carries neither `[IsAlgClosed F]` nor any torsion hypothesis.  `R`'s
 torsion is **derived** from `hadd` inside `#845`, never assumed here.
 
-Out of scope: `hprin` over a **general** field, open at both `n`, which is what confines these to
+Out of scope: `hprin` over a **general** field, open at `n = 3`, which is what confines these to
 `F̄`; general `n` (⚠️ no longer `#251`, which is closed — see below); divisor-slot bilinearity,
 whose envelope needs `g_R` and the correction factor as data (`#861`); non-degeneracy; any change to
 `#724`'s, `#723`'s, `#845`'s or `#855`'s proofs.

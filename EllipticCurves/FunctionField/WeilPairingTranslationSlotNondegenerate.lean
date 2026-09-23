@@ -81,7 +81,7 @@ the conclusions move.
 Out of scope: combining the two slots into a pairing on `W.Point × W.Point` (`#873`/`#890` both
 record that as a separate design question and it stays one); general `n`
 (⚠️ no longer `#251`, which is closed — see below); `hprin`
-over a general field, open at both `n`.  Nothing existing is renamed or reproved: this module is
+over a general field, open at `n = 3`.  Nothing existing is renamed or reproved: this module is
 purely additive.
 
 ⚠️ **That bullet read *"general `n` (`#404`'s `ωₙ`)"*, then *"general `n` (`#251`)"*, and both of

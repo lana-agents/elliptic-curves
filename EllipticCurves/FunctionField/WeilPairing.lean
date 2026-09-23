@@ -466,10 +466,72 @@ conflicted, docstring-only, at a full ROOT rebuild each.  A bullet list is only 
   produced inside its proof.  ⚠️ Its `n = 2` twin is content-free, `(ZMod 2)ˣ` being a
   subsingleton, and it is still **not** the `ℓ`-adic `galoisDetTwo = χ_2`).
 
-⚠️ Over a **general** field `hprin` is still open at both `n`, and that is a different
-statement from any of the above.  ⚠️ It is named here rather than bulleted above **because it does
-not decay**: no slot landing over `F̄` makes it any less open, so it is safe to state as a standing
-claim in a way that a count of assembled slots is not.
+⚠️ Over a **general** field `hprin` is still open **at `n = 3`**, and that is a different
+statement from any of the above.
+
+⚠️ **That sentence read *"still open at both `n`"* until `#2029`**, and it was justified here
+**because it does not decay**: *"no slot landing over `F̄` makes it any less open, so it is safe to
+state as a standing claim in a way that a count of assembled slots is not."*  ⚠️ **The reasoning was
+sound and the claim decayed anyway** — what falsified the `n = 2` half is not a slot over `F̄` but a
+discharge over an arbitrary field, `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`, `#2029`), which needs `(2 : F) ≠ 0`
+and nothing else.  **A claim that a gate is open is not a standing claim, however it is argued**;
+`n = 3` is what remains of it.
+
+⚠️ **The same proposition stood in FOURTEEN module blocks, and `### Retired claims` retires it
+once, here.**  That section rules that a clause replicated into many blocks retires once where
+those blocks share its subject — and these fourteen are one proposition about one gate, falsified
+together by one reading, not fourteen propositions about fourteen hypothesis lists.  **Twelve** of
+the fourteen are narrowed in place from *"at both `n`"* to *"at `n = 3`"*:
+`EllipticCurves.FunctionField.WeilPairingAlternatingThreeAlgClosed`,
+`…WeilPairingAlternatingTwo`, `…WeilPairingDivisorSlotBilinear`, `…WeilPairingNondegenerateMu`,
+`…WeilPairingProductRelation`, `…WeilPairingProductRelationMu`,
+`…WeilPairingProductRelationRootIndependent`, `…WeilPairingRootIndependence`,
+`…WeilPairingRootIndependenceAlgClosed`, `…WeilPairingTranslationSlotBilinear`,
+`…WeilPairingTranslationSlotHom` and `…WeilPairingTranslationSlotNondegenerate`.  ⚠️ **One of those
+twelve is not *only* a narrowing and does carry its own quotation**: `…WeilPairingAlternatingTwo`
+takes the same one-word narrowing as the other eleven **and** said in terms that the gate *"is not
+an `n = 3` asymmetry"*, and since `#2029` it is one, so that sentence is reversed as well as
+narrowed and is retired where it sits.  The fourteenth is
+`EllipticCurves.FunctionField.PullbackPrincipalityThree`, also retired where it sits, because its
+clause is about that file's own scope (*"and this file says nothing about it"*) and not about the
+gate.
+
+⚠️ **The population is keyed on *"both `n`"* and not on `` `hprin` ``, because the two are not
+always on one line.**  At `917cf19` the phrase occurs **41** times in **23** files across the
+tree's module and declaration docstrings, counted whitespace-tolerantly because it wraps at two of
+them, and **24** of the 41 carry `` `hprin` `` within **200 characters on either side of it,
+inside the same docstring block**.  **14** of the 24 assert the gate is *open over a general
+field* — the fourteen above.  The other **10** say something this discharge does not touch —
+`hprin` over `F̄`, or the alternating and non-degeneracy fronts over `F̄` — and none of them is
+edited.  ⚠️ **A window that looks only BEFORE the phrase is a different population**: at 200
+characters it finds **18** of the 41 and at 300 it finds **20**, so the residue beside the fourteen
+is **four** or **six** rather than ten.  All three readings contain all fourteen; at this commit's
+head the phrase occurs **34** times in **18** files and they return **15**, **8** and **10**.
+
+⚠️ **Five of the twelve wrap between the two tokens**, so a `grep` requiring `` `hprin` `` and
+*"both `n`"* on one source line returns **seven** of the twelve: it loses
+`…WeilPairingAlternatingTwo` (`:136`/`:137`), `…WeilPairingNondegenerateMu` (`:91`/`:92`),
+`…WeilPairingRootIndependence` (`:76`/`:78`), `…WeilPairingTranslationSlotHom` (`:146`/`:147`) and
+`…WeilPairingTranslationSlotNondegenerate` (`:83`/`:84`), every address at `917cf19`.
+⚠️ **The phrase itself never wraps at any of the twelve**: a `grep` for *"both `n`"* alone finds
+all twelve on one source line, so the wrap that costs anything here is always *between* the two
+tokens and never inside the phrase.  That is why this family is keyed on the phrase and the second
+token is located by character distance.
+
+⚠️ **What the narrowing does NOT re-audit, said rather than skipped.**  Ten of the twelve sit under
+a `## Scope` heading, and **five** of those ten go on to say that the gate is what confines those
+statements to `F̄`.  ⚠️ **Three carry the span *"is what confines these to `F̄`"* word for
+word** — `…WeilPairingDivisorSlotBilinear`, `…WeilPairingProductRelationRootIndependent` and
+`…WeilPairingTranslationSlotBilinear` — and the other two say it in their own words:
+`…WeilPairingNondegenerateMu` has *"what confines all of this to `F̄`"* and
+`…WeilPairingProductRelationMu` has *"is what confines these statements to `F̄`"*.  That is a
+separate claim, about where `[IsAlgClosed F]` enters those files, and it is not re-derived here:
+`…WeilPairingRootIndependenceAlgClosed` and `…WeilPairingAlternatingThreeAlgClosed` both record
+that the closure enters **twice, independently** — once through the discharge and once through
+`exists_equation_nsmul_{two,three}_eq` — so a discharge of `hprin` at `n = 2` over a general field
+does not on its own lift any of those headlines off `F̄`.  ⚠️ **No headline moves in this commit**;
+only the index the gate is open at does.
 
 ⚠️ The `n = 3` chain carries hypotheses in a shape the `n = 2` account never has to draw:
 `finrank_mulByThreeFieldRange` needs `[W.IsElliptic]`, `(2 : F) ≠ 0` and `(3 : F) ≠ 0` but **no**

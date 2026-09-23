@@ -84,7 +84,7 @@ point `P` with `[n]P = T` that its second product translates by.  A theorem that
 hypothesis inherits the hypotheses of its *proof*, not those of the statement it discharges, which
 is why this file exists rather than an edit to `WeilPairingRootIndependence` — whose conditional
 statements are unchanged, so that a future general-field discharge has somewhere to land.
-⚠️ `hprin` over a **general** field is open at both `n`, and is a different statement from anything
+⚠️ `hprin` over a **general** field is open at `n = 3`, and is a different statement from anything
 here.
 
 ⚠️ **`[IsDedekindDomain W.CoordinateRing]` is not a hypothesis of anything here.**  It is a global
