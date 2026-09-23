@@ -154,8 +154,25 @@ because all thirteen asserted one proposition about one record and one reading o
 falsifies them together, and it retires **here** because this is where the tree says what `#962` is
 (`### Retired claims`' *"a claim about a subject that lives elsewhere retires at the subject"*).
 What replaced it names the gate without the citation and leaves the citation at the two numerals —
-in eight of the thirteen in these words, *"`hprin` is the standing gate at every index; `#962` is
-that gate at `n = 2` and `n = 3`"*, and in the other five in their own block's sentence shape.
+⚠️ **at `1f3c95c`**, in eight of the thirteen in these words, *"`hprin` is the standing gate at
+every index; `#962` is that gate at `n = 2` and `n = 3`"*, and in the other five in their own
+block's sentence shape.  ⚠️ **The eight are the blocks that ASSERT the wording and this file is on
+the five side**: a mechanical match of those words returns nine files, the ninth being this one,
+which prints them while counting them (`#1972`).
+
+⚠️ **Retired a second time, once and here: the `n = 2` half of that replacement is itself FALSE as
+of `#2029`.**  `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`) discharges `hprin` at `n = 2` over
+an arbitrary field with `(2 : F) ≠ 0`, for a nonsingular `F`-rational `2`-torsion point, with
+neither
+`[IsAlgClosed F]` nor `exists_gS_two_of_card`'s `hcard` and `hP` — so *"`#962` is that gate at
+`n = 2` and `n = 3`"* is false rather than short, and the citation reads `n = 3` wherever it stood.
+⚠️ **`n = 3` is untouched by that discharge**: `#962`'s ledger row there is unaudited,
+`EllipticCurves.FunctionField.PullbackPrincipalityThree` is still closure-only, and no row of the
+family is deleted by the narrowing.  ⚠️ **No count of how many rows a commit narrowed is published
+here or anywhere below** — that is a self-figure the next landing falsifies (`#1972`); the seed and
+the population live on the tracker, at `#2190`, and ⚠️ **the seed no longer separates an assertion
+from a quotation**, because every narrowed block now quotes the wording it replaced.
 ⚠️ **`#962`'s stated reason for that scope is falsified by this file and its scope has not moved.**
 The record gives the two numerals *"because those are the only `n` at which the `F̄` statement
 exists"*, and `exists_gS_n_of_isAlgClosed` below is that statement at every `n` with `(2 : F) ≠ 0`

@@ -195,7 +195,12 @@ not for an absence.**  ⚠️ A prose pointer and not an `import`: neither
   (`EllipticCurves.FunctionField.PullbackPrincipalityN`), which discharges `hprin` outright rather
   than assuming it, and non-degeneracy at the same indices is
   `EllipticCurves.FunctionField.WeilPairingNondegenerateN`.  Off `F̄`, `hprin` is the standing gate
-  at every index and `#962` is that gate at `n = 2` and `n = 3`.  ⚠️ **That citation used to read
+  at every index and `#962` is that gate at `n = 3`.
+  ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+  `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once,
+  in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+  **`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+  ⚠️ **That citation used to read
   *"Off `F̄`, `#962` is the standing gate at a general index"*; it over-reaches the record and is
   retired once, in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`**
   (`### Retired claims`, `#1888`).  `weilPairingTwo` / `weilPairingThree` below are constructed

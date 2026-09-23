@@ -113,7 +113,12 @@ for every block that carried it** (`### Retired claims`).  Over `F̄` the pairin
 every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, by `exists_gS_n_of_isAlgClosed`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  What the inverse limit needs is the pairing
 on `E[2 ^ k]` at `k > 1` **over the base field**, and there `hprin` is the standing gate at every
-index; `#962` is that gate at `n = 2` and `n = 3`, which no `k > 1` reaches.  ⚠️ **That citation
+index; `#962` is that gate at `n = 3`, which no `k > 1` reaches.
+⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+`hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+**`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+⚠️ **That citation
 used to read *"there `#962` is the standing gate"* over a range of indices `#962` does not reach; it
 over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,

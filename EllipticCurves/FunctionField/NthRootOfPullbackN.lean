@@ -42,7 +42,12 @@ side condition at all.
 
 The only gated input to rung 5 is `hprin`, and `hprin` is a **hypothesis** of the statement at every
 `n` — it does not get harder as `n` grows, and *here* it stays open at every index; `#962` is that
-gate at `n = 2` and `n = 3`.  ⚠️ **That citation used to be stated at every index; it over-reaches
+gate at `n = 3`.
+⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+`hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+**`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+⚠️ **That citation used to be stated at every index; it over-reaches
 the record and is retired once, in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s
 `## Scope`** (`### Retired claims`, `#1888`). ⚠️ **It is not open everywhere, and it is not open
 uniformly over an arbitrary field either.** Over `F̄` it is discharged at every `n` with

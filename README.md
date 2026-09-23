@@ -79,13 +79,20 @@ All three were caught by a reviewer opening each cited signature at source, and 
   algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
   files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
-  and their headlines come back out of the general one verbatim. Off `F̄` the one file that
-  discharges it is `PullbackPrincipalityTwoRationalTorsion.lean`, at `n = 2` over an arbitrary
-  field with `(2 : F) ≠ 0`, from rational `2`-torsion and a halving — hypotheses, not setting —
-  and `hprin` is the standing gate elsewhere; `#962` is that gate at `n = 2` and `n = 3`.
-  ⚠️ That clause used to read *"`#962` is the standing gate elsewhere"*, which over-reaches the
-  record; `### Gate-discharge claims` below rules why, and the retirement is in
-  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`#1888`).
+  and their headlines come back out of the general one verbatim. Off `F̄` **two** files discharge
+  it, both at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`:
+  `PullbackPrincipalityTwoRationalTorsion.lean` from rational `2`-torsion and a halving —
+  hypotheses, not setting — and `PullbackPrincipalityTwoGeneral.lean` from neither of those, for
+  any nonsingular `F`-rational `2`-torsion point, by buying both hypotheses over the Galois
+  closure of the halving tower and paying them back by Hilbert 90. `hprin` is the standing gate
+  elsewhere; `#962` is that gate at `n = 3`.
+  ⚠️ That passage read *"the one file that discharges it is
+  `PullbackPrincipalityTwoRationalTorsion.lean`"* and *"`#962` is that gate at `n = 2` and
+  `n = 3`"* until `#2029` landed, and both are false rather than short; `n = 3` is untouched by it
+  and `#962`'s ledger row there is unaudited. ⚠️ The citation also used to read *"`#962` is the
+  standing gate elsewhere"*, which over-reaches the record; `### Gate-discharge claims` below rules
+  why, and the retirement is in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`
+  (`#1888`).
   **Non-degeneracy is stated at every `n` prime to the
   characteristic over an algebraically closed field** of characteristic other than `2`
   (`WeilPairingNondegenerateN.lean`), as an inequation in `F(W)` and in `μ_n(F)` alike, with

@@ -81,7 +81,12 @@ statement about a zero module is satisfiable by anything.
 * ⚠️ **`det ρ_{E,3} = χ_3` `3`-adically is NOT unblocked by this file**, and this file will look as
   though it just got closer. The `3`-adic identity needs the Weil pairing on `E[3^k]` for **every**
   `k`, i.e. the pairing at composite `n` **over the base field**, exactly as at `ℓ = 2`, and there
-  `hprin` is the standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`.  ⚠️
+  `hprin` is the standing gate at every index; `#962` is that gate at `n = 3`.
+  ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+  `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once,
+  in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+  **`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+  ⚠️
   **That citation used to read *"`#962` is the standing gate at a general index"*, which
   over-reaches the record; it is retired once, in
   `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,

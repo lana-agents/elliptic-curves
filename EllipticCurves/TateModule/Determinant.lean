@@ -173,7 +173,12 @@ chosen pair in the statement. ⚠️ Be exact about which half that moves: it is
 and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo` itself is
 different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at **every** level
 `E[2 ^ k]` in order to take the inverse limit — **over the base field**, and there `hprin` is the
-standing gate at every index; `#962` is that gate at `n = 2` and `n = 3`. The gate is the
+standing gate at every index; `#962` is that gate at `n = 3`.
+⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
+`hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
+**`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+The gate is the
 general-`n` pairing, not the equivariance. ⚠️ **That citation used to read *"`#962` is the standing
 gate at a general index"*, which over-reaches the record; it is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`, `#1888`).
