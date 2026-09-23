@@ -850,8 +850,18 @@ done** — `comapProjPointN_projPointOfPoint_of_ne_zero` above, with the case an
   closed point of `n • P` to vanish, so it needs the `y`-half too.  That is `omegaY`
   (`EllipticCurves.Torsion.NsmulYCoord`) and `mulByNEndo_genY_eq_omegaY`
   (`EllipticCurves.FunctionField.MulByNYCoordFormula`), which is the **one import this file gained**
-  (`155 → 156` modules in its transitive closure; **nothing imports this file**, so no other
-  module's closure moves at all).
+  (`155 → 156` modules in its transitive closure, which is still exact at `ac462ef`).
+  ⚠️ **The clause beside that figure used to read *"nothing imports this file, so no other module's
+  closure moves at all"*, and it has gone false since.**  It was exact at `135f257`, the commit
+  that wrote it — nothing named this file in an `^import` line and its reverse import cone was
+  empty, both apart from the root aggregator — and at `ac462ef` that cone is **4** modules apart
+  from the root, `PullbackPrincipalityN`, `WeilPairingFunctionN`, `WeilPairingNondegenerateN` and
+  `WeilPairingPerfectN`, each of whose closure the gained import does move.  ⚠️ **The count that
+  falsifies the clause is a cone count and the direct one is `1`**: only `PullbackPrincipalityN`
+  names this file in an `^import` line, and the other three reach it through that one
+  (`…PerfectN → …FunctionN → …NondegenerateN → PullbackPrincipalityN`).  A reverse-cone claim is
+  falsified by an edit to a file this one does not name, so it keeps a ref or it rots, and it says
+  which of the two relations it counts (`README.md` `### Import-closure membership`).
   The module docstring above says of the `ωₙ` formula that *"nothing below consumes it"*; that
   sentence was true when written and `ord_mulByNCoordHom_YClass_pos` is what makes it false.
 * ⚠️ **Also unnamed**: the affine `n`-torsion branch needs `Φₙ` and `ΨSqₙ` to have no common root,

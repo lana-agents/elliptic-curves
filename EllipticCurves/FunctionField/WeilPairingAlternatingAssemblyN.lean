@@ -162,11 +162,27 @@ have been made here.
 ## Imports, measured rather than preferred
 
 `WeilPairingAlternatingMu` costs **3** further project modules in this file's closure
-(`…Mu`, `WeilPairingBilinearMu`, `WeilPairingRootsOfUnity`) and `MulByNComposition` costs **12**
-more, all of which `EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN` already builds.
-Neither cycles — nothing imports this file.  That is why the `μ` forms and the `_of_smooth`
-corollary live here rather than in a sibling module: a split would have bought a smaller closure for
-a file that is a leaf, at the price of separating four statements about one theorem.
+(`…Mu`, `WeilPairingBilinearMu`, `WeilPairingRootsOfUnity`) — exact at `4ad5475`, where this
+paragraph was written, and exact at `ac462ef` — and `MulByNComposition` cost **12** more there,
+all twelve of which `EllipticCurves.FunctionField.WeilPairingAlternatingConsumerN` already builds.
+⚠️ **That second figure is `1` at `ac462ef`**, and nothing about `MulByNComposition` changed: this
+file has since taken `MulByNXCoordFormula`, `Fixtures` and `Torsion.TwoTorsionOrder` as imports,
+and eleven of the twelve ride in on those.  A marginal-cost figure is a function of *the other
+imports*, so it rots when a sibling import is added and the edge it prices is untouched.
+⚠️ **And the clause that used to close this paragraph — *"Neither cycles — nothing imports this
+file … a file that is a leaf"* — was false when it was written**, not merely stale:
+`WeilPairingAlternatingBaseChangeN` already named this file in an `^import` line at `4ad5475`,
+and at `ac462ef` this file's reverse import cone apart from the root aggregator is **4** — that
+module, `WeilPairingAlternatingTwoRational`, `WeilPairingFunctionN` and `WeilPairingPerfectN` — of
+which the first **3** import it directly and `WeilPairingPerfectN` reaches it through
+`WeilPairingFunctionN`.  ⚠️ **Both counts refute the clause and they are different counts**, so
+the sentence says which it is reporting.  The placement argument does not need it and is restated
+without it: the `μ` forms and the `_of_smooth` corollary live here rather than in a sibling module
+because a split would have bought a smaller closure at the price of separating four statements
+about one theorem.
+⚠️ **`leaf` is written in this tree in both directions** — `EllipticCurves.Fixtures` is called one
+for importing nothing, this file was called one for being imported by nothing — so a file that
+means either should say which.
 
 ## ⚠️ `open Classical in`, and why the `[DecidableEq F]` binder is *not* used here
 

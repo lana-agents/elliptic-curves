@@ -134,7 +134,11 @@ exhibit `S ≠ T`.  That limitation is inherited from `#845`/`#855` and is not a
 Corrected in place, not retired — the number was wrong when it was typed.
 `WeilPairingRootIndependence`'s creation commit reads
 `… does not depend on which n-th root is chosen (#724) (#296)`, and that module is one of this
-file's two imports.  `#719` is the `n = 3` alternating assembly, in `WeilPairingAlternatingThree`,
+file's three imports — ⚠️ **two when this sentence was written at `dd08255`**, the third being
+`EllipticCurves.Fixtures`, which is a leaf and carries no `EllipticCurves` module at all.  A count
+of a file's own imports is falsified by the file gaining a leaf, and a leaf is exactly the import
+such a count forgets (`README.md` `### Import-closure membership`).
+`#719` is the `n = 3` alternating assembly, in `WeilPairingAlternatingThree`,
 which this file does **not** import — the import graph is what settles the fourth site: there the
 number appears in a bare list of four issues in the Scope section above, with no module beside it
 to check against.

@@ -106,12 +106,20 @@ instances, and this one does too.
   it.  ⚠️ **Exactly one clause of this bullet survives, and it survives for a different reason than
   the one it was written for.** Instantiating this file at `ℓ ≥ 5` is separate work and is not done
   here — and, unlike the four sibling `Primary*` files whose bullets carried this same sentence, it
-  is **not done anywhere**: this file's reverse import cone is
-  `EllipticCurves.TateModule.MatrixRepBasisChange` (`ℓ = 2`),
+  is **not done anywhere**: this file's reverse import cone at `ac462ef` is **5** modules apart
+  from the root aggregator — `EllipticCurves.TateModule.MatrixRepBasisChange` (`ℓ = 2`),
   `EllipticCurves.TateModule.MatrixRepBasisChangeThree` (`ℓ = 3`),
-  `EllipticCurves.TateModule.MatrixRepMod` (mod `n`) and
-  `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`, and none of them states the
-  conjugation law at a general prime.  What being generic buys is that when someone writes that
+  `EllipticCurves.TateModule.MatrixRepMod` and `EllipticCurves.TateModule.MatrixRepModGeneral`
+  (mod `n`) and `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter` — and none of them
+  states the conjugation law at a general prime: the two mod-`n` files state
+  `galoisRepModMatrix_conj`, which is the mod-`n` law and not the `ℓ`-adic one.
+  ⚠️ **`MatrixRepModGeneral` was in this cone when this list was written** (`ee0b8a4`) and the
+  list left it out, so this is an enumeration that was short from the start rather than one that
+  rotted; a cone is a count over the whole tree and this one now carries it.  ⚠️ **Three of the
+  five name this file in an `^import` line** — the two `MatrixRepBasisChange*` files and
+  `MatrixRepMod` — and the other two reach it through `MatrixRepMod`, so the cone count and the
+  direct count are **5** and **3** here and the sentence says which it is reporting.
+  What being generic buys is that when someone writes that
   file, it is again a list of instantiations.
 
 ## ⚠️ One `@[simp]` attribute was removed here, and the lemma kept (`#1278`)

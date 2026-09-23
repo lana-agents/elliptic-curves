@@ -57,10 +57,16 @@ values, never about `n • P`.
 modules that one drags in.  `EllipticCurves.Torsion.NsmulSurjective` (where `HasXCoordFormula`
 lives), `EllipticCurves.Torsion.OmegaOnCurve` (where `HasΨSqDoubling` does) and
 `EllipticCurves.Torsion.NormEDSHomogeneous` are each **import-incomparable** with this file —
-measured over all 387 project modules, none of the three is in this file's closure and this file is
-in none of theirs — so those three names are cited here and used nowhere below.  The only module
+measured over all **429** project modules at `ac462ef`, the root aggregator included, none of the
+three is in this file's closure and this file is in none of theirs — so those three names are cited
+here and used nowhere below.  ⚠️ **The two clauses that used to close this paragraph were exact at
+`b1a4cda`, where they were written, and are false at `ac462ef`.**  They read *"the only module
 whose closure contains this file and any of them is the root aggregator `EllipticCurves`, which is
-also this file's only direct importer.
+also this file's only direct importer"*: **29** modules other than the root now have this file and
+one of the three in their closure, and `EllipticCurves.Torsion.NetVieta` imports this file
+directly.  The incomparability itself is unaffected — it is a fact about three named modules, and
+what rotted is the two clauses that quantified over the whole tree without a ref beside the count
+(`README.md` `### Import-closure membership`).  The tree carried **387** modules at `b1a4cda`.
 
 ## ⚠️ What this does and does not give `#404`'s crux
 
