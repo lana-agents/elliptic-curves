@@ -4621,6 +4621,86 @@ prefix of the two top-level token arrays, the longest common suffix, and whateve
 them. An edit that adds prose and nothing else shows up as one contiguous insertion and no removal;
 anything else means the surrounding structure moved, which a line diff will not tell you.
 
+⚠️ **Everything below measures a DIFF, and the question a reader actually has is about the TREE:
+does any landed paragraph print its markup instead of rendering it?** Nothing on this page had
+asked it. The reading is one pass and its verdict is the render itself rather than any count:
+
+```js
+const md = require('markdown-it')('commonmark');                 // 14.3.2; name the version (#2122)
+const h = md.render(paragraph).replace(/<code[^>]*>[\s\S]*?<\/code>/g, '');
+if (h.includes('**')) { /* this paragraph prints its own markers */ }
+```
+
+A *paragraph* is a run of lines between blank lines, taken inside every `/-! … -/` and `/-- … -/`
+block for a `.lean` file and over the whole of this one. ⚠️ **The `<code>` strip is not cosmetic**:
+without it every paragraph that *discusses* the marker scores, and at `c6ef24a` that is **13** of
+this file's **282** `**`-carrying paragraphs — ⚠️ **measured with the instrument above and the
+strip deleted**, which is not the population any parity reading returns and must not be carried
+from one. ⚠️ **And the `[^>]*` in it is load-bearing**: a fenced block renders as
+`<code class="language-js">`, an attribute-less strip does not match it, and the two fences of this
+block are then the only paragraphs here that still score — the worked example is the instruments'
+own publication.
+
+**At `c6ef24a`: `**`-carrying paragraphs `7295`, of which `2` print a literal `**`, both of them in
+`.lean` docstrings and `0` of them here.** The two are `MulByNFibre:692` and `WardR1:125`.
+⚠️ **Every `Module:NNN` pointer in this section names the line the construct named beside it sits
+on, never the line its paragraph starts on** — the two keyings differ at **two** of the three rows
+here and coincide at the third, which is how a wrong one survives. Enumerated rather than counted:
+`MulByNFibre` starts at `687` against the pointer's `692`, `ReductionBaseChange` at `29` against
+`30`, and `WardR1` at `125` against `125` — the one row a pointer read either way gets right. The
+two mechanisms are different, which is why one instrument is worth more than one rule:
+
+* **Nested emphasis inside a marked quotation.** `**not**` recorded *inside* a `*"…"*` span that is
+  itself inside a `**…**` framing pairs with itself and leaves the framing's opener with no
+  partner, so the opener prints raw and the sentence loses its bold. ⚠️ `MulByNInertia` leaves the
+  form free — *"recorded inside the span or named outside it"*, fidelity and not form (`#1875`) —
+  and **this reading is what decides between them at a row where the inside form does not render**.
+  ⚠️ **The tree had already settled it by habit and nobody had counted**: `This paragraph used to
+  read` occurs on **4** lines under `EllipticCurves/` at `c6ef24a`, and the **3** that are not this
+  row close the bold *before* the quotation opens — the form the repair moves the fourth into.
+* **A wrapped code span whose continuation line begins `+ `.** A line-leading `+` is a bullet
+  marker, so the paragraph splits, the `` ` `` never closes and neither does the `**`: one
+  `/-- … -/` headline rendered as a one-item list with three raw markers in it.
+  ⚠️ **`+` is the INSTANCE and the render is the population.** `grep -rn '^+ ' EllipticCurves/
+  --include=*.lean` returned **1** line at `c6ef24a` and returns **0** in the tree this sentence
+  lands in, and ⚠️ **the `1` → `0` IS the check on this repair** — a reader who runs it here and
+  reads a present tense concludes the repair is absent. It is not a sweep for the mechanism: `+` is
+  one of five spellings CommonMark reads as a block start, and at `c6ef24a` the five occur
+  `-` **0**, `+` **1**, `*` **3684**, `>` **212** and `N.` **120** times,
+  ⚠️ **Four of the five interrupt a paragraph unconditionally and this `+` is one of them**: only
+  the ordered spelling is conditional, and of its **120** just the **34** written `1.` can, which
+  is why the render and not the grep is the instrument. All **4016** other than this `+` sit in
+  paragraphs the pass above renders clean, and that pass returns `0` over the tree this sentence
+  lands in. The repair is to end the previous line with the `+`.
+
+⚠️ **Do not publish emphasis PARITY as the seed, and this is the reusable half.** An odd `**` count
+looks like the instrument and is not — and ⚠️ **it is not one seed either, because the unit decides
+the answer**. Strip its two false-positive classes first, inline code spans and path globs like
+`EllipticCurves/**/*.lean`, which is one line over whichever unit is chosen:
+
+```js
+const odd = paragraph.replace(/`[^`]*`/g, '').split('**').length % 2 === 0;   // strip, then count
+```
+
+⚠️ **At `c6ef24a` that returns `3` rows over a whole `/-! … -/` or `/-- … -/` BLOCK, and over the
+paragraph defined above `2` or `3` according to a second flag the one line above does not carry —
+the POPULATION it is run over.** Restricted to the `**`-carrying paragraphs this section counts it
+returns `2`; run over every paragraph it returns `3`, because the strip JOINS the two single `*` of
+an italicised code span — `` *`Classical.choice`* `` at `ReductionBaseChange:30` — into a `**` the
+raw text never had. ⚠️ **The paragraph you are reading acquires that artefact by naming it**:
+printing the span once takes its own stripped `**` count from **30** to **31**, so the seed flags
+this paragraph too, at both populations, and the pass above renders it clean. ⚠️ **So the cell
+attaches to the unit AND to the population, and no one wording covers both:** over the BLOCK unit
+**2** of the `3` are false and the miss is a **fourth** row; over the `**`-carrying paragraph unit
+**1** of the `2` is and the miss is a **third**. `MulByNFibre:692` it finds under every reading;
+`NsmulOrder` it flags at both units and `ReductionBaseChange` at the block unit — at both, if the
+population is unrestricted — and both render clean. And `WardR1:125` is **even** in all **16** of
+`WardR1.lean`'s `**`-carrying paragraphs and all **8** of its `**`-carrying blocks, and in all
+**42** and **24** of them unrestricted, so the one row that costs a `/-- … -/` headline its render
+is the row no parity reading can see. ⚠️ **Stripping a false-positive class flips parity in both
+directions** — a `**` inside a code span can balance a genuinely unclosed one — so the pre-filter
+cannot carry a verdict. Render, then look.
+
 ```bash
 mkdir -p /tmp/render && cd /tmp/render
 printf '{"name":"render","private":true}\n' > package.json

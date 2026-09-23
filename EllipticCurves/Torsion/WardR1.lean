@@ -122,8 +122,8 @@ lemma rel_one_swap (odd : W.Odd) (p q : ℤ) : rel W q p 1 0 = -rel W p q 1 0 :=
 
 ⚠️ The `_zero` in the name below is the **fourth** argument `s`, not `r`; `r` is arbitrary. -/
 
-/-- **`W 1 ^ 2 · rel W p q r 0 = W r ^ 2 · rel W p q 1 0 + W p ^ 2 · rel W q r 1 0
-+ W q ^ 2 · rel W r p 1 0`**, for every odd `W` over every `CommRing`.
+/-- **`W 1 ^ 2 · rel W p q r 0 = W r ^ 2 · rel W p q 1 0 + W p ^ 2 · rel W q r 1 0 +
+W q ^ 2 · rel W r p 1 0`**, for every odd `W` over every `CommRing`.
 
 ⚠️ This is a **formal identity**, not a fact about elliptic divisibility sequences: no recurrence,
 no `W 1 = 1`, no `normEDS` and no curve.  Writing `Aₓ = W (x + 1) · W (x - 1)` and `Bₓ = W x ^ 2`,
