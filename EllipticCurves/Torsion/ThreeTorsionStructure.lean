@@ -116,7 +116,31 @@ four statements about `W.torsion 3` take `[W.IsElliptic]` as well — the last f
   quadratics.  That is a strictly larger job than `EllipticCurves.Torsion.TwoTorsionSplittingField`
   was, and this file states no `IsGalois`, no `IsSplittingField` and no normal closure.  What is
   delivered here is the layer such a construction would consume, exactly as
-  `card_torsion_two_of_splits` is the layer `TwoTorsionSplittingField` consumes.
+  `card_torsion_two_of_splits` is the layer `TwoTorsionSplittingField` consumes.  ⚠️ **Partial
+  rather than false, so the words stay and this pointer is added**: of the four clauses above, the
+  two that carry a scope carry it to this file in their own words — *"Nothing below"* and
+  *"this file"* — and the other two are about the mathematics and not about the tree; all four are
+  still true.  But the heading they sit under is read tree-wide (`#1982`), and the construction is
+  no longer absent from the tree.  It is `EllipticCurves.Torsion.ThreeDivisionField`, which builds
+  exactly the two-step tower described above — `threeDivisionField`, `Ψ₃`'s splitting field
+  followed by the quadratic tower — and discharges both conditions at it, as
+  `card_torsion_three_threeDivisionField` and `nonempty_torsionThree_addEquiv_threeDivisionField`,
+  with `isSeparable_threeDivisionField` beside them and `isGalois_threeDivisionGaloisField` one
+  construction further on — ⚠️ `isGalois_tower_top` is `IsGalois L₁ L₂` and says nothing about
+  `L₂ / F`, which is the whole reason `threeDivisionGaloisField` exists.  ⚠️ **The three
+  negatives are answered at two different commits and not at one, and in
+  `ThreeDivisionField.lean` rather than here or tree-wide**: that file carried `IsGalois` and
+  `IsSplittingField` from `44272f7` (`#2172`), which created it with **0** occurrences of
+  `normalClosure` in it, and `normalClosure` only from `231becd` (`#2189`), as
+  `threeDivisionGaloisField`.  ⚠️ **Tree-wide all three predate `44272f7`** — at its parent
+  `EllipticCurves/*.lean` reads `IsGalois` **202** in 32 files, `IsSplittingField` **20** in 5 and
+  `normalClosure` **13** in 1 — so those two shas date the file and not the tree.  ⚠️ **And
+  *"the layer such a construction would consume"* is what this file turned out to be, checkably
+  rather than rhetorically**: that file imports this one directly, and its proofs cite
+  `card_torsion_three_of_splits`, `nonempty_torsionThree_addEquiv_of_splits`,
+  `card_roots_Ψ₃_of_splits` and `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`.  `### Reach clauses`'
+  *"false or merely partial"* test therefore returns **partial**, so `### Retired claims` does not
+  bind and nothing here is quoted as retired.
 * ⚠️ **A certificate over a field that is not algebraically closed**, and the reason is worth
   recording rather than leaving as an omission: the two conditions together say `E[3] ⊆ E(F)`, and
   the Weil pairing `e₃` is surjective and Galois-equivariant, so they **force `μ₃ ⊆ F`**.  Over `ℚ`
