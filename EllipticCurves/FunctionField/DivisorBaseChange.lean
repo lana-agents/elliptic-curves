@@ -68,8 +68,8 @@ not synthesisable outside this file, so a consumer cannot so much as state the c
 hypothesis, and is applied here as `isScalarTower_functionFieldMap W K rfl`, while
 `isScalarTower_coordinateRing_baseChange` needs no such treatment because both of its algebras are
 global.  ⚠️ **None of this is visible to `grep`, to `lake build` or to `lake lint`** — only to
-`Expr.getUsedConstants` on the elaborated type, which is how the sentence above is checked, over
-all **22** public declarations at once.
+`Expr.getUsedConstants` on the elaborated type, which is how *"no statement below mentions it"* is
+checked, over all **22** public declarations at once.
 
 ## Main definitions
 
@@ -150,7 +150,7 @@ line of this file writes.
   `count_spanSingleton_algebraMap_liesOver`, which inherits `LiesOver` from Mathlib's `AKLB`
   `variable` block.  **Say which scope a re-run covers.**
   ⚠️ **The fibre-quantified `iff` costs nothing, and it is this statement's own binder**: read at a
-  fixed `v` and at every `w` over it, the line above **is**
+  fixed `v` and at every `w` over it, `ord_functionFieldMap_eq_zero_iff` **is**
   `∀ w over v, (ord w (functionFieldMap f) = 0 ↔ ord v f = 0)` — no new lemma, no new hypothesis and
   no finiteness, for any `K / F`.  The two forms that *state* it rather than derive it,
   `ord_functionFieldMap_under_eq_zero_iff` over `w` alone and
