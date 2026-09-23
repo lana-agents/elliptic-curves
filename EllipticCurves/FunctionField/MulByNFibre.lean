@@ -689,9 +689,16 @@ Every branch's proof consumes it — `natDegree_ΨSq` needs the leading coeffici
 (`ord_mulByNEndo_genX_nonneg`, `ord_mulByNEndo_genX_neg`), `mulByNEndo_genX_eq_ΦDivΨSq` and
 `mulByNEndo_genY_eq_omegaY` take it, and the `P = O` branch inherits it from the pole count — and
 the *statement* asserts nothing about any order.
-⚠️ **This paragraph used to read *"`((n : ℤ) : F) ≠ 0` is **not** removable and is not an artefact
+⚠️ **This paragraph used to read** *"`((n : ℤ) : F) ≠ 0` is not removable and is not an artefact
 of the route: at `n = char F` the pole order at infinity is `-2n` or `-2n²` rather than `-2` and
-`e_∞ = 1` is false"*.  Both facts are true and **neither is about this statement.**  What
+`e_∞ = 1` is false"*, ⚠️ **with `not` emphasised inside the quoted span**, which is where that
+emphasis used to be recorded and is why this paragraph did not render: `**not**` paired with
+itself, leaving the `**` that opened the sentence with no partner, so `markdown-it` printed it as
+two literal asterisks and the framing lost its bold entirely.  ⚠️ **The words of the quotation are
+unchanged and only the recording of its emphasis moved**, which is the choice
+`EllipticCurves.FunctionField.MulByNInertia` leaves open in terms — *"recorded inside the span or
+named outside it"*, fidelity and not form — and here the render is what decides it (`#2191`).
+Both facts are true and **neither is about this statement.**  What
 `EllipticCurves.FunctionField.MulByNPlaceComposition` records against
 `ramificationIdxN_none_of_ne_zero` is that `e_∞ = 1` fails; `comapProjPointN_none_of_ne_zero` — the
 branch consumed here — carries no falsity claim at `n = char F` and never has.  ⚠️ Indeed
