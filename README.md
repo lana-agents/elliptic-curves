@@ -4972,7 +4972,12 @@ one check no other slot can make as quickly.
 none of the text they wrote.** ⚠️ **That is not the same claim as having written no part of the
 round under review, and it is the touching and not the authorship that the test here checks**:
 compare `HEAD^{tree}` across the two heads, or difference the round against the head last
-certified, restricted to the hunks that author wrote. Where the round does rewrite prose the
+certified, restricted to the hunks that author wrote. ⚠️ **Both of those are keyed to the two
+heads and neither settles a seat on a rebased round, nor on a squash that also rebases** — the diff
+between two heads is the symmetric difference and not the round, and the tree compare answers only
+in the equal direction, a rebase making the trees differ for reasons the round never wrote — **so
+run the contribution test at the end of this section instead**, under
+*"Run the touching test on each round's OWN CONTRIBUTION"*. Where the round does rewrite prose the
 reviewer wrote, they *should* stand aside and say why.
 
 **Where no slot satisfies the preferences, the hard bar alone governs.** ⚠️ **A rule with no
@@ -5040,9 +5045,55 @@ without re-running the fetch at full width.** `git fetch` takes a full object na
 development writes every sha in **seven** characters: **482** backticked seven-hex spans across
 **48** of the **425** tracked `.lean` and `.md` files at `c97ba1a`, and **0** at forty under that
 same recogniser. ⚠️ **The two full names printed below sit inside command spans, so they are not
-backticked hex spans and that `0` does not move**; under the looser key *any forty-hex run in a
-tracked file*, which is a different seed, this paragraph takes the page from **0** to **2**. So
-copying a published ref into a fetch fails, and it fails with the same
+backticked hex spans, and that `0` held at `ea5022d`, the commit that landed this paragraph** —
+where the looser key *any forty-hex run in a tracked file*, a different seed, read **2**, this
+paragraph's own pair and nothing else. ⚠️ **BOTH FIGURES MOVE, SO THE KEY IS A LANDED COMMIT AND
+A DELTA, NEVER THE PAGE THIS SENTENCE LANDS IN**: `2dfaf40` landed a backticked forty into
+`## Development` — PR #471's own head, at full width and on purpose — putting `main` at **1** and
+**3** from 2026-09-22 and at `5dba859`, and this branch carries **8** more backticked spans and
+**16** more loose runs of its own, counted here (`#2036`) rather than excused: **7** and **15**
+below this paragraph and **one** of each inside it, the `dd959ca6…` named below, added by round 8.
+⚠️ **Name the KINDS, because a gloss naming one of them is false twice over**: the seven below are
+**2** round heads, **3** trees and **2** landed commits, and the fifteen are **10 / 3 / 2**, so
+*the place this page names round heads at full width* describes neither that block — five of its
+seven are not round heads, and the page's own adjacent words say so at each — nor only it, the
+base figure above being a round head in another section entirely. ⚠️ **A delta its own round moves
+is the best case this key has**: the base is landed and cannot move, so the sum stays resolvable
+even while the branch is still being written. ⚠️ **The
+landed total is that base plus that delta, and nothing here resolves which base.** ⚠️ **Sweep
+every neighbour and not the branches one recognises**: of the **20** that merge clean against this
+head at 2026-09-23T23:52Z — **33** `refs/pull/<n>/merge` against **809** `refs/pull/<n>/head`,
+minus this one, plus PR #471, which advertises no `/merge` — **four** move the row: PR #783 by
+**+13 / +13**, PR #792 by **+2 / +2**, PR #787 by **+0 / +2** and PR #809 by **+1 / +1**. ⚠️ **The
+first three are the three that a 21-member sweep found at 18:44Z and a 20-member one at 17:18Z;
+the FOURTH is an entrant, and five hours earlier this sentence could not have named it.** Both
+ends of the denominator moved in between — three landings left the population and PR #809 joined
+it — which is why a sweep publishes its population, its recogniser and its clock and not a bare
+*every neighbour*. So *the head this sentence lands* stands for four
+different pairs at once and the merger picks between them. ⚠️ **A sweep that stops at the branches
+sharing this one's subject finds one of the three**, and the merge gate
+`### The neighbour population` already asks every round for is over the same population and costs
+nothing more — ⚠️ **`## Reviewing` prescribes no merge gate of its own; it cites that one**, and
+citing a section by its name rather than by a line number is this section's own rule, stated
+below. ⚠️ **Keying the row to this file's
+own blob is the one repair that is NOT available** — the name changes when the sentence naming it
+changes — **and a blob is not invariant under a rebase ACROSS A BASE THAT EDITS THE FILE**, which
+`b103885` → `c6ef24a` is: `git rev-parse b103885:README.md` and `git rev-parse c6ef24a:README.md`
+differ, so a round rebased across it is handed a new blob for free and both figures above stand.
+⚠️ **The qualifier is doing all the work and the unqualified form is false for 87% of this
+repository**: **658** of `main`'s **757** landings touch no `README.md` at all (**16** of the last
+**29**), and across the four consecutive landings `917cf19`, `5d6e6ef`, `1f3c95c` and `231becd` the
+file is one object, `dd959ca657fbc2a7ed3b572b9ba2adb7fcd0db7c`. ⚠️ **The non-moving kind is a
+COUNTERFACTUAL here and this branch has no real instance of it**: `git rev-parse 46c854d^` is
+`1f3c95c`, so a rebase of round 4 onto `231becd` would have handed `dd959ca6…` straight back —
+and the branch never performed that rebase. Each of the **three** it did perform moved the blob:
+round 4 → 5 onto `b103885`, `dd959ca6…` → `e064b7b7…`; round 6 → 7 onto `c6ef24a`, →
+`cc085a94…`; round 8 → 9 onto `5dba859`, → `146026e6…`. ⚠️ **The last of the three crossed THREE
+landings and exactly ONE of them touched this file**, so the qualifier is what fires and not what
+holds: `07e7e9e` and `5dba859` leave the blob alone and `53c2f09` does not.
+
+**Back to the width, which is what the census above is about: a seven-character name is not a
+fetchable one.** So copying a published ref into a fetch fails, and it fails with the same
 `fatal: couldn't find remote ref` that a deleted head gives. ⚠️ **It fails
 for `main`'s own live tip, which is the control**: `git fetch upstream c97ba1a` is that error and
 `git fetch upstream c97ba1a0ae110aaa0e3766ebdbfb8b72d996abbd` is a `FETCH_HEAD`. Expanded to
@@ -5079,6 +5130,144 @@ nineteen lines above this heading. The section opens at **3950** at `9147113`, *
 the first draft of this paragraph counted five and left it out: a claim whose population is the
 review record is dated and re-run like any other (`#1969`), and its author is inside it. A heading
 is a content key that survives every insertion above it; a line number survives none.
+
+⚠️ **Run the touching test on each round's OWN CONTRIBUTION, and never on a diff between the two
+heads.** `git diff <the head last certified> <this head>` is the **symmetric** difference whenever
+the two rounds sit on different bases, and every rebased round does. ⚠️ **The head-to-head diff
+IS the round exactly when `git merge-base upstream/main <head>` has not moved** — which is an
+amend, a squash, *or a further commit on the same base*, three modes and not one — **so the
+exclusion is a rebase and not a squash**; the contribution test is right either way and only the
+universal justifying it moves. ⚠️ **The third mode is the one no push verb reports, and this
+branch's own rounds 5 → 6 are an instance**:
+`28f2b70767588b9db41d47d25aee7585a93ad75d` and `6bc9689ea12f091bcdda8790a4f6532c050891ce` share
+the merge-base `b103885`, the second is a further commit on the first rather than an amend of it,
+and `--force-with-lease` on the old head accepts a fast-forward exactly as it accepts an amend.
+`git diff` between those two heads is that round to the line, **+39 / −21**, and the command that
+tells the two apart is `git rev-list --count b103885..<the newer>`, which reads **2**. Measured on
+PR #792, 2026-09-22: round 5 changes **0** line of this file that round 4 had not already added,
+and `git diff <round 4> <round 5>` names **twelve** files and `README.md` **+126 / −5** inside
+them — that round squashed *and* rebased, so its head-to-head diff is not its round.
+
+⚠️ **The eight heads every figure in this example is taken at, in full forty, because that is the
+only name a force-pushed head answers to** (`#2096`) — `refs/pull/792/head` reaches none of the
+eight, and a seven-character prefix reaches none of them either:
+
+    round 1  b19156c39403edf8dca4ba142f86fbdb874a68b2
+    round 2  5f1466bd7e35e6edeecb428a566374195d25f27d
+    round 3  7d8de2837bb27c5c5657da99e967b2f1fd5c8234
+    round 4  1329d7cff11f2a76fc7b0a4126b0fb7f2234f54f
+    round 5  5d28bfd92f811396e853974be7ead4806381defe
+    round 6  a37e92be57ddf95361e0f445b9d596901ec47cc0
+    round 7  05f98663c99f0315a2b99ebcfffd02bea5a4e1d4
+    round 8  0959e2972298ac02de666e09a2fc1712b6735eef
+
+⚠️ **A worked example whose heads are unnamed is not re-runnable**, and this section exists to make
+a seat re-runnable: `git fetch upstream <the forty>` reaches each of them.
+
+The base-independent form is two commands and a set difference:
+
+    git diff $(git merge-base upstream/main <prev head>) <prev head>    # round N's contribution
+    git diff $(git merge-base upstream/main <this head>) <this head>    # round N+1's
+
+Take each one's added lines, blanks dropped, as sets `A` and `B`: **`B \ A` is what this round
+wrote and `A \ B` is what it retired**, and a prior author's eligibility turns on whether any line
+of theirs is in either. On those two heads `A` and `B` are both **149** lines and both differences
+are **0**.
+
+⚠️ **A SQUASH is where the two readings of this test come apart, and until here nothing said which
+governs.** A squashed round's own hunk re-introduces every line the branch ever added, so all of it
+reads as newly written by whoever squashed. One round, both readings:
+
+| reading of *"the round"* | result |
+| --- | --- |
+| round 5's own hunk, `+169 / −0` against its base | **44** of the 169 are the reviewer's round 2 |
+| round 5's contribution against round 4's, **149** against **149** | **0** written, **0** retired |
+
+**The second is the one this section means.** A squash re-authors nothing: it changes the commit
+structure and the message, and the page it lands was already certified at the previous head. The
+first reading would bar the reviewer of every squashed round who has ever written a line of the
+branch, which is the exclusion list arriving by arithmetic.
+
+⚠️ **Where a round's CONTRIBUTION is frozen — a message-only amend, a squash, or a rebase that
+moves no line of the round's own diff — the MESSAGE is what is left to test**, and the instrument
+named above measures a page. ⚠️ **The criterion is the CONTRIBUTION and not the tree, and the
+worked example above is why**: it has `A` = `B` = **149** and both differences **0**, while its two
+trees are `9fadd4509ad61443e4af30de2b926edbee39db83` and
+`1936b6cbb2af8659310aebf07febbb8004fed7a1` — **twelve files apart**, so a tree compare calls that
+round a rewrite and the contribution calls it frozen. ⚠️ **A tree-frozen round is the strictly
+narrower case and one exists on the same branch**: rounds 7 and 8, at the two heads the block
+above names, share the tree `507c94eefc5468af36841f7b56f3f1b9d2935807` exactly, and there the
+message is the whole of what moved. The message test is the same set difference over the bodies,
+and it is two commands:
+
+    git log -1 --format=%B <round head>       # per round, blank lines AND trailers dropped
+    difflib.SequenceMatcher(None, prev, next)  # 'insert'/'replace' = what that round wrote
+
+⚠️ **Drop the trailers, and the table below is why it has to be said rather than assumed.** Every
+message on this board carries `Co-Authored-By:`, so it is in every body and therefore in every
+intersection: keeping it returns **147** and **1** where the first two rows print **146** and
+**0**, and it is the *only* member of that `1`. The verdicts do not move — a trailer is written by
+nobody — but the published cells are not what the printed recipe returns without the word.
+
+⚠️ **Run it in both directions or it is not a test.** The same instrument, the same branch and the
+same reviewer, once barring and once opening:
+
+| PR #792, reviewer is the author of round 2 | round 3 | round 5 | ⚠️ round 7 |
+| --- | --- | --- | --- |
+| lines that reviewer wrote in round 2's body | **146** | **146** | **146** |
+| of those, surviving at the head under review's predecessor | 146 | ⚠️ **0** | **0** |
+| lines the round removes or replaces from that predecessor's body | 143 | 142 | 150 |
+| **message-layer intersection** | ⚠️ **143** | **0** | **0** |
+| ⚠️ **contribution, `C ∩ (B \ A)` / `C ∩ (A \ B)`** | — | 0 / 0 | ⚠️ **0 / 8** |
+| **the seat** | stand aside | seat open | ⚠️ **BAR** |
+
+⚠️ **A branch consumes its own early rounds, so an early author's MESSAGE-LAYER score falls to `0`
+as the branch matures — and that is not the same thing as a seat opening.** The message layer
+decides a seat only where the contribution is frozen; where it has moved, the contribution is what
+governs, and on the same branch, the same reviewer and the same page the two give **opposite**
+verdicts at round 7. ⚠️ **A round that DELETES a reviewer's prose touches it exactly as much as one
+that rewrites it, and `A \ B` is the half that sees it**: at round 7 `A` is **149** and `B` is
+**184**, so `B \ A` is **47** and `A \ B` is **12** — and **8** of those twelve are round 2's,
+including *"`against every live` **0**, and the one message carrying"* and *"⚠️ **which is a schema
+and not a quotation**: `zero conflict markers` returns **0 of 737** and"*. ⚠️ **Read only `B \ A`
+and round 7 scores `0` and the seat reads open.** What accumulates is the exclusion list, which the
+paragraph above already retires; what does not accumulate is a message-layer score, and a falling
+one is not a licence.
+
+⚠️ **Extract the body one way, because the two standard extractions disagree on exactly the commits
+this test is run on.** `git log -1 --format=%B <sha> | wc -l` is **one more** than
+`git cat-file commit <sha> | awk 'f{print} /^$/{f=1}' | wc -l` whenever the stored message ends in a
+newline — and on a landed commit it never does. Read from the objects: **0 of `main`'s 746** end in
+one at `0eb7e8b`, and **0 of 745** at `871a224` one landing earlier, against **38 of 38** live
+branch heads at **2026-09-22T18:51:16Z** — the **37** advertised under `refs/pull/*/merge` plus
+PR #471, which advertises none. ⚠️ **Only the right-hand population drifts, which is
+`### The neighbour population`'s point about this class of gate**: re-read at
+**2026-09-23T23:54Z** the same glob advertises **33** of **809**, so the live side is
+**34 of 34** and the landed side is **0 of 758** at `5dba859`.
+⚠️ **So a `message lines` cell taken on a branch head with `%B` is one higher than
+the same command returns on the commit that lands, with no edit in between** (`#1972`), and the
+landing is where it goes: `0eb7e8b` carries **746** commits and **0** merge commits, so every
+message on this branch was written by a squash. The set differences above are unaffected, blanks
+being dropped; a published count is not.
+
+**This section landed at `ac0a053691ceab46a701165ee25bac49d2fc3493`** (`%cI`
+**2026-09-14T20:57:39Z**, PR #762) and was extended at
+`ea5022d943ccba903222b52a1263e2967c3e3101` (`README.md` **+92 / −0**, `%cI`
+**2026-09-20T15:13:35Z**, PR #782) — neither of them the commit a round reaching for this section's
+provenance is likely to name. The check is one command, and at `0eb7e8b`
+`git log -S'A round certified by the agent that wrote it is not certified' -- README.md` returns
+`ac0a053` alone.
+
+⚠️ **That command carries two flags, and this paragraph trips both.** `-S` is **literal**, and
+this file wraps at a hundred columns, so a phrase crossing a line break returns nothing at all: the
+hard bar's own sentence breaks after *"a reviewer must not be the author"*, and searching the whole
+sentence returns **0** commits rather than the one that wrote it. And `-S` counts **occurrences**,
+so ⚠️ **a paragraph that prints the phrase it searches for makes its own commit an answer** — the
+phrase above occurs once in this file at `0eb7e8b` and **twice** once this paragraph lands, the
+second being the command span in the paragraph before it, so a re-runner past the landing gets
+`ac0a053` **and the commit that added this paragraph**. That is why the figure is keyed to
+`0eb7e8b` rather than written in the present tense; it is `#2036`'s shape, where a retirement form
+keeps the row it retires inside its own seed's population.
 
 ## Import-closure figures
 
