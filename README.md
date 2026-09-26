@@ -4611,6 +4611,133 @@ sweeper found 35 of 36.  **Publish the residue's size beside the count.**
    **Publish the derived SET at both ends and not the count at both.**  A reader given `35` and
    `35` cannot recover the seventh move; a reader given the two sets has it by `comm`.
 
+### Hunk coordinates
+
+A merge bullet that names a neighbour's hunk publishes a **line number in that branch's own merge
+base**, and until this section nothing here said so.  The instrument that decides whether two such
+numbers are comparable is `git merge-base`, and ⚠️ **at `c6ef24a` this file names it once and this
+block is what moves that figure** — the one occurrence there is
+`### The neighbour population`'s `git merge-base --is-ancestor`, which is about landing and not
+about coordinates, and at that commit `merge-tree` reads **2** here, `@@` reads **0** here, **26**
+of `main`'s **755** messages name `merge-tree` and **8** name `git merge-base` (`#2142`).  **Key
+the row to `c6ef24a` and not to the page this paragraph lands in** — the sha analogue of the
+clock `### The neighbour population` requires of a drifting population.  Seed, so the counts are
+reconstructible: over `git log --format=%H%x00%B` on `main`, the regex `@@ -\d+` returns **9**
+messages at `c6ef24a` and ⚠️ **10** at `5dba859`, the base this block is written against — the
+entrant `07e7e9e` cites its own hunk against its own parent, which is the shape six of the first
+nine already had, so the cross-branch half stays at **3**.
+`\b\d+ lines? (below|above|away|apart|down|up)\b` returns **16** at both, and ⚠️ **all sixteen
+are WITHIN one file**, so the distance seed contributes **0** rows here and every one of them
+belongs to the pointer-distance axis instead.  ⚠️ **This issue was filed on `git merge-base`
+appearing in `0` of `main`'s `736` messages; it is `8` of `755` at `c6ef24a` and `10` of `758` at
+`5dba859`, and the rounds this rule provoked are most of that movement** — which is the case for
+keying the row to a sha rather than writing any of it in the present tense.
+
+**Three things owed, and the first two are about one branch.**
+
+1. ⚠️ **`@@ -NNNN` is the LEFT side.**  A header `@@ -NNNN,L +MMMM,K @@` puts the old file's line
+   number after the minus and the new file's after the plus, and for a pure insertion the two
+   differ.  `b103885`'s own hunk is `@@ -4211,0 +4212,182 @@` and its message cites it as
+   `` `@@ -4212` ``; `c6ef24a` cites PR #792's `@@ -4683,0 +4684,205 @@` as `` `:4684`+ ``.
+   ⚠️ **The shared property is *right end*; the minus sign belongs to ONE of the two spellings.**
+   `b103885`'s is the one that misleads — a `+`-side number written behind a `-`, so a reader taking
+   it as a left end is out by one before any second branch is involved.  `c6ef24a`'s sits behind a
+   **colon**, which is `#2037`'s pointer shape and not this axis's, and its trailing `+` does name
+   the side; `git log -1 --format=%B c6ef24a | grep -c '@@ -4684'` is **0**.  ⚠️ **Two citation
+   shapes, two failure modes, and merging them is how the wrong half gets repaired.**
+2. ⚠️ **Both ends move with `-U`, so a DISTANCE moves by `2n`.**  PR #802's round-6 head `6bc9689`
+   reads `@@ -4888` at `-U0` and `@@ -4885` at the default `-U3`, and `c6ef24a` publishes **4885**
+   for it beside **4684** for PR #792 — one `-U3` left end and one `-U0` right end, in one
+   parenthesis.  ⚠️ **That message names `-U3` for its own hunk and for neither neighbour's.**  Name
+   the setting on every number, or take them all at `-U0`, which has no context to subtract — and
+   ⚠️ **re-read BOTH ends at whichever setting you name.**  `-U<n>` adds `n` lines of context at
+   each end of each hunk, so a grid holding one coordinate at `-U0` and the other at `-U3` returns
+   a number **no** reading taking both at one setting returns; the worked pair below is that grid
+   taken at one setting twice.  ⚠️ **And name the commit on the LEFT of the diff, because a branch
+   of more than one commit has two.**  That `-U0` / `-U3` pair is `6bc9689` against its branch base
+   `b103885`; against its own parent `28f2b70` — round 5 of the same PR — the same head reads
+   `@@ -4889` and `@@ -4886`, **off by one at both settings**, and
+   `git rev-list --count b103885..6bc9689` is **2**, which is the whole reason the two readings can
+   differ.  A one-commit branch cannot show it, and PR #792's `4684` below is safe for exactly that
+   reason (`git merge-base 44309d99 5dba859` is `1f3c95c` = `44309d99^`).  `44309d99` is what
+   `refs/pull/792/head` advertises, so this reading costs no full-width fetch of a head amended away
+   (`#2096`).
+3. ⚠️ **Across branches the frame is the FILE at each base, not the base.**  Two left ends need
+   no re-expression when `<base A>:<path>` and `<base B>:<path>` are **the same blob** — strictly
+   weaker than sharing a merge base, and it is the blob that decides.  **656** of `main`'s
+   **754** landings touch `README.md` **0** times at `c6ef24a` — ⚠️ ***landings* here is `main`'s
+   **non-root** commits, which is the whole of why this denominator sits one below the **755**
+   messages counted above; the root `2e6ee26` created this file and is the commit being excluded**
+   — so ⚠️ **a single landing leaves this file alone `656 / 754` = `87%` of the time, which is a
+   PER-LANDING rate and not a per-pair one**: two bases `k` landings apart are handed the identical
+   `README.md` about `0.87ᵏ` of the time — **76%** at `k = 2`, **57%** at `k = 4`.  The shared-blob
+   pair this block turns on is `k = 1` (`git rev-list --count 1f3c95c..231becd` is **1**, and that
+   landing is `.lean`-only), so `87%` is exactly the rate where it is spent and an over-estimate
+   everywhere else.
+   **That is why every row of this shape read so far has been clean, and it is why nobody notices
+   the ones that are not.**
+
+⚠️ **Three landed rows of the shape at `c6ef24a`, all three sound, and no two sound for the same
+reason.**  `c28c462` compares **two** neighbours' `-U0` left ends — `3522` and `3429`, which are the
+only two lines of its message carrying a `@@` at all — against its own `:3953`, and ⚠️ **that one is
+a RIGHT end**: `git diff -U0 c28c462^ c28c462 -- README.md` gives `@@ -3949,0 +3953,107 @@`, so
+`3953` is the `+` side, written behind a colon in the shape item 1 above distinguishes.  Every
+branch involved sits on `9147113`, where `README.md` is **3986** lines — **one base**.  `b103885`
+compares
+PR #802's ends against its own across bases `231becd` and `1f3c95c`, which are different commits
+holding **one blob**, `dd959ca657fbc2a7ed3b572b9ba2adb7fcd0db7c` — ⚠️ **so its numbers are
+comparable and a base-sharing test would call it broken.**  `c6ef24a` compares across `b103885`
+and `1f3c95c`, which are **two blobs**: PR #792's published `:4684` is `:4866` in the frame that
+sentence compares in, ⚠️ **a drift of `+182`, exactly the insertion `b103885` itself landed one
+commit earlier** — and the conclusion survives only on margin, which is **4 778** lines when both
+coordinates are taken in that frame at `-U0`: `4866 − 88`, where `:88` is the last line of
+`c6ef24a`'s own hunk on its **left** side there (`@@ -82,7`).  ⚠️ **Take the same pair in
+`c6ef24a`'s own post-landing frame and it is `4873 − 95` = 4 778 again — a distance between two
+coordinates in ONE frame is invariant under the choice of frame, and that is the test a published
+one has to pass.**  ⚠️ **It is not invariant under `-U`, and BOTH coordinates move.**  The only
+PR #792 head a re-runner can fetch is `refs/pull/792/head`, today `44309d99`, and against `1f3c95c`
+it reads `@@ -4683,0 +4684,210 @@` at `-U0` and `@@ -4681,6 +4681,216 @@` at `-U3` — the `+` START
+is `4684` / `4681`, the two numbers this row rests on, and the SPAN is the only part the amends
+since `c6ef24a` have moved.  So the `-U3` coordinate is `4681 + 182` = **4863**, `c6ef24a`'s own
+left end there is `:91` (`@@ -79,13`), and the pair is `4863 − 91` = **4 772** in `b103885`'s frame
+and `4870 − 98` = **4 772** in `c6ef24a`'s own.  ⚠️ **So the frame-invariance above survives at
+`-U3` too — it is a stronger result than one setting can show — and what moves is the distance:
+`−3` at EACH end, `4 778 − 6`.**  `4 775` is `4 778 − 3`, the cell a grid gets by re-reading one
+end and carrying the other, and **no** reading taking both at one setting returns it.  That is why
+item 2 is an obligation separate from item 3, and why its second half is *re-read both ends* and not
+*name the setting*.  **Shared base, shared blob and sheer margin are three different reasons, and a
+message that states none of them cannot be told from a broken one.**
+
+**Publish the base beside the number, and re-express before comparing.**  Two landed messages do
+one half each, and both are quoted here **as messages and not as blobs** (`#1857`) — verbatim, and
+resolving against `git log -1 --format=%B <sha>` rather than against any tracked file.  `deb405f`
+does the first, in its gate bullet:
+
+> Shape: ONE file, ONE commit, parent `ee48553` (= `main`), +26 / -3, ONE hunk at `-U0`
+> (`@@ -419,3 +419,26 @@`). `git merge-base` with `ee48553` is `ee48553`.
+
+`c6ef24a` does the second — ⚠️ **in the grid it publishes for its own `.lean` file, and not in the
+`README.md` neighbour parenthesis convicted above; one message does both, in two paragraphs, which
+is a sharper reading of the three-part indexical than either row makes alone** — across the two
+trees its own rebase put it between:
+
+> `@@ -162,11` is the landing's hunk at `-U3` against `231becd`, `@@ -278,2` is this round's first
+> hunk at `-U0` against `b103885`
+
+— and it then re-measures both in `b103885`, naming that tree as the one where both are
+coordinates.  The re-expression is a `difflib` opcode map from the neighbour's base to yours,
+anchored on the **source line** at the end being moved and not on arithmetic.  ⚠️ **Read it from
+`refs/pull/<n>/head` and never from `refs/pull/<n>/merge`**: a `/merge` ref already contains `main`,
+so its merge base with your head is your own base, the map collapses to the identity and every
+drift reads `+0` — the failure is silent and in the flattering direction.  Its other failure mode
+is a **blank** left end, which matches everywhere; anchor on the nearest non-blank line and carry
+the offset.
+
+⚠️ **A hunk header is a three-part indexical — base, head and file — and a landed message pins none
+of the three.**  The positive form is cheaper than all of it: `git merge-tree --write-tree` needs
+no shared base, no shared blob and no margin, and a line distance published beside it says nothing
+it has not already said.
+
 ### The render gate
 
 `README.md` is the one file here that several branches edit at once, and the check that catches an
