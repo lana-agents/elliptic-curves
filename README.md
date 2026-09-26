@@ -2280,6 +2280,160 @@ twelve name a tree or date a bracket — the five retirements of `### What is fo
 figures outside that list, and the five inside it written against *this commit's parent* — and
 twelve are deltas. **Nothing is cleared here and nothing is re-keyed here**: the re-keying is
 `#1877`'s sweep, which now has the decision it was held on.
+⚠️ **AND THE RIGHT END OF A GATE LINE IS THE SAME SHAPE WITH A DIFFERENT REPAIR** (`#2090`).
+`HEAD` is the token a gate block actually writes, and while the branch is checked out it names the
+branch tip and the command is true. In the landed commit — the only place the sentence is ever
+re-run — it names a squash whose parent is `main` at merge time and whose tree is `main`'s with the
+branch's own paths laid over it, so the command a reader runs is not the command the author ran.
+⚠️ **`#2084`'s rule already says this end cannot be addressed at all, and what follows is what an
+author chooses instead of an address.**
+⚠️ **`#1862`'s disposition reaches this and its repair does not.** An author cannot write their own
+sha, so `HEAD` is a placeholder whose debt falls due at the landing exactly as *this commit* is —
+but *"Re-key it to the seven-character sha"* is a repair available only to a placeholder pointing
+backwards, and there is no sha to re-key a forward one to. ⚠️ **So what an author chooses at this
+end is the PREDICATE and not the anchor**, and which predicates survive is measured here rather
+than argued.
+⚠️ **The seed, with its keys and its counts** (`#1749`), over `git log --format=%b` for every
+commit reachable from the ref, whitespace-flattened:
+
+```
+`?git\s+[a-z-]+(?:\s+--[a-z-]+)*\s+([0-9a-f]{7,40})\s+HEAD\b
+```
+
+At `c97ba1a`, of **731** bodies: **16** name `HEAD` at all, **12** carry this form, and it returns
+**30** occurrences over **24** distinct `(landed commit, named base)` pairs. ⚠️ **Three keys and
+three numbers, and a sentence quoting one of them is not re-runnable** — occurrences, pairs and
+bodies differ here by more than a rounding, so each figure names which it is.
+⚠️ **THE SPLIT IS `6 / 18`, AND THE KEY THAT RETURNS IT READS NO OBJECT THE LANDED COMMIT DOES NOT
+BRING WITH IT**: prefix-match the abbreviation against `git rev-parse <landed commit>^`. **6** of
+the **24** pairs name the landed commit's own parent and **18** name something else. Every clone of
+this remote carries all 24 landed commits and therefore all 24 of their parents, so this split is
+the same figure in every store — which is the property a published ledger needs and which no
+store-keyed reading of this population has.
+⚠️ **EVERY FINER SPLIT OF THE EIGHTEEN IS A PROPERTY OF THE READER'S OBJECT STORE AND NOT OF THE
+REF, AND FOUR STORES GIVE FOUR ANSWERS.** Sorting the twenty-four by whether the named base expands:
+
+```
+store                                                            parent / other / unexpandable
+a bare clone made from this remote today (66 refs; 12 bases absent)   6 /  6 / 12
+slot-1's workspace, base present in the object store at all           6 / 18 /  0
+slot-1's workspace, base verifies as a commit                         6 / 17 /  1
+slot-3's workspace, under either predicate                            6 / 15 /  3
+```
+
+⚠️ **The predicate is not the free variable — the STORE is**, which is why naming *verify as a
+commit* or *present at all* beside a figure does not make that figure re-runnable: it stays keyed
+to one workspace, and a workspace's dangling objects are an accident of which round heads it once
+fetched rather than anything the remote publishes. **The only cell of this ledger a re-runner can
+reproduce is the one that reads nothing but the landed commit.** ⚠️ **Twelve of the twenty-four
+bases are absent from a bare clone** — `f8f1077` `c009c40` `9916e69` `0be1d20` `4143ea4` `758b3a8`
+`ec50096` `9216947` `a83136ce` `05e827c` `66e4250` `edb8b6a` — and `## Reviewing` already rules on
+why: *"`git rev-parse` expands it against local objects alone, `git ls-remote` expands it against
+the refs the server advertises, and a head past both is past every route"*.
+⚠️ **ONE OF THE EIGHTEEN NAMES AN OBJECT THAT IS NOT A COMMIT AT ALL, AND IT IS THE ONE ROW IN
+THIS POPULATION WITH AN ESCAPE.** `c28c462` names `a83136ce`, which is the value
+`git merge-tree --write-tree 9147113 ec50096` returns — the command `c28c462`'s own bullet prints
+beside the occurrence — so `git rev-parse --verify a83136ce^{commit}` fails wherever a bare
+`git rev-parse` succeeds. ⚠️ **`--write-tree` WRITES**: run that printed command in a store
+holding `ec50096` and the tree appears there, after which `git cat-file -t` answers `tree`. **A
+named tree that is a printed command's output is recoverable from the command; a named commit no
+ref reaches is recoverable from nothing** — so `a83136ce` and `edb8b6a` are not two instances of
+one defect, which is how a shorter reading of this row grouped them. ⚠️ **The escape does not
+generalise**: a bare clone has no `ec50096` either, so there the command fails and the tree is as
+far out of reach as the commit. (Control: `a83136ce` is **not** `c28c462`'s own tree, which is
+`19349f1`.)
+⚠️ **Both full names are printed here inside command spans**, so `## Reviewing`'s count of
+backticked forty-hex spans stays at **0** and only the looser *any forty-hex run* key moves, by the
+same **+2** that paragraph prices itself at:
+`git cat-file -t a83136ce5d31c554a08e3233d070f3b5eb19d33d` answers `tree`, and
+`git cat-file -t edb8b6a0638830df024a11c07c41d0b472d5b742` answers `commit` in a store holding
+them and cannot get object info in one that does not. That is `#2096`'s subject arriving inside
+this population, on the base end of a line whose head end this rule is about.
+⚠️ **ALL EIGHTEEN NON-PARENT ROWS ARE READ HERE, AND EIGHTEEN IS NOT THE CONVICTION COUNT.** Each
+was re-run at its own landed commit, where `HEAD` is that commit, and scored against what its own
+sentence claims. By pair: **5** are still exactly true, **4** are true in one conjunct and false in
+another, and **9** are false. By occurrence — the twenty-one that sit on those eighteen pairs —
+**6**, **4** and **11**. ⚠️ **The row that a clone-dependent exclusion was hiding is a false
+one**: `ebb4d42` publishes *"`README.md` is byte-identical to round 7's head,
+`67c772909dda...` at both -- the tree does not move, `git diff edb8b6a HEAD` is empty"*, and at
+the landing that path reads `9d9c885`, the landed tree is `0e157b1` where what
+`git rev-parse edb8b6a^{tree}` returns is not, and the diff is **21 paths**. The same body makes
+the same claim against `05e827c` and against `66e4250`, both inside the seventeen and both false
+the same way. **A row set aside on a ground that varies by clone is a row not read.**
+⚠️ **One pair splits between two clauses of one body**: `a570d4d` names `93cf1d4` twice, once for
+a path list that is still `README.md` at the landing and once for a merged tree that is not.
+⚠️ **And the discriminator is not the one this was filed on.** *Is the named base `main` at merge
+time* was the first reading tried, and it convicts every one of the eighteen; the measurement keeps
+five. **What decides is what the conjunct NAMES.** At `c97ba1a`, over the **41** conjuncts carried
+by the **28** occurrences that are claims — the other two of the thirty being the two mentions —
+and ⚠️ **twelve of the thirty occurrences name a base a bare clone cannot expand, so this table is
+not re-derivable from a clone at all**; it is re-derivable only in a store that has fetched the
+round heads those twelve bases came from:
+
+```
+what the conjunct names                                        true at the landing
+`git merge-tree --write-tree <sha> HEAD` exits 0, no marker          9 / 9
+a figure restricted to one path, however it is spelled               2 / 3
+a tree-wide path list, count or numstat total                        6 / 17
+an object name — `HEAD^{tree}`, or the merged tree                   2 / 12
+```
+
+⚠️ **The rows that survive at all survive for one reason and it is not the command.** A clean merge
+against an ancestor stays clean whatever the ancestor is — and all nine name one, which a base
+that was `main` at any moment always is — while a figure restricted to a path stays put for as
+long as nothing else edits that path. **Both are cases of one rule, which is the rule this
+paragraph lands**: an indexical right end survives exactly when nothing that lands between the
+named base and the squash touches what the figure ranges over. ⚠️ **Path restriction is therefore
+not a guarantee either, and both counterexamples are inside the eighteen**: `046022d` publishes
+`+14 / -6` for a diff its own sentence calls `README.md` only, and `README.md` alone reads
+`+52 / -6` at the landing, because `main` edited that file in between; `ebb4d42` names the blob
+`67c772909dda…` for that same path at both ends, and the landing carries `9d9c8856…`. ⚠️ **The
+second is why that row's key had to widen** — a blob name restricts a figure to one path without
+writing `-- <path>`, so the narrower key did not see it as a restriction at all. **Restrict the
+figure to a path the branch owns AND name the base by a sha no later than the last landing that
+touched it**, or state a delta the branch contributes, which the squash reproduces by
+construction.
+⚠️ **The object-name row is the sharpest and it is the one with no escape.** Of its twelve
+conjuncts the two that survive are the two whose named base IS the landed parent; the other ten
+name a tree the landing does not produce. **A merged tree, and `HEAD^{tree}` itself, are the two
+forms that can never survive a base change**, because the landing computes them against a parent
+the author could not know. That settles what `#2090` asked as an open question — the `HEAD^{tree}`
+half is the same row, not a different one — and `#2084`'s ruling reached it first from the other
+end, in the words *"stable under an amend and not under the landing"*; what is added here is the
+measurement, **0 of its 5 conjuncts surviving**, rather than a second derivation.
+`## Reviewing`'s *"compare `HEAD^{tree}` across the two heads"* is untouched by either, because
+that sentence is an instruction to run and not a figure to re-run. ⚠️ **An instruction is safe and
+a discharge is not**, which is also why this page's own
+standing direction to run a census at a named ref rather than at `HEAD`, because the section is
+inside its own population, needs no repair either.
+⚠️ **Two blind spots, both priced, because a published recogniser owes them.** The first is the
+mention/claim split, which no regex can make: a body may quote an earlier round's convicted gate
+line, and **2 of the 30** occurrences do — both in `c97ba1a`, both quoting the two lines its own
+round removed under a header announcing that it removed them. The seed scores those two as true
+and they are true, but they are not claims, and a seed that met a body full of such quotations
+would report a population that is entirely mentions. The second is bigger and this seed is blind
+to all of it: ⚠️ **the class is an indexical RIGHT END and not the token `HEAD`.** Keyed
+**word-bounded and case-insensitively** on `this head`, `at head`, `this commit's tree`,
+`this branch's tip` and `this sha`, `c97ba1a` carries **125** occurrences in **37** bodies, and
+**24 of the 37 carry no `HEAD` token anywhere**, so nothing keyed on `HEAD` sees them. ⚠️ **Both
+flags move that headline and so both are printed** (`#1749` reaches a limit's recogniser too):
+case-sensitively it reads **110**, and as bare substrings **141** in **42** bodies with **29**.
+`git` stripped off the front changes nothing about how the right end resolves. **That population
+is unread and it is not counted as a conviction here.**
+⚠️ **Nothing in the eighteen is repaired and none of it retires.** They are landed and
+unamendable (`#1938`), each was true of the object its author pushed, and the four that this
+rule's own issue read by hand — `046022d`, `ebb4d42`, `93cf1d4` and `ab5ec3a` — are worked
+instances rather than a backlog. ⚠️ **`ab5ec3a` is the one to read twice**: its *"is exactly
+`README.md` at this commit and at the head"* is a FIFTH stale clause in a body already convicted of
+four by `#2085`, and no sweep found it, because every sweep on that front keys on words about the
+**body** while this clause is about the **tree**. The two families are disjoint.
+⚠️ **Neither this paragraph nor the message that lands it is inside the population it counts, and
+the second half of that was a choice.** The seed reads commit bodies and not this file, so no
+figure here moves by being written; and the message carrying these lines is written so that the
+form returns **0** in it — the eighteen are quoted by their pair and their verdict rather than by
+their command, and its own gate block names no `HEAD` at either end. ⚠️ **That is this rule applied
+to itself, and `c97ba1a` did it first**: the only two occurrences that body carries are quotations
+of the two lines its own round removed, under a header saying so.
 
 ### Module-block bullets
 
