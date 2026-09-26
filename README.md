@@ -3432,12 +3432,18 @@ true"*, one layer up, in this document's own prose. They are:
   branches under review when it landed — PRs #741, #746, #749, #750, #751 and #752 — it reaches
   three of them: two change no `README.md` line and one is not a single contiguous insertion. **It
   flags all three that it reaches, and two of the flags are true.** PR #746 and PR #749, at the
-  heads they stood at then (`bab3319` and `f7b2514`, force-pushed since, so both resolve only
-  through `refs/pull/<n>/head`), each printed a provenance census as an absolute at its own tip, and
-  the same four figures of it — spans, line-keyed, title-matching and unbound — are each one short
-  at the merged tree. The third flag is false: PR #751's block prints `25`, which is that branch's
-  own distance-seed value and is 26 at the merged tree, and reading the row shows the `25` is that
-  bullet's absence-seed widening figure and not the distance seed at all. ⚠️ **Re-run at `77fb54d`
+  heads they stood at then (`bab3319` and `f7b2514`, force-pushed since, both still fetchable by
+  their full forty-character object names, which `### Scope of the rules above` prints), each
+  printed a provenance census as an absolute at its own tip, and the same four figures of it —
+  spans, line-keyed, title-matching and unbound — are each one short at the merged tree.
+  ⚠️ **RETIRED** (`#2096`): `046022d` (PR #755) wrote of those two heads *"so both resolve only
+  through `refs/pull/<n>/head`"*, and that is the one route which does not reach them — the ref
+  moves with the force-push, and `refs/pull/746/head` and `refs/pull/749/head` read `7618ab3` and
+  `2792909` as of 2026-09-21T02:27:42Z, ⚠️ **each of which moves again on the next round of its own
+  PR, which is why that reading is dated and the two full names are not**.
+  The third flag is false: PR #751's block prints `25`, which is that branch's own distance-seed
+  value and is 26 at the merged tree, and reading the row shows the `25` is that bullet's
+  absence-seed widening figure and not the distance seed at all. ⚠️ **Re-run at `77fb54d`
   over PRs #741, #746, #749, #751, #752, #753, #754 and #755, PR #751's is the only flag left**,
   because a subsequent round of each of the other two converted its census to deltas or keyed it to
   a sha — which is the repair this item asks for, arriving twice before the rule was written.
@@ -3976,6 +3982,127 @@ true"*, one layer up, in this document's own prose. They are:
   reading job — `recogniser` is a word this page uses about seeds and about itself, so a
   vocabulary count is not a population of them — and `#1848`'s trap is a rule whose test is a
   count. A rule does not need a census to land.
+
+* **A seven-character sha is not a fetchable name, and whether a published one can be recovered at
+  all is a property of the reader's clone and of the server's refs rather than of the sha**
+  (`#2096`). ⚠️ **`## Reviewing` carries the mechanism and the control and none of it is repeated
+  here**: `git fetch` takes a full object name, an abbreviation is read as a **ref** and fails with
+  the same `fatal: couldn't find remote ref` a deleted head gives, the live-tip control settles the
+  two apart in one command, and `git branch -r --contains` is not the reachability test. What that
+  paragraph does not carry is the third figure of its own census. ⚠️ **What it publishes is a
+  different pair, and it is left where it is**: **482** occurrences across **48** of the **425**
+  tracked `.lean` and `.md` files, keyed to `c97ba1a`. Re-run here at `ee48553` the same recogniser
+  returns **591** over the same **48** files, and neither number is the one this question needs.
+  That one is the **167 distinct names** underneath them, which this bullet takes to **170**, and
+  it is published by nothing on this page.
+  ⚠️ **A published abbreviation is recoverable only while something still reaches the commit, and
+  there are exactly TWO routes and a residue the page has to name.** Measured over those **167**
+  names against a `git clone --bare` of this repository made at 2026-09-21T02:27:11Z (**67** refs:
+  `refs/heads/*` and one tag, and ⚠️ **not** `refs/pull/*`):
+  * **Locally, `git rev-parse <sha>`**, which expands an abbreviation **only against objects the
+    local repository already holds**: **156 of the 167** expand in that clone and **11** do not,
+    while in the slot that wrote this bullet all **167** do, because it has been fetching round
+    heads for days. ⚠️ **So one reader's answer to *does this sha expand* is not another's, and
+    it decays silently.**
+  * **From the server, `git ls-remote upstream | grep ^<prefix>`**, which is a server-side
+    expansion and the route a clone does not give you: the advertisement, read at
+    2026-09-21T02:27:42Z, is **895** refs over **840** distinct object names, **no two of them
+    sharing a seven-character prefix**, and it includes the `refs/pull/<n>/head` refs a clone never
+    fetches. It recovers **3** of the 11 — `0904ac7` at `refs/pull/755/head`, `91c6980` at
+    `refs/pull/753/head` and `e80a588` at `refs/pull/714/head`, each frozen where its PR landed.
+  * ⚠️ **Neither, for the remaining 8.** Too short to fetch, not local to expand, advertised
+    nowhere. **That is not a third route, it is what the two routes miss**, and the only repair is
+    the full forty printed beside the figure at the moment the figure is published.
+  ⚠️ **TWO OF THE EIGHT WERE PUT ON THIS PAGE BY `ea5022d`, THE COMMIT THAT LANDED THAT VERY
+  PRESCRIPTION.** `263fa34` and `e5efa77` are the two heads of `#2030` whose hunk count its
+  `## Reviewing` paragraph measures; neither expands in the fresh clone, the server advertises no
+  ref at either oid, and `## Reviewing` — the section they were added to — is where
+  *"publish the full forty beside a figure at the moment the figure is published"* is written.
+  ⚠️ **A rule does not sweep the commit that lands it**, which is why this bullet publishes a
+  list and re-runs it, rather than publishing a rule and trusting the next round to have read it.
+  ⚠️ **NOR THE COMMITS THAT LAND UNDER IT WHILE IT IS IN REVIEW, AND TWO DID.** `ee48553` (PR #784),
+  the base this bullet is now written against, put four round heads on this page at seven
+  characters — `31b471b`, `91c6980`, `9471324`, `8db312f` — and ⚠️ **two of them, `31b471b` and
+  `8db312f`, are reached by neither route**: they are round heads of `#1940` and `#1992`,
+  force-pushed over since, so between `08096d3` and `ee48553` the residue went from **6** to **8**
+  under a branch that was open on exactly this defect. ⚠️ **So the twelve names are not a fixed
+  set, and the list is re-run at each base rather than carried** — which is also why this round is
+  not a two-digit amend of the one before it.
+  ⚠️ **The twelve names below take the residue to zero.** Each is the full forty either of one of
+  the eight the two routes miss, or of a round head this bullet's demonstration rests on **that
+  this page carries nowhere at seven characters**.
+  ⚠️ **That second ground is narrower than a claim that the page carries the name at no width at
+  all, and the narrowing is what makes it true of all four rows it covers.** Three of the four sit
+  on this page at no width under any key, at `ee48553`.  The fourth — the `#2010` head dated
+  2026-09-15T05:47:42Z — has been in `## Reviewing` at **full forty** since `ea5022d`, inside the
+  `git cat-file -t` command span of that section's own worked example: it is carried, at a width,
+  and what does not reach it is the pair of recognisers this bullet is keyed on, both of which
+  require the backticks.  ⚠️ **One of the two full names this bullet credits `## Reviewing` with
+  printing inside command spans IS that row**, which is why the loose *any forty-hex run* key
+  reads **2** at the base and not **1** — and `ea5022d`, the commit that put it there, is the
+  commit this bullet already convicts for putting two of the eight on the page.  ⚠️ **An
+  inclusion ground that is an ABSENCE has to be run with the loosest key on the axis, not with the
+  census's own**, which is the general form of it: every recogniser this bullet uses is a
+  backticked one, and a name inside a command span is invisible to all of them.  ⚠️ **No figure of
+  this bullet moves and no row leaves the list**: the `13`, the `2 → 15` and the `170` were every
+  one of them measured with that name exactly where it sits.  **The twelve:**
+  `0199a96058f3df2c49407cab08e47e2e4f0ff7e1` — `#1877`, 2026-09-13T01:05:30Z;
+  `88f9253f3e733943860ec52867f7fa4c6524a344` — `#1867`, 2026-09-08T07:41:05Z;
+  `f7b25145082e5b7e2faaaa778a2927af75fa1d36` — `#1942`, 2026-09-13T19:52:02Z;
+  `bab331934268736c261877b291e8bcff52096a47` — `#1940`, 2026-09-13T20:44:18Z;
+  `263fa34abba3b570d87f7357c8f5a9f168adf84c` — `#2030`, 2026-09-15T14:31:30Z;
+  `e5efa7795edbdb213216f7e26f007b65dc3fe1a8` — `#2030`, 2026-09-15T15:46:32Z;
+  `31b471b7f6e9f53442da079df39c6e25eba8aeeb` — `#1940`, 2026-09-15T02:58:53Z;
+  `8db312f2d9572a70ba2d561c8be649c3ebd537a0` — `#1992`, 2026-09-15T03:04:18Z;
+  `4cf295132bce8647ff20961bbf164dbfca583eca` — `#2010`, 2026-09-15T05:47:42Z;
+  `6535ee0f27792be9d0eac79e3096780fa7a163f2` — `#2010`, 2026-09-15T06:55:10Z;
+  `0dcd557879b41dc4d5cab7999e73a7a09df06bc7` — `#2010`, 2026-09-19T22:40:41Z;
+  `e0bcb73efefc1e7dedaee8afd924fb325f490e07` — `#2087`, 2026-09-20T04:11:04Z.
+  ⚠️ **Each cell is its own commit's `%cI` and the issue its own subject names**, both readable
+  with `git log -1 --format='%cI %s'` once the forty has been fetched, **so the list checks itself
+  against the objects it names** and nothing here rests on this page being right. Re-run at
+  2026-09-21T02:28:27Z into a `git init --bare` holding **zero** objects with only this remote
+  configured: **all twelve** fail at seven characters, **all twelve** succeed at forty, and
+  `git cat-file -t` answers `could not get object info` before each fetch and `commit` after it.
+  ⚠️ **Twelve fetches leave twenty-four object files**, two apiece, which is what an **N before,
+  M after** control has to say out loud or be mis-read as one object per fetch.
+  ⚠️ **The closing invariant is the figure to re-run, and it is not the twelve**: **11** of the
+  **170** distinct names this page carries at this head do not expand in that fresh clone — the
+  same 11 as at `ee48553`, since the **three** names this diff adds all expand — `2792909` and
+  `7618ab3` off the branches of the still-open PRs #749 and #746, which a clone does fetch where it
+  never fetches their pull refs, and ⚠️ **`ee48553` itself, which this round put on the page by
+  re-keying to it**: writing a base's own sha into the text is an addition to the population the
+  text measures, and this bullet is the place that has to say so. Of the 11, **3** sit at the tip
+  of a `refs/pull/<n>/head` and the other **8** carry their full name above; **none is left over.**
+  ⚠️ **The four round heads at `#2010` and `#2087` are published at forty and nowhere at seven**,
+  which is why they are not among the 170 at all.
+  ⚠️ **AND THIS BULLET PAYS A PRICE `## Reviewing` PRICES FOR ITSELF, SO IT IS PRINTED HERE TOO.**
+  That paragraph publishes **482** backticked seven-hex spans and **0** at forty *"under that same
+  recogniser"*, both keyed to `c97ba1a`, and prints its own two full names inside command spans so
+  that its `0` does not move. ⚠️ **The thirteen full names in this bullet are backticked spans and
+  not command spans**, because a name-and-date list is not a command, so at this head the
+  backticked-forty recogniser returns **13** where it returns **0** at `c97ba1a` and at `ee48553`,
+  and the looser *any forty-hex run* key goes **2 → 15**. **Neither published figure goes false** —
+  both carry `c97ba1a` — ⚠️ **but a reader who re-runs that recogniser at `main` gets 13, and the
+  only thing standing between the two answers is the ref printed beside the figure.**
+  ⚠️ **`git branch -r --contains` is asserted not to be the reachability test in `## Reviewing`;
+  here it is measured.** In a `git clone --no-checkout` of this repository (**67** remote-tracking
+  refs, made at 2026-09-21T02:29:05Z), fetch `0904ac7642d0c5f7178f09ca064cd202616f3406` by its
+  full name, and `git branch -r --contains` then returns **0** lines while `git ls-remote origin`
+  shows `refs/pull/755/head` sitting exactly on it — a local **0** against the server's **1**.
+  ⚠️ **The round that wrote this bullet met the same defect in the other direction and that half
+  does not reproduce**: a local **1**, `origin/docs/in-bucket-span-test-1942` for `f7b2514`,
+  against a server **0** for that branch, which reads `2792909` at
+  `refs/heads/docs/in-bucket-span-test-1942` as of 2026-09-21T02:27:42Z. It was one slot's stale
+  remote-tracking ref; in a clone made minutes ago the same command returns **0** lines for
+  `f7b2514` as well. **Ask the server, and say when.**
+  ⚠️ **What is NOT claimed here.** Not that such an object is durable: the eight the two routes
+  miss are advertised by nothing, a fresh clone cannot discover them, and whether they survive a
+  server-side `gc` is unmeasured and must not be asserted without a measurement. What is refuted is
+  only that such an object cannot be fetched when its full name is known — which is what two
+  clauses of this page asserted, one retired inside `### Scope of the rules above`'s *"A figure
+  this page states about itself is decided by the tree it lands in"* item and one in
+  `### The render gate`.
 
 ### Retired claims
 
@@ -4922,9 +5049,28 @@ as the gate's answer, because that is the one a later base silently re-numbers.
 that the census is not re-run blind. The two measured against a base other than their commit's own
 parent both reproduce at the base they name: `046022d`'s `prefix 896 / suffix 179` at
 `77fb54d` → `0904ac7` keyed with `content`, and `ebb4d42`'s `928` at `77fb54d` → `91c6980` under
-all three keys. ⚠️ **Both pairs share that base, and what is luck is the two heads** — a branch
-head force-pushed over is not fetchable by sha afterwards, so a figure keyed to one can be
-re-derived but never re-run, and a pair is only as durable as its weaker end.
+all three keys.
+⚠️ **RETIRED, and the replacement inverts it** (`#2096`). `c28c462` (PR #776) wrote, under a ⚠️
+named here rather than reproduced and with the emphasis as shown, *"**Both pairs share that base,
+and what is luck is the two heads** — a branch head force-pushed over is not fetchable by sha
+afterwards, so a figure keyed to one can be re-derived but never re-run, and a pair is only as
+durable as its weaker end"*. ⚠️ **A superseded head IS fetchable, by its full forty-character
+object name**, into a repository that has never held it. ⚠️ **Measured for these two heads rather
+than inferred from the general fact**: `0904ac7` and `91c6980` are reachable from no branch of
+this repository, each fails at seven characters and succeeds at forty into a `git init --bare`
+holding zero objects, and each is still at the tip of the `refs/pull/<n>/head` of the PR that
+landed it — `755` and `753`, read at 2026-09-21T02:27:42Z — which is also how a reader of this page
+recovers their full names. So both figures above can be re-run and not merely re-derived. ⚠️ **But
+the head end IS the weaker one, and the two routes say by how much**: `77fb54d`, the base both
+pairs share, is an ancestor of `main` and expands under route 1 in every clone, while `0904ac7`
+and `91c6980` are reachable from no branch and expand under route 2 alone — and route 2 is a
+property of the server's advertisement on the day it is read, not of the sha. **What the retired
+clause got wrong is *unfetchable*, not *weaker*.** A superseded head is recoverable, and it is
+recoverable by a strictly narrower route than its base; anything beyond that is the durability
+claim disclaimed above and is not asserted here. What is not fetchable at any width is the
+seven-character form this page writes everywhere, which fails for every sha including `main`'s own
+live tip; `### Scope of the rules above` carries the two routes, the residue and the twelve full
+names, and `## Reviewing` carries the control.
 ⚠️ **And the key prescribed above costs the landed record almost nothing, which is a better warrant
 for it than four-of-five.** Every one of the **4** messages that say *"token skeleton"* and name no
 fields returns, under `type:tag:level` at the pair it names, exactly the figure it published:
