@@ -43,12 +43,23 @@ order of vanishing and no divisor.  `functionFieldMap` is a ring homomorphism be
 proof of `functionFieldMap_weilPairingElt` below is a single `rw`, and it needs nothing that was not
 already merged in `FunctionFieldBaseChange`.
 
-⚠️ **This says nothing whatever about the divisor half.**  `divisor` and `divisorProj` really do
-need the action of `functionFieldMap` on the places of `F(W)`; there is no Mathlib `map_*` lemma for
-`ord` to lean on the way the endomorphism transports lean on `map_slope` / `map_ψ`; and that work is
-untouched here and remains open.  The point of this file is that the pairing element was **never on
-that path** — it is the *rung-5 datum* `div g_S = [n]∗(S)` that needs divisors, not `e_n(S, T)`.
-Do not read the ease of this file as evidence about the difficulty of that one.
+⚠️ **This says nothing whatever about the divisor half.**  The point of this file is that the
+pairing element was **never on that path** — it is the *rung-5 datum* `div g_S = [n]∗(S)` that needs
+divisors, not `e_n(S, T)`.  Do not read the ease of this file as evidence about the difficulty of
+that one.
+
+⚠️ **That paragraph used to predict the divisor half as well as disclaim it, and the prediction was
+half wrong.**  It continued *"`divisor` and `divisorProj` really do need the action of
+`functionFieldMap` on the places of `F(W)`; there is no Mathlib `map_*` lemma for `ord` to lean on
+the way the endomorphism transports lean on `map_slope` / `map_ψ`; and that work is untouched here
+and remains open"*.  Affinely the prediction is right:
+`EllipticCurves.FunctionField.DivisorBaseChange` parameterises the place relation with
+`Ideal.LiesOver` rather than constructing it, and pays a ramification index for it.  At the point at
+infinity it is wrong: `EllipticCurves.FunctionField.DivisorProjBaseChange` proves
+`ordInfty (functionFieldMap g) = ordInfty g` with no index, no `LiesOver` and no place named at all,
+because `ordInfty` is a difference of `natDegree`s of an `F[X]`-algebra norm rather than a value
+read off a factorisation.  ⚠️ A prose pointer and not an `import`: neither module is named in this
+file's `import` block.
 
 ## Why the correction had to land in the source file
 

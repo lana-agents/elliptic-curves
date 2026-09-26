@@ -196,7 +196,7 @@ so the next author does not re-litigate it:
   form here would have to transport both across `Subsingleton.elim` at every use — the binder pays
   only once gate B is restated, not before;
 * both statements this file must recover are themselves `open Classical in`
-  (`WeilPairingAlternatingTwo:276`, `WeilPairingAlternatingThree:311`), and the certificate is over
+  (`WeilPairingAlternatingTwo:282`, `WeilPairingAlternatingThree:312`), and the certificate is over
   `AlgebraicClosure ℚ`, which carries **no** `DecidableEq` instance — so there is no competing
   instance for a binder to be polymorphic over.  The certificate below costs zero `convert`s as it
   stands.

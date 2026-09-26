@@ -107,16 +107,29 @@ time before `FunctionFieldBaseChangeN` was found.
 element built from it — which is why the ease of that transport says nothing about the difficulty
 of this section's remaining work.
 
-⚠️ **The `divisor` half of the first paragraph is now built, and `divisorProj` is not.** That
-paragraph says *"The divisor-level compatibilities — `divisor` and `divisorProj` — are not here"*;
-the affine `divisor` half is `EllipticCurves.FunctionField.DivisorBaseChange`, which proves
+⚠️ **The `divisor` half of the first paragraph is now built.** That paragraph says *"The
+divisor-level compatibilities — `divisor` and `divisorProj` — are not here"*; the affine `divisor`
+half is `EllipticCurves.FunctionField.DivisorBaseChange`, which proves
 `ord w (functionFieldMap f) = e * ord v f` for a closed point `w` lying over `v` and reads it on
 `divisor`. It does exactly what this paragraph predicts it must — *"they need the behaviour of
 `functionFieldMap` on the places of `F(W)`"* — by parameterising the place relation with
 `Ideal.LiesOver` rather than constructing it. ⚠️ **`divisorProj` is genuinely untouched there**: the
-point at infinity is not a height-one prime and that module states nothing about it, so the
-`divisorProj` half of the sentence stands unchanged. ⚠️ A prose pointer and not an `import`: that
-module sits above this one.
+point at infinity is not a height-one prime and that module states nothing about it. ⚠️ A prose
+pointer and not an `import`: that module sits above this one.
+
+⚠️ **The `divisorProj` half is built too, and the clause of this paragraph that said it was not is
+retired here.** That clause used to open *"The `divisor` half of the first paragraph is now built,
+and `divisorProj` is not"* and to close *"so the `divisorProj` half of the sentence stands
+unchanged"*. It is `EllipticCurves.FunctionField.DivisorProjBaseChange`, which proves
+`ordInfty (functionFieldMap g) = ordInfty g` — with no ramification index and no hypothesis on `g`
+at all — and assembles `divisorProj_functionFieldMap_under` at every `p : ProjPoint (W⁄K)` at once,
+for a finite `K / F` and a nonzero `g`. ⚠️ **What fails at infinity is the first paragraph's own
+prediction**: *"they need the behaviour of `functionFieldMap` on the places of `F(W)`"* is right at
+an affine closed point, where the factor is a ramification index this development leaves abstract,
+and wrong at the point at infinity, where `ordInfty` is a difference of `natDegree`s of an
+`F[X]`-algebra norm and the proof names no place at all. ⚠️ A prose pointer and not an `import`:
+`DivisorProjBaseChange` imports `DivisorBaseChange`, which imports this file, so that module sits
+above this one.
 
 ## ⚠️ Eight `@[simp]` attributes were removed here, and the lemmas kept (`#1278`)
 
