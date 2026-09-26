@@ -2562,6 +2562,102 @@ at the row.
 denominator, and the `.lean` docstrings are the whole of its reach, so nothing this document says
 about itself is inside it.
 
+⚠️ **The first of those two limits, measured** (`#1846`). Widening the alternation with
+named-absence wordings it does not carry, over the same population and read the same way — bounded
+by the docstring, split at `\n(?=\* )`, whitespace-normalised, case-insensitively:
+
+```
+\bfree of\b      \bdrops?\s+`      \bneither\b[^.]{0,60}\bnor\b      \bnothing but\b
+\bnot even\b     \bwith nothing\b      \bdispenses with\b      \bno assumption\b
+\bdoes not (need|require|assume|bind)\b       \bnever (needs|requires|assumes|binds)\b
+\bno\s+(smoothness|separability|torsion|closure|transcendence)\b
+\bno\s+(ellipticity|primality|nonsingularity|finiteness|parity)\b
+```
+
+At `d559108` the population is **1708** bullets, of which the merged alternation matches **66** and
+the widening **25** — **16** of them rows the merged one does not reach. ⚠️ **All sixteen were read
+against the elaborated telescope**, instance binders included, which is the only thing that sees a
+`variable`-block instance (`#1577`) and it decides one of them outright: a row saying a dead
+`[IsDedekindDomain W.CoordinateRing]` is gone sits in a file that binds that instance for another
+of its own sections, so the `theorem` line cannot answer it either way. The sixteen split
+**10 / 1 / 4 / 1**. **Ten** are this branch and every absence claim among them is TRUE on the
+one-question test; two
+of those ten carry a second clause that no rule here decides, and those two are `#1953`. **One** is
+a complete list in absence clothing and is **FALSE**. **Four** match on wording that is not about a
+hypothesis list at all: two issue numbers, a proof's independence from a theorem proved in a file
+that imports it, a statement's form, and which indices a pair of statements reach. **One** matches
+only inside its own account of a clause it has already retired.
+
+⚠️ **The FALSE row was false on arrival rather than stale**, which is the class PR #728 found twice
+on the unmeasured-gate axis (`#1848`). `EllipticCurves.FunctionField.PlaceResidueComap`'s row for
+`residueDegreeTwo_none_eq_one_of_ne_zero` named `residueDegreeProj W none ≠ 0` as the whole of what
+that computation takes, over a theorem binding `(2 : F) ≠ 0` as well, and `d22520d` (`#744`,
+PR #305, 2026-08-22) wrote the theorem and the row in one commit. Being an explicit argument of
+`residueDegreeTwo h2 p` does not clear the binder: `### Reach clauses` decides that case by subject
+matter and names this very shape. ⚠️ **It retires rather than completes**, on that section's own
+discriminator — the clause cannot be completed by extending its own list, only by deleting its own
+words — and the declaration's own headline carried the same claim in other words, so
+`### Retired claims`' subject test puts both quotations at the declaration. ⚠️ **So the repair
+takes the retired wording out of the `## Main *` layer and the count goes with it**: the
+widened-only figure is **16** at `d559108` and this commit takes **one** off it, the only figure in
+this bullet it moves. That is the counter-case to a repair that leaves the words where they stood —
+here a reading of the count alone reports a row lost where a defect was repaired.
+
+⚠️ **The FALSE row is repaired here rather than routed, and the ground is the two counting-axis
+issues' own scope lines.** The paragraph publishing the merged census routes *"a complete count in
+absence clothing"* to `#1645` and `#1767`; this one is a complete **list**, and the noun is not
+what decides it. Neither of those issues will take a module-block bullet. `#1645` is the counting
+axis on **declaration headlines** — *"The same axis was never run on declaration headlines"* — and
+its out-of-scope list opens with *"The module-block bullet layer"*, naming `#1614` and `#1616` as
+where it lives instead; `#1767` measures *"the 71 counting headlines"* and scopes out *"The
+`example` and `/-!` rows"* of its 95 on the ground that *"`#1616` owns the module-block layer"*.
+**Both send this layer away and both send it here**, `#1616` being the issue this widening was
+filed under, so routing a bullet to them would orphan it rather than move it. ⚠️ **That reopens
+nothing above**: the three rows that census routes are routed for a rule those two issues own and
+this section does not — whether a count runs over conditions the same row has already named — and
+no verdict is returned on them there or here. This row needed no such rule, because it fails this
+section's own one-question test: the declaration binds `(2 : F) ≠ 0` and the row said the
+computation takes it from the nondegeneracy alone.
+
+⚠️ **The repaired row's sentence carries a second clause, and it completes where the first
+retires** — the same test run twice on one sentence with opposite answers. That clause called the
+sibling `residueDegreeTwo_none_eq_one` *"unconditional"* over a statement binding `(2 : F) ≠ 0`
+from a `variable` line, which is `#1577`'s blindspot again; but the clause immediately before it
+names the gate the word is relative to, so `### Gate-discharge claims` leaves it compliant where it
+stood and moves the completeness obligation onto the naming sentence, which *"must name every
+explicit hypothesis of the statement"*. That sentence was short of the binder and now carries it.
+**Partial, not false**, so `### Reach clauses`' *"false or merely partial"* test never opens
+`### Retired claims` on it — and the precedent is the worked example of the section that governs
+it, whose gate word was re-scoped to an explicit list at `cf26867`, leaving no marked quotation in
+that file, at a commit whose parent already carried `### Retired claims`. ⚠️ **What separates the
+two clauses is which list each is relative to**: one is relative to the statement's own hypothesis
+list, which is the one list no sentence elsewhere can complete, and the other to a gate named
+beside it.
+
+⚠️ **The boundary this census runs on is the one this section fixes for a register's list, and the
+counts are what say so.** *"take each `## Main *` section"* does not repeat where such a section
+ends, and the two candidate readings differ wherever a `###` sub-heading sits inside one: closing
+it at the next heading of **any** level returns **1690** bullets and **63** merged rows at
+`8f95181` and at `6c22e12`, where this bullet publishes 1696 and 64, and **14** widened-only rows
+where the reading used here returns 16. The reading that reproduces every figure this bullet
+already carries is the one stated for a reach register's unit — *"it begins at that heading and
+ends at the next heading of the same or a higher level"* — so a `###` inside a `## Main *` section
+does not close it. ⚠️ **A re-implementation has to take the boundary from that sentence**, which is
+a different paragraph of this section: the census paragraph alone does not decide it, and the first
+figure that tells an implementer they took the other one is the 1696.
+
+⚠️ **The widening owes its own limits, on the same ground** (`#1749`). It is the **third**
+vocabulary written for this class and is vocabulary-keyed in exactly the way the merged one is, so
+**25** is a floor in the way **64** is; and it reads `## Main *` bullets only, so the second limit
+is not measured here — this commit reads no headline, and the denominator that limit names is
+`#1846`'s second deliverable rather than anything this bullet now carries. ⚠️ **What these
+paragraphs do to the seeds this page publishes was checked rather than assumed**: they add no match
+to the noun-and-direction seed on either of its readings, none of the nine words, and no run of the
+distance seed. The citation-provenance span test goes from **102** rows to **105**, diffed by row
+and not by total: three citation/quotation pairs are added, each one scored **inside** the section
+it cites, and not one of the 102 is lost or changes verdict. They put **18** bolded numerals
+standing alone on this page, counting the one in this sentence.
+
 ⚠️ **This paragraph and `#1680` are different sentences of this section and neither answers the
 other.** `#1680` is open against the `EllipticCurves.TateModule.DeterminantModGeneral` *"form to
 copy"* naming above; nothing here edits that sentence or the paragraph holding it. If `#1680`
