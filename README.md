@@ -756,6 +756,134 @@ so the claim holds. ⚠️ A totality phrase stated **relative to a named gate l
 *"unconditionally"*, *"with no hypothesis left"* — is a gate-discharge claim and is governed by
 `### Gate-discharge claims` below, not by this paragraph.
 
+⚠️ **Read at the index, that paragraph decides `[NeZero n]` — the one instance this section has
+answered twice without joining the answers up** (`#1953`). A headline **silent** about `[NeZero n]`
+names nothing, so the mention rule above clears it and `#1774`'s three `μ`-valued rows stay cleared
+**on the headline axis**, with no headline insertion owed to any of the three. ⚠️ **That clears
+their headlines and not their files, and two of the three have a row below the cut**:
+`exists_weilPairingMu_self_eq_one_of_hprin_two` carries *"The `n` is arbitrary"* and
+*"whichever `n`"*, and `exists_weilPairingMu_self_eq_one_of_card_two` carries *"The index `n` is
+arbitrary"* — bold in the original, inside a ⚠️-opened sentence — and *"whichever `n`"*, which is
+not. **Four** occurrences in **two** of the three, every one of them below the headline and
+every one of them inside the **32** this block's recogniser counts, on this block's own ruling
+that a false sentence below a headline is a row in its own right rather than something the
+headline repairs. They are `#1977`'s.
+A clause reading *"for arbitrary `n`"* is not silent: it **quantifies** over the
+conditions on the index exactly as *"over an arbitrary field"* quantifies over the instances
+constraining `F`, and *"Name all of them or none"* — the opening of the paragraph above, bold in
+the original over that whole sentence — holds such a phrase to all of them, `[NeZero n]` included.
+So **silence is short and cleared, arbitrariness is over-reaching and false**, which is
+this section's own *"Short is partial, over-reaching is false"* — bold in the original over that
+whole sentence — applied to one binder rather than to a list.
+
+⚠️ **`instImplicit` is not the discriminator, and the `residueDegreeN_none_eq_one` withdrawal is not
+being transposed after all.** That withdrawal is ruled above to reach no `instImplicit` binder and
+it still does not. What decides here is the **clause** and not the binder: the same `[NeZero n]` is
+ambient under a headline that says nothing about the index and named under one that says the index
+is arbitrary, because the second makes a claim the first does not.
+⚠️ **Nor does *the conclusion cannot be written without it* clear one.** `(2 : F) ≠ 0` as an
+argument of `mulByTwoEndo` cannot be deleted either — the backstop **below** records that the
+restatement *"does not elaborate at all"* — and that is exactly why it is a backstop and not a
+second discriminator. An index the notation carries stands in the same place.
+
+⚠️ **Two registers share the words, and the one that sorts them is the subject and not the
+deletion test.** The `#1678` provenance bullet above rules in terms that the deletion test does
+not decide its class, so do not reach for it here. *"at an arbitrary `n`"* standing in for
+``the general-`n` form of`` has the **pair** for its subject — this declaration and the
+numeral-indexed one it generalises — and is provenance on that bullet's own ground.
+*"The index `m` is arbitrary and need not equal `n`"*, bold in the original at
+`WeilPairingAlternatingAssemblyN:314`, has this declaration's own index for its subject and a set
+of indices for its predicate, so it is a reach clause and `[NeZero m]` is a condition on it. That
+is `### Scope of the rules above`'s *"The subject decides, not the string"* — bold in the original
+there — read at the index, and it is the same test the provenance bullet is decided by.
+
+⚠️ **The population, with the recogniser beside it, and the ruling is not a sweep** (`#1977`).
+Arbitrariness predicated of the index itself, case-insensitively, with `x` one of `n m k p q` —
+``for arbitrary `x` ``, ``at an arbitrary `x` ``, ``Arbitrary `x` ``,
+``the index `x` is arbitrary``, `` `x` is arbitrary``, ``whichever `x` `` — joined against the
+elaborated telescope at `77fb54d`, and kept only where the declaration binds a condition on that
+same `x`: `NeZero x`, `x ≠ 0`, `(x : F) ≠ 0`, `((x : ℤ) : F) ≠ 0`, `0 < x`, `1 < x` or
+`3`-smoothness, and never the non-constancy, which the `#1678` provenance bullet above rules is
+not a condition on the index. That returns **32** occurrences
+in **22** declarations across **13** files:
+**14** whose only such condition is the instance `[NeZero x]`, **8** binding an explicit `x ≠ 0`,
+and none binding both. A ranged form carrying its own condition — ``at every `n` with
+`(2 : F) ≠ 0` `` — is outside the list on its merits, being the compliant form. ⚠️ **The bare
+ranged form `` at every `n` `` is outside it too, and that is a scope choice and not a
+clearance**: `weilPairingTorsionMuHom_n`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`) is the witness, its headline
+reading *"`e_n(S, ·) : E[n] → μ_n(F)` as a homomorphism of groups, at every `n`"* — bold in the
+original over that whole headline — over a signature whose only condition on the index is
+`[NeZero n]`, its `hn` being the non-constancy that same `#1678` bullet rules is not one.
+**So 22 is the phrase list's population and a lower bound on the ruling's**, and it is unmeasured
+and `#1977`'s. At the module layer, at that same head, **6** of the tree's **1708** `## Main *`
+bullets carry the phrase and **5** stand over a declaration binding such a condition.
+⚠️ **One of the five is a row for a different reason from the other four**:
+`EllipticCurves.FunctionField.WeilPairingProductRelationRootIndependent`'s
+*"the transfer, for arbitrary `n` and arbitrary base-field-fixing `φ`"* stands over
+`weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq`, whose index is **`m`**, bound `hm : m ≠ 0`, and
+which has **no `n` in its signature at all**, so that bullet names a letter its theorem does not
+have. The sixth,
+`EllipticCurves.FunctionField.NthRootOfPullbackN`'s *"rung 5 at an arbitrary `n`, with the
+non-constancy of `[n]` taken as the explicit hypothesis `hn`"*, is **true** and names the one
+hypothesis about `n` that `exists_gS_n` has. ⚠️ **The eight need nothing new**: `hnz : n ≠ 0` is
+explicit, and the withdrawal above reaches them where it was always going to.
+
+⚠️ **The seed `#1953` published has one working alternative and two that are worse than dead,
+and they are the same family as the trailing-space flag this section already carries.**
+``\barbitrary .n.\b`` cannot match `` arbitrary `n` `` at all, because a trailing `\b` after a
+closing backtick needs the **next** character to be a word character, and in the whole population it
+never is — **21** spaces, **9** commas, **7** full stops, a colon, a quotation mark and one end of
+line — while `.n.` matches `and` and `one`, where the `d` and the `e` supply one. Over every tracked
+`EllipticCurves/**/*.lean` at `77fb54d` — this page excluded, since none of these figures is a
+figure about it — the literal `` at every `n` `` occurs **254** times and `` arbitrary `n` ``
+**40**; that branch returns **7**, ``\bat every .n.\b`` returns **2**, and all **9** are
+`arbitrary and`, `arbitrary one` or `at every one`. **Each is blind to its target and a
+false-positive generator in one expression**, which is strictly worse than a branch matching
+nothing — and **four** of the seven land in `WeilPairingAlternatingAssemblyN`, which is in the
+population, so the seed is right there by accident and for none of its stated reasons.
+⚠️ **The scope clause above is the flag, and it is worth a numeral rather than a word.** With this
+page counted **in**, the same two literals are **279** and **42** at that same head — and a figure
+taken that way is not merely larger, it **moves with every edit to this page, including this
+paragraph**, which is `#1972`'s class and is why no head-keyed value for it is printed here.
+
+⚠️ **Cut at the headline and this is a different class, which is why the repair is not a headline
+repair.** Under the headline cut defined further up this section, **13** of the 32 occurrences, in
+**11** of the 22 declarations, are inside the headline and the other **19** stand below it —
+`#1953`'s own two rows among the latter, in the `#868` recipe paragraph.
+`### Scope of the rules above`'s *"Nor does a sentence lower in the declaration's own docstring"* —
+bold in the original there too — is about a completing sentence failing to repair a headline; a
+**false** sentence lower down is not repaired by the headline either, and is a row in its own
+right.
+
+⚠️ **The register half of `#1953` is answered already and is not re-decided here.**
+`### Module-block bullets` rules a reach register's unit to be its list and says
+*"So prose in another `##` section does not clear a bullet, and the distance does not enter"* — bold
+in the original over that whole sentence — and, in the other direction,
+*"Nor does a register reach a bullet above it"*, bold there too, with `above` in italics inside it.
+`EllipticCurves.FunctionField.WeilPairingAntisymmetricMu`'s `## Scope` sentence is on both sides of
+that at once: a different `##` section, and printed **after** the `## Main results` list it would
+have to reach. It is the geometry that section already names of `…PullbackPrincipalityThree` and
+`…WeilPairingTranslationSlotNotInjective`, so the two rows `#1953` pairs differ in their prose and
+not in their verdict.
+⚠️ **One ground in that section is reached by this ruling and the disposition it carries is not.**
+`### Module-block bullets` disposes of two of its nine rows *"because what they quantify over is an
+**instance** or the setting"* — which, it says there, this section leaves ambient — and one of the
+two is `…TranslationActionN`'s *"at an arbitrary `n` over an arbitrary field"*, the phrase this
+paragraph rules quantifies over the conditions on the index. ⚠️ The heading citation that sentence
+carries is deliberately **outside** both spans: inside one it would bind the next quotation to
+itself and score it `OUT` on this page's own span test, which is a row this block would be adding
+rather than finding. **Both stand, because they answer different
+questions**: that section asks whether a sentence **clears a bullet**, and a phrase can quantify
+over something and clear nothing; this one asks whether the clause is **true**.
+⚠️ **And that row's clause is not convicted by the meeting.** Its register is scoped by its own
+opening sentence — *"This is the **only** part of the file that constrains `n` or needs a
+hypothesis on `F`"* — and outside the section that sentence excepts, **10 of 10** declarations
+that bind an index bind a bare `(n : ℕ)` at `77fb54d`; the other seven are inside
+`section Nonvacuity`, at a concrete base, and bind none — **seven**, not the fourteen top-level
+items a reader counts there, because the count is over the same elaborated telescope the recogniser
+above uses and the section's seven `example`s add nothing to the environment.
+
 ⚠️ **The two directions are not equally safe, and that asymmetry is why any of this is written
 down.** doc-gen renders what a declaration *has*, so a presence mention is contradicted on its own
 page as soon as it goes stale, while an absence claim is contradicted by nothing a reader can see:
