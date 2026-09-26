@@ -150,9 +150,21 @@ four statements about `W.torsion 3` take `[W.IsElliptic]` as well — the last f
   certificate wants a base containing a primitive cube root of unity — `y² = x³ + 2` over `ZMod 7`
   satisfies both conditions, with `Ψ₃` splitting at `{0, 3, 5, 6}` and `Ψ₂Sq` taking the values
   `{1, 4, 4, 4}` there.  ⚠️ That base is not available in this module's import closure
-  (`Field (ZMod 7)` is not synthesisable from it), and pulling a finite-field import into a module
-  eight files import directly is the trade `EllipticCurves.Fixtures` rules against in terms, so the
-  certificate belongs in its own module and is filed rather than shipped here.
+  (`Field (ZMod 7)` is not synthesisable from it), and pulling a finite-field import into a
+  widely-imported module is the trade `EllipticCurves.Fixtures` rules against in terms, so the
+  certificate belongs in its own module.  ⚠️ **It is now shipped in
+  `EllipticCurves.Torsion.ThreeTorsionSplitCertificate`** (`#2105`), which imports this file and
+  `Mathlib.FieldTheory.Finite.Basic` and instantiates both statements below at that curve with no
+  hypothesis at all.  The clause read *"so the certificate belongs in its own module and is filed
+  rather than shipped here"* from `08096d3` (2026-09-20, `#2104`, PR #785) until this commit; the
+  *filed* half is what this commit falsifies and the *own module* half is confirmed by it, so this
+  retires a conjunct and not the bullet.  ⚠️ **The sentence above it carried a numeral, and this
+  commit is what extends the population that numeral counts.**  It read *"into a module eight
+  files import directly"* until here, and the new direct importer is this certificate itself — the
+  one module that *does* pay the finite-field import.  So the numeral is dropped rather than
+  bumped: a count of this module's direct importers is falsified by whatever next imports it, and
+  what carries the argument is that the other direct importers need no finite field and would all
+  pay for one.  That is why the certificate and its import are still not here.
 * **`n = 2`.**  `EllipticCurves.Torsion.TwoTorsion` and
   `EllipticCurves.Torsion.TwoTorsionSplittingField` are untouched, and nothing below is stated at a
   general `n`.
