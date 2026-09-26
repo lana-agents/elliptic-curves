@@ -4681,6 +4681,216 @@ written at, that head was amended away, and read at the commit the sentence land
 ⚠️ **A pair with a landed sha at each end can be re-run forever; a pair with `this` at one end is
 re-measured by every later round of its own branch**, and this is the one row of the fifteen where
 that happened. Name both ends by sha, in a message that is still open to be amended.
+
+### The merge gate
+
+**15 of `main`'s 737 landed messages name `merge-tree` at `deb405f`**, whole bodies
+whitespace-flattened; **19** publish a merge or mergeability verdict of any shape
+(`merge-tree|(zero|no|0) conflict|merges? clean|merge cleanly|merged clean|clean merge|MERGEABLE`),
+**15 of the last 30** under that recogniser — of which **13** name `merge-tree`, which is the
+figure for the narrower seed and not for this one — and the earliest is `c7c7f24` (2026-08-24)
+under both. ⚠️ **A figure over a population goes stale the moment a later paragraph WIDENS that
+population, and the rows that break it are the ones the widening added**: the two here are
+`ea5022d` and `49b327d`, both of them members of the four named at the foot of this section.
+`validation.sh` or `lake build` are named in **181**. ⚠️ **The recipe was not printed here at
+`deb405f`**: `merge-tree`, `conflict marker`, `zero conflict`, `no conflict`, `<<<<<<<` and
+`merge-base` each occurred **0** times in this file at that sha, so what those fifteen ran was a
+habit and not a rule. ⚠️ **Both halves of that sentence have a right-hand end now and this
+section did not supply it**: `2dfaf40` (`#2146`, `%cI` 2026-09-22T22:41:03Z) landed the section
+this one hands off to at the foot, and the same six tokens read **2 / 0 / 0 / 0 / 0 / 1** at
+`1f3c95c` — `merge-tree` at `:4278` and `:4380`, `merge-base` at `:4356`. ⚠️ **What that section
+prescribes is the POPULATION half**; the output half — what a `0` out of the command means — is
+what is written down below, and it is still written down nowhere else. The recurring form is
+
+    git merge-tree --write-tree exits 0 with zero conflict markers
+    against <base> and against every live neighbour
+
+⚠️ **which is a schema and not a quotation**: at `deb405f` `zero conflict markers` returns
+**0 of 737** and `against every live` **0**, and the one message carrying *"every live neighbour"*
+is `ee48553`, whose noun is *lines*. The real wordings of the marker half are *"no marker"*
+(**5** of the ten occurrences), *"0 conflict markers"* (**3**), *"no conflict marker"* (**1**) and
+*"zero markers"* (**1**). ⚠️ **The second of those two zeroes has since been broken, and the
+row that broke it is the argument rather than a cost to it**: at `1f3c95c` (**752** messages)
+`against every live` is **1** — `871a224`, *"is clean against every live branch"*, a **third**
+noun in the slot, landed 2026-09-22T15:03:45Z — **29 hours after** the `deb405f` key
+(2026-09-21T09:58:38Z). Three messages, three different nouns, and **0** of them the schema's own:
+that is what makes the indented block above a schema.
+
+⚠️ **And the second conjunct is not a check.** Under `--write-tree` the conflicted blobs are
+written into the object store, and stdout carries only the merged tree oid, a stage-numbered list
+of the conflicted paths, and the `Auto-merging` / `CONFLICT (content):` lines. **The `<<<<<<<`
+markers live inside the written blobs and never reach stdout**, so `grep -c '<<<<<<<'` returns `0`
+whether the merge is clean or conflicted, and a round reporting *"no marker"* has reported the
+result of a grep that cannot come out any other way.
+
+Measured at `git version 2.39.5` on 2026-09-21, `deb405f` against PR #481's head `c99cc89`, which
+genuinely conflicts in two files; their merge base is `931ed05`:
+
+| invocation (`git ` elided) | exit | `<<<<<<<` | `^CONFLICT` | first line |
+|---|---|---|---|---|
+| `merge-tree deb405f c99cc89` | **1** | **0** | **2** | `ee6d2ed2…` |
+| `merge-tree --write-tree deb405f c99cc89` | **1** | **0** | **2** | `ee6d2ed2…` |
+| `merge-tree 931ed05 deb405f c99cc89` | **0** | **2** | **0** | `changed in both` |
+| `merge-tree --trivial-merge 931ed05 deb405f c99cc89` | **0** | **2** | **0** | `changed in both` |
+| `merge-tree --write-tree 931ed05 deb405f c99cc89` | **129** | — | — | `usage: …` |
+| `merge-tree --trivial-merge deb405f c99cc89` | **129** | — | — | `usage: …` |
+
+⚠️ **The discriminator is the ARGUMENT COUNT and not the flag**, and the two forms have their
+discriminators exactly INVERTED. **Two** commit arguments ⇒ the modern form: the exit status is the
+whole test, the marker grep is vacuous, and `--write-tree` is **optional** there — rows 1 and 2 are
+byte-for-byte identical. **Three** ⇒ the deprecated form: the exit status is vacuous, it being `0`
+on a merge that conflicts, and the markers are what discriminate. ⚠️ **Neither flag can cross that
+line**: `--write-tree` with three arguments and `--trivial-merge` with two are both a **usage error,
+exit 129**. So `--write-tree`'s **presence** does fix the form — it forces two arguments on pain of
+`129` — and its **absence** fixes nothing, which is the one direction this page must not read it in.
+Nothing is lost under the modern form, only misread: the markers are in the tree it wrote, and
+`git show <merged tree oid>:README.md | grep -c '<<<<<<<'` reads **1** on that same pair.
+
+⚠️ **But the merged tree OID is not a reproducible figure on a conflicted merge, because it is
+keyed to the argument SPELLINGS.** The label git writes on a conflict hunk is the literal argv
+string — `<<<<<<< deb405f` against `>>>>>>> c99cc89` — so every way of naming the same two commits
+writes a different blob and therefore a different tree. Six spellings of the pair above, same git
+version, same two commits, exit **1** / `<<<<<<<` **0** / `^CONFLICT` **2** at all six:
+
+| left, right | written tree |
+|---|---|
+| `deb405f`, `c99cc89` | `ee6d2ed2` |
+| `deb405f`, `c99cc89da5f4…061c` | `297a0a72` |
+| `deb405fe57…7b6f`, `c99cc89` | `be741162` |
+| `deb405fe57…7b6f`, `c99cc89da5f4…061c` | `ab3a531d` |
+| `main` (then `deb405f`), `c99cc89da5f4…061c` | `01f14c72` |
+| `upstream/main` (then `deb405f`), `c99cc89` | `a81c78a4` |
+
+⚠️ **The last two rows have since gone false, and that is a THIRD source of variation.** They were
+run while `main` and `upstream/main` resolved to `deb405f`; with both refs resolving to `976ebf2`
+(`%cI` 2026-09-21T21:13:58Z) the same two invocations write `49a416c6` and `9d67e38c` instead,
+while the four sha-spelled rows are unmoved by the same re-run, writing `ee6d2ed2` / `297a0a72` /
+`be741162` / `ab3a531d` as before. **A ref name in the argv is keyed to what the ref resolves to as
+well as to how it is spelled**, so the two rows carry their referent above — `#1877`'s indexical
+defect, inside a table about reproducibility, and the reason the rule below asks for *the exact
+argv* and not an equivalent one. The board had already found it from the other side: `f3debb8`
+(2026-09-21T18:21:36Z, after this section's `deb405f` key) re-keyed its own gate line off
+`upstream/main` because *"`upstream/main` is a moving ref and the figure beside it is not"*.
+
+⚠️ **On a CLEAN merge it is spelling-INDEPENDENT**, because there is no marker line to carry a
+label: the four left spellings above, crossed with abbreviated and full-forty right, all write
+`e5202323d4ece17e723f59f9bbeb25642e9d628d` for `deb405f` against PR #787's head `42f4437` — eight
+of eight. `merge.conflictStyle` moves the conflicted case too: `diff3` and `zdiff3` both take the
+first row of the table to `35a73b23`, so a *seventh* oid for that one row is a **configuration**
+difference and not a spelling one, and the argv alone does not pin it. **So publish a written tree
+oid only for a clean merge, and only with the exact argv and config beside it otherwise**; the exit
+status, the `<<<<<<<` count and the `^CONFLICT` count are invariant under all of it, in both
+directions, which is why they and not the oid are the verdict. ⚠️ This is the same class of fact as
+the vacuous marker grep — a figure whose value a re-runner cannot reproduce from what the page
+prints — and it is what makes `c97ba1a`'s tree-identity use below safe: that merge is clean.
+
+**So: name the form by its argument count, take the verdict from the exit status, and publish
+`grep -c '^CONFLICT'` beside it if a second figure is wanted.** Both are produced by the
+two-argument form, flag or no flag, and both move when the merge does. ⚠️ **Do not publish a
+`<<<<<<<` count beside a two-argument invocation**: it is `0` in both directions, so no reader can
+tell an honest report from a copied one. That is the shape `#1992` is the front for, read from the
+other side — there a gate was *excused* on an unmeasured ground, here it is *discharged* on an
+unmeasurable one.
+
+⚠️ **The landed cells are TRUE, and this page does not retire them.** ⚠️ **The fifteen are also not
+fifteen gate reports**, so the census below partitions them at `deb405f` by what the command is
+used FOR, every bucket naming its members:
+
+* **5 messages / 10 occurrences** publish a marker count as the verdict — `3f7d03c` once,
+  `a570d4d` twice, `93cf1d4` once, `dba89ee` five times, `c28c462` once — and all five carry
+  `--write-tree`, which forces the two-argument form, so all ten are vacuous, and all ten are `0`s
+  that really were read. Recogniser: the bare `(zero|no|0)\s+(conflict\s+)?markers?`, with **no**
+  proximity qualifier; requiring a merge word within 220 characters drops two true rows of
+  `dba89ee`'s and returns `5 / 8`. ⚠️ **The pattern is what separates these from the bare word**,
+  which reads **22** occurrences in **13** messages under a **case-INSENSITIVE** `\bmarkers?\b` —
+  ⚠️ **a flag worth printing, because case-sensitively it is 20 in 12**, and the row it drops is one
+  of the two that decide the gloss below. The other **12** — ten elsewhere and two of `dba89ee`'s
+  own, reading *"The bold markers are reproduced inside the span"* and *"inside that span rather
+  than named outside it"* — are **none of them a conflict marker**, and none carries `zero`, `no`
+  or `0` in front of it.
+  ⚠️ *"are bullet, emphasis and layer markers"* — this branch's round 2,
+  `5f1466bd7e35e6edeecb428a566374195d25f27d` — would cover only ten of the twelve: `e122163`'s is
+  a Lean comment token (*"a bare token appended to a real code line, **not** a `-- MARKER`"*, the
+  row the case-sensitive reading loses) and `2d7f0e0`'s is a prose pointer
+  (*"matching the marker two paragraphs above it verbatim"*).
+  ⚠️ **This bucket has grown since the key and the new member is the same shape, which is the
+  point**: at `1f3c95c` it is **6 messages / 13 occurrences**, the sixth being `f3debb8`
+  (`%cI` 2026-09-21T18:21:36Z — ⚠️ **not an ancestor of `deb405f`**, so the census above is right
+  to exclude it rather than stale for doing so). It publishes *"is exit 0 with no marker"* three
+  times off `git merge-tree --write-tree 9147113 HEAD`: **two** commit arguments, so all three are
+  vacuous by the paragraph above. ⚠️ **And its right-hand argument is a moving ref** (`#2090`),
+  in the message of a round that re-keyed its own gate line off `upstream/main` for that very
+  reason — the citation below. Two of the three also carry a written tree oid, which the rule
+  below permits **because that merge is clean**.
+* **2** publish a conflict LINE or ENTRY count instead — `ee48553`, *"exits **0** with zero
+  conflict lines"*, and `deb405f`, *"exits 0 with zero conflict entries"* — and those are
+  **sound**, because the `CONFLICT (content):` lines ARE printed. ⚠️ **The wording is the whole
+  difference and no round has ever said so.**
+* **4** give the exit status alone, which is the whole test: `9147113`, `ebb4d42`, `2d7f0e0` and
+  `ac0a053`.
+* **1** prints no arguments at all, so ⚠️ **its form is undetermined from what landed**: `4882527`
+  writes *"`git merge-tree | grep -c '<<<<<<<'` reports **0** conflicts between the two branches"*
+  — no base, no branches, no flag — and uses it to say that a clash it had already found was
+  semantic and not textual, *"the recorded conflict-count recipe cannot see it"*. ⚠️ **A missing
+  `--write-tree` in a quotation that names no commits is not evidence of the three-argument form**,
+  by the re-keying above. The internal evidence points the other way: the recipe it defers to is the
+  one *recorded on this board*, and at `4882527`'s `%cI` **2026-09-02T13:36:01Z** the landed record
+  held exactly **one** `merge-tree` message — `c7c7f24`, **which carries `--write-tree`**. On that
+  evidence this is more likely an **eleventh vacuous `0`** than a real one. It keeps a bucket of its
+  own because the ten above are *known* vacuous and this one is only *probably* so.
+* **3 are not gate reports at all.** `2f1a674` publishes a bare verdict — *"at `c009c40` it
+  conflicts with this head, as `git merge-tree --write-tree` reports"* — with no exit status and no
+  count. `c97ba1a` uses the command to prove a fast-forward by TREE IDENTITY, it returning the
+  branch's own tree. `c7c7f24` uses it as a DISCOVERY tool, to find which of two files merged
+  cleanly so that the text could then be read.
+
+5 + 2 + 4 + 1 + 3 = **15**. ⚠️ **A `merge-tree` occurrence and a merge-gate report are different
+populations**, and a figure over one says nothing about the other.
+
+⚠️ **A merge verdict does not have to name a command, and four more do not — but those four are
+two shapes and not one.** **Two report on their OWN branch**, which is what a gate report is:
+`ea5022d` publishes a full one in the sound wording and names no command — *"Merge, run at
+2026-09-20T11:53Z: exit 0 and zero conflict lines against `c97ba1a`"* — and `f1d1473` publishes a
+bare verdict (*"Verified to merge cleanly onto #621 in either order"*). **The other two report
+GitHub's `MERGEABLE` field about a THIRD pull request**, which is an observation and not a gate at
+all: `49b327d` on `c009c40` (*"twice approved and `MERGEABLE` at `31177f4`, went `CONFLICTING` the
+moment it landed"*) and `5e289cb` on PR #650 (*"open and `MERGEABLE` against the same base"*). ⚠️
+**And the field is `#1938`'s row — a value no sanctioned tool here can read**, so those two are not
+re-runnable at all. 15 + 4 = **19**, the denominator the first sentence of this section uses, and
+**2** is the count of command-free *gate reports*. ⚠️ **`ea5022d` is evidence for the thesis above
+from outside the population the `merge-tree` figure counts**, which is why the two counts are kept
+apart rather than summed into one bucket list.
+
+⚠️ **`### Retired claims` does not bind here**: it says in terms that occupancy never triggers that
+section and falsification does, and nothing falsifies a true `0`. The ten stay standing and carry
+no information, which is what this paragraph is here to record.
+
+**Which branches the gate runs over is a different question, and this section does not decide
+it** — `### The neighbour population` does, and says so in terms: *"It does not decide what the
+gate's output means"*, which is this section's whole subject. ⚠️ **Each half was drafted while
+the other did not exist and the hand-off has to be read in that order**: this file defined that
+population nowhere at `deb405f`, `2dfaf40` landed the definition **409** lines above this heading
+— `:4465` against `:4874`, this section merged onto `c6ef24a` — and what was a pointer at the
+tracker is a pointer at the page. ⚠️ **A heading distance is read off ONE page, and a landing
+between the two ends moves it with no edit to either**: merged onto `5dba859` the same pair is
+`:4465` against `:4954`, **489**, because `53c2f09` put 80 lines in between. **So publish a
+distance with the page it was read off and not as a bare number** — *"Name both ends by sha"*,
+applied to the pair rather than to a hunk. **The two are mutual and neither
+is the other's larger version**: which pairs the gate is run on is decided there, what a `0` out
+of the command means is decided here.
+
+⚠️ **That section's sense census is keyed to `ac462ef` and scores the pull-request sense at 0,
+and this insertion is inside it**: the stem occurs **3** times in this insertion — in the indented
+schema, in the `ee48553` quotation beside it, and in the heading named at the top of this
+paragraph — and all three carry that sense, which is why that census publishes a delta rather
+than an endpoint pair.
+⚠️ **It is also why this paragraph names that heading once and not four times.** Its
+*"one, three and two occurrences"* is a live claim about three open pull requests, this branch is
+its **three**, and a fourth mention here would put that sentence out by one without touching the
+file it is in — ⚠️ **a landed self-figure that only an adjacent branch can break, and only that
+branch can see it break**. `#1972` asks a round to re-resolve its own self-figures at the tree it
+lands in; this is the same rule turned outward, at somebody else's.
+
 ## Reviewing
 
 Work here is dispatched to several agent slots at once, and a pull request is normally written in
