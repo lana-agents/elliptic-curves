@@ -4509,9 +4509,31 @@ arithmetic — which is what the two ratios forced, and it got the mechanism wro
 — ⚠️ **and it is published as a DELTA, because the right-hand end is decided by the merger's queue
 and not by this branch**: the stem returns **12** on **11** lines at `ac462ef`, and this section
 adds **9** occurrences on **8** lines, **2** of them its own `NEIGHBOURS`, quoted from the two
-messages that make the case-insensitive key load-bearing.  ⚠️ **Three open pull requests add the
-stem to this file** — one, three and two occurrences — so an endpoint pair is true only if this
-branch lands next, while `+9 on +8` is what all four landing orders return.  That is
+messages that make the case-insensitive key load-bearing.  ⚠️ **FIVE open pull requests add the
+stem to this file at 2026-09-26T21:04:49Z**, keyed `[Nn]eighbour[a-z]*` over added lines against
+each member's own merge-base and ⚠️ **keyed to each member's HEAD in the full forty, because a
+pull-request NUMBER is a live pointer and not a key** (`#2096`): **#752** two at
+`9471324d422dffceedecf61177724d0d182d8e44`, **#791** one at
+`e4cc225cb17b1b9074152cf57c6caf0bd13290c7`, **#792** three at
+`958cf998ce0cf90d84b062a40bbb026e4bcbfa51`, **#802** four at
+`004d829c719ac8915e9f684374c351bea6039c0e` and **#809** seven at
+`3dbd9ccb4a1fa379baf3bc0034661bcfc8515125` — against **three** when `2dfaf40` wrote the sentence
+this replaces, whose *"one, three and two occurrences"* is now a proper subset of the true
+multiset.  ⚠️ **And #809 is the demonstration that the number is not the key: it returns five,
+six and seven stems at three of its own heads**, `7bc3f52d7150f7e6a9a9da6efccc2fcd560e4326`,
+`c4eac3c37f2bde16494e30023fcb8a4b7284df6f` and the one above, all three dated inside four days.
+**A reader given the numbers and the clock cannot get this table back; a reader given the heads
+can.**  ⚠️ **It went false by two members with no edit to any file, and no reader could have
+caught it: the cell carried no clock, no head and no member** (`#2204`).  ⚠️ **A count over the
+live pull-request set is keyed by a CLOCK, by its MEMBERS and by their HEADS, never by a sha of
+this repository — no tree contains it**, and a clause that has to survive the next entrant is
+written as a universal carrying no count at all.  ⚠️ **This branch is not in that census, and
+that is measured rather than assumed**: it adds **0** stems and removes **0** under either key, so
+the file is unmoved at the **21** it reads at `0b8f3d1` under the `[Nn]` key — the **12** above plus
+this section's **9**, closing exactly — and at the **23** it reads there case-insensitively, and the
+census above is invariant under this branch's own landing order.  So an endpoint pair is true only
+if the branch publishing it lands next, while `+9 on +8` is what **every** landing order returns —
+which is that universal, and the reason this paragraph publishes the delta, not the pair.  That is
 `### The render gate`'s *"Publish the delta and not the endpoints"* one section below, applied to a
 population figure rather than to a token count.  ⚠️ **The delta is a self-figure too, and repairing
 the paragraph above moved it**: quoting the site that separates the two window buckets put one more
@@ -4568,7 +4590,18 @@ moves, and for this pull request it read `UNKNOWN` at 12:33:09Z, **`CONFLICTING`
 durable facts are that the ref is absent at every one of those clocks and that
 `git merge-tree --write-tree <main> 6327391e` exits **1** against `ac462ef`, `44272f7` and
 `871a224` alike — which is item 3's control, and it needs no server-side field at all.  The other
-**18** of the residue are pull requests closed without merging.
+**18** of the residue are pull requests closed without merging.  ⚠️ **That count carries no
+clock of its own either, and it is the second of the two cells in this section that carry none** —
+it inherits `12:33:09Z` from three sentences up.  ⚠️ **Re-read 2026-09-26T21:03:25Z and every cell
+of this paragraph still holds**: **810** head refs = **34** open + **757** landed + **19** residue,
+the two keys still disjoint, exactly **one** of `main`'s **758** subjects carrying no trailing
+`(#N)`, and #471 still the only open member of the residue, at head
+`6327391e25667aebb7cfec4b5f5b9d970b9e28c4` and with no `merge` ref.  ⚠️ **The reading this
+replaces was taken at 18:07:12Z and read `809 = 33 + 757 + 19`; the one membership that moved in
+between is this branch's OWN pull request**, opened minutes after that reading and advertising a
+`merge` ref by the next one — **so a population census moves under the round that publishes it**
+(`#1972`), and the superseded reading is recorded on `#2204` and resolves in no blob (`#1969`).
+**It survived four days because the residue did not move, which is luck and not a key** (`#2204`).
 **So a sweep keyed on merge refs is short, and being short is the failure a total on the left of
 *of N* cannot show** — the same numeral reads identically whether the world had 35 members or the
 sweeper found 35 of 36.  **Publish the residue's size beside the count.**
@@ -4578,6 +4611,50 @@ sweeper found 35 of 36.  **Publish the residue's size beside the count.**
 1. **The rule and the clock, not the number alone** — *open pull requests, read from
    `refs/pull/*/merge` in one advertisement pass at `<time>`, `N` of them, with `R` head refs
    neither open nor landed under the trailing-subject key*.
+
+   ⚠️ **And the heads that pass advertises are fetched with a leading `+`, or the sweep scores a
+   branch at a head it abandoned.**  `git fetch upstream refs/pull/<n>/head:refs/nb/<n>` **refuses
+   to move a local ref that already exists and is not fast-forwardable** — and every amend on this
+   board is a force-push, so every reused ref is exposed.  Write `+refs/pull/<n>/head:refs/nb/<n>`,
+   or delete the refs before the pass.  ⚠️ **It is not hypothetical**: the first reading of the
+   census under *"open pull requests add the stem"* above returned **four** members where that
+   census has **five**, because `refs/nb/802` was still `28f2b707` (`%cI` 2026-09-23T09:13:55Z)
+   where `refs/pull/802/head` was `004d829c` (`%cI` 2026-09-24T00:03:41Z).  ⚠️ **The refusal EXITS
+   1, and the status is the one guard that works**: at `git 2.39.5` it prints
+   `! [rejected] … (non-fast-forward)` on **stderr**, and under `-q` no such line at all, so an
+   OUTPUT check misses it while `set -e`, or a bare `|| exit`, catches it.  ⚠️ **A byte count on
+   `stderr` is not that check either** — this repository's `.git/gc.log` puts an unrelated warning
+   on the stderr of every `git fetch`, `-q` included.  ⚠️ **What corrupts a sweep is `-q` inside a
+   bare `for` loop**, which swallows the status and prints nothing: the loop runs to its last line,
+   the census it produces is internally consistent, and the one ref that was refused is scored at
+   the head it abandoned.  ⚠️ **And a re-run of this is a test only once
+   `git merge-base --is-ancestor <stale> <advertised>` has been asserted NON-zero**: a stale value
+   that IS an ancestor fast-forwards without the `+` — exit **0**, output present, ref moved — which
+   is no refusal at all, and is the branch of the behaviour a re-runner reaches by accident.
+   **Print that assertion beside the verdict.**  ⚠️ **A LOCAL ref is only half of it, and NO pass is
+   immune**: `refs/pull/<n>/head` is a server-side MIRROR of the branch ref and it LAGS, and every
+   advertise-then-score pass has a window between the advertisement and the scoring, whatever refs
+   it writes into.  ⚠️ **A `%cI` cannot exhibit that lag and must not be offered as one — it dates
+   the COMMIT, and not the push and not the ref**, so after the fact a mirror that trailed and a
+   push that simply arrived after the pass leave the same trace.  **What decides it is both refs in
+   ONE advertisement pass, beside the clock of the push.**  Measured on this branch's own: the push
+   returned at **2026-09-27T05:11:21Z**, and one
+   `git ls-remote upstream refs/heads/<branch> refs/pull/810/head` in that second read the branch
+   ref at `3e7bc784778b13ab934c423ec2e4d19c177d934c` and `refs/pull/810/head` still at
+   `2ee94268afa972d28645278a7dee0ebf22f64207`; still so at **05:11:22Z**, equal at **05:11:23Z**.
+   ⚠️ **One pass, two refs, no inference — the lag is at least one second and under three, and no
+   `%cI` enters it.**  **So the tell is not a head that disagrees with `git ls-remote`.  The tell is
+   the FULL FORTY of every head scored, printed beside its figure** (`#2096`) — without it a
+   re-runner cannot tell a stale local ref from a lagging mirror from a real re-push, and with it
+   all three are one `git log -1`.
+
+   ⚠️ **This is a paragraph of item 1 and not a fifth item, and the reason is that `2dfaf40`'s own
+   commit message points into this list three times** — *"as item 1 asks"*, *"item 3 asks for"* and
+   *"(item 4)"* — **and a commit message is what lands and cannot be amended** (`#1857`, `#2085`,
+   `#1938`).  A rule inserted at 2 renumbers 2–4 to 3–5 and makes two of those three false
+   permanently, and appending it as a fifth item renumbers nothing but puts it three blocks away
+   from the item it qualifies.  **A numbered list in the tree that a landed message points into is
+   append-only, and a rule that elaborates one item belongs inside that item.**
 2. **Both buckets, with the excluded set named in full.**  At `ac462ef` the 35 split **23 clean** /
    **12 conflicting with `main` ITSELF**: #481 #483 #484 #493 #504 #507 #514 #541 #644 #645 #648
    #668.  Excluding those twelve is defensible; omitting them in silence is not, because a reader
