@@ -3921,6 +3921,50 @@ true"*, one layer up, in this document's own prose. They are:
   count should suspect the **flags** before either the figure or their own code. Four sessions on
   `#1895` and five reimplementations on `#1864` suspected the figure, and in both the figure was
   right and a flag was missing.
+  ⚠️ **That advice has a floor under it: a reader who suspects the flags can only do so once the
+  PATTERN has been read off the page, and this file publishes one as a list of ATOMS rather than
+  as a regular expression.** Three separators are in use between them — a newline, a run of two or
+  more spaces, and a `|` that is not inside a `(…)` group — and no fence says which of the three it
+  uses. ⚠️ **Read a seed by splitting on all three and discarding every empty piece, never by
+  joining its lines**: joining is what a wrapped alternation defeats, because the `|` carried onto
+  the next line meets the one the join supplies, and `(a||b)` matches every blob. The rule that
+  catches that is not a warning to mind the wrap, which asks a reader to compensate for a layout —
+  it is that **an atom is never broken across a line**, which is checkable by eye against any fence
+  here and is true of every one of them.
+  ⚠️ **The worked case is on this page and has been standing for seven days.** The `#962` citation
+  census in `### Gate-discharge claims` carries its `|` to the start of its second line (`1d79187`,
+  `#1888`), and at `855f993` the split reading returns the published **38** of **63** while the
+  join reading returns **63** of **63** — every citation matched, by a seed that matches nothing.
+  ⚠️ **It is correct as printed and is not repaired**: the figures that worked case rests on
+  reproduce to the unit — the **38** of **63** at `855f993` — and what the wrap costs is a reader,
+  not a number. ⚠️ **That endorsement is scoped to the sha-keyed row and reaches no other figure of
+  that census**: the same section's other one is keyed by *"at head"* instead of by a sha, is exact
+  at `1d79187` where it landed, and is `#1975`'s to repair rather than this bullet's. ⚠️ **And this
+  paragraph is inside that census's own population**, because citing `#962` is the thing that seed
+  counts: at `9147113` the census returns **98** citations in **47** files, **67** of them carrying
+  an index word, and at this head it returns **101** in **47**, with the split reading unmoved at
+  **67**. `#1846`'s widened absence seed failed the same way for a different reason and **36** rows,
+  and was repaired on its own branch. ⚠️ **Where a fence carries two operands rather than one
+  alternation its prose says so**, and that one does — the citation, and an index word within `±160`
+  characters of it.
+  ⚠️ **The fences were counted rather than assumed, and the unit counted is the fence and not a
+  word.** **17** fenced blocks in this file at `9147113`, every one read; **7** are introduced by a
+  paragraph naming them a `recogniser`, a `seed` or an `alternation`; **4** of those print a bare
+  atom list — `### Gate-discharge claims` three times and `### Module-block bullets` once — and
+  carry **20** pieces under the split above, of which **two** are not atoms of an alternation: the
+  `#962` fence's other operand, and the flag named below. The other three print a shell command or
+  a labelled binding, and cannot fail this way because their `|`s are written by the author. **One
+  alternation is broken across a line and no atom is**, which is the measurement the rule turns on.
+  This paragraph states its key in prose rather than fencing it, so that writing it does not put it
+  inside the population it counts.
+  ⚠️ **And one fence prints a flag in the atom column**, where nothing mechanical tells the two
+  apart: `### Gate-discharge claims`' *"this commit"* seed writes its pattern and its flags on one
+  line separated by a run of spaces, which is the separator `### Module-block bullets` uses between
+  atoms. It cost nothing at the sha its figure is published for — **36** occurrences in **6** files
+  at `e122163` under either reading — and costs **one** today, **52** against **53** at `9147113`,
+  because the flag's own words have since landed in this file. **A fence carries atoms, and a flag
+  goes in the prose beside it.** That one is filed rather than repaired here, because a rule and
+  the seed it convicts do not share a diff (`#1614`).
   ⚠️ **The flag that moves an answer furthest is not case, and it is the one this page states
   least often.** The `#962` citation census names its anchoring, in the `±160` of its own window;
   the attribution seed keyed on a citation *within 40 characters of a `PR #n`* is published twice
