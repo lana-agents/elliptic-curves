@@ -313,6 +313,26 @@ Three blocks, answering different questions.
   (`Nat.ten_not_smooth`, proved), so no `_of_smooth` statement in this file can state any of the
   three at any hypotheses.  Same curve, same three points — `2`-torsion is `10`-torsion.
 
+## ⚠️ Three index clauses above the list were short, and the register does not reach them
+
+⚠️ **Retired** (`#2009`).  The section heading at `### The one new input`, the headline of
+`weilPairingElt_pow_eq_one_of_gS_n_torsion` and the headline of `weilPairingTorsionMuHom_n` each
+read *"at every `n`"* until now.  All three are about declarations binding the non-constancy
+`hn : Transcendental F (n • genericPoint).xCoord` explicitly, and `xCoord_zero` makes that false at
+`n = 0`, so each was short on the index axis.  ⚠️ **The two headlines take the *names every
+hypothesis* branch and the section heading takes the other one**, and that is not an inconsistency:
+joined onto its title the clause puts the heading at **131** columns, so `README.md`
+`### Scope of the rules above` forces the *"or it names none"* branch there and the clause is
+stated in the prose under the heading instead.  ⚠️ **A wrapped bold headline is legal and a wrapped
+ATX heading is not** — that page's own bullet closes *"It is only headings"* — which is why one
+repair lands two different ways in one file.  ⚠️ **The register above carries the non-constancy
+for the LIST and the list only**: `README.md` `### Module-block bullets` binds a register to the
+list it heads and rules that *"the traffic runs one way"*, so a bullet the register clears is still
+answerable as a headline — which is why the bullets are untouched here and the three clauses above
+them are not.  ⚠️ **`[NeZero n]` is not what convicts `weilPairingTorsionMuHom_n`**: an instance
+argument is ambient under `### Reach clauses` and no insertion is owed for it; the explicit
+non-constancy is the binder the clause was short on.
+
 ## References
 
 * [J. Silverman, *The arithmetic of elliptic curves*][silverman2009], III.8.1(a).
@@ -324,15 +344,24 @@ namespace CoordinateRing
 
 variable {F : Type*} [Field F] {W : Affine F} [W.IsElliptic] {xT yT : F}
 
-/-! ### The one new input: `e(T, g) ^ k = 1` from `n`-torsion of `T`, at every `n` -/
+/-! ### The one new input: `e(T, g) ^ k = 1` from the base-field `n`-torsion of `T`
+
+⚠️ The statement below is at every `n` at which `[n]` is non-constant, and **this heading names no
+index clause rather than naming that one**.  Joined onto the title that clause takes the heading to
+**131** columns — the heading line, the clause, and the three characters that close the block;
+**128** without them — and `README.md` `### Scope of the rules above` rules that *"a reach clause
+that does not fit inside the shortened title"* is dropped to the *"or it names none"* branch of
+`### Reach clauses` and stated in the prose below, **not wrapped**.  ⚠️ `#1879`'s bullet makes a
+standalone `/-! ### … -/` header its own unit, so prefixing a second line with `#` would not join
+it either — it would make a second heading. -/
 
 open Classical in
-/-- **`e(T, g) ^ k = 1` from the base-field `n`-torsion of `T`, at every `n`.**  The general-`n`
-form of `weilPairingElt_pow_eq_one_of_gS_two_torsion` (`TranslationTorsion`): given a rung-5 datum
-`u · g ^ k = [n]∗ f` and `n • T = 0` over the base field, the translation `τ_T∗` fixes `[n]∗ f`
-(`translateEndo_mulByNEndo_apply_torsion_of_baseField`) and fixes the constant unit `u`
-(`translateEndo_algebraMap_unit`), so it fixes `g ^ k` and the pairing value is a `k`-th root of
-unity.
+/-- **`e(T, g) ^ k = 1` from the base-field `n`-torsion of `T`, at every `n` at which `[n]` is
+non-constant.**  The general-`n` form of `weilPairingElt_pow_eq_one_of_gS_two_torsion`
+(`TranslationTorsion`): given a rung-5 datum `u · g ^ k = [n]∗ f` and `n • T = 0` over the base
+field, the translation `τ_T∗` fixes `[n]∗ f` (`translateEndo_mulByNEndo_apply_torsion_of_baseField`)
+and fixes the constant unit `u` (`translateEndo_algebraMap_unit`), so it fixes `g ^ k` and the
+pairing value is a `k`-th root of unity.
 
 ⚠️ **The two indices are independent and both are needed.**  `n` is the isogeny `[n]∗`; `k` is the
 exponent of the root.  The merged twin is stated the same way — `mulByTwoEndo` against an arbitrary
@@ -371,9 +400,9 @@ theorem torsion_le_weilPairingPointSubgroup_n {n : ℕ} [NeZero n]
   · exact weilPairingElt_pow_eq_one_of_gS_n_torsion h.left n hn (mem_torsion_iff.mp hP) hg hu
 
 open Classical in
-/-- **`e_n(S, ·) : E[n] → μ_n(F)` as a homomorphism of groups, at every `n`**, for a rung-5 root `g`
-at `S` over an arbitrary field.  `weilPairingPointMuHom` — already general in `n` — restricted along
-the inclusion of `E[n]`.
+/-- **`e_n(S, ·) : E[n] → μ_n(F)` as a homomorphism of groups, at every `n` at which `[n]` is
+non-constant**, for a rung-5 root `g` at `S` over an arbitrary field.  `weilPairingPointMuHom` —
+already general in `n` — restricted along the inclusion of `E[n]`.
 
 ⚠️ `nolint defsWithUnderscore`, for the reason the merged `weilPairingTorsionMuHom_two` gives
 (`#1277`): `_n` is this development's index suffix for the isogeny track, the same slot `_two` and

@@ -137,10 +137,10 @@ closes by proof irrelevance.
   bullet used to carry has been paid** — it read *"the input it consumes — `mulByNEndo` and the
   generic-point correspondence — exists only at `n = 2` (`GenericDoubling`) and `n = 3`
   (`GenericTripling`); a uniform `n` is gated on the `ωₙ` crux (`#403`/`#404`)"*.  Both inputs are
-  `EllipticCurves.FunctionField.MulByNPullback`'s at every `n` — `mulByNEndo` and
-  `nsmul_genericPoint_eq` — and both come from the **group law**, so neither was ever gated on
-  `ωₙ`.  ⚠️ What is not attempted here is the general-`n` descent itself, whose two extras at
-  `n = 3` this file's own paragraph above describes.
+  `EllipticCurves.FunctionField.MulByNPullback`'s at every `n` at which `[n]` is non-constant —
+  `mulByNEndo` and `nsmul_genericPoint_eq` — and both come from the **group law**, so neither was
+  ever gated on `ωₙ`.  ⚠️ What is not attempted here is the general-`n` descent itself, whose two
+  extras at `n = 3` this file's own paragraph above describes.
 * Discharging `#418`, or any base change of function fields (`#692`).
 * Antisymmetry `e_n(T, S) = e_n(S, T)⁻¹` — but **not** because divisor-slot bilinearity is
   unavailable.  Both it and the antisymmetry corollary are merged, as `WeilPairingAntisymmetric`

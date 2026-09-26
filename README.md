@@ -421,7 +421,10 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   `the` returns **23**, capital `The` **33**, and only the two together are the 56. The phrase
   occurs **56** times — **43** in `/--` blocks, **13** in `/-!` module blocks — and
   **29** of the 43 head a declaration binding a condition on the index: `n ≠ 0`, `(n : F) ≠ 0`,
-  `((n : ℤ) : F) ≠ 0`, `3`-smoothness of `n`, or the instance `[NeZero n]` — **28** if that
+  `((n : ℤ) : F) ≠ 0`, `3`-smoothness of `n`, or the instance `[NeZero n]` — ⚠️ **five forms, and
+  the non-constancy is a sixth condition on the index that this count deliberately does not carry**
+  (`#2009`): the figure is exact and re-runnable against the list as printed, and a count keyed on
+  six would be a different figure, not a correction of this one — **28** if that
   instance is not counted, and one of the 29 (`divisorProj_mulByNEndoOfAlgClosed`) takes `n ≠ 0`
   from a `variable` line and not from its own binder list, so the count is over the binders **in
   scope** and not over the ones written at the declaration.
@@ -450,16 +453,51 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   Folding it in moves **56 → 57** and **43 → 44** and adds one row to the *states none* side of the
   range test — **30 / 13 → 30 / 14** at `3e1bef2` — and moves **nothing else**: the binder
   **29 / 28** and the slot are unchanged and membership-identical at that sha and at head, because
-  its only hypothesis about `n` is the non-constancy the paragraph below rules is not a condition on
-  the index. **Decided rather than left open** (`#1749`): the corpus stays hyphenated, so every
-  figure dated to `3e1bef2` keeps its meaning, and the cost of the other choice is on the page.
-  ⚠️ **The non-constancy hypothesis is not a condition on the index, and the other 14 rows are
-  not convicted by carrying one.** Thirteen of them bind
-  `Transcendental F (n • genericPoint …).xCoord` and nothing else about `n` — three of those add
-  an `n`-torsion condition on a *point*, which is a condition on the pair and not on the index —
-  and `fixedFieldN` binds nothing about the index at all.
-  `EllipticCurves.FunctionField.WeilPairingGaloisRootN` rules exactly this of its own brick, whose
-  *"at every `n`"* stands beside the non-constancy and is true. ⚠️ **A binder NAME decides
+  its only hypothesis about `n` is the non-constancy, which the rule below **does** count as a
+  condition on the index and which this count's vocabulary — the five binder forms printed beside
+  the **29** — does not contain — ⚠️ **the figure is keyed on the five binder forms it names and
+  not on the notion** (`#2009`). **Decided rather than left open** (`#1749`): the corpus stays
+  hyphenated, so every figure dated to `3e1bef2` keeps its meaning, and the cost of the other
+  choice is on the page.
+  ⚠️ **RETIRED, and the replacement is the rule this section now applies to the non-constancy**
+  (`#2009`). This bullet read, at `7f0a162` (`#1678`, PR #685) and until now:
+
+  > **The non-constancy hypothesis is not a condition on the index, and the other 14 rows are not
+  > convicted by carrying one.** … `EllipticCurves.FunctionField.WeilPairingGaloisRootN` rules
+  > exactly this of its own brick, whose *"at every `n`"* stands beside the non-constancy and is
+  > true.
+
+  Thirteen of them bind
+  `Transcendental F (n • genericPoint …).xCoord` and nothing else about `n` — three of them add an
+  `n`-torsion condition on a *point*, which is a condition on the pair and not on the index — and
+  `fixedFieldN` binds nothing about the index at all. ⚠️ **The first half is false, and this
+  section convicts it by name elsewhere in itself**: `xCoord_zero` gives `(0 : W.Point).xCoord = 0`,
+  which is algebraic, so the non-constancy is **false at `n = 0`** and a declaration binding it does
+  not reach every index — which is the ground on which this section convicts `ramificationIdxN_pos`
+  below, on which `#1631` withdrew the data-argument reading of the identical binder, and which
+  `### Module-block bullets` restates in terms. ⚠️ **And the citation misdescribes the module block
+  it rests on**: `WeilPairingGaloisRootN` clears its brick on a **register**, and says so —
+
+  > ⚠️ **What that leaves for the brick's *"at every `n`"* is this paragraph and not `n ≠ 0`**: the
+  > paragraph is the accounting of `n ≠ 0` row by row across the list, and the brick is the row
+  > that takes none.
+
+  — a register that names the non-constancy for the list it heads. It rules nothing about whether
+  the hypothesis is a condition on the index, and the file that does rule on that,
+  `MulByNResidueDegree`, rules the other way.
+  ⚠️ **THE RULE, decided here rather than left to the next sweeper** (`#2009`): **an explicit
+  propositional binder constraining the index must be named by a clause that quantifies over the
+  index; an instance argument need not.** The ground is not that one is visible and the other is
+  not — doc-gen renders the whole signature — but that an instance is **inferred** where an
+  explicit hypothesis is what a caller has to supply, which is what *"Instance arguments are
+  ambient"* below already turns on. Two things keep a bare clause compliant and neither is new: a
+  **register** that reaches the row — `### Module-block bullets` binds one to the list it heads,
+  and *"the traffic runs one way"*, so a register does **not** reach a headline, a section heading
+  or a title — and the **derivability exemption**, whose price is that the derivation is cited in
+  the module block. ⚠️ **The retired clause's second half stands**: a row that states no index
+  range at all is on the *"or it names none"* branch, and carrying the non-constancy convicts
+  nothing there. What falls is its reading of a row that **does** state one.
+  ⚠️ **A binder NAME decides
   nothing**: this tree writes the non-constancy as `hn` as readily as `hT` or `h`, so a recogniser
   keyed on the name `hn` sorts `functionFieldMap_mulByNEndo` and `mulByNCoordHom_injective` — the
   same hypothesis over the same reach, one named `hn` and one `hT` — onto opposite sides, and
@@ -469,10 +507,16 @@ discriminator"* — is untouched, because it names a **position** and not a coun
   the same headline — ⚠️ **a different 29**: this one is measured on headline text and the first
   on the binders in scope, and neither set contains the other. ⚠️ **Only one direction of that is
   witnessed by name here, and the asymmetry is the point**: **four** rows state a range and bind no
-  index condition — `galoisFunctionField_mulByNEndo`, `functionFieldMap_mulByNEndo`,
-  `weilPairingElt_divisorSlot_add_n` and `weilPairingElt_pow_eq_one_of_gS_n_torsion` — and stating
-  a range a signature does not ask for is nobody's sweep, so those four are durable — both
-  figures on the recogniser published below. The other
+  condition in the five-form vocabulary above — `galoisFunctionField_mulByNEndo`,
+  `functionFieldMap_mulByNEndo`, `weilPairingElt_divisorSlot_add_n` and
+  `weilPairingElt_pow_eq_one_of_gS_n_torsion` — both figures on the recogniser published below.
+  ⚠️ **RETIRED** (`#2009`): this clause closed *"and stating a range a signature does not ask for is
+  nobody's sweep, so those four are durable"*, and **all four bind the non-constancy** — the first,
+  third and fourth one `hn` each, `functionFieldMap_mulByNEndo` two, `hn` over `F` and `hn'` over
+  `K` — so under the rule above each states a range its signature **does** ask a condition for, and
+  none of the four is durable. The fourth is repaired in
+  `EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN` by the round that writes this;
+  the other three are named in that round's residue below. The other
   direction is the **witness slot** measured further down this bullet, and it is named there under
   a date rather than here under a present tense (`#1728`) —
   **24** of them a range
@@ -1463,6 +1507,118 @@ names none"*. The move it does not cover is an insertion **hung off a phrase who
 classification is the open question** — there the added words inherit the phrase's reading, so the
 result is compliant on one branch and self-contradictory on the other. Branch-neutrality is a
 property of the **repaired sentence**, not of the act of inserting.
+
+⚠️ **THE BARE *"at every `n`"* AXIS, READ ROW BY ROW** (`#2009`). The phrase `#1977` repairs
+*into* is itself a reach register, and until now **no row of it had been read**. The seed, stated
+so it can come out false: the literal `` at every `n` `` over every tracked
+`EllipticCurves/**/*.lean` blob, whitespace-flattened (`\s+` → one space, because this tree wraps
+at 100 columns and the phrase wraps), each occurrence sorted by what follows it.
+
+```
+ref        total   with   at which   in char. zero   transcendence alone   BARE
+44844ba     281     179      20             5                3              74
+542e721     277     179      20             5                3              70   (PR #763 landed)
+ea5022d     279     181      20             5                3              70
+3f7d03c     279     181      20             5                3              70
+08096d3     279     181      20             5                3              70   (round 2's base)
+ee48553     279     181      20             5                3              70   (this round's base)
+this head   282     182      35             5                3              57
+```
+
+⚠️ **The population is unmoved across the three landings of 2026-09-20 that follow the `ea5022d`
+row** — `3f7d03c` (`#2084`), `08096d3` (`#2104`) and `ee48553` (`#2092`) — which is why the base
+row is dated to the last of them and the reading below, taken at `ea5022d`, needed no re-run: this
+seed is `.lean`-only, so every occurrence of the phrase on this page — including the ones this
+paragraph writes — is outside the population. ⚠️ **Three is not that day's landing count, and the
+row is keyed to a sha and not to a position in the day**: `git log --since` / `--until` over
+2026-09-20 returns **six**, and the three named here are the ones that follow the ref this reading
+was taken at.
+
+⚠️ **The second column's recogniser as `#2009` printed it returns 19 and not 20**: one occurrence
+in `MulByNInertia` is followed by *"at which `[n]∗F(W)` is separably closed below"*, so the
+published figure needs the looser key `` at which ``, and both readings are printed here because a
+re-implementer who writes the narrow one gets `19 / 75` and no way to see why.
+
+**The 70 at `08096d3`, by layer**: **19** declaration headlines, **4** `## Main *` bullets, **4**
+module H1 titles, **2** `/-! ### … -/` section headings and **41** module-block prose. ⚠️ **The
+bullet cell is keyed on the BULLET and not on the line that carries the phrase**, and all four of
+them sit on a *continuation* line: the `functionFieldMap_{x,y}Coord_nsmul` bullet of
+`FunctionFieldBaseChangeN`, the `weilPairingElt_mulByNEndo` and `weilPairingElt_divisorSlot_add_n`
+bullets of `WeilPairingDivisorSlotBilinearHprinN`, and the `galoisFunctionField_mulByNEndo` bullet
+of `WeilPairingGaloisRootN`. A classifier that files an occurrence under the line it sits on
+returns **0** here — the same 100-column wrap the seed's own flag is about, applied to the *layer*
+key instead of the *phrase* key. ⚠️ **Calibrated against `#2009`'s own published cut before use**:
+this counter returns **7** at `44844ba`, which is that cut's seven candidates, and `7 − 3` repaired
+by PR #763 leaves **4** with no measurement at all. ⚠️ **The title cell is counted separately
+because two of the seventeen repairs below are titles**; folded back into module-block prose it
+reads **45**, and either way the cells partition the same **70**.
+**The reading, by what the row turns out to be:**
+
+* **14 are quotations** — of a clause the tree has already retired, or of the very clause a ruling
+  paragraph is ruling on. ⚠️ **They must not be repaired**, and a sweep that keys on the phrase
+  alone cannot see the difference; four sit in `MulByNResidueDegree`'s own retirement record.
+* **8 are qualified by a shape the seed does not know**: *"prime to the characteristic"*, *"whose
+  prime factors are `2` and `3`"*, *"whose contraction fixes the point at infinity"*, *"over a
+  field of characteristic `≠ 2`"*, *"from `2` to `24`"*. ⚠️ **And one is qualified with a `**` in
+  between** — `WeilPairing`'s *"available at every `n`** with `(2 : F) ≠ 0`"* — which is `#1958`'s
+  shape on this seed: the bold close, not the words, is what makes it read as bare.
+* **5 are not reach clauses at all**: they say a *hypothesis* stands at every index (`hprin`), or
+  that a value is gated, or that a factor is present.
+* **14 are true** — the declaration the clause is about binds no explicit condition on the index.
+  `functionFieldMap_{x,y}Coord_nsmul`, `galoisFunctionField_{x,y}Coord_nsmul`,
+  `projPointOfPoint_add_injective`, `translatePoint_nsmul_eq_zero`, `ψ_pair_mul_of_ψ_eq_zero` and
+  the `TranslationActionN` action bind nothing on `n` at all. ⚠️ **That is the calibration**: this
+  tree uses the bare form correctly, and often.
+* **29 are convicted by the rule above** — and **17 are repaired by this round**, in **14** files.
+
+**The 17.** ⚠️ **The claim that goes with this list is about the two TITLES and not about all
+seventeen**: those two were on no list before this round, and the rest are not claimed to be new.
+One of them was — the headline of `weilPairingTorsionMuHom_n`, which `#2009`'s own thread publishes
+on 2026-09-14 as *"The one false row: `WeilPairingTranslationSlotHprinN`:369"*, with the quotation,
+the declaration and the repair, on a ground this round rejects (`[NeZero n]`, not the explicit
+non-constancy). ⚠️ **A ground a later round rejects does not take a row off the list it was on**,
+and the first list to check an *on no list* claim against is the issue's own thread.
+**Two are titles**: `Torsion.TwoTorsionOrder`'s *"`[n]`-surjectivity at every `n`"* over
+`nsmul_surjective_of_two_ne_zero`, which binds `h2 : (2 : F) ≠ 0` **and** `hn : n ≠ 0` — ⚠️ **so
+the repair there is the *"or it names none"* branch and not `` at every `n ≠ 0` ``**: that clause
+names a proper non-empty subset, naming both takes the title past a hundred columns, and the
+file's bullet and headline already name both conditions, so an index-only repair would have put it
+in a **third** register rather than aligning it with two —
+and `FunctionField.PullbackPrincipalityN`'s *"is principal at every `n`"*, every one of whose eight
+main statements binds an explicit condition on the index (seven `hn : ((n : ℤ) : F) ≠ 0`, one the
+sibling `(n : F) ≠ 0`), and whose own module block names both of the file's conditions in terms.
+⚠️ **The title layer is neither unread nor a third block**, which is what this round first wrote:
+`#1660` (`06b014d`, PR #663) repaired `MulByNResidueDegree`'s title off this same phrase, and its
+record puts the title, a section heading and three headlines in **one** second block. What is new
+here is the two rows. ⚠️ **Neither needs the ruling above**: both bind a condition in the five-form
+vocabulary. **Twelve are one sentence copied
+into eleven files** — *"`[n]∗` at every `n` is `mulByNEndo`"* and its two variants — a **citation**
+of an imported declaration's reach, which `MulByNInertia`'s *"a citation restating an imported
+statement's reach names that statement's whole hypothesis list itself or names none of it"* already
+governs: `mulByNEndo` and `nsmul_genericPoint_eq` both bind the non-constancy. ⚠️ **Repaired as one
+unit** (`#1614`), to *"at every `n` at which `[n]` is non-constant"*. **Three are in
+`WeilPairingTranslationSlotHprinN`** — a section heading and two headlines — where the register
+carries the non-constancy for the **list** and, by *"the traffic runs one way"*, for nothing above
+it. ⚠️ **The two headlines take the insertion and the section heading cannot**: joined, its clause
+puts that `/-! ### … -/` header at **131** columns — counted, as that form shows, to the closing
+delimiter; **128** without it — so the heading bullet above sends it to the *"or it names none"*
+branch and the clause is stated in the prose under it. ⚠️ **A wrapped bold headline is legal and a
+wrapped ATX heading is not**, which is why one repair lands two ways in one file — and it is the
+same phrase `#1667` was filed on, wrapped the same way.
+
+⚠️ **The residue is 12 rows and it is named rather than counted**, because each turns on whether a
+register in its own file reaches its own layer — the per-file reading `### Module-block bullets`
+requires and which this round does not make: `MulByNInertia` 2, `TranslationMulByNCommGeneral` 2,
+`WeilPairingDivisorSlotBilinearHprinN` 5, `WeilPairingGaloisRootN` 2 and
+`WeilPairingTranslationSlotHprin` 1. Three of them are rows the retired *"those four are durable"*
+clause named above.
+
+⚠️ **The population is NOT monotone under repair, and this round is the proof.** Repairing 17 rows
+took the bare column from **70** to **57** and not to **53**: each retirement record *quotes* the
+clause it retires, so four of the rows removed came back as quotations — the bucket that must not
+be repaired. **A sweep that reports its own progress by the raw count will under-report it by the
+number of records it writes**, which is the `#2085` shape — *a rule does not sweep the commit that
+lands it* — arriving on a docstring axis.
 
 ### Gate-discharge claims
 

@@ -109,7 +109,7 @@ different means.
   `max (deg Φ₂) (deg Ψ₂Sq) = 4`).  The `[3]∗` instantiation, with `9` in place of the `4`, is
   `EllipticCurves.FunctionField.MulByThreeRamification`; general `[n]∗` has no case here.
   ⚠️ **The reason clause this bullet used to give has been paid** — it read *"`mulByNEndo` not
-  existing"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  existing"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is non-constant,
   `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`; what is `[2]`-specific is the `4`, as this
   bullet already says.
