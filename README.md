@@ -5035,6 +5035,95 @@ also the ground of the prior-reviewer permission above, which is asserted there 
 reviewer leaves no text in the artifact, so the intersection is empty by construction, and that is
 what makes it the cheap seat rather than merely a permitted one.
 
+⚠️ **The message-layer touching test has a UNIT, and it is a line and not a block.** The test above
+prescribes the artifact's hunks — *"`git diff <the head last certified> <this head>`, then read
+whose text each hunk replaces"* — and the worked case above already runs it over a **commit
+message**, in lines: it counts one round's `=== ROUND 4 …` section at **323** and **326** lines at
+two heads and convicts the round on four hunks inside it. ⚠️ **On a branch whose tree is frozen
+across rounds the message is the only diff there is**, and the only landed statement of a recipe for
+that case is `git log -1 --format=%B <head>` with the `Co-authored-by:` trailer deleted and blank
+lines dropped, then `difflib.SequenceMatcher` over the two line lists (`c6ef24a`). **This section
+adds one flag to that recipe and names the figure that carries the verdict.** The flag is
+`str.strip()` on both sides. The figure is the **line-level overlap** — how many of the other slot's
+lines this round removes or replaces, and how many it leaves standing — and ⚠️ **a block or
+paragraph pair must not be published beside it as a verdict figure**, because a block is a run of
+lines between blank lines, and a blank line is a property of a body's *layout* rather than of its
+content. `### The render gate` defines *paragraph* for a **file** and for nothing else; no clause
+carries that definition to a commit message, and this paragraph carries the line rule there instead
+(`#2205`).
+
+⚠️ **Two perturbations settle it, run over a landed body** — `c6ef24a`'s own, **511** lines, **432**
+non-blank, **79** blocks under `%b` with the trailer dropped. ⚠️ **The line total is the only one of
+the three that the recipe's two readings do not share**: `%B` with the subject line and the trailer
+deleted returns **512 / 432 / 79**, the extra line being the blank one after the subject, which `%b`
+does not carry — the same one-cell split the grid below convicts. Neither perturbation changes one
+word of anybody else's prose, and the last two columns count the lines of that body which the
+perturbed one removes or replaces:
+
+| perturbation | block pair | raw lines | stripped lines |
+|---|---|---|---|
+| table added inside a block, pure insertion | ⚠️ **79 → 81**, **1 replace** | **0** | **0** |
+| one paragraph indented two spaces | 79 → 79, **1 replace** | ⚠️ **its own length** | ✅ **0** |
+
+⚠️ **The block pair calls a pure insertion a replacement, the raw line reading calls a re-indent
+one, and only the stripped reading is right about both.** Row 1 inserts four lines and a blank line
+either side and touches nothing else, so the line readings go **432 → 436** with **0** of the 432
+disturbed while the block pair moves by **two** and reports a **replace**; row 2 re-indents one
+existing block and changes no word, so the block pair is honest at **79 → 79** and the raw line
+reading convicts lines that are still sitting there. ⚠️ **Row 2's raw figure is the re-indented
+block's own NON-BLANK line count — exact at every one of the 79 choices, and therefore a figure that
+a third party's choice of block decides, which is the sentence this paragraph exists to write
+down.** Only **10** of the 79 blocks are five lines long, while the stripped figure is **0** and the
+block pair **79 → 79** with one replace region at all 79. ⚠️ **Say non-blank**: the last block
+carries the trailing empty element that a `split` leaves, so a count of raw elements is one high
+there and nowhere else. Row 1 is the mechanism by which a figure of this shape read `1 → 1` at two
+consecutive rounds of one branch and `1 → 5` at the next, the third round's only change to that
+bullet being a repair that put an indented table inside it. **A count that moves because a repair
+changed the separator population reports the layout and not the edit**, which is worse than a stale
+figure: it is correct under its recipe and wrong about the thing the recipe exists to report.
+
+⚠️ **And the landed statement of the recipe already pays for this, in two adjacent cells of one
+table.** `c6ef24a` publishes *"non-blank body lines 331 -> 433"* and *"paragraphs 68 -> 81"* three
+lines under the recipe above. Of the four readings its own two clauses generate, ⚠️ **no single one
+returns both endpoints**: the **433** is `%B` with the trailer deleted, which gives **80** blocks,
+and the **81** is `%B` with the trailer *kept*, which gives **435** non-blank lines. The whole grid,
+`%b` and `%B` against trailer dropped and kept, is **79**, **80**, **80**, **81** blocks over
+**432**, **434**, **433**, **435** non-blank lines. ⚠️ **`c6ef24a`'s trailer is two lines and ONE
+block, and the recipe's deletion rule was written for lines** — so the line cell is exact under the
+recipe and the block cell is exact under no clause of it, off by precisely the correction the line
+rule makes. The load-bearing half is *one block however many lines it is*: **236** of `main`'s
+**759** messages carry other than two trailer lines, and this section's own commit carries **one**.
+
+**The region count is a floor and never a report.** `difflib` returns one opcode per maximal run of
+unequal elements, so two repairs with no surviving line between them are one region: *k* regions is
+a lower bound on the number of separate edits and says nothing about how many an author made.
+Publish it as a floor or not at all.
+
+⚠️ **Retiring the block pair contradicts exactly ONE landed figure, and it is the message this
+section rests on.** `c6ef24a` publishes the retired shape in **eleven** cells — the summary
+*"paragraphs 68 -> 81, 19 replaced in 10 regions"* quoted above, and a ten-row region table under
+*"Paragraph-wise over the two stored bodies with blanks as separators"* whose cells are block pairs
+`3 → 4`, `1 → 1`, `1 → 1`, **`2 → 4`**, `1 → 1`, **`1 → 3`**, `1 → 1`, `1 → 1`, `2 → 2`, `6 → 14`.
+⚠️ **Rows 4 and 6 are the split-by-an-inserted-blank mechanism above, landed** — so all eleven are
+retired on purpose, and every one of them is already convicted here. ⚠️ **And a census that says
+otherwise keys on a word where the rule keys on a unit**: `blocks\b[^.]{0,40}?(?:→|->)` returns
+**2** of `main`'s **759** messages at `0b8f3d1`, `c28c462` and `31177f4`, and **neither is this
+test** — both count a **file** — it is the **corpus** and not the instrument that separates them,
+and their instruments differ (`31177f4` counts `markdown-it` `commonmark` top-level blocks, while
+`c28c462`'s pair is a fence-aware regex seed over fenced blocks, headings and bullets) — and neither
+names `difflib`. The recogniser that finds the real member is `\bparagraphs\s+\d+\s*(?:→|->)\s*\d+`,
+and it returns **1**: `c6ef24a`.
+
+The stem `difflib` is named in **14** of `main`'s **759** messages at `0b8f3d1`, and **13** of the
+14 run it over the lines of a **file** (**12** over `README.md`, one over `.lean` code through a
+comment stripper); ⚠️ **exactly one, `c6ef24a`, runs it over a commit-message body.** So the unit
+fixed above convicts none of the other thirteen — their unit is already a line — and the flag family
+is measured rather than assumed: `autojunk` returns the identical opcode set at both settings on
+each of the five re-run against its own parent — `ac0a053`, `046022d`, `3f61ad7`, `ea5022d`,
+`3f7d03c` — and both published opcodes reproduce, `3f61ad7`'s as the tuple it prints,
+`('insert', 3754, 3754, 3754, 3822)`, and `ac0a053`'s as the tuple faithful to the index and the
+line range it prints instead, `('insert', 3600, 3600, 3600, 3638)`.
+
 ⚠️ **Publish the derived set, and never read `couldn't find remote ref` as *the head is gone*
 without re-running the fetch at full width.** `git fetch` takes a full object name, and this
 development writes every sha in **seven** characters: **482** backticked seven-hex spans across
