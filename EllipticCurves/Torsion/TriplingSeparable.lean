@@ -188,7 +188,7 @@ needed no import at all: `hasXCoordFormula_of_two_ne_zero` (`NsmulOrder`),
   criterion `nsmul_eq_zero_iff_eval_preΨ_eq_zero` (consumed twice), the two-spellings bridge
   `ΨSq_natCast_eq_sq_of_odd` — both `EllipticCurves.Torsion.OddTorsionCount`, and both *binding*
   `Odd n` in their own statements — and the injectivity step.  ⚠️ **The first two are FALSE at even
-  `n` and are therefore not steps a round may rewrite**: `Polynomial.ΨSq_ofNat` is
+  `n` and are therefore not steps a round may rewrite**: `WeierstrassCurve.ΨSq_ofNat` is
   `W.ΨSq n = W.preΨ' n ^ 2 * if Even n then W.Ψ₂Sq else 1`, so at an even index the `Ψ₂Sq` factor
   survives, a root of `ΨSqₙ` need not be a root of `preΨₙ`, and the criterion's forward half fails
   for the same factor — a `2`-torsion point is killed by every even `n` without being a root of
@@ -368,8 +368,8 @@ used: `hodd` is consumed at four sites inside this theorem's own proof and pays 
 debts** — twice at `nsmul_eq_zero_iff_eval_preΨ_eq_zero`, once at `ΨSq_natCast_eq_sq_of_odd` (both
 `EllipticCurves.Torsion.OddTorsionCount`, both *binding* `Odd n`), and once at the `obtain ⟨k, hk⟩`
 of the step above.  ⚠️ **And the first two debts are FALSE at even `n` rather than unproved**, by
-`Polynomial.ΨSq_ofNat`'s `if Even n`; `## What is *not* here` says where an even-`n` round starts
-instead. -/
+`WeierstrassCurve.ΨSq_ofNat`'s `if Even n`; `## What is *not* here` says where an even-`n` round
+starts instead. -/
 theorem separable_Φ_sub_C_mul_ΨSq_of_isAlgClosed_of_odd (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n)
     (hn : (n : F) ≠ 0) {x₀ : F} (hx₀ : (W.preΨ (n : ℤ)).eval x₀ = 0) :
     (W.Φ n - C x₀ * W.ΨSq n).Separable := by
@@ -560,8 +560,10 @@ theorem separable_Φ_sub_C_mul_preΨ_sq_of_odd (h2 : (2 : F) ≠ 0) {n : ℕ} (h
 every odd `n` — the root hypothesis of `separable_Φ_sub_C_mul_ΨSq_of_odd` supplied from membership
 of `W.torsion n`, which is the form a caller holding the point has.
 
-⚠️ This and its `n = 3` corollary are the only statements in this file that bind `[DecidableEq F]`,
-and they bind it because `W.torsion` does. -/
+⚠️ This and its `n = 3` corollary are the only **theorems** in this file that bind
+`[DecidableEq F]`, and they bind it because `W.torsion` does.  ⚠️ **Theorems and not
+declarations**: the `private def` `fibreEquivTorsion` binds it too, from the `variable` line of
+its enclosing `section Fibre`. -/
 theorem separable_Φ_sub_C_mul_ΨSq_of_mem_torsion_of_odd [DecidableEq F] (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0) {x₀ y₀ : F} (hS : W.Nonsingular x₀ y₀)
     (hSn : Point.some x₀ y₀ hS ∈ W.torsion n) : (W.Φ n - C x₀ * W.ΨSq n).Separable :=
@@ -582,8 +584,9 @@ root hypothesis of `separable_Φ_three_sub_C_mul_ΨSq` supplied from membership 
 which is the form a caller holding the point has.
 
 ⚠️ **A corollary of `separable_Φ_sub_C_mul_ΨSq_of_mem_torsion_of_odd` above**, in the signature it
-has always had.  It and that general form are the only two statements in this file that bind
-`[DecidableEq F]`, and they bind it because `W.torsion` does. -/
+has always had.  It and that general form are the only two **theorems** in this file that bind
+`[DecidableEq F]`, and they bind it because `W.torsion` does — the `private def`
+`fibreEquivTorsion` binds it as well, which is why the unit here is the theorem. -/
 theorem separable_Φ_three_sub_C_mul_ΨSq_of_mem_torsion [DecidableEq F] (h2 : (2 : F) ≠ 0)
     (h3 : (3 : F) ≠ 0) {x₀ y₀ : F} (hS : W.Nonsingular x₀ y₀)
     (hS3 : Point.some x₀ y₀ hS ∈ W.torsion 3) : (W.Φ 3 - C x₀ * W.ΨSq 3).Separable := by
