@@ -67,9 +67,10 @@ A *"unique module"* claim about the import graph is a count, and `README.md`
 
 ## Why this is a Ward corollary and could not be written before
 
-The derivation above is three lines of `ring` on top of the `r = 1` relation, and the `r = 1`
-relation for `normEDS` was, until `WeierstrassCurve.wardGapCore` was proved in
-`EllipticCurves.Torsion.WardHalving`, the open half of Mathlib's `IsEllipticDvdSequence` `TODO`.
+The derivation of `WeierstrassCurve.Affine.ψ_add_mul_ψ_sub` is three lines of `ring` on top of the
+`r = 1` relation, and the `r = 1` relation for `normEDS` was, until `WeierstrassCurve.wardGapCore`
+was proved in `EllipticCurves.Torsion.WardHalving`, the open half of Mathlib's
+`IsEllipticDvdSequence` `TODO`.
 The two-term recurrences Mathlib does prove (`normEDS_even`, `normEDS_odd`) do **not** give it,
 and they are not the same size: `ψ_odd` relates `ψ_{2m+1}` to the **four** consecutive
 `ψ_{m−1}, …, ψ_{m+2}`, while `ψ_even` relates `ψ_{2m}·ψ₂` — with a `ψ₂` on the *left*, which
