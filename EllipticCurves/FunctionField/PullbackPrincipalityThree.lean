@@ -118,6 +118,17 @@ with `[IsDedekindDomain W.CoordinateRing]` — does not.  Two separate inputs ne
 closed base: the surjectivity of `[3]` on points and `#819`'s fibre description.  **Over a general
 field `hprin` is still open at `n = 3`**, and this file says nothing about it.
 
+⚠️ **That clause is narrowed and not retired** (`#2215`).  It is still true as a statement about
+`hprin` with **no** rationality hypothesis — which is what `#962`'s `n = 3` ledger row asks for, and
+what remains open — and it is still true of *this file*, which says nothing about a general base.
+⚠️ **But `hprin` at `n = 3` over an arbitrary field is no longer entirely absent from the tree**: at
+a rational `E[3]` and a tripling `P` it is
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion`), the `n = 3` mirror of the
+middle rung `EllipticCurves.FunctionField.PullbackPrincipalityTwoRationalTorsion` — and that file's
+`Recovery` section derives both headlines below from it, so this file's statements are the `F̄`
+instance of that one and not independent of it.
+
 ⚠️ **That clause read *"still open at both `n`"*** until `#2029` discharged the `n = 2` half over an
 arbitrary field with `(2 : F) ≠ 0` (`exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`,
 `EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`).  ⚠️ **Nothing in that discharge
