@@ -82,6 +82,11 @@ itself read through `φ.fieldRange ↪ F(W)`.
   `EllipticCurves.FunctionField.MulByNInertia` (`#1221`) instantiates the general theorem at
   `φ = [n]∗` for every `n`, with the same two hypothesis shapes and with the right-hand side
   evaluated to `n²` at every `3`-smooth `n`;
+* **`sum_ramificationIdxThree_mul_residueDegreeThree_of_isSeparable`** (same namespace) — the
+  `[3]∗` instantiation, `∑_{p ↦ q} e_p · f_p = 9`, with separability carried as a hypothesis.  ⚠️
+  **There is no `[3]∗` `…_of_charZero` here**: that form is
+  `sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero`
+  (`EllipticCurves.FunctionField.MulByNInertia`), which imports this file, and it is not restated;
 * `CoordinateRing.residueDegreeProj_projPointOfPoint` and
   `CoordinateRing.residueDegreeTwo_projPointOfPoint`, both in `WeierstrassCurve.Affine` — at an
   `F`-**rational** point the residue degree is `1`, over an arbitrary field.  This is what a
@@ -109,21 +114,43 @@ about algebraically closed base fields whose generalisations are false.  What is
 arbitrary field is the *rational-point* case, which is what
 `residueDegreeProj_projPointOfPoint` supplies.
 
-⚠️ **`[3]∗` is not instantiated here**, and the sentence is about *this file* only.  Everything
-before the `[2]∗` section is stated for an arbitrary `φ`, so the mirror is an instantiation; but
-`sum_ramificationIdxThree_mul_residueDegreeThree`
-(`EllipticCurves.FunctionField.MulByThreeResidueDegree`) is not restated, and `#1046`'s record that
-the `n = 3` residue-degree layer was an instantiation rather than a re-derivation is the reason to
-price it separately rather than assume it.  ⚠️ It **is** instantiated elsewhere now:
+⚠️ **`[3]∗` IS instantiated here now, and the clause that said it was not is RETIRED** (`#2215`).
+It read:
+
+> ⚠️ **`[3]∗` is not instantiated here**, and the sentence is about *this file* only.  Everything
+> before the `[2]∗` section is stated for an arbitrary `φ`, so the mirror is an instantiation; but
+> `sum_ramificationIdxThree_mul_residueDegreeThree`
+> (`EllipticCurves.FunctionField.MulByThreeResidueDegree`) is not restated, and `#1046`'s record
+> that the `n = 3` residue-degree layer was an instantiation rather than a re-derivation is the
+> reason to price it separately rather than assume it.
+
+⚠️ **The price that clause asked for is paid rather than waived**:
+`sum_ramificationIdxThree_mul_residueDegreeThree_of_isSeparable` is in the `[3]∗` section below, its
+proof is the `[2]∗` one with `Two` replaced by `Three`, and it is **checked** to be an instantiation
+rather than assumed to be.  ⚠️ **And it costs no import** — the reason it could always have lived
+here: `EllipticCurves.FunctionField.PlaceDegreeComparison`, which this file imports, imports
+`EllipticCurves.FunctionField.MulByThreeResidueDegree`, so the whole `MulByThree*` place layer has
+been in this file's scope since it was written.
+
+⚠️ **The clause's own second half is unchanged and still true**:
 `EllipticCurves.FunctionField.MulByNInertia` (`#1221`) does the `[n]∗` case for every `n` and
 derives the `[3]`-indexed `∑_{p ↦ q} e_p · f_p = 9` over `[CharZero F]` from it — the form
-`MulByThreeResidueDegree` records as missing, its own being `[IsAlgClosed F]`-only.
+`MulByThreeResidueDegree` records as missing, its own being `[IsAlgClosed F]`-only.  ⚠️ That
+`[CharZero F]` form is **not** what the `[3]∗` statement below duplicates: the consumer is
+`isSeparable_mulByThreeEndoFieldRange_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion`), whose field has the
+characteristic of `F`.  ⚠️ **`sum_ramificationIdxThree_mul_residueDegreeThree` itself is still not
+restated here**, and that half of the retired clause stands: what is added is the separable form,
+not the `[IsAlgClosed F]` one.
 
 ⚠️ **The non-vacuity section below certifies that the hypotheses are satisfiable over `ℚ`, and it
-does not exhibit a place with `f_p > 1`.**  The statements are strictly stronger than their
-`[IsAlgClosed F]` siblings because they *apply* over a field that is not algebraically closed, which
-is what the certificate shows; exhibiting a closed point of degree `2` on a specific curve is a
-different piece of work and is not attempted.
+does not exhibit a place with `f_p > 1`.**  ⚠️ **It certifies both indices**: the `[2]∗` example
+closes on `…_of_charZero` and the `[3]∗` one on `…_of_isSeparable` against
+`isSeparable_mulByThreeEndoFieldRange_of_charZero`
+(`EllipticCurves.FunctionField.MulByThreeGalois`).  The statements are strictly stronger than
+their `[IsAlgClosed F]` siblings because they *apply* over a field that is not algebraically closed,
+which is what the certificate shows; exhibiting a closed point of degree `2` on a specific curve is
+a different piece of work and is not attempted.
 
 ## References
 
@@ -318,6 +345,47 @@ theorem sum_ramificationIdxTwo_mul_residueDegreeTwo_eq_sum_of_isAlgClosed [IsAlg
   refine Finset.sum_congr rfl fun p _ => ?_
   rw [residueDegreeTwo_eq_one_of_residueDegreeProj_eq_one h2 (residueDegreeProj_eq_one p), mul_one]
 
+/-! ### The `[3]∗` instantiation -/
+
+/-- **`∑_{p ↦ q} e_p · f_p = 9` for `[3]∗` with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, over an arbitrary
+field**, with separability carried as a hypothesis exactly as the `[2]∗` form above carries it.
+
+⚠️ **This is the declaration the `## Scope` section above used to say was absent from this file**,
+and the price `#1046` asked for is paid here: the proof is the `[2]∗` one with `Two` replaced by
+`Three` throughout, so the `n = 3` layer really is an instantiation and not a re-derivation, but it
+is *checked* to be rather than assumed.  ⚠️ **It costs no import.**
+`EllipticCurves.FunctionField.PlaceDegreeComparison`, which this file already imports, imports
+`EllipticCurves.FunctionField.MulByThreeResidueDegree`, so `residueDegreeThree`,
+`ramificationIdxThree`, `placeBelowThree`, `module_finite_mulByThreeEndoFieldRange` and
+`finrank_integralClosure_placeBelowThree` are all in scope here already.
+
+⚠️ **The separability is not discharged here**, for the same reason it is not discharged at `[2]∗`:
+discharging it would put back a hypothesis the statement exists to remove.  Over `F̄` it is
+`isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed`
+(`EllipticCurves.FunctionField.MulByThreeGalois`); at a rational `E[3]` it is
+`isSeparable_mulByThreeEndoFieldRange_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion`), which is the consumer
+this statement was added for.
+
+⚠️ **`sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero`
+(`EllipticCurves.FunctionField.MulByNInertia`, `#1221`) is not this statement and does not subsume
+it.**  `[CharZero F]` is not available at the field a descent argument works over: the `n = 3`
+descent buys its hypotheses over `threeDivisionGaloisField W`
+(`EllipticCurves.Torsion.ThreeDivisionField`), which has the characteristic of `F`. -/
+theorem sum_ramificationIdxThree_mul_residueDegreeThree_of_isSeparable (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0)
+    (hsep : Algebra.IsSeparable ↥(mulByThreeEndo (W := W) h2 h3).fieldRange W.FunctionField)
+    (q : ProjPoint W) :
+    ∑ p ∈ (finite_comapProjPointThree_preimage_singleton h2 h3 q).toFinset,
+      (ramificationIdxThree h2 h3 p).toNat * residueDegreeThree h2 h3 p = 9 := by
+  haveI := module_finite_mulByThreeEndoFieldRange (W := W) h2 h3
+  haveI := hsep
+  rw [show (9 : ℕ) = finrank ↥(placeBelowThree W h2 h3 q)
+      ↥(integralClosure ↥(placeBelowThree W h2 h3 q) W.FunctionField) from
+    (finrank_integralClosure_placeBelowThree h2 h3 hsep q).symm]
+  exact sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre
+    (mulByThreeEndo_algebraMap_base h2 h3) (mulByThreeEndo_isIntegralElem h2 h3)
+
 end CoordinateRing
 
 /-! ### Non-vacuity
@@ -347,6 +415,25 @@ private noncomputable example (q : ProjPoint (y2EqX3SubX ℚ)) :
       (CoordinateRing.ramificationIdxTwo exampleTwo p).toNat
         * CoordinateRing.residueDegreeTwo exampleTwo p = 4 :=
   CoordinateRing.sum_ramificationIdxTwo_mul_residueDegreeTwo_of_charZero exampleTwo q
+
+private lemma exampleThree : (3 : ℚ) ≠ 0 := by norm_num
+
+/-- **The `[3]∗` identity of this file, instantiated over `ℚ`** — `∑_{p ↦ q} e_p · f_p = 9` on a
+genuine curve over a base field that is not algebraically closed, where the collapsed
+`sum_ramificationIdxThree_eq_nine` does not apply.
+
+⚠️ **`hsep` is produced and not assumed**, which is what makes this a certificate of the new
+statement rather than of its hypothesis: `isSeparable_mulByThreeEndoFieldRange_of_charZero`
+(`EllipticCurves.FunctionField.MulByThreeGalois`) discharges it from `[CharZero ℚ]`.  ⚠️ It is
+**not** discharged by the closure — `y² = x³ − x` is taken over `ℚ`, on purpose. -/
+private noncomputable example (q : ProjPoint (y2EqX3SubX ℚ)) :
+    ∑ p ∈ (CoordinateRing.finite_comapProjPointThree_preimage_singleton exampleTwo exampleThree
+        q).toFinset,
+      (CoordinateRing.ramificationIdxThree exampleTwo exampleThree p).toNat
+        * CoordinateRing.residueDegreeThree exampleTwo exampleThree p = 9 :=
+  CoordinateRing.sum_ramificationIdxThree_mul_residueDegreeThree_of_isSeparable exampleTwo
+    exampleThree
+    (CoordinateRing.isSeparable_mulByThreeEndoFieldRange_of_charZero exampleTwo exampleThree) q
 
 end Nonvacuity
 

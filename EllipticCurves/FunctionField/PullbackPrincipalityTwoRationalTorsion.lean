@@ -97,6 +97,14 @@ false.  ⚠️ **`#962` is still not discharged**, because `n = 3` is untouched,
 this paragraph therefore stands as written: **this file** does not discharge it, and neither does
 the `n = 2` row alone.
 
+⚠️ **That reason is narrowed** (`#2215`): the `n = 3` **middle** rung — this file's own mirror, at a
+rational `E[3]` and a tripling — is
+`EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion`, so *"`n = 3` is untouched"*
+is no longer true of the ledger as a whole.  ⚠️ **The conclusion is unchanged and the word that
+matters is *discharged***: `#962`'s `n = 3` row asks for `hprin` with no rationality hypothesis, the
+tripling tower that would buy those hypotheses over a Galois extension does not exist in this tree,
+and so neither `n` is closed by a middle rung alone.
+
 What *is* settled is the step that ledger lists as unstarted: **the chain below `hprin` contains no
 use of `[IsAlgClosed F]` beyond those two rationality facts.**  `#962`'s first audit conjectured
 this and its own self-correction refuted the conjecture, because

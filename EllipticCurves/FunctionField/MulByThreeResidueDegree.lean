@@ -122,6 +122,14 @@ identity is a different theorem rather than a descent of this one.
   that is now false of the tree**: `sum_ramificationIdxThree_mul_residueDegreeThree_of_charZero`
   (`EllipticCurves.FunctionField.MulByNInertia`, `#1221`) is exactly it, obtained by instantiating
   the arbitrary-`φ` identity at `[n]∗` and bridging back into this file's indexing at `n = 3`.
+  ⚠️ **There are TWO such declarations now and a reader following this pointer would have found only
+  one** (`#2215`): the other is
+  `sum_ramificationIdxThree_mul_residueDegreeThree_of_isSeparable`
+  (`EllipticCurves.FunctionField.PlaceInertiaGeneral`), which carries separability as a hypothesis
+  instead of `[CharZero F]` and is obtained **directly** — `finrank_integralClosure_placeBelowThree`
+  against `sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre`, with no `[n]∗` bridge and no
+  `3`-smoothness side condition.  The two hypotheses are incomparable, and the separable form is the
+  one a descent over an extension of `F` can use.
 * **General `n` stays out of this file.**  ⚠️ **The clause this bullet used to carry has been
   paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
   endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,

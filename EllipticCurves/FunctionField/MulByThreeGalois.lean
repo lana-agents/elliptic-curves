@@ -103,7 +103,15 @@ Every public declaration of this file is listed, and all are in namespace
 * `normal_mulByThreeEndoFieldRange_of_isAlgClosed` and
   `isGalois_mulByThreeEndoFieldRange_of_isAlgClosed` (`#1244`) — that rest in the `Subfield`
   presentation as well, so both field presentations now carry the whole package and not just
-  separability.
+  separability;
+* **`isSeparable_mulByThreeFieldRange_of_charZero`** and
+  **`isSeparable_mulByThreeEndoFieldRange_of_charZero`** (`#2215`) — separability in the two field
+  presentations again, over `[CharZero F]` and with **no algebraic closure**, by
+  `Algebra.IsSeparable.of_integral` off the degree rather than off the group.  ⚠️ **They are not a
+  weakening of the pair above and the two hypotheses are incomparable**; see
+  `### Separability in characteristic zero` below.  ⚠️ **Only separability crosses this way**: there
+  is no `normal_…_of_charZero` or `isGalois_…_of_charZero` here, in either presentation, and
+  `F(W) / [3]∗F(W)` need not be normal over a base field that is not algebraically closed.
 
 ## How to fire these
 
@@ -350,6 +358,91 @@ theorem isGalois_mulByThreeEndoFieldRange_of_isAlgClosed [IsAlgClosed F] (h2 : (
   haveI := isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed (W := W) h2 h3
   haveI := normal_mulByThreeEndoFieldRange_of_isAlgClosed (W := W) h2 h3
   ⟨⟩
+
+/-! ### Separability in characteristic zero, with no algebraic closure
+
+The two declarations below are the *other* route to the hypothesis `#754`/`#755` and their `[3]∗`
+descendants carry, and they are here because
+`isSeparable_mulByThreeFieldRange_of_isAlgClosed` above says in terms that they should be:
+*"the characteristic-zero route (`Algebra.IsSeparable.of_integral`) remains available and is the one
+to use when `F` is not algebraically closed."*  ⚠️ **They do not narrow that sentence, they name
+it.**
+
+⚠️ **The two hypotheses are incomparable and neither subsumes the other**, exactly as `#754` records
+of `[CharZero F]` against `[IsAlgClosed F]` at `[2]∗`: `ℚ` is one and not the other,
+`AlgebraicClosure 𝔽₅` is the other and not the one.  A *third* route — at a rational `E[3]`, in any
+characteristic `≠ 2, 3` — is `isSeparable_mulByThreeEndoFieldRange_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion`), and it is incomparable
+with both.
+
+⚠️ **The `n = 2` twin is `isSeparable_mulByTwoEndoFieldRange`
+(`EllipticCurves.FunctionField.PlaceBelowIntegralClosure`) and this pair is NOT stated beside it —
+the reason is an import COST and not an impossibility, and ⚠️ the cost is the PAIR's, not that of
+the one declaration the degree argument names.**  ⚠️ **The two files are import INCOMPARABLE**,
+measured by transitive closure over `^import EllipticCurves` with the module itself excluded, at
+`0b8f3d1`: neither is in the other's closure (**43** modules and **51**), and
+`PlaceBelowIntegralClosure`'s closure contains **no** `MulByThree*` module at all.  So the degree
+`9` these proofs need, `finrank_mulByThreeFieldRange`
+(`EllipticCurves.FunctionField.MulByThreeDegree`), is indeed out of scope there, and
+`MulByThreeDegree`'s own closure (**24**) does not contain `PlaceBelowIntegralClosure`, so that edge
+is cycle-free and costs **6** new modules, the imported one counted.  ⚠️ **But that edge carries the
+FIRST declaration only.**  The second transports across `mulByThreeFieldRangeEquivSubfield`, a `def`
+of *this* file, and `MulByThreeGalois` is in neither `MulByThreeDegree`'s closure nor
+`PlaceBelowIntegralClosure`'s — so siting the pair there needs `import MulByThreeGalois`, **21** new
+modules, and pricing the move at the cheap edge prices half of it.  ⚠️ **And the stronger reason is
+that there is no pair to sit beside**: at `n = 2` the characteristic-zero route is that one
+`Subfield` declaration, stated directly on `(mulByTwoEndo h2).fieldRange` off
+`module_finite_mulByTwoEndoFieldRange` in that same file, with no `IntermediateField` member and no
+trip through `mulByTwoFieldRangeEquivSubfield` — a `def` of
+`EllipticCurves.FunctionField.MulByTwoGalois`, a module `PlaceBelowIntegralClosure`'s closure does
+not contain either.  ⚠️ **Every count here is keyed to `0b8f3d1` and every one is unmoved at this
+head**, whose single new module lies in none of these closures.  ⚠️ **Nor is it stated beside
+`module_finite_mulByThreeEndoFieldRange` (`EllipticCurves.FunctionField.MulByThreeRamification`),
+which would also have served**: that file says of itself that its declarations are *"one of those
+general theorems applied to `[3]∗`"*, and a separability statement proved from
+`Algebra.IsSeparable.of_integral` is not one of those. -/
+
+omit [W.IsElliptic] in
+/-- **In characteristic zero, `F(W)` is separable over `[3]∗F(W)`**, in the `IntermediateField`
+presentation and with **no algebraic closure**.
+
+The extension is finite — `finrank_mulByThreeFieldRange` is `9 ≠ 0`, and needs no hypothesis on `F`
+beyond `(2 : F) ≠ 0` and `(3 : F) ≠ 0` — hence integral, and `Algebra.IsSeparable.of_integral` is an
+instance for an integral extension of a characteristic-zero field.  `CharZero` is transported twice:
+from `F` to `F(W)` along the injective structure map, and from `F(W)` down to the intermediate
+field.
+
+⚠️ `[W.IsElliptic]` is a **binder of this declaration** — the signature re-declares it after
+`[CharZero F]` — so the `omit` deletes the SECTION copy and nothing is picked up from an application
+site.  It is load-bearing under `--wfail`, and measurably so: with the `omit` line deleted this
+module builds with exactly two warnings at the theorem's own line, *"automatically included section
+variable(s) unused"* and *"Overlapping instance parameters … There are 2
+`[WeierstrassCurve.IsElliptic W]` instances"*, and `lake build --wfail` on it exits **1**.  The
+`Subfield` declaration below carries the same idiom for the same reason. -/
+theorem isSeparable_mulByThreeFieldRange_of_charZero [CharZero F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+    (h3 : (3 : F) ≠ 0) :
+    Algebra.IsSeparable ↥(mulByThreeEndoAlgHom (W := W) h2 h3).fieldRange W.FunctionField := by
+  haveI : CharZero W.FunctionField :=
+    charZero_of_injective_algebraMap (algebraMap F W.FunctionField).injective
+  haveI : FiniteDimensional ↥(mulByThreeEndoAlgHom (W := W) h2 h3).fieldRange W.FunctionField :=
+    Module.finite_of_finrank_pos (by rw [finrank_mulByThreeFieldRange h2 h3]; norm_num)
+  haveI : Algebra.IsIntegral ↥(mulByThreeEndoAlgHom (W := W) h2 h3).fieldRange W.FunctionField :=
+    Algebra.IsIntegral.of_finite _ _
+  infer_instance
+
+omit [W.IsElliptic] in
+/-- **Separability in characteristic zero, in the `Subfield` presentation** — the presentation
+`ValuationSubring` and every `[3]∗` place statement consume.  Carried across
+`mulByThreeFieldRangeEquivSubfield`, the identity on elements, exactly as
+`isSeparable_mulByThreeEndoFieldRange_of_isAlgClosed` is.
+
+There is deliberately no `Subring` version: see the module docstring. -/
+theorem isSeparable_mulByThreeEndoFieldRange_of_charZero [CharZero F] [W.IsElliptic]
+    (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
+    Algebra.IsSeparable ↥(mulByThreeEndo (W := W) h2 h3).fieldRange W.FunctionField := by
+  haveI := isSeparable_mulByThreeFieldRange_of_charZero (W := W) h2 h3
+  exact Algebra.IsSeparable.of_equiv_equiv (mulByThreeFieldRangeEquivSubfield h2 h3)
+    (RingEquiv.refl W.FunctionField) (by ext a; rfl)
 
 /-! ### Non-vacuity
 
