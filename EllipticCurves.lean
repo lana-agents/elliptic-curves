@@ -415,6 +415,7 @@ import EllipticCurves.Torsion.ThreePrimaryBasis
 import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.ThreeTorsionStructure
 import EllipticCurves.Torsion.TriplingCoords
+import EllipticCurves.Torsion.TriplingSeparable
 import EllipticCurves.Torsion.TriplingSurjective
 import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoPrimaryBasis
