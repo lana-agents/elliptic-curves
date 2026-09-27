@@ -88,6 +88,10 @@ and that is machine-checked rather than assumed.
 
 ## Main statements
 
+* `WeierstrassCurve.Affine.card_root_subtype` : `#{x // p(x) = 0} = #p.roots.toFinset` at a nonzero
+  `p`.  ⚠️ **About `Polynomial` and nothing else**, public because
+  `EllipticCurves.Torsion.TriplingSeparable` counts roots the same way; its own docstring says why
+  the namespace is this one.
 * `WeierstrassCurve.Affine.eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero` : at odd `n`, a root of `preΨₙ`
   is not a root of `Ψ₂Sq`.
 * `WeierstrassCurve.Affine.nsmul_eq_zero_iff_eval_preΨ_eq_zero` : `n • (x, y) = 0 ↔ preΨₙ(x) = 0`.
@@ -161,7 +165,19 @@ theorem eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic
 private lemma finite_root_subtype {p : F[X]} (hp : p ≠ 0) : Finite {x : F // p.eval x = 0} :=
   Set.Finite.to_subtype (finite_setOf_isRoot hp)
 
-private lemma card_root_subtype [DecidableEq F] {p : F[X]} (hp : p ≠ 0) :
+/-- **`#{x // p(x) = 0} = #p.roots.toFinset`** for a nonzero `p`, as a `Nat.card` of a subtype
+against a `Finset.card` of the root multiset's dedup.
+
+⚠️ **Nothing here is about elliptic curves**, and it is public only because a second consumer
+appeared outside this file: `EllipticCurves.Torsion.TriplingSeparable` counts the roots of the
+tripling polynomial the same way.  It was `private`, and a round that needed it restated it verbatim
+rather than exporting it; `#1255` is the precedent for exporting instead, recorded in
+`eval_Φ_three_ne_zero_of_root_ΨSq`'s own docstring
+(`EllipticCurves.Torsion.TriplingSurjective`).  ⚠️ **The namespace is `WeierstrassCurve.Affine` for
+want of a Mathlib
+mirror tree in this repository and for no better reason**; a statement about `Polynomial` alone
+belongs elsewhere and should move if one is ever added. -/
+theorem card_root_subtype [DecidableEq F] {p : F[X]} (hp : p ≠ 0) :
     Nat.card {x : F // p.eval x = 0} = p.roots.toFinset.card := by
   classical
   have h : {x : F // p.eval x = 0} ≃ {x : F // x ∈ p.roots.toFinset} :=
