@@ -85,7 +85,19 @@ is no longer is *load-bearing*.
 ⚠️ `isSeparable_mulByNEndoFieldRange_of_charZero` (`EllipticCurves.FunctionField.MulByNInertia`,
 `#1221`) is `CharZero` and carries **no** `3`-smoothness, so it reached `n = 5` before anything here
 did.  It gives separability only, and it is now no longer the only statement in the tree that does
-so at `n = 5`; it is still the only one that does so without `[IsAlgClosed F]`.
+so at `n = 5`.
+
+⚠️ **The clause that used to close that sentence is RETIRED** (`README.md`, `### Retired claims`),
+and it is quoted rather than deleted.  `263f6e1` (`#1523` items 1–3) wrote
+
+> *it is still the only one that does so without `[IsAlgClosed F]`*
+
+and that is false as of `#2217`: `isSeparable_mulByNEndoFieldRange_of_card`
+(`EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsion`) is closure-free too, and so
+is its `IntermediateField` form.  ⚠️ **What survives is a sharper statement, not a weaker one**: the
+two trade the closure for different things — `[CharZero F]` there, the rationality of `E[n]` here —
+and **neither implies the other**, since `hcard` fails over `ℚ` at every `n ≥ 3` while
+`[CharZero F]` fails wherever `E[n] ⊆ E(F)` is arranged in positive characteristic.
 
 ## The presentations of `[n]∗F(W)`, and which one carries what
 
