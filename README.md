@@ -4462,6 +4462,218 @@ project in an automated setting:
   errors (`lake build --wfail`), and that the environment linters pass
   (`lake lint`; see [Linting](#linting) — the last two are different suites).
 
+### Tool-behaviour claims
+
+Every other gate on this page resolves a claim against a **blob**: a quotation, a count, a
+coordinate, an import closure. A clause that says *"`lake lint` exits 1"* or *"`merge-tree` prints
+nothing on stdout"* does not. It is a claim about a **tool's behaviour**, and the only thing that
+resolves it is **running the tool**. ⚠️ **So it is the cheapest claim here to falsify and the one
+nothing above can see**: the span test resolves quotations, the render gate parses, the merge gate
+merges, the page census counts, and **none of them can see a wrong exit code.**
+
+⚠️ **Every figure in this section — not only the two tree rows below — was taken at `git 2.39.5`,
+`bash 5.2.15(1)-release`, `python3` 3.11.2 and Lake 5.0.0-src+8c9756b / Lean 4.32.0.** ⚠️ **The list
+is the tools that produce a figure HERE and nothing else**: `git` every merge-tree cell, `bash` the
+`|| exit 1` row, `python3` every census and the whole four-window sweep, Lake and Lean both lint
+rows. **`markdown-it` is deliberately absent**, because it produces no figure in this section at all
+— and it is the one tool the pins table below shows this page pinning to the patch level in
+34 places, which is the asymmetry that rule exists to close. The sentence is scoped to the whole
+section deliberately: the rule at the bottom is that a behaviour claim names its version, and the
+first place it falls due is the section that states it.
+
+**The population, at `0b8f3d1` (`README.md` blob `146026e`, `lakefile.toml` blob `dadf0ad`).**
+⚠️ **Every citation below names a section and a quotation and not a line**, because a coordinate in
+this file has **three** ways to go false against a quotation's one (`#2037`): an insertion above it,
+a **deletion** above it, and a re-flow of the paragraph it points into, which moves nothing above it
+at all. ⚠️ **The deletion half is not hypothetical — `60` of the `759` commits at `0b8f3d1` delete
+lines from `README.md`**, and the count is **60** at `a232601` too; the reading is
+`git log --numstat -- README.md`, rows whose second column is nonzero, with `c6ef24a` at `+14 / −7`,
+`ab5ec3a` at `+134 / −10` and `dba89ee` at `+91 / −22`. And `#2037`'s own two tree rows sit **on a
+blank line**, which is neither an insertion nor a deletion above them. The line numbers here are in
+another file and carry that file's blob sha. Recogniser, case-insensitive, the
+alternatives joined by a **bare `|`** — the spaces around the pipes and the fold are display only —
+over text whitespace-normalised to single spaces:
+
+```text
+exits? \*?\*?[01]\*?\*?\b | exit (status|code) (of )?\*?\*?[01]\*?\*?\b | prints nothing
+| prints? no output | silent(ly)? (fails|succeeds) | survives `set -e`
+```
+
+⚠️ **AND THE CORPUS PREPARATION IS PART OF THE RECOGNISER, BECAUSE THIS IS THE FIRST SECTION HERE
+WHOSE CORPUS IS NOT `.md`/`.lean`: classify and strip PER LINE — for a non-prose file keep only its
+comment lines, with the comment marker stripped — and flatten AFTER, not before.** Flattening first
+destroys the line boundaries the classification needs, and it is the whole difference between the
+last two rows:
+
+| key | occurrences | carriers |
+|---|---|---|
+| landed commit messages, all **759** | **221** | **115** |
+| the tree, the **436** tracked `.md`/`.lean` files | **2** | **1** (`README.md`) |
+| ⚠️ the tree, all **447** tracked files, per line and then flattened | ⚠️ **3** | ⚠️ **2** |
+| ⚠️ the same, flattened first | ⚠️ **7** | **3** |
+
+⚠️ **The `.md`/`.lean` key is short by one, and the file it misses is the one a reader would check
+first.** `lakefile.toml`:**9–10** (blob `dadf0ad`) carries *"Without this line `lake lint` fails
+with `no lint driver configured` (exit 1)"* — the **same** behaviour claim `## Linting` makes of the
+same flag, written twice and gated nowhere; the line the claim is *about*, `lintDriver`, is **13**.
+⚠️ **Flattening first overshoots to 7**, because `.orchestra/validation.sh` (blob `d286aa8`) spells
+`exit 1` **4** times as *shell code*; per line it contributes **0**, so the code-versus-prose
+discriminator falls out of the order for free instead of needing a second pass. ⚠️ **And the order
+is what makes that quotation resolve at all**: flattened first it is `NO-SOURCE` in all 447 files,
+because the sentence wraps across lines 9 and 10 and the continuation opens with `# ` — and **a `#`
+is not whitespace**, so the flattened file reads *"fails # with"*.
+
+**Both tree rows re-run rather than assumed.** ⚠️ **Both are TRUE, and the class convicts
+neither** — which is why the rule below is about naming a version, not about repairing a row.
+
+* **`## Linting`, and `lakefile.toml`:9–10** — *"`lake lint` **fails loudly**"*, with
+  `error: no lint driver configured and builtin linting is disabled` and exit 1.
+  ✅ **Exact, message and status.**
+* **`### The neighbour population`** — *"`git merge-tree --write-tree <main> 6327391e` exits **1**
+  against `ac462ef`, `44272f7` and `871a224` alike"*. ✅ **Exit 1 at all three, and at `0b8f3d1`.**
+
+The controls are what make those two readings worth anything. For the lint row: with a driver
+**configured but broken** the status is still 1 and the message is *different*
+(`invalid lint driver: unknown script or executable`), so the quoted string really does pick out the
+*missing*-driver case; and `lake check-lint`, which is what CI probes with, is **exit 0** with a
+driver and **exit 1** without. For the merge row, `--write-tree` on a conflicting pair — base
+`0b8f3d1` against `6327391e`, **default `merge.conflictStyle`**, which is what an unconfigured slot
+has:
+
+| reading | value |
+|---|---|
+| exit status | **1** |
+| marker lines on **stdout** | **0** |
+| `^CONFLICT` lines on stdout | ⚠️ **2**, naming both conflicted files |
+| stdout / stderr | ⚠️ **987** bytes / **0** bytes |
+| marker lines **inside the written tree** | **9** + **6** = ⚠️ **15**, across **2** files |
+
+⚠️ **THE SPLIT IS THE PUBLISHABLE FIGURE AND THE TREE'S OID IS NOT.** The conflict is two files
+deep — **9** marker lines in `MulByNGaloisGroup.lean` and **6** in `NegYGaloisGroup.lean` — so a
+bare **9** is one file's share of it and a re-runner who greps the tree gets **15**. The 15, the
+9 + 6, the 0 on stdout and the 987 bytes are invariant across all five bases tried (`0b8f3d1`,
+`5dba859`, `ac462ef`, `44272f7`, `871a224`) and across the order of the two arguments. **The written
+tree's oid is invariant under none of it**: five bases give five oids, `diff3` and `zdiff3` give a
+sixth, and swapping the arguments gives a seventh — and `diff3` moves the marker count to
+**24 + 8 = 32**, because it adds a `|||||||` section. ⚠️ **So a gate line that prints an oid owes
+base, conflict style and argument order beside it; one that prints the split owes nothing.**
+
+⚠️ **And a byte count owes its capture idiom.** The raw stdout is **987** bytes; `$(…)` strips the
+trailing newline and gives **986**. Both are right, and the discriminator is the shell and not
+`git` — which is the same shape as the version rule one tool down.
+
+⚠️ **THE EXIT STATUS IS NOT QUITE THE WHOLE TEST, AND THE FLAG THAT MAKES IT SO HAS A NAME.** At the
+default, stdout carries `CONFLICT (content): Merge conflict in …` **twice**, so a
+`grep -c '^CONFLICT'` is a second test that does discriminate. **`--no-messages` deletes exactly
+that**: stdout falls from 987 bytes to **647**, the two `CONFLICT` lines to **0**, and the written
+tree is unchanged. The
+*marker* grep is **0** under every flag and style tried. So `#2149`'s claim is exactly right in the
+form that matters — **a marker grep on stdout cannot fail** — and one flag too strong in the form
+`#2149` and two landed messages (`07e7e9e`, `53c2f09`) put it: *"the exit status is the whole
+test"*. The control is a clean pair: self-merge is **exit 0** with **41** bytes on stdout, the oid
+and nothing else.
+
+⚠️ **THE MESSAGE LAYER IS OUT OF SCOPE FOR REPAIR AND IN SCOPE FOR A VERDICT.** A landed message is
+unamendable (`#1857`, `#2085`), so what is owed is a count, not an edit — and the count refutes the
+shape of the question. **The 221 are not 221 behaviour claims.** A behaviour claim generalises; a
+gate line reports one run on one tree, and *that* resolves against a blob after all, namely the tree
+the commit landed. Keyed on a generalising marker, **published in full, because a seed whose word
+list ends in an ellipsis is reconstructible from the page in no reading (`#2087`)**:
+
+```text
+would | cannot | never | refuses | is merely | survives | no other way | without that
+| must | could not
+```
+
+⚠️ **and the scope is half the key.** Scoped to **the matched sentence** — the span between the
+nearest `. ` on either side of the match in the flattened message — those ten markers return
+**12 in 9**. The same ten return **2 in 2** by clause (nearest of `. `, `; `, `, `, `: `, `— `),
+**47 in 25** by paragraph and **188 in 86** over whole messages. ⚠️ **The paragraph window is a
+blank-line split taken BEFORE the flattening, and the order is the whole cell**: a flattened message
+has no paragraphs left to split on, so flatten-first returns **188 in 86** — byte-identical to the
+whole-message row beside it, which is the tell. Normalising each paragraph after the split changes
+nothing (**47 in 25** under both). That is this section's own corpus rule — *"flatten AFTER, not
+before"* — in a second spelling, and the reason it is restated is that the first statement of it is
+scoped to the FILE corpus and this key is over messages. **A marker count is a function of its
+window, so the window — and the order the window is taken in — is published with it.**
+
+| | at `5dba859` | at `0b8f3d1` |
+|---|---|---|
+| matched occurrences | **218** in **114** of **758** | **221** in **115** of **759** |
+| modal candidates, sentence-scoped | **12** in **9** | ⚠️ **12** in **9**, unmoved |
+| generalising, hand-read | **8** in **6** | **8** in **6**, being **6** distinct claims |
+| the key's false positives | **4** in **4** | **4** in **4** |
+
+⚠️ **The candidate set is invariant across the base move although the raw count is not**: the commit
+that moved `main` adds **3** matched occurrences and **0** candidates, all three of them gate lines
+reporting one run on one tree. That is this section's own discriminator working on a commit that
+landed after the section was drafted. The six, all re-run here:
+
+* **`07e7e9e`** — *`--write-tree` puts markers in the written blobs, never on stdout.*
+  ✅ **15 marker lines inside the written tree, 0 on stdout.**
+* **`231becd`** — *under the two-argument form a `<<<<<<<` grep on stdout cannot come out any other
+  way.* ✅ **0 at every base, style and argument order tried.**
+* **`f3debb8`** — *a tree that has not moved must give the same written tree.* ✅ The same oid across
+  three consecutive runs, at a fixed base and style.
+* **`976ebf2`** — *clean against `main` neither implies nor could imply clean against every
+  other head.* ✅ #471 conflicts at all three bases named above.
+* **`51a55d7`** — *a failing step that is not the script's last statement does not fail the
+  script.* ✅ Exit **0** without `|| exit 1`, **1** with it, **1** when the step is last.
+* **`d5951f8`** — *`lake check-lint` failing is merely logged and the job stays green under
+  `lint: default`, and is red under `lint: "true"`.* ⚠️ **Half measurable — see below.**
+
+⚠️ **Nought of the six is false**, which is the answer nobody had, and the honest qualifier is on
+the last: its `lake check-lint` half is measured (**exit 1** with no driver), and its
+`leanprover/lean-action` half is a claim about a **third party's** `scripts/config.sh` and is **not
+falsifiable in a slot** — no network, and the action is not vendored here. **A behaviour claim about
+a tool this repository does not carry is a citation, not a measurement, and should be written as
+one.** The **4** false positives fail in one shared way and it is worth naming: **the modal governs
+something other than the matched status** — a commit-concatenation impossibility, a *claim* that
+survives rather than a command, a job count that an empty diff *must* leave alone, and which
+instance a `synthInstance` probe names.
+
+**THE RULE, and it is the render gate's rule pointed at a second tool: a claim about a command's
+exit status or output names the version it was taken under, and any flag that moves either.** The
+asymmetry that motivates it is stark:
+
+| pin, at `0b8f3d1` (blob `146026e`, **759** messages) | in `README.md` | in the messages |
+|---|---|---|
+| `markdown-it` at the patch level (`14.3.2`) | **4** | **30**, in 17 |
+| any `git` version (`git 2.x`) | ⚠️ **0** | ⚠️ **0** |
+| any `bash` version (`bash 5.x`, `GNU bash`) | ⚠️ **0** | ⚠️ **0** |
+| `git --version` as a recipe step | ⚠️ **0** | ⚠️ **0** |
+
+**At `0b8f3d1` this page pinned its markdown parser to the patch level in 34 places (4 + 30) —
+`#2122` and `#2153` exist entirely to enforce that — and recorded the version of the tool that
+produces almost every figure it publishes in none of them, nor the shell's.** ⚠️ **This section is
+the commit that makes those three zeroes nonzero, and that is the rule being paid rather than an
+embarrassment.** ⚠️ **It is also why the table is keyed to a sha**: a `0 / 0` cell whose whole point
+is the zero is falsified by the diff that argues from it, which is `#1972` and `#2084`, and the
+first round of this section was rejected for exactly that.
+
+⚠️ **The Lean side needs no rule because a tracked file already is one**: `lean-toolchain` pins
+`leanprover/lean4:v4.32.0` and `lakefile.toml` pins mathlib at `v4.32.0`, so a job count is
+reproducible by construction. **`git` is pinned by nothing at all, and its output *and* its exit
+status are both flag- and version-sensitive** — the oid, the byte count and the marker count above
+each move under a flag this page had never named. So: run `git --version`, and print it and the
+flags beside the verdict, exactly as the render gate prints `14.3.2` beside the parse.
+
+⚠️ **AND A NARROWER CLASS, FOUND THE SAME WAY: A DELIVERABLE TRANSCRIBED FROM ITS ISSUE IS
+INHERITED, NOT MEASURED.** Rounds here re-derive the *numbers* they inherit — `#2204` exists because
+one round re-ran a carried census instead of carrying it — but nobody re-runs an inherited claim
+about how a tool behaves, because it does not look like a figure: no denominator, no sha, no clock,
+so no gate above flags it as carried. **A round owes its issue's factual claims the same instrument
+it owes its own**, and the check is one line: *does any factual claim in this diff appear verbatim
+in the issue description, and was it re-derived?* The confirmed row is PR #810 round 3, whose
+*"exits 0, and prints nothing"* is `#2204`'s wording carried unrun — every other figure in that
+round was re-derived from the tree, and the only wrong one is the one quoted from the filing.
+
+⚠️ **A LAST SUB-CLASS, AND IT IS NARROWER THAN `#2037`: A COORDINATE CERTIFIED AS *INVARIANT* HAS
+NOT BEEN CERTIFIED AS *TRUE*.** The first round of this section carried one line number, checked it
+against the only predicate a self-figure gate knows — *does this insertion move it?* — recorded that
+the file is one the diff does not touch, and published a number that pointed at neither end of its
+own quotation. **The two predicates are different, and a gate that runs one owes which one.**
+
 ### The neighbour population
 
 A round in review publishes a **merge gate**: `git merge-tree` against `main`, and against the
