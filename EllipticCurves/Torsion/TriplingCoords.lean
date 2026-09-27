@@ -106,7 +106,14 @@ identification with the **group-law** multiple, and ⚠️ **that is no longer g
 either**: `nsmul_eq_some_omegaY_of_ΨSq_ne_zero` (`EllipticCurves.Torsion.NsmulYPeriodic`, `#1500`,
 PR #579) proves it at every index over a field with `(2 : F) ≠ 0` and under `ΨSqₙ(x) ≠ 0`, and
 `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`, `#251`) is its `x`-half,
-under the same hypotheses.  Both are downstream of this file.
+under the same hypotheses.  ⚠️ **The two sit on opposite sides of the import graph, and this
+paragraph used to call both of them downstream.**  `NsmulYPeriodic` is downstream of this file;
+`NsmulOrder` is import-incomparable with it, exactly as `OmegaCrux` is earlier in this paragraph.
+⚠️ **So the `NsmulOrder` edge is available rather than obstructed**, and declining it is a cost
+judgement and not a cycle: importing it here adds **8** modules to this file's `EllipticCurves`
+closure (17 → 25) — `NsmulOrder` itself, `EllipticNetRel`, `EllipticNetSlices`, `NsmulLadder`,
+`WardHalving`, `WardR1`, `WardR1Core` and `XDifference`, measured at `88a0ed6` — which is not worth
+paying for a pointer.  Neither module is imported here.
 
 ⚠️ **`GenericTripling`'s two theorems are instances of the ones below** (take the base-changed curve
 over `F(W)` and the point `(genX, genY)`), and collapsing the duplication would be a worthwhile
