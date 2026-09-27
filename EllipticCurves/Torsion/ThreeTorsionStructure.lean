@@ -117,10 +117,16 @@ four statements about `W.torsion 3` take `[W.IsElliptic]` as well — the last f
   was, and this file states no `IsGalois`, no `IsSplittingField` and no normal closure.  What is
   delivered here is the layer such a construction would consume, exactly as
   `card_torsion_two_of_splits` is the layer `TwoTorsionSplittingField` consumes.  ⚠️ **Partial
-  rather than false, so the words stay and this pointer is added**: of the four clauses above, the
-  two that carry a scope carry it to this file in their own words — *"Nothing below"* and
-  *"this file"* — and the other two are about the mathematics and not about the tree; all four are
-  still true.  But the heading they sit under is read tree-wide (`#1982`), and the construction is
+  rather than false, so the words stay and this pointer is added**: of the four clauses above,
+  **three** carry a scope to this file in their own words — *"Nothing below"*, *"this file"* and
+  *"delivered here"* — and the fourth, *"no single polynomial's splitting field does"*, is about
+  the mathematics and not about the tree.  **All four are still true**, and the one a later landing
+  could most cheaply have falsified is checkable in one pass: every occurrence of the three names in
+  this file is inside this docstring, so **0** of the declarations from `Ψ₂Sq_eval` onward mentions
+  any of them.  ⚠️ **The split is recorded here rather than left in a review** (`#2087`): a count
+  of the scope-carrying clauses that reads **two** has dropped *"delivered here"*, which scopes to
+  this file exactly as *"Nothing below"* does.  But the heading they sit under is read tree-wide
+  (`#1982`), and the construction is
   no longer absent from the tree.  It is `EllipticCurves.Torsion.ThreeDivisionField`, which builds
   exactly the two-step tower described above — `threeDivisionField`, `Ψ₃`'s splitting field
   followed by the quadratic tower — and discharges both conditions at it, as
