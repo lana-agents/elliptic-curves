@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Torsion.TwoTorsion
 import Mathlib.Algebra.Field.ZMod
+import Mathlib.FieldTheory.Perfect
 
 /-!
 # `#E[2] ≤ 2` in characteristic `2`, so the `2`-descent route is not undecided there — it is false
@@ -28,6 +29,15 @@ be**, and all four now point here.
 ⚠️ **This file decides it, and the answer is that the question does not arise.**  In characteristic
 `2` the count `#E[2] = 4` that the tower rests on is not merely unproved, it is **false**: `E[2]`
 has at most **two** elements over *any* field of characteristic `2`, algebraically closed or not.
+
+⚠️ **And the count is not left as a bound: it is DECIDED.**  `#E[2] = 1` when `a₁ = 0`, over every
+field; and when `a₁ ≠ 0` it is `2` exactly when one element of `F` — the value of
+`x³ + a₂x² + a₄x + a₆` at the single `x` with `a₁x + a₃ = 0` — is a square there, which
+`card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` states in both directions.  ⚠️ **So the two
+values `E[2]` can take in characteristic `2` are `1` and `2`, the branch is read off `a₁`, and the
+only thing that can be undecided is a square root and never the count.**  The headline above says
+`≤ 2` because that is the inequality the halving tower's `#E[2] = 4` collides with; the equality is
+the sharper fact and it is `card_torsion_two_of_sq_surjective_of_char_two`.
 
 ## The mechanism, and it is two lines
 
@@ -63,26 +73,28 @@ That is the same degeneracy as the `n = 2` halving quartic's
 
 ## Main statements
 
-**12** declarations: **8** public theorems, one `private instance` and **3** `private` certificates,
-the last four all in the `ℤ/2` non-vacuity block.  ⚠️ `#print axioms` over all eight public
-statements reaches **0** `sorryAx` and nothing outside `{propext, Classical.choice, Quot.sound}`,
-and all eight return all three.
+**26** declarations: **16** public theorems, one `private instance`, one `private def` and **8**
+`private` certificates, the last ten all in the two non-vacuity blocks.  ⚠️ `#print axioms` over all
+sixteen public statements reaches **0** `sorryAx` and nothing outside
+`{propext, Classical.choice, Quot.sound}`, and all sixteen return all three.
 
 Every statement takes `(2 : F) = 0` as an explicit hypothesis rather than `[CharP F 2]`; see
 `## On the spelling of the hypothesis` below.  ⚠️ **Every statement *but the first* carries
 `{F : Type*} [Field F] {W : Affine F}`** — the first is over `[CommRing R]` and is stated in its own
 section below.  ⚠️ **The instance census, read off `#check` and not off the `variable` lines**:
-`[DecidableEq F]` reaches **five** of the eight and `[W.IsElliptic]` reaches **six**, four of those
-from `section Torsion`'s `variable` line and the other two as explicit binders on
-`a₃_ne_zero_of_a₁_eq_zero_of_char_two` and `separable_Ψ₂Sq_iff_a₁_eq_zero_of_char_two`.
-⚠️ **Neither is a dead binder**: `omit [DecidableEq F] in` before any of the five is refused with
-*"cannot omit referenced section variable"*, and `[W.IsElliptic]` is the whole content of the
-supersingular input.  ⚠️ **Three bullets below carry an explicit absence flag, and the binder is
-named on each**: `Ψ₂Sq_eq_sq_of_char_two` (*no `[W.IsElliptic]`, no `[IsAlgClosed F]` and no
-`[Field]`*), `separable_Ψ₂Sq_iff_a₁_eq_zero_of_char_two` (*no `[DecidableEq F]`*) and
-`a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two` (*no `[W.IsElliptic]`*).  ⚠️ **Of the eight
-exactly ONE carries neither binder** — the first of those three, the only one stated over
-`[CommRing R]`.
+`[DecidableEq F]` reaches **twelve** of the sixteen, `[W.IsElliptic]` reaches **twelve**, and
+`[PerfectField F]` reaches exactly **one** — `card_torsion_two_of_perfectField_of_char_two`, the
+only statement in the file with an instance hypothesis on `F` beyond decidability.
+⚠️ **Neither of the first two is a dead binder**: `omit [DecidableEq F] in` before any of the twelve
+is refused with *"cannot omit referenced section variable"*, and `[W.IsElliptic]` is the whole
+content of the supersingular input.  ⚠️ **Four bullets below carry an explicit absence flag, and the
+binder is named on each**: `Ψ₂Sq_eq_sq_of_char_two` (*no `[W.IsElliptic]`, no `[IsAlgClosed F]` and
+no `[Field]`*), `separable_Ψ₂Sq_iff_a₁_eq_zero_of_char_two` (*no `[DecidableEq F]`*),
+`a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two` (*no `[W.IsElliptic]`*) and
+`nonsingular_of_a₁_mul_add_a₃_eq_zero_of_sq_eq` (*no `(2 : F) = 0`*).  ⚠️ **Of the sixteen exactly
+ONE carries neither `[DecidableEq F]` nor `[W.IsElliptic]`** — the first of those four, the only one
+stated over `[CommRing R]` — and ⚠️ **exactly one carries no characteristic hypothesis at all**,
+which is the last of them and is the reason it has no `_of_char_two` suffix.
 
 * `WeierstrassCurve.Affine.Ψ₂Sq_eq_sq_of_char_two` — `Ψ₂Sq = (C a₁ · X + C a₃)²`, ⚠️ **over an
   arbitrary `[CommRing R]` and not only over a field**, which is where Mathlib's `Ψ₂Sq` lives.
@@ -99,8 +111,20 @@ exactly ONE carries neither binder** — the first of those three, the only one 
   was waiting for, and ⚠️ **the answer is not the one-directional *"it degenerates, so it is
   inseparable"* that the shape `Ψ₂Sq = ℓ²` suggests**: on the supersingular branch `ℓ` is a nonzero
   constant and the square of a unit is separable.  ⚠️ **No `[DecidableEq F]`.**
+* `WeierstrassCurve.Affine.nonsingular_of_a₁_mul_add_a₃_eq_zero_of_sq_eq` — a square root of
+  `x³ + a₂x² + a₄x + a₆` at an `x` with `a₁x + a₃ = 0` **is** the `y`-coordinate of a point.
+  ⚠️ **No `(2 : F) = 0`**: the `y`-linear part of the Weierstrass equation is `(a₁x + a₃)y` and
+  `hlin` kills it in every characteristic.  This is the half of the converse that can fail over a
+  field the caller does not control, and the only half that can.
 * `WeierstrassCurve.Affine.a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two` — the linear
   condition above, the file's workhorse.  ⚠️ **No `[W.IsElliptic]`.**
+* `WeierstrassCurve.Affine.mem_torsion_two_some_of_a₁_mul_add_a₃_eq_zero_of_char_two` — the converse
+  of the workhorse: in characteristic `2` a point whose `x` satisfies the linear condition **is**
+  `2`-torsion, its `y` being unconstrained.  ⚠️ **No `[W.IsElliptic]`**, matching the forward
+  direction.
+* `WeierstrassCurve.Affine.mem_torsion_two_some_iff_a₁_mul_add_a₃_eq_zero_of_char_two` — the two
+  packaged: `(x, y) ∈ E[2] ↔ a₁x + a₃ = 0`.  ⚠️ **The right-hand side does not mention `y`**, which
+  is the whole degeneracy in one line.
 * `WeierstrassCurve.Affine.eq_of_mem_torsion_two_of_char_two` — **any two nonzero `2`-torsion points
   are equal.**  This is the sharp statement; the two counts below are corollaries of it.
 * `WeierstrassCurve.Affine.card_torsion_two_le_two_of_char_two` — `#E[2] ≤ 2`.
@@ -108,20 +132,55 @@ exactly ONE carries neither binder** — the first of those three, the only one 
   the absence bullets quoted above is looking for.
 * `WeierstrassCurve.Affine.torsion_two_eq_bot_of_a₁_eq_zero_of_char_two` — when `a₁ = 0`, `E[2]` is
   **trivial**, not merely small.  ⚠️ This is exact rather than a bound, and it needs no
-  **perfectness** hypothesis on `F`, which is what its `a₁ ≠ 0` sibling needs.
+  hypothesis on `F` at all, which is what its `a₁ ≠ 0` sibling does need.
+* `WeierstrassCurve.Affine.card_torsion_two_eq_two_of_ne_zero_of_char_two` — **one nonzero
+  `2`-torsion point forces `#E[2] = 2`**.  This is where the `≤ 2` bound becomes an equality, and it
+  asks nothing of `F`.
+* `WeierstrassCurve.Affine.card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` — ⚠️ **`#E[2] = 2`
+  exactly when `x³ + a₂x² + a₄x + a₆` is a square at the one candidate `x`**, and ⚠️ **over an
+  arbitrary field, with no perfectness and no finiteness.**  The sharp form of the whole ordinary
+  branch: the obstruction is one square root, named, with both directions proved.
+* `WeierstrassCurve.Affine.card_torsion_two_eq_two_of_a₁_ne_zero_of_char_two` — `#E[2] = 2` when
+  squaring is onto `F`, the `x` being `a₃ / a₁`.
+* `WeierstrassCurve.Affine.card_torsion_two_of_sq_surjective_of_char_two` — ⚠️ **the dichotomy:
+  `#E[2] = 1` when `a₁ = 0` and `#E[2] = 2` when `a₁ ≠ 0`**, over any field whose squaring map is
+  onto.  ⚠️ **Neither value is `4`**, and the branch the classical count would call generic is the
+  one that gives `2`.
+* `WeierstrassCurve.Affine.card_torsion_two_of_perfectField_of_char_two` — the same dichotomy from
+  `[PerfectField F]`.  ⚠️ **It is the form `## ⚠️ What is *not* here` used to declare absent**, and
+  the four-line `(2 : F) = 0 → CharP F 2` bridge inside it is the `CharP` conversion
+  `## On the spelling of the hypothesis` promises.
 
 ## ⚠️ What is *not* here
 
-* **`#E[2] = 2` when `a₁ ≠ 0`.**  ⚠️ **It is FALSE over a general field of characteristic `2`, and
-  the bound above is sharp for that reason.**  The argument produces *at most* one affine
-  `2`-torsion point by showing its `x` and then its `y` are determined; it does not produce one,
-  because the determined `y` is a square root of `x³ + a₂x² + a₄x + a₆` and that need not exist.
-  Over `𝔽₂(t)` it need not.  **`#E[2] = 2` holds exactly when `F` is perfect** — over a perfect
-  field of characteristic `2` the Frobenius is surjective and the root is there — and this file does
-  not state the perfect-field form because nothing in this tree consumes it.  ⚠️ **The two branches
-  are the classical ordinary (`a₁ ≠ 0`) and supersingular (`a₁ = 0`) cases, and only the
-  supersingular one is exact without a hypothesis on `F`**; that asymmetry is why
-  `torsion_two_eq_bot_of_a₁_eq_zero_of_char_two` is an equality and its sibling is a bound.
+* **`#E[2] = 2` when `a₁ ≠ 0`, unconditionally on `F`.**  ⚠️ **It is FALSE over a general field of
+  characteristic `2`**, and `card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` now says exactly
+  how: the argument produces *at most* one affine `2`-torsion point by showing its `x` and then its
+  `y` are determined, and whether it produces one is whether the determined `y` — a square root
+  of `x³ + a₂x² + a₄x + a₆` at the single `x` with `a₁x + a₃ = 0` — exists in `F`.  Over `𝔽₂(t)` and
+  `a₆ = t` it does not.  ⚠️ **So the obstruction is one square root of one element, and that is a
+  theorem in this file rather than a remark.**
+* ⚠️ **A version of the sentence *"`#E[2] = 2` holds exactly when `F` is perfect"*, which this
+  bullet carried before the ordinary branch was proved and which is TRUE and FALSE according to
+  how it is read.**  Read of the **family** — *every* curve over `F` with `a₁ ≠ 0` has `#E[2] = 2`
+  **iff** `F` is perfect — it is right, and `card_torsion_two_of_perfectField_of_char_two` is the
+  forward half of it; the converse half needs an imperfect `F` and a curve witnessing the failure
+  (`𝔽₂(t)`, `a₆ = t`), which is **not** in this file.  ⚠️ **Read of a SINGLE curve it is false**,
+  and `exampleCardTorsionTwoOrdinaryOfCharTwo` refutes it: `y² + xy = x³ + 1` has `#E[2] = 2` over
+  **every** field of characteristic `2`, imperfect ones included, because its candidate `x` is `0`
+  and the cubic's value there is `a₆ = 1 = 1²`.  ⚠️ **Perfectness is sufficient uniformly over
+  curves and never necessary for a given curve** — that is the distinction the old sentence elided,
+  and the asymmetry it went on to draw survives it: `torsion_two_eq_bot_of_a₁_eq_zero_of_char_two`
+  is an equality over every field, while its `a₁ ≠ 0` sibling needs *something* — a square root, not
+  necessarily perfectness.
+* **The converse half of the family reading**: an imperfect field of characteristic `2` together
+  with a curve over it having `a₁ ≠ 0` and `#E[2] = 1`.  ⚠️ **`𝔽₂(t)` is not in this file's import
+  closure**, measured: no module whose name contains `RatFunc` is reachable from
+  `EllipticCurves.Torsion.TwoTorsion`, and adding `Mathlib.FieldTheory.RatFunc.Basic` costs **+2**
+  resolvable modules (`2511 → 2513` all packages, `+0` inside `EllipticCurves`) at `4b42b3f`.
+  ⚠️ **That edge is cheap and the reason for declining it is not the price** — it is that the
+  statement it would certify is about imperfect fields rather than about `E[2]`, and belongs
+  wherever this tree next needs a non-perfect base.
 * **Any theory of the Frobenius, of separability of `[2]` as an isogeny, or of supersingularity.**
   The words *ordinary* and *supersingular* appear above only to name the two branches of one
   `a₁ = 0` case split.  Nothing below imports a theory to state a count.
@@ -174,8 +233,15 @@ converts through `CharP.cast_eq_zero_iff`; the same conversion is available to a
 
 ## Non-vacuity
 
-`EllipticCurves.Fixture.y2AddYEqX3` at `R = ZMod 2` — `y² + y = x³`, the supersingular branch, with
-`a₁ = 0` and `a₃ = 1`.
+**Two certificates, one per branch of the dichotomy.**
+
+* **Supersingular**, `#E[2] = 1`: `EllipticCurves.Fixture.y2AddYEqX3` at `R = ZMod 2` —
+  `y² + y = x³`, with `a₁ = 0` and `a₃ = 1`.  The rest of this section is about that one.
+* **Ordinary**, `#E[2] = 2`: `y² + xy = x³ + 1`, the tuple `⟨1, 0, 0, 0, 1⟩`, ⚠️ **over an ARBITRARY
+  field of characteristic `2` and then instantiated at `ZMod 2`** — see
+  the section heading *"The ordinary branch, certified over an ARBITRARY field of characteristic
+  `2`"* below, which says why `Fixtures` cannot supply this one at all and not merely why it does
+  not.
 
 ⚠️ **`EllipticCurves.Fixtures` serves no characteristic-`2` CERTIFICATE and says in terms why** —
 *"The finite-field certificates are deliberately NOT served here, and there are FOUR of them … In
@@ -197,20 +263,37 @@ below is therefore built by the three precedents' own one-line recipe — `isEll
 `isUnit_iff_ne_zero`, `decide +kernel` — rather than by a hand `Δ` computation, and `Fixtures`'
 *"a later sweep should not 'finish the job' by deleting them"* protects this fourth one too.
 ⚠️ **No `Fact (Nat.Prime 2)` is declared here**: Mathlib's global `Nat.fact_prime_two` is what
-resolves, and `Field (ZMod 2)` synthesises from this file's two imports alone.
+resolves, and `Field (ZMod 2)` synthesises from `EllipticCurves.Torsion.TwoTorsion` and
+`Mathlib.Algebra.Field.ZMod` alone — ⚠️ **the third import, `Mathlib.FieldTheory.Perfect`, plays no
+part in it.**
 
 `Δ = −27 · b₆² = −27 = 1` in `ZMod 2`, which is the discriminant `NegYGalois` records for the same
 curve.  The certificate is `#E[2] = 1` **exactly**, not a bound, and the `≠ 4` corollary is
 instantiated beside it so that the statement this file exists to contradict is contradicted at a
 concrete curve.
 
-## ⚠️ One Mathlib import beyond `TwoTorsion`, and it is the non-vacuity's and not the theory's
+## ⚠️ Two Mathlib imports beyond `TwoTorsion`, and NEITHER of them costs a module
 
 `Mathlib.Algebra.Field.ZMod` is imported for **`Field (ZMod 2)`** alone.  ⚠️ **Nothing in the theory
-above needs it** — every public statement is over an abstract `[Field F]` and would compile against
-`EllipticCurves.Torsion.TwoTorsion` alone — and it is here because this tree has no
-characteristic-`2` field to certify against otherwise.  **A reader pricing this file's closure
-should subtract that edge from the mathematics and charge it to the certificate.**
+above needs it** — every public statement is over an abstract `[Field F]` and all sixteen would
+compile against `EllipticCurves.Torsion.TwoTorsion` alone except the last — and it is here because
+this tree has no characteristic-`2` field to certify against otherwise.  **A reader pricing this
+file's closure should subtract that edge from the mathematics and charge it to the certificates.**
+
+`Mathlib.FieldTheory.Perfect` is imported for **`PerfectField`** and `surjective_frobenius`, used by
+`card_torsion_two_of_perfectField_of_char_two` and by nothing else.  ⚠️ **It is FREE, measured and
+not assumed**: it is already in this file's closure at `4b42b3f` by the route
+`Mathlib.FieldTheory.Perfect` ← `Mathlib.FieldTheory.IsAlgClosed.Basic` ←
+`EllipticCurves.Torsion.TwoTorsion`, so the explicit line adds **0** resolvable modules
+(**2511 → 2511** all packages, **6 → 6** inside `EllipticCurves`).  ⚠️ **The line is written anyway
+rather than relying on the transitive reach**, because the name would otherwise resolve only for as
+long as `TwoTorsion` happens to keep an import it does not need for `PerfectField`'s sake.
+⚠️ **A closure COUNT carries a sha and a membership claim does not** (`README.md`,
+`## Import-closure figures`): the walker behind the two figures parses `public import` as well as
+`import`, keys its cache by `(tree, module)`, scores only **resolvable** module names, and was
+controlled on the landed figure `EllipticCurves.TateModule.MatrixRepMod` = **40** before use.
+⚠️ **The control validates the `EllipticCurves` half of the instrument and not the all-packages
+half**, which is why both numbers are published with their coverage.
 
 ## References
 
@@ -309,6 +392,30 @@ theorem separable_Ψ₂Sq_iff_a₁_eq_zero_of_char_two [W.IsElliptic] (h2 : (2 :
     rw [h1, map_zero, zero_mul, zero_add, ← C_pow]
     exact (separable_C _).mpr (pow_ne_zero 2 h3).isUnit
 
+/-! ### The converse: the linear condition PRODUCES a `2`-torsion point
+
+⚠️ **`a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two` runs one way only**, and everything
+above is a bound for that reason.  The reverse direction splits into two halves that are worth
+keeping apart, because ⚠️ **only the second of them binds the characteristic** and ⚠️ **only the
+first can fail over a field the caller does not control.** -/
+
+/-- **A point above the linear condition is on the curve — in EVERY characteristic.**
+
+If `a₁x + a₃ = 0` then the Weierstrass equation's entire `y`-linear part
+`a₁xy + a₃y = (a₁x + a₃)y` vanishes, and what is left is `y² = x³ + a₂x² + a₄x + a₆`; so any square
+root of that cubic's value at `x` is the `y`-coordinate of a point.
+
+⚠️ **No `(2 : F) = 0` anywhere**, and that is not an oversight: the collapse of the `y`-linear part
+follows from `hlin` alone.  What characteristic `2` contributes is that `hlin` is *satisfiable* —
+away from it the `2`-torsion condition `2y + a₁x + a₃ = 0` pins `y` instead, and `hlin` is an extra
+constraint rather than the whole of one.  `[W.IsElliptic]` is spent on `equation_iff_nonsingular`
+and on nothing else. -/
+theorem nonsingular_of_a₁_mul_add_a₃_eq_zero_of_sq_eq [W.IsElliptic] {x y : F}
+    (hlin : W.a₁ * x + W.a₃ = 0) (hy : y ^ 2 = x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆) :
+    W.Nonsingular x y := by
+  rw [← equation_iff_nonsingular, equation_iff]
+  linear_combination hy + y * hlin
+
 /-! ### `E[2]` has at most one nonzero point -/
 
 section Torsion
@@ -326,6 +433,33 @@ theorem a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two (h2 : (2 : F) =
     W.a₁ * x + W.a₃ = 0 := by
   have := (mem_torsion_two_some_iff h).mp hP
   linear_combination this - y * h2
+
+/-- **Every affine point whose `x` satisfies the linear condition is `2`-torsion**, in
+characteristic `2` — the converse of `a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two`.
+
+⚠️ **The `y`-coordinate is unconstrained here, and `hy` is not a hypothesis.**
+`mem_torsion_two_some_iff` asks for `2y + a₁x + a₃ = 0`; the characteristic kills the `2y` and what
+is left is exactly `hlin`.  So *given a point*, being `2`-torsion is decided by its `x` alone —
+producing the point is the hard half and it is
+`nonsingular_of_a₁_mul_add_a₃_eq_zero_of_sq_eq`'s.
+
+⚠️ **No `[W.IsElliptic]`**, matching the forward direction, which has none either. -/
+theorem mem_torsion_two_some_of_a₁_mul_add_a₃_eq_zero_of_char_two (h2 : (2 : F) = 0) {x y : F}
+    {h : W.Nonsingular x y} (hlin : W.a₁ * x + W.a₃ = 0) : Point.some x y h ∈ W.torsion 2 :=
+  (mem_torsion_two_some_iff h).mpr (by linear_combination hlin + y * h2)
+
+/-- **`(x, y) ∈ E[2] ↔ a₁x + a₃ = 0` in characteristic `2`** — the packaged form of the two
+directions, and the statement `mem_torsion_two_some_iff` degenerates to once `2 = 0`.
+
+⚠️ **Note what has gone from the right-hand side: the `y` has.**  Away from characteristic `2` the
+same `iff` reads `2y + a₁x + a₃ = 0` and *determines* `y` from `x`
+(`eq_twoTorsionY_of_mem_torsion_two`, `EllipticCurves.Torsion.TwoTorsion`); here it does not mention
+`y` at all, so among the points of `W` being `2`-torsion is a condition on the `x`-coordinate
+alone. -/
+theorem mem_torsion_two_some_iff_a₁_mul_add_a₃_eq_zero_of_char_two (h2 : (2 : F) = 0) {x y : F}
+    {h : W.Nonsingular x y} : Point.some x y h ∈ W.torsion 2 ↔ W.a₁ * x + W.a₃ = 0 :=
+  ⟨a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two h2,
+    mem_torsion_two_some_of_a₁_mul_add_a₃_eq_zero_of_char_two h2⟩
 
 variable [W.IsElliptic]
 
@@ -367,9 +501,11 @@ theorem eq_of_mem_torsion_two_of_char_two (h2 : (2 : F) = 0) {P Q : W.Point}
 /-- **`#E[2] ≤ 2` over any field of characteristic `2`**, algebraically closed or not.
 
 `P ↦ decide (P = 0)` is injective on `E[2]` by `eq_of_mem_torsion_two_of_char_two`, and `Bool` has
-two elements.  ⚠️ **The bound is sharp and is not an equality** — see the module docstring's
-`## ⚠️ What is *not* here`: over a non-perfect field the one candidate affine point need not
-exist. -/
+two elements.  ⚠️ **The bound is sharp and is not an equality**, and
+`card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` says exactly when it is attained: the one
+candidate affine point exists iff a single element of `F` is a square.  ⚠️ **So this statement is
+the weak half of a pair and not the file's last word on the count** — see
+`card_torsion_two_of_sq_surjective_of_char_two` for the dichotomy. -/
 theorem card_torsion_two_le_two_of_char_two (h2 : (2 : F) = 0) :
     Nat.card (W.torsion 2) ≤ 2 := by
   classical
@@ -409,14 +545,113 @@ theorem torsion_two_eq_bot_of_a₁_eq_zero_of_char_two (h2 : (2 : F) = 0) (h1 : 
       have e := a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two h2 hP
       rw [h1] at e; simpa using e) (a₃_ne_zero_of_a₁_eq_zero_of_char_two (W := W) h2 h1)
 
+/-! ### `#E[2] = 2` exactly, and the obstruction is a single square root -/
+
+/-- **One nonzero `2`-torsion point forces `#E[2] = 2`** over a field of characteristic `2`.
+
+`Nat.card_eq_two_iff'` at `0` asks for a *unique* nonzero element; `P` supplies existence and
+`eq_of_mem_torsion_two_of_char_two` supplies uniqueness.  ⚠️ **This is where
+`card_torsion_two_le_two_of_char_two`'s bound becomes an equality, and it needs no hypothesis on `F`
+beyond the point it is handed** — which is why every strengthening below is about producing that
+point and never about counting. -/
+theorem card_torsion_two_eq_two_of_ne_zero_of_char_two (h2 : (2 : F) = 0) {P : W.Point}
+    (hP : P ∈ W.torsion 2) (hP0 : P ≠ 0) : Nat.card (W.torsion 2) = 2 := by
+  refine (Nat.card_eq_two_iff' (0 : W.torsion 2)).mpr ⟨⟨P, hP⟩, ?_, fun Q hQ => ?_⟩
+  · exact fun h => hP0 (congrArg Subtype.val h)
+  · exact Subtype.ext (eq_of_mem_torsion_two_of_char_two h2 Q.2 hP
+      (fun h => hQ (Subtype.ext h)) hP0)
+
+/-- **`#E[2] = 2` exactly when the cubic's value at the one candidate `x` is a square** —
+characteristic `2`, the ordinary branch `a₁ ≠ 0`, and ⚠️ **no hypothesis on `F` whatsoever.**
+
+`a₁ ≠ 0` makes `hlin` determine `x` outright — it is `a₃ / a₁`, and any `x` satisfying `hx` is that
+one — so the whole question of whether `E[2]` is larger than `⊥` reduces to whether
+`x³ + a₂x² + a₄x + a₆` has a square root in `F`.
+
+⚠️ **This is the sharp form of `card_torsion_two_le_two_of_char_two`'s *"the bound is sharp and is
+not an equality"***: the obstruction is named, it is one square root and not a family of them, and
+both directions are proved rather than one.  ⚠️ **Together with
+`torsion_two_eq_bot_of_a₁_eq_zero_of_char_two` this decides `#E[2]` for every curve over every field
+of characteristic `2`** — `1` when `a₁ = 0`, and `2` or `1` according as the single element
+`x³ + a₂x² + a₄x + a₆` of `F` is a square or is not.
+
+⚠️ **`x` is a PARAMETER and not written `a₃ / a₁`**, so that the statement carries no division; a
+caller holding `a₁ ≠ 0` gets its `hx` from `field_simp`, which is exactly what
+`card_torsion_two_eq_two_of_a₁_ne_zero_of_char_two` below does. -/
+theorem card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two (h2 : (2 : F) = 0) (ha₁ : W.a₁ ≠ 0)
+    {x : F} (hx : W.a₁ * x + W.a₃ = 0) :
+    Nat.card (W.torsion 2) = 2 ↔ ∃ y : F, y ^ 2 = x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆ := by
+  refine ⟨fun hcard => ?_, fun ⟨y, hy⟩ => card_torsion_two_eq_two_of_ne_zero_of_char_two h2
+    (mem_torsion_two_some_of_a₁_mul_add_a₃_eq_zero_of_char_two
+      (h := nonsingular_of_a₁_mul_add_a₃_eq_zero_of_sq_eq hx hy) h2 hx) (by simp)⟩
+  obtain ⟨⟨P, hP⟩, hP0, -⟩ := (Nat.card_eq_two_iff' (0 : W.torsion 2)).mp hcard
+  rcases P with _ | ⟨x', y', h'⟩
+  · exact absurd (Subtype.ext (show (Point.zero : W.Point) = 0 from rfl)) hP0
+  have e' := a₁_mul_add_a₃_eq_zero_of_mem_torsion_two_of_char_two h2 hP
+  have hxx : x' = x := mul_left_cancel₀ ha₁ (by linear_combination e' - hx)
+  subst hxx
+  exact ⟨y', by linear_combination (equation_iff x' y').mp h'.left - y' * e'⟩
+
+/-- **`#E[2] = 2` in the ordinary branch over a field whose squaring map is onto.**
+
+The candidate `x` is `a₃ / a₁`, and `hsq` hands over the square root that
+`card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` asks for.  ⚠️ **`hsq` is stated as a bare
+`Function.Surjective` on `fun y => y ^ 2` rather than as perfectness or as `[CharP F 2]`**, for the
+reason `## On the spelling of the hypothesis` gives: it is the weakest thing the proof uses, and
+`card_torsion_two_of_perfectField_of_char_two` below is the instance-level form for callers that
+would rather supply `[PerfectField F]`. -/
+theorem card_torsion_two_eq_two_of_a₁_ne_zero_of_char_two (h2 : (2 : F) = 0) (ha₁ : W.a₁ ≠ 0)
+    (hsq : Function.Surjective fun y : F => y ^ 2) : Nat.card (W.torsion 2) = 2 := by
+  have hx : W.a₁ * (W.a₃ / W.a₁) + W.a₃ = 0 := by field_simp; linear_combination W.a₃ * h2
+  exact (card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two h2 ha₁ hx).mpr (hsq _)
+
+/-- **`#E[2]` in characteristic `2`, decided: `1` on the supersingular branch and `2` on the
+ordinary one**, over any field whose squaring map is onto.
+
+⚠️ **This is the statement `card_torsion_two` (`EllipticCurves.Torsion.TwoTorsion`) has no
+analogue of here.**  There `#E[2] = 4` over an algebraically closed field of characteristic `≠ 2`;
+the `a₁ = 0` row below is `torsion_two_eq_bot_of_a₁_eq_zero_of_char_two` read as a count and the
+`a₁ ≠ 0` row is `card_torsion_two_eq_two_of_a₁_ne_zero_of_char_two`, so ⚠️ **neither value is `4`
+and the branch that the classical count would call *generic* is the one that gives `2`.** -/
+theorem card_torsion_two_of_sq_surjective_of_char_two (h2 : (2 : F) = 0)
+    (hsq : Function.Surjective fun y : F => y ^ 2) :
+    Nat.card (W.torsion 2) = if W.a₁ = 0 then 1 else 2 := by
+  by_cases h1 : W.a₁ = 0
+  · rw [if_pos h1, torsion_two_eq_bot_of_a₁_eq_zero_of_char_two h2 h1]; simp
+  · rw [if_neg h1]; exact card_torsion_two_eq_two_of_a₁_ne_zero_of_char_two h2 h1 hsq
+
+/-- **The same dichotomy over a perfect field**, which is the form the module docstring's
+`## ⚠️ What is *not* here` used to declare absent.
+
+⚠️ **Two conversions happen inside, and both are the price of this file's hypothesis convention.**
+`[PerfectField F]` plus `[ExpChar F 2]` gives `PerfectRing F 2` (Mathlib's
+`PerfectField.toPerfectRing`), whose `surjective_frobenius` is `hsq` — but `ExpChar F 2` is stated
+in terms of `CharP F 2`, and this file binds `(2 : F) = 0` instead.  The bridge is four lines and
+it is `2`'s primality that carries it: `ringChar F ∣ 2` from `h2`, then `ringChar F ≠ 1` from
+`Nontrivial F`, and `Nat.dvd_prime` leaves `ringChar F = 2`.  ⚠️ **So the `CharP` conversion that
+`## On the spelling of the hypothesis` promises *"is available to any caller"* is exercised here,
+in the one direction that section did not spell out.** -/
+theorem card_torsion_two_of_perfectField_of_char_two [PerfectField F] (h2 : (2 : F) = 0) :
+    Nat.card (W.torsion 2) = if W.a₁ = 0 then 1 else 2 := by
+  have hchar : CharP F 2 := by
+    refine ringChar.of_eq ?_
+    rcases (Nat.dvd_prime Nat.prime_two).mp (ringChar.dvd (by exact_mod_cast h2)) with h | h
+    · exact absurd h CharP.ringChar_ne_one
+    · exact h
+  have : ExpChar F 2 := ExpChar.prime Nat.prime_two
+  refine card_torsion_two_of_sq_surjective_of_char_two h2 fun c => ?_
+  obtain ⟨y, hy⟩ := surjective_frobenius F 2 c
+  exact ⟨y, by simpa [frobenius_def] using hy⟩
+
 end Torsion
 
 /-! ### Non-vacuity over `ZMod 2`
 
 `y² + y = x³`, the supersingular branch.  ⚠️ **No `Fact (Nat.Prime 2)` is declared here** —
-Mathlib's global `Nat.fact_prime_two` resolves it and `Field (ZMod 2)` synthesises from this file's
-two imports alone.  The module docstring's `## Non-vacuity` says why a fourth
-`⟨0,0,1,0,0⟩`-over-`ZMod 2` certificate is owed at all, given that the tree already has three. -/
+Mathlib's global `Nat.fact_prime_two` resolves it and `Field (ZMod 2)` synthesises from
+`EllipticCurves.Torsion.TwoTorsion` and `Mathlib.Algebra.Field.ZMod` alone.  The module docstring's
+`## Non-vacuity` says why a fourth `⟨0,0,1,0,0⟩`-over-`ZMod 2` certificate is owed at all, given
+that the tree already has three. -/
 
 section Nonvacuity
 
@@ -449,5 +684,93 @@ private theorem exampleCardTorsionTwoNeFourCharTwo :
   card_torsion_two_ne_four_of_char_two (by decide)
 
 end Nonvacuity
+
+/-! ### The ordinary branch, certified over an ARBITRARY field of characteristic `2`
+
+⚠️ **`EllipticCurves.Fixtures` serves no curve with `a₁ ≠ 0` at all** — measured, not assumed: all
+five of its `Affine` definitions (`y2EqX3SubX`, `y2AddYEqX3`, `y2EqX3AddOne`, `y2EqX3Add5X2Add4X`,
+`y2EqX3Add4X`) are `⟨0, …⟩`, and the ordinary branch of the dichotomy above is exactly the
+`a₁ ≠ 0` one.  So the certificates below declare their own curve, and ⚠️ **that is a different
+reason from the one `## Non-vacuity` gives for the supersingular certificate**, where the curve
+existed in `Fixtures` and only the `IsElliptic` instance was out of reach.
+
+⚠️ **This block's base is an arbitrary `[Field F]` with `(2 : F) = 0` and not `ZMod 2`**, because
+that is what `## ⚠️ What is *not* here` needs: see
+`exampleCardTorsionTwoOrdinaryOfCharTwo`. -/
+
+section Ordinary
+
+open EllipticCurves.Fixture
+
+/-- `y² + xy = x³ + 1`, the tuple `⟨1, 0, 0, 0, 1⟩`, over an arbitrary commutative ring — the
+**ordinary** branch, `a₁ = 1`.
+
+⚠️ **It belongs in `EllipticCurves.Fixtures` and is here instead**, because `Fixtures` is upstream
+of this file and serves no `a₁ ≠ 0` curve; moving it is a change to a file this round does not
+touch.
+⚠️ **The same tuple is `EllipticCurves.Torsion.TriplingSurjective`'s `curveChar2`**, where it is
+`private` and therefore unreachable by name, and where the point taken on it is `(1, 0)` — a point
+with `y ≠ negY x y`, so *not* `2`-torsion.  **Same curve, opposite point, for opposite reasons.** -/
+private def curveOrdinaryCharTwo (R : Type*) [CommRing R] : Affine R := ⟨1, 0, 0, 0, 1⟩
+
+/-- `Δ = −433` on that curve, hence `Δ = 1` and `IsElliptic` in characteristic `2`.
+
+`b₂ = a₁² = 1`, `b₄ = 0`, `b₆ = 4`, `b₈ = a₁²a₆ = 1`, so
+`Δ = −b₂²b₈ − 8b₄³ − 27b₆² + 9b₂b₄b₆ = −1 − 432 = −433`, and `−433 = 1 − 217 · 2`. -/
+private theorem isElliptic_curveOrdinaryCharTwo (h2 : (2 : F) = 0) :
+    (curveOrdinaryCharTwo F).IsElliptic := by
+  have hΔ : (curveOrdinaryCharTwo F).Δ = 1 := by
+    simp only [curveOrdinaryCharTwo, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+      WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+    linear_combination (-217 : F) * h2
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero, hΔ]
+  exact one_ne_zero
+
+/-- **`#E[2] = 2` for `y² + xy = x³ + 1` over EVERY field of characteristic `2`** — ⚠️ **no
+perfectness, no finiteness and no algebraic closure.**
+
+The candidate `x` is `a₃ / a₁ = 0`, the cubic's value there is `a₆ = 1`, and `1 = 1²` in every
+ring — so the square root `card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two` asks for is
+present whatever `F` is.
+
+⚠️ **This is what refutes the *"`#E[2] = 2` holds exactly when `F` is perfect"* that the first
+bullet of `## ⚠️ What is *not* here` carried before this commit**, read of a single curve: over
+`𝔽₂(t)` — imperfect — this curve still has `#E[2] = 2`.  ⚠️ **Read of the whole FAMILY the old
+sentence is true and is kept**, and `## ⚠️ What is *not* here` now says which reading is which. -/
+private theorem exampleCardTorsionTwoOrdinaryOfCharTwo [DecidableEq F] (h2 : (2 : F) = 0) :
+    Nat.card ((curveOrdinaryCharTwo F).torsion 2) = 2 := by
+  haveI := isElliptic_curveOrdinaryCharTwo (F := F) h2
+  refine (card_torsion_two_eq_two_iff_of_a₁_ne_zero_of_char_two h2 (x := 0)
+    (by simp [curveOrdinaryCharTwo]) (by simp [curveOrdinaryCharTwo])).mpr
+    ⟨1, by simp [curveOrdinaryCharTwo]⟩
+
+/-- **`#E[2] = 2` over `ZMod 2`** for the same curve — ⚠️ **the non-vacuity of the statement
+above**, whose hypothesis `(2 : F) = 0` no field in this file's closure had been shown to satisfy on
+the ordinary branch. -/
+private theorem exampleCardTorsionTwoOrdinaryZModTwo :
+    Nat.card ((curveOrdinaryCharTwo (ZMod 2)).torsion 2) = 2 :=
+  exampleCardTorsionTwoOrdinaryOfCharTwo (by decide)
+
+/-- **Squaring is onto `ZMod 2`**, so `card_torsion_two_of_sq_surjective_of_char_two`'s hypothesis
+is satisfiable — and `ZMod 2` is a finite field, hence perfect, so
+`card_torsion_two_of_perfectField_of_char_two` applies to it too. -/
+private theorem exampleSqSurjectiveZModTwo : Function.Surjective fun y : ZMod 2 => y ^ 2 := by
+  decide
+
+/-- **The dichotomy at BOTH of its branches over `ZMod 2`**: `2` on `⟨1, 0, 0, 0, 1⟩` and `1` on
+`y² + y = x³`.  ⚠️ **The `if` is discharged by `decide` on `a₁` in both halves, so this checks the
+branch selector and not only the two values** — and the two halves are the two certificates this
+file now carries, reached through one theorem instead of two. -/
+private theorem exampleCardTorsionTwoDichotomyZModTwo :
+    Nat.card ((curveOrdinaryCharTwo (ZMod 2)).torsion 2) = 2 ∧
+      Nat.card ((y2AddYEqX3 (ZMod 2)).torsion 2) = 1 := by
+  haveI := isElliptic_curveOrdinaryCharTwo (F := ZMod 2) (by decide)
+  refine ⟨?_, ?_⟩
+  · rw [card_torsion_two_of_sq_surjective_of_char_two (by decide) exampleSqSurjectiveZModTwo]
+    decide
+  · rw [card_torsion_two_of_sq_surjective_of_char_two (by decide) exampleSqSurjectiveZModTwo]
+    decide
+
+end Ordinary
 
 end WeierstrassCurve.Affine
