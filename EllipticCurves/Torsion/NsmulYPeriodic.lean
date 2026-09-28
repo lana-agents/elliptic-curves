@@ -121,9 +121,25 @@ statement, and three facts about the fixture point `(0, 1)`).
 
 ## Import position, measured rather than guessed
 
+⚠️ **The convention, because the `32` and the `33` below are one apart and are NOT the same
+reading** — `README.md` `## Import-closure figures` says it *"belongs beside the figure and must not
+be assumed"*.  A count named for *another* module is that module **and** everything it reaches; a
+count of what *this* file costs **excludes this file**.  **Measured at `e4345ae`**, over
+`EllipticCurves.` only, with the root aggregator `EllipticCurves` dropped, on two instruments that
+agree on every cell: the elaborator's `(← Lean.getEnv).header.moduleNames`, read from a probe module
+that *imports* the module being measured — ⚠️ **the placement is part of that instrument and is what
+fixes its convention: read from an importer the answer carries the measured module, read from inside
+that module it does not** — and a transitive walk of the
+`^(public |private |meta )*import (\S+)` lines, which needs no build.  Control, as that section
+publishes it: `EllipticCurves.TateModule.MatrixRepMod` is **40** excluding itself and **41**
+including it.  ⚠️ `EllipticCurves.Torsion.NsmulYCoord` reads its figures the same way.
+
 `EllipticCurves.Torsion.NsmulYCoord` has a transitive closure of 32 modules in this library.  This
-file adds exactly **one**, `EllipticCurves.Torsion.NsmulOrder` (33 in total): every module
-`NsmulOrder` needs was already in `NsmulYCoord`'s closure.
+file adds exactly **one** beyond it, `EllipticCurves.Torsion.NsmulOrder`, for **33** excluding this
+file and **34** counting it: every module `NsmulOrder` needs was already in `NsmulYCoord`'s closure.
+⚠️ **Counting both files the added set is the pair
+`{EllipticCurves.Torsion.NsmulOrder, EllipticCurves.Torsion.NsmulYPeriodic}`**, printed rather than
+summarised: an enumerated added set reproduces across instruments where a bare delta does not.
 
 ## References
 
