@@ -275,10 +275,27 @@ heading is not `## Main results`.  All but the first are in namespace `Weierstra
     Mathlib's `preNormEDS (W.Ψ₂Sq ^ 2) W.Ψ₃ W.preΨ₄`.  ⚠️ That `normEDS` satisfies
     `IsEllipticDvdSequence` is an explicit **Mathlib TODO**
     (`Mathlib.NumberTheory.EllipticDivisibilitySequence`).  `IsEllipticDvdSequence` is
-    `IsEllipticSequence ∧ IsDvdSequence`, and its **first** conjunct is what this development
-    tracks as `#254` / `#258` / `#260`.  ⚠️ Even granted in full it yields *divisibility*, not the
+    `IsEllipticSequence ∧ IsDvdSequence`, and ⚠️ **its FIRST conjunct is DISCHARGED in this tree,
+    unconditionally and over an arbitrary `CommRing`**, by
+    `WeierstrassCurve.normEDS_isEllipticSequence` and
+    `WeierstrassCurve.Affine.ψ_isEllipticSequence` of `EllipticCurves.Torsion.WardHalving`, both
+    off `wardGapCore`, which is a **theorem** there and not a hypothesis.  ⚠️ **What remains of the
+    TODO is the SECOND conjunct, `IsDvdSequence (normEDS b c d)`**, proved neither in Mathlib nor
+    here.  ⚠️ **And the verdict is unchanged, because strong divisibility is strictly more than
+    either conjunct**: even granted in full, `IsEllipticDvdSequence` yields *divisibility*, not the
     strong-divisibility `gcd(ψₘ, ψₙ) = ψ_{gcd(m, n)}` that coprimality of neighbours needs — so it
-    is a lower bound on the work here, not a route.
+    is a lower bound on the work here, not a route, and no part of strong divisibility is in this
+    tree.
+    ⚠️ **This bullet used to read** *"its **first** conjunct is what this development tracks as
+    `#254` / `#258` / `#260`"*, ⚠️ **and that reading is retired rather than re-scoped**: all three
+    issues are **completed** — `#254` by PR #550 on 2026-09-01, `#258` and `#260` with it — so
+    nothing is tracked there, and naming the first conjunct priced the open work on the wrong side
+    of the conjunction.  ⚠️ **This file was the ONLY site in the tree that named the first conjunct
+    as owed**: the recogniser ``IsEllipticDvdSequence\|IsDvdSequence`` over `EllipticCurves/`
+    returns **24** lines in **11** files at `88a5e0029d045ffb21d7ae349235919173d5c1a9`, and every
+    other conjunct-naming site names the **second** — they are the seven `EllipticCurves.Torsion`
+    modules `WardHalving`, `WardR1`, `WardR1Core`, `EllipticNetSlices`, `NormEDSHomogeneous`,
+    `NsmulLadder` and `NsmulOrder`.  **Re-derive that count rather than quoting it.**
 * Any statement about **torsion points**, or `n • P = O ↔ Ψₙ = 0`.  ⚠️ **This bullet used to read
   *"Any statement about roots, torsion points, or `n • P = O ↔ Ψₙ = 0`"*, and the first word of that
   list is no longer true**: `eval_Φ_sq_of_eval_ΨSq_eq_zero` and the three statements built on it are
