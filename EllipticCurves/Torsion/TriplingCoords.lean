@@ -138,7 +138,7 @@ variable {F : Type*} [Field F] [DecidableEq F] {W : Affine F} {x y : F}
 
 /-- **The `x`-coordinate of `3 • P`, in division form.**  For an affine point `(x, y)` of `W` not
 fixed by negation and with `Ψ₃(x) ≠ 0` — equivalently `2P ≠ ±P`, so that `3P = 2P + P` takes the
-secant branch — over a field of characteristic `≠ 2`,
+secant branch — over **any** field,
 
 ```
 x(3 • (x, y)) = Φ₃(x) / ΨSq₃(x).
@@ -146,14 +146,22 @@ x(3 • (x, y)) = Φ₃(x) / ΨSq₃(x).
 
 The merged `addX_add_self_mul_ΨSq_three_eval` is the same fact with the denominator cleared; the
 division form is what the function-field pullback consumes, since `mulByThreeEndo_genX` is stated as
-a quotient. -/
-theorem addX_add_self_eq_div (h2 : (2 : F) ≠ 0) (h : W.Equation x y) (hy : y ≠ W.negY x y)
+a quotient.
+
+⚠️ **This statement used to carry `(2 : F) ≠ 0`, and it carried it for nothing.**  Its `h2` was
+passed straight through to `addX_add_self_mul_ΨSq_three_eval` and used nowhere else — the
+`eq_div_iff` side condition is `Ψ₃(x) ≠ 0`, which is characteristic-free — so when that theorem lost
+its own `h2` this one lost it for free.  ⚠️ **Its two consumers in this file,
+`addY_add_self_eq_div` and `add_add_self_eq_some`, keep theirs**: they need `(2 : F) ≠ 0` for the
+`y`-coordinate, whose denominator is the literal `2` of `ω₃/(2ψ₃³)` displayed at the top of this
+module.  **The `x`-row and the `y`-row of the tripling coordinates part company here.** -/
+theorem addX_add_self_eq_div (h : W.Equation x y) (hy : y ≠ W.negY x y)
     (hT : W.Ψ₃.eval x ≠ 0) :
     W.addX (W.addX x x (W.slope x x y y)) x
         (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)
       = (W.Φ 3).eval x / (W.ΨSq 3).eval x := by
   rw [eq_div_iff (by rw [ΨSq_three_eval]; exact pow_ne_zero 2 hT)]
-  exact addX_add_self_mul_ΨSq_three_eval h2 h hy hT
+  exact addX_add_self_mul_ΨSq_three_eval h hy hT
 
 set_option maxHeartbeats 2000000 in
 -- The tripling `y`-identity clears the doubling denominators into a large rational-function
@@ -238,7 +246,7 @@ theorem addY_add_self_eq_div (h2 : (2 : F) ≠ 0) (h : W.Equation x y) (hy : y �
           W.a₁ * (W.Φ 3).eval x * (W.ψ 3).evalEval x y -
           W.a₃ * (W.ψ 3).evalEval x y ^ 3) / (2 * (W.ψ 3).evalEval x y ^ 3) :=
   addY_add_eq_div_aux h2 h hy hT (addX_self_eq_div h hy) (addY_self_eq_div h h2 hy)
-    (fun hc => hT ((addX_self_eq_iff h hy).mp hc)) (addX_add_self_eq_div h2 h hy hT)
+    (fun hc => hT ((addX_self_eq_iff h hy).mp hc)) (addX_add_self_eq_div h hy hT)
 
 /-! ### The tripling correspondence -/
 
@@ -284,7 +292,7 @@ theorem add_add_self_eq_some (h2 : (2 : F) ≠ 0) {h : W.Nonsingular x y}
           (nonsingular_tripling h2 h.left hT) := by
   rw [Point.add_self_of_Y_ne hy,
     Point.add_of_X_ne (fun hc => hT ((addX_self_eq_iff h.left hy).mp hc)), Point.some.injEq]
-  exact ⟨addX_add_self_eq_div h2 h.left hy hT, addY_add_self_eq_div h2 h.left hy hT⟩
+  exact ⟨addX_add_self_eq_div h.left hy hT, addY_add_self_eq_div h2 h.left hy hT⟩
 
 /-- **The tripling correspondence**, as a statement about `(3 : ℕ) • P`. -/
 theorem nsmul_three_eq_some (h2 : (2 : F) ≠ 0) {h : W.Nonsingular x y}

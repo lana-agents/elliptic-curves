@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.DoublingSurjective
+import Mathlib.Algebra.Field.ZMod
 
 /-!
 # Multiplication by `3` is surjective on `E(F̄)`
@@ -26,10 +27,17 @@ of the general multiplication-by-`n` coordinate formula.
 
 **Only `(2 : F) ≠ 0`.  `(3 : F) ≠ 0` is *not* needed**, and is deliberately absent.
 
-* `h2` is used in exactly three places, none of them the tripling formula as such: `exists_equation`
-  (finding a point above a given `x` means solving a quadratic in `y`),
-  `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, and the `2` in the denominator of the tangent slope, which is what
-  makes `addX_add_self_mul_ΨSq_three_eval` fail in characteristic `2`.
+* `h2` is used in exactly **two** places, and ⚠️ **neither is the tripling formula**:
+  `exists_equation` (finding a point above a given `x` means solving a quadratic in `y`) and
+  `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`.
+* ⚠️ **This bullet used to name a third place — *"the `2` in the denominator of the tangent slope,
+  which is what makes `addX_add_self_mul_ΨSq_three_eval` fail in characteristic `2`"* — and both
+  halves of it were false.**  The tangent slope's denominator is `s = 2y + a₁x + a₃`, and what
+  guards it is `two_mul_add_ne_zero_of_Y_ne` (`EllipticCurves.Torsion.ThreeTorsion`), which binds
+  **no** characteristic hypothesis: `s ≠ 0` follows from `y ≠ negY x y` alone, in every
+  characteristic.  `addX_add_self_mul_ΨSq_three_eval` now carries no characteristic hypothesis at
+  all, and the `Nonvacuity` section below exhibits a point of a curve over `ZMod 2` satisfying its
+  three hypotheses.
 * A `(3 : F) ≠ 0` would be needed to know `deg Ψ₃ = 4`, but nothing here needs that: the degree
   input is `deg Φ₃ = 9` with leading coefficient `1` (Mathlib's `natDegree_Φ` / `coeff_Φ`, valid
   over
@@ -56,10 +64,18 @@ Write `p = Ψ₂Sq(x)`, `T = Ψ₃(x)`, `Q = preΨ₄(x)` for an affine point `P
   `EllipticCurves.FunctionField.GenericTripling`'s `addX_gen_eq_mulByThree`, which proves the same
   identity at the generic point of `F(W)`; that statement cannot be specialised to an `F`-point
   (there is no ring map `F(W) → F`), so the computation is redone here, in the same shape.  The
-  route: `x(2P) − x = −T/p` (`addX_self_sub`, merged) and `y(2P) − y = (Q − p² + a₁Ts)/(2ps)` give
-  the secant slope `(p² − Q − a₁Ts)/(2sT)` through `2P` and `P`, and substituting it into `addX`
-  reduces the identity to `tripling_core`, a single univariate division-polynomial relation closed
-  off the `b`-relation.
+  route: `x(2P) − x = −T/p` (`addX_self_sub`, merged) and `y(2P) − y = −(ℓ + a₁)(x(2P) − x) − s`
+  — a rearrangement of `addY`, `negY` and `negAddY` that introduces no denominator — give
+  `(L + ℓ + a₁)(x(2P) − x) = −s` for the secant slope `L` through `2P` and `P`.  Clearing
+  `x(2P) − x` against the first relation turns that into `(L + ℓ + a₁)·T = s³`, and substituting
+  into `addX` closes the identity after cancelling `s²` alone.
+
+  ⚠️ **The old route went through `y(2P) − y = (Q − p² + a₁Ts)/(2ps)` and the secant slope
+  `(p² − Q − a₁Ts)/(2sT)`, and its final cancellation was by `4s²` rather than `s²` — which is
+  where the theorem's `(2 : F) ≠ 0` came from, and the only place it ever came from.**  The `2`s in
+  that route are an artefact of pinning `L` through `hYkey` rather than through `x(2P) − x ≠ 0`,
+  which `Ψ₃(x) ≠ 0` already supplies.  ⚠️ **The new route also does not use `tripling_core` at
+  all**; that relation stays in this file because `Φ_three_eval_ne_zero_of_Ψ₃` still consumes it.
 
 * **`Φ₃` and `Ψ₃` have no common root**, `Φ_three_eval_ne_zero_of_Ψ₃`.  At a root of `Ψ₃` the core
   relation collapses to `(p² + Q)² = 0`, so `Q = −p²` and therefore `Φ₃(x) = x·0 − Q·p = p³`, which
@@ -94,8 +110,11 @@ and there `2P = O`, so the secant construction of `3P = 2P + P` does not apply. 
   `WeierstrassCurve.Affine.eval_Φ_three_ne_zero_of_root_ΨSq` — the same fact in the form the engine
   consumes, input (2) at `n = 3`, over any field with `Δ` a unit;
 * `WeierstrassCurve.Affine.addX_add_self_mul_ΨSq_three_eval` — the tripling formula
-  `x(3P)·ΨSq₃(x) = Φ₃(x)`, and `WeierstrassCurve.Affine.hasXCoordFormula_three` — the same formula
-  in the form the engine consumes, input (1) at `n = 3`;
+  `x(3P)·ΨSq₃(x) = Φ₃(x)`, ⚠️ **over an arbitrary field and with no characteristic hypothesis**,
+  certified non-vacuous in characteristic `2` in the `Nonvacuity` section below; and
+  `WeierstrassCurve.Affine.hasXCoordFormula_three` — the same formula in the form the engine
+  consumes, input (1) at `n = 3`, ⚠️ **whose `_h2` is a retained vacuous binder and not a
+  hypothesis** (see its docstring for the cascade that retaining it bounds);
 * `WeierstrassCurve.Affine.exists_nsmul_three_some` — every `x₀` is the `x`-coordinate of a tripled
   point;
 * **`WeierstrassCurve.Affine.exists_nsmul_three_eq`** and
@@ -303,8 +322,15 @@ what this file's consumers take.  The mirror statement at the generic point of `
 `EllipticCurves.FunctionField.GenericTripling.addX_gen_eq_mulByThree`; it cannot be specialised to
 an `F`-point, so the computation is redone here.
 
-Characteristic `2` is excluded (`h2`), through the tangent slope; nothing needs `(3 : F) ≠ 0`. -/
-theorem addX_add_self_mul_ΨSq_three_eval (h2 : (2 : F) ≠ 0) {x y : F} (h : W.Equation x y)
+⚠️ **No characteristic hypothesis at all.**  This docstring used to close *"characteristic `2` is
+excluded (`h2`), through the tangent slope"*, and the reason was wrong as well as the exclusion: the
+tangent slope's denominator `s = 2y + a₁x + a₃` is guarded by `two_mul_add_ne_zero_of_Y_ne`, which
+binds no characteristic, and `s` is not identically zero in characteristic `2` — there it reads
+`a₁x + a₃`, and `a₁ = a₃ = 0` forces `Δ = 0`.  The `h2` was consumed by one step and one only: the
+final cancellation of a factor `4`.  Pinning the secant slope through `x(2P) − x ≠ 0` instead of
+through the `y`-difference cancels `s²` there, and `s ≠ 0` needs only `hy`.  Nothing needs
+`(3 : F) ≠ 0` either. -/
+theorem addX_add_self_mul_ΨSq_three_eval {x y : F} (h : W.Equation x y)
     (hy : y ≠ W.negY x y) (hT : W.Ψ₃.eval x ≠ 0) :
     W.addX (W.addX x x (W.slope x x y y)) x
         (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)
@@ -323,35 +349,35 @@ theorem addX_add_self_mul_ΨSq_three_eval (h2 : (2 : F) ≠ 0) {x y : F} (h : W.
     intro hcon
     rw [hcon, zero_mul, eq_comm, neg_eq_zero] at hXsub
     exact hT hXsub
+  have hx₂eq : x₂ = ℓ ^ 2 + W.a₁ * ℓ - W.a₂ - x - x := by
+    rw [hx₂, WeierstrassCurve.Affine.addX]
   have hslope_self : ℓ * s = 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y := slope_self_mul hy
   have hQeq : Q = T * (6 * x ^ 2 + (W.a₁ ^ 2 + 4 * W.a₂) * x + (2 * W.a₄ + W.a₁ * W.a₃))
       - (s ^ 2) ^ 2 := by
     rw [hQdef, hTdef, preΨ₄_eval, hs, WeierstrassCurve.b₂, WeierstrassCurve.b₄]
-  have hcore : ((s ^ 2) ^ 2 - Q) ^ 2 + 4 * T ^ 3
-      - ((W.a₁ ^ 2 + 4 * W.a₂) + 12 * x) * s ^ 2 * T ^ 2 + 4 * Q * (s ^ 2) ^ 2 = 0 := by
-    have := tripling_core (W := W) x
-    rw [hs, ← hTdef, ← hQdef, WeierstrassCurve.b₂] at this
-    exact this
-  have hYkey : (y₂ - y) * (2 * s ^ 2 * s) = Q - (s ^ 2) ^ 2 + W.a₁ * T * s := by
+  -- The difference of `y`-coordinates, with the tangent slope kept as `ℓ`.  ⚠️ This is the step the
+  -- old proof took in the form `(y₂ − y)·2s³ = Q − (s²)² + a₁Ts`, whose leading `2` is what forced
+  -- `h2` on the whole theorem.  Here the `2` is confined to `s = 2y + a₁x + a₃` itself, which is
+  -- nonzero by `hy` alone in every characteristic.
+  have hy₂sub : y₂ - y = -(ℓ + W.a₁) * (x₂ - x) - s := by
     rw [hy₂def, WeierstrassCurve.Affine.addY, WeierstrassCurve.Affine.negY,
       WeierstrassCurve.Affine.negAddY, ← hx₂]
-    linear_combination (-2 * s * (ℓ + W.a₁)) * hXsub + (2 * T) * hslope_self
-      + (-1 : F) * hQeq
+    linear_combination hsdef
   set L := W.slope x₂ x y₂ y with hLdef
   have hsl : L * (x₂ - x) = y₂ - y := by
     rw [hLdef, slope_of_X_ne (fun hcon => hx₂ne (by rw [hcon, sub_self])), div_mul_cancel₀ _ hx₂ne]
-  have hslope2 : L * (2 * s * T) = (s ^ 2) ^ 2 - Q - W.a₁ * T * s := by
-    linear_combination (-2 * s ^ 2 * s) * hsl + (-1 : F) * hYkey + (2 * s * L) * hXsub
-  have h4 : (4 : F) * s ^ 2 ≠ 0 := by
-    refine mul_ne_zero ?_ (pow_ne_zero 2 hsne)
-    rw [show (4 : F) = 2 * 2 by norm_num]
-    exact mul_ne_zero h2 h2
-  have main : (W.addX x₂ x L * T ^ 2 - (x * T ^ 2 - Q * s ^ 2)) * (4 * s ^ 2) = 0 := by
+  -- The secant slope is pinned by `x₂ − x ≠ 0`, not by `2 ≠ 0`: `(L + ℓ + a₁)·(x₂ − x) = −s`.
+  have hR1 : (L + ℓ + W.a₁) * (x₂ - x) = -s := by linear_combination hsl + hy₂sub
+  -- Clearing `x₂ − x` against `hXsub` gives the characteristic-free replacement for `hslope2`.
+  have hLkey : (L + ℓ + W.a₁) * T = s ^ 3 := by
+    linear_combination (L + ℓ + W.a₁) * hXsub + (-(s ^ 2)) * hR1
+  have main : (W.addX x₂ x L * T ^ 2 - (x * T ^ 2 - Q * s ^ 2)) * s ^ 2 = 0 := by
     simp only [WeierstrassCurve.Affine.addX]
-    linear_combination (2 * s * T * L + s ^ 4 - Q + W.a₁ * T * s) * hslope2
-      + (-4 * T ^ 2) * hXsub + hcore
+    linear_combination (s * (L * s * T + (s ^ 2) ^ 2 - ℓ * s * T)) * hLkey
+      + (s ^ 2) ^ 2 * hQeq - (2 * (s ^ 2) ^ 2 * T) * hslope_self
+      - (W.a₁ * (s ^ 2) ^ 2 * T) * hsdef - (s ^ 2 * T ^ 2) * hx₂eq
   rw [ΨSq_three_eval, Φ_three_eval, ← hTdef, ← hQdef, hs]
-  have hz := (mul_eq_zero.mp main).resolve_right h4
+  have hz := (mul_eq_zero.mp main).resolve_right (pow_ne_zero 2 hsne)
   linear_combination hz
 
 /-- **The coordinate formula at `n = 3`.**  Since `ΨSq₃ = Ψ₃²`, the hypothesis is `Ψ₃(x) ≠ 0`.
@@ -360,8 +386,24 @@ theorem addX_add_self_mul_ΨSq_three_eval (h2 : (2 : F) ≠ 0) {x y : F} (h : W.
 secant construction of `3P = 2P + P` does not apply; but then `Φ₃(x) = x·Ψ₃(x)²` and
 `ΨSq₃(x) = Ψ₃(x)²`, so `3P = P` already has `x`-coordinate `Φ₃(x)/ΨSq₃(x)`.  Otherwise
 `addX_add_self_mul_ΨSq_three_eval` computes it.  This file's module docstring records the same
-warning. -/
-theorem hasXCoordFormula_three (h2 : (2 : F) ≠ 0) : HasXCoordFormula W 3 := by
+warning.
+
+⚠️ **`_h2` IS VACUOUS, AND IT IS RETAINED ON PURPOSE — DO NOT READ IT AS A HYPOTHESIS OF THIS
+STATEMENT.**  Both branches of the proof below are now characteristic-free: the `2`-torsion branch
+never used `h2`, and the secant branch calls `addX_add_self_mul_ΨSq_three_eval`, which no longer
+takes one.  So `HasXCoordFormula W 3` holds over **any** field, and the underscore records that the
+binder is deliberately unreferenced rather than accidentally so.
+
+**Why it is not simply deleted, measured rather than asserted.**  Deleting it makes `h2`
+unreferenced in exactly **two** declarations — `exists_nsmul_three_eq_some_of_root` below and
+`xCoord_two_sub_xCoord_three` (`EllipticCurves.Torsion.XDifferencePoint`) — and deleting *those* two
+makes it unreferenced in **two** more, `exists_nsmul_three_eq_triplingField` and
+`exists_nsmul_three_eq_of_roots_baseChange` (`EllipticCurves.Torsion.TriplingGaloisTower`), from
+where it continues into `exists_nsmul_three_eq_triplingGaloisField` and the `hprin` tower above it.
+⚠️ **Each wave was measured by a full `lake build`, not predicted.**  That cascade is a different
+and larger piece of work than weakening the tripling formula, and it is filed rather than taken
+here.  **The hypothesis is kept, not weakened, so no consumer of this file changes.** -/
+theorem hasXCoordFormula_three (_h2 : (2 : F) ≠ 0) : HasXCoordFormula W 3 := by
   intro x y h hne
   simp only [Nat.cast_ofNat] at hne ⊢
   have hyeq : W.Equation x y := h.1
@@ -392,7 +434,7 @@ theorem hasXCoordFormula_three (h2 : (2 : F) ≠ 0) : HasXCoordFormula W 3 := by
         (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)
         = (W.Φ 3).eval x / (W.ΨSq 3).eval x := by
       rw [eq_div_iff hne]
-      exact addX_add_self_mul_ΨSq_three_eval h2 hyeq hyeqn hT
+      exact addX_add_self_mul_ΨSq_three_eval hyeq hyeqn hT
     have hns₃ : W.Nonsingular ((W.Φ 3).eval x / (W.ΨSq 3).eval x)
         (W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
           (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y)) := by
@@ -454,13 +496,19 @@ here used to be `#251`, and that reason is gone**: `hasXCoordFormula_of_two_ne_z
 instances below are still the only ones reachable *here*; what is no longer true is that anything
 stands between this tree and a general `n`.
 
-⚠️ **`h2` survives here and does not at `n = 2`, and the asymmetry is not an accident of the
-proof.**  Both existence steps of the merged `exists_nsmul_three_eq` — the root extraction and the
+⚠️ **`h2` survives here and does not at `n = 2`, and the recorded reason for the asymmetry was
+FALSE.**  Both existence steps of the merged `exists_nsmul_three_eq` — the root extraction and the
 point above the root — are promoted to arguments here, so `[IsAlgClosed F]` and `n ≠ 0` have no
-consumer left, exactly as at `n = 2`.  What survives is input (1): `hasXCoordFormula_two` needs
-nothing at all, while `hasXCoordFormula_three` needs `(2 : F) ≠ 0` for the secant construction of
-`3P = 2P + P`.  That is a hypothesis of the tripling *formula*, not of the closure, and no
-promotion of an existence step can remove it.
+consumer left, exactly as at `n = 2`.  This paragraph used to continue: *"what survives is input
+(1): `hasXCoordFormula_two` needs nothing at all, while `hasXCoordFormula_three` needs `(2 : F) ≠ 0`
+for the secant construction of `3P = 2P + P`.  That is a hypothesis of the tripling formula, not of
+the closure, and no promotion of an existence step can remove it."*  ⚠️ **Every clause of that is
+now wrong**: the secant construction needs no characteristic hypothesis
+(`addX_add_self_mul_ΨSq_three_eval` carries none), it was never a hypothesis of the tripling formula
+in the sense meant, and what removes it is not a promotion but a change of route.  ⚠️ **What `h2`
+survives as, here and in `hasXCoordFormula_three`, is a RETAINED VACUOUS BINDER** — see that
+declaration's docstring for the measured cascade that keeping it bounds.  **The asymmetry with
+`n = 2` is now bookkeeping, not mathematics.**
 
 ⚠️ The hypothesis is stated on `W.Ψ₃.eval x ^ 2`, not on `(W.ΨSq 3).eval x`.  `ΨSq_three_eval`
 bridges them inside the proof, and `Ψ₃` is the name every consumer in this tree computes with — a
@@ -568,6 +616,63 @@ private theorem exists_nsmul_three_eq_y2EqX3AddOne :
         Point.some (-1) 0 (equation_iff_nonsingular.mp equation_y2EqX3AddOne_neg_one) :=
   exists_nsmul_three_eq_some_of_root (by norm_num) _ equation_y2EqX3AddOne_two
     eval_Φ_three_y2EqX3AddOne
+
+/-! ### Non-vacuity in characteristic `2`
+
+⚠️ `addX_add_self_mul_ΨSq_three_eval` carries **no** characteristic hypothesis, and a removed
+hypothesis is worth exactly as much as the widened statement is non-vacuous.  The certificate below
+exhibits a point of a curve over a field of characteristic `2` satisfying all three of the
+hypotheses that remain — on the curve, not fixed by negation, and `Ψ₃(x) ≠ 0` — so the theorem is
+not merely *stated* over such a field but has content there.
+
+⚠️ **The obvious point does not work, and that is why the certificate names a point rather than a
+curve.**  On `y² + xy = x³ + 1` over `ZMod 2` the point `(0, 1)` is fixed by negation
+(`negY 0 1 = −1 − 0 − 0 = 1`), so it fails `hy`; `(1, 0)` and `(1, 1)` are the two points that pass.
+**`Ψ₃ = X⁴ + X³ + 1` there**, which is nonzero at both.
+
+⚠️ **`EllipticCurves.Fixture` was checked first and declines**: it serves no curve over a finite
+field, and says why in terms.  Declaring one here costs a single import,
+`Mathlib.Algebra.Field.ZMod`, which is what supplies `Field (ZMod p)` — **`+1` module over all
+packages and `+0` in `EllipticCurves`** for this file's closure (`2508 → 2509`), measured at the
+base this branch is cut from.  `Mathlib.FieldTheory.Finite.Basic`, the route `Fixtures` names,
+costs `+3` for the same instance. -/
+
+/-- `y² + xy = x³ + 1` over `ZMod 2` — the tuple `⟨1, 0, 0, 0, 1⟩`, on the **ordinary** branch
+(`a₁ ≠ 0`), with `b₂ = 1`, `b₄ = 0`, `b₆ = 0`, `b₈ = 1` and `Δ = 1`. -/
+private def curveChar2 : WeierstrassCurve.Affine (ZMod 2) := ⟨1, 0, 0, 0, 1⟩
+
+/-- The base field really is of characteristic `2`. -/
+private lemma two_eq_zero_zmod_two : (2 : ZMod 2) = 0 := by decide
+
+/-- `(1, 0)` lies on `curveChar2`: `0 + 0 + 0 = 1 + 0 + 0 + 1 = 0`. -/
+private lemma equation_curveChar2 : curveChar2.Equation 1 0 := by
+  rw [Affine.equation_iff]; decide +kernel
+
+/-- `(1, 0)` is **not** fixed by negation: `negY 1 0 = −0 − 1·1 − 0 = 1 ≠ 0`.  ⚠️ This is the
+hypothesis that replaces `h2`: it is what makes `s = 2y + a₁x + a₃` nonzero, and in characteristic
+`2` that reads `s = a₁x + a₃ = 1`. -/
+private lemma negY_ne_curveChar2 : (0 : ZMod 2) ≠ curveChar2.negY 1 0 := by
+  rw [Affine.negY]; decide +kernel
+
+/-- `Ψ₃ = X⁴ + X³ + 1` on `curveChar2`, so `Ψ₃(1) = 1 ≠ 0`. -/
+private lemma Ψ₃_eval_ne_zero_curveChar2 : curveChar2.Ψ₃.eval 1 ≠ 0 := by
+  simp only [WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
+    Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_ofNat, curveChar2]
+  decide +kernel
+
+/-- **The tripling formula, instantiated over a field of characteristic `2`.**
+
+⚠️ This is the whole content of dropping `h2`: the statement below could not be *written* before,
+because the theorem demanded `(2 : F) ≠ 0` and `two_eq_zero_zmod_two` says the opposite holds
+here. -/
+private theorem addX_add_self_mul_ΨSq_three_eval_curveChar2 :
+    curveChar2.addX (curveChar2.addX 1 1 (curveChar2.slope 1 1 0 0)) 1
+        (curveChar2.slope (curveChar2.addX 1 1 (curveChar2.slope 1 1 0 0)) 1
+          (curveChar2.addY 1 1 0 (curveChar2.slope 1 1 0 0)) 0)
+        * (curveChar2.ΨSq 3).eval 1 = (curveChar2.Φ 3).eval 1 :=
+  addX_add_self_mul_ΨSq_three_eval equation_curveChar2 negY_ne_curveChar2
+    Ψ₃_eval_ne_zero_curveChar2
 
 end Nonvacuity
 
