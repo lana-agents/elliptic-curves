@@ -160,7 +160,18 @@ but its own discriminant one.
   module's own `## What is *not* here`.
 * **Characteristic `2`.**  `halvingX` divides by `2` and is junk there; every statement that uses it
   non-trivially carries `(2 : F) ≠ 0`.  Nothing below decides whether a halving extension is
-  separable in characteristic `2`.
+  separable in characteristic `2`.  ⚠️ **And the question does not arise**:
+  `card_torsion_two_ne_four_of_char_two` (`EllipticCurves.Torsion.TwoTorsionCharTwo`) gives
+  `#E[2] ≤ 2` over every field of characteristic `2`, so the `#E[2] = 4` this tower rests on is
+  **false** there rather than unproved.  ⚠️ **That module is import-incomparable with this one
+  and NOT downstream of it** — neither is in the other's import closure, in either direction — so
+  the `import` line here is declined on a price and not blocked by a cycle: the edge adds **one**
+  module to this file's `EllipticCurves` closure (12 → 13) and **two** over all packages,
+  `TwoTorsionCharTwo` itself and `Mathlib.Algebra.Field.ZMod`, measured at `88a5e00`.  ⚠️ **A
+  docstring pointer is not an import edge**, and at that price declining it is a cost judgement
+  about a sentence of prose rather than an obstruction.  The vocabulary is that of
+  `EllipticCurves.Torsion.DoublingCoords`, which writes **import-incomparable** twice of sibling
+  modules in this same directory.
 * **`IsGalois F (halvingField W x₀)` itself.**  It is `IsGalois` in two steps and the composite need
   not be normal; the normal closure is where the Galois statement is made.
 

@@ -132,7 +132,17 @@ variable and the statement's elaboration does not terminate (*"(deterministic) t
   a subgroup of anything.  ⚠️ The extension `N` is *some* finite Galois extension with the two
   properties, and nothing below says it is the smallest one.
 * **Characteristic `2`.**  Every statement that uses the halving quadratics non-trivially carries
-  `(2 : F) ≠ 0`, inherited from `HalvingExtension`.
+  `(2 : F) ≠ 0`, inherited from `HalvingExtension`.  ⚠️ **The hypothesis cannot be weakened, and the
+  reason is a theorem rather than an absence**: `card_torsion_two_ne_four_of_char_two`
+  (`EllipticCurves.Torsion.TwoTorsionCharTwo`) gives `#E[2] ≤ 2` in
+  characteristic `2`, so the `#E[2] = 4` this tower carries over `N` is false there.
+  ⚠️ **That module is import-incomparable with this file and NOT downstream of it** — neither is
+  in the other's import closure, in either direction — so what keeps the `import` line out is a
+  price and not a cycle: the edge adds **one** module to this file's `EllipticCurves` closure
+  (14 → 15) and **two** over all packages, `TwoTorsionCharTwo` itself and
+  `Mathlib.Algebra.Field.ZMod`, measured at `88a5e00`.  ⚠️ **A docstring pointer is not an import
+  edge**, and at that price declining it is a cost judgement about a sentence of prose rather than
+  an obstruction.  The vocabulary is that of `EllipticCurves.Torsion.DoublingCoords`.
 
 ## Non-vacuity
 

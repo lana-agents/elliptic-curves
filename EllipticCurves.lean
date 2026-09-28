@@ -423,6 +423,7 @@ import EllipticCurves.Torsion.TwoPrimary
 import EllipticCurves.Torsion.TwoPrimaryBasis
 import EllipticCurves.Torsion.TwoThreeDisjoint
 import EllipticCurves.Torsion.TwoTorsion
+import EllipticCurves.Torsion.TwoTorsionCharTwo
 import EllipticCurves.Torsion.TwoTorsionHalvingSquare
 import EllipticCurves.Torsion.TwoTorsionOrder
 import EllipticCurves.Torsion.TwoTorsionSplittingField
