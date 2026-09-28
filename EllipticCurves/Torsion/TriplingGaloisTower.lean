@@ -52,9 +52,13 @@ it is curve-free and is shared with `HalvingExtension`, `ThreeDivisionField` and
 `Φ₂ − C x₀·ΨSq₂` is a perfect square when `x₀` is `2`-torsion
 (`Φ_two_sub_C_mul_Ψ₂Sq_eq_halvingX_sq`), and `halvingX` is its square root — a *quadratic*, whose
 separability is a discriminant computation.  ⚠️ **There is no such degeneration at `n = 3`**:
-`triplingX x₀ := Φ₃ − C x₀·ΨSq₃` is monic of degree `9` (`natDegree_triplingX`, from
+`triplingX x₀ := Φ₃ − C x₀·ΨSq₃` has degree `9` (`natDegree_triplingX`, from
 `natDegree_Φ_sub_C_mul_ΨSq`), and under this file's hypotheses it is squarefree rather than a
-power (`separable_triplingX`).  Its separability is
+power (`separable_triplingX`).  ⚠️ **Degree and not monicity**: `natDegree_Φ_sub_C_mul_ΨSq` carries
+no `Monic`, `grep -rn 'monic_Φ'` over `EllipticCurves/` returns **0**, and nothing below needs it —
+`triplingXRoot` is cut out by `degree ≠ 0`.  Monicity is true and is asserted in that lemma's own
+docstring prose, which `TriplingSeparable`'s own module docstring already says in terms where it
+introduces `natDegree_Φ_sub_C_mul_ΨSq`.  Its separability is
 `separable_Φ_three_sub_C_mul_ΨSq` (`EllipticCurves.Torsion.TriplingSeparable`) — the theorem
 `#2216` was blocked on and which landed in `88a0ed6`.
 
@@ -131,12 +135,16 @@ that returns `{propext, Quot.sound}` alone is `baseChange_baseChange''` — ⚠�
 declaration, by the same argument, as the one `HalvingGaloisTower` singles out of its own 42.**
 
 **Three direct imports** — `HalvingExtension`, `ThreeDivisionField`, `TriplingSeparable` — and an
-import closure of **57** modules with this one excluded.  ⚠️ **Two files this module names are
-reached transitively and cost no edge**: `EllipticCurves.Torsion.TriplingSurjective`, which
-supplies `Φ_three_eval`, `ΨSq_three_eval`, `preΨ₄_eval`, `hasXCoordFormula_three`,
+import closure of **57** modules with this one excluded.  ⚠️ **Measured at `bebec3f`**, as
+`README.md` `## Import-closure figures` requires of a closure *count*: an edge added anywhere
+upstream moves it and this file is in no part of that commit's diff.  ⚠️ **Two files this module
+names are reached transitively and cost no edge**: `EllipticCurves.Torsion.TriplingSurjective`,
+which supplies `Φ_three_eval`, `ΨSq_three_eval`, `preΨ₄_eval`, `hasXCoordFormula_three`,
 `eval_Φ_three_ne_zero_of_root_ΨSq` and `exists_nsmul_three_eq_some_of_root`, and
 `EllipticCurves.Fixtures`, which supplies the certificate curve — both already inside
-`TriplingSeparable`'s closure, which is **53** on its own.
+`TriplingSeparable`'s closure, which is **53** at that same commit, and `53 + 4 = 57` closes: the
+four are `TriplingSeparable` itself, `HalvingExtension`, `ThreeDivisionField` and
+`EllipticCurves.Galois.NormalClosureSeparable`.
 
 The declarations, by layer:
 
@@ -144,6 +152,11 @@ The declarations, by layer:
   `triplingX_ne_zero`, `eval_triplingX`, `map_triplingX` and `separable_triplingX`;
 * the two root facts: `Ψ₃_eval_ne_zero_of_root_triplingX` and
   `Ψ₂Sq_eval_ne_zero_of_root_triplingX`;
+* the two base-change bridges, which have no `/-! ## … -/` section of their own between them:
+  `eval_Ψ₃_baseChange` (the root hypothesis, over any extension of `F`) and
+  `eval_triplingX_baseChange` (a root of the tripling polynomial, over any extension of `L₁`) —
+  ⚠️ **the second is the rewrite this file's headline is about**, and this bullet exists because the
+  list is exhaustive over the 42 and was short by exactly these two;
 * the first floor over a general base: `triplingXField`, `triplingXRoot`, `eval_triplingXRoot`,
   `isGalois_triplingXField`, `finiteDimensional_triplingXField`,
   `Ψ₂Sq_eval_triplingXRoot_ne_zero`;
@@ -176,8 +189,11 @@ what crosses is the pair of *root equations*, and
 ⚠️ **The reason both are done at the level of a `Prop`** is that `((W⁄L₁)⁄L) = (W⁄L)` is
 `WeierstrassCurve.map_baseChange` and is **not** `rfl`, so a `Point`-level route would have to
 transport a term along a propositional equation between two `Affine L`, while a statement about
-`Polynomial.eval` is rewritten by it in one step.  That equation is paid exactly twice below, in
-`eval_triplingTowerXRoot` and `eval_triplingTowerYRoot`.
+`Polynomial.eval` is rewritten by it in one step.  That equation is the `private lemma`
+`baseChange_baseChange''`, and it is paid **three** times below: in `eval_triplingX_baseChange`
+(right-to-left, and it is the transport bridge this file argues from), in
+`eval_triplingTowerXRoot` and in `eval_triplingTowerYRoot`.
+⚠️ `grep -n "baseChange_baseChange''"` is the whole check.
 
 ## The converse, and what it is for
 
@@ -196,8 +212,10 @@ and not only about a polynomial.
   supplies the `n = 3` analogue of the two rows `HalvingGaloisTower` supplies at `n = 2`.  No
   statement below mentions a divisor, a place, a function field or Hilbert 90, and none of those
   modules is in this module's import closure.
-* **The assembly.**  `PullbackPrincipalityThreeGeneral` is `#2216`'s item 4 and is not here; this
-  file is item 2 and says so.
+* **The assembly.**  `EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral` is `#2216`'s
+  item 4 and is not here; this file is item 2 and says so.  ⚠️ **That module is the consumer of the
+  three floors below** and it imports this file; nothing here imports it, and no statement below
+  mentions a divisor.
 * **A degree, or a Galois group.**  `[N : F]` is not computed and `Gal(N/F)` is not identified
   with a subgroup of `GL₂(𝔽₃)` or of anything else.  ⚠️ `N` is *some* finite Galois extension with
   the two properties and nothing below says it is the smallest one.  In particular nothing below

@@ -275,16 +275,22 @@ and no interior multiple `[i]P` or `[i]T` is either — that is what
 assembly's auxiliary point `Q` has no analogue in this hypothesis list.
 
 ⚠️ `hprin` is a hypothesis, not a conclusion.  It is `#418`, it is open at this statement's own
-index — every `n ≠ 0` over an arbitrary field **except `n = 2`, where `(2 : F) ≠ 0` and a
-nonsingular `F`-rational `2`-torsion point discharge it** (`#2029`) — where `#962` is that gate at
-`n = 3`, and it is the last real gate on this front.  ⚠️ **That clause read *"every `n ≠ 0` over
+index — every `n ≠ 0` over an arbitrary field **except `n = 2` and `n = 3`, where a nonsingular
+`F`-rational `n`-torsion point discharges it, with `(2 : F) ≠ 0` at both numerals and `(3 : F) ≠ 0`
+at the odd one** (`#2029`, `#2216`) — and it is the last real gate on this front.
+⚠️ **That clause read *"where `#962` is that gate at `n = 3`"* until `#2216`**, which discharges
+`hprin` at `n = 3` by `exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`), so the exception list is two
+numerals wide and `#962` is discharged at both of its indices.
+⚠️ **That clause read *"every `n ≠ 0` over
 an arbitrary field, where `#962` is that gate at `n = 2` and `n = 3`"* until then, and BOTH halves
 went false at once**: the citation's `n = 2` half and the universal around it are each refuted by
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`), which carries no closure and no
 rationality hypothesis beyond `S` itself being `F`-rational; the narrowing is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
-⚠️ **`n = 3` is untouched by it** and `#962`'s ledger row there is unaudited.
+⚠️ **That clause read *"`n = 3` is untouched by it"* until `#2216`**, and `#962`'s ledger row there
+was unaudited until then; the third narrowing is retired in the same one place as the first two.
 ⚠️ **That citation used to be stated at an arbitrary
 `n`; it over-reaches the record and is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`,

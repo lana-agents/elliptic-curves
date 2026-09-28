@@ -30,9 +30,16 @@ i.e. `F(W⁄F) ^ Gal(F/S) = S(W)`, and the coordinate-ring statement underneath 
 
 ## Why this is wanted
 
-`#962` — `hprin` over a general field — is the last gate on rungs 5–6 over an arbitrary base
-field **at `n = 3`**, and its thread carries a ledger of what discharging it would need.  ⚠️ **At
-`n = 2` that gate is discharged as of `#2029`**, by
+`#962` — `hprin` over a general field — **was** the last gate on rungs 5–6 over an arbitrary base
+field at `n = 3`, and its thread carries a ledger of what discharging it would need.
+⚠️ **That clause read *"is the last gate on rungs 5–6 over an arbitrary base field **at `n = 3`**"*
+until `#2216`**, which discharges `hprin` at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and
+`(3 : F) ≠ 0` — `exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`) — by the same buy-and-descend
+route, with **this file as one of its inputs again**.  ⚠️ **The gate that remains is a general or
+composite `n`**, which `#962` does not reach; the third narrowing is retired in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
+⚠️ **At `n = 2` that gate is discharged as of `#2029`**, by
 `exists_nsmul_divisor_eq_divisor_mulByTwoEndo_general`
 (`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`), and **this file is one of its
 inputs**: the descent step below is what brings the identity back down from the Galois closure of

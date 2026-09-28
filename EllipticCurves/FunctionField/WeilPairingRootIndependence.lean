@@ -74,8 +74,13 @@ is a genuinely different statement that needs root extraction.  It is not attemp
 ## Not here
 
 * Discharging `hprin` (`#418`) — done for the two headlines over `F̄` in
-  `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`), still open over a
-  **general** field at `n = 3`.  Nor the descent of the `F̄`-statements to a general `F` (`#692`),
+  `EllipticCurves.FunctionField.WeilPairingRootIndependenceAlgClosed` (`#836`); over a **general**
+  field it is discharged at `n = 2` and at `n = 3`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityTwoGeneral`, `…ThreeGeneral`) and open at every
+  other index.  ⚠️ **That clause read *"still open over a **general** field at `n = 3`"* until
+  `#2216`**; the narrowing is retired in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
+  Nor the descent of the `F̄`-statements to a general `F` (`#692`),
   antisymmetry, or anything at general `n`.
 * The `μ_n` forms (`WeilPairingAlternatingMu`), which lift through
   `algebraMap_coe_rootsOfUnity_injective`; the `∀ g` ones are in

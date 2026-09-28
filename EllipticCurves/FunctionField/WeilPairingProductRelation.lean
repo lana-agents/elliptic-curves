@@ -132,8 +132,15 @@ from one theorem).  Those are `exists_weilPairingElt_self_eq_one_of_isAlgClosed_
 (`#801`, `#829`), which carry `[IsAlgClosed F]`.  ⚠️ The Abel–Jacobi statement and the generic
 producer do **not**, and are stated without it.
 
-⚠️ **`hprin` over a general field is untouched and remains the genuine research gate**, at `n = 3`.
-So is general `n` (⚠️ no longer `#251`, which is closed — see below), and rung 4 itself
+⚠️ **`hprin` over a general field at `n = 3` is no longer a gate**:
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`) discharges it for any nonsingular
+`F`-rational `3`-torsion point when `(2 : F) ≠ 0` and `(3 : F) ≠ 0`.
+⚠️ **That clause read *"`hprin` over a general field is untouched and remains the genuine research
+gate, at `n = 3`"* until `#2216`**; the narrowing is retired in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
+General `n` **is** still that gate (⚠️ no longer `#251`, which is closed — see below), and rung 4
+itself
 (`#414`/`#421`/`#422`) — which this file does not use and does not advance.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
