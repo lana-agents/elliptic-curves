@@ -93,10 +93,25 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
 
 ## Import position, measured rather than guessed
 
+⚠️ **The convention, because the `22` below counts the module it is named for while the `31` does
+not count this file, and `README.md` `## Import-closure figures` says it *"belongs beside the
+figure and must not be assumed"*.**  A count named for *another* module is that module **and**
+everything it reaches; a count of what *this* file costs **excludes this file**.  **Measured at
+`e4345ae`**, over `EllipticCurves.` only, with the root aggregator `EllipticCurves` dropped, on two
+instruments that agree on every cell: the elaborator's `(← Lean.getEnv).header.moduleNames`, read
+from a probe module that *imports* the module being measured — ⚠️ **the placement is part of that
+instrument and is what fixes its convention: read from an importer the answer carries the measured
+module, read from inside that module it does not** — and a transitive walk of the
+`^(public |private |meta )*import (\S+)` lines, which needs no build.  Control, as that section
+publishes it: `EllipticCurves.TateModule.MatrixRepMod` is **40** excluding itself and **41**
+including it.  ⚠️ `EllipticCurves.Torsion.NsmulYPeriodic` reads its figures the same way.
+
 `EllipticCurves.Torsion.NsmulLadder` has a transitive closure of 22 modules in this library and
-`EllipticCurves.Torsion.TriplingCoords` of 18; their union with this file is 25.  Adding
-`EllipticCurves.Torsion.OmegaCrux` takes it to **31** — six modules (`Collinearity`, `NetVieta`,
-`OmegaCharZero`, `OmegaUniversal`, `UniversalCurve`, `OmegaCrux`).  ⚠️ That cost is paid
+`EllipticCurves.Torsion.TriplingCoords` of 18; ⚠️ **their union is 25, and that 25 does not count
+this file** — neither reaches the other and they share 15 modules, `22 + 18 - 15 = 25`.
+Adding `EllipticCurves.Torsion.OmegaCrux` takes it to **31** — six modules (`Collinearity`,
+`NetVieta`, `OmegaCharZero`, `OmegaUniversal`, `UniversalCurve`, `OmegaCrux`) — and **31** is this
+file's own closure with this file excluded, **32** counting it.  ⚠️ That cost is paid
 deliberately: without it `omegaY` would be a fresh definition with no stated relation to the
 on-curve identity, and the whole point of this file is that the two coordinates are the same one.
 
