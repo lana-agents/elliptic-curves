@@ -233,11 +233,15 @@ was the false half: the fibre description `pullbackDivisorN_single_eq_sum_torsio
 characteristic since `#1540`, and `hprin` at an arbitrary index over `F̄` is now
 `exists_gS_n_of_isAlgClosed` (`EllipticCurves.FunctionField.PullbackPrincipalityN`).  ⚠️ **Nothing
 in this file changes.**  Its statements are over an arbitrary field, where `hprin` stands at every
-index and `#962` is that gate at `n = 3`;
+index and `#962` is that gate at `n = 3` (discharged as of `#2216`);
 ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
 `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
-**`n = 3` is untouched by that discharge** and `#962`'s ledger row there is unaudited.
+⚠️ **That clause read *"`n = 3` is untouched by that discharge"* until `#2216`**, which
+discharges `hprin` at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`
+(`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`,
+`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`), so `#962` is now discharged at
+**both** of its indices and the third narrowing is retired in the same one place as the first two.
 what was retired is a claim about the
 *reachability* of a discharge over `F̄`, not about anything this file proves.  ⚠️ **The `#962`
 citation itself used to be stated at every index; it over-reaches the record and is retired once, in

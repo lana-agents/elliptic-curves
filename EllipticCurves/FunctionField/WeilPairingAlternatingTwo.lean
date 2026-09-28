@@ -133,12 +133,21 @@ Only `#692`'s divisor half remains open, and nothing on the alternating front wa
   at `n = 3` by `EllipticCurves.FunctionField.PullbackPrincipalityThree` (`#825`); and the assembly
   those two were the last inputs to is
   `EllipticCurves.FunctionField.WeilPairingAlternatingThree` (`#719`), hypothesis-free over `F̄` in
-  `…WeilPairingAlternatingThreeAlgClosed` (`#829`).  ⚠️ `hprin` over a **general** field is what is
-  still open at `n = 3`.  ⚠️ **That clause read *"still open, at both `n` alike, and it is not an
+  `…WeilPairingAlternatingThreeAlgClosed` (`#829`).  ⚠️ `hprin` over a **general** field is
+  discharged at `n = 3` as of `#2216`
+  (`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`,
+  `EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`), so what is still open there is a
+  general or composite `n` and not either numeral.  ⚠️ **That clause read *"`hprin` over a
+  **general** field is what is still open at `n = 3`"* until `#2216`**, and it is the second time
+  this one sentence has decayed by a landing; the narrowing is retired in
+  `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
+  ⚠️ **That clause read *"still open, at both `n` alike, and it is not an
   `n = 3` asymmetry"* until `#2029`, and it is the one site of the fourteen whose sentence does not
   survive the narrowing**: `#2029` discharges `hprin` at `n = 2` over an arbitrary field with
-  `(2 : F) ≠ 0`, so the gate now *is* an `n = 3` asymmetry, which is exactly what this clause
-  denied.  `EllipticCurves.FunctionField.WeilPairing` carries the retirement for the family.
+  `(2 : F) ≠ 0`, so the gate *was then* an `n = 3` asymmetry, which is exactly what that clause
+  denied.  ⚠️ **And it stopped being one at `#2216`**, which discharges `n = 3` as well: the
+  asymmetry the second narrowing created lasted from `#2029` to `#2216` and no longer holds.
+  `EllipticCurves.FunctionField.WeilPairing` carries the retirement for the family.
 * The `τ_O` half of that sentence, stated precisely, because it is easy to over-read.  In the
   second product `∏_i τ_{[i]P}∗ g_T` the `i = 0` factor is `τ_O`, and that alone is what
   `translatePointEndo` (`#689`) is for; whether it is *needed* depends only on whether the product

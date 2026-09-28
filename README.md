@@ -79,17 +79,34 @@ All three were caught by a reviewer opening each cited signature at source, and 
   algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
   files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
-  and their headlines come back out of the general one verbatim. Off `F̄` **two** files discharge
-  it, both at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`:
+  and their headlines come back out of the general one verbatim. Off `F̄` **four** files discharge
+  it, **two at each of `n = 2` and `n = 3`**, over an arbitrary field with `(2 : F) ≠ 0` — and, at
+  `n = 3`, `(3 : F) ≠ 0` as well:
   `PullbackPrincipalityTwoRationalTorsion.lean` from rational `2`-torsion and a halving —
   hypotheses, not setting — and `PullbackPrincipalityTwoGeneral.lean` from neither of those, for
   any nonsingular `F`-rational `2`-torsion point, by buying both hypotheses over the Galois
-  closure of the halving tower and paying them back by Hilbert 90. `hprin` is the standing gate
-  elsewhere; `#962` is that gate at `n = 3`.
+  closure of the halving tower and paying them back by Hilbert 90; and their two `n = 3` mirrors,
+  `PullbackPrincipalityThreeRationalTorsion.lean` from a rational `E[3]` and a tripling and
+  `PullbackPrincipalityThreeGeneral.lean` from neither of those, by the same buy-and-descend route
+  over the Galois closure of the tripling tower. `hprin` is the standing gate elsewhere; `#962` is
+  that gate at `n = 2` and `n = 3` and is now discharged at both.
   ⚠️ That passage read *"the one file that discharges it is
   `PullbackPrincipalityTwoRationalTorsion.lean`"* and *"`#962` is that gate at `n = 2` and
-  `n = 3`"* until `#2029` landed, and both are false rather than short; `n = 3` is untouched by it
-  and `#962`'s ledger row there is unaudited. ⚠️ The citation also used to read *"`#962` is the
+  `n = 3`"* until `#2029` landed, and both are false rather than short.
+  ⚠️ **It then read *"Off `F̄` **two** files discharge it, both at `n = 2`"* and *"`#962` is that
+  gate at `n = 3`"* until `#2216`**, and the count was already short before `#2216` touched it:
+  `PullbackPrincipalityThreeRationalTorsion.lean` landed at `a232601` and discharges `hprin` at
+  `n = 3` off `F̄` under two rationality facts, so the live count was **three** and the
+  *"both at `n = 2`"* universal was false with it. ⚠️ **A count of files that discharge a gate is
+  falsified by a landing this section does not name**, which is the shape
+  `### Import-closure figures` rules on for a closure count — so the seed is published with it:
+  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **seven** at this head,
+  scored on whether their `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*` headlines
+  bind `[IsAlgClosed F]` in their elaborated types. **Four** do not — the four named above — and
+  **three** do: `…N`, `…Two` and `…Three`, two headlines each.
+  ⚠️ **`n = 3` was untouched by `#2029`** and `#962`'s ledger row there was unaudited until `#2216`;
+  the third narrowing is retired in the same one place as the first two.
+  ⚠️ The citation also used to read *"`#962` is the
   standing gate elsewhere"*, which over-reaches the record; `### Gate-discharge claims` below rules
   why, and the retirement is in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`
   (`#1888`).

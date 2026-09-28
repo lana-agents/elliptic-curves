@@ -167,9 +167,27 @@ an arbitrary field with `(2 : F) ≠ 0`, for a nonsingular `F`-rational `2`-tors
 neither
 `[IsAlgClosed F]` nor `exists_gS_two_of_card`'s `hcard` and `hP` — so *"`#962` is that gate at
 `n = 2` and `n = 3`"* is false rather than short, and the citation reads `n = 3` wherever it stood.
-⚠️ **`n = 3` is untouched by that discharge**: `#962`'s ledger row there is unaudited,
-`EllipticCurves.FunctionField.PullbackPrincipalityThree` is still closure-only, and no row of the
-family is deleted by the narrowing.  ⚠️ **No count of how many rows a commit narrowed is published
+⚠️ **`n = 3` was untouched by that discharge**, and no row of the family is deleted by the
+narrowing.
+
+⚠️ **Retired a THIRD time, once and here: the `n = 3` half is FALSE as of `#2216`.**  That
+replacement read *"`#962` is that gate at `n = 3`"* — in **13** blocks in 13 files, and a further
+one in its own words (`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`, the *"one site of
+the fourteen"* the second narrowing already singled out) — and its companion read *"`n = 3` is
+untouched by that discharge"* in **12** blocks in 12 files, this one among them, with a *"untouched
+by it"* variant in a thirteenth.  ⚠️ **`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`) discharges `hprin` at `n = 3` over
+an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, for a nonsingular `F`-rational
+`3`-torsion point, with neither `[IsAlgClosed F]` nor `exists_gS_three_of_card`'s `hcard` and `hP` —
+so both wordings are false rather than short, and `#962` is discharged at **both** of its indices.
+⚠️ **It retires ONCE and here for the same reason the first two did** (`### Retired claims`' *"a
+claim about a subject that lives elsewhere retires at the subject"*): all of them assert one
+proposition about one record, and one reading of that record falsifies them together.
+⚠️ **`EllipticCurves.FunctionField.PullbackPrincipalityThree` is still closure-only** — that clause
+of the second retirement survives, and it is the only clause of it that does; the union of the two
+wordings plus the looser openness readings is **19** files, every one of which `#2216` repaired.
+⚠️ **The two counts above are counts of the WORDINGS and not of the commit.**
+⚠️ **No count of how many rows a commit narrowed is published
 here or anywhere below** — that is a self-figure the next landing falsifies (`#1972`); the seed and
 the population live on the tracker, at `#2190`, and ⚠️ **the seed no longer separates an assertion
 from a quotation**, because every narrowed block now quotes the wording it replaced.

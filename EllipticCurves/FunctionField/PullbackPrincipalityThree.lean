@@ -115,12 +115,20 @@ input at `n = 3`, not the pairing.
 ⚠️ **The hypotheses are strictly stronger than `exists_gS_three`'s.**  Everything below carries
 `[IsAlgClosed F]` and `[W.IsElliptic]`, which `exists_gS_three` — stated over an arbitrary field
 with `[IsDedekindDomain W.CoordinateRing]` — does not.  Two separate inputs need the algebraically
-closed base: the surjectivity of `[3]` on points and `#819`'s fibre description.  **Over a general
-field `hprin` is still open at `n = 3`**, and this file says nothing about it.
+closed base: the surjectivity of `[3]` on points and `#819`'s fibre description.  Over a general
+field `hprin` at `n = 3` is discharged elsewhere and this file says nothing about it.
 
-⚠️ **That clause is narrowed and not retired** (`#2215`).  It is still true as a statement about
-`hprin` with **no** rationality hypothesis — which is what `#962`'s `n = 3` ledger row asks for, and
-what remains open — and it is still true of *this file*, which says nothing about a general base.
+⚠️ **RETIRED as of `#2216`.**  This block read *"**Over a general field `hprin` is still open at
+`n = 3`**, and this file says nothing about it"* and then *"that clause is narrowed and not retired
+(`#2215`).  It is still true as a statement about `hprin` with **no** rationality hypothesis — which
+is what `#962`'s `n = 3` ledger row asks for, and what remains open"*.
+⚠️ **The narrowed reading is now false too, not merely partial**:
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`) discharges `hprin` at `n = 3` over
+an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0` and **no** rationality hypothesis, for any
+nonsingular `F`-rational `3`-torsion point.  The half that survives is about *this file*, which
+still says nothing about a general base; the third narrowing is retired in
+`EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope` (`### Retired claims`).
 ⚠️ **But `hprin` at `n = 3` over an arbitrary field is no longer entirely absent from the tree**: at
 a rational `E[3]` and a tripling `P` it is
 `exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_card`
