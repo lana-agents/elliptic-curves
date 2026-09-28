@@ -83,7 +83,24 @@ characteristic `2`.
 * **Separability in characteristic `2`.** In characteristic `2` the cubic degenerates —
   `Ψ₂Sq = 4X³ + b₂X² + 2b₄X + b₆` loses its cubic and its linear term — and `separable_Ψ₂Sq` and
   everything drawn from it take `(2 : F) ≠ 0`. Nothing below decides whether the `2`-torsion field
-  is separable there, in either direction.
+  is separable there, in either direction. ⚠️ **Both halves are now theorems, and the separability
+  one is decided in BOTH directions and does not go the way the degeneration suggests**:
+  `Ψ₂Sq_eq_sq_of_char_two` (`EllipticCurves.Torsion.TwoTorsionCharTwo`)
+  gives `Ψ₂Sq = (C a₁ · X + C a₃)²` over any commutative ring with `2 = 0`, so never cubic; and
+  `separable_Ψ₂Sq_iff_a₁_eq_zero_of_char_two` beside it makes `Ψ₂Sq` separable **exactly when
+  `a₁ = 0`** — ⚠️ **inseparable on the ordinary branch, but separable on the supersingular one**,
+  where the square is of a nonzero *constant* rather than of a linear polynomial and is therefore a
+  unit of `F[X]`. ⚠️ **So `Ψ₂Sq = ℓ²` does NOT license "hence inseparable".** Meanwhile
+  `card_torsion_two_ne_four_of_char_two` makes the `#E[2] = 4` this file transports false there, in
+  both branches.
+  ⚠️ **That module is import-incomparable with this file and NOT downstream of it** — neither is
+  in the other's import closure, in either direction — so the `import` line here is declined on a
+  price and not blocked by a cycle: the edge adds **one** module to this file's `EllipticCurves`
+  closure (6 → 7) and **two** over all packages, `TwoTorsionCharTwo` itself and
+  `Mathlib.Algebra.Field.ZMod`, measured at `88a5e00`. ⚠️ **A docstring pointer is not an import
+  edge**, and at that price declining it is a cost judgement about a sentence of prose rather than
+  an obstruction. The vocabulary is that of `EllipticCurves.Torsion.DoublingCoords`, which writes
+  **import-incomparable** twice of sibling modules in this same directory.
 
 ## Non-vacuity
 
