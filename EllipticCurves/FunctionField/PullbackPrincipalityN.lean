@@ -174,8 +174,23 @@ narrowing.
 replacement read *"`#962` is that gate at `n = 3`"* — in **13** blocks in 13 files, and a further
 one in its own words (`EllipticCurves.FunctionField.WeilPairingAlternatingTwo`, the *"one site of
 the fourteen"* the second narrowing already singled out) — and its companion read *"`n = 3` is
-untouched by that discharge"* in **12** blocks in 12 files, this one among them, with a *"untouched
-by it"* variant in a thirteenth.  ⚠️ **`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+untouched by that discharge"* in **12** blocks in 12 files, this one among them.  ⚠️ **The
+*"untouched by it"* variant was a POPULATION of `3` and not a thirteenth site**: under the literal
+recogniser `` `n = 3` is untouched by it `` over tracked `.lean` and `.md`, `bebec3f` returns
+`WeilPairingAlternatingAssemblyN.lean`, `README.md` and
+`EllipticCurves.FunctionField.PullbackPrincipalityTwo`, and `88a5e00` returns the first — now a
+marked quotation — and the third.  ⚠️ **The third one SURVIVES `#2216`, and it is considered rather
+than missed**: its *"it"* is `#2029`'s discharge, which genuinely does not reach `n = 3`, and its
+gloss *"`PullbackPrincipalityThree` is still closure-only"* is the one clause of the second
+retirement that this paragraph says survives — so it is the single site at which *"untouched"*
+remains **true**, and that is why it is named and left standing.  ⚠️ **At this commit's own head the
+population is back to `3`, and the new member is THIS BLOCK**: the recogniser is quoted above,
+inside this file, by the same marked-quotation device this paragraph credits
+`WeilPairingAlternatingAssemblyN` with.  **The live reading at the head is `3` — `2` marked
+quotations and `1` live claim, the surviving `PullbackPrincipalityTwo` one** — and a census run
+here that stops at `88a5e00` will read the head's `3` as a regression rather than as this
+paragraph's own text.
+⚠️ **`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
 (`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`) discharges `hprin` at `n = 3` over
 an arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`**, for a nonsingular `F`-rational
 `3`-torsion point, with neither `[IsAlgClosed F]` nor `exists_gS_three_of_card`'s `hcard` and `hP` —
