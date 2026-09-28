@@ -106,12 +106,43 @@ and the project's.
 control — it was 360 when this was first measured and is 386 now.)
 
 ⚠️ **The module system is a toolchain convention, not a Mathlib one.**  **Eight** of the nine
-vendored packages use `public import` — every one but `LeanSearchClient`, which has no `import`
-line at all.  Scoping a verification `grep` to `Mathlib/` bounds the blind spot over Mathlib
-alone, while every closure above walks all nine.  The same holds for `import all M`, which
-suppresses nothing but must still be matched: `Mathlib/` writes it 23 times in 21 files,
-`MathlibTest/` in 10 more, and **Batteries in 13** — of the **10** `import all` modules inside
-this file's own closure, **5 are Batteries'**.
+vendored packages use `public import` — every one but `LeanSearchClient`, and ⚠️ **the reason is
+not that it has no `import` lines**: it writes all **18** of them, across all **8** of its files,
+as `public meta import`, matching neither column of the census table above.  Scoping a verification
+`grep` to `Mathlib/` bounds the blind spot over Mathlib alone, while every closure above walks all
+nine.  The same holds for `import all M`, which suppresses nothing but must still be matched:
+`Mathlib/` writes it 23 times in 21 files, `MathlibTest/` in 10 more, and **Batteries in 13** — of
+the **10** `import all` modules inside this file's own closure, **5 are Batteries'**.
+
+⚠️ **TWO modifiers is the second blind spot, and it is this section's own lesson turned on this
+section.**  The pattern printed above carries it — that group is starred, not optional — and the
+census table does not, which is how an exact `LeanSearchClient` row and a false sentence drawn
+from it came to sit beside each other.  Files carrying at least one matching line, at `6f051d4`,
+over each package tree minus its nested `.lake/` (**9451** `.lean` files) — ⚠️ **which is the
+census table's scoping for eight of that table's ten rows and NOT for mathlib's, whose row is
+`Mathlib/` only, so the two do not sum together.**  Read under the census table's own scoping
+these three rows are **8562** / **8563** / **8647** over **8920** files, a gap of **84**:
+
+| pattern | files |
+| --- | --- |
+| `^public import ` — the census table's own column | **8578** |
+| exactly ONE of `public`, `private`, `meta`, then `import ` | **8580** |
+| ⚠️ ONE OR MORE of them, then `import ` — that pattern's group, made non-empty | ⚠️ **8665** |
+
+⚠️ **The gap is `public meta` and nothing else**: it is the only prefix occurring in any of the
+**85** files the last row adds, and those fall in **8** of the nine packages, `Cli` alone
+excepted.  ⚠️ **The scoping moves the size and not the shape** — walking `.lake/packages` whole,
+nested build trees included, reads **10107** / **8894** / **8897** / **9057** for a gap of
+**160**, and the entire difference is mathlib's own vendored copies: the same eight packages, the
+same single prefix, and `LeanSearchClient`'s **8** either way, since it vendors nothing.
+
+⚠️ **The third row is that pattern's GROUP and not the pattern.**  The group printed above is
+starred, so run verbatim over these same **9451** files the pattern matches **9401** — every file
+carrying an `import` line of any shape, the **50** it misses having none at all — and **8665** is
+what the group returns only once it is required to repeat.  ⚠️ **`protected`, which that pattern
+names and these rows do not, is inert**: a prefix census over all **10546** `.lean` files of both
+trees reads `{public: 35205, public meta: 965, meta: 13}`, with `private import` never occurring
+either, so the three-modifier alternation above returns the same **8665** as the four.
 
 ⚠️ **Do not take a matching total as evidence your pattern is right.**  At this SHA, dropping the
 `(?:all\s+)?` alternative changes **none** of the three totals, because every `import all` target is
