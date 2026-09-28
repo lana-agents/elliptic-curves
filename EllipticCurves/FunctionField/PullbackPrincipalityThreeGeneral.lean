@@ -97,12 +97,17 @@ Reach clauses below are complete, per `README.md` `## Docstring conventions` opt
   arbitrary field with `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, at a nonsingular `F`-rational `3`-torsion
   point `S`, with **no** gated hypothesis left; it produces the `f` itself.
 
-⚠️ **The census, with the construction beside it.**  Under the rule *non-`private`, not
-`Name.isInternal`*, `Environment.const2ModIdx` returns **11** constants for this module: **3**
-public (the three above, all `theorem`), **8** `private`, **0** internal and **0**
-compiler-generated.
-`#print axioms` over all **11** reaches **0** `sorryAx` and every one of the 11 returns exactly
-`{propext, Classical.choice, Quot.sound}`.  **Four direct imports** and a transitive
+⚠️ **The census, with the construction beside it.**  `Environment.const2ModIdx` returns **17**
+constants for this module.  Under the rule *non-`private`, not `Name.isInternal`*, **3** of them are
+public — the three above, all `theorem` — and **0** are internal; the other **14** are `private`
+under `isPrivateName`.  ⚠️ **Those 14 split 11 / 3 and the split needs its own instrument**:
+`privateToUserName n |>.isInternal` is false for the **11** written below and true for **3**
+compiler-generated, namely `setOf_root_Ψ₃_y2AddYEqX3._simp_1_1`,
+`setOf_root_Ψ₃_y2AddYEqX3._simp_1_2` and
+`not_card_torsion_three_eq_nine_y2AddYEqX3._proof_1_1`.
+`#print axioms` over all **17** reaches **0** `sorryAx`, and ⚠️ **the axiom set is not uniform**:
+**15** return exactly `{propext, Classical.choice, Quot.sound}` and the two `_simp` auxiliaries
+return `{propext}` alone.  **Four direct imports** and a transitive
 `EllipticCurves` closure of **153** modules with this one excluded, ⚠️ **measured at `bebec3f` plus
 this round** as `README.md` `## Import-closure figures` requires of a closure *count*; the `n = 2`
 mirror `PullbackPrincipalityTwoGeneral` is **112** at the same head, and the difference is **43** in
@@ -181,15 +186,19 @@ its author had in mind** — and it is the more expensive direction, because the
 is proved by exactly this shape of argument, counting the rational roots of a polynomial, one
 paragraph above.
 
-⚠️ **Seven of the eight `private` declarations below are local copies**, and the eighth is the
-inhabitation of this file's own headline.  `EllipticCurves.Torsion.TriplingGaloisTower`'s
+⚠️ **The eleven `private` declarations below partition 7 / 1 / 3, and the last three are NEW.**
+Seven are local copies, one — `exampleRungFiveThreeGeneral` — is the inhabitation of this file's own
+headline, and **three** are `setOf_root_Ψ₃_y2AddYEqX3`, `card_torsion_three_le_five_y2AddYEqX3` and
+`not_card_torsion_three_eq_nine_y2AddYEqX3`: ⚠️ **they are copies of nothing**, they occur nowhere
+else in the tree, and they are the `hcard` half whose absence the retirement paragraph above
+withdraws.  Of the seven copies, `EllipticCurves.Torsion.TriplingGaloisTower`'s
 `Nonvacuity` section proves the same nonsingularity, the same tripling-polynomial evaluation, the
 same no-rational-root fact and the same refutation of `hP`, and
 `EllipticCurves.Torsion.TriplingSeparable`'s proves the same equation, the same `Ψ₃(0) = 0` and the
 same `3`-torsion membership — **all seven `private` there**.  Promoting any of them would re-key a
-published census in a file this round edits only for prose — `TriplingGaloisTower` publishes **42**
-written declarations over **71** constants with **12** `private` — so they are restated here
-instead, which is what `PullbackPrincipalityTwoGeneral` does with its own fixture arithmetic.
+published census — `TriplingGaloisTower` publishes **42** written declarations over **71** constants
+with **12** `private` — so they are restated here instead, which is what
+`PullbackPrincipalityTwoGeneral` does with its own fixture arithmetic.
 
 ## References
 
