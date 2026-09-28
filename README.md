@@ -101,9 +101,28 @@ All three were caught by a reviewer opening each cited signature at source, and 
   falsified by a landing this section does not name**, which is the shape
   `### Import-closure figures` rules on for a closure count — so the seed is published with it:
   the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **seven** at this head,
-  scored on whether their `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*` headlines
-  bind `[IsAlgClosed F]` in their elaborated types. **Four** do not — the four named above — and
-  **three** do: `…N`, `…Two` and `…Three`, two headlines each.
+  scored on whether their **public** `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*`
+  headlines bind `[IsAlgClosed F]` in their elaborated types. ⚠️ **The word `public` is load-bearing
+  in that seed**: four `private` `Recovery` copies — two in
+  `PullbackPrincipalityTwoRationalTorsion.lean` and two in
+  `PullbackPrincipalityThreeRationalTorsion.lean` — match the name patterns and sit under a
+  `variable [IsAlgClosed F]`, so the seed run without it returns **20** rather than **16** and puts
+  two of the *"Four do not"* files on the wrong side of the split. **Four** do not — the four named
+  above — and **three** do: `…N`, `…Two` and `…Three`. ⚠️ **The scoring is per FILE and the headline
+  counts are not uniform, so no "each" clause belongs here**: of the **16** headlines the seed
+  returns, `…N` carries **three** (`…mulByNEndo`, `exists_gS_n_of_isAlgClosed` and
+  `exists_gS_of_ne_zero_of_isAlgClosed`) and `…ThreeGeneral` carries **three**, while the other
+  five files carry **two** apiece. ⚠️ That clause read *"`…N`, `…Two` and `…Three`, **two headlines
+  each**"* until this commit and was false at `…N` by one: the headline it missed is
+  `exists_gS_of_ne_zero_of_isAlgClosed`, the general-`n` root over `F̄`. ⚠️ **Keyed to `e5aca61`,
+  `git grep` finds that name 17 times in 5 files** — **5** in
+  `EllipticCurves/FunctionField/PullbackPrincipalityN.lean` (its declaration, three prose mentions
+  and one use), **5** each in `WeilPairingFunctionN.lean` and `WeilPairingNondegenerateN.lean`,
+  **1** in `NthRootOfPullbackN.lean`, and **one** in this file — in `### Reach clauses`, under the
+  `PullbackPrincipalityN` bullet. ⚠️ **This paragraph's own two mentions of it are this commit's own
+  text and are not in that 17.** ⚠️ **A per-file
+  universal published beside a per-file seed is falsified by the seed itself**, and the repair is to
+  drop the universal rather than to correct its numeral, since the numeral differs by file.
   ⚠️ **`n = 3` was untouched by `#2029`** and `#962`'s ledger row there was unaudited until `#2216`;
   the third narrowing is retired in the same one place as the first two.
   ⚠️ The citation also used to read *"`#962` is the

@@ -136,8 +136,9 @@ thing for a consumer that already has a closure or the two rationality facts.
 
 ## Non-vacuity over `ℚ`
 
-`#916`'s rule.  ⚠️ **ONE curve suffices at `n = 3`, where `n = 2` needed two** — and only half of
-the certificate is formalisable, which is stated rather than papered over.
+`#916`'s rule.  ⚠️ **ONE curve suffices at `n = 3`, where `n = 2` needed two**, and ⚠️ **BOTH halves
+of the certificate are now theorems** — see the retirement at the end of this section for what this
+passage used to say and why it was a claim about one route and not about the tree.
 
 `EllipticCurves.Fixture.y2AddYEqX3` at `ℚ`, the point `(0, 0)`:
 
@@ -148,17 +149,37 @@ the certificate is formalisable, which is stated rather than papered over.
   `exists_root_triplingX_of_nsmul_three_eq` (`EllipticCurves.Torsion.TriplingGaloisTower`) that
   gives `not_exists_nsmul_three_eq_zero_y2AddYEqX3`: **no rational point of `y² + y = x³` triples to
   `(0, 0)`**, so `…_of_card` cannot certify this instance.
-* **`hcard` fails too, and that half is PROSE and not a theorem.**  `hcard` forces `μ₃ ⊆ F` and
-  `μ₃ ⊄ ℚ`, so no rational curve carries it — the argument, and its citation to Silverman III.8.1
-  rather than to this tree, are `PullbackPrincipalityThreeRationalTorsion`'s own, in its
-  *"There is NO non-vacuity certificate for `hcard` here"* section.  ⚠️ **This tree has no route
-  from that argument to a Lean statement**, because its `n = 3` Weil-pairing non-degeneracy carries
-  `[IsAlgClosed F]`; so the `hcard` half is cited, not certified, and this file adds no route.
+* **`hcard` fails too, and that half is a THEOREM below as well.**  `Ψ₃ = 3X⁴ + 3X` factors here as
+  `3X(X + 1)(X² − X + 1)`, and `X² − X + 1` has no rational root, so `Ψ₃` has exactly **two**
+  rational roots, `0` and `−1` (`setOf_root_Ψ₃_y2AddYEqX3`).  The counting engine of
+  `EllipticCurves.Torsion.Finite` puts at most two points above each and `O` beside them, so
+  `#E[3] ≤ 2 · 2 + 1 = 5` (`card_torsion_three_le_five_y2AddYEqX3`) — against
+  `card_torsion_three_le`'s `2 · 4 + 1 = 9` — whence
+  `not_card_torsion_three_eq_nine_y2AddYEqX3`: **`#E[3] ≠ 9` on this curve**, so `…_of_card` cannot
+  certify this instance on **either** of its two hypotheses.
+* ⚠️ **THE ROUTE IS NOT THE ARGUMENT THIS PASSAGE USED TO CITE, AND THAT IS THE WHOLE POINT.**
+  `PullbackPrincipalityThreeRationalTorsion`'s *"There is NO non-vacuity certificate for `hcard`
+  here"* section argues that `hcard` forces `μ₃ ⊆ F` and `μ₃ ⊄ ℚ`, citing Silverman III.8.1 rather
+  than this tree because this tree's `n = 3` Weil-pairing non-degeneracy carries `[IsAlgClosed F]`.
+  ⚠️ **That argument is about EVERY curve over `ℚ` at once, and a certificate needs the hypothesis
+  to fail AT THE FIXTURE** — which is strictly less, and which a root count reaches.  The `μ₃`
+  argument is still uncited to this tree and still unformalised, and nothing here changes that.
 
-⚠️ **So the single fixture below refutes `hP` outright and fails `hcard` for a reason the tree
-cannot yet state** — which is why one curve does here what took two at `n = 2`, where
-`#2029` records that no fixture in the tree fails both hypotheses at once.  ⚠️ **`ℚ` is not
-algebraically closed, so the fixture certifies neither older headline either.**
+⚠️ **So the single fixture below refutes `hP` and `hcard` OUTRIGHT, both as theorems** — which is
+why one curve does here what took two at `n = 2`, where `#2029` records that no fixture in the tree
+fails both hypotheses at once.  ⚠️ **`ℚ` is not algebraically closed, so the fixture certifies
+neither older headline either.**
+
+⚠️ **Retired, and the retirement is the useful half.**  This passage read *"only half of the
+certificate is formalisable"* and, of `hcard`, *"that half is PROSE and not a theorem"*, *"This tree
+has no route from that argument to a Lean statement"* and *"this file adds no route"*, from the
+commit that created this file (`#2216` item 4, PR #824) until this one.  ⚠️ **Every clause of it was
+true of the `μ₃` ARGUMENT and false as a claim about the TREE'S REACH**: what was missing was not a
+route to a Lean statement but the observation that a *certificate* is a statement about one curve.
+⚠️ **The class is an absence published as a property of the tree when it is a property of the route
+its author had in mind** — and it is the more expensive direction, because the same file's `hP` half
+is proved by exactly this shape of argument, counting the rational roots of a polynomial, one
+paragraph above.
 
 ⚠️ **Seven of the eight `private` declarations below are local copies**, and the eighth is the
 inhabitation of this file's own headline.  `EllipticCurves.Torsion.TriplingGaloisTower`'s
@@ -339,6 +360,59 @@ private theorem not_exists_nsmul_three_eq_zero_y2AddYEqX3 :
   obtain ⟨r, hr⟩ := exists_root_triplingX_of_nsmul_three_eq (by norm_num)
     nonsingular_zero_y2AddYEqX3 hP
   exact eval_triplingX_zero_y2AddYEqX3_ne_zero r hr
+
+/-- **`Ψ₃` of `y² + y = x³` has exactly TWO rational roots**, `0` and `−1`.
+
+`Ψ₃ = 3X⁴ + 3X = 3X(X + 1)(X² − X + 1)` here, and `X² − X + 1` has no rational root — its
+discriminant is `−3`, and the `nlinarith` certificate below is `(2x − 1)² + 3 = 0`.
+
+⚠️ **This is the cell the `hcard` half turns on, and it needs no Weil pairing and no `μ₃`.** -/
+private theorem setOf_root_Ψ₃_y2AddYEqX3 :
+    {x : ℚ | (y2AddYEqX3 ℚ).Ψ₃.eval x = 0} = {0, -1} := by
+  ext x
+  simp only [Set.mem_setOf_eq, Set.mem_insert_iff, Set.mem_singleton_iff,
+    WeierstrassCurve.Ψ₃, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, y2AddYEqX3]
+  simp only [eval_add, eval_mul, eval_pow, eval_X, eval_C, eval_ofNat]
+  constructor
+  · intro h
+    have h1 : x * (x + 1) * (x ^ 2 - x + 1) = 0 := by linarith [h]
+    rcases mul_eq_zero.mp h1 with h2 | h2
+    · rcases mul_eq_zero.mp h2 with h3 | h3
+      · exact Or.inl h3
+      · exact Or.inr (by linarith)
+    · nlinarith [sq_nonneg (2 * x - 1)]
+  · rintro (rfl | rfl) <;> norm_num
+
+/-- **`#E[3] ≤ 5` on `y² + y = x³` over `ℚ`**: two roots, at most two points above each, plus `O`.
+
+⚠️ **The counting engine is `EllipticCurves.Torsion.Finite`'s and the input is the root set above**:
+`card_torsion_three_le`'s `2 · 4 + 1 = 9` becomes `2 · 2 + 1 = 5`, because `Ψ₃` splits off a
+quadratic with no rational root. -/
+private theorem card_torsion_three_le_five_y2AddYEqX3 :
+    Nat.card ((y2AddYEqX3 ℚ).torsion 3) ≤ 5 := by
+  classical
+  have hfin : {x : ℚ | (y2AddYEqX3 ℚ).Ψ₃.eval x = 0}.Finite := by
+    rw [setOf_root_Ψ₃_y2AddYEqX3]; exact (Set.finite_singleton _).insert _
+  refine ((y2AddYEqX3 ℚ).card_torsion_le_of_xCoords hfin
+    fun _ _ _ hP => Ψ₃_eval_eq_zero_of_mem_torsion_three hP).trans ?_
+  rw [setOf_root_Ψ₃_y2AddYEqX3, Set.ncard_pair (by norm_num : (0 : ℚ) ≠ -1)]
+
+/-- **`hcard` fails**: `#E[3] ≠ 9` on `y² + y = x³` over `ℚ`.
+
+⚠️ **THIS IS THE HALF THE MODULE DOCSTRING USED TO SAY THE TREE COULD NOT STATE**, and the route is
+not the one that claim was about: it is a **count of rational roots**, not the Weil-pairing argument
+that `hcard` forces `μ₃ ⊆ F`.  A non-vacuity certificate needs the hypothesis to fail **at the
+fixture**, and for that the counting engine suffices; the `μ₃` argument is about every curve over
+`ℚ` at once and is strictly stronger than anything a certificate needs.
+
+So `…_of_card` (`PullbackPrincipalityThreeRationalTorsion`) cannot certify this instance on
+**either** of its two hypotheses, and both refutations are now theorems. -/
+private theorem not_card_torsion_three_eq_nine_y2AddYEqX3 :
+    Nat.card ((y2AddYEqX3 ℚ).torsion 3) ≠ 9 := by
+  intro h
+  have := card_torsion_three_le_five_y2AddYEqX3
+  omega
 
 /-- **The headline, inhabited** at `(0, 0)` on `y² + y = x³` over `ℚ`. -/
 private theorem exampleRungFiveThreeGeneral :
