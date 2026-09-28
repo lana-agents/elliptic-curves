@@ -281,7 +281,7 @@ theorem exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general (h2 : (2 : F) ≠
   haveI : DecidableEq (W.triplingGaloisField x) := Classical.decEq _
   exact exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_galois (W.triplingGaloisField x) h2 h3 h
     (card_torsion_three_triplingGaloisField h2 h3 x)
-    (exists_nsmul_three_eq_triplingGaloisField h2 h) hx hf hfdiv
+    (exists_nsmul_three_eq_triplingGaloisField h) hx hf hfdiv
 
 /-- **Rung 5 of the Weil pairing at `n = 3` over an arbitrary field with `(2 : F) ≠ 0` and
 `(3 : F) ≠ 0`**, with no gated hypothesis left: for a nonsingular `F`-rational `3`-torsion point `S`
