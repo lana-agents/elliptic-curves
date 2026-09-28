@@ -31,6 +31,11 @@ available that are not available over a general `CommRing` — no torsion in the
 ## Main results
 
 * `WeierstrassCurve.univ_map_specialize` : `univ.map W.specialize = W`.
+* `WeierstrassCurve.specialize_map` : `(W.map f).specialize = f ∘ W.specialize`, the naturality of
+  the specialisation homomorphism in the base.  ⚠️ Every `map` lemma proved by descent along `univ`
+  needs it — see `EllipticCurves.Torsion.OmegaIntegral`'s `map_ωNum`, which cannot be proved
+  without it — and it mentions nothing but `specialize`, so it belongs here rather than at whichever
+  consumer happens to want it first.
 
 ## Implementation notes
 
@@ -38,8 +43,9 @@ This file imports **only** Mathlib, deliberately.  Both of its consumers — the
 identification in `EllipticCurves.FormalGroup.UniversalIdentification` /
 `EllipticCurves.FormalGroup.GenuineLawTransfer`, and the division-polynomial reduction in
 `EllipticCurves.Torsion.OmegaUniversal` — sit in unrelated corners of the library, and the
-universal curve depends on nothing from either.  The three declarations below were originally
-written inside the formal-group files and are unchanged by the move.
+universal curve depends on nothing from either.  Three of the four declarations below were
+originally written inside the formal-group files and are unchanged by the move; `specialize_map`
+arrived the same way from `EllipticCurves.Torsion.OmegaIntegral`, and is unchanged by it too.
 -/
 
 namespace WeierstrassCurve
@@ -69,5 +75,19 @@ theorem univ_map_specialize (W : WeierstrassCurve R) : univ.map W.specialize = W
     simp only [WeierstrassCurve.map_a₁, WeierstrassCurve.map_a₂, WeierstrassCurve.map_a₃,
       WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆, univ, specialize,
       MvPolynomial.eval₂Hom_X', Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]
+
+/-- **The specialisation homomorphism is natural in the base**:
+`(W.map f).specialize = f ∘ W.specialize`.
+
+⚠️ This is the lemma that makes a `map` statement provable for an object defined by descent along
+`univ`.  If `F W` is built as `(something over univ).map W.specialize`, then `F (W.map f)` and
+`(F W).map f` are the two sides of this equation applied to that something, and without it the
+descended object has no base-change lemma at all.  The worked consumer is
+`EllipticCurves.Torsion.OmegaIntegral`'s `map_ωNum`. -/
+lemma specialize_map {S : Type*} [CommRing S] (f : R →+* S) (W : WeierstrassCurve R) :
+    (W.map f).specialize = f.comp W.specialize := by
+  refine MvPolynomial.ringHom_ext (fun k => ?_) (fun i => ?_)
+  · simp [specialize]
+  · fin_cases i <;> simp [specialize]
 
 end WeierstrassCurve

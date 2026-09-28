@@ -399,6 +399,7 @@ import EllipticCurves.Torsion.OmegaCharZero
 import EllipticCurves.Torsion.OmegaChordSum
 import EllipticCurves.Torsion.OmegaCrux
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
+import EllipticCurves.Torsion.OmegaIntegral
 import EllipticCurves.Torsion.OmegaNumerator
 import EllipticCurves.Torsion.OmegaOnCurve
 import EllipticCurves.Torsion.OmegaPairCoprime
