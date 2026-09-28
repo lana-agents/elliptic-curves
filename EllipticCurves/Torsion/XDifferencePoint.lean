@@ -49,8 +49,9 @@ and substituting for the two hypotheses; it is not done here, and no consumer ha
 * `WeierstrassCurve.Affine.xCoord_sub_xCoord_of_hasXCoordFormula` : the point-level `x`-difference
   identity at any pair of indices at which the coordinate formula is available, stated as a
   hypothesis.
-* `WeierstrassCurve.Affine.xCoord_two_sub_xCoord_three` : its unconditional instance at `(3, 2)`,
-  over a field of characteristic `≠ 2`.
+* `WeierstrassCurve.Affine.xCoord_two_sub_xCoord_three` : its unconditional instance at `(3, 2)`
+  — ⚠️ **and *"unconditional"* is now true of the characteristic too**, `#2245` having removed the
+  `(2 : F) ≠ 0` this row used to name.
 * `WeierstrassCurve.Affine.evalEval_ψ_five_y2EqX3AddOne` : the certificate — on `y² = x³ + 1` over
   `ℚ` at `(2, 3)` the identity **computes** `ψ₅(2, 3) = 186624`, from univariate data only, and the
   value is not zero.
@@ -86,8 +87,9 @@ theorem xCoord_sub_xCoord_of_hasXCoordFormula {p q : ℕ}
   obtain ⟨yq, hQ, hQeq⟩ := hq h hq0
   exact ⟨_, yp, _, yq, hP, hQ, hPeq, hQeq, Φ_div_ΨSq_sub_Φ_div_ΨSq h.1 hp0 hq0⟩
 
-/-- **`x(2 • P) − x(3 • P) = ψ₅(x, y)/(ΨSq₃(x)·ΨSq₂(x))`**, over a field of characteristic `≠ 2`,
-at a point of `W` at which neither `ΨSq₂` nor `ΨSq₃` vanishes.
+/-- **`x(2 • P) − x(3 • P) = ψ₅(x, y)/(ΨSq₃(x)·ΨSq₂(x))`**, at a point of `W` at which neither
+`ΨSq₂` nor `ΨSq₃` vanishes.  ⚠️ **This headline read *"over a field of characteristic `≠ 2`"* until
+`#2245` removed that hypothesis**; this docstring records the removal below.
 
 This is `xCoord_sub_xCoord_of_hasXCoordFormula` at `(p, q) = (3, 2)`, where `ψ_{p−q} = ψ₁ = 1`.  It
 is the only unconditional point-level instance of the `x`-difference identity this tree admits, and
@@ -95,14 +97,23 @@ it exists to witness that the identity of `EllipticCurves.Torsion.XDifference` h
 content.  ⚠️ It does not generalise *here*: `HasXCoordFormula W n` holds at every index with
 `(2 : F) ≠ 0` (`hasXCoordFormula_of_two_ne_zero`, `EllipticCurves.Torsion.NsmulOrder`), but that
 module and this one are import-incomparable, and the hypotheses substituted below are the two
-instances reachable from here. -/
-theorem xCoord_two_sub_xCoord_three (h2 : (2 : F) ≠ 0) (h : W.Nonsingular x y)
+instances reachable from here.
+
+⚠️ **This statement carried `(2 : F) ≠ 0` until `#2245` and now carries none**: its `h2` was a pure
+pass-through to `hasXCoordFormula_three`, which stopped needing one at `#2242`, and
+`hasXCoordFormula_two` never did.  **It is wave 1 of that cascade** — see
+`hasXCoordFormula_three`'s docstring (`EllipticCurves.Torsion.TriplingSurjective`) for the wave
+table.  ⚠️ **So *"unconditional"* above is now literally true of the characteristic as well: the
+only hypotheses left on the field are the two `ΨSq` non-vanishing conditions, which are not
+removable — they are what makes `Φₙ/ΨSqₙ` defined.  The third is `h : W.Nonsingular x y`, the point
+the statement is about. -/
+theorem xCoord_two_sub_xCoord_three (h : W.Nonsingular x y)
     (h3 : (W.ΨSq 3).eval x ≠ 0) (h2' : (W.ΨSq 2).eval x ≠ 0) :
     ∃ (x₃ y₃ x₂ y₂ : F) (h₃ : W.Nonsingular x₃ y₃) (h₂ : W.Nonsingular x₂ y₂),
       (3 : ℕ) • Point.some x y h = Point.some x₃ y₃ h₃ ∧
         (2 : ℕ) • Point.some x y h = Point.some x₂ y₂ h₂ ∧
           x₂ - x₃ = (W.ψ 5).evalEval x y / ((W.ΨSq 3).eval x * (W.ΨSq 2).eval x) := by
-  have H := xCoord_sub_xCoord_of_hasXCoordFormula (p := 3) (q := 2) (hasXCoordFormula_three h2)
+  have H := xCoord_sub_xCoord_of_hasXCoordFormula (p := 3) (q := 2) hasXCoordFormula_three
     hasXCoordFormula_two h (by simpa using h3) (by simpa using h2')
   obtain ⟨x₃, y₃, x₂, y₂, h₃, h₂, e₃, e₂, hx⟩ := H
   refine ⟨x₃, y₃, x₂, y₂, h₃, h₂, e₃, e₂, ?_⟩
@@ -178,8 +189,14 @@ theorem evalEval_ψ_five_y2EqX3AddOne :
     eval_ΨSq_two_y2EqX3AddOne, eval_ΨSq_three_y2EqX3AddOne] at h
   rw [h]; norm_num
 
-/-- The hypotheses of `xCoord_two_sub_xCoord_three` are satisfiable: `(2, 3)` on `y² = x³ + 1` over
-`ℚ` meets all of them, and `ℚ` is not algebraically closed. -/
+/-- The hypotheses of `xCoord_two_sub_xCoord_three` on the field are satisfiable: `(2, 3)` on
+`y² = x³ + 1` over `ℚ` meets both `ΨSq` conditions, and `ℚ` is not algebraically closed.
+
+⚠️ **The first conjunct below, `(2 : ℚ) ≠ 0`, is NOT a hypothesis of that theorem any more.**  It
+was one until `#2245`, and it is kept here deliberately, so that this certificate records what the
+statement used to require; the conjunct is true and the `example` still compiles either way, which
+is exactly why a green build cannot see the difference.  ⚠️ **The theorem's remaining hypothesis is
+the nonsingularity of the point, which this `example` does not restate.** -/
 example : (2 : ℚ) ≠ 0 ∧ ((y2EqX3AddOne ℚ).ΨSq 3).eval 2 ≠ 0
     ∧ ((y2EqX3AddOne ℚ).ΨSq 2).eval 2 ≠ 0 :=
   ⟨two_ne_zero, by rw [eval_ΨSq_three_y2EqX3AddOne]; norm_num,

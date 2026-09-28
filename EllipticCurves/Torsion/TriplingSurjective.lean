@@ -113,8 +113,9 @@ and there `2P = O`, so the secant construction of `3P = 2P + P` does not apply. 
   `x(3P)·ΨSq₃(x) = Φ₃(x)`, ⚠️ **over an arbitrary field and with no characteristic hypothesis**,
   certified non-vacuous in characteristic `2` in the `Nonvacuity` section below; and
   `WeierstrassCurve.Affine.hasXCoordFormula_three` — the same formula in the form the engine
-  consumes, input (1) at `n = 3`, ⚠️ **whose `_h2` is a retained vacuous binder and not a
-  hypothesis** (see its docstring for the cascade that retaining it bounds);
+  consumes, input (1) at `n = 3`, ⚠️ **also with no characteristic hypothesis** — the retained
+  vacuous `_h2` that `#2242` left there is gone, with the whole cascade behind it (`#2245`; see
+  that declaration's docstring for the wave table and for why it terminates);
 * `WeierstrassCurve.Affine.exists_nsmul_three_some` — every `x₀` is the `x`-coordinate of a tripled
   point;
 * **`WeierstrassCurve.Affine.exists_nsmul_three_eq`** and
@@ -388,22 +389,36 @@ secant construction of `3P = 2P + P` does not apply; but then `Φ₃(x) = x·Ψ�
 `addX_add_self_mul_ΨSq_three_eval` computes it.  This file's module docstring records the same
 warning.
 
-⚠️ **`_h2` IS VACUOUS, AND IT IS RETAINED ON PURPOSE — DO NOT READ IT AS A HYPOTHESIS OF THIS
-STATEMENT.**  Both branches of the proof below are now characteristic-free: the `2`-torsion branch
-never used `h2`, and the secant branch calls `addX_add_self_mul_ΨSq_three_eval`, which no longer
-takes one.  So `HasXCoordFormula W 3` holds over **any** field, and the underscore records that the
-binder is deliberately unreferenced rather than accidentally so.
+⚠️ **NO CHARACTERISTIC HYPOTHESIS AT ALL.**  Both branches of the proof below are
+characteristic-free: the `2`-torsion branch never used one, and the secant branch calls
+`addX_add_self_mul_ΨSq_three_eval`, which stopped taking one at `#2242`.  So `HasXCoordFormula W 3`
+holds over **any** field, and the `Nonvacuity` section below instantiates it over `ZMod 2`.
 
-**Why it is not simply deleted, measured rather than asserted.**  Deleting it makes `h2`
-unreferenced in exactly **two** declarations — `exists_nsmul_three_eq_some_of_root` below and
-`xCoord_two_sub_xCoord_three` (`EllipticCurves.Torsion.XDifferencePoint`) — and deleting *those* two
-makes it unreferenced in **two** more, `exists_nsmul_three_eq_triplingField` and
-`exists_nsmul_three_eq_of_roots_baseChange` (`EllipticCurves.Torsion.TriplingGaloisTower`), from
-where it continues into `exists_nsmul_three_eq_triplingGaloisField` and the `hprin` tower above it.
-⚠️ **Each wave was measured by a full `lake build`, not predicted.**  That cascade is a different
-and larger piece of work than weakening the tripling formula, and it is filed rather than taken
-here.  **The hypothesis is kept, not weakened, so no consumer of this file changes.** -/
-theorem hasXCoordFormula_three (_h2 : (2 : F) ≠ 0) : HasXCoordFormula W 3 := by
+⚠️ **`#2242` left a retained vacuous binder `_h2` here rather than delete it**, because `--wfail`
+turns an unreferenced binder into a build *error*, so deleting it starts a cascade that leaves this
+file — and `#2242`'s scope forbade going there.  **`#2245` ran that cascade to exhaustion and took
+it.**  Each wave was produced by deleting the previous wave's binders, running a **full
+`lake build`**, and reading `is not explicitly referenced` out of the log — measured, not predicted:
+
+* **wave 0** — this declaration.
+* **wave 1** — `exists_nsmul_three_eq_some_of_root` (below) and `xCoord_two_sub_xCoord_three`
+  (`EllipticCurves.Torsion.XDifferencePoint`).
+* **wave 2** — `exists_nsmul_three_eq_triplingField` and
+  `exists_nsmul_three_eq_of_roots_baseChange` (`EllipticCurves.Torsion.TriplingGaloisTower`).
+* **wave 3** — `exists_nsmul_three_eq_triplingGaloisField` (same file).
+* ⚠️ **wave 4 — EMPTY.  The cascade terminates**, at **six** declarations in **four** files.
+
+⚠️ **It terminates for a reason worth naming, and the reason is not that nothing consumes wave 3.**
+`exists_nsmul_three_eq_triplingGaloisField` has **two** code consumers.  One binds nothing at all
+and so has no binder to lose — `exists_nsmul_three_eq_triplingGaloisField_y2AddYEqX3`, `private` in
+`EllipticCurves.Torsion.TriplingGaloisTower`.  The other is
+`exists_nsmul_divisor_eq_divisor_mulByThreeEndo_general`
+(`EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral`), whose own `h2` occurs **in its
+own statement** — the conclusion names `mulByThreeEndo h2 h3 f` — and ⚠️ **a hypothesis the
+conclusion mentions can never become unreferenced.**  **The cascade stops at a statement-level
+occurrence and not at a proof-level one**, so the `hprin` front is reached as a call site to fix and
+is not weakened by a single binder. -/
+theorem hasXCoordFormula_three : HasXCoordFormula W 3 := by
   intro x y h hne
   simp only [Nat.cast_ofNat] at hne ⊢
   have hyeq : W.Equation x y := h.1
@@ -457,7 +472,7 @@ theorem exists_nsmul_three_some [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠
     ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), (3 : ℕ) • P = Point.some x₀ y' h' :=
   exists_nsmul_some_of_hasXCoordFormula h2 (by norm_num)
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
-    (hasXCoordFormula_three h2) x₀
+    hasXCoordFormula_three x₀
 
 /-- **Multiplication by `3` is surjective on `E(F̄)`.**  Over an algebraically closed field of
 characteristic `≠ 2`, every point of an elliptic curve is three times another point.
@@ -470,7 +485,7 @@ theorem exists_nsmul_three_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0
     ∃ P : W.Point, (3 : ℕ) • P = Q :=
   exists_nsmul_eq_of_hasXCoordFormula h2 (by norm_num)
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
-    (hasXCoordFormula_three h2) Q
+    hasXCoordFormula_three Q
 
 /-- **Multiplication by `3` is surjective on `E(F̄)`**, stated as `Function.Surjective` — the
 `n = 3` analogue of `nsmul_two_surjective`, and the form `Torsion/Divisible.lean`'s
@@ -481,9 +496,12 @@ theorem nsmul_three_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 
 
 /-! ## Tripling a named point over an arbitrary field -/
 
-/-- **A named affine point is three times another point** with `(2 : F) ≠ 0`, as soon as
-`Φ₃ − x₀·Ψ₃²` has a root carrying a point of `W` above it — over an **arbitrary field**, with no
-algebraic closure.
+/-- **A named affine point is three times another point**, as soon as `Φ₃ − x₀·Ψ₃²` has a root
+carrying a point of `W` above it — over an **arbitrary field**, with no algebraic closure.
+
+⚠️ **This headline read *"is three times another point with `(2 : F) ≠ 0`"* until `#2245`, which is
+the binder this statement no longer has**: it is wave 1 of the `hasXCoordFormula_three` cascade
+tabulated above.
 
 This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root`
 (`EllipticCurves.Torsion.NsmulSurjective`) at `n = 3`, and the `n = 3` companion of
@@ -496,19 +514,21 @@ here used to be `#251`, and that reason is gone**: `hasXCoordFormula_of_two_ne_z
 instances below are still the only ones reachable *here*; what is no longer true is that anything
 stands between this tree and a general `n`.
 
-⚠️ **`h2` survives here and does not at `n = 2`, and the recorded reason for the asymmetry was
-FALSE.**  Both existence steps of the merged `exists_nsmul_three_eq` — the root extraction and the
-point above the root — are promoted to arguments here, so `[IsAlgClosed F]` and `n ≠ 0` have no
+⚠️ **`h2` survived here until `#2245` and does not now, and the recorded reason for the asymmetry
+with `n = 2` was FALSE before it was removed.**  Both existence steps of the merged
+`exists_nsmul_three_eq` — the root extraction and the point above the root — are promoted to
+arguments here, so `[IsAlgClosed F]` and `n ≠ 0` have no
 consumer left, exactly as at `n = 2`.  This paragraph used to continue: *"what survives is input
 (1): `hasXCoordFormula_two` needs nothing at all, while `hasXCoordFormula_three` needs `(2 : F) ≠ 0`
 for the secant construction of `3P = 2P + P`.  That is a hypothesis of the tripling formula, not of
 the closure, and no promotion of an existence step can remove it."*  ⚠️ **Every clause of that is
 now wrong**: the secant construction needs no characteristic hypothesis
 (`addX_add_self_mul_ΨSq_three_eval` carries none), it was never a hypothesis of the tripling formula
-in the sense meant, and what removes it is not a promotion but a change of route.  ⚠️ **What `h2`
-survives as, here and in `hasXCoordFormula_three`, is a RETAINED VACUOUS BINDER** — see that
-declaration's docstring for the measured cascade that keeping it bounds.  **The asymmetry with
-`n = 2` is now bookkeeping, not mathematics.**
+in the sense meant, and what removes it is not a promotion but a change of route.  ⚠️ **`#2242`
+left `h2` standing here as a retained vacuous binder and `#2245` removed it**, together with the
+rest of the cascade `hasXCoordFormula_three`'s docstring tabulates.  ⚠️ **So there is no asymmetry
+with `n = 2` left to explain**: neither `hasXCoordFormula_two` nor `hasXCoordFormula_three` binds a
+characteristic hypothesis, and neither does this statement.
 
 ⚠️ The hypothesis is stated on `W.Ψ₃.eval x ^ 2`, not on `(W.ΨSq 3).eval x`.  `ΨSq_three_eval`
 bridges them inside the proof, and `Ψ₃` is the name every consumer in this tree computes with — a
@@ -519,13 +539,13 @@ This is `exists_nsmul_two_eq_some_of_root`'s `Ψ₂Sq`-not-`ΨSq 2` decision at 
 algebraically closed — `exists_nsmul_three_eq` above is stated over `F̄` for a reason.  What this
 lemma buys is that the obstruction is entirely visible in one polynomial root, and the `Nonvacuity`
 section below discharges that root over `ℚ`. -/
-theorem exists_nsmul_three_eq_some_of_root [W.IsElliptic] (h2 : (2 : F) ≠ 0) {x₀ y₀ : F}
+theorem exists_nsmul_three_eq_some_of_root [W.IsElliptic] {x₀ y₀ : F}
     (hQ : W.Nonsingular x₀ y₀) {x y : F} (hxy : W.Equation x y)
     (hx : (W.Φ 3).eval x = x₀ * W.Ψ₃.eval x ^ 2) :
     ∃ P : W.Point, (3 : ℕ) • P = Point.some x₀ y₀ hQ :=
   exists_nsmul_eq_some_of_hasXCoordFormula_of_root
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
-    (hasXCoordFormula_three h2) hQ hxy
+    hasXCoordFormula_three hQ hxy
     (by simpa only [Nat.cast_ofNat, ΨSq_three_eval] using hx)
 
 /-! ### Non-vacuity
@@ -614,7 +634,7 @@ private theorem exists_nsmul_three_eq_y2EqX3AddOne :
     ∃ P : (y2EqX3AddOne ℚ).Point,
       (3 : ℕ) • P =
         Point.some (-1) 0 (equation_iff_nonsingular.mp equation_y2EqX3AddOne_neg_one) :=
-  exists_nsmul_three_eq_some_of_root (by norm_num) _ equation_y2EqX3AddOne_two
+  exists_nsmul_three_eq_some_of_root _ equation_y2EqX3AddOne_two
     eval_Φ_three_y2EqX3AddOne
 
 /-! ### Non-vacuity in characteristic `2`
@@ -673,6 +693,18 @@ private theorem addX_add_self_mul_ΨSq_three_eval_curveChar2 :
         * (curveChar2.ΨSq 3).eval 1 = (curveChar2.Φ 3).eval 1 :=
   addX_add_self_mul_ΨSq_three_eval equation_curveChar2 negY_ne_curveChar2
     Ψ₃_eval_ne_zero_curveChar2
+
+/-- **`HasXCoordFormula` at `n = 3` over a field of characteristic `2`** — the engine's input (1),
+instantiated where it could not be instantiated before.
+
+⚠️ **This is the statement `#2242` could not write, and it is the whole point of `#2245`.**  At
+`#2242`'s head `hasXCoordFormula_three` still carried the vacuous binder `_h2 : (2 : F) ≠ 0`, so
+naming this instance would have required a proof of `(2 : ZMod 2) ≠ 0`, which is **false**.
+⚠️ **Deleting a vacuous binder is therefore not cosmetic: a hypothesis nobody can discharge makes a
+true statement unusable over exactly the fields it silently excludes, and the linter that reports
+it as unreferenced says nothing about that.** -/
+private theorem hasXCoordFormula_three_curveChar2 : HasXCoordFormula curveChar2 3 :=
+  hasXCoordFormula_three
 
 end Nonvacuity
 

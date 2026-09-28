@@ -62,12 +62,16 @@ is `WeierstrassCurve.Affine.HasXCoordFormula` (`EllipticCurves.Torsion.NsmulSurj
 `#251` — and ⚠️ **both of its halves are now closed, at every index**:
 
 * ✅ **the `x`-half** — `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`)
-  proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`.  It supersedes
-  `hasXCoordFormula_three` (`EllipticCurves.Torsion.TriplingSurjective`), which carries the same
-  `(2 : F) ≠ 0` at one index.  ⚠️ It does **not** supersede `hasXCoordFormula_two`
-  (`EllipticCurves.Torsion.DoublingSurjective`), which carries **no hypothesis on `(2 : F)`** and is
-  therefore the stronger statement at `n = 2`; that file's own docstring records it as
-  hypothesis-free, and in characteristic `2` it is the only one of the two that says anything;
+  proves `HasXCoordFormula W n` at **every** index over any field with `(2 : F) ≠ 0`.  ⚠️ **It
+  supersedes NEITHER low-index instance, and this bullet ruled that it superseded the `n = 3` one
+  until `#2245`.**  `hasXCoordFormula_two` (`EllipticCurves.Torsion.DoublingSurjective`) and
+  `hasXCoordFormula_three` (`EllipticCurves.Torsion.TriplingSurjective`) now both carry **no
+  hypothesis on `(2 : F)`** — the `n = 3` one was vacuous at `#2242` and lost its binder at `#2245`
+  — so by the criterion this bullet already applied at `n = 2`, each is the stronger statement at
+  its own index, and in characteristic `2` the general form says nothing while both of them do.
+  ⚠️ `hasXCoordFormula_three_curveChar2` (`EllipticCurves.Torsion.TriplingSurjective`) is the
+  witness the old ruling lacked: the tripling formula instantiated over `ZMod 2`, which
+  `hasXCoordFormula_of_two_ne_zero` can never be;
 * ✅ **the `y`-half** — `nsmul_eq_some_omegaY_of_ΨSq_ne_zero`
   (`EllipticCurves.Torsion.NsmulYPeriodic`, issue `#1500`, PR #579) proves
   `n • (x, y) = (Φₙ/ΨSqₙ, ωₙ/(2ψₙ³))` at **every** index under `ΨSqₙ(x) ≠ 0` — ⚠️ *exactly* the

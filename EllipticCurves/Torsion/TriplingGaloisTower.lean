@@ -118,8 +118,16 @@ them `private` and all **12** written below.  Every statement carries `{F : Type
 * `[W.IsElliptic]` occurs in the type of **15**.  ⚠️ **The other 27 do not**, including every
   `finiteDimensional_*` row, `natDegree_triplingX`, `degree_triplingX`, `map_triplingX`,
   `eval_Ψ₃_baseChange` and all four floors as types.
-* `(2 : F) ≠ 0` is bound by **11** and `(3 : F) ≠ 0` by **7**; the seven are a subset of the
-  eleven, and the four that carry `h2` without `h3` are exactly the four `Point` statements.
+* `(2 : F) ≠ 0` is bound by **8** and `(3 : F) ≠ 0` by **7**; the seven are a subset of the eight,
+  and the one that carries `h2` without `h3` is `exists_root_triplingX_of_nsmul_three_eq`.
+  ⚠️ **This row read *"bound by 11 … and the four that carry `h2` without `h3` are exactly the four
+  `Point` statements"* until `#2245`**, which removed three of the eleven —
+  `exists_nsmul_three_eq_triplingField`, `exists_nsmul_three_eq_of_roots_baseChange` and
+  `exists_nsmul_three_eq_triplingGaloisField`, waves 2 and 3 of the
+  `hasXCoordFormula_three` cascade.  **Three of the four `Point` statements lost their `h2` there;
+  the fourth kept it because it uses `h2` independently.**  ⚠️ **This file was not named by
+  `#2245`'s own deliverable list — a binder census is falsified by any round that removes a binder,
+  and a round that removes one owes every census keyed to the old population.**
 * `[DecidableEq _]` is bound by **6**, and they are exactly the statements that mention a `Point`
   or a torsion count: the four `Point` rows,
   `card_torsion_three_triplingGaloisField` and
@@ -458,7 +466,7 @@ end Bridge
 
 /-- **A `3`-torsion point is three times another point over its tripling field.** -/
 theorem exists_nsmul_three_eq_triplingField [DecidableEq (W.triplingField x₀)] [W.IsElliptic]
-    (h2 : (2 : F) ≠ 0) {y₀ : F} (hQ : W.Nonsingular x₀ y₀) :
+    {y₀ : F} (hQ : W.Nonsingular x₀ y₀) :
     ∃ P : (W⁄(W.triplingField x₀)).Point,
       (3 : ℕ) • P = Point.some (algebraMap F (W.triplingField x₀) x₀)
         (algebraMap F (W.triplingField x₀) y₀)
@@ -473,7 +481,7 @@ theorem exists_nsmul_three_eq_triplingField [DecidableEq (W.triplingField x₀)]
       (algebraMap (W.triplingXField x₀) (W.triplingField x₀) (W.triplingXRoot x₀))).eval
       (W.triplingYRoot x₀) = 0 :=
     eval_halvingY_baseChange (eval_triplingYRoot W x₀)
-  refine exists_nsmul_three_eq_some_of_root (algebraMap_ofNat_ne_zero' 2 h2) _
+  refine exists_nsmul_three_eq_some_of_root _
     (equation_of_eval_halvingY_eq_zero hy) ?_
   rw [eval_triplingX] at hr
   linear_combination hr
@@ -604,7 +612,7 @@ theorem nonempty_torsionThree_addEquiv_triplingGaloisField (h2 : (2 : F) ≠ 0) 
 roots.** -/
 theorem exists_nsmul_three_eq_of_roots_baseChange {M L : Type*} [Field M] [Field L] [Algebra F M]
     [Algebra F L] [Algebra M L] [IsScalarTower F M L] [DecidableEq L]
-    (h2 : (2 : F) ≠ 0) {x₀ y₀ : F} (hQ : W.Nonsingular x₀ y₀)
+    {x₀ y₀ : F} (hQ : W.Nonsingular x₀ y₀)
     {r s : M} (hr : ((W⁄M).triplingX (algebraMap F M x₀)).eval r = 0)
     (hs : ((W⁄M).halvingY r).eval s = 0) :
     ∃ P : (W⁄L).Point, (3 : ℕ) • P = Point.some (algebraMap F L x₀) (algebraMap F L y₀)
@@ -615,19 +623,19 @@ theorem exists_nsmul_three_eq_of_roots_baseChange {M L : Type*} [Field M] [Field
   have hsL : ((W⁄L).halvingY (algebraMap M L r)).eval (algebraMap M L s) = 0 := by
     refine eval_halvingY_baseChange ?_
     rw [Polynomial.eval_map, Polynomial.eval₂_at_apply, hs, map_zero]
-  refine exists_nsmul_three_eq_some_of_root (algebraMap_ofNat_ne_zero' 2 h2) _
+  refine exists_nsmul_three_eq_some_of_root _
     (equation_of_eval_halvingY_eq_zero hsL) ?_
   rw [eval_triplingX] at hrL
   linear_combination hrL
 
 /-- **`S` is three times another point over `N`.** -/
-theorem exists_nsmul_three_eq_triplingGaloisField (h2 : (2 : F) ≠ 0) {x₀ y₀ : F}
+theorem exists_nsmul_three_eq_triplingGaloisField {x₀ y₀ : F}
     (hQ : W.Nonsingular x₀ y₀) [DecidableEq (W.triplingGaloisField x₀)] :
     ∃ P : (W⁄(W.triplingGaloisField x₀)).Point,
       (3 : ℕ) • P = Point.some (algebraMap F (W.triplingGaloisField x₀) x₀)
         (algebraMap F (W.triplingGaloisField x₀) y₀)
         ((W.map_nonsingular (algebraMap F (W.triplingGaloisField x₀)).injective x₀ y₀).mpr hQ) :=
-  exists_nsmul_three_eq_of_roots_baseChange h2 hQ (eval_triplingTowerXRoot x₀)
+  exists_nsmul_three_eq_of_roots_baseChange hQ (eval_triplingTowerXRoot x₀)
     (eval_triplingTowerYRoot x₀)
 
 /-! ## The converse: when the tower buys nothing -/
@@ -655,7 +663,7 @@ theorem exists_root_triplingX_of_nsmul_three_eq [DecidableEq F] [W.IsElliptic] (
     · have hΨSq : (W.ΨSq (3 : ℕ)).eval r ≠ 0 := by
         rw [show ((3 : ℕ) : ℤ) = (3 : ℤ) by norm_num, ΨSq_three_eval]
         exact pow_ne_zero 2 hΨ
-      obtain ⟨y', h', hform⟩ := hasXCoordFormula_three h2 h hΨSq
+      obtain ⟨y', h', hform⟩ := hasXCoordFormula_three h hΨSq
       rw [hform, Point.some.injEq] at hP
       refine ⟨r, ?_⟩
       rw [eval_triplingX, ← hP.1, show ((3 : ℕ) : ℤ) = (3 : ℤ) by norm_num, ΨSq_three_eval]
@@ -706,7 +714,7 @@ private theorem exists_nsmul_three_eq_triplingGaloisField_y2AddYEqX3 :
         (((y2AddYEqX3 ℚ).map_nonsingular
           (algebraMap ℚ ((y2AddYEqX3 ℚ).triplingGaloisField 0)).injective 0 0).mpr
           nonsingular_zero_y2AddYEqX3) :=
-  exists_nsmul_three_eq_triplingGaloisField (by norm_num) nonsingular_zero_y2AddYEqX3
+  exists_nsmul_three_eq_triplingGaloisField nonsingular_zero_y2AddYEqX3
 
 /-- **The tripling polynomial of `(0, 0)` on `y² + y = x³` is `X⁹ − 24X⁶ + 3X³ + 1`.** -/
 private lemma eval_triplingX_zero_y2AddYEqX3 (x : ℚ) :
