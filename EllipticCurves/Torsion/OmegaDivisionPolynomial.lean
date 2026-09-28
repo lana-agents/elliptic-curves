@@ -46,6 +46,10 @@ and establish:
 * `ΨSq_two_mul` : its squared form `ΨSq₂ₙ = ΨSqₙ·(preΩₙ²·(if Even n then 1 else Ψ₂Sq))`, whose
   parity factor is the one in `EllipticCurves.Torsion.OmegaOnCurve`'s `HasPreΩSq` — this is the
   lemma that removes `preΩ` from that predicate.
+* `ω₃` : the **`2`-free** `3`-division `y`-coordinate polynomial `ω₃ = preΩ₃·Y + preω₃`, an
+  honest polynomial over every `CommRing`, with `2·ω₃ = ψ₂·preΩ₃ − ψ₃·(a₁Φ₃ + a₃ΨSq₃)` — so the
+  `2` in the `ωₙ/(2ψₙ³)` of `EllipticCurves.Torsion.OmegaCrux` is presentational **at `n = 3`**.
+  Its halving witness is `ω₃Aux`, the one explicitly written polynomial of that section.
 * `Affine.ψ_two_mul_evalEval` : the two preceding lemmas combined and the common factor of `ψ₂`
   cancelled, at a point `(x, y)` of `W` where `ψ₂` does not vanish:
   `ψ₂ₙ(x, y) = ψₙ(x, y)·(if Even n then 1 else ψ₂(x, y))·preΩₙ(x)`.  Equivalently
@@ -122,6 +126,21 @@ lemma preΨ₄_sq : W.preΨ₄ ^ 2 =
     4 * W.Φ 2 ^ 3 + C W.b₂ * W.Φ 2 ^ 2 * W.Ψ₂Sq + 2 * C W.b₄ * W.Φ 2 * W.Ψ₂Sq ^ 2 +
       C W.b₆ * W.Ψ₂Sq ^ 3 := by
   rw [Φ_two, preΨ₄, Ψ₂Sq, b₂, b₄, b₆, b₈]
+  C_simp
+  ring1
+
+/-- **`Ψ₂Sq` split off its square part**: `Ψ₂Sq = (a₁X + a₃)² + 4(X³ + a₂X² + a₄X + a₆)`.
+
+This is the univariate shadow of Mathlib's `C_Ψ₂Sq` (`C Ψ₂Sq = ψ₂² − 4·W.polynomial`): `(a₁X + a₃)`
+is the `Y`-free part of `ψ₂` and `X³ + a₂X² + a₄X + a₆` is the `Y`-free part of `−W.polynomial`.
+
+⚠️ **Index-free, and it lives here rather than beside its consumer for that reason**: it mentions no
+`ωₙ` and no index, so it belongs with `preΨ_five` and `preΨ₄_sq` among the plain `CommRing` facts
+about the division polynomials.  The `n = 3` section below is what uses it, in
+`two_mul_ω₃Factor`. -/
+lemma Ψ₂Sq_eq_sq_add_four_mul : W.Ψ₂Sq =
+    (C W.a₁ * X + C W.a₃) ^ 2 + 4 * (X ^ 3 + C W.a₂ * X ^ 2 + C W.a₄ * X + C W.a₆) := by
+  rw [Ψ₂Sq, b₂, b₄, b₆]
   C_simp
   ring1
 
@@ -238,6 +257,135 @@ lemma ΨSq_two_mul (n : ℤ) :
     ring
   · simp only [if_neg (Int.not_even_iff_odd.mpr hn)]
     ring
+
+/-! ### The `2`-free form of the `y`-coordinate numerator at `n = 3`
+
+The `y`-coordinate of `[n]P` is written `ωₙ/ψₙ³` with
+`ωₙ = ((if Even n then 1 else ψ₂)·preΩₙ − ψₙ·(a₁Φₙ + a₃ΨSqₙ))/2`
+(`EllipticCurves.Torsion.OmegaCrux`, `EllipticCurves.Torsion.OmegaOnCurve`).  ⚠️ **At `n = 3` the
+`2` in that denominator is PRESENTATIONAL and this section proves it**: the bracket is divisible by
+`2` in `ℤ[a₁,…,a₆][X][Y]` identically — no use of the Weierstrass relation, no reduction of `Y²`,
+no localisation — so `ω₃` below is an honest polynomial over **every** commutative ring and the
+tripling `y`-coordinate is `ω₃/ψ₃³` with no `2` in it at all.
+
+⚠️ **The general-`n` statement is OPEN and is deliberately not claimed here.**  The divisibility
+holds at other indices too — verified in exact `ℤ[a₁,…,a₆][X]` arithmetic at `n = 2` and `n = 4`
+(the even shape, whose parity factor is `1`) as well as at `n = 3`, and reported at `n = 2…9` in
+`𝔽₂` in `#2243` — but **that is evidence at finitely many indices and not an induction**: the
+witness below is computed at `n = 3` only, and a general `ωₙ` needs an induction over the `preΨ`
+recurrence that nobody has attempted.  **Read nothing here as a theorem about general `n`.**
+
+⚠️ **The divisibility is a fact about the `aᵢ` and not about the `bᵢ`.**  Modulo `2` one has
+`b₂ ≡ a₁²`, `b₄ ≡ a₁a₃`, `b₆ ≡ a₃²`, hence `Ψ₂Sq ≡ (a₁X + a₃)²` and
+`preΨ₄ ≡ (a₁X + a₃)⁴ + a₁(a₁X + a₃)Ψ₃`; no identity in the `bᵢ` alone sees it, which is why
+`ω₃Aux` below is written in the `aᵢ` and is the one explicit object here.
+
+⚠️ **The obvious attack fails.**  The `Y`-free part of the `n = 3` bracket is
+`a₁(X·preΩ₃ − Φ₃Ψ₃) + a₃(preΩ₃ − Ψ₃³)`, and **neither** bracket is divisible by `2` — each has
+exactly `34` monomials of odd coefficient.  Only the `a₁`/`a₃` combination is, because modulo `2`
+the two satisfy `a₁·P ≡ a₃·Q` rather than `P ≡ Q ≡ 0`.
+-/
+
+/-- The **halving witness** for the `n = 3` `y`-coordinate numerator: the polynomial with
+`2·ω₃Aux = a₁·(a₁X + a₃)·Ψ₃ − (a₁X + a₃)⁴ − preΨ₄` (`two_mul_ω₃Aux`).
+
+⚠️ This is the **only** explicitly written polynomial of this section and everything below is
+assembly: `30` monomials, `deg_X = 6`.  Its existence — that is, the divisibility of that
+right-hand side by `2` over `ℤ[a₁,…,a₆]` — is the whole content of the `2`-free form. -/
+noncomputable def ω₃Aux : R[X] :=
+  -X ^ 6 + C (W.a₁ ^ 2 - 2 * W.a₂) * X ^ 5
+    + C (2 * W.a₁ ^ 2 * W.a₂ - W.a₁ * W.a₃ - 5 * W.a₄) * X ^ 4
+    + C (3 * W.a₁ ^ 2 * W.a₄ + 2 * W.a₁ * W.a₂ * W.a₃ - 5 * W.a₃ ^ 2 - 20 * W.a₆) * X ^ 3
+    + C (W.a₁ ^ 2 * W.a₆ + 8 * W.a₁ * W.a₃ * W.a₄ - 5 * W.a₂ * W.a₃ ^ 2 - 20 * W.a₂ * W.a₆ +
+        5 * W.a₄ ^ 2) * X ^ 2
+    + C (-(2 * W.a₁ ^ 2 * W.a₂ * W.a₆) + 2 * W.a₁ * W.a₂ * W.a₃ * W.a₄ + 8 * W.a₁ * W.a₃ * W.a₆ -
+        2 * W.a₂ ^ 2 * W.a₃ ^ 2 - 8 * W.a₂ ^ 2 * W.a₆ + 2 * W.a₂ * W.a₄ ^ 2 + W.a₃ ^ 2 * W.a₄ +
+        4 * W.a₄ * W.a₆) * X
+    + C (-(W.a₁ ^ 2 * W.a₄ * W.a₆) + W.a₁ * W.a₃ * W.a₄ ^ 2 - W.a₂ * W.a₃ ^ 2 * W.a₄ -
+        4 * W.a₂ * W.a₄ * W.a₆ + 4 * W.a₃ ^ 2 * W.a₆ + W.a₄ ^ 3 + 8 * W.a₆ ^ 2)
+
+/-- **The defining identity of the halving witness**:
+`2·ω₃Aux = a₁·(a₁X + a₃)·Ψ₃ − (a₁X + a₃)⁴ − preΨ₄`, over an arbitrary `CommRing`.
+
+⚠️ No `Field`, no characteristic hypothesis, no `IsElliptic`: this is an identity in the
+`a`-invariants, closed by `ring1` after `C_simp`. -/
+lemma two_mul_ω₃Aux : 2 * W.ω₃Aux =
+    C W.a₁ * (C W.a₁ * X + C W.a₃) * W.Ψ₃ - (C W.a₁ * X + C W.a₃) ^ 4 - W.preΨ₄ := by
+  rw [ω₃Aux, Ψ₃, preΨ₄, b₂, b₄, b₆, b₈]
+  C_simp
+  ring1
+
+/-- The **assembled factor** of the `2`-free `n = 3` numerator: the polynomial with
+`2·ω₃Factor = (a₁X + a₃)·(Ψ₂Sq² − preΨ₄) + a₁·Ψ₂Sq·Ψ₃` (`two_mul_ω₃Factor`).
+
+`60` monomials, `deg_X = 7`, and it is built from `ω₃Aux` rather than written out. -/
+noncomputable def ω₃Factor : R[X] :=
+  (C W.a₁ * X + C W.a₃) ^ 5 + (C W.a₁ * X + C W.a₃) * W.ω₃Aux
+    + 4 * (C W.a₁ * X + C W.a₃) ^ 3 * (X ^ 3 + C W.a₂ * X ^ 2 + C W.a₄ * X + C W.a₆)
+    + 8 * (C W.a₁ * X + C W.a₃) * (X ^ 3 + C W.a₂ * X ^ 2 + C W.a₄ * X + C W.a₆) ^ 2
+    + 2 * C W.a₁ * (X ^ 3 + C W.a₂ * X ^ 2 + C W.a₄ * X + C W.a₆) * W.Ψ₃
+
+/-- **The halved factor identity**: `2·ω₃Factor = (a₁X + a₃)·(Ψ₂Sq² − preΨ₄) + a₁·Ψ₂Sq·Ψ₃`,
+over an arbitrary `CommRing`.
+
+⚠️ The proof is `Ψ₂Sq_eq_sq_add_four_mul` followed by **one** use of `two_mul_ω₃Aux`: after the
+`Ψ₂Sq` split, every term of the difference cancels except `(a₁X + a₃)` times that identity. -/
+lemma two_mul_ω₃Factor : 2 * W.ω₃Factor =
+    (C W.a₁ * X + C W.a₃) * (W.Ψ₂Sq ^ 2 - W.preΨ₄) + C W.a₁ * W.Ψ₂Sq * W.Ψ₃ := by
+  rw [ω₃Factor, Ψ₂Sq_eq_sq_add_four_mul]
+  linear_combination (C W.a₁ * X + C W.a₃) * W.two_mul_ω₃Aux
+
+/-- The **univariate part of the `2`-free `3`-division `y`-coordinate polynomial**: the `Y`-free
+half of `ω₃`, with `2·preω₃ = (a₁X + a₃)·preΩ₃ − a₁·Φ₃·Ψ₃ − a₃·Ψ₃³` (`two_mul_preω₃`).
+
+⚠️ **Not to be confused with `W.preΩ 3`, which stands beside it in that very identity.**
+`preΩ 3 = preΨ₅ − preΨ₄²` is the univariate index-doubling factor; `preω₃` is
+`preΨ₄·ω₃Factor − (a₁X + a₃)·Ψ₃³`.  **They differ by the case of one omega and are different
+polynomials** — `ω₃` below carries the parallel warning against `W.Ω 3`. -/
+noncomputable def preω₃ : R[X] :=
+  W.preΨ₄ * W.ω₃Factor - (C W.a₁ * X + C W.a₃) * W.Ψ₃ ^ 3
+
+/-- **The `Y`-free half of the `n = 3` numerator is divisible by `2`**:
+`2·preω₃ = (a₁X + a₃)·preΩ₃ − a₁·Φ₃·Ψ₃ − a₃·Ψ₃³`, over an arbitrary `CommRing`.
+
+⚠️ This is where `Φ₃ = X·Ψ₃² − preΨ₄·Ψ₂Sq` (Mathlib's `Φ_three`) and `preΨ₅ = preΨ₄·Ψ₂Sq² − Ψ₃³`
+(`preΨ_five`) enter, and after them the difference is `preΨ₄` times `two_mul_ω₃Factor`. -/
+lemma two_mul_preω₃ : 2 * W.preω₃ =
+    (C W.a₁ * X + C W.a₃) * W.preΩ 3 - C W.a₁ * W.Φ 3 * W.Ψ₃ - C W.a₃ * W.Ψ₃ ^ 3 := by
+  rw [preω₃, preΩ_three, preΨ_five, Φ_three]
+  linear_combination W.preΨ₄ * W.two_mul_ω₃Factor
+
+/-- **The `2`-free `3`-division `y`-coordinate polynomial** `ω₃ = preΩ₃·Y + preω₃ ∈ R[X][Y]`,
+an honest polynomial over **every** commutative ring, with
+`2·ω₃ = ψ₂·preΩ₃ − ψ₃·(a₁Φ₃ + a₃ΨSq₃)` — the bracket whose half the tripling `y`-coordinate is
+(`two_mul_ω₃`).
+
+⚠️ Not to be confused with `W.Ω 3`, which is the *index-doubling* bracket
+`ψ₅ψ₂² − ψ₁ψ₄²` and a different polynomial. -/
+noncomputable def ω₃ : R[X][Y] :=
+  C (W.preΩ 3) * Y + C W.preω₃
+
+/-- **The `n = 3` numerator is twice an honest polynomial**:
+`2·ω₃ = ψ₂·preΩ₃ − ψ₃·(a₁Φ₃ + a₃ΨSq₃)`, over an arbitrary `CommRing`.
+
+The right-hand side is the bracket of `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` at
+`n = 3` (odd, so its parity factor is `ψ₂`), written bivariately.  ⚠️ **So the `2` in that
+theorem's `ωₙ/(2ψₙ³)` is presentational at `n = 3`: the quotient is `ω₃/ψ₃³`.** -/
+lemma two_mul_ω₃ : 2 * W.ω₃ =
+    W.ψ 2 * C (W.preΩ 3) - W.ψ 3 * C (C W.a₁ * W.Φ 3 + C W.a₃ * W.ΨSq 3) := by
+  have h := congrArg (C : R[X] → R[X][Y]) W.two_mul_preω₃
+  rw [ω₃, ψ_two, ψ₂, Affine.polynomialY, ψ_three, ΨSq_three]
+  simp only [map_ofNat, C_add, C_sub, C_mul, C_pow] at h ⊢
+  linear_combination h
+
+/-- **`ω₃` at a point**: `ω₃(x, y) = y·preΩ₃(x) + preω₃(x)`.
+
+⚠️ No point of `W` and no hypothesis of any kind: `ω₃` is `Y`-linear by construction, so its
+evaluation is this for **every** pair `(x, y)` of the base ring. -/
+lemma evalEval_ω₃ (x y : R) :
+    W.ω₃.evalEval x y = y * (W.preΩ 3).eval x + W.preω₃.eval x := by
+  simp only [ω₃, evalEval, eval_add, eval_mul, eval_C, Polynomial.eval_C, eval_X]
+  ring
 
 namespace Affine
 
