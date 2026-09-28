@@ -91,7 +91,7 @@ not mention the curve.
 ⚠️ **This is not `det ρ_{E,n} = χ_n`.**  `det_galoisRepModMatrix` identifies two determinants of the
 *same* representation.  The cyclotomic character is the Weil pairing, and the identification
 `galoisDetMod 3 = χ_3` lives in `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter`
-(`#958`), one directory away and downstream of this one.
+(`#958`), one directory away and **import-incomparable** with this one — priced below.
 
 ⚠️ **The clause that used to end that paragraph — *"composing the two is a statement for a
 `FunctionField/` file, not for this one"* — has been acted on and is RETIRED.**  The composition is
@@ -128,6 +128,16 @@ basis is `basisTorsionOfNatCastNeZero` and the representation it carries is
 `EllipticCurves.TateModule.MatrixRepModGeneral`, at every `n > 1` with `(n : F) ≠ 0`.  ⚠️ What keeps
 them out of this file is a **measured import cost and not a gate**: the general basis lives over
 `EllipticCurves.Torsion.StructureGeneral`, which is **+34 modules** here (40 → 74).
+
+⚠️ **The `WeilPairingDeterminantCharacter` pointer earlier in this section is priced the same way,
+and this paragraph is the *"priced below"* it points at.**  That module is **import-incomparable**
+with this one — it is in neither file's import closure, in either direction — so what keeps the
+`import` line out is a cost and not an obstruction: the edge adds **+135 modules** to this file's
+`EllipticCurves` closure (40 → 175), and **+6,189** across all packages (2,824 → 9,013), because it
+pulls the whole `FunctionField/` layer and its `Mathlib` closure through.  Measured at `88a0ed6` by
+the same walk that reproduces the `+34` (40 → 74) above.  ⚠️ **A docstring pointer is not an import
+edge**, and the vocabulary is `EllipticCurves.FunctionField.MulByNDegreeTower`'s, which writes
+**import-incomparable** twice beside a correct *"downstream"*.
 
 **No trace and no characteristic polynomial**:
 `EllipticCurves.TateModule.DeterminantMod` records that `galoisTraceTwo`'s finite-level analogue has
