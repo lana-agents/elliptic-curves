@@ -116,13 +116,14 @@ compensating reason, and this file declares **two theorems and nothing else**.
 ## The import question, answered before anything was written
 
 `#1533` warns that `EllipticCurves.TateModule.FreeGeneral` imports
-`EllipticCurves.TateModule.PrimaryFree`, so any file `PrimaryFree` transitively reaches cannot
-import `FreeGeneral` and the instantiation would need a new leaf. Measured by import-closure walk
-over `^import` lines: `EllipticCurves.TateModule.PrimaryMatrixRep` is **not** in `FreeGeneral`'s
-transitive closure and `FreeGeneral` is **not** in `PrimaryMatrixRep`'s — `PrimaryMatrixRep`'s only
-`EllipticCurves` import is `TateModule.GaloisAction`, which is off the `PrimaryFree` path entirely.
-So this file could have been either a new leaf or an edit in place; it is a **new leaf** because
-that is what keeps the diff additive and out of PR #590's way, not because a cycle forced it.
+`EllipticCurves.TateModule.PrimaryFree`, so any file `PrimaryFree` transitively reaches
+cannot import `FreeGeneral` and the instantiation would need a new leaf. Measured by import-closure
+walk over `^import` lines: `EllipticCurves.TateModule.PrimaryMatrixRep` is **not** in
+`FreeGeneral`'s transitive closure and `FreeGeneral` is **not** in `PrimaryMatrixRep`'s —
+`PrimaryMatrixRep`'s only `EllipticCurves` import is `TateModule.GaloisAction`, which is off the
+`PrimaryFree` path entirely. So this file could have been either a new leaf or an edit in place; it
+is a **new leaf** because that is what keeps the diff additive and out of PR #590's way, not because
+a cycle forced it.
 
 ## Main statements
 

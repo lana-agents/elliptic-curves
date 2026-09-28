@@ -52,9 +52,9 @@ files still naming it as open, and they do not all mean the same statement.
 The closed half is `WeierstrassCurve.hasPreΩSq` (every index, every `CommRing`) and
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (the identity itself, over a field of
 characteristic `≠ 2`, with `ψₙ(x, y) ≠ 0`), both in `EllipticCurves.Torsion.OmegaCrux`; the
-`Φ`/`ΨSq` phrasing is `WeierstrassCurve.hasΨSqDoubling`.  ⚠️ `OmegaCrux` is **not** in this file's
-import closure, so those three names are not resolvable here and nothing below uses them; they are
-cited, not consumed.
+`Φ`/`ΨSq` phrasing is `WeierstrassCurve.hasΨSqDoubling`.  ⚠️ `OmegaCrux` is **not** in this
+file's import closure, so those three names are not resolvable here and nothing below uses them;
+they are cited, not consumed.
 
 ⚠️ **The open half was never `#404`'s.**  `equation_div_of_ψ_ne_zero` says the coordinates lie on
 the curve; it says nothing about `n • P`, and its own docstring records that.  Identifying the two

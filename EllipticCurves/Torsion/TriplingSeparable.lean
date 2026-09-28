@@ -146,8 +146,8 @@ file does contain a table, in `## The cost of the general index`.
 
 ⚠️ **The general index costs exactly one thing and it is an IMPORT, not a missing theorem.**
 `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`) is `#E[n] = n²` at every `n` with
-`(2 : F) ≠ 0` and `(n : F) ≠ 0`, **with no parity hypothesis**, and it was not in the 36-module
-import closure this file had before this round.  Measured at `814e3d9`:
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`, **with no parity hypothesis**, and it was not in the
+36-module import closure this file had before this round.  Measured at `814e3d9`:
 
 | cell | before | after |
 |---|---|---|

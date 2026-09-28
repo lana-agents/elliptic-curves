@@ -30,8 +30,8 @@ conclusions over `ℚ`, with no hypothesis at all, on `y² = x(x + 1)(x + 4)`.
 `card_torsion_two_ne_four_of_char_two` (`EllipticCurves.Torsion.TwoTorsionCharTwo`, downstream of
 this file) proves `#E[2] ≤ 2` over *every* field of characteristic `2` — the count above is
 **false** there, not merely unproved — so no weakening of `(2 : F) ≠ 0` in
-`card_torsion_two_of_splits` or `card_torsion_two` is available.  ⚠️ A docstring pointer is not an
-import edge.
+`card_torsion_two_of_splits` or `card_torsion_two` is available.  ⚠️ A docstring pointer is not
+an import edge.
 
 This is the `n = 2` instance of the structure theorem `E[n] ≅ (ℤ/nℤ)²`
 (Silverman, *AEC*, III.6, Corollary 6.4), and the first actual computation of a torsion group in

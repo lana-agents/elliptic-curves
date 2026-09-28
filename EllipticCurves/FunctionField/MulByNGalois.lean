@@ -105,8 +105,8 @@ docstring explains the trade-off in full and it is `n`-independent; the short fo
 ⚠️ **The `Subfield` degree crossing is not needed and is deliberately not consumed.**  `#1221`'s
 `finrank_mulByNEndoFieldRange_of_smooth` (`EllipticCurves.FunctionField.MulByNInertia`) does cross
 the degree, but the sandwich runs entirely in the `IntermediateField` lattice and the `Subfield`
-form of the equality is `SetLike.ext` off the headline — no second degree computation, and hence no
-import of `MulByNInertia` with its `[IsDedekindDomain W.CoordinateRing]` variable block.  The
+form of the equality is `SetLike.ext` off the headline — no second degree computation, and hence
+no import of `MulByNInertia` with its `[IsDedekindDomain W.CoordinateRing]` variable block.  The
 `Normal` and `IsGalois` crossings go along `mulByNFieldRangeEquivSubfield` (`#1219`) instead.
 
 ## ⚠️ The `Subfield` `Normal`/`IsGalois` crossing, and the `n = 2` / `n = 3` twins

@@ -87,8 +87,8 @@ torsion point should reach for those rather than for `weilPairingMu_galois_of_tr
 `exact weilPairingElt_galois_of_transport σ h₂ htr` replaced by a hypothesis; applying the
 conditional statement would mean re-supplying the rung-5 data the unconditional `F(W⁄F)` theorem
 has already consumed.  ⚠️ **The descent is stated in this file** — it was originally written into
-`…WeilPairingGaloisRoot` alongside its first consumer, which duplicated the proof body across an
-import edge, and `#868` moved it here next to the theorem it generalises.
+`…WeilPairingGaloisRoot` alongside its first consumer, which duplicated the proof body across
+an import edge, and `#868` moved it here next to the theorem it generalises.
 
 Non-degeneracy stays out, and it is **not** Ward-gated — `WeilPairing`'s scope section is the
 canonical account of what it consumes (#769).
