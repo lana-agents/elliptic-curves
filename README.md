@@ -4891,6 +4891,16 @@ own publication.
 
 **At `c6ef24a`: `**`-carrying paragraphs `7295`, of which `2` print a literal `**`, both of them in
 `.lean` docstrings and `0` of them here.** The two are `MulByNFibre:692` and `WardR1:125`.
+⚠️ **That cell is dated and its count is a RATE, not a standing property of the tree**: `2` at
+that ref, `1` at `28d0edb`, **`0`** at `ceb5db9`, and the membership turns over as well as the
+number — both of the two named above are repaired, the `1` between them is neither of them, and its
+own repair is what takes the count to `0`. ⚠️ **The population cell is instrument-dependent and the
+verdict cell is not, which is the measured reason to re-derive rather than to carry**: over four
+readings of the unit — paragraph against whole BLOCK, `commonmark` against the default preset,
+nesting-aware against naive block extraction — the paragraph total at `0a07de7` runs `17425` down
+to `6740`, a **61%** spread, while `2` → `1` → `0` comes back under every one of them.
+**Re-derive the verdict at your own base and key it there**; the `2` is kept here because it is this
+section's worked instance of both mechanisms below, not because it is current.
 ⚠️ **Every `Module:NNN` pointer in this section names the line the construct named beside it sits
 on, never the line its paragraph starts on** — the two keyings differ at **two** of the three rows
 here and coincide at the third, which is how a wrong one survives. Enumerated rather than counted:
@@ -5347,18 +5357,23 @@ unequal elements, so two repairs with no surviving line between them are one reg
 a lower bound on the number of separate edits and says nothing about how many an author made.
 Publish it as a floor or not at all.
 
-⚠️ **The recipe above names four flags and the instrument has seven — and the blank-line drop is
-what makes the other three inert.** The four named are `%B`, the `Co-authored-by:` trailer deleted,
-blank lines dropped, and `str.strip()` on both sides. The three it does not name are whether the
-blank line *preceding* the trailer goes with the trailer, how many of the trailing empty elements a
-`split` leaves are popped, and `difflib`'s own `autojunk`. ⚠️ **Under the blank-line drop the first
-two are exact no-ops.** Three trailing-empty conventions crossed with delete-the-trailer-line and
+⚠️ **The recipe above names four flags and the instrument has EIGHT — and the blank-line drop is
+what makes three of the other four inert.** The four named are `%B`, the `Co-authored-by:` trailer
+deleted, blank lines dropped, and `str.strip()` on both sides. The four it does not name are whether
+the blank line *preceding* the trailer goes with the trailer, how many of the trailing empty
+elements a `split` leaves are popped, `difflib`'s own `autojunk`, and ⚠️ **how the trailer line is
+RECOGNISED, which is the one the drop does NOT reach and has its own paragraph and table below.**
+⚠️ **Under the blank-line drop the first two are exact no-ops, and that is a theorem and not five
+lucky pairs**: each can only ever delete a blank or whitespace-only element and the drop has already
+removed every one of those, so their inertness holds for any body rather than for the ten measured
+here. Three trailing-empty conventions crossed with delete-the-trailer-line and
 delete-it-with-its-blank is six readings, and on each of the five round pairs below those six
 collapse to **one** tuple; with blank lines kept the same six give **4**, **4**, **5**, **4** and
 **6** distinct tuples, moving the line total by up to `3`, the standing count by up to `3` and the
-region floor by `1`. **So the drop is not a preference about layout: it is the flag that makes this
-section's own silences harmless**, and a round that keeps blanks is reporting three flags it never
-published. The five pairs under the recipe as landed, `autojunk=False`, measured at `0a07de7`:
+region floor by `1`. **So the drop is not a preference about layout: it is the flag that makes three
+of this section's four silences harmless**, and a round that keeps blanks is reporting three flags
+it never published. The five pairs under the recipe as landed — `autojunk=False`, matcher
+case-insensitive — measured at `0a07de7`:
 
 | round pair | `N → M` | disturbed | standing | regions (a floor) |
 |---|---|---|---|---|
@@ -5367,6 +5382,22 @@ published. The five pairs under the recipe as landed, `autojunk=False`, measured
 | `#2257` r1 → r2, `7fc3b1e` → `5be6bca` | `166 → 141` | **164** | 2 | 3 |
 | `#2258` r2 → r3, `df059f2` → `63a8ebf` | `243 → 321` | **6** | 237 | 2 |
 | `#2244` r3 → r4, `4fc384e` → `b4e01c8` | `304 → 449` | **20** | 284 | 5 |
+
+⚠️ **The ten heads of that table at full width, because the rule this section states below applies
+to it first.** Five of them — `ad546fa`, `2f38c3f`, `7fc3b1e`, `df059f2`, `4fc384e` — are at the tip
+of none of the **962** refs the remote advertises; all ten fail `git fetch` at seven characters with
+the `fatal: couldn't find remote ref` named three paragraphs below, and the server serves every one
+of them by full object name. ⚠️ **Expanding them inside the table is not the repair** — it puts the
+rows at about `131` columns against this file's hard `0` over-100 budget — so pair them here:
+
+```sh
+git fetch upstream \
+  ad546fa779ac8816665bcf68ca18f74371fe1847 03277bd748d401bc7d117106a5625af11e600ef6 \
+  2f38c3fea0bffb1d34846f2483f595b7c2460d38 60576728fd6dbdc8e601038b8a89905c9b1c1aa6 \
+  7fc3b1eca5ee0f9c8f079c770c7797e6b8a1e736 5be6bca13c7bc1ffcd8ae77655e7c05660a60f35 \
+  df059f2799b4a2858643ea8c2b721258a4fd4c36 63a8ebf5c985044611a9ae057125d2bbd87b6e41 \
+  4fc384e232392c9cc500e6bfcc1a935ee92cc563 b4e01c81b4acd90f31d3e365edfa531bdeff7b75
+```
 
 ⚠️ **`autojunk` is not safe at this layer — it is inert only because of the drop.** Over the same
 thirty cells the flag moves no figure at all under the drop and moves **ten** of them with blanks
@@ -5382,7 +5413,42 @@ this section already publishes is unaffected either way and is what made the fla
 at `0a07de7`, all five of `ac0a053`, `046022d`, `3f61ad7`, `ea5022d` and `3f7d03c` are
 opcode-identical at both settings over `README.md` against their parents, and both published opcodes
 reproduce exactly. **That control is a FILE-layer measurement and does not reach a message body
-whose blanks are kept.**
+whose blanks are kept** — and ⚠️ **it is inert for a sharper reason than the layer it sits at**: on
+all five of those commits the blank IS popular, at multiplicity **241** to **297** against
+thresholds **37** to **46**, so `autojunk` junks it there too. The opcodes hold because each of the
+five is a single **pure insertion**, and junking an element cannot disturb a diff that removes
+nothing.
+
+⚠️ **The eighth flag is the trailer MATCHER, and it is the one the drop does not reach** — a
+trailer line is not blank, so dropping blanks cannot repair a mis-recognised one. The recipe above
+prints the token as `Co-authored-by:` and ⚠️ **the heads this section is measured over do not spell
+it that way**: nine of the ten in the table above carry `Co-Authored-By:` and not one carries the
+lowercase form. Over `main`'s **782** commits at `ceb5db9` the anchored trailer lines split **1563**
+`Co-authored-by:` against **241** `Co-Authored-By:` with **no** third casing, so a reader matching
+the printed token literally is not uniformly wrong but *selectively* wrong, and every one of these
+ten heads that carries a trailer at all sits in the 241-line minority. Varying only the matcher and
+holding the rest of the recipe as landed:
+
+| round pair | case-INSENSITIVE, `N → M` / standing | ⚠️ case-SENSITIVE, `N → M` / standing |
+|---|---|---|
+| `#2251` r4 → r5 | `209 → 322` / **205** | `210 → 323` / **206** |
+| `#2248` r5 → r6 | `261 → 323` / **257** | `262 → 324` / **258** |
+| `#2257` r1 → r2 | `166 → 141` / **2** | `167 → 142` / **3** |
+| `#2258` r2 → r3 | `243 → 321` / **237** | `244 → 322` / **238** |
+| `#2244` r3 → r4 | `304 → 449` / **284** | `304 → 450` / **284** |
+
+⚠️ **That table is 0-for-5 under the literal reading of its own printed token**, and `standing` —
+one of the two figures this section names as verdict-carrying — moves on four of the five.
+⚠️ **The fifth row is not an exception but the tell: `4fc384e` carries no trailer in ANY casing** —
+its `N` end has nothing for a literal matcher to miss, so only its `M` end moves. The matcher acts
+per HEAD and not per pair, which is how one pair comes out half wrong. A trailer-free head is rare
+in the landed corpus, exactly **1** of those 782 commits, and one of these ten round heads is one.
+⚠️ **Resolve the trailer case-insensitively and anchored**: `git interpret-trailers --parse` reads
+`Co-Authored-By:` as a trailer, so the case-insensitive reading is git's own and this section need
+only write it down. The disturbed count is matcher-invariant on all five pairs and the line total
+moves by `1`, so ⚠️ **the `N → M` rule below survives intact** — a `±1` matcher wobble cannot be
+mistaken for the `32` to `93` gap between the blanks-kept and blanks-dropped readings, which is the
+gap that rule exists to catch.
 
 ⚠️ **Neither verdict figure survives a change of reading, and the counterexample is in the table
 above.** On `#2257`'s pair the disturbed count is **164** under the recipe as landed and **172** to
