@@ -5,7 +5,9 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.TwoTorsion
+import Mathlib.Algebra.Field.ZMod
 import Mathlib.Algebra.Polynomial.FieldDivision
+import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 
 /-!
 # The structure of the `3`-torsion subgroup `E[3]`
@@ -84,6 +86,10 @@ uses instead that an element killed by both `2` and `3` is killed by `1`.
 * `WeierstrassCurve.Affine.exists_equation_of_isSquare`: a point of `W` lies above `x` as soon as
   `Ψ₂Sq.eval x` is a square, over any field of characteristic `≠ 2`;
   `WeierstrassCurve.Affine.exists_equation` is the algebraically closed case.
+* `WeierstrassCurve.Affine.exists_equation'`: ⚠️ **the same conclusion as `exists_equation` over an
+  algebraically closed field of *any* characteristic**, characteristic `2` included.  The
+  discriminant route above completes the square and so cannot see that case at all; this one reads
+  the Weierstrass polynomial as a monic quadratic in `Y` and takes a root of it.
 * `WeierstrassCurve.Affine.card_setOf_equation_eq_two_of_isSquare`: exactly two points lie above a
   value of `x` at which `Ψ₂Sq` is a nonzero square, over any field of characteristic `≠ 2`;
   `WeierstrassCurve.Affine.card_setOf_equation_eq_two` is the algebraically closed case.
@@ -99,14 +105,16 @@ uses instead that an element killed by both `2` and `3` is killed by `1`.
 
 **The hypotheses the bullets omit.**  ⚠️ `Y_ne_negY_of_Ψ₃_eval_eq_zero` takes **neither**
 `[W.IsElliptic]` nor a characteristic condition: what it takes is the point-level hypothesis
-`(h : W.Nonsingular x y)`, and the nonsingularity of a point *above* `x` is what stands in there
-for the discriminant.  `derivative_Ψ₃` takes nothing at all.  Every other bullet takes
-`(2 : F) ≠ 0`; `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, `card_roots_Ψ₃_of_splits`, `card_roots_Ψ₃` and the
-four statements about `W.torsion 3` take `[W.IsElliptic]` as well — the last four from
-`section Count`'s `variable` line rather than from their own signatures; from
+`(h : W.Nonsingular x y)`, and the nonsingularity of a point *above* `x` is what stands in there for
+the discriminant.  `derivative_Ψ₃` takes nothing at all.  ⚠️ **And `exists_equation'` is a third
+exception, which is the whole of `#2251`**: it takes `[IsAlgClosed F]` and nothing else, so of the
+**nine** bullets above **three** are free of a characteristic condition and not two.  Every other
+bullet takes `(2 : F) ≠ 0`; `Ψ₂Sq_eval_ne_zero_of_root_Ψ₃`, `card_roots_Ψ₃_of_splits`,
+`card_roots_Ψ₃` and the four statements about `W.torsion 3` take `[W.IsElliptic]` as well — the last
+four from `section Count`'s `variable` line rather than from their own signatures; from
 `card_roots_Ψ₃_of_splits` on there is additionally `(3 : F) ≠ 0`, and the four statements about
-`W.torsion 3` take `[DecidableEq F]`.  The two conditions written out are
-`hsplits : W.Ψ₃.Splits` and `hsq : ∀ x, W.Ψ₃.eval x = 0 → IsSquare (W.Ψ₂Sq.eval x)`.
+`W.torsion 3` take `[DecidableEq F]`.  The two conditions written out are `hsplits : W.Ψ₃.Splits`
+and `hsq : ∀ x, W.Ψ₃.eval x = 0 → IsSquare (W.Ψ₂Sq.eval x)`.
 
 ## What is *not* here
 
@@ -329,11 +337,73 @@ lemma exists_equation_of_isSquare (h2 : (2 : F) ≠ 0) {x : F}
 `Ψ₂Sq.eval x` always has a square root.
 
 The squareness hypothesis of `exists_equation_of_isSquare`, discharged by
-`IsAlgClosed.exists_pow_nat_eq`. -/
+`IsAlgClosed.exists_pow_nat_eq`.
+
+⚠️ **The clause above describes this PROOF and not this STATEMENT, and `exists_equation'` below is
+the same conclusion with no `(2 : F) ≠ 0` at all.**  Nothing in the statement mentions `2`; the
+hypothesis is spent entirely on completing the square.
+
+⚠️ **The hypothesis is kept here rather than deleted, and that is a measurement and not a
+preference.**  The load-bearing sentence is that **five** call sites would be left holding an
+unreferenced binder, and it survives any later edit to the tree; the census behind it is dated
+because a count is not.  ⚠️ **At `e4345ae`**, the exact name `exists_equation` has **13** code
+occurrences (block comments stripped, boundary look-around
+`(?<![A-Za-z0-9_'])exists_equation(?![A-Za-z0-9_'])`) in **10** of the **440** tracked `.lean`
+files — this declaration and **12** call sites.  Of those twelve, **five** spend their own
+`(2 : F) ≠ 0` on nothing but this call — `exists_addX_self_eq`,
+`exists_nsmul_some_of_hasXCoordFormula`, `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`,
+`equation_fibreY` and `fibreY_injective` — so deleting the binder here strands five unreferenced
+ones for the `unusedArguments` linter and starts a cascade through *their* consumers.  ⚠️ **A
+sixth site passes `(by norm_num)` rather than an `h2`** (`EllipticCurves.Torsion.OmegaCrux`, where
+`h2` at the neighbouring lines is an unrelated local).  `#2251` is therefore additive: it adds one
+declaration and changes no other declaration's hypothesis list. -/
 lemma exists_equation [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (x : F) : ∃ y : F, W.Equation x y :=
   exists_equation_of_isSquare h2
     (by obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq (W.Ψ₂Sq.eval x) (n := 2) two_pos
         exact ⟨s, by rw [← hs]; ring⟩)
+
+/-- **Over an algebraically closed field every value of `x` is the `x`-coordinate of a point of `W`,
+in EVERY characteristic** — characteristic `2` included.
+
+⚠️ **This is `exists_equation` above with its `(2 : F) ≠ 0` deleted, and that hypothesis was an
+artefact of the ROUTE and not of the mathematics**: the statement contains no `2`.  The route above
+completes the square, and it spends `h2` twice on the same halving — `exists_equation_of_isSquare`
+*names* its witness `(s - a₁x - a₃)/2`, and `equation_iff_sq` restates `W.Equation x y` as
+`(2y + a₁x + a₃)² = Ψ₂Sq.eval x`.  ⚠️ **That restatement is vacuous when `2 = 0`**: the left-hand
+side becomes `(a₁x + a₃)²` and carries no `y` at all.  So the discriminant argument does not merely
+prove the characteristic-`2` case less cleanly — it cannot express it.
+
+⚠️ **Completing the square is not needed, and nothing new has to be defined.**
+`WeierstrassCurve.Affine.polynomial` is `Y² + C (C a₁ * X + C a₃) * Y - C (X³ + …)`, **monic of
+degree `2` in `Y`**.  Specialising `X := x` leaves a degree-`2` element of `F[Y]`, which has a root
+over an algebraically closed field by `IsAlgClosed.exists_root` whatever the characteristic, and
+`equation_iff'` turns that root into `W.Equation x y`.  No `Ψ₂Sq`, no discriminant, no square root,
+and no import beyond what the `≠ 2` form already needed.
+
+⚠️ **`exists_equation_of_isSquare` keeps its `(2 : F) ≠ 0` and is deliberately not generalised
+alongside this** — checked, not assumed.  It is a *different* statement: a squareness hypothesis
+over an **arbitrary** field with no closure, and its `y` is **named** as `(s - a₁x - a₃)/2`.  Its
+`2` is in the witness it constructs, not in the route to an unnamed one, so it is not an artefact
+there.  Adjacent lines, opposite verdict.
+
+⚠️ **This says only that SOME point lies above `x`.**  It says nothing about how many — that is
+`card_setOf_equation_eq_two`, a genuine characteristic-`≠ 2` count, since in characteristic `2` the
+fibre can be a single point.  It says nothing about `Ψ₂Sq`, and nothing about any other
+`(2 : F) ≠ 0` in this tree.
+
+⚠️ `[IsAlgClosed F]` stays and cannot be weakened to a splitting condition on one polynomial: over
+`ℚ` the curve `y² = x³ - 2` has no point above `x = 0`. -/
+lemma exists_equation' [IsAlgClosed F] (x : F) : ∃ y : F, W.Equation x y := by
+  set p : F[X] := X ^ 2 + C (W.a₁ * x + W.a₃) * X -
+    C (x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆) with hp
+  have hdeg : p.degree ≠ 0 := by
+    have hp2 : p.degree = 2 := by rw [hp]; compute_degree!
+    rw [hp2]; decide
+  obtain ⟨y, hy⟩ := IsAlgClosed.exists_root p hdeg
+  refine ⟨y, ?_⟩
+  rw [equation_iff']
+  rw [hp, IsRoot, eval_sub, eval_add, eval_mul, eval_pow, eval_X, eval_C, eval_C] at hy
+  linear_combination hy
 
 /-- A root of `Ψ₃` is never a root of `Ψ₂Sq`, stated without reference to a point above it.
 
@@ -533,5 +603,117 @@ theorem nonempty_torsionThree_addEquiv [IsAlgClosed F] (h2 : (2 : F) ≠ 0) (h3 
     fun x _ => isSquare_eval_Ψ₂Sq x
 
 end Count
+
+/-! ## Non-vacuity of `exists_equation'`: an algebraically closed field of characteristic `2`
+
+⚠️ **A lemma that drops a hypothesis has said nothing until the hypothesis is shown to have been
+excluding something real.**  The witness below is `y² + xy = x³ + 1` over
+`AlgebraicClosure (ZMod 2)` — the tuple `⟨1, 0, 0, 0, 1⟩`, on the **ordinary** branch `a₁ ≠ 0`.
+⚠️ **It is the same tuple `EllipticCurves.Torsion.TriplingSurjective` uses for the same purpose
+over `ZMod 2` itself** (`curveChar2` there, and its neighbour in
+`EllipticCurves.Torsion.TwoTorsionCharTwo`); that block was read before this one was written, and
+what could not be copied from it is the *proof style*, not the curve — see
+`Δ_curveAlgClosureCharTwo` below.
+
+⚠️ **`exists_equation` cannot be applied here at all.**  It asks for `(2 : F) ≠ 0`, and
+`two_eq_zero_algClosureZModTwo` proves the opposite over this field.  This is not a case the
+`≠ 2` form proves less cleanly; it is a case no use of it can be *stated*.
+
+The closure is genuinely needed and is not being dropped alongside the characteristic hypothesis:
+`exists_equation'` keeps `[IsAlgClosed F]`, and over `ℚ` the curve `y² = x³ - 2` has no point above
+`x = 0`.
+
+⚠️ **Import price of this section, measured on the ELABORATOR and not on a walker** — seed the base
+import list, `run_meta do for m in (← Lean.getEnv).header.moduleNames do IO.println m`, and take
+the added set by `comm -13`.  `Mathlib.Algebra.Field.ZMod` is **`+1`**, added set the printable
+singleton `{Mathlib.Algebra.Field.ZMod}`; `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` is
+**`+0`**, added set **empty**.  The `EllipticCurves`-package closure moves by **`+0`** (8 modules
+including this one).  ⚠️ **No all-packages absolute is quoted, deliberately**: both deltas are
+small enough to enumerate, which is what makes them reproduce, and an absolute would be a fifth
+mutually inconsistent figure carrying no decision.
+
+⚠️ **AND THE `+0` IS NOT REACHED THROUGH `[IsAlgClosed F]`, WHICH IS A DIFFERENT MODULE.**  The
+class lives in `Mathlib.FieldTheory.IsAlgClosed.Basic`, and `…IsAlgClosed.AlgebraicClosure` is a
+strictly later module that imports `Basic` — measured, `Basic`'s own closure does **not** contain
+it.  What makes it free here is that `EllipticCurves.Fixtures` imports
+`Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` **by name**, and this file reaches `Fixtures`
+through `EllipticCurves.Torsion.TwoTorsion`; of `Fixtures`' two imports it is the only carrier.
+⚠️ **The distinction is the whole value of the figure**: a round that reads *"free through the
+typeclass"* will believe the import is still free after `Fixtures` changes, and it will not be. -/
+
+section Nonvacuity
+
+/-- ⚠️ **The base field really is of characteristic `2`** — this is what makes `exists_equation`
+inapplicable and `exists_equation'` the only route to the certificate below.  `ZMod 2` has
+characteristic `2` and the structure map into its algebraic closure is a ring hom between fields,
+hence injective. -/
+private lemma two_eq_zero_algClosureZModTwo : (2 : AlgebraicClosure (ZMod 2)) = 0 := by
+  have : CharP (AlgebraicClosure (ZMod 2)) 2 :=
+    charP_of_injective_algebraMap
+      (algebraMap (ZMod 2) (AlgebraicClosure (ZMod 2))).injective 2
+  exact_mod_cast CharP.cast_eq_zero (AlgebraicClosure (ZMod 2)) 2
+
+/-- `y² + xy = x³ + 1` over `AlgebraicClosure (ZMod 2)` — the tuple `⟨1, 0, 0, 0, 1⟩`.
+
+⚠️ `noncomputable` because `AlgebraicClosure.instField` is, not because anything here is. -/
+private noncomputable def curveAlgClosureCharTwo : Affine (AlgebraicClosure (ZMod 2)) :=
+  ⟨1, 0, 0, 0, 1⟩
+
+/-- `Δ = 1` on that curve, so it is not a singular Weierstrass equation dressed up as a witness:
+`b₂ = 1`, `b₄ = 0`, `b₆ = 4`, `b₈ = 1`, and
+`Δ = -b₂²b₈ - 8b₄³ - 27b₆² + 9b₂b₄b₆ = -1 - 432 = -433`, which is `1 - 217 · 2`.
+
+⚠️ **No form of `decide` is available here**, because `AlgebraicClosure (ZMod 2)` carries no
+`DecidableEq` — so the arithmetic is discharged by `linear_combination` against
+`two_eq_zero_algClosureZModTwo` instead.  ⚠️ **That is what could not be copied from the `ZMod 2`
+witnesses this tuple came from**, where the corresponding certificate is one `decide`: the exact
+analogue of `two_eq_zero_algClosureZModTwo` is
+`EllipticCurves.Torsion.TriplingSurjective`'s `two_eq_zero_zmod_two`, proved `by decide`, and
+`EllipticCurves.Torsion.TwoTorsionCharTwo`'s char-`2` certificates are the same.  ⚠️ **It is the
+`decide` FAMILY and not `decide +kernel` specifically**: over all **440** tracked `.lean` files at
+`e4345ae`, ⚠️ **read with `git show` at that sha and not from a working tree**, with block comments
+stripped and the seed `(?<![A-Za-z0-9_'])decide(?![A-Za-z0-9_'])`, `decide +kernel` is **8**
+occurrences in **6** files against **105** bare ones in **55**; counted *without* stripping, which
+admits the prose mentions, it is **13** in **7** against **152** in **71**.  **Both readings say
+the same thing and neither supports a universal** — so the claim here is only that the recipe those
+files use, in either spelling, is unavailable over this field.
+
+⚠️ **The sha is load-bearing, and it is chosen to PREDATE this paragraph**, which contains the
+tokens it counts: a reading taken on the working tree counts the sentence reporting it.  Unstripped,
+the same seed returns **14** in **8** / **153** in **72** at `217b44e`, the head that first wrote
+this paragraph, **15** in **8** / **158** in **72** at `63bdc44`, the head that revised it, and
+⚠️ **the same 15 in 8 / 158 in 72 at `e154f5f`, the head that revised it again.**
+
+⚠️ **So the figure does NOT move at every round — it moves when the round TOUCHES the token.**  The
+two rounds that added an occurrence moved it; the round that only reprinted numerals left it where
+it was.  ⚠️ **That is the dangerous half and not the safe one: a self-counting census can stand
+still while nothing about it has been made stable**, and its author reads the stillness as safety.
+Only a sha older than the text is stable, which is why one is named above.
+
+The coefficient is `-217` because `Δ - 1 = -433 - 1 = -434 = -217 · 2`; ⚠️ **it is
+`(433 + 1) / 2` and not `(433 - 1) / 2`, which is `216`** — running `-216` leaves `ring` with the
+residual `-2 = 0`. -/
+private lemma Δ_curveAlgClosureCharTwo : curveAlgClosureCharTwo.Δ = 1 := by
+  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    WeierstrassCurve.b₈, curveAlgClosureCharTwo]
+  linear_combination (-217 : AlgebraicClosure (ZMod 2)) * two_eq_zero_algClosureZModTwo
+
+/-- The witness is a genuine elliptic curve. -/
+private instance : curveAlgClosureCharTwo.IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, Δ_curveAlgClosureCharTwo]
+  exact isUnit_one
+
+/-- **Every `x` over `AlgebraicClosure (ZMod 2)` lies under a point of `y² + xy = x³ + 1`.**
+
+⚠️ **This is the statement `exists_equation` cannot be instantiated at**, because its
+`(2 : F) ≠ 0` is false over this field — and it is the whole content of dropping that hypothesis.
+⚠️ Note what it does *not* say: `card_setOf_equation_eq_two` is **not** available here and would
+be false in general, since over this field the fibre above an `x` with `a₁x + a₃ = 0` is a single
+point. -/
+private theorem exists_equation_curveAlgClosureCharTwo (x : AlgebraicClosure (ZMod 2)) :
+    ∃ y, curveAlgClosureCharTwo.Equation x y :=
+  exists_equation' x
+
+end Nonvacuity
 
 end WeierstrassCurve.Affine
