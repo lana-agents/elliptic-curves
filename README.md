@@ -4160,6 +4160,52 @@ git grep -El "$W" 3f61ad7 -- '*.lean' README.md | wc -l                      →
 git grep -Eh "$W" 3f61ad7 -- '*.lean' README.md | grep -Evc "import closure"  →  114
 ```
 
+⚠️ **`ten` counts ATOMS and the command prints THIRTEEN alternatives; the reading that reconciles
+them is below, and stating it here is this section carrying out its own instruction.** The triage
+further down already convicts the gap — *"the seed is printed as thirteen alternatives and described
+above as ten in two places"*, and *"if a count of its atoms is offered, say what an atom is"* — and
+supplies the only arithmetic that gets from thirteen to ten: **drop `import closure`, which is the
+narrow key and not a widening atom, and count the three `imports this …` spellings as one atom.**
+`13 − 1 − 2 = 10`. ⚠️ **Neither step was written at the site offering the count, which is here, so a
+re-implementer counting alternatives as a check got thirteen and could not tell which reading was
+wrong.** ⚠️ **Do not "repair" either `ten` to a `thirteen`**: the count is correct under this
+definition, and the triage paragraph below quotes both `ten` sites verbatim, so changing them
+falsifies it.
+
+The second step is measured and not merely stipulated. `.lean` only, at `6f051d4`:
+`imports this file` **39** rows in **30** files, `imports this one` **12** in **10**, and ⚠️
+`imports this module` **0** in **0** — so the three spellings are **two** in practice, and were two
+at `ac462ef` as well.
+
+⚠️ **The pathspec is the seed's other degree of freedom, and a figure quoting this seed must name
+it.** The command above walks `'*.lean' README.md`; the pair the seed is quoted for elsewhere on
+this board is `.lean` **only**. Both readings, at `6f051d4`:
+
+| pathspec | wide seed | narrow `"import closure"` key |
+| --- | --- | --- |
+| `-- '*.lean' README.md`, as printed above | **257** in **118** | **94** in **63** |
+| ⚠️ `-- '*.lean'` alone | ⚠️ **220** in **117** | ⚠️ **83** in **62** |
+
+⚠️ **`220 / 117` beside `83 / 62` is the `.lean`-only reading, and both pairs are unmoved at
+`e4345ae` and `6f051d4`** — two shas a fresh clone can resolve, two seeds, every cell. They are also
+unmoved at two superseded `#2248` / `#2254` round heads,
+`9265c0f632293d6919f2b29c7656ebdfcdc8cce3` and `153312c85bb441ba95be549f2aa0aeb6ed33c8eb`, given at
+full width because ⚠️ **`git ls-remote upstream` advertises neither and neither is an ancestor of
+`main`, so a seven-hex abbreviation of either expands from nothing.** At `3f61ad7` the same
+`.lean`-only reading is `176 / 100` and `64 / 47`, so the stability is across this pair of shas and
+is not a property of the seed. **What a re-runner of this pair gets wrong is therefore the pathspec
+and not the sha** — the opposite of what the *"run it at a ref"* warning above prepares them for:
+that warning is about this section sitting inside its own population, and dropping `README.md` is
+exactly how a quoter steps back out of it.
+
+⚠️ **This round is inside that population and moves it, which is why every figure above is keyed to
+a ref and none to `HEAD`.** The paragraphs added here carry **4** further rows of the wide seed and
+**2** of the narrow key, taking this page from **37** to **41** and from **11** to **13**, and the
+`README.md`-inclusive reading from `257 / 118` to `261 / 118` and from `94 / 63` to `96 / 63` — the
+file counts unmoved, since this page was already a member of both. ⚠️ **The `.lean`-only reading
+does not move at all**: `220 / 117` and `83 / 62` are what they were, which is the sharpest argument
+for that pathspec being the one a figure about *docstrings* should quote.
+
 **114 of those are outside the narrow key and none has been read**; the triage below is over the
 64 and says nothing about them. ⚠️ **Print the alternation, not a prose list of its atoms.** Ten
 quoted phrases in running prose read as a recogniser and are not one: drop a single atom in
@@ -5504,6 +5550,49 @@ and the commit that adds that edge is usually the commit that announces it:
 clause and announced the `MulByNXCoordFormula` edge that put it there in the next, in one diff.
 **Before adding an `import`, re-run every closure claim in the file you are adding it to** — the
 one you falsify is most often in the paragraph you are editing.
+
+⚠️ **A cross-file word-identity figure has THREE degrees of freedom — the SPAN, the NORMALISATION
+and the REF — and a number naming fewer than all three is not re-runnable.** Two docstrings
+stating the same convention in the same words invite a character count as evidence, and
+`6f051d4`'s own message publishes one: *"Both files now read, word-identically (**699**
+characters, checked as a string equality and not by eye)"*, printed above a block quote. **All
+four readings of that claim are exact** at `6f051d4`, over `Torsion/NsmulYCoord.lean` and
+`Torsion/NsmulYPeriodic.lean`, whitespace-normalised by `re.sub(r'\s+', ' ', s)` except where
+stated:
+
+| reading | length |
+| --- | --- |
+| the block quote exactly as printed beneath the figure | **408** |
+| ⚠️ published span: `A count named for *another* module…` → `…which needs no build.` | **699** |
+| ⚠️ the true longest common substring of the two files | ⚠️ **866** |
+| the same longest common substring, raw, with no normalisation | **294** |
+
+⚠️ **So the `699` is exact for a span beginning two sentences before the quote printed under it**,
+its normalisation is named nowhere, and the identity it reports is in fact **narrower** than the
+one that holds — the common run is `866`. A re-runner who measures what is printed gets `408` and
+reads the figure as wrong; one who measures raw gets `294`, because the two files wrap the
+paragraph differently. ⚠️ **The two docstrings are not the defect and are not changed here: the
+identity is real and both reviews certified it.**
+
+⚠️ **And the REF is a degree of freedom in its own right, stated here because the tree PROVES it
+and not because it is prudent.** The same span, the same normalisation and the same two files, at
+`#2254`'s two round heads:
+
+| ref | published span | normalised longest common substring | the same, raw |
+| --- | --- | --- | --- |
+| `153312c85bb441ba95be549f2aa0aeb6ed33c8eb` — `#2254` round 1 | **516** | **683** | **687** |
+| `6f051d4fd44516ee225703b66ccb3b4b01781ded` — `main`, round 2 | **699** | **866** | **294** |
+
+⚠️ **`git diff --numstat` over the two files between those refs is `9 / 7` in `NsmulYCoord.lean`
+and `4 / 2` in `NsmulYPeriodic.lean` — 13 lines added and 9 removed — and that edit is the whole
+of `516 → 699`.** ⚠️ **The raw column is the sharper cell: at round 1 raw and normalised agree to
+within four characters, `687` against `683`, because the two files wrapped the paragraph the same
+way; at `main` raw COLLAPSES to `294` while normalised GROWS to `866`.** So the `294` in the table
+above is not a standing property of the pair — it is an artefact of one round's rewrap, and it
+moved in the very round that made the identity wider. **The rule, then: such a figure carries its
+endpoints, its normalisation AND its ref, or it stays a review-time measurement** — and ⚠️ **a
+landing message cannot be amended, so the durable home for one is this page and not a commit
+body** (`#2258`).
 
 **The gate, for a branch author.** `#1972`'s splice test is defined on `README.md` and cannot reach
 this layer: a `.lean` closure figure is not a block that can be spliced into another page, it is a
