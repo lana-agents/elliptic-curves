@@ -148,8 +148,8 @@ under `TateModule/`: nothing under `TateModule/` imports anything under `Functio
 `EllipticCurves.TateModule.DeterminantMod` records that this is deliberate.  Grepped in both
 directions at `7ba33ed`, the head this file was written against:
 `grep -rn 'import EllipticCurves.FunctionField' EllipticCurves/TateModule/` returns **0** lines, and
-this file's own imports cross the other way only.  It is a **leaf**; nothing under `TateModule/` may
-import it.
+this file's own imports cross the other way only.  It is a **leaf**; nothing under `TateModule/`
+may import it.
 
 ## Explicitly out of scope
 

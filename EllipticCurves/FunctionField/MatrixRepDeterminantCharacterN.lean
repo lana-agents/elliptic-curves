@@ -143,9 +143,9 @@ open Classical in
 ⚠️ This is `exists_galoisRepModMatrix_of_natCast_ne_zero`
 (`EllipticCurves.TateModule.MatrixRepModGeneral`) with its **fourth conjunct**
 `det (ρ σ) = galoisDetMod n σ` replaced by `det (ρ σ) = χ_n(σ)`, and it is stated in the same
-pointwise shape so that the two are read side by side.  ⚠️ **It is not proved from it and does not
-import it**: the basis here is `basisTorsionNOfPairing` at a primitive pair, which is why `1 < n` is
-absent.  The module docstring measures the two closures.
+pointwise shape so that the two are read side by side.  ⚠️ **It is not proved from it and does
+not import it**: the basis here is `basisTorsionNOfPairing` at a primitive pair, which is why
+`1 < n` is absent.  The module docstring measures the two closures.
 
 It is the statement for a consumer that has no basis in hand, and it is what makes this a theorem
 about the curve rather than about a chosen basis. -/
