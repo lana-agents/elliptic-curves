@@ -343,7 +343,7 @@ theorem exists_nsmul_divisor_eq_divisor_mulByTwoEndo (h2 : (2 : F) ≠ 0) {x y :
     (hfdiv : divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ)) :
     ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧ 2 • divisor W g₀ = divisor W (mulByTwoEndo h2 f) := by
   classical
-  obtain ⟨P, hP⟩ := exists_nsmul_two_eq h2 (Point.some x y h)
+  obtain ⟨P, hP⟩ := exists_nsmul_two_eq (Point.some x y h)
   obtain ⟨g, hg, hgdiv⟩ :=
     exists_divisor_eq_affinePart_pullbackDivisorTwo h2 hP (mem_torsion_iff.mp hS)
   refine ⟨g, hg, ?_⟩

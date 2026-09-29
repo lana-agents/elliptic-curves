@@ -212,7 +212,7 @@ private theorem exists_weilPairingElt_self_eq_one_of_isAlgClosed_two_of_general 
         ∃ g : W.FunctionField, g ≠ 0 ∧
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
-  let ⟨_, hP⟩ := exists_nsmul_two_eq h2 (Point.some x₂ y₂ h)
+  let ⟨_, hP⟩ := exists_nsmul_two_eq (Point.some x₂ y₂ h)
   exists_weilPairingElt_self_eq_one_of_card_two h2 (card_torsion_two h2) h htors hP
 
 open Classical in
@@ -226,7 +226,7 @@ private theorem exists_weilPairingMu_self_eq_one_of_isAlgClosed_two_of_general (
         ∃ g : W.FunctionField, g ≠ 0 ∧
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ 2 = mulByTwoEndo h2 f) ∧
           ∃ hpow : weilPairingElt h.left g ^ n = 1, weilPairingMu h.left hpow = 1 :=
-  let ⟨_, hP⟩ := exists_nsmul_two_eq h2 (Point.some x₂ y₂ h)
+  let ⟨_, hP⟩ := exists_nsmul_two_eq (Point.some x₂ y₂ h)
   exists_weilPairingMu_self_eq_one_of_card_two h2 (card_torsion_two h2) h htors hP n
 
 end Recovery

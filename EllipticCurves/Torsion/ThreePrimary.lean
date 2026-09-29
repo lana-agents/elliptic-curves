@@ -118,8 +118,10 @@ conclusion.
 
 ## ⚠️ Where `h3` enters, measured
 
-`nsmul_three_surjective` carries `(2 : F) ≠ 0` and **not** `(3 : F) ≠ 0`, so the only route by
-which `h3` reaches `card_torsion_three_pow` is the sharp count `#E[3] = 9`. Deleting
+⚠️ **`nsmul_three_surjective` carries NEITHER as of `#2253`**, this sentence having read *"carries
+`(2 : F) ≠ 0` and **not** `(3 : F) ≠ 0`"*, so the only route by which `h3` reaches
+`card_torsion_three_pow` is the sharp count `#E[3] = 9` — and so, now, is the only route by which
+`h2` reaches it. Deleting
 `card_torsion_three h2 h3` from the rewrite chain of `card_torsion_mul_three`, and changing nothing
 else, leaves
 
@@ -302,14 +304,14 @@ tree; the statement here holds for every `n`, and it is precisely the case `3 �
 coprimality — that makes the `3`-primary tower work. -/
 theorem card_torsion_mul_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (n : ℕ) :
     Nat.card (W.torsion (n * 3)) = 9 * Nat.card (W.torsion n) := by
-  rw [card_torsion_mul_of_surjective (nsmul_three_surjective h2) n, card_torsion_three h2 h3]
+  rw [card_torsion_mul_of_surjective nsmul_three_surjective n, card_torsion_three h2 h3]
 
 /-- **The `3`-primary tower: `#E[3^k] = 9^k`.** By induction from `#E[1] = 1`, each step
 multiplying by `#E[3] = 9`. Since `9 ^ k = (3 ^ k) ^ 2`, this says `E[3^k]` attains the bound
 `#E[n] ≤ n²`. -/
 theorem card_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Nat.card (W.torsion (3 ^ k)) = 9 ^ k := by
-  rw [card_torsion_pow_of_surjective (nsmul_three_surjective h2) k, card_torsion_three h2 h3]
+  rw [card_torsion_pow_of_surjective nsmul_three_surjective k, card_torsion_three h2 h3]
 
 /-- `E[3^k]` is finite. This is read off the count `#E[3^k] = 9^k ≠ 0` rather than from the
 `3`-smooth finiteness of `EllipticCurves.Torsion.Multiplicative`, matching how
@@ -317,7 +319,7 @@ theorem card_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : �
 carried by the count. -/
 theorem finite_torsion_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Finite (W.torsion (3 ^ k)) :=
-  finite_torsion_pow three_ne_zero (nsmul_three_surjective h2)
+  finite_torsion_pow three_ne_zero nsmul_three_surjective
     (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-- **`#E[3^k] = 3^k · 3^k`**, the same count as `card_torsion_three_pow` in the shape every
@@ -330,7 +332,7 @@ each call site; `EllipticCurves.Torsion.TwoPrimary.card_torsion_two_pow_mul_self
 instance. -/
 theorem card_torsion_three_pow_mul_self (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k :=
-  card_torsion_pow_mul_self (nsmul_three_surjective h2)
+  card_torsion_pow_mul_self nsmul_three_surjective
     (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-! ## The structure of `E[3^k]` -/
@@ -350,7 +352,7 @@ seen from the inside.** At general prime `p` the split is `q = p` (the counting 
 inputs, and primality is needed for nothing else in the tower. -/
 theorem nonempty_torsionThreePow_addEquiv (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (k : ℕ) :
     Nonempty (W.torsion (3 ^ k) ≃+ ZMod (3 ^ k) × ZMod (3 ^ k)) :=
-  nonempty_torsionPow_addEquiv Nat.prime_three (nsmul_three_surjective h2)
+  nonempty_torsionPow_addEquiv Nat.prime_three nsmul_three_surjective
     (by rw [card_torsion_three h2 h3]; norm_num) k
 
 /-! ## Named instances -/

@@ -192,7 +192,9 @@ variable {ℓ : ℕ} [Fact ℓ.Prime]
 ⚠️ **No `(ℓ : F) ≠ 0`**: this is a statement about lifting along the tower, and
 `nsmul_surjective_of_two_ne_zero` asks only that `ℓ ≠ 0` and `(2 : F) ≠ 0`. It is the general twin
 of `proj_three_surjective` (`EllipticCurves.TateModule.FreeThree`), which makes the same
-observation at `ℓ = 3`. -/
+observation at `ℓ = 3` — ⚠️ **and which as of `#2253` asks for nothing at all, so the twinning is
+now up to one hypothesis rather than exact: the general route still goes through
+`hasXCoordFormula_of_two_ne_zero`, which is `#2250` and open.** -/
 theorem proj_surjective_of_two_ne_zero (h2 : (2 : F) ≠ 0) (k : ℕ) :
     Function.Surjective (proj (W := W) (ℓ := ℓ) k) :=
   proj_surjective (nsmul_surjective_of_two_ne_zero h2 (Fact.out : ℓ.Prime).pos.ne') k

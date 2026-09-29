@@ -600,7 +600,7 @@ theorem card_fibre_comapProjPointThree_projPointOfPoint (h2 : (2 : F) ≠ 0) (h3
   classical
   haveI := W.finite_torsion_three (F := F) h3
   haveI := Fintype.ofFinite (W.torsion 3)
-  obtain ⟨P, hP⟩ := exists_nsmul_three_eq h2 S
+  obtain ⟨P, hP⟩ := exists_nsmul_three_eq S
   refine le_antisymm (card_fibre_comapProjPointThree_le_nine h2 h3 _) ?_
   have hcard : Fintype.card (W.torsion 3) = 9 := by
     rw [← Nat.card_eq_fintype_card, card_torsion_three h2 h3]

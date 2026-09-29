@@ -464,35 +464,36 @@ theorem hasXCoordFormula_three : HasXCoordFormula W 3 := by
     exact hX
 
 /-- **Every `x`-coordinate is the `x`-coordinate of a tripled point.**  Over an algebraically closed
-field of characteristic `≠ 2`, for every `x₀` there is a point `P` with `3 • P` affine of
-`x`-coordinate `x₀`.
+field — ⚠️ **in every characteristic**, since `#2253` — for every `x₀` there is a point `P` with
+`3 • P` affine of `x`-coordinate `x₀`.
 
 The two inputs above, fed to `exists_nsmul_some_of_hasXCoordFormula`. -/
-theorem exists_nsmul_three_some [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x₀ : F) :
+theorem exists_nsmul_three_some [IsAlgClosed F] [W.IsElliptic] (x₀ : F) :
     ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), (3 : ℕ) • P = Point.some x₀ y' h' :=
-  exists_nsmul_some_of_hasXCoordFormula h2 (by norm_num)
+  exists_nsmul_some_of_hasXCoordFormula (by norm_num)
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
     hasXCoordFormula_three x₀
 
-/-- **Multiplication by `3` is surjective on `E(F̄)`.**  Over an algebraically closed field of
-characteristic `≠ 2`, every point of an elliptic curve is three times another point.
+/-- **Multiplication by `3` is surjective on `E(F̄)`.**  Over an algebraically closed field —
+⚠️ **in every characteristic**, since `#2253` — every point of an elliptic curve is three times
+another point.
 
 The two inputs above, fed to `exists_nsmul_eq_of_hasXCoordFormula`.  There the point at infinity is
 `3 • 0`, an affine `Q` is matched by `exists_nsmul_some_of_hasXCoordFormula`, which pins the
 `x`-coordinate, and the sign ambiguity `3P = ±Q` that `Point.X_eq_iff` leaves is absorbed by
 `−P`. -/
-theorem exists_nsmul_three_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (Q : W.Point) :
+theorem exists_nsmul_three_eq [IsAlgClosed F] [W.IsElliptic] (Q : W.Point) :
     ∃ P : W.Point, (3 : ℕ) • P = Q :=
-  exists_nsmul_eq_of_hasXCoordFormula h2 (by norm_num)
+  exists_nsmul_eq_of_hasXCoordFormula (by norm_num)
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_three_ne_zero_of_root_ΨSq)
     hasXCoordFormula_three Q
 
 /-- **Multiplication by `3` is surjective on `E(F̄)`**, stated as `Function.Surjective` — the
 `n = 3` analogue of `nsmul_two_surjective`, and the form `Torsion/Divisible.lean`'s
 `torsionSmulHom_surjective` consumes. -/
-theorem nsmul_three_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
+theorem nsmul_three_surjective [IsAlgClosed F] [W.IsElliptic] :
     Function.Surjective fun P : W.Point => (3 : ℕ) • P :=
-  exists_nsmul_three_eq h2
+  exists_nsmul_three_eq
 
 /-! ## Tripling a named point over an arbitrary field -/
 

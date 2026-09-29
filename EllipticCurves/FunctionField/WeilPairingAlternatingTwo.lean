@@ -27,7 +27,7 @@ an algebraically closed field that is simply false: `P` *is* rational, by the me
 
 ```
 Torsion/DoublingSurjective.lean
-exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (Q : W.Point) :
+exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (Q : W.Point) :
     ∃ P : W.Point, 2 • P = Q
 ```
 
@@ -92,7 +92,8 @@ is `weilPairingElt_eq_one_iff_translateEndo_fixed`, i.e. `e_2(T, T) = 1`.
 
 * `[IsAlgClosed F]` — in exactly one place, `exists_equation_nsmul_two_eq`, to produce `P`.  The
   core lemma does not have it.
-* `(2 : F) ≠ 0` — for `mulByTwoEndo` and for `exists_nsmul_two_eq`.
+* `(2 : F) ≠ 0` — ⚠️ **for `mulByTwoEndo` ALONE as of `#2253`**, where this bullet used to name
+  `exists_nsmul_two_eq` beside it; that lemma carries no hypothesis on `2` any more.
 * `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.
 * `[IsDedekindDomain W.CoordinateRing]` — a binder in the variable block below, so `#check` does
   show it on the headline, but it is *not* a real hypothesis and is not `#396`: it is a **global
@@ -123,8 +124,10 @@ Only `#692`'s divisor half remains open, and nothing on the alternating front wa
 * `n = 3` or general `n` — but **not** for the reason this list gave when the file was written.
   The `n = 3` producer exists: `nsmul_three_surjective` (`Torsion/TriplingSurjective.lean`, `#690`)
   supplies a point `P` with `[3]P = T`, and it costs no more hypotheses than the `n = 2` one, since
-  `#690` found that `(3 : F) ≠ 0` is not needed — only `h2 : (2 : F) ≠ 0`, exactly as
-  `exists_nsmul_two_eq` above.  Step B at `n = 3` is merged as well
+  `#690` found that `(3 : F) ≠ 0` is not needed.  ⚠️ **As of `#2253` it costs NONE: this clause used
+  to end *"only `h2 : (2 : F) ≠ 0`, exactly as `exists_nsmul_two_eq` above"*, and both of those
+  lemmas have lost that binder — the equality of cost survives the landing and the value does
+  not.**  Step B at `n = 3` is merged as well
   (`WeilPairingTelescopeThree`, `#712`).  ⚠️ **And so is the rest of it.**  This bullet used to end
   *"What is genuinely left at `n = 3` is step A, the general commutation `τ_P∗ ∘ [3]∗ = [3]∗ ∘ τ_T∗`
   for `[3]P = T` (`#713`), plus `hprin` — the same `#418` gate as at `n = 2`, unchanged and blocking
@@ -192,11 +195,11 @@ open Classical in
 `Point.some xP yP _` and carries a `W.Equation` — which is the datum `translateEndo` is indexed by.
 
 This is the whole of the `[IsAlgClosed F]` content of this file. -/
-theorem exists_equation_nsmul_two_eq [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+theorem exists_equation_nsmul_two_eq [IsAlgClosed F]
     (h : W.Nonsingular x₂ y₂) :
     ∃ (xP yP : F) (hP : W.Equation xP yP),
       torsionPoint hP + torsionPoint hP = Point.some x₂ y₂ h := by
-  obtain ⟨P, hP⟩ := exists_nsmul_two_eq h2 (Point.some x₂ y₂ h)
+  obtain ⟨P, hP⟩ := exists_nsmul_two_eq (Point.some x₂ y₂ h)
   rcases P with _ | ⟨xP, yP, hns⟩
   · have hz : (Point.zero : W.Point) = 0 := rfl
     rw [hz, smul_zero] at hP
@@ -320,7 +323,7 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_two [IsAlgClosed F] (h2 :
   obtain ⟨c₀, hc₀, hueq⟩ := isUnit_iff_exists_eq_algebraMap.mp u.isUnit
   have hsq : algebraMap F W.FunctionField c₀ * g ^ 2 = mulByTwoEndo h2 f := by
     rw [← hu, Algebra.smul_def, hueq, ← IsScalarTower.algebraMap_apply]
-  obtain ⟨xP, yP, hP, hdouble⟩ := exists_equation_nsmul_two_eq h2 h
+  obtain ⟨xP, yP, hP, hdouble⟩ := exists_equation_nsmul_two_eq h
   have htinv : translateEndo h.left g = g :=
     translateEndo_eq_self_of_mul_algebraMap_sq_eq h2 hP h.left
       (translatePoint_add hP hP h.left hdouble) hg hc hc₀ htel hsq
@@ -368,7 +371,7 @@ open Classical in
 /-- The halving point exists and is affine. -/
 example : ∃ (xP yP : AlgClosedQ) (hP : (y2EqX3SubX AlgClosedQ).Equation xP yP),
     torsionPoint hP + torsionPoint hP = Point.some (0 : AlgClosedQ) 0 exampleNonsingular :=
-  exists_equation_nsmul_two_eq (by norm_num) exampleNonsingular
+  exists_equation_nsmul_two_eq exampleNonsingular
 
 end Nonvacuity
 

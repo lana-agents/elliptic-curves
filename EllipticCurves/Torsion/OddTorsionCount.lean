@@ -135,19 +135,21 @@ theorem ΨSq_natCast_eq_sq_of_odd {n : ℕ} (hn : Odd n) : W.ΨSq (n : ℤ) = W.
 
 /-! ### A root of `preΨₙ` is not a root of `Ψ₂Sq`, at odd `n` -/
 
-/-- **With `(2 : F) ≠ 0`, at an odd index, a root of `preΨₙ` is not a root of `Ψ₂Sq`.**
+/-- **At an odd index, a root of `preΨₙ` is not a root of `Ψ₂Sq`.**  ⚠️ **In every
+characteristic**: the `(2 : F) ≠ 0` this took until `#2253` was spent entirely on getting a point
+above `x`, and `exists_equation'` does that over `F̄` with no hypothesis on `2` at all.
 
-A common root carries a point `(x, y)` of `W` (`exists_equation`) with `ψ₂(x, y) = 0` — a
+A common root carries a point `(x, y)` of `W` (`exists_equation'`) with `ψ₂(x, y) = 0` — a
 `2`-torsion point — and with `ψₙ(x, y)² = ΨSqₙ(x) = preΨₙ(x)² = 0`.  But `ψ` does not vanish at an
 odd index at a `2`-torsion point
 (`WeierstrassCurve.Affine.ψ_odd_evalEval_ne_zero_of_ψ_two_evalEval_eq_zero`).
 
 ⚠️ This is the step that makes every `y`-fibre over the support a genuine *pair*, and so the step
 that turns the counting inequality of `EllipticCurves.Torsion.XSupport` into an equality. -/
-theorem eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+theorem eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic]
     {n : ℕ} (hn : Odd n) {x : F} (hx : (W.preΨ (n : ℤ)).eval x = 0) : W.Ψ₂Sq.eval x ≠ 0 := by
   intro hΨ₂
-  obtain ⟨y, hxy⟩ := exists_equation (W := W) h2 x
+  obtain ⟨y, hxy⟩ := exists_equation' (W := W) x
   have ht : (W.ψ 2).evalEval x y = 0 :=
     pow_eq_zero_iff (n := 2) (by norm_num) |>.mp (by rw [ψ_sq_evalEval hxy 2, ΨSq_two, hΨ₂])
   have hψn : (W.ψ (n : ℤ)).evalEval x y = 0 :=
@@ -220,27 +222,27 @@ noncomputable def fibreY (x : F) : Bool → F
   | false => W.negY x (W.someY x)
 
 omit [DecidableEq F] [WeierstrassCurve.IsElliptic W] in
-lemma equation_fibreY (h2 : (2 : F) ≠ 0) (x : F) (b : Bool) : W.Equation x (W.fibreY x b) := by
-  obtain ⟨y, hy⟩ := exists_equation (W := W) h2 x
+lemma equation_fibreY (x : F) (b : Bool) : W.Equation x (W.fibreY x b) := by
+  obtain ⟨y, hy⟩ := exists_equation' (W := W) x
   cases b
   · exact (W.equation_neg x (W.someY x)).mpr (W.equation_someY hy)
   · exact W.equation_someY hy
 
 omit [DecidableEq F] in
-lemma nonsingular_fibreY (h2 : (2 : F) ≠ 0) (x : F) (b : Bool) :
+lemma nonsingular_fibreY (x : F) (b : Bool) :
     W.Nonsingular x (W.fibreY x b) :=
-  equation_iff_nonsingular.mp (W.equation_fibreY h2 x b)
+  equation_iff_nonsingular.mp (W.equation_fibreY x b)
 
 omit [DecidableEq F] [WeierstrassCurve.IsElliptic W] in
 /-- **The two points above a root of `preΨₙ` are distinct**, because the root is not a root of
 `Ψ₂Sq`: `someY x = negY x (someY x)` says exactly `ψ₂ = 2y + a₁x + a₃` vanishes there. -/
-lemma fibreY_injective (h2 : (2 : F) ≠ 0) {x : F} (hΨ : W.Ψ₂Sq.eval x ≠ 0) :
+lemma fibreY_injective {x : F} (hΨ : W.Ψ₂Sq.eval x ≠ 0) :
     Function.Injective (W.fibreY x) := by
   have hne : W.someY x ≠ W.negY x (W.someY x) := by
     intro h
     refine hΨ ?_
     have hxy : W.Equation x (W.someY x) := by
-      obtain ⟨y, hy⟩ := exists_equation (W := W) h2 x
+      obtain ⟨y, hy⟩ := exists_equation' (W := W) x
       exact W.equation_someY hy
     have ht : (W.ψ 2).evalEval x (W.someY x) = 0 := by
       rw [ψ_two_evalEval]
@@ -266,7 +268,7 @@ noncomputable def torsionOddOfRoot (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : Odd n) :
     Option ({x : F // (W.preΨ (n : ℤ)).eval x = 0} × Bool) → W.torsion n
   | none => 0
   | some (x, b) =>
-      ⟨Point.some x.1 (W.fibreY x.1 b) (W.nonsingular_fibreY h2 x.1 b),
+      ⟨Point.some x.1 (W.fibreY x.1 b) (W.nonsingular_fibreY x.1 b),
         mem_torsion_iff.mpr ((nsmul_eq_zero_iff_eval_preΨ_eq_zero h2 hn _).mpr x.2)⟩
 
 lemma torsionOddOfRoot_bijective (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : Odd n) :
@@ -280,7 +282,7 @@ lemma torsionOddOfRoot_bijective (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : Odd n) :
       rw [torsionOddOfRoot, torsionOddOfRoot, Point.some.injEq] at hv
       obtain ⟨rfl, hy⟩ := hv
       have hb : b₁ = b₂ :=
-        fibreY_injective h2 (eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero h2 hn hx₁) hy
+        fibreY_injective (eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero hn hx₁) hy
       subst hb
       rfl
   · rintro ⟨(_ | ⟨x, y, hns⟩), hP⟩
@@ -296,7 +298,7 @@ lemma torsionOddOfRoot_bijective (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : Odd n) :
       rw [torsionOddOfRoot]
       exact (by rintro y' h' rfl; rfl :
         ∀ (y' : F) (h' : W.Nonsingular x y'), W.fibreY x b = y' →
-          Point.some x (W.fibreY x b) (W.nonsingular_fibreY h2 x b) = Point.some x y' h')
+          Point.some x (W.fibreY x b) (W.nonsingular_fibreY x b) = Point.some x y' h')
         y hns hb
 
 /-- **`E[n]` is the point at infinity together with two points over each root of `preΨₙ`**, at an

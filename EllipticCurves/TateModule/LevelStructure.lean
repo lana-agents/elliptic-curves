@@ -30,12 +30,14 @@ Remark 7.1.2).
 
 ## The `ℓ = 2` layer
 
-Over an algebraically closed field with `2 ≠ 0`, `nsmul_two_surjective` discharges that hypothesis,
-so `proj k : T_2 E →+ E[2^k]` is surjective for every `k`. Combined with the kernel computation this
+Over an algebraically closed field — ⚠️ **in every characteristic, since `#2253`; this paragraph
+read *"with `2 ≠ 0`"*** — `nsmul_two_surjective` discharges that hypothesis, so
+`proj k : T_2 E →+ E[2^k]` is surjective for every `k`. Combined with the kernel computation this
 gives `T_2 E / 2^k T_2 E ≃+ E[2^k]`, and combined with `#E[2^k] = 4^k`
-(`EllipticCurves.Torsion.TwoPrimary`) it shows `T_2 E` is infinite. No hypothesis on `(3 : F)` is
-used — ⚠️ **and that sentence is about this layer only**: at `ℓ = 3`, `nsmul_three_surjective`
-likewise needs `(2 : F) ≠ 0` alone, and `(3 : F) ≠ 0` enters only through the *count*
+(`EllipticCurves.Torsion.TwoPrimary`) it shows `T_2 E` is infinite — ⚠️ **and THAT step is where
+the `h2` of the `Infinite` and `Nontrivial` rows below now comes from, the count and not the
+filtration.** No hypothesis on `(3 : F)` is used, and at `ℓ = 3` the same split holds one hypothesis
+lower: `nsmul_three_surjective` needs neither, and `(3 : F) ≠ 0` enters only through the *count*
 `#E[3^k] = 9^k`. `EllipticCurves.TateModule.FreeThree` records that split.
 
 ⚠️ The clause this paragraph used to carry — *"The analogous statements for `ℓ ≠ 2` wait on
@@ -352,15 +354,15 @@ section Two
 
 variable [IsAlgClosed F] [W.IsElliptic]
 
-/-- **`proj k : T_2 E →+ E[2^k]` is surjective** over an algebraically closed field of
-characteristic `≠ 2`, because multiplication by `2` is surjective on `E(F̄)`. -/
-theorem proj_two_surjective (h2 : (2 : F) ≠ 0) (k : ℕ) :
+/-- **`proj k : T_2 E →+ E[2^k]` is surjective** over an algebraically closed field, ⚠️ **in every
+characteristic** since `#2253`, because multiplication by `2` is surjective on `E(F̄)` there. -/
+theorem proj_two_surjective (k : ℕ) :
     Function.Surjective (proj (W := W) (ℓ := 2) k) :=
-  proj_surjective (nsmul_two_surjective h2) k
+  proj_surjective nsmul_two_surjective k
 
 /-- **`T_2 E` is infinite.** It surjects onto `E[2^k]`, which has `4^k` elements, for every `k`. -/
 theorem infinite_tateModule_two (h2 : (2 : F) ≠ 0) : Infinite (W.tateModule 2) :=
-  infinite_tateModule_of_card (by norm_num) (proj_two_surjective h2)
+  infinite_tateModule_of_card (by norm_num) proj_two_surjective
     (card_torsion_two_pow_mul_self h2)
 
 /-- **`T_2 E` is nontrivial**, i.e. it is not the zero module.
@@ -369,7 +371,7 @@ Weaker than `infinite_tateModule_two`, but this is the form a consumer usually w
 statement in `EllipticCurves.TateModule.Basic` holds vacuously for the zero module, so citing
 `Nontrivial` is what certifies that the Tate module constructed there has content. -/
 theorem nontrivial_tateModule_two (h2 : (2 : F) ≠ 0) : Nontrivial (W.tateModule 2) :=
-  nontrivial_tateModule_of_card (by norm_num) (proj_two_surjective h2)
+  nontrivial_tateModule_of_card (by norm_num) proj_two_surjective
     (card_torsion_two_pow_mul_self h2)
 
 /-- **`T_2 E` has a nonzero element.** The unbundled form of `nontrivial_tateModule_two`. -/
@@ -383,13 +385,16 @@ unsuffixed, so it was generalised in place rather than twinned and now lives abo
 surjectivity witness directly. -/
 
 /-- ⚠️ **Nothing was lost at `ℓ = 2` when `quotientProjEquiv` was generalised**: its old conclusion
-is still derivable here, verbatim, by feeding it `nsmul_two_surjective`. Recorded as an `example`
-rather than as prose because *the build cannot otherwise tell a namespace-preserving generalisation
-from a silent deletion* — both are green, and both leave every existing consumer working, there
-being none. -/
-noncomputable example (h2 : (2 : F) ≠ 0) (k : ℕ) :
+is still derivable here by feeding it `nsmul_two_surjective`. ⚠️ **No longer verbatim, and in the
+strengthening direction**: the retired declaration was
+`quotientProjEquiv (h2 : (2 : F) ≠ 0) (k : ℕ)` and this `example` takes no `h2` at all, because
+`nsmul_two_surjective` stopped taking one. Recorded
+as an `example` rather than as prose because *the build cannot otherwise tell a namespace-preserving
+generalisation from a silent deletion* — both are green, and both leave every existing consumer
+working, there being none. -/
+noncomputable example (k : ℕ) :
     (W.tateModule 2 ⧸ (proj (W := W) (ℓ := 2) k).ker) ≃+ W.torsion (2 ^ k) :=
-  quotientProjEquiv (nsmul_two_surjective h2) k
+  quotientProjEquiv nsmul_two_surjective k
 
 end Two
 

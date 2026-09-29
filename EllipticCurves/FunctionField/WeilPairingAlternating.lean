@@ -116,7 +116,8 @@ two products against the tree:
   ⚠️ Over an algebraically closed field that second obstruction is **not** real, and the record
   above overstated it.  There `P` is rational — `nsmul_two_surjective`
   (`EllipticCurves.Torsion.DoublingSurjective`) and `nsmul_three_surjective`
-  (`EllipticCurves.Torsion.TriplingSurjective`), both needing only `(2 : F) ≠ 0` — so
+  (`EllipticCurves.Torsion.TriplingSurjective`), ⚠️ **both needing NOTHING beyond the setting as of
+  `#2253`**, where this clause used to say *"both needing only `(2 : F) ≠ 0`"* — so
   `translateEndo` expresses `τ_P` unchanged.  That is how
   `EllipticCurves.FunctionField.WeilPairingAlternatingTwo` closed #465 deliverable 2 at `n = 2`,
   using neither a base change nor a translation along a non-rational point.

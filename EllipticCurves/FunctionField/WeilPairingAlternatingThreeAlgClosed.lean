@@ -67,9 +67,10 @@ those of the statement it discharges, which is why this file exists rather than 
 general-field discharge has somewhere to land.  `hprin` over a general field is open at `n = 3`.
 
 ⚠️ **`h2` and `h3` are both genuinely needed, and not for symmetric reasons.**  `h3` enters only
-through `mulByThreeEndo`, which the statement mentions; `h2` enters through the doubling slope that
-produces the fibre point `P`, which is why `exists_nsmul_three_eq` and
-`exists_nsmul_divisor_eq_divisor_mulByThreeEndo`'s producer need it.  See
+through `mulByThreeEndo`, which the statement mentions; `h2` enters through the doubling slope
+inside `exists_nsmul_divisor_eq_divisor_mulByThreeEndo`'s producer.  ⚠️ **It no longer enters
+through `exists_nsmul_three_eq`, which this paragraph used to name as a second carrier of it**:
+`#2253` removed that binder, so the `h2` here has exactly one source and not two.  See
 `PullbackPrincipalityThree`'s docstring for the hypothesis accounting.
 
 ⚠️ **`[IsDedekindDomain W.CoordinateRing]` is not a hypothesis of anything here.**  It is a global

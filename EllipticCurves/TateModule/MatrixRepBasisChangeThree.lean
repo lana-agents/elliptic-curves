@@ -60,10 +60,12 @@ statement here with a real input, and its two inputs enter through different doo
   `rw [ker_galoisRepMatrixThree b]`, so that this file still exhibits the generic route being used
   at `ℓ = 3` directly — and because rewriting it would invalidate the pasted deletion-test residual
   below, in which `hker` appears. Either form works now; that is the point.
-* `isClosed_ker_galoisRepThree` (`EllipticCurves.TateModule.OpenKernel`) needs `h2` for the level
-  filtration, through `nsmul_three_surjective`, and `h3` for the openness of each level kernel,
-  through `finite_torsion_three_pow`. Its `ℓ = 2` twin needs only `h2` because at `ℓ = 2` both
-  doors open with it.
+* `isClosed_ker_galoisRepThree` (`EllipticCurves.TateModule.OpenKernel`) needs `h2` and `h3`,
+  ⚠️ **and as of `#2253` BOTH come through the same door**: `finite_torsion_three_pow`, for the
+  openness of each level kernel. This bullet used to attribute the `h2` to the level filtration,
+  through `nsmul_three_surjective` — that lemma now needs nothing, so the filtration is free.
+  Its `ℓ = 2`
+  twin needs only `h2`, and for the same reason: the count.
 
 ## Scope
 

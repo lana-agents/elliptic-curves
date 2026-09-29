@@ -105,8 +105,9 @@ and cancelling the common factor `(τ_P∗ g) · (τ_Q∗ g) ≠ 0` leaves `τ_T
 * `[IsAlgClosed F]` — in exactly one place, `exists_equation_nsmul_three_eq`, to produce `P`.  The
   core lemma does not have it.
 * `(2 : F) ≠ 0` and `(3 : F) ≠ 0` — for `mulByThreeEndo`, whose construction runs through the
-  generic-point tripling formula.  Only `h2` is needed for `exists_nsmul_three_eq`, which `#690`
-  proved without `h3`.
+  generic-point tripling formula.  ⚠️ **And for `mulByThreeEndo` ALONE as of `#2253`**:
+  `exists_nsmul_three_eq` needs neither, where this bullet used to say it needed `h2`.  `#690` had
+  already proved it without `h3`.
 * `[W.IsElliptic]` — the standing hypothesis of the whole divisor calculus.
 * `[IsDedekindDomain W.CoordinateRing]` — a binder in the variable block below, so `#check` does
   show it on the headline, but it is *not* a real hypothesis and is not open: it is a **global
@@ -179,7 +180,7 @@ Both are nonzero.  `P = O` would force `T = O`.  `Q = O` would force `T = [3]P =
 `τ_O`-tolerant translation wrapper is needed at `n = 3` — see the module docstring.
 
 This is the whole of the `[IsAlgClosed F]` content of this file. -/
-theorem exists_equation_nsmul_three_eq [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
+theorem exists_equation_nsmul_three_eq [IsAlgClosed F]
     (h : W.Nonsingular x₃ y₃) (htors : Point.some x₃ y₃ h ∈ W.torsion 3) :
     ∃ (xP yP xQ yQ : F) (hP : W.Equation xP yP) (hQ : W.Equation xQ yQ),
       torsionPoint hP + torsionPoint hP = torsionPoint hQ ∧
@@ -191,7 +192,7 @@ theorem exists_equation_nsmul_three_eq [IsAlgClosed F] (h2 : (2 : F) ≠ 0)
     rintro (_ | ⟨x, y, hns⟩) hR
     · exact absurd rfl hR
     · exact ⟨x, y, hns.left, rfl⟩
-  obtain ⟨P, hP3⟩ := exists_nsmul_three_eq h2 (Point.some x₃ y₃ h)
+  obtain ⟨P, hP3⟩ := exists_nsmul_three_eq (Point.some x₃ y₃ h)
   have h3 : P + P + P = Point.some x₃ y₃ h := by
     rwa [show (3 : ℕ) = 2 + 1 from rfl, add_smul, two_nsmul, one_nsmul] at hP3
   have hPne : P ≠ 0 := by
@@ -343,7 +344,7 @@ theorem exists_weilPairingElt_self_eq_one_of_algClosed_three [IsAlgClosed F] (h2
   obtain ⟨c₀, hc₀, hueq⟩ := isUnit_iff_exists_eq_algebraMap.mp u.isUnit
   have hcube : algebraMap F W.FunctionField c₀ * g ^ 3 = mulByThreeEndo h2 h3 f := by
     rw [← hu, Algebra.smul_def, hueq, ← IsScalarTower.algebraMap_apply]
-  obtain ⟨xP, yP, xQ, yQ, hP, hQ, hdouble, hsum⟩ := exists_equation_nsmul_three_eq h2 h htors
+  obtain ⟨xP, yP, xQ, yQ, hP, hQ, hdouble, hsum⟩ := exists_equation_nsmul_three_eq h htors
   have htors' : torsionPoint h.left + torsionPoint h.left + torsionPoint h.left = 0 :=
     add_add_self_eq_zero_of_mem_torsion_three htors
   have htinv : translateEndo h.left g = g :=
@@ -410,7 +411,7 @@ example : ∃ (xP yP xQ yQ : AlgClosedQ) (hP : (y2AddYEqX3 AlgClosedQ).Equation 
     torsionPoint hP + torsionPoint hP = torsionPoint hQ ∧
       torsionPoint hP + torsionPoint hQ
         = Point.some (0 : AlgClosedQ) 0 exampleNonsingularAlgThree :=
-  exists_equation_nsmul_three_eq (by norm_num) exampleNonsingularAlgThree exampleTorsionAlgThree
+  exists_equation_nsmul_three_eq exampleNonsingularAlgThree exampleTorsionAlgThree
 
 end Nonvacuity
 

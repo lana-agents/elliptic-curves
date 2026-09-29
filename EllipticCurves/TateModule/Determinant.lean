@@ -95,8 +95,9 @@ Only `ℓ = 2` *in this file*, and the `ℓ = 2` case went through the `2`-prima
 
 ⚠️ **Three clauses this paragraph used to carry are now false and are replaced.** The first,
 *"odd `ℓ` needs surjectivity of `[ℓ]` on `E(F̄)`, which is not available"*, is false at `ℓ = 3`:
-`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
-`(2 : F) ≠ 0` alone, and `EllipticCurves.Torsion.ThreePrimaryBasis` turns it into the coherent
+`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it ⚠️ **from
+nothing at all as of `#2253`**, where this sentence used to say *"from `(2 : F) ≠ 0` alone"*, and
+`EllipticCurves.Torsion.ThreePrimaryBasis` turns it into the coherent
 system `T₃E` needs. The second, *"what is missing at `ℓ = 3` is the transport to `T₃E`"*, is false
 as of `EllipticCurves.TateModule.FreeThree`, which performs that transport. The third, *"What is
 missing at `ℓ = 3` is only that `galoisDetThree` is not stated below"*, is now false too:

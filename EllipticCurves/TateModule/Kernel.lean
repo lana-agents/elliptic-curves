@@ -40,15 +40,16 @@ content of the file.
   layer knows, `T_ℓ E` could be zero while `E[ℓ^k]` is not.
 * The congruence tower is descending, `ker (galoisRepMod (ℓ^k)) ≤ ker (galoisRepMod (ℓ^j))` for
   `j ≤ k`, **unconditionally** (`ker_galoisRepMod_pow_antitone`) — this is just `E[ℓ^j] ⊆ E[ℓ^k]`.
-* At `ℓ = 2` over an algebraically closed field with `2 ≠ 0` the hypothesis is discharged by
+* At `ℓ = 2` over an algebraically closed field the hypothesis is discharged by
   `nsmul_two_surjective`, so `ker_galoisRepTwo_eq_iInf` and `galoisRepTwo_eq_one_iff` are
-  unconditional. ⚠️ Two clauses this bullet used to carry are false and are replaced. The first,
-  *"No odd `ℓ` has that shortcut yet"*, is false at `ℓ = 3`, where `nsmul_three_surjective`
-  (`EllipticCurves.Torsion.TriplingSurjective`) discharges the same hypothesis, also from
-  `(2 : F) ≠ 0` alone. The second, *"the `ℓ = 3` specialisations are simply not stated in this
-  file"*, was a description of this file and is no longer one: `ker_galoisRepThree_eq_iInf` and
-  `galoisRepThree_eq_one_iff` are stated below, and they carry `h2` and **not** `h3`, for the
-  reason the `§ The unconditional ℓ = 3 layer` heading gives. No prime `ℓ ≥ 5` has the shortcut.
+  unconditional. ⚠️ **Three clauses this bullet used to carry are false and are replaced.** The
+  first, *"No odd `ℓ` has that shortcut yet"*, is false at `ℓ = 3`, where `nsmul_three_surjective`
+  (`EllipticCurves.Torsion.TriplingSurjective`) discharges the same hypothesis. The second, *"the
+  `ℓ = 3` specialisations are simply not stated in this file"*, was a description of this file and
+  is no longer one. ⚠️ **The third is what `#2253` changed**: this bullet said the discharge was
+  *"from `(2 : F) ≠ 0` alone"* and that the four statements below *"carry `h2` and **not** `h3`"* —
+  since `#2253` they carry **neither**, and the `2 ≠ 0` this bullet opened with is gone from it too.
+  No prime `ℓ ≥ 5` has the shortcut.
 
 ## Why this is worth having
 
@@ -208,28 +209,29 @@ section Two
 variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
 /-- **`ker ρ_{E,2} = ⋂_k ker (G → Aut E[2^k])`**, unconditionally over an algebraically closed
-field of characteristic `≠ 2`: multiplication by `2` is surjective on `E(F̄)`, which discharges the
-hypothesis of `ker_galoisRep_eq_iInf`. -/
-theorem ker_galoisRepTwo_eq_iInf (h2 : (2 : F) ≠ 0) :
+field — ⚠️ **in every characteristic**, since `#2253`: multiplication by `2` is surjective on
+`E(F̄)` with no hypothesis on `2`, which discharges the hypothesis of `ker_galoisRep_eq_iInf`. -/
+theorem ker_galoisRepTwo_eq_iInf :
     (galoisRep (W' := W') (F := F) 2).ker
       = ⨅ k, (galoisRepMod (W' := W') (F := F) (2 ^ k)).ker :=
-  ker_galoisRep_eq_iInf 2 (nsmul_two_surjective h2)
+  ker_galoisRep_eq_iInf 2 nsmul_two_surjective
 
 /-- **`ρ_{E,2}(σ) = 1` iff `σ` fixes every `2`-power torsion point**, unconditionally over an
-algebraically closed field of characteristic `≠ 2`. -/
-theorem galoisRepTwo_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
+algebraically closed field, in every characteristic. -/
+theorem galoisRepTwo_eq_one_iff (σ : F ≃ₐ[S] F) :
     galoisRep (W' := W') 2 σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (2 ^ k)), σ • P = P :=
-  galoisRep_eq_one_iff 2 (nsmul_two_surjective h2) σ
+  galoisRep_eq_one_iff 2 nsmul_two_surjective σ
 
 end Two
 
 /-! ### The unconditional `ℓ = 3` layer
 
-⚠️ **Only `h2` appears below, and that is not an oversight.** The hypothesis
-`ker_galoisRep_eq_iInf` wants is surjectivity of multiplication by `3` on `E(F̄)`, and
-`nsmul_three_surjective` (`EllipticCurves.Torsion.TriplingSurjective`) supplies it from
-`(2 : F) ≠ 0` alone — `(3 : F) ≠ 0` enters the `ℓ = 3` story only through the *counting* theorem
-`card_torsion_three_pow`, which nothing in this file consumes.
+⚠️ **NO FIELD HYPOTHESIS APPEARS BELOW AT ALL, and that is not an oversight** — this heading read
+*"Only `h2` appears below"* until `#2253`. The hypothesis `ker_galoisRep_eq_iInf` wants is
+surjectivity of multiplication by `3` on `E(F̄)`, and `nsmul_three_surjective`
+(`EllipticCurves.Torsion.TriplingSurjective`) supplies it from nothing — `(3 : F) ≠ 0` enters the
+`ℓ = 3` story only through the *counting* theorem `card_torsion_three_pow`, which nothing in this
+file consumes, and `(2 : F) ≠ 0` used to enter through `[3]`-surjectivity and no longer does.
 `EllipticCurves.TateModule.FreeThree` records the same split for the module.
 -/
 
@@ -238,11 +240,11 @@ section Three
 variable [IsAlgClosed F] [(W'⁄F).IsElliptic]
 
 /-- **`ker ρ_{E,3} = ⋂_k ker (G → Aut E[3^k])`**, unconditionally over an algebraically closed
-field of characteristic `≠ 2`: multiplication by `3` is surjective on `E(F̄)`, which discharges the
-hypothesis of `ker_galoisRep_eq_iInf`.
+field — ⚠️ **in every characteristic**, since `#2253`: multiplication by `3` is surjective on
+`E(F̄)` with no hypothesis on `2`, which discharges the hypothesis of `ker_galoisRep_eq_iInf`.
 
-⚠️ **Deletion test**, measured on this file as committed. Replacing the argument
-`(nsmul_three_surjective h2)` by a hole —
+⚠️ **Deletion test, RE-MEASURED on this file as committed** — it had to be, because `#2253` changed
+the answer. Replacing the argument `nsmul_three_surjective` by a hole —
 `by refine ker_galoisRep_eq_iInf (W' := W') (F := F) 3 ?_` — leaves
 
 ```
@@ -256,24 +258,26 @@ inst✝² : Algebra S F
 W' : Affine S
 inst✝¹ : IsAlgClosed F
 inst✝ : WeierstrassCurve.IsElliptic W'⁄F
-h2 : 2 ≠ 0
 ⊢ Function.Surjective fun P ↦ 3 • P
 ```
 
-⚠️ `h2` **survives** in the context, so what is removed is a construction and not a hypothesis;
-and the residual is a **goal**, which no type mismatch could produce. It is exactly
-`[3]`-surjectivity, which is where the whole cost of the `ℓ = 3` case sits: no prime `ℓ ≥ 5` has it,
-and without it the inclusion `ker ρ_ℓ ≤ ker (galoisRepMod (ℓ^k))` is unavailable. -/
-theorem ker_galoisRepThree_eq_iInf (h2 : (2 : F) ≠ 0) :
+⚠️ **The residual is a GOAL and not a type mismatch**, which is what the test is for: what the
+argument supplies is a construction. ⚠️ **And the block used to carry one more context line,
+`h2 : 2 ≠ 0`, with the conclusion drawn from its SURVIVING the deletion** — that line is gone here,
+because the binder it named is gone, so the same conclusion is now carried by the context being
+instances alone. It is exactly `[3]`-surjectivity, which is where the whole cost of the `ℓ = 3` case
+sits: no prime `ℓ ≥ 5` has it, and without it the inclusion
+`ker ρ_ℓ ≤ ker (galoisRepMod (ℓ^k))` is unavailable. -/
+theorem ker_galoisRepThree_eq_iInf :
     (galoisRep (W' := W') (F := F) 3).ker
       = ⨅ k, (galoisRepMod (W' := W') (F := F) (3 ^ k)).ker :=
-  ker_galoisRep_eq_iInf 3 (nsmul_three_surjective h2)
+  ker_galoisRep_eq_iInf 3 nsmul_three_surjective
 
 /-- **`ρ_{E,3}(σ) = 1` iff `σ` fixes every `3`-power torsion point**, unconditionally over an
-algebraically closed field of characteristic `≠ 2`. -/
-theorem galoisRepThree_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
+algebraically closed field, in every characteristic. -/
+theorem galoisRepThree_eq_one_iff (σ : F ≃ₐ[S] F) :
     galoisRep (W' := W') 3 σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (3 ^ k)), σ • P = P :=
-  galoisRep_eq_one_iff 3 (nsmul_three_surjective h2) σ
+  galoisRep_eq_one_iff 3 nsmul_three_surjective σ
 
 end Three
 
@@ -350,10 +354,10 @@ theorem ker_galoisRepMatrixTwo :
 
 /-- **`ρ_{E,2}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `2`-power
 torsion point.** The headline reading of the level filtration. -/
-theorem galoisRepMatrixTwo_eq_one_iff [IsAlgClosed F] [(W'⁄F).IsElliptic] (h2 : (2 : F) ≠ 0)
+theorem galoisRepMatrixTwo_eq_one_iff [IsAlgClosed F] [(W'⁄F).IsElliptic]
     (σ : F ≃ₐ[S] F) :
     galoisRepMatrixTwo b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (2 ^ k)), σ • P = P :=
-  galoisRepMatrix_eq_one_iff b (nsmul_two_surjective h2) σ
+  galoisRepMatrix_eq_one_iff b nsmul_two_surjective σ
 
 /-- On `ker ρ_{E,2}` the determinant character is trivial. -/
 theorem galoisDetTwo_eq_one_of_mem_ker {σ : F ≃ₐ[S] F}
@@ -381,9 +385,11 @@ end MatrixTwo
 /-! ### The matrix representation at `ℓ = 3`
 
 ⚠️ **The hypotheses are NOT uniform across the four rows and the asymmetry is the content.** Three
-of them carry `h2` alone; only `galoisTraceThree_eq_two_of_mem_ker` carries `h3` as well. The
-reason is the one the `§ The unconditional ℓ = 3 layer` heading above gives:
-`nsmul_three_surjective` needs `(2 : F) ≠ 0` alone, and `(3 : F) ≠ 0` enters the `ℓ = 3` story only
+of them carry `h2` alone; only `galoisTraceThree_eq_two_of_mem_ker` carries `h3` as well. ⚠️ **Their
+`h2` is the counting theorem's, not the level filtration's, as of `#2253`.** The reason is the one
+the `§ The unconditional ℓ = 3 layer` heading above gives:
+⚠️ **`nsmul_three_surjective` needs NOTHING as of `#2253`**, where this sentence read *"needs
+`(2 : F) ≠ 0` alone"*, and `(3 : F) ≠ 0` enters the `ℓ = 3` story only
 through the *counting* theorem `card_torsion_three_pow` — which `galoisTraceThree_one` goes through
 and nothing else here does. ⚠️ *Do not infer the split from the `ℓ = 2` rows by symmetry; at `ℓ = 2`
 the two doors open with the same key and here they do not.*
@@ -413,11 +419,12 @@ theorem ker_galoisRepMatrixThree :
 /-- **`ρ_{E,3}(σ)` is the identity matrix — in any basis — exactly when `σ` fixes every `3`-power
 torsion point.** The headline reading of the level filtration at `ℓ = 3`.
 
-⚠️ **`h2` alone**, with no `h3`: the hypothesis is `galoisRepMatrix_eq_one_iff`'s, namely
-`[3]`-surjectivity on `E(F̄)`, and `nsmul_three_surjective` supplies that from `(2 : F) ≠ 0`. -/
-theorem galoisRepMatrixThree_eq_one_iff (h2 : (2 : F) ≠ 0) (σ : F ≃ₐ[S] F) :
+⚠️ **NO HYPOTHESIS ON THE CHARACTERISTIC AT ALL, and there never was an `h3`**: the hypothesis is
+`galoisRepMatrix_eq_one_iff`'s, namely `[3]`-surjectivity on `E(F̄)`, and since `#2253`
+`nsmul_three_surjective` supplies that from nothing. -/
+theorem galoisRepMatrixThree_eq_one_iff (σ : F ≃ₐ[S] F) :
     galoisRepMatrixThree b σ = 1 ↔ ∀ (k : ℕ) (P : (W'⁄F).torsion (3 ^ k)), σ • P = P :=
-  galoisRepMatrix_eq_one_iff b (nsmul_three_surjective h2) σ
+  galoisRepMatrix_eq_one_iff b nsmul_three_surjective σ
 
 omit [IsAlgClosed F] [(W'⁄F).IsElliptic] in
 /-- On `ker ρ_{E,3}` the determinant character is trivial.
@@ -564,7 +571,7 @@ example : ∃ b : Module.Basis (Fin 2) ℤ_[3] (((y2AddYEqX3 ℚ)⁄AlgClosedQ).
         ∀ (k : ℕ) (P : ((y2AddYEqX3 ℚ)⁄AlgClosedQ).torsion (3 ^ k)), σ • P = P := by
   obtain ⟨b⟩ := tateModule.nonempty_basis_tateModule_three
     (W := (y2AddYEqX3 ℚ)⁄AlgClosedQ) exampleTwo exampleThree
-  exact ⟨b, ker_galoisRepMatrixThree b, galoisRepMatrixThree_eq_one_iff b exampleTwo⟩
+  exact ⟨b, ker_galoisRepMatrixThree b, galoisRepMatrixThree_eq_one_iff b⟩
 
 open Classical in
 /-- **The module the representation acts on is not the zero module**, on the same curve, by a route

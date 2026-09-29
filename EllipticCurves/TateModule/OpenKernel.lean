@@ -345,7 +345,7 @@ This is the shape the Néron–Ogg–Shafarevich criterion consumes — "the ine
 on `T₂E`" is a closed condition, cut out by the open congruence conditions at each level. -/
 theorem isClosed_ker_galoisRepTwo (h2 : (2 : F) ≠ 0) :
     IsClosed ((galoisRep (W' := W') (F := F) 2).ker : Set (F ≃ₐ[S] F)) := by
-  rw [ker_galoisRepTwo_eq_iInf h2, Subgroup.coe_iInf]
+  rw [ker_galoisRepTwo_eq_iInf, Subgroup.coe_iInf]
   exact isClosed_iInter fun k => OpenSubgroup.isClosed (openSubgroupKerGaloisRepMod (2 ^ k)
     (finite_torsion_two_pow h2 k))
 
@@ -496,16 +496,19 @@ theorem isLocallyConstant_galoisRepMod_three_pow (h2 : (2 : F) ≠ 0) (h3 : (3 :
 (`EllipticCurves.TateModule.Kernel`) it is `⨅ k, ker (galoisRepMod (3^k))`, a countable
 intersection of open — hence also closed — subgroups.
 
-⚠️ **Both `h2` and `h3` are needed, and they enter through different doors.** `h2` alone gives the
-level filtration, because `nsmul_three_surjective` needs nothing more; `h3` is what
-`finite_torsion_three_pow` needs to make each level kernel *open*. Its `ℓ = 2` twin
-`isClosed_ker_galoisRepTwo` carries only `h2` because at `ℓ = 2` both doors open with it.
+⚠️ **Both `h2` and `h3` are needed, and as of `#2253` they enter through the SAME door.** This
+paragraph read *"they enter through different doors"* — `h2` for the level filtration through
+`nsmul_three_surjective`, `h3` for the openness of each level kernel through
+`finite_torsion_three_pow`. The filtration is now free of both, so the only consumer left is
+`finite_torsion_three_pow h2 h3`, which takes them together. Its `ℓ = 2` twin
+`isClosed_ker_galoisRepTwo` carries only `h2`, through `finite_torsion_two_pow`, for the same
+reason.
 
 It is **not** claimed open, and in general it is not — see `isClosed_ker_galoisRepTwo` for the
 reason, which is insensitive to `ℓ`. -/
 theorem isClosed_ker_galoisRepThree (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     IsClosed ((galoisRep (W' := W') (F := F) 3).ker : Set (F ≃ₐ[S] F)) := by
-  rw [ker_galoisRepThree_eq_iInf h2, Subgroup.coe_iInf]
+  rw [ker_galoisRepThree_eq_iInf, Subgroup.coe_iInf]
   exact isClosed_iInter fun k => OpenSubgroup.isClosed (openSubgroupKerGaloisRepMod (3 ^ k)
     (finite_torsion_three_pow h2 h3 k))
 

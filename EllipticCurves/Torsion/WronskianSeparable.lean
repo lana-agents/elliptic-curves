@@ -259,7 +259,7 @@ theorem eval_preΩ_ne_zero_of_eval_preΨ_eq_zero [IsAlgClosed F] [W.IsElliptic] 
   have hψn : (W.ψ (n : ℤ)).evalEval x y = 0 :=
     pow_eq_zero_iff (n := 2) (by norm_num) |>.mp (by rw [ψ_sq_evalEval hxy, hΨSq])
   have hΦ : (W.Φ (n : ℤ)).eval x ≠ 0 := eval_Φ_ne_zero_of_eval_ΨSq_eq_zero h2 hn x hΨSq
-  have hΨ₂ : W.Ψ₂Sq.eval x ≠ 0 := eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero h2 hodd hx
+  have hΨ₂ : W.Ψ₂Sq.eval x ≠ 0 := eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero hodd hx
   -- `ψ_{n−1}(x, y) ≠ 0` and `ψ_{n+2}(x, y) ≠ 0`
   have h1 := ψ_add_mul_ψ_sub_eq_neg_Φ_mul_ΨSq hxy hψn 1
   rw [WeierstrassCurve.ΨSq_one, eval_one, mul_one] at h1

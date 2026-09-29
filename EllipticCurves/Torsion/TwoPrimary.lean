@@ -146,20 +146,20 @@ holds for every `n`, and it is precisely the even case — unreachable by coprim
 `2`-primary tower work. -/
 theorem card_torsion_mul_two (h2 : (2 : F) ≠ 0) (n : ℕ) :
     Nat.card (W.torsion (n * 2)) = 4 * Nat.card (W.torsion n) := by
-  rw [card_torsion_mul_of_surjective (nsmul_two_surjective h2) n, card_torsion_two h2]
+  rw [card_torsion_mul_of_surjective nsmul_two_surjective n, card_torsion_two h2]
 
 /-- **The `2`-primary tower: `#E[2^k] = 4^k`.** By induction from `#E[1] = 1`, each step
 multiplying by `#E[2] = 4`. Since `4 ^ k = (2 ^ k) ^ 2`, this says `E[2^k]` attains the bound
 `#E[n] ≤ n²`. -/
 theorem card_torsion_two_pow (h2 : (2 : F) ≠ 0) (k : ℕ) :
     Nat.card (W.torsion (2 ^ k)) = 4 ^ k := by
-  rw [card_torsion_pow_of_surjective (nsmul_two_surjective h2) k, card_torsion_two h2]
+  rw [card_torsion_pow_of_surjective nsmul_two_surjective k, card_torsion_two h2]
 
 /-- `E[2^k]` is finite. This is read off the count `#E[2^k] = 4^k ≠ 0` rather than from the
 `3`-smooth finiteness of `EllipticCurves.Torsion.Multiplicative`, which would drag in a spurious
 hypothesis `(3 : F) ≠ 0`. -/
 theorem finite_torsion_two_pow (h2 : (2 : F) ≠ 0) (k : ℕ) : Finite (W.torsion (2 ^ k)) :=
-  finite_torsion_pow two_ne_zero (nsmul_two_surjective h2)
+  finite_torsion_pow two_ne_zero nsmul_two_surjective
     (by rw [card_torsion_two h2]; norm_num) k
 
 /-- **`#E[2^k] = 2^k · 2^k`**, the same count as `card_torsion_two_pow` in the shape every
@@ -174,7 +174,7 @@ each call site; `EllipticCurves.Torsion.PrimaryBasis.torsionPairHom_bijective_of
 hypothesis in exactly this form. -/
 theorem card_torsion_two_pow_mul_self (h2 : (2 : F) ≠ 0) (k : ℕ) :
     Nat.card (W.torsion (2 ^ k)) = 2 ^ k * 2 ^ k :=
-  card_torsion_pow_mul_self (nsmul_two_surjective h2) (by rw [card_torsion_two h2]; norm_num) k
+  card_torsion_pow_mul_self nsmul_two_surjective (by rw [card_torsion_two h2]; norm_num) k
 
 /-! ## The structure of `E[2^k]` -/
 
@@ -189,7 +189,7 @@ general `p` in `nonempty_torsionPow_addEquiv` (`EllipticCurves.Torsion.PrimaryTo
 two branches are `q = p` and `q ≠ p`; here `p = 2` and "odd" is the same condition. -/
 theorem nonempty_torsionTwoPow_addEquiv (h2 : (2 : F) ≠ 0) (k : ℕ) :
     Nonempty (W.torsion (2 ^ k) ≃+ ZMod (2 ^ k) × ZMod (2 ^ k)) :=
-  nonempty_torsionPow_addEquiv Nat.prime_two (nsmul_two_surjective h2)
+  nonempty_torsionPow_addEquiv Nat.prime_two nsmul_two_surjective
     (by rw [card_torsion_two h2]; norm_num) k
 
 /-! ## Named instances -/

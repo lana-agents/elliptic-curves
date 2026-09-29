@@ -43,8 +43,10 @@ the matrix representation.
 
 ⚠️ **Two hypotheses, not one.** Where the `ℓ = 2` file `EllipticCurves.TateModule.Determinant`
 carries only `h2`, the non-degeneracy statements here carry both `h2` and `h3`, and the provenance
-is not symmetric: `nsmul_three_surjective` needs **only** `(2 : F) ≠ 0`, so the coherent system's
-*lifting* step is `h3`-free; `h3` enters exclusively through the counting theorem
+is not symmetric: ⚠️ **`nsmul_three_surjective` needs NEITHER as of `#2253`** — this clause read
+*"needs **only** `(2 : F) ≠ 0`"* — so the coherent system's *lifting* step is free of both, and the
+`h2` these statements still carry comes from the counting side alone; `h3` enters exclusively
+through the counting theorem
 `card_torsion_three_pow`, i.e. through `#E[3] = 9`. `EllipticCurves.TateModule.FreeThree`
 documents that split and this file inherits it unchanged rather than re-deriving it.
 

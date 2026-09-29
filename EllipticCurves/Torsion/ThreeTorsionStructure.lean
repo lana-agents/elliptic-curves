@@ -353,7 +353,12 @@ files — this declaration and **12** call sites.  Of those twelve, **five** spe
 `(2 : F) ≠ 0` on nothing but this call — `exists_addX_self_eq`,
 `exists_nsmul_some_of_hasXCoordFormula`, `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`,
 `equation_fibreY` and `fibreY_injective` — so deleting the binder here strands five unreferenced
-ones for the `unusedArguments` linter and starts a cascade through *their* consumers.  ⚠️ **A
+ones for the `unusedArguments` linter and starts a cascade through *their* consumers.  ⚠️ **That
+cascade is PAID as of `#2253`**, which rewires those five onto `exists_equation'` and removes the
+`(2 : F) ≠ 0` binder from **28** declarations in **12** files, `unusedArguments` clean; so the
+figures in this paragraph are a record of why `#2251` was additive and not a description of the
+tree.  `exists_equation` itself keeps its binder and still has consumers — the ones whose `h2` pays
+for something else too.  ⚠️ **A
 sixth site passes `(by norm_num)` rather than an `h2`** (`EllipticCurves.Torsion.OmegaCrux`, where
 `h2` at the neighbouring lines is an unrelated local).  `#2251` is therefore additive: it adds one
 declaration and changes no other declaration's hypothesis list. -/

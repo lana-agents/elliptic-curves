@@ -669,7 +669,7 @@ private theorem exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_general (h2 : 
     (hfdiv : divisor W f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ)) :
     ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
       3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f) :=
-  let ⟨_, hP⟩ := exists_nsmul_three_eq h2 (Point.some x y h)
+  let ⟨_, hP⟩ := exists_nsmul_three_eq (Point.some x y h)
   exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_card h2 h3 (card_torsion_three h2 h3) h hS hP
     hf hfdiv
 
@@ -681,7 +681,7 @@ private theorem exists_gS_three_of_isAlgClosed_of_general (h2 : (2 : F) ≠ 0) (
       divisor W f = Finsupp.single (pointClosedPoint h.left) (3 : ℤ) ∧
       ∃ gS : W.FunctionField, gS ≠ 0 ∧
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gS ^ 3 = mulByThreeEndo h2 h3 f :=
-  let ⟨_, hP⟩ := exists_nsmul_three_eq h2 (Point.some x y h)
+  let ⟨_, hP⟩ := exists_nsmul_three_eq (Point.some x y h)
   exists_gS_three_of_card h2 h3 (card_torsion_three h2 h3) h hS hP
 
 end Recovery
