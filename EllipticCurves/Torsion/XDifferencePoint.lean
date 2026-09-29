@@ -103,7 +103,7 @@ instances reachable from here.
 pass-through to `hasXCoordFormula_three`, which stopped needing one at `#2242`, and
 `hasXCoordFormula_two` never did.  **It is wave 1 of that cascade** — see
 `hasXCoordFormula_three`'s docstring (`EllipticCurves.Torsion.TriplingSurjective`) for the wave
-table.  ⚠️ **So *"unconditional"* above is now literally true of the characteristic as well: the
+table.  ⚠️ **So *"unconditional"* above is now literally true of the characteristic as well**: the
 only hypotheses left on the field are the two `ΨSq` non-vanishing conditions, which are not
 removable — they are what makes `Φₙ/ΨSqₙ` defined.  The third is `h : W.Nonsingular x y`, the point
 the statement is about. -/
