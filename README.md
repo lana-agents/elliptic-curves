@@ -5838,3 +5838,19 @@ edited file's word sequence, numeral sequence and total character count must all
 base and head. The width budget is what makes the shape non-obvious — prepending `import` to the
 previous line costs `+7` and overflows the hard `100`, so the word *before* it moves DOWN instead,
 cascading to the next line if that one overflows too.
+
+⚠️ **And a SECOND SUBCLASS, which the reflow repair cannot reach and whose gate is therefore a
+different one: a fenced code block that DISPLAYS Lean `import` syntax.** Its lines begin with
+`import` because that is what they illustrate, so there is no prose sentence to reflow and the
+sentence above is not a universal. **The repair is a two-space indent of the fence body — every
+line of it, not only the lines that match**, because a recipe with two of its three lines indented
+is visibly broken. ⚠️ **And it is measured rather than assumed: an indented `import` resolves
+identically.** Two probes seeded at `EllipticCurves.TateModule.MatrixRepMod`, one at column `0` and
+one indented two spaces, each read **4119** `moduleNames` with empty stderr, and the sorted lists
+are set-identical — so the indent costs the recipe nothing. ⚠️ **The character-count half of the
+gate above does NOT transfer**, since an indent adds `2` characters per line; what survives, and is
+the equal-strength invariant for this subclass, is that the **non-whitespace text is identical** at
+base and head — an indent adds only whitespace. **So state the invariant your repair satisfies
+rather than inheriting the reflow triple.** `#2265`, in `Torsion/TwoTorsionCharTwo.lean`'s fenced
+`run_meta … moduleNames` recipe (`:414`–`:416` at `e95af0e`; the fence, not the line number, is the
+durable key).
