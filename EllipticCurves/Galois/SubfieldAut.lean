@@ -90,7 +90,7 @@ and the project's.
 
 | tree | files | `^public import ` | `^import ` |
 | --- | --- | --- | --- |
-| `EllipticCurves/` | 386 | **0** | **386** |
+| `EllipticCurves/` | 439 | **0** | **439** |
 | `.lake/packages/mathlib/Mathlib` | 8264 | **8246** | 381 |
 | `.lake/packages/batteries` | 254 | 127 | 82 |
 | `.lake/packages/aesop` | 250 | 125 | 161 |
@@ -101,9 +101,9 @@ and the project's.
 | `.lake/packages/Cli` | 5 | 3 | 2 |
 | `.lake/packages/LeanSearchClient` | 8 | 0 | 0 |
 
-⚠️ **The project row is the control**: if it does not come out `0` public and one plain
-`import` line per file, the census is reading the wrong tree.  (Its *file count* is not the
-control — it was 360 when this was first measured and is 386 now.)
+⚠️ **The project row is the control, and the control is a RELATION and not three numerals**:
+column 2 must be `0` and column 3 must EQUAL column 1 — no `public import `, a plain `^import `
+in *every* file.  Both hold at `9f25690`: `439 / 0 / 439`.  ⚠️ **Why only this row rots: below.**
 
 ⚠️ **The module system is a toolchain convention, not a Mathlib one.**  **Eight** of the nine
 vendored packages use `public import` — every one but `LeanSearchClient`, and ⚠️ **the reason is
@@ -143,6 +143,29 @@ what the group returns only once it is required to repeat.  ⚠️ **`protected`
 names and these rows do not, is inert**: a prefix census over all **10546** `.lean` files of both
 trees reads `{public: 35205, public meta: 965, meta: 13}`, with `private import` never occurring
 either, so the three-modifier alternation above returns the same **8665** as the four.
+
+⚠️ **THE TABLE'S ONLY ROT-CAPABLE ROW IS ITS CONTROL ROW — measured, not supposed, and it is why
+the project row carries a ref where the nine below it need none.**  The vendored rows are pinned:
+`lake-manifest.json` has not moved since `74fca19` (2026-07-26), so none of them can shift without
+a pin bump.  The project row tracks a live tree that **186** commits touched in `e3c0db2..9f25690`,
+and it drifted `386 → 439` — `+53` in columns 1 and 3, column 2 unmoved at `0`.  ⚠️ **The row was
+never WRONG; it went STALE**: at `e3c0db2`, the commit that wrote it, the relation reads
+`386 / 0 / 386` exactly.  **A census whose control is the first cell of it to go stale reads as
+broken when it is only out of date**, which is how it read — `#2259` found it while `#2257` shipped
+on *"every row is exact"*, true of the other nine.
+
+⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
+**column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
+factor of three: at `9f25690` those 439 files carry 1260 `^import ` lines, min 1, max 10, mean
+2.87 — so *"one plain `import` line per file"* is true of the file count and false of the line
+count.  ⚠️ **The line figure is itself the worked example: 1257 at `6f051d4` and 1260 at
+`9f25690`, two commits five minutes apart, while `439 / 0 / 439` did not move.**  Second, the
+replaced sentence compared **two SCOPINGS**: its *"360 when this was first measured"* is the
+all-tracked-`.lean` count and its *"386 now"* the `EllipticCurves/`-directory count — at
+`008fea7`, the first commit carrying this file, the directory holds **359** and the tracked total
+**360**, differing by exactly the root aggregator `EllipticCurves.lean`.  The sequence is
+`359 → 386 → 439` under this row's scoping and `360 → 387 → 440` under the other.  **Do not
+re-take this row without saying which, and without keying it to a commit.**
 
 ⚠️ **Do not take a matching total as evidence your pattern is right.**  At this SHA, dropping the
 `(?:all\s+)?` alternative changes **none** of the three totals, because every `import all` target is
