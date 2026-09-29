@@ -634,7 +634,12 @@ and `omegaDiff` (this file), the merged `hpair` of `EllipticCurves.Torsion.Omega
 ⚠️ It is stated at **odd** `n` because that is the régime
 `WeierstrassCurve.Affine.card_torsion_eq_sq_of_wronskian_identity` covers; nothing here says
 anything at even `n`.  ⚠️ `EllipticCurves.Torsion.PrimaryTower`'s gate list, `#1490` item 3 and
-`#293` are **not** updated by this file even though they are now dischargeable. -/
+`#293` are not updated **by this file**, and none of the three is owed any longer.  This clause
+used to close *"even though they are now dischargeable"*, and that sweep has since run:
+`PrimaryTower`'s gate list reads ✅/✅/✅, its third bullet naming this theorem and ruling the gate
+list empty at exactly the primes it was written for, with `EllipticCurves.Torsion.PrimaryTowerOdd`
+supplying `hcard` at every odd `p`; and `#1490` (its item 3 closed by merged PR #587) and `#293`
+(merged PR #591) are both **completed** rows. -/
 theorem card_torsion_eq_sq_of_odd [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0) :
     Nat.card (W.torsion n) = n ^ 2 :=
