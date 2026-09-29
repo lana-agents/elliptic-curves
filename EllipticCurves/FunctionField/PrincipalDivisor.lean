@@ -44,9 +44,13 @@ torsion count `#E[n] = n²`", which is **wrong** and is the claim `#769` retired
 sites; this one was missed because it names neither `WeilPairing` nor `#242`. At `n = 2` the count
 enters non-degeneracy only inside `fixedFieldTwo_eq_mulByTwoFieldRange` (`MulByTwoGalois`, `#759`),
 through `card_torsion_two` — the roots of the `2`-division cubic, which does not go through Ward —
-and at `n = 3` likewise through `card_torsion_three`. Ward gates `#E[n] = n²` at **general** `n`
-only (`#242`/`#1490`; ⚠️ this used to cite `#251`, which is closed). See
-`EllipticCurves.FunctionField.WeilPairing`'s scope section for the canonical account of what
+and at `n = 3` likewise through `card_torsion_three`. ⚠️ **And the general count is not owed
+either**: `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) is `#E[n] = n²`
+at every `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve over an algebraically closed
+base and with no parity or Ward hypothesis. This clause used to read *"Ward gates `#E[n] = n²` at
+**general** `n` only (`#242`/`#1490`; this used to cite `#251`, which is closed)"*, and `#242`,
+`#1490` and `#293` are all completed rows. See `EllipticCurves.FunctionField.WeilPairing`'s
+scope section for the canonical account of what
 non-degeneracy consumes; the independence claimed above is unaffected either way.
 
 ## Main statements

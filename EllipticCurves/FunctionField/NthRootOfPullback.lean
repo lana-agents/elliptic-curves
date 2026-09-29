@@ -49,11 +49,18 @@ merged, and neither goes through Ward — `#E[2]` counts the roots of the `2`-di
 * `card_torsion_three` (`Torsion/ThreeTorsionStructure.lean`), with
   `nonempty_torsionThree_addEquiv`.
 
-Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#1490`; ⚠️ this used to cite `#251`, which is
-closed), which is not what `exists_gS_two` and
-`exists_gS_three` need.  The class-group layer that would turn a vanishing class back into a
-generator is merged too: `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one`
-(`EllipticCurves.FunctionField.DivisorPrincipality`, `#726`).
+⚠️ **And the general count is merged too, so nothing here is waiting on it.**  `card_torsion_eq_sq`
+(`EllipticCurves.Torsion.StructureGeneral`, `#293`) is `#E[n] = n²` at **every** `n` with
+`(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve over an algebraically closed base — no parity
+hypothesis and no Ward — its odd half being `card_torsion_eq_sq_of_odd`
+(`EllipticCurves.Torsion.OmegaChordSum`), off the merged Wronskian chain.  ⚠️ This sentence used to
+read *"Ward gates `#E[n] = n²` at **general** `n` (`#242`/`#1490`; this used to cite `#251`, which
+is closed)"*, and that tail has expired at both ends: the count is a theorem, and `#242`, `#1490`
+and `#293` are all **completed** rows.  What is unchanged is the point the paragraph is making —
+none of the three counts is what `exists_gS_two` and `exists_gS_three` need.  The class-group layer
+that would turn a vanishing class back into a generator is merged too: `classOfDivisor` and
+`exists_divisor_eq_iff_classOfDivisor_eq_one` (`EllipticCurves.FunctionField.DivisorPrincipality`,
+`#726`).
 
 ⚠️ Earlier wording said "what is actually missing is one geometric fact", namely the fibre
 description `[2]∗((S) − (O)) = ∑_{R ∈ E[2]} ((P ⊕ R) − (R))`, and attributed it to `#639` rung 8.

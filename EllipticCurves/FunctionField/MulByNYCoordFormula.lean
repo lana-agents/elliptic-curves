@@ -64,8 +64,12 @@ is only that the generic point is a point.**
   `mulByNEndo_eq_of_genX_genY` says any such lift equals `mulByNEndo n`.  ⚠️ The hypothesis
   mismatch `#405` records is real and is why this is stated as it is — the division-polynomial
   description carries `(n : F) ≠ 0` (through `ΨSqₙ(genX) ≠ 0`) and `mulByNEndo` does not.
-* **It says nothing about `#E[n] = n²`.**  A generator image is not a point count; that gate is
-  `#1506` scope item 1.
+* **It says nothing about `#E[n] = n²`.**  A generator image is not a point count.  ⚠️ This
+  bullet used to close *"that gate is `#1506` scope item 1"*, and there is no such gate left:
+  the count is `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) at every
+  `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve over an algebraically closed base,
+  and `#1506` and `#293` are both **completed** rows.  The scope claim itself — that nothing here
+  is a point count — is unaffected.
 * **`#1184`'s arbitrary-ring coprimality, `#962` and `#639` are untouched.**
 * ⚠️ **It does not weaken any hypothesis of the merged degree tower.**
   `EllipticCurves.FunctionField.MulByNDegreeGeneral` consumes the `x`-half only, and nothing here

@@ -64,7 +64,11 @@ remaining content of `#418` is one sentence about a named divisor:
 ⚠️ An earlier version of this section said discharging `hprin` is "Ward-coupled (`#E[n] = n²`,
 `#242`)".  **That is false at the `n` rung 5 is stated at.**  `card_torsion_two` and
 `card_torsion_three` are merged (`Torsion/TwoTorsion`, `Torsion/ThreeTorsionStructure`) and neither
-goes through Ward; Ward gates `#E[n] = n²` at *general* `n` only.  The class-group layer is merged
+goes through Ward.  ⚠️ **Nor is the general count owed**: this clause used to close *"Ward gates
+`#E[n] = n²` at *general* `n` only"*, and `card_torsion_eq_sq`
+(`EllipticCurves.Torsion.StructureGeneral`, `#293`) has since made `#E[n] = n²` a theorem at every
+`n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve over an algebraically closed base and
+with no parity or Ward hypothesis.  The class-group layer is merged
 too — `classOfDivisor` and `exists_divisor_eq_iff_classOfDivisor_eq_one` (`DivisorPrincipality`,
 `#726`).
 

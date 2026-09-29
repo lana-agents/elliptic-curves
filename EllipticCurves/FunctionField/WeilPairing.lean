@@ -306,9 +306,16 @@ Silverman *AEC* III.8, Prop. 8.1(c): if `e_n(S, T) = 1` for every `T ∈ E[n]` t
 
 **`#E[2] = 4` enters at step 4 and nowhere else**, as the right-hand side of Artin's theorem inside
 `finrank_fixedFieldTwo`, whose input is `card_torsionTwoMul` and hence `card_torsion_two` — the
-roots of the `2`-division cubic, which does not go through Ward.  Ward (`#254`/`#258`/`#260`/`#261`)
-gates `#E[n] = n²` at **general** `n` only, i.e. `#242`/`#1490` (⚠️ this used to cite `#251`, which
-is closed).  So at `n = 2` the dependency the
+roots of the `2`-division cubic, which does not go through Ward.  ⚠️ **And the general count is a
+theorem too** — `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`, `#293`) gives
+`#E[n] = n²` at **every** `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve over an
+algebraically closed base and with no parity or Ward hypothesis, and its odd half is
+`card_torsion_eq_sq_of_odd` (`EllipticCurves.Torsion.OmegaChordSum`), off the merged Wronskian
+chain.  ⚠️ This passage used to read *"Ward (`#254`/`#258`/`#260`/`#261`) gates `#E[n] = n²` at
+**general** `n` only, i.e. `#242`/`#1490` (this used to cite `#251`, which is closed)"*; `#242`,
+`#1490` and `#293` are all **completed**, and ⚠️ **this file is where the other three sites point**,
+so the tail had to be retired here as well or those pointers would resolve to it.  So at `n = 2`
+the dependency the
 old prose named is *discharged*, and what took its place was `hprin`, i.e. rung 5 (`#418`) — for
 which see `NthRootOfPullback`.  ⚠️ Its own gate used to be the fibre description of `[2]∗`, `#639`
 **rung 9** (`#774`, *not* `#701`, rung 8, which merely counts the fibre).  **Rung 9 is merged**
