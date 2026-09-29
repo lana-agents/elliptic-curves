@@ -81,8 +81,13 @@ action and `#293`'s count, and they consume none of `#403`/`#405`.
 ⚠️ **`#404` has since been paid and is no longer one of them** (`#1460`).  Its on-curve identity is
 `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero` (`EllipticCurves.Torsion.OmegaCrux`, PR #557),
 at every index over a field with `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0`.  ⚠️ The quotation above is
-left verbatim because it is a quotation.  At `n = 5` the division-polynomial route still waits on
-`#E[n] = n²` and on `#403`/`#405` — whose missing input `#404` was.  ⚠️ **`#251` used to be listed
+left verbatim because it is a quotation.  ⚠️ **And `#E[n] = n²` has since been paid too, so it is
+no longer one of them either**: `card_torsion_eq_sq` (`EllipticCurves.Torsion.StructureGeneral`,
+`#293`) is the count at **every** `n` with `(2 : F) ≠ 0` and `(n : F) ≠ 0`, on an elliptic curve
+over an algebraically closed base, and `5` is odd, so at `n = 5` it is a theorem and not a gate.
+This clause used to read *"At `n = 5` the division-polynomial route still waits on `#E[n] = n²` and
+on `#403`/`#405`"*; what that route still waits on is `#403`/`#405` — whose missing input `#404`
+was.  ⚠️ **`#251` used to be listed
 here as a third and is closed**: the identification of the division-polynomial coordinates with the
 group-law multiple `n • P`, which `#404` never claimed to supply, is
 `hasXCoordFormula_of_two_ne_zero` (`EllipticCurves.Torsion.NsmulOrder`) on its `x`-half and
