@@ -117,8 +117,8 @@ same configuration, and would read as evidence while supplying none.
 ⚠️ **And the route that would make it non-trivial collapses into that file's certificate.**  Over
 `F̄` the roots *can* be produced, by `exists_gS_n`, and fed back in; but then the certificate's
 statement has to quantify them existentially again, which is
-`exists_weilPairingElt_mul_swap_eq_one_n_of_isAlgClosed` — the headline already certified one
-import away.  That is why the block below is a **gate-discharge** certificate and not a curve one.
+`exists_weilPairingElt_mul_swap_eq_one_n_of_isAlgClosed` — the headline already certified one import
+away.  That is why the block below is a **gate-discharge** certificate and not a curve one.
 
 Out of scope: discharging `hprin` over a general field, which is existence-shaped and never
 descends (`#899`'s test — is the obstruction used to prove an equality, or to produce a witness?);
