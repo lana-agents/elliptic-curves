@@ -640,9 +640,9 @@ The closure is genuinely needed and is not being dropped alongside the character
 `exists_equation'` keeps `[IsAlgClosed F]`, and over `ℚ` the curve `y² = x³ - 2` has no point above
 `x = 0`.
 
-⚠️ **Import price of this section, measured on the ELABORATOR and not on a walker** — seed the base
-import list, `run_meta do for m in (← Lean.getEnv).header.moduleNames do IO.println m`, and take
-the added set by `comm -13`.  `Mathlib.Algebra.Field.ZMod` is **`+1`**, added set the printable
+⚠️ **Import price of this section, measured on the ELABORATOR and not on a walker** — seed the
+base import list, `run_meta do for m in (← Lean.getEnv).header.moduleNames do IO.println m`, and
+take the added set by `comm -13`.  `Mathlib.Algebra.Field.ZMod` is **`+1`**, added set the printable
 singleton `{Mathlib.Algebra.Field.ZMod}`; `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` is
 **`+0`**, added set **empty**.  The `EllipticCurves`-package closure moves by **`+0`** (8 modules
 including this one).  ⚠️ **No all-packages absolute is quoted, deliberately**: both deltas are

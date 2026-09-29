@@ -5824,3 +5824,17 @@ the reason is the ARGUMENT filter and not the lexical prefix.** This section's o
 still — the `EllipticCurves` graph from `^import EllipticCurves…` lines, carrying no
 `public `/`private `/`meta ` alternation at all — and a phantom named `edge.` or `closure` resolves
 to no module under either shape. **A rule about keeping the instrument honest, not a repair.**
+
+⚠️ **And the class ACCRETES, which the paragraph above could not say at the time: the seed returned
+`1` and not `0` in the very tree that rule landed in.** An eleventh site — a *"seed the base import
+list"* sentence in `Torsion/ThreeTorsionStructure.lean` — landed as `9f25690` (PR #836) while the
+ten-site round sat in review, so it postdates that round's base and its frozen tree and could not
+have been repaired there. It is reflowed in the commit that names **this** paragraph as its base,
+taking the seed to **0**. ⚠️ **So a reader who meets the rule above and reads a non-zero seed has
+most likely found a NEW site rather than a stale instrument** — run it, name the file, reflow it,
+and do not conclude the rule is wrong: the population went `10` → `11` inside one review window.
+⚠️ **The repair is a reflow and only a reflow, and the gate that proves it one is cheap**: the
+edited file's word sequence, numeral sequence and total character count must all be identical at
+base and head. The width budget is what makes the shape non-obvious — prepending `import` to the
+previous line costs `+7` and overflows the hard `100`, so the word *before* it moves DOWN instead,
+cascading to the next line if that one overflows too.
