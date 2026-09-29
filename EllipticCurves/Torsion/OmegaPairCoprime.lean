@@ -304,10 +304,24 @@ theorem separable_preΨ_of_wronskian_of_isAlgClosed [IsAlgClosed F] [W.IsEllipti
 /-- **`#E[n] = n²` with `(2 : F) ≠ 0`, at odd `n` with `(n : F) ≠ 0`, with the Wronskian identity
 the only gate left.**
 
-⚠️ This is still not a proof of its conclusion: `hid` is `#1506` scope item 1 and is open.  What
-has changed is that it is now the *only* gate — the companion `hpair` of
-`WeierstrassCurve.Affine.card_torsion_eq_sq_of_wronskian_of_pair` is discharged above.  ⚠️
-`EllipticCurves.Torsion.PrimaryTower`'s gate list and `#293` are therefore unchanged. -/
+⚠️ This is still not a proof of its conclusion: `hid` is a hypothesis of this statement and is not
+discharged in it.  What has changed is that it is now the *only* gate — the companion `hpair` of
+`WeierstrassCurve.Affine.card_torsion_eq_sq_of_wronskian_of_pair` is discharged above.  **This
+statement is kept because the reduction it records — what implies what — is what the file is
+about.**
+
+⚠️ This paragraph used to continue *"`hid` is `#1506` scope item 1 and is open"* and to close
+*"`EllipticCurves.Torsion.PrimaryTower`'s gate list and `#293` are therefore unchanged"*.  Both
+clauses have expired.  `hid` **is** proved: `WeierstrassCurve.hasWronskianId`
+(`EllipticCurves.Torsion.OmegaChordSum`) supplies it for every Weierstrass curve over every
+commutative ring at every `n : ℤ` with no hypothesis, and `card_torsion_eq_sq_of_odd` is this
+theorem with `hid` discharged; `#1506` is a **completed** row, its item 1 closed by merged PR #587.
+And the two residues are **discharged** rather than unchanged: `PrimaryTower`'s gate list reads
+✅/✅/✅, its third bullet ruling `#E[p] = p²` closed at every odd `p` with `(p : F) ≠ 0` over an
+algebraically closed field with `(2 : F) ≠ 0`, naming `card_torsion_eq_sq_of_odd`, and restricting
+itself to odd `p` at its own last clause; `EllipticCurves.Torsion.PrimaryTowerOdd` supplies every
+statement below that list with `hcard` discharged.  `#293` is a **completed** row, on merged
+PR #591. -/
 theorem card_torsion_eq_sq_of_wronskian_identity [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]
     (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd n) (hn : (n : F) ≠ 0)
     (hid : derivative (W.Φ (n : ℤ)) * W.ΨSq (n : ℤ) -
