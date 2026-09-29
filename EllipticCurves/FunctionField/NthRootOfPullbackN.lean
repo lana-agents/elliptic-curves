@@ -185,8 +185,8 @@ gate.  ⚠️ **`MulByNXCoordFormula` is now consumed**: this sentence used to s
 cited, and that was exactly the reason `n = 5` looked unreachable.  The edge cost **10** modules in
 the import closure — `78 → 88` at `6df393f`, the module itself not counted, which is the convention
 `EllipticCurves.Galois.SubfieldAut` publishes — and cannot cycle, that file names nothing in this
-one.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is cited and not consumed, but it **is** in this file's
-import closure, and that same edge is what put it there: `MulByNXCoordFormula` reaches it
+one.  ⚠️ `EllipticCurves.Torsion.NsmulOrder` is cited and not consumed, but it **is** in this
+file's import closure, and that same edge is what put it there: `MulByNXCoordFormula` reaches it
 transitively.  This clause used to deny it, and the sentence beside it is what falsified it, in one
 commit (`README.md` `## Import-closure figures`).
 The two-reading account is `EllipticCurves.FunctionField.MulByNPullback`.

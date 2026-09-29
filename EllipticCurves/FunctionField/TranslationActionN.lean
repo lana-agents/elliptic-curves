@@ -225,8 +225,8 @@ action of `Aut_F F(W)` on `F(W)`.
 
 `MulSemiringAction.compHom` is an `abbrev` and not an instance — it would loop — so the composite is
 declared as an instance here, at the head `TorsionNMul W n`.  A global instance keyed on that head
-is preferable to a `letI`: downstream files get the action from instance search with nothing to
-import but this module, which is the same choice `TranslationActionThree` made at `n = 3`. -/
+is preferable to a `letI`: downstream files get the action from instance search with nothing
+to import but this module, which is the same choice `TranslationActionThree` made at `n = 3`. -/
 noncomputable instance (n : ℕ) : MulSemiringAction (TorsionNMul W n) W.FunctionField :=
   MulSemiringAction.compHom _ (translateAutNHom n)
 

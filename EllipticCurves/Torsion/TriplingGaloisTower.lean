@@ -142,8 +142,8 @@ outside `{propext, Classical.choice, Quot.sound}`; **70** of the 71 return all t
 that returns `{propext, Quot.sound}` alone is `baseChange_baseChange''` — ⚠️ **the same
 declaration, by the same argument, as the one `HalvingGaloisTower` singles out of its own 42.**
 
-**Three direct imports** — `HalvingExtension`, `ThreeDivisionField`, `TriplingSeparable` — and an
-import closure of **57** modules with this one excluded.  ⚠️ **Measured at `bebec3f`**, as
+**Three direct imports** — `HalvingExtension`, `ThreeDivisionField`, `TriplingSeparable` — and
+an import closure of **57** modules with this one excluded.  ⚠️ **Measured at `bebec3f`**, as
 `README.md` `## Import-closure figures` requires of a closure *count*: an edge added anywhere
 upstream moves it and this file is in no part of that commit's diff.  ⚠️ **Two files this module
 names are reached transitively and cost no edge**: `EllipticCurves.Torsion.TriplingSurjective`,

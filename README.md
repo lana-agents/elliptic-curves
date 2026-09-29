@@ -5715,3 +5715,15 @@ this layer: a `.lean` closure figure is not a block that can be spliced into ano
 claim about the tree, and the only resolver is to re-run the walk. ⚠️ **Re-run it at
 `upstream/main` and not at your base** — a `.lean`-only base move is exactly the case a
 `README.md`-keyed gate reports as clean.
+
+⚠️ **And a lexical rule the walks themselves need: no line of a `.lean` file may begin with the
+word `import` at column 0 unless it is a real `import`.** The walkers agents write against this
+tree read `^(public |private |meta )*import (\S+)`, so a docstring sentence reflowed to start with
+*import* contributes a phantom module named after the next word, reachable from every file that
+reaches it. **Ten sites had accumulated at `ebb8735`**, and are repaired in the commit that names
+it as base; the regression seed is that grep, scored against which arguments resolve to a real
+`.lean` file, and it must return **0**. ⚠️ **It falsifies no figure this document publishes, and
+the reason is the ARGUMENT filter and not the lexical prefix.** This section's own seed is narrower
+still — the `EllipticCurves` graph from `^import EllipticCurves…` lines, carrying no
+`public `/`private `/`meta ` alternation at all — and a phantom named `edge.` or `closure` resolves
+to no module under either shape. **A rule about keeping the instrument honest, not a repair.**

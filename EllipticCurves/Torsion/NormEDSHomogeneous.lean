@@ -51,9 +51,9 @@ statement is not. `WeierstrassCurve.normEDS_rel_one` of `EllipticCurves.Torsion.
 of `normEDS`. A merely *graded* sequence need not satisfy Ward's relation, which is why
 `rel_one_homogeneous_of_scaling` still has content — `IsEllipticNet.exists_scaling_rel_one_ne_zero`
 exhibits `W n = n ^ 3` at `u = 2`, for which `rel W 3 2 1 0 = -12960`.
-⚠️ This file does **not** import `EllipticCurves.Torsion.WardHalving`, and `WardHalving` does not
-import this file either — the two are import-**incomparable**, not one a forward reference to the
-other. This file's only import is `Mathlib.NumberTheory.EllipticDivisibilitySequence`, so its
+⚠️ This file does **not** import `EllipticCurves.Torsion.WardHalving`, and `WardHalving` does
+not import this file either — the two are import-**incomparable**, not one a forward reference to
+the other. This file's only import is `Mathlib.NumberTheory.EllipticDivisibilitySequence`, so its
 closure contains no module of this project but itself, and the only module whose closure contains
 both it and `WardHalving` is the root aggregator `EllipticCurves`. So `normEDS_rel_one` is named
 here and **cannot** be used below.
