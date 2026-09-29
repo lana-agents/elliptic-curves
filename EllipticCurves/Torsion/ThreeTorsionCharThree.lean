@@ -207,11 +207,34 @@ cheaper than `+31` modules, and the ordinary curve is in no fixture at any rate.
 imports alone.
 
 Both `IsElliptic` instances are proved by the tree's standard finite-field recipe —
-`isElliptic_iff`, `isUnit_iff_ne_zero`, `decide +kernel` — which `EllipticCurves.Fixtures` records
-of all four of its own finite-field rows (*"All four prove `IsElliptic` by `decide +kernel`"*), and
-which `Fixtures`' own instances cannot supply here because they are stated over a field where the
+`isElliptic_iff`, `isUnit_iff_ne_zero`, `decide +kernel` — the one-line recipe the finite-field
+rows `EllipticCurves.Fixtures` deliberately does not serve are each built by, of which `Fixtures`
+itself records only the last step (*"prove `IsElliptic` by `decide +kernel`"*), and which
+`Fixtures`' own instances cannot supply here because they are stated over a field where the
 discriminant is a `norm_num` fact.  `Δ = 64 = 1` on the first curve and `Δ = −368 = 1` on the
 second, both in `ZMod 3`.
+
+⚠️ **The RECIPE is what is quoted above; the COUNT standing beside it in `Fixtures` deliberately is
+not, because this file is two rows of the population that count is over** — the two
+`private instance`s below extend the very list a numeral quoted here would stand on, which is how
+the quotation this paragraph used to carry came to cite a census its own commit falsified.
+⚠️ **And that count is SHAPE-DEPENDENT, so it must never be quoted without its shape**: the
+CERTIFICATE reading (`private instance : _.IsElliptic := by … decide +kernel` at a finite base) and
+the CURVE-DEFINITION reading (`private … : Affine … := ⟨…⟩`, grouped by resolved finite base)
+return populations at `52d6dea` that are **not the same population** — only the first reaches
+`EllipticCurves.Torsion.TwoTorsionCharTwo`'s `y2AddYEqX3 (ZMod 2)` instance, and only the second
+reaches `EllipticCurves.Torsion.TriplingSurjective`'s `curveChar2`, which carries no `IsElliptic`
+instance at all.  ⚠️ **Nor does the second reading have one size until the generic-base fixtures
+are ruled on**: `TwoTorsionCharTwo`'s `curveOrdinaryCharTwo`, declared
+over a generic base — `R` a type variable — and instantiated at `ZMod 2`, is a
+`private … : Affine … := ⟨…⟩` whose base its own signature does not name — and the first reading
+cannot reach it under any relaxation, its ellipticity being `isElliptic_curveOrdinaryCharTwo`, a
+`private theorem` off a hand `Δ`, not an instance closed by `decide +kernel`.  ⚠️ **So a size here
+would need a reading AND a base-resolution rule named beside it**, which is why this file
+publishes none.  `#2264` owns the repair of `Fixtures`' clause itself.  ⚠️ **Both declarations are
+cited by NAME and not by line on purpose** — the approved-and-queued PR #834 displaces
+`curveOrdinaryCharTwo` and its theorem within `TwoTorsionCharTwo` without RENAMING either, so a
+line address written here would rot the moment that branch lands.
 
 ## ⚠️ One Mathlib import beyond `ThreeTorsion`, and it is the certificate's and not the theory's
 
