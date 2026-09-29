@@ -382,6 +382,7 @@ import EllipticCurves.Torsion.Defs
 import EllipticCurves.Torsion.Divisible
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.DoublingCoords
+import EllipticCurves.Torsion.DoublingOmega
 import EllipticCurves.Torsion.DoublingSurjective
 import EllipticCurves.Torsion.EllipticNetRegularity
 import EllipticCurves.Torsion.EllipticNetRel
