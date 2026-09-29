@@ -144,7 +144,10 @@ scalar tower cannot.
   `n = 3` analogues of the halving extension and of the cocycle argument are untouched.
 * **Any statement about the degree `[L₂ : F]`.** The construction gives finiteness and nothing
   sharper; in particular nothing below says the tower is proper at layer two, only that layer one
-  is proper for the certificate curve.
+  is proper for the certificate curve. ⚠️ **And this bullet must NOT be discharged at the
+  certificate curve, because there layer-two properness is FALSE rather than unproved**:
+  `## Non-vacuity` certifies `(⊤ : Subalgebra L₁ (threeDivisionField (y2AddYEqX3 ℚ))) = ⊥`, so
+  layer two adjoins nothing at all there. A witness needs a different curve (`#2274`).
 * **`n = 2`.** `EllipticCurves.Torsion.TwoTorsionSplittingField` is the `n = 2` layer and is
   untouched; nothing below is stated at a general index, and the second layer has no `n = 2`
   counterpart at all, because a `2`-torsion point is its own `x`-coordinate and there is no `y` to
@@ -198,6 +201,32 @@ situation.** `ThreeTorsionStructure`'s `## What is *not* here` argues that its t
 finite base. The statements below certify the **construction**, whose entire content is that `ℚ` is
 too small — so `ℚ` is the right base for them and a base over which `Ψ₃` already split would leave
 everything green and certify only the case `L₁ = F`.
+
+⚠️ **Layer two adjoins nothing at this curve, and `### ⚠️ Layer two is trivial at this curve`
+certifies that — which is why the `[L₂ : F]` bullet above must not be discharged here.**
+`Ψ₂Sq = 4X³ + 1`, and at a root of `Ψ₃ = 3X(X + 1)(X² - X + 1)` it takes only the two values `1`
+and `-3`: `1` at `0`, `-3` at `-1`, and `-3` at a root of `X² - X + 1` too, because there
+`4x³ + 1 = 4x·x² + 1 = 4x(x - 1) + 1 = 4x² - 4x + 1 = -3`. Both are squares in `L₁`, because `Ψ₃`
+splits there, so its factor `X² - X + 1` has a root `ω` in `L₁` and `(2ω - 1)² = -3`. Hence the
+second hypothesis of `card_torsion_three_of_splits` already holds over **layer one**, layer two's
+`Ψ₂SqRootPoly` already splits there, and `⊤ = ⊥` for `L₁ ⊆ L₂` follows by
+`Polynomial.IsSplittingField.splits_iff`. ⚠️ **So `#E[3] = 9` is attained one layer DOWN from where
+the tower puts it**, at `(y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField`. That is a fact about this
+curve and not a defect of the tower: what collapses it is `Ψ₂Sq_eval_eq_sq`
+(`EllipticCurves.Torsion.TwoTorsion`) — `Ψ₂Sq.eval x` is `(2y + a₁x + a₃)²` at a point, so layer
+two is proper exactly when the `3`-torsion `y`-coordinates are not already in the `x`-coordinate
+field, and at `y² + y = x³` they are.
+
+⚠️ **THREE things those four theorems do NOT say, stated so nothing is read into them.**  They
+compute **no degree** — neither `[L₁ : ℚ]` nor `[L₂ : ℚ]` — and in particular they do not identify
+`L₁` with `ℚ(√-3)`; the `⊤ = ⊥` is proved by exhibiting the square roots and by no degree count.
+They do not touch the closure, and **this section's *"not excluded"* clause stands unchanged**:
+nothing below says `L₂ / ℚ` is normal or compares any degree with the closure's, so that clause —
+about the closure possibly equalling the tower — is still exactly right, for this curve as for
+every other.  And they say nothing about any other curve at all: ⚠️ `#2274`
+carries the arithmetic showing that `y2EqX3AddOne` collapses the same way (`Ψ₂Sq` takes `4` and
+`-12` at the roots of its `Ψ₃`, both squares in its own `L₁`) and that `y² = x³ - 1` does **not**
+(`Ψ₂Sq.eval 0 = -4`, which is not a square there).
 
 ## References
 
@@ -741,6 +770,130 @@ private theorem isGalois_threeDivisionGaloisField_y2AddYEqX3 :
 private theorem card_torsion_three_threeDivisionGaloisField_y2AddYEqX3 :
     Nat.card (((y2AddYEqX3 ℚ)⁄(threeDivisionGaloisField (y2AddYEqX3 ℚ))).torsion 3) = 9 :=
   card_torsion_three_threeDivisionGaloisField _ (by norm_num) (by norm_num)
+
+/-! ### ⚠️ Layer two is trivial at this curve
+
+Everything above builds the tower and reads its counts: layer one is proper
+(`not_splits_Ψ₃_y2AddYEqX3`), and `#E[3] = 9` is attained at **layer two**
+(`card_torsion_three_threeDivisionField_y2AddYEqX3`) and at the **closure**
+(`card_torsion_three_threeDivisionGaloisField_y2AddYEqX3`).  The four **theorems** here certify
+that layer **two** adjoins nothing at all at `y2AddYEqX3 ℚ` — so that `9` is attained one layer
+down as well — which is why the `## What is *not* here` bullet about `[L₂ : F]` must not be
+discharged at this fixture: properness at layer two is **false** here, not merely unproved.
+-/
+
+/-- **`Ψ₂Sq` of the certificate curve is `4X³ + 1`.**  `b₂ = a₁² + 4a₂ = 0`,
+`b₄ = 2a₄ + a₁a₃ = 0` and `b₆ = a₃² + 4a₆ = 1`. -/
+private lemma Ψ₂Sq_y2AddYEqX3 : (y2AddYEqX3 ℚ).Ψ₂Sq = C 4 * X ^ 3 + 1 := by
+  simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
+    y2AddYEqX3]
+  norm_num only
+  simp only [map_ofNat, Polynomial.C_0, Polynomial.C_1]
+  ring
+
+/-- The factorisation of `Ψ₃` survives every base change out of `ℚ`: `WeierstrassCurve.map_Ψ₃`
+and the fact that the coefficients are integers. -/
+private lemma Ψ₃_baseChange_y2AddYEqX3 (K : Type*) [Field K] [Algebra ℚ K] :
+    ((y2AddYEqX3 ℚ)⁄K).Ψ₃ = C 3 * X * ((X + 1) * (X ^ 2 - X + 1)) := by
+  rw [show ((y2AddYEqX3 ℚ)⁄K).Ψ₃ = (y2AddYEqX3 ℚ).Ψ₃.map (algebraMap ℚ K) from
+      WeierstrassCurve.map_Ψ₃ .., Ψ₃_y2AddYEqX3]
+  simp [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_sub, Polynomial.map_pow]
+
+/-- `Ψ₂Sq = 4X³ + 1` likewise survives every base change out of `ℚ`. -/
+private lemma Ψ₂Sq_baseChange_y2AddYEqX3 (K : Type*) [Field K] [Algebra ℚ K] :
+    ((y2AddYEqX3 ℚ)⁄K).Ψ₂Sq = C 4 * X ^ 3 + 1 := by
+  rw [show ((y2AddYEqX3 ℚ)⁄K).Ψ₂Sq = (y2AddYEqX3 ℚ).Ψ₂Sq.map (algebraMap ℚ K) from
+      WeierstrassCurve.map_Ψ₂Sq .., Ψ₂Sq_y2AddYEqX3]
+  simp [Polynomial.map_mul, Polynomial.map_add, Polynomial.map_pow]
+
+/-- **Layer one carries a primitive sixth root of unity.**  `X ^ 2 - X + 1` divides `Ψ₃`, which
+splits over `L₁`, so it splits there too and has a root.  ⚠️ This is the whole content of the
+collapse below: `(2ω - 1) ^ 2 = -3`, so the one non-trivial value `Ψ₂Sq` takes at a root of `Ψ₃` is
+already a square at layer one.  ⚠️ Nothing here says `[L₁ : ℚ] = 2` or identifies `L₁` with
+`ℚ(√-3)`; only that `L₁` contains such a root. -/
+private lemma exists_root_X_sq_sub_X_add_one_y2AddYEqX3 :
+    ∃ ω : (y2AddYEqX3 ℚ).Ψ₃.SplittingField, ω ^ 2 - ω + 1 = 0 := by
+  have hne : ((y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField).Ψ₃ ≠ 0 :=
+    WeierstrassCurve.Ψ₃_ne_zero _ (by norm_num)
+  have hdvd : (X ^ 2 - X + 1 : (y2AddYEqX3 ℚ).Ψ₃.SplittingField[X]) ∣
+      ((y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField).Ψ₃ :=
+    ⟨C 3 * X * (X + 1), by rw [Ψ₃_baseChange_y2AddYEqX3]; ring⟩
+  have hdeg : (X ^ 2 - X + 1 : (y2AddYEqX3 ℚ).Ψ₃.SplittingField[X]).degree = 2 := by
+    compute_degree!
+  obtain ⟨ω, hω⟩ :=
+    ((splits_Ψ₃_baseChange (y2AddYEqX3 ℚ) _).of_dvd hne hdvd).exists_eval_eq_zero
+      (by rw [hdeg]; decide)
+  exact ⟨ω, by simpa using hω⟩
+
+/-- **The second hypothesis of `card_torsion_three_of_splits` already holds over layer one** at the
+certificate curve — so layer two has nothing left to do here.
+
+`Ψ₂Sq = 4X³ + 1` and `Ψ₃ = 3X(X + 1)(X² - X + 1)`, so a root of `Ψ₃` over `L₁` is `0`, `-1`, or a
+root of `X² - X + 1`, and the value taken is `1` in the first case and `-3` in the other two — at a
+root of the quadratic because `4x³ + 1 = 4x·x² + 1 = 4x(x - 1) + 1 = 4x² - 4x + 1 = -3`.  The
+witnesses are `1` and `2ω - 1` for the `ω` of the previous lemma, and `2x - 1` at `x` itself. -/
+private theorem isSquare_Ψ₂Sq_eval_splittingField_y2AddYEqX3
+    {x : (y2AddYEqX3 ℚ).Ψ₃.SplittingField}
+    (hx : ((y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField).Ψ₃.eval x = 0) :
+    IsSquare (((y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField).Ψ₂Sq.eval x) := by
+  obtain ⟨ω, hω⟩ := exists_root_X_sq_sub_X_add_one_y2AddYEqX3
+  rw [Ψ₃_baseChange_y2AddYEqX3] at hx
+  rw [Ψ₂Sq_baseChange_y2AddYEqX3]
+  simp only [eval_mul, eval_add, eval_sub, eval_pow, eval_C, eval_X, eval_one] at hx ⊢
+  rcases mul_eq_zero.mp hx with h | h
+  · rcases mul_eq_zero.mp h with h3 | hx0
+    · exact absurd h3 (by norm_num)
+    · exact ⟨1, by rw [hx0]; ring⟩
+  · rcases mul_eq_zero.mp h with h1 | h2
+    · exact ⟨2 * ω - 1, by linear_combination (4 * (x ^ 2 - x + 1)) * h1 - 4 * hω⟩
+    · exact ⟨2 * x - 1, by linear_combination (4 * x) * h2⟩
+
+private noncomputable instance :
+    DecidableEq (y2AddYEqX3 ℚ).Ψ₃.SplittingField := Classical.decEq _
+
+/-- **`#E[3] = 9` is attained one layer DOWN from where the tower puts it**, at the certificate
+curve: over a splitting field of `Ψ₃` alone, with no `y`-coordinate square roots adjoined.
+
+`card_torsion_three_of_algHom` at the identity of `L₁`, whose two hypotheses are
+`splits_Ψ₃_baseChange` and the lemma above.  ⚠️ This is not a sharpening of
+`card_torsion_three_threeDivisionField` that holds in general — it is a fact about this curve. -/
+private theorem card_torsion_three_splittingField_y2AddYEqX3 :
+    Nat.card (((y2AddYEqX3 ℚ)⁄(y2AddYEqX3 ℚ).Ψ₃.SplittingField).torsion 3) = 9 :=
+  card_torsion_three_of_algHom (W := y2AddYEqX3 ℚ) (by norm_num) (by norm_num)
+    (AlgHom.id ℚ (y2AddYEqX3 ℚ).Ψ₃.SplittingField)
+    (splits_Ψ₃_baseChange (y2AddYEqX3 ℚ) _)
+    fun _ hx => isSquare_Ψ₂Sq_eval_splittingField_y2AddYEqX3 hx
+
+/-- **Layer two's polynomial already splits over layer one** at the certificate curve.  Each factor
+`X ^ 2 - C c` of `Ψ₂SqRootPoly` is indexed by a value `c` that `Ψ₂Sq` takes at a root of `Ψ₃`, so
+`c = d * d` by the lemma above and `X ^ 2 - C (d * d) = (X - C d) * (X + C d)`. -/
+private theorem splits_Ψ₂SqRootPoly_y2AddYEqX3 :
+    (Ψ₂SqRootPoly (y2AddYEqX3 ℚ) (y2AddYEqX3 ℚ).Ψ₃.SplittingField).Splits := by
+  classical
+  have h3 : (3 : (y2AddYEqX3 ℚ).Ψ₃.SplittingField) ≠ 0 := by norm_num
+  rw [Ψ₂SqRootPoly]
+  refine Splits.prod fun c hc => ?_
+  obtain ⟨x, hx, rfl⟩ := Finset.mem_image.mp hc
+  rw [Multiset.mem_toFinset, mem_roots (WeierstrassCurve.Ψ₃_ne_zero _ h3)] at hx
+  obtain ⟨d, hd⟩ := isSquare_Ψ₂Sq_eval_splittingField_y2AddYEqX3 hx
+  rw [hd, show (X ^ 2 - C (d * d) : (y2AddYEqX3 ℚ).Ψ₃.SplittingField[X])
+      = (X - C d) * (X + C d) by rw [map_mul]; ring]
+  exact (Splits.X_sub_C d).mul (Splits.X_add_C d)
+
+/-- **⚠️ Layer two adjoins nothing at the certificate curve**: the `3`-division field is generated
+over layer one by the empty set.
+
+`Polynomial.IsSplittingField.splits_iff` at the polynomial layer two splits, whose hypothesis is
+the theorem above.  ⚠️ **This is a statement about `L₁ ⊆ L₂` and about no other pair.** It computes
+no degree — neither `[L₁ : ℚ]` nor `[L₂ : ℚ]` — and it says nothing about the Galois closure: the
+`## Non-vacuity` docstring's *"the case `threeDivisionGaloisField W = threeDivisionField W` is not
+excluded"* is untouched by it, since nothing here says `L₂ / ℚ` is normal. -/
+private theorem top_eq_bot_threeDivisionField_y2AddYEqX3 :
+    (⊤ : Subalgebra (y2AddYEqX3 ℚ).Ψ₃.SplittingField
+      (threeDivisionField (y2AddYEqX3 ℚ))) = ⊥ :=
+  (IsSplittingField.splits_iff (threeDivisionField (y2AddYEqX3 ℚ))
+    (Ψ₂SqRootPoly (y2AddYEqX3 ℚ) (y2AddYEqX3 ℚ).Ψ₃.SplittingField)).mp
+    splits_Ψ₂SqRootPoly_y2AddYEqX3
 
 end Nonvacuity
 
