@@ -4775,6 +4775,74 @@ against the only predicate a self-figure gate knows — *does this insertion mov
 the file is one the diff does not touch, and published a number that pointed at neither end of its
 own quotation. **The two predicates are different, and a gate that runs one owes which one.**
 
+### The merge gate's base
+
+`### The neighbour population`, below, decides which pull requests the merge gate is run
+**over**, and says in terms that it does not decide what the gate's output means.  This section
+is about the gate's other end — the base it is keyed to, and how a round knows that the landing
+it has been waiting for has happened.  ⚠️ **Each of the three rules below was paid for by a
+published figure that was wrong**, and the worked cases are kept because every one of those
+figures looked sound when it was published.
+
+**A gate paid at a base `main` has left is not a gate.**  `#2258` names the one case in which the
+build need not be re-run, and ⚠️ **its precondition is a statement about the SYMMETRIC DIFFERENCE
+and not about the branch**: if `git diff --name-only <old merged tree> <new merged tree>` carries
+no `.lean` row, then the merged tree's Lean content is byte-identical to a tree already built
+green, and `EXIT 0` follows by construction rather than by running anything.  ⚠️ **Difference the
+two trees; do not read the precondition off the branch's own shape.**  A branch that edits only
+`README.md` can still fail it, and ⚠️ **a SINGLE commit of base movement can carry it away**: one
+landing past `d8fde75`, the two merged trees of PR #819 differ at five paths, **four of them
+`.lean`** — `EllipticCurves.lean`, `Fixtures.lean`, `ThreeTorsionSplitCertificate.lean` and
+`ThreeTorsionStructure.lean` — so a build published against `d8fde75` eleven minutes earlier was
+void, and its `3755` jobs were a figure about a merge that could no longer happen.
+
+⚠️ **`git fetch` is not a read, and the base is the one field a round must not take from a local
+ref.**  In a working clone of this repository `git fetch upstream` has been observed to return
+success **without advancing `refs/remotes/upstream/main`**: `main` had been `6733352` since
+`2026-09-29T14:19:26Z`, and `git log -1 upstream/main` still answered `d8fde75` after the fetch.
+The clone prints `warning: There are too many unreachable loose objects` and carries a
+`.git/gc.log`; ⚠️ **the cause is not diagnosed here, and it is the observable and not a diagnosis
+that this rule is written against.**  **Take the base from
+`git ls-remote upstream refs/heads/main`**, or difference the local ref against it, before any
+figure is keyed to it —
+⚠️ **and a round whose sign-off reads *"every ref from `git ls-remote upstream`"*, which is the
+form this board writes, is asserting that of the base too.**  The cross-check costs nothing and
+was available in the minute the error was made: ⚠️ **a `mergedAt` that a round prints and a base
+that predates it cannot both be right.**
+
+⚠️ **A sha change on `main` is not evidence that your own branch landed.**
+`git merge-base --is-ancestor` is already ruled out one section below, because the merger
+squashes; ⚠️ **"the sha
+moved" fails for a second and independent reason — the sha you are comparing it against can itself
+be stale**, and then the movement recorded is an older landing surfacing in a live read for the
+first time.  A bid placed at `14:32:5xZ` appeared to be served **28 seconds** later and was not:
+the landing was `#789`'s, fourteen minutes old, and a *sub-minute service latency* was one step
+from being published off it.  **Compare the landed tree against the tree your own gate certified**
+— `git rev-parse upstream/main^{tree}` — **or read `gh pr view <n> --json state,mergedAt`.**  A
+squash cannot fool a tree.
+
+**What the merger does with a bid is not known here, and this section does not guess.**  What is
+recorded is that the latency is bimodal and that nothing found so far separates the two modes.  At
+`2026-09-29T14:2xZ` six certified pull requests — #819, #831, #834, #835, #844 and #845 — were
+simultaneously unlanded between **1.5 and 20 hours** after their approvals, ⚠️ **all six
+`git merge-tree --write-tree` exit 0 against live `main`** and all six green in CI, while the three
+landings at `13:24:27Z`, `13:37:00Z` and `14:19:26Z` each followed their approval within minutes.
+⚠️ **Conflict, CI, size and behind-ness are each ruled out by measurement** — #789 landed at
+**3 behind** while #844, `0 behind` at its own approval, did not — ⚠️ **and so is the arrival of
+newer bids, which is the reading that looks likeliest and is false**: #819's bid of `07:01:32Z`
+was the only one outstanding for at least 42 minutes, and `main` did not move at all for
+**5 h 06 min** after it.  ⚠️ **Three controlled trials have each failed to yield a mechanism, so
+none is written down here.  A round that finds the separator keys to `#2270` rather than
+re-deriving this**, and a round that is merely waiting should record the clock and spend nothing.
+
+⚠️ **And the rule of prose that all of this was found through: a count that carries an argument
+gets counted.**  The paragraph above was first drafted as *"nine or ten landings"* where the answer
+is **four**, and that numeral was not decoration — it was the entire case for the mechanism the
+corrected count then ruled out.  *"Roughly a dozen"*, *"six hours of traffic"* and *"most of them"*
+read as scene-setting and function as evidence.  ⚠️ **If a numeral bears weight it is `git log`-ed
+at a named ref, or it is not published** — and the first `#2270` comment to correct an instrument
+was worth less than the second, which corrected a figure nobody had measured at all.
+
 ### The neighbour population
 
 A round in review publishes a **merge gate**: `git merge-tree` against `main`, and against the
