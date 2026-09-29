@@ -4246,12 +4246,19 @@ from this development"*), and `TateModule.Determinant:147` and `TateModule.Galoi
 list a sibling's closure out member for member. **All six figures were re-walked and all six are
 exact.**
 
-⚠️ **Say where the population stops.** `EllipticCurves.lean` imports all **423** modules under
+⚠️ **Say where the population stops.** `EllipticCurves.lean` imports **every** module under
 `EllipticCurves/` directly, so the root aggregator is in *every* answer to *"which modules have both
-`X` and `Y` in their closure"* and moves every such count by one. **The counts in this section and
-in the rows they repair exclude it**, and the tree's prose already names it when it is the only
-member — `TateModule.MatrixRepCompat:65-66`, *"its reverse import cone being empty apart from the
-root aggregator `EllipticCurves`"*, which is exact.
+`X` and `Y` in their closure"* and moves every such count by one. ⚠️ **This cell carried the
+numeral 423, and `#2105` drops it rather than bumping it — measured, the cell was already stale by
+seventeen before this branch reached it**: the root aggregator imports `423` modules at `3f61ad7`
+and at this branch's first base `ee48553`, **440** at `main` `52d6dea`, and one more with this
+commit. No ordinal is published for the module this commit adds, for the same reason. `mk_all
+--check` is what enforces the *every* — so the count was the only part of this cell that could go
+stale, and nothing on this board was re-checking it. `Torsion.XDifference:54-55` still publishes
+the figure, pinned to `3f61ad7`, where it is exact.
+**The counts in this section and in the rows they repair exclude it**, and the tree's prose already
+names it when it is the only member — `TateModule.MatrixRepCompat:65-66`, *"its reverse import cone
+being empty apart from the root aggregator `EllipticCurves`"*, which is exact.
 
 ⚠️ **The rule the three false rows share is one sentence: a membership claim that quantifies over
 the tree is a COUNT, and must carry one.** *"`X` is not in this file's closure"* names two modules
