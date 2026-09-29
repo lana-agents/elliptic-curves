@@ -152,8 +152,27 @@ scalar tower cannot.
   and not an instance of anything below: at `n = 2` the extension whose normal closure is taken is
   a halving tower over the `2`-division field (`EllipticCurves.Torsion.HalvingExtension`), and
   `EllipticCurves.Torsion.HalvingGaloisTower` is where it is built (`#2161`, landed at `f263f90`).
-* **Characteristic `2` or `3`.** Every statement that mentions the torsion carries `(2 : F) ≠ 0`
-  and `(3 : F) ≠ 0`, and nothing below decides anything in either characteristic.
+* **Characteristic `2`.** Every statement that mentions the torsion carries `(2 : F) ≠ 0`, and
+  nothing below decides anything in characteristic `2`. ⚠️ **This half is NOT decided by the module
+  cited in the next bullet and must not be read as if it were**: `3` is prime to `2`, so `#E[3] = 9`
+  is **true** in characteristic `2` exactly as in characteristic `0` and there is no falsity theorem
+  to write. What blocks `n = 3` there is the `(2 : F) ≠ 0` in the tangent slope's denominator, which
+  `EllipticCurves.Torsion.TriplingSurjective` records in terms — a **formalisation** gap and not an
+  obstruction.
+* **Characteristic `3`.** ⚠️ **Decided, and it goes the other way**:
+  `card_torsion_three_ne_nine_of_char_three` (`EllipticCurves.Torsion.ThreeTorsionCharThree`) gives
+  `#E[3] ≤ 3` over every field of characteristic `3`, so the `#E[3] = 9` that every count below
+  transports is **false** there rather than unproved, and the `(3 : F) ≠ 0` those counts carry is
+  necessary rather than inherited. The two branches are `b₂ ≠ 0` and `b₂ = 0`, and on the second
+  `E[3]` is trivial outright. ⚠️ **That module is import-incomparable with this file and NOT
+  downstream of it** — neither is in the other's import closure, in either direction — so the
+  `import` line here is declined on a price and not blocked by a cycle: the edge adds **one** module
+  to this file's `EllipticCurves` closure (9 → 10) and **two** over all packages,
+  `ThreeTorsionCharThree` itself and `Mathlib.Algebra.Field.ZMod`, **measured at `88a5e00`**.
+  ⚠️ **A docstring pointer is not an import edge**, and at that price declining it is a cost
+  judgement about a sentence of prose rather than an obstruction. The vocabulary is that of
+  `EllipticCurves.Torsion.DoublingCoords`, which writes **import-incomparable** twice of sibling
+  modules in this same directory.
 
 ## Non-vacuity
 

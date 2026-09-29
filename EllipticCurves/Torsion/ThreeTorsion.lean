@@ -60,6 +60,28 @@ most two points above each `x`, plus the point at infinity — turns this into `
 The *sharp* count `#E[3] = 9` and the structure `E[3] ≃+ ZMod 3 × ZMod 3` need `Ψ₃` to have four
 **distinct** roots, i.e. the discriminant of a quartic, and are not proved here.
 
+## ⚠️ In characteristic `3` the bound below is not unproved — it is the WRONG STATEMENT
+
+`EllipticCurves.Torsion.ThreeTorsionCharThree`, **downstream of this file**, proves
+`card_torsion_three_ne_nine_of_char_three`: over any field with `(3 : F) = 0` and `[W.IsElliptic]`
+the count is at most `3`, because `Ψ₃ = b₂X³ + b₈` there and `x ↦ x³` is injective, so `Ψ₃` has at
+most **one** root instead of four.  ⚠️ **So the `(3 : F) ≠ 0` this file's statements carry is
+necessary and not inherited decoration**, and the `9` below is false in characteristic `3` rather
+than out of reach.
+
+⚠️ **None of this file's *"away from characteristic `3`"* clauses is therefore retired, and the
+reason is the subject**: each is a claim about *this file's own* reach, which stays true of it, so
+`### Reach clauses`' *"false or merely partial"* test returns **partial** and each takes a pointer
+in place.  This paragraph is that pointer, and the clauses stand exactly as they were.  There are
+**6** of them under the recogniser ``[Aa]way from characteristic `3` ``, measured at `88a5e00`, and
+the **one** quotation in this paragraph takes its head total to **7** — a quotation and not a
+clause, and second in document order — which is why the count is keyed to the base and not here.
+
+⚠️ **The file that does make a tree-wide claim about characteristic `3`, and had to be SPLIT rather
+than pointed at, is `EllipticCurves.Torsion.ThreeDivisionField`** — its *"nothing below decides
+anything in either characteristic"* was a claim about the tree and is now half false, while the
+clauses here are claims about this file and are not.
+
 ## Main statements
 
 * `WeierstrassCurve.Affine.Ψ₃_eval_eq_neg`: the algebraic identity displayed above.
@@ -68,7 +90,10 @@ The *sharp* count `#E[3] = 9` and the structure `E[3] ≃+ ZMod 3 × ZMod 3` nee
   affine point with `y ≠ W.negY x y`.
 * `WeierstrassCurve.Affine.Ψ₃_eval_eq_zero_of_mem_torsion_three`: the unconditional forward half.
 * `WeierstrassCurve.Affine.finite_torsion_three`, `WeierstrassCurve.Affine.card_torsion_three_le`:
-  `E[3]` is finite with at most `9` elements, away from characteristic `3`.
+  `E[3]` is finite with at most `9` elements, away from characteristic `3`.  ⚠️ **Both are decided
+  the other way in characteristic `3`** — `finite_torsion_three_of_char_three` and
+  `card_torsion_three_le_three_of_char_three` (`EllipticCurves.Torsion.ThreeTorsionCharThree`) — so
+  neither statement's hypothesis is decoration; see the section above.
 
 ## References
 
