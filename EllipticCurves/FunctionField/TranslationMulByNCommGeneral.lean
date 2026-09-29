@@ -106,7 +106,9 @@ discharges it at `n = 4` over `ℚ`.
   `WeierstrassCurve.Affine.nsmul_surjective_of_two_ne_zero`
   (`EllipticCurves.Torsion.TwoTorsionOrder`) is surjectivity of `P ↦ n • P` at **every** `n ≠ 0`
   under `[IsAlgClosed F]`, `[W.IsElliptic]` and `(2 : F) ≠ 0`, and `nsmul_surjective_of_smooth`
-  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is the `3`-smooth form.  Neither goes near a
+  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) is the `3`-smooth form — ⚠️ **which as of
+  `#2253` takes NO hypothesis on `2`, so at `3`-smooth `n` the smooth route is strictly the
+  weaker-hypothesis one.**  Neither goes near a
   place, and ⚠️ **they are not the same route**: the general one comes off
   `hasXCoordFormula_of_two_ne_zero` through `nsmul_surjective_of_root`
   (`EllipticCurves.Torsion.NsmulOrder`), while the `3`-smooth one composes the merged low-index

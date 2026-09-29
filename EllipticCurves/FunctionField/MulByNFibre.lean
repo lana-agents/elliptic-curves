@@ -927,7 +927,7 @@ theorem card_fibre_comapProjPointN_projPointOfPoint (h2 : (2 : F) ≠ 0) (h3 : (
   classical
   haveI := W.finite_torsion_of_smooth h2 h3 hn hfac
   haveI := Fintype.ofFinite (W.torsion n)
-  obtain ⟨P, hP⟩ := exists_nsmul_eq_of_smooth h2 hn hfac S
+  obtain ⟨P, hP⟩ := exists_nsmul_eq_of_smooth hn hfac S
   refine le_antisymm (card_fibre_comapProjPointN_le_sq h2 h3 hn hfac h _) ?_
   have hcard : Fintype.card (W.torsion n) = n ^ 2 := by
     rw [← Nat.card_eq_fintype_card, card_torsion_eq_sq_of_smooth h2 h3 hn hfac]

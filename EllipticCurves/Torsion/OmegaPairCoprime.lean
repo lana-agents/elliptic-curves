@@ -267,7 +267,7 @@ theorem ψ_pair_of_equation [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) 
     refine pow_eq_zero_iff (n := 2) (by norm_num) |>.mp ?_
     rw [← eval_pow, ← ΨSq_natCast_eq_sq_of_odd hodd, ← ψ_sq_evalEval hxy, hz]
     ring
-  have hΨ₂ : W.Ψ₂Sq.eval x ≠ 0 := eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero h2 hodd hpre
+  have hΨ₂ : W.Ψ₂Sq.eval x ≠ 0 := eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero hodd hpre
   have ht : (W.ψ 2).evalEval x y ≠ 0 := fun hc => hΨ₂ (by
     rw [← ΨSq_two, ← ψ_sq_evalEval hxy, hc]; ring)
   exact ψ_pair_of_ψ_eq_zero h2 (equation_iff_nonsingular.mp hxy) ht hodd hz

@@ -70,9 +70,9 @@ variable [IsAlgClosed F] [W.IsElliptic]
 
 /-- **Lifting inside the `2`-primary tower.** Every element of `E[2^k]` is twice an element of
 `E[2^{k+1}]`. This is `exists_nsmul_eq_of_mem_torsion` fed with `nsmul_two_surjective`. -/
-theorem exists_two_nsmul_eq_of_mem_torsion (h2 : (2 : F) ≠ 0) {k : ℕ} {y : W.Point}
+theorem exists_two_nsmul_eq_of_mem_torsion {k : ℕ} {y : W.Point}
     (hy : y ∈ W.torsion (2 ^ k)) : ∃ x ∈ W.torsion (2 ^ (k + 1)), 2 • x = y :=
-  exists_nsmul_eq_of_mem_torsion (nsmul_two_surjective h2) hy
+  exists_nsmul_eq_of_mem_torsion nsmul_two_surjective hy
 
 /-- `E[2]` has a generating pair: it is isomorphic to `ZMod 2 × ZMod 2`, in which the two standard
 vectors generate. -/
@@ -98,7 +98,7 @@ theorem exists_compatible_basis (h2 : (2 : F) ≠ 0) :
     ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (2 ^ k)) ∧
       (∀ k, 2 • P (k + 1) = P k) ∧ (∀ k, 2 • Q (k + 1) = Q k) :=
-  exists_compatible_basis_of_surjective (nsmul_two_surjective h2)
+  exists_compatible_basis_of_surjective nsmul_two_surjective
     (exists_closure_pair_eq_torsion_two h2)
 
 /-! ### The explicit isomorphism `(ℤ/2^kℤ)² ≃+ E[2^k]` -/

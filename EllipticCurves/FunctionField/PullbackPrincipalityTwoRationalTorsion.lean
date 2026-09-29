@@ -675,7 +675,7 @@ private theorem exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_general (h2 : (2
     {f : W.FunctionField} (hf : f ≠ 0)
     (hfdiv : divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ)) :
     ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧ 2 • divisor W g₀ = divisor W (mulByTwoEndo h2 f) :=
-  let ⟨_, hP⟩ := exists_nsmul_two_eq h2 (Point.some x y h)
+  let ⟨_, hP⟩ := exists_nsmul_two_eq (Point.some x y h)
   exists_nsmul_divisor_eq_divisor_mulByTwoEndo_of_card h2 (card_torsion_two h2) h hS hP hf hfdiv
 
 /-- `exists_gS_two_of_isAlgClosed`
@@ -686,7 +686,7 @@ private theorem exists_gS_two_of_isAlgClosed_of_general (h2 : (2 : F) ≠ 0) {x 
       divisor W f = Finsupp.single (pointClosedPoint h.left) (2 : ℤ) ∧
       ∃ gS : W.FunctionField, gS ≠ 0 ∧
         ∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • gS ^ 2 = mulByTwoEndo h2 f :=
-  let ⟨_, hP⟩ := exists_nsmul_two_eq h2 (Point.some x y h)
+  let ⟨_, hP⟩ := exists_nsmul_two_eq (Point.some x y h)
   exists_gS_two_of_card h2 (card_torsion_two h2) h hS hP
 
 end Recovery

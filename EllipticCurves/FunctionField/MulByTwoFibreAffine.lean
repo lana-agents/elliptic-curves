@@ -432,7 +432,7 @@ theorem card_fibre_comapProjPointTwo_projPointOfPoint (h2 : (2 : F) ≠ 0) (S : 
   classical
   haveI := W.finite_torsion_two (F := F) h2
   haveI := Fintype.ofFinite (W.torsion 2)
-  obtain ⟨P, hP⟩ := exists_nsmul_two_eq h2 S
+  obtain ⟨P, hP⟩ := exists_nsmul_two_eq S
   refine le_antisymm (card_fibre_comapProjPointTwo_le_four h2 _) ?_
   have hcard : Fintype.card (W.torsion 2) = 4 := by
     rw [← Nat.card_eq_fintype_card, card_torsion_two h2]

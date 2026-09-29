@@ -82,8 +82,10 @@ true are worth naming, because both are hypothesis bookkeeping rather than mathe
 * `card_torsion_three` needs **both** `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, where `card_torsion_two`
   needs only the former.  So the class computation carries `h3` even though nothing in the divisor
   algebra does.
-* `exists_nsmul_three_eq` needs **only** `(2 : F) ≠ 0` — the surjectivity of `[3]` on `E(F̄)` goes
-  through the tangent slope of a doubling, not through `3`.  Do not thread an `h3` into it.
+* `exists_nsmul_three_eq` needs ⚠️ **NEITHER, as of `#2253`** — the surjectivity of `[3]` on `E(F̄)`
+  goes through the tangent slope of a doubling, not through `3`, and the `(2 : F) ≠ 0` it used to
+  carry was spent only on producing a point above a given `x`, which `exists_equation'` now does in
+  every characteristic.  Do not thread an `h3` into it, and do not thread an `h2` either.
 
 And one genuine difference: the `n = 2` proof closes `2 • divisor W g = (2 : ℤ) • divisor W g` with
 `two_nsmul` and `two_zsmul`, both of which unfold to `a + a`.  There is no such pair at `3`
@@ -293,7 +295,7 @@ theorem exists_nsmul_divisor_eq_divisor_mulByThreeEndo (h2 : (2 : F) ≠ 0) (h3 
     ∃ g₀ : W.FunctionField, g₀ ≠ 0 ∧
       3 • divisor W g₀ = divisor W (mulByThreeEndo h2 h3 f) := by
   classical
-  obtain ⟨P, hP⟩ := exists_nsmul_three_eq h2 (Point.some x y h)
+  obtain ⟨P, hP⟩ := exists_nsmul_three_eq (Point.some x y h)
   obtain ⟨g, hg, hgdiv⟩ :=
     exists_divisor_eq_affinePart_pullbackDivisorThree h2 h3 hP (mem_torsion_iff.mp hS)
   refine ⟨g, hg, ?_⟩

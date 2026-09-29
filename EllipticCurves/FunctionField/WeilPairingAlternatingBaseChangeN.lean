@@ -201,7 +201,7 @@ theorem translatePointEndo_eq_self_of_prod_eq_of_pow_eq_of_baseChange (h2 : (2 :
     transcendental_xCoord_nsmul_of_isAlgClosed h2' hn0
   have hgne : functionFieldMap W K g ≠ 0 :=
     (map_ne_zero_iff _ (functionFieldMap_injective W K)).mpr hg
-  obtain ⟨P, hP⟩ := exists_nsmul_eq_of_smooth h2' hn0 hfac (basePointMap W K T)
+  obtain ⟨P, hP⟩ := exists_nsmul_eq_of_smooth hn0 hfac (basePointMap W K T)
   have htel' : ∏ i ∈ Finset.range n,
       translatePointEndo (i • basePointMap W K T) (functionFieldMap W K f)
         = algebraMap K (W.map (algebraMap F K)).FunctionField (algebraMap F K c) := by
@@ -297,6 +297,10 @@ point over `F̄` — and `nsmul_surjective_of_two_ne_zero`
 **every** `n ≠ 0` with `(2 : F) ≠ 0`.  The module docstring above recorded that substitution as
 *"not measured"*.  It is measured now, and the answer is that it costs nothing: the two statements
 below are the two above with `hfac` deleted and **no index condition put in its place**.
+⚠️ **On the `h2` axis it stopped being free at `#2253`**, which removed
+`exists_nsmul_eq_of_smooth`'s `(2 : F) ≠ 0` and left `nsmul_surjective_of_two_ne_zero`'s in place —
+that one arriving through `hasXCoordFormula_of_two_ne_zero`, which is `#2250` and open.  These
+statements bind `h2` for the base change regardless, so nothing here pays for it.
 
 ⚠️ The `[(W.map (algebraMap F K)).IsElliptic]` instance the surjectivity needs is the same one
 `exists_nsmul_eq_of_smooth` was already using at this call site, so no instance is added either.

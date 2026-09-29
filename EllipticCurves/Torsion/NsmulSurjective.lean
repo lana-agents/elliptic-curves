@@ -22,11 +22,14 @@ this file is that uniform half, written once.
 
 `[IsAlgClosed F]` is used in exactly **two** places in this file, both inside
 `exists_nsmul_some_of_hasXCoordFormula`: the root extraction `exists_eval_Φ_eq` and the point
-above the root `exists_equation`.  Nothing else here, and nothing this file imports on its behalf,
+above the root `exists_equation'`.  Nothing else here, and nothing this file imports on its behalf,
 needs a closed field.  Promoted to arguments they give
 `exists_nsmul_some_of_hasXCoordFormula_of_root` and its named-point form, which hold over an
-arbitrary field — and, because `(2 : F) ≠ 0` and `n ≠ 0` are consumed *only* by those two uses, in
-every characteristic and at every `n` as well.
+arbitrary field — and, because `n ≠ 0` is consumed *only* by those two uses, at every `n` as well.
+⚠️ **This paragraph named `(2 : F) ≠ 0` beside `n ≠ 0` until `#2253`, and named `exists_equation`
+rather than `exists_equation'` as the second use.  The file binds no `h2` at all now**: the merged
+statements are already in every characteristic, so there is nothing left for the `_of_root` forms to
+be more general about on that axis.
 
 ⚠️ The two uses are **dependent**: the point is sought above the root the first one produced.  So
 the finite-level form takes `x` and `y` as arguments rather than taking two independent
@@ -320,31 +323,31 @@ theorem exists_nsmul_eq_some_of_hasXCoordFormula_of_root [W.IsElliptic] {n : ℕ
   · exact ⟨-P, by rw [smul_neg, hP, hc, neg_neg]⟩
 
 /-- **Every value of `x` is the `x`-coordinate of an `n`-fold multiple.**  Over an algebraically
-closed field of characteristic `≠ 2`, given the coordinate formula at `n` and the absence of a
-common root of `Φₙ` and `ΨSqₙ`, every `x₀` is `x(nP)` for some point `P`.
+closed field — ⚠️ **in every characteristic**, since `#2253` — given the coordinate formula at `n`
+and the absence of a common root of `Φₙ` and `ΨSqₙ`, every `x₀` is `x(nP)` for some point `P`.
 
 `exists_nsmul_three_some` (`EllipticCurves.Torsion.TriplingSurjective`) is its only direct consumer;
 at `n = 2` the tree consumes `exists_nsmul_eq_of_hasXCoordFormula` below instead. -/
-theorem exists_nsmul_some_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+theorem exists_nsmul_some_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic]
     {n : ℕ}
     (hn : n ≠ 0) (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0)
     (hform : HasXCoordFormula W n) (x₀ : F) :
     ∃ (P : W.Point) (y' : F) (h' : W.Nonsingular x₀ y'), n • P = Point.some x₀ y' h' := by
   obtain ⟨x, hx⟩ := exists_eval_Φ_eq (W := W) hn x₀
-  obtain ⟨y, hyeq⟩ := exists_equation (W := W) h2 x
+  obtain ⟨y, hyeq⟩ := exists_equation' (W := W) x
   exact exists_nsmul_some_of_hasXCoordFormula_of_root hroot hform hyeq hx
 
 /-- **Multiplication by `n` is surjective on `E(F̄)`**, given the coordinate formula at `n`.  The
 point at infinity is `n • 0`; an affine `Q` is matched by `exists_nsmul_some_of_hasXCoordFormula`,
 which pins the `x`-coordinate, leaving the sign ambiguity `nP = ±Q` that `Point.X_eq_iff` resolves
 and `−P` absorbs. -/
-theorem exists_nsmul_eq_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+theorem exists_nsmul_eq_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic]
     {n : ℕ} (hn : n ≠ 0)
     (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0)
     (hform : HasXCoordFormula W n) (Q : W.Point) : ∃ P : W.Point, n • P = Q := by
   rcases Q with _ | ⟨x₀, y₀, hQ⟩
   · exact ⟨0, smul_zero n⟩
-  · obtain ⟨P, y', h', hP⟩ := exists_nsmul_some_of_hasXCoordFormula h2 hn hroot hform x₀
+  · obtain ⟨P, y', h', hP⟩ := exists_nsmul_some_of_hasXCoordFormula hn hroot hform x₀
     rcases (Point.X_eq_iff (h₁ := h') (h₂ := hQ)).mp rfl with hc | hc
     · exact ⟨P, by rw [hP, hc]⟩
     · exact ⟨-P, by rw [smul_neg, hP, hc, neg_neg]⟩
@@ -352,11 +355,11 @@ theorem exists_nsmul_eq_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic] (h2 :
 /-- **Multiplication by `n` is surjective on `E(F̄)`**, stated as `Function.Surjective` — the form
 `EllipticCurves.Torsion.Divisible`'s `torsionSmulHom_surjective` consumes.  `nsmul_two_surjective`
 and `nsmul_three_surjective` are its two instances. -/
-theorem nsmul_surjective_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0)
+theorem nsmul_surjective_of_hasXCoordFormula [IsAlgClosed F] [W.IsElliptic]
     {n : ℕ} (hn : n ≠ 0)
     (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0)
     (hform : HasXCoordFormula W n) : Function.Surjective fun P : W.Point => n • P :=
-  exists_nsmul_eq_of_hasXCoordFormula h2 hn hroot hform
+  exists_nsmul_eq_of_hasXCoordFormula hn hroot hform
 
 end Formula
 

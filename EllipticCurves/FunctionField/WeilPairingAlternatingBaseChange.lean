@@ -192,7 +192,7 @@ theorem translateEndo_eq_self_of_mul_algebraMap_sq_eq_of_baseChange
       * functionFieldMap W K g ^ 2 = mulByTwoEndo h2' (functionFieldMap W K f) := by
     rw [← functionFieldMap_algebraMap_base, ← map_pow, ← map_mul, hsq,
       functionFieldMap_mulByTwoEndo h2 h2']
-  obtain ⟨xP, yP, hP, hdouble⟩ := exists_equation_nsmul_two_eq h2' h'
+  obtain ⟨xP, yP, hP, hdouble⟩ := exists_equation_nsmul_two_eq h'
   have key : translateEndo h'.left (functionFieldMap W K g) = functionFieldMap W K g :=
     translateEndo_eq_self_of_mul_algebraMap_sq_eq h2' hP h'.left
       (translatePoint_add hP hP h'.left hdouble) hgne
@@ -301,7 +301,7 @@ theorem translateEndo_eq_self_of_mul_algebraMap_cube_eq_of_baseChange
       * functionFieldMap W K g ^ 3 = mulByThreeEndo h2' h3' (functionFieldMap W K f) := by
     rw [← functionFieldMap_algebraMap_base, ← map_pow, ← map_mul, hcube,
       functionFieldMap_mulByThreeEndo h2 h3 h2' h3']
-  obtain ⟨xP, yP, xQ, yQ, hP, hQ, hdouble, hsum⟩ := exists_equation_nsmul_three_eq h2' h' htorsK
+  obtain ⟨xP, yP, xQ, yQ, hP, hQ, hdouble, hsum⟩ := exists_equation_nsmul_three_eq h' htorsK
   have htorsK' : torsionPoint h'.left + torsionPoint h'.left + torsionPoint h'.left = 0 :=
     add_add_self_eq_zero_of_mem_torsion_three htorsK
   have key : translateEndo h'.left (functionFieldMap W K g) = functionFieldMap W K g := by

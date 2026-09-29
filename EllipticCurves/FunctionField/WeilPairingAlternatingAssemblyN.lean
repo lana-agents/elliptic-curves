@@ -508,7 +508,7 @@ theorem exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
             = mulByNEndo n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hnz) f) ∧
           translateEndo h.left g = g ∧ weilPairingElt h.left g = 1 :=
-  let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth h2 hnz hfac (Point.some xT yT h)
+  let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth hnz hfac (Point.some xT yT h)
   exists_weilPairingElt_self_eq_one_of_hprin_n hnz _ h htors hP hprin
 
 open Classical in
@@ -536,7 +536,7 @@ theorem exists_weilPairingMu_self_eq_one_of_hprin_n_of_algClosed [IsAlgClosed F]
           (∃ u : W.CoordinateRingˣ, (u : W.CoordinateRing) • g ^ n
             = mulByNEndo n (transcendental_xCoord_nsmul_of_isAlgClosed h2 hnz) f) ∧
           ∃ hpow : weilPairingElt h.left g ^ m = 1, weilPairingMu h.left hpow = 1 :=
-  let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth h2 hnz hfac (Point.some xT yT h)
+  let ⟨_, hP⟩ := exists_nsmul_eq_of_smooth hnz hfac (Point.some xT yT h)
   exists_weilPairingMu_self_eq_one_of_hprin_n hnz _ h htors hP hprin m
 
 
@@ -546,7 +546,12 @@ The two statements above consume `hfac` in exactly one place, `exists_nsmul_eq_o
 `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`) is the same conclusion
 under the same instances at **every** `n ≠ 0` with `(2 : F) ≠ 0`.  So the two below are the two
 above with `hfac` deleted and **nothing put in its place** — no index condition, no `h3`, no extra
-instance.
+instance.  ⚠️ **The substitution stopped being free on the `h2` axis at `#2253`**: it removed
+`exists_nsmul_eq_of_smooth`'s `(2 : F) ≠ 0` and could not remove
+`nsmul_surjective_of_two_ne_zero`'s, whose own `h2` comes through
+`hasXCoordFormula_of_two_ne_zero` (`#2250`, open).  It costs nothing **here**, because these
+statements bind `h2` for `mulByNEndo` anyway — but at a `3`-smooth index the smooth route is now the
+weaker-hypothesis one.
 
 ⚠️ **This is the only place on this front where the general layer is free.** Everywhere else — the
 nine group-1 statements, the `_of_smooth` corollaries over an arbitrary field — dropping `hfac`

@@ -601,12 +601,15 @@ theorem ψ_evalEval_eq_zero_of_nsmul_eq_zero (h2 : (2 : F) ≠ 0) (hns : W.Nonsi
 /-- **Multiplication by `n` is surjective on `E(F̄)` with `(2 : F) ≠ 0`, at every `n ≠ 0`, as soon
 as `Φₙ` and `ΨSqₙ` have no common root.**  The coordinate formula, the *other* input of
 `WeierstrassCurve.Affine.nsmul_surjective_of_hasXCoordFormula`, is no longer a hypothesis: it holds
-at every index.  ⚠️ What is left, `hroot`, is the weakening of `#1184` recorded there; this theorem
+at every index.  ⚠️ **The `h2` here is `hasXCoordFormula_of_two_ne_zero`'s and nothing else, as of
+`#2253`**: `nsmul_surjective_of_hasXCoordFormula` used to take one too and now takes none, so this
+statement's binder has exactly one source — which is `#2250`, and open.
+⚠️ What is left, `hroot`, is the weakening of `#1184` recorded there; this theorem
 does **not** discharge it. -/
 theorem nsmul_surjective_of_root [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : n ≠ 0) (hroot : ∀ x : F, (W.ΨSq n).eval x = 0 → (W.Φ n).eval x ≠ 0) :
     Function.Surjective fun P : W.Point => n • P :=
-  nsmul_surjective_of_hasXCoordFormula h2 hn hroot (hasXCoordFormula_of_two_ne_zero h2 n)
+  nsmul_surjective_of_hasXCoordFormula hn hroot (hasXCoordFormula_of_two_ne_zero h2 n)
 
 end Formula
 

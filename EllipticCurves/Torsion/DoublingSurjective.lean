@@ -74,8 +74,11 @@ Surjectivity does not — `y² = x³ − x` over `ℚ` has full rational `2`-tor
 of any of it.  What survives is the **conditional** form: `exists_nsmul_two_eq_some_of_root` below
 says a named point is twice another as soon as `Φ₂ − x₀·Ψ₂Sq` has a root with a point of `W` above
 it, over any field and in any characteristic, because both of this file's inputs to the engine are
-already hypothesis-free.  The closure and `h2` of `exists_nsmul_two_eq` live entirely in the two
-existence steps that `EllipticCurves.Torsion.NsmulSurjective` promotes to arguments.
+already hypothesis-free.  ⚠️ **The `h2` of `exists_nsmul_two_eq` is GONE as of `#2253`** — this
+sentence read *"the closure and `h2` … live entirely in the two existence steps"*, and of the two it
+is now only the **closure** that does: the point above the root is `exists_equation'`, which needs
+`[IsAlgClosed F]` and no hypothesis on `2`.  The step that
+`EllipticCurves.Torsion.NsmulSurjective` promotes to an argument is unchanged.
 
 ## Main statements
 
@@ -209,16 +212,16 @@ lemma addX_self_mul_Ψ₂Sq_eval {x y : F} (h : W.Equation x y) (hy : y ≠ W.ne
   linear_combination key
 
 /-- The `x`-coordinate solution, packaged with a point above it. Over an algebraically closed field
-of characteristic `≠ 2`, for every `x₀` there is an affine point `(x, y)` of `W`, not fixed by
-negation, with `x(2 • (x, y)) = x₀`. -/
-lemma exists_addX_self_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (x₀ : F) :
+— ⚠️ **in every characteristic**, since `#2253` — for every `x₀` there is an affine point `(x, y)`
+of `W`, not fixed by negation, with `x(2 • (x, y)) = x₀`. -/
+lemma exists_addX_self_eq [IsAlgClosed F] [W.IsElliptic] (x₀ : F) :
     ∃ x y : F, W.Nonsingular x y ∧ y ≠ W.negY x y ∧
       W.addX x x (W.slope x x y y) = x₀ := by
   obtain ⟨x, hx⟩ := exists_eval_Φ_eq (W := W) (n := 2) (by norm_num) x₀
   simp only [Nat.cast_ofNat, ΨSq_two] at hx
   have hne : W.Ψ₂Sq.eval x ≠ 0 := fun h0 =>
     eval_Φ_two_ne_zero_of_root_ΨSq x (by rw [ΨSq_two]; exact h0) (by rw [hx, h0, mul_zero])
-  obtain ⟨y, hy⟩ := exists_equation (W := W) h2 x
+  obtain ⟨y, hy⟩ := exists_equation' (W := W) x
   have hns : W.Nonsingular x y := equation_iff_nonsingular.mp hy
   have hyne : y ≠ W.negY x y := by
     intro hcon
@@ -261,20 +264,20 @@ theorem hasXCoordFormula_two : HasXCoordFormula W 2 := by
 
 /-! ## Surjectivity of multiplication by `2` -/
 
-/-- **Multiplication by `2` is surjective on `E(F̄)`.** Over an algebraically closed field of
-characteristic `≠ 2`, every point of an elliptic curve is twice another point.
+/-- **Multiplication by `2` is surjective on `E(F̄)`.** Over an algebraically closed field — ⚠️ **in
+every characteristic**, since `#2253` — every point of an elliptic curve is twice another point.
 
 The two inputs above, fed to `exists_nsmul_eq_of_hasXCoordFormula`. -/
-theorem exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) (Q : W.Point) :
+theorem exists_nsmul_two_eq [IsAlgClosed F] [W.IsElliptic] (Q : W.Point) :
     ∃ P : W.Point, 2 • P = Q :=
-  exists_nsmul_eq_of_hasXCoordFormula h2 (by norm_num)
+  exists_nsmul_eq_of_hasXCoordFormula (by norm_num)
     (by simp only [Nat.cast_ofNat]; exact eval_Φ_two_ne_zero_of_root_ΨSq)
     hasXCoordFormula_two Q
 
 /-- **Multiplication by `2` is surjective on `E(F̄)`**, stated as `Function.Surjective`. -/
-theorem nsmul_two_surjective [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) :
+theorem nsmul_two_surjective [IsAlgClosed F] [W.IsElliptic] :
     Function.Surjective fun P : W.Point => (2 : ℕ) • P :=
-  exists_nsmul_two_eq h2
+  exists_nsmul_two_eq
 
 /-! ## Halving a named point over an arbitrary field -/
 
@@ -285,8 +288,10 @@ on `(2 : F)`**.
 This is `exists_nsmul_eq_some_of_hasXCoordFormula_of_root` at `n = 2`, and it is hypothesis-free
 because both of the engine's index-dependent inputs already are:
 `eval_Φ_two_ne_zero_of_root_ΨSq` needs only `Δ` a unit, and `hasXCoordFormula_two` needs nothing at
-all.  ⚠️ The merged `exists_nsmul_two_eq` above carries `[IsAlgClosed F]` and `h2` **only** through
-the two existence steps of the engine; supply their conclusions and neither survives.
+all.  ⚠️ The merged `exists_nsmul_two_eq` above carries `[IsAlgClosed F]` **only** through the two
+existence steps of the engine; supply their conclusions and it does not survive.  ⚠️ **It carried an
+`h2` on the same footing until `#2253`, and that binder is now gone from the merged form as
+well — so the gap between the two statements is exactly the closure.**
 
 ⚠️ The hypothesis is stated on `W.Ψ₂Sq`, not on `W.ΨSq 2`.  `ΨSq_two` bridges them inside the
 proof, and `Ψ₂Sq` is the name every consumer in this tree uses — a hypothesis a caller has to

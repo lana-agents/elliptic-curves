@@ -47,9 +47,11 @@ hypotheses its own docstring records as *"consumed entirely by the two inputs"*;
 
 ⚠️ Note what is **not** there: `(p : F) ≠ 0` appears nowhere, at any `p`.  The characteristic
 hypothesis is `(2 : F) ≠ 0` and nothing else, at every index.  This is the asymmetry
-`EllipticCurves.Torsion.ThreePrimary` already records at `p = 3` — *"`nsmul_three_surjective`
-carries `(2 : F) ≠ 0` and **not** `(3 : F) ≠ 0`"* — and it holds at every `p`.  Where `(3 : F) ≠ 0`
-does enter at `p = 3` is through `card_torsion_three`, i.e. through hypothesis (2).
+`EllipticCurves.Torsion.ThreePrimary` already records at `p = 3`.  ⚠️ **The sentence quoted here
+until `#2253` — *"`nsmul_three_surjective` carries `(2 : F) ≠ 0` and **not** `(3 : F) ≠ 0`"* — no
+longer exists at that end: that lemma carries neither, so the `(2 : F) ≠ 0` below arrives through
+the COUNT and not through surjectivity.**  Where `(3 : F) ≠ 0` does enter at `p = 3` is through
+`card_torsion_three`, i.e. through hypothesis (2) — which is now where `h2` enters too.
 
 ## Non-vacuity, and it is a check rather than a decoration
 

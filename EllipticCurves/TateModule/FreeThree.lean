@@ -45,9 +45,11 @@ public declarations, and the eight `padicPair…` names are consumed **unspecial
 
 ⚠️ **Two hypotheses, not one.** Where the `ℓ = 2` file `EllipticCurves.TateModule.Free` carries only
 `h2`, everything here carries both `h2` and `h3`, and the provenance is not symmetric:
-`nsmul_three_surjective` needs **only** `(2 : F) ≠ 0`, so the coherent system's *lifting* step is
-`h3`-free; `h3` enters exclusively through the counting theorem `card_torsion_three_pow`, i.e.
-through `#E[3] = 9`. That is the same split `EllipticCurves.Torsion.ThreePrimary` and
+⚠️ **`nsmul_three_surjective` needs NEITHER as of `#2253`** — this clause read *"needs **only**
+`(2 : F) ≠ 0`"* — so the coherent system's *lifting* step is free of both, and every `h2` left in
+this file comes from the counting side; `h3` enters exclusively through the counting theorem
+`card_torsion_three_pow`, i.e. through `#E[3] = 9`. That is the same split
+`EllipticCurves.Torsion.ThreePrimary` and
 `EllipticCurves.Torsion.ThreePrimaryBasis` document for the tower below.
 
 ## Naming
@@ -159,27 +161,28 @@ variable [IsAlgClosed F] [W.IsElliptic]
 
 /-! ### The `ℓ = 3` twins of `LevelStructure`'s `section Two` -/
 
-/-- **`proj k : T₃E →+ E[3^k]` is surjective** over an algebraically closed field in which `2 ≠ 0`,
-because multiplication by `3` is then surjective on `E(F̄)`.
+/-- **`proj k : T₃E →+ E[3^k]` is surjective** over an algebraically closed field, ⚠️ **in every
+characteristic**, because multiplication by `3` is surjective on `E(F̄)` there.
 
-⚠️ No `h3`: `nsmul_three_surjective` does not need it. -/
-theorem proj_three_surjective (h2 : (2 : F) ≠ 0) (k : ℕ) :
+⚠️ **Neither `h3` nor `h2`**: `nsmul_three_surjective` needed no `h3` and, since `#2253`, needs no
+`h2`. -/
+theorem proj_three_surjective (k : ℕ) :
     Function.Surjective (proj (W := W) (ℓ := 3) k) :=
-  proj_surjective (nsmul_three_surjective h2) k
+  proj_surjective nsmul_three_surjective k
 
 /-- **`T₃E` is infinite.** It surjects onto `E[3^k]`, which has `9^k` elements, for every `k`.
 
 This is where `h3` first appears in the file, and it appears through the count. -/
 theorem infinite_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Infinite (W.tateModule 3) :=
-  infinite_tateModule_of_card (by norm_num) (proj_three_surjective h2)
+  infinite_tateModule_of_card (by norm_num) proj_three_surjective
     (card_torsion_three_pow_mul_self h2 h3)
 
 /-- **`T₃E` is nontrivial**, i.e. it is not the zero module. Weaker than
 `infinite_tateModule_three`, but this is the form a consumer usually wants. -/
 theorem nontrivial_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     Nontrivial (W.tateModule 3) :=
-  nontrivial_tateModule_of_card (by norm_num) (proj_three_surjective h2)
+  nontrivial_tateModule_of_card (by norm_num) proj_three_surjective
     (card_torsion_three_pow_mul_self h2 h3)
 
 /-- **`T₃E` has a nonzero element.** The unbundled form of `nontrivial_tateModule_three`, and the
@@ -196,12 +199,13 @@ theorem exists_ne_zero_tateModule_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0
 
 /-- ⚠️ **The `ℓ = 3` reading of `quotientProjEquiv`**, which is what generalising that unsuffixed
 declaration bought. `T₃E / 3^k T₃E ≃+ E[3^k]`, with no `…Three` name and no restatement: the
-generic form takes the surjectivity witness directly, and `nsmul_three_surjective` supplies it from
-`h2` alone. ⚠️ **No `h3`** — this is a level statement, not a counting one. Recorded as an
-`example` because a named twin would collide with the unsuffixed original. -/
-noncomputable example (h2 : (2 : F) ≠ 0) (k : ℕ) :
+generic form takes the surjectivity witness directly, and ⚠️ **`nsmul_three_surjective` now supplies
+it from NOTHING** — the `(2 : F) ≠ 0` this `example` used to take went with that lemma's own binder.
+⚠️ **No `h3`** — this is a level statement, not a counting one. Recorded as an `example` because a
+named twin would collide with the unsuffixed original. -/
+noncomputable example (k : ℕ) :
     (W.tateModule 3 ⧸ (proj (W := W) (ℓ := 3) k).ker) ≃+ W.torsion (3 ^ k) :=
-  quotientProjEquiv (nsmul_three_surjective h2) k
+  quotientProjEquiv nsmul_three_surjective k
 
 /-! ### `T₃E ≅ ℤ₃²` -/
 

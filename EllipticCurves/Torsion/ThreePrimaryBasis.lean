@@ -60,10 +60,11 @@ takes the numeral in the same position.
 ⚠️ **This file carries two hypotheses where `TwoPrimaryBasis.lean` carries one, and they enter in
 different places.**
 
-* `(2 : F) ≠ 0` enters through **`[3]`-surjectivity**. `nsmul_three_surjective` takes `h2` and
-  **no** `h3` (`EllipticCurves.Torsion.TriplingSurjective`), which is why
-  `exists_three_nsmul_eq_of_mem_torsion` below has a one-hypothesis binder list, exactly like its
-  `ℓ = 2` twin.
+* `(2 : F) ≠ 0` ⚠️ **no longer enters through `[3]`-surjectivity at all, as of `#2253`**. This
+  bullet read *"enters through **`[3]`-surjectivity**. `nsmul_three_surjective` takes `h2` and
+  **no** `h3`"*; that lemma now takes neither, which is why
+  `exists_three_nsmul_eq_of_mem_torsion` below has an **empty** field-hypothesis binder list, as
+  does its `ℓ = 2` twin. Every `h2` left in this file arrives with the counting bullet below.
 * `(3 : F) ≠ 0` enters **only through counting `E[3]`** — through `nonempty_torsionThree_addEquiv`
   for the base of the tower and through `card_torsion_three_pow` for bijectivity, and through
   nothing else. This is the same provenance that `EllipticCurves.Torsion.ThreePrimary` records for
@@ -122,12 +123,12 @@ variable [IsAlgClosed F] [W.IsElliptic]
 /-- **Lifting inside the `3`-primary tower.** Every element of `E[3^k]` is three times an element
 of `E[3^{k+1}]`. This is `exists_nsmul_eq_of_mem_torsion` fed with `nsmul_three_surjective`.
 
-⚠️ **Only `h2` appears**, and that is not an oversight: `nsmul_three_surjective` is stated with
-`(2 : F) ≠ 0` and no `(3 : F) ≠ 0`. Nothing in the `3`-primary lifting step counts anything, so
-there is nothing here for `h3` to do. -/
-theorem exists_three_nsmul_eq_of_mem_torsion (h2 : (2 : F) ≠ 0) {k : ℕ} {y : W.Point}
+⚠️ **NEITHER `h2` NOR `h3` appears**, and that is not an oversight. `nsmul_three_surjective` was
+already stated with no `(3 : F) ≠ 0`, and since `#2253` it carries no `(2 : F) ≠ 0` either. Nothing
+in the `3`-primary lifting step counts anything, so there is nothing here for either to do. -/
+theorem exists_three_nsmul_eq_of_mem_torsion {k : ℕ} {y : W.Point}
     (hy : y ∈ W.torsion (3 ^ k)) : ∃ x ∈ W.torsion (3 ^ (k + 1)), 3 • x = y :=
-  exists_nsmul_eq_of_mem_torsion (nsmul_three_surjective h2) hy
+  exists_nsmul_eq_of_mem_torsion nsmul_three_surjective hy
 
 /-- `E[3]` has a generating pair: it is isomorphic to `ZMod 3 × ZMod 3`, in which the two standard
 vectors generate.
@@ -177,7 +178,7 @@ theorem exists_compatible_basis_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) 
     ∃ P Q : ℕ → W.Point,
       (∀ k, AddSubgroup.closure ({P k, Q k} : Set W.Point) = W.torsion (3 ^ k)) ∧
       (∀ k, 3 • P (k + 1) = P k) ∧ (∀ k, 3 • Q (k + 1) = Q k) :=
-  exists_compatible_basis_of_surjective (nsmul_three_surjective h2)
+  exists_compatible_basis_of_surjective nsmul_three_surjective
     (exists_closure_pair_eq_torsion_three h2 h3)
 
 /-! ### The explicit isomorphism `(ℤ/3^kℤ)² ≃+ E[3^k]` -/
