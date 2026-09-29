@@ -411,9 +411,9 @@ corrects in turn.
 walker.**  The instrument behind every delta above is four lines and parses nothing:
 
 ```
-import <each base module>
-import <the candidate>
-run_meta do for m in (← Lean.getEnv).header.moduleNames do IO.println m
+  import <each base module>
+  import <the candidate>
+  run_meta do for m in (← Lean.getEnv).header.moduleNames do IO.println m
 ```
 
 then `lake env lean` the probe, `sort -u`, and take the added set by `comm -13`.
