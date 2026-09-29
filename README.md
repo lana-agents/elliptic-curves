@@ -73,8 +73,20 @@ All three were caught by a reviewer opening each cited signature at source, and 
   takes one. ⚠️ Closure buys a wider index range there as well: over `F̄` the alternating
   property is proved at every `n ≠ 0`, `n` divisible by the characteristic included, and the
   index condition stated above is the arbitrary-field one.
-  Antisymmetry is stated at every `n ≠ 0` (`WeilPairingAntisymmetric.lean`), but from the
-  alternating property at the three points as hypotheses rather than from principality.
+  Antisymmetry has both layers and only the second of them is new. The **engine** is stated at
+  every `n ≠ 0` (`WeilPairingAntisymmetric.lean`) and takes the alternating property at the three
+  points `S`, `T` and `R = S ⊕ T` as hypotheses rather than principality — that is precisely what
+  makes it index-free, and `#2266` left it untouched on purpose. What the tree did not carry until
+  `#2266` is the **instantiation** at a general index, which *produces* those three hypotheses
+  instead of assuming them (`WeilPairingProductRelationHprinN.lean`). Taking principality, that is
+  `exists_weilPairingElt_mul_swap_eq_one_of_hprin_n` and `exists_weilPairingElt_eq_inv_of_hprin_n`
+  over an arbitrary field, gated on `hprin` and on a halving point at `S` and at `T` — ⚠️ **two
+  halving points and not three**: `R`'s `n`-torsion and `R`'s halving are both derived,
+  `W.torsion n` being a subgroup and `P_S + P_T` halving `R`. Over `F̄` both gates are discharged
+  and nothing is left — `exists_weilPairingElt_mul_swap_eq_one_n_of_isAlgClosed` and
+  `exists_weilPairingElt_eq_inv_n_of_isAlgClosed` bind `[IsAlgClosed F]`, `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` and nothing else. ⚠️ Not even `n ≠ 0`, which the index condition implies:
+  it is the sharper of the two and binding both would be redundant.
   **Principality itself is discharged at every `n` prime to the characteristic over an
   algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
