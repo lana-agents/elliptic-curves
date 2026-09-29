@@ -5505,8 +5505,18 @@ collapse to **one** tuple; with blank lines kept the same six give **4**, **4**,
 **6** distinct tuples, moving the line total by up to `3`, the standing count by up to `3` and the
 region floor by `1`. **So the drop is not a preference about layout: it is the flag that makes three
 of this section's four silences harmless**, and a round that keeps blanks is reporting three flags
-it never published. The five pairs under the recipe as landed — `autojunk=False`, matcher
-case-insensitive — measured at `0a07de7`:
+it never published. ⚠️ **Both conventions this paragraph leaves unnamed are fixed here, because
+the figures it takes from them are exact under exactly one of the four readings they otherwise
+admit**: *delete-it-with-its-blank* is a **filter over every trailer line** and over any blank
+immediately preceding one, applied to the whole body and not to its tail; and the three
+trailing-empty conventions are **`pop 0`, `pop 1`, `pop 2`**, not `pop 0`, `pop 2`, `pop all`.
+Taking the other triple, or reading the flag as a tail strip guarded on the last line, gives
+`4, 4, 4, 4, 4`, `4, 4, 5, 4, 4` or `3, 3, 3, 3, 3` distinct tuples with blanks kept, and the
+*"moves **ten** of them with blanks"* cell below reads `6`, `12` or `6`.
+⚠️ **Every verdict is invariant across all four anyway** — the blanks-dropped collapse to one
+tuple, and `autojunk`'s inertness under the drop, hold under every one of them — so an unnamed
+convention here moves the population and not the finding. The five pairs under the recipe as landed
+— `autojunk=False`, matcher case-insensitive — measured at `0a07de7`:
 
 | round pair | `N → M` | disturbed | standing | regions (a floor) |
 |---|---|---|---|---|
