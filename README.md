@@ -5347,6 +5347,56 @@ unequal elements, so two repairs with no surviving line between them are one reg
 a lower bound on the number of separate edits and says nothing about how many an author made.
 Publish it as a floor or not at all.
 
+⚠️ **The recipe above names four flags and the instrument has seven — and the blank-line drop is
+what makes the other three inert.** The four named are `%B`, the `Co-authored-by:` trailer deleted,
+blank lines dropped, and `str.strip()` on both sides. The three it does not name are whether the
+blank line *preceding* the trailer goes with the trailer, how many of the trailing empty elements a
+`split` leaves are popped, and `difflib`'s own `autojunk`. ⚠️ **Under the blank-line drop the first
+two are exact no-ops.** Three trailing-empty conventions crossed with delete-the-trailer-line and
+delete-it-with-its-blank is six readings, and on each of the five round pairs below those six
+collapse to **one** tuple; with blank lines kept the same six give **4**, **4**, **5**, **4** and
+**6** distinct tuples, moving the line total by up to `3`, the standing count by up to `3` and the
+region floor by `1`. **So the drop is not a preference about layout: it is the flag that makes this
+section's own silences harmless**, and a round that keeps blanks is reporting three flags it never
+published. The five pairs under the recipe as landed, `autojunk=False`, measured at `0a07de7`:
+
+| round pair | `N → M` | disturbed | standing | regions (a floor) |
+|---|---|---|---|---|
+| `#2251` r4 → r5, `ad546fa` → `03277bd` | `209 → 322` | **4** | 205 | 4 |
+| `#2248` r5 → r6, `2f38c3f` → `6057672` | `261 → 323` | **4** | 257 | 4 |
+| `#2257` r1 → r2, `7fc3b1e` → `5be6bca` | `166 → 141` | **164** | 2 | 3 |
+| `#2258` r2 → r3, `df059f2` → `63a8ebf` | `243 → 321` | **6** | 237 | 2 |
+| `#2244` r3 → r4, `4fc384e` → `b4e01c8` | `304 → 449` | **20** | 284 | 5 |
+
+⚠️ **`autojunk` is not safe at this layer — it is inert only because of the drop.** Over the same
+thirty cells the flag moves no figure at all under the drop and moves **ten** of them with blanks
+kept, inflating the disturbed count by up to `2` while deflating the region floor by `1`: the two
+figures this section names as verdict-carrying, moved in opposite directions by a flag no published
+figure discloses. ⚠️ **The mechanism is the separator and nothing else.** `difflib` junks every
+element of the second sequence occurring more than `len(b) // 100 + 1` times, and with blanks kept
+the blank line is the **only** such element on all ten bodies above, at multiplicity **25** to
+**93** against a threshold of **2** to **6**; with blanks dropped **no** element of any of the ten
+is popular, the largest multiplicity being **5** against a threshold of **5**. ⚠️ **That margin is
+one occurrence, so name `autojunk=False` and do not lean on the inertness.** The file-layer control
+this section already publishes is unaffected either way and is what made the flag look safe: re-run
+at `0a07de7`, all five of `ac0a053`, `046022d`, `3f61ad7`, `ea5022d` and `3f7d03c` are
+opcode-identical at both settings over `README.md` against their parents, and both published opcodes
+reproduce exactly. **That control is a FILE-layer measurement and does not reach a message body
+whose blanks are kept.**
+
+⚠️ **Neither verdict figure survives a change of reading, and the counterexample is in the table
+above.** On `#2257`'s pair the disturbed count is **164** under the recipe as landed and **172** to
+**173** with blanks kept, the standing count **2** against **25** to **27**, and the region floor
+**3** against **24** to **25**. Across the five pairs the disturbed count moves on one and the
+standing count on all five, by `24` to `63`. ⚠️ **So a published figure is not self-identifying, and
+one cell fixes that: print the line total.** `N → M` moves by `32` to `63` and `25` to `93` between
+the two readings on every pair above, where the disturbed count moves on one pair only — the total
+is the cell that names the recipe and the disturbance is the cell that cannot. **Publish `N → M`
+beside every message-layer touch figure, and publish the two heads it was measured between at full
+width**: on a branch amended in place the earlier round heads are at the tip of no ref, so a figure
+without its pair of names is unre-runnable by construction, and the recipe it was taken under is
+unrecoverable.
+
 ⚠️ **Retiring the block pair contradicts exactly ONE landed figure, and it is the message this
 section rests on.** `c6ef24a` publishes the retired shape in **eleven** cells — the summary
 *"paragraphs 68 -> 81, 19 replaced in 10 regions"* quoted above, and a ten-row region table under
