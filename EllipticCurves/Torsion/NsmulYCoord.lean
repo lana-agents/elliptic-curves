@@ -52,6 +52,10 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
   `ψ₂(x, y) ≠ 0` and `ψₙ(x, y) ≠ 0`, over a field of characteristic `≠ 2`.
 * `WeierstrassCurve.Affine.nsmul_eq_some_omegaY` : **the headline** — under the ladder hypothesis,
   `n • (x, y) = (Φₙ(x)/ΨSqₙ(x), ωₙ/(2ψₙ³))` as a point of `W.Point`.
+* `WeierstrassCurve.Affine.omegaY_three_eq` : at `n = 3` the quotient is `ω₃(x, y)/ψ₃(x, y)³`,
+  with **no `2`**, over any field with `(2 : F) ≠ 0` and ⚠️ **under no other hypothesis at all**.
+* `WeierstrassCurve.Affine.nsmul_three_eq_some_ω₃` : the headline at `n = 3` in that form —
+  `3 • (x, y) = (Φ₃(x)/ΨSq₃(x), ω₃(x, y)/ψ₃(x, y)³)`, no `2` in either coordinate.
 
 ## ⚠️ What this does *not* prove — ⚠️ **the first item is DISCHARGED downstream, read it**
 
@@ -168,6 +172,41 @@ theorem divY_eq_omegaY (h : W.Equation x y) (h2 : (2 : F) ≠ 0)
   field_simp
   ring
 
+/-- **At `n = 3` the predicted `y`-coordinate is `ω₃/ψ₃³`, with no `2` in the quotient.**
+`omegaY`'s numerator at an odd index is `ψ₂·preΩₙ − ψₙ·(a₁Φₙ + a₃ΨSqₙ)`, and at `n = 3` that
+bracket is `2·ω₃` on the nose — `WeierstrassCurve.two_mul_ω₃`, an identity of polynomials over
+**every** commutative ring — so the two `2`s cancel and `ω₃` is what is left.
+
+⚠️ **`h2` pays for `omegaY`'s own definition and for nothing else.**  The left-hand side divides by
+`2ψ₃³`; the right-hand side's `ω₃` is an honest polynomial of
+`EllipticCurves.Torsion.OmegaDivisionPolynomial` and its quotient by `ψ₃³` asks nothing of the
+characteristic.  This is that file's *"the `2` is presentational at `n = 3`"* carried up to the
+`y`-coordinate the ladder actually predicts, and `WeierstrassCurve.Affine.tripling_equation_ω₃`
+(`EllipticCurves.Torsion.OmegaThree`) is the same `y`-value one layer down, in `Equation` form.
+
+⚠️ **Neither `W.Equation x y` nor `ψ₃(x, y) ≠ 0` is needed, and issue `#2246` predicted both.**
+No point hypothesis, because `two_mul_ω₃` is stated with `ΨSq 3`, which is `omegaY`'s own shape:
+nothing has to turn `ΨSq₃` into `ψ₃²`, so `ψ_sq_evalEval` — the one step that would want a point —
+never runs.  ⚠️ Routing through `tripling_equation` instead *would* need it, and that is the only
+reason the predicted signature carried it.  No non-vanishing hypothesis, because `mul_div_mul_left`
+cancels the `2` whatever `ψ₃(x, y)` is: where it vanishes both sides are `0`.  ⚠️ Contrast
+`divY_eq_omegaY` directly above, which needs a point **and** `ψ₂(x, y) ≠ 0` — `divY` is built from
+`divT = ψ₂ₙ/ψₙ⁴` and the bridge to it cancels a `ψ₂`, which is information only away from
+`2`-torsion. -/
+theorem omegaY_three_eq (h2 : (2 : F) ≠ 0) :
+    W.omegaY x y 3 = W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3 := by
+  have hs : (W.ψ 3).evalEval x y = W.Ψ₃.eval x := by rw [ψ_three]; simp [evalEval]
+  have hpre : 2 * W.preω₃.eval x = (W.a₁ * x + W.a₃) * (W.preΩ 3).eval x -
+      W.a₁ * (W.Φ 3).eval x * W.Ψ₃.eval x - W.a₃ * W.Ψ₃.eval x ^ 3 := by
+    have h' := congrArg (Polynomial.eval x) W.two_mul_preω₃
+    simpa only [eval_mul, eval_sub, eval_add, eval_pow, eval_ofNat, eval_C, eval_X] using h'
+  have hnum : (2 * y + W.a₁ * x + W.a₃) * (W.preΩ 3).eval x -
+      (W.ψ 3).evalEval x y * (W.a₁ * (W.Φ 3).eval x + W.a₃ * (W.ΨSq 3).eval x) =
+      2 * W.ω₃.evalEval x y := by
+    rw [evalEval_ω₃, ΨSq_three, eval_pow, hs]
+    linear_combination -hpre
+  rw [omegaY, if_neg (by decide : ¬Even (3 : ℤ)), hnum, mul_div_mul_left _ _ h2]
+
 section Point
 
 variable [DecidableEq F]
@@ -210,16 +249,47 @@ theorem nsmul_eq_some_omegaY (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y) {n :
   rw [← natCast_zsmul, heq]
   exact some_eq_some_of_eq_snd h' h'' hY
 
+/-- **`3 • (x, y) = (Φ₃(x)/ΨSq₃(x), ω₃(x, y)/ψ₃(x, y)³)`** — the headline at `n = 3` with no `2` in
+either coordinate, as a point of `W.Point`.  This is `nsmul_eq_some_omegaY` at `n = 3` with its
+`y`-coordinate rewritten by `omegaY_three_eq`; the hypotheses are that theorem's, unchanged.
+
+⚠️ **The `h2` is INHERITED and the `2` this removes is the STATEMENT's, not a hypothesis.**  It is
+spent by the ladder inside `nsmulEqDiv_of_forall_ψ_ne_zero` and again by `omegaY`'s halving, and
+neither spend is presentational: what a `2`-free numerator buys is that the expression being
+divided is defined in characteristic `2`, never that the field may have characteristic `2`.  ⚠️ So
+do **not** read this as a step toward dropping `h2` from `nsmul_eq_some_omegaY` — that would be a
+different statement, and issue `#2246` rules it out of scope in terms.
+
+⚠️ The hypothesis is the **ladder** one and is strictly stronger than `ψ₃(x, y) ≠ 0`, exactly as in
+`nsmul_eq_some_omegaY`; ⚠️ `omegaY_three_eq` itself needs neither. -/
+theorem nsmul_three_eq_some_ω₃ (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y)
+    (hψ : ∀ k : ℤ, 1 ≤ k → k ≤ 3 → (W.ψ k).evalEval x y ≠ 0) :
+    ∃ h' : W.Nonsingular ((W.Φ 3).eval x / (W.ΨSq 3).eval x)
+        (W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3),
+      (3 • Point.some x y hns : W.Point) = .some _ _ h' := by
+  have hY : W.omegaY x y 3 = W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3 := omegaY_three_eq h2
+  obtain ⟨h', heq⟩ := nsmul_eq_some_omegaY (n := 3) h2 hns (by norm_num) (by simpa using hψ)
+  have h'' : W.Nonsingular ((W.Φ (3 : ℤ)).eval x / (W.ΨSq (3 : ℤ)).eval x)
+      (W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3) := by rw [← hY]; exact h'
+  refine ⟨h'', ?_⟩
+  rw [heq]
+  exact some_eq_some_of_eq_snd h' h'' hY
+
 end Point
 
 /-! ## ⚠️ Non-vacuity: the general `y`-formula against the two merged hand computations
 
-Neither `example` is new content.  `WeierstrassCurve.Affine.addY_self_eq_div`
+None of the three `example`s is new content.  `WeierstrassCurve.Affine.addY_self_eq_div`
 (`EllipticCurves.Torsion.DoublingCoords`) and `WeierstrassCurve.Affine.addY_add_self_eq_div`
 (`EllipticCurves.Torsion.TriplingCoords`) compute `y(2 • P)` and `y(3 • P)` by hand from the group
 law.  ⚠️ They are **stronger** than the instances below in one respect — neither needs the ladder —
 and they are the check that `omegaY` evaluates to the right thing where an independent computation
 exists.  A general formula that failed to specialise to them would break the build here.
+
+⚠️ **The third one is why `omegaY_three_eq`'s `y`-coordinate is a fact about `y(3 • P)` and not
+merely a name for a quotient**, and it is the only one of the three whose statement contains no `2`
+anywhere.  Its tactic chain is the second one's, re-run after `omegaY_three_eq` folds the `2` away;
+that repetition is deliberate, since the second `example` has no name to cite.
 -/
 
 section Nonvacuity
@@ -242,6 +312,20 @@ example (h : W.Equation x y) (h2 : (2 : F) ≠ 0) (hy : y ≠ W.negY x y)
           (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y) := by
   rw [addY_add_self_eq_div h2 h hy hT, omegaY, if_neg (by decide : ¬ Even (3 : ℤ)), preΩ_three,
     ← ψ_sq_evalEval h 3]
+  simp only [eval_sub, eval_pow]
+  ring
+
+/-- ⚠️ **The `2`-free `n = 3` quotient is that same hand computation**: `ω₃(x, y)/ψ₃(x, y)³` is
+`y(3 • P)` as `addY_add_self_eq_div` computes it from the group law.  ⚠️ **`h2` survives here and
+that is not an oversight** — it is `addY_add_self_eq_div`'s own, and this `example` pins a
+`y`-value rather than widening a characteristic. -/
+example (h : W.Equation x y) (h2 : (2 : F) ≠ 0) (hy : y ≠ W.negY x y)
+    (hT : W.Ψ₃.eval x ≠ 0) :
+    W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3
+      = W.addY (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y))
+          (W.slope (W.addX x x (W.slope x x y y)) x (W.addY x x y (W.slope x x y y)) y) := by
+  rw [← omegaY_three_eq h2, addY_add_self_eq_div h2 h hy hT, omegaY,
+    if_neg (by decide : ¬ Even (3 : ℤ)), preΩ_three, ← ψ_sq_evalEval h 3]
   simp only [eval_sub, eval_pow]
   ring
 
