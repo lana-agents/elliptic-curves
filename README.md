@@ -153,13 +153,40 @@ All three were caught by a reviewer opening each cited signature at source, and 
   `#E[n]^∨ = n²`; the numeral statements at `n = 2` and `n = 3` (`WeilPairingPerfect.lean`) are
   still on `main` and ⚠️ they are **not** corollaries of it, `weilPairingTwoHom` and
   `weilPairingNHom` being different constructions. **The identification of `det ρ_{E,n}` with the
-  cyclotomic character `χₙ` is stated at `n = 2` and `n = 3` only** — in coordinates at **both**
-  indices
-  (`WeilPairingDeterminant.lean`, whose own docstring argues that the `n = 2` case is a genuine
-  constraint on four integers and not an empty mirror,
-  `χ₂ ≡ 1` notwithstanding), and bundled as an identity of monoid homomorphisms
-  `galoisDetMod 3 = χ₃` at `n = 3` only (`WeilPairingDeterminantCharacter.lean`,
+  cyclotomic character `χₙ` is stated in coordinates at every `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0` over an algebraically closed field** (`WeilPairingDeterminantN.lean`) — as the
+  congruence `a·d − b·c ≡ χₙ(σ) (mod n)` on the matrix of `σ` in a **primitive** pairing pair, and
+  as the same with the matrix produced, so nothing is left assumed about `σ`; the numeral statements
+  at `n = 2` and `n = 3` (`WeilPairingDeterminant.lean`, whose own docstring argues that the
+  `n = 2` case is a genuine constraint on four integers and not an empty mirror, `χ₂ ≡ 1`
+  notwithstanding) are still on `main` and their headlines come back out of the general one
+  verbatim. ⚠️ **The general file's hypothesis is not the numeral files'**: they ask
+  `eₙ(P, T) ≠ 1`, which off a prime index does not bound the order of the value, and the general
+  file carries a compiled `μ₄` witness for why — so the widening changes the hypothesis and is not
+  a pure transcription. **Bundled as an identity of monoid homomorphisms `galoisDetMod 3 = χ₃` it
+  is stated at `n = 3` only** (`WeilPairingDeterminantCharacter.lean`,
   `MatrixRepDeterminantCharacter.lean`).
+  ⚠️ **Retired, and it is the conjunct the two paragraphs below deliberately kept.** This bullet
+  read *"The identification of `det ρ_{E,n}` with the cyclotomic character `χₙ` is stated at
+  `n = 2` and `n = 3` only"* from `c052dd9` (2026-09-22, `#2031`, PR #793) — the commit that
+  retired perfectness and split this clause out of it, the sentence having entered at `2947444`
+  (2026-09-06, `#1802`, PR #711) as half of the perfectness clause — until this commit, and this
+  commit is what falsified it: `WeilPairingDeterminantN.lean` states
+  `galoisModularCyclotomicChar_n_eq_det` and `exists_smul_eq_zsmul_add_zsmul_and_det_n_eq` over `F̄`
+  at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes
+  the same way as the four clauses around it and for the same reason — *only* is a universal
+  negative, so `### Reach clauses`' *"false or merely partial"* test returns **false** and it cannot
+  be completed by adding a condition. ⚠️ **The bundled half was true and is kept live above, so this
+  retires a conjunct and not the sentence**: `galoisDetMod_three_eq_galoisModularCyclotomicChar`
+  (`WeilPairingDeterminantCharacter.lean`) and
+  `det_comp_galoisRepModMatrix_three_eq_galoisModularCyclotomicChar`
+  (`MatrixRepDeterminantCharacter.lean`) are still stated at `n = 3` alone and nothing here touches
+  them — the general-`n` file supplies the coordinate identification, and the bundling additionally
+  needs `E[n]` presented as a free `ZMod n`-module, which is `DeterminantModGeneral.lean`'s half and
+  is composed with this one nowhere. ⚠️ **And `DeterminantModGeneral.lean`'s own
+  `## What is NOT here` bullet on `det ρ_{E,n} = χ_n` is NOT retired**, for the reason the three
+  non-degeneracy docstrings were not: it is a claim about *its own file's* reach, which stays true
+  of it, so `### Reach clauses`' test returns **partial** there and it takes a pointer in place.
   ⚠️ **Retired, and a sibling of the `g_S` and principality clauses below.** This bullet read
   *"Non-degeneracy and perfectness are stated at `n = 2` and `n = 3` only"* from `2947444`
   (2026-09-06, `#1802`, PR #711) until this commit, and this commit is what falsified it:
