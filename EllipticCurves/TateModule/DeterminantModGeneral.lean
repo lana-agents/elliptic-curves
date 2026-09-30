@@ -52,7 +52,12 @@ use for exactly this situation, and the `_of_natCast_ne_zero` suffix is theirs.
   the containment rather than asserting it.
 * **`det ρ_{E,n} = χ_n`.**  Unchanged from `DeterminantModSmooth`: this file widens the indices at
   which the left-hand side is well defined and says nothing about the identification, which needs
-  the Weil pairing.
+  the Weil pairing.  ⚠️ **That identification now exists at this file's own reach and this bullet is
+  NOT retired**: `EllipticCurves.FunctionField.WeilPairingDeterminantN` (`#2281`) proves it in
+  coordinates at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraically closed
+  `F`.  The bullet is a claim about **this file**, which stays true of it — nothing below mentions
+  the Weil pairing — so it takes this pointer in place, and composing the two halves is a statement
+  for a `FunctionField/` file and not for this one.
 * **The trace and the characteristic polynomial mod `n`.**  Still no consumer, at any `n`.
 
 ## Main statements
