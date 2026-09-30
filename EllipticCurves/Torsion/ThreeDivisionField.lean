@@ -147,7 +147,15 @@ scalar tower cannot.
   is proper for the certificate curve. ⚠️ **And this bullet must NOT be discharged at the
   certificate curve, because there layer-two properness is FALSE rather than unproved**:
   `## Non-vacuity` certifies `(⊤ : Subalgebra L₁ (threeDivisionField (y2AddYEqX3 ℚ))) = ⊥`, so
-  layer two adjoins nothing at all there. A witness needs a different curve (`#2274`).
+  layer two adjoins nothing at all there. A witness needs a different curve, and ⚠️ **there now
+  is one, one module downstream**: `EllipticCurves.Torsion.ThreeDivisionFieldProper` proves
+  `top_ne_bot_threeDivisionField_y2EqX3AddTwo` at `y² = x³ + 2`, where `Ψ₂Sq` takes the value `8`
+  at the root `0` of `Ψ₃` and `8` is not a square at layer one. ⚠️ **That retires the *emptiness*
+  reading of this bullet and NOT the bullet.** Properness at layer two is not a degree, the
+  headline of this bullet is, and *"nothing below"* is a claim about this file which a witness in a
+  module that imports this one leaves standing — that module computes no degree either, by its own
+  closing paragraph. ⚠️ **So the predicate now holds in BOTH directions at TWO curves**, which is
+  what makes this bullet one about the generality of the construction rather than about emptiness.
 * **`n = 2`.** `EllipticCurves.Torsion.TwoTorsionSplittingField` is the `n = 2` layer and is
   untouched; nothing below is stated at a general index, and the second layer has no `n = 2`
   counterpart at all, because a `2`-torsion point is its own `x`-coordinate and there is no `y` to
