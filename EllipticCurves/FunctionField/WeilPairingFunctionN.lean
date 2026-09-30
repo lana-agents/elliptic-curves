@@ -55,10 +55,19 @@ about all 39 declarations, so here is the count and the key.**  Exactly **15** o
 `weilPairingN_add_right`, `weilPairingN_add_left`, `weilPairingN_self`, `weilPairingN_mul_swap`,
 `weilPairingN_swap`, `eq_zero_of_forall_weilPairingN_eq_one`, `weilPairingNHom`,
 `weilPairingNHom_apply_apply` and `ker_weilPairingNHom`.  The key returning exactly those is
-*the **statement** mentions `weilPairingN` or `weilPairingNHom`*, less the one exception below; and
-on those 15 the instance is **forced and not chosen**, because both of those names elaborate
-through `rootsOfUnity n F`, which does not elaborate without it.  Same shape and same reason as
-`weilPairingTorsionMuHom_n` (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`).
+*the **statement** mentions `weilPairingN` or `weilPairingNHom`*, less the one exception below.
+⚠️ **On 13 of those 15 the instance is forced; on the other 2 it is chosen.**  The 13 are the ones
+whose statements mention one of the two names, and they are forced *by* the signatures of
+`weilPairingN` (`:439`) and `weilPairingNHom` (`:804`), which bind `[NeZero n]` themselves: no
+statement naming either can be written without the instance, short of `@`-application.  Same
+shape and same reason as `weilPairingTorsionMuHom_n`
+(`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`).
+⚠️ **The other 2 are those two constants themselves**, and by the criterion below they are
+**chosen**: a `def`'s own type does not mention it, so the key cannot reach them at all, and each
+binds `((n : ℤ) : F) ≠ 0`, which yields `NeZero n` in one line.  Dropping it there strictly widens
+both, and is not taken here because the other 13 would go with it — they stop being forced the
+moment the two roots stop binding.  So *forced* on the 13 is **forced relative to those two
+signatures**, and those signatures are themselves a choice.
 
 ⚠️ **The one exception to that key is `weilPairingN_eq_weilPairingTwo`** — μ-valued, mentions
 `weilPairingN`, binds no instance: its index is the literal `2`, so `NeZero 2` is found.
