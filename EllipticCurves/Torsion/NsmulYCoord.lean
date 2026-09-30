@@ -196,7 +196,10 @@ with `WeierstrassCurve.ΨSq_three` (`ΨSq₃ = Ψ₃²`) the identity `ψ₃(x, 
 `ψ_sq_evalEval` — the same identity at a general `n`, which binds `W.Equation x y` — never runs.
 
 ⚠️⚠️ **Do NOT generalise that along the odd indices: `ψ₃` is `ψ₂`-free and `ψ₅` is not.**
-`WeierstrassCurve.ψ_odd` gives `W.ψ 5 = C preΨ₄ * ψ₂ ^ 4 - C (Ψ₃ ^ 3)`, carrying
+`WeierstrassCurve.ψ_odd` at `m = 2` gives only the RECURRENCE
+`W.ψ 5 = ψ 4 * ψ 2 ^ 3 - ψ 1 * ψ 3 ^ 3`; unfolding its four `ψ`-terms by `ψ_four`, `ψ_two`,
+`ψ_one` and `ψ_three`, then `map_pow` for `(C Ψ₃)³`, gives
+`W.ψ 5 = C preΨ₄ * ψ₂ ^ 4 - C (Ψ₃ ^ 3)`, carrying
 `ψ₂ = 2Y + a₁X + a₃` to the fourth power, and `ψ₂²` is `Ψ₂Sq` only modulo the curve equation — so
 the `n = 5` instance really does need the point.  ⚠️ **Witness, at a pair the `n = 3` instance
 goes through anyway**: on `y² = x³ + 1` over `ZMod 7` the pair `(0, 0)` is off the curve, and there
@@ -312,7 +315,7 @@ exists.  A general formula that failed to specialise to them would break the bui
 merely a name for a quotient**, and it is the only one of the three whose **conclusion** is stated
 in the `2`-free quotient rather than in `omegaY`.  ⚠️ **Say it that way, and not *whose statement
 contains no `2` anywhere*, which is false of all three**: each binds `h2 : (2 : F) ≠ 0`, the third
-one included, and that `example`'s own docstring says so a dozen lines below.  ⚠️ **Nor does
+one included, and that `example`'s own docstring says so.  ⚠️ **Nor does
 *conclusion* alone separate them** — the second `example`'s conclusion writes `omegaY x y 3`, which
 carries no `2` in the source text either, and only unfolding `omegaY` exposes the one it divides by.
 **The unit is the conclusion with `omegaY` unfolded, and a claim about a `2` has to name it.**  The
