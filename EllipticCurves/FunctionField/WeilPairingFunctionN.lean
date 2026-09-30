@@ -56,8 +56,8 @@ about all 39 declarations, so here is the count and the key.**  Exactly **15** o
 `weilPairingN_swap`, `eq_zero_of_forall_weilPairingN_eq_one`, `weilPairingNHom`,
 `weilPairingNHom_apply_apply` and `ker_weilPairingNHom`.  The key returning exactly those is
 *the **statement** mentions `weilPairingN` or `weilPairingNHom`*, less the one exception below; and
-on those 15 the instance is **forced and not chosen**, because both of those names elaborate
-through `rootsOfUnity n F`, which does not elaborate without it.  Same shape and same reason as
+on those 15 the instance is **forced and not chosen**, because `weilPairingN` (`:430`) and
+`weilPairingNHom` (`:795`) bind it in their own signatures.  Same shape and same reason as
 `weilPairingTorsionMuHom_n` (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`).
 
 ⚠️ **The one exception to that key is `weilPairingN_eq_weilPairingTwo`** — μ-valued, mentions

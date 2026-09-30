@@ -61,9 +61,14 @@ over the variable `F`.  All four carry `[IsAlgClosed F]`, `[W.IsElliptic]`, `(2 
 `natCard_monoidHom_torsionN`, whose statement mentions neither `weilPairingNHom` nor
 `weilPairingN`.  That is `WeilPairingFunctionN`'s setting exactly, and **not one hypothesis more**.
 
-⚠️ **`[NeZero n]` is forced and not chosen** on the three that bind it, for the reason
-`WeilPairingFunctionN` gives for its own fifteen: `weilPairingNHom` elaborates through
-`rootsOfUnity n F`, which does not elaborate without it.
+⚠️ **`[NeZero n]` is forced on two of the three that bind it and *chosen* on the third.**  It is
+forced on `bijective_weilPairingNHom` and `existsUnique_weilPairingNHom_eq`, for the reason
+`WeilPairingFunctionN` gives for its own fifteen: their statements mention `weilPairingNHom`,
+which binds it in its own signature, so neither statement can be written without it.  ⚠️ On
+`weilPairingNEquiv` it is **chosen**: that statement mentions neither of the two names — only
+`rootsOfUnity n F`, which binds no `NeZero` at all — so the instance follows from `hn` in one
+line, and dropping it would strictly widen the declaration, exactly as `WeilPairingFunctionN`
+records for six of its own `F(W)`-valued statements.
 
 ## Main statements
 
@@ -216,9 +221,9 @@ theorem existsUnique_weilPairingNHom_eq (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n
 
 open Classical in
 /-- **`#E[n]^∨ = n²`.**  ⚠️ This is the one statement in this file that consumes
-`card_torsion_eq_sq`; the perfect-pairing theorem above does not.  ⚠️ It binds no `[NeZero n]`:
-`rootsOfUnity n F` is the only thing that needs it and this statement reaches it through
-`Nat.card`, which is total. -/
+`card_torsion_eq_sq`; the perfect-pairing theorem above does not.  ⚠️ It binds no `[NeZero n]`
+because nothing in it needs one: `rootsOfUnity n F` takes no `NeZero` argument, and the
+statement mentions neither `weilPairingN` nor `weilPairingNHom`. -/
 theorem natCard_monoidHom_torsionN (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0) :
     Nat.card (Multiplicative (W.torsion n) →* rootsOfUnity n F) = n ^ 2 := by
   have hnF : (n : F) ≠ 0 := by exact_mod_cast hn
