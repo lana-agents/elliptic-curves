@@ -5825,6 +5825,31 @@ still — the `EllipticCurves` graph from `^import EllipticCurves…` lines, car
 `public `/`private `/`meta ` alternation at all — and a phantom named `edge.` or `closure` resolves
 to no module under either shape. **A rule about keeping the instrument honest, not a repair.**
 
+⚠️⚠️ **And the argument-resolution seed stated for that rule is STRICTLY WEAKER than the rule
+itself, so a `0` from it discharges nothing.** The rule is violated by ANY comment-interior `import`
+at column 0, whatever its argument; the seed fires only when the argument FAILS to resolve. **The
+two part on exactly the fenced-code subclass this section defines, whose displayed module names are
+chosen BECAUSE they are real.** ⚠️ **Measured at `21562de`, not argued**: seed a fence body at
+column 0, inside a module docstring, displaying `EllipticCurves.TateModule.MatrixRepMod` — this
+section's own probe name, and one that resolves — and over the same **449** tracked `.lean` files a
+comment-mask test of the rule reports **1** and exits `1`, naming file and line, while the
+argument-resolution seed reports **0** and exits `0`. ⚠️ **It does not MISS the line: its grep total
+moves `1724` → `1725`, so it sees the line and scores it clean.** Indent that fence body two spaces
+and both read `0` again. ⚠️⚠️ **AND THE CONSEQUENCE INVERTS THIS SECTION'S OWN STATED REASON.**
+*"It falsifies no figure this document publishes, and the reason is the ARGUMENT filter…"* is true
+of the ten sites it was written about, whose eight distinct arguments resolve to nothing — but as a
+property of the filter it is backwards: a NON-resolving phantom adds a node no walk reaches, while a
+RESOLVING one adds a real EDGE between two real nodes, which is what a closure figure is made of.
+The same probe placed in `Torsion/NsmulYCoord.lean` takes that module's `^import EllipticCurves…`
+closure from **31** to **60** at `21562de`, not counting itself. **So the filter admits precisely
+the subclass that can move a published figure.** ⚠️ **What each `0` licenses, which is the half a
+reader needs: a `0` from the comment-mask test IS the rule, over the tracked `.lean` files; a `0`
+from the argument-resolution seed says only that no phantom named after a non-resolving word
+survives, and `#2278` is the row that puts a mask implementation into `.orchestra/validation.sh`.**
+⚠️ **The argument filter is NOT retired and must not be** — it is deliberate and load-bearing and
+is the right instrument wherever the question really is resolution, and `#2250`'s reviewer retracted
+a finding for reading it as an oversight.
+
 ⚠️ **And the class ACCRETES, which the paragraph above could not say at the time: the seed returned
 `1` and not `0` in the very tree that rule landed in.** An eleventh site — a *"seed the base import
 list"* sentence in `Torsion/ThreeTorsionStructure.lean` — landed as `9f25690` (PR #836) while the
