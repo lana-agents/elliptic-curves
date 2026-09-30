@@ -92,6 +92,16 @@ inconsistency introduced here — the *function*-level statements have been in `
   ⚠️ Like `#940` and unlike `#938`, the argument here carries **no second obstruction**: it is one
   rewrite of `#936`'s equation by a statement about `μ_n(F)` that is already general in `n`, so it
   transcribes to any `n` at which `weilPairingN` and its equivariance exist.
+  ⚠️ **That prediction has come true and the transcription is landed**, in
+  `EllipticCurves.FunctionField.WeilPairingFunctionGaloisN`'s `weilPairingN_galois_eq_pow`
+  (`#2280`), at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraically closed
+  `F` — and it *is* one rewrite of that file's own `weilPairingN_galois`, as predicted.  This bullet
+  is **not** retired: it is a claim about the scope of *this* file, which stays true of it, so it
+  takes a pointer in place (`README.md`, `### Reach clauses`).  ⚠️ The one thing the prediction did
+  not foresee is the cast: the character's hypothesis is stated from `(n : F) ≠ 0` and the
+  general-`n` pairing carries `((n : ℤ) : F) ≠ 0`, so naming the character inside the statement goes
+  through `natCard_rootsOfUnity_of_intCast_ne_zero` rather than casting inline at
+  `natCard_rootsOfUnity_of_ne_zero`, which also elaborates.
 * **The `p`-adic level.**  `weilPairingMu_galois_of_transport_eq_pow_padic` states the `n = p ^ k`
   form off `galoisCyclotomicChar_toZModPow`, and `n = 2` is the level `k = 1` of `p = 2`.  ⚠️ It is
   absent here **on purpose and the reason is not cost**: at `n = 2` the exponent is `1` by the

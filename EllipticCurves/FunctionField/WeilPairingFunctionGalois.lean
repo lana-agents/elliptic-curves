@@ -95,6 +95,19 @@ prejudges it.
 `#E[n] = n²`, and not the `weilPairingElt`-level Galois statements, which are `#456` and are merged
 in `WeilPairingGaloisRoot` and `WeilPairingGaloisRootHprin`.
 
+⚠️ **General `n` has since landed elsewhere, and this clause is a claim about *this* file, so it
+takes a pointer and is not retired** (`README.md`, `### Reach clauses`).
+`EllipticCurves.FunctionField.WeilPairingFunctionGaloisN` (`#2280`) states `weilPairingEltN_galois`
+and `weilPairingN_galois` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an
+algebraically closed `F`, by this file's own three-case proof with the general-`n` merged headlines
+substituted, and it recovers `weilPairingEltTwo_galois` and `weilPairingTwo_galois` from them.
+⚠️ **What that file pays and this one did not is `hprin`**: the general-`n` headlines in
+`WeilPairingGaloisRootN` carry principality of the `[n]∗`-pullback as a hypothesis where
+`exists_weilPairingElt_galois_{two,three}` do not, and it is discharged there over `F̄` by
+`exists_nsmul_divisor_eq_divisor_mulByNEndo`.  ⚠️ This does **not** touch the `## Scope` paragraph
+above about `[IsAlgClosed F]`: the general-`n` file carries it for the same reason and for a second
+one.
+
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with
 `(2 : F) ≠ 0` and under `ψₙ(x, y) ≠ 0` — `WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,
