@@ -468,10 +468,11 @@ and not a claim that the mirror is harder"*.  Both halves are right about **that
 transfers here, because the premise is false of this one: **`WeilPairingFunctionThree` and
 `MulByNPullback` — the latter carrying `mulByNEndo_three` — are both in the import closure of
 `WeilPairingFunctionGaloisN` alone**, which this file imports for the equivariance equation, so
-neither arrives on the mirror's account and neither arrives through the `WeilPairingDeterminant`
-import taken below for `orderOf_rootsOfUnity_eq_of_prime`.  ⚠️ **Those are membership claims and
-carry no sha, which `README.md`'s `## Import-closure figures` rules is the right form for them; the
-module-count delta is in this commit's message, keyed to a head there and not restated here.**
+neither arrives on the mirror's account and neither arrives through the
+`WeilPairingDeterminant` import taken below for `orderOf_rootsOfUnity_eq_of_prime`.  ⚠️ **Those are
+membership claims and carry no sha, which `README.md`'s `## Import-closure figures` rules is the
+right form for them; the module-count delta is in this commit's message, keyed to a head there and
+not restated here.**
 
 ⚠️ **The bridge is consumed through proof irrelevance and no transport is written**, exactly as
 `weilPairingEltN_eq_weilPairingEltTwo` records at `n = 2`: `mulByNEndo_three` is stated at

@@ -6007,6 +6007,15 @@ still — the `EllipticCurves` graph from `^import EllipticCurves…` lines, car
 `public `/`private `/`meta ` alternation at all — and a phantom named `edge.` or `closure` resolves
 to no module under either shape. **A rule about keeping the instrument honest, not a repair.**
 
+⚠️ **And the rule is GATED as of the commit that names this paragraph as its base:
+`.orchestra/validation.sh` runs the seed over the tracked `.lean` files before anything that
+needs Lake, and prints the offending `file:line` and the phantom argument and not only a count.**
+Its discriminator is a **comment mask** — the defect's own definition, *a textual `import` line
+Lean never reads because it sits inside a comment* — and not the argument-resolution proxy above,
+so it consults no module index and never touches `.lake`; the two agree **site for site** on every
+site this class has ever had, the gate reading **4** at `977452c`, **3** at `35eb801`, **2** at
+`6389efc` and **0** at `8d50ca3`.
+
 ⚠️⚠️ **And the argument-resolution seed stated for that rule is STRICTLY WEAKER than the rule
 itself, so a `0` from it discharges nothing.** The rule is violated by ANY comment-interior `import`
 at column 0, whatever its argument; the seed fires only when the argument FAILS to resolve. **The
