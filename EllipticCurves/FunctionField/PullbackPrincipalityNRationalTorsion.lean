@@ -328,11 +328,18 @@ published in this file.
   two lists**, and the `3`-smooth one is retired (*"**This section used to be a gate list and is now
   a history.**"*) while the closure one is live.
 * **No headline.**  Neither `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_card` nor
-  `exists_gS_n_of_card` is stated, so ⚠️ **`hprin` is not discharged at general `n` by this file**
-  and the `[IsAlgClosed F]` forms in `PullbackPrincipalityN` remain the only ones.
+  `exists_gS_n_of_card` is stated, so ⚠️ **`hprin` is not discharged at general `n` by this file**.
+  ⚠️ **This bullet used to close *"and the `[IsAlgClosed F]` forms in `PullbackPrincipalityN`
+  remain the only ones"*, and that conjunct is retired** (`#2293`): both headlines are now stated,
+  closure-free, in `EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsionHprin`, which
+  consumes this file's Galois package and adds nothing to it.  ⚠️ **A conjunct goes and the
+  sentence stays**: the first two clauses are claims about *this file's* reach, they are still
+  true of it, and `### Reach clauses`' test returns **partial** on them — the retired one was a
+  claim about the tree, which is what makes it the one that goes.
 * **No recovery of the merged closed statements.**  `## Recovery` below recovers the retired
   `3`-smooth *signatures* of this file's own round 1, which is a different thing.  `#907`'s
-  recovery of `PullbackPrincipalityN`'s `[IsAlgClosed F]` headlines belongs with the headlines.
+  recovery of `PullbackPrincipalityN`'s `[IsAlgClosed F]` headlines belongs with the headlines —
+  and is where they went: `…RationalTorsionHprin`'s own `## Recovery` section carries it.
 * **No `e = 1` in general, and none at a rational point.**  `ramificationIdxN_pos`
   (`MulByNPlacePullback`) is all that is used below, and it is strictly weaker.
 * **Nothing is moved.**  `#2217` says in terms that relocating
