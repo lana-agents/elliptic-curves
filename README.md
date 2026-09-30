@@ -2654,7 +2654,11 @@ matching, case-insensitively, the alternation
 straight through the closing `-/` and on to the next `##` anywhere in the file, which on two rows
 is several hundred lines of Lean. It changes no row here, and that is luck rather than a property
 of the seed. **1696** `## Main *` bullets tree-wide and **64** matching rows, at `8f95181` and at
-this commit alike. Over the tree `#1683` itself measured, which is `b764fae` and is `#1656`,
+`6c22e12` — the tree this paragraph shipped in — alike. ⚠️ **That second ref read *"this commit"*
+until `#2291` named it.** The pair was exact at both refs when it was written and is exact at both
+refs today, so naming the sha is a **re-keying and not a retirement**; what the indexical cost is
+four paragraphs below, where this same seed is re-run at a later tree and returns another answer.
+Over the tree `#1683` itself measured, which is `b764fae` and is `#1656`,
 PR #667, the same instrument returns **63** — the one addition being `MulByNInertia`'s *"needs no
 separability at all"*, which `#1665` wrote. **Every one of the 64 was read**, and they split four
 ways. **15** are gate-relative, and `### Gate-discharge claims` decides them. **3** are a complete
@@ -2686,6 +2690,37 @@ about itself is inside it.
 other.** `#1680` is open against the `EllipticCurves.TateModule.DeterminantModGeneral` *"form to
 copy"* naming above; nothing here edits that sentence or the paragraph holding it. If `#1680`
 lands first, this branch is unaffected; if this lands first, `#1680`'s repair is unaffected.
+
+⚠️ **The same seed, re-run at a later tree, and this is what the indexical above cost.** At
+`6a733e1e` (PR #875, `#2282`) the census is **1954** `## Main *` bullets over **462** sections in
+**397** of **453** module docstrings, with **107** matching rows — against **1696** / **425** /
+**364** / **419** / **64** at `6c22e12`. ⚠️ **The matching population grew by 43 and not by 44.**
+Keyed on the pair (path, whitespace-collapsed row text), **44** rows appear and **1** disappears,
+and one of the 44 is the re-worded form of the 1: the `WeilPairingProductRelationRootIndependent`
+row for `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` went from *"for arbitrary `n`"* to
+*"at every `m ≠ 0`"* and still matches. So `64 + 44 − 1 = 107`, and *44 new* would be a
+set-difference artefact rather than a count of rows. ⚠️ **The two limits above carry over
+unchanged**: 107 is a floor and not a population, and the growth is the tree's and not the seed's —
+a larger figure out of a vocabulary-keyed recogniser is not a stronger claim. ⚠️⚠️ **The four-way
+split, the *"thirty-two are TRUE and one was FALSE"* verdict and the `MulByTwoFibreInfinity` repair
+are facts about the 64 at `6c22e12` and are left keyed there.** The 43 new rows are **counted here
+and not read**, so nothing above is restated of them; reading them is `#2291`'s forward-filed half.
+
+⚠️ **A re-implementation of a published recogniser owes its calibration and not only its
+output**, and that is the cell `#2282` twice lacked: both of its review rounds found this census
+suspect and neither could convict it, because the instrument in hand returned `1690 / 63` where this
+page publishes `1696 / 64` **at the same commit** — so it could not separate drift from its own
+error, and `#1664`'s ruling (a dated census drifts, and drift is not falsification) correctly
+governed. The figures above come from an instrument that first reproduced **six** published cells at
+**four** refs: `1696 / 64` at `8f95181`; the same pair at `6c22e12`; **63** at `b764fae`; the
+`b764fae` → `8f95181` delta as **exactly one row added and none removed**, that row being
+`MulByNInertia`'s *"needs no separability at all"*; and **1696** bullets in **425** sections over
+**364** of **419** docstrings at `7495d3e`. ⚠️ **The `7495d3e` census in
+`### Gate-discharge claims` is dated by sha at both ends, so it is correct-and-stale rather than
+wrong and nothing here edits it.** ⚠️ Its **1690** counts how many of the 1696 bullets resolve
+to a declaration of this development, which is **not** a bullet count — so the collision with the
+number an uncalibrated bullet scan produced is a coincidence, and reading it as agreement is the
+trap that a calibration step exists to stop.
 
 ⚠️ **The population, with the recogniser beside it**, because this section's own rule is
 *publish the recogniser beside any count, or write no count*. Scan **whole** `## Main *` blocks —
