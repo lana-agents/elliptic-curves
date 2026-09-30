@@ -92,16 +92,21 @@ All three were caught by a reviewer opening each cited signature at source, and 
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
   files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
   and their headlines come back out of the general one verbatim. Off `F̄` **five** files discharge
-  it, over an arbitrary field with `(2 : F) ≠ 0` — and, at `n = 3`, `(3 : F) ≠ 0` as well.
+  it, over an arbitrary field with `(2 : F) ≠ 0` — and, wherever the index carries a condition of
+  its own, that one beside it: `(3 : F) ≠ 0` in `…ThreeRationalTorsion` and `…ThreeGeneral`,
+  `((n : ℤ) : F) ≠ 0` in `…NRationalTorsionHprin`, and nothing beyond the `(2 : F) ≠ 0` itself at
+  `n = 2`.
   ⚠️ **That clause read *"Off `F̄` **four** files discharge it, **two at each of `n = 2` and
   `n = 3`**"* until `#2293`** (`88a5e00`, `#2216` item 4), and the universal is what went:
   `PullbackPrincipalityNRationalTorsionHprin.lean` discharges `hprin` at **a general `n`**, so no
   per-index partition of the five exists and
-  correcting `four` to `five` alone would have left a clause that is false about every member.
+  correcting `four` to `five` alone would have left a clause that is false **of the list** rather
+  than of every member: it reads as a partition, and the new member lies in neither part while the
+  ones at a numeral index lie in theirs.
   ⚠️ **`### Reach clauses`' test returns `false` and not `merely partial` on it** — *"two at each
   of `n = 2` and `n = 3`"* is a universal over the list and the new member satisfies neither
   disjunct — so `### Retired claims` binds and the wording is quoted above rather than deleted.
-  The five, at `n = 2` and `n = 3`:
+  Of the five, those at a numeral index:
   `PullbackPrincipalityTwoRationalTorsion.lean` from rational `2`-torsion and a halving —
   hypotheses, not setting — and `PullbackPrincipalityTwoGeneral.lean` from neither of those, for
   any nonsingular `F`-rational `2`-torsion point, by buying both hypotheses over the Galois
@@ -152,7 +157,9 @@ All three were caught by a reviewer opening each cited signature at source, and 
   ⚠️ **That last clause read *"while the other five files carry **two** apiece"* until `#2293`**
   (`2e323c9`, `#2216` item 5): it was exact of the seven and is false of the nine, because the
   ninth carries **zero** rather than two. ⚠️ **The two retirements on this paragraph are one
-  commit apart in the same issue and are quoted separately**, because each is a universal over
+  README-touching commit apart in the same issue and are quoted separately** — `88a5e00` and
+  `2e323c9` are adjacent among the commits that touch this file and **four** apart in the commit
+  graph — because each is a universal over
   its own list and one quotation would leave the other list with no account of why its sentence
   changed — `### Retired claims`' *"once per block otherwise"* test, applied to two clauses in
   one block. ⚠️ That clause read *"`…N`, `…Two` and `…Three`, **two headlines
