@@ -163,9 +163,40 @@ All three were caught by a reviewer opening each cited signature at source, and 
   verbatim. ⚠️ **The general file's hypothesis is not the numeral files'**: they ask
   `eₙ(P, T) ≠ 1`, which off a prime index does not bound the order of the value, and the general
   file carries a compiled `μ₄` witness for why — so the widening changes the hypothesis and is not
-  a pure transcription. **Bundled as an identity of monoid homomorphisms `galoisDetMod 3 = χ₃` it
-  is stated at `n = 3` only** (`WeilPairingDeterminantCharacter.lean`,
-  `MatrixRepDeterminantCharacter.lean`).
+  a pure transcription. **Bundled as an identity of monoid homomorphisms
+  `galoisDetMod n = χₙ`, and as `det ∘ ρ_{E,n} = χₙ` for the matrix representation, it is stated at
+  every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraically closed field**
+  (`WeilPairingDeterminantCharacterN.lean`, `MatrixRepDeterminantCharacterN.lean`) — with the pair
+  discharged rather than assumed, so that no pair, no matrix and no basis is quantified in either
+  headline, and with **no `1 < n`**, so that `n = 1` and `n = 2` are subsumed rather than excluded;
+  the numeral files (`WeilPairingDeterminantCharacter.lean`, `MatrixRepDeterminantCharacter.lean`)
+  are still on `main` and both headlines come back out of the general one verbatim.
+  ⚠️ **The general files' route to the basis is not the numeral files'**:
+  `LinearMap.injective_iff_surjective_of_finrank_eq_finrank` is stated over a `DivisionRing` and
+  `ZMod n` is one only at a prime `n`, so injectivity of the coordinate map is proved from the
+  independence lemma rather than deduced from the rank — which is also why the `1 < n` that the
+  rank statement carries is absent.
+  ⚠️ **Retired, and it is the conjunct the paragraph below deliberately kept.** This bullet read
+  *"Bundled as an identity of monoid homomorphisms `galoisDetMod 3 = χ₃` it is stated at `n = 3`
+  only"* from `7ba33ed` (2026-09-30, `#2281`, PR #873) — the commit that retired the coordinate
+  conjunct and wrote this one in its place, which is the retirement recorded immediately below —
+  until this commit, and this commit is what falsified it:
+  `WeilPairingDeterminantCharacterN.lean` states `galoisDetMod_n_eq_galoisModularCyclotomicChar`
+  and `MatrixRepDeterminantCharacterN.lean` states
+  `det_comp_galoisRepModMatrix_n_eq_galoisModularCyclotomicChar`, both over `F̄` at every `n` with
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes the same way as the
+  clauses below it and for the same reason — *only* is a universal negative, so `### Reach clauses`'
+  *"false or merely partial"* test returns **false** and it cannot be completed by adding a
+  condition. ⚠️ **This one retires the whole sentence and not a conjunct**, unlike the four below:
+  every half of it is falsified, there being nothing left in it that is still `n = 3` only.
+  ⚠️ **Its entry and its retirement are measured and neither is a defect.**
+  `git log -S"Bundled as an identity of monoid homomorphisms" -- README.md` returns **exactly one**
+  commit, `7ba33ed`, which is also the base this retirement is cut against — so the clause was
+  written by `#2281` and falsified by `#2282`, the two halves of one front, and `#2281` wrote it
+  true of the tree it left behind. ⚠️ No claim is made here about how it ranks against the other
+  clauses in this list for length of life; that would be a universal over the section's whole
+  history and it has not been measured. ⚠️ **Nor is any distance claimed**: how many commits
+  separate the two is a fact about whatever else lands between them, so it is not stated here.
   ⚠️ **Retired, and it is the conjunct the two paragraphs below deliberately kept.** This bullet
   read *"The identification of `det ρ_{E,n}` with the cyclotomic character `χₙ` is stated at
   `n = 2` and `n = 3` only"* from `c052dd9` (2026-09-22, `#2031`, PR #793) — the commit that
@@ -183,7 +214,14 @@ All three were caught by a reviewer opening each cited signature at source, and 
   (`MatrixRepDeterminantCharacter.lean`) are still stated at `n = 3` alone and nothing here touches
   them — the general-`n` file supplies the coordinate identification, and the bundling additionally
   needs `E[n]` presented as a free `ZMod n`-module, which is `DeterminantModGeneral.lean`'s half and
-  is composed with this one nowhere. ⚠️ **And `DeterminantModGeneral.lean`'s own
+  is composed with this one nowhere. ⚠️ **That half has since gone the same way and the two lives
+  ended at different commits, so they are recorded separately** — the retirement is the paragraph
+  immediately above. **Do not read *"is kept live above"* as current**:
+  it is dated to `7ba33ed`, and what is above now is the general-`n` reading. ⚠️ **The
+  `DeterminantModGeneral.lean` clause in this sentence is dated too and was never a placement
+  ruling**: `WeilPairingDeterminantCharacterN.lean` does the bundling without importing that file,
+  exhibiting the free `ZMod n`-module structure itself through the pairing basis, and its module
+  docstring measures the two import closures. ⚠️ **And `DeterminantModGeneral.lean`'s own
   `## What is NOT here` bullet on `det ρ_{E,n} = χ_n` is NOT retired**, for the reason the three
   non-degeneracy docstrings were not: it is a claim about *its own file's* reach, which stays true
   of it, so `### Reach clauses`' test returns **partial** there and it takes a pointer in place.
@@ -217,7 +255,14 @@ All three were caught by a reviewer opening each cited signature at source, and 
   ⚠️ **The `det ρ_{E,n}` half is untouched by this work and is kept live above**, exactly as the
   non-degeneracy retirement kept perfectness live when it went the other way: `galoisDetMod 3 = χ₃`
   is still `n = 3` only and `WeilPairingDeterminant.lean` is still both indices, so this retires a
-  conjunct and not the sentence. ⚠️ **And `WeilPairingPerfect.lean`'s own `General n` bullet is
+  conjunct and not the sentence. ⚠️ **Both of the things this sentence keeps live have since gone,
+  and at different commits: the `det ρ_{E,n}` clause it points *above* at was retired at `7ba33ed`,
+  and `galoisDetMod 3 = χ₃` stopped being `n = 3` only at this commit** — those two retirements are
+  the second and the first paragraph of this list. ⚠️ *"`WeilPairingDeterminant.lean` is still both
+  indices"* is the one clause here that is **still true today**, the numeral file being untouched by
+  either widening. **Do not read *"is kept live above"* as current**; it is dated to the commit that
+  wrote it. ⚠️ **And `WeilPairingPerfect.lean`'s own
+  `General n` bullet is
   NOT retired**, for the reason the three non-degeneracy docstrings were not: it is a claim about
   *its own file's* reach, which stays true of it, so the test returns **partial** there and it
   takes a pointer in place. ⚠️ **The three module docstrings that put general `n`
