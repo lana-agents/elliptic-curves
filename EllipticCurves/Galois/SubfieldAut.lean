@@ -28,38 +28,52 @@ brick its two consumers — `EllipticCurves.FunctionField.MulByNGaloisGroup` for
 
 ## Import weight, and ⚠️ the `^import` regex that silently under-reads it
 
-Measured at `320f413` with a header-only walker (block comments skipped nesting-aware, so the
+Measured at `7f30e87` with a header-only walker (block comments skipped nesting-aware, so the
 `import Mathlib` inside `Mathlib/Tactic/Rify.lean`'s docstring is not read as an edge), over this
-project plus all nine `.lake/packages` — 9837 `.lean` **files**, each package's own nested
+project plus all nine `.lake/packages` — 9908 `.lean` **files**, each package's own nested
 `.lake/` build tree excluded.  Files, not modules: mathlib's and proofwidgets' `lakefile.lean`
-collide, so the walker indexes 9836 distinct names.  ⚠️ **A name that resolves to no file in those
+collide, so the walker indexes 9907 distinct names.  ⚠️ **A name that resolves to no file in those
 trees is not an edge** — `Lean.*`, `Init.*` and `Std.*` live in the toolchain, not in the nine
 packages, and counting them puts this file's total at 1146 rather than 968.  That is an 18% error
-with nothing absurd about it, which is this section's whole subject.
+with nothing absurd about it, which is this section's whole subject.  ⚠️ **This paragraph read
+`320f413` while one of the three rows below had gone stale under it; `#2300` re-took all three at
+three mutually independent hands, which agree to the digit — and every cell below is identical
+at `60e3031`, the commit before this branch's base, `7f30e87` having touched no `.lean` file.**
 
 | module | `EllipticCurves` closure | total closure | total under `^import\s` alone |
 | --- | --- | --- | --- |
 | `Galois.SubfieldAut` (this file) | **0** | **968** | 3 |
 | `FunctionField.NegYGaloisGroup` | 22 | 2668 | 47 |
-| `FunctionField.MulByNGaloisGroup` | 74 | 2802 | 115 |
+| `FunctionField.MulByNGaloisGroup` | 107 | 2838 | 159 |
 
 ⚠️ **The two closure columns count the module itself differently**, and assuming one convention for
 both is how a re-run comes out one high on three cells.  The total counts it; the `EllipticCurves`
 column does not — that column is the sense in which this file's own `EllipticCurves`-import closure
 is empty, and in which `#1266` cut `NegYGaloisGroup` from 71 to 19.
 
-⚠️ **The totals are falsifiable, and this is the check.**  `lake build` on the three modules reports
-**983**, **2683** and **2817** jobs — the walker's total plus a constant **15** on every row, across
-closures spanning 968 to 2802.  Three numbers out of a hand-rolled walker are otherwise
-unfalsifiable; a constant offset against lake's own module graph is not.
+⚠️ **The totals are falsifiable, and the check is a RELATION and not three numerals:
+`lake build <module>` must report that row's total plus exactly `15`.**  At `7f30e87` it reports
+**983**, **2683** and **2853** jobs against closures spanning 968 to 2838 — `+15` on all three
+rows, so the
+constant is lake's non-module job set and is intact where the closures moved.  Three numbers out of
+a hand-rolled walker are otherwise unfalsifiable; a constant offset against lake's own module graph
+is not.  ⚠️ **A control nobody executes catches nothing, and that is the finding here rather than
+three numerals**: this relation held on every row at `320f413`, and run once on any of the **293**
+commits after it, it would have printed `2853` against a published `2817` (`#2300`).
 
 The relocation that created this file is what the first column is for: on **one tree**, across the
-single commit `008fea7`, `NegYGaloisGroup`'s project closure fell **71 → 19** — it is 22 today, the
-tree having grown from 359 modules to 387 — while `MulByNGaloisGroup` rose 70 → 71, the one new
+single commit `008fea7`, `NegYGaloisGroup`'s project closure fell **71 → 19** — it is 22 at
+`7f30e87`, the `EllipticCurves/` directory having grown from **359** files to **456** — while
+`MulByNGaloisGroup` rose 70 → 71, the one new
 module being this one.  ⚠️ That saving is **52** modules as measured here; `#1259` and `#1267`
 record it as 53, and the difference is the self-counting convention: consistent counting gives 52
 either way (`71 → 19` excluding the module, `72 → 20` including it), while `72 − 19` — one
-convention on each side — gives 53.
+convention on each side — gives 53.  ⚠️ **And the growth figure this paragraph carried was itself
+one convention on each side** — the trap the control-row paragraph below diagnoses, walked into
+here: *"from 359 modules to 387"* took **359** from the `EllipticCurves/`-directory count at
+`008fea7` and **387** from the all-tracked count at `320f413`, where that directory holds **386**.
+They are cells of different sequences — `359 → 386 → 439 → 456` under one and
+`360 → 387 → 440 → 457` under the other — and the pair above names its scoping for that reason.
 
 ⚠️ **The third column is not a typo, and it is the reason to write this section down.**  Mathlib at
 this pin uses the Lean module system, so `Mathlib/Algebra/Algebra/Equiv.lean` — this file's own
@@ -74,13 +88,15 @@ re.compile(r'^(?:public |private |meta |protected )*import\s+(?:all\s+)?(\S+)')
 decision, and it moves the number.**  The third column is what a walker gets by reading the whole
 header and ignoring lines its pattern cannot parse — the experiment that changes only the capture
 pattern.  A walker that instead *stops* at the first unparsable line halts on the opening
-`public import` and reports `3 / 44 / 112`; the three edges it drops are ordinary non-`public`
-imports placed after the public block, as `Mathlib/RingTheory/Algebraic/Integral.lean` places
-`import Mathlib.RingTheory.Polynomial.Subring`.
+`public import` and reports `3 / 44 / 153`; the edges it drops are ordinary non-`public` imports
+placed after the public block, as `Mathlib/RingTheory/Algebraic/Integral.lean` places
+`import Mathlib.RingTheory.Polynomial.Subring`.  ⚠️ **That drop is the difference of the two columns
+and not a numeral**: it was a uniform `3` at `320f413` and is `3` on the second row and `6` on the
+third at `7f30e87`, so the shape of the disagreement survives a re-keying and its size does not.
 
 ⚠️ **Why the bug does not announce itself.**  Nothing in this development writes `public import`, so
 the *project* column is exact under either pattern and every project-side sanity check passes.  Only
-the total is wrong, and it is wrong by a factor of 24 (`2802 / 115`) to 323 (`968 / 3`) — a number
+the total is wrong, and it is wrong by a factor of 18 (`2838 / 159`) to 323 (`968 / 3`) — a number
 small enough to look like a plausible import count rather than an absurd one.  Census, `.lean` files
 / with a `^public import ` line / with a plain `^import ` line.  ⚠️ **The rows are not scoped
 alike**: mathlib's is `Mathlib/` only, every other package's is the whole package tree minus its
@@ -144,8 +160,16 @@ names and these rows do not, is inert**: a prefix census over all **10546** `.le
 trees reads `{public: 35205, public meta: 965, meta: 13}`, with `private import` never occurring
 either, so the three-modifier alternation above returns the same **8665** as the four.
 
-⚠️ **THE TABLE'S ONLY ROT-CAPABLE ROW IS ITS CONTROL ROW — measured, not supposed, and it is why
-the project row carries a ref where the nine below it need none.**  The vendored rows are pinned:
+⚠️ **THE CENSUS TABLE'S ONLY ROT-CAPABLE ROW IS ITS CONTROL ROW — measured, not supposed, and it
+is why the project row carries a ref where the nine below it need none.  ⚠️⚠️ IT SAYS NOTHING ABOUT
+THE CLOSURE TABLE AT THE HEAD OF THIS SECTION, WHERE EVERY ROW CAN ROT, BECAUSE A CLOSURE OVER A
+GROWING TREE GROWS.**  The earlier wording opened *"the table's"* without naming which table, and
+that is how the closure table's third row stood stale across **293** commits under a sentence a
+reader takes for a clearance (`#2300`).  ⚠️ **The observed asymmetry is worth keeping and is not a
+property of the table**: over `320f413..60e3031` a leaf with an empty project closure was inert
+(`968` unmoved), a 22-module consumer happened not to move (`2668` unmoved), and the 74-module one
+moved to **107 / 2838**.  **Inertness is luck about where a module sits.**  The vendored rows are
+pinned:
 `lake-manifest.json` has not moved since `74fca19` (2026-07-26), so none of them can shift without
 a pin bump.  The project row tracks a live tree that **186** commits touched in `e3c0db2..9f25690`,
 and it drifted `386 → 439` — `+53` in columns 1 and 3, column 2 unmoved at `0`.  ⚠️ **The row was
@@ -167,7 +191,16 @@ all-tracked-`.lean` count and its *"386 now"* the `EllipticCurves/`-directory co
 `359 → 386 → 439` under this row's scoping and `360 → 387 → 440` under the other.  **Do not
 re-take this row without saying which, and without keying it to a commit.**
 
-⚠️ **Do not take a matching total as evidence your pattern is right.**  At this SHA, dropping the
+⚠️ **AND IT HAS DRIFTED AGAIN — SAID HERE AND DELIBERATELY NOT FOLDED IN.**  At `7f30e87` the
+*relation* still holds: `EllipticCurves/` holds **456** files, **0** with a `^public import ` line
+and **456** with a plain `^import ` one, and those files carry **1302** `^import ` lines (min 1,
+max 10, mean 2.86) against `9f25690`'s 1260.  ⚠️ **So `439 / 0 / 439` is a cell keyed to a sha that
+has gone stale while what it asserts is intact, and re-taking it is its own row rather than this
+one's** — `#2257` / `#2259` are its history, it has been re-taken twice, and `#2300` measured it and
+left it alone on purpose.  **Folding a third re-key of it into a neighbouring repair is how one
+paragraph ends up carrying two keyings.**
+
+⚠️ **Do not take a matching total as evidence your pattern is right.**  At `7f30e87`, dropping the
 `(?:all\s+)?` alternative changes **none** of the three totals, because every `import all` target is
 reachable by another path — so that alternative is a correctness requirement whose omission is
 invisible in exactly the way `public import`'s is not.
