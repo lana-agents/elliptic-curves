@@ -172,6 +172,55 @@ re-take this row without saying which, and without keying it to a commit.**
 reachable by another path — so that alternative is a correctness requirement whose omission is
 invisible in exactly the way `public import`'s is not.
 
+⚠️ **The census table's two `import` columns do not partition its rows, and the number of files a
+`^import` walker sees nothing whatever in is neither of them.**  Of mathlib's **381** files with a
+plain `^import ` line, **372** carry a `^public import ` line as well — in those the bad pattern
+under-reads rather than misses — so the files it reads as importing *nothing at all* number
+**7883**, which is `8264 − 381`.  The two remainders are small and worth naming so that a re-run
+recognises them: **9** files are plain-only and **9** carry neither spelling.  ⚠️ **`8246` is the
+`public import ` column and is not that figure**, and naming it as the blind spot is `#1292`'s own
+claim from its first round to the one that landed — `e3c0db2`'s subject line says so in terms, and
+that commit is an ancestor of `main`, so it stays retrievable where that row's earlier rounds do
+not.  ⚠️ **PR #471 before it stated the blind spot as a CLOSURE FACTOR and not a file count** — *"a
+total of `111` for `NegYGaloisGroup` instead of `3027`"*, which it prices as a factor of thirty —
+and it names this column nowhere.  These four counts are pinned with the nine vendored rows above
+and cannot move without a pin bump.
+
+⚠️ **Where the header ends has a worst case, and it is Mathlib's own root file.**
+`Mathlib/Init.lean` — reached, directly or not, by very nearly every file in the library — carries
+**32** imports, and the **first** of them is line 3, which reads
+`public import Lean.Linter.Sets -- for the definition of linter sets`.  A capture pattern anchored
+at end of line cannot parse that, so the stop-at-the-first-unparsable variant halts *before*
+Mathlib's very first import and reads the root file as importing **0 of 32**; the skip variant
+collects **28 of 32**, the four it drops being exactly the trailing-`--` lines 3–6.  ⚠️ **The
+pattern printed above is immune because it is not anchored** — this trap lives in the anchoring
+and not in the prefix group — and both variants *under*-count, which is the direction that looks
+right.
+
+⚠️ **The comment mask has a price, it is 633 modules, and ⚠️ it does not come from the file this
+section's own parenthesis names.**  Dropping the nesting-aware block-comment mask and scanning whole
+files, everything else held fixed, reads this module's total as **1601** rather than **968** — both
+re-measured at `3f9e323`, where this row's own `0 / 968` still holds exactly.  ⚠️ **All 633 are
+three files inside the closure**, each carrying a column-0 `import` line inside a docstring:
+`Mathlib/Tactic/FunProp.lean`:48, worth **+584** on its own; `Mathlib/Tactic/ExtractGoal.lean`:90,
+**+246**; and `Mathlib/Tactic/MinImports.lean`:31–34, **+1**.  ⚠️ **They do not sum to 633** — the
+first two pull overlapping subtrees, so a per-file audit of this trap over-prices its parts.
+⚠️⚠️ **`Mathlib/Tactic/Rify.lean`:68 — the `import Mathlib` named at the top of this section —
+contributes ZERO here**: `Mathlib.Tactic.Rify` is in this module's closure under neither reading, so
+splicing its unmasked edges into the masked graph leaves the total at **968** exactly.  **The
+exemplar is sound and the price is sound; they are not the same claim**, and a walker audited only
+against the named file would pass while carrying all three of the files that actually move the
+number.  `MinImports`:253–256 is the live witness for the resolve-to-a-file rule stated at the top
+of this section: `import A`, `import B` and `import Z` are read by the pattern and are edges under
+neither reading.  These figures are pinned with the nine vendored rows above.
+
+⚠️ **A second check on the two-consumer claim costs nothing and needs no script.**  A
+docstring-only edit to this file rebuilds exactly **four** jobs — this module, its two consumers,
+and the `mk_all` root `EllipticCurves` — out of the **3768** a full build reports at `3f9e323`.
+*Which* modules `lake` recompiles is the fan-out claim restated from the build side, so every build
+of a change to this file re-verifies it for free; it was measured on the edit that added this
+paragraph.
+
 ## Mathlib has no name for this
 
 ⚠️ Re-grepped at Lean `v4.32.0` / Mathlib `v4.32.0` before this file was cut, and the position is
