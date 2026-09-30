@@ -91,17 +91,36 @@ All three were caught by a reviewer opening each cited signature at source, and 
   algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
   files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
-  and their headlines come back out of the general one verbatim. Off `F̄` **four** files discharge
-  it, **two at each of `n = 2` and `n = 3`**, over an arbitrary field with `(2 : F) ≠ 0` — and, at
-  `n = 3`, `(3 : F) ≠ 0` as well:
+  and their headlines come back out of the general one verbatim. Off `F̄` **five** files discharge
+  it, over an arbitrary field with `(2 : F) ≠ 0` — and, wherever the index carries a condition of
+  its own, that one beside it: `(3 : F) ≠ 0` in `…ThreeRationalTorsion` and `…ThreeGeneral`,
+  `((n : ℤ) : F) ≠ 0` in `…NRationalTorsionHprin`, and nothing beyond the `(2 : F) ≠ 0` itself at
+  `n = 2`.
+  ⚠️ **That clause read *"Off `F̄` **four** files discharge it, **two at each of `n = 2` and
+  `n = 3`**"* until `#2293`** (`88a5e00`, `#2216` item 4), and the universal is what went:
+  `PullbackPrincipalityNRationalTorsionHprin.lean` discharges `hprin` at **a general `n`**, so no
+  per-index partition of the five exists and
+  correcting `four` to `five` alone would have left a clause that is false **of the list** rather
+  than of every member: it reads as a partition, and the new member lies in neither part while the
+  ones at a numeral index lie in theirs.
+  ⚠️ **`### Reach clauses`' test returns `false` and not `merely partial` on it** — *"two at each
+  of `n = 2` and `n = 3`"* is a universal over the list and the new member satisfies neither
+  disjunct — so `### Retired claims` binds and the wording is quoted above rather than deleted.
+  Of the five, those at a numeral index:
   `PullbackPrincipalityTwoRationalTorsion.lean` from rational `2`-torsion and a halving —
   hypotheses, not setting — and `PullbackPrincipalityTwoGeneral.lean` from neither of those, for
   any nonsingular `F`-rational `2`-torsion point, by buying both hypotheses over the Galois
   closure of the halving tower and paying them back by Hilbert 90; and their two `n = 3` mirrors,
   `PullbackPrincipalityThreeRationalTorsion.lean` from a rational `E[3]` and a tripling and
   `PullbackPrincipalityThreeGeneral.lean` from neither of those, by the same buy-and-descend route
-  over the Galois closure of the tripling tower. `hprin` is the standing gate elsewhere; `#962` is
-  that gate at `n = 2` and `n = 3` and is now discharged at both.
+  over the Galois closure of the tripling tower. ⚠️ **And the fifth is at no numeral at all**:
+  `PullbackPrincipalityNRationalTorsionHprin.lean` states `exists_gS_n_of_card` and
+  `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_card` at **every** `n` with `(2 : F) ≠ 0` and
+  `((n : ℤ) : F) ≠ 0`, from a rational `E[n]` and a point `P` with `[n]P = S` — the same two
+  hypotheses the `n = 2` file takes, at a general index, and with `hsep` discharged internally
+  from the count.  `hprin` is the standing gate elsewhere; `#962` is that gate at `n = 2` and
+  `n = 3` and is now discharged at both, and at a general `n` under the two hypotheses the
+  `…General` route would still have to buy back.
   ⚠️ That passage read *"the one file that discharges it is
   `PullbackPrincipalityTwoRationalTorsion.lean`"* and *"`#962` is that gate at `n = 2` and
   `n = 3`"* until `#2029` landed, and both are false rather than short.
@@ -112,19 +131,38 @@ All three were caught by a reviewer opening each cited signature at source, and 
   *"both at `n = 2`"* universal was false with it. ⚠️ **A count of files that discharge a gate is
   falsified by a landing this section does not name**, which is the shape
   `### Import-closure figures` rules on for a closure count — so the seed is published with it:
-  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **seven** at this head,
+  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **nine** at this head,
   scored on whether their **public** `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*`
   headlines bind `[IsAlgClosed F]` in their elaborated types. ⚠️ **The word `public` is load-bearing
-  in that seed**: four `private` `Recovery` copies — two in
-  `PullbackPrincipalityTwoRationalTorsion.lean` and two in
-  `PullbackPrincipalityThreeRationalTorsion.lean` — match the name patterns and sit under a
-  `variable [IsAlgClosed F]`, so the seed run without it returns **20** rather than **16** and puts
-  two of the *"Four do not"* files on the wrong side of the split. **Four** do not — the four named
-  above — and **three** do: `…N`, `…Two` and `…Three`. ⚠️ **The scoring is per FILE and the headline
-  counts are not uniform, so no "each" clause belongs here**: of the **16** headlines the seed
-  returns, `…N` carries **three** (`…mulByNEndo`, `exists_gS_n_of_isAlgClosed` and
-  `exists_gS_of_ne_zero_of_isAlgClosed`) and `…ThreeGeneral` carries **three**, while the other
-  five files carry **two** apiece. ⚠️ That clause read *"`…N`, `…Two` and `…Three`, **two headlines
+  in that seed**: six `private` `Recovery` copies — two in
+  `PullbackPrincipalityTwoRationalTorsion.lean`, two in
+  `PullbackPrincipalityThreeRationalTorsion.lean` and two in
+  `PullbackPrincipalityNRationalTorsionHprin.lean` — match the name patterns and sit under a
+  `variable [IsAlgClosed F]`, so the seed run without it returns **24** rather than **18** and puts
+  three of the *"do not"* files on the wrong side of the split. **Five** do not —
+  `…TwoRationalTorsion`, `…TwoGeneral`, `…ThreeRationalTorsion`, `…ThreeGeneral` and
+  `…NRationalTorsionHprin`, the five named above — and **three** do: `…N`, `…Two` and `…Three`.
+  ⚠️ **That clause read *"**Four** do not — the four named above — and **three** do"* until
+  `#2293`** (`88a5e00`, `#2216` item 4): *"the four named above"* is a pointer into a list this
+  commit lengthens to five, and a pointer whose target grows is why the members are named here
+  rather than counted.
+  ⚠️ **Five plus three is eight and the seed returns nine files, which is not an arithmetic slip**:
+  `PullbackPrincipalityNRationalTorsion.lean` carries **zero** headlines matching the patterns —
+  it is the Galois scaffolding of the general-`n` rung and states no `hprin` headline at all — so
+  the split does not classify it and no clause here should pretend it does.
+  ⚠️ **The scoring is per FILE and the headline counts are not uniform, so no "each" clause belongs
+  here**: of the **18** headlines the seed returns, `…N` carries **three** (`…mulByNEndo`,
+  `exists_gS_n_of_isAlgClosed` and `exists_gS_of_ne_zero_of_isAlgClosed`) and `…ThreeGeneral`
+  carries **three**, six files carry **two** apiece and `…NRationalTorsion` carries **none**.
+  ⚠️ **That last clause read *"while the other five files carry **two** apiece"* until `#2293`**
+  (`2e323c9`, `#2216` item 5): it was exact of the seven and is false of the nine, because the
+  ninth carries **zero** rather than two. ⚠️ **The two retirements on this paragraph are one
+  README-touching commit apart in the same issue and are quoted separately** — `88a5e00` and
+  `2e323c9` are adjacent among the commits that touch this file and **four** apart in the commit
+  graph — because each is a universal over
+  its own list and one quotation would leave the other list with no account of why its sentence
+  changed — `### Retired claims`' *"once per block otherwise"* test, applied to two clauses in
+  one block. ⚠️ That clause read *"`…N`, `…Two` and `…Three`, **two headlines
   each**"* until this commit and was false at `…N` by one: the headline it missed is
   `exists_gS_of_ne_zero_of_isAlgClosed`, the general-`n` root over `F̄`. ⚠️ **Keyed to `e5aca61`,
   `git grep` finds that name 17 times in 5 files** — **5** in
