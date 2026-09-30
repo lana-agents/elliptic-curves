@@ -71,17 +71,43 @@ The **four** declarations in namespace `WeierstrassCurve.Affine` carry `[W.IsEll
 curve nor `(2 : F) ≠ 0` — `## Main statements` says so of it below.  Each declaration's own clauses
 defer to its **signature**, which is where the whole hypothesis list of that declaration is.
 
-⚠️ **`[NeZero n]` is bound by the `μ_n(F)`-valued layer and by nothing else.**  Three of the five
-public declarations bind it — `weilPairingN_galois`, `weilPairingN_galois_eq_pow` and
-`weilPairingN_galois_eq_self_of_forall_fixed` — and on those it is **forced and not chosen**,
-because `weilPairingN`'s own signature binds it.  `weilPairingEltN_galois` is
-`F(W⁄F)`-valued and binds none of it — ⚠️ **and it needs no substitute either**: every lemma it
-consumes takes `((n : ℤ) : F) ≠ 0` itself, so the `by rintro rfl; simp at hn` step that
-`weilPairingEltN_self` pays to get `n ≠ 0` does not appear in this file at all.
-`WeilPairingFunctionN`'s module docstring records that six of its own declarations carried the
-instance while needing only `n ≠ 0`, and that dropping it strictly widens them; the same direction
-applies here and there is one less line to pay.  `natCard_rootsOfUnity_of_intCast_ne_zero` is a
-statement about a field alone and binds neither.
+⚠️ **Exactly ONE of the five public declarations binds `[NeZero n]`, and this paragraph records
+the widening that brought that count down from three.**  The survivor is
+`weilPairingN_galois_eq_pow`, and ⚠️ **`weilPairingN` is not what forces it**: its statement names
+`galoisModularCyclotomicChar` (`EllipticCurves.Galois.CyclotomicCharacter`:`133`), which binds
+`[NeZero n]` in its own signature, so the instance is needed to **write** the exponent — delete the
+binder and elaboration fails on the character, at the statement line, with a `haveI` in the tactic
+block powerless to help because the statement is elaborated first.
+⚠️ **`weilPairingN_galois` and `weilPairingN_galois_eq_self_of_forall_fixed` were forced by
+`weilPairingN`'s signature and are not any more**, that signature having been widened one file up.
+⚠️ **Their two proofs then part company, and that is what makes this file the sharpest case of the
+statement/proof distinction: it is the sharpest case in BOTH directions.**
+`weilPairingN_galois` takes **one** `haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩` as its first
+tactic and genuinely wants it — negative-controlled, not asserted: delete that line and the build
+fails *inside the proof*, at the `exists_weilPairingMu_galois_of_ne_zero_of_hprin` application
+(`failed to synthesize instance of type class`, with `rcases` failing behind it), and never at the
+statement.  `weilPairingN_galois_eq_self_of_forall_fixed` takes **none**, and that too is measured
+and not argued: without such a line the whole library is `lake build --wfail` EXIT 0 and
+`lake lint` EXIT 0.  Its three-line proof routes through `weilPairingN_galois` and `weilPairingN`,
+both widened here, which is why the widening left nothing in it to want the instance.
+⚠️ **The difference is invisible in either statement** — neither names a constant that binds the
+instance, which is why both could be widened at all — **and it is invisible to every gate as well**:
+a `haveI` in a tactic block is not a binder, so `unusedArguments` cannot report a dead one, and a
+build and a lint are green with or without it.  `EllipticCurves.FunctionField.WeilPairingFunctionN`
+records the binder-side companion of that — *unused* and *removable* are different questions and
+`unusedArguments` answers only the first; on a `haveI` the linter cannot even pose the question.
+⚠️ **Do not generalise from the second half of the pair.**  All **six** `haveI` lines this widening
+adds are load-bearing — three in `WeilPairingFunctionN`, this file's one, and two in
+`WeilPairingDeterminantN` — and every verdict was reached by deleting the line and rebuilding.
+A widened root is not the same thing as a proof that no longer wants the instance — and the other
+direction is real too: this file's `weilPairingN_galois_eq_self_of_forall_fixed` and
+`WeilPairingFunctionN`'s `weilPairingNHom` route only through constants this round widened, and
+neither wants a substitute of any kind.
+`weilPairingEltN_galois` is `F(W⁄F)`-valued and binds none of it — ⚠️ **and it needs no substitute
+either**: every lemma it consumes takes `((n : ℤ) : F) ≠ 0` itself, so the
+`by rintro rfl; simp at hn` step that `weilPairingEltN_self` pays to get `n ≠ 0` does not appear
+for it at all.  `natCard_rootsOfUnity_of_intCast_ne_zero` is a statement about a field alone and
+binds neither.
 
 ## ⚠️ The character in the exponent form is canonical and the caller supplies nothing
 
@@ -206,7 +232,7 @@ action fixes `O` (`smul_zero`) and `σ⋆` fixes `1`.  Otherwise both points are
 ⚠️ **`hprin` is discharged and not assumed** — by `exists_nsmul_divisor_eq_divisor_mulByNEndo`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), the same discharge
 `weilPairingEltN_self` makes, and supplied term-mode in one `fun` exactly as
-`WeilPairingFunctionN` supplies it at `:593`–`:594`.
+`WeilPairingFunctionN` supplies it at `:615`–`:616`.
 
 ⚠️ **No point is added anywhere in this proof**, the only case split being *is this point `O`*, so
 the `n = 2` / general-`n` asymmetry that comes from a `2`-torsion point being its own negative — the
@@ -252,10 +278,11 @@ at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraica
 The same three cases as the `F(W⁄F)` form, off `exists_weilPairingMu_galois_of_ne_zero_of_hprin` and
 `weilPairingN_eq_weilPairingMu`.  ⚠️ The translation point's `n`-torsion hypothesis, which the
 `μ_n(F)`-level headline asks for and its `F(W⁄F)` twin does not, is free here — it is `hT ▸ T.2`. -/
-theorem weilPairingN_galois (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem weilPairingN_galois (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) (P T : (W⁄F).torsion n) :
     restrictRootsOfUnity (σ.toRingEquiv.toRingHom) n (weilPairingN h2 hn P T)
       = weilPairingN h2 hn (σ • P) (σ • T) := by
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   cases hT : (T : (W⁄F).Point) with
   | zero =>
       have h0 : T = 0 := Subtype.ext (hT.trans Point.zero_def.symm)
@@ -341,7 +368,7 @@ there the kernel of the character is everything, here it is a proper subgroup in
 unity and the hypothesis fixes every one of those, so `weilPairingN_galois` plus
 `restrictRootsOfUnity_coe_apply` closes it with no condition on `n` and no case split. -/
 theorem weilPairingN_galois_eq_self_of_forall_fixed (σ : F ≃ₐ[S] F) (h2 : (2 : F) ≠ 0) {n : ℕ}
-    [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+    (hn : ((n : ℤ) : F) ≠ 0)
     (hσ : ∀ t ∈ rootsOfUnity n F, σ ((t : Fˣ) : F) = ((t : Fˣ) : F)) (P T : (W⁄F).torsion n) :
     weilPairingN h2 hn (σ • P) (σ • T) = weilPairingN h2 hn P T := by
   rw [← weilPairingN_galois σ h2 hn P T]

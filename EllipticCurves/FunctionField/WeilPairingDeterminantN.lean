@@ -90,6 +90,43 @@ general-`n` statement subsumes a degenerate index rather than omitting it**, so 
 below and `1 < n` is bound nowhere; the corollaries that *have* content are the ones at `n ≥ 3`,
 where `(ZMod n)ˣ` is nontrivial, and the non-vacuity block is keyed to `n = 5` for that reason.
 
+## ⚠️ `[NeZero n]` binds on exactly 2 of the 8, and this paragraph is a record of a widening
+
+The span is the **eight** declarations at the variable index `n`, `weilPairingN_zsmul_right` through
+`exists_smul_eq_zsmul_add_zsmul_and_det_n_eq`; ⚠️ the `n = 3` bridge and the two numeral recoveries
+are outside it, being stated at literal indices.  **All eight bound `[NeZero n]` when this file was
+written, and two do now** — measured from source, and a source census is sound here because
+`grep -n variable` shows no `variable [NeZero n]` anywhere in the file.  ⚠️ **That is not a decision
+taken here.**  `weilPairingN` and `weilPairingNHom` bound the instance in their own signatures, and
+six of the eight were forced through those signatures and through nothing else; `#2286` widened both
+roots one file up, and the binders then had nothing to carry.  **No statement below changed — only
+what writing it costs**, `hn : ((n : ℤ) : F) ≠ 0` yielding `NeZero n` in one line, so the reach
+recorded on every bullet of `## Main results` is the same reach it always was.
+
+⚠️ **The two survivors are `galoisModularCyclotomicChar_n_eq_det` and
+`exists_smul_eq_zsmul_add_zsmul_and_det_n_eq`, and `weilPairingN` is not what forces them.**  Their
+conclusions name `galoisModularCyclotomicChar` (`EllipticCurves.Galois.CyclotomicCharacter`), which
+binds `[NeZero n]` in its own signature, so the instance is needed to **write** the right-hand
+side — ⚠️ **and a `haveI` in the tactic block cannot reach it, the statement being elaborated
+first.**  Measured discriminatingly rather than argued: dropping either binder fails to synthesize
+the instance **at the statement**, at the `galoisModularCyclotomicChar` application in the
+conclusion and not in the proof.  ⚠️ The numeral recoveries name the same character and bind
+nothing, because at the literal indices `3` and `2` synthesis finds `NeZero 3` and `NeZero 2` with
+no binder to supply them — the same phenomenon `WeilPairingFunctionN` records of
+`weilPairingN_eq_weilPairingTwo`.
+
+⚠️ **Of the six that lost the binder, four needed nothing and two needed one line, and the split is
+the statement/proof one that `WeilPairingFunctionGaloisN` is the sharpest case of.**  The four are
+`weilPairingN_zsmul_{right,left}`, `weilPairingN_zsmul_add_zsmul` and
+`intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_n`, on which the instance was unused outright — ⚠️ **and
+that is a hard gate and not a tidying: `unusedArguments` fires on an unused instance binder, so
+leaving them would fail `lake lint`.**  The two are `exists_orderOf_weilPairingN_eq` and
+`exists_zsmul_add_zsmul_eq_n`, each of which took one
+`haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩` as its first tactic: their statements never needed
+the instance and their proofs always did, and only the first of those two facts was ever about
+`weilPairingN`.  ⚠️ **A binder the proof uses is invisible to `unusedArguments`**, which is why the
+count here is not read off the linter.
+
 ## Main results
 
 * `weilPairingN_zsmul_{left,right}` — `e_n` is `ℤ`-homogeneous in each slot, at every `n` with
@@ -155,7 +192,7 @@ open Classical in
 `ofAdd_zsmul` is the bridge between the `ℤ`-action on `E[n]` and the `zpow` on its multiplicative
 copy.  ⚠️ `rootsOfUnity n F` is a commutative group, so `zpow` is available with no hypothesis
 beyond the two the pairing already carries — in particular this needs no `1 < n`. -/
-theorem weilPairingN_zsmul_right (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_zsmul_right (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) (k : ℤ) :
     weilPairingN h2 hn S (k • T) = weilPairingN h2 hn S T ^ k := by
   simpa [ofAdd_zsmul] using
@@ -164,7 +201,7 @@ theorem weilPairingN_zsmul_right (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn :
 open Classical in
 /-- **`e_n` is `ℤ`-homogeneous in the divisor slot**, by antisymmetry from the translation slot, at
 every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraically closed `F`. -/
-theorem weilPairingN_zsmul_left (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_zsmul_left (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) (k : ℤ) :
     weilPairingN h2 hn (k • S) T = weilPairingN h2 hn S T ^ k := by
   rw [weilPairingN_swap h2 hn, weilPairingN_zsmul_right, weilPairingN_swap h2 hn, inv_zpow, inv_inv]
@@ -178,7 +215,7 @@ Bilinearity produces four terms; `weilPairingN_self` kills the two diagonal ones
 `weilPairingN_swap` inverts one of the others, which is where the difference `ad − bc` comes from.
 ⚠️ This transcribes `weilPairingThree_zsmul_add_zsmul` (`#951`) line for line — the index is free in
 that argument and always was; what was not free is the hypothesis the identity is consumed under. -/
-theorem weilPairingN_zsmul_add_zsmul (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem weilPairingN_zsmul_add_zsmul (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) (P T : W.torsion n) (a b c d : ℤ) :
     weilPairingN h2 hn (a • P + c • T) (b • P + d • T)
       = weilPairingN h2 hn P T ^ (a * d - b * c) := by
@@ -216,9 +253,10 @@ Three inputs, and the docstring says what each does rather than listing them:
 ⚠️ **The alternating law takes no part**: `weilPairingN_self` is named nowhere below, and
 antisymmetry enters only through `weilPairingN_zsmul_left`.  ⚠️ At `n = 1` the statement is
 `orderOf (1 : μ_1(F)) = 1` and is true for the trivial reason, so no `1 < n` is bound. -/
-theorem exists_orderOf_weilPairingN_eq (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem exists_orderOf_weilPairingN_eq (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) :
     ∃ P T : W.torsion n, orderOf (weilPairingN h2 hn P T) = n := by
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   have hnF : (n : F) ≠ 0 := by exact_mod_cast hn
   have hcard : Nat.card (rootsOfUnity n F) = n := natCard_rootsOfUnity_of_ne_zero hnF
   haveI : Finite (rootsOfUnity n F) :=
@@ -275,7 +313,7 @@ live in `ZMod n`.
 ⚠️ `horder` is where this parts company with `#951`'s
 `intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_three`, whose `hPT : e_3(P, T) ≠ 1` buys the same
 divisibility only because `3` is prime. -/
-theorem intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_n (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem intCast_eq_zero_of_zsmul_add_zsmul_eq_zero_n (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) {P T : W.torsion n}
     (horder : orderOf (weilPairingN h2 hn P T) = n) {u v : ℤ} (huv : u • P + v • T = 0) :
     ((u : ZMod n) = 0 ∧ (v : ZMod n) = 0) := by
@@ -306,10 +344,11 @@ an algebraically closed `F`.
 `(ℤ/n)² → E[n]` and `card_torsion_eq_sq` (`#E[n] = n²`,
 `EllipticCurves.Torsion.StructureGeneral`) upgrades it to bijectivity.  Refutation R3 below deletes
 the count and the residual goal is literally `n * n = #E[n]`. -/
-theorem exists_zsmul_add_zsmul_eq_n (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem exists_zsmul_add_zsmul_eq_n (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) {P T : W.torsion n}
     (horder : orderOf (weilPairingN h2 hn P T) = n) (Q : W.torsion n) :
     ∃ a b : ℤ, Q = a • P + b • T := by
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   have hnF : (n : F) ≠ 0 := by exact_mod_cast hn
   haveI := finite_torsion_of_intCast_ne_zero (W := W) h2 hnF
   set f : ZMod n × ZMod n → W.torsion n :=
