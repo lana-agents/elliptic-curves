@@ -22,8 +22,11 @@ one curve at which layer two does adjoin something:
 
 ⚠️ **This is the opposite direction from the certificate curve.** At `y2AddYEqX3` layer two is
 `⊤ = ⊥`, so properness there is **false** and no work at that fixture could ever discharge the
-bullet.  The two statements together turn the bullet from one about emptiness into one about
-generality.
+bullet.  ⚠️ **That is not hand arithmetic here: it is a landed theorem**,
+`top_eq_bot_threeDivisionField_y2AddYEqX3` of `EllipticCurves.Torsion.ThreeDivisionField`, which
+this file imports.  ⚠️ **It is `private` there, so grep for the name and do NOT `#check` it from an
+importing file**; nothing below uses it, this file proving nothing about that curve.  The two
+statements together turn the bullet from one about emptiness into one about generality.
 
 ## The mechanism
 
@@ -322,15 +325,22 @@ The `3`-division field is **not** generated over layer one by the empty set, so 
 two steps at this curve.  `Polynomial.IsSplittingField.splits_iff` at layer two's polynomial,
 contraposed against the theorem above.
 
-⚠️ **This is the exact converse of the statement that layer two adjoins nothing at the tree's
-certificate curve `y2AddYEqX3`** — named here by what it says, because that statement is a live
-branch's and is **not in the tree at this branch's base**, so a declaration name would resolve to
-nothing.  The pair is what turns `ThreeDivisionField`'s `## What is *not* here` bullet about
-`[L₂ : F]` from a statement about emptiness into one about generality: properness at layer two is
-**false** at the certificate curve and **true** here.
+⚠️ **This is `top_eq_bot_threeDivisionField_y2AddYEqX3` with the curve and the verdict both
+changed** — that theorem, `private` in `EllipticCurves.Torsion.ThreeDivisionField` and named here
+because it is now in the tree, says layer two adjoins nothing at the certificate curve
+`y2AddYEqX3`; this one says it adjoins something at `y² = x³ + 2`.  ⚠️ **Neither is the negation of
+the other, and neither is the other's converse**: they are one predicate at two different curves,
+and that is precisely why the pair turns `ThreeDivisionField`'s `## What is *not* here` bullet
+about `[L₂ : F]` from a statement about emptiness into one about generality.  Properness at layer
+two is **false** at the certificate curve and **true** here.
 
-⚠️ **It still computes no degree.**  Neither `[L₁ : ℚ]` nor `[L₂ : L₁]` nor `[L₂ : ℚ]` is named
-anywhere in this file, and nothing here says `L₂ / ℚ` is normal — so `ThreeDivisionField`'s
+⚠️ **It still computes no degree: no statement in this file names `[L₁ : ℚ]`, `[L₂ : L₁]` or
+`[L₂ : ℚ]`, and the prose above names the first of the three, three times.**  ⚠️ **Say it that way
+and not *named anywhere in this file*, which is false of all three** — the mechanism paragraph on
+why layer one's degree is never computed names `[L₁ : ℚ]`, so does the `y² = x³ - 1` account, and so
+does `liftToQSqrtNegThree`, while the only occurrence of either of the other two is this sentence
+itself.  The widest reading of the old words was refuted by the text carrying them.  Nothing here
+says `L₂ / ℚ` is normal either — so `ThreeDivisionField`'s
 *"the case `threeDivisionGaloisField W = threeDivisionField W` is not excluded"* is untouched by
 this, exactly as it is by the collapse at the certificate curve. -/
 theorem top_ne_bot_threeDivisionField_y2EqX3AddTwo :
