@@ -101,33 +101,48 @@ correction: `## Recovery` below derives the `3`-smooth signatures from the gener
 
 ## Main statements
 
-**20** named declarations — **14** public theorems in three groups, and **6** `private` helpers,
+**23** named declarations — **17** public theorems in four groups, and **6** `private` helpers,
 two of them in `## Recovery` and four in the `ℚ` block — plus **6** anonymous `example`s, three of
 them the recovery certificates and three the `n = 5` non-vacuity rows.  ⚠️ `#print axioms` over
-all fourteen public statements reaches **0** `sorryAx` and nothing outside
-`{propext, Classical.choice, Quot.sound}`, all fourteen returning all three.
+all seventeen public statements reaches **0** `sorryAx` and nothing outside
+`{propext, Classical.choice, Quot.sound}`, all seventeen returning all three.
 
-Every one of the fourteen carries `{F : Type*} [Field F] {W : Affine F}`,
+Every one of the seventeen carries `{F : Type*} [Field F] {W : Affine F}`,
 `[IsDedekindDomain W.CoordinateRing]`, `[DecidableEq F]` and `[W.IsElliptic]` from the ambient
 `variable` block, with the unused ones `omit`ted per declaration as the two existing rungs do:
 `[IsDedekindDomain W.CoordinateRing]` on all **eleven** of the Galois package, `[W.IsElliptic]`
 with it on the first two, and `[DecidableEq F]` on the two positivity rungs and the fibre bound.
-⚠️ Every public declaration in this file `omit`s at least one of the four, and none omits more
-than two.
+⚠️ **The three fibre statements of the fourth group `omit` NOTHING, and they are the only public
+declarations here that do not** — each of the four is genuinely used, checked by the unused-section
+-variable linter on a warning-free build and, for `[DecidableEq F]`, by an `omit` that Lean refuses
+with *"cannot omit referenced section variable"*.  ⚠️ **So the clause that used to close this
+paragraph — *"Every public declaration in this file `omit`s at least one of the four, and none
+omits more than two"* — is re-keyed rather than retired: it is exact of the fourteen it was written
+about and false of the seventeen.**
 
-The explicit-hypothesis census over the fourteen, which is what `## Why every n with (n : F) ≠ 0`
-costs out — ⚠️ **the maximum is `4`, where round 1's maximum was `6`**:
+The explicit-hypothesis census over the seventeen, which is what
+`## Why every n with (n : F) ≠ 0` costs out:
 
-| binder | statements binding it, of 14 |
+| binder | statements binding it, of 17 |
 |---|---|
 | `hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` | ⚠️ **0** (round 1: **3** of 8) |
 | `h3 : (3 : F) ≠ 0` | ⚠️ **0** (round 1: **3** of 8) |
-| `hcard : Nat.card (W.torsion n) = n ^ 2` | 11 |
-| `h : Transcendental F (n • genericPoint).xCoord` | 11 |
-| `h2 : (2 : F) ≠ 0` | 9 |
+| `hcard : Nat.card (W.torsion n) = n ^ 2` | 14 |
+| `h : Transcendental F (n • genericPoint).xCoord` | 14 |
+| `h2 : (2 : F) ≠ 0` | 12 |
 | `hn : (n : F) ≠ 0` | 9 |
+| `hsep` | 4 |
+| `hn : ((n : ℤ) : F) ≠ 0` | ⚠️ **3**, all in the fourth group |
+| `hP : n • P = S` | ⚠️ **3**, all in the fourth group |
 | `hn : n ≠ 0` | 2 |
-| `hsep` | 1 |
+
+⚠️ **The maximum moved from `4` back to `7` and that is a fact about the fourth group and not a
+regression in the first three.**  It used to read *"the maximum is `4`, where round 1's maximum was
+`6`"*, exact over the fourteen.  `ramificationIdxN_eq_one_of_card` binds seven — `h2`, `hn`, `h`,
+`hsep`, `hcard`, `hP` and the fibre-membership `hp` — and its `n = 2` counterpart
+`ramificationIdxTwo_eq_one_of_card` binds **five** of those seven, lacking only `hn` and `h`, which
+are exactly what a general index costs.  ⚠️ **Every one of the first three groups still binds at
+most `4`.**
 
 The Galois package at `hcard`, each the `_of_ne_zero` statement of the same name with
 `[IsAlgClosed F]` replaced by `hcard`:
@@ -167,6 +182,24 @@ And what those two buy, once separability is available closure-free:
   (`sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero`,
   `EllipticCurves.FunctionField.MulByNInertia`) against the summand bound.  This is the general-`n`
   form of `card_fibre_comapProjPointTwo_le_four_of_isSeparable`.
+
+And the fibre description that bound buys once a **halving point** is available, which is `#2292`'s
+rung and the fourth group.  All three take `hP : n • P = S` and **no surjectivity**:
+
+* `card_fibre_comapProjPointN_projPointOfPoint_of_card` — **the fibre over a rational point has
+  exactly `n²` elements**, over an arbitrary field.  `≤` is the bound above; `≥` is the coset
+  `{ P ⊕ R : R ∈ E[n] }`.
+* `fibre_comapProjPointN_eq_range_of_card` — **the fibre *is* that coset**.  ⚠️ This is the
+  declaration `## What is *not* here` used to record as unavailable closure-free.
+* `ramificationIdxN_eq_one_of_card` — **`e_p = 1` over a rational point**, read off the
+  *uncollapsed* identity, where `MulByNFibre`'s merged form reads it off the collapsed one and is
+  `F̄`-only for that reason.
+
+⚠️ **These are the general-`n` forms of `card_fibre_comapProjPointTwo_projPointOfPoint_of_card`,
+`fibre_comapProjPointTwo_eq_range_of_card` and `ramificationIdxTwo_eq_one_of_card`
+(`PullbackPrincipalityTwoRationalTorsion`), whose hypothesis shape they copy exactly** — that file
+has carried `hP` rather than surjectivity since it was written, and `#2292`'s route-1 measurement
+is in the end the observation that the general index may copy it.
 
 ## ⚠️ Three things `#2217` asked to be measured, measured — and one of them corrects the filing
 
@@ -234,18 +267,34 @@ published in this file.
 
 ## ⚠️ What is *not* here
 
-* **No fibre description, and this is the half `#2217` still owes.**  The fibre over a rational
-  point, `ramificationIdxN_eq_one_of_card` and `pullbackDivisorN_single_eq_sum_torsion_of_card` are
-  all absent.  ⚠️ **They are absent because of measurement 1 and not because they were skipped**,
-  and ⚠️ **the closure enters that layer through THREE inputs of which this file pays TWO**, read
-  off the four `_of_ne_zero` proofs of `EllipticCurves.FunctionField.MulByNFibre` and not off any
-  gate list:
+* **No `[n]∗` divisor identity.**  `pullbackDivisorN_single_eq_sum_torsion_of_card` and
+  `pullbackDivisorN_single_projPointOfPoint_of_card` are absent; the fibre description the fourth
+  group adds is what a later round reads them off, and `#2293` owns them.
+  ⚠️ **The fibre description itself is no longer absent, and the table below is re-keyed for it.**
+  The closure enters that layer through THREE inputs, read off the four `_of_ne_zero` proofs of
+  `EllipticCurves.FunctionField.MulByNFibre` and not off any gate list, and **all three are now
+  paid**:
 
   | closure input | paid here |
   |---|---|
   | the **count** — `card_torsion_eq_sq` | ✅ `hcard` |
   | the **collapse** — `sum_ramificationIdxN_of_ne_zero` | ✅ the bound above |
-  | the **surjectivity** — `nsmul_surjective_of_two_ne_zero` | ❌ irreducible |
+  | the **surjectivity** — `nsmul_surjective_of_two_ne_zero` | ⚠️ ✅ `hP`, and see below |
+
+  ⚠️⚠️ **That third row used to read *"❌ irreducible"*, and the correction is `#2292`'s whole
+  finding: the input is consumed POINTWISE and the table named the wrong object.**
+  `card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero` reaches for the surjection in exactly
+  one line — `obtain ⟨P, hP⟩ := nsmul_surjective_of_two_ne_zero h2 hn0 S` — and every later step
+  uses `hP` and never the surjection again.  So what the coset half consumes is not that `[n]` is
+  surjective on `E(F)` but that **the one point `S` of the divisor identity has an `n`-th part**.
+  ⚠️ The paragraph this row used to carry — *"Hypothesising it is not obviously right: over a
+  number field it collapses the statement, since `E(F)` is finitely generated and `[n]` surjective
+  forces rank `0` and `E(F)[n] = 0` against `hcard = n²` at `n ≥ 2`"* — is **not retracted and is
+  what makes the distinction load-bearing**: it is an argument against hypothesising
+  `Function.Surjective (n • ·)`, and it says nothing against `hP`.  ⚠️ **`hP` demonstrably
+  collapses nothing**: at `n = 2` the `ℚ` certificate in `PullbackPrincipalityTwoRationalTorsion`
+  discharges `hcard` **and** `hP` on a named curve with no hypothesis left over.  The
+  Mordell–Weil argument is still not in this tree and is still not cited as one.
 
   The count is `EllipticCurves.Torsion.StructureGeneral`'s, under that file's own
   `[IsAlgClosed F]`, and it is consumed directly by
@@ -255,15 +304,17 @@ published in this file.
   `card_fibre_comapProjPointN_le_sq_of_ne_zero` and directly by
   `ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint_of_ne_zero`; it is what
   `card_fibre_comapProjPointN_le_sq_of_isSeparable` above retires, off the *uncollapsed* identity
-  against the positivity pair.  ⚠️ **What is left is the surjectivity of `[n]` on points** —
-  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`), or
-  `nsmul_surjective_of_smooth` (`EllipticCurves.Torsion.NsmulSmoothSurjective`) at a `3`-smooth
-  index, both binding `[IsAlgClosed F]` — and nothing in this tree supplies it closure-free.
-  ⚠️ **Hypothesising it is not obviously right**: over a number field it collapses the statement,
-  since `E(F)` is finitely generated and `[n]` surjective forces rank `0` and `E(F)[n] = 0` against
-  `hcard = n²` at `n ≥ 2`.  That argument is Mordell–Weil and is **not** in this tree, so it is a
-  reason to choose carefully rather than a theorem to cite — and it is why the row is named here
-  instead of being hypothesised into a headline.
+  against the positivity pair.  ⚠️ **And the clause that used to close this bullet was *"what is
+  left is the surjectivity of `[n]` on points … nothing in this tree supplies it closure-free"*.**
+  Both halves of that are still TRUE of the surjection itself — `nsmul_surjective_of_two_ne_zero`
+  (`EllipticCurves.Torsion.TwoTorsionOrder`) and `nsmul_surjective_of_smooth`
+  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) both bind `[IsAlgClosed F]`, and they are the
+  whole family: `nsmul_surjective_of_root` and `nsmul_surjective_of_hasXCoordFormula` bind it too,
+  and `PointsOnIdealTorsion`'s `nsmul_surjective` is about a formal group over a local ring and is
+  not this statement at all — **five** declarations tree-wide matching
+  `git grep -nE '^(theorem|lemma) .*nsmul_surjective'` over `EllipticCurves/**/*.lean`, **four** of
+  them on `W` and every one of the four closure-bound.  ⚠️ **What was wrong is that the layer never
+  needed the surjection**, which is what the re-keyed table above records.
 * ⚠️ **NOT `comapProjPointN_projPointOfPoint_of_smooth`, and round 2 of this file said it was.**
   That declaration is the *place contraction*,
   `comapProjPointN n h (projPointOfPoint W P) = projPointOfPoint W (n • P)`; its `_of_ne_zero` form
@@ -315,6 +366,15 @@ already has its certificate, in `PullbackPrincipalityTwoRationalTorsion` on
 `EllipticCurves.Fixture.y2EqX3Add5X2Add4X`, `y² = x³ + 5x² + 4x`.
 **So the `_of_card` statements below are certified jointly satisfiable by the `n = 2` rung and by
 nothing in this file, and that is stated rather than papered over.**
+
+⚠️ **`hP` adds nothing to that obstruction and the `n = 2` certificate covers it too.**  The three
+fibre statements bind `hcard` **and** `hP`, and the `n = 2` rung's certificate discharges both on
+that curve with no hypothesis left over — so the pair is satisfiable over a field that is not
+algebraically closed, and the index at which this file cannot certify it is `n ≥ 3` for the reason
+above and for no reason involving `hP`.  ⚠️ **This is the whole difference between `hP` and the
+surjectivity hypothesis `#2292` warns against**, which would be jointly unsatisfiable with `hcard`
+at every `n ≥ 2` over a number field: `hP` asks one point for one preimage, not `E(F)` for all of
+them.
 
 What *is* committed below, over `ℚ` and at `n = 5`, is the half that carries no `hcard`: the
 positivity pair and the fibre bound, on `EllipticCurves.Fixture.y2EqX3SubX`.  ⚠️ **`n = 5` is
@@ -590,6 +650,153 @@ theorem card_fibre_comapProjPointN_le_sq_of_isSeparable (h2 : (2 : F) ≠ 0) {n 
   rw [Finset.card_eq_sum_ones,
     ← sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero h2 hn h hsep q]
   exact Finset.sum_le_sum fun p _ => one_le_ramificationIdxN_mul_residueDegreeN n h p
+
+/-! ### The fibre at a rational point, from a HALVING POINT and not from surjectivity
+
+⚠️ **This is the section `#2292` asked for, and its finding is that the third closure input of
+`## What is *not* here`'s table is consumed POINTWISE.**  `MulByNFibre`'s
+`card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero` reaches for
+`nsmul_surjective_of_two_ne_zero` exactly once, in one line —
+`obtain ⟨P, hP⟩ := nsmul_surjective_of_two_ne_zero h2 hn0 S` — and every later use is of `hP` and
+never of the surjection again.  So what the coset half of the fibre count consumes is not that
+`[n]` is surjective on `E(F)` but that **the one point `S` of the divisor identity has an `n`-th
+part**, and that is a hypothesis rather than a closure.
+
+⚠️ **It is also not a new design: `n = 2` already ships exactly this shape.**
+`card_fibre_comapProjPointTwo_projPointOfPoint_of_card`, `fibre_comapProjPointTwo_eq_range_of_card`
+and `ramificationIdxTwo_eq_one_of_card` (`PullbackPrincipalityTwoRationalTorsion`) all carry
+`{S P : W.Point} (hP : 2 • P = S)`, and that file's `## Recovery` feeds them
+`exists_nsmul_two_eq (Point.some x y h)` — surjectivity **at that one point** — to get the
+`[IsAlgClosed F]` forms back.  The three theorems below are those three at a general index.
+
+⚠️ **And `hP` collapses nothing, which is the whole point of the distinction.**  Hypothesising
+`Function.Surjective (n • · : W.Point → W.Point)` beside `hcard` is what a number-field argument
+makes jointly unsatisfiable at `n ≥ 2` (`#2292`; the argument is Mordell–Weil and is not in this
+tree).  `hP` is one point having one preimage: at `n = 2` the `ℚ` certificate in
+`PullbackPrincipalityTwoRationalTorsion` discharges `hcard` **and** `hP` on a named curve with no
+hypothesis left, so the pair is satisfiable over a field that is not algebraically closed.  ⚠️ What
+this file cannot certify is the pair at `n ≥ 3`, and the reason is `hcard` alone — see
+`## Non-vacuity`, which is unchanged by this section.
+
+⚠️ **The bound above is what makes these closure-free, and it is the only new ingredient.**  Over
+`F̄` the `≤ n²` half comes from the collapsed identity and the `≥ n²` half from the coset; here the
+`≤` half is `card_fibre_comapProjPointN_le_sq_of_isSeparable` off the *uncollapsed* identity, and
+the `≥` half is the same coset with `hcard` in place of `card_torsion_eq_sq` and `hP` in place of
+the surjection.  Both halves of the closure this layer used to need are therefore paid, and the
+third input never existed in the strength the table gave it. -/
+
+/-- **The fibre of `[n]` over a rational point has exactly `n²` elements**, over an arbitrary field
+at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, at a rational `E[n]` and a halving `P`,
+with separability carried as a hypothesis exactly as on the bound above.
+
+`≤ n²` is `card_fibre_comapProjPointN_le_sq_of_isSeparable` above; `≥ n²` is the coset
+`{ P ⊕ R : R ∈ E[n] }`, which lies in the fibre by `comapProjPointN_add_torsion_of_ne_zero` and has
+`n²` distinct elements by `hcard` and `projPointOfPoint_add_injective` — ⚠️ **both of those are
+already closure-free on `main`, sitting above `MulByNFibre`'s `section IsAlgClosed` at `:735` and
+`:378`.**
+
+This is `card_fibre_comapProjPointN_projPointOfPoint_of_ne_zero` (`MulByNFibre`) with `hcard`
+replacing `card_torsion_eq_sq`, `hsep` replacing the collapse and `hP` replacing
+`nsmul_surjective_of_two_ne_zero`, and it is the general-`n` form of
+`card_fibre_comapProjPointTwo_projPointOfPoint_of_card`. -/
+theorem card_fibre_comapProjPointN_projPointOfPoint_of_card (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (hsep : Algebra.IsSeparable ↥(mulByNEndo (W := W) n h).fieldRange W.FunctionField)
+    (hcard : Nat.card (W.torsion n) = n ^ 2) {S P : W.Point} (hP : n • P = S) :
+    (finite_comapProjPointN_preimage_singleton n h (projPointOfPoint W S)).toFinset.card
+      = n ^ 2 := by
+  classical
+  have hn' : (n : F) ≠ 0 := by exact_mod_cast hn
+  haveI := W.finite_torsion_of_intCast_ne_zero h2 hn'
+  haveI := Fintype.ofFinite (W.torsion n)
+  refine le_antisymm (card_fibre_comapProjPointN_le_sq_of_isSeparable h2 hn' h hsep _) ?_
+  have hc : Fintype.card (W.torsion n) = n ^ 2 := by rw [← Nat.card_eq_fintype_card, hcard]
+  rw [← hc, ← Finset.card_univ]
+  exact Finset.card_le_card_of_injOn (fun R => projPointOfPoint W (P + R))
+    (fun R _ => (Set.Finite.mem_toFinset _).2
+      (comapProjPointN_add_torsion_of_ne_zero h2 hn h hP R))
+    (Set.injOn_of_injective (projPointOfPoint_add_injective n P))
+
+/-- **The fibre of `[n]` over a rational point *is* the coset `{ P ⊕ R : R ∈ E[n] }`**, over an
+arbitrary field at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, at a rational `E[n]`, a
+halving `P` and separability: `n²` distinct elements inside an `n²`-element set, and no further
+geometry.
+
+⚠️ **This is the declaration `## What is *not* here` records as unavailable closure-free** —
+`fibre_comapProjPointN_eq_range_of_ne_zero` (`MulByNFibre`) sits inside that file's
+`section IsAlgClosed` — and it is available here because its three closure inputs are `hcard`,
+`hsep` and `hP`. -/
+theorem fibre_comapProjPointN_eq_range_of_card (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (hsep : Algebra.IsSeparable ↥(mulByNEndo (W := W) n h).fieldRange W.FunctionField)
+    (hcard : Nat.card (W.torsion n) = n ^ 2) {S P : W.Point} (hP : n • P = S) :
+    comapProjPointN n h ⁻¹' {projPointOfPoint W S}
+      = Set.range fun R : W.torsion n => projPointOfPoint W (P + R) := by
+  classical
+  have hn' : (n : F) ≠ 0 := by exact_mod_cast hn
+  haveI := W.finite_torsion_of_intCast_ne_zero h2 hn'
+  haveI := Fintype.ofFinite (W.torsion n)
+  have hfin := finite_comapProjPointN_preimage_singleton n h (projPointOfPoint W S)
+  have hsub : (Set.range fun R : W.torsion n => projPointOfPoint W (P + R))
+      ⊆ comapProjPointN n h ⁻¹' {projPointOfPoint W S} := by
+    rintro p ⟨R, rfl⟩
+    exact comapProjPointN_add_torsion_of_ne_zero h2 hn h hP R
+  refine (Set.eq_of_subset_of_ncard_le hsub ?_ hfin).symm
+  have hfibre : (comapProjPointN n h ⁻¹' {projPointOfPoint W S}).ncard = n ^ 2 := by
+    rw [Set.ncard_eq_toFinset_card _ hfin]
+    exact card_fibre_comapProjPointN_projPointOfPoint_of_card h2 hn h hsep hcard hP
+  have hcoset : (Set.range fun R : W.torsion n => projPointOfPoint W (P + R)).ncard = n ^ 2 := by
+    rw [← Nat.card_coe_set_eq, Nat.card_range_of_injective (projPointOfPoint_add_injective n P),
+      hcard]
+  omega
+
+/-- **`[n]` is unramified over a rational point**, over an arbitrary field at every `n` with
+`(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, at a rational `E[n]`, a halving `P` and separability.
+
+The `n²` summands of the *uncollapsed* identity are each `≥ 1` and sum to `n²`, so the summand at
+`p` is `1`; being a product of two positive naturals it forces `e_p = 1`.
+
+⚠️ Compare `ramificationIdxN_eq_one_of_comapProjPointN_eq_projPointOfPoint_of_ne_zero`
+(`MulByNFibre`), which reads the same conclusion off the **collapsed** identity and is `F̄`-only for
+that reason.  The general-`n` form of `ramificationIdxTwo_eq_one_of_card`. -/
+theorem ramificationIdxN_eq_one_of_card (h2 : (2 : F) ≠ 0) {n : ℕ}
+    (hn : ((n : ℤ) : F) ≠ 0)
+    (h : Transcendental F (n • genericPoint (W := W)).xCoord)
+    (hsep : Algebra.IsSeparable ↥(mulByNEndo (W := W) n h).fieldRange W.FunctionField)
+    (hcard : Nat.card (W.torsion n) = n ^ 2) {p : ProjPoint W} {S P : W.Point} (hP : n • P = S)
+    (hp : comapProjPointN n h p = projPointOfPoint W S) :
+    ramificationIdxN n h p = 1 := by
+  classical
+  have hn' : (n : F) ≠ 0 := by exact_mod_cast hn
+  have hfin := finite_comapProjPointN_preimage_singleton n h (projPointOfPoint W S)
+  set s := hfin.toFinset with hs
+  have hmem : p ∈ s := (Set.Finite.mem_toFinset hfin).2 hp
+  have hcards : s.card = n ^ 2 :=
+    card_fibre_comapProjPointN_projPointOfPoint_of_card h2 hn h hsep hcard hP
+  have hsum : ∑ r ∈ s, (ramificationIdxN n h r).toNat * residueDegreeN n h r = n ^ 2 :=
+    sum_ramificationIdxN_mul_residueDegreeN_of_isSeparable_of_ne_zero h2 hn' h hsep _
+  have hsplit : (ramificationIdxN n h p).toNat * residueDegreeN n h p
+      + ∑ r ∈ s.erase p, (ramificationIdxN n h r).toNat * residueDegreeN n h r = n ^ 2 := by
+    rw [Finset.add_sum_erase _
+      (fun r => (ramificationIdxN n h r).toNat * residueDegreeN n h r) hmem]
+    exact hsum
+  have hlow : (s.erase p).card
+      ≤ ∑ r ∈ s.erase p, (ramificationIdxN n h r).toNat * residueDegreeN n h r := by
+    simpa using Finset.card_nsmul_le_sum (s.erase p)
+      (fun r => (ramificationIdxN n h r).toNat * residueDegreeN n h r) 1
+      (fun r _ => one_le_ramificationIdxN_mul_residueDegreeN n h r)
+  have hec : (s.erase p).card = n ^ 2 - 1 := by rw [Finset.card_erase_of_mem hmem, hcards]
+  have hcardpos : 1 ≤ n ^ 2 := by rw [← hcards]; exact Finset.card_pos.2 ⟨p, hmem⟩
+  have hprod : 1 ≤ (ramificationIdxN n h p).toNat * residueDegreeN n h p :=
+    one_le_ramificationIdxN_mul_residueDegreeN n h p
+  set k := (ramificationIdxN n h p).toNat * residueDegreeN n h p with hk
+  have hone : k = 1 := by omega
+  have hE : (ramificationIdxN n h p).toNat = 1 :=
+    Nat.eq_one_of_mul_eq_one_right (hk.symm.trans hone)
+  have hepos := ramificationIdxN_pos n h p
+  omega
 
 /-! ### Recovery of round 1's `3`-smooth signatures, and the index they cannot reach
 
