@@ -5837,7 +5837,7 @@ argument-resolution seed reports **0** and exits `0`. ⚠️ **It does not MISS 
 moves `1724` → `1725`, so it sees the line and scores it clean.** Indent that fence body two spaces
 and both read `0` again. ⚠️⚠️ **AND THE CONSEQUENCE INVERTS THIS SECTION'S OWN STATED REASON.**
 *"It falsifies no figure this document publishes, and the reason is the ARGUMENT filter…"* is true
-the ten sites it was written about, whose eight distinct arguments resolve to nothing — but as a
+of the ten sites it was written about, whose eight distinct arguments resolve to nothing — but as a
 property of the filter it is backwards: a NON-resolving phantom adds a node no walk reaches, while a
 RESOLVING one adds a real EDGE between two real nodes, which is what a closure figure is made of.
 The same probe placed in `Torsion/NsmulYCoord.lean` takes that module's `^import EllipticCurves…`
