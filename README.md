@@ -5613,12 +5613,80 @@ one of the two figures this section names as verdict-carrying — moves on four 
 its `N` end has nothing for a literal matcher to miss, so only its `M` end moves. The matcher acts
 per HEAD and not per pair, which is how one pair comes out half wrong. A trailer-free head is rare
 in the landed corpus, exactly **1** of those 782 commits, and one of these ten round heads is one.
-⚠️ **Resolve the trailer case-insensitively and anchored**: `git interpret-trailers --parse` reads
-`Co-Authored-By:` as a trailer, so the case-insensitive reading is git's own and this section need
-only write it down. The disturbed count is matcher-invariant on all five pairs and the line total
-moves by `1`, so ⚠️ **the `N → M` rule below survives intact** — a `±1` matcher wobble cannot be
-mistaken for the `32` to `93` gap between the blanks-kept and blanks-dropped readings, which is the
-gap that rule exists to catch.
+⚠️ **Resolve the trailer case-insensitively and anchored — but the warrant is THIS MERGER and not
+git's parser.** `git interpret-trailers --parse` does read `Co-Authored-By:` as a trailer in
+isolation; over this corpus it is **not** a usable recogniser, and the two paragraphs below price
+it and fix the filter's scope. What makes the case-insensitive reading right *here* is that the
+merger appends its own trailer in the **lowercase** spelling beneath whatever the commit wrote.
+The disturbed count is matcher-invariant on all five pairs and the line total moves by `1`, so
+⚠️ **the `N → M` rule below survives intact** — a `±1` matcher wobble cannot be mistaken for the
+`32` to `93` gap between the blanks-kept and blanks-dropped readings, which is the gap that rule
+exists to catch.
+
+⚠️⚠️ **THE FILTER'S SCOPE, AND IT IS THE HALF THE FLAG DID NOT STATE: the trailer block is the
+message's TAIL, and the case-insensitive filter applied to the WHOLE BODY deletes prose.** The
+*delete-it-with-its-blank* convention fixed above is whole-body by construction, and over the
+**815** landed messages at `c8e9fde` that filter deletes **243** `Co-Authored-By:` lines across
+**119** messages, of which **0** are trailers — plus the blank each one drags, and all **243** have
+one, so **486** lines, every one of them somebody's prose or the concatenated body of a 2+-commit
+branch. ⚠️ **This section's own figures do NOT move and this row does not re-measure them**: their
+population is the ten BRANCH HEADS above, and on all ten every trailer line sits in the tail block —
+nine carry exactly one `Co-Authored-By:` there, `4fc384e` carries none, and not one of the ten
+carries a lowercase line at all — so whole-body and tail-anchored scope delete the identical lines
+and the `N → M` rule, `standing` and the 0-for-5 verdict are all untouched. **The demotion is a
+LANDING artifact.** ⚠️ **So the scope is safe at the branch-head layer and unsafe at the
+landed-message layer, and a recipe that crosses layers must say which** — anchor the filter to the
+tail, or match the lowercase token case-sensitively, which over the same 815 messages deletes
+**1617** lines and **0** of prose. ⚠️ **`mid-body` does double duty and THIS is the paragraph where
+its two readings part, so the `0` is keyed: SEMANTIC here** — none of the 1617 is prose — **where
+the `243` / `0` cell above is POSITIONAL**, not in the tail block. Positionally the lowercase figure
+is **1615** of 1617, the other **2** being `a570d4d`'s non-final but genuine block below. ⚠️ **The
+reason the lowercase token suffices is THIS MERGER's append and not anything about git**, so it is a
+fact with a date: anchored counts at `c8e9fde`, 2026-09-30, are **1617** lowercase / **243**
+mixed-case with no third casing, and the same instrument reproduces `84cfa3c`'s landed **1611** /
+**243** / **1609** / **0** / **119** digit for digit — drift, not falsification.
+
+⚠️⚠️ **AND THE COMMAND CITED ABOVE AS THE WARRANT IS NOT A USABLE RECOGNISER OVER THIS CORPUS: a
+markdown `---` rule is git's PATCH DIVIDER.** Two-sided control, and ⚠️ **the exit status is `0`
+both ways, so a recipe that checks `$?` sees success**:
+
+```sh
+printf 'subj\n\nbody\n\n---\n\nprose\n\nCo-authored-by: A <a@b>\n'  | git interpret-trailers --parse
+printf 'subj\n\nbody\n\nprose\n\nCo-authored-by: A <a@b>\n'         | git interpret-trailers --parse
+printf 'subj\n\nbody\n\n----\n\nprose\n\nCo-authored-by: A <a@b>\n' | git interpret-trailers --parse
+```
+
+The first prints **nothing**; the second and third print the trailer. ⚠️ **The recogniser is git's
+own `find_patch_start` — a `---` prefix followed by WHITESPACE OR END-OF-LINE** — so an exact `---`
+and a `--- <text>` heading fire while **`----` and `---x` do not**, the third line above being that
+negative control. This board writes `---` rules and `--- <text>` headings in commit bodies, so at
+`c8e9fde` under git **2.39.5** exactly **12** of the 815 messages carry a line that fires — **7**
+exactly `---`, **5** of the `--- <text>` shape — and **all 12** parse to nothing, **0** surviving.
+⚠️⚠️ **Publish that recogniser beside the 12, because the naive test reproduces neither figure**:
+**140** messages carry a line *beginning* `---`, and **140 = 12 + 128** is the partition, the
+**128** carrying nothing but runs of four-or-more dashes. ⚠️ **The census *carries a 4+-dash line*
+is **129**, one MORE than the complement, because `87c2072b` carries both shapes** — nine exact
+`---` rules and one `---------` — so `12 + 129` overcounts the corpus by that one message. The 12
+account for **20** of the **22** lowercase lines the parser misses, each a perfectly formed
+blank-separated trailer block at the very tail. ⚠️ **A thirteenth message parses empty for an
+unrelated and correct reason** — `2e6ee266`, `Create README.md`, carries no trailer in any casing
+and is the *trailer-free head* the flag above already counts at **exactly 1** of 782, still **1** of
+815; folding it into the divider count is the easy error. The other **2** missed lines are
+`a570d4d`'s, and ⚠️⚠️ **the predicate that singles that message out is the NON-FINAL BLOCK and not
+the count of blocks.** Applying the **1609**'s own recogniser below one level up — maximal
+blank-separated runs of trailer-shaped `Word-Word:` lines — **26** of the 815 messages at `c8e9fde`
+carry two such blocks, five opened at source with `Issue:`, `Docstring-only:` and `Reference:`
+non-final blocks, so *the one message carrying two trailer blocks* is false by **26** to one. ⚠️
+**`a570d4d` is the only message whose NON-FINAL block carries a `Co-authored-by:` line**, which is
+why it is the only one where the count moves: both of its blocks are genuine, and every
+tail-anchored recogniser — git's and the **1609** below — reports only the second, which is the
+whole of the `1611` − `1609` gap. ⚠️ **This is not a casing finding, and the control says so in both
+directions**: a `Co-Authored-By:` line as the LAST paragraph **is** reported, and the same line
+mid-body with a lowercase trailer beneath it is **not**. ⚠️ **Nor is the `0 of 243` vacuous** — over
+the **119** messages carrying a mixed-case line the tail-anchored recogniser found a trailer block
+in **119 of 119** and reported **0** of their 243, and a `0` from a recogniser that found nothing
+would prove nothing. **Any `%B`-layer recipe here that reaches for `git interpret-trailers` inherits
+the divider trap.**
 
 ⚠️ **Neither verdict figure survives a change of reading, and the counterexample is in the table
 above.** On `#2257`'s pair the disturbed count is **164** under the recipe as landed and **172** to
@@ -5720,11 +5788,12 @@ no trailer and its landing carries one, and at `84cfa3c` the commit's single `Co
 becomes two lowercase ones. ⚠️ **That append is what the eighth flag above is measuring, and the
 casing split is POSITIONAL rather than stylistic**: over `main`'s **811** messages at `84cfa3c` the
 anchored trailer lines are **1611** `Co-authored-by:` against **243** `Co-Authored-By:` with no
-third casing, **1609** of the 1611 sit in a trailer block against **0** of the 243, and all **243**
-— across **119** messages — carry a lowercase trailer line below them, which is the append that
-demoted them. ⚠️ **What the platform does is observed here and not explained**: whether the two
-regimes are this repository's merge configuration or a default is not measured, and a claim about
-that would need its own instrument.
+third casing, **1609** of the 1611 sit in a trailer block — recogniser: **the maximal run of
+trailer-shaped lines at the end of the message**, reproduced digit for digit at a second hand —
+against **0** of the 243, and all **243** — across **119** messages — carry a lowercase trailer
+line below them, which is the append that demoted them. ⚠️ **What the platform does is observed
+here and not explained**: whether the two regimes are this repository's merge configuration or a
+default is not measured, and a claim about that would need its own instrument.
 
 **Absence is a scheduling fact and must not be read as an eligibility fact.** The hatch's condition
 is that no slot *satisfies the preferences*, not that no other slot has *acted*. A hatch fired
