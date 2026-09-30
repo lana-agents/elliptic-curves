@@ -2692,7 +2692,11 @@ matching, case-insensitively, the alternation
 straight through the closing `-/` and on to the next `##` anywhere in the file, which on two rows
 is several hundred lines of Lean. It changes no row here, and that is luck rather than a property
 of the seed. **1696** `## Main *` bullets tree-wide and **64** matching rows, at `8f95181` and at
-this commit alike. Over the tree `#1683` itself measured, which is `b764fae` and is `#1656`,
+`6c22e12` — the tree this paragraph shipped in — alike. ⚠️ **That second ref read *"this commit"*
+until `#2291` named it.** The pair was exact at both refs when it was written and is exact at both
+refs today, so naming the sha is a **re-keying and not a retirement**; what the indexical cost is
+four paragraphs below, where this same seed is re-run at a later tree and returns another answer.
+Over the tree `#1683` itself measured, which is `b764fae` and is `#1656`,
 PR #667, the same instrument returns **63** — the one addition being `MulByNInertia`'s *"needs no
 separability at all"*, which `#1665` wrote. **Every one of the 64 was read**, and they split four
 ways. **15** are gate-relative, and `### Gate-discharge claims` decides them. **3** are a complete
@@ -2724,6 +2728,108 @@ about itself is inside it.
 other.** `#1680` is open against the `EllipticCurves.TateModule.DeterminantModGeneral` *"form to
 copy"* naming above; nothing here edits that sentence or the paragraph holding it. If `#1680`
 lands first, this branch is unaffected; if this lands first, `#1680`'s repair is unaffected.
+
+⚠️ **The same seed, re-run at a later tree, and this is what the indexical above cost.** At
+`6a733e1e` (PR #875, `#2282`) the census is **1954** `## Main *` bullets over **462** sections in
+**397** of **453** module docstrings, with **107** matching rows — against **1696** / **425** /
+**364** / **419** / **64** at `6c22e12`. ⚠️ **The matching population grew by 43 and not by 44.**
+Keyed on the pair (path, whitespace-collapsed row text), **44** rows appear and **1** disappears,
+and one of the 44 is the re-worded form of the 1: the `WeilPairingProductRelationRootIndependent`
+row for `weilPairingElt_eq_of_smul_pow_eq_of_divisor_eq` went from *"for arbitrary `n`"* to
+*"at every `m ≠ 0`"* and still matches. So `64 + 44 − 1 = 107`, and *44 new* would be a
+set-difference artefact rather than a count of rows. ⚠️ **The two limits above carry over
+unchanged**: 107 is a floor and not a population, and the growth is the tree's and not the seed's —
+a larger figure out of a vocabulary-keyed recogniser is not a stronger claim. ⚠️⚠️ **The four-way
+split, the *"thirty-two are TRUE and one was FALSE"* verdict and the `MulByTwoFibreInfinity` repair
+are facts about the 64 at `6c22e12` and are left keyed there.** The 43 new rows are **counted here
+and not read**, so nothing above is restated of them; reading them is `#2291`'s forward-filed half.
+
+⚠️ **A re-implementation of a published recogniser owes its calibration and not only its
+output**, and that is the cell `#2282` twice lacked: both of its review rounds found this census
+suspect and neither could convict it, because the instrument in hand returned `1690 / 63` where this
+page publishes `1696 / 64` **at the same commit** — so it could not separate drift from its own
+error, and `#1664`'s ruling (a dated census drifts, and drift is not falsification) correctly
+governed. The figures above come from an instrument that first reproduced **six** published cells at
+**four** refs: `1696 / 64` at `8f95181`; the same pair at `6c22e12`; **63** at `b764fae`; the
+`b764fae` → `8f95181` delta as **exactly one row added and none removed**, that row being
+`MulByNInertia`'s *"needs no separability at all"*; and **1696** bullets in **425** sections over
+**364** of **419** docstrings at `7495d3e`. ⚠️ **The `7495d3e` census in
+`### Gate-discharge claims` is dated by sha at both ends, so it is correct-and-stale rather than
+wrong and nothing here edits it.** ⚠️ Its **1690** counts how many of the 1696 bullets resolve
+to a declaration of this development, which is **not** a bullet count — so the collision with the
+number an uncalibrated bullet scan produced is a coincidence, and reading it as agreement is the
+trap that a calibration step exists to stop.
+
+⚠️ **The 43 are now READ, and the answer is a clean sheet — keyed at `0094b84`.** `#2294` triages
+the arrivals the `6a733e1e` census above counts, four ways as the 64 were, against the
+**elaborated telescope** of every declaration each names and never against a `theorem` line: **0**
+are gate-relative, **7** are a complete count in absence clothing, **7** are false positives of the
+seed, and **29** are this branch. ⚠️ **All 29 are TRUE and none is FALSE**, so the
+`MulByTwoFibreInfinity` shape has no second instance among them. ⚠️ **A clean sheet is a weaker
+result than a repair and is reported as one**: what this pays is that the largest unread block
+this axis has carried is no longer unread, not that the tree was found sound. ⚠️ **The
+gate-relative class is EMPTY by measurement and not by assumption** — no row of the 43 carries
+*"unconditionally"*, *"no hypothesis left"*, *"owed nothing further"* or *"the only hypothesis"*,
+so `### Gate-discharge claims` takes none of them, against **15** of the 64. The reading was run
+with `#2291`'s own instrument and re-verified at **eight** cells before any row was read: the six
+above, plus **1942** bullets and **106** matching at `7ba33ed`, and **1954 / 462 / 397** of
+**453 / 107** at `0094b84` — ⚠️ **identical to the `6a733e1e` cell, so the four landings between
+them moved no bullet of this population.**
+
+⚠️ **The census above is keyed to `0094b84` and the population has moved once since; the delta is
+reported here rather than folded in, because a census is dated by the sha it was measured at.** At
+`3f9e3239` the same instrument returns **1967** bullets over **464** sections in **399** of **455**
+docstrings with **108** matching — **one** row appears and **none** disappears, and it is
+`EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsion`'s row for
+`card_torsionNMul_of_card`. ⚠️ **It is the `MulByTwoFibreInfinity` shape in form — a bare *"No
+hypothesis on `n` and none on `F`"* — and it is TRUE**: that declaration's elaborated telescope is
+`{F : Type*} [Field F] {W : Affine F} [DecidableEq F] {n : ℕ}` with
+`hcard : Nat.card ↥(W.torsion n) = n ^ 2` as its one hypothesis, which the row names. **So the
+clean sheet is 44 of 44, and the shape's having no second instance survives the landing that moved
+the base.**
+
+⚠️ **Two conventions decided rows, and both are written here so that the next sweep does not
+convict what this one cleared.** The first is the setting convention above, applied as it stands.
+The second is not in its list of three: ⚠️ **`[W.IsElliptic]` is carried as setting by a *"no
+hypothesis beyond …"* clause, not denied by one.** ⚠️ **The reading is fixed by a row this section
+has ALREADY read and quoted, not by this sweep**: `EllipticCurves.Torsion.OmegaChordSum`'s
+`card_torsion_eq_sq_of_odd` is one of the three complete-count rows of the 64 above, its clause is
+quoted there as *"with no hypothesis beyond `2 ≠ 0` and `(n : F) ≠ 0`"*, and its signature binds
+`[W.IsElliptic]` — which that clause does not name. **So a sweep that convicts this reading
+convicts a certified row first.** ⚠️ **No population figure is published for the shape, and that
+is deliberate**: the census would be a clause pattern crossed with elaborated telescopes, this
+round publishes no such pattern, and *publish the recogniser beside any count, or write no count*
+(`#1749`) forbids the count rather than excusing it. ⚠️ **The same holds file-locally for a
+standing characteristic.** `EllipticCurves.Torsion.TwoTorsionCharTwo` writes *"no hypothesis on
+`F` whatsoever"* **beside** *"characteristic `2`"* in one sentence, so its `_of_char_two` rows are
+read modulo `h2 : (2 : F) = 0`; that is the ground on which
+`torsion_two_eq_bot_of_a₁_eq_zero_of_char_two`'s *"needs no hypothesis on `F` at all"* is TRUE
+where `MulByTwoFibreInfinity`'s bare *"No hypothesis on `F`"* was FALSE. ⚠️ **The two differ by
+what the file says elsewhere and by nothing in the row**, which is why no verdict here was read
+off a row alone.
+
+⚠️ **One prediction filed forward with this population is REFUTED, and it was an instrument
+artefact rather than a signal about the rows.** `` `[A-Za-z][A-Za-z0-9_.']*_[A-Za-z0-9_.']*` ``
+finds no backticked `snake_case` identifier in **21** of the 43 — and **20** of those 21 do name a
+declaration, in names this tree spells with `Ψ`, `ψ`, `ω`, `Φ` and the subscripts `₁`–`₈`, every
+one of which that character class excludes. ⚠️ **Widen the token to any backticked run carrying an
+underscore and the figure is 1 of 43**, and that one is
+`EllipticCurves.Torsion.TriplingGaloisTower`'s base-change-bridges row, which names no
+declaration and is a false positive of the seed. **So the
+false-positive share did not rise with the population: it is 7 of 43 here against 13 of 64 there.**
+⚠️ **An ASCII-only character class is not a neutral instrument over this tree**, and a census
+keyed on identifier shape owes that limit beside its figure.
+
+⚠️ **A third limit of the recogniser, measured because a recogniser owes its limits** (`#1749`).
+The bound `/-!(.*?)-/` this section prescribes is non-greedy and **not** comment-nesting-aware, so
+a module docstring that displays `` `/-! ## … -/` `` inside a code span ends at that `-/`, where
+Lean — whose block comments nest — reads on. ⚠️ **Exactly one file is affected at `0094b84`**,
+`EllipticCurves.Torsion.TriplingGaloisTower`, whose docstring the published bound reads to
+**10,486** of its **18,923** codepoints. ⚠️ **The cost falls in the denominator and not in the
+numerator**: a nesting-aware bound returns **1962** bullets and **107** matching rows against the
+published **1954** and **107**, and that file's one row in the population is the same row
+truncated and whole. **The 107, the 43 and every verdict above are therefore unaffected**, and the
+count above is left as the published instrument returns it.
 
 ⚠️ **The population, with the recogniser beside it**, because this section's own rule is
 *publish the recogniser beside any count, or write no count*. Scan **whole** `## Main *` blocks —
