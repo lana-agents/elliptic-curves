@@ -95,6 +95,7 @@ import EllipticCurves.FunctionField.LocalRingTaylor
 import EllipticCurves.FunctionField.LocalRingUniformizer
 import EllipticCurves.FunctionField.LocalRingUnit
 import EllipticCurves.FunctionField.MatrixRepDeterminantCharacter
+import EllipticCurves.FunctionField.MatrixRepDeterminantCharacterN
 import EllipticCurves.FunctionField.MulByNComposition
 import EllipticCurves.FunctionField.MulByNDegreeGeneral
 import EllipticCurves.FunctionField.MulByNDegreeTower
@@ -208,6 +209,7 @@ import EllipticCurves.FunctionField.WeilPairingConstant
 import EllipticCurves.FunctionField.WeilPairingCyclotomic
 import EllipticCurves.FunctionField.WeilPairingDeterminant
 import EllipticCurves.FunctionField.WeilPairingDeterminantCharacter
+import EllipticCurves.FunctionField.WeilPairingDeterminantCharacterN
 import EllipticCurves.FunctionField.WeilPairingDeterminantLinear
 import EllipticCurves.FunctionField.WeilPairingDeterminantN
 import EllipticCurves.FunctionField.WeilPairingDivisorSlotBilinear
