@@ -175,7 +175,11 @@ theorem divY_eq_omegaY (h : W.Equation x y) (h2 : (2 : F) ≠ 0)
 /-- **At `n = 3` the predicted `y`-coordinate is `ω₃/ψ₃³`, with no `2` in the quotient.**
 `omegaY`'s numerator at an odd index is `ψ₂·preΩₙ − ψₙ·(a₁Φₙ + a₃ΨSqₙ)`, and at `n = 3` that
 bracket is `2·ω₃` on the nose — `WeierstrassCurve.two_mul_ω₃`, an identity of polynomials over
-**every** commutative ring — so the two `2`s cancel and `ω₃` is what is left.
+**every** commutative ring — so the two `2`s cancel and `ω₃` is what is left.  ⚠️ **That lemma names
+the content but is not what the proof below cites.**  The proof rebuilds the evaluated form from
+`WeierstrassCurve.two_mul_preω₃` — which is what `two_mul_ω₃` is itself proved from — through
+`congrArg (Polynomial.eval x)` and `WeierstrassCurve.evalEval_ω₃`.  **Grep the proof for
+`two_mul_ω₃` and it is not there; the citation is to the identity, not to the tactic.**
 
 ⚠️ **`h2` pays for `omegaY`'s own definition and for nothing else.**  The left-hand side divides by
 `2ψ₃³`; the right-hand side's `ω₃` is an honest polynomial of
@@ -185,14 +189,32 @@ characteristic.  This is that file's *"the `2` is presentational at `n = 3`"* ca
 (`EllipticCurves.Torsion.OmegaThree`) is the same `y`-value one layer down, in `Equation` form.
 
 ⚠️ **Neither `W.Equation x y` nor `ψ₃(x, y) ≠ 0` is needed, and issue `#2246` predicted both.**
-No point hypothesis, because `two_mul_ω₃` is stated with `ΨSq 3`, which is `omegaY`'s own shape:
-nothing has to turn `ΨSq₃` into `ψ₃²`, so `ψ_sq_evalEval` — the one step that would want a point —
-never runs.  ⚠️ Routing through `tripling_equation` instead *would* need it, and that is the only
-reason the predicted signature carried it.  No non-vanishing hypothesis, because `mul_div_mul_left`
-cancels the `2` whatever `ψ₃(x, y)` is: where it vanishes both sides are `0`.  ⚠️ Contrast
-`divY_eq_omegaY` directly above, which needs a point **and** `ψ₂(x, y) ≠ 0` — `divY` is built from
-`divT = ψ₂ₙ/ψₙ⁴` and the bridge to it cancels a `ψ₂`, which is information only away from
-`2`-torsion. -/
+No point hypothesis, and ⚠️ **the reason is special to `n = 3` — neither *shape* nor *parity*.**
+`WeierstrassCurve.ψ_three` (`W.ψ 3 = C W.Ψ₃`) makes `ψ₃` the image of a polynomial in `x` alone, so
+with `WeierstrassCurve.ΨSq_three` (`ΨSq₃ = Ψ₃²`) the identity `ψ₃(x, y)² = ΨSq₃(x)` holds at
+**every** pair `(x, y)` over **every** commutative ring, on `W` or off it.  That is why
+`ψ_sq_evalEval` — the same identity at a general `n`, which binds `W.Equation x y` — never runs.
+
+⚠️⚠️ **Do NOT generalise that along the odd indices: `ψ₃` is `ψ₂`-free and `ψ₅` is not.**
+`WeierstrassCurve.ψ_odd` at `m = 2` gives only the RECURRENCE
+`W.ψ 5 = ψ 4 * ψ 2 ^ 3 - ψ 1 * ψ 3 ^ 3`; unfolding its four `ψ`-terms by `ψ_four`, `ψ_two`,
+`ψ_one` and `ψ_three`, then `map_pow` for `(C Ψ₃)³`, gives
+`W.ψ 5 = C preΨ₄ * ψ₂ ^ 4 - C (Ψ₃ ^ 3)`, carrying
+`ψ₂ = 2Y + a₁X + a₃` to the fourth power, and `ψ₂²` is `Ψ₂Sq` only modulo the curve equation — so
+the `n = 5` instance really does need the point.  ⚠️ **Witness, at a pair the `n = 3` instance
+goes through anyway**: on `y² = x³ + 1` over `ZMod 7` the pair `(0, 0)` is off the curve, and there
+`ψ₅(0, 0)² = 0` while `ΨSq₅(0) = 2`, whereas `ψ₃(0, 0)² = ΨSq₃(0)` still holds.  **An `n = 5` rung
+inherits nothing from this proof, and there is no `ψ_five` to inherit it with — `ψ_odd` is the
+recurrence, not a `C`-form.**
+
+⚠️ **And the proof below DOES convert `ΨSq₃`, at `ΨSq_three` and `hs`: what it avoids is
+`ψ_sq_evalEval`, not the conversion.**
+⚠️ Routing through `tripling_equation` instead *would* want a point, that being a statement about
+one, and that is the only reason the predicted signature carried it.  No non-vanishing hypothesis,
+because `mul_div_mul_left` cancels the `2` whatever `ψ₃(x, y)` is: where it vanishes both sides are
+`0`.  ⚠️ Contrast `divY_eq_omegaY` directly above, which needs a point **and** `ψ₂(x, y) ≠ 0` —
+`divY` is built from `divT = ψ₂ₙ/ψₙ⁴` and the bridge to it cancels a `ψ₂`, which is information only
+away from `2`-torsion. -/
 theorem omegaY_three_eq (h2 : (2 : F) ≠ 0) :
     W.omegaY x y 3 = W.ω₃.evalEval x y / (W.ψ 3).evalEval x y ^ 3 := by
   have hs : (W.ψ 3).evalEval x y = W.Ψ₃.eval x := by rw [ψ_three]; simp [evalEval]
@@ -251,7 +273,10 @@ theorem nsmul_eq_some_omegaY (h2 : (2 : F) ≠ 0) (hns : W.Nonsingular x y) {n :
 
 /-- **`3 • (x, y) = (Φ₃(x)/ΨSq₃(x), ω₃(x, y)/ψ₃(x, y)³)`** — the headline at `n = 3` with no `2` in
 either coordinate, as a point of `W.Point`.  This is `nsmul_eq_some_omegaY` at `n = 3` with its
-`y`-coordinate rewritten by `omegaY_three_eq`; the hypotheses are that theorem's, unchanged.
+`y`-coordinate rewritten by `omegaY_three_eq`; the hypotheses are `nsmul_eq_some_omegaY`'s at
+`n = 3`, with its `hn : 2 ≤ n` discharged by `norm_num`.  ⚠️ **Named rather than left as *that
+theorem's*, whose nearest antecedent is `omegaY_three_eq` — which binds `h2` alone, while this
+corollary binds three.**
 
 ⚠️ **The `h2` is INHERITED and the `2` this removes is the STATEMENT's, not a hypothesis.**  It is
 spent by the ladder inside `nsmulEqDiv_of_forall_ψ_ne_zero` and again by `omegaY`'s halving, and
@@ -287,8 +312,14 @@ and they are the check that `omegaY` evaluates to the right thing where an indep
 exists.  A general formula that failed to specialise to them would break the build here.
 
 ⚠️ **The third one is why `omegaY_three_eq`'s `y`-coordinate is a fact about `y(3 • P)` and not
-merely a name for a quotient**, and it is the only one of the three whose statement contains no `2`
-anywhere.  Its tactic chain is the second one's, re-run after `omegaY_three_eq` folds the `2` away;
+merely a name for a quotient**, and it is the only one of the three whose **conclusion** is stated
+in the `2`-free quotient rather than in `omegaY`.  ⚠️ **Say it that way, and not *whose statement
+contains no `2` anywhere*, which is false of all three**: each binds `h2 : (2 : F) ≠ 0`, the third
+one included, and that `example`'s own docstring says so.  ⚠️ **Nor does
+*conclusion* alone separate them** — the second `example`'s conclusion writes `omegaY x y 3`, which
+carries no `2` in the source text either, and only unfolding `omegaY` exposes the one it divides by.
+**The unit is the conclusion with `omegaY` unfolded, and a claim about a `2` has to name it.**  The
+third one's tactic chain is the second one's, re-run after `omegaY_three_eq` folds the `2` away;
 that repetition is deliberate, since the second `example` has no name to cite.
 -/
 
