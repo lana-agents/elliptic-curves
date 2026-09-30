@@ -5658,6 +5658,47 @@ beside a figure at the moment the figure is published** — which is why both fu
 — and publish the derived set as well (`#2096`): a line set costs its reader no fetch, and a blob
 or tree sha names the object a figure is about rather than the commit it was read at.
 
+⚠️ **What a pull request lands on `main` has TWO REGIMES, they differ in exactly the field no
+sanctioned tool can edit, and one landing cannot tell them apart.** The merger squashes, so a branch
+contributes one commit, and the commit **count** picks its subject line: at **ONE** commit the
+**commit's own subject** lands and the PR title does not; at **TWO or more** the **PR TITLE** lands
+and no commit's subject does. The discriminating pair, both re-measured at `84cfa3c` on
+`2026-09-30` — PR #864, **one** commit, landed `0894bec`, whose subject is its commit's subject
+verbatim plus ` (#864)` while its PR title is a different sentence that is **nowhere on `main`**;
+PR #863, **two** commits (`5b1e7f6`, `6148e0f`), landed `21562de`, whose subject is its PR title
+verbatim plus ` (#863)` while **neither** commit's subject is the subject — both are `* ` bullets in
+the body, at `%B` lines **3** and **191** of **315** (`1` and `189` of `313` under `%b`, so say the
+unit). ⚠️ **Publish the pair and never one landing:** a single-commit landing whose PR title happens
+to equal its commit subject is silent about both regimes, and **7** of the **37** single-commit
+landings in the census below are silent that way. ⚠️ **And a bullet count does not count commits** —
+`21562de` carries **16** lines opening `* `, two of them the concatenation's and fourteen the
+authors' own. **The consequence is the useful half: the only route by which a PR title reaches
+`main` is a multi-commit branch, and no tool in this set can repair a title** — `create_pr` opens a
+pull request and takes no pull-request number, `comment` reaches only the issue or PR the task was
+launched from, and the rest read. **So squashing to one commit takes the un-editable field out of
+the landing path**, which is a second and independent reason for a convention this board has so far
+justified at the body layer alone (`#2250` r2: the refuted sentence then survives in no `%B` rather
+than being superseded by a later one). ⚠️ **A convention with a measured rationale and not a `must`
+on authors** — the `must`s here are for false cells in the tree. ⚠️ **Dated census, re-run at your
+own hand and read as drift rather than falsification when it moves** (`## Import-closure figures`'
+rule for its own table): **37** of the last **40** merged pull requests at `84cfa3c` are
+single-commit, the three exceptions being #865, #863 and #843 at two commits each — and the rule
+above is exact on **40 of 40**, `37/37` landing the commit subject, `3/3` the PR title, and **0 of
+3** landing the subject of **any** commit on the branch rather than merely not the tip's. The row
+that filed this read **38** of 40 at `e62f7dc`, where #865 had not yet entered the window.
+⚠️ **One qualification the regimes hide, because it sits at the body layer: at one commit the landed
+body is the commit's body only up to the TRAILER.** The merger appends its own `Co-authored-by:`
+block, in the **lowercase** spelling, beneath whatever the commit wrote — `0894bec`'s commit carried
+no trailer and its landing carries one, and at `84cfa3c` the commit's single `Co-Authored-By:` line
+becomes two lowercase ones. ⚠️ **That append is what the eighth flag above is measuring, and the
+casing split is POSITIONAL rather than stylistic**: over `main`'s **811** messages at `84cfa3c` the
+anchored trailer lines are **1611** `Co-authored-by:` against **243** `Co-Authored-By:` with no
+third casing, **1609** of the 1611 sit in a trailer block against **0** of the 243, and all **243**
+— across **119** messages — carry a lowercase trailer line below them, which is the append that
+demoted them. ⚠️ **What the platform does is observed here and not explained**: whether the two
+regimes are this repository's merge configuration or a default is not measured, and a claim about
+that would need its own instrument.
+
 **Absence is a scheduling fact and must not be read as an eligibility fact.** The hatch's condition
 is that no slot *satisfies the preferences*, not that no other slot has *acted*. A hatch fired
 because eligible slots are idle licenses exactly the self-certification the hard bar exists to
