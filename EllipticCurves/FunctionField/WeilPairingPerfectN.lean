@@ -57,32 +57,34 @@ becomes `W.finite_torsion_of_intCast_ne_zero h2 hnF`.  Every other token below i
 The span these clauses defer to is the **four** public declarations of `### The perfect pairing at
 a general `n``.  ⚠️ `### Non-vacuity` is outside it, being stated over a named field rather than
 over the variable `F`.  All four carry `[IsAlgClosed F]`, `[W.IsElliptic]`, `(2 : F) ≠ 0` and
-`((n : ℤ) : F) ≠ 0`; **two** of the four also carry `[NeZero n]`, and the **two** that do not are
-`weilPairingNEquiv` and `natCard_monoidHom_torsionN`, whose statements mention neither
-`weilPairingNHom` nor `weilPairingN`.  That is `WeilPairingFunctionN`'s setting exactly, and **not
-one hypothesis more**.
+`((n : ℤ) : F) ≠ 0`; ⚠️ **none of the four carries `[NeZero n]` any longer** — the last two that
+did, `bijective_weilPairingNHom` and `existsUnique_weilPairingNHom_eq`, lost it when
+`WeilPairingFunctionN` widened `weilPairingN` and `weilPairingNHom` themselves.  That is
+`WeilPairingFunctionN`'s setting exactly, and **not one hypothesis more**.
 
-⚠️ **`[NeZero n]` is forced on both declarations that bind it, and binding coincides exactly with
-the key** — measured off the elaborated types, *binds* and *mentions `weilPairingN` or
-`weilPairingNHom`* are the **same** two-element set here, symmetric difference empty in both
-directions.  It is forced on `bijective_weilPairingNHom` and `existsUnique_weilPairingNHom_eq` for
-the reason `WeilPairingFunctionN` gives for **13** of its own fifteen: their statements mention
-`weilPairingNHom`, which binds it in its own signature, so neither statement can be written without
-it.  ⚠️ **`weilPairingNEquiv` carried it and no longer does.**  Its statement mentions neither
-name — only `rootsOfUnity n F`, which binds no `NeZero` at all — so the instance was *chosen* by
-the criterion `WeilPairingFunctionN` states, follows from `hn` in one line, and has been dropped,
-strictly widening the declaration: the same widening that file records for six of its own
-`F(W)`-valued statements.  ⚠️ So the *chosen* class is **empty** in this file, and this paragraph
-is a record of a widening taken rather than a live classification.
+⚠️ **`[NeZero n]` occurs in no signature of this file at all, and the set that binds it is
+EMPTY** — measured off the elaborated types, over the four declarations of the span.  ⚠️ **That is
+not a decision taken here.**  `bijective_weilPairingNHom` and `existsUnique_weilPairingNHom_eq`
+were genuinely *forced* for as long as their statements named `weilPairingNHom` and that signature
+bound the instance; both stopped being forced the moment `WeilPairingFunctionN` widened its two
+roots, and the binders then had nothing to carry.  **Neither statement changed — only what writing
+it costs.**
+⚠️ **So *forced* was never a property of these two declarations**: it was a property of the pair
+`(declaration, root signature)`, and this file held only the first coordinate.  The earlier reading
+of this paragraph — that the instance was forced *here*, for the reason `WeilPairingFunctionN`
+gave for most of its own fifteen — was true of the tree it was written against and is the thing
+the root widening retired.  `weilPairingNEquiv` had already been widened separately, on the
+criterion that its statement mentions neither name; ⚠️ **the other two needed no criterion, only a
+change one file up.**
 
 ## Main statements
 
-**The hypotheses the bullets below omit** are the four of the setting paragraph above, plus
-`[NeZero n]` on `bijective_weilPairingNHom` and `existsUnique_weilPairingNHom_eq`.  ⚠️ **Those are
-the first and third bullets, so the carriers are named and not counted**: they stopped being an
-initial segment when `weilPairingNEquiv` was widened, and the order below is this file's own
-declaration order and `WeilPairingPerfect`'s bullet order alike, so it is deliberately not
-reshuffled to manufacture one.
+**The hypotheses the bullets below omit** are the four of the setting paragraph above, and
+⚠️ **nothing else: there is no longer any `[NeZero n]` to name on any bullet.**  The clause that
+stood here carried the two carriers by name rather than by position, because they were the first
+and third bullets and not an initial segment; the root widening has emptied the set, so the
+positional question it settled no longer arises.  The order below is this file's own declaration
+order and `WeilPairingPerfect`'s bullet order alike, and is still deliberately not reshuffled.
 
 * `WeierstrassCurve.Affine.bijective_weilPairingNHom` : **`S ↦ e_n(S, ·)` is a bijection from
   `E[n]` onto `Multiplicative E[n] →* μ_n(F̄)`** — the headline, and the general-`n` form of
@@ -198,7 +200,7 @@ Injectivity is `ker_weilPairingNHom` (`#2030`).  The two sides have the same fin
 ⚠️ The number `n²` is not used: the count is `#(G →* μ_n) = #G` for the same `G` on both sides.
 ⚠️ Finiteness of `E[n]` is `finite_torsion_of_intCast_ne_zero`, which needs neither
 `[IsAlgClosed F]` nor `[W.IsElliptic]` and spends no torsion count. -/
-theorem bijective_weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem bijective_weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) :
     Function.Bijective (weilPairingNHom (W := W) h2 hn) := by
   have hnF : (n : F) ≠ 0 := by exact_mod_cast hn
@@ -216,12 +218,14 @@ open Classical in
 /-- **`E[n] ≅ E[n]^∨` at a general `n`**, the perfect pairing bundled as a group isomorphism onto
 the dual.
 
-⚠️ **This one binds no `[NeZero n]`, and the theorem it is `MulEquiv.ofBijective` of does.**  Its
-*statement* mentions neither `weilPairingN` nor `weilPairingNHom` — only `rootsOfUnity n F`, which
-takes no `NeZero` argument — so the instance is needed by the *body* alone, where `hn` yields it in
-one line.  That is the file-family idiom (`natCard_rootsOfUnity_of_ne_zero`,
-`EllipticCurves.FunctionField.WeilPairingSurjective`), and it is the same widening
-`WeilPairingFunctionN` records for six of its `F(W)`-valued statements. -/
+⚠️ **This one binds no `[NeZero n]`, and neither does the theorem it is `MulEquiv.ofBijective`
+of — but for two different reasons, and only one of them is about this file.**  Its *statement*
+mentions neither `weilPairingN` nor `weilPairingNHom` — only `rootsOfUnity n F`, which takes no
+`NeZero` argument — so the instance is needed by the *body* alone, where `hn` yields it in one
+line; that is the file-family idiom (`natCard_rootsOfUnity_of_ne_zero`,
+`EllipticCurves.FunctionField.WeilPairingSurjective`).  ⚠️ `bijective_weilPairingNHom` **was**
+forced, by `weilPairingNHom`'s own signature, and stopped being so when `WeilPairingFunctionN`
+widened its two roots — nothing in its statement or proof changed. -/
 noncomputable def weilPairingNEquiv (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) :
     Multiplicative (W.torsion n) ≃* (Multiplicative (W.torsion n) →* rootsOfUnity n F) :=
@@ -231,7 +235,7 @@ noncomputable def weilPairingNEquiv (h2 : (2 : F) ≠ 0) {n : ℕ}
 open Classical in
 /-- **Every character of `E[n]` is `e_n(S, ·)` for exactly one `S`** — the reading of perfectness a
 consumer quotes, with no `MulEquiv` to unfold. -/
-theorem existsUnique_weilPairingNHom_eq (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem existsUnique_weilPairingNHom_eq (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) (φ : Multiplicative (W.torsion n) →* rootsOfUnity n F) :
     ∃! S : Multiplicative (W.torsion n), weilPairingNHom h2 hn S = φ :=
   (bijective_weilPairingNHom h2 hn).existsUnique φ

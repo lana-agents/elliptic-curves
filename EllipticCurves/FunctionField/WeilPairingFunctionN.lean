@@ -48,44 +48,56 @@ where the index is the literal `2` and the same hypothesis is written `(((2 : �
 produced from `(2 : F) ≠ 0` inside the proof.  That is `WeilPairingNondegenerateN`'s setting
 exactly, and **not one hypothesis more**.
 
-⚠️ **`[NeZero n]` is bound by the `μ_n(F)`-valued layer and by nothing else — which is a claim
-about all 39 declarations, so here is the count and the key.**  Exactly **15** of the 39 bind it:
-`weilPairingN`, `algebraMap_coe_weilPairingN`, `weilPairingN_eq_one_iff`,
-`weilPairingN_eq_weilPairingMu`, `weilPairingN_zero_right`, `weilPairingN_zero_left`,
-`weilPairingN_add_right`, `weilPairingN_add_left`, `weilPairingN_self`, `weilPairingN_mul_swap`,
-`weilPairingN_swap`, `eq_zero_of_forall_weilPairingN_eq_one`, `weilPairingNHom`,
-`weilPairingNHom_apply_apply` and `ker_weilPairingNHom`.  The key returning exactly those is
-*the **statement** mentions `weilPairingN` or `weilPairingNHom`, **or** the declaration **is** one
-of those two names*, less the one exception below.  ⚠️ **The second disjunct is not decoration:**
-a `def`'s own type does not mention it, so the mention half alone returns **14** — 13 that bind
-and the one exception — and the 2 it misses are the two names themselves.
-⚠️ **On 13 of those 15 the instance is forced; on the other 2 it is chosen.**  The 13 are the ones
-whose statements mention one of the two names, and they are forced *by* the signatures of
-`weilPairingN` (`:446`) and `weilPairingNHom` (`:811`), which bind `[NeZero n]` themselves: no
-statement naming either can be written without the instance, short of `@`-application.
-⚠️ **The other 2 are those two constants themselves**, and by the criterion below they are
-**chosen**: the mention half of the key cannot reach them at all, and each binds
-`((n : ℤ) : F) ≠ 0`, which yields `NeZero n` in one line.  Dropping it there strictly widens both,
-and is not taken here because the other 13 would go with it — they stop being forced the moment
-the two roots stop binding.  So *forced* on the 13 is **forced relative to those two signatures**,
-and those signatures are themselves a choice.
+⚠️ **Exactly ONE of the 39 binds `[NeZero n]`, and this paragraph is a record of the widening
+that brought the count there from 15.**  The survivor is `weilPairingN_eq_weilPairingMu` (`:516`),
+and ⚠️ **nothing in this file forces it**: its statement names `weilPairingMu`
+(`EllipticCurves.FunctionField.WeilPairingRootsOfUnity`), which binds `[NeZero n]` in its own
+signature, so the instance is needed to **write** the statement — delete the binder and elaboration
+fails at the statement line, not inside the proof.  ⚠️ `weilPairingMu`'s own binder is forced in
+turn and terminally: its only index hypothesis is `hpow : weilPairingElt h₂ g ^ n = 1`, which
+carries **no `n ≠ 0`** to derive the instance from.  It is a terminator of the same kind as
+`weilPairingPointMu`, and a **second** one — the chain is *meant* to stop at both.
+⚠️ **The other 14 were widened, and the 2 roots are the reason the other 12 could be.**
+`weilPairingN` (`:465`) and `weilPairingNHom` (`:833`) each bind `((n : ℤ) : F) ≠ 0`, which yields
+`NeZero n` in one line, so by the criterion below the instance was **chosen** on both; and every
+statement naming either was forced only *relative to those two signatures*.  Dropping it at the two
+roots un-forced all twelve at once, which is why this is one widening and not fourteen.
+⚠️⚠️ **The whole widening costs THREE `haveI` lines in this file** — `weilPairingN`,
+`algebraMap_coe_weilPairingN` and `weilPairingN_eq_one_iff` — and the other eleven needed nothing
+whatever, their proof terms never having mentioned the instance.  **So the one real argument for
+leaving the roots alone — that a single binder at the root reads more cheaply than a `haveI` per
+widened declaration — is false here, and it was measured rather than weighed**: that argument prices
+the widening at one line per widened declaration, fourteen, against a measured cost of three.
+⚠️ **`weilPairingNHom` is the one that reads the other way, and it is a `def` body exactly as
+`weilPairingN`'s is.**  Its body applies only `weilPairingN`, that pairing's four `zero`/`add`
+lemmas at either slot, and `MonoidHom.ext`; the first five were all widened here, so after the
+widening nothing in it wants the instance.  `weilPairingN`'s own body applies `weilPairingPointMu`,
+a terminator binding `[NeZero n]` in its own signature, and so does want it.
+⚠️ **Both verdicts were reached by deleting the line and rebuilding the whole library, which is the
+only test there is**: a `haveI` is not a binder, so `unusedArguments` cannot report a dead one and
+`lake lint` is green either way.
+⚠️ **Two of the fourteen were unused in the elaborated term and still would not elaborate without
+the binder**, `algebraMap_coe_weilPairingN` and `weilPairingN_eq_one_iff`: their proofs delegate
+through `_` placeholders that instance **synthesis** has to discharge, while the term that comes
+back mentions the derivation and not the binder.  ⚠️ *Unused* and *removable* are different
+questions, and `unusedArguments` answers only the first.
 ⚠️ `weilPairingTorsionMuHom_n` (`EllipticCurves.FunctionField.WeilPairingTranslationSlotHprinN`)
-is a root of that second kind and **not** one of the 13 — it binds `[NeZero n]` in its own
-signature and its elaborated type mentions neither name, so the reason the 13 have is not the
-reason it binds.  ⚠️ It stood here as *"same shape and same reason"* beside the refuted
-`rootsOfUnity n F` clause, and was carried across unchanged when that clause was re-keyed to the
-13.  Whether its own binder is forced or chosen is not measured here.
+binds `[NeZero n]` in its own signature and its elaborated type mentions neither `weilPairingN` nor
+`weilPairingNHom`, so it was never forced by the two roots and this widening does not reach it.
+Whether its own binder is forced or chosen is still not measured here.
 
-⚠️ **The one exception to that key is `weilPairingN_eq_weilPairingTwo`** — μ-valued, mentions
-`weilPairingN`, binds no instance: its index is the literal `2`, so `NeZero 2` is found.
+⚠️ **`weilPairingN_eq_weilPairingTwo` bound the instance under neither régime** — μ-valued and
+mentioning `weilPairingN`, but at the literal index `2`, where synthesis finds `NeZero 2` with no
+binder to help it.
 
-⚠️ **The other 24 are `F(W)`-valued and bind none of it — and six of them did until this paragraph
+⚠️ **The 24 `F(W)`-valued declarations bind none of it — and six of them did until this paragraph
 was scored against the binders rather than read.**  `weilPairingPointElt_weilPairingRootN_pow`,
 `weilPairingEltN_pow_eq_one`, `weilPairingEltN_add_right`, `weilPairingEltN_add_left`,
 `weilPairingEltN_mul_swap` and `weilPairingEltN_swap` carried `[NeZero n]` while needing only
 `n ≠ 0`, which `((n : ℤ) : F) ≠ 0` yields in one line (`by rintro rfl; simp at hn`) — the file's own
 idiom at `weilPairingEltN_self`.  There it was **chosen**, by the paragraph's own criterion;
-dropping it strictly widens all six and is what makes the sentence above true as written.  The
+dropping it strictly widens all six and is what makes this paragraph's opening clause true as
+written.  The
 comparison target is `WeilPairingNondegenerateN`, which opens `variable [NeZero n]` at its own `μ`
 layer and gives its four `F(W)`-valued statements none.
 
@@ -189,17 +201,24 @@ spelling missed `IsWeilRootN.ne_zero`, which is dotted.  The partition, in that 
 **19 + 6 + 3 + 15 = 43**: 19 named outright, 6 by the twin clause, 3 more carrying
 `weilPairingRootN`, and 15 matching one of the ten patterns.
 
-⚠️ **A `ConstantInfo.type.getUsedConstants` census returns 67 constants and not 43**, and a
-re-implementer will not reproduce the source count from it: over the same 67, `isPrivateName`
-returns **6** and `Name.isInternal` returns **19**, and the two overlap — the `private`
+⚠️ **A `ConstantInfo.type.getUsedConstants` census returns 68 constants and not 43**, and a
+re-implementer will not reproduce the source count from it: over the same 68, `isPrivateName`
+returns **6** and `Name.isInternal` returns **20**, and the two overlap — the `private`
 declarations are internal names, which is why a census that tests `isPrivateName` only inside an
-`!isInternal` branch reports **0** private.  Over all 67, `IsAlgClosed` occurs in the elaborated
-type of **51**, `NeZero` in **25** and `WeierstrassCurve.IsElliptic` in **56**.  Axioms over all
-67: `propext`, `Classical.choice`, `Quot.sound`, and nothing else.
-⚠️ **The 25 here and the setting section's 15 answer different questions, and neither is a check
-on the other**: this census runs over all **67** environment constants — equation lemmas and the
+`!isInternal` branch reports **0** private.  Over all 68, `IsAlgClosed` occurs in the elaborated
+type of **51**, `NeZero` in **2** and `WeierstrassCurve.IsElliptic` in **56**.  Axioms over all
+68: `propext`, `Classical.choice`, `Quot.sound`, and nothing else.
+⚠️ **The widening moved three of those cells and left two alone, which is the check that it did
+what it says**: `67 → 68`, `NeZero` **25 → 2**, `isInternal` **19 → 20**, while `IsAlgClosed`
+**51** and `IsElliptic` **56** do not move.  ⚠️ **The one new constant is `weilPairingN._proof_1`,
+the `haveI`'s own `NeZero n` derivation lifted out of the body** — so the widening *adds* a
+constant while removing the binder, and that constant is one of the two whose type still mentions
+`NeZero`.  The other is `weilPairingN_eq_weilPairingMu`, the one survivor of the setting section's
+binder census.
+⚠️ **The 2 here and the setting section's 1 answer different questions, and neither is a check on
+the other**: this census runs over all **68** environment constants — equation lemmas and the
 `### Non-vacuity` block included — and asks whether `NeZero` occurs in an elaborated type at all, at
-any index; the **15** is a binder count over the **39** source declarations of one span, at the
+any index; the **1** is a binder count over the **39** source declarations of one span, at the
 variable `n`.
 
 ## Naming and placement
@@ -443,24 +462,27 @@ theorem weilPairingEltN_zero_left (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ
 open Classical in
 /-- **The Weil pairing at a general `n`, valued in `μ_n(F)`.**  The value group form, off
 `weilPairingPointMu` (`#890`). -/
-noncomputable def weilPairingN (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+noncomputable def weilPairingN (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) : rootsOfUnity n F :=
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   weilPairingPointMu (weilPairingRootN_ne_zero h2 hn S)
     (weilPairingPointElt_weilPairingRootN_pow h2 hn S T)
 
 open Classical in
 /-- **Defining property**: pushing the `μ_n(F)` value into `F(W)` recovers the `F(W)` value. -/
 @[simp]
-theorem algebraMap_coe_weilPairingN (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem algebraMap_coe_weilPairingN (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) (S T : W.torsion n) :
     algebraMap F W.FunctionField ((weilPairingN h2 hn S T : Fˣ) : F) = weilPairingEltN h2 hn S T :=
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   algebraMap_coe_weilPairingPointMu _ _
 
 open Classical in
 /-- Triviality in `μ_n(F)` is triviality in `F(W)`; the transport used by every `μ`-level statement
 below whose `F(W)` form is an equality with `1`. -/
-theorem weilPairingN_eq_one_iff (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_eq_one_iff (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) : weilPairingN h2 hn S T = 1 ↔ weilPairingEltN h2 hn S T = 1 :=
+  haveI : NeZero n := ⟨fun h => hn (by simp [h])⟩
   weilPairingPointMu_eq_one_iff _ _
 
 end Pairing
@@ -734,19 +756,19 @@ theorem eq_zero_of_forall_weilPairingEltN_eq_one (h2 : (2 : F) ≠ 0) {n : ℕ}
 
 open Classical in
 @[simp]
-theorem weilPairingN_zero_right (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_zero_right (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S : W.torsion n) : weilPairingN h2 hn S 0 = 1 :=
   (weilPairingN_eq_one_iff h2 hn S 0).mpr (weilPairingEltN_zero_right h2 hn S)
 
 open Classical in
 @[simp]
-theorem weilPairingN_zero_left (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_zero_left (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (T : W.torsion n) : weilPairingN h2 hn 0 T = 1 :=
   (weilPairingN_eq_one_iff h2 hn 0 T).mpr (weilPairingEltN_zero_left h2 hn T)
 
 open Classical in
 /-- **Bilinearity in the translation slot, in `μ_n(F)`.** -/
-theorem weilPairingN_add_right (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_add_right (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T₁ T₂ : W.torsion n) :
     weilPairingN h2 hn S (T₁ + T₂) = weilPairingN h2 hn S T₁ * weilPairingN h2 hn S T₂ := by
   refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
@@ -755,7 +777,7 @@ theorem weilPairingN_add_right (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : (
 
 open Classical in
 /-- **Bilinearity in the divisor slot, in `μ_n(F)`.** -/
-theorem weilPairingN_add_left (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_add_left (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S₁ S₂ T : W.torsion n) :
     weilPairingN h2 hn (S₁ + S₂) T = weilPairingN h2 hn S₁ T * weilPairingN h2 hn S₂ T := by
   refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
@@ -765,13 +787,13 @@ theorem weilPairingN_add_left (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((
 open Classical in
 /-- **The alternating property in `μ_n(F)`.** -/
 @[simp]
-theorem weilPairingN_self (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_self (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S : W.torsion n) : weilPairingN h2 hn S S = 1 :=
   (weilPairingN_eq_one_iff h2 hn S S).mpr (weilPairingEltN_self h2 hn S)
 
 open Classical in
 /-- **Antisymmetry in `μ_n(F)`.** -/
-theorem weilPairingN_mul_swap (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_mul_swap (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) : weilPairingN h2 hn S T * weilPairingN h2 hn T S = 1 := by
   refine algebraMap_coe_rootsOfUnity_injective (W := W) ?_
   simp only [Subgroup.coe_mul, Units.val_mul, map_mul, algebraMap_coe_weilPairingN,
@@ -779,13 +801,13 @@ theorem weilPairingN_mul_swap (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((
   exact weilPairingEltN_mul_swap h2 hn S T
 
 open Classical in
-theorem weilPairingN_swap (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0)
+theorem weilPairingN_swap (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0)
     (S T : W.torsion n) : weilPairingN h2 hn T S = (weilPairingN h2 hn S T)⁻¹ :=
   eq_inv_of_mul_eq_one_left ((mul_comm _ _).trans (weilPairingN_mul_swap h2 hn S T))
 
 open Classical in
 /-- **Non-degeneracy in `μ_n(F)`.** -/
-theorem eq_zero_of_forall_weilPairingN_eq_one (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem eq_zero_of_forall_weilPairingN_eq_one (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) {S : W.torsion n}
     (hone : ∀ T : W.torsion n, weilPairingN h2 hn S T = 1) : S = 0 :=
   eq_zero_of_forall_weilPairingEltN_eq_one h2 hn fun T =>
@@ -808,21 +830,21 @@ weilPairingNHom h2 hn : Multiplicative E[n] →* Multiplicative E[n] →* μ_n(F
 Silverman *AEC* III.8.1(a) with both slots bundled at once.  The inner `map_one'`/`map_mul'` are
 `weilPairingN_zero_right`/`_add_right`; the outer two are `weilPairingN_zero_left`/`_add_left`
 under `MonoidHom.ext`. -/
-noncomputable def weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+noncomputable def weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) :
-    Multiplicative (W.torsion n) →* Multiplicative (W.torsion n) →* rootsOfUnity n F where
-  toFun S :=
-    { toFun := fun T => weilPairingN h2 hn S.toAdd T.toAdd
-      map_one' := weilPairingN_zero_right h2 hn S.toAdd
-      map_mul' := fun T₁ T₂ => weilPairingN_add_right h2 hn S.toAdd T₁.toAdd T₂.toAdd }
-  map_one' := MonoidHom.ext fun T => weilPairingN_zero_left h2 hn T.toAdd
-  map_mul' S₁ S₂ := MonoidHom.ext fun T =>
-    weilPairingN_add_left h2 hn S₁.toAdd S₂.toAdd T.toAdd
+    Multiplicative (W.torsion n) →* Multiplicative (W.torsion n) →* rootsOfUnity n F :=
+  { toFun := fun S =>
+      { toFun := fun T => weilPairingN h2 hn S.toAdd T.toAdd
+        map_one' := weilPairingN_zero_right h2 hn S.toAdd
+        map_mul' := fun T₁ T₂ => weilPairingN_add_right h2 hn S.toAdd T₁.toAdd T₂.toAdd }
+    map_one' := MonoidHom.ext fun T => weilPairingN_zero_left h2 hn T.toAdd
+    map_mul' := fun S₁ S₂ => MonoidHom.ext fun T =>
+      weilPairingN_add_left h2 hn S₁.toAdd S₂.toAdd T.toAdd }
 
 open Classical in
 /-- The bundled map's values are the pairing values. -/
 @[simp]
-theorem weilPairingNHom_apply_apply (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n]
+theorem weilPairingNHom_apply_apply (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) (S T : Multiplicative (W.torsion n)) :
     weilPairingNHom h2 hn S T = weilPairingN h2 hn S.toAdd T.toAdd :=
   rfl
@@ -835,7 +857,7 @@ between that file's argument and a perfect pairing at every index: *"the argumen
 would transcribe unchanged to any `n` for which `weilPairingNHom` and `ker_weilPairingNHom`
 existed"*.  It is one `MonoidHom.ext` away from `eq_zero_of_forall_weilPairingN_eq_one`, and the
 distance between the two is exactly the packaging this file supplies. -/
-theorem ker_weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0) :
+theorem ker_weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0) :
     MonoidHom.ker (weilPairingNHom (W := W) h2 hn) = ⊥ := by
   refine le_antisymm (fun S hS => ?_) bot_le
   rw [Subgroup.mem_bot]
