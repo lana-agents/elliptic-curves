@@ -262,15 +262,18 @@ unit ruling this rule needs, made where it bites and not in the abstract.**  Eve
 `10546` here is retrospective and it is paid above, and the line-count pair below is keyed in its
 own sentence under this rule, which it was not before round 3.  ⚠️⚠️ **Nothing is claimed about the
 REST of this section, because certifying that means classifying every value in it as live or pinned
-and no round has.**  **This clause read** *"NO live-tree numeral carries no ref"* **until round 4**,
-and an unchecked universal over a population this row's own sweep measures just above is this row's
-own subject one level up.  Exactly **one** figure is keyed and so stale rather than wrong **at this
-head**, the **3768** build-job count at the end of this section, which reads **3769** at `22db66e`,
-`+1` for the single module `8e55647` added (`#2304`).  **Not folded in, filed instead.**  ⚠️ **The
-census control row is keyed and CURRENT as of `#2302`'s landing, and this clause names the row
-rather than its value on purpose**: round 1 of this row published that cell's value and its key as
-stale, and `#2302` falsified all three conjuncts by landing first.  **Cite another row's identity,
-never its numerals.**
+and no round has.**  **This clause read** *"**NO live-tree numeral carries no ref.**"* **until round
+4**, and an unchecked universal over a population this row's own sweep measures just above is this
+row's own subject one level up.  ⚠️ **That quotation's bold is the source's and is reproduced inside
+the span, where `### Retired claims` says it renders; the ⚠️ the source opened the clause under is
+named out here instead, because a ⚠️ is paragraph structure rather than part of the sentence and
+cannot be reproduced inside at all.**  Exactly **one** figure is keyed and so stale rather than
+wrong **at this head**, the **3768** build-job count at the end of this section, which reads
+**3769** at `22db66e`, `+1` for the single module `8e55647` added (`#2304`).  **Not folded in, filed
+instead.**  ⚠️ **The census control row is keyed and CURRENT as of `#2302`'s landing, and this
+clause names the row rather than its value on purpose**: round 1 of this row published that cell's
+value and its key as stale, and `#2302` falsified all three conjuncts by landing first.  **Cite
+another row's identity, never its numerals.**
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
