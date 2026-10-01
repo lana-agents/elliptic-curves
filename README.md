@@ -131,29 +131,52 @@ All three were caught by a reviewer opening each cited signature at source, and 
   *"both at `n = 2`"* universal was false with it. ⚠️ **A count of files that discharge a gate is
   falsified by a landing this section does not name**, which is the shape
   `### Import-closure figures` rules on for a closure count — so the seed is published with it:
-  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **nine** at this head,
+  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **ten** at this head,
   scored on whether their **public** `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*`
   headlines bind `[IsAlgClosed F]` in their elaborated types. ⚠️ **The word `public` is load-bearing
   in that seed**: six `private` `Recovery` copies — two in
   `PullbackPrincipalityTwoRationalTorsion.lean`, two in
   `PullbackPrincipalityThreeRationalTorsion.lean` and two in
   `PullbackPrincipalityNRationalTorsionHprin.lean` — match the name patterns and sit under a
-  `variable [IsAlgClosed F]`, so the seed run without it returns **24** rather than **18** and puts
-  three of the *"do not"* files on the wrong side of the split. **Five** do not —
-  `…TwoRationalTorsion`, `…TwoGeneral`, `…ThreeRationalTorsion`, `…ThreeGeneral` and
-  `…NRationalTorsionHprin`, the five named above — and **three** do: `…N`, `…Two` and `…Three`.
+  `variable [IsAlgClosed F]`, so the seed run without it returns **26** rather than **20** and puts
+  three of the *"do not"* files on the wrong side of the split. **Six** do not —
+  `…TwoRationalTorsion`, `…TwoGeneral`, `…ThreeRationalTorsion`, `…ThreeGeneral`,
+  `…NRationalTorsionHprin` and `…NGeneral`, the six named above — and **three** do: `…N`, `…Two`
+  and `…Three`.
   ⚠️ **That clause read *"**Four** do not — the four named above — and **three** do"* until
   `#2293`** (`88a5e00`, `#2216` item 4): *"the four named above"* is a pointer into a list this
   commit lengthens to five, and a pointer whose target grows is why the members are named here
   rather than counted.
-  ⚠️ **Five plus three is eight and the seed returns nine files, which is not an arithmetic slip**:
+  ⚠️ **That count was `five` until `…NGeneral` landed, and this is a qualification in place
+  rather than a third marked quotation.** Run `### Reach clauses`' *"false or merely partial"* in
+  the form `### Retired claims` prescribes — **what could move this numeral** — and only the
+  population growing under it can: all five that were named are still on the *"do not"* side, so
+  growth left the count **short**, and short is partial. ⚠️ **The two retirements above answer
+  differently, and the two defects they answer are the ones the present wording was rewritten to
+  remove**: *"the four named above"* is a **pointer**, which can point at a five-member list and
+  say four, and *"the other five files carry **two** apiece"* is a **universal over the unnamed
+  remainder**, which one file carrying zero falsifies. **Naming the members and counting instead
+  of quantifying over them is why this is a one-word repair rather than a third retirement.**
+  ⚠️ **The landing that moved it is named here, which is what the sentence opening this seed
+  demands of the paragraph carrying it**: `…NGeneral` arrived with `8e55647` (`#2295`, rung 3 of
+  the general-`n` ladder) and brought `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois` and
+  `exists_gS_n_of_galois`, neither of which binds `[IsAlgClosed F]`, so it joins the *"do not"*
+  side and carries two apiece. ⚠️⚠️ **`8e55647` is the commit IMMEDIATELY AFTER `3f9e323`, the
+  landing that wrote `nine`, and it is one hour and fifty-five minutes later** — 20:47:43Z against
+  22:42:24Z — so this seed's own count was falsified by the next commit in the graph, and then
+  stood wrong across a README-touching landing that did not name it. The landed values are **7**
+  at `0094b84`, **9** at `3f9e323` and **10** at `8e55647` and at this head. ⚠️ **It is NOT
+  re-keyed to a sha, deliberately, because a key would have rotted at the same rate**: what makes
+  the cell cheap is the seed printed beside it, which is one `git grep`. **Re-run the seed rather
+  than carrying the numeral.**
+  ⚠️ **Six plus three is nine and the seed returns ten files, which is not an arithmetic slip**:
   `PullbackPrincipalityNRationalTorsion.lean` carries **zero** headlines matching the patterns —
   it is the Galois scaffolding of the general-`n` rung and states no `hprin` headline at all — so
   the split does not classify it and no clause here should pretend it does.
   ⚠️ **The scoring is per FILE and the headline counts are not uniform, so no "each" clause belongs
-  here**: of the **18** headlines the seed returns, `…N` carries **three** (`…mulByNEndo`,
+  here**: of the **20** headlines the seed returns, `…N` carries **three** (`…mulByNEndo`,
   `exists_gS_n_of_isAlgClosed` and `exists_gS_of_ne_zero_of_isAlgClosed`) and `…ThreeGeneral`
-  carries **three**, six files carry **two** apiece and `…NRationalTorsion` carries **none**.
+  carries **three**, seven files carry **two** apiece and `…NRationalTorsion` carries **none**.
   ⚠️ **That last clause read *"while the other five files carry **two** apiece"* until `#2293`**
   (`2e323c9`, `#2216` item 5): it was exact of the seven and is false of the nine, because the
   ninth carries **zero** rather than two. ⚠️ **The two retirements on this paragraph are one
