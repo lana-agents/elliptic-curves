@@ -127,8 +127,10 @@ the second.  The even-`n` count is **not** this statement with `Odd n` deleted:
   `WeierstrassCurve.Affine`) and `3` is odd.  ⚠️ **`EllipticCurves.Torsion.TwoThreeDisjoint`
   declares nothing of that kind** — its own line 13 points at `Coprime` for it, and what that file
   does carry is the pointwise form `ψ_three_evalEval_ne_zero_of_ψ_two_evalEval_eq_zero`, which this
-  file calls at `:208`.  The odd-`n` form of the polynomial fact is
-  `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`, which spends oddness in terms.
+  file calls inside its own `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero'` — the **primed** name, and not
+  the unprimed `EllipticCurves.Torsion.OddTorsionCount` one named in the next sentence.  The odd-`n`
+  form of the polynomial fact is `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`, which spends oddness in
+  terms.
 * ⚠️⚠️ **`card_torsion_two_of_splits` is therefore not recoverable from any form below, and the
   reason is a degeneracy and not the parity**: `W.preΨ 2 = 1` (machine-checked below), so at
   `n = 2` the hypotheses of the general form are *vacuously true* — a unit splits and has no roots
