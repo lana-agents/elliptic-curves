@@ -32,10 +32,10 @@ Measured at `a0d5593` with a header-only walker (block comments skipped nesting-
 `import Mathlib` inside `Mathlib/Tactic/Rify.lean`'s docstring is not read as an edge), over this
 project plus all nine `.lake/packages` — 9908 `.lean` **files**, each package's own nested
 `.lake/` build tree excluded.  Files, not modules: mathlib's and proofwidgets' `lakefile.lean`
-collide, so the walker indexes 9907 distinct names.  ⚠️ **A name that resolves to no file in those
-trees is not an edge** — `Lean.*`, `Init.*` and `Std.*` live in the toolchain, not in the nine
-packages, and counting them puts this file's total at 1146 rather than 968.  That is an 18% error
-with nothing absurd about it, which is this section's whole subject.  ⚠️ **This paragraph read
+collide, so at `a0d5593` the walker indexes 9907 distinct names.  ⚠️ **A name that resolves to no
+file in those trees is not an edge** — `Lean.*`, `Init.*` and `Std.*` live in the toolchain, not in
+the nine packages, and counting them puts this file's total at 1146 rather than 968.  That is an 18%
+error with nothing absurd about it, which is this section's whole subject.  ⚠️ **This paragraph read
 `320f413` while one of the three rows below had gone stale under it; `#2300` re-took all three at
 four mutually independent hands, which agree to the digit — and every cell below is identical at
 `7f30e87` and `60e3031`, re-measured at each rather than argued from what those commits touched.**
@@ -43,7 +43,7 @@ four mutually independent hands, which agree to the digit — and every cell bel
 `EllipticCurves/` misses the root aggregator `EllipticCurves.lean`, which is the same file the
 control-row paragraph below names as the gap between that scoping and the all-tracked count.
 
-| module | `EllipticCurves` closure | total closure | total under `^import\s` alone |
+| module, at `a0d5593` | `EllipticCurves` closure | total closure | total under `^import\s` alone |
 | --- | --- | --- | --- |
 | `Galois.SubfieldAut` (this file) | **0** | **968** | 3 |
 | `FunctionField.NegYGaloisGroup` | 22 | 2668 | 47 |
@@ -228,34 +228,49 @@ while `#2257` shipped on *"every row is exact"*, true of the other nine.
 whole section — from this heading to the next `##`, counting runs of digits after masking ISO dates,
 `v`-prefixed toolchain versions, `#`-tagged issue numbers and 7-to-40-character hex shas carrying a
 letter — the base `22db66e` reads **118** distinct values in **291** occurrences and this head
-**125** in **333**.  ⚠️ **The spec is published because the ABSOLUTES do not survive without it
+**127** in **336**.  ⚠️ **The spec is published because the ABSOLUTES do not survive without it
 where every delta does**: round 1 of this row read nine occurrences fewer under a convention it gave
 in words only, which is the render gate's lesson arriving at the sweep.  ⚠️⚠️ **The head pair counts
-itself, and this round found that that does NOT make it a fixed point.**  The OCCURRENCE column is
-one, and was iterated to it rather than estimated.  ⚠️ **The DISTINCT column is a 2-CYCLE at this
-head**: it measures `125` when the cell prints `124` and `124` when it prints `125`, because `125`
-already occurs in the vendored table above.  ⚠️ **Naming both candidates is what breaks the cycle,
-which is why both appear in this sentence**, and the pair above is a joint fixed point of both
-columns with them named.  ⚠️ **Round 2 of this row published** *"a census of the paragraph it sits
-in is a fixed point"* **flatly; its own pair satisfied that by luck and not by construction, and a
-re-runner who iterates will oscillate instead of converging unless the colliding value is named.**
-⚠️⚠️ **And it is quantified over the HEAD and not the base, because a sweep that stops at the base
-can never convict the round running it**: round 1 published its hits against the base population and
-added an unkeyed live-tree numeral of its own in the same diff.  ⚠️⚠️ **And *carries a ref* means
-keyed IN ITS OWN SENTENCE and not keyed through another figure**, because the distance is the whole
-subject of this row: `10546`'s key was fifty lines away and unnamed.  Hits **at this head**: ⚠️ **NO
-live-tree numeral carries no ref.**  Every occurrence of `10546` here is retrospective and it is
-paid above; the line-count pair below is keyed in its own sentence under this rule, which it was not
-before round 3; and ⚠️ **no value this round or round 2 adds over the base is an unkeyed live-tree
+itself, and round 3 found that that does NOT make it a fixed point.**  The OCCURRENCE column is one,
+is invariant under a one-numeral swap, and was iterated to it rather than estimated.  ⚠️⚠️ **The
+DISTINCT column is not like that at all, and the repair round 3 published for it is too weak:
+STABILITY IS NOT UNIQUENESS**, because a self-counting distinct-count has a SECOND fixed point one
+above itself whenever that successor occurs nowhere else in the section.  ⚠️⚠️ **Round 3's head had
+exactly that** — `125`, which it published, and `126`, which it did not, **both** joint fixed points
+of both columns — **so *"iterated to it"* pinned nothing there, and neither the round nor its review
+checked.**  ⚠️ **This sentence names `127` and `128` for that reason**: the published value and its
+successor, which leaves the published value the only stable reading here, and `127` is a genuine
+collision besides — the vendored `batteries` row above.  ⚠️⚠️ **And the value is a property of the
+WORDING and not of the section**: this sentence is inside what it counts, so a different phrasing of
+it reports a different distinct count just as truthfully.  **Reproduce the pair against the
+committed blob, never against a paraphrase of this spec.**  ⚠️ **Round 2 of this row published** *"a
+census of the paragraph it sits in is a fixed point"* **flatly; its own pair satisfied that by luck
+and not by construction.**  ⚠️⚠️ **And it is quantified over the HEAD and not the base, because a
+sweep that stops at the base can never convict the round running it**: round 1 published its hits
+against the base population and added an unkeyed live-tree numeral of its own in the same diff.
+⚠️⚠️ **And *carries a ref* means keyed IN ITS OWN SENTENCE and not keyed through another figure**,
+because the distance is the whole subject of this row: `10546`'s key was fifty lines away and
+unnamed.  Hits **at this head**, and ⚠️⚠️ **the scope of the quantifier is the scope of the evidence
+and nothing wider**: ⚠️ **no value this branch adds over its base `2b18bbd` is an unkeyed live-tree
 figure** — each is either this spec's own prose or keyed in the sentence that prints it.  ⚠️
 **Stated as that relation rather than as the delta set, because the set is a fixed point this very
-sentence moves** (`#2302`).  Exactly **one** figure is keyed and so stale rather than wrong, the
-**3768** build-job count at the end of this section, which reads **3769** at `22db66e`, `+1` for the
-single module `8e55647` added (`#2304`).  **Not folded in, filed instead.**  ⚠️ **The census control
-row is keyed and CURRENT as of `#2302`'s landing, and this clause names the row rather than its
-value on purpose**: round 1 of this row published that cell's value and its key as stale, and
-`#2302` falsified all three conjuncts by landing first.  **Cite another row's identity, never its
-numerals.**
+sentence moves** (`#2302`).  ⚠️ **The two sites of the BASE that this unit convicts are KEYED in
+round 4 rather than narrated**: the distinct-names cell above was keyed only by the sentence before
+it, which prints a different figure, and the closure table above has no sentence at all for the
+rule's unit to reach, so ⚠️ **a table is keyed inside its own block, in the header row — the one
+unit ruling this rule needs, made where it bites and not in the abstract.**  Every occurrence of
+`10546` here is retrospective and it is paid above, and the line-count pair below is keyed in its
+own sentence under this rule, which it was not before round 3.  ⚠️⚠️ **Nothing is claimed about the
+REST of this section, because certifying that means classifying every value in it as live or pinned
+and no round has.**  **This clause read** *"NO live-tree numeral carries no ref"* **until round 4**,
+and an unchecked universal over a population this row's own sweep measures just above is this row's
+own subject one level up.  Exactly **one** figure is keyed and so stale rather than wrong **at this
+head**, the **3768** build-job count at the end of this section, which reads **3769** at `22db66e`,
+`+1` for the single module `8e55647` added (`#2304`).  **Not folded in, filed instead.**  ⚠️ **The
+census control row is keyed and CURRENT as of `#2302`'s landing, and this clause names the row
+rather than its value on purpose**: round 1 of this row published that cell's value and its key as
+stale, and `#2302` falsified all three conjuncts by landing first.  **Cite another row's identity,
+never its numerals.**
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
