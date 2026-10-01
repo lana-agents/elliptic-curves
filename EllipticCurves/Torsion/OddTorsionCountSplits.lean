@@ -11,10 +11,11 @@ import EllipticCurves.Torsion.OmegaChordSum
 
 Every general-`n` and every odd-`n` counting statement written in this development **before this
 file** binds `[IsAlgClosed F]`, and the class has **eight** members, all eight read off `#check`
-here.  `#2305`'s table lists **seven** of them — `card_torsion_eq_sq`
+here.  **Every line address in this paragraph resolves at `d33d34f`, where it was measured.**
+`#2305`'s table lists **seven** of them — `card_torsion_eq_sq`
 (`EllipticCurves.Torsion.StructureGeneral`:172), `card_torsion_eq_sq_of_smooth`
-(`EllipticCurves.Torsion.ThreePrimary`:400), `card_torsion_eq_sq_iff_separable_preΨ` (:348),
-`card_torsion_odd` (:317), `torsionOddEquiv` (:306) and `card_torsion_pow_of_separable` (:386),
+(`EllipticCurves.Torsion.ThreePrimary`:400), `card_torsion_eq_sq_iff_separable_preΨ` (:399),
+`card_torsion_odd` (:368), `torsionOddEquiv` (:357) and `card_torsion_pow_of_separable` (:437),
 those four in `EllipticCurves.Torsion.OddTorsionCount`, and `card_torsion_pow_of_odd`
 (`EllipticCurves.Torsion.PrimaryTowerOdd`:162).  The eighth is `card_torsion_eq_sq_of_odd`
 (`EllipticCurves.Torsion.OmegaChordSum`:643), which that table does **not** carry — so beyond
@@ -42,17 +43,18 @@ no `n = 2` counterpart for the reason that file records: the description of `E[n
 polynomial, and no amount of splitting `preΨₙ` supplies it.**
 
 ⚠️ **`EllipticCurves.Torsion.OddTorsionCount` spends its closure on TWO mechanisms at FOUR sites,
-and the four line numbers are the measurement rather than the reading of a docstring**:
+and the four line numbers are the measurement rather than the reading of a docstring — measured at
+`d33d34f`, which is the ref every line address in this paragraph resolves at**:
 `exists_equation'`, producing a `y` above an `x`, at `:152`
-(`eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`), `:226` (`equation_fibreY`) and `:245`
-(`fibreY_injective`); and `IsAlgClosed.splits _` at `:353`
+(`eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`), `:259` (`equation_fibreY`) and `:278`
+(`fibreY_injective`); and `IsAlgClosed.splits _` at `:404`
 (`card_torsion_eq_sq_iff_separable_preΨ`), which is a **different** mechanism and the only
 occurrence of `IsAlgClosed.` anywhere in that module.  ⚠️ **`fibreY` itself calls `exists_equation'`
 at neither of its own lines** — it is built from `someY` (`EllipticCurves.Torsion.Finite`:136),
 which is closure-free, so those three really are the complete surface of the first mechanism.  ⚠️
 **Only the `:152` site is REPLACED here**: `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero'` below calls
 `exists_equation_of_isSquare` where that one called `exists_equation'`, the same completion of the
-same quadratic with the square root supplied instead of assumed.  The `:226` / `:245` pair is
+same quadratic with the square root supplied instead of assumed.  The `:259` / `:278` pair is
 **bypassed** rather than replaced: this file counts the fibre over a root as `{y // Equation x y}`
 through `card_setOf_equation_eq_two_of_isSquare` instead of indexing it by a `Bool` through
 `fibreY`, and that count is where `hsq` is spent.  ⚠️⚠️ **And the fourth site is where this file's
@@ -353,8 +355,9 @@ theorem card_torsion_odd_of_isSquare (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd 
 /-- `2 · (n² − 1)/2 + 1 = n²` at odd `n`, in `ℕ` with truncated subtraction and division.
 
 ⚠️ **This re-proves `EllipticCurves.Torsion.OddTorsionCount`'s own `two_mul_pred_sq_div_two_add_one`
-(`:325`), statement for statement**, and the duplication is forced only by that one being `private`
-in a file this one imports directly.  **The cheaper repair is one word there — drop the `private` —
+(`:376`, measured at `d33d34f`, which is the ref this paragraph's line address resolves at),
+statement for statement**, and the duplication is forced only by that one being `private` in a file
+this one imports directly.  **The cheaper repair is one word there — drop the `private` —
 and it is named here rather than taken**, because it is a change to another module's interface and
 `#2250` round 2's standard on this board is to report such a change rather than route around it
 inside a row scoped elsewhere. -/
