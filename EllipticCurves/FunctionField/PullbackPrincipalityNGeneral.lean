@@ -94,8 +94,10 @@ index must therefore SUPPLY the `N`-side one.**
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) is the `F`-side producer read on `W⁄L` at `L`,
 with its two numeral hypotheses transported along `algebraMap F L`, and it binds nothing beyond
 `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` — **no algebraic closure, no `[FiniteDimensional F L]` and no
-`3`-smoothness.**  So the `N`-side fact is bought from the base hypotheses rather than transported
-from the `F`-side fact, which is the distinction the retired clause collapsed.  ⚠️ **This retires
+`3`-smoothness.**  So the `N`-side fact CAN be bought from the base hypotheses rather than
+transported from the `F`-side fact, which is the distinction the retired clause collapsed.  ⚠️ **As
+of `#2306` round 2 the proofs below buy it from `hP` through the criterion instead, so this producer
+is an alternative route and not the one taken — see FINDING 1.**  ⚠️ **This retires
 the `3`-smooth route as the general-index answer.**  That route —
 `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), at the
 price of `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` — remains
@@ -178,7 +180,8 @@ and no build, lint, hygiene or render gate can see that.**  **When a round resto
 hypothesis, re-read every applicability claim in the same paragraph.**
 
 ⚠️⚠️ **AND THE CRITERION DISCHARGES `h'` FROM `hP` ALONE, WHICH IS STRICTLY STRONGER THAN THIS
-FINDING'S HEADLINE AND IS NOT THE ROUTE THE PROOFS BELOW TAKE.**  `hP` is already a hypothesis of
+FINDING'S HEADLINE AND IS THE ROUTE THE PROOFS BELOW TAKE (`#2306`).**  `hP` is already a
+hypothesis of
 both theorems, and it is exactly a `P : (W⁄N).Point` whose `n • P` is a `Point.some` and so nonzero
 — which is the criterion's `hT` and nothing else.  So `h'` costs **no** `h2`, **no** `hn`, no
 closure and no smoothness.  ⚠️ **One instance step is the whole remaining cost, and it is a
@@ -190,10 +193,15 @@ argued**: without the bridge the application fails with a printed instance misma
 two terms, and with it the derivation compiles in rung 3's own binder shape, `[DecidableEq N]` and
 all.
 
-⚠️ **The proofs below keep the `h2` / `hn` route anyway, and that is a choice and not an
-oversight**: those two binders are not removable here for other reasons, so the criterion route
-would shorten no signature, and ⚠️ **re-routing `h'` is only worth doing as part of asking whether
-`((n : ℤ) : F) ≠ 0` can leave the statement at all** — which is `#2306` and not this rung.
+⚠️ **The proofs below TAKE the criterion route as of `#2306` round 2, and this paragraph read**
+*"The proofs below keep the `h2` / `hn` route anyway, and that is a choice and not an oversight"*
+**until then.**  ⚠️⚠️ **What has not changed is the measurement that wording rested on: `h2` and
+`hn` are not removable here, so the re-route shortens no signature** — `h2` still buys `h2'`, `hn`
+still buys both `hn0` and `hnN`, and `hnN` is interderivable with `hn` and is held by `…_of_card`.
+⚠️ **It was taken anyway for the reason `#2306` gives: strictly fewer dependencies for the same line
+count, and an `N`-side fact independent of the index arithmetic**, which is what rung 4 reads.  The
+prior wording made the re-route conditional on `((n : ℤ) : F) ≠ 0` leaving the statement, and
+`#2306` round 1 measured that it cannot.
 
 ⚠️ **The consequence is the one worth recording: `#962`'s unconditional general-`n` headline is not
 `3`-smooth on this binder's account**, and ⚠️ **on the criterion's account the `N`-side
@@ -401,12 +409,15 @@ curve, and `(W⁄N).IsElliptic`, which `…_of_card` over `N` wants, is synthesi
 theorem; taking the `F`-form instead would drag `[DecidableEq F]` into the signature for nothing.
 
 ⚠️ **The `N`-side transcendence is NOT a binder** — see FINDING 1.  `functionFieldMap_mulByNEndo`
-does need it, and it is produced inside from `h2` and `hn` by
-`transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero`
-(`EllipticCurves.FunctionField.MulByNXCoordFormula`) rather than asked of the caller.  ⚠️ **`h` over
-`F` is a binder and cannot be removed the same way**, and the reason is the conclusion rather than
-the proof: `mulByNEndo n h` *mentions* it, so it is data for the statement and not an assumption of
-it — `h2` and `hn` would produce it too.
+does need it, and it is produced inside from `hP` ALONE by
+`transcendental_xCoord_nsmul_genericPoint` (`EllipticCurves.FunctionField.MulByNTranscendence`,
+**the criterion**), across one `convert … using 9` instance bridge, rather than asked of the caller.
+⚠️ **This clause read** *"it is produced inside from `h2` and `hn` by
+`transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero`"* **until `#2306` round
+2**; that route also works and spends two hypotheses this one does not.  ⚠️ **`h` over `F` is a
+binder and cannot be removed the same way**, and the reason is the conclusion rather than the proof:
+`mulByNEndo n h` *mentions* it, so it is data for the statement and not an assumption of it — `h2`
+and `hn` would produce it too.
 
 ⚠️ **The `g₀` this returns is not the base change of the `g` obtained over `N`**, and is not claimed
 to be: only its divisor identity descends. -/
@@ -427,15 +438,17 @@ theorem exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois (N : Type*) [Field 
       n • divisor W g₀ = divisor W (mulByNEndo n h f) := by
   classical
   have hn0 : n ≠ 0 := by rintro rfl; simp at hn
-  have h' : Transcendental N (n • genericPoint (W := W⁄N)).xCoord :=
-    transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero N h2 hn
+  obtain ⟨P, hPeq⟩ := hP
+  have h' : Transcendental N (n • genericPoint (W := W⁄N)).xCoord := by
+    have hT : n • P ≠ 0 := ne_of_eq_of_ne hPeq (Point.some_ne_zero _)
+    refine transcendental_xCoord_nsmul_genericPoint n (T := P) ?_
+    convert hT using 9
   have h2' : (2 : N) ≠ 0 := algebraMap_ofNat_ne_zero h2
   have hnN : ((n : ℤ) : N) ≠ 0 := by
     rw [← map_intCast (algebraMap F N) (n : ℤ), ne_eq, map_eq_zero]
     exact_mod_cast hn
   have hns' : (W⁄N).Nonsingular (algebraMap F N x) (algebraMap F N y) :=
     (W.map_nonsingular (algebraMap F N).injective x y).mpr hns
-  obtain ⟨P, hPeq⟩ := hP
   have hf' : functionFieldMap W N f ≠ 0 :=
     (map_ne_zero_iff _ (functionFieldMap_injective W N)).mpr hf
   have hfdiv' : divisor (W⁄N) (functionFieldMap W N f)
