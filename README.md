@@ -2773,8 +2773,15 @@ gate-relative class is EMPTY by measurement and not by assumption** — no row o
 so `### Gate-discharge claims` takes none of them, against **15** of the 64. The reading was run
 with `#2291`'s own instrument and re-verified at **eight** cells before any row was read: the six
 above, plus **1942** bullets and **106** matching at `7ba33ed`, and **1954 / 462 / 397** of
-**453 / 107** at `0094b84` — ⚠️ **identical to the `6a733e1e` cell, so the four landings between
-them moved no bullet of this population.**
+**453 / 107** at `0094b84` — ⚠️ **identical to the `6a733e1e` cell, so the three landings between
+`6a733e1e` and `0094b84` moved no bullet of this population** (`git rev-list --count`, **0** merge
+commits: `5f9b50e`, `6c31bb2`, `0094b84`). ⚠️ **That sentence read *"the four landings between
+them"* until `#2294` round 2, and the pronoun is what made it wrong rather than the arithmetic.**
+It names **three** shas and then says *"them"*, which leaves two pairings and ⚠️ **the one that
+makes the numeral right makes the claim false**: `6a733e1e`↔`0094b84` is **3** landings with the
+census equal at both ends, while `7ba33ed`↔`0094b84` is **4** with **106 ≠ 107**. **So state the
+pair by sha wherever a between-count is published here** — a count of landings is keyed to an
+ordered pair, and a sentence that names three endpoints has supplied none.
 
 ⚠️ **The census above is keyed to `0094b84` and the population has moved once since; the delta is
 reported here rather than folded in, because a census is dated by the sha it was measured at.** At
@@ -2787,6 +2794,34 @@ hypothesis on `n` and none on `F`"* — and it is TRUE**: that declaration's ela
 `hcard : Nat.card ↥(W.torsion n) = n ^ 2` as its one hypothesis, which the row names. **So the
 clean sheet is 44 of 44, and the shape's having no second instance survives the landing that moved
 the base.**
+
+⚠️ **It has moved once more, and the two arrivals are READ here rather than counted, so the clean
+sheet is 46 of 46.** At `7f30e87` the same instrument returns **1970** bullets over **465**
+sections in **400** of **456** docstrings with **110** matching — **two** rows appear and **none**
+disappears, both in `EllipticCurves.FunctionField.PullbackPrincipalityNGeneral` and both arriving
+with `8e55647`. Resolved against `#check` telescopes and not against the `theorem` lines:
+
+* `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois` claims *"**No `[DecidableEq F]`**"* and
+  that *"it binds `[W.IsElliptic]`"*. The telescope is `[Field F] {W} [IsElliptic W] (N) [Field N]
+  [Algebra F N] [FiniteDimensional F N] [IsGalois F N] [DecidableEq N] {n}` ahead of the nine
+  *"Reach:"* items, so both halves hold and nothing beyond the setting is unlisted. **TRUE**
+* `mem_torsion_baseChange_of_nsmul_eq_zero` claims it *"binds `[DecidableEq F]` and
+  `[DecidableEq N]` and no `[W.IsElliptic]`"*. The telescope is `[Field F] {W} [DecidableEq F] (N)
+  [Field N] [Algebra F N] [DecidableEq N] {n} {x y} (hns)`. **TRUE**
+
+⚠️ **Three cells of that reading are worth more than the verdicts, because each retires a figure
+the next sweep would otherwise re-spend.** The census is **identical at `60e3031` and at
+`7f30e87`** — and `7f30e87` is this section's own landing, which is the control that the seed reads
+`.lean` docstrings and nothing this document says about itself. It is **also identical at PR #882's
+head**, whose only commit rewrites the very file both new rows live in: that round's hunks fall in
+a `### FINDING` block and in `## Recovery`, not in `## Main statements`, so **0 appear and 0
+disappear** and this cell does not depend on the order those two land in. ⚠️ **And the instrument
+is a fourth independent implementation of the published seed, calibrated before use on every cell
+this section already carries** — `8f95181` and `6c22e12` at **1696 / 425 / 364 of 419 / 64**,
+`b764fae` at **63**, `7ba33ed` at **1942 / 106**, `6a733e1e` and `0094b84` at
+**1954 / 462 / 397 of 453 / 107**, `3f9e3239` at **1967 / 464 / 399 of 455 / 108**. **A census
+instrument that reproduces the behaviour delta at `b764fae` as well as the totals is being checked
+against the recogniser rather than against a number.**
 
 ⚠️ **Two conventions decided rows, and both are written here so that the next sweep does not
 convict what this one cleared.** The first is the setting convention above, applied as it stands.
@@ -5448,7 +5483,18 @@ round on more than one branch recorded the gate as not re-run, on a ground with 
 it. The first half is a property of a slot. The second was nobody's measurement until `#1992` ran
 the install; it took under a second, and both gates it had excused then passed with the figures
 their rounds had published. **A gate line is a claim like any other on this page**: run it, or
-write that you did not attempt to.
+write that you did not attempt to. ⚠️ **It has happened again since, and this paragraph was
+already on the page when it did** — `#2294` round 2's review recorded the gate as not re-run on
+exactly the two-half ground retired here, *"`markdown-it` is absent here and `npm install` fails
+(no network; root-owned npm cache)"*, and substituted a parity reading. **So the failure mode named
+here is now a failure to read it rather than a missing rule**, which is the one diagnosis it did
+not carry. ⚠️ **One cell of that round is a real addition, and it is about the install's LOCATION
+rather than its availability: `--prefix` is as load-bearing as `--cache`, because an install into
+the repository root leaves an untracked `node_modules/` and `.orchestra/validation.sh`'s FIRST gate
+is `git status --porcelain` being empty** — so an install that succeeds can still turn the run red,
+and it does so at the cheapest gate rather than at the build. The `/tmp` recipe this section
+prescribes is already right; this is why it must not be simplified to a bare `npm install` in
+place.
 
 ⚠️ **The key this section prescribed before this paragraph matched an `h2` against an `h3`, and the
 one pair in this page's own history where the two skeleton keys disagree is exactly that**
