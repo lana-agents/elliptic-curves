@@ -7,6 +7,7 @@ import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.AbelianStructure
 import EllipticCurves.Torsion.DivisionPolynomialEval
 import EllipticCurves.Torsion.Finite
+import EllipticCurves.Torsion.FourNeZero
 import Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Degree
 import Mathlib.FieldTheory.IsAlgClosed.Basic
 
@@ -106,11 +107,6 @@ open Polynomial
 open scoped AddSubgroup
 
 namespace WeierstrassCurve.Affine
-
-private lemma four_ne_zero_of_two_ne_zero {F : Type*} [Field F] (h2 : (2 : F) ≠ 0) :
-    (4 : F) ≠ 0 := by
-  rw [show (4 : F) = 2 * 2 by norm_num]
-  exact mul_ne_zero h2 h2
 
 variable {F : Type*} [Field F] {W : Affine F}
 

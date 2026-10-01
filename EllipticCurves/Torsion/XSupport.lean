@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Torsion.Finite
+import EllipticCurves.Torsion.FourNeZero
 import EllipticCurves.Torsion.NsmulOrder
 
 /-!
@@ -116,11 +117,6 @@ private theorem ncard_setOf_isRoot_le {p : F[X]} (hp : p ≠ 0) :
   rw [hset, Set.ncard_coe_finset]
   exact (Multiset.toFinset_card_le _).trans p.card_roots'
 
-private theorem four_ne_zero (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  have : (4 : F) = 2 * 2 := by norm_num
-  rw [this]
-  exact mul_ne_zero h2 h2
-
 variable (W) in
 /-- **The `x`-support of `E[n]`**: the root set of the single univariate polynomial `ΨSqₙ`.
 
@@ -216,10 +212,11 @@ theorem card_torsion_le_sq (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
   -- Even `n`: the roots of `Ψ₂Sq` are the `x`-coordinates of `2`-torsion points and are charged
   -- one point each.
   · rw [if_pos (by exact_mod_cast he : Even ((n : ℤ)))] at hdeg
-    have h₀ := (ncard_setOf_isRoot_le (W.Ψ₂Sq_ne_zero (four_ne_zero h2))).trans W.natDegree_Ψ₂Sq_le
+    have h₀ := (ncard_setOf_isRoot_le
+      (W.Ψ₂Sq_ne_zero (four_ne_zero_of_two_ne_zero h2))).trans W.natDegree_Ψ₂Sq_le
     have hcard := W.card_torsion_le_of_xCoords_of_selfNeg (n := n)
       (finite_setOf_isRoot (W.preΨ_ne_zero hn'))
-      (finite_setOf_isRoot (W.Ψ₂Sq_ne_zero (four_ne_zero h2)))
+      (finite_setOf_isRoot (W.Ψ₂Sq_ne_zero (four_ne_zero_of_two_ne_zero h2)))
       (mem_preΨ_union_Ψ₂Sq_of_mem_torsion h2)
       (fun _ _ hns _ hx => selfNeg_of_isRoot_Ψ₂Sq hns.left hx)
     obtain ⟨m, rfl⟩ := he

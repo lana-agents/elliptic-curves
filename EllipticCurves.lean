@@ -395,6 +395,7 @@ import EllipticCurves.Torsion.EllipticNetRegularity
 import EllipticCurves.Torsion.EllipticNetRel
 import EllipticCurves.Torsion.EllipticNetSlices
 import EllipticCurves.Torsion.Finite
+import EllipticCurves.Torsion.FourNeZero
 import EllipticCurves.Torsion.HalvingExtension
 import EllipticCurves.Torsion.HalvingGaloisTower
 import EllipticCurves.Torsion.Multiplicative

@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.PlacePullback
+import EllipticCurves.Torsion.FourNeZero
 
 /-!
 # `[2]` fixes the point at infinity, and is unramified there
@@ -164,12 +165,6 @@ lemma ordInfty_eval_map_genX {q : F[X]} (hq : q ≠ 0) :
   ring
 
 /-! ### The order at infinity of `x ∘ [2]` -/
-
-/-- The scalar `4` is nonzero when `2` is: this is what makes `Ψ₂Sq` a genuine cubic. -/
-private lemma four_ne_zero_of_two_ne_zero (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  have h : (4 : F) = 2 * 2 := by norm_num
-  rw [h]
-  exact mul_ne_zero h2 h2
 
 /-- **`ordInfty (x ∘ [2]) = -2`.** The duplication formula writes `x(2P) = Φ₂(x)/Ψ₂Sq(x)` with
 `natDegree (Φ 2) = 4` and `natDegree Ψ₂Sq = 3`, so the pole orders at infinity are `8` and `6` and
