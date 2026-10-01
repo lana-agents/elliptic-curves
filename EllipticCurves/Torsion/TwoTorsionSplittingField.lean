@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Torsion.FourNeZero
 import EllipticCurves.Torsion.TwoTorsion
 import Mathlib.FieldTheory.Galois.Basic
 
@@ -118,14 +119,6 @@ namespace WeierstrassCurve.Affine
 variable {F : Type*} [Field F] {W : Affine F}
 
 /-! ## Separability of the `2`-torsion cubic -/
-
-/-- `Ψ₂Sq`'s leading coefficient is `4`, and Mathlib's `WeierstrassCurve.Ψ₂Sq_ne_zero` asks for
-`(4 : F) ≠ 0` where this layer carries `(2 : F) ≠ 0`. ⚠️ Duplicated on purpose: every other copy in
-the tree — under this name, and under `four_ne_zero` in `EllipticCurves.Torsion.XSupport` — is
-itself `private`, so none of them can be cited from here. -/
-private lemma four_ne_zero_of_two_ne_zero (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  rw [show (4 : F) = 2 * 2 by norm_num]
-  exact mul_ne_zero h2 h2
 
 /-- **The `2`-torsion cubic is separable** for an elliptic curve over a field of characteristic
 `≠ 2`.

@@ -7,6 +7,7 @@ import EllipticCurves.Fixtures
 import EllipticCurves.FunctionField.MulByTwoPlaceAtInfinity
 import EllipticCurves.FunctionField.PlaceRamificationInertia
 import EllipticCurves.FunctionField.TranslationProjAction
+import EllipticCurves.Torsion.FourNeZero
 
 /-!
 # The fibre of `[2]` over the point at infinity, and the first computed affine ramification indices
@@ -204,12 +205,6 @@ theorem ord_eval_map_genX_nonneg (v : HeightOneSpectrum W.CoordinateRing) (q : F
     0 ≤ ord v ((q.map (algebraMap F W.FunctionField)).eval (genX W)) := by
   rw [← genPsi_mk_C_eq_eval_map, genPsi]
   exact ord_algebraMap_nonneg v _
-
-/-- The scalar `4` is nonzero when `2` is: this is what makes `Ψ₂Sq` a genuine cubic. -/
-private lemma four_ne_zero_of_two_ne_zero (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  have h : (4 : F) = 2 * 2 := by norm_num
-  rw [h]
-  exact mul_ne_zero h2 h2
 
 /-! ### `[2]` carries the affine `2`-torsion to the point at infinity -/
 

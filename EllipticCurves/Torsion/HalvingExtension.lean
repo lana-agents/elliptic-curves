@@ -5,6 +5,7 @@ Authors: The Elliptic Curves formalisation contributors
 -/
 import EllipticCurves.Galois.NormalClosureSeparable
 import EllipticCurves.Torsion.DoublingSurjective
+import EllipticCurves.Torsion.FourNeZero
 import Mathlib.FieldTheory.Galois.Basic
 import Mathlib.FieldTheory.Normal.Closure
 import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
@@ -220,9 +221,6 @@ namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] {W : Affine F}
 
-private lemma four_ne_zero_of_two_ne_zero' (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  rw [show (4 : F) = 2 * 2 by norm_num]; exact mul_ne_zero h2 h2
-
 /-! ## The halving quadratic -/
 
 variable (W) in
@@ -265,7 +263,7 @@ theorem Φ_two_sub_C_mul_Ψ₂Sq_eq_halvingX_sq (h2 : (2 : F) ≠ 0) {x₀ : F}
       (C (-8 : F) * X + C (-(4 * x₀ + W.b₂))) * hE2' + (C (-1 : F)) * hb'
       + (C (4 : F) * X ^ 2 + C (-(8 * x₀)) * X
           + C (-(2 * c) - (4 * x₀ ^ 2 + W.b₂ * x₀ + W.b₄))) * congrArg C hc
-  exact mul_left_cancel₀ (by simpa using four_ne_zero_of_two_ne_zero' h2) key
+  exact mul_left_cancel₀ (by simpa using four_ne_zero_of_two_ne_zero h2) key
 
 /-- **The discriminant of the halving quadratic is `Ψ₂Sq` differentiated at `x₀`.**
 
