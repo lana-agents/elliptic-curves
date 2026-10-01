@@ -180,8 +180,13 @@ whose own `n • P ≠ 0` was formed under a *bound* `[DecidableEq N]` therefore
 different instance path, and the application fails with `Application type mismatch`, printing
 `@Point.instAddCommGroup N _ (W⁄N) inst✝` against
 `@Point.instAddCommGroup N _ W⁄N fun a b => Classical.propDecidable (a = b)`.  ⚠️ **The two are
-equal by `Subsingleton.elim`, so one step closes it**: `convert … using 9` does, where `using 8`
-stops at `Subsingleton (AddCommGroup _)`.  The live case is
+equal by `Subsingleton.elim` at the `DecidableEq N` argument — that level and not a higher one — and
+one step closes it**: `convert … using 9` does, where `using 8` stops one constructor short and
+leaves `unsolved goals` with `⊢ Point.instAddCommGroup = Point.instAddCommGroup`.  ⚠️⚠️ **It does
+NOT report `Subsingleton (AddCommGroup _)`: that message is what `Subsingleton.elim` emits when
+applied at the `AddCommGroup` level instead, where the instance does not exist.**  This paragraph
+read *"`using 8` stops at `Subsingleton (AddCommGroup _)`"* until `#2306` round 2, and no depth from
+`4` to `12` emits that string.  The live case is
 `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
 (`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`), whose `hP` is exactly the `T` this
 asks for — so it buys the `N`-side transcendence with **no** `(2 : F) ≠ 0`, **no**
@@ -220,10 +225,11 @@ and no `Classical` on its own statement, reaching the criterion from a point tha
 
 ⚠️ **Without the `convert` this does not elaborate**, and the message is the one the docstring
 quotes: the two `Point.instAddCommGroup` paths differ in their `DecidableEq N` argument alone.
-`using 9` is the depth that reaches it; `using 8` stops one constructor short, at
-`Subsingleton (AddCommGroup _)`.  **An `example` rather than a theorem because nothing should
-depend on it**: it certifies a route, and the route's only consumer is a caller that will inline
-these two lines. -/
+`using 9` is the depth that reaches it; `using 8` stops one constructor short and leaves
+`unsolved goals` with `⊢ Point.instAddCommGroup = Point.instAddCommGroup` — ⚠️ **not a
+`Subsingleton` synthesis failure**, and the criterion's docstring above names which level emits that
+one.  **An `example` rather than a theorem because nothing should depend on it**: it certifies a
+route, and the route's only consumer is a caller that will inline these two lines. -/
 example (N : Type*) [Field N] [Algebra F N] [DecidableEq N] {n : ℕ} {P : (W⁄N).Point}
     (hP : n • P ≠ 0) : Transcendental N (n • genericPoint (W := W⁄N)).xCoord := by
   refine transcendental_xCoord_nsmul_genericPoint n (T := P) ?_
