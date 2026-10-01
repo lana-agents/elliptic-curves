@@ -106,12 +106,15 @@ headline above that makes a hypothesis-list claim carries them"*.
 
 ⚠️⚠️ **THE PRODUCERS ARE FOUR AND NOT THREE, AND THE FOURTH IS THE ENGINE OF EXACTLY ONE OF THE
 OTHERS** — this census is keyed to the signatures and not to the `transcendental_xCoord_nsmul_of_*`
-naming, which is what hid the fourth from this finding's first wording and from two notes on
-`#2296`.  ⚠️ **That *one* is a transitive measurement and not a name grep**: of the other three only
-`_of_isAlgClosed` reaches the criterion through any chain of proof terms at all, and
-`…_of_intCast_ne_zero`, `_of_smooth` and `transcendental_xCoord_three_nsmul` each argue
-independently — the walk behind that is over the whole transitive closure of their proof terms and
-not over their statements.  The four:
+naming, which is what hid the fourth from this finding's first wording and from the two notes this
+rung's thread carried before its round 1.  ⚠️ **That *one* is a transitive measurement and not a
+name grep**: of the other three only `_of_isAlgClosed` reaches the criterion through any chain of
+proof terms at all, and `…_of_intCast_ne_zero` and `_of_smooth` each argue independently — ⚠️ **as
+does `transcendental_xCoord_three_nsmul`, which the walk carried as a fourth row and which is the
+fixed-index producer of the paragraph below, no member of this census.**  ⚠️⚠️ **Both figures are
+exact and they are over DIFFERENT populations: the CENSUS is four and its remainder is three, while
+the WALK ran over that remainder plus the fixed-index producer — four rows.**  The walk is over the
+whole transitive closure of their proof terms and not over their statements.  The four producers:
 
 * ⚠️ `transcendental_xCoord_nsmul_genericPoint` — **the criterion**, whose own docstring title is
   that word in those terms.  Binds one `T : W.Point` with `n • T ≠ 0` and ⚠️ **no field hypothesis
@@ -132,10 +135,13 @@ The criterion and `_of_isAlgClosed` are in the same file,
 the first** — it buys the criterion's `T` from `exists_nsmul_ne_zero_of_isAlgClosed`, and that is
 all the closure is for.
 
-⚠️⚠️ **AND A SECOND CELL OF THIS PARAGRAPH WAS WRONG, AND IT IS NOT ONE EITHER REVIEW CHARGED**: the
-heading above read *"THE ENGINE OF TWO OF THE OTHERS"* until this round, and the proof-term walk
-says **one**.  ⚠️ **Two independent reviews read this paragraph and neither tested that cell** — it
-is a count standing beside a correct structural claim and borrowing its credibility, which is
+⚠️⚠️ **AND A SECOND CELL OF THIS PARAGRAPH WAS WRONG, AND NO REVIEW EVER CHARGED IT**: the heading
+above read *"THE ENGINE OF TWO OF THE OTHERS"* until this round, and the proof-term walk says
+**one**.  ⚠️ **EXACTLY ONE review ever read that cell, and it did not test it**: the cell entered at
+round 2 of `#2296`, and round 2 drew a single review.  ⚠️ **The first wording of this sentence said
+*"two independent reviews"*, which is the count over the PARAGRAPH and not over the cell** — the
+paragraph's earlier three-member form drew two reviews, and neither could test a cell that did not
+yet exist.  A count standing beside a correct structural claim borrows its credibility, which is
 exactly the shape of the applicability cell below.  **Walk the proof terms: a name grep over callers
 is not a reading of the relation.**
 
@@ -149,11 +155,19 @@ is the member the universal names: `_of_smooth` is not in that class at all.**  
 **TWO of the four and not three** — the criterion and `_of_isAlgClosed` apply at
 `((n : ℤ) : F) = 0`, and the other two are each inconsistent with it.
 
-⚠️⚠️ **One field settles three of those four rows, and it is the field where `(3 : F) ≠ 0` dies.**
-Over `F = AlgebraicClosure (ZMod 3)` at `n = 3` the four conditions `[IsAlgClosed F]`, `n ≠ 0`,
-`(2 : F) ≠ 0` and `((n : ℤ) : F) = 0` hold **together** — so `_of_isAlgClosed`'s row is a positive
-witness rather than an absence of a refutation — while at that same field `(3 : F) = 0`, which is
-exactly the binder `_of_smooth` asks for and cannot have.
+⚠️⚠️ **One field — the field where `(3 : F) ≠ 0` dies — is a CERTIFICATE for exactly ONE of those
+four rows and an ILLUSTRATION for two, and the first wording of this sentence had it as a bare
+*"settles three"*.**  Over `F = AlgebraicClosure (ZMod 3)` at `n = 3` the four conditions
+`[IsAlgClosed F]`, `n ≠ 0`, `(2 : F) ≠ 0` and `((n : ℤ) : F) = 0` hold **together** — so
+`_of_isAlgClosed`'s *applies* row is a positive witness rather than an absence of a refutation, and
+⚠️ **that is the certificate: an *applies* row is the only kind a single field can settle.** ⚠️
+**The two *inconsistent* rows are universal and are argued, not witnessed**: `…_of_intCast_ne_zero`
+binds the negation of `((n : ℤ) : F) = 0` outright, and `_of_smooth`'s list is ruled by the
+`ringChar F ∣ n` step above.  This same field merely ILLUSTRATES both — `(3 : F) = 0` is exactly the
+binder `_of_smooth` asks for and cannot have, and `((n : ℤ) : F) ≠ 0` fails there too.  ⚠️⚠️
+**Granting `_of_smooth` that illustration and not `…_of_intCast_ne_zero` is the asymmetry the old
+count hid.** The criterion's row needs no field at all: it binds no field hypothesis, so nothing
+about `F` can settle it or disturb it.
 
 ⚠️⚠️ **AND THE CELL THAT MOVED IS THE ONE A LATER READING COULD NOT RECONSTRUCT: restoring
 `(3 : F) ≠ 0` to `_of_smooth`'s list is what emptied its regime.**  The round that first wrote this
@@ -190,6 +204,29 @@ producer is a separate difference and is worth naming on its own: at a fixed num
 `transcendental_xCoord_three_nsmul` (`EllipticCurves.FunctionField.MulByNPullback`) binds
 `(2 : F) ≠ 0` and `(3 : F) ≠ 0`, which the recovery passes, and ⚠️ **no smoothness side condition**
 — so it is what discharges `h` there.
+
+⚠️⚠️ **THE COUNT CLAIMS OF THIS FINDING ARE NOW CENSUSED, WITH THEIR POPULATION PUBLISHED.**  The
+reason is `#2309`'s: three rounds of `#2296` *"have now each repaired a count in this paragraph and
+each introduced another"*, and a census of them with its population published is what breaks that.
+**Population:** every line of this `### ⚠️ FINDING 1`, from its heading down to the last non-blank
+line before this paragraph — **136** lines at this round's head, and **122** at `5710234`.  ⚠️ **THE
+TWO BOUNDS ARE DIFFERENT OBJECTS AND A RE-RUNNER AT A THIRD REF HAS TO CHOOSE BETWEEN THEM — NOT BY
+THE REF'S NAME**: the lower bound is this census paragraph at any ref that carries it, and
+`### ⚠️ FINDING 2` at any ref that does not, because at `5710234` this paragraph did not exist.
+**Those two — this paragraph, and that heading — are the whole of the choice.**  ⚠️ **This paragraph
+is excluded from its own population, which is the only way the figure is a fixed point**; re-run the
+sweep after any edit ABOVE it.  **Stage 1, mechanical and the reproducible half:** mask every
+backtick span and every `*"…"*` marked quotation, then take every word-boundary occurrence of
+`one`…`ten`, `both`, `single`, `either`, `neither` and every bare decimal integer — **56**
+candidates at `5710234`, **68** at this head.  ⚠️ **Stage 1 OVER-counts on purpose**: it keeps
+section, round and rung labels and the pronoun uses of *one*, because for a completeness sweep a
+superset is the safe direction.  **Stage 2 is a reading and not a measurement**: it returns **5**
+hits at `5710234` and ⚠️ **0 at this head, because this round repairs all five** — the producer
+clause above, the *settles* count, the review count in **two** sites in one sentence pair (*"either
+review"* and *"two independent reviews"*), and *"two notes on `#2296`"*, whose population was a
+thread that grows.  ⚠️⚠️ **A count claim is CLEARED only when the text names the population it is
+counted over AND that population is closed.  A count repaired without its population named is a hit
+that still reads as a clearance.**
 
 ### ⚠️ FINDING 2 — the torsion bridge has no division polynomial at a general `n`, and the
 point-level route needed a new brick because `basePointMap` cannot carry a `map_*` lemma
