@@ -181,7 +181,7 @@ mirror tree in this repository and for no better reason**; a statement about `Po
 belongs elsewhere and should move if one is ever added.
 
 ⚠️ **This statement is also this tree's own negative control for `linter.unusedDecidableInType`,
-which is why it needs no `omit [DecidableEq F] in` where three later lemmas in this file do**
+which is why it needs no `[DecidableEq F]` omitted where five later declarations in this file do**
 (`#2308`).  That linter keys on **the elaborated type**, exactly as its name and its own message —
 *does not use the following hypothesis in its type* — both say, and ⚠️ **a pretty-printed signature
 cannot settle that, because `#check` suppresses instance arguments**: under
@@ -195,9 +195,17 @@ the printed signature shows only a binder that nothing later mentions.  Measured
 * ⚠️ a subtype statement whose proof term does carry the instance **still fires**, so proof use is
   not a second route to silence;
 * ⚠️⚠️ **but a statement concluding in a `Multiset.toFinset` cardinality is silent, because
-  `toFinset` binds `[DecidableEq F]` in its own type** — which is this one, and is why the three
-  `omit [DecidableEq F] in` lines below (on `nonsingular_fibreY`, `separable_preΨ_three` and
-  `separable_Ψ₃_of_isAlgClosed`) are each needed and no fourth one is;
+  `toFinset` binds `[DecidableEq F]` in its own type** — which is this one, and is why **five**
+  declarations below need `[DecidableEq F]` omitted: three on a bare `omit [DecidableEq F] in`
+  (`nonsingular_fibreY`, `separable_preΨ_three`, `separable_Ψ₃_of_isAlgClosed`) and ⚠️ **two inside
+  the combined `omit [DecidableEq F] [WeierstrassCurve.IsElliptic W] in`** (`equation_fibreY`,
+  `fibreY_injective`), where dropping that binder fires the same message with the same `(#4)`.  ⚠️
+  **This bullet read** *"are each needed and no fourth one is"* **and the sentence opening this
+  paragraph counted three the same way: both counted the bare omit SYNTAX and published it as the
+  set of DECLARATIONS**, which is the quantity this bullet exists to teach.  ⚠️⚠️ **And the two that
+  were missed are its sharpest rows**: `W.Equation x (W.fibreY x b)` and
+  `Function.Injective (W.fibreY x)` are neither `Polynomial` nor `W.torsion` statements but a third
+  shape, and `nonsingular_fibreY` above has the identical shape and the identical need;
 * whether the instance is bound on the declaration, as here, or inherited from a section `variable`
   makes no difference to any of the above.
 
