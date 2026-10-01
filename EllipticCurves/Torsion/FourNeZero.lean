@@ -15,13 +15,17 @@ reaches it carries the textbook hypothesis `(2 : F) ≠ 0` instead. The one line
 is the whole content of this file.
 
 This module exists for a reason that is not mathematical. ⚠️ **The bridge was `private` in seven
-files under four different names**, measured at `5710234` by
-`git grep -ln "private lemma four_ne_zero\|private theorem four_ne_zero" -- '*.lean'`:
+files under three different names**, measured at `5710234` by
+`git grep -ln "private lemma four_ne_zero\|private theorem four_ne_zero" -- '*.lean'` (which at
+this commit returns one file, this one, for the occurrence inside that quoted command):
 `four_ne_zero_of_two_ne_zero` in `FunctionField.MulByTwoDegree`,
 `FunctionField.MulByTwoFibreInfinity`, `FunctionField.MulByTwoPlaceAtInfinity`,
 `Torsion.TwoTorsion` and `Torsion.TwoTorsionSplittingField`;
 `four_ne_zero_of_two_ne_zero'` in `Torsion.HalvingExtension`; and `four_ne_zero` in
-`Torsion.XSupport`. ⚠️ **Four spellings is why nobody noticed**: a `git grep` for any one of them
+`Torsion.XSupport`. ⚠️ **`7` files under `3` names is the figure at `5710234`, and a fourth name
+arrives with the eighth copy**: `four_ne_zero'` in `Torsion.EvenTorsionCountSplits`, unmerged at
+PR #895 and not retired here — so `8` files under `4` names is the figure once that lands, and `7`
+under `4` is neither. ⚠️ **Three spellings is why nobody noticed**: a `git grep` for any one of them
 misses at least one of the others, so the author of each new copy looked, found nothing importable,
 and wrote another one — and `Torsion.TwoTorsionSplittingField`'s copy carried a docstring saying so
 (*"Duplicated on purpose: every other copy in the tree … is itself `private`, so none of them can
@@ -50,11 +54,19 @@ the generality; it is here because the narrower statement would have been the ar
 This module imports **nothing** from `EllipticCurves` — it is a leaf — and its two Mathlib imports
 are already in the closure of all seven files a copy was retired from. ⚠️ **So adding it to those
 seven import lists grows each of their closures by exactly one module, itself**, and the whole-tree
-`lake build` job count moves by exactly `+1`. It lives under `Torsion/` rather than
-`FunctionField/` because the dependency between the two directories runs one way: **32**
-`FunctionField/` files import an `EllipticCurves.Torsion.*` module and **no** `Torsion/` file
-imports an `EllipticCurves.FunctionField.*` one, so a home here is reachable from both sides
-without inverting a layer.
+`lake build` job count moves by exactly `+1`. ⚠️ **The stronger form of that claim, and the one
+actually checked: this module's ENTIRE import closure — 1764 modules counting itself, over a walk
+of the project and the pinned dependency tree — is a SUBSET of each of those seven closures, set
+difference `0` for `7` of `7`.** So *"exactly one module, itself"* is exact rather than approximate.
+
+It lives under `Torsion/` rather than `FunctionField/` because the dependency between the two
+directories runs one way: **35** `FunctionField/` files import an `EllipticCurves.Torsion.*` module
+at this commit and **no** `Torsion/` file imports an `EllipticCurves.FunctionField.*` one, so a home
+here is reachable from both sides without inverting a layer. ⚠️ **Both halves are the DIRECT
+`^import` reading, and the first was `32` before this commit**: the three arrivals are
+`MulByTwoDegree`, `MulByTwoFibreInfinity` and `MulByTwoPlaceAtInfinity`, i.e. exactly the three
+files this commit adds the import to, so the figure is one this module's own existence moved.
+The transitive reading is `187` at both refs and the `no` half is `0` under both readings at both.
 -/
 
 /-- **`(4 : R) ≠ 0` when `(2 : R) ≠ 0`**, in any semiring without zero divisors: `4` is `2 * 2`.
