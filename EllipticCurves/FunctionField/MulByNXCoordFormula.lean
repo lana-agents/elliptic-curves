@@ -67,6 +67,18 @@ one asks `((n : ℤ) : F) ≠ 0` and no closure where the merged one asks a clos
 Over an algebraically closed field of characteristic `p` with `p ∣ n`, the merged one applies and
 this one does not.  Neither supersedes the other and the merged statement is untouched.
 
+⚠️ **And the reading over an EXTENSION is the same theorem and not a third route**, which is the
+one thing about it worth a paragraph.  `transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero`
+is stated over an arbitrary base, so reading it on `W⁄L` at `L` gives the `L`-side statement from
+`(2 : L) ≠ 0` and `((n : ℤ) : L) ≠ 0`, both of which come from the `F`-side pair along
+`algebraMap F L`; that is
+`transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero` below.  ⚠️ **It is NOT a
+transport of the `F`-side transcendence into `L`** — `Transcendental F x` and
+`Transcendental L (functionFieldMap x)` are statements about different fields and
+`EllipticCurves.FunctionField.FunctionFieldBaseChangeN` says *"Do not try to transport one into the
+other"* in terms — and the distinction is what makes the `L`-side fact cost no closure, no
+`[FiniteDimensional F L]` and no `3`-smoothness of `n`.
+
 ⚠️ **And one clause below does not name that transcendence**, under `README.md`'s derivability
 exemption: `finrank_mulByNFieldRange_eq_sq` takes
 `hT : Transcendental F (n • 𝒫).xCoord` as an ordinary argument, because the subfield whose degree is
@@ -104,6 +116,11 @@ headline below that makes a hypothesis-list claim carries it.
   `((n : ℤ) : F) ≠ 0`.
 * `…CoordinateRing.transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero` : the transcendence
   hypothesis, with no algebraic closure.
+* `…CoordinateRing.transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero` : the
+  same over **every** extension `L / F`, read on `W⁄L`, from the `F`-side hypotheses alone.  ⚠️ It
+  is what retires the `3`-smooth route to the `N`-side binder of
+  `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
+  (`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`).
 * `WeierstrassCurve.Affine.CoordinateRing.nMulRatFunc_eq_ΦDivΨSq` : **gate 1**, discharged.
 * `WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent`:
   `[F(W) : [n]∗F(W)] = n²`, with `#1184` as its only remaining mathematical hypothesis.
@@ -227,6 +244,40 @@ theorem transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero (h2 : (2 : F
   have hroot : (aeval (genX W)) q = 0 := by
     rw [aeval_def, ← eval_map, hqmap, eval_sub, eval_mul, eval_C, hrel, sub_self]
   exact transcendental_genX (IsAlgebraic.restrictScalars F ⟨q, hqne, hroot⟩)
+
+/-- **`x(n • 𝒫)` is transcendental over EVERY extension `L / F`**, at every index with
+`((n : ℤ) : F) ≠ 0`, over a field of characteristic `≠ 2` — read on the base-changed curve `W⁄L`
+and its own generic point, with **no** algebraic closure, **no** `[FiniteDimensional F L]` and
+**no** `3`-smoothness of `n`.
+
+The lemma above, instantiated at `W⁄L` over `L`, with its two numeral hypotheses transported along
+`algebraMap F L`.  ⚠️ **That is all it is, and that is the point**: the `L`-side transcendence is
+*not* a second theorem needing its own route, which is what makes it available at an `L` where no
+closure and no finite-dimensionality is in hand.
+
+⚠️ **This is the binder that `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
+(`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`) carries as its `h'` hypothesis over
+the Galois extension `N`, and it is derivable from that theorem's own `h2` and `hn`** — so `h'` is
+a redundant hypothesis there rather than a fact a caller must buy.  Two notes on `#2296` held that
+the only general-`n` producer of it was
+`transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), whose
+`hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` would have made the general-`n` principality headline
+`3`-smooth rather than unconditional; **this lemma refutes that, and the `3`-smoothness is not
+needed.**  The two siblings are not superseded and do not supersede this one:
+`transcendental_xCoord_nsmul_of_isAlgClosed` asks `[IsAlgClosed]` and `n ≠ 0` where this asks
+`((n : ℤ) : F) ≠ 0`, and `transcendental_xCoord_nsmul_of_smooth` asks `3`-smoothness and `n ≠ 0`.
+
+⚠️ **`[W.IsElliptic]` over `L` is `inferInstanceAs` and not an assumption** — `W⁄L` is reducibly
+`W.map (algebraMap F L)`, and Mathlib carries the instance along a ring hom of fields. -/
+theorem transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero (L : Type*)
+    [Field L] [Algebra F L] (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : ((n : ℤ) : F) ≠ 0) :
+    Transcendental L (n • genericPoint (W := W⁄L)).xCoord := by
+  haveI : (W⁄L).IsElliptic := inferInstanceAs (W.map (algebraMap F L)).IsElliptic
+  refine transcendental_xCoord_nsmul_genericPoint_of_intCast_ne_zero ?_ ?_
+  · rw [← map_ofNat (algebraMap F L) 2, ne_eq, map_eq_zero]
+    exact h2
+  · rw [← map_intCast (algebraMap F L) (n : ℤ), ne_eq, map_eq_zero]
+    exact hn
 
 /-! ## Gate 1 of the degree tower -/
 
