@@ -184,14 +184,14 @@ future drift to the project half in one reading.  ⚠️ **The cell read `10546`
 was `10107 + 439`, and the `439` was the census control row's value at `9f25690`, ⚠️ **a sha this
 sentence never named, inherited from the project row of the census table above** — cited
 structurally rather than by a line distance, because a distance inside this section is itself
-rot-capable and the one round 1 of this row published went stale inside the hour.  ⚠️ **Its two
-terms were not scoped alike either**: `439` is that row's `EllipticCurves/`-**directory** count set
-against a whole-tree vendored `find`, so it fell short by the root aggregator `EllipticCurves.lean`
-as well as by the tree's growth, and **457**, the all-tracked count, is the term that matches.
-⚠️ **The three buckets did not move with it, and the reason is a RELATION and not luck**: no
-project file carries a modifier-prefixed `import` line at all, so the project term moves the
-population and can never move the buckets.  **That defence is a `grep` and not a numeral, which is
-why no numeral is quoted for it here.**
+rot-capable and the one round 1 of this row published went stale in **1 h 06 min**, `4e332f4` to
+`22db66e`.  ⚠️ **Its two terms were not scoped alike either**: `439` is that row's
+`EllipticCurves/`-**directory** count set against a whole-tree vendored `find`, so it fell short by
+the root aggregator `EllipticCurves.lean` as well as by the tree's growth, and **457**, the
+all-tracked count, is the term that matches.  ⚠️ **The three buckets did not move with it, and the
+reason is a RELATION and not luck**: no project file carries a modifier-prefixed `import` line at
+all, so the project term moves the population and can never move the buckets.  **That defence is a
+`grep` and not a numeral, which is why no numeral is quoted for it here.**
 
 ⚠️ **THE CENSUS TABLE'S ONLY ROT-CAPABLE ROW IS ITS CONTROL ROW — measured, not supposed, and it is
 why the project row carries a ref where the nine below it need none.  ⚠️⚠️ IT SAYS NOTHING ABOUT THE
@@ -224,34 +224,48 @@ it, the relation reads `386 / 0 / 386` exactly.  **A census whose control is the
 go stale reads as broken when it is only out of date**, which is how it read — `#2259` found it
 while `#2257` shipped on *"every row is exact"*, true of the other nine.
 
-⚠️ **Published sweep, because a rot clause whose population is withheld clears nothing.**  Over
-this whole section — from this heading to the next `##`, counting runs of digits after masking ISO
-dates, `v`-prefixed toolchain versions, `#`-tagged issue numbers and 7-to-40-character hex shas
-carrying a letter — the base `22db66e` reads **118** distinct values in **291** occurrences and this
-head **124** in **319**.  ⚠️ **The spec is published because the ABSOLUTES do not survive without
-it where every delta does**: round 1 of this row read nine occurrences fewer under a convention it
-gave in words only, which is the render gate's lesson arriving at the sweep.  ⚠️ **The head pair
-counts itself** — a census of the paragraph it sits in is a fixed point — **so it was iterated to
-one rather than estimated.**  ⚠️⚠️ **And it is quantified over the HEAD and not the base, because
-a sweep that stops at the base can never convict the round running it**: round 1 published its hits
-against the base population and added an unkeyed live-tree numeral of its own in the same diff.
-Hits: exactly **one** live-tree numeral carrying no ref — `10546`, paid above — and exactly **one**
-that is keyed and so stale rather than wrong, the **3768** build-job count at the end of this
-section, which reads **3769** at `22db66e`, `+1` for the single module `8e55647` added (`#2304`).
-**Not folded in, filed instead.**  ⚠️ **The census control row is keyed and CURRENT as of
-`#2302`'s landing, and this clause names the row rather than its value on purpose**: round 1 of this
-row published that cell's value and its key as stale, and `#2302` falsified all three conjuncts by
-landing first.  **Cite another row's identity, never its numerals.**
+⚠️ **Published sweep, because a rot clause whose population is withheld clears nothing.**  Over this
+whole section — from this heading to the next `##`, counting runs of digits after masking ISO dates,
+`v`-prefixed toolchain versions, `#`-tagged issue numbers and 7-to-40-character hex shas carrying a
+letter — the base `22db66e` reads **118** distinct values in **291** occurrences and this head
+**125** in **333**.  ⚠️ **The spec is published because the ABSOLUTES do not survive without it
+where every delta does**: round 1 of this row read nine occurrences fewer under a convention it gave
+in words only, which is the render gate's lesson arriving at the sweep.  ⚠️⚠️ **The head pair counts
+itself, and this round found that that does NOT make it a fixed point.**  The OCCURRENCE column is
+one, and was iterated to it rather than estimated.  ⚠️ **The DISTINCT column is a 2-CYCLE at this
+head**: it measures `125` when the cell prints `124` and `124` when it prints `125`, because `125`
+already occurs in the vendored table above.  ⚠️ **Naming both candidates is what breaks the cycle,
+which is why both appear in this sentence**, and the pair above is a joint fixed point of both
+columns with them named.  ⚠️ **Round 2 of this row published** *"a census of the paragraph it sits
+in is a fixed point"* **flatly; its own pair satisfied that by luck and not by construction, and a
+re-runner who iterates will oscillate instead of converging unless the colliding value is named.**
+⚠️⚠️ **And it is quantified over the HEAD and not the base, because a sweep that stops at the base
+can never convict the round running it**: round 1 published its hits against the base population and
+added an unkeyed live-tree numeral of its own in the same diff.  ⚠️⚠️ **And *carries a ref* means
+keyed IN ITS OWN SENTENCE and not keyed through another figure**, because the distance is the whole
+subject of this row: `10546`'s key was fifty lines away and unnamed.  Hits **at this head**: ⚠️ **NO
+live-tree numeral carries no ref.**  Every occurrence of `10546` here is retrospective and it is
+paid above; the line-count pair below is keyed in its own sentence under this rule, which it was not
+before round 3; and ⚠️ **no value this round or round 2 adds over the base is an unkeyed live-tree
+figure** — each is either this spec's own prose or keyed in the sentence that prints it.  ⚠️
+**Stated as that relation rather than as the delta set, because the set is a fixed point this very
+sentence moves** (`#2302`).  Exactly **one** figure is keyed and so stale rather than wrong, the
+**3768** build-job count at the end of this section, which reads **3769** at `22db66e`, `+1` for the
+single module `8e55647` added (`#2304`).  **Not folded in, filed instead.**  ⚠️ **The census control
+row is keyed and CURRENT as of `#2302`'s landing, and this clause names the row rather than its
+value on purpose**: round 1 of this row published that cell's value and its key as stale, and
+`#2302` falsified all three conjuncts by landing first.  **Cite another row's identity, never its
+numerals.**
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
-factor of three: at `e1c56c1` those 456 files carry 1302 `^import ` lines, min 1, max 10, mean
-2.86 — so *"one plain `import` line per file"* is true of the file count and false of the line
-count.  ⚠️ **The line figure is itself the worked example: 1257 at `6f051d4` and 1260 at `9f25690`,
-two commits five minutes apart, while `439 / 0 / 439` did not move.**  Second, the replaced sentence
-compared **two SCOPINGS**: its *"360 when this was first measured"* is the all-tracked-`.lean` count
-and its *"386 now"* the `EllipticCurves/`-directory count — at `008fea7`, the first commit carrying
-this file, the directory holds **359** and the tracked total **360**, differing by exactly the root
+factor of three: at `e1c56c1` those 456 files carry 1302 `^import ` lines, min 1, max 10, mean 2.86
+— so *"one plain `import` line per file"* is true of the file count and false of the line count.  ⚠️
+**The line figure is itself the worked example: 1257 at `6f051d4` and 1260 at `9f25690`, two commits
+five minutes apart, while `439 / 0 / 439` did not move.**  Second, the replaced sentence compared
+**two SCOPINGS**: its *"360 when this was first measured"* is the all-tracked-`.lean` count and its
+*"386 now"* the `EllipticCurves/`-directory count — at `008fea7`, the first commit carrying this
+file, the directory holds **359** and the tracked total **360**, differing by exactly the root
 aggregator `EllipticCurves.lean`.  The sequence is `359 → 386 → 439 → 456` under this row's scoping
 and `360 → 387 → 440 → 457` under the other.  **Do not re-take this row without saying which, and
 without keying it to a commit.**  ⚠️ **And that gap has a DIFFERENT MAGNITUDE IN EACH COLUMN, which
@@ -260,9 +274,9 @@ root aggregator"* is a statement about the FILE column, where the gap is **1**. 
 it is **456**, because `mk_all` gives `EllipticCurves.lean` exactly one `^import ` line per module —
 an invariant rather than an observation, holding at **301 of 301** of the commits swept below, and
 `validation.sh`'s `mk_all --check` is what holds it.  So the all-tracked companion of this row's
-`1302` is **1758**, and of `9f25690`'s `1260` it was **1699**.  ⚠️ **Quote the line figure with its
-scoping or it will be read against the other one**: `1302` and `1758` are both exact and neither is
-a correction of the other.
+`1302` is **1758**, both at `e1c56c1`, and of `9f25690`'s `1260` it was **1699**.  ⚠️ **Quote the
+line figure with its scoping or it will be read against the other one**: `1302` and `1758` are both
+exact and neither is a correction of the other.
 
 ⚠️ **THREE KEYINGS, AND THE HISTORY IS WORTH MORE THAN ANY ONE OF THEM**: `386 / 0 / 386` at
 `e3c0db2` (`#1292`), `439 / 0 / 439` at `9f25690` (`#2257` / `#2259`), `456 / 0 / 456` at
@@ -335,15 +349,18 @@ re-measured at `3f9e323`, where this row's own `0 / 968` still holds exactly.  �
 three files inside the closure**, each carrying a column-0 `import` line inside a docstring:
 `Mathlib/Tactic/FunProp.lean`:48, worth **+584** on its own; `Mathlib/Tactic/ExtractGoal.lean`:90,
 **+246**; and `Mathlib/Tactic/MinImports.lean`:31–34, **+1**.  ⚠️ **They do not sum to 633** — the
-first two pull overlapping subtrees, so a per-file audit of this trap over-prices its parts.
-⚠️⚠️ **`Mathlib/Tactic/Rify.lean`:68 — the `import Mathlib` named at the top of this section —
+first two pull overlapping subtrees, so a per-file audit of this trap over-prices its parts.  ⚠️⚠️
+**`Mathlib/Tactic/Rify.lean`:68 — the `import Mathlib` named at the top of this section —
 contributes ZERO here**: `Mathlib.Tactic.Rify` is in this module's closure under neither reading, so
 splicing its unmasked edges into the masked graph leaves the total at **968** exactly.  **The
 exemplar is sound and the price is sound; they are not the same claim**, and a walker audited only
 against the named file would pass while carrying all three of the files that actually move the
 number.  `MinImports`:253–256 is the live witness for the resolve-to-a-file rule stated at the top
 of this section: `import A`, `import B` and `import Z` are read by the pattern and are edges under
-neither reading.  These figures are pinned with the nine vendored rows above.
+neither reading.  ⚠️ **These figures are held by a RELATION and are NOT pinned**: they are this
+module's own closure, fixed only because its `EllipticCurves` closure is `0` — the second class
+named in the rot clause above and not the first.  **This line read** *"These figures are pinned with
+the nine vendored rows above"* **until round 3.**
 
 ⚠️ **A second check on the two-consumer claim costs nothing and needs no script.**  A
 docstring-only edit to this file rebuilds exactly **four** jobs — this module, its two consumers,
