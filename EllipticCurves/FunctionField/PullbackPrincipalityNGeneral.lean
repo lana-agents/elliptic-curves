@@ -75,13 +75,19 @@ the endomorphism's own index
 both to `N` for free — which is why the `n = 3` descent needs no extra binder.  `mulByNEndo n h` is
 indexed by `h : Transcendental F (x([n]𝒫))` instead, and ⚠️ **`functionFieldMap_mulByNEndo` takes
 the transcendence over `F` *and* over `N` because neither implies the other at that generality**:
-its own module docstring
-(`EllipticCurves.FunctionField.FunctionFieldBaseChangeN`, `## Two transcendence hypotheses`) says
+its own module docstring — under
+`## ⚠️ Two transcendence hypotheses, over two different fields, and neither implies the other`
+in `EllipticCurves.FunctionField.FunctionFieldBaseChangeN` — says
 *"Do not try to transport one into the other"* in terms.  So `h'` over `N` is a **hypothesis** here,
 and it is the one place where the general index costs a binder that `n = 2` and `n = 3` do not pay.
-⚠️ **A caller with `3`-smooth `n` gets it for free from `transcendental_xCoord_nsmul_of_smooth` over
-`N`, which is exactly what the `n = 3` recovery below does; a caller at a general index must supply
-it.**
+⚠️ **A caller whose `n` is `3`-smooth can buy it rather than assume it**, from
+`transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`) over `N`,
+at the price of that lemma's two further binders `n ≠ 0` and
+`∀ p ∈ n.primeFactors, p = 2 ∨ p = 3`; a caller at a general index must supply it.
+⚠️ **The `n = 3` recovery below does NOT take that route**, and the difference is worth naming
+because the route is the cheaper one only at an *unknown* index: at a fixed numeral index
+`transcendental_xCoord_three_nsmul` (`EllipticCurves.FunctionField.MulByNPullback`) needs no
+smoothness side conditions at all, so it is what discharges **both** `h` and `h'` there.
 
 ### ⚠️ FINDING 2 — the torsion bridge has no division polynomial at a general `n`, and the
 point-level route needed a new brick because `basePointMap` cannot carry a `map_*` lemma
@@ -141,12 +147,14 @@ and `sorryAx` are absent.
 `#907`'s rule.  The `example` in `## Recovery` restates
 `exists_nsmul_divisor_eq_divisor_mulByThreeEndo_of_galois` **verbatim** — same hypothesis list, same
 `omit [DecidableEq F]`, same conclusion in terms of `mulByThreeEndo h2 h3` — and proves it from the
-general form.  ⚠️ **The `omit` is part of the restatement and not an accident**: the
-`FunctionFieldBaseChangeN` rule applies here — "an `example` that quietly keeps an instance its
-original omits restates something *weaker* than the theorem it claims to subsume, and the
-signatures match either way".  The two `mulByNEndo` indices are interchangeable because
-`Transcendental` is a `Prop`, and `mulByNEndo_three`
-(`EllipticCurves.FunctionField.MulByNPullback`) is the bridge to the numeral endomorphism.
+general form.  ⚠️ **The `omit` is part of the restatement and not an accident**: the rule
+this file's own dependency `EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsionHprin`
+states applies here — "an `example` that quietly keeps an instance its original omits restates
+something *weaker* than the theorem it claims to subsume, and the signatures match either way" —
+whose earliest home in the tree is `EllipticCurves.FunctionField.PullbackPrincipalityN`.  The two
+`mulByNEndo` indices are interchangeable because `Transcendental` is a `Prop`, and
+`mulByNEndo_three` (`EllipticCurves.FunctionField.MulByNPullback`) is the bridge to the numeral
+endomorphism.
 
 ⚠️ **The `n = 2` `…_of_galois` is NOT recovered, because there is none to recover.**
 `PullbackPrincipalityTwoGeneral` inlines its tower and states no abstract-`N` descent step, which
