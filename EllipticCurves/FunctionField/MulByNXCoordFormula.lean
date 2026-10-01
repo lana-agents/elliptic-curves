@@ -118,9 +118,10 @@ headline below that makes a hypothesis-list claim carries it.
   hypothesis, with no algebraic closure.
 * `…CoordinateRing.transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero` : the
   same over **every** extension `L / F`, read on `W⁄L`, from the `F`-side hypotheses alone.  ⚠️ It
-  is what retires the `3`-smooth route to the `N`-side binder of
+  is what retired the `3`-smooth route to the `N`-side transcendence that
   `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
-  (`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`).
+  (`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`) **bound as `h'` until this PR** —
+  that theorem has no `N`-side binder now.
 * `WeierstrassCurve.Affine.CoordinateRing.nMulRatFunc_eq_ΦDivΨSq` : **gate 1**, discharged.
 * `WeierstrassCurve.Affine.CoordinateRing.finrank_mulByNFieldRange_eq_sq_of_isCoprime_ΨSq_adjacent`:
   `[F(W) : [n]∗F(W)] = n²`, with `#1184` as its only remaining mathematical hypothesis.
@@ -255,17 +256,25 @@ The lemma above, instantiated at `W⁄L` over `L`, with its two numeral hypothes
 *not* a second theorem needing its own route, which is what makes it available at an `L` where no
 closure and no finite-dimensionality is in hand.
 
-⚠️ **This is the binder that `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
-(`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`) carries as its `h'` hypothesis over
-the Galois extension `N`, and it is derivable from that theorem's own `h2` and `hn`** — so `h'` is
-a redundant hypothesis there rather than a fact a caller must buy.  Two notes on `#2296` held that
-the only general-`n` producer of it was
-`transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), whose
+⚠️ **This is the fact that `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
+(`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`) CARRIED as its `h'` hypothesis over
+the Galois extension `N` until PR #889 derived it, and the derivation is from that theorem's own
+`h2` and `hn`** — so `h'` was a redundant hypothesis there rather than a fact a caller must buy, and
+that theorem binds no `N`-side transcendence now.  Two notes on `#2296` held that the only
+general-`n` producer of it was `transcendental_xCoord_nsmul_of_smooth`
+(`EllipticCurves.FunctionField.MulByNComposition`), whose
 `hfac : ∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` would have made the general-`n` principality headline
 `3`-smooth rather than unconditional; **this lemma refutes that, and the `3`-smoothness is not
 needed.**  The two siblings are not superseded and do not supersede this one:
 `transcendental_xCoord_nsmul_of_isAlgClosed` asks `[IsAlgClosed]` and `n ≠ 0` where this asks
-`((n : ℤ) : F) ≠ 0`, and `transcendental_xCoord_nsmul_of_smooth` asks `3`-smoothness and `n ≠ 0`.
+`((n : ℤ) : F) ≠ 0`, and `transcendental_xCoord_nsmul_of_smooth` asks `3`-smoothness, `n ≠ 0` and ⚠️
+**`(3 : F) ≠ 0`, which this does not ask** — all three share `(2 : F) ≠ 0`.
+
+⚠️ **And none of the three is the cheapest route to the `N`-side fact.**
+`transcendental_xCoord_nsmul_genericPoint` (`EllipticCurves.FunctionField.MulByNTranscendence`) —
+the criterion `…_of_isAlgClosed` is a two-line corollary of — binds **no field hypothesis at all**,
+and the `hP` that descent theorem already takes is exactly the point it asks for.  **See that
+theorem's `FINDING 1` for the measured version, including the one instance step it costs.**
 
 ⚠️ **`[W.IsElliptic]` over `L` is `inferInstanceAs` and not an assumption** — `W⁄L` is reducibly
 `W.map (algebraMap F L)`, and Mathlib carries the instance along a ring hom of fields. -/

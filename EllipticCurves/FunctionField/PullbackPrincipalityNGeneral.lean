@@ -76,32 +76,89 @@ both to `N` for free — which is why the `n = 3` descent needs no extra binder.
 indexed by `h : Transcendental F (x([n]𝒫))` instead, and ⚠️ **`functionFieldMap_mulByNEndo` takes
 the transcendence over `F` *and* over `N` because neither implies the other at that generality**:
 its own module docstring — under
-`## ⚠️ Two transcendence hypotheses, over two different fields, and neither implies the other`
-in `EllipticCurves.FunctionField.FunctionFieldBaseChangeN` — says
-*"Do not try to transport one into the other"* in terms.  So `h'` over `N` is a **hypothesis** here,
-and it is the one place where the general index costs a binder that `n = 2` and `n = 3` do not pay.
-⚠️⚠️ **AND `h'` IS NO LONGER A BINDER OF EITHER THEOREM BELOW, BECAUSE IT IS DERIVABLE FROM THE
-`h2` AND `hn` THEY ALREADY BIND.**  The sentence above is about `functionFieldMap_mulByNEndo` and
-stays exact: that lemma does take the transcendence over both fields, and neither of the two
-*statements* implies the other.  ⚠️ **What does not follow, and what the first wording of this
-finding asserted, is that a caller at a general index must therefore SUPPLY the `N`-side one.**
+`## ⚠️ Two transcendence hypotheses, over two different fields, and neither implies the other` in
+`EllipticCurves.FunctionField.FunctionFieldBaseChangeN` — says *"Do not try to transport one into
+the other"* in terms.  ⚠️⚠️ **AND `h'` IS NO LONGER A BINDER OF EITHER THEOREM BELOW, BECAUSE IT IS
+DERIVABLE FROM WHAT THEY ALREADY BIND.**  ⚠️ **The first wording of this finding closed with** *"So
+`h'` over `N` is a hypothesis here, and it is the one place where the general index costs a binder
+that `n = 2` and `n = 3` do not pay"*, **and BOTH of its conjuncts are RETIRED**: `h'` is a `have`
+inside the descent proof below — `exists_gS_n_of_galois` never sees it at all, because it routes
+through that theorem — and the one binder the numeral forms do not pay is `h` over `F`, for the
+reason that theorem's own docstring gives: `mulByNEndo n h` *mentions* it, so it is data for the
+statement rather than an assumption of it.  ⚠️ **The ⚠️-marked claim above this one is NOT what was
+retired and is exact**: that `functionFieldMap_mulByNEndo` takes the transcendence over both fields,
+and that neither of the two *statements* implies the other, both still hold and were re-verified. ⚠️
+**What does not follow from it, and what the retired wording asserted, is that a caller at a general
+index must therefore SUPPLY the `N`-side one.**
 `transcendental_xCoord_nsmul_genericPoint_baseChange_of_intCast_ne_zero`
 (`EllipticCurves.FunctionField.MulByNXCoordFormula`) is the `F`-side producer read on `W⁄L` at `L`,
 with its two numeral hypotheses transported along `algebraMap F L`, and it binds nothing beyond
 `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` — **no algebraic closure, no `[FiniteDimensional F L]` and no
 `3`-smoothness.**  So the `N`-side fact is bought from the base hypotheses rather than transported
-from the `F`-side fact, which is the distinction the retired clause collapsed.
-⚠️ **This retires the `3`-smooth route as the general-index answer.**  That route —
+from the `F`-side fact, which is the distinction the retired clause collapsed.  ⚠️ **This retires
+the `3`-smooth route as the general-index answer.**  That route —
 `transcendental_xCoord_nsmul_of_smooth` (`EllipticCurves.FunctionField.MulByNComposition`), at the
-price of `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` — remains available and remains the only
-one of the three producers that applies when `((n : ℤ) : F) = 0`; it is no longer the cheapest at an
-unknown index.  ⚠️ **The consequence is the one worth recording: `#962`'s unconditional general-`n`
-headline is not `3`-smooth on this binder's account.**  What it still needs over the tower is
-`#E[n] = n²` and the `n`-divisibility of `S`, and nothing about the index beyond
-`((n : ℤ) : F) ≠ 0`.  ⚠️ **The `n = 3` recovery below pays neither**, and the difference is still
-worth naming: at a fixed numeral index `transcendental_xCoord_three_nsmul`
-(`EllipticCurves.FunctionField.MulByNPullback`) needs no side condition at all, so it is what
-discharges `h` there.
+price of `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `∀ p ∈ n.primeFactors, p = 2 ∨ p = 3` — remains
+available, and it is no longer the cheapest at an unknown index.  ⚠️ **`(3 : F) ≠ 0` is named in
+that list because it is a real difference from this file's own binders**, under
+`MulByNComposition`'s standing ruling that `(2 : F) ≠ 0` and `(3 : F) ≠ 0` *"stay named, and every
+headline above that makes a hypothesis-list claim carries them"*.
+
+⚠️⚠️ **THE PRODUCERS ARE FOUR AND NOT THREE, AND THE FOURTH IS THE ENGINE OF TWO OF THE OTHERS** —
+this census is keyed to the signatures and not to the `transcendental_xCoord_nsmul_of_*` naming,
+which is what hid the fourth from this finding's first wording and from two notes on `#2296`:
+
+* ⚠️ `transcendental_xCoord_nsmul_genericPoint` — **the criterion**, whose own docstring title is
+  that word in those terms.  Binds one `T : W.Point` with `n • T ≠ 0` and ⚠️ **no field hypothesis
+  whatever**.  **Applies at `((n : ℤ) : F) = 0`.**
+* `…_nsmul_genericPoint_of_intCast_ne_zero`, and its `baseChange` form used below.  Binds
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ **The one of the four that does NOT apply at
+  `((n : ℤ) : F) = 0`.**
+* `…_nsmul_of_isAlgClosed`.  Binds `[IsAlgClosed F]`, `(2 : F) ≠ 0` and `n ≠ 0` — ⚠️ **no condition
+  on `((n : ℤ) : F)` at all.  Applies at `((n : ℤ) : F) = 0`.**
+* `…_nsmul_of_smooth`.  Binds `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness.
+  **Applies at `((n : ℤ) : F) = 0`.**
+
+The criterion and `_of_isAlgClosed` are in the same file,
+`EllipticCurves.FunctionField.MulByNTranscendence`, and ⚠️ **the second is a two-line corollary of
+the first** — it buys the criterion's `T` from `exists_nsmul_ne_zero_of_isAlgClosed`, and that is
+all the closure is for.
+
+⚠️ **The first wording of this paragraph said `_of_smooth`** *"remains the only one of the three
+producers that applies when `((n : ℤ) : F) = 0`"*, **and that is RETIRED as false twice over.**
+`_of_isAlgClosed` binds no condition on `((n : ℤ) : F)` whatever, and `MulByNXCoordFormula` rules
+exactly that configuration in its *"incomparable, not nested"* paragraph — *"the merged one applies
+and this one does not"* — immediately above the one this file draws the base-change reading from.
+And the criterion binds no field condition either.  **Only the second member of that list fails at
+`((n : ℤ) : F) = 0`; the other three hold.**
+
+⚠️⚠️ **AND THE CRITERION DISCHARGES `h'` FROM `hP` ALONE, WHICH IS STRICTLY STRONGER THAN THIS
+FINDING'S HEADLINE AND IS NOT THE ROUTE THE PROOFS BELOW TAKE.**  `hP` is already a hypothesis of
+both theorems, and it is exactly a `P : (W⁄N).Point` whose `n • P` is a `Point.some` and so nonzero
+— which is the criterion's `hT` and nothing else.  So `h'` costs **no** `h2`, **no** `hn`, no
+closure and no smoothness.  ⚠️ **One instance step is the whole remaining cost, and it is a
+one-liner**: the criterion is stated `open Classical in`, so its `n • T` reads
+`Point.instAddCommGroup` at `fun a b => Classical.propDecidable (a = b)` where `hP`'s reads it at
+this file's `[DecidableEq N]`, and the two terms are not syntactically equal; `Subsingleton.elim` on
+the `DecidableEq N` instance rewrites one into the other.  ⚠️ **Measured both ways round rather than
+argued**: without the bridge the application fails with a printed instance mismatch between those
+two terms, and with it the derivation compiles in rung 3's own binder shape, `[DecidableEq N]` and
+all.
+
+⚠️ **The proofs below keep the `h2` / `hn` route anyway, and that is a choice and not an
+oversight**: those two binders are not removable here for other reasons, so the criterion route
+would shorten no signature, and ⚠️ **re-routing `h'` is only worth doing as part of asking whether
+`((n : ℤ) : F) ≠ 0` can leave the statement at all** — which is `#2306` and not this rung.
+
+⚠️ **The consequence is the one worth recording: `#962`'s unconditional general-`n` headline is not
+`3`-smooth on this binder's account**, and ⚠️ **on the criterion's account the `N`-side
+transcendence does not need `((n : ℤ) : F) ≠ 0` either.**  What the headline still needs over the
+tower is `#E[n] = n²` and the `n`-divisibility of `S`.  ⚠️ **The `n = 3` recovery below discharges
+NEITHER of those two** — it binds `hcard` and `hP` exactly as this file does.  The transcendence
+producer is a separate difference and is worth naming on its own: at a fixed numeral index
+`transcendental_xCoord_three_nsmul` (`EllipticCurves.FunctionField.MulByNPullback`) binds
+`(2 : F) ≠ 0` and `(3 : F) ≠ 0`, which the recovery passes, and ⚠️ **no smoothness side condition**
+— so it is what discharges `h` there.
 
 ### ⚠️ FINDING 2 — the torsion bridge has no division polynomial at a general `n`, and the
 point-level route needed a new brick because `basePointMap` cannot carry a `map_*` lemma
@@ -197,15 +254,21 @@ is exhibited is this and not an oversight.
 
 ## ⚠️ What is *not* here
 
-* **The general-`n` Galois tower** and the unconditional `…_general` headline — `#2296`.  The tower
-  is three named layers at `n = 2` (`halvingGaloisField`) and five at `n = 3`
-  (`triplingGaloisField`), both read from those files' own docstrings.  ⚠️ **The inference this
-  bullet used to draw from that pair — *"so its depth at a general index is unbounded"* — is
-  RETIRED: two points do not determine the sequence, and the `3 → 5` step is accounted for by the
-  `n = 2` tower LACKING a layer rather than by the `n = 3` one gaining a growing number of them**
-  (at `n = 2` the roots of `Ψ₂Sq` are the `2`-torsion `x`-coordinates, whose `y` is forced, so the
-  division field needs no `y`-layer).  **What the general depth is is open and is rung 4's to
-  measure**; nothing here asserts it either way.
+* **The general-`n` Galois tower** and the unconditional `…_general` headline — `#2296`.
+  ⚠️ **The two towers already built are THREE named floors each, and four and five field
+  extensions** — `EllipticCurves.Torsion.TriplingGaloisTower` states the unit distinction in terms,
+  *"Three named floors are five field extensions"*, and `n = 2`'s middle floor hides one the same
+  way `n = 3`'s hide two: `halvingField` is itself *"the two-step tower"*
+  (`EllipticCurves.Torsion.HalvingExtension`) and `HalvingGaloisTower` names the hidden floor as
+  *"the intervening `K₂`"*.  ⚠️ **Quote this pair in ONE unit or it reads as a step that is not
+  there**: `3 / 3` named, `4 / 5` extensions.  ⚠️ **The inference this bullet used to draw from the
+  pair — *"so its depth at a general index is unbounded"* — is RETIRED: two points do not determine
+  the sequence, and the one-extension step is accounted for by the `n = 2` tower LACKING a layer
+  rather than by the `n = 3` one gaining a growing number of them** (at `n = 2` the roots of `Ψ₂Sq`
+  are the `2`-torsion `x`-coordinates, whose `y` is forced, so the division field needs no
+  `y`-layer, where at `n = 3` it is `Ψ₂SqRootPoly` over `Ψ₃`'s splitting field).  ⚠️ **In named
+  units the step is ZERO and the retirement is stronger still.**  **What the general depth is is
+  open and is rung 4's to measure**; nothing here asserts it either way.
 * **`exists_gS_n_general`** — it instantiates the tower, so it is rung 4's.
 * **Any weakening of `hcard` or of `hP`.**  Both are hypotheses here, moved to `N` and not removed.
 * **Re-derivation of the seven already-general inputs.**  Each binder was re-resolved once at
