@@ -114,7 +114,7 @@ and the project's.
 
 | tree | files | `^public import ` | `^import ` |
 | --- | --- | --- | --- |
-| `EllipticCurves/` | 439 | **0** | **439** |
+| `EllipticCurves/` | 456 | **0** | **456** |
 | `.lake/packages/mathlib/Mathlib` | 8264 | **8246** | 381 |
 | `.lake/packages/batteries` | 254 | 127 | 82 |
 | `.lake/packages/aesop` | 250 | 125 | 161 |
@@ -127,7 +127,14 @@ and the project's.
 
 ⚠️ **The project row is the control, and the control is a RELATION and not three numerals**:
 column 2 must be `0` and column 3 must EQUAL column 1 — no `public import `, a plain `^import `
-in *every* file.  Both hold at `9f25690`: `439 / 0 / 439`.  ⚠️ **Why only this row rots: below.**
+in *every* file.  ⚠️ **The relation and the numerals are stated apart because only one of them can
+rot into a falsehood.**  The relation carries no ref and needs none: swept rather than argued, it
+holds at **all 301** commits from `e3c0db2`, which wrote this row, to `e1c56c1`.  The numerals do
+carry one — `456 / 0 / 456` at `e1c56c1`, over the `EllipticCurves/` **directory**, whose
+all-tracked companion reads `457`.  ⚠️ **That gap is the root aggregator `EllipticCurves.lean` at
+every one of those 301 commits, not only at the `008fea7` where the paragraph below measures it**,
+so the two sequences this section publishes run at a constant offset of one and neither is ever a
+re-scoping of the other.  ⚠️ **Why only this row rots: below.**
 
 ⚠️ **The module system is a toolchain convention, not a Mathlib one.**  **Eight** of the nine
 vendored packages use `public import` — every one but `LeanSearchClient`, and ⚠️ **the reason is
@@ -191,25 +198,58 @@ while `#2257` shipped on *"every row is exact"*, true of the other nine.
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
-factor of three: at `9f25690` those 439 files carry 1260 `^import ` lines, min 1, max 10, mean
-2.87 — so *"one plain `import` line per file"* is true of the file count and false of the line
-count.  ⚠️ **The line figure is itself the worked example: 1257 at `6f051d4` and 1260 at
-`9f25690`, two commits five minutes apart, while `439 / 0 / 439` did not move.**  Second, the
-replaced sentence compared **two SCOPINGS**: its *"360 when this was first measured"* is the
-all-tracked-`.lean` count and its *"386 now"* the `EllipticCurves/`-directory count — at
-`008fea7`, the first commit carrying this file, the directory holds **359** and the tracked total
-**360**, differing by exactly the root aggregator `EllipticCurves.lean`.  The sequence is
-`359 → 386 → 439` under this row's scoping and `360 → 387 → 440` under the other.  **Do not
-re-take this row without saying which, and without keying it to a commit.**
+factor of three: at `e1c56c1` those 456 files carry 1302 `^import ` lines, min 1, max 10, mean
+2.86 — so *"one plain `import` line per file"* is true of the file count and false of the line
+count.  ⚠️ **The line figure is itself the worked example: 1257 at `6f051d4` and 1260 at `9f25690`,
+two commits five minutes apart, while `439 / 0 / 439` did not move.**  Second, the replaced sentence
+compared **two SCOPINGS**: its *"360 when this was first measured"* is the all-tracked-`.lean` count
+and its *"386 now"* the `EllipticCurves/`-directory count — at `008fea7`, the first commit carrying
+this file, the directory holds **359** and the tracked total **360**, differing by exactly the root
+aggregator `EllipticCurves.lean`.  The sequence is `359 → 386 → 439 → 456` under this row's scoping
+and `360 → 387 → 440 → 457` under the other.  **Do not re-take this row without saying which, and
+without keying it to a commit.**  ⚠️ **And that gap has a DIFFERENT MAGNITUDE IN EACH COLUMN, which
+is the trap the replaced wording did not walk into and a re-run will.**  *"Differing by exactly the
+root aggregator"* is a statement about the FILE column, where the gap is **1**.  In the LINE column
+it is **456**, because `mk_all` gives `EllipticCurves.lean` exactly one `^import ` line per module —
+an invariant rather than an observation, holding at **301 of 301** of the commits swept below, and
+`validation.sh`'s `mk_all --check` is what holds it.  So the all-tracked companion of this row's
+`1302` is **1758**, and of `9f25690`'s `1260` it was **1699**.  ⚠️ **Quote the line figure with its
+scoping or it will be read against the other one**: `1302` and `1758` are both exact and neither is
+a correction of the other.
 
-⚠️ **AND IT HAS DRIFTED AGAIN — SAID HERE AND DELIBERATELY NOT FOLDED IN.**  At `a0d5593` the
-*relation* still holds: `EllipticCurves/` holds **456** files, **0** with a `^public import ` line
-and **456** with a plain `^import ` one, and those files carry **1302** `^import ` lines (min 1,
-max 10, mean 2.86) against `9f25690`'s 1260.  ⚠️ **So `439 / 0 / 439` is a cell keyed to a sha that
-has gone stale while what it asserts is intact, and re-taking it is its own row rather than this
-one's** — `#2257` / `#2259` are its history, it has been re-taken twice, and `#2300` measured it and
-left it alone on purpose.  **Folding a third re-key of it into a neighbouring repair is how one
-paragraph ends up carrying two keyings.**
+⚠️ **THREE KEYINGS, AND THE HISTORY IS WORTH MORE THAN ANY ONE OF THEM**: `386 / 0 / 386` at
+`e3c0db2` (`#1292`), `439 / 0 / 439` at `9f25690` (`#2257` / `#2259`), `456 / 0 / 456` at
+`e1c56c1` (`#2302`).  Each was exact when written and none was ever false, so each is a re-keying
+under `#1664` rather than a retraction — which is why this paragraph is a history and the section
+carries no marked quotation of the row.  ⚠️ **And *exact when written* is cheaper than it
+sounds, priced over the 301 commits swept above**: `386` is exact at **1** of them, `439` at
+**13**, `456` at the **7** that run to this head.  **The row as first written was falsified
+thirty minutes later** — `9b02ade`, the direct child of `e3c0db2`, reads 388.
+
+⚠️ **THE TWO CELLS OF THIS CONTROL ROT IN DIFFERENT SHAPES, AND ONLY THE TRIPLE IS STALE IN THE
+ONE-DIRECTIONAL SENSE ABOVE.**  Over those 301 commits the file triple is monotone — 386 to 456,
+never once decreasing, no value reached in two separate runs — so a re-run that disagrees with it
+always means the page is BEHIND.  The line figure is not monotone: it **descends 6 times**, and
+**7** of its values are reached in two disjoint runs, `1260` among them.  ⚠️ **Worked, because
+it is a trap and not a possibility**: at `d8fde75`, eleven commits and thirteen hours after
+`9f25690`, the triple reads `443 / 0 / 443` while the line figure reads the published `1260`
+exactly.  **A reader who re-runs the cheap cell gets agreement and takes the paragraph for current
+while its other cell is four files out.**  The mean is worse again — it *fell* `2.87 → 2.86`
+while both counts rose, and `2.86` is the rounded reading at **29** of the 301 commits against
+`2.87`'s **8**.  ⚠️ **Agreement with the line figure dates nothing; only the triple dates this
+paragraph.**
+
+⚠️ **The relation does not belong in `.orchestra/validation.sh`, and the reason is a measurement
+and not a preference.**  The objection that a gate must not encode a docstring's numerals does not
+reach it — the relation has none.  The one that does is that **such a gate would have been green
+at every commit of all three stalls**: it holds at 301 of 301, spanning `#2257`'s round, `#2259`'s
+and this one.  A control that passes on every instance of the failure it is meant to prevent
+prevents nothing, which is the dual of `#2300`'s *a control nobody executes catches nothing*.
+⚠️ **And the one failure mode a gate could stop is gated already**: column 3 and the line figure
+are both computed by a comment-BLIND match, so a docstring sentence reflowed onto the word
+`import` at column 1 would move them — which is exactly what the phantom-`import` gate (landed
+`0094b84`) refuses, and this file is where it would bite first.  What is left ungated is the tree
+growing, and that is not a defect.
 
 ⚠️ **Do not take a matching total as evidence your pattern is right.**  At `a0d5593`, dropping the
 `(?:all\s+)?` alternative changes **none** of the three totals, because every `import all` target is
