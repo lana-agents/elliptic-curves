@@ -9,10 +9,17 @@ import EllipticCurves.Torsion.OmegaChordSum
 /-!
 # `#E[n] = n²` at odd `n` over a field that is not algebraically closed
 
-Every general-`n` and every odd-`n` counting statement in this development binds
-`[IsAlgClosed F]`: `EllipticCurves.Torsion.StructureGeneral`'s `card_torsion_eq_sq`,
-`EllipticCurves.Torsion.OmegaChordSum`'s `card_torsion_eq_sq_of_odd`, and the five further
-members `#2305` enumerates.  ⚠️ **A statement that binds a closure cannot supply
+Every general-`n` and every odd-`n` counting statement written in this development **before this
+file** binds `[IsAlgClosed F]`, and the class has **eight** members, all eight read off `#check`
+here.  `#2305`'s table lists **seven** of them — `card_torsion_eq_sq`
+(`EllipticCurves.Torsion.StructureGeneral`:172), `card_torsion_eq_sq_of_smooth`
+(`EllipticCurves.Torsion.ThreePrimary`:400), `card_torsion_eq_sq_iff_separable_preΨ` (:348),
+`card_torsion_odd` (:317), `torsionOddEquiv` (:306) and `card_torsion_pow_of_separable` (:386),
+those four in `EllipticCurves.Torsion.OddTorsionCount`, and `card_torsion_pow_of_odd`
+(`EllipticCurves.Torsion.PrimaryTowerOdd`:162).  The eighth is `card_torsion_eq_sq_of_odd`
+(`EllipticCurves.Torsion.OmegaChordSum`:643), which that table does **not** carry — so beyond
+`card_torsion_eq_sq` the row enumerates **six** further members and the union of the two documents
+is **eight**.  ⚠️ **A statement that binds a closure cannot supply
 `Nat.card ((W⁄N).torsion n) = n ^ 2` over a FINITE Galois extension `N / F`, which is the only
 place `#2296`'s ladder wants it.**  The closure-free family that the two landed towers actually
 consume is `card_torsion_two_of_splits` (`EllipticCurves.Torsion.TwoTorsion`) and
@@ -34,20 +41,32 @@ no `n = 2` counterpart for the reason that file records: the description of `E[n
 ⚠️ **Splitting is a statement about `preΨₙ`; squareness is a statement about a different
 polynomial, and no amount of splitting `preΨₙ` supplies it.**
 
-⚠️ **The closure of `EllipticCurves.Torsion.OddTorsionCount` was doing exactly one thing, in two
-places, and the places are the measurement rather than the reading of a docstring**: producing a
-`y` above an `x` by `exists_equation'`, once inside `fibreY` / `equation_fibreY` and once inside
-`eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`.  Both are replaced here by
-`exists_equation_of_isSquare`, which is the same completion of the same quadratic with the square
-root supplied instead of assumed.
+⚠️ **`EllipticCurves.Torsion.OddTorsionCount` spends its closure on TWO mechanisms at FOUR sites,
+and the four line numbers are the measurement rather than the reading of a docstring**:
+`exists_equation'`, producing a `y` above an `x`, at `:152`
+(`eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`), `:226` (`equation_fibreY`) and `:245`
+(`fibreY_injective`); and `IsAlgClosed.splits _` at `:353`
+(`card_torsion_eq_sq_iff_separable_preΨ`), which is a **different** mechanism and the only
+occurrence of `IsAlgClosed.` anywhere in that module.  ⚠️ **`fibreY` itself calls `exists_equation'`
+at neither of its own lines** — it is built from `someY` (`EllipticCurves.Torsion.Finite`:136),
+which is closure-free, so those three really are the complete surface of the first mechanism.  ⚠️
+**Only the `:152` site is REPLACED here**: `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero'` below calls
+`exists_equation_of_isSquare` where that one called `exists_equation'`, the same completion of the
+same quadratic with the square root supplied instead of assumed.  The `:226` / `:245` pair is
+**bypassed** rather than replaced: this file counts the fibre over a root as `{y // Equation x y}`
+through `card_setOf_equation_eq_two_of_isSquare` instead of indexing it by a `Bool` through
+`fibreY`, and that count is where `hsq` is spent.  ⚠️⚠️ **And the fourth site is where this file's
+splitting hypothesis comes from**: `IsAlgClosed.splits` is exactly the step
+`card_roots_preΨ_of_splits` below assumes instead, so `hsplits` is a transfer of a closure use and
+not new content.
 
-⚠️⚠️ **And one of the two uses is FREE, which is why this file asks for squareness at the roots of
-`preΨₙ` and not everywhere**: the non-degeneracy lemma argues from `W.Ψ₂Sq.eval x = 0`, and `0` is
-a square in every ring.  So `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero'` below costs `(2 : F) ≠ 0`
-and nothing else.  ⚠️ **It does not supersede the landed lemma and must not be read as doing so**:
-that one holds **in every characteristic** — `#2253` spent a round removing its `(2 : F) ≠ 0` —
-and this one does not.  The two are incomparable, and the primed name is the tree's marker for
-that rather than for a successor.
+⚠️⚠️ **And that one replacement is FREE, which is why this file asks for squareness at the roots of
+`preΨₙ` and not everywhere**: the non-degeneracy lemma argues from `W.Ψ₂Sq.eval x = 0`, and `0` is a
+square in every ring, so the point it needs comes with no hypothesis at all.  So
+`eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero'` below costs `(2 : F) ≠ 0` and nothing else.  ⚠️ **It does
+not supersede the landed lemma and must not be read as doing so**: that one holds **in every
+characteristic** — `#2253` spent a round removing its `(2 : F) ≠ 0` — and this one does not.  The
+two are incomparable, and the primed name is the tree's marker for that rather than for a successor.
 
 ## The relation, not only the numeral
 
@@ -71,11 +90,20 @@ hypothesis, and `(n² − 1)/2` is not a separate assumption about multiplicitie
 the measurement (`omit` it and build)"*.  ⚠️ **Run on `torsionOddEquiv` that measurement returns a
 FALSE GREEN.**  Measured at `22db66e`:
 
-* `omit [IsAlgClosed F] in` before `torsionOddEquiv`, a `noncomputable def` — the file compiles
-  with **no error and no warning**, and `#check @torsionOddEquiv` still reports `[IsAlgClosed F]`,
-  re-added as an **anonymous** instance binder.  The binder is not removed; only the name is.
+* `omit [IsAlgClosed F] in` before `torsionOddEquiv`, a `noncomputable def` — the module compiles
+  with **no error and no warning** (`Build completed successfully (2348 jobs).`), and ⚠️ **the line
+  is a TOTAL no-op: it changes neither the elaborated type nor one binder name.**  Two instruments,
+  both run here: the `#check @torsionOddEquiv` output is byte-for-byte identical with and without
+  it, and so is a raw binder-name walk over `ConstantInfo.type`, which gives
+  `[F, inst…_hyg.3, W, inst…_hyg.8, inst…_hyg.11, inst…_hyg.14, h2, n, hn]` both ways.
+  ⚠️ **There was never a name for the `omit` to remove** —
+  `EllipticCurves.Torsion.OddTorsionCount`:193 is
+  `variable [DecidableEq F] [IsAlgClosed F] [W.IsElliptic]`, three anonymous instance binders — and
+  the unmodified file **already** prints `[inst_1 : DecidableEq F]` beside an unnamed
+  `[IsAlgClosed F]`, because the pretty printer names a binder only when the rest of the type
+  mentions it.  That asymmetry is the printer's and is not evidence of anything the `omit` did.
 * the same edit before `torsionOddOfRoot_bijective`, a `lemma` — the build fails, with
-  `error: cannot omit referenced section variable 'inst✝¹'`.
+  `` error: cannot omit referenced section variable `inst✝¹` ``.
   ⚠️ **This is the sound half of the test and it says the closure IS load-bearing.**
 * a two-declaration control outside this development reproduces the split exactly: `omit` before a
   `def` whose body calls `IsAlgClosed.exists_pow_nat_eq` compiles and keeps the binder; `omit`
@@ -94,9 +122,13 @@ the second.  The even-`n` count is **not** this statement with `Odd n` deleted:
   are singletons, and the count is `2 · #{roots of preΨₙ} + #{roots of Ψ₂Sq} + 1`;
 * that arithmetic reaches `n²` only if the two root sets are **disjoint**, i.e. only from
   `IsCoprime (W.preΨ n) W.Ψ₂Sq` at even `n`.  ⚠️ **The tree does not have it.**
-  `IsCoprime W.Ψ₃ W.Ψ₂Sq` is merged (`EllipticCurves.Torsion.TwoThreeDisjoint`) and `3` is odd;
-  the odd-`n` form of the same fact is `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`, which spends
-  oddness in terms.
+  `IsCoprime W.Ψ₃ W.Ψ₂Sq` is merged as `WeierstrassCurve.isCoprime_Ψ₃_Ψ₂Sq`
+  (`EllipticCurves.DivisionPolynomial.Coprime`:657, namespace `WeierstrassCurve` and **not**
+  `WeierstrassCurve.Affine`) and `3` is odd.  ⚠️ **`EllipticCurves.Torsion.TwoThreeDisjoint`
+  declares nothing of that kind** — its own line 13 points at `Coprime` for it, and what that file
+  does carry is the pointwise form `ψ_three_evalEval_ne_zero_of_ψ_two_evalEval_eq_zero`, which this
+  file calls at `:208`.  The odd-`n` form of the polynomial fact is
+  `eval_Ψ₂Sq_ne_zero_of_eval_preΨ_eq_zero`, which spends oddness in terms.
 * ⚠️⚠️ **`card_torsion_two_of_splits` is therefore not recoverable from any form below, and the
   reason is a degeneracy and not the parity**: `W.preΨ 2 = 1` (machine-checked below), so at
   `n = 2` the hypotheses of the general form are *vacuously true* — a unit splits and has no roots
@@ -112,9 +144,16 @@ satisfiable over a field that is not algebraically closed at `n = 3`, and the re
 is the machine-checked half of that.  ⚠️ **No certificate is shipped at `n ≥ 5` and the gap is
 real**: over `ℚ` the two hypotheses together say `E[n] ⊆ E(F)`, which forces `μₙ ⊆ F` through the
 Weil pairing and is unsatisfiable for every `n ≥ 3`, so a certificate needs a finite base and a
-degree-`(n² − 1)/2` polynomial split over it.  That argument is classical, is **not formalised
-anywhere in this tree** — `#244` is the Weil-pairing front — and nothing in this file rests on it;
-it is recorded because it is also why `#2296`'s tower is not a convenience.
+degree-`(n² − 1)/2` polynomial split over it.  That argument is classical and is **not formalised
+anywhere in this tree**, but the gap is narrower than *"the Weil pairing is unbuilt here"*:
+`EllipticCurves/FunctionField/` carries **73** `WeilPairing*` modules, among them a general-`n`
+non-degenerate pairing (`WeilPairingNondegenerateN`) and a general-`n` perfect one
+(`WeilPairingPerfectN`, `bijective_weilPairingNHom`).  ⚠️ **What the `μₙ ⊆ F` step needs is
+surjectivity onto `μₙ`, and that is `WeilPairingSurjective`'s `weilPairingTwo_surjective` and
+`weilPairingThree_surjective` — `n = 2` and `n = 3` only, and under that file's own
+`[IsAlgClosed F]` (`:151`), so valued in `μₙ(F̄)` rather than in `μₙ(F)`.**  `#244` is the open
+umbrella over the front, not a statement that the front is empty.  Nothing in this file rests on
+any of it; it is recorded because it is also why `#2296`'s tower is not a convenience.
 
 ## Main statements
 
@@ -309,6 +348,14 @@ theorem card_torsion_odd_of_isSquare (h2 : (2 : F) ≠ 0) {n : ℕ} (hodd : Odd 
     Nat.card_eq_fintype_card]
   ring
 
+/-- `2 · (n² − 1)/2 + 1 = n²` at odd `n`, in `ℕ` with truncated subtraction and division.
+
+⚠️ **This re-proves `EllipticCurves.Torsion.OddTorsionCount`'s own `two_mul_pred_sq_div_two_add_one`
+(`:325`), statement for statement**, and the duplication is forced only by that one being `private`
+in a file this one imports directly.  **The cheaper repair is one word there — drop the `private` —
+and it is named here rather than taken**, because it is a change to another module's interface and
+`#2250` round 2's standard on this board is to report such a change rather than route around it
+inside a row scoped elsewhere. -/
 private lemma two_mul_pred_sq_div_two_add_one {n : ℕ} (hn : Odd n) :
     2 * ((n ^ 2 - 1) / 2) + 1 = n ^ 2 := by
   obtain ⟨k, hk⟩ := hn
