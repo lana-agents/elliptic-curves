@@ -171,30 +171,61 @@ same single prefix, and `LeanSearchClient`'s **8** either way, since it vendors 
 starred, so run verbatim over these same **9451** files the pattern matches **9401** — every file
 carrying an `import` line of any shape, the **50** it misses having none at all — and **8665** is
 what the group returns only once it is required to repeat.  ⚠️ **`protected`, which that pattern
-names and these rows do not, is inert**: a prefix census over all **10546** `.lean` files of both
-trees reads `{public: 35205, public meta: 965, meta: 13}`, with `private import` never occurring
-either, so the three-modifier alternation above returns the same **8665** as the four.  ⚠️ **The
-`10546` in that sentence is a stale population figure, filed as `#2303` and deliberately not
-re-keyed here**: it is `10107 + 439`, the project half keyed to the control row's old `9f25690`,
-and reads **10564** at `a0d5593` — while the three buckets are invariant under that drift, since no
-project file carries a modifier-prefixed `import` at all.
+names and these rows do not, is inert**: a prefix census over all **10564** `.lean` files of both
+trees at `e1c56c14` — **10107** vendored and **457** project, ⚠️ **both terms a whole-tree `find`
+with nothing excluded on either side** — reads `{public: 35205, public meta: 965, meta: 13}`, with
+`private import` never occurring either, so the three-modifier alternation above returns the same
+**8665** as the four.
+
+⚠️ **That population is a SUM with one pinned term, and saying so is what makes the cell cheap**:
+`<both trees> = 10107 + <project .lean files>`, the vendored term pin-bound and the project term
+the only live measurement in it, so a reader re-derives the cell from one `find` and localises any
+future drift to the project half in one reading.  ⚠️ **The cell read `10546` until `#2303`**: that
+was `10107 + 439`, and the `439` was the census control row's value at `9f25690` — ⚠️ **a sha this
+sentence never named, inherited from a row fifty lines above it**.  ⚠️ **Its two terms were not
+scoped alike either**: `439` is the `EllipticCurves/`-**directory** count set against a whole-tree
+vendored `find`, so it fell short by the root aggregator `EllipticCurves.lean` as well as by the
+tree's growth, and **457**, the all-tracked count, is the term that matches.  ⚠️ **The three
+buckets did not move with it, and that is a relation and not luck**: no project file carries a
+modifier-prefixed `import` at all — all **1758** project `import` lines are bare — so the project
+term moves the population and can never move the buckets.
 
 ⚠️ **THE CENSUS TABLE'S ONLY ROT-CAPABLE ROW IS ITS CONTROL ROW — measured, not supposed, and it is
 why the project row carries a ref where the nine below it need none.  ⚠️⚠️ IT SAYS NOTHING ABOUT THE
 CLOSURE TABLE AT THE HEAD OF THIS SECTION, WHERE EVERY ROW CAN ROT, BECAUSE A CLOSURE OVER A GROWING
-TREE GROWS.**  The earlier wording opened *"the table's"* without naming which table, and that is
-how the closure table's third row stood stale from `263f6e1` across the **261** commits to `a0d5593`
-under a sentence a reader takes for a clearance (`#2300`).  ⚠️ **The observed asymmetry is worth
-keeping and is not a property of the table**: over `320f413..a0d5593` a leaf with an empty project
-closure was inert (`968` unmoved), a 22-module consumer happened not to move (`2668` unmoved), and
-the 74-module one moved to **107 / 2838**.  **Inertness is luck about where a module sits.**  The
-vendored rows are pinned: `lake-manifest.json` has not moved since `74fca19` (2026-07-26), so none
-of them can shift without a pin bump.  The project row tracks a live tree that **186** commits
-touched in `e3c0db2..9f25690`, and it drifted `386 → 439` — `+53` in columns 1 and 3, column 2
-unmoved at `0`.  ⚠️ **The row was never WRONG; it went STALE**: at `e3c0db2`, the commit that wrote
-it, the relation reads `386 / 0 / 386` exactly.  **A census whose control is the first cell of it to
-go stale reads as broken when it is only out of date**, which is how it read — `#2259` found it
-while `#2257` shipped on *"every row is exact"*, true of the other nine.
+TREE GROWS.  ⚠️⚠️ AND IT SAYS NOTHING ABOUT ANYTHING THAT IS NOT A ROW — THE DISCRIMINATOR IS THE
+TERM AND NOT THE TABLE.**  A figure rots exactly when some term of it reads a tree that moves.  The
+nine vendored rows, `9451`, `8578` / `8580` / `8665`, the `8920`-scoped trio, `10107`, `85`, the
+prefix-census buckets and the comment-mask prices read `.lake/packages` alone and are pinned for the
+reason given below; every figure carrying a project term can rot, **in a table cell or in a sentence
+indifferently**, and the one that did so unnoticed was `10546` — a numeral in a paragraph, which is
+exactly where a row-shaped clearance does not look (`#2303`).  The earlier wording opened *"the
+table's"* without naming which table, and that is how the closure table's third row stood stale from
+`263f6e1` across the **261** commits to `a0d5593` under a sentence a reader takes for a clearance
+(`#2300`).  ⚠️ **The observed asymmetry is worth keeping and is not a property of the table**: over
+`320f413..a0d5593` a leaf with an empty project closure was inert (`968` unmoved), a 22-module
+consumer happened not to move (`2668` unmoved), and the 74-module one moved to **107 / 2838**.
+**Inertness is luck about where a module sits.**  The vendored rows are pinned: `lake-manifest.json`
+has not moved since `74fca19` (2026-07-26), so none of them can shift without a pin bump.  The
+project row tracks a live tree that **186** commits touched in `e3c0db2..9f25690`, and it drifted
+`386 → 439` — `+53` in columns 1 and 3, column 2 unmoved at `0`.  ⚠️ **The row was never WRONG; it
+went STALE**: at `e3c0db2`, the commit that wrote it, the relation reads `386 / 0 / 386` exactly.
+**A census whose control is the first cell of it to go stale reads as broken when it is only out of
+date**, which is how it read — `#2259` found it while `#2257` shipped on *"every row is exact"*,
+true of the other nine.
+
+⚠️ **Published sweep, because a rot clause whose population is withheld clears nothing.**  Over
+this whole section, counting every numeral outside a sha, an issue tag, a toolchain version and a
+date: **111** distinct values in **237** occurrences at the base `e1c56c14`, and **116** in **265**
+here.  ⚠️ **That second pair counts itself** — a published census of the paragraph it sits in is a
+fixed point — **so it was iterated to one and not estimated.**  Exactly **one** value of the base
+population was a live-tree numeral carrying no ref: `10546`, paid above.  ⚠️ **Two more are
+live-tree and keyed, so stale rather than wrong** — the control row `439 / 0 / 439` at `9f25690`,
+which reads `456 / 0 / 456` (`#2302`), and the **3768** build-job count at the end of this section,
+which reads **3769** here, `+1` for the single module `8e55647` added (`#2304`).  **Neither is
+folded in and both are filed.**  ⚠️ **Publishing the population is the whole point**: it lets a
+later reader disagree with the classification and not merely with the hits, which a bare
+*"swept, clean"* cannot.
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
