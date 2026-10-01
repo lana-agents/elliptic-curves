@@ -171,7 +171,34 @@ theorem nsmul_genericPoint_ne_torsionPointMap (n : ℕ) {T : W.Point} (hT : n �
 
 open Classical in
 /-- **The criterion.**  One base-field point that is not `n`-torsion makes the `x`-coordinate of
-`n • 𝒫` transcendental over `F` — which is exactly the hypothesis `mulByNEndo` takes. -/
+`n • 𝒫` transcendental over `F` — which is exactly the hypothesis `mulByNEndo` takes.
+
+⚠️ **A caller that binds its own `[DecidableEq _]` must bridge one instance, and this is the only
+place that fact is written down.**  This statement is `open Classical in`, so its `n • T`
+elaborates `Point.instAddCommGroup` at `fun a b => Classical.propDecidable (a = b)`.  A caller
+whose own `n • P ≠ 0` was formed under a *bound* `[DecidableEq N]` therefore hands over a term at a
+different instance path, and the application fails with `Application type mismatch`, printing
+`@Point.instAddCommGroup N _ (W⁄N) inst✝` against
+`@Point.instAddCommGroup N _ W⁄N fun a b => Classical.propDecidable (a = b)`.  ⚠️ **The two are
+equal by `Subsingleton.elim`, so one step closes it**: `convert … using 9` does, where `using 8`
+stops at `Subsingleton (AddCommGroup _)`.  The live case is
+`exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`
+(`EllipticCurves.FunctionField.PullbackPrincipalityNGeneral`), whose `hP` is exactly the `T` this
+asks for — so it buys the `N`-side transcendence with **no** `(2 : F) ≠ 0`, **no**
+`((n : ℤ) : F) ≠ 0`, no closure and no smoothness.
+
+⚠️⚠️ **The saving does not reach that caller's index hypothesis, and that is the part worth
+recording here rather than re-measuring there.**  Stated as a relation rather than a count, on
+`#2300`'s and `#2302`'s precedent: `hn : ((n : ℤ) : F) ≠ 0` is held there by
+`exists_nsmul_divisor_eq_divisor_mulByNEndo_of_card`, which binds that condition over whatever base
+it is read at and is applied at `W⁄N` over `N`.  ⚠️ **That `((n : ℤ) : N) ≠ 0` and `hn` are
+INTERDERIVABLE** — `algebraMap F N` is injective, so `map_eq_zero` goes both ways — **so no weaker
+`F`-side hypothesis substitutes, and cheapening the transcendence cannot move the binder.**  The
+conclusion is invariant under how `h'` is produced; only the count is not.  At `22db66e` the
+consumers of `hn` are exactly two, and neither is a transcendence route: `hn0 : n ≠ 0`, for
+`exists_nsmul_divisor_eq_of_functionFieldMap`
+(`EllipticCurves.FunctionField.DivisorGaloisDescentNsmul`), and `((n : ℤ) : N) ≠ 0` for
+`…_of_card` above — `h'` is a *binder* at that ref and so consumes nothing (`#2306`). -/
 theorem transcendental_xCoord_nsmul_genericPoint (n : ℕ) {T : W.Point} (hT : n • T ≠ 0) :
     Transcendental F (n • genericPoint (W := W)).xCoord := by
   intro hx
@@ -185,6 +212,22 @@ theorem transcendental_xCoord_nsmul_genericPoint (n : ℕ) {T : W.Point} (hT : n
   conv_lhs => rw [Point.eq_some_of_ne_zero hne]
   rw [Point.some.injEq]
   exact ⟨hx0, hy0⟩
+
+/-- ⚠️ **The bridge of the docstring above, machine-checked rather than asserted** — a caller in
+the shape of `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois`, with `[DecidableEq N]` bound
+and no `Classical` on its own statement, reaching the criterion from a point that is not
+`n`-torsion and nothing else.
+
+⚠️ **Without the `convert` this does not elaborate**, and the message is the one the docstring
+quotes: the two `Point.instAddCommGroup` paths differ in their `DecidableEq N` argument alone.
+`using 9` is the depth that reaches it; `using 8` stops one constructor short, at
+`Subsingleton (AddCommGroup _)`.  **An `example` rather than a theorem because nothing should
+depend on it**: it certifies a route, and the route's only consumer is a caller that will inline
+these two lines. -/
+example (N : Type*) [Field N] [Algebra F N] [DecidableEq N] {n : ℕ} {P : (W⁄N).Point}
+    (hP : n • P ≠ 0) : Transcendental N (n • genericPoint (W := W⁄N)).xCoord := by
+  refine transcendental_xCoord_nsmul_genericPoint n (T := P) ?_
+  convert hP using 9
 
 /-! ### Over an algebraically closed field the hypothesis is automatic -/
 
