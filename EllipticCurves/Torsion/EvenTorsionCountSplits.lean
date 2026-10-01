@@ -74,7 +74,11 @@ That row's pricing comment identifies the second missing ingredient as *"an even
 `#E[n] = n² ↔ Separable (preΨ n)` BRIDGE"*, on the ground that
 `card_torsion_eq_sq_iff_separable_preΨ` (`EllipticCurves.Torsion.OddTorsionCount`) binds `Odd n` and
 that all six `Separable (preΨ …)` members in the tree are `Odd`-gated or at a fixed odd index.  ⚠️
-**Both halves of that census are correct and this file does not build the bridge.**  The `↔` is
+**Both halves of that census are correct AT `5710234`, the base of this file — and this file is what
+expires the second half.**  The six are exact there; here the population is **eight** and the two
+new members, `separable_preΨ_of_even` and `separable_preΨ` below, are the two that are not
+`Odd`-gated.  ⚠️ **The first half is untouched by that and is the half the paragraph rests on:
+this file does not build the bridge.**  The `↔` is
 still `Odd`-gated, and nothing here widens it: the chain above uses the counting *bound* instead, so
 separability comes out of `card_torsion_le_of_xCoords_of_selfNeg` and `card_torsion_eq_sq` and never
 passes through an iff.  ⚠️ **So the ingredient the row named as missing is still missing, and it
@@ -105,7 +109,7 @@ needed.  ⚠️ **That obstruction argument is classical and is formalised NOWHE
 named here as the reason no `n ≥ 4` certificate is shipped and must not be cited as a theorem of the
 repository.
 
-## ⚠️ Three private helpers are replicated rather than imported, and the count is the finding
+## ⚠️ Five private helpers are replicated rather than imported, and the count is the finding
 
 Each is `private` in a file this one imports directly, so none can be consumed:
 
@@ -115,13 +119,24 @@ Each is `private` in a file this one imports directly, so none can be consumed:
 * `four_ne_zero'` re-proves a `(2 : F) ≠ 0 → (4 : F) ≠ 0` step that is ⚠️ **already `private` in
   SEVEN files** (`FunctionField/MulByTwoDegree`, `FunctionField/MulByTwoFibreInfinity`,
   `FunctionField/MulByTwoPlaceAtInfinity`, `Torsion/HalvingExtension`, `Torsion/TwoTorsion`,
-  `Torsion/TwoTorsionSplittingField`, `Torsion/XSupport`), under four different names.  **This file
-  is the eighth copy.**
+  `Torsion/TwoTorsionSplittingField`, `Torsion/XSupport`), under **THREE** different names —
+  `four_ne_zero_of_two_ne_zero` in five of them, `four_ne_zero_of_two_ne_zero'` in
+  `Torsion/HalvingExtension`, `four_ne_zero` in `Torsion/XSupport`.  ⚠️ **This file is the eighth
+  copy and `four_ne_zero'` is a FOURTH name**, so the pairing is `7 ↔ 3` before this file and
+  `8 ↔ 4` with it — the two readings count different populations and neither is `7 ↔ 4`;
+* `Ψ₂Sq_fixture` (under `### Non-vacuity`) re-proves `EllipticCurves.Torsion.TwoTorsion`'s
+  `Ψ₂Sq_y2EqX3Add5X2Add4X` (`:407`), statement- and proof-identical;
+* `splits_Ψ₂Sq_fixture` re-proves that same file's `splits_Ψ₂Sq_y2EqX3Add5X2Add4X` (`:417`),
+  likewise — its two lines are those two lines with one name swapped.
 
-⚠️ **All three are named here rather than repaired**, on `#2250` round 2's report-rather-than-
+⚠️ **All five are named here rather than repaired**, on `#2250` round 2's report-rather-than-
 route-around standard: dropping `private` is a change to another module's interface and this row is
-scoped to the even-`n` count.  ⚠️ **The third one is the one worth a row of its own** — seven copies
+scoped to the even-`n` count.  ⚠️ **The third one is the one worth a row of its own** — eight copies
 under four names is not a local duplication, and one public `(4 : F) ≠ 0` helper retires all eight.
+⚠️ **The last two are a different shape and should not be read as an eighth-copy problem**: they
+duplicate a *certificate* and not a *step*, and they exist because `### Non-vacuity` reaches the
+same `ℚ` curve by a different route while `EllipticCurves.Torsion.TwoTorsion` keeps its fixture
+`private`.
 
 ## Main definitions
 
@@ -362,9 +377,10 @@ theorem separable_preΨ_of_even [W.IsElliptic] (h2 : (2 : F) ≠ 0) {n : ℕ} (h
 and `(n : F) ≠ 0` — the general-`n` member, with no parity hypothesis.
 
 ⚠️ **This is the statement `#2307` wanted and could not find**: its pricing comment enumerates the
-tree's six `Separable (preΨ …)` members and records that every one is `Odd`-gated or at a fixed odd
-index.  It is the two parities joined, not a new argument, and the even half is where the content
-is. -/
+six `Separable (preΨ …)` members the tree carried at `5710234` and records that every one is
+`Odd`-gated or at a fixed odd index.  ⚠️ **This declaration is one of the two that make that census
+eight and end its universal**; the module docstring keys it.  It is the two parities joined, not a
+new argument, and the even half is where the content is. -/
 theorem separable_preΨ [W.IsElliptic] (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (n : F) ≠ 0) :
     (W.preΨ (n : ℤ)).Separable := by
   rcases Nat.even_or_odd n with he | ho
@@ -431,7 +447,8 @@ only input that is not already a theorem.  The odd-`n` analogue is
 ⚠️ `[DecidableEq F]` is omitted rather than suppressed, and `linter.unusedDecidableInType` is right
 that it never reached the type: the statement is about a **polynomial** and not about `W.torsion n`,
 whose own type carries the instance through `Point.instAddCommGroup`.  That is `#2308`'s fact (a),
-and this is the third site in this file where the linter fires. -/
+and this is the file's **only** `omit`: deleting the line above and rebuilding the module emits
+exactly one `linter.unusedDecidableInType` warning, on this declaration and on no other. -/
 theorem card_roots_preΨ_of_splits_of_even (h2 : (2 : F) ≠ 0) {n : ℕ} (heven : Even n)
     (hn : (n : F) ≠ 0) (hsplits : (W.preΨ (n : ℤ)).Splits) :
     Nat.card {x : F // (W.preΨ (n : ℤ)).eval x = 0} = (n ^ 2 - 4) / 2 := by
@@ -631,7 +648,7 @@ open EllipticCurves.Fixture
 
 /-- The `2`-torsion cubic of the certificate curve, factored: `4X³ + 20X² + 16X`.  ⚠️ A copy of
 `EllipticCurves.Torsion.TwoTorsion`'s `Ψ₂Sq_y2EqX3Add5X2Add4X`, which is `private` there; see the
-module docstring on the three replicated helpers. -/
+module docstring on the five replicated helpers, of which this is the fourth. -/
 private lemma Ψ₂Sq_fixture :
     (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq = C 4 * X * (X + C 1) * (X + C 4) := by
   simp only [WeierstrassCurve.Ψ₂Sq, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
@@ -641,7 +658,9 @@ private lemma Ψ₂Sq_fixture :
   ring
 
 /-- **The splitting hypothesis, discharged over `ℚ`** — a constant times three monic linear factors
-is a `Splits` witness on the nose. -/
+is a `Splits` witness on the nose.  ⚠️ A copy of `EllipticCurves.Torsion.TwoTorsion`'s
+`splits_Ψ₂Sq_y2EqX3Add5X2Add4X`, which is `private` there; the **fifth** replication, and the module
+docstring counts them. -/
 private lemma splits_Ψ₂Sq_fixture : (y2EqX3Add5X2Add4X ℚ).Ψ₂Sq.Splits := by
   rw [Ψ₂Sq_fixture]
   exact (((Splits.C 4).mul Splits.X).mul (Splits.X_add_C 1)).mul (Splits.X_add_C 4)
