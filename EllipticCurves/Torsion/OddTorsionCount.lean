@@ -178,7 +178,32 @@ rather than exporting it; `#1255` is the precedent for exporting instead, record
 (`EllipticCurves.Torsion.TriplingSurjective`).  ⚠️ **The namespace is `WeierstrassCurve.Affine` for
 want of a Mathlib
 mirror tree in this repository and for no better reason**; a statement about `Polynomial` alone
-belongs elsewhere and should move if one is ever added. -/
+belongs elsewhere and should move if one is ever added.
+
+⚠️ **This statement is also this tree's own negative control for `linter.unusedDecidableInType`,
+which is why it needs no `omit [DecidableEq F] in` where three later lemmas in this file do**
+(`#2308`).  That linter keys on **the elaborated type**, exactly as its name and its own message —
+*does not use the following hypothesis in its type* — both say, and ⚠️ **a pretty-printed signature
+cannot settle that, because `#check` suppresses instance arguments**: under
+`set_option pp.explicit true` the `[DecidableEq F]` of `WeierstrassCurve.Affine.torsion` appears
+inside `Point.instAddCommGroup`, so it does reach the type of every `W.torsion n` statement, while
+the printed signature shows only a binder that nothing later mentions.  Measured in this tree, Lean
+`4.32.0`:
+
+* a `W.torsion n` statement is silent where a `Nat.card` subtype-of-`F` statement fires, on the
+  *same* `rfl` proof — so the statement and not the proof is the discriminator;
+* ⚠️ a subtype statement whose proof term does carry the instance **still fires**, so proof use is
+  not a second route to silence;
+* ⚠️⚠️ **but a statement concluding in a `Multiset.toFinset` cardinality is silent, because
+  `toFinset` binds `[DecidableEq F]` in its own type** — which is this one, and is why the three
+  `omit [DecidableEq F] in` lines below (on `nonsingular_fibreY`, `separable_preΨ_three` and
+  `separable_Ψ₃_of_isAlgClosed`) are each needed and no fourth one is;
+* whether the instance is bound on the declaration, as here, or inherited from a section `variable`
+  makes no difference to any of the above.
+
+⚠️ **So *about a polynomial rather than about `W.torsion n`* is a sufficient-in-practice proxy and
+not the criterion.  The criterion is whether the instance occurs in the elaborated type, and a
+`Finset`-valued conclusion satisfies it as surely as a `torsion` one.** -/
 theorem card_root_subtype [DecidableEq F] {p : F[X]} (hp : p ≠ 0) :
     Nat.card {x : F // p.eval x = 0} = p.roots.toFinset.card := by
   classical
@@ -258,7 +283,25 @@ lemma fibreY_injective {x : F} (hΨ : W.Ψ₂Sq.eval x ≠ 0) :
     exact absurd h hne
   · rfl
 
-/-! ### The bijection -/
+/-! ### The bijection
+
+⚠️ **This section's `[IsAlgClosed F]` is load-bearing, and `omit`-and-build cannot establish that —
+on `torsionOddEquiv` that test returns a FALSE GREEN** (`#2308`).  `omit [IsAlgClosed F] in` placed
+before the `noncomputable def` compiles with no error and no warning at all; the same line before
+`torsionOddOfRoot_bijective` fails, with Lean quoting the hygienic variable name in backticks, and
+that failure is the sound half of the pair.  ⚠️⚠️ **And on the `def` the line is a TOTAL no-op
+rather than a name removal with an anonymous re-add**: with it and without it the output of
+`#check @torsionOddEquiv` is byte-for-byte identical, and so is a binder-name walk over the
+declaration's `ConstantInfo.type`, down to the hygienic suffixes.  **There was never a name to
+remove** — the `variable` line of this section is three *anonymous* instance binders — and the
+asymmetry a reader sees, `DecidableEq F` printed with a name beside an unnamed `IsAlgClosed F`, is
+already there in the unmodified file: the pretty printer names a binder only when the rest of the
+type mentions it.  ⚠️ **So the test that decides a binder claim is `#check` on the elaborated
+signature (`#2266`), and where that cannot separate *kept* from *re-added* the binder walk can.**
+Two notes for whoever repeats it: an `omit` goes **before** the doc comment, because after it Lean
+reports an unexpected-token parse error that is easy to mistake for a result; and a blank line
+between the two trips `linter.style.emptyLine`.  Measured at `22db66e`, Lean `4.32.0`.
+-/
 
 variable (W) in
 /-- **The `n`-torsion point above a root of `preΨₙ` selected by a `Bool`**, with `none` sent to the
