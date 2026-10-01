@@ -104,33 +104,64 @@ that list because it is a real difference from this file's own binders**, under
 `MulByNComposition`'s standing ruling that `(2 : F) ≠ 0` and `(3 : F) ≠ 0` *"stay named, and every
 headline above that makes a hypothesis-list claim carries them"*.
 
-⚠️⚠️ **THE PRODUCERS ARE FOUR AND NOT THREE, AND THE FOURTH IS THE ENGINE OF TWO OF THE OTHERS** —
-this census is keyed to the signatures and not to the `transcendental_xCoord_nsmul_of_*` naming,
-which is what hid the fourth from this finding's first wording and from two notes on `#2296`:
+⚠️⚠️ **THE PRODUCERS ARE FOUR AND NOT THREE, AND THE FOURTH IS THE ENGINE OF EXACTLY ONE OF THE
+OTHERS** — this census is keyed to the signatures and not to the `transcendental_xCoord_nsmul_of_*`
+naming, which is what hid the fourth from this finding's first wording and from two notes on
+`#2296`.  ⚠️ **That *one* is a transitive measurement and not a name grep**: of the other three only
+`_of_isAlgClosed` reaches the criterion through any chain of proof terms at all, and
+`…_of_intCast_ne_zero`, `_of_smooth` and `transcendental_xCoord_three_nsmul` each argue
+independently — the walk behind that is over the whole transitive closure of their proof terms and
+not over their statements.  The four:
 
 * ⚠️ `transcendental_xCoord_nsmul_genericPoint` — **the criterion**, whose own docstring title is
   that word in those terms.  Binds one `T : W.Point` with `n • T ≠ 0` and ⚠️ **no field hypothesis
-  whatever**.  **Applies at `((n : ℤ) : F) = 0`.**
+  whatever**, so `((n : ℤ) : F) = 0` has nothing here to meet: **it applies there, and its
+  availability is invariant in the index.**
 * `…_nsmul_genericPoint_of_intCast_ne_zero`, and its `baseChange` form used below.  Binds
-  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ **The one of the four that does NOT apply at
-  `((n : ℤ) : F) = 0`.**
+  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`.  ⚠️ **Inconsistent with `((n : ℤ) : F) = 0` outright: it
+  binds the negation.**
 * `…_nsmul_of_isAlgClosed`.  Binds `[IsAlgClosed F]`, `(2 : F) ≠ 0` and `n ≠ 0` — ⚠️ **no condition
-  on `((n : ℤ) : F)` at all.  Applies at `((n : ℤ) : F) = 0`.**
-* `…_nsmul_of_smooth`.  Binds `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness.
-  **Applies at `((n : ℤ) : F) = 0`.**
+  on `((n : ℤ) : F)` at all, and it applies there**, on the witness below.
+* `…_nsmul_of_smooth`.  Binds `(2 : F) ≠ 0`, `(3 : F) ≠ 0`, `n ≠ 0` and `3`-smoothness.  ⚠️⚠️ **Its
+  hypotheses are JOINTLY INCONSISTENT with `((n : ℤ) : F) = 0`, so it does NOT apply there**:
+  `(n : F) = 0` with `n ≠ 0` forces `ringChar F ∣ n`, `3`-smoothness puts that prime in `{2, 3}`,
+  and `(2 : F) ≠ 0` with `(3 : F) ≠ 0` rules out both.
 
 The criterion and `_of_isAlgClosed` are in the same file,
 `EllipticCurves.FunctionField.MulByNTranscendence`, and ⚠️ **the second is a two-line corollary of
 the first** — it buys the criterion's `T` from `exists_nsmul_ne_zero_of_isAlgClosed`, and that is
 all the closure is for.
 
+⚠️⚠️ **AND A SECOND CELL OF THIS PARAGRAPH WAS WRONG, AND IT IS NOT ONE EITHER REVIEW CHARGED**: the
+heading above read *"THE ENGINE OF TWO OF THE OTHERS"* until this round, and the proof-term walk
+says **one**.  ⚠️ **Two independent reviews read this paragraph and neither tested that cell** — it
+is a count standing beside a correct structural claim and borrowing its credibility, which is
+exactly the shape of the applicability cell below.  **Walk the proof terms: a name grep over callers
+is not a reading of the relation.**
+
 ⚠️ **The first wording of this paragraph said `_of_smooth`** *"remains the only one of the three
-producers that applies when `((n : ℤ) : F) = 0`"*, **and that is RETIRED as false twice over.**
-`_of_isAlgClosed` binds no condition on `((n : ℤ) : F)` whatever, and `MulByNXCoordFormula` rules
-exactly that configuration in its *"incomparable, not nested"* paragraph — *"the merged one applies
-and this one does not"* — immediately above the one this file draws the base-change reading from.
-And the criterion binds no field condition either.  **Only the second member of that list fails at
-`((n : ℤ) : F) = 0`; the other three hold.**
+producers that applies when `((n : ℤ) : F) = 0`"*, **and that is RETIRED as false in three ways and
+not two.**  `_of_isAlgClosed` binds no condition on `((n : ℤ) : F)` whatever, and
+`MulByNXCoordFormula` rules exactly that configuration in its *"incomparable, not nested"* paragraph
+— *"the merged one applies and this one does not"* — immediately above the one this file draws the
+base-change reading from.  And the criterion binds no field condition either.  ⚠️⚠️ **The third way
+is the member the universal names: `_of_smooth` is not in that class at all.**  So the count is
+**TWO of the four and not three** — the criterion and `_of_isAlgClosed` apply at
+`((n : ℤ) : F) = 0`, and the other two are each inconsistent with it.
+
+⚠️⚠️ **One field settles three of those four rows, and it is the field where `(3 : F) ≠ 0` dies.**
+Over `F = AlgebraicClosure (ZMod 3)` at `n = 3` the four conditions `[IsAlgClosed F]`, `n ≠ 0`,
+`(2 : F) ≠ 0` and `((n : ℤ) : F) = 0` hold **together** — so `_of_isAlgClosed`'s row is a positive
+witness rather than an absence of a refutation — while at that same field `(3 : F) = 0`, which is
+exactly the binder `_of_smooth` asks for and cannot have.
+
+⚠️⚠️ **AND THE CELL THAT MOVED IS THE ONE A LATER READING COULD NOT RECONSTRUCT: restoring
+`(3 : F) ≠ 0` to `_of_smooth`'s list is what emptied its regime.**  The round that first wrote this
+paragraph had dropped that binder, and with it dropped `_of_smooth` *did* apply at
+`((n : ℤ) : F) = 0` — characteristic `3` at `n = 3` meets every hypothesis it then had.  ⚠️ **The
+repair that restored the binder and the applicability claim that survived it were in the same diff,
+and no build, lint, hygiene or render gate can see that.**  **When a round restores a dropped
+hypothesis, re-read every applicability claim in the same paragraph.**
 
 ⚠️⚠️ **AND THE CRITERION DISCHARGES `h'` FROM `hP` ALONE, WHICH IS STRICTLY STRONGER THAN THIS
 FINDING'S HEADLINE AND IS NOT THE ROUTE THE PROOFS BELOW TAKE.**  `hP` is already a hypothesis of
