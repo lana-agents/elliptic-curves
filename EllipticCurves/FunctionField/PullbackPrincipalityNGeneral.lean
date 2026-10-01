@@ -209,11 +209,14 @@ producer is a separate difference and is worth naming on its own: at a fixed num
 reason is `#2309`'s: three rounds of `#2296` *"have now each repaired a count in this paragraph and
 each introduced another"*, and a census of them with its population published is what breaks that.
 **Population:** every line of this `### ⚠️ FINDING 1`, from its heading down to the last non-blank
-line before this paragraph — **136** lines at this round's head, and **122** at `5710234`, where
-the bound is `### ⚠️ FINDING 2` instead because this paragraph did not exist there.  ⚠️ **This
-paragraph is excluded from its own population, which is the only way the figure is a fixed point**;
-re-run the sweep after any edit ABOVE it.  **Stage 1, mechanical and the reproducible half:** mask
-every backtick span and every `*"…"*` marked quotation, then take every word-boundary occurrence of
+line before this paragraph — **136** lines at this round's head, and **122** at `5710234`.  ⚠️ **THE
+TWO BOUNDS ARE DIFFERENT OBJECTS AND A RE-RUNNER AT A THIRD REF HAS TO CHOOSE BETWEEN THEM — NOT BY
+THE REF'S NAME**: the lower bound is this census paragraph at any ref that carries it, and
+`### ⚠️ FINDING 2` at any ref that does not, because at `5710234` this paragraph did not exist.
+**Those two — this paragraph, and that heading — are the whole of the choice.**  ⚠️ **This paragraph
+is excluded from its own population, which is the only way the figure is a fixed point**; re-run the
+sweep after any edit ABOVE it.  **Stage 1, mechanical and the reproducible half:** mask every
+backtick span and every `*"…"*` marked quotation, then take every word-boundary occurrence of
 `one`…`ten`, `both`, `single`, `either`, `neither` and every bare decimal integer — **56**
 candidates at `5710234`, **68** at this head.  ⚠️ **Stage 1 OVER-counts on purpose**: it keeps
 section, round and rung labels and the pronoun uses of *one*, because for a completeness sweep a
