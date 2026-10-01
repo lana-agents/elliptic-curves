@@ -111,7 +111,11 @@ repository.
 
 ## ⚠️ Five private helpers are replicated rather than imported, and the count is the finding
 
-Each is `private` in a file this one imports directly, so none can be consumed:
+Each is `private` in a file this one imports, so none can be consumed — privacy and not distance is
+what blocks consumption.  ⚠️ **The last two live in `EllipticCurves.Torsion.TwoTorsion`, which this
+file does NOT import directly: it reaches that module through
+`EllipticCurves.Torsion.ThreeTorsionStructure`.**  ⚠️ **Both line addresses below resolve at
+`d33d34f`, and the seven-file / three-name population in the third bullet is measured there**:
 
 * `ncard_setOf_isRoot_le'` re-proves `EllipticCurves.Torsion.XSupport`'s `ncard_setOf_isRoot_le`;
 * `algebraMap_natCast_ne_zero'` re-proves `EllipticCurves.Torsion.OddTorsionCountSplits`' lemma of
@@ -123,16 +127,27 @@ Each is `private` in a file this one imports directly, so none can be consumed:
   `four_ne_zero_of_two_ne_zero` in five of them, `four_ne_zero_of_two_ne_zero'` in
   `Torsion/HalvingExtension`, `four_ne_zero` in `Torsion/XSupport`.  ⚠️ **This file is the eighth
   copy and `four_ne_zero'` is a FOURTH name**, so the pairing is `7 ↔ 3` before this file and
-  `8 ↔ 4` with it — the two readings count different populations and neither is `7 ↔ 4`;
+  `8 ↔ 4` with it — the two readings count different populations and neither is `7 ↔ 4`.
+  ⚠️⚠️ **This census has an expiry date, and the ref above is which side of it this sentence is
+  written on: `#2312` (PR #896, in review as this is written) DELETES all seven and replaces them
+  with one public `four_ne_zero_of_two_ne_zero` in `EllipticCurves.Torsion.FourNeZero`.**  On that
+  landing order the seven are gone and this file's `four_ne_zero'` is the only copy left;
 * `Ψ₂Sq_fixture` (under `### Non-vacuity`) re-proves `EllipticCurves.Torsion.TwoTorsion`'s
   `Ψ₂Sq_y2EqX3Add5X2Add4X` (`:407`), statement- and proof-identical;
 * `splits_Ψ₂Sq_fixture` re-proves that same file's `splits_Ψ₂Sq_y2EqX3Add5X2Add4X` (`:417`),
-  likewise — its two lines are those two lines with one name swapped.
+  likewise — its two lines are those two lines with one name swapped.  ⚠️ **`#2312` is the mover for
+  these two addresses as well**: it deletes `EllipticCurves.Torsion.TwoTorsion`'s own copy of the
+  step bullet 3 is about, from above both of them, so both numbers move if it lands first.  **The
+  ref is the key and the pointer is the rest of it; the destinations are not published here, because
+  a destination is keyed to one head and that row has a round in flight.**
 
 ⚠️ **All five are named here rather than repaired**, on `#2250` round 2's report-rather-than-
 route-around standard: dropping `private` is a change to another module's interface and this row is
 scoped to the even-`n` count.  ⚠️ **The third one is the one worth a row of its own** — eight copies
 under four names is not a local duplication, and one public `(4 : F) ≠ 0` helper retires all eight.
+⚠️ **`#2312` is that row, and it retires SEVEN**: the eighth is this file's own `four_ne_zero'`,
+which that row cannot reach because this file is not in `main` yet, so a follow-up is owed on either
+landing order.
 ⚠️ **The last two are a different shape and should not be read as an eighth-copy problem**: they
 duplicate a *certificate* and not a *step*, and they exist because `### Non-vacuity` reaches the
 same `ℚ` curve by a different route while `EllipticCurves.Torsion.TwoTorsion` keeps its fixture
