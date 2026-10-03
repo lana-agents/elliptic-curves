@@ -69,16 +69,16 @@ group-theoretic half: the same three lines prove `τ_P∗ ∘ [n]∗ = [n]∗ �
 
 ⚠️ **The clause this paragraph used to carry has been paid** — it read *"What does not yet exist
 for general `n` is the input the route consumes: `mulByNEndo` and the correspondence
-`𝒫 + ⋯ + 𝒫 = (mulByNEndo genX, mulByNEndo genY)` are built separately at `n = 2`
-(`GenericDoubling`) and `n = 3` (`GenericTripling`) out of the explicit addition formulæ, and a
-uniform `n` needs the coordinate formula `#251`.  So general `n` is gated on `#251`, not on this
-file's technique."*  Both named inputs are `EllipticCurves.FunctionField.MulByNPullback`'s at
-every `n` — `mulByNEndo` and `nsmul_genericPoint_eq` — built from the **group law**, so the `ωₙ`
+`𝒫 + ⋯ + 𝒫 = (mulByNEndo genX, mulByNEndo genY)` are built separately at `n = 2` (`GenericDoubling`)
+and `n = 3` (`GenericTripling`) out of the explicit addition formulæ, and a uniform `n` needs the
+coordinate formula `#251`.  So general `n` is gated on `#251`, not on this file's technique."*  Both
+named inputs are `EllipticCurves.FunctionField.MulByNPullback`'s at every `n` at which `[n]` is
+non-constant — `mulByNEndo` and `nsmul_genericPoint_eq` — built from the **group law**, so the `ωₙ`
 gating was never real.  The theorem those inputs were wanted for is
 `translateEndo_mulByNEndo_apply_general` and its siblings in
-`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`, proved along exactly this route.
-⚠️ *It is not attempted here* — that clause is file-scoped and stays true; this file remains the
-`n = 3` slice.
+`EllipticCurves.FunctionField.TranslationMulByNCommGeneral`, proved along exactly this route. ⚠️ *It
+is not attempted here* — that clause is file-scoped and stays true; this file remains the `n = 3`
+slice.
 
 ⚠️ **`#404` is closed — and so is the statement the general-`n` entry above was relettered to.**
 PR #557 proved the on-curve identity for `(Φₙ/ΨSqₙ, ωₙ/ψₙ³)` at every index over a field with

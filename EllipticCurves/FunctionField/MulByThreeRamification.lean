@@ -92,7 +92,7 @@ So the three inputs that are `n`-dependent are all merged, and the work here is 
   three lines.  ⚠️ It is still not *here*, and cannot be: that file imports this one.
 * **General `n`.**  ⚠️ **The clause this bullet used to carry has been paid** — it read
   *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete endomorphisms this tree
-  has"*.  `[n]∗` at every `n` is `mulByNEndo`,
+  has"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is non-constant,
   `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ The `9` is `[3]`-specific and nothing
   general-`n` is attempted here.
