@@ -4773,6 +4773,155 @@ is the *"wider margin"* that row claims without having to be re-run. ⚠️ **Dr
 gives 9 and 52** — one exclusion, stated once in the source and owed at both ends of any
 re-measurement of it.
 
+### Hypothesis-absence clauses
+
+A **hypothesis-absence clause** is the negative of a reach clause. Instead of saying how far a
+declaration goes it says what the declaration does *not* need — *"needs no hypothesis on `F`"*,
+*"no hypothesis on the characteristic"*, *"needs no hypothesis and never did"*. It is an absence
+claim about a **signature**, and it lives in running prose rather than under a
+`## What is *not* here` heading, so neither `#1982`'s heading-keyed seed nor `#2036`'s
+outside-the-heading seed keys on it (`#2222`).
+
+⚠️ **It is the cheapest class on this page to falsify and it is the last one anybody ran**: the
+check is `#check @X` and one read of the telescope that prints.
+
+**A hypothesis-absence clause is scored against the named declaration's ELABORATED telescope and
+never against its source signature.** A section `variable` is a binder and `grep` cannot see it.
+The witness is `pullbackDivisorN_single_eq_sum_torsion_of_ne_zero` (`MulByNFibre`), whose source
+signature opens `(h2 : (2 : F) ≠ 0) {n : ℕ}` with no closure in sight and whose telescope carries
+`[IsAlgClosed F]`, picked up from the `section IsAlgClosed` it sits inside; that file's own
+docstring reads as though the row were closure-free and `#2217` is filed on it.
+`residueDegreeTwo_projPointOfPoint` (`PlaceInertiaGeneral`) is the cheap version of the same trap:
+the source binders are `(h2) (S)` and the telescope adds `[IsDedekindDomain W.CoordinateRing]`
+and `[W.IsElliptic]`.
+
+Within the telescope:
+
+* **A binder is a hypothesis iff it is `Prop`-valued.** Data binders are never hypotheses however
+  much they mention the object: `{x : R}` and `(W : Affine F)` are what the statement is *about*,
+  and a reading that scored them would empty the class — no statement over `F` could satisfy such
+  a clause.
+* ⚠️ **`Prop`-valued *instance* binders are hypotheses too.** `[W.IsElliptic]`, `[NeZero n]`,
+  `[Fact (Nat.Prime ℓ)]` and `[IsAlgClosed F]` are all `Prop`; the square brackets say how the
+  argument is *found*, not whether the theorem needs it.
+* **A hypothesis is *on `Y`* iff `Y` occurs in its type.** ⚠️ **This is the reading the tree
+  itself already uses, and two landed sentences decide it**: `MulByTwoGalois` writes *"no
+  hypothesis on the characteristic beyond `(2 : F) ≠ 0`"* and `MulByThreeGalois` carries the same
+  sentence at `n = 3`. So `(2 : F) ≠ 0` **is** a hypothesis on the characteristic here, and all
+  those two leave open is how to except one. ⚠️ **The `n = 3` copy WRAPS** — its line ends at
+  *"and"* — so a line-keyed grep for the whole phrase returns the `n = 2` one alone, which is
+  `#2190`'s class sitting inside this one's evidence.
+* **The ambient setting is not an exemption, and a clause that means to except it says so.**
+  `PlaceAtInfinity`'s *"no hypothesis on `F` beyond `[Field F]`"* is the spelling that does.
+* ⚠️ **A bare *"needs no hypothesis"* with no object, stated against a NAMED comparand, is scored
+  on the difference of the two telescopes**, because that is what the sentence asserts.
+* ⚠️ **The *"beyond"* carve-out decides which binders the clause has already named — it does not
+  decide which binders count.** ⚠️ **An absolute clause names nothing, so it has no carve-out to
+  apply**, and that is the whole of the one defect below.
+
+⚠️ **The one confirmed false row, and why its obvious defence fails.** At `fd11b4a` this
+development's `[2]∗` counting argument read *"`residueDegreeTwo_projPointOfPoint`, which needs no
+hypothesis on `F`"*, and that theorem's telescope opens `(h2 : (2 : F) ≠ 0)`. ⚠️ **`h2` occurs in
+its own conclusion** — `residueDegreeTwo h2 (projPointOfPoint W S) = 1`, because the `[2]∗`
+residue degree cannot be *named* without it — and that is why the clause got written rather than a
+defence of it. An absolute clause has no *"beyond"* to lean on, so where the conclusion itself
+cannot be formed without a hypothesis on `F`, the two honest spellings are the *"beyond"* form and
+**naming the hypothesis-free statement instead**. The repair takes the second:
+`residueDegreeProj_projPointOfPoint` is `(S : W.Point)` alone,
+`residueDegreeTwo_projPointOfPoint` is by definition its composite with
+`residueDegreeTwo_eq_one_of_residueDegreeProj_eq_one h2`, and the bullet now says so. ⚠️ **The
+population does not move, and that is the point of repairing over deleting**: the sentence still
+carries the key, with a subject that makes it true.
+
+**The population, at `fd11b4a`, over the 434 tracked `.lean` files under `EllipticCurves/`** —
+each figure a `re.findall` of the key over each file's text, summed:
+
+| key | occurrences | files |
+|---|---|---|
+| `needs no hypothesis` | **9** | **9** |
+| `no hypothesis on` | **76** | **42** |
+| `needs none of` | **9** | **9** |
+| `\bunconditional` | **398** | **157** |
+
+⚠️ **`#2222` publishes `11 / 78 / 9 / 399` over `435` modules and every one of those cells is
+right — at `007e9954`, which is a head of PR #816 and not a commit on `main`.** Two of its eleven
+narrow rows are that branch's own prose: `PullbackPrincipalityThreeRationalTorsion` is a file the
+branch adds, and `MulByThreeGalois`'s occurrence of the **narrow** key is added by the same branch
+— on `main` that file carries the wide key and not the narrow one. ⚠️ **So the filing's *"THE
+CORRECT COPY IS ALREADY IN THE TREE, ONE INDEX UP"* names prose that has not landed**, and the
+repair above deliberately does not copy it: it is read off the `[2]∗` file's own composite and
+stands whether or not PR #816 lands. ⚠️ **A branch census is not a tree census even when its own
+sha is printed beside it** — that sha is exact, and the word *tree* is what carries the error.
+
+**The narrow key is 9 of 9 read at `fd11b4a`, 8 true and 1 false.** Keyed on the declaration each
+clause names, because the line each sits on is `#2037`'s class and moves:
+
+| the clause's subject | module | verdict |
+|---|---|---|
+| `eval_Φ_ne_zero_of_eval_ΨSq_adjacent_ne_zero` | `DivisionPolynomial/Coprime` | true |
+| `residueDegreeProj_none_eq_one` | `PlaceDegreeComparison` | true |
+| `sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre` | `PlaceInertiaGeneral` | true |
+| `XYIdeal_ne_bot` | `PointClosedPoint` | true |
+| ⚠️ `residueDegreeTwo_projPointOfPoint` | `PullbackPrincipalityTwoRationalTorsion` | ⚠️ **FALSE** |
+| `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` | `…RootIndependentHprin` | true |
+| `galoisDetThree` | `TateModule/DeterminantThree` | true |
+| `galoisDet_one` | `TateModule/PrimaryDeterminant` | true |
+| `hasPreΩSq_three` | `Torsion/OmegaCharZero` | true |
+
+Five of the eight true rows are true on the telescope alone and need no ruling:
+`[CommRing R]` is the only binder constraining `R` in the first;
+`residueDegreeProj_none_eq_one`'s one `Prop` instance is `[IsDedekindDomain W.CoordinateRing]`,
+which is not on `F`; `XYIdeal_ne_bot` binds `{x y : F}` and no `W.Equation x y`, where the
+`XYIdeal_isPrime` above it takes one; `galoisDetThree`'s telescope carries no `Prop` binder at
+all; and `hasPreΩSq_three` is `{R} [CommRing R] (W)`, certified where `2 = 0` by
+`hasPreΩSq_three_zmod_two`. ⚠️ **The other three are the rows the rules above exist for.**
+
+* `sum_toNat_ramificationIdx_mul_residueDegreeComap_fibre` is the cleanest row on the board: its
+  comparand `sum_toNat_ramificationIdx_fibre` carries `[IsAlgClosed F]`, and this telescope is
+  that one minus exactly that binder — which is also what its docstring says the change of proof
+  buys.
+* `galoisDet_one` is true on the comparand rule: it and `galoisTrace_one_of_nonempty` agree binder
+  for binder, `[Fact (Nat.Prime ℓ)]` included, and the comparand's extra explicit
+  `Nonempty (T ≃ₗ[ℤ_[ℓ]] ℤ_[ℓ] × ℤ_[ℓ])` is the whole of the difference.
+* `weilPairingMu_mul_swap_eq_one_of_weilPairingElt` is true on the *"beyond"* rule: it carries
+  four `Prop` binders its clause does not name — `[W.IsElliptic]`, the two `W.Equation` arguments
+  and `[NeZero n]` — and all four are exactly what `weilPairingMu` takes, so the conclusion cannot
+  be written down without them and none is *beyond* the data the clause does name. Its own point
+  (*"in particular it does not re-enter `hprin`"*) is exact.
+
+⚠️ **The wide key is triaged and NOT swept, and this is what the triage drops.** Of the **76**
+occurrences of `no hypothesis on`, **52** have a mechanically identifiable subject: **23** name a
+declaration of this development within two lines either side, **34** sit in a `/--` docstring and
+take the declaration it documents as their subject, and the two overlap. ⚠️ **24 are dropped.**
+**23** are `/-!` module-docstring clauses naming no declaration — *"no hypothesis on `n`, and no
+characteristic assumption"* is the shape, a claim about a whole section rather than about a
+signature, and the `**` that opens that sentence's emphasis is deliberately outside the span
+quoted here. The remaining **1** documents an anonymous `example`, which has no name to check.
+⚠️ **Six of the 76 are also narrow-key rows**, so the two keys are not disjoint and their union is
+**79**. `\bunconditional` at **398** is not triaged here at all: most of it is about Mathlib
+lemmas, and a sweep that did not say so would read as a clean bill over a population it never
+opened.
+
+⚠️ **Why this section is LAST in `## Docstring conventions` and not next to `### Reach clauses`,
+where it reads more naturally.** Three landed sentences are falsified by a `###` inserted anywhere
+between `### Reach clauses` and `### Scope of the rules above`: `### Gate-discharge claims` opens
+*"A third exemption is narrower still"* and counts from `### Reach clauses`;
+`### Module-block bullets` says *"The two registers above therefore reach it"*; and
+`### Reach clauses`' pointer at `### Scope of the rules above` is a **distance**, recorded above
+as *"one section down"* for a section three sections down, which an insertion would make four.
+⚠️ **That is this page's own prospective rule — a distance is falsified by any insertion between
+the pointer and its target — paid by the insertion rather than by a repair to the three
+sentences.** Sited here, every one of
+them still reads true, and the `### The render gate` pointer *"one section below"* does too.
+⚠️ **The cost is that `### Scope of the rules above` does not reach this section**: its per-block
+rule is adopted here by reference, and a repair to a hypothesis-absence clause is one place per
+block exactly as it is there. ⚠️ **The anchor was also chosen on the neighbour population and is
+the only admissible one that is free of it.** Of the three `###` boundaries below
+`### Scope of the rules above`, a `###` inserted before `### Retired claims` conflicts with PR
+#774 and PR #783, one before `### Import-closure membership` conflicts with PR #811, and this one
+conflicts with **none** of the thirty-eight open pull requests beyond the twelve that conflict
+with `main` itself.
+
 ## Building
 
 This project pins a specific Mathlib revision via `lake-manifest.json` and the

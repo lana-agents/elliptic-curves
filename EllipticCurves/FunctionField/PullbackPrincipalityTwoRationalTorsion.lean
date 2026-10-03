@@ -118,7 +118,9 @@ Over the fibre of `[2]∗` above a rational point `S`:
 
 * the four points `P ⊕ R`, `R ∈ E[2]`, are distinct (`projPointOfPoint_add_injective_two` with
   `hcard`), lie in the fibre (`comapProjPointTwo_add_torsion_two`), and each has `f_p = 1` because
-  it is rational — `residueDegreeTwo_projPointOfPoint`, which needs no hypothesis on `F`;
+  it is rational — `residueDegreeTwo_projPointOfPoint`, which is the composite of
+  `residueDegreeProj_projPointOfPoint`, the statement that needs no hypothesis on `F`, with the
+  bridge `residueDegreeTwo_eq_one_of_residueDegreeProj_eq_one`, which carries `h2`;
 * `e_p ≥ 1` everywhere (`ramificationIdxTwo_pos`) and `f_p ≥ 1` everywhere
   (`residueDegreeComap_pos` and its `[2]∗` instantiation `residueDegreeTwo_pos` below);
 * `∑_{p ↦ q} e_p · f_p = 4` (`sum_ramificationIdxTwo_mul_residueDegreeTwo_of_isSeparable`).
