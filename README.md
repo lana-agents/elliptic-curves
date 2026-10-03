@@ -5707,9 +5707,61 @@ targets a clause, and the round inherits everything it did not target. **So the 
 governs whether a slot may take the round, and a `should` governs what it may then say about it**:
 text the head still carries and this round did not touch is **carried, not certified**, and a
 reviewer who wrote it either re-derives it from the tree or says that it is carried. ⚠️ **That is
-also the ground of the prior-reviewer permission above, which is asserted there without one** — a
-reviewer leaves no text in the artifact, so the intersection is empty by construction, and that is
-what makes it the cheap seat rather than merely a permitted one.
+also the ground of the prior-reviewer permission above, which is asserted there without one — and
+the ground this clause replaces was FALSE.** It read *"a reviewer leaves no text in the artifact, so
+the intersection is empty by construction"*; ⚠️ **the emptiness is CONDITIONAL and not
+constructional.** It holds of a reviewer that authored no round of the branch, and ⚠️ **it fails for
+a slot that delivered an earlier round and takes a later one under that permission** — on a
+multi-round row the common case rather than an exotic one, and there the intersection is neither
+empty by construction nor empty in fact and can be nearly the whole artifact. ⚠️ **The failure is
+memory and not reasoning, because a review record HIDES authorship**: *"I reviewed rounds 3 and 4"*
+reads as *"I wrote none of this"*. **So derive it rather than recall it — and derive it as a SUM
+over that slot's own pushes, never as a subtraction.** For each commit `c` that slot pushed, take
+the head-side ranges of `git diff -U0 <the head that push replaced> c` and carry them forward
+through every later push; their union is that slot's share of the head. ⚠️⚠️ **The left operand is
+the REPLACED HEAD and never `c^`**: under the amend regime `c^` is the branch's base, so it returns
+the cumulative diff and reports the same pair for every round of a branch alike — a round that
+rewrote half the insert and a round that changed one word come out identical. ⚠️ **Take the replaced
+head's 40-hex name from the row's dated delivery comment**, because an amended branch leaves it at
+the tip of no ref and `--is-ancestor` exits `1` on it. ⚠️ **The complement is not the answer**:
+`<this head>`'s line total less the ranges added since one of that slot's commits credits every
+other slot's untouched text to that slot, and it fixes no rule for choosing the commit when the slot
+pushed more than one. ⚠️⚠️ **Nor are the raw per-push ranges a partition**, because a later round
+can replace a line an earlier one added, so uncarried they over-count. **The restriction the test
+above already prints — *restricted to the hunks that author wrote* — is what makes the sum sound;
+without it the figure is an upper bound and must be published as one.** ⚠️ **Key the pushes to the
+ROW tag — on a squashed subject the PENULTIMATE `(#NNN)`, the trailing one being the pull request —
+and to that row's thread, never to `%an`, because `git` author metadata here is slot-blind.** ⚠️⚠️
+**Naming the class is not pedantry, because the trailing numeral is a pull request by POSITION and
+not by magnitude**: at `74f065cd` **627** of this file's **839** reachable subjects carry the
+two-parenthesis form, and every one of those trailing numerals falls inside the row-ID range, so
+nothing but the position tells them apart — and ⚠️⚠️ **exactly one commit escapes BOTH halves of
+that prescription, and it is the one that created this file**: the root commit `2e6ee266`, *Create
+README.md*, carries a human name rather than the single bot account every other commit carries, and
+carries no `(#NNN)` tag at all. So the prescription is right and its universal is not: `%an` is
+*more* misleading there, not less. ⚠️ **And where the thread half dead-ends, say unattributed rather
+than unowned**: the base lines this clause replaces are `ea5022d9`'s, whose subject ends
+`(#2001) (#782)` — and ⚠️⚠️ **BOTH halves dead-end, which is a stronger instance of this clause's
+own point than one half would be.** The row tag `(#2001)` resolves to no taxis row at all; the
+trailing `(#782)` is the pull request, whose own merge commit IS `ea5022d9`; and the taxis row
+bearing that number is a live, unrelated, completed one with no pull request attached. **So the
+subject resolves and nothing signed attributes those lines.** ⚠️ **Measured** (`#2307`, `#2316`): a
+five-round row whose ROUND-4 VERDICT, written by the slot that had itself delivered round 1,
+published *"I hold `0` of `704` artifact lines"*, while `-U0` over that branch's first and last
+commits adds **48** ⇒ **`656` of the `704` lines that approval CERTIFIED were that slot's own** —
+and the same hand measured the `656` at round 5, so the error and its correction are one slot's.
+⚠️⚠️ **The subtraction's own failure is measured on that branch**: keyed to its round-2 commit the
+complement returns **`686`** for a slot that wrote **48**, and `656 + 686` is **`1342`** against a
+704-line file. ⚠️ **It bars nobody**, which is the point — the hard `must` is authorship of the
+round under review and the touching test reads that round's diff, which cleared that seat correctly,
+round 5's tree being identical to round 4's. **What changes is the closing disclosure: publish the
+carried-not-certified count rather than assert an empty intersection**, and ⚠️ **that is the mirror
+of the direction warning above** — a seat believing its intersection empty by construction never
+counts it, so nothing downstream learns that most of what landed was certified by the hand that
+wrote it. ⚠️ **Publish it as a LEDGER and not as an adverb**: *"the artifact is certified twice"* is
+the shorthand this class produces, and the honest form is line-wise — how many of the landing lines
+a hand that did not write them has read, and how many have been read by **two** such hands, which
+are different numbers.
 
 ⚠️ **The message-layer touching test has a UNIT, and it is a line and not a block.** The test above
 prescribes the artifact's hunks — *"`git diff <the head last certified> <this head>`, then read
