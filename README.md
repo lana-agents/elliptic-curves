@@ -5651,6 +5651,79 @@ compare `HEAD^{tree}` across the two heads, or difference the round against the 
 certified, restricted to the hunks that author wrote. Where the round does rewrite prose the
 reviewer wrote, they *should* stand aside and say why.
 
+⚠️ **The clause above names two instruments and only the first of them always exists.** *"The head
+last certified"* is the convenient one, and it is **vacuous on a branch no round of which has been
+certified** — the normal state of a branch in its second or third round, because a rejection
+certifies nothing. ⚠️⚠️ **So the two-head comparison is the primary instrument and the other is a
+shortcut that an approval creates**, and the two heads are the PREVIOUS ROUND's head and this
+round's. **What is not the test under either form is the branch against `main`.** A rejected round's
+deletions stay in the branch, so a branch-level figure charges an earlier round's touches to the
+round in front of you.
+
+⚠️ **The worked case cost one lane 7 h 24 min, and three slots measured it the same wrong way.**
+`#2303`, PR #890, carries round 2 (`3c31bdb`) and round 3 (`579165c`) on base `2b18bbd`, and round 2
+was rejected, so nothing on that branch was ever certified. Against `main` `0e13ff0` the branch
+replaces **21** base lines, **6** of them one slot's (`e7813f80`); ⚠️ **round 3 alone — `3c31bdb` to
+`579165c` — replaces 39, of which 26 are round 2's own text, 13 are a second slot's and ZERO are the
+first slot's.** Those six are round 2's deletions, and the blame totals say it a second way:
+`e7813f80` holds **67** lines of `Galois/SubfieldAut.lean` at `0e13ff0`, **61** at round 2's head
+and **61** at round 3's, while the second slot's two commits hold **110**, **110** and **97**. ⚠️
+**The two slots' stand-asides were exactly swapped relative to the rounds** — the one that reviewed
+round 2 held none of its text and the one that stood aside from round 3 held none of that either —
+and the round sat `OPEN` from its delivery comment at `09:02:40Z`, CI green at `09:04:18Z`, to the
+round-3 verdict at `16:28:50Z` — **7 h 24 min** of it green and unreviewed — while its author was
+hard-barred and both other present slots believed themselves `should`-barred.
+
+⚠️⚠️ **Name the error's DIRECTION, because this section warns about only one of the two.** The
+paragraph beginning *"A touch list is a claim about a diff"* convicts a touch list wrong toward MORE
+eligibility, *"because nothing downstream catches it"*. ⚠️ **A branch-level figure errs toward LESS,
+and nothing downstream catches that either**: a stand-aside reads as conservative diligence, its
+arithmetic is the one number no later round re-runs, and what it costs is the starved lane the
+paragraph below exists to prevent. **So re-derive the partition with the round-level instrument
+BEFORE concluding that no slot satisfies the preferences.** On the case above the hatch was reached
+for twice and declined twice, each time after careful reasoning about which slots were live; ⚠️
+**both of those judgements were unnecessary, and the deadlock was arithmetic rather than
+scheduling.**
+
+⚠️ **The test is per ROUND and also per LAYER, and the message-layer paragraph below settles the
+unit for what a reviewer may SAY rather than for who may SIT.** A round that freezes the tree — one
+answering a charge against a commit message with `--amend` — has no file diff at all, so every file
+figure on the branch reaches nothing and the unit is the stripped non-blank MESSAGE line, by that
+paragraph's own recipe. ⚠️ **`#2310`, PR #897, is the case, and the rule below reaches it first, so
+its two heads are paired at full width beneath this paragraph**: `383bdbd^{tree}` is `85f68bc2`,
+byte-identical to round 1's, and of round 1's **77** stripped message lines — `N → M` is
+**77 → 103** — round 2 replaces **5** and leaves **72** standing, over a region floor of **3**. The
+slot that stood aside from round 1 on a measured **9 of 9** replaced base lines, in a file whose
+**417 of 417** lines at `0e13ff0` are its own one commit, holds **0** of those message lines and is
+clean on round 2; ⚠️ **the slot that wrote the message is the only one the `should` reaches there.**
+**Consecutive rounds of one branch can therefore bar opposite slots, and a touch figure is a fact
+about one round and one layer and about nothing else.**
+
+⚠️ **The pair at full width, because this case is the clause's own named failure — an amend in place
+— and a figure without its two names is unre-runnable by construction.** Round 1's head is at the
+tip of **none** of the refs the remote advertises and round 2's is at exactly **one**,
+`refs/pull/897/head`, which outlives the deleted branch; seven characters fetch neither
+(`fatal: couldn't find remote ref 37280c1`), and the server serves both by full object name into an
+empty `git init`, which is what makes the figure re-runnable from a fresh clone:
+
+```sh
+git fetch --depth=1 https://github.com/lana-agents/elliptic-curves.git \
+  37280c104584e6df8796bdf306ea131b8853b220 383bdbd829decba45b7c3b2217a841662b8cc3ec
+```
+
+⚠️⚠️ **`N → M` is the cell that names the reading and `standing` is the cell that cannot.** With
+blanks KEPT rather than dropped, the two flags this section fixes below — whether the blank line
+preceding the trailer goes with the trailer, and which of `pop 0` / `pop 1` / `pop 2` is taken —
+carry this one pair over **six** readings that collapse to **four** distinct tuples: `97 → 128`,
+`96 → 127`, `95 → 126` and `94 → 125`, with `standing` **92 / 91 / 90 / 89** against the landed
+reading's **72**, and the region floor **4** at all six against **3** under the drop — invariant
+within each side and not a quadruple. ⚠️ **`pop all`, the convention named below as the one NOT to
+take, is what moves the floor**: it returns `94 → 124` at both trailer readings, having eaten the
+trailing `insert` opcode the other three leave standing. The disturbed **5** is invariant at all
+**twelve** readings — these six and the six under the drop, where every flag here is one of the
+exact no-ops this section proves them to be — and at all **twenty-four** with `autojunk` toggled,
+which the five-pair table below reads at `False`.
+
 **Where no slot satisfies the preferences, the hard bar alone governs.** ⚠️ **A rule with no
 escape hatch starves the lane, and a starved lane is how an uncertified round lands.** The
 reviewer takes the round, opens with every prior touch they hold on the branch, and re-derives
