@@ -403,6 +403,7 @@ import EllipticCurves.Torsion.FourNeZero
 import EllipticCurves.Torsion.HalvingExtension
 import EllipticCurves.Torsion.HalvingGaloisTower
 import EllipticCurves.Torsion.Multiplicative
+import EllipticCurves.Torsion.NDivisionField
 import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
 import EllipticCurves.Torsion.NsmulLadder
