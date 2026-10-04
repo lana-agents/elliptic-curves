@@ -77,34 +77,61 @@ PHANTOM_IMPORT
 # obvious one misses the worse case: (1) a heading followed by a non-blank line, which is the plain
 # wrap; (2) a heading whose text begins in lower case, which is the variant where the author put
 # the hashes on the CONTINUATION line and so made a SECOND heading, invisible to (1).  Both
-# exemptions below are load-bearing and removing either changes the reading, and the first of them
-# is CommonMark's block starters MINUS the HTML block, which is ruled on three sentences below,
-# because every one of those shapes is a complete heading followed by a complete block: a following
-# line opening a bullet list (`*`, `-`, `+`), an ORDERED list item (`1.`, `1)`), a table row, a
-# block quote, a heading, either fence form (``` or ~~~), an indented code block (four spaces or a
-# tab), a thematic break in any of its three spellings (`---`, `***`, `___`) or a link reference
-# definition (`[label]: dest`) is legal beneath a title; and a heading that opens with a code span
-# is a title rather than a continuation.  A starter missing from that set is a FALSE failure of a
-# HARD gate, which is worse than a missed defect because the author cannot comply with it -- there
-# is nothing to shorten -- which is why the set is ENUMERATED here and the one member left out is
-# named rather than left to be re-found.  THE HTML BLOCK IS THAT MEMBER, AND IT IS LEFT OUT
-# DELIBERATELY: its reading is renderer-dependent, so no choice here is unconditionally right.
-# With HTML enabled, `## Note` over `<!-- c -->` orphans no paragraph and this gate is WRONG on it;
-# with HTML disabled the continuation IS a paragraph and the gate is RIGHT.  Which reading this
-# population gets is UNDETERMINED: `doc-gen` occurs 0 times in lakefile.toml, lake-manifest.json
-# and all three .github/workflows files, so the docstring half of the population has no rendered
-# artifact in this repository at all, while README.md is read on GitHub, whose parser DOES open an
-# HTML block (it sanitises after parsing) -- i.e. the determinable half gives the reading under
-# which this gate convicts a non-defect.  So the omission is recorded as a GAP and not as a
-# ruling that the gate is right there: measured exposure is 0 (no tracked file opens an HTML block
-# beneath a heading and README.md holds no such line anywhere), and if one ever appears the repair
-# is to add CommonMark's seven HTML-block conditions as a further disjunct below, NOT to reword
-# the heading.  Fenced blocks
-# are masked so that a shell comment on display cannot fail the run, and an unbalanced fence is
-# reported rather than failed: it makes the mask swallow the rest of its file, so the count
-# UNDER-reads, and a gate that under-reads must say so rather than report a quiet success.  Runs
-# over the TRACKED `.lean` files plus README.md -- the same population the rule's own row measured
-# -- and costs seconds, so it sits beside the gate above rather than behind Lake.
+# exemptions below are load-bearing and removing either changes the reading.  The first of them
+# is a SUPERSET of CommonMark's block starters minus the HTML block, and the gap is named here in
+# BOTH directions rather than left to be re-found.  MISSING: the HTML block, and only it.  EXTRA:
+# the GFM table row, which is not a CommonMark block starter at all, together with an open family
+# that the LOOSE PREFIX matching admits -- `#foo`, `##foo`, `#######x`, `-foo`, `+1`,
+# `*emphasis* here`, `1.5 is the value`, `1)x` and `-- two dashes` among them, every one of which
+# renders as a top-level paragraph under markdown-it 14.3.2 and 15.0.2 at the `commonmark` and
+# `default` presets with `html` either way, i.e. at all eight readings.  NO COUNT of the extra
+# members is written here, and that is deliberate: the markers are matched as PREFIXES, so each
+# admits a family rather than a member.  Both previous spellings of this sentence failed by
+# asserting an exact set -- one claimed the WHOLE of CommonMark's block starters and was short,
+# the other claimed exactly TWO exceptions and the extra side is open -- so this one asserts a
+# containment and a direction instead.  Every extra errs toward MISSING a defect, which is the
+# lesser harm, and narrowing any of them ADDS hits to a HARD gate, so each is a separate change
+# with its own exposure census and never a reword here.  What IS enumerated is the set of genuine
+# starters, because every one of those shapes is a complete heading followed by a complete block:
+# a following line opening a bullet list (`*`, `-`, `+`), an ORDERED list item (`1.`, `1)`), a
+# table row, a block quote, a heading, either fence form (``` or ~~~), an indented code block
+# (four spaces or a tab), a thematic break in any of its three spellings (`---`, `***`, `___`) or
+# a link reference definition (`[label]: dest`) is legal beneath a title; and a heading that
+# opens with a code span is a title rather than a continuation.  A starter missing from that set
+# is a FALSE failure of a HARD gate, which is worse than a missed defect because the author
+# cannot comply with it -- there is nothing to shorten -- which is why the set is ENUMERATED here
+# and the one starter left out is named rather than left to be re-found.  THE HTML BLOCK IS THAT
+# STARTER, AND IT IS LEFT OUT DELIBERATELY: its reading is renderer-dependent, so no choice here
+# is unconditionally right.  With HTML enabled, `## Note` over `<!-- c -->` orphans no paragraph
+# and this gate is WRONG on it; with HTML disabled the continuation IS a paragraph and the gate
+# is RIGHT.  Which reading this population gets is UNDETERMINED: `doc-gen` occurs 0 times in
+# lakefile.toml, lake-manifest.json and all three .github/workflows files, so the docstring half
+# of the population has no rendered artifact in this repository at all, while README.md is read
+# on GitHub, whose parser DOES open an HTML block (it sanitises after parsing) -- i.e. the
+# determinable half gives the reading under which this gate convicts a non-defect.  So the
+# omission is recorded as a GAP and not as a ruling that the gate is right there: measured
+# exposure is 0 (no tracked file opens an HTML block beneath a heading and README.md holds no
+# such line anywhere), and if one ever appears the repair is to add CommonMark's seven HTML-block
+# conditions as a further disjunct below, NOT to reword the heading.  THE GFM TABLE ROW IS THE
+# ONE EXTRA MEMBER THAT SHARES THAT RENDERER-DEPENDENCE, which is why it alone is ruled and the
+# rest of the loose-prefix family is only named: tables are a GFM extension, so under a
+# pure-CommonMark renderer a `|` line beneath a heading IS an orphaned paragraph and this gate
+# stays silent on it.  Measured, `## T` over `| a | b |` + `| - | - |` renders `<p>` 1 under
+# markdown-it's `commonmark` preset and 0 under `default`; and a LONE `|` row with no delimiter
+# row after it renders `<p>` 1 under BOTH, because GFM needs the delimiter row and this gate's
+# lookahead is one line.  It is kept because `|` has been exempt here since the gate landed and
+# narrowing it would ADD hits to a HARD gate, which is the direction this comment is otherwise
+# about.  Its exposure is 0 at the `heading / |` gap and 4 at the `heading / blank / |` gap --
+# KEYED readings and not a standing fact: 0 and 4 at `7fa78aea` over 465 files and 2503 headings,
+# and 0 and 4 again at `e6852d7a` and at `8140a284`, over 466 and 2522.  The population grew
+# between the first reading and the second, so re-measure rather than carry the 4.  The repair,
+# if one is ever wanted, is a two-line lookahead that exempts `|` only when a delimiter row
+# follows -- a separate change with its own exposure census, because it can fail a push.  Fenced
+# blocks are masked so that a shell comment on display cannot fail the run, and an unbalanced
+# fence is reported rather than failed: it makes the mask swallow the rest of its file, so the
+# count UNDER-reads, and a gate that under-reads must say so rather than report a quiet success.
+# Runs over the TRACKED `.lean` files plus README.md -- the same population the rule's own row
+# measured -- and costs seconds, so it sits beside the gate above rather than behind Lake.
 python3 <<'WRAPPED_HEADING' || exit 1
 import pathlib, re, subprocess, sys
 
@@ -127,7 +154,14 @@ THEMATIC_BREAK = re.compile(r"^ {0,3}([-*_])[ \t]*(?:\1[ \t]*){2,}$")
 # A link reference definition renders to NOTHING at all, so a heading above one orphans no
 # paragraph.  Both of these are tested on the RAW line: CommonMark allows up to three leading
 # spaces, and a fourth makes the line an indented code block, which INDENTED already exempts.
-LINK_REF_DEF = re.compile(r"^ {0,3}\[[^\]]*\]:")
+# The label must hold at least one non-whitespace character: `[]: u` is NOT a definition and
+# renders as a paragraph at every renderer setting, so an empty label must not be exempted here.
+# `[label]:` with no destination on the line is NOT excluded, and that is a stated limitation
+# rather than an oversight: CommonMark lets a definition carry its destination on the FOLLOWING
+# line, so `[a]:` over `/url` is a real definition while `[a]:` over prose is a paragraph, and one
+# line of lookahead cannot tell them apart.  It errs toward missing a defect, which is the lesser
+# harm, and its exposure over the tracked files is 0.
+LINK_REF_DEF = re.compile(r"^ {0,3}\[[^\]]*[^\s\]][^\]]*\]:")
 
 listing = subprocess.run(["git", "ls-files", "-z", "*.lean", "README.md"],
                          capture_output=True, check=True).stdout
