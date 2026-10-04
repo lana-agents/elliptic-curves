@@ -5228,6 +5228,64 @@ durable facts are that the ref is absent at every one of those clocks and that
 *of N* cannot show** — the same numeral reads identically whether the world had 35 members or the
 sweeper found 35 of 36.  **Publish the residue's size beside the count.**
 
+⚠️⚠️ **AND THE POPULATION IS NAMES WHILE THE GATE NEEDS OBJECTS — the step between them is a fetch,
+and it is where the head you swept stops being the head you named.**  `ls-remote` answers in refs
+and `merge-tree` takes commits, so a sweep resolves every head into the local repository first, and
+⚠️ **on the branches this board rebuilds a non-forced refspec is REFUSED there rather than obeyed.**
+A plain `git fetch upstream refs/pull/<n>/head:refs/remotes/pr/<n>` permits a fast-forward only;
+a branch rebuilt by `--amend` or by `commit-tree` has a head that is not a descendant of its
+predecessor, so the update is declined, **the local ref goes on serving the superseded commit**,
+and the gate then runs to completion against a commit the pull request no longer has.  ⚠️⚠️ **The
+predicate is one this page already publishes under another name**: the fetch is refused **iff**
+`git merge-base --is-ancestor <the stored local ref> <the live head>` exits **1**, which is the
+signature of the amend regime itself — so a branch whose rounds are reported as *not ancestors of
+one another* is exactly a branch whose pull ref will not fetch, and the two facts are one fact.
+**Write the `+`** — `+refs/pull/<n>/head:refs/remotes/pr/<n>`, or `--force` — **and check the refs
+you resolved against ONE `ls-remote` advertisement pass**, which is the instrument this section
+already prescribes for the population and which costs one command for the whole board, rather than a
+per-request `headRefOid` read that costs one for each member of it.
+
+⚠️ **That is a behaviour claim, so it names its version and its flag** —
+`### Tool-behaviour claims`' rule, stated two sections above this one, falling due here: at
+**`git 2.39.5`** the refused fetch prints `! [rejected]` with `(non-fast-forward)` against the
+refspec and **exits 1** with the ref unmoved, and the flag that moves both is the leading `+` or
+`--force`, and with it the fetch prints `(forced update)` and exits **0**.  ⚠️⚠️ **It is NOT silent,
+and this clause discovers nothing: the mechanism has been right in the record since 2026-09-29.**
+`#2272` round 1 stated it first, in a delivery comment — the rejection **printed**, the local ref
+**left in place**, the leading `+` as the repair — and two landed commit bodies carried it the same
+day, `2958f49` crediting that row and `5d81349` quoting the rejection line itself, which no other
+landed body reachable from this branch's base does.  ⚠️ **What no SECTION carried is the step, and
+that placement is the whole of this clause**: the paragraph that decides which pull requests the
+gate runs over never named the fetch, so every sweep rediscovered it from a commit message.
+**The one wording corrected here is a LATER one** — a review thread four days on called the
+rejection silent — **and it resolves in no blob, so nothing is retired anywhere.**
+⚠️⚠️ **The defence is the status, and the two-sided control for it costs one clone.**  Nothing is
+concealed by `git`; what conceals it is output appended **after** the rejection line, read through
+a `tail` — and ⚠️ **that needs no misconfigured checkout, because a sweep fetches every head in ONE
+`git fetch` and every refspec that succeeds after the refused one appends a line.**  Measured at
+`git 2.39.5` with one stale ref staged at a non-ancestor: a single refspec prints **2** lines and a
+`tail -2` shows the rejection; the **45** of a board-wide sweep print **46**, the rejection still
+second, and the same `tail -2` shows two `[new ref]` successes instead.  ⚠️ **The ref is unmoved
+and the status is the same in both**, which is why the status, and not the last line of the log, is
+the test — and the condition is a property of ONE working copy's output, never of the repository.
+
+⚠️ **And it is realised rather than hypothetical, at one clock and in one checkout.**  Of the **46**
+pull requests open at `2026-10-03T21:26:36Z` every one had a local head ref, and ⚠️⚠️ **one of
+the 46 was stale — `#2313`'s, whose own row title was at that moment warning readers off the very
+commit that local ref was serving** — with `--is-ancestor` exiting 1 on the pair, so a non-forced
+fetch would have declined to repair it; `#2304`'s was stale in the same checkout an hour earlier
+and was repaired by the `+`.  **29** of those 46 carried at least one `head_ref_force_pushed`
+event.  ⚠️ **Publish the two as the bounds they are**: a force-push is **necessary** for this and
+not sufficient, so the **29** bounds the exposed set from above while the ancestry test is the only
+sufficient one, and the realised count is a reading of one working copy rather than of the board.
+⚠️ **This clause joins neither census a reader might expect it to.**  It is not a fifth member of
+the list below — those four are what a merge bullet *says*, and this is what the gate it reports
+was *run against* — and it is not a seventh **audited behaviour claim** either: those six are the
+hand-read generalising subset of `### Tool-behaviour claims`' recogniser over the landed COMMIT
+messages, three filters down from its raw hits, so a clause in this file is not a candidate for
+them by construction.  ⚠️ **That section's RULE does reach here** — name the version and the flag —
+**and it is paid above.**
+
 **What a merge bullet owes, then, is four things and none of them is a bigger sweep:**
 
 1. **The rule and the clock, not the number alone** — *open pull requests, read from
