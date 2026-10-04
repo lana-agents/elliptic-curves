@@ -5770,6 +5770,59 @@ doubt the nomination. The check is two commands — `git diff <the head last cer
 then read whose text each hunk replaces. **Never take it from the round's own ledger, and never
 from a note about the ledger.**
 
+⚠️ **The attribution half of that check has one regime where its obvious instrument is wrong by
+construction: a branch whose earlier round heads are not ancestors of the head under review.**
+`git commit --amend` is one way in and `commit-tree` or a rebase is another; ⚠️ **the mechanism is
+the ancestry and not the command.** ⚠️ **It is the ordinary regime and not the exotic one, and the
+frequency is measured rather than asserted**: `head_ref_force_pushed` is non-empty on **10** of the
+**16** pull requests `884`–`899`, read at **`2026-10-04T01:42Z`** — an upper bound, because a
+force-push can be a fast-forward — so **at least** six of the sixteen are stacked, where blame is
+sound. ⚠️ **One of the six zeros can still move and the other five cannot**: `#887` is OPEN at zero
+while the other five are `MERGED` and frozen, so one push to it reads `11 of 16` with nothing else
+on the board moving. The displaced head cannot be reached from the
+head under review, so `git blame` there credits that round's surviving text to the commit that
+replaced it. ⚠️ **Detect the regime before attributing anything, and then attribute by CONTENT and
+not by blame**: the two heads are the PREVIOUS ROUND's and this round's — ⚠️⚠️ **which is NOT the
+paragraph above's `<the head last certified>`, a head that does not exist on a branch no round of
+which was certified**, and the worked case below is such a branch. ⚠️ **Every exit status and
+message in this clause was read at `git 2.39.5`** — `### Tool-behaviour claims`' own rule, falling
+due on the claim this clause adds; the base sites that rule does not yet reach are `#2321`'s and are
+untouched here.
+
+```sh
+git merge-base --is-ancestor <prev round head> <this head>  # 1 ⇒ the regime, 0 ⇒ stacked
+git diff <prev round head> <this head>                      # whose text each hunk replaces
+git fetch --depth=1 <url> <40-hex>                          # the prev head is at no ref tip
+# the worked case's two heads at full width, since ls-remote expands neither abbreviation:
+git fetch --depth=1 <url> 08eb1606fce785ae67d102a18a142c0fa66ae7c6   # #2313 round 1
+git fetch --depth=1 <url> 20d7fa45af99314e86f82c0a94cfd805f7c78352   # #2313 round 2
+```
+
+⚠️ **The worked case is this section's own neighbour and the blame is wrong 8 of 8.** `#2313`'s
+round-1 head `08eb1606` and round-2 head `20d7fa45` both name `0e13ff0` as their only parent, so
+`--is-ancestor` exits **1**; round 3 replaces **8** lines of the per-layer paragraph, and those 8
+are **byte-identical** at the two heads — `5690`–`5697` at round 1's and `5692`–`5699` at round
+2's, displaced by re-wraps in the two paragraphs immediately above them, ⚠️ **one line from each
+and not two from one** — with `git diff 08eb1606 20d7fa45` carrying **no hunk** that touches them.
+**Blame at round 2's head answers `20d7fa45`, 8 of 8; blame at round 1's head answers `08eb1606`, 8
+of 8.** A partition built from the first hard-bars the slot that wrote nothing and clears the slot
+that should stand aside — ⚠️⚠️ **both directions at once, which is what makes this instrument worse
+than either**: the clearing half is the MORE-eligibility direction the paragraph above calls the
+worse of the two, the barring half is the LESS-eligibility direction, and neither needs anybody to
+mis-state a figure. ⚠️⚠️ **And the fetch restores the CONTENT, not the blame.** Neither head is at
+the tip of any ref the remote advertises — **0**, and ⚠️ **the denominator drifts inside the day
+its date names**: it read `1017` and then `1020` on `2026-10-03`, so the membership is the cell and
+the population is not. The 7-character abbreviation fails with `fatal: couldn't find remote ref`
+while the full 40-hex object name is served into an empty `git init`, ⚠️ **so both forties are in
+the fence above and not only their eight-character forms**; inside that shallow clone
+**every** line blames to the boundary commit `^08eb160` whoever wrote it. **So the content
+comparison is the instrument, and a blame is at most a cross-check taken in a full clone at the
+EARLIER head.** ⚠️ **A second mechanism, measured on a second branch**: `#2307` round 4 rebuilt
+rounds 2 and 3 with `commit-tree`, keeping each tree byte-identical, so neither `18206f4` nor
+`db8307d` is an ancestor of that branch's head and `--is-ancestor` exits `1` for both — no
+`--amend` anywhere. **A round that re-authors a commit at all leaves this regime behind it,
+whatever command it used.**
+
 ⚠️ **The touching test decides the ROUND; it does not decide what an approval certifies, and the
 two come apart.** An approval certifies the head and not the hunks, so a slot's text can be absent
 from every hunk of the round under review and still be most of what lands. Measured on a branch
