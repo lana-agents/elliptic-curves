@@ -68,8 +68,7 @@ Re-resolved declaration by declaration at `3f9e323`, against the elaborated type
 **So this rung is assembly.**  ⚠️ **It is not assembly with nothing in it, and the two findings
 below are what it cost.**
 
-### ⚠️ FINDING 1 — the general-`n` descent binds ONE hypothesis the numeral forms do not, and it is
-the endomorphism's own index
+### ⚠️ FINDING 1 — the ONE hypothesis the general-`n` descent binds is the endomorphism's own index
 
 `mulByThreeEndo h2 h3` is indexed by two *numeral* facts, and `algebraMap_ofNat_ne_zero` transports
 both to `N` for free — which is why the `n = 3` descent needs no extra binder.  `mulByNEndo n h` is
@@ -236,8 +235,11 @@ thread that grows.  ⚠️⚠️ **A count claim is CLEARED only when the text n
 counted over AND that population is closed.  A count repaired without its population named is a hit
 that still reads as a clearance.**
 
-### ⚠️ FINDING 2 — the torsion bridge has no division polynomial at a general `n`, and the
-point-level route needed a new brick because `basePointMap` cannot carry a `map_*` lemma
+### ⚠️ FINDING 2 — the torsion bridge has no division polynomial at a general `n`
+
+⚠️ **The point-level route needed a new brick, because `basePointMap` cannot carry a `map_*`
+lemma.**  That is the second half of this finding and it is stated here rather than in the
+heading, because an ATX heading is one source line.
 
 `n = 2` transports `mem_torsion_two_some_iff` through a `congrArg` on the coordinates and `n = 3`
 re-derives membership from `Ψ₃.eval x = 0`, which base-changes as a `Polynomial.eval`.  ⚠️ **At a

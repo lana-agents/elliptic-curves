@@ -3209,6 +3209,27 @@ true"*, one layer up, in this document's own prose. They are:
   three: read every heading whose text begins in lower case as well.
   ⚠️ It is only headings. A paragraph, a bullet and a `**bold**` span all cross a line break
   correctly, and several repairs on this front rely on that.
+  ⚠️⚠️ **It is EVERY heading level and not only a module `# H1`, and that was already decided on
+  this page twice over rather than being widened by `#2325`.** First, this bullet's own enumeration
+  is (`# `, `## `, …), which generalises over the levels instead of stopping at two, and its
+  ground — the reader is handed a clause chopped at whatever word the line broke on — is
+  level-independent, because CommonMark makes every ATX level a leaf block by the same rule.
+  Second, **the bullet below rules on the three layers by name** — *"a module `# H1`, a `##`
+  heading inside a module docstring, or a standalone `/-! ### … -/` section header"* — and fixes
+  one unit for all three; a ruling about what a `###` heading *reaches* presupposes that a `###`
+  heading is a heading for this page's purposes. ⚠️ **What does NOT generalise is the RANKING
+  argument, and it is about severity rather than scope**: *"an H1 is the block this page ranks
+  above module prose"* makes a wrapped `# ` worse than a wrapped `###`, and a reviewer should say
+  so when charging them together — but a `###` whose continuation carries load renders exactly as
+  badly, which `#2325` confirmed by running `markdown-it` on both shapes rather than inferring it.
+  `#2325`'s two `### ⚠️ FINDING …` sites are repaired on the enumeration-and-ground reading above,
+  and its `# H1` site on that reading **and** the ranking one.
+  ⚠️ **The census is a gate in `.orchestra/validation.sh` from `#2325` onwards rather than a sweep
+  someone remembers to run**, and the reason it could be wired at all is that the same commit took
+  the defect count to **0**: a hard gate with a standing baseline fails every push, which is why
+  `#2325` repaired first and wired second rather than the other way round. Its population is this
+  page plus the tracked `.lean` files — `#1667`'s own population, not a narrower one — and both of
+  its recognisers and both of its exemptions are in the script with the reason each is there.
 * **A heading is its own unit, so a reach clause in one is read against that line and nothing
   else** (`#1879`). The bullet above fixes what a heading *is*; this fixes what it *reaches*.
   `### Reach clauses` fixes the unit for a **declaration headline** — its own docstring, and by
@@ -4883,10 +4904,17 @@ The `.orchestra/` folder contains scripts used to prepare and validate the
 project in an automated setting:
 
 * `before.sh` warms the Mathlib build cache.
-* `validation.sh` checks that the worktree is clean, that every `.lean` file is
+* `validation.sh` checks that the worktree is clean, that no line inside a Lean
+  comment looks like an `import` to the import-closure walkers (see
+  [Import-closure figures](#import-closure-figures)), that no Markdown ATX
+  heading wraps onto a second source line (see `### Scope of the rules above`'s
+  *"A heading is one source line"* bullet), that every `.lean` file is
   imported (`mk_all --check`), that the project builds with warnings treated as
   errors (`lake build --wfail`), and that the environment linters pass
   (`lake lint`; see [Linting](#linting) — the last two are different suites).
+  ⚠️ **The first three cost seconds and run ahead of everything that needs
+  Lake**, so a branch author learns about a whitespace position or a wrapped
+  title without waiting for a build.
 
 ### Tool-behaviour claims
 

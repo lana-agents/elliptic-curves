@@ -8,8 +8,7 @@ import EllipticCurves.Torsion.NsmulYPeriodic
 import EllipticCurves.UniversalCurve
 
 /-!
-# The `y`-coordinate numerator `ωₙ` is an honest polynomial — the `2` in `ωₙ/(2ψₙ³)` is
-presentational at EVERY index
+# The numerator `ωₙ` of `ωₙ/(2ψₙ³)` is a polynomial and the `2` is presentational at EVERY index
 
 `EllipticCurves.Torsion.NsmulYCoord`'s `Affine.omegaY` is the `y`-coordinate of `n • P`, and it is
 **defined with a `2` in its denominator**:
