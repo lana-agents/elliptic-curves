@@ -4834,7 +4834,13 @@ single line `lintDriver = "batteries/runLinter"` in `lakefile.toml`**, and it is
 load-bearing. Remove it and the two halves behave very differently:
 
 * `lake lint` **fails loudly** — `error: no lint driver configured and builtin linting
-  is disabled`, exit 1. Locally you cannot miss it.
+  is disabled`, exit 1. Locally you cannot miss it. ⚠️ **The version that status was taken
+  at is the one the tracked `lean-toolchain` pins** — `leanprover/lean4:v4.32.0`, which
+  carries Lake — so `### Tool-behaviour claims`' rule is paid here by a POINTER to a tracked
+  file and not by a transcribed string, which is a key that cannot drift out of step with the
+  tree it describes. ⚠️ **That section's Lean carve-out states a narrower warrant than the
+  claim it licenses** — *"so a job count is reproducible by construction"* — and an exit
+  status is not a job count; the pointer above is written to hold under either reading.
 * CI, under `lean-action`'s default `lint: default`, would **not**: the probe fails, the
   action logs `lake check-lint failed -> will not run lake lint`, and the job stays green
   with the suite never run. That is the silent failure mode, and it is why the workflow
@@ -5084,7 +5090,11 @@ figures looked sound when it was published.
 build need not be re-run, and ⚠️ **its precondition is a statement about the SYMMETRIC DIFFERENCE
 and not about the branch**: if `git diff --name-only <old merged tree> <new merged tree>` carries
 no `.lean` row, then the merged tree's Lean content is byte-identical to a tree already built
-green, and `EXIT 0` follows by construction rather than by running anything.  ⚠️ **Difference the
+green, and `EXIT 0` follows by construction rather than by running anything.  ⚠️ **Both commands
+in that precondition are `git 2.39.5`'s** — the `diff --name-only` and the `merge-tree` that
+wrote the two trees — and ⚠️ **the `EXIT 0` itself is INHERITED rather than measured**: it is
+the earlier build's status under the tracked `lean-toolchain`, which is what *by construction*
+means here and why no version is named for it beyond that file.  ⚠️ **Difference the
 two trees; do not read the precondition off the branch's own shape.**  A branch that edits only
 `README.md` can still fail it, and ⚠️ **a SINGLE commit of base movement can carry it away**: one
 landing past `d8fde75`, the two merged trees of PR #819 differ at five paths, **four of them
@@ -5121,7 +5131,8 @@ squash cannot fool a tree.
 recorded is that the latency is bimodal and that nothing found so far separates the two modes.  At
 `2026-09-29T14:2xZ` six certified pull requests — #819, #831, #834, #835, #844 and #845 — were
 simultaneously unlanded between **1.5 and 20 hours** after their approvals, ⚠️ **all six
-`git merge-tree --write-tree` exit 0 against live `main`** and all six green in CI, while the three
+`git merge-tree --write-tree` exit 0 against live `main`, at `git 2.39.5`** and all six green in
+CI, while the three
 landings at `13:24:27Z`, `13:37:00Z` and `14:19:26Z` each followed their approval within minutes.
 ⚠️ **Conflict, CI, size and behind-ness are each ruled out by measurement** — #789 landed at
 **3 behind** while #844, `0 behind` at its own approval, did not — ⚠️ **and so is the arrival of
@@ -5244,7 +5255,11 @@ moves, and for this pull request it read `UNKNOWN` at 12:33:09Z, **`CONFLICTING`
 `UNKNOWN` again at 15:25:20Z, with the pull request itself untouched across all three.  The two
 durable facts are that the ref is absent at every one of those clocks and that
 `git merge-tree --write-tree <main> 6327391e` exits **1** against `ac462ef`, `44272f7` and
-`871a224` alike — which is item 3's control, and it needs no server-side field at all.  The other
+`871a224` alike, at `git 2.39.5` — which is item 3's control, and it needs no server-side field
+at all. ⚠️ **That status is also the one cell of this reading invariant under every flag and
+style `### Tool-behaviour claims` measured**: `--no-messages` empties the two `CONFLICT` lines
+from stdout and `merge.conflictStyle` moves the written tree's oid, and neither moves the **1**.
+The other
 **18** of the residue are pull requests closed without merging.
 **So a sweep keyed on merge refs is short, and being short is the failure a total on the left of
 *of N* cannot show** — the same numeral reads identically whether the world had 35 members or the
