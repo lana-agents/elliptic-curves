@@ -5794,9 +5794,17 @@ deliberately NOT published here**: they are a live board reading, and the conclu
 forty and the miss. ⚠️ **It is a different block about the same behaviour, so
 `### Retired claims` asks for its own quotation and not a second copy of this one**, and it is out
 of this clause's scope. ⚠️⚠️ **PR #783 carries BOTH retirements and has been OPEN since
-2026-09-20 with CI green, 0 reviews and 105 commits of `main` behind it**; it still merges into
-live `main` at `merge-tree` exit **0**, and it is the ONE branch-caused conflict this branch's own
-sweep finds. **Only one of the two can land.**
+2026-09-20 with CI green and 0 reviews**; ⚠️⚠️ **it merges cleanly only up to `43c84ed0`, the base
+this paragraph was written against, and it ACQUIRED A CONFLICT AT `24825726` — the squash that
+landed this very block.** `git merge-tree --write-tree <main> refs/pull/783/head` exits **0** at
+`43c84ed0` and at `0d2a7307` and **1** at `24825726` and at every `main` after it, so the
+conflict is **`main`'s** and the clause that first reported it as this branch's is retired by the
+landing that caused it: **#783 cannot land without a rebase whether or not any other branch
+exists.** ⚠️ **No behind-count is given here and that is deliberate** — it was `105` at
+`43c84ed0`, `110` at `0d2a7307` and `114` at `7fa78aea`, a figure whose far endpoint is whatever
+`main` is when the sentence is read. **Re-derive both readings rather than citing either**:
+`git merge-tree --write-tree $(git ls-remote upstream main | cut -f1) refs/pull/783/head`, exit
+from `$?`. **Only one of the two can land.**
 
 ⚠️ **And the key prescribed above costs the landed record almost nothing, which is a better warrant
 for it than four-of-five.** Every one of the **4** messages that say *"token skeleton"* and name no
