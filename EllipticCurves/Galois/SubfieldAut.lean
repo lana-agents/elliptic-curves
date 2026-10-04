@@ -227,32 +227,35 @@ while `#2257` shipped on *"every row is exact"*, true of the other nine.
 ⚠️ **Published sweep, because a rot clause whose population is withheld clears nothing.**  Over this
 whole section — from this heading to the next `##`, counting runs of digits after masking ISO dates,
 `v`-prefixed toolchain versions, `#`-tagged issue numbers and 7-to-40-character hex shas carrying a
-letter — the base `22db66e` reads **118** distinct values in **291** occurrences and this head
-**127** in **336**.  ⚠️ **The spec is published because the ABSOLUTES do not survive without it
-where every delta does**: round 1 of this row read nine occurrences fewer under a convention it gave
-in words only, which is the render gate's lesson arriving at the sweep.  ⚠️⚠️ **The head pair counts
-itself, and round 3 found that that does NOT make it a fixed point.**  The OCCURRENCE column is one,
-is invariant under a one-numeral swap, and was iterated to it rather than estimated.  ⚠️⚠️ **The
-DISTINCT column is not like that at all, and the repair round 3 published for it is too weak:
-STABILITY IS NOT UNIQUENESS**, because a self-counting distinct-count has a SECOND fixed point one
-above itself whenever that successor occurs nowhere else in the section.  ⚠️⚠️ **Round 3's head had
-exactly that** — `125`, which it published, and `126`, which it did not, **both** joint fixed points
-of both columns — **so *"iterated to it"* pinned nothing there, and neither the round nor its review
+letter — `22db66e`, that round's base, reads **118** distinct values in **291** occurrences and
+`ab3d3ab` **127** in **336**.  ⚠️ **Both ends are keyed by SHA and neither by an indexical, because
+a later round moves this section and *"this head"* rots with it** (`#2291`, `#2304`).  ⚠️ **The
+spec is published because the ABSOLUTES do not survive without it where every delta does**: round
+1 of this row read nine occurrences fewer under a convention it gave in words only, which is the
+render gate's lesson arriving at the sweep.  ⚠️⚠️ **The head pair counts itself, and round 3 found
+that that does NOT make it a fixed point.**  The OCCURRENCE column is one, is invariant under
+a one-numeral swap, and was iterated to it rather than estimated.  ⚠️⚠️ **The DISTINCT column
+is not like that at all, and the repair round 3 published for it is too weak: STABILITY IS NOT
+UNIQUENESS**, because a self-counting distinct-count has a SECOND fixed point one above itself
+whenever that successor occurs nowhere else in the section.  ⚠️⚠️ **Round 3's head had exactly
+that** — `125`, which it published, and `126`, which it did not, **both** joint fixed points of
+both columns — **so *"iterated to it"* pinned nothing there, and neither the round nor its review
 checked.**  ⚠️ **This sentence names `127` and `128` for that reason**: the published value and its
 successor, which leaves the published value the only stable reading here, and `127` is a genuine
 collision besides — the vendored `batteries` row above.  ⚠️⚠️ **And the value is a property of the
-WORDING and not of the section**: this sentence is inside what it counts, so a different phrasing of
-it reports a different distinct count just as truthfully.  **Reproduce the pair against the
-committed blob, never against a paraphrase of this spec.**  ⚠️ **Round 2 of this row published** *"a
-census of the paragraph it sits in is a fixed point"* **flatly; its own pair satisfied that by luck
-and not by construction.**  ⚠️⚠️ **And it is quantified over the HEAD and not the base, because a
-sweep that stops at the base can never convict the round running it**: round 1 published its hits
-against the base population and added an unkeyed live-tree numeral of its own in the same diff.
-⚠️⚠️ **And *carries a ref* means keyed IN ITS OWN SENTENCE and not keyed through another figure**,
-because the distance is the whole subject of this row: `10546`'s key was fifty lines away and
-unnamed.  Hits **at this head**, and ⚠️⚠️ **the scope of the quantifier is the scope of the evidence
-and nothing wider**: ⚠️ **no value this branch adds over its base `2b18bbd` is an unkeyed live-tree
-figure** — each is either this spec's own prose or keyed in the sentence that prints it.  ⚠️
+WORDING and not of the section**: this sentence is inside what it counts, so a different phrasing
+of it reports a different distinct count just as truthfully.  **Reproduce the pair against the
+committed blob, never against a paraphrase of this spec.**  ⚠️ **Round 2 of this row published**
+*"a census of the paragraph it sits in is a fixed point"* **flatly; its own pair satisfied that
+by luck and not by construction.**  ⚠️⚠️ **And it is quantified over the HEAD and not the base,
+because a sweep that stops at the base can never convict the round running it**: round 1 published
+its hits against the base population and added an unkeyed live-tree numeral of its own in the same
+diff.  ⚠️⚠️ **And *carries a ref* means keyed IN ITS OWN SENTENCE and not keyed through another
+figure**, because the distance is the whole subject of this row: `10546`'s key was fifty lines
+away and unnamed.  Hits at `ab3d3ab`, and ⚠️⚠️ **the scope of the quantifier is the scope of the
+evidence and nothing wider**: ⚠️ **no value `ab3d3ab` adds over `2b18bbd` is an unkeyed live-tree
+figure, and `#2304` added none over `ab3d3ab` either** — each is either this spec's own prose, keyed
+in the sentence that prints it, or held by the relation this section's last paragraph states.  ⚠️
 **Stated as that relation rather than as the delta set, because the set is a fixed point this very
 sentence moves** (`#2302`).  ⚠️ **The two sites of the BASE that this unit convicts are KEYED in
 round 4 rather than narrated**: the distinct-names cell above was keyed only by the sentence before
@@ -260,20 +263,24 @@ it, which prints a different figure, and the closure table above has no sentence
 rule's unit to reach, so ⚠️ **a table is keyed inside its own block, in the header row — the one
 unit ruling this rule needs, made where it bites and not in the abstract.**  Every occurrence of
 `10546` here is retrospective and it is paid above, and the line-count pair below is keyed in its
-own sentence under this rule, which it was not before round 3.  ⚠️⚠️ **Nothing is claimed about the
-REST of this section, because certifying that means classifying every value in it as live or pinned
-and no round has.**  **This clause read** *"**NO live-tree numeral carries no ref.**"* **until round
-4**, and an unchecked universal over a population this row's own sweep measures just above is this
-row's own subject one level up.  ⚠️ **That quotation's bold is the source's and is reproduced inside
-the span, where `### Retired claims` says it renders; the ⚠️ the source opened the clause under is
-named out here instead, because a ⚠️ is paragraph structure rather than part of the sentence and
-cannot be reproduced inside at all.**  Exactly **one** figure is keyed and so stale rather than
-wrong **at this head**, the **3768** build-job count at the end of this section, which reads
-**3769** at `22db66e`, `+1` for the single module `8e55647` added (`#2304`).  **Not folded in, filed
-instead.**  ⚠️ **The census control row is keyed and CURRENT as of `#2302`'s landing, and this
-clause names the row rather than its value on purpose**: round 1 of this row published that cell's
-value and its key as stale, and `#2302` falsified all three conjuncts by landing first.  **Cite
-another row's identity, never its numerals.**
+own sentence under this rule, which it was not before round 3.  ⚠️⚠️ **Nothing is claimed about
+the REST of this section, because certifying that means classifying every value in it as live
+or pinned and no round has.**  **This clause read** *"**NO live-tree numeral carries no ref.**"*
+**until round 4**, and an unchecked universal over a population this row's own sweep measures just
+above is this row's own subject one level up.  ⚠️ **That quotation's bold is the source's and is
+reproduced inside the span, where `### Retired claims` says it renders; the ⚠️ the source opened
+the clause under is named out here instead, because a ⚠️ is paragraph structure rather than part of
+the sentence and cannot be reproduced inside at all.**  ⚠️ **The build-job count at the end of this
+section is no longer a TOTAL and so can no longer go stale on a module landing**: `#2304` replaced
+it with a relation whose only standing numeral is pin-bound, the second of the two classes the rot
+clause above separates.  ⚠️⚠️ **This clause read** *"Exactly **one** figure is keyed and so stale
+rather than wrong **at this head**"* **until that round, and the sentence asserting that census
+was itself a member of it** — it published a build-job count of its own, keyed to a ref two modules
+behind the head it landed at and so already stale there.  **A clause must not state a census of a
+population it joins.**  ⚠️ **The census control row is keyed and CURRENT as of `#2302`'s landing,
+and this clause names the row rather than its value on purpose**: round 1 of this row published
+that cell's value and its key as stale, and `#2302` falsified all three conjuncts by landing first.
+**Cite another row's identity, never its numerals.**
 
 ⚠️ **Two unit traps in that control, and the wording replaced above walked into both.**  First,
 **column 3 counts FILES carrying such a line, not lines**, and the readings differ by nearly a
@@ -380,12 +387,28 @@ module's own closure, fixed only because its `EllipticCurves` closure is `0` —
 named in the rot clause above and not the first.  **This line read** *"These figures are pinned with
 the nine vendored rows above"* **until round 3.**
 
-⚠️ **A second check on the two-consumer claim costs nothing and needs no script.**  A
-docstring-only edit to this file rebuilds exactly **four** jobs — this module, its two consumers,
-and the `mk_all` root `EllipticCurves` — out of the **3768** a full build reports at `3f9e323`.
-*Which* modules `lake` recompiles is the fan-out claim restated from the build side, so every build
-of a change to this file re-verifies it for free; it was measured on the edit that added this
-paragraph.
+⚠️ **A second check on the two-consumer claim costs nothing and needs no script.**  A docstring-only
+edit to this file rebuilds exactly **four** jobs — this module, its two consumers, and the `mk_all`
+root `EllipticCurves` — out of the total a full build reports.  ⚠️ **That total is stated as a
+RELATION and not as a numeral, because a numeral here rots on every module landing and this board
+re-keyed one by hand three times before the treadmill was named** (`#2257`, `#2259`, `#2302`):
+`lake build --wfail` reports **one job per tracked `.lean` module plus `3312`**, read off its own
+*"Build completed successfully (N jobs)."* line, at the pin `lake-manifest.json` **`e2a21bd4`** with
+`lean-toolchain` **`94b9f495`**.  ⚠️⚠️ **It is a FIT and not a law, and every ref it is measured at
+is keyed here rather than counted**: it holds from `3f9e323`, which tracks **456** `.lean` modules,
+through `ab3d3ab` at **459**, to `74f065cd` at **460** and **3772** jobs.  ⚠️ **That top endpoint is
+a LANDED ref and was deliberately not left as a merge**: a `git merge-tree` of an open pull request
+evaporates when the request is re-pushed or closed, and a landed commit cannot be reopened.  ⚠️
+**`ab3d3ab` is the sharpest of them**: it adds **108** lines to this very file and removes **26**
+over `b13f9c82` while adding no module, so the job count does not move with the content.  ⚠️⚠️ **And
+`3312` is derived from nothing here**, so a pin bump may move the constant and the relation must
+then be re-measured rather than re-keyed.  *Which* modules `lake` recompiles is the fan-out claim
+restated from the build side, so every build of a change to this file re-verifies it for free; it
+was measured on `60e3031`, which added this paragraph, and again on `#2304`'s round, which put the
+relation here.  ⚠️ **The second half is keyed to the ROW and not to a sha, and that asymmetry is the
+point rather than an omission**: a commit cannot name its own object name, and the squash that lands
+it has a name nothing can know while it is being written — so a sha there would be the one key on
+this page that is unobtainable at authoring time.
 
 ## Mathlib has no name for this
 
