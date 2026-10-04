@@ -171,6 +171,7 @@ import EllipticCurves.FunctionField.PullbackTorsionDivisor
 import EllipticCurves.FunctionField.RatFuncExtension
 import EllipticCurves.FunctionField.RatFuncPlaces
 import EllipticCurves.FunctionField.RationalPointDegree
+import EllipticCurves.FunctionField.TateDeterminantCyclotomic
 import EllipticCurves.FunctionField.TranslationAction
 import EllipticCurves.FunctionField.TranslationActionN
 import EllipticCurves.FunctionField.TranslationActionThree
@@ -371,6 +372,7 @@ import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.OpenKernelGeneral
 import EllipticCurves.TateModule.PadicInverseLimit
 import EllipticCurves.TateModule.PrimaryDeterminant
+import EllipticCurves.TateModule.PrimaryDeterminantLevel
 import EllipticCurves.TateModule.PrimaryFree
 import EllipticCurves.TateModule.PrimaryImage
 import EllipticCurves.TateModule.PrimaryImageProfinite

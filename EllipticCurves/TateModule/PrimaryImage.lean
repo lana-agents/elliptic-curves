@@ -338,10 +338,13 @@ theorem isCompact_range_galoisDet_of_nonempty
   exact isCompact_range_galoisDet_of_basis b
 
 /-- **The image of the determinant character is a closed subgroup of `ℤ_[ℓ]ˣ`.** This is the layer
-the identification of `det ρ_{E,ℓ}` with the cyclotomic character will consume; ⚠️ that
-identification needs the Weil pairing at every level and is **not** proved in this development, at
-either prime. ⚠️ Knowing that the image of a character is closed says nothing about *which*
-character it is.
+the identification of `det ρ_{E,ℓ}` with the cyclotomic character consumes; ⚠️ **that
+identification is now proved at every prime** `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0` over an
+algebraically closed `F` — `galoisDet_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`) — and the clause that said it was not,
+*"at either prime"*, is retired once, at `galoisDet` in
+`EllipticCurves.TateModule.PrimaryDeterminant`. ⚠️ Knowing that the image of a character is closed
+still says nothing about *which* character it is, and nothing below supplies the identification.
 
 ⚠️ The deletion test for the `Nonempty` hypothesis is stated on
 `isCompact_range_galoisDet_of_nonempty` above, together with the knock-on this declaration

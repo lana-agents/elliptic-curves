@@ -153,8 +153,14 @@ may import it.
 
 ## Explicitly out of scope
 
-* **The `ℓ`-adic statement.**  `galoisDetTwo = χ_2` over `ℤ_[2]` needs the pairing on `E[2 ^ k]` for
-  every `k` and is untouched; the index here is a single `n`, not a tower.
+* **The `ℓ`-adic statement.**  The index here is a single `n`, not a tower, so
+  `galoisDet = χ_ℓ` over `ℤ_[ℓ]` is not stated here.  ⚠️ **It is no longer out of reach, and this
+  bullet used to say so** — it read *"`galoisDetTwo = χ_2` over `ℤ_[2]` needs the pairing on
+  `E[2 ^ k]` for every `k` and is untouched"*.  Both halves are spent:
+  `EllipticCurves.FunctionField.TateDeterminantCyclotomic` consumes the headline below at **every**
+  index `ℓ ^ k`, which is exactly the *"pairing on `E[2 ^ k]` for every `k`"* the clause named, and
+  glues the levels by `EllipticCurves.TateModule.PrimaryDeterminantLevel`.  The retirement is
+  recorded once, at `galoisDet` in `EllipticCurves.TateModule.PrimaryDeterminant`.
 * **A `Gal(F/S)`-stable basis.**  Does not exist in general and is not needed; see the note above on
   why the headline mentions no basis.
 * **The trace and the characteristic polynomial** mod `n`.  No consumer.
@@ -398,8 +404,11 @@ the same mathematics stated about a chosen primitive pair, and it is the reason
 `EllipticCurves.TateModule.Determinant` names this identity as the goal of the whole Weil-pairing
 effort.
 
-⚠️ It is *not* the `ℓ`-adic statement.  `galoisDetTwo = χ_2` over `ℤ_[2]` needs the pairing on
-`E[2 ^ k]` for every `k` and is untouched. -/
+⚠️ It is *not* the `ℓ`-adic statement, but it is what the `ℓ`-adic statement consumes:
+`galoisDet_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`) applies this theorem at every index
+`ℓ ^ k`.  ⚠️ **This sentence used to end** *"and is untouched"*; the retirement is recorded once, at
+`galoisDet` in `EllipticCurves.TateModule.PrimaryDeterminant`. -/
 theorem galoisDetMod_n_eq_galoisModularCyclotomicChar (h2 : (2 : F) ≠ 0)
     {n : ℕ} [NeZero n] (hn : ((n : ℤ) : F) ≠ 0) :
     galoisDetMod (W' := W) (F := F) n

@@ -42,18 +42,57 @@ With `galoisCyclotomicChar S F 2 : (F ≃ₐ[S] F) →* ℤ_[2]ˣ` the two chara
 galoisDetTwo = galoisCyclotomicChar S F 2
 ```
 
-is a well-formed proposition. It is **not proved here**, and nothing in this file brings it closer
-to being proved: it needs the Weil pairing on `E[2 ^ k]` — the rung-5 divisor identity
-`div g_S = [n]∗(S)` (`#418`, gated on `#421`/`#422`), the alternating property (`#465`
-deliverable 2), and non-degeneracy — which is **not** Ward-gated; see
+is a well-formed proposition, and it is **proved** —
+`galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`), under `(2 : F) ≠ 0` over an
+algebraically closed `F`. It is still **not proved here**, and nothing in this file brings it
+closer: what this file supplies is the right-hand side, and the translation of the Weil-pairing
+equivariance into the form that computation consumes
+(`EllipticCurves.FunctionField.WeilPairingCyclotomic`).
+
+⚠️⚠️ **This paragraph used to continue** *"and nothing in this file brings it closer to being
+proved: it needs the Weil pairing on `E[2 ^ k]` — the rung-5 divisor identity `div g_S = [n]∗(S)`
+(`#418`, gated on `#421`/`#422`), the alternating property (`#465` deliverable 2), and
+non-degeneracy"*, and that list is retired; the retirement is recorded once, at `galoisDet` in
+`EllipticCurves.TateModule.PrimaryDeterminant`. ⚠️ **It is the `not proved here` clause that
+survives and the list of prerequisites that does not**, which is the opposite of the other
+retirements on this proposition: `#418` and `#465` are both `completed` rows, so neither names an
+outstanding need, and the *"gated on `#421`/`#422`"* attribution is retired on **`#465`'s** thread,
+in its `2026-08-24T01:56:06Z` closing note — *"`#421` and `#422` never moved"*.  ⚠️ **That note's
+next clause is about a different gate and is not borrowed here**: what `#845` dissolved from the
+other side is `#465`'s own `hprod : g_{S ⊕ T} = g_S · g_T · w`, the antisymmetry gate, not `#418`'s
+`div g_S = [n]∗(S)` item.  ⚠️⚠️ **`#418`'s thread is where the `#421`/`#422` gating was ASSERTED
+and it is not retired there**: its first three comments await rung 4 for exactly the datum this list
+calls the rung-5 divisor identity — *"rung 4 (`#414`/`#422`, Brick C `#421` …)"*, in its
+`2026-08-09T23:34:15Z` comment's own words — with `#421` twice and `#422` three times across those
+three of its eight comments.  So the record quoted above is on `#465`'s thread, and what makes the
+attribution **false of `#418`'s own item** is `#418`'s completion, with all three deliverables on
+`main` unconditionally at both `n`.  ⚠️ What `#418`'s thread **does** retire is a different
+attribution — the Ward-coupling of `hprin` through `#E[n] = n²` (`#242`) — in its correction comment
+(posted `2026-08-20T23:31:38Z`, self-titled and cited in the `complete` note as the `2026-08-21`
+correction) and again in that note.
+⚠️ **The list had gone stale rather than being false when written**: it entered this file at
+`9482daf3`, on 2026-08-20, and both rows completed on 2026-08-24 — a **four-day** gap.
+⚠️ **`git log -S` dates this correctly only on a probe the later edit did not re-wrap.**  Run on
+this path, the probes *rung-5 divisor identity*, *not proved here*, `div g_S = [n]∗(S)` and the
+`#421`/`#422` gating phrase all return `9482daf3`; the probe that begins *the alternating property*
+and runs on into `#465` returns `67a654d` (2026-08-22) instead — the commit that *edited* this
+paragraph, dropping divisor-slot bilinearity and re-wrapping the line, so that one literal first
+appeared there.  ⚠️ **Read the hunk, with `git log --follow -p`, rather than trust one `-S`.**
+⚠️ **What the proof actually consumes is the pairing at every index `ℓ ^ k`**, through
+`galoisDetMod_n_eq_galoisModularCyclotomicChar`
+(`EllipticCurves.FunctionField.WeilPairingDeterminantCharacterN`), glued level by level by
+`toZModPow_coe_galoisDet_of_natCast_ne_zero`
+(`EllipticCurves.TateModule.PrimaryDeterminantLevel`) — so the retired list was right that the
+pairing is needed and wrong about every row it named as outstanding.
+
+Non-degeneracy is **not** Ward-gated; see
 `EllipticCurves.FunctionField.WeilPairing`'s scope section (`#769`). Bilinearity in the divisor
-slot is no longer on that list: it is merged, with antisymmetry, as
+slot is merged, with antisymmetry, as
 `EllipticCurves.FunctionField.WeilPairingAntisymmetric` (`#723`) on `[Field F]` and
 `[W.IsElliptic]` alone, and all it wants beyond those is the production of
 `g_{S ⊕ S'} = g_S · g_{S'} · w` — ⚠️ **rung 5 only, never rung 4**, and produced in
-`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`). What this file supplies is the
-right-hand side, and the translation of the Weil-pairing equivariance into the form that
-computation consumes (`EllipticCurves.FunctionField.WeilPairingCyclotomic`).
+`EllipticCurves.FunctionField.WeilPairingProductRelation` (`#845`).
 
 ## The specification
 
