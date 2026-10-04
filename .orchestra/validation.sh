@@ -67,6 +67,123 @@ if hits:
     sys.exit(1)
 PHANTOM_IMPORT
 
+# Verify no Markdown ATX heading wraps onto a second source line.  An ATX heading is a leaf block
+# that ends at the end of its own line and CommonMark gives it no continuation syntax, so a title
+# written across two lines renders as a heading holding the FIRST line and an ordinary paragraph
+# holding the rest -- the reader who consults the heading is handed a clause chopped at whatever
+# word the line broke on.  See the "A heading is one source line" bullet under "Scope of the rules
+# above" in README.md for the rule, its ground, and the repair form (shorten the title; state the
+# clause that does not fit in the prose below, do not wrap it).  Two recognisers are needed and the
+# obvious one misses the worse case: (1) a heading followed by a non-blank line, which is the plain
+# wrap; (2) a heading whose text begins in lower case, which is the variant where the author put
+# the hashes on the CONTINUATION line and so made a SECOND heading, invisible to (1).  Both
+# exemptions below are load-bearing and removing either changes the reading, and the first of them
+# is CommonMark's block starters MINUS the HTML block, which is ruled on three sentences below,
+# because every one of those shapes is a complete heading followed by a complete block: a following
+# line opening a bullet list (`*`, `-`, `+`), an ORDERED list item (`1.`, `1)`), a table row, a
+# block quote, a heading, either fence form (``` or ~~~), an indented code block (four spaces or a
+# tab), a thematic break in any of its three spellings (`---`, `***`, `___`) or a link reference
+# definition (`[label]: dest`) is legal beneath a title; and a heading that opens with a code span
+# is a title rather than a continuation.  A starter missing from that set is a FALSE failure of a
+# HARD gate, which is worse than a missed defect because the author cannot comply with it -- there
+# is nothing to shorten -- which is why the set is ENUMERATED here and the one member left out is
+# named rather than left to be re-found.  THE HTML BLOCK IS THAT MEMBER, AND IT IS LEFT OUT
+# DELIBERATELY: its reading is renderer-dependent, so no choice here is unconditionally right.
+# With HTML enabled, `## Note` over `<!-- c -->` orphans no paragraph and this gate is WRONG on it;
+# with HTML disabled the continuation IS a paragraph and the gate is RIGHT.  Which reading this
+# population gets is UNDETERMINED: `doc-gen` occurs 0 times in lakefile.toml, lake-manifest.json
+# and all three .github/workflows files, so the docstring half of the population has no rendered
+# artifact in this repository at all, while README.md is read on GitHub, whose parser DOES open an
+# HTML block (it sanitises after parsing) -- i.e. the determinable half gives the reading under
+# which this gate convicts a non-defect.  So the omission is recorded as a GAP and not as a
+# ruling that the gate is right there: measured exposure is 0 (no tracked file opens an HTML block
+# beneath a heading and README.md holds no such line anywhere), and if one ever appears the repair
+# is to add CommonMark's seven HTML-block conditions as a further disjunct below, NOT to reword
+# the heading.  Fenced blocks
+# are masked so that a shell comment on display cannot fail the run, and an unbalanced fence is
+# reported rather than failed: it makes the mask swallow the rest of its file, so the count
+# UNDER-reads, and a gate that under-reads must say so rather than report a quiet success.  Runs
+# over the TRACKED `.lean` files plus README.md -- the same population the rule's own row measured
+# -- and costs seconds, so it sits beside the gate above rather than behind Lake.
+python3 <<'WRAPPED_HEADING' || exit 1
+import pathlib, re, subprocess, sys
+
+HEADING = re.compile(r"^(#{1,6}) (.+)$")
+FENCE = re.compile(r"^\s*(```|~~~)")
+# A following line that opens one of these is a block in its own right, not a wrapped title:
+# all three bullet markers, a table row, a block quote, a heading, and either fence form.
+FOLLOWERS = ("*", "-", "+", "|", ">", "#", "```", "~~~")
+# An ordered list item is a block starter too and takes a pattern rather than a prefix: one to
+# nine digits followed by `.` or `)`.
+ORDERED = re.compile(r"^[0-9]{1,9}[.)]")
+# Four leading spaces or a tab open an indented code block.  This one is tested on the RAW line,
+# because the lstrip() that lets the markers above be indented would throw the signal away.
+INDENTED = ("    ", "\t")
+# A thematic break opens a block in three spellings and only two of them reach FOLLOWERS -- `-`
+# and `*`, by accident, through the loose prefixes.  `___` needs its own pattern.  Added as a
+# FURTHER disjunct rather than as a replacement for those prefixes, so the exemption set only
+# grows and the reading stays monotone: whatever the previous gate exempted, this one exempts.
+THEMATIC_BREAK = re.compile(r"^ {0,3}([-*_])[ \t]*(?:\1[ \t]*){2,}$")
+# A link reference definition renders to NOTHING at all, so a heading above one orphans no
+# paragraph.  Both of these are tested on the RAW line: CommonMark allows up to three leading
+# spaces, and a fourth makes the line an indented code block, which INDENTED already exempts.
+LINK_REF_DEF = re.compile(r"^ {0,3}\[[^\]]*\]:")
+
+listing = subprocess.run(["git", "ls-files", "-z", "*.lean", "README.md"],
+                         capture_output=True, check=True).stdout
+paths = [p.decode() for p in listing.split(b"\0") if p]
+
+total = 0
+hits = []
+unbalanced = []
+for path in paths:
+    lines = pathlib.Path(path).read_text(encoding="utf-8").split("\n")
+    fenced = False
+    for lineno, line in enumerate(lines, 1):
+        if FENCE.match(line):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        matched = HEADING.match(line)
+        if not matched:
+            continue
+        total += 1
+        following = lines[lineno] if lineno < len(lines) else ""
+        # Strip decoration so that a heading opening on an emoji or a dash is judged on its text,
+        # and keep the backtick so that a heading opening on a code span is exempt from (2).
+        core = re.sub(r"^[^0-9A-Za-z`]*", "", matched.group(2))
+        opens_block = (following.startswith(INDENTED)
+                       or following.lstrip().startswith(FOLLOWERS)
+                       or bool(ORDERED.match(following.lstrip()))
+                       or bool(THEMATIC_BREAK.match(following))
+                       or bool(LINK_REF_DEF.match(following)))
+        wrapped = bool(following.strip()) and not opens_block
+        lowercase = bool(re.match(r"^[a-z]", core))
+        if wrapped or lowercase:
+            hits.append((path, lineno, wrapped, lowercase, line, following))
+    if fenced:
+        unbalanced.append(path)
+
+for path in unbalanced:
+    print(f"{path}: WARNING unbalanced code fence -- the mask stayed on to the end of the file, so "
+          f"every heading after the last fence line in it was skipped and this run's heading "
+          f"count UNDER-reads.  The summary line prints only when there are hits, so on a clean "
+          f"run this warning stands alone.  Balance the fence.")
+
+for path, lineno, wrapped, lowercase, line, following in hits:
+    why = ("its continuation renders as an ordinary paragraph" if wrapped
+           else "its text begins in lower case, so it is the tail of the heading above")
+    print(f"{path}:{lineno}: this heading wraps -- {why}.  Shorten the title to one source line "
+          f"and state the clause that does not fit in the prose below it.")
+    print(f"    heading: {line}")
+    if wrapped:
+        print(f"    orphaned: {following}")
+if hits:
+    print(f"{len(hits)} wrapped heading(s) over {total} headings in {len(paths)} tracked files.")
+    sys.exit(1)
+WRAPPED_HEADING
+
 # Verify all .lean files are imported.
 lake exe mk_all --lib EllipticCurves --git --check || exit 1
 
