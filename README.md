@@ -5598,9 +5598,57 @@ as the gate's answer, because that is the one a later base silently re-numbers.
 that the census is not re-run blind. The two measured against a base other than their commit's own
 parent both reproduce at the base they name: `046022d`'s `prefix 896 / suffix 179` at
 `77fb54d` → `0904ac7` keyed with `content`, and `ebb4d42`'s `928` at `77fb54d` → `91c6980` under
-all three keys. ⚠️ **Both pairs share that base, and what is luck is the two heads** — a branch
-head force-pushed over is not fetchable by sha afterwards, so a figure keyed to one can be
-re-derived but never re-run, and a pair is only as durable as its weaker end.
+all three keys. ⚠️ **Both pairs share that base**, and ⚠️⚠️ **the clause that stood here about their
+two heads is retired immediately below, because it was FALSE and not merely partial.**
+
+Retired: *"what is luck is the two heads — a branch head force-pushed over is not fetchable by sha
+afterwards, so a figure keyed to one can be re-derived but never re-run"*, written by `c28c462`
+(2026-09-19T19:44:37Z) and contradicted by `## Reviewing`'s *"a superseded head is re-fetchable"*
+**19 h 28 min 58 s later**, at `ea5022d` (2026-09-20T15:13:35Z) — so this page has carried both
+readings for a fortnight, `### The render gate` denying what `## Reviewing` asserts, and the wrong
+one was the stated REASON for *"re-derived but never re-run"*.
+
+⚠️⚠️ **Its own two heads refute it.** `91c6980e5977b37de58b85bd2200f94505956c05` and
+`0904ac7642d0c5f7178f09ca064cd202616f3406` are at the tip of `refs/pull/753/head` and
+`refs/pull/755/head`, which outlive their deleted branches, and neither is an ancestor of `main`; at
+`git 2.39.5`, into a `git init` holding zero objects, `git fetch --depth=1 <url> <40-hex>` exits
+**0** for each and `cat-file -t` then answers `commit`, while the same fetch at **seven** characters
+exits **128** with `fatal: couldn't find remote ref`. ⚠️ **The harder case answers the same**: the
+heads of `#2313` round 1, `#2313` round 2 and `#2315` round 3 —
+`08eb1606fce785ae67d102a18a142c0fa66ae7c6`, `20d7fa45af99314e86f82c0a94cfd805f7c78352` and
+`f380f9eafc5fcfbd5044c044c28fe27ca48d4d11` — are at the tip of **0** of the **1025** refs the remote
+advertises and fetch at the forty just the same. ⇒ ⚠️⚠️ **The fragile thing is the KEY'S WIDTH and
+never the head's fate**, and a figure keyed to a force-pushed-over head is RE-RUN and not merely
+re-derived, for any instrument that reads one ref.
+
+⚠️⚠️ **What `--depth=1` does not restore is HISTORY, and that is the half of the old clause worth
+keeping**: at such a head `rev-list --count` is **1**, `<40-hex>^` is *"Not a valid object name"*,
+`blame` over the whole file is **1** boundary commit — the head itself — and ⚠️ **`log -S` reports
+that boundary commit for any string the file merely CONTAINS**, answering `08eb160` for
+*"superseded head is re-fetchable"*, a string that entered at `ea5022d`. **So re-run a one-ref gate
+at a superseded head, and never blame, count or `-S` at one.** ⚠️ **The durability half is therefore
+SCOPED and not deleted: a pair is only as durable as its weaker END KEY**, seven characters being
+what dead-ends at the server — which is why `## Reviewing` prescribes publishing the forty beside
+the figure at the moment the figure is published.
+
+⚠️ **Attribution is by sha and date because the prescribed ROW key is unavailable at BOTH ends**:
+`c28c462`'s subject ends `(#2021) (#776)` and `ea5022d`'s ends `(#2001) (#782)`, the PENULTIMATE tag
+being the row — and `#2021` and `#2001` resolve to **no taxis row of this project**, while `#776`
+and `#782` are the pull requests whose own merge commits those two shas ARE, read at both.
+
+⚠️⚠️ **One copy of the same claim SURVIVES this repair, and it is named rather than left to be
+found**: base blob `43c84ed0:README.md`:`3757` says of two force-pushed heads *"so both resolve only
+through `refs/pull/<n>/head`"*, and BOTH halves are false —
+`bab331934268736c261877b291e8bcff52096a47` and `f7b25145082e5b7e2faaaa778a2927af75fa1d36` fetch
+at the forty (exit **0**, `cat-file -t` `commit`), while `refs/pull/746/head` and
+`refs/pull/749/head` now read `7618ab36…` and `2792909c…`, so the named route is the one route
+that does NOT reach them. ⚠️ **It is a different block about the same behaviour, so
+`### Retired claims` asks for its own quotation and not a second copy of this one**, and it is out
+of this clause's scope. ⚠️⚠️ **PR #783 carries BOTH retirements and has been OPEN since
+2026-09-20 with CI green, 0 reviews and 105 commits of `main` behind it**; it still merges into
+live `main` at `merge-tree` exit **0**, and it is the ONE branch-caused conflict this branch's own
+sweep finds. **Only one of the two can land.**
+
 ⚠️ **And the key prescribed above costs the landed record almost nothing, which is a better warrant
 for it than four-of-five.** Every one of the **4** messages that say *"token skeleton"* and name no
 fields returns, under `type:tag:level` at the pair it names, exactly the figure it published:
