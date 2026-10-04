@@ -14,7 +14,9 @@ import EllipticCurves.Torsion.StructureGeneral
 `(n : F) ≠ 0`, **given only the count `#E[n] = n²`**.
 
 `EllipticCurves.Torsion.StructureGeneral`'s `nonempty_torsion_addEquiv` proves the same conclusion
-under the same two characteristic conditions and additionally `[IsAlgClosed F]`.  ⚠️⚠️ **This file's
+under the same two characteristic conditions and additionally `[IsAlgClosed F]` **and
+`[W.IsElliptic]`** — ⚠️ **two instance binders and not one**, read off `#check @` and not off
+its source, and `nonempty_torsion_addEquiv_of_card` below binds **neither**.  ⚠️⚠️ **This file's
 `nonempty_torsion_addEquiv_of_card` subsumes it — the `example` in `### Recoveries` below is that
 claim, machine-checked — and the point is the DIAGNOSIS: the closure there is an artefact of the
 ROUTE and not of the statement.**
@@ -92,8 +94,42 @@ The three hypotheses of the core are discharged as follows.
     `(q : F) ≠ 0` comes from `q ∣ n` and `(n : F) ≠ 0`.
   * **`q ∤ n`.** An element of `E[n]` killed by `q` is killed by `1`, by Bézout on
     `IsCoprime (q : ℤ) (n : ℤ)`, so the set is a singleton and `1 ≤ q ^ 2`.
-    ⚠️ **This is `PrimaryTower`'s own second branch with `pᵏ` replaced by `n`**, and it is the only
-    part of that proof this file reuses.
+    ⚠️ **This is `PrimaryTower`'s own second branch with `pᵏ` replaced by `n`.**
+
+⚠️⚠️ **What this file owes `nonempty_torsionPow_addEquiv`'s proof is FIVE regions and `14` lines
+and not one branch.**  The instrument is a multiset intersection of **stripped non-blank** lines,
+region by region, against `EllipticCurves.Torsion.PrimaryTower`.  ⚠️ **Both columns are that same
+instrument over that same span** — the declaration or block named in column 1, signature included
+and docstring excluded — and all five spans carry zero blank lines, so the raw and the non-blank
+reading coincide on every row:
+
+| region of this file | identical / its own | what changes |
+|---|---|---|
+| the `q ∤ n` branch (`eq_zero_of_nsmul_eq_zero_of_not_dvd`) | **7** / 14 | the coprimality source |
+| the `q ∣ n` branch (`card_nsmul_eq_zero_torsion_le`) | **3** / 8 | `pᵏ → n`, `calc` → `.trans` |
+| the `Finite` derivation | **1** / 3 | `p → n` and `hp.pos.ne' → hn0` |
+| the core call and `intro q hq` | **1** / 4 | the positivity and the count argument |
+| the singleton tail | **2** / 7 | `hzero` inlined into a `refine` |
+
+⚠️⚠️ **The TOTAL is regioning-INDEPENDENT and only the apportionment is not**, which is what
+pins `14` rather than hedging it: the same intersection taken over the whole of this file's code
+region at once, instead of region by region, also returns `14`, and each of the `14` occurs exactly
+ONCE on each side — so nothing is double-counted, no shared line falls outside the five regions, and
+a different regioning can only move a line between rows.  ⚠️ **The singleton tail's two are
+`rw [Nat.card_eq_one_iff_unique]` and `exact Nat.one_le_pow 2 q hq.pos`.**
+
+⚠️⚠️ **The branch named in the bullet above is the HEAVIEST borrower rather than the only one**
+— `7` of the `14`, which is exactly half and is a comparison against the other four rows
+(`3`/`2`/`1`/`1`) rather than a majority — **and it is simultaneously the one genuinely
+ADAPTED**: `q ∤ n` is a different hypothesis from `q ≠ p`, so `Nat.coprime_primes` +
+`Nat.Coprime.pow_right` becomes `Nat.Prime.coprime_iff_not_dvd`, while the `q ∣ n` branch and
+the `Finite` step are transcriptions under a substitution — three lines there are identical after
+`strip()` (`intro a b hab`, `simp only [Subtype.mk.injEq] at hab`,
+`exact Subtype.ext (Subtype.ext hab)`), and the `Finite` block's three lines carry **two
+substitutions over three positions**.  ⚠️ **So *adapted* and *heavily reused* are independent axes,
+and reporting one branch as the sole reuse errs toward LESS debt to that proof** — the direction
+nothing downstream catches, because a later round asking what this file owes `PrimaryTower` would be
+told *one adapted branch*.
 
 ⚠️ **`Finite (W.torsion n)` is read off the count** (`Nat.card ≠ 0`), not from a smoothness or
 closure hypothesis, and `Finite (W.torsion q)` for `q ∣ n` follows from it by the inclusion
@@ -144,11 +180,44 @@ primality-and-non-divisibility and one `(n : F) ≠ 0` alone.
 
 ## Recoveries
 
-Three `example`s, all anonymous and all quoting their statements rather than referencing them:
-the landed `[IsAlgClosed F]` form (which is what *subsumes* means here), the `n = 3` closure-free
-member with `W.preΨ 3 = W.Ψ₃` discharged, and the `n = 2` member where ⚠️ **both `preΨ`-side
-hypotheses are FREE** — `W.preΨ 2 = 1`, a unit splits and has no roots — leaving `W.Ψ₂Sq.Splits` as
-the only surviving hypothesis.
+Three `example`s, all anonymous, each quoting the landed statement it recovers **hypothesis for
+hypothesis**: `StructureGeneral`'s `nonempty_torsion_addEquiv` (which is what *subsumes* means
+here), `EllipticCurves.Torsion.ThreeTorsionStructure`' `nonempty_torsionThree_addEquiv_of_splits`
+at `n = 3`, and `nonempty_torsionTwo_addEquiv_of_splits` at `n = 2`.
+
+⚠️⚠️ **What checks a quotation is `#check @`, once by hand, and NOT the build — and that is what
+quoting MEANS rather than a shortfall of it.**  Each `example` proves its statement independently,
+so it is severed by construction from the member it is captioned as recovering: none of the three
+captioned names occurs in any term below — every occurrence is in this docstring or in one
+`example`'s own docstring — so if one of them drifts in **either** direction this file still
+compiles and a reader finds a stale caption rather than a failure.  ⚠️ **What the build does grip
+two-sidedly is the declarations the three terms APPLY**, and there are four —
+`nonempty_torsion_addEquiv_of_card`, `card_torsion_eq_sq`, `card_torsion_three_of_splits` and
+`nonempty_torsion_addEquiv_of_splits_of_splits_Ψ₂Sq` — each applied positionally with its full
+explicit argument list, so an EXPLICIT hypothesis **gained or lost** by any of those four fails to
+compile — an instance argument would not, which is why the gate is stated at the explicit list.
+⚠️ **So the `n = 3` recovery's build-enforced gate tracks `card_torsion_three_of_splits` and
+not `nonempty_torsionThree_addEquiv_of_splits`**, and the two coincide only because they currently
+take the same four hypotheses.
+
+⚠️⚠️ **The `n = 3` recovery routes through `nonempty_torsion_addEquiv_of_card` and NOT through the
+second statement, and the reason is a hypothesis COUNT.**  Both
+`nonempty_torsionThree_addEquiv_of_splits` and `card_torsion_three_of_splits` take **four** explicit
+hypotheses — `(2 : F) ≠ 0`, `(3 : F) ≠ 0`,
+`W.Ψ₃.Splits` and squareness of `Ψ₂Sq` at the roots of `Ψ₃` — and **not** `W.Ψ₂Sq.Splits`.  Routing
+`n = 3` through `nonempty_torsion_addEquiv_of_splits_of_splits_Ψ₂Sq` would carry that fifth
+hypothesis, so the `example` would prove a statement **strictly weaker** than the member it is
+captioned as recovering, and would therefore not be a recovery at all — a defect in what the
+`example` STATES, which is the layer a quotation is answerable at.
+⚠️ **`EvenTorsionCountSplits`' own docstring predicts this split** — *"`W.Ψ₂Sq.Splits` is not used
+on the odd branch"*, and a caller who knows `n` is odd should *"not pay for it"*.
+
+⚠️ **`n = 2` is the one index where that hypothesis is NOT surplus**, being
+`nonempty_torsionTwo_addEquiv_of_splits`' own, which is why the `n = 2` recovery may route through
+the second statement and still quote exactly: ⚠️ **both `preΨ`-side hypotheses are FREE there**
+(`W.preΨ 2 = 1`, and a unit splits and has no roots), leaving `W.Ψ₂Sq.Splits` as the only surviving
+hypothesis on both sides.  **The degenerate index and the odd indices come apart here, and the
+asymmetry is a fact about `preΨ` and not a convenience.**
 
 ## References
 
@@ -235,7 +304,10 @@ theorem nonempty_torsion_addEquiv_of_card (h2 : (2 : F) ≠ 0) {n : ℕ} (hn : (
     rw [hone]
     exact Nat.one_le_pow 2 q hq.pos
 
-/-- **`E[n] ≃+ ZMod n × ZMod n` at every `n` from the THREE closure-free splitting conditions.** -/
+/-- **`E[n] ≃+ ZMod n × ZMod n` at EVERY `n`** for an elliptic curve over any field with
+`(2 : F) ≠ 0` and `(n : F) ≠ 0` over which `preΨₙ` **splits**, `Ψ₂Sq` **splits**, and `Ψ₂Sq` is a
+**square at every root of `preΨₙ`** — the three closure-free conditions of
+`EllipticCurves.Torsion.EvenTorsionCountSplits`' `card_torsion_eq_sq_of_splits_of_splits_Ψ₂Sq`. -/
 theorem nonempty_torsion_addEquiv_of_splits_of_splits_Ψ₂Sq [W.IsElliptic] (h2 : (2 : F) ≠ 0)
     {n : ℕ} (hn : (n : F) ≠ 0) (hsplits : (W.preΨ (n : ℤ)).Splits) (hsplits₂ : W.Ψ₂Sq.Splits)
     (hsq : ∀ x : F, (W.preΨ (n : ℤ)).eval x = 0 → IsSquare (W.Ψ₂Sq.eval x)) :
@@ -250,16 +322,15 @@ example [IsAlgClosed F] [W.IsElliptic] (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : (n : F) ≠ 0) : Nonempty (W.torsion n ≃+ ZMod n × ZMod n) :=
   nonempty_torsion_addEquiv_of_card h2 hn (card_torsion_eq_sq h2 hn)
 
-/-- The `n = 3` closure-free member. -/
+/-- The `n = 3` closure-free member `nonempty_torsionThree_addEquiv_of_splits`, hypothesis for
+hypothesis: **four** explicit hypotheses and NOT `W.Ψ₂Sq.Splits`.  ⚠️ `card_torsion_three_of_splits`
+concludes `= 9` and not `= 3 ^ 2`, so the `norm_num` is load-bearing. -/
 example [W.IsElliptic] (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
-    (hsplits : W.Ψ₃.Splits) (hsplits₂ : W.Ψ₂Sq.Splits)
+    (hsplits : W.Ψ₃.Splits)
     (hsq : ∀ x : F, W.Ψ₃.eval x = 0 → IsSquare (W.Ψ₂Sq.eval x)) :
-    Nonempty (W.torsion 3 ≃+ ZMod 3 × ZMod 3) := by
-  have h : W.preΨ ((3 : ℕ) : ℤ) = W.Ψ₃ := by
-    rw [show (((3 : ℕ) : ℤ)) = (3 : ℤ) from rfl]
-    simp [WeierstrassCurve.preΨ]
-  exact nonempty_torsion_addEquiv_of_splits_of_splits_Ψ₂Sq h2 (by exact_mod_cast h3)
-    (h ▸ hsplits) hsplits₂ fun x hx => hsq x (h ▸ hx)
+    Nonempty (W.torsion 3 ≃+ ZMod 3 × ZMod 3) :=
+  nonempty_torsion_addEquiv_of_card h2 (by exact_mod_cast h3)
+    (by rw [card_torsion_three_of_splits h2 h3 hsplits hsq]; norm_num)
 
 /-- The `n = 2` closure-free member, where the `preΨ`-side hypotheses are free. -/
 example [W.IsElliptic] (h2 : (2 : F) ≠ 0) (hsplits₂ : W.Ψ₂Sq.Splits) :
