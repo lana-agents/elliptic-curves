@@ -22,10 +22,10 @@ this commit returns one file, this one, for the occurrence inside that quoted co
 `FunctionField.MulByTwoFibreInfinity`, `FunctionField.MulByTwoPlaceAtInfinity`,
 `Torsion.TwoTorsion` and `Torsion.TwoTorsionSplittingField`;
 `four_ne_zero_of_two_ne_zero'` in `Torsion.HalvingExtension`; and `four_ne_zero` in
-`Torsion.XSupport`. ⚠️ **`7` files under `3` names is the figure at `5710234`, and a fourth name
-arrives with the eighth copy**: `four_ne_zero'` in `Torsion.EvenTorsionCountSplits`, unmerged at
-PR #895 and not retired here — so `8` files under `4` names is the figure once that lands, and `7`
-under `4` is neither. ⚠️ **Three spellings is why nobody noticed**: a `git grep` for any one of them
+`Torsion.XSupport`. ⚠️ **`7` files under `3` names is the figure at `5710234` and it is keyed
+there because it has not been the figure since**: what this paragraph used to carry beside it was a
+forecast of the next reading, and `## The eighth copy` below is where that went and why.
+⚠️ **Three spellings is why nobody noticed**: a `git grep` for any one of them
 misses at least one of the others, so the author of each new copy looked, found nothing importable,
 and wrote another one — and `Torsion.TwoTorsionSplittingField`'s copy carried a docstring saying so
 (*"Duplicated on purpose: every other copy in the tree … is itself `private`, so none of them can
@@ -49,6 +49,38 @@ call site in the tree actually has: the proof uses only `4 = 2 * 2` and `mul_ne_
 it to `Field` would have been a hypothesis this file does not spend. Nothing downstream relies on
 the generality; it is here because the narrower statement would have been the arbitrary one.
 
+## The eighth copy, and the forecast retired with it
+
+⚠️ **An eighth copy of the bridge did reach `main` after this module landed, and it is gone again**
+(`#2314`).  *four_ne_zero'* in `Torsion.EvenTorsionCountSplits` arrived with PR #895 (`74f065cd`)
+and was deleted by this row's commit, which cites `four_ne_zero_of_two_ne_zero` at both of that
+file's call sites instead.  ⚠️ **The name is in italics and not backticks** because it no longer
+resolves: `### Retired claims`' own reason is that a retired name in backticks is indistinguishable
+from a dangling one to every name-resolution check on this board.  That file's own docstring
+carries the other half of the retirement — the sentence that commissioned the follow-up — because
+its subject is that file's own copy.
+
+⚠️ **What retires here is this module's forecast of the arithmetic, which the landing order
+falsified.**  Under a ⚠️ marker — paragraph structure, so named out here rather than reproduced
+inside — the paragraph above used to close
+
+*"**`7` files under `3` names is the figure at `5710234`, and a fourth name arrives with the eighth
+copy**: `four_ne_zero'` in `Torsion.EvenTorsionCountSplits`, unmerged at PR #895 and not retired
+here — so `8` files under `4` names is the figure once that lands, and `7` under `4` is neither."*
+
+⚠️⚠️ **`8` files under `4` names is a population `main` never carried.**  This module landed first
+(`0e13ff0`, `2026-10-01`) and retired the seven; the eighth arrived second (`74f065cd`,
+`2026-10-03`), so what `main` held between that landing and this commit was `1` file under `1` name,
+and the `8 ↔ 4` reading was conditional on the other landing order, which never happened.  The
+*"unmerged at PR #895"* half is a state claim and that pull request has merged.  ⚠️ **`7 ↔ 3` at
+`5710234` is the one cell of the sentence that survives, and it survives because it is keyed** —
+which is the whole argument for keying a census rather than publishing it live.
+
+⚠️ **The recogniser the surviving cell is measured by now returns this file alone, for the
+occurrence inside its own quoted command**, exactly as the note beside that command says it does.
+The marked quotation above does not add a match: it carries the retired name and not the
+`private lemma` or `private theorem` that the command keys on.
+
 ## Position in the import closure
 
 This module imports **nothing** from `EllipticCurves` — it is a leaf — and its two Mathlib imports
@@ -58,6 +90,18 @@ seven import lists grows each of their closures by exactly one module, itself**,
 actually checked: this module's ENTIRE import closure — 1764 modules counting itself, over a walk
 of the project and the pinned dependency tree — is a SUBSET of each of those seven closures, set
 difference `0` for `7` of `7`.** So *"exactly one module, itself"* is exact rather than approximate.
+
+⚠️ **The eighth import line is FREE, and that is a different figure from the `+1` above**
+(`#2314`).  `Torsion.EvenTorsionCountSplits` already reached this module at distance **2** before
+its import line was written, and ⚠️ **by exactly ONE route at that distance**: through
+`Torsion.XSupport`, which it imports directly and which imports this one — the only predecessor of
+this module on any shortest path.  ⚠️ **`Torsion.TwoTorsion` also imports this module but is itself
+at distance 2, so that route is length 3** and is not a second distance-`2` witness.  Either way the
+line grows that file's closure by **0** modules and the whole-tree job count by **0**.
+⚠️ **It is written anyway, and that is a convention choice rather than a necessity**: a file that
+cites `four_ne_zero_of_two_ne_zero` should name the module supplying it rather than rest on another
+file keeping an import it does not own.
+**So the `+1` sentence above is a claim about the seven and does not generalise.**
 
 It lives under `Torsion/` rather than `FunctionField/` because the dependency between the two
 directories runs one way: **35** `FunctionField/` files import an `EllipticCurves.Torsion.*` module
