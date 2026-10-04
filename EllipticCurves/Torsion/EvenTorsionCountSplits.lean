@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Torsion.FourNeZero
 import EllipticCurves.Torsion.OddTorsionCountSplits
 import EllipticCurves.Torsion.StructureGeneral
 import EllipticCurves.Torsion.ThreeTorsionStructure
@@ -109,49 +110,63 @@ needed.  ⚠️ **That obstruction argument is classical and is formalised NOWHE
 named here as the reason no `n ≥ 4` certificate is shipped and must not be cited as a theorem of the
 repository.
 
-## ⚠️ Five private helpers are replicated rather than imported, and the count is the finding
+## ⚠️ Four private helpers are replicated rather than imported, and the count is the finding
 
 Each is `private` in a file this one imports, so none can be consumed — privacy and not distance is
 what blocks consumption.  ⚠️ **The last two live in `EllipticCurves.Torsion.TwoTorsion`, which this
 file does NOT import directly: it reaches that module through
-`EllipticCurves.Torsion.ThreeTorsionStructure`.**  ⚠️ **Both line addresses below resolve at
-`d33d34f`, and the seven-file / three-name population in the third bullet is measured there**:
+`EllipticCurves.Torsion.ThreeTorsionStructure`.**  ⚠️ **Both line addresses below are keyed to
+`d33d34f` and not to this commit**, and the last bullet says by how much they have moved since,
+and why:
 
 * `ncard_setOf_isRoot_le'` re-proves `EllipticCurves.Torsion.XSupport`'s `ncard_setOf_isRoot_le`;
 * `algebraMap_natCast_ne_zero'` re-proves `EllipticCurves.Torsion.OddTorsionCountSplits`' lemma of
   that name — which is itself the file this one is the sibling of;
-* `four_ne_zero'` re-proves a `(2 : F) ≠ 0 → (4 : F) ≠ 0` step that is ⚠️ **already `private` in
-  SEVEN files** (`FunctionField/MulByTwoDegree`, `FunctionField/MulByTwoFibreInfinity`,
-  `FunctionField/MulByTwoPlaceAtInfinity`, `Torsion/HalvingExtension`, `Torsion/TwoTorsion`,
-  `Torsion/TwoTorsionSplittingField`, `Torsion/XSupport`), under **THREE** different names —
-  `four_ne_zero_of_two_ne_zero` in five of them, `four_ne_zero_of_two_ne_zero'` in
-  `Torsion/HalvingExtension`, `four_ne_zero` in `Torsion/XSupport`.  ⚠️ **This file is the eighth
-  copy and `four_ne_zero'` is a FOURTH name**, so the pairing is `7 ↔ 3` before this file and
-  `8 ↔ 4` with it — the two readings count different populations and neither is `7 ↔ 4`.
-  ⚠️⚠️ **This census has an expiry date, and the ref above is which side of it this sentence is
-  written on: `#2312` (PR #896, in review as this is written) DELETES all seven and replaces them
-  with one public `four_ne_zero_of_two_ne_zero` in `EllipticCurves.Torsion.FourNeZero`.**  On that
-  landing order the seven are gone and this file's `four_ne_zero'` is the only copy left;
 * `Ψ₂Sq_fixture` (under `### Non-vacuity`) re-proves `EllipticCurves.Torsion.TwoTorsion`'s
   `Ψ₂Sq_y2EqX3Add5X2Add4X` (`:407`), statement- and proof-identical;
 * `splits_Ψ₂Sq_fixture` re-proves that same file's `splits_Ψ₂Sq_y2EqX3Add5X2Add4X` (`:417`),
-  likewise — its two lines are those two lines with one name swapped.  ⚠️ **`#2312` is the mover for
-  these two addresses as well**: it deletes `EllipticCurves.Torsion.TwoTorsion`'s own copy of the
-  step bullet 3 is about, from above both of them, so both numbers move if it lands first.  **The
-  ref is the key and the pointer is the rest of it; the destinations are not published here, because
-  a destination is keyed to one head and that row has a round in flight.**
+  likewise — its two lines are those two lines with one name swapped.  ⚠️ **`#2312` (PR #896,
+  `0e13ff0`) was the mover for both of those addresses and it has landed**: its unit on that file is
+  `+1 / −5` — it removed the four-line copy of the `(4 : F) ≠ 0` bridge from above them both **and
+  the blank line after it**, and added one `import` line above both — so each sits `5 − 1` =
+  **four lines earlier** than the `d33d34f` key above.  ⚠️ **Both moves are named because the net is
+  what displaces the addresses**: a four-line deletion alone would give the same numeral through a
+  cancellation, and a reader re-deriving from the cause rather than the net would get it by luck.
+  ⚠️ **The key is kept rather than re-pointed, and the displacement is stated once instead of in two
+  bullets**: a ref key is correct at its own ref and a live line number is correct at none, so the
+  route to the two declarations at any later commit is their names, and the displacement is a fact
+  about one landed diff rather than about a head.
 
-⚠️ **All five are named here rather than repaired**, on `#2250` round 2's report-rather-than-
-route-around standard: dropping `private` is a change to another module's interface and this row is
-scoped to the even-`n` count.  ⚠️ **The third one is the one worth a row of its own** — eight copies
-under four names is not a local duplication, and one public `(4 : F) ≠ 0` helper retires all eight.
-⚠️ **`#2312` is that row, and it retires SEVEN**: the eighth is this file's own `four_ne_zero'`,
-which that row cannot reach because this file is not in `main` yet, so a follow-up is owed on either
-landing order.
+⚠️ **All four are named here rather than repaired**, on `#2250` round 2's report-rather-than-
+route-around standard: dropping `private` is a change to another module's interface and this file is
+scoped to the even-`n` count.
 ⚠️ **The last two are a different shape and should not be read as an eighth-copy problem**: they
 duplicate a *certificate* and not a *step*, and they exist because `### Non-vacuity` reaches the
 same `ℚ` curve by a different route while `EllipticCurves.Torsion.TwoTorsion` keeps its fixture
 `private`.
+
+⚠️ **The list had FIVE members and its THIRD is gone, so it is retired here rather than deleted**
+(`#2314`).  Under two ⚠️ markers — paragraph structure, so named out here instead of reproduced
+inside the quotation — this block used to close
+
+*"**The third one is the one worth a row of its own** — eight copies under four names is not a local
+duplication, and one public `(4 : F) ≠ 0` helper retires all eight.  **`#2312` is that row, and it
+retires SEVEN**: the eighth is this file's own four_ne_zero', which that row cannot reach because
+this file is not in `main` yet, so a follow-up is owed on either landing order."*
+
+⚠️ **Both of its conditions are discharged, and in the order it was careful not to assume**: `#2312`
+landed first (`0e13ff0`), this file arrived second (`74f065cd`) carrying the one copy the seven had
+already been retired out of, and the follow-up it commissions is this commit, which deletes that
+copy and cites `four_ne_zero_of_two_ne_zero` at both of the call sites below.  **This file now
+declares no copy of the bridge at all**, and the quotation above is the only record left that it
+ever did.
+
+⚠️ **The census half of that bullet is deliberately not quoted again here.**  *"eight copies under
+four names"*, the `7 ↔ 3` / `8 ↔ 4` pairing and the seven-file enumeration are claims about the
+tree-wide population of the bridge, whose subject lives in `EllipticCurves.Torsion.FourNeZero`, and
+`README.md` `### Retired claims`' *"a claim about a subject that lives elsewhere retires at the
+subject, once"* puts that retirement **there** and these two sentences **here**.  That is the one
+reading on which each claim is quoted exactly once.
 
 ## Main definitions
 
@@ -187,12 +202,6 @@ open Polynomial
 namespace WeierstrassCurve.Affine
 
 variable {F : Type*} [Field F] {W : Affine F}
-
-/-- `(4 : F) ≠ 0` from `(2 : F) ≠ 0`.  ⚠️ The eighth private copy of this step in the tree; see the
-module docstring, which names the other seven. -/
-private lemma four_ne_zero' (h2 : (2 : F) ≠ 0) : (4 : F) ≠ 0 := by
-  rw [show (4 : F) = 2 * 2 by norm_num]
-  exact mul_ne_zero h2 h2
 
 /-- A natural number nonzero in `F` stays nonzero in any `F`-algebra that is a field.  ⚠️ A copy of
 `EllipticCurves.Torsion.OddTorsionCountSplits`' lemma of this name, which is `private` there. -/
@@ -255,7 +264,7 @@ private lemma disjoint_and_separable_preΨ_of_even_of_isAlgClosed [IsAlgClosed F
   have hn0 : n ≠ 0 := by rintro rfl; simp at hn
   have hn' : ((n : ℤ) : F) ≠ 0 := by exact_mod_cast hn
   have hp : W.preΨ (n : ℤ) ≠ 0 := W.preΨ_ne_zero hn'
-  have hq : W.Ψ₂Sq ≠ 0 := W.Ψ₂Sq_ne_zero (four_ne_zero' h2)
+  have hq : W.Ψ₂Sq ≠ 0 := W.Ψ₂Sq_ne_zero (four_ne_zero_of_two_ne_zero h2)
   set A : Set F := {x : F | (W.preΨ (n : ℤ)).IsRoot x} with hA
   set B : Set F := {x : F | W.Ψ₂Sq.IsRoot x} with hB
   have hAfin : A.Finite := finite_setOf_isRoot hp
@@ -559,7 +568,7 @@ theorem card_torsion_even_of_isSquare (h2 : (2 : F) ≠ 0) {n : ℕ} (heven : Ev
       + Nat.card {x : F // W.Ψ₂Sq.eval x = 0} + 1 := by
   have hn' : ((n : ℤ) : F) ≠ 0 := by exact_mod_cast hn
   have hp : W.preΨ (n : ℤ) ≠ 0 := W.preΨ_ne_zero hn'
-  have hq : W.Ψ₂Sq ≠ 0 := W.Ψ₂Sq_ne_zero (four_ne_zero' h2)
+  have hq : W.Ψ₂Sq ≠ 0 := W.Ψ₂Sq_ne_zero (four_ne_zero_of_two_ne_zero h2)
   haveI : Finite {x : F // (W.preΨ (n : ℤ)).eval x = 0} :=
     Set.Finite.to_subtype (finite_setOf_isRoot hp)
   haveI : Fintype {x : F // (W.preΨ (n : ℤ)).eval x = 0} := Fintype.ofFinite _
