@@ -114,9 +114,11 @@ four.
   remains true is the first half of the bullet: continuity is not asserted here, and this
   extraction did not supply it.
 * **The identification of `galoisDet` with the cyclotomic character is not proved here**, at any
-  prime. See `EllipticCurves.TateModule.Determinant`'s Scope for what does and does not block it;
-  ⚠️ the short version is that it needs the Weil pairing at **every** level `E[ℓ^k]`, and the
-  mod-`n` identity is a different statement.
+  prime. It is proved, at every prime, in
+  `EllipticCurves.FunctionField.TateDeterminantCyclotomic` — see the retirement record at
+  `galoisDet` below — and `EllipticCurves.TateModule.Determinant`'s Scope is what does and does not
+  block it over the **base** field; ⚠️ the short version is that it needs the Weil pairing at
+  **every** level `E[ℓ^k]`, and the mod-`n` identity is a different statement.
 * Also out of scope: injectivity of `ρ_{E,ℓ}`, and any description of its image.
 * ⚠️ **`ℓ ≥ 5` is reached, and this file being generic is what reaches it.** ⚠️ **This bullet used
   to open** *"`ℓ ≥ 5` gains nothing from this file being generic"*, on the ground that its
@@ -210,8 +212,44 @@ This is `LinearEquiv.det` applied to the abstract representation `galoisRep ℓ`
 choice of basis. `coe_galoisDet` says that the determinant of the matrix `galoisRepMatrix b σ`
 computes it for every `b`; `det_galoisRepMatrix_congr` is the resulting independence statement.
 
-The identification of this character with the cyclotomic character needs the Weil pairing and is
-**not** proved in this development at any prime. -/
+⚠️ **This paragraph read** *"The identification of this character with the cyclotomic character
+needs the Weil pairing and is **not** proved in this development at any prime"* **until
+`EllipticCurves.FunctionField.TateDeterminantCyclotomic`**, which proves
+`galoisDet = galoisCyclotomicChar S F ℓ` at every prime `ℓ` with `(2 : F) ≠ 0` and `(ℓ : F) ≠ 0`
+over an algebraically closed `F`.  The *reason* the retired clause gave is correct and is what the
+proof does: it consumes the Weil pairing at **every** level `E[ℓ^k]`, through
+`galoisDetMod_n_eq_galoisModularCyclotomicChar`, and glues the levels with
+`toZModPow_coe_galoisDet_of_natCast_ne_zero`
+(`EllipticCurves.TateModule.PrimaryDeterminantLevel`).
+
+⚠️ **This is the one place the retirement is recorded.**  Eleven other blocks carried the same
+proposition, and all eleven now point here instead:
+
+* `EllipticCurves.TateModule.Determinant`, `EllipticCurves.TateModule.DeterminantMod`,
+  `EllipticCurves.TateModule.Image`, `EllipticCurves.TateModule.PrimaryImage`,
+  `EllipticCurves.FunctionField.MatrixRepDeterminantCharacter`,
+  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` and twice in
+  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacterN` — the eight that say
+  *"not proved **here**"* or *"and is untouched"*;
+* ⚠️ `EllipticCurves.FunctionField.GaloisPointAction` and a second block in
+  `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` — **the two that said it flat**,
+  with no file, no field and no index qualifier, which is why a recogniser keyed to the two shapes
+  above does not see them;
+* ⚠️ `EllipticCurves.Galois.CyclotomicCharacter` — **a third shape**: its *"not proved here"* is
+  true of that file and survives, and what is retired there is the list of three prerequisites it
+  gave for proving the proposition at all.
+
+So the set is **twelve blocks across ten files**, counting this one, and it is pinned by the
+clause's subject rather than by a sweep of the tree.  ⚠️ Two of the twelve need their *reasons*
+read separately from their claims: `WeilPairingDeterminantCharacter`'s strong form gave *"this
+development has it at `k = 1` only"*, which was false when it was written — `weilPairingN` and
+`galoisDetMod_n_eq_galoisModularCyclotomicChar` are both at a general `n` and both predate the
+`ℓ`-adic statement — and `Galois.CyclotomicCharacter`'s list named `#418` and `#465`, both
+`completed`.  The other ten gave the reason this proof in fact runs on.
+
+`README.md` `### Retired claims` asks for one quotation when the blocks share the clause's subject,
+and they do: each asserted the same thing about the same declaration, and `galoisDetTwo` is
+`galoisDet` at `ℓ = 2` definitionally. -/
 noncomputable def galoisDet : (F ≃ₐ[S] F) →* ℤ_[ℓ]ˣ :=
   (LinearEquiv.det : ((W'⁄F).tateModule ℓ ≃ₗ[ℤ_[ℓ]] (W'⁄F).tateModule ℓ) →* ℤ_[ℓ]ˣ).comp
     (galoisRep ℓ)

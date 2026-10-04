@@ -219,8 +219,10 @@ theorem isCompact_range_galoisDetTwo (h2 : (2 : F) ≠ 0) :
   isCompact_range_galoisDet_of_nonempty (tateModule.nonempty_tateModuleEquivProd h2)
 
 /-- **The image of the determinant character is a closed subgroup of `ℤ_[2]ˣ`.** This is the layer
-the identification of `det ρ_{E,2}` with the cyclotomic character will consume; that identification
-needs the Weil pairing and is not proved in this development. -/
+the identification of `det ρ_{E,2}` with the cyclotomic character consumes; ⚠️ **that
+identification is now proved** — `galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`) — and the clause that said it was not
+is retired once, at `galoisDet` in `EllipticCurves.TateModule.PrimaryDeterminant`. -/
 theorem isClosed_range_galoisDetTwo (h2 : (2 : F) ≠ 0) :
     IsClosed (Set.range (galoisDetTwo (W' := W') (F := F))) :=
   isClosed_range_galoisDet_of_nonempty (tateModule.nonempty_tateModuleEquivProd h2)

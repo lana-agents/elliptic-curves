@@ -171,10 +171,17 @@ cyclotomic form (`EllipticCurves.FunctionField.WeilPairingFunctionCyclotomic`), 
 `EllipticCurves.FunctionField.WeilPairingDeterminantCharacter` (`#958`) proves
 `galoisDetMod 3 = χ_3` as an identity of monoid homomorphisms `G →* (ZMod 3)ˣ`, with no basis and no
 chosen pair in the statement. ⚠️ Be exact about which half that moves: it is the **mod-`3`** half,
-and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. What still blocks `galoisDetTwo` itself is
-different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the pairing at **every** level
-`E[2 ^ k]` in order to take the inverse limit — **over the base field**, and there `hprin` is the
+and `galoisDetTwo = χ_2` over `ℤ_[2]` is untouched by it. ⚠️ **What still blocks `galoisDetTwo`
+over the base field** is different and narrower: it is `LinearEquiv.det` on `T₂E`, so it needs the
+pairing at **every** level `E[2 ^ k]` in order to take the inverse limit, and there `hprin` is the
 standing gate at every index; `#962` is that gate at `n = 3` (discharged as of `#2216`).
+⚠️⚠️ **That subject used to read** *"What still blocks `galoisDetTwo` itself"*, carrying the
+`over the base field` qualifier inside the clause and not in the subject — and over an
+**algebraically closed** `F` nothing blocks it: it is `galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`) under `(2 : F) ≠ 0`, which is what the
+`galoisDetTwo` docstring below says.  ⚠️ This is the clause
+`EllipticCurves.TateModule.PrimaryDeterminant`'s Scope sends every reader to, so the qualifier has
+to be in the subject the reader lands on.
 ⚠️ **That citation read *"`#962` is that gate at `n = 2` and `n = 3`"* until `#2029` discharged
 `hprin` at `n = 2` over an arbitrary field with `(2 : F) ≠ 0`, and the narrowing is retired once, in
 `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`** (`### Retired claims`); ⚠️
@@ -237,8 +244,14 @@ choice of basis. `coe_galoisDetTwo` says that the determinant of the matrix `gal
 computes it for every `b`; `det_galoisRepMatrixTwo_congr` is the resulting independence statement.
 Definitionally `galoisDet` at `ℓ = 2`.
 
-The identification of this character with the cyclotomic character needs the Weil pairing and is
-**not** proved in this development. -/
+The identification of this character with the cyclotomic character is
+`galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`), under `(2 : F) ≠ 0` over an
+algebraically closed `F`.  ⚠️ **This sentence used to say it was not proved in this development**;
+the retirement is recorded once, at `galoisDet` in
+`EllipticCurves.TateModule.PrimaryDeterminant`, which is this declaration definitionally and is
+where that file carries the roster of every block that said it and explains why one quotation
+serves them all. -/
 noncomputable def galoisDetTwo : (F ≃ₐ[S] F) →* ℤ_[2]ˣ :=
   galoisDet (W' := W') (F := F) (ℓ := 2)
 

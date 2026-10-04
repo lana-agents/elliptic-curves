@@ -138,10 +138,14 @@ the pairing.  Putting the character here would invert the layering.
 ## Explicitly out of scope
 
 * **The Weil pairing**, and hence `det ρ_{E,3} = χ_3`.  Named above.
-* **The `ℓ`-adic determinant.**  `galoisDetTwo` is untouched.  ⚠️ Note also that `det ρ_{E,2} = χ_2`
-  *mod `2`* is content-free — `(ZMod 2)ˣ` is trivial, so both sides are `1` — and is **not** the
-  `ℓ`-adic statement over `ℤ_[2]`, which remains open.  The two are easily confused and only one of
-  them is interesting.
+* **The `ℓ`-adic determinant.**  `galoisDetTwo` is untouched *by this file*.  ⚠️ Note that
+  `det ρ_{E,2} = χ_2` *mod `2`* is content-free — `(ZMod 2)ˣ` is trivial, so both sides are `1` —
+  and is **not** the `ℓ`-adic statement over `ℤ_[2]`, which is
+  `galoisDetTwo_eq_galoisCyclotomicChar`
+  (`EllipticCurves.FunctionField.TateDeterminantCyclotomic`) and is **not** content-free, `ℤ_[2]ˣ`
+  being infinite.  ⚠️ **This bullet used to end** *"which remains open"*; the retirement is recorded
+  once, at `galoisDet` in `EllipticCurves.TateModule.PrimaryDeterminant`.  The two statements are
+  still easily confused and only one of them is interesting.
 * **Finiteness and rank at general `n`** — ⚠️ **still out of scope of *this file*, but no longer
   out of reach.**  This bullet used to read *"Only `n = 3` is done, because only `n = 3` has
   `card_torsion_three` available.  ⚠️ `n = 2` has `exists_closure_pair_eq_torsion_two` and could be

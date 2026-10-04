@@ -110,8 +110,24 @@ EllipticCurves/TateModule/` is empty, and this file's own imports cross the othe
   both sides are the constant `1` and the statement holds for *any* pair of characters into it.  It
   is not stated below, on the same grounds `EllipticCurves.TateModule.DeterminantMod` gives for not
   stating `free_torsion_three`.  ⚠️ It is also **not** the `ℓ`-adic `galoisDetTwo = χ_2` over
-  `ℤ_[2]`, which is a genuine theorem and remains open: it needs the pairing at every level
-  `E[2 ^ k]`, and this development has it at `k = 1` only.
+  `ℤ_[2]`, which is `galoisDetTwo_eq_galoisCyclotomicChar`
+  (`EllipticCurves.FunctionField.TateDeterminantCyclotomic`), under `(2 : F) ≠ 0` over an
+  algebraically closed `F`.  ⚠️⚠️ **This bullet used to end** *"which is a genuine theorem and
+  remains open: it needs the pairing at every level `E[2 ^ k]`, and this development has it at
+  `k = 1` only"*; the retirement is recorded once, at `galoisDet` in
+  `EllipticCurves.TateModule.PrimaryDeterminant`.  ⚠️⚠️ **Unlike the other clauses retired on that
+  proposition, this one's *reason* is not endorsed, because the reason is the false part**:
+  *"at `k = 1` only"* was already untrue when it was written.  `weilPairingN`
+  (`EllipticCurves.FunctionField.WeilPairingFunctionN`) is the pairing at a general `n`, and
+  `galoisDetMod_n_eq_galoisModularCyclotomicChar`
+  (`EllipticCurves.FunctionField.WeilPairingDeterminantCharacterN`) is the identification at a
+  general `n`; both landed before the `ℓ`-adic statement did.  What the bullet should have named is
+  the **tower** — a comparison of `det ρ_{E,ℓ}` with `det ρ_{E,ℓ^k}` level by level, which is
+  `EllipticCurves.TateModule.PrimaryDeterminantLevel` and mentions no pairing at all.  ⚠️ This file
+  carries the same clause twice: the *weak* form is in the docstring of
+  `galoisDetMod_three_eq_galoisModularCyclotomicChar` below, it says only *"and is untouched"*, and
+  its reason **is** endorsed there.  This bullet is the strong form, and it is the only one of the
+  two whose reason is false.
 * **General `n`.**  Only `n = 3` is available.  ⚠️ **The reason this bullet used to give is spent
   and the restriction is not.**  It read *"because only `n = 3` has `finrank_torsion_three`, which
   in turn has only `card_torsion_three`"*, and both halves have been paid:
@@ -334,7 +350,10 @@ chosen generating pair, and it is the reason `EllipticCurves.TateModule.Determin
 identity as the goal of the whole Weil-pairing effort.
 
 ⚠️ It is *not* the `ℓ`-adic statement.  `galoisDetTwo = χ_2` over `ℤ_[2]` needs the pairing on
-`E[2 ^ k]` for every `k` and is untouched. -/
+`E[2 ^ k]` for every `k`, and is `galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`).  ⚠️ **This sentence used to end** *"and
+is untouched"*; the retirement is recorded once, at `galoisDet` in
+`EllipticCurves.TateModule.PrimaryDeterminant`. -/
 theorem galoisDetMod_three_eq_galoisModularCyclotomicChar (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
     galoisDetMod (W' := W) (F := F) 3
       = galoisModularCyclotomicChar S F (natCard_rootsOfUnity_of_ne_zero h3) :=

@@ -53,13 +53,28 @@ proofs agree by proof irrelevance.
 
 ## What this does *not* close
 
-**`det ρ_{E,2} = χ_2` is not proved and gets no closer to being proved.**  What is removed here is
-a *formal* obstruction — before this file the two sides of that identity were literally about
-different functions, so the implication could not be started.  The mathematical content still
-needs rung 5 (`#418`; discharged over `F̄` by `PullbackPrincipalityTwo`/`Three`, open over a
-general field), the alternating property (`#465` deliverable 2) and
-non-degeneracy — which is **not** Ward-gated; `WeilPairing`'s scope section is the canonical account
-of what it consumes (`#769`).  Divisor-slot bilinearity has come off that list: it is merged
+**`det ρ_{E,2} = χ_2` is not proved *here*, and nothing in this file brings it closer.**  What is
+removed here is a *formal* obstruction — before this file the two sides of that identity were
+literally about different functions, so the implication could not be started.
+
+⚠️⚠️ **That lead sentence used to read** *"`det ρ_{E,2} = χ_2` is not proved and gets no closer to
+being proved"* — flat, with no file, field or index qualifier, which is why a sweep keyed to
+*"not proved **here**"* and to *"and is untouched"* did not find it.  It is
+`galoisDetTwo_eq_galoisCyclotomicChar`
+(`EllipticCurves.FunctionField.TateDeterminantCyclotomic`), under `(2 : F) ≠ 0` over an
+algebraically closed `F`, and the retirement is recorded once, at `galoisDet` in
+`EllipticCurves.TateModule.PrimaryDeterminant`.
+
+⚠️⚠️ **The sentence that followed is retired with it.**  It read *"The mathematical content still
+needs rung 5 (`#418`; discharged over `F̄` by `PullbackPrincipalityTwo`/`Three`, open over a general
+field), the alternating property (`#465` deliverable 2) and non-degeneracy"*, and its **list** is
+what is spent, not its parenthesis: `#418` and `#465` are both `completed` rows, so neither names an
+outstanding need, while *"discharged over `F̄` … open over a general field"* is still true and is
+still the shape of what is left.  ⚠️ The landed identification is over an algebraically closed `F`,
+which is exactly the setting `#418` was discharged in; **over a general base field it is as open as
+`hprin` is**, and `#962` is that record.  ⚠️ Non-degeneracy is **not** Ward-gated;
+`WeilPairing`'s scope section is the canonical account of what it consumes (`#769`).
+Divisor-slot bilinearity has come off that list: it is merged
 as `WeilPairingAntisymmetric` (`#723`), together with antisymmetry, on `[Field F]` and
 `[W.IsElliptic]` alone — all it wants beyond those is the production of
 `g_{S ⊕ S'} = g_S · g_{S'} · w`, which ⚠️ is **rung 5 only, never rung 4**, and is produced in

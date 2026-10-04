@@ -95,7 +95,11 @@ Every public declaration of this file is listed here, and all are in namespace
   representation, the basis or the determinant that is missing at `n = 12`; all three exist and
   `EllipticCurves.TateModule.MatrixRepMod` commits certificates for them there.
 * **Not the `ℓ`-adic statement.**  `galoisDetTwo = χ_2` over `ℤ_[2]` needs the pairing on `E[2 ^ k]`
-  at every level and is untouched, as `WeilPairingDeterminantCharacter` already records.
+  at every level, and is `galoisDetTwo_eq_galoisCyclotomicChar`
+  (`EllipticCurves.FunctionField.TateDeterminantCyclotomic`).  ⚠️ **This bullet used to end**
+  *"and is untouched, as `WeilPairingDeterminantCharacter` already records"*; the retirement is
+  recorded once, at `galoisDet` in `EllipticCurves.TateModule.PrimaryDeterminant`.  It is still not
+  what this file states.
 * **`#951` is not subsumed and is not touched.**
   `EllipticCurves.FunctionField.WeilPairingDeterminant` states `a * d − b * c ≡ χ_3(σ)` with the
   four entries carried as integers in hypotheses relative to a chosen pairing-generating pair.

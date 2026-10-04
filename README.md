@@ -232,6 +232,24 @@ All three were caught by a reviewer opening each cited signature at source, and 
   headline, and with **no `1 < n`**, so that `n = 1` and `n = 2` are subsumed rather than excluded;
   the numeral files (`WeilPairingDeterminantCharacter.lean`, `MatrixRepDeterminantCharacter.lean`)
   are still on `main` and both headlines come back out of the general one verbatim.
+  **And the ℓ-adic form `det ρ_{E,ℓ} = χ_ℓ` — an identity of characters `G → ℤ_ℓˣ`, not of
+  characters into a finite group — is stated at every prime `ℓ` with `(2 : F) ≠ 0` and
+  `(ℓ : F) ≠ 0` over an algebraically closed field** (`TateDeterminantCyclotomic.lean`), together
+  with its `ℓ = 2` instance under the name `galoisDetTwo_eq_galoisCyclotomicChar`. ⚠️ **This is a
+  strictly different statement from the mod-`n` one and neither implies the other on its own**: at
+  `n = 2` the mod-`n` identity is content-free because `(ℤ/2)ˣ` is trivial, while `ℤ_2ˣ` is
+  infinite. What crosses between them is the level map — `TateModule/PrimaryDeterminantLevel.lean`
+  proves that `det ρ_{E,ℓ}` read modulo `ℓᵏ` is `det ρ_{E,ℓᵏ}`, and that file mentions no pairing
+  and no cyclotomic character at all; the ℓ-adic identity is that, the mod-`n` identity consumed at
+  every index `ℓᵏ`, and `χ_ℓ`'s own level compatibility, glued by `ℤ_ℓ` being the inverse limit of
+  the `ℤ/ℓᵏ`. ⚠️ **Several module docstrings said this identification was not proved in this
+  development** — the retirement is recorded once, at `galoisDet` in
+  `TateModule/PrimaryDeterminant.lean`, which is where the clause's subject is defined, where the
+  roster of every block that carried it lives, and where all of them now point. ⚠️ **Some of those
+  blocks said it flat**, with no file, field or index qualifier, and so were invisible to a
+  recogniser keyed to *"not proved **here**"* and to *"and is untouched"*; the roster separates
+  them, because a clause whose *reason* is false cannot be retired by endorsing its reason, and it
+  is the only page that counts them, being the only one that prints them.
   ⚠️ **The general files' route to the basis is not the numeral files'**:
   `LinearMap.injective_iff_surjective_of_finrank_eq_finrank` is stated over a `DivisionRing` and
   `ZMod n` is one only at a prime `n`, so injectivity of the coordinate map is proved from the
@@ -378,7 +396,12 @@ All three were caught by a reviewer opening each cited signature at source, and 
   `ℓ ≠ char F` over an algebraically closed field of characteristic other than `2`
   (`TateModule/FreeGeneral.lean`); the route is still `TateModule/PrimaryFree.lean`'s
   reduction to a coherent system of generating pairs for the `E[ℓᵏ]`, whose input the
-  structure theorem above now supplies at every such `ℓ`.
+  structure theorem above now supplies at every such `ℓ`. The determinant of that representation
+  is identified with the ℓ-adic cyclotomic character, `det ρ_{E,ℓ} = χ_ℓ`, under the same
+  hypotheses (`FunctionField/TateDeterminantCyclotomic.lean`, over
+  `TateModule/PrimaryDeterminantLevel.lean`); ⚠️ **the image of `ρ_ℓ` is not described by it** —
+  knowing one character of a representation says nothing about where the representation lands, and
+  openness of the image is Serre's theorem and is false for curves with complex multiplication.
   ⚠️ This clause read *"`T_ℓE ≅ ℤ_ℓ²` is unconditional at `ℓ = 2` and `ℓ = 3`, and at a
   general `ℓ` it is reduced to a coherent system of generating pairs"* until `1411d36`
   (`#268`, PR #592). That is **short, not false** — the reduction is still there and is
