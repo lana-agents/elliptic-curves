@@ -427,6 +427,7 @@ import EllipticCurves.Torsion.PrimaryBasis
 import EllipticCurves.Torsion.PrimaryTower
 import EllipticCurves.Torsion.PrimaryTowerAlgClosed
 import EllipticCurves.Torsion.PrimaryTowerOdd
+import EllipticCurves.Torsion.StructureFromCount
 import EllipticCurves.Torsion.StructureGeneral
 import EllipticCurves.Torsion.ThreeDivisionField
 import EllipticCurves.Torsion.ThreeDivisionFieldProper
