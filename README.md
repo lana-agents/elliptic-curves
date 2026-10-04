@@ -3820,18 +3820,67 @@ true"*, one layer up, in this document's own prose. They are:
   branches under review when it landed — PRs #741, #746, #749, #750, #751 and #752 — it reaches
   three of them: two change no `README.md` line and one is not a single contiguous insertion. **It
   flags all three that it reaches, and two of the flags are true.** PR #746 and PR #749, at the
-  heads they stood at then (`bab3319` and `f7b2514`, force-pushed since, so both resolve only
-  through `refs/pull/<n>/head`), each printed a provenance census as an absolute at its own tip, and
-  the same four figures of it — spans, line-keyed, title-matching and unbound — are each one short
-  at the merged tree. The third flag is false: PR #751's block prints `25`, which is that branch's
-  own distance-seed value and is 26 at the merged tree, and reading the row shows the `25` is that
-  bullet's absence-seed widening figure and not the distance seed at all. ⚠️ **Re-run at `77fb54d`
-  over PRs #741, #746, #749, #751, #752, #753, #754 and #755, PR #751's is the only flag left**,
-  because a subsequent round of each of the other two converted its census to deltas or keyed it to
-  a sha — which is the repair this item asks for, arriving twice before the rule was written.
+  heads they stood at then — `bab331934268736c261877b291e8bcff52096a47` and
+  `f7b25145082e5b7e2faaaa778a2927af75fa1d36`, both force-pushed over since — each printed a
+  provenance census as an absolute at its own tip, and the same four figures of it — spans,
+  line-keyed, title-matching and unbound — are each one short at the merged tree. The third flag is
+  false: PR #751's block prints `25`, which is that branch's own distance-seed value and is 26 at
+  the merged tree, and reading the row shows the `25` is that bullet's absence-seed widening figure
+  and not the distance seed at all. ⚠️ **Re-run at `77fb54d` over PRs #741, #746, #749, #751,
+  #752, #753, #754 and #755, PR #751's is the only flag left**, because a subsequent round of each
+  of the other two converted its census to deltas or keyed it to a sha — which is the repair this
+  item asks for, arriving twice before the rule was written.
   ⚠️ **That population is enumerated and not counted at a date**: a calendar day names no commit,
   and the set of branches under review is not constant over one, so a count keyed to a date is true
   at an instant the clause does not give.
+  ⚠️ **The parenthesis's CLAUSE about how those two heads resolve is retired here rather than
+  deleted — and its two seven-character names are NOT retired but RE-KEYED to their full object
+  names**, which is the opposite operation and is why the sentence above now carries the forty. The
+  clause read *"force-pushed since, so both resolve only through `refs/pull/<n>/head`"*, written by
+  `046022dc` (PR #755, `2026-09-15T03:38:43Z`), whose row key *#1972* resolves to no row — so the
+  record names a commit and a pull request and no seat. ⚠️ **That reading is the parenthesis's
+  trailing clause and not the whole of it**: the parenthesis opened by naming the two heads, so a
+  frame calling the whole of it retired would identify the unit by the half it drops.
+  ⚠️ **`### Reach clauses`' *"false or merely partial"* test returns FALSE of the clause, and in
+  BOTH directions**: no condition completes it into something true, because the full object name
+  reaches both heads and the route the clause names reaches neither. Into a `mktemp -d` plus
+  `git init -q` holding **no** objects, under `git` 2.39.5,
+  `git fetch --depth=1 <url> bab331934268736c261877b291e8bcff52096a47` exits **0** and
+  `git cat-file -t FETCH_HEAD` then answers `commit`, identically for
+  `f7b25145082e5b7e2faaaa778a2927af75fa1d36`; the same fetch at seven characters exits **128** with
+  `fatal: couldn't find remote ref bab3319`, and neither head is at the tip of **any** of the refs
+  `git ls-remote` advertises.
+  ⚠️⚠️ **What replaces the clause is the distinction and not the bare correction: a
+  `refs/pull/<n>/head` outlives a DELETED branch but TRACKS a force-pushed one.** PR #897's branch
+  `docs/oddtorsioncountsplits-address-rekey-2310` is advertised nowhere, and `refs/pull/897/head`
+  still reads that pull request's own head; `refs/pull/746/head` and `refs/pull/749/head` moved with
+  the force-pushes and point at neither of the two heads above. ⚠️ **So for a superseded head the
+  full object name is the durable key and the pull-request ref is not** — the clause had both ends
+  backwards, which is why it is retired and not narrowed.
+  ⚠️ **The two forty-character names are in backticks, and this retirement cites no seven-character
+  form at all**: the one seven inside it sits in the verbatim `git` error message above, reproduced
+  rather than cited, so the italics rule has nothing here to reach. **The ground for the backticks
+  is that the forty RESOLVE** — this section asks for italics because *"a retired name in backticks
+  is indistinguishable from a dangling one"*, and the forty resolves into a repository holding
+  nothing, so italicising it would assert the one thing the measurement above refutes.
+  ⚠️ **And that rule is read NARROWLY here: it governs retired DECLARATION names, and a commit
+  object name is not one** — it is the rationale clause and not the rule that reaches a sha, and the
+  backticks stand under either reading. ⚠️ **The two DISTINCT eight-character keys in this
+  retirement, `046022dc` and `43c84ed0`, are LIVE citations and are backticked for that reason**:
+  they resolve in this repository, nothing here retires them, and they are not names of the two
+  heads at all.
+  ⚠️ **Both pull requests are still open, so their two ref values can move again and are
+  deliberately not written here**; the two forty-character names are frozen by being unreachable,
+  which is what makes them the key.
+  ⚠️ **`### The render gate`'s clause about tree-wide fetchability is a different proposition and
+  retires at its own block** (`#2320`): this quotation is about this sentence's two heads and the
+  route it names for them, which is why *"A claim about the block it sits in retires where it sits"*
+  puts it here and asks for no second copy of that one. ⚠️⚠️ **And that block's own text asks for
+  exactly this quotation**: its *"One copy of the same claim SURVIVES this repair"* sentence names
+  this copy by base blob `43c84ed0:README.md` and says `### Retired claims` asks for its own
+  quotation and not a second copy of that one — so this is that quotation. ⚠️ **It is KEYED to
+  `43c84ed0` and to its own round, so once this lands it is correct-and-stale at its own ref and not
+  false**, and it is not edited here.
 
   ⚠️ **The landed population is measured, and the sweep is filed rather than folded in here**
   (`#1975`, PR #614). Counting every restatement of the four seeds this section publishes and of the
