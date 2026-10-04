@@ -87,6 +87,28 @@ All three were caught by a reviewer opening each cited signature at source, and 
   `exists_weilPairingElt_eq_inv_n_of_isAlgClosed` bind `[IsAlgClosed F]`, `(2 : F) ≠ 0` and
   `((n : ℤ) : F) ≠ 0` and nothing else. ⚠️ Not even `n ≠ 0`, which the index condition implies:
   it is the sharper of the two and binding both would be redundant.
+  **Index compatibility is proved over `F̄`** (`WeilPairingIndexCompatibilityN.lean`), the item of
+  `#244`'s list that `#2317` filed as carrying no declaration at all:
+  `e_{n·n'}(S, T) = e_n(S, [n']T)` for `S ∈ E[n] ≤ E[n·n']` and `T ∈ E[n·n']`. It binds
+  `[IsAlgClosed F]`, `(2 : F) ≠ 0` and the index condition at each of the two factors and at their
+  product — ⚠️ the last of those is **derivable** from the other two
+  (`intCast_natCast_mul_ne_zero`) and is bound only so that a caller can rewrite with the proof it
+  already holds — and ⚠️ **no principality**, `weilPairingEltN` having consumed that already.
+  ⚠️ **The `[n']` sits on the translation point in both conventions and only its POSITION moves** —
+  his first slot, this tree's second — because he writes the translation point first and the divisor
+  point second while `weilPairingEltN` is the transpose. ⇒ **the identity his (e) asserts is this
+  tree's `weilPairingEltN_mul_index_nsmul_right`**, the direct form. What
+  `weilPairingEltN_mul_index_nsmul_left` transcribes is the WRITTEN SHAPE of his `e_n([n']P, Q)`,
+  cofactor on the left, which in this tree's slots puts it on the DIVISOR point — a second identity,
+  got from the direct form and `weilPairingEltN_swap` at **both** indices rather than a second
+  argument.
+  ⚠️⚠️ **The `μ`-group-valued form is deliberately absent**: `rootsOfUnity n F` and
+  `rootsOfUnity (n·n') F` are different groups, so an equation between the two `weilPairingN`
+  values does not typecheck at all; `coe_weilPairingN_mul_index_nsmul_right` states it between the
+  two elements of `F` those two name, which is everything the inclusion `μₙ ↪ μ_{n·n'}` would have
+  been for. ⚠️ With it, **every property `#244`'s description lists carries a declaration**, and
+  what this front is still parametrised by is `hprin` and not the index — which is what the opening
+  of this bullet says.
   **Principality itself is discharged at every `n` prime to the characteristic over an
   algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
   with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
