@@ -230,11 +230,12 @@ over a generic base — `R` a type variable — and instantiated at `ZMod 2`, is
 `private … : Affine … := ⟨…⟩` whose base its own signature does not name — and the first reading
 cannot reach it under any relaxation, its ellipticity being `isElliptic_curveOrdinaryCharTwo`, a
 `private theorem` off a hand `Δ`, not an instance closed by `decide +kernel`.  ⚠️ **So a size here
-would need a reading AND a base-resolution rule named beside it**, which is why this file
-publishes none.  `#2264` owns the repair of `Fixtures`' clause itself.  ⚠️ **Both declarations are
-cited by NAME and not by line on purpose** — the approved-and-queued PR #834 displaces
-`curveOrdinaryCharTwo` and its theorem within `TwoTorsionCharTwo` without RENAMING either, so a
-line address written here would rot the moment that branch lands.
+would need a reading AND a base-resolution rule named beside it**, which is why this
+file publishes none.  `Fixtures`' own clause about which import supplies `Field (ZMod
+p)` is ruled on in that file and not here.  ⚠️ **Both declarations are cited by NAME and
+not by line on purpose** — the approved-and-queued PR #834 displaces
+`curveOrdinaryCharTwo` and its theorem within `TwoTorsionCharTwo` without RENAMING
+either, so a line address written here would rot the moment that branch lands.
 
 ## ⚠️ One Mathlib import beyond `ThreeTorsion`, and it is the certificate's and not the theory's
 
