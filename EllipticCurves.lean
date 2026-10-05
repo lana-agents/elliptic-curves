@@ -410,6 +410,7 @@ import EllipticCurves.Torsion.NetVieta
 import EllipticCurves.Torsion.NormEDSHomogeneous
 import EllipticCurves.Torsion.NsmulLadder
 import EllipticCurves.Torsion.NsmulLadderOmega
+import EllipticCurves.Torsion.NsmulLadderOmegaStep
 import EllipticCurves.Torsion.NsmulOrder
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective

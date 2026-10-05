@@ -121,11 +121,14 @@ building another: `curveCharTwoOne`, the curve `y² + xy = x³ + 1` over `ZMod 2
 
 ## What is *not* here
 
-* **The ladder step.**  `nsmul_step`, `nsmulEqDiv_step` and `nsmulEqDiv_pair` are not re-run on
-  `NsmulEqDivω`.  ⚠️ **That is `#2250`'s route step 3 and it is the expensive rung** — the step
-  consumes two consecutive rungs, so a single-rung induction does not carry, and
-  `nsmulEqDiv_pair`'s own docstring says so.  This file is route steps 1 and 2 and deliberately
-  only those.
+* **The ladder step, which is in `EllipticCurves.Torsion.NsmulLadderOmegaStep` and not here.**
+  That file lands `nsmulEqDivω_step` under `(2 : F) ≠ 0`, and without it runs the step as far as it
+  goes: the `x`-half is `h2`-free outright and the `y`-half holds after multiplying by `2`, so the
+  whole residue is **one cancellation of `2` in `F`**.  ⚠️ **The undoubled `y`-half is still
+  `#2250`'s route step 3 and is still the expensive rung** — the step consumes two consecutive
+  rungs, so a single-rung induction does not carry, and `nsmulEqDiv_pair`'s own docstring says so,
+  and `nsmulEqDiv_pair` itself is re-run on neither predicate.  This file is route steps 1 and 2
+  and deliberately only those.
 * **`HasXCoordFormula` at a general index**, which is `#2250`'s target.  Nothing here approaches
   it, and the four `h2` consumers inside `hasXCoordFormula_of_two_ne_zero` are untouched.  ⚠️ Three
   of those four are `NsmulOrder` lemmas about `ψ`-vanishing and divisibility rather than about
