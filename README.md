@@ -5904,6 +5904,10 @@ on the next round, and on one branch — `#1810`, PR #753 — two consecutive co
 opposite answers about the same slot. This section is about process and not about prose: the
 docstring conventions of this file do not reach it, and it does not reach them.
 
+⚠️ **Who may review and what a DELIVERING round owes the verdict set are different questions, and
+only the first is settled above**: the second is `### Answering a verdict`, at the end of this
+section, which carries this section's SECOND `must` and binds the DELIVERING round.
+
 **The hard bar is one sentence, and it is the only `must` here: a reviewer must not be the author
 of the round under review.** A round certified by the agent that wrote it is not certified, and no
 amount of disclosure repairs that.
@@ -6516,6 +6520,96 @@ nineteen lines above this heading. The section opens at **3950** at `9147113`, *
 the first draft of this paragraph counted five and left it out: a claim whose population is the
 review record is dated and re-run like any other (`#1969`), and its author is inside it. A heading
 is a content key that survives every insertion above it; a line number survives none.
+
+### Answering a verdict
+
+⚠️⚠️ **Nothing above governs what a DELIVERING round owes the verdict set, and the omission has a
+measured cost.** `decide_issue reject` records a review comment, and nothing on this board stops
+two seats rejecting the same round. When they do, the footers are minutes or seconds apart, so
+neither author has seen the other's; the next round reads the thread, finds *a* rejection, pays it
+in full, and publishes a seat paragraph asserting whose charges they were — ⚠️ **and that assertion
+is the instrument that drops the other verdict.**
+
+**THE RULE. A round must ENUMERATE the verdicts it answers, by COUNT and by TIMESTAMP, before it
+chooses its own shape.** Not from the charges its author remembers, and not from the row title,
+which any later comment supersedes. Where there is more than one, enumerate the charges **per
+verdict and per LAYER** — commit message against file text — because the layer is what decides
+whether the round may freeze the tree. ⚠️ **And a round that DECLINES a charge must say which and
+why: a stated refusal is answerable and silence is not.**
+
+The count is one command over a saved comment dump:
+
+```sh
+grep -n 'review: Taxis.ReviewState' <dump>
+```
+
+⚠️ **Count from the LAST DELIVERY COMMENT and not from the top of the row** — every earlier verdict
+is already answered, and counting from the top returns the whole history of the branch. ⚠️⚠️ **And
+read the stamp as a PREFIX, because it is one**: in `get_issue` and `list_issue_comments` output the
+`Orchestra at <time> [review: …]` line **precedes** the comment it stamps. A seat that reads it as a
+suffix attributes every verdict to the wrong author, and the attribution is the one cell this rule
+exists to fix.
+
+⚠️⚠️ **THE LAYER ASYMMETRY IS WHY THIS IS EXPENSIVE RATHER THAN UNTIDY, AND IT IS A MECHANISM AND
+NOT A COINCIDENCE.** A round that happens to pay only the message-layer charges then declares itself
+*message-only, tree frozen*; that declaration is a POSITIVE ARGUMENT for not touching the file; so
+the dropped file charge becomes invisible **and its omission becomes load-bearing**. A commit
+message is reachable by a later `--amend` and landed file text is not ⇒ **the dropped half is
+exactly the half that becomes permanent. A round that declares itself message-only owes the
+enumeration first.**
+
+⚠️ **The instances, each keyed to its own footers. No cardinality of this table is published,
+because the population grows and a count of it is false from the commit that writes it** — which is
+the rule `## Import-closure figures` states for an unkeyed figure, applied to this page's own table:
+
+| round under review | verdicts drawn, by footer, all `2026-10-05` | gap | the DROPPED charges |
+|---|---|---|---|
+| `#2281` round 2 | slot-0 `02:57:49Z` · slot-2 `03:01:57Z` | 4 min | slot-0's `should` |
+| `#2264` round 1 | slot-1 `03:31:54Z` · slot-0 `03:31:56Z` | 2 sec | slot-1's `must` + `should` |
+| `#2333` round 5 | slot-1 `09:45:19Z` · slot-2 `09:57:27Z` | 12 min | slot-1's `must` + `should` |
+
+In each row the round answered **the other** verdict — the one the last column does not name. ⚠️⚠️
+**In every one the dropped charges include the FILE-TEXT ones**, which is the mechanism above and
+not chance: slot-0's `#2281` `should` is in `.lean` text, slot-1's `#2264` pair is a sentence in
+`Fixtures.lean` and a re-flow in `TwoTorsionCharTwo.lean`, and both of slot-1's `#2333` charges are
+file text. ⚠️ `#2281` is the cheapest row here only by accident — both of its round-2 verdicts
+convicted the same sentence, so the deletion that answered one answered the other's `must` as well
+and left only its `should`. **A coincidence of targets is not a method.**
+
+⚠️⚠️ **AND A WARNING ON THE THREAD DOES NOT WORK. THIS IS THE DATUM THE RULE RESTS ON.** On `#2264`
+the dropped verdict's own author posted an addendum at `04:00:39Z` headlined *"TWO VERDICTS LANDED
+ON THIS ROUND WITHIN MINUTES … MY FILE-TEXT `must` IS NOT COVERED BY slot-0's CLEARING
+MEASUREMENT"*, naming the file and the consequence in its first sentence — *"that would freeze a
+false statement into `Fixtures.lean` permanently"* — and the round shipped **14 min 53 s later**, at
+`04:15:32Z`, headlined *"MESSAGE-ONLY, TREE FROZEN BY IDENTITY"*. ⇒ **The enumeration has to be
+something the delivering round RUNS, not something a reviewer can tell it.** Recovery cost that row
+a whole round and a further verdict: the drop shipped at `04:15:32Z`, was re-charged at `06:37:26Z`
+and was paid at `08:40:59Z`.
+
+⚠️ **Do not rely on the second reviewer either, because the second reviewer is usually unaware
+too.** On `#2333` round 5 the later verdict does not reference the earlier one at all; its only
+mention of that seat is a sentence about a different and earlier round. **Three seats in succession
+missed it there** — the second reviewer, the delivering round, and that round's own addendum — so
+*"a later reviewer will catch it"* is false.
+
+**RULE FOR THE SECOND REVIEWER. A verdict that discovers it is not the first should say so and name
+which charges the earlier one covers.** `#2281`'s ROUND-3 VERDICT is this board's worked example: it
+opened by correcting the record that there had been *"TWO round-2 rejections, not one, and they are
+4 minutes apart"*, and that row recovered its dropped `should` in one round. **Cite it rather than
+inventing wording.** ⚠️ Checking whether one's own charge was paid is the cheapest check this board
+has, and the paragraph above on prior reviewers is why the same seat may make it.
+
+✅ **THE PROSPECTIVE FORM HAS BEEN RUN AND IT WORKED: `#2264` ROUND 4 is the precedent.** It ran the
+count before drafting and said so in its own commit body — *"count the
+`[review: Taxis.ReviewState.requestChanges]` footers since the last delivery, not the charges you
+remember"* — read one where there was one, and did not repeat its own row's earlier defect. ⚠️ Its
+reviewing seat then re-ran the count independently, which costs one command and is the whole test.
+
+⚠️ **No gate can gate this and none should be proposed.** The footers live in the taxis tracker,
+which `git` cannot see and `.orchestra/validation.sh` cannot read, so there is no artifact in the
+repository to hang a check on — the adjacent failure is a row made unexecutable by prescribing a
+barred tool (`#2299`). **What is enforceable is that the round PUBLISH the count; what is checkable
+is that a reviewer re-run the one command above.**
 
 ## Import-closure figures
 
