@@ -83,12 +83,19 @@ through `weilPairingN_zsmul_left`, exactly as it does at the numerals.
 ## ⚠️ `n = 2` and `n = 1` are subsumed, not excluded
 
 At `n = 2` the conclusion is `a * d − b * c ≡ 1 (mod 2)`, since `(ZMod 2)ˣ` is a subsingleton; that
-is a genuine constraint on four integers and `WeilPairingDeterminant`'s own `## Scope` argues at
-length why it is not the empty mirror that `#948` found at that index.  At `n = 1` every group in
-sight is trivial and the conclusion is an equation in `ZMod 1`, which holds of anything.  ⚠️ **A
-general-`n` statement subsumes a degenerate index rather than omitting it**, so nothing is excluded
-below and `1 < n` is bound nowhere; the corollaries that *have* content are the ones at `n ≥ 3`,
-where `(ZMod n)ˣ` is nontrivial, and the non-vacuity block is keyed to `n = 5` for that reason.
+is a genuine constraint on four integers, and the section of `WeilPairingDeterminant` headed
+`` ## ⚠️ `n = 2` is NOT the empty mirror it was in `#948` `` argues at length why — that section
+carries the very display this sentence paraphrases.  ⚠️ **Cited by heading TEXT, so that the
+pointer is findable by its own words**: this clause named that file's `## Scope` until `#2281`, and
+`## Scope`'s only `#948` occurrence is a provenance note about `#947`, so a reader who followed the
+old pointer concluded the argument did not exist.  ⚠️ **That pointer did not rot — it was wrong
+when written**, which is why no line number is given here either: the heading it should have named
+was added by `53a5712` (2026-08-24) and the clause naming `## Scope` by `7ba33ed` (2026-09-30),
+five weeks later.  At `n = 1` every group in sight is trivial and the conclusion is an equation in
+`ZMod 1`, which holds of anything.  ⚠️ **A general-`n` statement subsumes a degenerate index rather
+than omitting it**, so nothing is excluded below and `1 < n` is bound nowhere; the corollaries
+that *have* content are the ones at `n ≥ 3`, where `(ZMod n)ˣ` is nontrivial, and the non-vacuity
+block is keyed to `n = 5` for that reason.
 
 ## ⚠️ `[NeZero n]` binds on exactly 2 of the 8, and this paragraph is a record of a widening
 
