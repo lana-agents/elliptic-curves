@@ -232,7 +232,7 @@ action fixes `O` (`smul_zero`) and `σ⋆` fixes `1`.  Otherwise both points are
 ⚠️ **`hprin` is discharged and not assumed** — by `exists_nsmul_divisor_eq_divisor_mulByNEndo`
 (`EllipticCurves.FunctionField.PullbackPrincipalityN`), the same discharge
 `weilPairingEltN_self` makes, and supplied term-mode in one `fun` exactly as
-`WeilPairingFunctionN` supplies it at `:615`–`:616`.
+`WeilPairingFunctionN` supplies it inside `weilPairingEltN_add_left_of_ne_zero`.
 
 ⚠️ **No point is added anywhere in this proof**, the only case split being *is this point `O`*, so
 the `n = 2` / general-`n` asymmetry that comes from a `2`-torsion point being its own negative — the

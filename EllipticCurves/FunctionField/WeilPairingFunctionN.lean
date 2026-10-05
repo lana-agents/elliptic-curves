@@ -49,7 +49,7 @@ produced from `(2 : F) ≠ 0` inside the proof.  That is `WeilPairingNondegenera
 exactly, and **not one hypothesis more**.
 
 ⚠️ **Exactly ONE of the 39 binds `[NeZero n]`, and this paragraph is a record of the widening
-that brought the count there from 15.**  The survivor is `weilPairingN_eq_weilPairingMu` (`:516`),
+that brought the count there from 15.**  The survivor is `weilPairingN_eq_weilPairingMu`,
 and ⚠️ **nothing in this file forces it**: its statement names `weilPairingMu`
 (`EllipticCurves.FunctionField.WeilPairingRootsOfUnity`), which binds `[NeZero n]` in its own
 signature, so the instance is needed to **write** the statement — delete the binder and elaboration
@@ -58,7 +58,7 @@ turn and terminally: its only index hypothesis is `hpow : weilPairingElt h₂ g 
 carries **no `n ≠ 0`** to derive the instance from.  It is a terminator of the same kind as
 `weilPairingPointMu`, and a **second** one — the chain is *meant* to stop at both.
 ⚠️ **The other 14 were widened, and the 2 roots are the reason the other 12 could be.**
-`weilPairingN` (`:465`) and `weilPairingNHom` (`:833`) each bind `((n : ℤ) : F) ≠ 0`, which yields
+`weilPairingN` and `weilPairingNHom` each bind `((n : ℤ) : F) ≠ 0`, which yields
 `NeZero n` in one line, so by the criterion below the instance was **chosen** on both; and every
 statement naming either was forced only *relative to those two signatures*.  Dropping it at the two
 roots un-forced all twelve at once, which is why this is one widening and not fourteen.
@@ -97,9 +97,8 @@ was scored against the binders rather than read.**  `weilPairingPointElt_weilPai
 `n ≠ 0`, which `((n : ℤ) : F) ≠ 0` yields in one line (`by rintro rfl; simp at hn`) — the file's own
 idiom at `weilPairingEltN_self`.  There it was **chosen**, by the paragraph's own criterion;
 dropping it strictly widens all six and is what makes this paragraph's opening clause true as
-written.  The
-comparison target is `WeilPairingNondegenerateN`, which opens `variable [NeZero n]` at its own `μ`
-layer and gives its four `F(W)`-valued statements none.
+written.  The comparison target is `WeilPairingNondegenerateN`, which opens `variable [NeZero n]` at
+its own `μ` layer and gives its four `F(W)`-valued statements none.
 
 Of the six declarations of `### The rung-5 datum at a point, uniform in the point`, five carry no
 `[IsAlgClosed F]`.  ⚠️ **One of the five says so in its own docstring** — `isWeilRootN_one`,
@@ -832,14 +831,14 @@ Silverman *AEC* III.8.1(a) with both slots bundled at once.  The inner `map_one'
 under `MonoidHom.ext`. -/
 noncomputable def weilPairingNHom (h2 : (2 : F) ≠ 0) {n : ℕ}
     (hn : ((n : ℤ) : F) ≠ 0) :
-    Multiplicative (W.torsion n) →* Multiplicative (W.torsion n) →* rootsOfUnity n F :=
-  { toFun := fun S =>
-      { toFun := fun T => weilPairingN h2 hn S.toAdd T.toAdd
-        map_one' := weilPairingN_zero_right h2 hn S.toAdd
-        map_mul' := fun T₁ T₂ => weilPairingN_add_right h2 hn S.toAdd T₁.toAdd T₂.toAdd }
-    map_one' := MonoidHom.ext fun T => weilPairingN_zero_left h2 hn T.toAdd
-    map_mul' := fun S₁ S₂ => MonoidHom.ext fun T =>
-      weilPairingN_add_left h2 hn S₁.toAdd S₂.toAdd T.toAdd }
+    Multiplicative (W.torsion n) →* Multiplicative (W.torsion n) →* rootsOfUnity n F where
+  toFun S :=
+    { toFun := fun T => weilPairingN h2 hn S.toAdd T.toAdd
+      map_one' := weilPairingN_zero_right h2 hn S.toAdd
+      map_mul' := fun T₁ T₂ => weilPairingN_add_right h2 hn S.toAdd T₁.toAdd T₂.toAdd }
+  map_one' := MonoidHom.ext fun T => weilPairingN_zero_left h2 hn T.toAdd
+  map_mul' S₁ S₂ := MonoidHom.ext fun T =>
+    weilPairingN_add_left h2 hn S₁.toAdd S₂.toAdd T.toAdd
 
 open Classical in
 /-- The bundled map's values are the pairing values. -/
