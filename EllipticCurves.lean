@@ -416,6 +416,7 @@ import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.NsmulYCoord
 import EllipticCurves.Torsion.NsmulYPeriodic
+import EllipticCurves.Torsion.NthPartSeparable
 import EllipticCurves.Torsion.OddTorsionCount
 import EllipticCurves.Torsion.OddTorsionCountSplits
 import EllipticCurves.Torsion.OmegaCharZero
