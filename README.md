@@ -6622,11 +6622,32 @@ verdict and per LAYER** — commit message against file text — because the lay
 whether the round may freeze the tree. ⚠️ **And a round that DECLINES a charge must say which and
 why: a stated refusal is answerable and silence is not.**
 
-The count is one command over a saved comment dump:
+The count is one command over a saved `list_issue_comments` dump:
 
 ```sh
-grep -n 'review: Taxis.ReviewState' <dump>
+grep -n '^  Orchestra at .*\[review: Taxis\.ReviewState\.' <dump>
 ```
+
+⚠️ **The bare substring form this command used to take OVER-counts, and it degrades on exactly the
+rows the rule is written for**: `review: Taxis.ReviewState` is matched in comment PROSE by every
+comment that quotes the recipe, and that population grows with how much a row discusses the
+enumeration, so the error runs toward finding a verdict set where there is none. ⚠️⚠️ **The
+discriminator is the INDENT and not the string**: in a `list_issue_comments` dump a stamp line is
+indented **two** spaces and every comment body line **four** or more, so the anchored form cannot
+match a quoted copy of itself — which is the property to check of any replacement, this one
+included. ⚠️ **Read the bracketed verb off the tail**, which the hits print: an `approve` footer is
+not a charge to answer. ⚠️ **And the boundary needs no second instrument**: only a stamp line can
+match and a delivery comment contributes none, so cutting the region above or below the last
+delivery cannot move this count, where it moved the old one. ⚠️ **In a `get_issue` dump the
+description body is at two as well**, so run it on none but the dump named above.
+
+⚠️ **Two flags and one renderer, under this page's own tool-behaviour rule.** The pattern is
+flag-free by construction — the same hits under the default and under `-E`, `-G` and `-P`, at **GNU
+grep 3.8** and at **ugrep 7.8.4** alike — and `-F` is the one flag that voids it. ⚠️ **The indent,
+and the single space between the `Z` and the `[`, are properties of the `list_issue_comments`
+RENDERER, which publishes no version to pin**, so re-run them rather than inheriting them: a
+two-space transcription of the stamp reads **0**. ⚠️ **A row with no footer returns the empty set
+and a nonzero status, which is not a failure.**
 
 ⚠️ **Count from the LAST DELIVERY COMMENT and not from the top of the row** — every earlier verdict
 is already answered, and counting from the top returns the whole history of the branch. ⚠️⚠️ **And
