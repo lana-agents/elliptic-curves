@@ -5177,6 +5177,91 @@ against the only predicate a self-figure gate knows — *does this insertion mov
 the file is one the diff does not touch, and published a number that pointed at neither end of its
 own quotation. **The two predicates are different, and a gate that runs one owes which one.**
 
+⚠️⚠️ **AND A SUB-CLASS THAT IS NEITHER A WRONG STATUS NOR A CARRIED CLAIM: A PROBE WHOSE OUTPUT
+DOES NOT CONTAIN THE THING THE CLAIM IS ABOUT.** Everything above fails loudly — a wrong exit code,
+a count that moves under an unnamed flag, a sentence quoted unrun. ⚠️ **These two fail SILENTLY:
+the command runs, exits 0, prints something true, and says nothing about the question asked of
+it.** The class is `#2308`, filed out of `#2305` round 1, where each of the two produced a
+published-and-wrong `must` **in opposite directions within four hours** — one charge replaced a
+true clause with a false one, one review endorsed a false mechanism, and in both the instrument was
+clean.
+
+**`#check` prints a type's REMAINDER, not its type, so it cannot settle *"X does not occur in the
+type"*.** An instance binder that the printed remainder never mentions again can still sit inside
+the type, reached through another instance's arguments. The witness is one declaration,
+`WeierstrassCurve.Affine.torsion`, and no section is needed:
+`#check @WeierstrassCurve.Affine.torsion` ends
+`[inst_1 : DecidableEq F] → (W : WeierstrassCurve.Affine F) → ℕ → AddSubgroup W.Point`, whose
+remainder names neither `inst` nor `inst_1`. ⚠️ **`set_option pp.explicit true` is the probe, and
+the same declaration reads:**
+
+```text
+@WeierstrassCurve.Affine.torsion : … [inst_1 : DecidableEq F] → (W) → Nat →
+  @AddSubgroup (@WeierstrassCurve.Affine.Point F (@Field.toCommRing F inst) W)
+    (@AddCommGroup.toAddGroup (@WeierstrassCurve.Affine.Point F (@Field.toCommRing F inst) W)
+      (@WeierstrassCurve.Affine.Point.instAddCommGroup F inst W inst_1))
+```
+
+⚠️⚠️ **`inst_1` IS the `[DecidableEq F]`, and it is an argument of `Point.instAddCommGroup` inside
+the result type** — so `AddSubgroup W.Point` is a remainder that suppresses it rather than a type
+that lacks it. ⚠️ **`linter.unusedDecidableInType` keys on the type, exactly as its own message
+says** (*"does not use the following hypothesis **in its type**"*), **so where the two disagree
+about a declaration the linter is right and the printed remainder is not evidence.** The control is
+a pair with identical empty proofs:
+
+```text
+set_option linter.unusedDecidableInType true
+variable [DecidableEq F] [W.IsElliptic]
+theorem tstE {n : ℕ} : Nat.card (W.torsion n) = Nat.card (W.torsion n) := rfl   -- SILENT
+theorem tstF {n : ℕ} : (W.preΨ (n : ℤ)) = (W.preΨ (n : ℤ)) := rfl               -- FIRES
+```
+
+**`rfl` on both, opposite verdicts, only the statement differs** — and `linter.unusedSectionVars`
+corroborates from the other side at the same two declarations, flagging `[W.IsElliptic]` alone on
+`tstE` and **both** binders on `tstF`. ⚠️ **Proof use is an ADDITIONAL route to silence — a proof
+term's dependence makes the instance reachable — and it does not displace the type criterion.**
+
+**`omit X in` before a `def` is a TOTAL no-op, so `omit`-and-build is not a test of
+load-bearingness there.** On `Torsion/OddTorsionCount`'s `torsionOddEquiv`, whose own docstring
+block carries this finding at the declaration that caused it, inserting `omit [IsAlgClosed F] in`
+and rebuilding the module leaves `#check` and a binder-name walk over `ConstantInfo.type`
+**byte-for-byte identical — `diff` empty, `cmp` clean, 737 bytes both ways** — hygienic suffixes
+included. ⚠️ **It is not a name removed and anonymously re-added; nothing happens at all.** That
+section's `variable` line is three *anonymous* instance binders, so there was never a name for
+`omit` to take, and the asymmetry a reader sees — one instance printed with a name beside one
+without — is already in the unmodified file, the printer naming only binders the rest of the type
+mentions. ⚠️⚠️ **So a clean build after an `omit` on a `def` is a FALSE GREEN and not a result**,
+and `#check` alone cannot separate *kept* from *re-added*. The binder walk can, and it says neither
+happened:
+
+```text
+open Lean Elab Command in
+run_cmd do
+  let some ci := (← getEnv).find? `WeierstrassCurve.Affine.torsionOddEquiv | throwError "missing"
+  let mut t := ci.type; let mut names := #[]
+  while t.isForall do names := names.push (toString t.bindingName!); t := t.bindingBody!
+  logInfo m!"{names}"
+```
+
+**The sound half of the pair is the THEOREM case and it must be kept**: the same line before
+`torsionOddOfRoot_bijective`, which references the variable, answers
+`error: cannot omit referenced section variable` with the hygienic name in **backticks** and not in
+`'…'`. ⚠️ **And the `omit` goes BEFORE the doc comment** — after it the answer is
+`error: unexpected token 'omit'; expected 'lemma'`, a parse error that is easy to read as a result
+and is not one.
+
+⚠️ **Both facts were re-run for this paragraph rather than carried from `#2308`**, which is this
+section's own inherited-claim rule falling due on the clause that states it, at `git 2.39.5`,
+`bash 5.2.15(1)-release`, `python3` 3.11.2 and `leanprover/lean4:v4.32.0` (`lean-toolchain` blob
+`94b9f495`, `lake-manifest.json` blob `e2a21bd4`, `lakefile.toml` blob `dadf0ad`). ⚠️⚠️ **The flags
+are named because the rule above requires it, and the asymmetry between the two is itself the
+finding**: the first reading moves under `pp.explicit` and under `linter.unusedDecidableInType`,
+which `lakefile.toml`'s `weak.linter.mathlibStandardSet` does not turn on; **the `omit` reading
+moves under no flag at all, which is exactly why it misleads** — there is nothing to set
+differently and the answer is still not about the question. ⚠️ **The snippets above are fenced
+`text` and not `lean` because this file has never carried a `lean` fence**, and this section's own
+two fences are `text`.
+
 ### The merge gate's base
 
 `### The neighbour population`, below, decides which pull requests the merge gate is run
