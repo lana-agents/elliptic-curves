@@ -12,19 +12,80 @@ import Mathlib.RingTheory.PowerSeries.Inverse
 
 Let `R` be a discrete valuation ring with fraction field `K = Frac R`.  Mathlib defines
 `WeierstrassCurve.HasGoodReduction R W` as `IsMinimal R W` together with
-`valuation K (maximalIdeal R) W.Δ = 1`, and `IsMinimal` is a `MaximalFor` condition over the whole
-`VariableChange K` orbit of `W`.  ⚠️ **What this development lacked was a BASE CASE for that
-predicate, not a declaration that concludes it**: every pre-existing route consumed it, or an
-equivalent, as an input, so nothing could start the chain.
+`valuation K (maximalIdeal R) W.Δ = 1`, and `IsMinimal` is a `MaximalFor` condition over the
+whole `VariableChange K` orbit of `W`.  ⚠️ **What this development lacked was a way to
+ESTABLISH `IsMinimal` for a curve the caller already holds.**  ⚠️ Every route to good reduction
+that existed *before this file* — here and in Mathlib — takes minimality as an input, where a
+*route* is the term a caller applies and, for an `Iff`, that term is its `.2`.  ⚠️⚠️ **Both
+qualifications are load-bearing and neither is decorative.**  Read over SIGNATURES the sentence
+is refuted by Mathlib's pre-existing `hasGoodReduction_iff`, which binds no `IsMinimal`
+anywhere — and yet its `.2` cannot be applied without one, its argument being `IsMinimal R W`
+conjoined with the valuation equality, so what carries minimality is the ARGUMENT and not the
+binder list, and the three `@[mk_iff]` lemmas are all of that shape.  ⚠️ Read in the present
+TENSE it is refuted by `hasGoodReduction_of_valuation_Δ_eq_one` below, which binds `IsIntegral`
+and the valuation equality and no `IsMinimal` at all — which is what *before this file* is
+there for.  ⚠️⚠️ **Mathlib's side is given as a NAMED SET**, this paragraph's predecessor
+having carried a wrong exact set that is retired below.  `exists_isMinimal` concludes
+`∃ C : VariableChange K, IsMinimal R (C • W)`, a model the caller does not hold; the
+**instance** `instIsMinimalMinimal` concludes `IsMinimal R (W.minimal R)`, a *definite* model
+that is still not `W`, and ⚠️ it is the sharpest evidence FOR the gap rather than against it —
+it fires by instance synthesis with no caller action at all and still says nothing about `W`;
+`HasGoodReduction.toIsMinimal`, `HasMultiplicativeReduction.toIsMinimal` and
+`HasAdditiveReduction.toIsMinimal` run *out* of classes that already extend `IsMinimal`; and
+`IsMinimal.mk` asks for the definitional data.  ⚠️⚠️ **The instrument is a conclusion-*mention*
+census over the elaborated environment, never a `grep` and never a conclusion-*head* census,
+and the difference is load-bearing rather than pedantic**: a head census returns neither
+`exists_isMinimal`, whose head is `Exists`, nor any `@[mk_iff]` lemma, while an `Iff` hands a
+caller `IsMinimal R W` as readily as a conclusion head does.  At Mathlib `81a5d25`
+(`lake-manifest.json`'s revision, Lean `v4.32.0`) the mention census returns ELEVEN on
+Mathlib's side, and ⚠️ **the figure is keyed because it is a reading of Mathlib rather than of
+this tree, while what cannot rot is the PARTITION**: every one of the eleven is another model
+(`exists_isMinimal`, `instIsMinimalMinimal`), or a strictly stronger class (the three
+`toIsMinimal` projections and their three `@[mk_iff]` twins `hasGoodReduction_iff`,
+`hasMultiplicativeReduction_iff` and `hasAdditiveReduction_iff`, each carrying `IsMinimal R W`
+as the first conjunct on its right), or the definitional datum (`IsMinimal.mk` and its twin
+`isMinimal_iff`, the same `MaximalFor` condition spelled two ways), or auto-generated
+congruence (`IsMinimal.congr_simp`).  ⚠️ So none of the eleven reaches `W` itself from anything
+cheaper than the definition or a strictly stronger class, which is the ESTABLISH-`IsMinimal`
+lack above, not the *route* universal that follows it.  ⚠️⚠️ **Run the census over the ROOT
+environment and after a full build.**  The same walk over this module's own import closure
+still reads ELEVEN on Mathlib's side, so that figure is closure-robust; the TOTAL is not, the
+root reading exceeding this one by exactly the two it cannot see here, this tree's own
+`isMinimal_baseChange` and `reduction.congr_simp`.  ⚠️ `exists_isIntegral` is **not** in that
+set: it concludes `∃ C, IsIntegral R (C • W)` — a *different predicate* — and binds
+`[ValuationRing R]` rather than `[IsDiscreteValuationRing R]`.  This file closes that gap at
+`isMinimal_of_valuation_Δ_eq_one`, and `hasGoodReduction_of_valuation_Δ_eq_one` adds the same
+valuation equality to it through `HasGoodReduction`'s own structure instance — ⚠️ **not**
+through `hasGoodReduction_iff`, which no code line in this file mentions.
+
 `Reduction.GoodReductionBaseChange`'s `hasGoodReduction_baseChange` does conclude
 `HasGoodReduction`, so this file is not the first declaration in `Reduction/` to conclude it; but
 that one binds `[HasGoodReduction R W]` and transports it to a DVR extension, which is propagation
-and not establishment.  Mathlib is the same: `hasGoodReduction_iff` and
-`hasGoodReduction_iff_isElliptic_reduction` conclude an `Iff` and each takes `IsMinimal` as an
-input, and `exists_isIntegral` and `exists_isMinimal` produce a change of variables rather than a
-reduction type.  So before this module no curve anywhere in this development had been shown to have
-good reduction.  This file closes that gap at the cheapest place it closes, and then exhibits a
-curve.
+and not establishment.  So before this module no curve anywhere in this development had been shown
+to have good reduction, and `section Nonvacuity`'s `example` is the first closed term of the
+predicate in the tree.  This file closes the gap at the cheapest place it closes, and then exhibits
+a curve.
+
+⚠️ **Retired, and the clause was false rather than partial**, so `### Retired claims` binds rather
+than `### Reach clauses`.  This paragraph read *"every pre-existing route consumed it, or an
+equivalent, as an input, so nothing could start the chain"* — of `HasGoodReduction` — and two
+sentences later *"`hasGoodReduction_iff` and `hasGoodReduction_iff_isElliptic_reduction` conclude an
+`Iff` and each takes `IsMinimal` as an input"*, both from `77aeeaab` (`%cI` 2026-10-05T02:16:54Z,
+`#2333`, PR #914).  That commit introduced both clauses, so the contradiction reached `main` and is
+retired here rather than amended out of a message no longer reachable.  Three readings sink it.
+`Reduction.ReductionNodeCusp`'s `hasGoodReduction_iff_reduction_Δ_ne_zero` and
+`Reduction.ReductionTrichotomy`'s `hasGoodReduction_iff_not_multiplicative_and_not_additive` are
+pre-existing, sit in this directory, bind `[IsMinimal R W]` and not `HasGoodReduction`, and their
+`.2` concludes the predicate from a discriminant condition — so the universal is false on its own
+terms.  `IsMinimal` is not an *equivalent* of `HasGoodReduction` either, the latter being a class
+that extends the former with a further field and so strictly more data; and on a reading of
+*"an equivalent"* loose enough to cover it, the clause convicts this file's own
+`hasGoodReduction_of_valuation_Δ_eq_one`, whose hypotheses are `IsIntegral` and the valuation
+equality.  ⚠️ And `hasGoodReduction_iff` is the class's `@[mk_iff]` lemma, binding no `IsMinimal`
+at all, so *"each"* was wrong on one of the two it quantified over.  **What survives is the
+`IsMinimal` reading above** — which `exists_isMinimal` was always evidence for, and
+`exists_isIntegral` only in the weaker form `77aeeaab` itself used, that both hand back a change
+of variables rather than a reduction type.
 
 ## The criterion
 
@@ -40,11 +101,15 @@ discriminant is a **unit of `R`** base-changes to a curve over `K` of good reduc
 ⚠️ **That argument was already in this directory in one special case**, and
 `isMinimal_of_valuation_Δ_eq_one` is it with the hypothesis abstracted:
 `Reduction.GoodReductionBaseChange`'s `isMinimal_baseChange` runs the same subtype bound on `W⁄L`
-with the valuation equality supplied by `valuation_Δ_baseChange_eq_one` instead of assumed, under a
-comment that states this mechanism in these words.  Both of that file's conclusions follow from the
-two lemmas here once `isIntegral_baseChange` has supplied integrality over the extension ring,
-which was checked rather than predicted; neither is rewritten, because shortening a landed proof is
-a separate row from stating the lemma it is a case of.
+with the valuation equality supplied by `valuation_Δ_baseChange_eq_one` instead of assumed.  ⚠️
+That proof carries an inline comment stating the mechanism in its OWN words and not in these —
+*"The discriminant of `1 • (W⁄L)` has the top valuation `1`, so every isomorphic integral model
+has smaller-or-equal discriminant valuation"* — whose wording is near-verbatim with this
+section's opening paragraph above rather than with this sentence, which is why it is quoted here
+instead of cited.  Both of that file's conclusions follow from the two lemmas here once
+`isIntegral_baseChange` has supplied integrality over the extension ring, which was checked
+rather than predicted; neither is rewritten, because shortening a landed proof is a separate row
+from stating the lemma it is a case of.
 
 ## The witness
 
