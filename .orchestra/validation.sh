@@ -16,6 +16,20 @@ fi
 # cleanliness check whose reading it depends on, ahead of everything that needs Lake -- because it
 # costs seconds and a branch author should learn about a whitespace position without waiting for a
 # twenty-minute build.
+# It ANNOUNCES ITS POPULATION on every run, hits or none, because the population step is the one
+# place where this gate can under-read everything at once: `git ls-files` returning an empty or a
+# truncated list leaves it silent and green over nothing, and such a run is byte-identical on
+# stdout and in its exit code to a clean pass over the whole tree.  The gate below takes the same
+# shape, and its comment states the principle -- `a gate that under-reads must say so rather than
+# report a quiet success` -- and already implements it for a DIFFERENT under-read, an unbalanced
+# fence, in a WARNING whose form the empty-population branch here follows.  Printing the
+# denominator unconditionally is the only one of the three available shapes that reaches the
+# TRUNCATED population as well as the empty one: a sparse-checkout cone holding a handful of the
+# tracked files produces a confident green over that handful, and nothing but a denominator a
+# reader can compare detects it.  A hard `exit 1` on an empty population was NOT taken -- it is
+# blind to the truncated case, and beside the announcement a clean run would carry both a count
+# and a failure path for one condition -- and a WARNING on the empty case ALONE was not taken for
+# that same blindness.
 python3 <<'PHANTOM_IMPORT' || exit 1
 import pathlib, re, subprocess, sys
 
@@ -47,6 +61,19 @@ def comment_mask(src):
 listing = subprocess.run(["git", "ls-files", "-z", "*.lean"],
                          capture_output=True, check=True).stdout
 paths = [p.decode() for p in listing.split(b"\0") if p]
+
+# Announced before the scan, so a run over an empty or truncated listing says so rather than
+# passing quietly.  The comment block above gives the reason and prices the two shapes not
+# taken; the WARNING in the gate below is the form the empty branch follows, minus its path
+# prefix, because the locus of this one is the run and not a file.
+if paths:
+    print(f"{len(paths)} tracked .lean file(s) read by this gate.")
+else:
+    print("WARNING empty population -- `git ls-files -z '*.lean'` returned nothing, so this "
+          "gate read no file at all and its silence is NOT a pass.  It under-reads the whole "
+          "tree rather than the tail of one file.  A failed `git add`, a sparse-checkout cone "
+          "excluding the payload, a pathspec typo, or a cwd in a repository that does not hold "
+          "the payload each produce exactly this run.  Stage the files and re-run.")
 
 hits = []
 for path in paths:
@@ -147,6 +174,10 @@ PHANTOM_IMPORT
 # pattern, so it is a separate change with its own exposure census, exactly as above.
 # Runs over the TRACKED `.lean` files plus README.md -- the same population the rule's own row
 # measured -- and costs seconds, so it sits beside the gate above rather than behind Lake.
+# That population is announced on every run in the same form and for the same reason as the
+# gate above: an empty or truncated `git ls-files` leaves this gate silent and green over
+# nothing, which is the one under-read the WARNING below cannot report, because it reports a
+# file that WAS read and there is no such file here.
 python3 <<'WRAPPED_HEADING' || exit 1
 import pathlib, re, subprocess, sys
 
@@ -181,6 +212,20 @@ LINK_REF_DEF = re.compile(r"^ {0,3}\[[^\]]*[^\s\]][^\]]*\]:")
 listing = subprocess.run(["git", "ls-files", "-z", "*.lean", "README.md"],
                          capture_output=True, check=True).stdout
 paths = [p.decode() for p in listing.split(b"\0") if p]
+
+# Announced before the scan, as above.  The HEADING denominator stays in the hit summary and is
+# not hoisted here: the file count is the cell an under-read of the population moves, the
+# heading total is a consequence of it, and hoisting it would need a second print site after
+# the scan -- two announcements of one condition, which is what the gate above declines.
+if paths:
+    print(f"{len(paths)} tracked file(s) read by this gate.")
+else:
+    print("WARNING empty population -- `git ls-files -z '*.lean' README.md` returned nothing, "
+          "so this gate read no file at all and its silence is NOT a pass.  It under-reads the "
+          "whole tree rather than the tail of one file, so it is the stronger form of the "
+          "under-read the WARNING below reports.  A failed `git add`, a sparse-checkout cone "
+          "excluding the payload, a pathspec typo, or a cwd in a repository that does not hold "
+          "the payload each produce exactly this run.  Stage the files and re-run.")
 
 total = 0
 hits = []
@@ -217,8 +262,9 @@ for path in paths:
 for path in unbalanced:
     print(f"{path}: WARNING unbalanced code fence -- the mask stayed on to the end of the file, so "
           f"every heading after the last fence line in it was skipped and this run's heading "
-          f"count UNDER-reads.  The summary line prints only when there are hits, so on a clean "
-          f"run this warning stands alone.  Balance the fence.")
+          f"count UNDER-reads.  The hit summary prints only when there are hits, so on a clean "
+          f"run this warning stands beside the population line above it and nothing else.  "
+          f"Balance the fence.")
 
 for path, lineno, wrapped, lowercase, line, following in hits:
     why = ("its continuation renders as an ordinary paragraph" if wrapped
