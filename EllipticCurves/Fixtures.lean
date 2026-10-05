@@ -152,17 +152,52 @@ count is a historical measurement and is pinned precisely so that it is *not* co
 current tree; an address is worth only what it resolves to. Do not read *"the numbers must not be
 corrected"* as covering anything in this list.
 
-Those bases are not of characteristic zero, so the instances below do not apply, and the missing
-piece is an import: `Mathlib.FieldTheory.Finite.Basic` is what supplies `Field (ZMod p)` and makes
-their `decide +kernel` proofs go through (checked, both directions). It is **not** imported here,
-because this module is imported across the library and pulling a finite-field file into every one
-of those import closures to serve them is the wrong trade. **They keep their local fixtures**, and
-a later sweep should not "finish the job" by deleting them: the rows in `FunctionField/` are the
-only positive-characteristic non-vacuity evidence in that directory, and
-`ThreeTorsionSplitCertificate`'s row is the only non-vacuity evidence of any characteristic for
-the `n = 3` structure theorem. ⚠️ **`#2264` is open on the *"checked, both directions"* above**:
-as of this commit `Torsion/ThreeTorsionSplitCertificate` is the only file in the tree that takes
-that import at all, and every other row reaches `Field (ZMod p)` without it.
+Those bases are not of characteristic zero, so the instances below do not apply. ⚠️ **The module
+that supplies `Field (ZMod p)` is `Mathlib.Algebra.Field.ZMod`**: it is where `ZMod.instField` is
+declared, read with `Environment.getModuleIdxFor?` and not by grepping for the instance.
+`Mathlib.FieldTheory.Finite.Basic` only `public import`s that module, so it is a route and not the
+source — and **neither of the two is in this module's import closure**, read from
+`Environment.header.moduleNames` and not from `import` lines.
+
+⚠️⚠️ **An earlier form of this paragraph named `Mathlib.FieldTheory.Finite.Basic` as what supplies
+the instance and called that *"checked, both directions"*.  That is retired, and the
+counter-examples are named rather than counted**: each of these proves a `decide +kernel`
+finite-field fact with `Mathlib.FieldTheory.Finite.Basic` **absent** from its closure, reaching
+`Field (ZMod p)` through `Mathlib.Algebra.Field.ZMod` instead — `FunctionField/NegYInvolution`,
+`Torsion/ThreeTorsionCharThree`, `Torsion/TriplingSurjective`, `Torsion/TwoTorsionCharTwo`.  In
+full at this commit, as a snapshot of what the walk returns and not as a census.  The walk is
+`(← getEnv).header.moduleNames` under `import <mod>`, one module at a time, over the modules whose
+`decide +kernel` occurrences survive a nesting-aware comment strip.  ⚠️⚠️ **That mask is part of
+the instrument and not a refinement of it.**  A raw `grep -rl 'decide +kernel' EllipticCurves/`
+returns **eleven** files where the masked reading returns **nine**, and the two it adds carry the
+string in prose only: this module itself, and `Torsion/ThreeTorsionStructure`, whose docstring says
+in terms that *"no form of `decide` is available here"* and which already names the unmasked reading
+as the wrong one — `8` occurrences in `6` files masked against `13` in `7` unmasked at `e4345ae`.
+⚠️ **And membership needs the finite-field conjunct read on code lines too.**
+`Torsion/ThreeDivisionFieldProper`'s one code-level `decide +kernel` discharges `IsElliptic` for a
+curve over `ℚ`, and that file carries `ZMod` on no code line at all, so it is not a witness here
+either.  ⚠️ For both of those modules the closure conjunct does hold —
+`Mathlib.FieldTheory.Finite.Basic` absent and `Mathlib.Algebra.Field.ZMod` present, at
+`header.moduleNames` — so what fails is the `decide +kernel` reading and never the import one.
+
+⚠️⚠️ **And the import cost this paragraph used to refuse was priced against the wrong module.  The
+right one costs a single module, and that module is itself**: at Mathlib rev `81a5d257`,
+`cl(Mathlib.Algebra.Field.ZMod) \ cl(this module)` is exactly `{Mathlib.Algebra.Field.ZMod}`, so
+every other member of that closure is already here.  The heavier route is heavier **by
+containment** and not by any measured gap — `cl(Mathlib.Algebra.Field.ZMod)` is a subset of
+`cl(Mathlib.FieldTheory.Finite.Basic)` with the difference empty.  What the heavier route would
+add here is exactly `Mathlib.Algebra.Field.ZMod`, `Mathlib.Data.Nat.Prime.Int`,
+`Mathlib.Data.ZMod.ValMinAbs` and `Mathlib.FieldTheory.Finite.Basic`.
+
+⚠️ **So the import cost is withdrawn as the reason, and the reason that stands is the evidence.**
+The import is **necessary and not sufficient**: the instances below sit in `section CharZero` under
+`variable [Field F] [CharZero F]`, and `ZMod p` is not of characteristic zero, so every
+finite-field row would still need an instance of its own — which is exactly what its local fixture
+is.  **They keep their local fixtures**, and a later sweep should not "finish the job" by deleting
+them: the rows in `FunctionField/` are the only positive-characteristic non-vacuity evidence in
+that directory, and `ThreeTorsionSplitCertificate`'s row is the only non-vacuity evidence of any
+characteristic for the `n = 3` structure theorem. ⚠️ **Do not read the one-module price as an
+invitation to add the import and delete them.**
 
 ⚠️ **How that list came out rows short, twice, because the same mistake is easy to repeat.** A grep
 for `: Affine (ZMod` misses `NegYGaloisGroup`, whose base is spelled through an abbreviation, and

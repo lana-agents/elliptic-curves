@@ -308,28 +308,37 @@ NOT reach.**
   `### ⚠️ The imperfect witness` at the foot of the file.
 
 ⚠️ **`EllipticCurves.Fixtures` serves no characteristic-`2` CERTIFICATE and says in terms why** —
-*"The finite-field certificates are deliberately NOT served here, and there are FOUR of them … In
-full, so that no sweep has to rediscover it"*.  ⚠️ **It does declare the CURVE**: the definition
-instantiated above is `Fixtures`' own `y2AddYEqX3`, whose docstring names this base and this
-gap in terms — *"Over `ZMod 2` the same equation is supersingular … that is the char-`2`
-certificate described in the module docstring, and it is not served here"*.  ⚠️ **And three of
-those four certificates are this curve over this base**:
+*"The finite-field certificates are deliberately NOT served here, and this paragraph no longer
+says how many there are"*.  ⚠️⚠️ **That wording is the repair of a numeral and not a rephrasing,
+and the sentence standing here used to quote the numeral**: the clause read *"and there are FOUR
+of them … In full, so that no sweep has to rediscover it"*, and neither half is live text in
+`Fixtures` any more: the numeral survives there only as a retired quotation keyed to `0db45cd`,
+and the second half not at all — `grep -c 'no sweep has to rediscover'` over that file is **0**.
+The list the numeral stood over kept being extended, which `Fixtures` records as a sha-keyed
+series, this file's own row being one of the rows it did not contain.  ⚠️ **It does declare the
+CURVE**: the definition instantiated above is `Fixtures`' own `y2AddYEqX3`, whose docstring names
+this base and this gap in terms — *"Over `ZMod 2` the same equation is supersingular … that is
+the char-`2` certificate described in the module docstring, and it is not served here"*.  ⚠️
+**And the certificates for this curve over this base are named here rather than counted**:
 `exampleCurveChar2` (`EllipticCurves.FunctionField.NegYGalois`), `exampleCurveTwo`
 (`EllipticCurves.FunctionField.NegYInvolution`) and `exampleCurveNegYGalois`
 (`EllipticCurves.FunctionField.NegYGaloisGroup`), all `⟨0,0,1,0,0⟩`, all proving `IsElliptic` by
 `decide +kernel`; and `EllipticCurves.FunctionField.FunctionFieldGaloisDescent`'s `Nonvacuity`
-section uses `y2AddYEqX3` over `ZMod 2` itself.  ⚠️ **So the reason a fourth certificate is supplied
-here is NOT that there is none — it is that all four sites are `private` or `example`s and all four
-live under `FunctionField/`, which is DOWNSTREAM of `Torsion/`.**  `Fixtures`' own rule that
-*"`private` hides a NAME, not an INSTANCE"* reaches only downstream of the declaring module, which
-is the wrong direction here, and an import edge that fixed it would invert the tree.  The instance
-below is therefore built by the three precedents' own one-line recipe — `isElliptic_iff`,
-`isUnit_iff_ne_zero`, `decide +kernel` — rather than by a hand `Δ` computation, and `Fixtures`'
-*"a later sweep should not 'finish the job' by deleting them"* protects this fourth one too.
-⚠️ **No `Fact (Nat.Prime 2)` is declared here**: Mathlib's global `Nat.fact_prime_two` is what
-resolves, and `Field (ZMod 2)` synthesises from `EllipticCurves.Torsion.TwoTorsion` and
-`Mathlib.Algebra.Field.ZMod` alone — ⚠️ **the third import, `Mathlib.FieldTheory.Perfect`, plays no
-part in it.**
+section uses `y2AddYEqX3` over `ZMod 2` **without certifying it** — that file declares no
+`IsElliptic` instance and takes `[W.IsElliptic]` in no statement, so it is a SITE and not a
+certificate, which is the shape distinction `EllipticCurves.Torsion.ThreeTorsionCharThree`
+carries and the reason no size is published for either reading.  ⚠️ **So the reason a further
+certificate is supplied here is NOT that there is none — it is that every one of those sites is
+`private` or an `example` and every one lives under `FunctionField/`, which is DOWNSTREAM of
+`Torsion/`.** `Fixtures`' own rule that *"`private` hides a NAME, not an INSTANCE"* reaches only
+downstream of the declaring module, which is the wrong direction here, and an import edge that
+fixed it would invert the tree.  The instance below is therefore built by the precedents' own
+one-line recipe — `isElliptic_iff`, `isUnit_iff_ne_zero`, `decide +kernel` — rather than by a
+hand `Δ` computation, and `Fixtures`' *"a later sweep should not 'finish the job' by deleting
+them"* protects this one too. ⚠️ **No `Fact (Nat.Prime 2)` is declared here**: Mathlib's global
+`Nat.fact_prime_two` is what resolves, and `Field (ZMod 2)` synthesises from
+`EllipticCurves.Torsion.TwoTorsion` and `Mathlib.Algebra.Field.ZMod` alone — ⚠️ **the third
+import, `Mathlib.FieldTheory.Perfect`, plays no part in it.**
 
 `Δ = −27 · b₆² = −27 = 1` in `ZMod 2`, which is the discriminant `NegYGalois` records for the same
 curve.  The certificate is `#E[2] = 1` **exactly**, not a bound, and the `≠ 4` corollary is
@@ -992,8 +1001,8 @@ end FamilyReading
 `y² + y = x³`, the supersingular branch.  ⚠️ **No `Fact (Nat.Prime 2)` is declared here** —
 Mathlib's global `Nat.fact_prime_two` resolves it and `Field (ZMod 2)` synthesises from
 `EllipticCurves.Torsion.TwoTorsion` and `Mathlib.Algebra.Field.ZMod` alone.  The module docstring's
-`## Non-vacuity` says why a fourth `⟨0,0,1,0,0⟩`-over-`ZMod 2` certificate is owed at all, given
-that the tree already has three. -/
+`## Non-vacuity` says why a further `⟨0,0,1,0,0⟩`-over-`ZMod 2` certificate is owed at all, given
+the ones the tree already has, and names them there instead of counting them here. -/
 
 section Nonvacuity
 
@@ -1001,11 +1010,21 @@ open EllipticCurves.Fixture
 
 /-- `IsElliptic` for `y² + y = x³` over `ZMod 2`: `Δ = −27 · b₆² = −27 = 1`, and `1 ≠ 0` there.
 
-⚠️ **This is the one-line recipe the tree's three other `⟨0,0,1,0,0⟩`-over-`ZMod 2` certificates
-use**, which `EllipticCurves.Fixtures` records of all four of its finite-field rows (*"All four
-prove `IsElliptic` by `decide +kernel`"*).  ⚠️ `EllipticCurves.Fixtures`' own instance for this
-curve does not reach here — it is stated over a field where `−27 ≠ 0` is a `norm_num` fact, and
-`ZMod 2` is not one by that route. -/
+⚠️ **This is the one-line recipe the tree's other `⟨0,0,1,0,0⟩`-over-`ZMod 2`
+certificates use** — `isElliptic_iff`, `isUnit_iff_ne_zero`, `decide +kernel`.  They are
+the rows `EllipticCurves.Fixtures` lists for `FunctionField/NegYGaloisGroup` — whose
+base is spelled through a `private abbrev` for `ZMod 2` rather than written out —
+`FunctionField/NegYGalois` and `FunctionField/NegYInvolution`.
+
+⚠️⚠️ **The RECIPE is what is named above; the COUNT that used to stand beside it in `Fixtures` is
+not, and deliberately so.**  That clause read *"All four prove `IsElliptic` by `decide +kernel`"*,
+and `Fixtures` has since retired the numeral in favour of the list itself — naming *this*
+paragraph's quotation of it as the thing that should have caught the defect, because this file's
+own row was one of the rows that list did not contain.  So the sentence that stood here quoted a
+census its own module had falsified, which is why the members are named here and no size is.
+
+⚠️ `EllipticCurves.Fixtures`' own instance for this curve does not reach here — it is stated over a
+field where `−27 ≠ 0` is a `norm_num` fact, and `ZMod 2` is not one by that route. -/
 private instance : (y2AddYEqX3 (ZMod 2)).IsElliptic := by
   rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero]
   decide +kernel
