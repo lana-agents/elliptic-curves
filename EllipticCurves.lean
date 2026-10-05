@@ -336,6 +336,7 @@ import EllipticCurves.Reduction.ThirdChordNonvanishing
 import EllipticCurves.Reduction.ThirdChordNonvanishingDiag
 import EllipticCurves.Reduction.Torsion
 import EllipticCurves.Reduction.TwoTorsionReduction
+import EllipticCurves.Reduction.VariableChangeDescent
 import EllipticCurves.TateModule.Basic
 import EllipticCurves.TateModule.Continuity
 import EllipticCurves.TateModule.Determinant
