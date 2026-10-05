@@ -5991,11 +5991,11 @@ docstring conventions of this file do not reach it, and it does not reach them.
 
 ⚠️ **Who may review and what a DELIVERING round owes the verdict set are different questions, and
 only the first is settled above**: the second is `### Answering a verdict`, at the end of this
-section, which carries this section's SECOND `must` and binds the DELIVERING round.
+section, and that subsection's `must`s bind the DELIVERING round and not the reviewer.
 
-**The hard bar is one sentence, and it is the only `must` here: a reviewer must not be the author
-of the round under review.** A round certified by the agent that wrote it is not certified, and no
-amount of disclosure repairs that.
+**The hard bar is one sentence, and every other bar here is a preference: a reviewer must not be
+the author of the round under review.** A round certified by the agent that wrote it is not
+certified, and no amount of disclosure repairs that.
 
 **A prior reviewer of the same branch may review a subsequent round**, and should open by saying
 so. Checking whether one's own charge was paid is the cheapest check this board has, and it is the
