@@ -289,11 +289,13 @@ polynomials and so isomorphic, and no statement here constructs that isomorphism
 * ⚠️⚠️ **The `n`-th part of a point.**  `#2296`'s part (a) item 3 — a finite Galois `N` over which
   a given `S` is `n` times another point — is **not** here, and nothing below mentions a point, a
   divisor or a group law.  It needs the general-`n` analogue of `halvingX` / `triplingX`, that is
-  separability of `Φₙ − C x₀ · ΨSqₙ`, and the tree's only members of that family are
-  `EllipticCurves.Torsion.TriplingSeparable`'s `separable_Φ_three_sub_C_mul_ΨSq` at `n = 3` and the
-  `n = 2` square-root degeneration `Φ_two_sub_C_mul_Ψ₂Sq_eq_halvingX_sq`.  ⚠️ **That is the half of
-  `#2296` whose layer count is unbounded in `n`, and it is why this file is a prerequisite and not
-  the rung.**
+  separability of `Φₙ − C x₀ · ΨSqₙ`.  ⚠️ **That separability is LANDED at every `n`**, in
+  `EllipticCurves.Torsion.NthPartSeparable`, from `Ψ₂Sq(x₀) ≠ 0` alone and with no parity and no
+  torsion hypothesis; that file also records that an earlier wording of this bullet, naming
+  `separable_Φ_three_sub_C_mul_ΨSq` and the `n = 2` degeneration as the family's only members, was
+  already false when it was written, `separable_Φ_sub_C_mul_ΨSq_of_odd` being the general odd-index
+  form.  ⚠️ **What is still owed here is the TOWER and not the polynomial**, and it is why this file
+  is a prerequisite and not the rung.
 * ⚠️ **`IsGalois F L₂`, and it is not an omission — it is false in general.**  `L₁ / F` and
   `L₂ / L₁` are both Galois and Galois is not transitive: `L₂ / F` is finite and separable but need
   not be normal.  `finiteDimensional_tower_n` and `isSeparable_tower_n` are together exactly the
