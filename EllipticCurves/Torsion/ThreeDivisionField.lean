@@ -231,10 +231,10 @@ compute **no degree** — neither `[L₁ : ℚ]` nor `[L₂ : ℚ]` — and in p
 They do not touch the closure, and **this section's *"not excluded"* clause stands unchanged**:
 nothing below says `L₂ / ℚ` is normal or compares any degree with the closure's, so that clause —
 about the closure possibly equalling the tower — is still exactly right, for this curve as for
-every other.  And they say nothing about any other curve at all: ⚠️ `#2274`
-carries the arithmetic showing that `y2EqX3AddOne` collapses the same way (`Ψ₂Sq` takes `4` and
-`-12` at the roots of its `Ψ₃`, both squares in its own `L₁`) and that `y² = x³ - 1` does **not**
-(`Ψ₂Sq.eval 0 = -4`, which is not a square there).
+every other.  And they say nothing about any other curve at all: `ThreeDivisionFieldProper`'s
+`` ## Why not `y² = x³ - 1` `` carries the arithmetic showing that `y2EqX3AddOne` collapses the
+same way (`Ψ₂Sq` takes `4` and `-12` at the roots of its `Ψ₃`, both squares in its own `L₁`) and
+that `y² = x³ - 1` does **not** (`Ψ₂Sq.eval 0 = -4`, which is not a square there).
 
 ## References
 

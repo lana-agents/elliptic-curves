@@ -336,13 +336,13 @@ two is **false** at the certificate curve and **true** here.
 
 ⚠️ **It still computes no degree: no statement in this file names `[L₁ : ℚ]`, `[L₂ : L₁]` or
 `[L₂ : ℚ]`, and the prose above names the first of the three, three times.**  ⚠️ **Say it that way
-and not *named anywhere in this file*, which is false of all three** — the mechanism paragraph on
-why layer one's degree is never computed names `[L₁ : ℚ]`, so does the `y² = x³ - 1` account, and so
-does `liftToQSqrtNegThree`, while the only occurrence of either of the other two is this sentence
-itself.  The widest reading of the old words was refuted by the text carrying them.  Nothing here
-says `L₂ / ℚ` is normal either — so `ThreeDivisionField`'s
-*"the case `threeDivisionGaloisField W = threeDivisionField W` is not excluded"* is untouched by
-this, exactly as it is by the collapse at the certificate curve. -/
+and not *named anywhere in this file*, which is false of all three** — the paragraph under
+`` ## ⚠️ Why the degree of `L₁` is never computed, and the curve that makes that possible `` names
+`[L₁ : ℚ]`, so does the `y² = x³ - 1` account, and so does `liftToQSqrtNegThree`, while the only
+occurrence of either of the other two is this sentence itself.  The widest reading of the old
+words was refuted by the text carrying them.  Nothing here says `L₂ / ℚ` is normal either — so
+`ThreeDivisionField`'s *"the case `threeDivisionGaloisField W = threeDivisionField W` is not
+excluded"* is untouched by this, exactly as it is by the collapse at the certificate curve. -/
 theorem top_ne_bot_threeDivisionField_y2EqX3AddTwo :
     (⊤ : Subalgebra y2EqX3AddTwo.Ψ₃.SplittingField (threeDivisionField y2EqX3AddTwo)) ≠ ⊥ :=
   fun h => not_splits_Ψ₂SqRootPoly_y2EqX3AddTwo
