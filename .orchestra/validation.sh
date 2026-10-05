@@ -130,6 +130,21 @@ PHANTOM_IMPORT
 # blocks are masked so that a shell comment on display cannot fail the run, and an unbalanced
 # fence is reported rather than failed: it makes the mask swallow the rest of its file, so the
 # count UNDER-reads, and a gate that under-reads must say so rather than report a quiet success.
+# THE ONE-LINE LOOKAHEAD CUTS BOTH WAYS, AND THIS IS THE DIRECTION THAT FAILS A PUSH: a
+# following line is judged on itself, so a construct whose block-ness is decidable only from a
+# LATER line is hard-failed though it orphans no paragraph.  A setext heading is one -- `foo`
+# beneath a title with its `===` or `---` underline on the line after, which renders a setext
+# `<h1>` or `<h2>` -- and a link reference definition whose LABEL spans lines is another, `[a`
+# over `b]: /url`, which renders nothing at all.  Each is told instead that its continuation
+# `renders as an ordinary paragraph`, which is false of it, and each reads 0 top-level
+# paragraphs at all eight readings, so they are wrong under EVERY parser where the HTML block
+# above is wrong under only one of its two.  NO COUNT of such classes is written here, for the
+# reason no count of the extra members is: they are consequences of the bound, and the bound is
+# not shown to admit only the two named.  Exposure is 0 at `d8d52e12` -- no setext underline
+# anywhere in the tracked population under either the `^ {0,3}` or the lstrip unit, over 470
+# files and 2551 headings, where this gate's whole hit set is empty -- a KEYED reading, so
+# re-measure it rather than carry it.  The repair, if one is ever wanted, is LOOKAHEAD and not
+# pattern, so it is a separate change with its own exposure census, exactly as above.
 # Runs over the TRACKED `.lean` files plus README.md -- the same population the rule's own row
 # measured -- and costs seconds, so it sits beside the gate above rather than behind Lake.
 python3 <<'WRAPPED_HEADING' || exit 1
