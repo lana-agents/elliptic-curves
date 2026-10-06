@@ -413,6 +413,7 @@ import EllipticCurves.Torsion.NormEDSHomogeneous
 import EllipticCurves.Torsion.NsmulLadder
 import EllipticCurves.Torsion.NsmulLadderOmega
 import EllipticCurves.Torsion.NsmulLadderOmegaStep
+import EllipticCurves.Torsion.NsmulLadderOmegaStepDvd
 import EllipticCurves.Torsion.NsmulLadderOmegaStepNum
 import EllipticCurves.Torsion.NsmulOrder
 import EllipticCurves.Torsion.NsmulSmoothSurjective
