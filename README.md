@@ -6922,6 +6922,68 @@ the other convention into a figure written under this one is how
 **wrong at the commit that wrote it, not stale**, and invisible to any reviewer who re-ran it
 under the reading it was written in.
 
+⚠️⚠️ **AND THE RULE ABOVE GOVERNS BOTH SHAPES OF THE FIGURE, WHICH NOBODY HAD WRITTEN DOWN AND TWO
+LANDED FILES READ OPPOSITE WAYS.** A closure count comes in two shapes — *what **this** file costs*
+and *what **another** module reaches* — and `Torsion/NsmulYCoord` and `Torsion/NsmulYPeriodic` state
+a second default for the second shape, *"A count named for another module is that module **and**
+everything it reaches"*, while `Torsion/OmegaIntegral` leads with `Torsion.NsmulYCoord` *"not
+counting itself — the convention `README.md`'s `## Import-closure figures` states"*. ⚠️ **Both are
+exact and both are keyed to `e4345ae`, where that module's closure is `31` excluding itself and `32`
+including it**, so two landed files print `31` and `32` for ONE module at ONE commit, and a reader
+who carries either file's stated rule to the other's numeral concludes the other is stale by one.
+**That is the `FunctionField.NthRootOfPullbackN` failure the paragraph above names, arriving between
+two files that both cite this section** (`#2255`).
+
+⚠️⚠️ **The default is settled by MEASUREMENT and not by fiat, and the sweep is keyed because it
+moves under every landing.** The count-shaped seed is a line matching
+`closure|import graph|reverse import cone` **and** carrying `**N**`, `closure of N` or `N modules`,
+over the tracked `.lean` files: **47 rows in 33 files at `bed1bb64`**, against **27 in 21** at
+`e4345ae` and **29 in 21** at `153312c`, over `473` tracked `.lean` files here and `440` at both of
+those. ⚠️ **The narrow `import closure` key moves with it** — `103` lines in `77` files here against
+`83` in `62` at `e4345ae` *and* at `153312c` — **so a figure of this population that was stable
+across one branch's rounds is not stable across a week, and none of these readings may be carried to
+another head.** ⚠️ **No split of the 47 by *whether the row names its reading* is published here,
+and the omission is deliberate**: that predicate is a judgement about prose rather than a grep, and
+three defensible phrase keys over the same 47 rows disagree with one another. **What decides the
+default is the restricted population and not the 47** — the EIGHT *named-for-another* rows this
+rule governs, where it is six to two, below — because the rule above reaches only a figure named
+for ANOTHER module, and the seed that returns the 47 tests for neither that shape nor resolution.
+
+⚠️⚠️ **And of the EIGHT *named-for-another* rows whose numeral resolves against the walk at its own
+key, SIX exclude the module named and TWO include it** — each re-derived from the `import` lines
+rather than taken from the file that prints it. **Exclude**: `Coprime:196` (`NsmulSurjective` **7**
+at `68fd254`), `NegYGaloisGroup:65` (`NegYGalois` **20** at `542e721`), `MulByThreeGalois:383` and
+`:387` (`PlaceBelowIntegralClosure` **51** and `MulByThreeDegree` **24** at `0b8f3d1`),
+`TriplingGaloisTower:153` (`TriplingSeparable` **53** at `bebec3f`) and `OmegaIntegral:532`
+(`NsmulYCoord` **31** at `e4345ae`). **Include**: `NsmulYCoord:117` (`NsmulLadder` **22**, the
+walk's `21` plus itself) and `NsmulYPeriodic:140` (`NsmulYCoord` **32**, the walk's `31` plus
+itself) — ⚠️ **both of those two addresses read in the tree this sentence lands in and not in its
+base, the same commit having re-wrapped the paragraph above each of them.** ⚠️
+`MatrixRepModGeneral:39` states **exclude** in words — *"with that module itself dropped"* — and
+carries no key, so it is evidence of the practice and not one of the eight. ⚠️⚠️ **The two
+include-self rows are the `Nsmul` pair's two files, and the six exclude-self rows are six rows in
+FIVE files — `MulByThreeGalois.lean` carries two of them, `:383` and `:387` — spread over THREE
+directories (`DivisionPolynomial`, `FunctionField` ×2, `Torsion` ×2), so this tree's practice is
+EXCLUDE-self in BOTH shapes and the rule above governs both**: the `Nsmul` lane's reading is a
+**stated local exception**, which those two files now say of themselves, and not a second default.
+
+**The rule, then: a figure of the *named-for-another* shape prints BOTH numerals or names its
+reading in words.** **Six of the eight rows above already do, and two do not**:
+`DivisionPolynomial/Coprime.lean`:`196` and `FunctionField/NegYGaloisGroup.lean`:`65` each print one
+numeral and name their reading nowhere in their own file — a whole-file grep for `excluding`,
+`excludes`, `not counting`, `itself dropped`, `itself excluded`, `including it`, `counting it` and
+`module itself` returns **0** in both at `bed1bb64` — **so they are the two sites this clause
+reaches, and they are named here, with their paths, rather than left to be found** (⚠️ `Coprime` is
+one of this tree's two duplicated basenames and `Torsion/Coprime.lean` has a line `196` as well).
+It is one clause, and it is the only form under which a `±1` cannot be read either way. ⚠️⚠️ **And a
+self-inclusion convention has THREE sources here and not two**: the walk's `− {seed}`, the figure's
+SUBJECT — *this* file against *another* module — and, for the elaborator instrument, the probe's
+PLACEMENT. During elaboration of a module that module is not yet in its own environment header, so
+`(← Lean.getEnv).header.moduleNames` read from a probe that *imports* the measured module carries it
+and the same probe appended *inside* that module does not: **32** against **31** for
+`Torsion.NsmulYCoord` at `e4345ae`. **A sentence naming two of the three leaves the same `±1`
+open.**
+
 ⚠️ **A membership claim needs no sha because it is *cheap* to re-run, not because it is safe.**
 *"`X` is not in this file's import closure"* is refuted by any new edge whose far end reaches `X`,
 and the commit that adds that edge is usually the commit that announces it:
@@ -6955,12 +7017,14 @@ identity is real and both reviews certified it.**
 
 ⚠️ **And the REF is a degree of freedom in its own right, stated here because the tree PROVES it
 and not because it is prudent.** The same span, the same normalisation and the same two files, at
-`#2254`'s two round heads:
+`#2254`'s two round heads — ⚠️ **and then at one further key whose SPAN is a different one, which
+the clause under the table says in terms**:
 
 | ref | published span | normalised longest common substring | the same, raw |
 | --- | --- | --- | --- |
 | `153312c85bb441ba95be549f2aa0aeb6ed33c8eb` — `#2254` round 1 | **516** | **683** | **687** |
 | `6f051d4fd44516ee225703b66ccb3b4b01781ded` — `main`, round 2 | **699** | **866** | **294** |
+| ⚠️ `#2255` — keyed by BLOB, named below | **1019** | **1186** | **253** |
 
 ⚠️ **`git diff --numstat` over the two files between those refs is `9 / 7` in `NsmulYCoord.lean`
 and `4 / 2` in `NsmulYPeriodic.lean` — 13 lines added and 9 removed — and that edit is the whole
@@ -6972,6 +7036,17 @@ moved in the very round that made the identity wider. **The rule, then: such a f
 endpoints, its normalisation AND its ref, or it stays a review-time measurement** — and ⚠️ **a
 landing message cannot be amended, so the durable home for one is this page and not a commit
 body** (`#2258`).
+
+⚠️⚠️ **The third row is this page's own mechanism firing a second time, and its span is NOT the
+second row's.** `#2255`'s round declares the `Nsmul` lane's named-for-another reading a stated
+local exception, which re-words the shared paragraph in both files; the published span is
+therefore measured from `⚠️ **The reading HERE is a stated local EXCEPTION…` to the same
+`…which needs no build.`, it goes `699 → 1019`, and the identity WIDENS `866 → 1186` while the
+raw reading COLLAPSES `294 → 253` — ⚠️ **the same round, again, both directions at once.**
+⚠️ **It is keyed by BLOB and not by commit because the merger squashes**, so a branch-head sha
+for it would name no object reachable from `main`: the two blobs are
+`dc8ae1b1a80149e837c06432b2cec736468852e8` for `Torsion/NsmulYCoord.lean` and
+`4fd078b4cfcbbaeb3c2890dc6fb1d8aaf0eaa065` for `Torsion/NsmulYPeriodic.lean`.
 
 **The gate, for a branch author.** `#1972`'s splice test is defined on `README.md` and cannot reach
 this layer: a `.lean` closure figure is not a block that can be spliced into another page, it is a

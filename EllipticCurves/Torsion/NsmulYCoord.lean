@@ -98,17 +98,21 @@ Every public declaration of this file is listed; `some_eq_some_of_eq_snd` is `pr
 ## Import position, measured rather than guessed
 
 ⚠️ **The convention, because the `22` below counts the module it is named for while the `31` does
-not count this file, and `README.md` `## Import-closure figures` says it *"belongs beside the
-figure and must not be assumed"*.**  A count named for *another* module is that module **and**
-everything it reaches; a count of what *this* file costs **excludes this file**.  **Measured at
-`e4345ae`**, over `EllipticCurves.` only, with the root aggregator `EllipticCurves` dropped, on two
-instruments that agree on every cell: the elaborator's `(← Lean.getEnv).header.moduleNames`, read
-from a probe module that *imports* the module being measured — ⚠️ **the placement is part of that
-instrument and is what fixes its convention: read from an importer the answer carries the measured
-module, read from inside that module it does not** — and a transitive walk of the
-`^(public |private |meta )*import (\S+)` lines, which needs no build.  Control, as that section
-publishes it: `EllipticCurves.TateModule.MatrixRepMod` is **40** excluding itself and **41**
-including it.  ⚠️ `EllipticCurves.Torsion.NsmulYPeriodic` reads its figures the same way.
+not count this file, and `README.md` `## Import-closure figures` says it *"belongs beside the figure
+and must not be assumed"*.**  ⚠️ **The reading HERE is a stated local EXCEPTION and not a second
+default**: `README.md` `## Import-closure figures` rules that a closure count excludes the module it
+is named for in **both** of the figure's shapes, and this file departs from that in one of them — a
+count named for *another* module is, in this file, that module **and** everything it reaches, while
+a count of what *this* file costs **excludes this file**, which is the page's own reading.
+**Measured at `e4345ae`**, over `EllipticCurves.` only, with the root aggregator `EllipticCurves`
+dropped, on two instruments that agree on every cell: the elaborator's
+`(← Lean.getEnv).header.moduleNames`, read from a probe module that *imports* the module being
+measured — ⚠️ **the placement is part of that instrument and is what fixes its convention: read from
+an importer the answer carries the measured module, read from inside that module it does not** — and
+a transitive walk of the `^(public |private |meta )*import (\S+)` lines, which needs no build.
+Control, as that section publishes it: `EllipticCurves.TateModule.MatrixRepMod` is **40** excluding
+itself and **41** including it.  ⚠️ `EllipticCurves.Torsion.NsmulYPeriodic` reads its figures the
+same way.
 
 `EllipticCurves.Torsion.NsmulLadder` has a transitive closure of 22 modules in this library and
 `EllipticCurves.Torsion.TriplingCoords` of 18; ⚠️ **their union is 25, and that 25 does not count
