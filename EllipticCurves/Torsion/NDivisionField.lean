@@ -56,10 +56,13 @@ about this half of its part (a) and about nothing else**: the construction that 
 `n` is the **`n`-th-part** floor — the general-`n` analogue of `halvingX` / `triplingX` — which this
 file does not build and which `## What is *not* here` keeps where it belongs.
 
-⚠️ **And the heartbeat cost `TriplingGaloisTower` records does not appear here.**  That file needs
-`set_option maxHeartbeats 400000` and says the cause is *"depth, not a loop"*, namely unfolding the
-`abbrev` chain inside unification.  Nothing below sets any heartbeat option, and the whole module
-elaborates in a few seconds; a chain of length three is not a chain of length five.
+⚠️ **And the heartbeat cost the five-layer tower records does not appear here.**  ⚠️ That cost
+is **not** `TriplingGaloisTower`'s, which carries no `set_option` at all: the
+`set_option maxHeartbeats 400000` and the *"depth, not a loop"* diagnosis that goes with it —
+unfolding the `abbrev` chain inside unification — belong to `PullbackPrincipalityThreeGeneral`,
+which states them correctly and attaches them to a rejected control run that inlines the tower
+into the proof.  Nothing below sets any heartbeat option, and the whole module elaborates in a
+few seconds; a chain of length three is not a chain of length five.
 
 ## ⚠️ Layer one is ONE polynomial and not two layers, and the choice is argued rather than assumed
 
