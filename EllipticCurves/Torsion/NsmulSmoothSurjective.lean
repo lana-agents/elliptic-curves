@@ -225,11 +225,22 @@ something real.  This is that witness: `y² + xy = x³ + 1` over `AlgebraicClosu
 tuple `⟨1, 0, 0, 0, 1⟩`, on the **ordinary** branch `a₁ ≠ 0`.  ⚠️ **It is the same tuple
 `EllipticCurves.Torsion.ThreeTorsionStructure` uses to certify `exists_equation'` itself**, and the
 same one `EllipticCurves.Torsion.TriplingSurjective` and `EllipticCurves.Torsion.TwoTorsionCharTwo`
-use over `ZMod 2`.
+use over `ZMod 2`.  ⚠️⚠️ **And it is now that tuple by CITATION rather than by coincidence**: the
+curve below is `EllipticCurves.Fixture.y2AddXYEqX3AddC (AlgebraicClosure (ZMod 2)) 1`, the shared
+`a₁ ≠ 0` family, so the literal survives in this block's prose and nowhere in this file's code
+(`#2345` stage 2).
 
-⚠️ **The three helpers are restated here rather than imported because that file's are `private`** —
-checked, not assumed, and `private` is not `protected`.  Four lines of re-proof is a smaller price
-than widening another file's interface for a witness.
+⚠️ **Of the three helpers, ONE is still restated here rather than imported, because
+`EllipticCurves.Torsion.ThreeTorsionStructure`'s are `private`** — `two_eq_zero_closureCharTwo`,
+checked and not assumed, and `private` is not `protected`.  ⚠️ **`EllipticCurves.Fixture`'s are
+public, which is the whole point of stage 1**, so the other two are no longer re-proofs: the curve
+is that file's family at `c = 1`, and `Δ_curveClosureCharTwo` is one application of its public
+`Δ_y2AddXYEqX3AddC_of_two_eq_zero`.  ⛔ **RETIRED, from this block's own earlier text**: *"Four
+lines of re-proof is a smaller price than widening another file's interface for a witness."*  That
+trade was right while every other copy of the tuple was `private`; `#2345` stage 1 widened
+`EllipticCurves.Fixture` instead — publicly, and polymorphically in both the base and the parameter
+`c` — so the price that sentence compares is no longer the price on offer, and what replaces the
+four lines is one citation each.
 
 ⚠️ **`[2]` and `[3]` really are surjective on `E(F̄)` in characteristic `2`, and the two `example`s
 below are what say so.**  What is *not* true there, and is not claimed anywhere by this file, is
@@ -239,8 +250,10 @@ downstream of it keeps its `(2 : F) ≠ 0` and is right to.  ⚠️ **Surjectivi
 of `E[n]` come apart exactly here, and that is the boundary `#2253` draws.**
 
 ⚠️ **No `decide` is available over this field**, which carries no `DecidableEq` — the `Δ = 1`
-arithmetic goes through `linear_combination` against `two_eq_zero_closureCharTwo` instead, and the
-`DecidableEq` the `Point` group structure needs is `Classical.decEq`, as over `AlgClosedQ` above. -/
+arithmetic goes through `linear_combination` against `two_eq_zero_closureCharTwo` instead, ⚠️ **now
+inside `EllipticCurves.Fixture.Δ_y2AddXYEqX3AddC_of_two_eq_zero`, over an arbitrary commutative
+ring, with this file supplying that hypothesis** — and the `DecidableEq` the `Point` group structure
+needs is `Classical.decEq`, as over `AlgClosedQ` above. -/
 
 /-- The base field really is of characteristic `2`, which is what makes the `example`s below
 statements that the `(2 : F) ≠ 0` forms could not even express. -/
@@ -252,22 +265,53 @@ private lemma two_eq_zero_closureCharTwo : (2 : AlgebraicClosure (ZMod 2)) = 0 :
 
 private noncomputable instance : DecidableEq (AlgebraicClosure (ZMod 2)) := Classical.decEq _
 
-/-- `y² + xy = x³ + 1` over `AlgebraicClosure (ZMod 2)` — the tuple `⟨1, 0, 0, 0, 1⟩`.
+/-- `y² + xy = x³ + 1` over `AlgebraicClosure (ZMod 2)` — ⚠️ **`EllipticCurves.Fixture`'s
+`y2AddXYEqX3AddC` at `c = 1`, and no longer a separate spelling of the tuple `⟨1, 0, 0, 0, 1⟩`**
+(`#2345` stage 2).  ⚠️ **No count is given here on purpose**: the ordinal this sentence carried
+matched the table in `#2345` and no reading available in the tree.  The literal is what is
+retired; the local name is kept because the three `example`s below read better with it, and
+because it is what carries the `IsElliptic` instance.
+
+⚠️⚠️ **It is a `def` and NOT an `abbrev`, and that is load-bearing for a claim in another file**:
+instance search keys on the head symbol, so the instance below is found for
+`curveClosureCharTwo` and is **not** found for `y2AddXYEqX3AddC (AlgebraicClosure (ZMod 2)) 1`.
+`Fixtures`' own module docstring says of that family — ⚠️ **in a bold sentence, whose emphasis is
+named here rather than reproduced inside the quotation** — *"carries NO `IsElliptic` instance
+anywhere in the tree"*, and this file does not falsify it: a reducible alias here would.
 
 ⚠️ `noncomputable` because `AlgebraicClosure.instField` is, not because anything here is. -/
 private noncomputable def curveClosureCharTwo : Affine (AlgebraicClosure (ZMod 2)) :=
-  ⟨1, 0, 0, 0, 1⟩
+  y2AddXYEqX3AddC (AlgebraicClosure (ZMod 2)) 1
+
+/-- The two spellings are one object, by `rfl` — the `curveCharTwoOne_eq` / `curveCharTwo_eq`
+pattern `#2345` stage 1 landed for the two **public** copies, stated here for completeness even
+though the definition above makes it trivial.
+
+⚠️ **It is unreferenced, and that is the shape the `#2253` paragraph above convicts**, so the
+difference is named rather than left to be found: that paragraph is about a dead *proof* helper,
+whose deletion costs a reader nothing, while this is a proposition the file commits to — the form
+in which the two **public** copies carry the same relation, and the line that stops compiling if a
+later round edits the alias above, which is the one thing a `rfl` of this shape buys.  ⚠️ **Round
+1's verdict offered deleting it as the other horn, and the scope clause of that same verdict bars
+this round from moving a `theorem`; this keeps it and names the trade, and a later round may still
+take the other horn.** -/
+private lemma curveClosureCharTwo_eq :
+    curveClosureCharTwo = y2AddXYEqX3AddC (AlgebraicClosure (ZMod 2)) 1 := rfl
 
 /-- `Δ = 1`, so the witness is not a singular equation dressed up as one: `b₂ = 1`, `b₄ = 0`,
-`b₆ = 4`, `b₈ = 1` and `Δ = -b₂²b₈ - 8b₄³ - 27b₆² + 9b₂b₄b₆ = -433 = 1 - 217 · 2`. -/
-private lemma Δ_curveClosureCharTwo : curveClosureCharTwo.Δ = 1 := by
-  simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
-    WeierstrassCurve.b₈, curveClosureCharTwo]
-  linear_combination (-217 : AlgebraicClosure (ZMod 2)) * two_eq_zero_closureCharTwo
+`b₆ = 4`, `b₈ = 1` and `Δ = -b₂²b₈ - 8b₄³ - 27b₆² + 9b₂b₄b₆ = -433 = 1 - 217 · 2`.
 
-private instance : curveClosureCharTwo.IsElliptic := by
-  rw [WeierstrassCurve.isElliptic_iff, Δ_curveClosureCharTwo]
-  exact isUnit_one
+⚠️ **The arithmetic is no longer done here.**  `EllipticCurves.Fixture`'s
+`Δ_y2AddXYEqX3AddC_of_two_eq_zero` proves `Δ = c` over **every** commutative ring where `2 = 0`,
+with coefficient `-c - 216c²`, which at `c = 1` is the `-217` this docstring names — so the figure
+moved rather than went, and that file's docstring states the `-433 = 1 - 217 · 2` reading too. -/
+private lemma Δ_curveClosureCharTwo : curveClosureCharTwo.Δ = 1 :=
+  Δ_y2AddXYEqX3AddC_of_two_eq_zero two_eq_zero_closureCharTwo 1
+
+/-- The witness is a genuine elliptic curve, out of `isElliptic_y2AddXYEqX3AddC` with `c = 1`:
+`Δ = c` where `2 = 0`, so `c ≠ 0` is the whole condition and `one_ne_zero` discharges it. -/
+private instance : curveClosureCharTwo.IsElliptic :=
+  isElliptic_y2AddXYEqX3AddC two_eq_zero_closureCharTwo one_ne_zero
 
 /-- **`[2]` is surjective on `y² + xy = x³ + 1` over `AlgebraicClosure (ZMod 2)`, committed.**
 ⚠️ This is a statement the `(2 : F) ≠ 0` form of `nsmul_two_surjective` cannot be instantiated at,

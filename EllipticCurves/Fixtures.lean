@@ -138,9 +138,17 @@ stated which of the two populations it counted, and the two differ.
 `Torsion/NsmulSmoothSurjective.lean`'s `curveClosureCharTwo` are private `IsElliptic` instances in
 characteristic `2` as well, and are **not** near-misses of the same kind: their base is
 `AlgebraicClosure (ZMod 2)`, which is not a finite field, and neither proves `Δ` a unit by
-`decide` — both go through `linear_combination` and `isUnit_one`, which is why the recogniser does
-not see them. `FunctionField/FunctionFieldGaloisDescent.lean` uses `y2AddYEqX3 (ZMod 2)` too and
-rules itself out in terms, in its own `### Non-vacuity`.
+`decide`, which is why the recogniser does not see them. ⛔ **Retired, from this paragraph's own
+earlier text, and the clause was false rather than partial** — it is a universal over the two
+curves the sentence names and one of them falsifies it, so `### Retired claims` binds and a
+qualification in place would not have done: *"both go through `linear_combination` and
+`isUnit_one`"* was true of both while each file proved its own `Δ`, and is false of
+`curveClosureCharTwo` since `#2345` stage 2, whose curve is *this module's own* `y2AddXYEqX3AddC`
+at `c = 1`, with only the instance local — the `TwoTorsionCharTwo` shape above, one base further
+out. ⚠️ **No tactic name replaces it, on purpose** — the surviving reason the recogniser misses
+both is the `decide` clause, and a proof route named here is a route the next consolidation
+falsifies again. `FunctionField/FunctionFieldGaloisDescent.lean` uses `y2AddYEqX3 (ZMod 2)` too
+and rules itself out in terms, in its own `### Non-vacuity`.
 
 ⚠️ **Each row is a file plus a declaration name and carries NO line number, on purpose. Do not add
 them back.** The rows did carry `file.lean:NNN`, and three of the four this list then had went
