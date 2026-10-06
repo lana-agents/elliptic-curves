@@ -282,8 +282,24 @@ section Nonvacuity
 ⚠️ It exists for one reason: `addY_self_eq_div_ne_curveCharTwoOne` needs a characteristic-`2` curve
 carrying a point that is not fixed by negation, and in characteristic `2` that asks for
 `a₁x + a₃ ≠ 0`, so `a₁ = 0` will not do.  Nothing about its reduction type, its `j`-invariant or
-its group order is asserted or used. -/
+its group order is asserted or used.
+
+⚠️ **The tuple is `EllipticCurves.Fixture.y2AddXYEqX3AddC`'s at `c = 1`, and
+`curveCharTwoOne_eq` below proves it rather than saying it.**  That family is the shared
+`a₁ ≠ 0` fixture and is polymorphic in its base; this definition is kept because the name has code
+occurrences in this file and in two others, and retiring it is a separate job (`#2345` stage 2).
+⚠️ **No count is given here on purpose**: the population grows, and the pin below is itself an
+occurrence, so a numeral in this sentence is one behind the tree in the hunk that writes it. -/
 def curveCharTwoOne : Affine (ZMod 2) := ⟨1, 0, 0, 0, 1⟩
+
+/-- **`curveCharTwoOne` IS the shared ordinary fixture at `c = 1`**, not a second spelling of it:
+`curveCharTwoOne = EllipticCurves.Fixture.y2AddXYEqX3AddC (ZMod 2) 1`.
+
+⚠️ **The tree must not carry two names for one object with no stated relation**, which is why this
+is a proved equation and not a docstring sentence.  It holds by `rfl`: both sides reduce to the
+same anonymous constructor application. -/
+theorem curveCharTwoOne_eq :
+    curveCharTwoOne = EllipticCurves.Fixture.y2AddXYEqX3AddC (ZMod 2) 1 := rfl
 
 /-- `(1, 0)` satisfies `curveCharTwoOne`'s Weierstrass equation: over `ZMod 2`,
 `0 + 1·1·0 + 0·0 = 0` and `1 + 0 + 0 + 1 = 0`. -/

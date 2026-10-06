@@ -3,6 +3,7 @@ Copyright (c) 2026 The Elliptic Curves formalisation contributors. All rights re
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Elliptic Curves formalisation contributors
 -/
+import EllipticCurves.Fixtures
 import EllipticCurves.Torsion.OmegaCharZero
 import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import Mathlib.Algebra.Field.ZMod
@@ -247,20 +248,39 @@ section Nonvacuity
 `b₆ = 0`, `b₈ = 1` and `Ψ₃ = X⁴ + X³ + 1`.  `a₁ ≠ 0` is what a characteristic-`2` fixture needs:
 at `a₁ = a₃ = 0` the linear form `a₁x + a₃` vanishes and with it `ψ₂`.
 
-⚠️ **The same tuple already appears twice in the tree and this is a third declaration, not a
-reuse**: `EllipticCurves.Torsion.DoublingOmega`'s `curveCharTwoOne` (public) and
-`EllipticCurves.Torsion.TriplingSurjective`'s `curveChar2` (private).  **Reusing the public one was
-measured and declined**: `import EllipticCurves.Torsion.DoublingOmega` takes this file's
-`EllipticCurves` import closure from **7** modules to **38**, and
+⚠️ **The tuple is already a fixture elsewhere in the tree and this is another declaration, not a
+reuse** — `EllipticCurves.Torsion.DoublingOmega`'s public `curveCharTwoOne` and
+`EllipticCurves.Torsion.TriplingSurjective`'s private `curveChar2` over `ZMod 2`, with further
+copies over `AlgebraicClosure (ZMod 2)`, and the parametric family in
+`EllipticCurves.Fixtures`.  ⚠️ **No count is given here on purpose**: the population grows, and a
+numeral in this sentence has already been two behind the tree once.
+
+**Reusing `DoublingOmega`'s was measured and declined**:
+`import EllipticCurves.Torsion.DoublingOmega` takes this file's `EllipticCurves` import closure
+from **7** modules to **38**, and
 `EllipticCurves.FunctionField.MulByThreeCharFree`'s from **15** to **44** — the same trade
 `EllipticCurves.Torsion.OmegaThree` declines at `3 → 22` for `OmegaCrux`.  ⚠️ This one is **not**
-`private`, precisely so that `MulByThreeCharFree` reuses it rather than making a fourth copy.
-**Consolidating the three into `EllipticCurves.Fixtures` is a separate job and is out of scope
-here** — that file carries no `⟨1, 0, 0, 0, 1⟩` and its own docstring keeps a census of the
-fixtures that would have to move.
+`private`, precisely so that `MulByThreeCharFree` reuses it rather than making another copy.
+
+⚠️⚠️ **`EllipticCurves.Fixtures` is a different trade and it is cheap: that import costs this file
+exactly ONE module, `7 → 8`, and `MulByThreeCharFree` exactly one, `15 → 16`** — both include-self,
+this file's own convention — because `Fixtures` imports no `EllipticCurves` module at all and its
+own `EllipticCurves` closure is **0**.  It is taken, and `curveCharTwo_eq` below pins this
+definition to
+`EllipticCurves.Fixture.y2AddXYEqX3AddC` rather than leaving the two unrelated.  ⚠️ **Retiring this
+definition in favour of that one is a separate job** (`#2345` stage 2) and is not done here: the
+name has code occurrences in this file and in `MulByThreeCharFree`.
 
 Nothing about its reduction type, its `j`-invariant or its group order is asserted or used. -/
 def curveCharTwo : Affine (ZMod 2) := ⟨1, 0, 0, 0, 1⟩
+
+/-- **`curveCharTwo` IS the shared ordinary fixture at `c = 1`**, not a second spelling of it:
+`curveCharTwo = EllipticCurves.Fixture.y2AddXYEqX3AddC (ZMod 2) 1`.
+
+⚠️ **The tree must not carry two names for one object with no stated relation.**  It holds by
+`rfl`: both sides reduce to the same anonymous constructor application. -/
+theorem curveCharTwo_eq :
+    curveCharTwo = EllipticCurves.Fixture.y2AddXYEqX3AddC (ZMod 2) 1 := rfl
 
 /-- **The base field really is of characteristic `2`** — the refuter of the hypothesis the theorem
 below does not have. -/
