@@ -3230,6 +3230,48 @@ true"*, one layer up, in this document's own prose. They are:
   `#2325` repaired first and wired second rather than the other way round. Its population is this
   page plus the tracked `.lean` files — `#1667`'s own population, not a narrower one — and both of
   its recognisers and both of its exemptions are in the script with the reason each is there.
+  ⚠️⚠️ **IT DOES NOT REACH A COMMIT-MESSAGE BODY AT `must` GRADE, AND THE CARRY HAS TO BE MADE
+  RATHER THAN ASSUMED** (`#2326`). The bullet below rules on three layers by name and a message
+  body is none of them, and this page has held once already that a file-layer definition does not
+  travel by itself: `## Reviewing`'s message-layer touching test says *"`### The render gate`
+  defines *paragraph* for a **file** and for nothing else; no clause carries that definition to a
+  commit message"* (`#2205`). ⚠️ **The grade is `should` and the ground is GREPPABILITY rather
+  than rendering**, which is a departure from this bullet's own ground above and is the one cell
+  that cannot be checked here: no instrument in this repository reads how GitHub displays a
+  commit, so a `must` resting on a truncated reader would rest on an unmeasured claim.
+  ⚠️⚠️ **What IS measured is that every reader of a message this page prescribes is a
+  line-oriented SOURCE reader** — `grep -n` in `### Answering a verdict`, `difflib` over stripped
+  lines in the touching test, a marker key over flattened messages in `### Tool-behaviour claims`
+  — **and a title split across source lines is invisible to all of them.** Over `git rev-list` at
+  `484de4ac`, `2026-10-06 02:5xZ`: **868** bodies, **940** ATX headings, and **12** wrapped titles
+  in **8** messages, every one of the 12 returning **0** under a whole-string search of its own
+  body while every complete one-line title in those same eight bodies is found by it.
+  ⚠️ **It escalates to a `must` where the cut half carries a figure, a name or a predicate the
+  round's own argument needs**, because what is lost there is the enumeration this page requires
+  and not the typography: `22db66e2`'s cut half is a NUMERAL, `8e4a1dfc`'s is the PREDICATE, and
+  `d60c3ccc`'s first title promises *"BOTH HALVES"* and cuts the clause naming the second. ⚠️
+  **The landed messages are out of scope for repair and this rule is PROSPECTIVE**, by
+  `### Tool-behaviour claims`' own ruling that a landed message is unamendable so what is owed is
+  a count and not an edit; no sweep over them is proposed here and none would be executable.
+  ⚠️⚠️ **AND THE `#`-PREFIXED VARIANT NEEDS A STRUCTURAL RECOGNISER, BECAUSE THE LOWER-CASE
+  READING IS A HEURISTIC THAT UNDER-COUNTS IT.** A run of two or more CONSECUTIVE ATX heading
+  lines returns **8** runs in **5** messages at that base with **0** false positives, it CONTAINS
+  every one of the lower-case reading's **6**, and the **2** it adds open in upper case and in a
+  code span, so no reading of the continuation's first character can reach them. ⚠️ Its exposure
+  over the tracked files is **0** at **2551** headings, so wiring it into the gate above would
+  cost nothing today and is left to a round that owns that gate. ⚠️ **One defect is one TITLE and
+  not one source line**, which is the convention this census takes and the reason it has one: a
+  **314**-codepoint title over **four** `##` lines is counted once.
+  ⚠️⚠️ **The two message-layer gates are INDEPENDENT and neither subsumes the other**, which is
+  measured and not argued, and it is the answer to *"if the body is not read as Markdown the `**`
+  gate is meaningless, and if it is the heading is cut"*: **7** of the 8 bodies carrying a wrapped
+  title render **0** surviving literal `**`, and **4** of the **5** bodies that do carry one hold
+  no wrapped title at all. One asks whether a delimiter pairs in the SOURCE and needs no reader;
+  the other asks what a reader is handed. ⚠️ **They overlap on exactly one body, and there the
+  heading is the CAUSE** — all **4** of `ebb8735b`'s surviving `**` come from its two multi-line
+  titles, proved by a control that changes not one word: joining the four-line title to one source
+  line takes the count to **2** and raises `<strong>` by exactly **1**. **So a surviving literal
+  `**` is a signal of this defect**, and it is what found the recogniser's blind spot above.
 * **A heading is its own unit, so a reach clause in one is read against that line and nothing
   else** (`#1879`). The bullet above fixes what a heading *is*; this fixes what it *reaches*.
   `### Reach clauses` fixes the unit for a **declaration headline** — its own docstring, and by
