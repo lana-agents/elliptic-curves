@@ -5369,8 +5369,11 @@ was worth less than the second, which corrected a figure nobody had measured at 
 
 A round in review publishes a **merge gate**: `git merge-tree` against `main`, and against the
 other pull requests that are open at the same time, to show that the branch is not about to collide
-with one of them.  ⚠️ **The right-hand ends of that gate are other branches, which makes it the one
-gate here whose POPULATION drifts as well as its values.**  Every other **gate** a round publishes
+with one of them **in any hunk**.  ⚠️⚠️ **That last clause is the scope, and it is narrow: exit
+`0` there is a claim about TEXT and says nothing about whether the merged tree elaborates**, which
+is what the clause and the sweep below this paragraph are about.  ⚠️ **The right-hand ends of that
+gate are other branches, which makes it the one gate here whose POPULATION drifts as well as its
+values.**  Every other **gate** a round publishes
 is a function of `(tree, base)` and moves only when one of those moves; this one moves when
 somebody else opens or lands a pull request, with no edit to either side.  ⚠️ **Not every
 *figure*, and the wider claim is false in this file**: a count whose population is this board's own
@@ -5379,6 +5382,128 @@ conviction count whose own sentence says *"its population is this board's review
 seed on this page can open one"* (`#1969`).  **What is peculiar to this gate is that
 its right-hand ends are other branches**, not that nothing else drifts.  **This section decides
 which pull requests the gate is run over.  It does not decide what the gate's output means.**
+
+⚠️⚠️ **WHAT THE GATE DOES NOT SHOW, AND IT IS NOT AN EDGE CASE.**  `merge-tree` exit `0` says the
+two branches have no **textual** conflict; it says nothing whatever about whether the merged tree
+**elaborates**.  ⚠️ **The mechanism needs no pathological input: two branches that add the SAME
+declarations in DIFFERENTLY-NAMED files conflict in no hunk at all** — neither side touches a line
+the other side touches, so a three-way merge has nothing to disagree about, and the two `mk_all`
+insertions into `EllipticCurves.lean` land at different lines and merge cleanly as well.
+⚠️ **This is not the reserved question of the paragraph above.**  That one is what a given output
+*means* — item 3 below is where a conflict is read as a fact about one branch rather than the other
+— and this is what exit `0` does not *cover*, a boundary on the gate's reach, which is what
+licenses a second instrument instead of a re-reading of the first.  ⚠️ Run `### Reach clauses`'
+*"false or merely partial"* test on the opening sentence and the answer is **partial** — the words
+stay and a scope is added — so it takes the qualification in place that it now carries and
+`### Retired claims` does not bind.
+
+⚠️⚠️ **THE WORKED CASE PASSED THE GATE IN BOTH DIRECTIONS, WAS MISSED BY THE TWO-DIRECTION
+NEIGHBOUR SWEEP, AND DOES NOT ELABORATE.**  PR #937 (head `6ae2b3f5`,
+for `#2296`) and PR #932 (head `db54badc`, for `#2341`) each add one new module —
+`EllipticCurves/Torsion/NthPartTower.lean` at **680** lines and
+`EllipticCurves/Torsion/NthPartGaloisTower.lean` at **849** — and of their public declaration
+names **36 are identical, every one in namespace `WeierstrassCurve.Affine`**, out of **44** public
+in #937 and **42** in #932, among them `nthPartX`, `nthPartXField`, `nthPartTower`,
+`nthPartGaloisField`, `instIsScalarTowerNthPartTower` and `nDivisionFieldToNthPartGalois`.
+
+* ⚠️ `git merge-tree --write-tree` between the two heads exits **0 in BOTH directions** and writes
+  `503bd5f4bd3c4957398d7c2918e7f1e157f9df3d` in both, at **`git 2.39.5`**.
+* ⚠️⚠️ **`lake build` on that merged tree exits 1, and the reading is one line** — at
+  **Lake 5.0.0-src+8c9756b / Lean 4.32.0**, `commit-tree` over the written tree and
+  `lake build EllipticCurves`, the log line folded here at this page's column cap and nowhere
+  else:
+
+  ```text
+  error: EllipticCurves.lean:1:0: import EllipticCurves.Torsion.NthPartTower failed,
+      environment already contains 'WeierstrassCurve.Affine.nthPartYPoly'
+      from EllipticCurves.Torsion.NthPartGaloisTower
+  ```
+
+* ⚠️⚠️ **AND 3787 OF THE 3789 JOBS SUCCEED, INCLUDING BOTH NEW MODULES.**  Neither imports the
+  other, so each elaborates alone; the only job that fails is the `mk_all` root `EllipticCurves`,
+  which is the one file that imports both.  **A build restricted to the modules a branch touches is
+  green on this defect**, and so is every per-branch gate this board runs.
+* ⚠️ **The error names ONE of the 36 and stops.**  `import` aborts at the first collision, so the
+  message under-reports the overlap by **35** and the count has to come from the name sets.
+* ⚠️⚠️ **AND THE TWO-DIRECTION NEIGHBOUR SWEEP MISSES IT TOO, RE-DERIVED HERE AND NOT TAKEN FROM
+  THE ROUND THAT FIRST RAN IT.**  Over the open pull requests less #937 itself at
+  `2026-10-06T10:0xZ`, the set conflicting with bare `main` has **20** members and the set
+  conflicting with PR #937 has those **20** plus **#931** — so the branch-caused set is exactly
+  `{931}`, whose conflict is the benign `EllipticCurves.lean` add/add, and **#932, the real
+  collision, is in neither.**  The gate's one discriminating output named the harmless branch and
+  missed the fatal one.  ⚠️ **What found the duplicate was reading the other branch's `--numstat`
+  path list**, which until this clause no rule on this page asked for.
+
+⚠️⚠️ **THE SWEEP THAT SEES IT IS A NAME SWEEP AND NOT A PATH SWEEP, AND THE PATH LIST IS ONLY ITS
+CHEAP FILTER.**  Over the population this section already decides, and with the leading `+` the
+fetch paragraph below makes load-bearing:
+
+```sh
+git --version                            # every figure above is at 2.39.5
+for n in $(gh pr list --state open --limit 300 --json number -q '.[].number'); do
+  git fetch -q upstream "+refs/pull/$n/head:refs/remotes/pr/$n"
+  git diff --name-only "$(git merge-base refs/remotes/pr/$n upstream/main)" "refs/remotes/pr/$n"
+done                                     # the PATH filter: who else is in this subtree at all
+# then, for every branch that filter keeps, the ANSWER, in both directions:
+comm -12 <(names theirs.lean | sort) <(names mine.lean | sort)   # the collision set
+comm -23 <(names theirs.lean | sort) <(names mine.lean | sort)   # theirs only
+comm -13 <(names theirs.lean | sort) <(names mine.lean | sort)   # mine only
+```
+
+⚠️⚠️ **AND `names` OWES ITS OWN DEFINITION**, which is `### Tool-behaviour claims`' rule falling
+due on a recogniser rather than on a tool.  The one every figure above is taken under:
+
+* a **nesting-aware** comment strip — `/-` … `-/` nest, which covers `/--` and `/-!` both, `--`
+  runs to end of line, and both forms are suppressed inside `"…"` with `\` escapes;
+* a declaration is a stripped line beginning **at column 0** with zero or more of `@[…]`,
+  `private`, `protected`, `noncomputable`, `partial`, `unsafe`, `nonrec`, `scoped` or `local`,
+  then one of `theorem`, `lemma`, `def`, `abbrev`, `instance`, `structure`, `class`, `inductive`,
+  `opaque`, `axiom`, `example`;
+* the **name** is the next token up to the first whitespace or one of `:(){}[]⦃⦄⟨⟩`, prefixed by
+  the `namespace` stack — maintained over `namespace X` and `end X`, with `section` and a bare
+  `end` leaving it alone — and an `instance` or `example` carrying no name contributes none;
+* **public** is `private` absent from those modifiers.
+
+⚠️ **A bare `grep -c '^theorem'` is not a substitute and the gap is not marginal**: over the two
+files above it reads **31** and **30** against this recogniser's **44** and **42**, so it misses
+**13** of the first file's public declarations and **12** of the second's — every
+`noncomputable def`, every `noncomputable abbrev` and the one named `instance` in each.
+⚠️ **`#2337` round 3 banked the neighbouring trap** — four of seventeen `lake` jobs are bare
+identifiers, and a classifier keyed on punctuation mis-sorts exactly those four while its own sum
+invariant still balances.  **A recogniser that owes no definition is a count nobody can re-run.**
+
+⚠️⚠️ **AND THE CLOCK IS *BEFORE CLAIMING*, NOT BEFORE PUSHING.**  Those are different clocks and
+only the first is cheap: the worked case's author did sweep before pushing, correctly, and it was
+already too late, the 680 lines being written.  ⚠️ **An attached pull request cannot be withdrawn
+by an agent** — `gh pr close` is barred by `orchestra-pull-requests`, there is no MCP substitute,
+and `attach_pr` has no inverse — so a duplicate put in front of a reviewer **stays** there until a
+human closes it.  That is `#2299`'s wall at a new layer, and it is the whole argument for the
+earlier clock.  ⚠️ **This is not a fifth member of the four-item list below, and for a different
+reason from the fetch clause's**: those four are what a merge bullet says at REVIEW time, and this
+one is run by the AUTHOR before the claim, so a round that first publishes it in a merge bullet has
+already paid for it in full.
+
+⚠️⚠️ **AND THE CHEAPEST CHECK IS NOT A SWEEP AT ALL: A ROW WHOSE PARENT OR CHILD CARRIES AN
+UNMERGED PULL REQUEST IS NOT AN OPEN ROW.**  `#2341` is `parent=2296`, it sat in the review queue
+in the same listing that showed `#2296` open, and it named PR #932 in its own title — three
+readings of one listing, any one of which was enough.  **Read the tree of the row before the tree
+of the repository**, and only then sweep.
+
+⚠️ **On a prose branch the name sweep is vacuous and the path filter has no discriminating power at
+all, so the unit is the SECTION.**  At `2026-10-06T10:06:07Z` there are **47** open pull requests —
+**48** half an hour earlier, the one departure being PR #934 by *landing* and the entering set
+EMPTY, which is the shape item 4 below asks for — and **25** of the 47 touch `README.md`, which is
+exactly what makes a path list useless here.  Mapping each one's hunks to the enclosing heading
+**in its own base** puts **two** of them in this very section, PR #809 and PR #810, and PR #802 in
+`## Reviewing`.  ⚠️ **Neither of the two is branch-caused against the head that publishes this**:
+#809 merges with it at exit **0 in both directions**, and #810 conflicts with bare `main` itself
+and so is excluded by item 3's own control.  **A shared section is a thing the merge gate cannot
+see, not a restatement of what it already says.**  ⚠️ **And the heading recogniser owes a flag of
+its own — it must be FENCE-AWARE**, or a `#` comment inside a fenced block is read as a heading.
+That flag is a **no-op** over the 25 above and is **not** one on PR #934, where the naive form
+answers a `# the worked case's two heads …` comment line in place of `## Reviewing`; ⚠️ that pull
+request has since landed, and `refs/pull/934/head` is what keeps the case re-runnable from a
+closed population.  **The same instrument at the layer this file is written in, and as cheap.**
 
 ⚠️ **The word the messages use for that population is used on this page for something else.**
 The stem occurs **12** times in this file at `ac462ef` — whitespace-flattened, keyed
@@ -5411,10 +5536,10 @@ arithmetic — which is what the two ratios forced, and it got the mechanism wro
 ⚠️ **This section is inside its own population, so the figure is resolved at both ends** (`#1972`)
 — ⚠️ **and it is published as a DELTA, because the right-hand end is decided by the merger's queue
 and not by this branch**: the stem returns **12** on **11** lines at `ac462ef`, and this section
-adds **9** occurrences on **8** lines, **2** of them its own `NEIGHBOURS`, quoted from the two
+adds **10** occurrences on **9** lines, **2** of them its own `NEIGHBOURS`, quoted from the two
 messages that make the case-insensitive key load-bearing.  ⚠️ **Three open pull requests add the
 stem to this file** — one, three and two occurrences — so an endpoint pair is true only if this
-branch lands next, while `+9 on +8` is what all four landing orders return.  That is
+branch lands next, while `+10 on +9` is what all four landing orders return.  That is
 `### The render gate`'s *"Publish the delta and not the endpoints"* one section below, applied to a
 population figure rather than to a token count.  ⚠️ **The delta is a self-figure too, and repairing
 the paragraph above moved it**: quoting the site that separates the two window buckets put one more
