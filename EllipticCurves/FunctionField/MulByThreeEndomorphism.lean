@@ -202,13 +202,21 @@ noncomputable def mulByThreeAlgHom (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) :
 @[simp] lemma mulByThreeAlgHom_apply (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0) (a : W.CoordinateRing) :
     mulByThreeAlgHom h2 h3 a = mulByThreeCoordHom h2 h3 a := rfl
 
-/-- **Dominance of `[3]`, key step.** If the `x`-coordinate of the tripled generic point
-`x(3 • P) = Φ₃(genX)/ΨSq₃(genX)` (= `mulByThreeCoordHom h2 h3 (mk W (C X))`) is algebraic over `F`,
-then so is the generic `x`-coordinate `genX = x(P)`. -/
-lemma isAlgebraic_genX_of_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
-    (hu : IsAlgebraic F (mulByThreeCoordHom h2 h3 (mk W (C X)))) :
+/-- **Dominance of `[3]`, key step, stated at the `x`-coordinate itself.**  If the `x`-coordinate
+of the tripled generic point `x(3 • P) = Φ₃(genX)/ΨSq₃(genX)` is algebraic over `F`, then so is the
+generic `x`-coordinate `genX = x(P)`.
+
+⚠️ **This form binds `h3` and NOT `h2`, and that is the whole reason it is stated separately**: the
+`h2` of `isAlgebraic_genX_of_three` below is spent entirely on *naming* the quotient as
+`mulByThreeCoordHom h2 h3 (mk W (C X))`, and is discharged by `mulByThreeCoordHom_X` before the
+argument starts.  The argument itself — Zariski's lemma against `transcendental_genX`, through the
+degree-`9` coefficient of `Φ₃` — uses `h3` alone, via `psiThree_gen_ne`.  A pullback built from
+`2`-free tripling coordinates has the same `x`-slot and so inherits this lemma unchanged
+(`EllipticCurves.FunctionField.MulByThreeCharFree`). -/
+lemma isAlgebraic_genX_of_xCoord_three (h3 : (3 : F) ≠ 0)
+    (hu : IsAlgebraic F (((W.map (algebraMap F W.FunctionField)).Φ 3).eval (genX W) /
+      ((W.map (algebraMap F W.FunctionField)).ΨSq 3).eval (genX W))) :
     IsAlgebraic F (genX W) := by
-  rw [mulByThreeCoordHom_X] at hu
   set L := W.FunctionField
   set φ := algebraMap F L with hφ
   -- the denominator does not vanish at the generic point
@@ -248,6 +256,15 @@ lemma isAlgebraic_genX_of_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
   -- hence `genX` is algebraic over `K`, therefore over `F`
   have halgK : IsAlgebraic (↥K) (genX W) := ⟨q, hqne, hroot⟩
   exact halgK.restrictScalars F
+
+/-- **Dominance of `[3]`, key step.** If the `x`-coordinate of the tripled generic point
+`x(3 • P) = Φ₃(genX)/ΨSq₃(genX)` (= `mulByThreeCoordHom h2 h3 (mk W (C X))`) is algebraic over `F`,
+then so is the generic `x`-coordinate `genX = x(P)`. -/
+lemma isAlgebraic_genX_of_three (h2 : (2 : F) ≠ 0) (h3 : (3 : F) ≠ 0)
+    (hu : IsAlgebraic F (mulByThreeCoordHom h2 h3 (mk W (C X)))) :
+    IsAlgebraic F (genX W) := by
+  rw [mulByThreeCoordHom_X] at hu
+  exact isAlgebraic_genX_of_xCoord_three h3 hu
 
 /-- **Multiplication-by-`3` is dominant: `mulByThreeCoordHom h2 h3` is injective.** If it were not,
 its kernel would be a nonzero prime — hence maximal, as `F[W]` has Krull dimension `≤ 1` — so the

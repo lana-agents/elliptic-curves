@@ -387,6 +387,46 @@ lemma evalEval_ω₃ (x y : R) :
   simp only [ω₃, evalEval, eval_add, eval_mul, eval_C, Polynomial.eval_C, eval_X]
   ring
 
+/-! ### Base change
+
+The four members of Mathlib's `map_preΨ` / `map_ΨSq` / `map_Φ` family that this section's own
+polynomials owe.  ⚠️ **They are what makes the `n = 3` `y`-coordinate usable over the universal
+curve**, which is the only route to a statement about `ω₃` that holds where `2 = 0`: the `2`-free
+identities above are proved by `ring1` over an arbitrary `CommRing`, but any identity whose
+derivation cancels a `2` has to be proved over `MvPolynomial (Fin 5) ℤ` and carried down, and that
+carrying is exactly these lemmas (`EllipticCurves.Torsion.OmegaThreeCharFree`).
+-/
+
+/-- **`ω₃Aux` commutes with base change.** -/
+lemma map_ω₃Aux {S : Type*} [CommRing S] (f : R →+* S) :
+    (W.map f).ω₃Aux = W.ω₃Aux.map f := by
+  simp only [ω₃Aux, WeierstrassCurve.map_a₁, WeierstrassCurve.map_a₂, WeierstrassCurve.map_a₃,
+    WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆, Polynomial.map_add, Polynomial.map_sub,
+    Polynomial.map_neg, Polynomial.map_mul, Polynomial.map_pow, Polynomial.map_C,
+    Polynomial.map_X, Polynomial.map_ofNat, map_add, map_sub, map_neg, map_mul, map_pow,
+    map_ofNat]
+
+/-- **`ω₃Factor` commutes with base change.** -/
+lemma map_ω₃Factor {S : Type*} [CommRing S] (f : R →+* S) :
+    (W.map f).ω₃Factor = W.ω₃Factor.map f := by
+  simp only [ω₃Factor, map_ω₃Aux, map_Ψ₃, WeierstrassCurve.map_a₁, WeierstrassCurve.map_a₂,
+    WeierstrassCurve.map_a₄, WeierstrassCurve.map_a₆, WeierstrassCurve.map_a₃,
+    Polynomial.map_add, Polynomial.map_mul, Polynomial.map_pow, Polynomial.map_C,
+    Polynomial.map_X, Polynomial.map_ofNat]
+
+/-- **`preω₃` commutes with base change.** -/
+lemma map_preω₃ {S : Type*} [CommRing S] (f : R →+* S) :
+    (W.map f).preω₃ = W.preω₃.map f := by
+  simp only [preω₃, map_ω₃Factor, map_preΨ₄, map_Ψ₃, WeierstrassCurve.map_a₁,
+    WeierstrassCurve.map_a₃, Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul,
+    Polynomial.map_pow, Polynomial.map_C, Polynomial.map_X]
+
+/-- **`ω₃` commutes with base change.** -/
+lemma map_ω₃ {S : Type*} [CommRing S] (f : R →+* S) :
+    (W.map f).ω₃ = W.ω₃.map (mapRingHom f) := by
+  simp only [ω₃, map_preΩ, map_preω₃, Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C,
+    Polynomial.map_X, coe_mapRingHom]
+
 namespace Affine
 
 variable {F : Type*} [Field F] {W : Affine F} {x y : F}

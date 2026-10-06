@@ -113,6 +113,7 @@ import EllipticCurves.FunctionField.MulByNTranscendence
 import EllipticCurves.FunctionField.MulByNXCoordFormula
 import EllipticCurves.FunctionField.MulByNXCoordRatFunc
 import EllipticCurves.FunctionField.MulByNYCoordFormula
+import EllipticCurves.FunctionField.MulByThreeCharFree
 import EllipticCurves.FunctionField.MulByThreeDegree
 import EllipticCurves.FunctionField.MulByThreeEndomorphism
 import EllipticCurves.FunctionField.MulByThreeExtensionFinite
@@ -428,6 +429,7 @@ import EllipticCurves.Torsion.OmegaNumerator
 import EllipticCurves.Torsion.OmegaOnCurve
 import EllipticCurves.Torsion.OmegaPairCoprime
 import EllipticCurves.Torsion.OmegaThree
+import EllipticCurves.Torsion.OmegaThreeCharFree
 import EllipticCurves.Torsion.OmegaTwo
 import EllipticCurves.Torsion.OmegaUniversal
 import EllipticCurves.Torsion.PrimaryBasis
