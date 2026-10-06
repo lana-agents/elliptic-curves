@@ -923,14 +923,29 @@ the cubic's value there is `a₆ = c`, so `⟨1, 0, 0, 0, c⟩` has `#E[2] = 2` 
 square.  ⚠️ **One curve per element of `F`, each detecting exactly one square root** — that is the
 whole proof of `sq_surjective_iff_forall_card_torsion_two_eq_two_of_char_two`.
 
-⚠️ **It belongs in `EllipticCurves.Fixtures` and is here instead**, because `Fixtures` is upstream
-of this file and serves no `a₁ ≠ 0` curve at all — measured: all five of its `Affine` definitions
-(`y2EqX3SubX`, `y2AddYEqX3`, `y2EqX3AddOne`, `y2EqX3Add5X2Add4X`, `y2EqX3Add4X`) are `⟨0, …⟩`.
+⚠️⚠️ **This docstring used to say that it belongs in `EllipticCurves.Fixtures` and is here
+instead, because that module *"serves no `a₁ ≠ 0` curve at all"*.  ⛔ THAT REASON IS RETIRED: the
+family IS now in `EllipticCurves.Fixtures`**, as `y2AddXYEqX3AddC`, with the same tuple and the
+same parameter, and `curveOrdinaryCharTwo_eq` below pins this definition to it rather than leaving
+the two unrelated (`#2345`).  ⚠️ **What keeps the local definition is call sites and not the
+import**: `Fixtures` is already in this file's import closure, and the name has code occurrences
+throughout this file, several of them inside the proof of
+`sq_surjective_iff_forall_card_torsion_two_eq_two_of_char_two`, so **retiring it is a separate job**
+(`#2345` stage 2).  ⚠️ **No count is given here on purpose**: the population grows, and the pin
+below is itself an occurrence, so a numeral here is one behind the tree in the hunk that writes it.
 ⚠️ **The tuple at `c = 1` is `EllipticCurves.Torsion.TriplingSurjective`'s `curveChar2`**, where it
 is `private` and therefore unreachable by name, and where the point taken on it is `(1, 0)` — a
 point with `y ≠ negY x y`, so *not* `2`-torsion.  **Same curve, opposite point, for opposite
 reasons.** -/
 private def curveOrdinaryCharTwo {R : Type*} [CommRing R] (c : R) : Affine R := ⟨1, 0, 0, 0, c⟩
+
+/-- **`curveOrdinaryCharTwo` IS `EllipticCurves.Fixture.y2AddXYEqX3AddC`**, at every base and every
+parameter and not merely at `c = 1`: `curveOrdinaryCharTwo c = y2AddXYEqX3AddC R c`.
+
+⚠️ **This is the relation the docstring above used to assert and could not prove**, because the
+shared definition did not exist.  It holds by `rfl`. -/
+private theorem curveOrdinaryCharTwo_eq {R : Type*} [CommRing R] (c : R) :
+    curveOrdinaryCharTwo c = EllipticCurves.Fixture.y2AddXYEqX3AddC R c := rfl
 
 /-- `Δ = −c − 432c²` on that curve, hence `Δ = c` in characteristic `2` and `IsElliptic` exactly
 when `c ≠ 0`.
@@ -1049,10 +1064,14 @@ end Nonvacuity
 /-! ### The ordinary branch, certified over an ARBITRARY field of characteristic `2`
 
 ⚠️ **The curve is `curveOrdinaryCharTwo 1`, declared with the rest of its family in
-`### ⚠️ The FAMILY reading` above** — `EllipticCurves.Fixtures` serves no curve with `a₁ ≠ 0` at
-all, and the ordinary branch of the dichotomy is exactly the `a₁ ≠ 0` one.  ⚠️ **That is a
-different reason from the one `## Non-vacuity` gives for the supersingular certificate**, where the
-curve existed in `Fixtures` and only the `IsElliptic` instance was out of reach.
+`### ⚠️ The FAMILY reading` above**, the ordinary branch of the dichotomy being exactly the
+`a₁ ≠ 0` one.  ⚠️⚠️ **This paragraph used to give the reason as `EllipticCurves.Fixtures` serving
+*"no curve with `a₁ ≠ 0` at all"*, and used to contrast that with the supersingular certificate of
+`## Non-vacuity`, where the curve existed in `Fixtures` and only the `IsElliptic` instance was out
+of reach.  ⛔ BOTH HALVES ARE RETIRED: the family IS now in `EllipticCurves.Fixtures`**, as
+`y2AddXYEqX3AddC`, so this branch is in the supersingular one's situation and the contrast has
+collapsed — ⚠️ **what keeps the local definition is call sites and not the import, and that
+argument is made once, at `### ⚠️ The FAMILY reading` above, rather than re-made here** (`#2345`).
 
 ⚠️ **This block's base is an arbitrary `[Field F]` with `(2 : F) = 0` and not `ZMod 2`**, because
 that is what `## ⚠️ What is *not* here` needs: see

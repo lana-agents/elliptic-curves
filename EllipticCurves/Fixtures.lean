@@ -34,10 +34,20 @@ Weierstrass curves in general should be stated in terms of them.
 `ℚ` and over `AlgebraicClosure ℚ` (and, at four sites, over a finite field), so a definition taking
 `[CommRing R]` serves every base at once and one definition replaces a whole column of copies.
 
-**One `IsElliptic` instance per curve, over `[Field F] [CharZero F]`.** Each of the five
-discriminants — `64`, `−27`, `−432`, `2304`, `−4096` — is a nonzero integer, so characteristic zero
-is the exact hypothesis, and it covers the `ℚ` and `AlgebraicClosure ℚ` sites with a single
+**One `IsElliptic` instance per CHARACTERISTIC-ZERO curve, over `[Field F] [CharZero F]`.** Each
+of the discriminants `64`, `−27`, `−432`, `2304`, `−4096` is a nonzero integer, so characteristic
+zero is the exact hypothesis, and it covers the `ℚ` and `AlgebraicClosure ℚ` sites with a single
 instance rather than one per base type.
+
+⚠️ **One curve below is deliberately outside that bullet and carries NO `IsElliptic` instance
+anywhere in the tree.** `y2AddXYEqX3AddC` is the `a₁ ≠ 0` ordinary family `⟨1, 0, 0, 0, c⟩`, whose
+whole purpose is characteristic `2`; its discriminant is `−c − 432c²`, which is **not** a nonzero
+integer and is `c` itself where `2 = 0`, so `[CharZero F]` is the wrong hypothesis for it and no
+instance of any shape can be found by `inferInstance` at an unknown `c`. ⚠️ **Its ellipticity is
+therefore a hypothesis-taking `theorem` — `isElliptic_y2AddXYEqX3AddC`, stated here and in terms of
+`(2 : F) = 0` and `c ≠ 0` — and the paragraph below about finite-field CERTIFICATES is untouched by
+it**: what that paragraph says is not served here is an `instance` over a finite base, and this
+curve has none.
 
 ⚠️ **The finite-field certificates are deliberately NOT served here, and this paragraph no longer
 says how many there are.** `EllipticCurves.FunctionField.NegYGaloisGroup` certifies over `ZMod 2`
@@ -417,6 +427,57 @@ hence `Φ₂` with `y2EqX3Add5X2Add4X`, but **not** `Ψ₂Sq` (`4X³ + 16X` agai
 here, because the two curves look interchangeable and are not. -/
 def y2EqX3Add4X (R : Type*) [CommRing R] : Affine R := ⟨0, 0, 0, 4, 0⟩
 
+/-- `y² + xy = x³ + c`, the tuple `⟨1, 0, 0, 0, c⟩` over an arbitrary commutative ring — the
+**ordinary** family in characteristic `2`, one curve for each `c`.
+
+⚠️⚠️ **This is the first and only `a₁ ≠ 0` curve in this module, and `a₁ ≠ 0` is the whole point of
+it.** At `a₁ = a₃ = 0` the linear form `a₁x + a₃` vanishes and with it `ψ₂`, so every one of the
+five curves above degenerates in characteristic `2` in a way that makes it useless as a
+characteristic-`2` certificate; `a₁ = 1` is what a characteristic-`2` fixture needs.
+
+⚠️ **The family and not only `c = 1`**, because the parameter carries real content: over a field of
+characteristic `2` this curve's candidate `x` is `a₃ / a₁ = 0` and the cubic's value there is
+`a₆ = c`, so `⟨1, 0, 0, 0, c⟩` has `#E[2] = 2` exactly when `c` is a square — one curve per element
+of `F`, each detecting exactly one square root. That is the converse half of
+`EllipticCurves.Torsion.TwoTorsionCharTwo`'s family reading.
+
+⚠️ **No `IsElliptic` instance accompanies it and that is not an omission** — see the module
+docstring; `isElliptic_y2AddXYEqX3AddC` below is the hypothesis-taking form, and `c ≠ 0` is not a
+side condition but the whole condition, `Δ` being `c` itself where `2 = 0`. -/
+def y2AddXYEqX3AddC (R : Type*) [CommRing R] (c : R) : Affine R := ⟨1, 0, 0, 0, c⟩
+
+/-- **`Δ = −c − 432c²` on `y2AddXYEqX3AddC`, over every commutative ring and with no hypotheses.**
+
+`b₂ = a₁² = 1`, `b₄ = 0`, `b₆ = 4c` and `b₈ = a₁²a₆ = c`, so
+`Δ = −b₂²b₈ − 8b₄³ − 27b₆² + 9b₂b₄b₆ = −c − 432c²`. -/
+theorem Δ_y2AddXYEqX3AddC {R : Type*} [CommRing R] (c : R) :
+    (y2AddXYEqX3AddC R c).Δ = -c - 432 * c ^ 2 := by
+  simp only [y2AddXYEqX3AddC, WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+    WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+  ring
+
+/-- **`Δ = c` where `2 = 0`**, over every commutative ring: `−c − 432c² − c = (−c − 216c²) · 2`.
+
+⚠️ **At `c = 1` this is `−433 = 1 − 217 · 2`**, which is the number every characteristic-`2`
+certificate on `⟨1, 0, 0, 0, 1⟩` in this tree is stated with. -/
+theorem Δ_y2AddXYEqX3AddC_of_two_eq_zero {R : Type*} [CommRing R] (h2 : (2 : R) = 0) (c : R) :
+    (y2AddXYEqX3AddC R c).Δ = c := by
+  rw [Δ_y2AddXYEqX3AddC]
+  linear_combination (-c - 216 * c ^ 2) * h2
+
+/-- **`y2AddXYEqX3AddC F c` is elliptic in characteristic `2` exactly when `c ≠ 0`.**
+
+⚠️ **`c ≠ 0` is not a side condition, it is the whole condition**: `Δ = c` where `2 = 0`, so this
+family is singular at exactly one value of the parameter and elliptic at every other.
+
+⚠️ This is a `theorem` and not an `instance` because `(2 : F) = 0` and `c ≠ 0` are hypotheses no
+instance can carry — the module docstring's second bullet says so in terms. Use it with `haveI`. -/
+theorem isElliptic_y2AddXYEqX3AddC {F : Type*} [Field F] (h2 : (2 : F) = 0) {c : F} (hc : c ≠ 0) :
+    (y2AddXYEqX3AddC F c).IsElliptic := by
+  rw [WeierstrassCurve.isElliptic_iff, isUnit_iff_ne_zero,
+    Δ_y2AddXYEqX3AddC_of_two_eq_zero h2 c]
+  exact hc
+
 section CharZero
 
 variable (F : Type*) [Field F] [CharZero F]
@@ -460,7 +521,7 @@ end CharZero
 /-- **The base change `W⁄F` of an elliptic curve is elliptic.**
 
 ⚠️ **This is the only declaration in this module stated for an arbitrary curve**: it mentions
-none of the five fixtures above and serves any `[W.IsElliptic]` over any base change. It lives
+none of this module's curves and serves any `[W.IsElliptic]` over any base change. It lives
 here because of this module's leaf property rather than in spite of it — see below.
 
 `WeierstrassCurve.baseChange` is a plain `def`, so `[(W⁄F).IsElliptic]` is **not** found from
