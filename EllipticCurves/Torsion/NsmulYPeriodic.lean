@@ -123,13 +123,16 @@ statement, and three facts about the fixture point `(0, 1)`).
 
 ⚠️ **The convention, because the `32` and the `33` below are one apart and are NOT the same
 reading** — `README.md` `## Import-closure figures` says it *"belongs beside the figure and must not
-be assumed"*.  A count named for *another* module is that module **and** everything it reaches; a
-count of what *this* file costs **excludes this file**.  **Measured at `e4345ae`**, over
-`EllipticCurves.` only, with the root aggregator `EllipticCurves` dropped, on two instruments that
-agree on every cell: the elaborator's `(← Lean.getEnv).header.moduleNames`, read from a probe module
-that *imports* the module being measured — ⚠️ **the placement is part of that instrument and is what
-fixes its convention: read from an importer the answer carries the measured module, read from inside
-that module it does not** — and a transitive walk of the
+be assumed"*.  ⚠️ **The reading HERE is a stated local EXCEPTION and not a second default**:
+`README.md` `## Import-closure figures` rules that a closure count excludes the module it is named
+for in **both** of the figure's shapes, and this file departs from that in one of them — a count
+named for *another* module is, in this file, that module **and** everything it reaches, while a
+count of what *this* file costs **excludes this file**, which is the page's own reading.  **Measured
+at `e4345ae`**, over `EllipticCurves.` only, with the root aggregator `EllipticCurves` dropped, on
+two instruments that agree on every cell: the elaborator's `(← Lean.getEnv).header.moduleNames`,
+read from a probe module that *imports* the module being measured — ⚠️ **the placement is part of
+that instrument and is what fixes its convention: read from an importer the answer carries the
+measured module, read from inside that module it does not** — and a transitive walk of the
 `^(public |private |meta )*import (\S+)` lines, which needs no build.  Control, as that section
 publishes it: `EllipticCurves.TateModule.MatrixRepMod` is **40** excluding itself and **41**
 including it.  ⚠️ `EllipticCurves.Torsion.NsmulYCoord` reads its figures the same way.
