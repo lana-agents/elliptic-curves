@@ -6618,6 +6618,101 @@ line below them, which is the append that demoted them. ⚠️ **What the platfo
 here and not explained**: whether the two regimes are this repository's merge configuration or a
 default is not measured, and a claim about that would need its own instrument.
 
+⚠️⚠️ **The DESCRIPTION is the third field of a pull request, it is the one NO tool in this set can
+edit at all, and until this paragraph the page said nothing whatever about it.**  `create_pr` only
+creates and takes no pull-request number, `gh pr edit` is barred, `comment` reaches only the issue
+or pull request the task was launched from — which for these tasks is neither — and the rest read.
+There is no `update_pr`.  ⇒ **A description written at round 1 is frozen at round 1 while the
+branch under it is amended indefinitely.**  ⚠️ **The right answer to a missing tool here is to
+report it and not to route around it**, and reporting it is what this paragraph does; a round that
+proposes to repair the front's descriptions is unexecutable and should be rejected on sight.
+
+**AUTHOR HALF.  Write a pull-request description in BASE and TREE keys only, and read the list
+that follows as instances of a CRITERION rather than as the rule: bar any figure that no object
+named beside it pins.**  No head sha, no unit, no line count, no `at HEAD` address, no live board
+reading — so a unit naming only the base end is barred, and one whose base blob, resulting tree
+and resulting blob all stand in the same sentence is not.  ⚠️⚠️ **The reason is structural rather
+than stylistic: this page's re-tensing discipline is UNSATISFIABLE in a layer nothing can
+re-tense**, so a head-keyed figure there is a dated claim with no date and no route to a
+correction.  ⚠️⚠️ **The two prescribed keys are NOT equally safe, and amend-survival is not the
+property that does the work — being a NAME is.**  A base sha survives any `--amend`; a tree or
+blob sha is invariant under a message-only one and names a SUPERSEDED object after any content
+amend.  ⚠️ **What both keys do have is that a figure keyed to a named object is at worst
+correct-and-stale, where a head-keyed figure and a bare unit go FALSE** — and a tree sha is
+obtainable at authoring time, where a commit cannot name its own object name.  ⚠️ **Where a
+description HAS gone stale, declare the divergence in the commit body** — the layer that lands,
+that a `must` can reach and that an `--amend` can repair.
+
+**REVIEWER HALF.  Take NO figure from a pull-request description.**  The commit message is the
+artifact that lands and the only message layer a round can re-tense; read the body, and read the
+description only to learn what the author believed one round ago.  ⚠️⚠️ **A stale description is
+NOT a `must` against the round, because it is unpayable** — and the author's REPORT of it
+discharges nothing either, so check the landing body for the same figures.  ⚠️ **That is where
+the cost actually fell**: the round that first hit this wall reported four stale figures against
+its own description and left all four standing in its own commit body, under a subsection headed
+*"What lands"*.  **An unfixable layer is not merely inert; it absorbs the attention the landing
+layer needed.**
+
+⚠️ **The tree-facing cost is ZERO and the review-facing cost is the whole of it — and that is now
+a measurement at the landing rather than an argument from the regimes.**  The three branches this
+rule was written out of have all since landed, each at **ONE** commit, so by the pair above the
+commit subject lands and the PR title does not: read at `6f859aee`, PR #903 → `d60c3ccc`,
+PR #905 → `24825726` and PR #914 → `77aeeaab` are **3 of 3** on *landed subject equals the
+commit's subject plus the trailing number* and **0 of 3** on *equals the PR title plus it*.
+⇒ **Nothing false in a description reaches `main`.**  ⚠️⚠️ **And nothing true repairs it**:
+PR #914's description still carries the clause a `must` convicted — `84 lines`, `27 files` and its
+*"and **no** declaration concludes it"* each **1** there and each **0** in the landed message.  ⚠️
+**The third counts 1 under a LITERAL grep only because the `**no**` is kept**, the emphasis sitting
+inside the quoted span: the bare *"no declaration concludes it"* reads **0** in that description and
+needs an emphasis strip to read **1**.  ⚠️ So the repair reached the landing and never the layer a
+reviewer opens first.
+
+⚠️ **The author half is confirmed by those same three in the one direction that decides it: the
+BASE keys held and every other key rotted.**  PR #905's description, still round 1's after five
+rounds, names base `43c84ed0` and a unit of **51** added over **3** deleted at a hunk opening on
+line **5601**; its landed head `c84fac58` on that same base is **63** over **3** at a hunk opening
+on **5601** — base exact, deleted count exact, hunk START exact, added count stale by **12**.
+PR #903's names base `74f065cd`, head `861f69c4`, **298** module lines and **318** added over
+**0**; the landed head `2140b2ef` on that same base is **313** module lines over three paths and
+**336** added over **0**.  **The base survived; the head, the unit and the line count did not.**
+⚠️⚠️ **And that is exactly where the two prescribed keys come apart, measured on that same
+branch**: PR #905's five post-round-1 heads all sit on base `43c84ed0` while their trees read
+`b41ca129` → `1514fac1` → `bcbf5f1d` → `bcbf5f1d` → `bcbf5f1d` — **the base held at 5 of 5 and
+the tree MOVED TWICE**, the last two amends being message-only.  **So a description keyed to
+that tree would have gone stale across amends its own base rode out**, which is why the half
+above keys the property to being a NAME rather than to surviving the command.
+
+⚠️ **The exposure is measurable, and it is one call per pull request.**  A description can only
+have gone stale this way if the head moved under it, so the population is the open pull requests
+force-pushed at least once:
+
+```sh
+gh api repos/lana-agents/elliptic-curves/issues/<n>/timeline --paginate \
+  --jq '[.[] | select(.event=="head_ref_force_pushed")] | length' | awk '{s+=$1} END{print s+0}'
+```
+
+⚠️⚠️ **The `awk` is load-bearing and not decoration: `--paginate` with a `--jq` ending in a
+length emits ONE LENGTH PER PAGE and never a total**, so the capture is multi-line and a row count
+over it reads above the population — the seat that built this instrument read **64** for a
+**46**-branch front before summing.  ⚠️ **The path is the ISSUES timeline and not the pulls one**,
+which does not exist for this event.  ⚠️ **And `commit_id` on a force-push event is the head
+AFTER that push**, so the replaced head is the previous event's `commit_id`, while `sha` is `null`
+and must not be read.  **Every reading in this paragraph** — the per-page length, the ISSUES
+path, `commit_id` and `sha` — **taken under `gh` 2.98.0**.
+
+⚠️ **Dated census, re-run rather than inherited** (`## Import-closure figures`' rule for its own
+table): at `2026-10-06T04:44:32Z` the front is **45** open pull requests, of which **29** have
+been force-pushed at least once against **16** never, over **131** force-pushes in total, the
+worst single branch at **13**.  ⚠️⚠️ **Do not publish the 29 as a count of defective
+descriptions.**  It is an UPPER bound on the defect — a description in base-and-tree keys survives
+any number of force-pushes — and a LOWER bound on the exposure, because a description also rots
+when `main` moves under a figure about `main`, which no force-push count can see.  ⚠️ **Publish
+the denominator and the never-pushed count beside it**, or the figure is the population shift this
+page charges elsewhere.  ⚠️⚠️ **And a cardinality here is not a set**: the same count of **29**
+was read **47 h 26 min** earlier over a **46**-branch front, and the two sets share **25** members
+with **4** leaving and **4** joining — one of the four that joined belongs to the seat writing
+this paragraph.
+
 **Absence is a scheduling fact and must not be read as an eligibility fact.** The hatch's condition
 is that no slot *satisfies the preferences*, not that no other slot has *acted*. A hatch fired
 because eligible slots are idle licenses exactly the self-certification the hard bar exists to
