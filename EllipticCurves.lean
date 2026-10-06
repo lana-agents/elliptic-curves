@@ -1,5 +1,6 @@
 import EllipticCurves.Basic
 import EllipticCurves.DivisionPolynomial.Coprime
+import EllipticCurves.DivisionPolynomial.PsiModFour
 import EllipticCurves.Fixtures
 import EllipticCurves.FormalGroup.AdditionLaw
 import EllipticCurves.FormalGroup.AdditionLawUnit
@@ -427,6 +428,7 @@ import EllipticCurves.Torsion.OmegaDivisionPolynomial
 import EllipticCurves.Torsion.OmegaIntegral
 import EllipticCurves.Torsion.OmegaNumerator
 import EllipticCurves.Torsion.OmegaOnCurve
+import EllipticCurves.Torsion.OmegaOnCurveCharFree
 import EllipticCurves.Torsion.OmegaPairCoprime
 import EllipticCurves.Torsion.OmegaThree
 import EllipticCurves.Torsion.OmegaThreeCharFree
