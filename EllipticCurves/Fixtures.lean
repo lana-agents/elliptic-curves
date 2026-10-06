@@ -127,11 +127,20 @@ carries only a redirect to it.
 
 ⚠️ **The near-misses, recorded so that the next sweep does not keep re-finding them as rows.**
 `Torsion/TriplingSurjective.lean`'s `curveChar2` and `Torsion/TwoTorsionCharTwo.lean`'s
-`curveOrdinaryCharTwo` are local finite-base fixtures declared for the reason this paragraph gives
-— the second says so in terms, *"It belongs in `EllipticCurves.Fixtures` and is here instead"* —
-but neither is a row above: `curveChar2` declares no `IsElliptic` at all, and
-`curveOrdinaryCharTwo` is polymorphic in its base, with its `IsElliptic` a hypothesis-taking
-`theorem` rather than an instance. **They are inside the subject of the first sentence and outside
+`curveOrdinaryCharTwo` are the two the sweep keeps re-finding, and neither is a row above:
+`curveChar2` declares no `IsElliptic` at all, and `curveOrdinaryCharTwo` is polymorphic in its
+base, with its `IsElliptic` a hypothesis-taking `theorem` rather than an instance. ⚠️ Only the
+second still writes its own curve down, and it says so in terms, *"It belongs in
+`EllipticCurves.Fixtures` and is here instead"*. ⚠️ **Both are still DECLARED where they sit**, and
+`curveChar2` is `Torsion/TriplingSurjective.lean`'s own `private def` with `Fixtures`' curve as its
+body: what `#2345` stage 2 moved is the body and not the declaration. ⛔ **Retired, from this
+paragraph's own earlier text, and the clause was false rather than partial** — it is a universal
+over the two declarations the sentence names and one of them falsifies it, so `### Retired claims`
+binds and a qualification in place would not have done: *"are local finite-base fixtures declared
+for the reason this paragraph gives"* is false of `curveChar2` since `#2345` stage 2, whose curve is
+*this module's own* `y2AddXYEqX3AddC` at `c = 1` with no instance at all, local or otherwise — the
+shape `Torsion/NsmulSmoothSurjective.lean`'s `curveClosureCharTwo` below already has, one base in.
+**They are inside the subject of the first sentence and outside
 the recogniser**, which is the third reason the numeral could not be maintained: it was never
 stated which of the two populations it counted, and the two differ.
 `Torsion/ThreeTorsionStructure.lean`'s `curveAlgClosureCharTwo` and
