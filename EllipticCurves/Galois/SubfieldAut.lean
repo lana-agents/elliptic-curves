@@ -389,26 +389,42 @@ the nine vendored rows above"* **until round 3.**
 
 ⚠️ **A second check on the two-consumer claim costs nothing and needs no script.**  A docstring-only
 edit to this file rebuilds exactly **four** jobs — this module, its two consumers, and the `mk_all`
-root `EllipticCurves` — out of the total a full build reports.  ⚠️ **That total is stated as a
-RELATION and not as a numeral, because a numeral here rots on every module landing and this board
-re-keyed one by hand three times before the treadmill was named** (`#2257`, `#2259`, `#2302`):
-`lake build --wfail` reports **one job per tracked `.lean` module plus `3312`**, read off its own
-*"Build completed successfully (N jobs)."* line, at the pin `lake-manifest.json` **`e2a21bd4`** with
-`lean-toolchain` **`94b9f495`**.  ⚠️⚠️ **It is a FIT and not a law, and every ref it is measured at
-is keyed here rather than counted**: it holds from `3f9e323`, which tracks **456** `.lean` modules,
-through `ab3d3ab` at **459**, to `74f065cd` at **460** and **3772** jobs.  ⚠️ **That top endpoint is
-a LANDED ref and was deliberately not left as a merge**: a `git merge-tree` of an open pull request
-evaporates when the request is re-pushed or closed, and a landed commit cannot be reopened.  ⚠️
-**`ab3d3ab` is the sharpest of them**: it adds **108** lines to this very file and removes **26**
-over `b13f9c82` while adding no module, so the job count does not move with the content.  ⚠️⚠️ **And
-`3312` is derived from nothing here**, so a pin bump may move the constant and the relation must
-then be re-measured rather than re-keyed.  *Which* modules `lake` recompiles is the fan-out claim
-restated from the build side, so every build of a change to this file re-verifies it for free; it
-was measured on `60e3031`, which added this paragraph, and again on `#2304`'s round, which put the
-relation here.  ⚠️ **The second half is keyed to the ROW and not to a sha, and that asymmetry is the
-point rather than an omission**: a commit cannot name its own object name, and the squash that lands
-it has a name nothing can know while it is being written — so a sha there would be the one key on
-this page that is unobtainable at authoring time.
+root `EllipticCurves` — out of the total a full build reports.  ⚠️⚠️ **That total is stated here in
+NEITHER form — not as a numeral and not as `modules + K` — and NO delta against the tracked-module
+count is attached to it AS A RELATION — the three keyed readings below are a REFUTATION and not
+one**: read `N` off the build's own *"Build completed successfully (N jobs)."* line and carry
+nothing over it.  **This paragraph read** *"`lake build --wfail` reports **one job per tracked
+`.lean` module plus `3312`**"* **until `#2337`, and that relation is REFUTED AT THE PIN IT NAMED** —
+`lake-manifest.json` `e2a21bd4`, `lean-toolchain` `94b9f495` and `lakefile.toml` `dadf0adb`,
+blob-identical at every ref keyed here — the delta reading **3312** at `741ab16f` (465 modules, 3777
+jobs), **3313** at `77aeeaab` (466 / 3779) and **3315** at `a0f6664b` (467 / 3782): **three values
+with the pin held fixed, and no fourth is offered as the new one.**  ⚠️ **The mechanism is that the
+job graph is an IMPORT CLOSURE and not a file census**: `lake` schedules one job per module in the
+closure of the `mk_all` root `EllipticCurves` — this project's modules AND every dependency module
+they reach — plus **17** non-module jobs, enumerated off `lake build -v` and identical as a set at
+`741ab16f`, `a0f6664b` and `993ac046`: the root `elliptic_curves/EllipticCurves:default`, nine
+`extraDep`, six ProofWidgets widget jobs and `job computation`.  ⚠️ **`N` is one LESS than that sum,
+and the reason is the counter and not a missing job**: the `-v` log holds exactly `N + 1` job lines
+at indices `0 … N` with none repeated and none missing, so `993ac046` enumerates 3768 modules and 17
+others against a completion line reading **3784**.  ⚠️⚠️ **A landing that adds ONE module can
+therefore move the total by MORE than one**, and both steps above are that rather than a per-module
+effect, and all three modules they reached sit under `Mathlib/AlgebraicGeometry/EllipticCurve/`:
+`Reduction.GoodReductionCriterion` pulled `ModelsWithJ` into the closure, for **+2**, and
+`Reduction.VariableChangeDescent` pulled `IsomOfJ` and, through its own `public import`,
+`NormalForms`, for **+3**.  ⚠️ **`Torsion/FourNeZero.lean`'s `+1` is the SOUND form of the same
+claim and is deliberately untouched**: it argues from a closure rather than from the file count, and
+says in terms that it does not generalise.  ⚠️ **Every ref keyed here is LANDED and none is a
+`git merge-tree` of an open request**, which evaporates when the request is re-pushed or closed
+where a landed commit cannot be reopened; and `ab3d3ab` is still the sharpest control — it adds
+**108** lines to this very file and removes **26** over `b13f9c82`, those being the only path it
+touches, while moving the closure by **0**, so the count does not move with content, which is what
+the closure reading predicts.  *Which* modules `lake` recompiles is the fan-out claim restated from
+the build side, so every build of a change to this file re-verifies it for free; it was measured on
+`60e3031`, which added this paragraph, and again on `#2337`'s round, which retired it.  ⚠️ **The
+second half is keyed to the ROW and not to a sha, and that asymmetry is the point rather than an
+omission**: a commit cannot name its own object name, and the squash that lands it has a name
+nothing can know while it is being written — so a sha there would be the one key on this page that
+is unobtainable at authoring time.
 
 ## Mathlib has no name for this
 
