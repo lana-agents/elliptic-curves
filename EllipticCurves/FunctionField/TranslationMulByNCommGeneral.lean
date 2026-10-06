@@ -114,10 +114,17 @@ discharges it at `n = 4` over `ℚ`.
   (`EllipticCurves.Torsion.NsmulOrder`), while the `3`-smooth one composes the merged low-index
   slices `hasXCoordFormula_two` and `hasXCoordFormula_three` through `exists_nsmul_two_eq`
   (`Torsion/DoublingSurjective`) and `exists_nsmul_three_eq` (`Torsion/TriplingSurjective`).  For
-  it the general route is not merely unused but unavailable — `Torsion.NsmulOrder` is not among
-  the **19** `EllipticCurves` modules in `NsmulSmoothSurjective`'s import closure, and that file
-  records the import claim itself.  Both are the torsion route and neither is the place theory of
-  `mulByNEndo`.
+  it the general route is not merely unused but unavailable — `Torsion.NsmulOrder` is not among the
+  `EllipticCurves` modules in `NsmulSmoothSurjective`'s import closure, and that file records the
+  import claim itself.  ⚠️ **The membership is what this bullet needs and it holds at every ref
+  named here; the cardinal that stood beside it does not.**  *"not among the **19**
+  `EllipticCurves` modules"* was exact at `44844ba2`, the commit that wrote it, and at `542e721`;
+  that closure is **20** modules at `73ee8eb1` not counting itself and **21** counting it.  ⚠️ The
+  single entering module is `EllipticCurves.Torsion.FourNeZero`, and it entered at `0e13ff0f`, a
+  consolidation that retired seven `private` copies of `(2 : F) ≠ 0 → (4 : F) ≠ 0` into one public
+  leaf — ⚠️⚠️ **a commit whose own diff names neither this file nor `NsmulSmoothSurjective`**, which
+  is the shape `README.md`'s `## Import-closure figures` now records.  Both are the torsion route
+  and neither is the place theory of `mulByNEndo`.
   ⚠️ **The reason the hypothesis stays is a different one**: the general form carries
   `[IsAlgClosed F]`, which `translateEndo_mulByNEndo_apply_of_baseField` does not bind, so
   discharging `hmul` from it would narrow that theorem to an algebraically closed base.  ⚠️ **And

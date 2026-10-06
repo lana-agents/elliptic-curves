@@ -7040,8 +7040,12 @@ one.** The reason is measured rather than argued, and the population separates c
   the commit that wrote it. Two were written by one commit, `008fea7`, in two different files.
 
 **The fifteen, because the 3 / 12 split is the whole of the argument above and a reader who cannot
-audit it has to take it.** Verdicts at `542e721`, re-run and unmoved at `2a72ea2` and at
-`eab2fe9`.
+audit it has to take it.** Verdicts at `542e721`, re-run and unmoved at `2a72ea2` and at `eab2fe9`
+— ⚠️ **except the two rows `#2348` repaired, whose count, key and verdict cells are read at
+`73ee8eb1` and say so.** ⚠️ **The `key` column records what the FIGURE's own text carries and not
+what its file does**, which is why `SubfieldAut:17` shows a `—` while its own file prints shas of
+its own, and its own figure prints none.  ⚠️ **No count is given here on purpose**: a sha census
+over a file this section's own repairs do not touch is falsified by any later edit to that file.
 
 | row | the count | key | verdict |
 | --- | --- | --- | --- |
@@ -7052,12 +7056,12 @@ audit it has to take it.** Verdicts at `542e721`, re-run and unmoved at `2a72ea2
 | `MulByNGaloisGroup:82` | `70` → `71`; `107` | `008fea7`, `542e721` | repaired |
 | `NegYGaloisGroup:62` | `71` → `19`, `17`; `22`, `20` | `008fea7`, `542e721` | repaired |
 | `NthRootOfPullbackN:177` | `78` → `88`, an edge of `10` | `6df393f` | repaired |
-| `TranslationMulByNCommGeneral:116` | `NsmulSmoothSurjective` is `19` | — | true, unkeyed |
+| `TranslationMulByNCommGeneral:116` | `NsmulSmoothSurjective` is `20` | `73ee8eb1` | repaired |
 | `WeilPairingEltBaseChange:84` | `12`, `9`, `10`, `76` | `008fea7` | true at its key |
 | `SubfieldAut:17` | this file is `0` | — | true, exempt |
 | `SubfieldAut:48` | `0` / `22` / `74`, and two totals | `320f413` | true at its key |
 | `Determinant:147` | `Continuity`'s closure, listed in full | — | true, unkeyed |
-| `DeterminantModGeneral:34` | `37` → `71`, `40` → `74` | — | true, unkeyed |
+| `DeterminantModGeneral:34` | `38` → `72`, `41` → `75` | `73ee8eb1` | repaired |
 | `GaloisAction:32` | this file's closure, listed in full | — | true, unkeyed |
 | `DivisionPolynomialEval:62` | this file is `0`; an intersection of `1` | — | true, `0` exempt |
 
@@ -7071,15 +7075,53 @@ subject is the file and its own diff can always see it (`Galois.SubfieldAut`, `F
 `Torsion.DivisionPolynomialEval`). **Every other count's subject is the tree**: an edge added
 anywhere upstream moves it, and the file carrying it is in no part of that commit's diff.
 
-⚠️ **Eight of the fifteen carry no sha once the four repairs land, and this rule convicts six of
-them.** Two are wholly inside the exemption — `MulByN:42` and `SubfieldAut:17`. The other six are
-**true** at `542e721` and at `2a72ea2`, and are named rather than repaired: `GenuineLawComm:55`,
-`TranslationMulByNCommGeneral:116`, `Determinant:147`, `DeterminantModGeneral:34`,
-`GaloisAction:32`, and `DivisionPolynomialEval:62` — whose own `0` is exempt, but whose second
-figure, the claim that this module alone lies in the intersection of two **other** modules'
-closures, is a count over the tree and is not. ⚠️ **A rule that lands with live instances nobody
-has counted reads as swept when it is not**, so they are counted here; keying or retiring them is
-`#2005`'s to finish.
+⚠️ **SIX of the fifteen carry no sha once `#2348` keys its two rows, and this rule convicts
+FOUR of them.** Two of the six are wholly inside the exemption — `MulByN:42` and `SubfieldAut:17`.
+The other four are **true** at `542e721` and at `2a72ea2`, and are named rather than repaired:
+`GenuineLawComm:55`, `Determinant:147`, `GaloisAction:32`, and `DivisionPolynomialEval:62` — whose
+own `0` is exempt, but whose second figure, the claim that this module alone lies in the
+intersection of two **other** modules' closures, is a count over the tree and is not. ⚠️ **A rule
+that lands with live instances nobody has counted reads as swept when it is not**, so they are
+counted here; keying or retiring the four is `#2005`'s to finish.
+
+⚠️⚠️ **THAT CENSUS READ *"Eight of the fifteen carry no sha once the four repairs land, and
+this rule convicts six of them"* AND NAMED SIX ROWS AS *"named rather than repaired"* (`ac462ef7`,
+PR #764, `#2005`), AND `#2348` FALSIFIED BOTH WITH ITS OWN PAYLOAD.** Both were exact until that
+round keyed two of the fifteen ROWS — ⚠️ three figures in two files, `DeterminantModGeneral:34`
+being one row that carries two — so the eight became six, the convicted six became four, and the
+six names became four in the commit that repaired them. ⚠️ **The derivation is published and not
+the result alone, because this pair moves again the next time anybody keys one of the four**:
+EIGHT unkeyed at `542e721`, LESS the two `#2348` keyed, LESS the two exempt. ⚠️⚠️ **A census of
+RESOLUTION is dated by a repair and not by an edge landing upstream, so it is the one figure in
+this section that its own payload can falsify** — which is what happened here, and it is the
+complement of the consolidation shape the next paragraph records.
+
+⚠️⚠️ **TWO OF THE SIX ROWS UNKEYED AND NON-EXEMPT AT `542e721` ARE FALSE AT `main` — THREE
+FIGURES, `DeterminantModGeneral:34` CARRYING TWO — AND ONE COMMIT FALSIFIED ALL THREE, WHICH IS A
+MECHANISM AND NOT A COINCIDENCE.** The census above is keyed and is exact at its own two keys;
+what a key cannot say is what a later landing does. Re-walked at `73ee8eb1`, three rows are
+**UNMOVED** — `GenuineLawComm:55` at **14** with its membership still false, `Determinant:147`'s
+3-member set and `GaloisAction:32`'s 2-member set — while `TranslationMulByNCommGeneral`'s **19**
+reads **20**, and `DeterminantModGeneral:34`'s `37 → 71` and `40 → 74` read **38 → 72** and
+**41 → 75**. ⚠️ **Each moved by exactly `+1`, all three at `0e13ff0f`, and the single entering
+module is `EllipticCurves.Torsion.FourNeZero` in every one**; that commit retired seven `private`
+copies of one lemma into a shared public leaf, and ⚠️ **its own diff names neither of the two files
+carrying the figures it dated.** The three figures are repaired in place by `#2348`; the three rows
+re-walked beside them are left exact and unkeyed, `DivisionPolynomialEval:62`'s intersection figure
+is not re-walked here at all, and all four of those are still `#2005`'s.
+
+⚠️⚠️ **SO A CONSOLIDATION REFACTOR IS A CLOSURE-FIGURE KILLER, AND IT IS THE COMPLEMENT OF THE
+`NthRootOfPullbackN` SHAPE BELOW RATHER THAN ANOTHER INSTANCE OF IT.** That one is **wrong at the
+commit that wrote it**; these were **exact at theirs**, under this section's own exclude-self
+convention, and were dated afterwards. Retiring `N` private copies into one shared leaf adds
+**one** module to the closure of **every** consumer at once, so a single such commit dates every
+count-shaped figure in **other** files naming any of them, and no gate on this board reports it: the
+build is green, the linter is silent, and the consolidating round's own unit names only the files it
+edits. ⚠️ **A figure named for another module therefore owes the REF it was read at and not only its
+convention** — all three above named their convention correctly and were still unreadable three
+weeks later, because nothing in them said *when*. ⚠️ **And read which half rots before repairing**:
+the `+34` delta of the second pair survives both landings, so there the endpoints were dated and the
+placement argument was not.
 
 ⚠️ **The convention belongs beside the figure and must not be assumed.** `Galois.SubfieldAut` rules
 that the `EllipticCurves` closure does **not** count the module itself while a total closure does,
