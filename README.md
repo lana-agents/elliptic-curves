@@ -5011,23 +5011,53 @@ last two rows:
 | key | occurrences | carriers |
 |---|---|---|
 | landed commit messages, all **759** | **221** | **115** |
-| the tree, the **436** tracked `.md`/`.lean` files | **2** | **1** (`README.md`) |
-| ⚠️ the tree, all **447** tracked files, per line and then flattened | ⚠️ **3** | ⚠️ **2** |
-| ⚠️ the same, flattened first | ⚠️ **7** | **3** |
+| the tree, the tracked `.md`/`.lean` files | **the baseline** | **the baseline** |
+| ⚠️ the tree, all tracked files, per line first | **+ the comment claims** | **+ their files** |
+| ⚠️ the same, flattened first | ⚠️ **+1 per shell `exit 1`** | **+ the code-only carriers** |
+
+⚠️⚠️ **THE TREE ROWS ARE PUBLISHED AS DIFFERENCES AND NOT AS TOTALS, AND THE DECISION IS THE
+ARTIFACT HERE.** The absolutes were measured, keyed and true at `0b8f3d1`, and under `#1664` they
+are correct-and-stale at that ref rather than false — but they rot on every landing that writes a
+behaviour claim, and **this page has become the overwhelming carrier of its own key**, so the cell
+doing the arguing was the cell least able to hold still. ⚠️ **The two contrasts the paragraph
+below is about hold where the totals do not, and that is measured at three refs rather than
+argued**: the all-tracked key exceeds the `.md`/`.lean` key by **+1** occurrence in **+1** carrier
+at `0b8f3d1`, at `ab3d3ab` and at this head alike. ⚠️ **The flatten-order row is the one whose
+difference is NOT a one, and a single numeral there would be the wrong shape**: its carrier delta
+is **+1** at all three refs, while its OCCURRENCE delta is one per `exit 1` the shell script
+spells — **4**, **5** and **6** at those refs, under three different blobs.  ⚠️⚠️ **AND EACH DELTA
+IS NAMED BY WHAT IT COUNTS AND NOT BY A NUMERAL, BECAUSE A DIFFERENCE ROTS TOO AND ITS ROT IS THE
+WORSE SHAPE**: a `+1` that should read `+2` still announces itself as a figure, while a carrier
+`+1` that should read **0** asserts the ABSENCE of the contrast the paragraph below exists to
+argue. ⚠️ **So the conditions are stated here instead, and no re-key is ever owed**: the per-line
+row's two deltas move whenever a non-prose file gains a behaviour claim in a COMMENT, and the
+flatten-order row's carrier column empties as soon as every code-only carrier has gained one — a
+`.orchestra/validation.sh` that gains one comment claim does both at once. ⚠️⚠️ **AND A RELATION
+FOR THE TOTALS WAS TRIED AND THERE IS NONE TO STATE**, which is the negative result `#2304`'s
+repair asks for and here does not get: no module count and no pinned population stands on the
+right-hand side, only *how often this page happens to say `exit 1`*, and it is proportional to the
+corpus in no reading — between `0b8f3d1` and this head the tracked set grew by under a tenth while
+`README.md`'s own carriage grew by more than an order of magnitude. ⚠️ **The differences are also
+a fixed point of the round that publishes them**, which no total ever was: `README.md` is in both
+tree corpora, so its own prose cancels out of both deltas and this clause moves neither.
 
 ⚠️ **The `.md`/`.lean` key is short by one, and the file it misses is the one a reader would check
-first.** `lakefile.toml`:**9–10** (blob `dadf0ad`) carries *"Without this line `lake lint` fails
-with `no lint driver configured` (exit 1)"* — the **same** behaviour claim `## Linting` makes of the
-same flag, written twice and gated nowhere; the line the claim is *about*, `lintDriver`, is **13**.
-⚠️ **Flattening first overshoots to 7**, because `.orchestra/validation.sh` (blob `d286aa8`) spells
-`exit 1` **4** times as *shell code*; per line it contributes **0**, so the code-versus-prose
-discriminator falls out of the order for free instead of needing a second pass. ⚠️ **And the order
-is what makes that quotation resolve at all**: flattened first it is `NO-SOURCE` in all 447 files,
-because the sentence wraps across lines 9 and 10 and the continuation opens with `# ` — and **a `#`
-is not whitespace**, so the flattened file reads *"fails # with"*.
+first.** `lakefile.toml`:**9–10** (blob `dadf0ad`, unmoved at all three refs above) carries
+*"Without this line `lake lint` fails with `no lint driver configured` (exit 1)"* — the **same**
+behaviour claim `## Linting` makes of the same flag, written twice and gated nowhere; the line the
+claim is *about*, `lintDriver`, is **13**. ⚠️ **Flattening first overshoots by one for each `exit 1`
+that `.orchestra/validation.sh` spells as *shell code*** (**4** of them at blob `d286aa8`); per line
+that file contributes **0** at that blob — its claims are code-only there, and one in a comment
+would move it into the row above — so the code-versus-prose discriminator falls out of the order for
+free instead of needing a second pass. ⚠️ **And the order is what makes that quotation resolve at
+all**: flattened first it is `NO-SOURCE` in every tracked file, because the sentence wraps across
+lines 9 and 10 and the continuation opens with `# ` — and **a `#` is not whitespace**, so the
+flattened file reads *"fails # with"*.
 
-**Both tree rows re-run rather than assumed.** ⚠️ **Both are TRUE, and the class convicts
-neither** — which is why the rule below is about naming a version, not about repairing a row.
+**Both tree-resident claims re-run rather than assumed.** ⚠️ **Both are TRUE, and the class
+convicts neither** — which is why the rule below is about naming a version, not about repairing a
+row. ⚠️ **At `0b8f3d1` that pair was the whole of the tree's population and it is not that now**,
+so what the differential rows above rest on is the two contrasts and not the pair's completeness.
 
 * **`## Linting`, and `lakefile.toml`:9–10** — *"`lake lint` **fails loudly**"*, with
   `error: no lint driver configured and builtin linting is disabled` and exit 1.
