@@ -651,16 +651,50 @@ curve.**  On `y² + xy = x³ + 1` over `ZMod 2` the point `(0, 1)` is fixed by n
 (`negY 0 1 = −1 − 0 − 0 = 1`), so it fails `hy`; `(1, 0)` and `(1, 1)` are the two points that pass.
 **`Ψ₃ = X⁴ + X³ + 1` there**, which is nonzero at both.
 
-⚠️ **`EllipticCurves.Fixture` was checked first and declines**: it serves no curve over a finite
-field, and says why in terms.  Declaring one here costs a single import,
-`Mathlib.Algebra.Field.ZMod`, which is what supplies `Field (ZMod p)` — **`+1` module over all
-packages and `+0` in `EllipticCurves`** for this file's closure (`2508 → 2509`), measured at the
-base this branch is cut from.  `Mathlib.FieldTheory.Finite.Basic`, the route `Fixtures` names,
-costs `+3` for the same instance. -/
+⚠️⚠️ **The curve below is `EllipticCurves.Fixture`'s own, by CITATION rather than by
+coincidence**: it is `y2AddXYEqX3AddC (ZMod 2) 1`, the shared `a₁ ≠ 0` family, so the literal
+survives in this block's prose and nowhere in this file's code (`#2345` stage 2).
 
-/-- `y² + xy = x³ + 1` over `ZMod 2` — the tuple `⟨1, 0, 0, 0, 1⟩`, on the **ordinary** branch
-(`a₁ ≠ 0`), with `b₂ = 1`, `b₄ = 0`, `b₆ = 0`, `b₈ = 1` and `Δ = 1`. -/
-private def curveChar2 : WeierstrassCurve.Affine (ZMod 2) := ⟨1, 0, 0, 0, 1⟩
+⛔ **Retired, from this paragraph's own earlier text, and the clause was false rather than
+partial** — it is a universal negative over the curves `EllipticCurves.Fixtures` serves and one of
+them falsifies it, so `### Retired claims` binds and a qualification in place would not have done:
+*"`EllipticCurves.Fixture` was checked first and declines: it serves no curve over a finite field,
+and says why in terms"*, together with the import comparison that sentence went on to price.
+⚠️ **And the paraphrase is wrong independently of this round, which is worth naming rather than
+quietly correcting**: what that file declines is the finite-field *certificates*, in its own words,
+and not the *curves* — all of its base curves are polymorphic in `[CommRing R]`, and
+`y2AddYEqX3 (ZMod 2)` is served to `EllipticCurves.Torsion.TwoTorsionCharTwo` and to
+`EllipticCurves.FunctionField.FunctionFieldGaloisDescent`.
+
+⚠️ **`import Mathlib.Algebra.Field.ZMod` is left in place and is no longer justified here**, which
+this paragraph says rather than leaving a reader to wonder: no curve is **written out** here any
+more, the one below being `Fixtures`' by citation and still declared here, and
+this file elaborates with that `import` deleted — at this head and at the base — its transitive
+closure being the **same set** with and without it.  ⚠️ **No module count is given here on
+purpose**: the one this paragraph carried was read at a base long retired, a closure count moves
+under every landing, and whether to delete that `import` is a separate job and not this one's. -/
+
+/-- `y² + xy = x³ + 1` over `ZMod 2` — ⚠️ **`EllipticCurves.Fixture`'s `y2AddXYEqX3AddC` at
+`c = 1`, and no longer a separate spelling of the tuple `⟨1, 0, 0, 0, 1⟩`** (`#2345` stage 2), on
+the **ordinary** branch (`a₁ ≠ 0`), with `b₂ = 1`, `b₄ = 0`, `b₆ = 0`, `b₈ = 1` and `Δ = 1` — the
+general form of that last being `Δ_y2AddXYEqX3AddC_of_two_eq_zero`, which proves `Δ = c` wherever
+`2 = 0`.  ⚠️ **No count is given here on purpose**: the population moves under this row, and a
+numeral here is one step out of date in the hunk that writes it.
+
+⚠️ The local name is kept because the lemmas below read better with it, and ⚠️ **no `_eq` pin is
+added, deliberately**: there is no `IsElliptic` instance and no `Δ` lemma here for a `rfl` of that
+shape to protect, and an unreferenced `private` helper is what
+`EllipticCurves.Torsion.NsmulSmoothSurjective`'s own `#2253` paragraph argues against.
+
+⚠️⚠️ **It is a `def` and not an `abbrev`, and unlike in `NsmulSmoothSurjective` that is NOT
+load-bearing here — measured in both directions.**  That file's alias must stay opaque so that
+instance search cannot reach its private `IsElliptic` through the family's head symbol; **this file
+declares no `IsElliptic` at all**, so `inferInstance` at `y2AddXYEqX3AddC (ZMod 2) 1` fails under
+`def` **and** under `abbrev`, and what `Fixtures`' module docstring says of that family — ⚠️ **in a
+bold sentence, whose emphasis is named here rather than reproduced inside the quotation** —
+*"carries NO `IsElliptic` instance anywhere in the tree"* is untouched by this file either way.
+`def` is kept for consistency with the other aliases. -/
+private def curveChar2 : WeierstrassCurve.Affine (ZMod 2) := y2AddXYEqX3AddC (ZMod 2) 1
 
 /-- The base field really is of characteristic `2`. -/
 private lemma two_eq_zero_zmod_two : (2 : ZMod 2) = 0 := by decide
