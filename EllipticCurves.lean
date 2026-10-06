@@ -416,6 +416,7 @@ import EllipticCurves.Torsion.NsmulLadderOmegaStep
 import EllipticCurves.Torsion.NsmulLadderOmegaStepDvd
 import EllipticCurves.Torsion.NsmulLadderOmegaStepNum
 import EllipticCurves.Torsion.NsmulOrder
+import EllipticCurves.Torsion.NsmulOrderCharFree
 import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.NsmulYCoord
