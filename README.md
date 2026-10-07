@@ -6303,6 +6303,59 @@ trailing `insert` opcode the other three leave standing. The disturbed **5** is 
 exact no-ops this section proves them to be — and at all **twenty-four** with `autojunk` toggled,
 which the five-pair table below reads at `False`.
 
+⚠️⚠️ **And the SUBJECT LINE's leading ordinal names the round the push CREATES, which is the one
+cell of an `--amend` that no reviewer-side rule here reaches.** The paragraphs above fix what a
+reviewer may read on a frozen tree and who may sit; ⛔ **neither they nor `### Answering a verdict`
+say what a DELIVERING round owes its own subject, so the convention has been practice with no
+clause behind it** — the shape `#2001` had before this section existed. **A round that amends
+re-points the leading ordinal to its own number, and a round that answers a verdict names that
+verdict's CLOCK somewhere in the `%B`.** ⚠️ **The direction of the error is the expensive one: a
+subject naming an EARLIER round reads, at the width `git log --oneline`, `git log --format=%s | cut`
+and `gh pr list` show, as a round that has already been reviewed** — the stale-title hazard that row
+titles here carry *"READ THE … COMMENT, NOT THIS TITLE"* against at the taxis layer, with no such
+warning available at the `%B` layer. ⛔ **And the repair is an ADDITION at the head plus the
+re-point, never a retirement**: the body is cumulative here, a `ROUND N PAYS …` clause about an
+earlier round is TRUE, and nothing licenses deleting a prior round's account to make room for a
+newer one.
+
+⚠️ **The worked case is `#2354` round 3, PR #952, landed as `71aff0c8`, and nothing in it is false
+— which is why it is cited here and not in `### Retired claims`.** Its subject's leading clause is
+*"`#2354` **ROUND 2 PAYS** slot-1's `06:37:15Z` VERDICT IN FULL"*, a true proposition about round 2;
+read in the landed `%B` off `main`, `09:05:22Z` — the clock of the verdict round 3 pays — occurs
+**ZERO** times, `ROUND 3 PAYS` **ZERO** and `06:37:15Z` **SIX**, while the body knows which round it
+is at **eight** `ROUND 3` mentions including **five** `ROUND 3 REPAIR` markers. ⇒ ⚠️ **the
+information is present and the leading clause is where it is absent**, and no clause names the
+paying verdict in the FULL form `### Answering a verdict`'s instrument anchors on. The body names
+it twice: once unkeyed, as *"slot-1 wrote the verdict this round pays"*, which resolves to nothing
+once a row has drawn two; and once in this board's minute-masked form, as *"slot-1's `09:0xZ`
+reading"*, which the anchored grep matches at **ZERO**. ⚠️ **So the point is the INSTRUMENT and not
+the absence: a round that names only the masked form still defeats it.**
+
+⚠️ **The convention was already 7 of 8, keyed at `a4bb7a16`**: of the ten most recent landings
+there, eight open with an ordinal and **seven** name the landing round — `#2348` round 8, `#2358`
+round 1, `#2352` round 4, `#2353` round 2, `#2351` round 3, `#2349` round 2 and `#2345` stage 2 file
+2 round 2 — the eighth being `71aff0c8` above; the two with no ordinal, `#2355` and `#2350`, are
+both round 1s, where there is no earlier round to be mistaken for. ⚠️ **Each round number there is
+taken from the row's verdict record and from the commit BODY and never from the subject, which
+would assume what it tests, and the subjects off `git log -1 --format=%s` and never
+`gh --jq .messageHeadline`, which truncates.** ⚠️⚠️ **The census survives the truncation its own
+first row carries, and that is a property of the instrument rather than luck: `a4bb7a16`'s landed
+body is CUT by the squash cap, but regions are prepended newest-first there, so what the cap takes
+is the OLDEST and the maximal self-referential `ROUND n` lives in the NEWEST, which survives.**
+⛔ **A branch that APPENDS its regions inverts that, and the same census run over one would read
+the ordinal of a round the cap had removed.** ⚠️⚠️ **TWO prior CROSS-AUTHOR amends are
+measured here and BOTH did what the rule above says; no wider census is run and no cardinal is
+asserted over the population.** `6ab5647b`, `#2351` round 3: its own seat paragraph records that
+slot-0 filed the row and authored rounds 1 and 2 while the round itself is another slot's, and its
+subject opens `ROUND 3 PAYS` and carries that round's own verdict clock, `02:49:46Z`.
+⚠️⚠️ **The second is the convicted branch's OWN round 2** — `6dd23be2`, slot-2 amending slot-0's
+round 1 — **whose subject went from the ordinal-free *"`#2354` TAKES HORN (i)"* at `827d105e` to
+*"`#2354` ROUND 2 PAYS slot-1's `06:37:15Z` VERDICT IN FULL"*: it added the ordinal AND the
+clock.** ⇒ ⛔ **So the convicted clause was CORRECT WHEN IT WAS WRITTEN — round 2 wrote it, about
+round 2 — and went wrong only because round 3's `--amend` INHERITED it unchanged.** ⚠️ **That is
+why the rule binds the DELIVERING round and is stated as *"a round that amends re-points"*, and
+why the next cross-author amend should not have to re-derive it.**
+
 **Where no slot satisfies the preferences, the hard bar alone governs.** ⚠️ **A rule with no
 escape hatch starves the lane, and a starved lane is how an uncertified round lands.** The
 reviewer takes the round, opens with every prior touch they hold on the branch, and re-derives
