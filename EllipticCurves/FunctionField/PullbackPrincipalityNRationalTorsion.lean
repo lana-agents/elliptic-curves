@@ -306,15 +306,25 @@ published in this file.
   `card_fibre_comapProjPointN_le_sq_of_isSeparable` above retires, off the *uncollapsed* identity
   against the positivity pair.  ⚠️ **And the clause that used to close this bullet was *"what is
   left is the surjectivity of `[n]` on points … nothing in this tree supplies it closure-free"*.**
-  Both halves of that are still TRUE of the surjection itself — `nsmul_surjective_of_two_ne_zero`
-  (`EllipticCurves.Torsion.TwoTorsionOrder`) and `nsmul_surjective_of_smooth`
-  (`EllipticCurves.Torsion.NsmulSmoothSurjective`) both bind `[IsAlgClosed F]`, and they are the
-  whole family: `nsmul_surjective_of_root` and `nsmul_surjective_of_hasXCoordFormula` bind it too,
-  and `PointsOnIdealTorsion`'s `nsmul_surjective` is about a formal group over a local ring and is
-  not this statement at all — **five** declarations tree-wide matching
+  Both halves of that are still TRUE of the surjection itself: **every declaration in this tree
+  whose name matches `nsmul_surjective` and whose subject is `W` binds `[IsAlgClosed F]`** —
+  `nsmul_surjective_of_two_ne_zero` (`EllipticCurves.Torsion.TwoTorsionOrder`),
+  `nsmul_surjective_of_smooth` (`EllipticCurves.Torsion.NsmulSmoothSurjective`),
+  `nsmul_surjective_of_root` (`EllipticCurves.Torsion.NsmulOrder`), `nsmul_surjective_of_root'`
+  (`EllipticCurves.Torsion.HasXCoordFormulaCharFree`) and `nsmul_surjective`
+  (`EllipticCurves.Torsion.TwoTorsionOrderCharFree`) among them — while
+  `EllipticCurves.FormalGroup.PointsOnIdealTorsion`'s `nsmul_surjective` is about a formal group
+  over a local ring and is not this statement at all.  ⚠️ **This clause used to close on a census
+  and on an exhaustiveness claim, and the family has grown past both**: it read *"they are the
+  whole family … **five** declarations tree-wide matching
   `git grep -nE '^(theorem|lemma) .*nsmul_surjective'` over `EllipticCurves/**/*.lean`, **four** of
-  them on `W` and every one of the four closure-bound.  ⚠️ **What was wrong is that the layer never
-  needed the surjection**, which is what the re-keyed table above records.
+  them on `W` and every one of the four closure-bound"*, exact when it landed and false once
+  `EllipticCurves.Torsion.HasXCoordFormulaCharFree` and
+  `EllipticCurves.Torsion.TwoTorsionOrderCharFree` each added a `W`-side member.  ⚠️ **What stands
+  in their place is a universal with no numeral in it and no closing of the list**: the
+  predicate is what this bullet needs, the count never was, and a count over the tree cannot be
+  kept true from inside one file.  ⚠️ **What was wrong is that the layer never needed the
+  surjection**, which is what the re-keyed table above records.
 * ⚠️ **NOT `comapProjPointN_projPointOfPoint_of_smooth`, and round 2 of this file said it was.**
   That declaration is the *place contraction*,
   `comapProjPointN n h (projPointOfPoint W P) = projPointOfPoint W (n • P)`; its `_of_ne_zero` form

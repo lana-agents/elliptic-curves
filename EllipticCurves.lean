@@ -464,6 +464,7 @@ import EllipticCurves.Torsion.TwoTorsion
 import EllipticCurves.Torsion.TwoTorsionCharTwo
 import EllipticCurves.Torsion.TwoTorsionHalvingSquare
 import EllipticCurves.Torsion.TwoTorsionOrder
+import EllipticCurves.Torsion.TwoTorsionOrderCharFree
 import EllipticCurves.Torsion.TwoTorsionSplittingField
 import EllipticCurves.Torsion.WardHalving
 import EllipticCurves.Torsion.WardR1
