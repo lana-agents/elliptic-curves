@@ -3418,13 +3418,13 @@ true"*, one layer up, in this document's own prose. They are:
   line break, and what does not cross is the boundary out of a list, which only a blank line
   crosses. Nothing here retires, so `### Retired claims` does not bind.
 
-  ⚠️ **None of the seven `markdown-it` `commonmark` figures enumerated below names the version it
+  ⚠️ **None of the `markdown-it` `commonmark` figures enumerated below names the version it
   was taken under, while the `marked` comparison beside them names two** — `4.3.0` and `18.0.11`, at
   the end of the paragraph that discards `marked`, and **not** the one immediately above — so the
   page pinned the tool it rejected and left unnamed the tool it kept (`#2153`). Said rather than
-  repaired by assertion, because for most of them it is not recoverable. **Five name no parser at
-  all**: the `190` swallowed lines, the *"four-item"* and *"five-item"* pair, the `ten` and the
-  `nine`, *"every sub-list in the file stays tight"* and *"items six and seven"*. ⚠️ **The other two
+  repaired by assertion, because for most of them it is not recoverable. **The ones that name no
+  parser at all** are the `190` swallowed lines, the *"four-item"* and *"five-item"* pair,
+  *"every sub-list in the file stays tight"* and *"items six and seven"*. ⚠️ **The other two
   are COMPARISONS, and it is their CommonMark half that is unkeyed**: *"four of the five"* sites and
   the *"sixteen of the forty"* and forty-five swallow lengths each need both parsers, and only the
   `marked` side of them carries a version. All seven were written by `b9d353e` (2026-09-07), whose
@@ -3456,6 +3456,31 @@ true"*, one layer up, in this document's own prose. They are:
   ⚠️ **Give the run a package root of its own, pin the version in the install itself, and read the
   version back through that root's absolute path.** A bare `require('markdown-it/package.json')`
   walks the same chain and reports the ambient answer, so it cannot tell the two apart.
+  ⚠️ **Retired, and the emphasis is the source's NAMED OUTSIDE the quotation rather than
+  reproduced inside it**, because the retired text carries italic-quoted spans of its own and an
+  italic span inside an italic span is `<em>` inside `<em>`, which applies one style twice and
+  shows a reader nothing. The clause read *"Five name no parser at all"* — **bold in the source,
+  and wrapping the line break between `at` and `all`** — over a list whose third member was
+  *"the `ten` and the `nine`"*, under an opening clause that read *"None of the seven
+  `markdown-it` `commonmark` figures enumerated below"*. `#2354` (PR #952, `71aff0c8`,
+  2026-10-07) deleted both numerals from this section count-free, so the page carries neither
+  string: `section's ten top-level` and `the nine that were already here` each go **1 to 0** across
+  that push while the other members hold at **2 / 3 / 2 / 2 / 2**, which leaves the ones that name
+  no parser at **four** groups and the enumerated population at **six**. ⚠️ **It is one
+  retirement and not two**: both cardinals stand over one population closed by one enumeration and
+  are falsified by one push, and this section counts retirements and not copies. ⚠️ **And it
+  is false rather than short.** `### Reach clauses`' *what could move this numeral* asks whether
+  the sentence pins its own denominator, and both of these do — each is a *k* over a row set it
+  names — so a dead member leaves a *k* with no *k*-th row, which is that section's own test for
+  false. **Short is partial, over-reaching is false**, and the asymmetry is the whole of it: a
+  population that can only GROW leaves a count merely short, while one that can SHRINK makes it
+  over-reach. ⚠️ **The sha-keyed clause beside them is NOT retired and is not touched**:
+  *"All seven were written by `b9d353e`"* names its own commit rather than this tree, so nothing
+  later can move it — and it holds, which I checked rather than assumed: each of the ten strings
+  this bullet's members are read by occurs exactly **once** at `b9d353e`, 10 of 10. What replaces
+  the two cardinals that are retired is the membership above and no total, which is this section's
+  own opening rule — *"no bullet under it can repair the numeral"* — applied inside the list it
+  governs.
 
 * **Sort the class before repairing it, and expect to do two things at once.** A headline that
   lists too few hypotheses takes an **insertion**; one that *also* asserts there are no others takes
