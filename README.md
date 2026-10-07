@@ -3368,7 +3368,7 @@ true"*, one layer up, in this document's own prose. They are:
   sub-list therefore never closes: the returning paragraph renders inside the final sub-item, and a
   second `  * ` run written after that paragraph joins the same list instead of opening a new one.
   ⚠️ **This file already writes the closing form once, so what follows is that form made general
-  and not a new convention** — the blank line at `:283`, which closes the two-branch sub-list of
+  and not a new convention** — the blank line that closes the two-branch sub-list of
   `### Reach clauses`' first bullet and puts the paragraph opening *"Decide this only when you are
   about to CLEAR a row"* at the parent's own level, where it reads as the bullet's conclusion.
 
@@ -3389,7 +3389,7 @@ true"*, one layer up, in this document's own prose. They are:
   makes the whole enclosing list *loose*, so each of this section's ten top-level rules is now
   wrapped in `<p>`, and the nine that were already here carry vertical space they did not. Nothing
   else moves: `### Reach clauses`' three-item list was already loose for exactly this reason, since
-  it holds the `:283` blank line, and every sub-list in the file stays tight. ⚠️ **And it is the
+  it holds one such blank line, and every sub-list in the file stays tight. ⚠️ **And it is the
   only source form there is** — nothing ends a list and returns to the parent's prose without a
   blank line — so the choice is between that spacing and a paragraph rendered inside a row it
   quantifies over, which is a false claim on the page and not a matter of taste.
