@@ -43,12 +43,14 @@ installed there for this same reason: the unprimed name is landed and no landed 
 
 ## What is reached from below rather than re-proved
 
-The four declarations of `EllipticCurves.Torsion.NsmulOrder` that bind no `h2` are already
-characteristic-free and are **used** here, not duplicated: `ψ_mul_ψ_sub_of_ψ_eq_zero` and
-`ψ_shift_step_of_ψ_eq_zero` (the two Ward instances at a vanishing index),
-`ψ_evalEval_eq_zero_of_ψ_two_evalEval_eq_zero` (every even index vanishes at a `2`-torsion point)
-and `exists_minimal_ψ_evalEval_eq_zero` (the least vanishing index is at least `3`).  So is
-`EllipticCurves.Torsion.NsmulLadder`'s `sub_Φ_div_ΨSq`, and `divX`, `divT` and `Point.X_eq_iff`.
+Four characteristic-free declarations of `EllipticCurves.Torsion.NsmulOrder` are **used** here
+rather than duplicated: `ψ_mul_ψ_sub_of_ψ_eq_zero` and `ψ_shift_step_of_ψ_eq_zero` (the two Ward
+instances at a vanishing index), `ψ_evalEval_eq_zero_of_ψ_two_evalEval_eq_zero` (every even index
+vanishes at a `2`-torsion point) and `exists_minimal_ψ_evalEval_eq_zero` (the least vanishing index
+is at least `3`).  ⚠️ **They are not all of that file's `h2`-free declarations, and no count of
+those is given here**: `ψ_two_mul_eq_mul_ψ₂` is characteristic-free as well and is simply not
+needed below.  **Used** here rather than duplicated as well: `EllipticCurves.Torsion.NsmulLadder`'s
+`sub_Φ_div_ΨSq`, `divX` and `divT`, and Mathlib's `Point.X_eq_iff`.
 
 ## The two substitutions, and only one of them reads a `y`
 
@@ -93,9 +95,9 @@ never read.
   substitution — the route is `divX_add_of_not_dvd` and `divX_add_mul_of_not_dvd`, whose `h2`
   comes only from `ψ_evalEval_ne_zero_of_not_dvd` — and neither is `#2340` item 3.  ⚠️ The reason
   this is a separate job and not an omission is the **name**: `hasXCoordFormula_of_two_ne_zero` is
-  cited by name at **140** places in the tracked `.lean` files, **128** of them within three lines
-  of characteristic-`2` prose, so the generalisation needs a round that owns both the rename and
-  that prose.  A keyed reading at `071f044b`; re-measure it rather than carry it.
+  cited by name at **140** places in the tracked `.lean` files and its hypothesis is in that name,
+  so the generalisation needs a round that owns both the rename and the characteristic-`2` prose
+  around those citations.  A keyed reading at `071f044b`; re-measure it rather than carry it.
 * ⚠️ **No statement about the `2`-torsion case.**  `nsmul_eq_zero_iff_ψ_evalEval_eq_zero'` keeps
   `NsmulOrder`'s `ht : ψ₂(x, y) ≠ 0`, which is sharp for this route: at a `2`-torsion point the
   forward implication at odd `n` reduces to `Ψ₃(x) ≠ 0` at a root of `Ψ₂Sq`, which this tree has
