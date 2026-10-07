@@ -5432,6 +5432,79 @@ read as scene-setting and function as evidence.  ⚠️ **If a numeral bears wei
 at a named ref, or it is not published** — and the first `#2270` comment to correct an instrument
 was worth less than the second, which corrected a figure nobody had measured at all.
 
+⚠️⚠️ **THE SQUASH MESSAGE IS BYTE-CAPPED AND THE CUT IS A PREFIX CUT: WHAT DOES NOT LAND IS THE
+TAIL.**  ⇒ ⚠️⚠️ **WHICH REGIONS ARE LOST IS THEREFORE A FACT ABOUT THE BRANCH'S OWN LAYOUT AND NOT
+ABOUT THE MERGER, AND THIS BOARD RUNS BOTH LAYOUTS.**  On a newest-FIRST `%B` the tail is the
+OLDEST regions, which is the worked case below.  ⛔ **On a newest-LAST `%B` the tail is the round's
+OWN region**: the object `09fbee41b48936a709f4f6abe241aea0b63b4d4e` carries `===` section headers
+at `:3`, `:52` and `:184` in INCREASING round order and **64630** bytes of `%B` against the
+**65542** below, so the first text its cap would take is its newest round's.  ⚠️ **A 40-hex object
+is named rather than a branch, because a tip moves under review and an object does not.**  `#2348`
+round 8 is the worked case.  The branch head
+`56f379f684697c8ab00de4d492634a0616f6b36e` carries **102129** bytes over **99549** codepoints in
+**nine** blank-line regions; its landing `a4bb7a1667f9fac2cca54614d1179afdc7f3c826` carries
+**65591** bytes over **63974** codepoints in **seven**.  Round 8's own region landed verbatim — as
+**6449** codepoints against **6442**, the subject gaining ` (#945)` — and so did rounds 7, 6, 5 and
+4's, at **5826**, **7223**, **11336** and **15773**; round 3's is **TRUNCATED at 17311 of 22607**,
+mid-word; and round 2's two regions and round 1's are **ABSENT**.  ⚠️ **The overflow is replaced by
+one `U+2026` and the `Co-authored-by:` trailer is appended BELOW the cut**, so the landed message
+ends in an ellipsis and then a trailer and reads as complete.
+
+⚠️ **The instrument, because these lengths are convention-sensitive.**  Take the message from
+`git cat-file commit <sha>` after its first blank line, split the regions on a blank line, and read
+codepoints with `len()` on the decoded string and bytes with `len()` on the raw.  ⛔ **Never
+`git log --format=%B` for a length** — it supplies a trailing newline the stored object may not
+carry, which `#2348` round 8 settled at the object layer.  ⚠️⚠️ **And strip the trailing newline
+from BOTH ends before splitting, or the FINAL region alone reads one codepoint long**: round 1's
+region on that branch is **13522** stripped and **13523** under a bare split, and the
+entirely-dropped total inherits it at **30325** against **30326**.  **Both endpoints are published
+because a figure whose two conventions differ by one is unreadable without its convention
+(`#1749`).**
+
+⚠️⚠️ **THE CAP IS A BYTE CAP, AND TWO LANDINGS PIN THE UNIT WHERE ONE COULD NOT.**  `a4bb7a16` and
+`0ed9e02b7a5002fc0e0129be8b55942a16dd8f20` — a different branch, landed `2026-10-06T10:01:44Z` —
+carry bodies of **65545** bytes each, ellipsis included, over **65542** bytes of surviving text,
+while their codepoints are **63928** and **64104** ⇒ **the quantity that agrees across the two is
+the byte count and the quantity that disagrees is the codepoint count.**  ⚠️ **The trailer is
+outside the cap**: those two messages total **65591** and **65584** bytes because their trailers
+are **44** and **37**, under bodies that are byte-equal.  ⛔ **`65536` is NOT the figure and is not
+written here as one**: the surviving text is `65542` bytes at both points, six over it, and two
+points do not pin whether the merger counts the subject line, the ` (#NNN)` it appends — **7**
+bytes at both, so that cell cannot discriminate — or something else.  ⚠️ **The control at the other
+end is `87c2072bdba9541f69ef728db61f49eba5b6bc07`, whose body landed with no truncation ellipsis at
+**64789** bytes** — ⚠️ **under the trailer-BLOCK convention the pair above uses; a cut at the last
+`Co-authored-by:` line alone reads **64835**, because that control's trailer block is TWO lines and
+**98** bytes.  Both endpoints are published with the convention named, as above (`#1749`).**  ⇒ the
+boundary lies between the larger of those and `65542`, and nothing here narrows it further.
+⛔ **No cardinality of the truncated population is published** (`## Import-closure figures`): the
+two above are named, and a third landing past the cap would move a count written here.
+
+⚠️⚠️ **A LANDING KEY MUST SIT INSIDE THE CAP — which is the round's own region only when the round
+PREPENDS, and is measurable in either layout as the key's byte offset in the message.**  ✅ **The
+worked case demonstrates that rule rather than the luck it was first read as.**  `ROUND 4 REPAIR`
+is still `grep -qF`-reachable
+on `main`, and the cut did fall six words past its last surviving occurrence, the tail reading
+`ROUND 4 REPAIR: *NOBODY HAS TESTED ONE FIGURE I…`.  ⛔ **But that is not why it survives.**  The
+branch spreads that string **1** in round 4's own region against **10** in round 3's, and the
+landing keeps **1** and **7** ⇒ **the single occurrence in the round's own region lands whatever
+the cut does, and a membership test over the whole message succeeds if ANY occurrence survives**,
+so the cut's position is immaterial once the key is inside the cap.  ✅ **The control is in the same
+pair of objects: `ROUND 8 REPAIR` sits twice in round 8's own region and twice on `main`.**
+⛔ **What the cap CAN take is a key every occurrence of which lies PAST the cap** — the oldest
+regions on a newest-first `%B`, the newest on a newest-last one — then
+`git log -1 --format=%B <sha> | grep -qF '<key>'` FAILS on `main` for a round that landed, which is
+a false negative on the certificate this board writes in nearly every delivery comment.
+
+⚠️ **And the grading rule takes a scope rather than a retirement.**  *"A false figure in the `%B`
+lands, and landed text is permanent"* is why `%B` cells are graded harder than comment cells and
+why a multi-round branch protects its earlier regions byte-identically.  ⛔ **It holds only of text
+inside the cap**: round 1's region on `#2348` was protected byte-identically for three rounds and
+reaches `main` not at all.  ✅ **The protection discipline is unweakened by that** — it is a claim
+about the object a reviewer reads and re-derives figures from, which is the branch head and not the
+squash — ⚠️ **but a round that grades a cell by *it lands, therefore it is permanent* owes the byte
+reading of its own message first, and a round whose `%B` is approaching this scale should read the
+byte offset of its own landing key rather than trust its region.**
+
 ### The neighbour population
 
 A round in review publishes a **merge gate**: `git merge-tree` against `main`, and against the
