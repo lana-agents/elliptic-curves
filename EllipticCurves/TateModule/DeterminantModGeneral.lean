@@ -31,10 +31,21 @@ first of those on a curve that exists.
 
 ⚠️ **`#1549` left the placement open and it is the only real cost on this front, so it is measured
 rather than argued.**  `EllipticCurves.Torsion.StructureGeneral` is not in
-`DeterminantModSmooth`'s import closure and pulling it in there costs **+34 modules** (37 → 71),
-nearly doubling that file, and **+34** again in `EllipticCurves.TateModule.MatrixRepMod` (40 → 74),
-which imports it.  As a leaf the same edge costs **0** to every existing file and the general forms
-are still available to every future consumer by one import.
+`DeterminantModSmooth`'s import closure and pulling it in there costs **+34 modules**, nearly
+doubling that file, and **+34** again in `EllipticCurves.TateModule.MatrixRepMod`, which imports it.
+As a leaf the same edge costs **0** to every existing file and the general forms are still available
+to every future consumer by one import.
+
+⚠️⚠️ **The `+34` is what that argument uses and it is INVARIANT; the endpoint pairs that stood in
+the two clauses above are not.**  *"(37 → 71)"* and *"(40 → 74)"* were exact at `542e721`, each
+closure not counting the module itself.  At `73ee8eb1` the same walk reads **38 → 72** and
+**41 → 75** — ⚠️ **both ends of both pairs `+1`, and the delta still `+34`** — the single entering
+module being `EllipticCurves.Torsion.FourNeZero`, which entered at `0e13ff0f`, a consolidation that
+retired seven `private` copies of `(2 : F) ≠ 0 → (4 : F) ≠ 0` into one public leaf.  ⚠️⚠️ **That
+commit's own diff names neither this file nor either measured module**, which is why no gate
+reported it: a consolidation adds one module to the closure of every consumer at once, the shape
+`README.md`'s `## Import-closure figures` now records.  ⚠️ `StructureGeneral` is still absent from
+`DeterminantModSmooth`'s closure at both refs, so the placement reading does not move.
 
 This is the shape `EllipticCurves.TateModule.OpenKernelGeneral`,
 `EllipticCurves.TateModule.FreeGeneral` and `EllipticCurves.TateModule.MatrixRepGeneral` already
