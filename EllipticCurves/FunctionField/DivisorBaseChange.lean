@@ -69,7 +69,15 @@ hypothesis, and is applied here as `isScalarTower_functionFieldMap W K rfl`, whi
 `isScalarTower_coordinateRing_baseChange` needs no such treatment because both of its algebras are
 global.  ⚠️ **None of this is visible to `grep`, to `lake build` or to `lake lint`** — only to
 `Expr.getUsedConstants` on the elaborated type, which is how *"no statement below mentions it"* is
-checked, over all **22** public declarations at once.
+checked, over all **22** public declarations at once.  ⚠️ **That `22` is a count taken outside
+this module block, and a line-anchored key gets it right only by cancelling one error against
+another**: `^(private )?(noncomputable )?(theorem|lemma|def|abbrev|instance)`, with the `private`
+rows dropped, returns **21** outside the block and misses `algebraFunctionFieldMap`, whose `def`
+opens `@[reducible] noncomputable def`; run over the whole file it returns **22**, the extra being
+a wrapped docstring line of this very section whose text begins with the word `instance`.  ⚠️ **The
+false positive (+1) and the miss (−1) cancel**, so the scope and both members are named rather than
+the total alone.  `## ⚠️ Two recogniser blind spots, and this file supplies a specimen of each`
+takes that mode tree-wide and names this clause as its specimen.
 
 ## Main definitions
 
@@ -237,6 +245,161 @@ at the closed point of the rational point `(0, 0)` and at the function `x`.
   `F` itself would certify nothing.  ⚠️ **The two certificate points are different objects over
   different rings** — `certPoint` is a `HeightOneSpectrum` of `K[W⁄K]` and `certPointBase` one of
   `ℚ[W]` — and it is the second that this section needed and did not have.
+
+## ⚠️ Two recogniser blind spots, and this file supplies a specimen of each
+
+`#2199`, out of `#2184`'s pointer sweep.  Both seeds are published with their recogniser, their
+corpus and their sha so that a re-runner reproduces them rather than re-invents one (`README.md`
+`### Reach clauses`, `#2087`), and ⚠️ **nothing anywhere is repaired on the strength of this
+section**: a population is measured before it is swept.
+
+⚠️ **EVERY COORDINATE BELOW IS AT `0b8f3d1`, NOT AT THIS HEAD.**  This section is itself an
+insertion into the module block it censuses: it moves every line of this file below `:72` and it
+adds directional words of its own, so both of its figures are published as **deltas** and neither
+is an endpoint pair (`README.md` `### The neighbour population`).  ⚠️ **A census of a file,
+published inside that file, cannot be keyed on this head without going stale on the next edit —
+which is `#2037`'s axis, turned on this paragraph.**  Read the coordinates with
+`git show 0b8f3d1:EllipticCurves/FunctionField/DivisorBaseChange.lean`.
+
+⚠️⚠️ **THE BASE MOVED UNDER THIS SECTION BETWEEN TWO ROUNDS, AND IT MOVED ONE OF ITS TWO CENSUSES
+AND NOT THE OTHER — WHICH IS THE WHOLE DIFFERENCE BETWEEN A REF AND A PREDICTION.**  Round 1 keyed
+every coordinate here to `5dba859`; `0b8f3d1` landed at 2026-09-27T01:29:48Z.  This file's blob is
+`34a6b2c100a5adde9e12a819fe13c8d937e86c78` at **both**, so the module-block census below is unmoved
+across the base change and all sixteen of its line numbers still resolve.  ⚠️ **The tree-wide
+census is not**: `0b8f3d1` is PR #813, which repaired `XDifference`:70 — **the one row this seed
+convicted** — so that population reads `77 in 45` at `5dba859` and **`76 in 44`** here, and the row
+is discharged.  ⚠️ **A delta's FIRST endpoint is a fact about a ref; its SECOND is a prediction
+about a tree nobody has built, and a LANDING turns the second into the first with no edit to either
+branch.**  Round 1 published the second endpoint of the tree-wide delta as `82 in 45`; the landing
+falsified both of its numbers before anyone could re-run it, and the figure below is a fact about
+`0b8f3d1` and this commit rather than a prediction about an order of landings.
+
+### 1. A pointer keyed on a definite noun phrase is a third shape
+
+`\b(above|below|earlier|later|preceding|following)\b` inside this module block, `:13`–`:245`,
+returns **16** occurrences on **16** lines at `0b8f3d1`, in **six** shapes:
+
+     2  mathematical `above`, one place lying over another       `:204` `:234`
+    10  directional over a named region, subject named           `:57` `:116` `:140` `:145` `:168`
+                                                                 `:182` `:185` `:196` `:200` `:205`
+     1  text pointer keyed on a NAME                             `:148`
+     2  text pointer keyed on a DEFINITE NOUN PHRASE             `:158` `:190`
+     1  the seed matching inside a MARKED QUOTATION              `:71`
+     0  text pointer keyed on a COORDINATE                       discharged by PR #808
+
+⚠️ **Published as a delta, because this section is inside the block it counts**: the six-way census
+is `0b8f3d1`'s, and this commit adds **25** occurrences on **18** lines here and
+**0** in the `22` repair, so the same seed over the same block returns **41** on
+**34** once this lands.  ⚠️ **No landing order changes THAT — and the clause is scoped to
+this census and to this file**, which no other open pull request touches, measured and not assumed.
+It says nothing about the tree-wide figures below, where landing order is exactly what moved them.
+
+⚠️ **The figure published for this census is `17` at four shapes, and that is the count at
+`c6ef24a` — the PARENT.**  PR #808's own repair of `:153` deleted the word *above* from that line,
+so the census in its message is one its own head already falsified (`#1972`).  ⚠️ **And `:71`
+is a shape the same commit created**: the repair there put a marked quotation of `:57` on the line,
+and the seed now scores the quoted *below* — not a pointer of that sentence at all.
+
+`:158` (*"the derivation above"*) and `:190` (*"The absence above"*) are sound, and the reason is a
+SCOPE and not a name: each points inside its own bullet — `:158` to the derivation at `:152`–`:155`
+and `:190` to the clause at `:185` — so the referent travels with the pointer under any insertion
+outside that bullet.  ⚠️ **A second derivation, or a second absence, inserted INTO either bullet
+makes it ambiguous with no edit to either file**, which is `#2184`'s criterion rather than
+`#2037`'s.  A name cannot fail that way and a coordinate fails louder.
+
+**Tree-wide the shape is a register and not a defect.**  Whitespace-normalised, over the **435**
+tracked `.lean` files and `README.md` at `0b8f3d1`:
+
+    \b[Tt]he (claim|absence|derivation|argument|ruling|bullet|sentence|paragraph|list|table)
+    (above|below)\b
+
+returns **76** occurrences in **44** files — *paragraph* 27, *sentence* 23, *argument* 8, *bullet*
+6, *list* 3, *ruling* 3, *claim* 2, *table* 2, *derivation* 1, *absence* 1 — and **58** *above*
+against **18** *below*.  ⚠️ **A per-line grep returns 64 of the 76; twelve WRAP** (`#2190`).
+**74** of the **76** carry eight or more words of their own unit before the pointer, so the
+referent can sit inside it.  ⚠️ **Two open their unit and must point outside it, and both are
+sound, by two different routes:**
+
+* `README.md:917` — *"the reason the paragraph above already gives about
+  `exists_gS_n_weilPairingElt_ne_one`"*: the pointer phrase carries a NAME, so it is sound the way
+  a name is.  It is also the repair a scope-less pointer wants.
+* `EllipticCurves.FunctionField.PullbackDivisor`:42 — *"The argument below"* opens a paragraph and
+  points forward inside its own `##` section.
+
+⚠️ **The third member of that bucket was the one row this seed convicted, and it is DISCHARGED at
+this base.**  At `5dba859` the seed returned **77** in **45** with the split **74 / 3**, and the
+third was `EllipticCurves.Torsion.XDifference`:70, whose first prose line after the `##` at `:68`
+read *"The derivation above is three lines of `ring` on top of the `r = 1` relation"* — keyed to
+`5dba8596d1dadfb67e82578f5c85d71469836f6d:EllipticCurves/Torsion/XDifference.lean:70`, because
+those words are absent from `0b8f3d1` and from every tree after it and that ref is the only
+spelling a later reader can reach them at.  Its referent was the derivation at `:17`–`:34`, in the
+H1 body two `##` sections above, and neither paragraph immediately before `:68` contains one.  It
+was filed as `#2208` rather than folded into whoever opened that file next — `#2184` exists to say
+that a note with no addressee is nobody's job — and ⚠️ **PR #813 landed that repair, which is the
+whole reason the population above is one smaller than round 1's.**
+
+⚠️ **So the shape needs no sweep and no `README.md` rule: 74 of the 76 are sound by scope, the
+remaining two by a name and by a direction, and the one row that failed was filed and repaired in
+the time this branch took to write two rounds.  What the shape needs is the scope condition stated
+once, which this subsection is.**
+
+⚠️ **A delta again, and in THREE rows rather than two, because this commit's additions do not
+belong in either existing bucket**: it adds **5** occurrences on **4** lines to
+that seed, so the tree returns **81** in **44** once this lands.  ⚠️ **Every one of
+them sits inside a marked quotation of a row this section reports, and a quoted pointer points
+nowhere** — so the mechanical *eight words of its own unit* key drops them in the second bucket
+while that bucket's stated predicate, *must point outside it*, is false of every one of them.  They
+are counted as their own row instead of absorbed:
+
+    74          carry >= 8 words of their unit before the pointer   unmoved by this commit
+     2          open their unit and point outside it                unmoved by this commit
+     5          inside a marked quotation, pointing nowhere         ⚠️ all of this commit's
+
+**That is the shape `#2206` is about, met while measuring something else — and it is the same
+correction this subsection makes to PR #808 at the file level, now made to itself at the tree
+level.**
+
+### 2. A line-anchored declaration key matches docstring prose
+
+Every module docstring in this development wraps at 100 codepoints, so any `^`-anchored declaration
+recogniser can land on a prose line that merely begins with a Lean keyword.  Scored as prose when
+the line lies inside a `/- … -/` block, over the **435** tracked `.lean` files at `0b8f3d1`:
+
+    ^(private |protected |noncomputable |@\[[^\]]*\] )*
+     (theorem|lemma|def|abbrev|instance|structure|class|example)\b
+
+returns **6044** hits, of which ⚠️ **131 in 98 of the 435 files are not declarations of their
+file** — **122** wrapped prose on a keyword, in **93** files, and **9** a signature or a code sample
+printed inside a docstring.  By keyword: `instance` **58**, `theorem` **42**, `structure` **13**,
+`class` **10**, `lemma` **6**, `example` **1**, `def` **1**.  At `0b8f3d1` this file carries
+exactly one of the 122 — the wrapped `instance` line under
+`## ⚠️ The instance layer is the work, and it is deliberately not global`, which is the false
+positive that section's own `22` clause names.  ⚠️ **The heading is given in full because this
+file carries a second one reading `## The instance layer`, outside the module block**, and a
+prefix would key on neither.  ⚠️ **Every cell of this census is identical at `5dba859` and at
+`0b8f3d1`** — the 6044, the 131, the 98, the keyword split and this file's one member at `:64` —
+which is what a census keyed on a corpus rather than on one blob does when the base moves under it.
+
+⚠️ **This subsection adds none of the 131, and that is a check rather than an assumption**: a
+draft of it did add one — a wrapped line whose text began with the word `instance` — and the seed
+is what found it.  It was re-wrapped and the seed re-run until the tree returned the base figure.
+**The mode is a property of prose wrapped at a fixed width, so nothing here is safe from it by
+being about it.**
+
+⚠️ **The general form, and it reaches past declarations: a recogniser whose blind spots cancel
+is indistinguishable from a correct one at the total.**  That `22` clause is the clean instance: a
+re-runner who applies the key to the whole file gets the true **22** and concludes the key needs no
+scope, which is the opposite of what the clause says.  The only test that separates the two is
+**printing the membership**, which `README.md` `### Reach clauses` already asks of a population
+claim (`#1668`).  ⚠️ **`main` publishes a `^`-anchored declaration key in 10 of its 759 commit
+messages and `README.md` publishes one 0 times** — where *a key* is read as
+`` \^[^\n]{0,120}?\b(theorem|lemma|def|abbrev|instance|structure|class|example)\b ``, printed
+because the count is a function of it: the same corpus returns **4** if the key must lie inside one
+backticked span and **2** if the caret must be followed immediately by the keyword or by a group
+opening it, and a fourth reading returned the **6** this clause published in round 1 with no
+recogniser beside it.  ⚠️ **The `0` is 0 under every reading tried**, so the direction of the claim
+survives the spread and the absolute does not — which is the point: every such count on this board
+was taken against a recogniser its reader cannot reconstruct (`#2087`).
 
 ## References
 
