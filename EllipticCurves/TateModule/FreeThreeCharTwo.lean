@@ -62,7 +62,7 @@ general route needs are, at `ℓ`:
 
 Input 1 is unconditional at `ℓ = 3` — `EllipticCurves.Torsion.TriplingSurjective`'s
 `nsmul_three_surjective` binds nothing — and inputs 2 and 3 come from
-`EllipticCurves.Torsion.TorsionCountCharFree`'s `card_torsion_three_pow_of_two_eq_zero` and
+`EllipticCurves.Torsion.TorsionCountCharFree`'s `card_torsion_three_pow_mul_self_of_two_eq_zero` and
 `nonempty_torsion_three_addEquiv_of_two_eq_zero`.  ⚠️ **Those two rest on
 `separable_Ψ₃_of_two_eq_zero`, and separability of `preΨ_ℓ` at `2 = 0` is proved in this tree at
 `ℓ = 3` and nowhere else**: that file's own `section Obstruction` shows the coprimality route to it
@@ -150,7 +150,7 @@ The isomorphism depends on a choice of coherent system of generating pairs, so i
 `finrank_tateModule_three_of_two_eq_zero`. -/
 theorem nonempty_tateModuleEquivProd_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Nonempty (W.tateModule 3 ≃ₗ[ℤ_[3]] ℤ_[3] × ℤ_[3]) :=
-  nonempty_tateModuleEquivProd_of_card (card_torsion_three_pow_of_two_eq_zero h2)
+  nonempty_tateModuleEquivProd_of_card (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
     (exists_compatible_basis_three_of_two_eq_zero h2)
 
 /-- **`T₃E` is a free `ℤ_[3]`-module in characteristic `2`**, over an algebraically closed field
@@ -158,7 +158,7 @@ with `2 = 0` — Silverman, *AEC*, III.7.1 at `ℓ = 3`, in the one characterist
 hypothesis permits and no landed statement of this tree reaches. -/
 theorem free_tateModule_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Module.Free ℤ_[3] (W.tateModule 3) :=
-  free_tateModule_of_card (card_torsion_three_pow_of_two_eq_zero h2)
+  free_tateModule_of_card (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
     (exists_compatible_basis_three_of_two_eq_zero h2)
 
 /-- **`T₃E` has rank two over `ℤ_[3]` in characteristic `2`**, over an algebraically closed field
@@ -167,7 +167,7 @@ with `2 = 0`.
 Together with `free_tateModule_three_of_two_eq_zero` this is `T₃E ≅ ℤ₃²`. -/
 theorem finrank_tateModule_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Module.finrank ℤ_[3] (W.tateModule 3) = 2 :=
-  finrank_tateModule_of_card (card_torsion_three_pow_of_two_eq_zero h2)
+  finrank_tateModule_of_card (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
     (exists_compatible_basis_three_of_two_eq_zero h2)
 
 /-- **`T₃E` is a finitely generated `ℤ_[3]`-module in characteristic `2`**, over an algebraically
@@ -175,7 +175,7 @@ closed field with `2 = 0`.  Free of rank two, so in particular finite as a modul
 shape `ρ_{E,3} : G_F → GL₂(ℤ_3)` needs. -/
 theorem finite_tateModule_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Module.Finite ℤ_[3] (W.tateModule 3) :=
-  finite_tateModule_of_card (card_torsion_three_pow_of_two_eq_zero h2)
+  finite_tateModule_of_card (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
     (exists_compatible_basis_three_of_two_eq_zero h2)
 
 /-- **`T₃E` is infinite in characteristic `2`**, over an algebraically closed field with `2 = 0`:
@@ -187,14 +187,14 @@ projections**: `proj_three_surjective` binds nothing, so `h2` enters here only t
 theorem infinite_tateModule_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Infinite (W.tateModule 3) :=
   infinite_tateModule_of_card (by norm_num) proj_three_surjective
-    (card_torsion_three_pow_of_two_eq_zero h2)
+    (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
 
 /-- **`T₃E` is nontrivial in characteristic `2`**, i.e. it is not the zero module.  Weaker than
 `infinite_tateModule_three_of_two_eq_zero`, but this is the form a consumer usually wants. -/
 theorem nontrivial_tateModule_three_of_two_eq_zero (h2 : (2 : F) = 0) :
     Nontrivial (W.tateModule 3) :=
   nontrivial_tateModule_of_card (by norm_num) proj_three_surjective
-    (card_torsion_three_pow_of_two_eq_zero h2)
+    (card_torsion_three_pow_mul_self_of_two_eq_zero h2)
 
 /-- **`T₃E` has a nonzero element in characteristic `2`.**  The unbundled form of
 `nontrivial_tateModule_three_of_two_eq_zero`. -/
