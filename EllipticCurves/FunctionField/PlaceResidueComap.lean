@@ -58,11 +58,24 @@ the target is `φ x` with `φ x ∈ placeOf W p`, which is exactly membership of
 * `WeierstrassCurve.Affine.CoordinateRing.residueDegreeTwo` and
   `residueDegreeProj_mul_residueDegreeTwo` — the `[2]∗` instantiation, plus
   `residueDegreeTwo_none_eq_one_of_ne_zero`, which computes `f_none = 1` at the point at infinity
-  from nothing but `residueDegreeProj W none ≠ 0`.  That hypothesis is free — `#749`'s
-  `residueDegreeProj_none_eq_one` is unconditional — so the unconditional
-  `residueDegreeTwo_none_eq_one` in `EllipticCurves.FunctionField.PlaceRamificationInertia` is the
-  form to use.  ⚠️ It is now an instance of `residueDegreeComap_none_eq_one` in that same file,
-  which says `f_∞ = 1` for an arbitrary `φ`; nothing about `[2]` is involved.
+  from `(2 : F) ≠ 0` and `residueDegreeProj W none ≠ 0`.  ⚠️ **Both are named because the theorem
+  binds both**; this row and that theorem's own headline each used to name the second alone, and
+  `README.md` `### Retired claims` retires the two together at the declaration they are both about
+  (`#1846`).  The second is free — `#749`'s `residueDegreeProj_none_eq_one` is unconditional — so
+  `residueDegreeTwo_none_eq_one` in `EllipticCurves.FunctionField.PlaceRamificationInertia`, which
+  keeps `(2 : F) ≠ 0` and drops the nondegeneracy, is the form to use.  ⚠️ **The word
+  *"unconditional"* stood in front of that name here, and it is completed rather than retired**
+  (`#1846`).  It was a gate-discharge claim relative to the gate the clause before it names — the
+  nondegeneracy, which that clause calls free — so `README.md` `### Gate-discharge claims` leaves
+  it compliant where it stood and moves the completeness obligation onto the naming sentence,
+  which was short of `(2 : F) ≠ 0` and now carries it.  The explicit list that replaced it is that
+  section's own preferred repair, worked there on `card_torsion_pow_of_odd`
+  (`EllipticCurves.Torsion.PrimaryTowerOdd`), whose gate word went the same way at `cf26867` and
+  left no marked quotation in that file.  ⚠️ **The two clauses take opposite dispositions**, and
+  which list each is relative to is what separates them: the retired one is relative to this
+  statement's own hypothesis list, which is the one list a sentence elsewhere cannot complete.
+  ⚠️ It is now an instance of `residueDegreeComap_none_eq_one` in that same file, which says
+  `f_∞ = 1` for an arbitrary `φ`; nothing about `[2]` is involved.
 
 ## What is *not* here: the fundamental identity, and the route decision that unblocked it
 
@@ -364,14 +377,32 @@ theorem residueDegreeTwo_eq_one_of_residueDegreeProj_eq_one (h2 : (2 : F) ≠ 0)
     (hp : residueDegreeProj W p = 1) : residueDegreeTwo h2 p = 1 :=
   (residueDegreeComap_eq_one_of_residueDegreeProj_eq_one _ _ hp).2
 
-/-- **`[2]∗` is residually trivial at the point at infinity**, on nothing but the nondegeneracy of
-`κ(∞)` over `F`.
+/-- **`[2]∗` is residually trivial at the point at infinity**, on `(2 : F) ≠ 0` and the
+nondegeneracy of `κ(∞)` over `F`.
 
 `comapProjPointTwo h2 none = none` (`MulByTwoPlaceAtInfinity`), so the tower formula degenerates to
 `d · f_none = d` with `d = residueDegreeProj W none`; cancelling needs only `d ≠ 0`.  That is
 strictly weaker than knowing `d = 1`, and it is what makes this the natural non-vacuity target for
 the fibre of `comapProjPointTwo` over `none`: `[2]` fixes infinity, is unramified there
-(`ramificationIdxTwo_none`) and, by this, residually trivial there. -/
+(`ramificationIdxTwo_none`) and, by this, residually trivial there.
+
+⚠️ **RETIRED — `(2 : F) ≠ 0` was never absent from this statement** (`#1846`).  This headline read
+*"on nothing but the nondegeneracy of `κ(∞)` over `F`"* and the `## Main results` row for this
+theorem read *"from nothing but `residueDegreeProj W none ≠ 0`"*.  `d22520d` (`#744`, PR #305,
+2026-08-22) wrote the theorem and both clauses in one commit, and the theorem has bound
+`(h2 : (2 : F) ≠ 0)` since, so neither clause was ever true rather than having gone stale.  Both
+now name `(2 : F) ≠ 0` beside the nondegeneracy — the headline above, and the row in this file's
+module block, which is where the replacement of the row's wording can be read.  Being an explicit
+argument of `residueDegreeTwo h2 p` does not clear the binder: `README.md` `### Reach clauses`
+decides that case by subject matter, ruling that *"`(2 : F) ≠ 0` restricts the field the statement
+is over"* while what a data argument clears is a condition on *"the argument the caller passes
+in"*.  ⚠️ **They are retired rather than completed** on that section's own discriminator — whether
+a clause can be completed by extending its own list, or only by deleting its own words: naming
+`(2 : F) ≠ 0` strikes *"nothing but"* out of both, which is the branch PR #707's retirement took
+and not the branch `#1790`'s two completed lists took.  `README.md` `### Module-block bullets`
+names *"from nothing but"* in terms as a claim about the hypothesis list itself, so no register of
+this block could have made either clause true.  Both are claims about this declaration, so
+`### Retired claims`' subject test retires them once, here. -/
 theorem residueDegreeTwo_none_eq_one_of_ne_zero (h2 : (2 : F) ≠ 0)
     (hd : residueDegreeProj W (none : ProjPoint W) ≠ 0) :
     residueDegreeTwo h2 (none : ProjPoint W) = 1 := by
