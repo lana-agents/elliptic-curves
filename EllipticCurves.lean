@@ -350,6 +350,7 @@ import EllipticCurves.TateModule.DeterminantThree
 import EllipticCurves.TateModule.Free
 import EllipticCurves.TateModule.FreeGeneral
 import EllipticCurves.TateModule.FreeThree
+import EllipticCurves.TateModule.FreeThreeCharTwo
 import EllipticCurves.TateModule.GaloisAction
 import EllipticCurves.TateModule.GeneralLinearGroup
 import EllipticCurves.TateModule.Image
