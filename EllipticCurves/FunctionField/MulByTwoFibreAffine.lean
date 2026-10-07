@@ -105,8 +105,8 @@ valuation theory beyond what is merged:
   is not `2`-torsion, so each of the four roots of `Ψ₃` carries **two** points and the count there
   is `1 + 2·4 = 9`, reached as a coset of `E[3]` rather than one point per root.
 * General `[n]∗`.  ⚠️ **The clause this bullet used to carry has been paid** — it read
-  *"`mulByNEndo` does not exist"*.  `[n]∗` at every `n` is `mulByNEndo`,
-  `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+  *"`mulByNEndo` does not exist"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is
+  non-constant, `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ What is `[2]`-specific is `#763`'s
   right-hand side `4` (its `n = 3` counterpart is
   `EllipticCurves.FunctionField.MulByThreeRamification`'s `9`), and no general-`n` fibre count is

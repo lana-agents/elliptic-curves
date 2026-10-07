@@ -132,8 +132,8 @@ identity is a different theorem rather than a descent of this one.
   one a descent over an extension of `F` can use.
 * **General `n` stays out of this file.**  ⚠️ **The clause this bullet used to carry has been
   paid** — it read *"`mulByNEndo` does not exist; `[2]∗` and `[3]∗` are the two concrete
-  endomorphisms this tree has"*.  `[n]∗` at every `n` is `mulByNEndo`,
-  `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+  endomorphisms this tree has"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is
+  non-constant, `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
   `EllipticCurves.FunctionField.MulByNPlacePullback`.  ⚠️ No general-`n` residue degree is
   defined here, and `#404`'s general `ωₙ` is untouched here — it is not what `[n]∗` needed, and it
   is no longer open (`WeierstrassCurve.Affine.equation_div_of_ψ_ne_zero`,

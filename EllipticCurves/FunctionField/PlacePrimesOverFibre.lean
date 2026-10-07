@@ -112,8 +112,8 @@ the `[2]∗` section of this file is stated for an arbitrary `φ` and serves the
 has no case here); `#E[n] = n²`; and any comparison with `degPt`.
 
 ⚠️ **The reason clause the general-`[n]∗` parenthetical used to give has been paid** — it read
-*"`mulByNEndo` not existing"*.  `[n]∗` at every `n` is `mulByNEndo`,
-`EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
+*"`mulByNEndo` not existing"*.  `[n]∗` is `mulByNEndo` at every `n` at which `[n]` is
+non-constant, `EllipticCurves.FunctionField.MulByNPullback`, with its place layer in
 `EllipticCurves.FunctionField.MulByNPlacePullback`.  What keeps the identity above `[2]`-specific
 is its right-hand side `4`, not the endomorphism.
 
