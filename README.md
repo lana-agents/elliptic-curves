@@ -4593,6 +4593,247 @@ from a review comment's own emphasis being read back as the source's — the one
 cause, and the rule it wants is to re-read the source at the named ref rather than carry markup
 across from a thread.
 
+### Cross-branch quotation exposure
+
+⚠️ **`### Retired claims` makes a marked quotation the way a claim is retired. This one is about a
+marked quotation that a DIFFERENT commit retires, by deleting the prose the quotation resolves
+against — and about why no gate here can see it happen.** A branch quotes a sentence of
+`README.md`; another open branch replaces that sentence; neither edits the other's region, so
+`git merge-tree --write-tree` exits **0** on the pair and the merge gate passes in both
+directions. When both land, the page holds the quotation and not its source. ⚠️ **Every one of
+the four pages — `main`, each head, and the merged page — is internally consistent. The defect
+exists only in the pair**, which is why a per-branch instrument cannot return it however
+carefully it is run. ⚠️ **That section is NAMED and not pointed at: a positional pointer goes
+false when any branch inserts a `### ` between the two, with no edit to either text, which is
+`#2208`'s class and this section's own subject one layer up.**
+
+⚠️ **It is not `### Retired claims`' own case and it is not `#2116`'s.** That section governs a
+clause *this* diff falsifies; here the falsifying diff is somebody else's. `#2116` is a citation
+whose target moves one hop down; here the target is **deleted**.
+
+⚠️ **AND THE FALSIFYING COMMIT DOES NOT HAVE TO BE UNLANDED — THE THIRD ROW OF THIS CLASS IS A
+FACT ABOUT `main`, AND ITS REMOVER LANDED AT 2026-09-27T01:29:48Z, 44 m 13 s BEFORE THE
+MEASUREMENT CLOCK BELOW.** PR #812
+(open, in review, head `4f59a865fdc8753363f12f35319e263f2379f31b`, `%cI` 2026-09-26T23:38:37Z)
+adds to `EllipticCurves/FunctionField/DivisorBaseChange.lean`:313 a marked quotation of
+*"The derivation above"*, attributed to `EllipticCurves.Torsion.XDifference`:70 and keyed to no
+ref; it resolved at `5dba859:EllipticCurves/Torsion/XDifference.lean:70`, which is the key rule 1
+asks for. **PR #813 landed as `0b8f3d1` at 2026-09-27T01:29:48Z and replaced those words with the
+declaration name** — it is the repair of the very row PR #812 reports. So at `0b8f3d1`,
+`git grep 'The derivation above'` over the tracked tree returns ⚠️ **0 hits**, while
+`git merge-tree --write-tree 4f59a865 0b8f3d1` exits **0** and writes
+`461e470c09a66808cf996a8195978835f8e6f3dd`, on which the phrase occurs in ⚠️ **exactly one file:
+PR #812's own quotation of it** — ⚠️⚠️ **so a corpus-wide span test CLEARS that quotation on its
+own printing**, `#1942`'s self-certifying bucket reached from outside. ⚠️ **The pointer half is
+sound**: `XDifference`:70 still exists and still opens a derivation sentence, so `#2037`'s
+line-keyed instrument scores it clean. **The coordinate survived and the words did not, which is
+the distinction this whole section is about.** ⚠️ **And the row is invisible to every figure
+below: the census is scoped to `README.md` and this pair is `.lean` → `.lean`** — not a sampling
+choice a longer run would fix, but the reason the row had to be found by hand, and the
+ordered-pair sweep over the `.lean` layer has never been run. ⚠️ **And the clause above becomes a
+SECOND clearer of that quotation the moment this branch lands**, widening `#1942`'s self-certifying
+bucket by the very diff that reports it; the clause itself survives because it is keyed to the
+merged tree `461e470c…` and not to the corpus.
+
+**Measured over the live set, one `git ls-remote upstream` pass at 2026-09-27T02:14:01Z**: **918**
+refs, **813** `refs/pull/*/head`, **36** `refs/pull/*/merge` → **36** open pull requests, ⚠️ **this
+branch among them**, every head re-fetched with a leading `+` first. `main` =
+`0b8f3d11639df02a5f891f6f4337a41bfdf0ade3` (`%cI` 2026-09-27T01:29:48Z). The sweep's objects are
+the **35** others, plus **#471** (which advertises a `/head` and no `/merge`), plus this branch's
+own tip → **37**. **20 of the 37** add a marked quotation to `README.md`, **197** in all; ⚠️
+**without this branch, 19 and 189**. ⚠️ **Those four numbers are keyed to the ADDED LINES of
+each object's diff against its OWN merge-base, flattened before the spans are matched, and to an
+UNBOUNDED quotation body (`.*?` under `re.S`)** — and neither the key nor the atom was named beside
+them. A page-to-page reading, head page less merge-base page as a multiset, gives **19 / 194** and
+**18 / 186** over the same objects at the same heads; the bounded body this page uses on the message
+layer (4 to 400 characters, no quote mark inside) gives **20 / 191** and **19 / 185**. ⚠️ **Two
+mechanisms drive the first gap and they run in OPPOSITE directions.** A span that already occurs on
+the branch's own base page is added TEXT and not an added QUOTATION, which the diff key counts and
+the page key does not — #789's only one, and two of #752's six. And an unpaired opening delimiter
+inside a backticked regex literal bridges to the next closing one under `re.S`, manufacturing a
+single span of **5725** codepoints, which the page key counts and the diff key cannot because
+the closing delimiter falls outside the diff — #774's third, and ⚠️ **an artefact of the atom and
+not a fact about the branch**, which the bounded body kills. **Two of the 189 are already dead on
+arrival:**
+
+    row 1  quoter  #792  cd63ee19be77a6c592cc8e409d7b66f5b9e9d182
+           remover #810  2ee94268afa972d28645278a7dee0ebf22f64207
+           merge-tree --write-tree → exit 0, tree 41974af805c1545079c3350436988e0cd1b6a5dc
+    row 2  quoter  #754  e3ef2ee04555dab5c17d2bc6abeceb6a3b384478
+           remover #752  9471324d422dffceedecf61177724d0d182d8e44
+           merge-tree --write-tree → exit 0, tree 56927b18fff61b873a96119a0d80938ea9ddaaf5
+
+Row 1's quotation is *"one, three and two occurrences"*, keyed: it resolves at
+`0b8f3d1:README.md:4513`. Row 2's is *"in eleven files, filed rather than swept"*, keyed:
+`0b8f3d1:README.md:1434-1435` — ⚠️ **two lines, because it WRAPS, so the key is a range and a
+line-keyed grep for it returns `0` where a whitespace-normalised one returns `1`** (`#2190`,
+inside the key itself). ⚠️ **Row 2 has been in this state since 2026-09-15T02:20:17Z**, the
+`%cI` of the later of its two heads: both branches are approved and unlanded, and whoever
+drains that queue lands the pair. ⚠️ **Row 1's two heads have BOTH moved since this section was
+first written** — #810 to `2ee94268` at 23:36:30Z and #792 to `cd63ee19` at 00:08:47Z — **and the
+row survives both: every cell of the table below is unchanged and only the merged tree's oid
+moved.**
+
+⚠️ **THE TWO READINGS, AND THE WHOLE CLASS LIVES IN THE GAP BETWEEN THEM.** *raw* is the
+whitespace-normalised count over the whole page; *prose* is the same count after deleting every
+`*"…"*` span. Both rows, cell for cell, at the six objects named above:
+
+    page                 raw   prose
+    main                  1      1
+    remover's own base    1      1
+    remover's head        1    ⚠️ 0
+    quoter's head         2      1
+    ⚠️ merged page        2    ⚠️ 0
+
+Read that across. ⚠️ **The remover does not delete the string — it DEMOTES it**, keeping a marked
+quotation of the sentence it replaces, which is what `### Retired claims` asks of it. So the
+merged page holds **two** occurrences and **zero** of them is a source, and a raw reading scores
+the row `IN` on the strength of the two quotations themselves.
+
+**What this section rules, and the four are ordered by how cheap they are to run.**
+
+1. ⚠️ **A marked quotation of prose that is still live is KEYED, on the page, at the ref it
+   resolves at.** A sha in the commit message does not discharge it: the message is not the layer
+   a later reader opens, and `### Retired claims` already requires the attribution to travel with
+   the quotation. **A keyed quotation is not exposed by the test below** — the ref decides, and no
+   later diff can move it. ⚠️ **The rule binds quotations added from here on and NOT the tree
+   behind it, and the retrospective population is COUNTED here rather than waved at, because that
+   count is the cost of the other reading.** At `0b8f3d1`, marked quotations of four words or more
+   whose text still occurs in the marked-span-stripped prose of some tracked `.md`/`.lean` file:
+   **289** in `README.md` and **260** across the other **435** files. Under a deliberately
+   generous key detector — any 7–40-hex sha, `<path>:NNN`, or a bare `:NNN` within 300 characters
+   of the span — only **77** and **30** score keyed, leaving ⚠️ **212 + 230 = 442 unkeyed**.
+   ⚠️ **442 is a FLOOR and not an estimate: a proximity detector can only over-attribute keys, so
+   widening the window moves rows out of the unkeyed column and never into it** — at a full
+   **1000** characters `README.md` alone still leaves **130**.
+   ⚠️ **That detector is under-specified in FOUR flags, and the keyed sub-cell is the only place
+   they show: which atoms count, whether the 300 characters are measured from the span's ends or
+   spent across it, whether the text is flattened first, and whether the span's own content is
+   searched.** The atom flag is the expensive one, because `<path>:NNN` is subsumed by a bare
+   `:NNN` and a bare `:NNN` is any colon followed by digits: on `README.md` at 300 characters the
+   sha atom alone scores **71** keyed, the colon atoms alone **25**, all three together **89**,
+   against the **77** published here, and the ends-versus-across flag is worth **4** rows
+   (**89 → 85**) while the other two are inert on this page. ⚠️ **Three independent
+   implementations of this one sentence have now returned 77, 82 and 89 keyed on `README.md`** —
+   the cell above, its round-2 review's re-run, and round 3's. ⚠️ **The candidate and live cells
+   are NOT affected: 484 / 289 and 919 / 260 reproduce to the digit under every variant of the key
+   detector tried**, so
+   the spread is confined to the one sub-cell the floor claim does not need — **442**, **438** and
+   **429** are all floors and all large.
+   ⚠️ **Filed to `#1137` as a row, and nothing on it is owed to this section.**
+   `### Retired claims`' *"is retrospective and nothing is owed to it"* (`0b8f3d1:README.md:4015`;
+   that sentence's first three words are on `:4014`, inside the same `**` run) is **not** the
+   precedent, because that ruling's population already complied and this one's does not — landing a
+   rule over a population nobody owns is `#1960`'s shape.
+   ⚠️ **Both quotations printed above are keyed anyway, because this section is a member of the
+   population it measures and may not exempt itself** — with this branch in, the set is **20**
+   adders and **197** quotations, and the sweep returns ⚠️ **4** exposures under a predicate blind
+   to keys against **2** under one that honours them. **The two extra rows are this section's own
+   quotations of the two rows above, and nothing but the key clears them.**
+   ⚠️⚠️ **AND THE KEY TEST BEHIND THAT `2` IS THE QUOTATION'S OWN KEY — A REF ATTACHED TO THE
+   SPAN, AT WHICH THE QUOTED TEXT RESOLVES — AND THE PROXIMITY DETECTOR ABOVE MAY NOT BE
+   SUBSTITUTED FOR IT.** The two tests fail in opposite directions and only one direction is safe:
+   above, over-attribution moves rows out of the UNKEYED column, which is exactly what makes 442 a
+   floor; here, over-attribution moves rows out of the EXPOSED set, which CLEARS defects.
+   ⚠️ **Substituted at the 300 characters this rule publishes, the sweep returns 0 exposures on a
+   class proved by hand four paragraphs above.** The nearest key to the four exposed spans sits at
+   **10**, **25**, **75** and **236** characters, so the verdict runs **4 / 3 / 2 / 1 / 0** as the
+   window goes `10 / 20 / 30–80 / 120–200 / 300`, and the two refs that have to come out unkeyed sit
+   near their spans for reasons nothing to do with them — #792's is provenance for the claim and
+   #754's belongs to the next sentence. ⚠️ **A sweep that returns zero on a case already proved by
+   hand is an instrument bug** (rule 3), and this one is installed by reading one rule's detector
+   into another rule's verdict, which is the cheapest mistake this section makes available.
+   **The `2` is a reading of syntax and not of distance: it is taken by hand, and no window on this
+   page yields it.** ⚠️ **Even by hand it is not fully determined** — round 2's review read one of
+   those four distances as **22** where round 3 reads **25**, off the same published sentence, with
+   no verdict changed: the same under-specification one layer down.
+2. ⚠️ **The neighbour sweep owes the REMOVAL-side control, and it is one line.** The control this
+   development already runs asks *does a neighbour EDIT the region I touch*; both rows score **0**
+   on it, because neither pair overlaps. The missing half is *does a neighbour DELETE the prose my
+   quotation resolves against*: for every sentence a diff removes, grep every neighbour's **added**
+   text for it, and for every marked quotation a diff adds, grep every neighbour's **removed**
+   text. ⚠️ **Both greps run on the WHITESPACE-NORMALISED added/removed text and NEVER per line,
+   because the source may wrap (`#2190`).** Per line the second half returns **1** on row 1 and
+   ⚠️ **0 on row 2** — one of the two rows this section reports — and the half that still catches
+   row 2 catches it only because #754's quotation happens not to wrap: **luck, not the
+   instrument.** Flattened, both halves return **1** on both rows. ⚠️ **And a diff-line grep is a
+   PREFILTER and not the verdict**, because a diff line is a fact about one branch's base and the
+   exposure is a fact about the pair. The verdict is the table above, taken on the merged tree
+   ⚠️ **that `merge-tree` has been writing into the object store all along, while every gate line
+   on this page read only its exit status (`#2149`)**:
+
+       MT=$(git merge-tree --write-tree A B) && MC=$(git commit-tree "$MT" -p A -m scratch)
+       git grep -n 'the quoted words' "$MC" -- '*.lean' '*.md'
+
+3. ⚠️ **The `prose` strip is written down here, and it must strip EVERY marked span and not only
+   the row's own.** Delete each `*"…"*` span before counting, matched non-greedily and across
+   newlines, then normalise whitespace. ⚠️ **Its absence is silent, and it is the trap this class
+   is made of**: without the strip the same sweep over the same objects returns **0**
+   exposures, because the remover's own quotation clears the row. **A sweep that returns zero on a
+   case already proved by hand is an instrument bug and not a clean bill.**
+4. ⚠️ **A presence test is the wrong instrument even stripped, because the exposure is the CLAIM
+   and not the string.** At an earlier pair of heads row 1's quoting clause read *"is a live
+   claim about three open pull requests"* — keyed:
+   `a74308ae21378c914a1113679fae09bd67968709:README.md:4888`, PR #792 round 13, ⚠️ **superseded,
+   so the FULL FORTY is the only spelling that still reaches it** (`#2096`) — while the remover's
+   replacement made the same file say **five** and name them: two sentences in one `README.md`,
+   contradicting each other, with the quotation resolving in neither. A span test measures whether
+   a quotation *resolves*; nothing here measures whether the quoting sentence's content is still
+   true, and that half has no instrument.
+
+**Disposition, and it is a split.**
+⚠️ **Row 1's CONTENT half is paid and its QUOTATION half is not.** The convicted wording quoted in
+rule 4 is **0** on `main`, **0** at both of row 1's current heads and **0** on the merged page
+`41974af8…`: PR #792 rewrote the clause to *"a live claim about the open pull-request set"*
+(`cd63ee19…:README.md:4888`, and `:5218` on that merged page), so the old wording survives only at
+the superseded head rule 4 keys, and the contradiction is gone. ⚠️ **The quotation is untouched and
+still reads `2 raw / 0 prose` on the merged page**, its two sites **697** lines apart at `:4521`
+and `:5218`, because rule 1 did not exist when the clause was written. **Row 2 is nobody's active
+round.** Neither row is repaired here; both are recorded so that the next reader of either branch
+meets the rule rather than the defect.
+
+⚠️ **What is NOT measured — and FOUR MECHANISMS MOVED THESE CELLS ACROSS THREE CLOCKS 6 h 12 m
+APART, AND ONLY THE LAST MOVES ALL THREE CELLS.** The first pass of this sweep read **34 / 18 /
+188** at 2026-09-26T22:21:11Z against `main` `5dba859`; this one reads **36 / 19 / 189** at
+02:14:01Z against `0b8f3d1`; round 3 reads **37 / 20 / 197** at 04:33:23Z against the same `main`.
+What fired, and what each moves:
+
+    a NEW member                   #811 (this branch) and #812      the 36 only
+    an EXISTING member AMENDING    #809 3dbd9ccb → cf622d8d, +1      the 19 and the 189, NOT the 36
+    a member LANDING               #813, opened AND merged between   NEITHER — it moves the CORPUS
+    a NEW member that ADDS         #814, an adder, entered LATER     ⚠️ ALL THREE
+
+⚠️ **The amend is the mechanism a re-runner will not think of**: #809 went from **0** quotations at
+`3dbd9ccb4a1fa379baf3bc0034661bcfc8515125` to **1** at `cf622d8d13fe22ab5e9d9dec6e4bd569d8c88da4`
+(`%cI` 22:26:09Z) without entering or leaving the set, so the `34` was an unchanged total across a
+membership change — which `### The neighbour population` item 4 already refuses to accept as a
+check. ⚠️⚠️ **The landing is worse: #813 was opened after the first pass and merged before this
+one, so it is in NEITHER census — and it is the commit that realised row 3 above.** A population
+read at two clocks cannot see a member that lived entirely between them. The arithmetic closes at
+this clock: **20 / 197** over the 37, less this branch **19 / 189**.
+
+⚠️⚠️ **AND THE FOURTH MECHANISM FIRED WHILE ROUND 3 WAS BEING WRITTEN, WITH A COINCIDENCE IN IT
+THAT WILL FOOL THE NEXT RE-RUNNER.** One `ls-remote` pass at 2026-09-27T04:33:23Z reads **921**
+refs, **814** `refs/pull/*/head` and **37** `refs/pull/*/merge`, so with **#471** the sweep has
+**38** objects: PR #814 entered the `/merge` set between the two clocks and it is itself an adder,
+which makes it the first of the four mechanisms to move the member count, the adders and the
+quotations together. The sweep at that clock reads **21 / 205** — and ⚠️ **without this branch it
+reads 20 / 197, which is the cell published above for the 37 objects**, because #814 adds exactly
+as many marked quotations as this branch does (**8**). **A re-runner who re-reads the population at
+the later clock and forgets to drop this branch recovers the earlier number and concludes nothing
+moved.** ⚠️ **What does NOT move is the finding: 4 key-blind exposures and 2 key-aware, the same
+four members, at 37 objects and at 38, under the unbounded atom and the bounded one alike, with the
+strip-removed control still 0.** The denominators of this section drift on four mechanisms; the
+verdict it exists to publish has survived all four. The ordered-pair sweep is
+quadratic in the open set and has now been run five times — at 22:21:11Z, at 22:57:33Z by the
+review of round 1, at 02:14:01Z, by the review of round 2, and at 04:33:23Z — returning the same
+two rows every time.
+
+⚠️ **Item 5 of `### The neighbour population`'s list of what a merge bullet owes is what rule 2
+installs, and it is NOT added to that list here**, because PR #810 is editing that section and a
+prescribed placement that has not been merge-tested is a diff nobody measured. **A re-runner who
+reads the list and not this rule gets four items.**
+
 ### Import-closure membership
 
 A module docstring that says *"`X` is not in this file's import closure"*, *"the two are
