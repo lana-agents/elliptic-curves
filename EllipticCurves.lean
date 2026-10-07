@@ -373,6 +373,7 @@ import EllipticCurves.TateModule.MatrixRepGeneral
 import EllipticCurves.TateModule.MatrixRepMod
 import EllipticCurves.TateModule.MatrixRepModGeneral
 import EllipticCurves.TateModule.MatrixRepThree
+import EllipticCurves.TateModule.MatrixRepThreeCharTwo
 import EllipticCurves.TateModule.OpenKernel
 import EllipticCurves.TateModule.OpenKernelGeneral
 import EllipticCurves.TateModule.PadicInverseLimit
