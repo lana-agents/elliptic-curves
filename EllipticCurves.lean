@@ -163,6 +163,7 @@ import EllipticCurves.FunctionField.PullbackPrincipalityN
 import EllipticCurves.FunctionField.PullbackPrincipalityNGeneral
 import EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsion
 import EllipticCurves.FunctionField.PullbackPrincipalityNRationalTorsionHprin
+import EllipticCurves.FunctionField.PullbackPrincipalityNTower
 import EllipticCurves.FunctionField.PullbackPrincipalityThree
 import EllipticCurves.FunctionField.PullbackPrincipalityThreeGeneral
 import EllipticCurves.FunctionField.PullbackPrincipalityThreeRationalTorsion
@@ -423,6 +424,7 @@ import EllipticCurves.Torsion.NsmulSmoothSurjective
 import EllipticCurves.Torsion.NsmulSurjective
 import EllipticCurves.Torsion.NsmulYCoord
 import EllipticCurves.Torsion.NsmulYPeriodic
+import EllipticCurves.Torsion.NthPartGaloisTower
 import EllipticCurves.Torsion.NthPartSeparable
 import EllipticCurves.Torsion.OddTorsionCount
 import EllipticCurves.Torsion.OddTorsionCountSplits
