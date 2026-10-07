@@ -34,11 +34,12 @@ it, and the whole counting lane comes out unconditional.
   curve over every field with `2 = 0`, and hence `card_torsion_three_of_two_eq_zero`
   (`#E[3] = 9`) and `nonempty_torsion_three_addEquiv_of_two_eq_zero` (`E[3] ≃+ (ℤ/3ℤ)²`) over an
   algebraically closed field of characteristic `2`.
-* `nonempty_torsion_three_pow_addEquiv_of_two_eq_zero` and `card_torsion_three_pow_of_two_eq_zero`
-  — **the whole `3`-primary tower in characteristic `2`**: `E[3^k] ≃+ (ℤ/3^kℤ)²` and
-  `#E[3^k] = (3^k)²` at **every** `k`, over an algebraically closed field with `2 = 0`.  These
-  consume `EllipticCurves.Torsion.PrimaryTower`, which binds no hypothesis on `2` at all, so
-  the single count at `k = 1` is the whole price of the tower.
+* `nonempty_torsion_three_pow_addEquiv_of_two_eq_zero` and
+  `card_torsion_three_pow_mul_self_of_two_eq_zero` — **the whole `3`-primary tower in
+  characteristic `2`**: `E[3^k] ≃+ (ℤ/3^kℤ)²` and `#E[3^k] = 3^k · 3^k` at **every** `k`, over an
+  algebraically closed field with `2 = 0`.  These consume
+  `EllipticCurves.Torsion.PrimaryTower`, which binds no hypothesis on `2` at all, so the single
+  count at `k = 1` is the whole price of the tower.
 
 ## Why none of this is an edit to the file it generalises
 
@@ -617,10 +618,22 @@ theorem nonempty_torsion_three_pow_addEquiv_of_two_eq_zero (h2 : (2 : F) = 0) (k
   nonempty_torsionPow_addEquiv Nat.prime_three nsmul_three_surjective
     (card_torsion_three_of_two_eq_zero h2) k
 
-/-- **`#E[3^k] = (3^k)²` in characteristic `2`** at every `k`, over an algebraically closed
+/-- **`#E[3^k] = 3^k · 3^k` in characteristic `2`** at every `k`, over an algebraically closed
 field with `2 = 0` — `EllipticCurves.Torsion.PrimaryTower`'s `card_torsion_pow_mul_self` on
-the same two inputs as the equivalence above. -/
-theorem card_torsion_three_pow_of_two_eq_zero (h2 : (2 : F) = 0) (k : ℕ) :
+the same two inputs as the equivalence above.
+
+⚠️ The `_mul_self` marker is the landed register and not a flourish: `card_torsion_pow` and
+`card_torsion_pow_mul_self` of `EllipticCurves.Torsion.PrimaryTower`, and
+`card_torsion_three_pow` and `card_torsion_three_pow_mul_self` of
+`EllipticCurves.Torsion.ThreePrimary`, are a regular 2×2 in which the bare stem concludes a
+power and the suffix marks the `a * a` shape.  ⚠️ **The `a * a` shape is the one kept here, and
+the reason is a consumer and not a taste**: `PrimaryTower`'s own docstring calls it *"the shape
+the `PrimaryBasis` consumers take their cardinality hypothesis in"* and names
+`EllipticCurves.Torsion.PrimaryBasis`'s `torsionPairHom_bijective_of_card`,
+`EllipticCurves.TateModule.LevelStructure`'s `infinite_tateModule_of_card` and
+`EllipticCurves.TateModule.PrimaryFree`'s `padicPairHom_injective`, so restating this as
+`(3^k)^2` would take the characteristic-`2` tower out of the form those three need. -/
+theorem card_torsion_three_pow_mul_self_of_two_eq_zero (h2 : (2 : F) = 0) (k : ℕ) :
     Nat.card (W.torsion (3 ^ k)) = 3 ^ k * 3 ^ k :=
   card_torsion_pow_mul_self nsmul_three_surjective (card_torsion_three_of_two_eq_zero h2) k
 
@@ -667,7 +680,8 @@ example : Nat.card (curveClosureCharTwo.torsion 3) = 9 :=
   card_torsion_three_of_two_eq_zero two_eq_zero_closureCharTwo
 
 /-- **`E[3] ≃+ ℤ/3ℤ × ℤ/3ℤ` on that curve, in characteristic `2`, committed** — the structure
-theorem at an index and over a field no landed form of it can be instantiated at. -/
+theorem at an index and over a field no landed form of it could be instantiated at before this
+file's own count. -/
 example : Nonempty (curveClosureCharTwo.torsion 3 ≃+ ZMod 3 × ZMod 3) :=
   nonempty_torsion_three_addEquiv_of_two_eq_zero two_eq_zero_closureCharTwo
 
@@ -678,7 +692,7 @@ example : Nonempty (curveClosureCharTwo.torsion (3 ^ 2) ≃+ ZMod (3 ^ 2) × ZMo
 
 /-- **`#E[9] = 81` on that curve, in characteristic `2`, committed.** -/
 example : Nat.card (curveClosureCharTwo.torsion (3 ^ 2)) = 3 ^ 2 * 3 ^ 2 :=
-  card_torsion_three_pow_of_two_eq_zero two_eq_zero_closureCharTwo 2
+  card_torsion_three_pow_mul_self_of_two_eq_zero two_eq_zero_closureCharTwo 2
 
 /-- `(5 : AlgebraicClosure (ZMod 2)) ≠ 0`: it is `1` there. -/
 private lemma five_ne_zero_closureCharTwo : ((5 : ℕ) : AlgebraicClosure (ZMod 2)) ≠ 0 := by
