@@ -3386,8 +3386,8 @@ true"*, one layer up, in this document's own prose. They are:
 
   ⚠️ **The cost is one list turning loose and it is this section's**, measured with a CommonMark
   parser at both trees rather than inferred from the specification. A blank line inside a list item
-  makes the whole enclosing list *loose*, so each of this section's ten top-level rules is now
-  wrapped in `<p>`, and the nine that were already here carry vertical space they did not. Nothing
+  makes the whole enclosing list *loose*, so each of this section's top-level rules is now
+  wrapped in `<p>`, and the ones that were already here carry vertical space they did not. Nothing
   else moves: `### Reach clauses`' three-item list was already loose for exactly this reason, since
   it holds one such blank line, and every sub-list in the file stays tight. ⚠️ **And it is the
   only source form there is** — nothing ends a list and returns to the parent's prose without a
