@@ -452,6 +452,7 @@ import EllipticCurves.Torsion.ThreeTorsion
 import EllipticCurves.Torsion.ThreeTorsionCharThree
 import EllipticCurves.Torsion.ThreeTorsionSplitCertificate
 import EllipticCurves.Torsion.ThreeTorsionStructure
+import EllipticCurves.Torsion.TorsionCountCharFree
 import EllipticCurves.Torsion.TriplingCoords
 import EllipticCurves.Torsion.TriplingGaloisTower
 import EllipticCurves.Torsion.TriplingSeparable
