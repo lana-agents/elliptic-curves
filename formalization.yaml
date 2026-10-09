@@ -1,0 +1,202 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml (v0.4): repo-root metadata for this formalization,
+# following https://github.com/mathlib-initiative/formalization.yaml
+
+version: "v0.4"
+
+project:
+  name: "elliptic-curves"
+  description: >-
+    A Lean 4 / Mathlib formalization project on the arithmetic of elliptic curves, following
+    Silverman's The Arithmetic of Elliptic Curves. It proves the good ⇒ unramified direction of the
+    Néron–Ogg–Shafarevich criterion (ℓ-adic and mod ℓ) over an adically complete DVR, the kernel of
+    reduction as the formal group, injectivity of reduction on prime-to-p torsion and the
+    reduction-type trichotomy with its j-invariant criteria; the Weierstrass formal group over an
+    arbitrary commutative ring with its logarithm; the torsion structure #E[n] = n² and
+    E[n] ≃ (ℤ/nℤ)² over an algebraically closed field; the Tate module T_ℓE ≅ ℤ_ℓ² and the continuous
+    representation ρ_ℓ : G → GL₂(ℤ_ℓ); the Weil pairing with all properties of Silverman III.8.1;
+    and det ρ_ℓ = χ_ℓ. The two headline targets, semi-stable reduction and the full
+    Néron–Ogg–Shafarevich criterion, are not finished.
+  authors:
+    - "Claude (Anthropic)"
+    - "LANA Project"
+  responsible_maintainers:
+    - "Christian Merten"
+  license: "Apache-2.0"
+
+sources:
+  - title: "The Arithmetic of Elliptic Curves"
+    authors: ["Joseph H. Silverman"]
+    id: "doi:10.1007/978-0-387-09494-6"
+    type: "book"
+    location: "Graduate Texts in Mathematics 106, 2nd ed.; Ch. III §6-8, Ch. IV, Ch. VII §2-7"
+    relationship: "formalizes"
+    note: >-
+      Torsion structure, the Weil pairing (III.8.1), the formal group (Ch. IV), reduction
+      (VII.2.2, reduction types) and the good ⇒ unramified half of Néron–Ogg–Shafarevich (VII.7.1).
+    author_endorsement: "n/a"
+
+related_formalizations:
+  - id: "https://github.com/lana-agents/tempered-fundamental-groups"
+    relationship: "other"
+    note: >-
+      Used by: tempered-fundamental-groups pins bebec3f and uses finite_torsion_of_charZero and
+      finite_torsion_of_not_dvd_charP; lana-agents/iut depends on this repository only through it.
+
+classification:
+  arxiv: ["math.NT", "math.AG"]
+  msc2020: ["11G05", "11G07", "14H52", "14L05"]
+
+status:
+  scope: >-
+    Reduction of elliptic curves over a DVR (kernel of reduction, reduction types, j-invariant
+    criteria, good ⇒ unramified half of Néron–Ogg–Shafarevich), the Weierstrass formal group,
+    torsion structure, Tate modules and ℓ-adic and mod-n Galois representations, the Weil pairing
+    and the determinant of ρ_ℓ. Open: the converse of Néron–Ogg–Shafarevich and its local-field
+    form, the semi-stable reduction theorem, and the image of ρ_ℓ. Results are proved under the
+    hypotheses in their signatures (typically F algebraically closed and (2 : F) ≠ 0).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "WeierstrassCurve.Affine.neronOggShafarevich_galoisRep_eq_one"
+      file: "EllipticCurves/Reduction/NeronOggShafarevich.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.neronOggShafarevich_galoisRepMod_eq_one"
+      file: "EllipticCurves/Reduction/NeronOggShafarevich.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.E₁AddEquiv"
+      file: "EllipticCurves/Reduction/KernelFormalGroupIso.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.reduction_injOn_torsion"
+      file: "EllipticCurves/Reduction/ReductionInjectivity.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.hasGoodReduction_trichotomy"
+      file: "EllipticCurves/Reduction/ReductionTrichotomy.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.formalGroupZW_assoc_commRing"
+      file: "EllipticCurves/FormalGroup/GroupLawBundleGeneral.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.formalLog_subst_formalGroupZW"
+      file: "EllipticCurves/FormalGroup/LogAdditivityUnconditional.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.card_torsion_eq_sq"
+      file: "EllipticCurves/Torsion/StructureGeneral.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.nonempty_torsion_addEquiv"
+      file: "EllipticCurves/Torsion/StructureGeneral.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.finite_torsion_of_charZero"
+      file: "EllipticCurves/Torsion/XSupport.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.tateModule.nonempty_tateModuleEquivProd_of_natCast_ne_zero"
+      file: "EllipticCurves/TateModule/FreeGeneral.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.exists_continuous_galoisRepMatrix_of_natCast_ne_zero"
+      file: "EllipticCurves/TateModule/MatrixContinuityGeneral.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.exists_continuous_galoisRepMatrix_three_of_two_eq_zero"
+      file: "EllipticCurves/TateModule/MatrixRepThreeCharTwo.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.bijective_weilPairingNHom"
+      file: "EllipticCurves/FunctionField/WeilPairingPerfectN.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.galoisDetMod_n_eq_galoisModularCyclotomicChar"
+      file: "EllipticCurves/FunctionField/WeilPairingDeterminantCharacterN.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "WeierstrassCurve.Affine.galoisDet_eq_galoisCyclotomicChar"
+      file: "EllipticCurves/FunctionField/TateDeterminantCyclotomic.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["claude-opus-4-8", "claude-opus-5", "claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: >-
+        orchestra for running the agents, taxis for project management, and Claude (Claude Code) as the
+        coding agent; Lean/Lake builds with `lake build --wfail`.
+      prompting_notes: >-
+        Human input consisted of high-level task descriptions and scope decisions.
+  notes: >-
+    Agents were run with orchestra; project management (issues, status) was done in taxis;
+    Claude was the coding agent.
+
+fidelity:
+  divergences: >-
+    Néron–Ogg–Shafarevich (good ⇒ unramified) is proved for a valuation subring A ⊆ L that is an
+    adically complete DVR, with inertia A.inertiaSubgroup K, rather than for a local field with
+    inertia inside Gal(Kᵘʳ/K). Torsion, Tate-module, Weil-pairing and determinant results are stated
+    over an algebraically closed field F with (2 : F) ≠ 0 and the relevant integer invertible (the
+    case ℓ = 3 in characteristic 2 is treated separately); off F̄ the principality input of the Weil
+    pairing is a hypothesis (hprin). Galois representations are given as continuous matrix
+    representations G → GL₂(ℤ_ℓ) for a group G acting compatibly.
+
+review:
+  status: "agent-reviewed"
+  reviewers: ["Claude (Anthropic)"]
+  notes: >-
+    The formalization has only been reviewed by Claude; it has not been reviewed by a human.
+    All results are machine-checked by the Lean kernel; `#print axioms` of every main result listed
+    under status (checked on a build of this revision) gives only propext, Classical.choice and
+    Quot.sound, and `git grep` finds sorry only in prose, with no axiom declaration or
+    native_decide.
+
+alignment:
+  namespace: "WeierstrassCurve"
+  statements:
+    - source: "Silverman, AEC, Proposition VII.7.1 / Theorem VII.7.1 (good reduction ⇒ unramified)"
+      lean: "WeierstrassCurve.Affine.neronOggShafarevich_galoisRep_eq_one"
+      module: "EllipticCurves/Reduction/NeronOggShafarevich.lean"
+      status: "proved"
+      note: "Only the good ⇒ unramified direction, over an adically complete DVR."
+    - source: "Silverman, AEC, Proposition VII.2.2 (kernel of reduction is the formal group)"
+      lean: "WeierstrassCurve.E₁AddEquiv"
+      module: "EllipticCurves/Reduction/KernelFormalGroupIso.lean"
+      status: "proved"
+    - source: "Silverman, AEC, Corollary III.6.4 (structure of E[n])"
+      lean: "WeierstrassCurve.Affine.card_torsion_eq_sq, WeierstrassCurve.Affine.nonempty_torsion_addEquiv"
+      module: "EllipticCurves/Torsion/StructureGeneral.lean"
+      status: "proved"
+    - source: "Silverman, AEC, Proposition III.8.1 (Weil pairing), perfectness"
+      lean: "WeierstrassCurve.Affine.bijective_weilPairingNHom"
+      module: "EllipticCurves/FunctionField/WeilPairingPerfectN.lean"
+      status: "proved"
+    - source: "Semi-stable reduction theorem; converse of Néron–Ogg–Shafarevich"
+      lean: ""
+      module: ""
+      status: "not started"
+
+acknowledgements: "Built on Mathlib (Apache-2.0)."

@@ -4,6 +4,8 @@ A [Lean 4](https://leanprover.github.io/) formalisation project on the arithmeti
 of elliptic curves, built on top of [Mathlib](https://github.com/leanprover-community/mathlib4)
 (Lean `v4.32.0`, Mathlib `v4.32.0`; no other dependencies).
 
+License: Apache 2.0 (see LICENSE)
+
 ## Scope
 
 The aim of this repository is to formalise results about the reduction theory of
