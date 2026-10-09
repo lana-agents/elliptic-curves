@@ -1,7 +1,8 @@
 # Elliptic curves
 
 A [Lean 4](https://leanprover.github.io/) formalisation project on the arithmetic
-of elliptic curves, built on top of [Mathlib](https://github.com/leanprover-community/mathlib4).
+of elliptic curves, built on top of [Mathlib](https://github.com/leanprover-community/mathlib4)
+(Lean `v4.32.0`, Mathlib `v4.32.0`; no other dependencies).
 
 ## Scope
 
@@ -17,424 +18,101 @@ The two headline targets are:
 * The **Néron–Ogg–Shafarevich criterion**: an elliptic curve has good reduction
   if and only if its Tate module is unramified.
 
-Neither is finished, and neither is untouched. The *good ⇒ unramified* direction of
-Néron–Ogg–Shafarevich is proved, in the form stated for an abstract complete DVR
-(`Reduction/NeronOggShafarevich.lean`); the converse, and the classical local-field
+Neither is finished. The *good ⇒ unramified* direction of Néron–Ogg–Shafarevich is
+proved for an abstract complete DVR; the converse, and the classical local-field
 packaging in which inertia is realised inside `Gal(Kᵘʳ/K)`, are open. For semi-stable
 reduction, the reduction-type trichotomy, the `j`-invariant criteria and the
 potential-good / potential-multiplicative dichotomy are in place (`Reduction/`), but
-the theorem itself is not yet assembled.
+the theorem itself is not assembled.
+
+### Status
+
+Measured at `edcab20` (2026-10-07). The library is **`sorry`-free and axiom-free**:
+`git grep -nw sorry -- '*.lean'` finds the word only in prose (*"sorry-free"* and the
+like), never as a tactic, and no `axiom` declaration exists. `EllipticCurves.lean` imports
+all 480 modules under `EllipticCurves/`, so `lake build` checks every one. Everything below
+is therefore **proved under the hypotheses in its signature**; the hypotheses, not a
+missing proof, are what "conditional" means on this page. The recurring ones are an
+algebraically closed base field `F` and `(2 : F) ≠ 0`.
 
 ### What is formalised
 
-The following are developed here, each in the directory named. This list is a
-description of the tree, not a completeness claim: most of these are established
-under hypotheses that are stated in the relevant module docstrings, and several
-hold at small or restricted indices rather than in general.
+The main results, by directory. Names are unqualified; all live in the
+`WeierstrassCurve` or `WeierstrassCurve.Affine` namespace (some Tate-module results in
+`WeierstrassCurve.Affine.tateModule`).
 
-⚠️ **The disclaimer covers what this list omits; it does not cover the restrictions it
-states.** A clause here saying a result holds *only* at some indices, or is *currently*
-proved on some range, is a claim about the tree that the tree can falsify — and this
-section is outside `## Docstring conventions` below, so no register, census or recogniser
-on this page reads it. The only instrument is someone re-reading the tree. Of the three
-bullets below that state an index range, all three had been superseded four to six days
-before anyone re-read them. ⚠️ Repairing it produced three more: its first draft, written while
-hunting exactly this axis, still stated three reach clauses without the `(2 : F) ≠ 0` that every
-declaration behind them binds; its second stated a universal negative — the identification
-`det ρ_{E,n} = χₙ` at `n = 3` *only* — that the tree falsifies at `n = 2`; its third read the
-absence of `[IsAlgClosed F]` from six signatures as a saving when for one of them it is a trade.
-All three were caught by a reviewer opening each cited signature at source, and by nothing else.
-
-* **Reduction over a discrete valuation ring** (`Reduction/`) — the reduction map on
-  points and its additivity, the kernel of reduction `E₁(K)` and its identification
-  with the formal group `Ê(𝔪)`, injectivity on prime-to-`p` torsion, the reduction-type
-  trichotomy and the `j`-invariant criteria, base change to a DVR extension, and the
-  good ⇒ unramified direction of Néron–Ogg–Shafarevich.
-* **The function field `F(W)`, its places and its divisors** (`FunctionField/`) — the
-  affine coordinate ring and its normality, divisors and orders of vanishing, the
-  degree-zero theorem and the class group, the places of the projective curve, and the
-  multiplication-by-`n` and translation-by-a-point pullbacks.
-* **The Weil pairing** `eₙ : E[n] × E[n] → μₙ` (`FunctionField/WeilPairing*.lean`) —
-  the divisor-theoretic engine that turns a *principal* `n`-th-root divisor into an
-  `n`-th root of the pulled-back function is stated at a general `n`
-  (`NthRootOfPullback.lean`); principality is not a consequence of `n`-divisibility —
-  that gap is exactly what the pairing measures — and it is principality, not the index,
-  that this front is still parametrised by. **Taking principality as a hypothesis**, the
-  root `g_S` (`NthRootOfPullbackN.lean`) and four of the things that follow from it are
-  proved at every `n` prime to the characteristic over a field of characteristic other than
-  `2`: the pairing as a homomorphism `E[n] → μₙ(F)`, its bilinearity in each of the two
-  slots, the alternating property, and Galois equivariance. ⚠️ The field is *not* required to
-  be algebraically closed — none of the six declarations behind that list carries
-  `[IsAlgClosed F]` — but on one of the four items that is a **trade** and not a saving. The
-  alternating property takes, on top of principality, an explicit halving point `P` with
-  `[n]P = T` (`WeilPairingAlternatingAssemblyN.lean`, whose module docstring records that
-  `[IsAlgClosed F]` reaches this front by two independent routes, `hprin` and the halving
-  point, and which discharges the second one over `F̄`); no other declaration behind the list
-  takes one. ⚠️ Closure buys a wider index range there as well: over `F̄` the alternating
-  property is proved at every `n ≠ 0`, `n` divisible by the characteristic included, and the
-  index condition stated above is the arbitrary-field one.
-  Antisymmetry has both layers and only the second of them is new. The **engine** is stated at
-  every `n ≠ 0` (`WeilPairingAntisymmetric.lean`) and takes the alternating property at the three
-  points `S`, `T` and `R = S ⊕ T` as hypotheses rather than principality — that is precisely what
-  makes it index-free, and `#2266` left it untouched on purpose. What the tree did not carry until
-  `#2266` is the **instantiation** at a general index, which *produces* those three hypotheses
-  instead of assuming them (`WeilPairingProductRelationHprinN.lean`). Taking principality, that is
-  `exists_weilPairingElt_mul_swap_eq_one_of_hprin_n` and `exists_weilPairingElt_eq_inv_of_hprin_n`
-  over an arbitrary field, gated on `hprin` and on a halving point at `S` and at `T` — ⚠️ **two
-  halving points and not three**: `R`'s `n`-torsion and `R`'s halving are both derived,
-  `W.torsion n` being a subgroup and `P_S + P_T` halving `R`. Over `F̄` both gates are discharged
-  and nothing is left — `exists_weilPairingElt_mul_swap_eq_one_n_of_isAlgClosed` and
-  `exists_weilPairingElt_eq_inv_n_of_isAlgClosed` bind `[IsAlgClosed F]`, `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0` and nothing else. ⚠️ Not even `n ≠ 0`, which the index condition implies:
-  it is the sharper of the two and binding both would be redundant.
-  **Index compatibility is proved over `F̄`** (`WeilPairingIndexCompatibilityN.lean`), the item of
-  `#244`'s list that `#2317` filed as carrying no declaration at all:
-  `e_{n·n'}(S, T) = e_n(S, [n']T)` for `S ∈ E[n] ≤ E[n·n']` and `T ∈ E[n·n']`. It binds
-  `[IsAlgClosed F]`, `(2 : F) ≠ 0` and the index condition at each of the two factors and at their
-  product — ⚠️ the last of those is **derivable** from the other two
-  (`intCast_natCast_mul_ne_zero`) and is bound only so that a caller can rewrite with the proof it
-  already holds — and ⚠️ **no principality**, `weilPairingEltN` having consumed that already.
-  ⚠️ **The `[n']` sits on the translation point in both conventions and only its POSITION moves** —
-  his first slot, this tree's second — because he writes the translation point first and the divisor
-  point second while `weilPairingEltN` is the transpose. ⇒ **the identity his (e) asserts is this
-  tree's `weilPairingEltN_mul_index_nsmul_right`**, the direct form. What
-  `weilPairingEltN_mul_index_nsmul_left` transcribes is the WRITTEN SHAPE of his `e_n([n']P, Q)`,
-  cofactor on the left, which in this tree's slots puts it on the DIVISOR point — a second identity,
-  got from the direct form and `weilPairingEltN_swap` at **both** indices rather than a second
-  argument.
-  ⚠️⚠️ **The `μ`-group-valued form is deliberately absent**: `rootsOfUnity n F` and
-  `rootsOfUnity (n·n') F` are different groups, so an equation between the two `weilPairingN`
-  values does not typecheck at all; `coe_weilPairingN_mul_index_nsmul_right` states it between the
-  two elements of `F` those two name, which is everything the inclusion `μₙ ↪ μ_{n·n'}` would have
-  been for. ⚠️ With it, **every property `#244`'s description lists carries a declaration**, and
-  what this front is still parametrised by is `hprin` and not the index — which is what the opening
-  of this bullet says.
-  **Principality itself is discharged at every `n` prime to the characteristic over an
-  algebraically closed field** of characteristic other than `2` (`PullbackPrincipalityN.lean`),
-  with nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral
-  files (`PullbackPrincipalityTwo.lean`, `PullbackPrincipalityThree.lean`) are still on `main`
-  and their headlines come back out of the general one verbatim. Off `F̄` **five** files discharge
-  it, over an arbitrary field with `(2 : F) ≠ 0` — and, wherever the index carries a condition of
-  its own, that one beside it: `(3 : F) ≠ 0` in `…ThreeRationalTorsion` and `…ThreeGeneral`,
-  `((n : ℤ) : F) ≠ 0` in `…NRationalTorsionHprin`, and nothing beyond the `(2 : F) ≠ 0` itself at
-  `n = 2`.
-  ⚠️ **That clause read *"Off `F̄` **four** files discharge it, **two at each of `n = 2` and
-  `n = 3`**"* until `#2293`** (`88a5e00`, `#2216` item 4), and the universal is what went:
-  `PullbackPrincipalityNRationalTorsionHprin.lean` discharges `hprin` at **a general `n`**, so no
-  per-index partition of the five exists and
-  correcting `four` to `five` alone would have left a clause that is false **of the list** rather
-  than of every member: it reads as a partition, and the new member lies in neither part while the
-  ones at a numeral index lie in theirs.
-  ⚠️ **`### Reach clauses`' test returns `false` and not `merely partial` on it** — *"two at each
-  of `n = 2` and `n = 3`"* is a universal over the list and the new member satisfies neither
-  disjunct — so `### Retired claims` binds and the wording is quoted above rather than deleted.
-  Of the five, those at a numeral index:
-  `PullbackPrincipalityTwoRationalTorsion.lean` from rational `2`-torsion and a halving —
-  hypotheses, not setting — and `PullbackPrincipalityTwoGeneral.lean` from neither of those, for
-  any nonsingular `F`-rational `2`-torsion point, by buying both hypotheses over the Galois
-  closure of the halving tower and paying them back by Hilbert 90; and their two `n = 3` mirrors,
-  `PullbackPrincipalityThreeRationalTorsion.lean` from a rational `E[3]` and a tripling and
-  `PullbackPrincipalityThreeGeneral.lean` from neither of those, by the same buy-and-descend route
-  over the Galois closure of the tripling tower. ⚠️ **And the fifth is at no numeral at all**:
-  `PullbackPrincipalityNRationalTorsionHprin.lean` states `exists_gS_n_of_card` and
-  `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_card` at **every** `n` with `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0`, from a rational `E[n]` and a point `P` with `[n]P = S` — the same two
-  hypotheses the `n = 2` file takes, at a general index, and with `hsep` discharged internally
-  from the count.  `hprin` is the standing gate elsewhere; `#962` is that gate at `n = 2` and
-  `n = 3` and is now discharged at both, and at a general `n` under the two hypotheses the
-  `…General` route would still have to buy back.
-  ⚠️ That passage read *"the one file that discharges it is
-  `PullbackPrincipalityTwoRationalTorsion.lean`"* and *"`#962` is that gate at `n = 2` and
-  `n = 3`"* until `#2029` landed, and both are false rather than short.
-  ⚠️ **It then read *"Off `F̄` **two** files discharge it, both at `n = 2`"* and *"`#962` is that
-  gate at `n = 3`"* until `#2216`**, and the count was already short before `#2216` touched it:
-  `PullbackPrincipalityThreeRationalTorsion.lean` landed at `a232601` and discharges `hprin` at
-  `n = 3` off `F̄` under two rationality facts, so the live count was **three** and the
-  *"both at `n = 2`"* universal was false with it. ⚠️ **A count of files that discharge a gate is
-  falsified by a landing this section does not name**, which is the shape
-  `### Import-closure figures` rules on for a closure count — so the seed is published with it:
-  the `EllipticCurves/FunctionField/PullbackPrincipality*.lean` modules, **ten** at this head,
-  scored on whether their **public** `exists_nsmul_divisor_eq_divisor_mulBy*Endo*` and `exists_gS_*`
-  headlines bind `[IsAlgClosed F]` in their elaborated types. ⚠️ **The word `public` is load-bearing
-  in that seed**: six `private` `Recovery` copies — two in
-  `PullbackPrincipalityTwoRationalTorsion.lean`, two in
-  `PullbackPrincipalityThreeRationalTorsion.lean` and two in
-  `PullbackPrincipalityNRationalTorsionHprin.lean` — match the name patterns and sit under a
-  `variable [IsAlgClosed F]`, so the seed run without it returns **26** rather than **20** and puts
-  three of the *"do not"* files on the wrong side of the split. **Six** do not —
-  `…TwoRationalTorsion`, `…TwoGeneral`, `…ThreeRationalTorsion`, `…ThreeGeneral`,
-  `…NRationalTorsionHprin` and `…NGeneral`, the six named above — and **three** do: `…N`, `…Two`
-  and `…Three`.
-  ⚠️ **That clause read *"**Four** do not — the four named above — and **three** do"* until
-  `#2293`** (`88a5e00`, `#2216` item 4): *"the four named above"* is a pointer into a list this
-  commit lengthens to five, and a pointer whose target grows is why the members are named here
-  rather than counted.
-  ⚠️ **That count was `five` until `…NGeneral` landed, and this is a qualification in place
-  rather than a third marked quotation.** Run `### Reach clauses`' *"false or merely partial"* in
-  the form `### Retired claims` prescribes — **what could move this numeral** — and only the
-  population growing under it can: all five that were named are still on the *"do not"* side, so
-  growth left the count **short**, and short is partial. ⚠️ **The two retirements above answer
-  differently, and the two defects they answer are the ones the present wording was rewritten to
-  remove**: *"the four named above"* is a **pointer**, which can point at a five-member list and
-  say four, and *"the other five files carry **two** apiece"* is a **universal over the unnamed
-  remainder**, which one file carrying zero falsifies. **Naming the members and counting instead
-  of quantifying over them is why this is a one-word repair rather than a third retirement.**
-  ⚠️ **The landing that moved it is named here, which is what the sentence opening this seed
-  demands of the paragraph carrying it**: `…NGeneral` arrived with `8e55647` (`#2295`, rung 3 of
-  the general-`n` ladder) and brought `exists_nsmul_divisor_eq_divisor_mulByNEndo_of_galois` and
-  `exists_gS_n_of_galois`, neither of which binds `[IsAlgClosed F]`, so it joins the *"do not"*
-  side and carries two apiece. ⚠️⚠️ **`8e55647` is the commit IMMEDIATELY AFTER `3f9e323`, the
-  landing that wrote `nine`, and it is one hour and fifty-five minutes later** — 20:47:43Z against
-  22:42:24Z — so this seed's own count was falsified by the next commit in the graph, and then
-  stood wrong across a README-touching landing that did not name it. The landed values are **7**
-  at `0094b84`, **9** at `3f9e323` and **10** at `8e55647` and at this head. ⚠️ **It is NOT
-  re-keyed to a sha, deliberately, because a key would have rotted at the same rate**: what makes
-  the cell cheap is the seed printed beside it, which is one `git grep`. **Re-run the seed rather
-  than carrying the numeral.**
-  ⚠️ **Six plus three is nine and the seed returns ten files, which is not an arithmetic slip**:
-  `PullbackPrincipalityNRationalTorsion.lean` carries **zero** headlines matching the patterns —
-  it is the Galois scaffolding of the general-`n` rung and states no `hprin` headline at all — so
-  the split does not classify it and no clause here should pretend it does.
-  ⚠️ **The scoring is per FILE and the headline counts are not uniform, so no "each" clause belongs
-  here**: of the **20** headlines the seed returns, `…N` carries **three** (`…mulByNEndo`,
-  `exists_gS_n_of_isAlgClosed` and `exists_gS_of_ne_zero_of_isAlgClosed`) and `…ThreeGeneral`
-  carries **three**, seven files carry **two** apiece and `…NRationalTorsion` carries **none**.
-  ⚠️ **That last clause read *"while the other five files carry **two** apiece"* until `#2293`**
-  (`2e323c9`, `#2216` item 5): it was exact of the seven and is false of the nine, because the
-  ninth carries **zero** rather than two. ⚠️ **The two retirements on this paragraph are one
-  README-touching commit apart in the same issue and are quoted separately** — `88a5e00` and
-  `2e323c9` are adjacent among the commits that touch this file and **four** apart in the commit
-  graph — because each is a universal over
-  its own list and one quotation would leave the other list with no account of why its sentence
-  changed — `### Retired claims`' *"once per block otherwise"* test, applied to two clauses in
-  one block. ⚠️ That clause read *"`…N`, `…Two` and `…Three`, **two headlines
-  each**"* until this commit and was false at `…N` by one: the headline it missed is
-  `exists_gS_of_ne_zero_of_isAlgClosed`, the general-`n` root over `F̄`. ⚠️ **Keyed to `e5aca61`,
-  `git grep` finds that name 17 times in 5 files** — **5** in
-  `EllipticCurves/FunctionField/PullbackPrincipalityN.lean` (its declaration, three prose mentions
-  and one use), **5** each in `WeilPairingFunctionN.lean` and `WeilPairingNondegenerateN.lean`,
-  **1** in `NthRootOfPullbackN.lean`, and **one** in this file — in `### Reach clauses`, under the
-  `PullbackPrincipalityN` bullet. ⚠️ **This paragraph's own two mentions of it are this commit's own
-  text and are not in that 17.** ⚠️ **A per-file
-  universal published beside a per-file seed is falsified by the seed itself**, and the repair is to
-  drop the universal rather than to correct its numeral, since the numeral differs by file.
-  ⚠️ **`n = 3` was untouched by `#2029`** and `#962`'s ledger row there was unaudited until `#2216`;
-  the third narrowing is retired in the same one place as the first two.
-  ⚠️ The citation also used to read *"`#962` is the
-  standing gate elsewhere"*, which over-reaches the record; `### Gate-discharge claims` below rules
-  why, and the retirement is in `EllipticCurves.FunctionField.PullbackPrincipalityN`'s `## Scope`
-  (`#1888`).
-  **Non-degeneracy is stated at every `n` prime to the
-  characteristic over an algebraically closed field** of characteristic other than `2`
-  (`WeilPairingNondegenerateN.lean`), as an inequation in `F(W)` and in `μ_n(F)` alike, with
-  nothing beyond that setting and a nonsingular affine `n`-torsion point; the two numeral files
-  (`WeilPairingNondegenerateTwo.lean`, `WeilPairingNondegenerateThree.lean`) and the `μ_n(F)`
-  file (`WeilPairingNondegenerateMu.lean`) are still on `main` and their headlines come back out
-  of the general one verbatim. **Perfectness is stated at every `n` with `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0` over an algebraically closed field** (`WeilPairingPerfectN.lean`) — as a
-  bijection onto the dual group, as an `≃*`, as the `∃!` reading a consumer quotes, and as
-  `#E[n]^∨ = n²`; the numeral statements at `n = 2` and `n = 3` (`WeilPairingPerfect.lean`) are
-  still on `main` and ⚠️ they are **not** corollaries of it, `weilPairingTwoHom` and
-  `weilPairingNHom` being different constructions. **The identification of `det ρ_{E,n}` with the
-  cyclotomic character `χₙ` is stated in coordinates at every `n` with `(2 : F) ≠ 0` and
-  `((n : ℤ) : F) ≠ 0` over an algebraically closed field** (`WeilPairingDeterminantN.lean`) — as the
-  congruence `a·d − b·c ≡ χₙ(σ) (mod n)` on the matrix of `σ` in a **primitive** pairing pair, and
-  as the same with the matrix produced, so nothing is left assumed about `σ`; the numeral statements
-  at `n = 2` and `n = 3` (`WeilPairingDeterminant.lean`, whose own docstring argues that the
-  `n = 2` case is a genuine constraint on four integers and not an empty mirror, `χ₂ ≡ 1`
-  notwithstanding) are still on `main` and their headlines come back out of the general one
-  verbatim. ⚠️ **The general file's hypothesis is not the numeral files'**: they ask
-  `eₙ(P, T) ≠ 1`, which off a prime index does not bound the order of the value, and the general
-  file carries a compiled `μ₄` witness for why — so the widening changes the hypothesis and is not
-  a pure transcription. **Bundled as an identity of monoid homomorphisms
-  `galoisDetMod n = χₙ`, and as `det ∘ ρ_{E,n} = χₙ` for the matrix representation, it is stated at
-  every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0` over an algebraically closed field**
-  (`WeilPairingDeterminantCharacterN.lean`, `MatrixRepDeterminantCharacterN.lean`) — with the pair
-  discharged rather than assumed, so that no pair, no matrix and no basis is quantified in either
-  headline, and with **no `1 < n`**, so that `n = 1` and `n = 2` are subsumed rather than excluded;
-  the numeral files (`WeilPairingDeterminantCharacter.lean`, `MatrixRepDeterminantCharacter.lean`)
-  are still on `main` and both headlines come back out of the general one verbatim.
-  **And the ℓ-adic form `det ρ_{E,ℓ} = χ_ℓ` — an identity of characters `G → ℤ_ℓˣ`, not of
-  characters into a finite group — is stated at every prime `ℓ` with `(2 : F) ≠ 0` and
-  `(ℓ : F) ≠ 0` over an algebraically closed field** (`TateDeterminantCyclotomic.lean`), together
-  with its `ℓ = 2` instance under the name `galoisDetTwo_eq_galoisCyclotomicChar`. ⚠️ **This is a
-  strictly different statement from the mod-`n` one and neither implies the other on its own**: at
-  `n = 2` the mod-`n` identity is content-free because `(ℤ/2)ˣ` is trivial, while `ℤ_2ˣ` is
-  infinite. What crosses between them is the level map — `TateModule/PrimaryDeterminantLevel.lean`
-  proves that `det ρ_{E,ℓ}` read modulo `ℓᵏ` is `det ρ_{E,ℓᵏ}`, and that file mentions no pairing
-  and no cyclotomic character at all; the ℓ-adic identity is that, the mod-`n` identity consumed at
-  every index `ℓᵏ`, and `χ_ℓ`'s own level compatibility, glued by `ℤ_ℓ` being the inverse limit of
-  the `ℤ/ℓᵏ`. ⚠️ **Several module docstrings said this identification was not proved in this
-  development** — the retirement is recorded once, at `galoisDet` in
-  `TateModule/PrimaryDeterminant.lean`, which is where the clause's subject is defined, where the
-  roster of every block that carried it lives, and where all of them now point. ⚠️ **Some of those
-  blocks said it flat**, with no file, field or index qualifier, and so were invisible to a
-  recogniser keyed to *"not proved **here**"* and to *"and is untouched"*; the roster separates
-  them, because a clause whose *reason* is false cannot be retired by endorsing its reason, and it
-  is the only page that counts them, being the only one that prints them.
-  ⚠️ **The general files' route to the basis is not the numeral files'**:
-  `LinearMap.injective_iff_surjective_of_finrank_eq_finrank` is stated over a `DivisionRing` and
-  `ZMod n` is one only at a prime `n`, so injectivity of the coordinate map is proved from the
-  independence lemma rather than deduced from the rank — which is also why the `1 < n` that the
-  rank statement carries is absent.
-  ⚠️ **Retired, and it is the conjunct the paragraph below deliberately kept.** This bullet read
-  *"Bundled as an identity of monoid homomorphisms `galoisDetMod 3 = χ₃` it is stated at `n = 3`
-  only"* from `7ba33ed` (2026-09-30, `#2281`, PR #873) — the commit that retired the coordinate
-  conjunct and wrote this one in its place, which is the retirement recorded immediately below —
-  until this commit, and this commit is what falsified it:
-  `WeilPairingDeterminantCharacterN.lean` states `galoisDetMod_n_eq_galoisModularCyclotomicChar`
-  and `MatrixRepDeterminantCharacterN.lean` states
-  `det_comp_galoisRepModMatrix_n_eq_galoisModularCyclotomicChar`, both over `F̄` at every `n` with
-  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes the same way as the
-  clauses below it and for the same reason — *only* is a universal negative, so `### Reach clauses`'
-  *"false or merely partial"* test returns **false** and it cannot be completed by adding a
-  condition. ⚠️ **This one retires the whole sentence and not a conjunct**, unlike the four below:
-  every half of it is falsified, there being nothing left in it that is still `n = 3` only.
-  ⚠️ **Its entry and its retirement are measured and neither is a defect.**
-  `git log -S"Bundled as an identity of monoid homomorphisms" -- README.md` returns **exactly one**
-  commit, `7ba33ed`, which is also the base this retirement is cut against — so the clause was
-  written by `#2281` and falsified by `#2282`, the two halves of one front, and `#2281` wrote it
-  true of the tree it left behind. ⚠️ No claim is made here about how it ranks against the other
-  clauses in this list for length of life; that would be a universal over the section's whole
-  history and it has not been measured. ⚠️ **Nor is any distance claimed**: how many commits
-  separate the two is a fact about whatever else lands between them, so it is not stated here.
-  ⚠️ **Retired, and it is the conjunct the two paragraphs below deliberately kept.** This bullet
-  read *"The identification of `det ρ_{E,n}` with the cyclotomic character `χₙ` is stated at
-  `n = 2` and `n = 3` only"* from `c052dd9` (2026-09-22, `#2031`, PR #793) — the commit that
-  retired perfectness and split this clause out of it, the sentence having entered at `2947444`
-  (2026-09-06, `#1802`, PR #711) as half of the perfectness clause — until this commit, and this
-  commit is what falsified it: `WeilPairingDeterminantN.lean` states
-  `galoisModularCyclotomicChar_n_eq_det` and `exists_smul_eq_zsmul_add_zsmul_and_det_n_eq` over `F̄`
-  at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes
-  the same way as the four clauses around it and for the same reason — *only* is a universal
-  negative, so `### Reach clauses`' *"false or merely partial"* test returns **false** and it cannot
-  be completed by adding a condition. ⚠️ **The bundled half was true and is kept live above, so this
-  retires a conjunct and not the sentence**: `galoisDetMod_three_eq_galoisModularCyclotomicChar`
-  (`WeilPairingDeterminantCharacter.lean`) and
-  `det_comp_galoisRepModMatrix_three_eq_galoisModularCyclotomicChar`
-  (`MatrixRepDeterminantCharacter.lean`) are still stated at `n = 3` alone and nothing here touches
-  them — the general-`n` file supplies the coordinate identification, and the bundling additionally
-  needs `E[n]` presented as a free `ZMod n`-module, which is `DeterminantModGeneral.lean`'s half and
-  is composed with this one nowhere. ⚠️ **That half has since gone the same way and the two lives
-  ended at different commits, so they are recorded separately** — the retirement is the paragraph
-  immediately above. **Do not read *"is kept live above"* as current**:
-  it is dated to `7ba33ed`, and what is above now is the general-`n` reading. ⚠️ **The
-  `DeterminantModGeneral.lean` clause in this sentence is dated too and was never a placement
-  ruling**: `WeilPairingDeterminantCharacterN.lean` does the bundling without importing that file,
-  exhibiting the free `ZMod n`-module structure itself through the pairing basis, and its module
-  docstring measures the two import closures. ⚠️ **And `DeterminantModGeneral.lean`'s own
-  `## What is NOT here` bullet on `det ρ_{E,n} = χ_n` is NOT retired**, for the reason the three
-  non-degeneracy docstrings were not: it is a claim about *its own file's* reach, which stays true
-  of it, so `### Reach clauses`' test returns **partial** there and it takes a pointer in place.
-  ⚠️ **Retired, and a sibling of the `g_S` and principality clauses below.** This bullet read
-  *"Non-degeneracy and perfectness are stated at `n = 2` and `n = 3` only"* from `2947444`
-  (2026-09-06, `#1802`, PR #711) until this commit, and this commit is what falsified it:
-  `WeilPairingNondegenerateN.lean` states Silverman III.8.1(c) over `F̄` at every `n` with
-  `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so *only* does not survive. ⚠️ It goes the same way as
-  those two and for the same reason — *only* is a universal negative and closes the
-  list, so `### Reach clauses`' *"false or merely partial"* test returns **false** and it cannot
-  be completed by adding a condition. ⚠️ **The perfectness half was true and is kept live above,
-  so this retires a conjunct and not the sentence**: `bijective_weilPairingTwoHom` and
-  `bijective_weilPairingThreeHom` (`WeilPairingPerfect.lean`) are still stated at those two
-  indices and nothing here touches them — the general-`n` file supplies non-degeneracy in one
-  slot, which is what Silverman III.8.1(c) asserts, and perfectness runs off the two-slot
-  `ker_weilPairing{Two,Three}Hom` instead. ⚠️ **That half has since gone the same way, and the two
-  lives ended at different commits, so they are recorded separately** (`#2116`): the sentence
-  above is a true account of the non-degeneracy retirement and of the state at the commit that
-  made it, and the perfectness conjunct it kept live is retired in the paragraph immediately
-  below. **Do not read *"is kept live above"* as current** — it is dated to that commit, and what
-  is above now is the general-`n` reading.
-  ⚠️ **Retired, and it is the conjunct the clause above deliberately kept.** This bullet read
-  *"Perfectness is stated at `n = 2` and `n = 3` only, and so is the identification of
-  `det ρ_{E,n}` with the cyclotomic character `χₙ`"* from the non-degeneracy retirement until
-  this commit, and this commit is what falsified it: `WeilPairingPerfectN.lean` states
-  `bijective_weilPairingNHom`, `weilPairingNEquiv`, `existsUnique_weilPairingNHom_eq` and
-  `natCard_monoidHom_torsionN` over `F̄` at every `n` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`,
-  so *only* does not survive. ⚠️ It goes the same way as the three clauses around it and for the
-  same reason — *only* is a universal negative, so `### Reach clauses`' *"false or merely
-  partial"* test returns **false** and it cannot be completed by adding a condition.
-  ⚠️ **The `det ρ_{E,n}` half is untouched by this work and is kept live above**, exactly as the
-  non-degeneracy retirement kept perfectness live when it went the other way: `galoisDetMod 3 = χ₃`
-  is still `n = 3` only and `WeilPairingDeterminant.lean` is still both indices, so this retires a
-  conjunct and not the sentence. ⚠️ **Both of the things this sentence keeps live have since gone,
-  and at different commits: the `det ρ_{E,n}` clause it points *above* at was retired at `7ba33ed`,
-  and `galoisDetMod 3 = χ₃` stopped being `n = 3` only at this commit** — those two retirements are
-  the second and the first paragraph of this list. ⚠️ *"`WeilPairingDeterminant.lean` is still both
-  indices"* is the one clause here that is **still true today**, the numeral file being untouched by
-  either widening. **Do not read *"is kept live above"* as current**; it is dated to the commit that
-  wrote it. ⚠️ **And `WeilPairingPerfect.lean`'s own
-  `General n` bullet is
-  NOT retired**, for the reason the three non-degeneracy docstrings were not: it is a claim about
-  *its own file's* reach, which stays true of it, so the test returns **partial** there and it
-  takes a pointer in place. ⚠️ **The three module docstrings that put general `n`
-  outside their own reach are NOT retired**, and the difference is the subject: each is a claim
-  about *its own file's* reach, which stays true of it, so `### Reach clauses`' test returns
-  **partial** there and each takes a pointer in place. This clause was a claim about the tree,
-  which is what makes it the one that goes. ⚠️ Two of the three write *"not general `n`"*
-  (`WeilPairingNondegenerateTwo.lean`, `WeilPairingNondegenerateThree.lean`) and the third puts
-  *"general `n`"* in an out-of-scope list (`WeilPairingNondegenerateMu.lean`), so there is no one
-  form to quote and none is quoted for all three.
-  ⚠️ **Retired.** This bullet read *"and the root `g_S` itself is constructed at `n = 2` and
-  `n = 3` only, as is everything downstream of it"* from `6e5245c` (2026-08-30) until this
-  commit, and it was false the day after it was written: `exists_gS_n` landed in
-  `NthRootOfPullbackN.lean` at `74658f2` (`#1304`, PR #489) and was widened at `6df393f`
-  (`#1523`, PR #604) to every `n` prime to the characteristic over a field of characteristic
-  other than `2`. *only* is a universal negative, so it cannot be completed by adding a
-  condition the way the two clauses below are — it has to be deleted, which is what makes
-  this a retirement and those two not.
-  ⚠️ **Retired, and a sibling of the clause above.** This bullet read *"**Principality itself is
-  discharged at `n = 2` and `n = 3` only** … so those are the two indices at which the chain is
-  unconditional"* from `2947444` (2026-09-06, `#1802`, PR #711) until this commit, and this commit
-  is what falsified it: `PullbackPrincipalityN.lean` discharges principality over `F̄` at every `n`
-  with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, so neither *only* nor *the two indices* survives.
-  ⚠️ **It goes the same way as the clause above and for the same reason** — *only* and *the two
-  indices* close the list, so `### Reach clauses`' *"false or merely partial"* test returns
-  **false** and neither can be completed by adding a condition. The two differ in one respect worth
-  recording: the `g_S` clause was false the day after it was written, and was retired by a reader;
-  this one was true from the day it was written until the commit that retires it. ⚠️ **The middle
-  of the retired sentence was true and is kept live above** — `n = 2` over an arbitrary field,
-  from `PullbackPrincipalityTwoRationalTorsion.lean` — so this is a retirement of the two
-  universals around it and not of the whole sentence.
-* **The Weierstrass formal group** (`FormalGroup/`) — the coordinate series `x(z)`,
-  `y(z)`, the formal group law `F_E` as a genuine bivariate power series with its
-  commutativity and associativity, the formal logarithm and exponential, the
-  multiplication-by-`n` series, and the group `Ê(𝔪)` over a complete local ring.
-* **`n`-torsion and division polynomials** (`Torsion/`, `DivisionPolynomial/`) — `E[n]`,
-  the duplication and tripling coordinate formulas, surjectivity of `[2]` and `[3]`, and
-  the structure theorem `E[n] ≅ (ℤ/nℤ)²` with the count `#E[n] = n²` beside it, proved for
-  every `n` prime to the characteristic over an algebraically closed field of
-  characteristic other than `2` (`Torsion/StructureGeneral.lean`).
-  ⚠️ This clause read *"currently proved for every `3`-smooth `n` over an algebraically
-  closed field of characteristic other than `2` and `3`"* until `9bd6a23` (`#293`, PR #591)
-  removed the smoothness. That is **short, not false** — the `3`-smooth statement is still
-  on `main` and is an instance of the general one — so it is completed in place and nothing
-  retires.
-* **The Tate module and its Galois representation** (`TateModule/`) — `T_ℓE = lim_k E[ℓᵏ]`,
-  the matrix form `ρ_ℓ : G → GL₂(ℤ_ℓ)` of the ℓ-adic representation, its continuity, the
-  profiniteness of its image, and the mod-`n` matrix representation
-  `ρ_{E,n} : G → GL₂(ℤ/nℤ)` at every `n > 1` prime to the characteristic, over an
-  algebraically closed field of characteristic other than `2`
-  (`TateModule/MatrixRepModGeneral.lean`). `T_ℓE ≅ ℤ_ℓ²` is proved at every prime
-  `ℓ ≠ char F` over an algebraically closed field of characteristic other than `2`
-  (`TateModule/FreeGeneral.lean`); the route is still `TateModule/PrimaryFree.lean`'s
-  reduction to a coherent system of generating pairs for the `E[ℓᵏ]`, whose input the
-  structure theorem above now supplies at every such `ℓ`. The determinant of that representation
-  is identified with the ℓ-adic cyclotomic character, `det ρ_{E,ℓ} = χ_ℓ`, under the same
-  hypotheses (`FunctionField/TateDeterminantCyclotomic.lean`, over
-  `TateModule/PrimaryDeterminantLevel.lean`); ⚠️ **the image of `ρ_ℓ` is not described by it** —
-  knowing one character of a representation says nothing about where the representation lands, and
-  openness of the image is Serre's theorem and is false for curves with complex multiplication.
-  ⚠️ This clause read *"`T_ℓE ≅ ℤ_ℓ²` is unconditional at `ℓ = 2` and `ℓ = 3`, and at a
-  general `ℓ` it is reduced to a coherent system of generating pairs"* until `1411d36`
-  (`#268`, PR #592). That is **short, not false** — the reduction is still there and is
-  still the route — so it too is completed in place, and nothing retires.
+* **Reduction over a discrete valuation ring** (`Reduction/`).
+  * Néron–Ogg–Shafarevich, good ⇒ unramified (Silverman VII.7.1),
+    `neronOggShafarevich_galoisRep_eq_one` (ℓ-adic) and
+    `neronOggShafarevich_galoisRepMod_eq_one` (mod `ℓ`), in `NeronOggShafarevich.lean`:
+    for a valuation subring `A ⊆ L` that is an adically complete DVR, if `W'⁄L` has
+    good reduction over `A` and `ℓ` is invertible in `A`, then `ρ_ℓ` (resp. `ρ̄_ℓ`) is
+    trivial on `A.inertiaSubgroup K`. **Open:** the converse, and the local-field form.
+  * The kernel of reduction is the formal group: `E₁AddEquiv : E₁(K) ≃+ Ê(𝔪)` over a
+    complete DVR (Silverman VII.2.2); injectivity of reduction on prime-to-`p` torsion,
+    `reduction_injOn_torsion`.
+  * Reduction types: `hasGoodReduction_trichotomy`; good reduction from `v(Δ) = 0`,
+    `hasGoodReduction_of_valuation_Δ_eq_one`; the `j`-invariant obstructions to
+    potentially good and potentially multiplicative reduction,
+    `isIntegral_j_of_hasGoodReduction_baseChange_over` and
+    `not_isIntegral_j_of_hasMultiplicativeReduction_baseChange_over`.
+    **Open:** the semi-stable reduction theorem.
+* **The Weierstrass formal group** (`FormalGroup/`) — `formalGroup : FormalGroup R` over
+  an arbitrary commutative ring, with associativity `formalGroupZW_assoc_commRing`;
+  the formal logarithm and its additivity `formalLog_subst_formalGroupZW`; the
+  exponential and the multiplication-by-`n` series.
+* **Torsion** (`Torsion/`, `DivisionPolynomial/`), over an algebraically closed `F` with
+  `(2 : F) ≠ 0` and `(n : F) ≠ 0`: `#E[n] = n²` (`card_torsion_eq_sq`) and
+  `E[n] ≃+ (ℤ/nℤ)²` (`nonempty_torsion_addEquiv`), both in `StructureGeneral.lean`;
+  off `F̄`, the structure follows from the count alone (`nonempty_torsion_addEquiv_of_card`).
+  Finiteness of `E[n]`, with no closure hypothesis: `finite_torsion_of_charZero` and
+  `finite_torsion_of_not_dvd_charP` (`XSupport.lean`). Recent work removes
+  `(2 : F) ≠ 0` from the division-polynomial layer, e.g. `n • P = 0 ↔ ψₙ(P) = 0` for a
+  point that is not `2`-torsion, `nsmul_eq_zero_iff_ψ_evalEval_eq_zero'`
+  (`NsmulOrderCharFree.lean`).
+* **The Tate module and Galois representations** (`TateModule/`), at every prime
+  `ℓ` with `(2 : F) ≠ 0`, `(ℓ : F) ≠ 0`, `F` algebraically closed:
+  `T_ℓE ≅ ℤ_ℓ²` (`nonempty_tateModuleEquivProd_of_natCast_ne_zero`,
+  `free_tateModule_of_natCast_ne_zero`, `FreeGeneral.lean`); the continuous matrix
+  representation `ρ_ℓ : G → GL₂(ℤ_ℓ)` (`exists_continuous_galoisRepMatrix_of_natCast_ne_zero`)
+  and the mod-`n` one (`exists_galoisRepModMatrix_of_natCast_ne_zero`). In characteristic
+  `2` the case `ℓ = 3` is done separately
+  (`exists_continuous_galoisRepMatrix_three_of_two_eq_zero`, `MatrixRepThreeCharTwo.lean`).
+  **Not described:** the image of `ρ_ℓ` (Serre's open image theorem is not attempted).
+* **The Weil pairing** `eₙ : E[n] × E[n] → μₙ` (`FunctionField/WeilPairing*.lean`), built
+  on the function field `F(W)`, its places and divisors (`FunctionField/`). Over an
+  algebraically closed `F` with `(2 : F) ≠ 0` and `((n : ℤ) : F) ≠ 0`, every property of
+  Silverman III.8.1 is proved: the pullback-principality input
+  (`exists_gS_of_ne_zero_of_isAlgClosed`), bilinearity, the alternating property
+  (`exists_weilPairingElt_self_eq_one_of_hprin_n_of_algClosed`), antisymmetry
+  (`exists_weilPairingElt_eq_inv_n_of_isAlgClosed`), Galois equivariance, perfectness
+  (`bijective_weilPairingNHom`, `weilPairingNEquiv`) and index compatibility
+  (`weilPairingEltN_mul_index_nsmul_right`). Off `F̄` the principality input is a
+  hypothesis (`hprin`) discharged in special cases, e.g. at a general `n` from Galois
+  data (`exists_gS_n_of_galois`).
+* **The determinant is the cyclotomic character**: `galoisDetMod n = χₙ`
+  (`galoisDetMod_n_eq_galoisModularCyclotomicChar`) and ℓ-adically `det ρ_{E,ℓ} = χ_ℓ`
+  (`galoisDet_eq_galoisCyclotomicChar`, `TateDeterminantCyclotomic.lean`), same hypotheses.
 * Supporting Galois-theoretic material (`Galois/`) and the Newton-polygon dichotomy for a
-  Weierstrass equation (`NewtonPolygon.lean`), which is consumed by both `Reduction/` and
-  `FunctionField/`.
+  Weierstrass equation (`NewtonPolygon.lean`).
+
+Module docstrings carry the precise hypotheses, scope notes and non-vacuity certificates
+(`Fixtures.lean`); the rules for those docstrings are `## Docstring conventions` below.
+
+### Use in the IUT programme
+
+[`lana-agents/iut`](https://github.com/lana-agents/iut) depends on this repository only
+transitively, through
+[`tempered-fundamental-groups`](https://github.com/lana-agents/tempered-fundamental-groups),
+which pins `bebec3f` (2026-09-28, an ancestor of `main`). Its one consumer is
+`TemperedFundamentalGroups/Orbicurve/GeomModel.lean`, which imports
+`EllipticCurves.Torsion.XSupport` and uses `finite_torsion_of_charZero` and
+`finite_torsion_of_not_dvd_charP` to show that the removed set `E[ℓ] + M` of the model
+orbicurves is finite.
 
 ## Layout
 
-Measured at commit `f71a713`; the counts drift, the directory structure does not.
+Measured at commit `edcab20`; the counts drift, the directory structure does not.
 
 ```
 EllipticCurves.lean          -- root module, imports the whole library
@@ -443,28 +121,27 @@ EllipticCurves/
 ├── Fixtures.lean            -- the certificate curves the non-vacuity blocks run on
 ├── NewtonPolygon.lean       -- the slope-3/2 dichotomy at a pole of a Weierstrass equation
 ├── UniversalCurve.lean      -- the universal Weierstrass curve and the specialisation map
-├── DivisionPolynomial/      --   1 file   coprimality of the division polynomials
+├── DivisionPolynomial/      --   2 files  division polynomials
 ├── FormalGroup/             --  57 files  the Weierstrass formal group law and Ê(𝔪)
-├── FunctionField/           -- 183 files  F(W), its places and divisors; the Weil pairing
-├── Galois/                  --   3 files  cyclotomic character, unramified Galois modules
-├── Reduction/               --  65 files  reduction over a DVR; reduction types; NOS
-├── TateModule/              --  45 files  T_ℓE and the ℓ-adic representation ρ_ℓ
-└── Torsion/                 --  61 files  E[n] and the torsion structure theorem
+├── FunctionField/           -- 208 files  F(W), its places and divisors; the Weil pairing
+├── Galois/                  --   4 files  cyclotomic character, unramified Galois modules
+├── Reduction/               --  67 files  reduction over a DVR; reduction types; NOS
+├── TateModule/              --  48 files  T_ℓE and the ℓ-adic representation ρ_ℓ
+└── Torsion/                 --  90 files  E[n] and the torsion structure theorem
 ```
 
-The seven directory counts sum to **415**; with the four top-level modules listed above them
-that is **419** under `EllipticCurves/`, and **420** tree-wide once the root module is
-counted. `FunctionField/` is flat rather than nested; within it the file-name prefixes
+The seven directory counts sum to **476**; with the four top-level modules that is **480**
+under `EllipticCurves/`, and **481** tree-wide once the root module is counted.
+`FunctionField/` is flat rather than nested; within it the file-name prefixes
 `MulByTwo`/`MulByThree`/`MulByN`, `Translation`, `Place`, `Divisor` and `WeilPairing` are
 what group the material.
 
-⚠️ The counts above stood at `d5951f8` (`1`/`57`/`167`/`3`/`65`/`36`/`29`, 360) and were
-drift rather than a defect, since the line dates them. What was **not** drift is the file
-list: `Fixtures.lean` and `UniversalCurve.lean` are two top-level modules the diagram did
-not have a row for, so *the structure does not* is now stated of the directories only.
-
 New files should be added under `EllipticCurves/` and imported from the root
 `EllipticCurves.lean` module (kept in sync with `lake exe mk_all`).
+
+The sections from here on are the project's contributor rulebook (docstring conventions,
+linting, the merge gate, reviewing); Lean docstrings and `.orchestra/validation.sh` cite
+them by heading.
 
 ## Docstring conventions
 
