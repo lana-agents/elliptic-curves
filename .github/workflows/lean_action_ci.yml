@@ -23,3 +23,5 @@ jobs:
           # deleting that one line would silently un-gate the suite.  `lint: "true"` turns
           # that case into a hard failure instead.  See the `## Linting` section of README.md.
           lint: "true"
+          # Fail the build on any warning (owner decision 2026-10-09).
+          build-args: "--wfail"
