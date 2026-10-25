@@ -103,6 +103,8 @@ import EllipticCurves.FunctionField.LocalRingUnit
 import EllipticCurves.FunctionField.MatrixRepDeterminantCharacter
 import EllipticCurves.FunctionField.MatrixRepDeterminantCharacterN
 import EllipticCurves.FunctionField.MulByNComposition
+import EllipticCurves.FunctionField.MulByNCoordinateRing
+import EllipticCurves.FunctionField.MulByNCoordinateRingGalois
 import EllipticCurves.FunctionField.MulByNDegreeGeneral
 import EllipticCurves.FunctionField.MulByNDegreeTower
 import EllipticCurves.FunctionField.MulByNFibre
